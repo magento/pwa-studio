@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr" class="spectrum spectrum--medium spectrum--lightest">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  <meta http-equiv="refresh" content="0;URL='https://developer.adobe.com/commerce/pwa-studio/api/venia/components/general/Shimmer/'" />
+  
+
+  <title>Shimmer | Magento PWA Documentation</title>
+  <meta name="description" content="Everything you need to build a Magento PWA.">
+
+  <link rel="stylesheet" href="https://use.typekit.net/iaw1apr.css">
+  <link rel="stylesheet" href="/pwa-studio/assets/css/app.css?ver=14" />
+  <link rel="stylesheet" href="/pwa-studio/assets/css/print.css?ver=14" media="print" />
+  <script src="//assets.adobedtm.com/a7d65461e54e/f87b70cb627a/launch-b042bff6c581.min.js" async></script>
+
+  <link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index: "pwa-devdocs",
+    key: "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "Commerce User Guide",
+      name: "merchdocs",
+      baseUrl: "https://docs.magento.com/user-guide"
+    },
+    {
+      label: "MBI User Guide",
+      name: "merchdocs-mbi",
+      baseUrl: "https://docs.magento.com/mbi"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+  <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+  <link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+
+<body class="layout-default">
+
+  <header class="site-header">
+
+    <nav class="site-nav">
+
+  <div class="nav-container">
+
+    <div class="menu-btn">
+      <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+    </div>
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img class="logo-image" src="/pwa-studio/assets/i/adobe-a.svg" alt="Adobe">
+      <span class="logo-text">Adobe</span>
+      <span class="site-logo">Magento PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      <!-- Main Navigation -->
+<ul class="nav-main spectrum-Tabs spectrum-Tabs--horizontal" role="menubar">
+
+  
+  <li class="nav-main-item spectrum-Tabs-item" tabindex="0" role="menuitem" aria-haspopup="true">
+    <span class="spectrum-Tabs-itemLabel" tabindex="-1">Overview</span>
+    <div class="nav-popup spectrum-Popover">
+      <ul class="spectrum-Menu">
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/technologies/overview/">PWA Studio overview</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/frequently-asked-questions/">Frequently Asked Questions</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/technologies/storefront-architecture/">Storefront architecture</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/technologies/basic-concepts/">Basic concepts</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/peregrine/">Peregrine</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/venia-pwa-concept/">Venia storefront concept</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/technologies/upward/">UPWARD</a>
+        </li> 
+        
+      </ul>
+    </div>
+  </li>
+
+  
+
+  
+  <li class="menuitem spectrum-Tabs-item ">
+    <a class="spectrum-Tabs-itemLabel" href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+  
+  <li class="nav-main-item spectrum-Tabs-item" tabindex="0" role="menuitem" aria-haspopup="true">
+    <span class="spectrum-Tabs-itemLabel" tabindex="-1">API Reference</span>
+    <div class="nav-popup spectrum-Popover">
+      <ul class="spectrum-Menu">
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/pwa-buildpack/reference/buildpack-cli/">PWA Buildpack</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/peregrine/reference/targets/">Peregrine API</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/venia-ui/reference/targets/">Venia UI API</a>
+        </li> 
+        
+      </ul>
+    </div>
+  </li>
+
+  
+
+  
+  <li class="nav-main-item spectrum-Tabs-item" tabindex="0" role="menuitem" aria-haspopup="true">
+    <span class="spectrum-Tabs-itemLabel" tabindex="-1">Integrations</span>
+    <div class="nav-popup spectrum-Popover">
+      <ul class="spectrum-Menu">
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/pagebuilder/">Page Builder</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/product-recs/">Product Recommendations</a>
+        </li> 
+        
+      </ul>
+    </div>
+  </li>
+
+  
+
+</ul>
+
+    </div>
+
+    <div class="nav-actions">
+        
+        
+
+        <div class="app-switcher">
+  <div class="dropdown">
+    <button id="app-switcher-trigger" class="app-switcher-trigger" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false" aria-label="Documentation sites"></button>
+    <div class="dropdown-menu spectrum-Popover spectrum-Dropdown-popover spectrum-Popover--bottom dropdown-menu-right"
+      aria-labelledby="app-switcher-trigger" role="menu">
+      <div class="app-switcher-content">
+        
+        <div class="spectrum-Menu app-switcher-group">
+          <span class="spectrum-Menu-sectionHeading"
+            id="app-switcher-category-1">Developer</span>
+          <ul class="spectrum-Menu" role="group" aria-labelledby="app-switcher-category-1">
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://devdocs.magento.com/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Commerce Developer Guide">Commerce Developer Guide</a>
+            </li>
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="http://pwastudio.io/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=PWA Studio">PWA Studio</a>
+            </li>
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://omsdocs.magento.com/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Order Management">Order Management</a>
+            </li>
+            
+          </ul>
+        </div>
+        
+        <div class="spectrum-Menu app-switcher-group">
+          <span class="spectrum-Menu-sectionHeading"
+            id="app-switcher-category-2">Merchant</span>
+          <ul class="spectrum-Menu" role="group" aria-labelledby="app-switcher-category-2">
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://docs.magento.com/user-guide/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Commerce User Guide">Commerce User Guide</a>
+            </li>
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://omsdocs.magento.com/userguides/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Order Management">Order Management</a>
+            </li>
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://docs.magento.com/mbi/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Commerce Reporting">Commerce Reporting</a>
+            </li>
+            
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <div class="search-btn">
+  <button class="search-trigger" aria-label="Search">
+    <svg class="spectrum-Icon" focusable="false" aria-hidden="true" aria-label="Search">
+      <rect opacity="0" width="18" height="18" /><path class="a" d="M16.5865,15.107,12.7,11.2215A6.413,6.413,0,1,0,11.2215,12.7l3.886,3.886a1.05,1.05,0,0,0,1.479-1.479ZM3,7.5A4.5,4.5,0,1,1,7.5,12,4.5,4.5,0,0,1,3,7.5Z" />
+    </svg>
+  </button>
+</div>
+
+<div class="quick-search">
+  <form class="spectrum-Search spectrum-Textfield search-form" action="/pwa-studio/search/">
+  <input type="search" placeholder="Looking for something specific?" name="query" value=""
+    class="spectrum-Textfield-input spectrum-Search-input search-field form-control" autocomplete="off">
+  <svg class="spectrum-Icon spectrum-UIIcon-Magnifier spectrum-Search-icon" focusable="false" aria-hidden="true">
+    <rect fill="#ff13dc" opacity="0" width="18" height="18" />
+    <path class="a"
+      d="M16.5865,15.107,12.7,11.2215A6.413,6.413,0,1,0,11.2215,12.7l3.886,3.886a1.05,1.05,0,0,0,1.479-1.479ZM3,7.5A4.5,4.5,0,1,1,7.5,12,4.5,4.5,0,0,1,3,7.5Z" />
+  </svg>
+  <button type="reset" class="spectrum-ClearButton spectrum-Search-clearButton">
+    <svg class="spectrum-Icon spectrum-UIIcon-Cross75" focusable="false" aria-hidden="true">
+      <rect fill="#ff13dc" opacity="0" width="18" height="18" />
+      <path class="a"
+        d="M13.2425,3.343,9,7.586,4.7575,3.343a.5.5,0,0,0-.707,0L3.343,4.05a.5.5,0,0,0,0,.707L7.586,9,3.343,13.2425a.5.5,0,0,0,0,.707l.707.7075a.5.5,0,0,0,.707,0L9,10.414l4.2425,4.243a.5.5,0,0,0,.707,0l.7075-.707a.5.5,0,0,0,0-.707L10.414,9l4.243-4.2425a.5.5,0,0,0,0-.707L13.95,3.343a.5.5,0,0,0-.70711-.00039Z" />
+    </svg>
+  </button>
+</form>
+
+</div>
+
+    </div>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+  </header>
+
+  <div class="global-wrapper">
+
+    
+
+    <div class="main-container">
+      <a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry">
+        <h4 class="guide-title">Venia UI API</h4>
+    </div>
+
+    <ul class="table-of-contents spectrum-SideNav spectrum-SideNav--multiLevel" >
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Extension points</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/targets/" class="spectrum-SideNav-itemLink  ">Targets</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Application components</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/Button/" class="spectrum-SideNav-itemLink  ">Button</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/ButtonGroup/" class="spectrum-SideNav-itemLink  ">ButtonGroup</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/Link/" class="spectrum-SideNav-itemLink  ">Link</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/Logo/" class="spectrum-SideNav-itemLink  ">Logo</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/Mask/" class="spectrum-SideNav-itemLink  ">Mask</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/Portal/" class="spectrum-SideNav-itemLink  ">Portal</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/ProductImageCarousel/" class="spectrum-SideNav-itemLink  ">ProductImageCarousel</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item is-selected">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/Shimmer/" class="spectrum-SideNav-itemLink  ">Shimmer</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/ToastContainer/" class="spectrum-SideNav-itemLink  ">ToastContainer</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/Trigger/" class="spectrum-SideNav-itemLink  ">Trigger</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Shopping cart components</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/CartPage/" class="spectrum-SideNav-itemLink  ">Cart Page</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/CartPage/GiftCards/" class="spectrum-SideNav-itemLink  ">Gift Cards</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/CartPage/PriceAdjustments/" class="spectrum-SideNav-itemLink  ">Price Adjustments</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/CartPage/PriceSummary/" class="spectrum-SideNav-itemLink  ">Price Summary</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/venia-ui/reference/components/CartPage/ProductListing/" class="spectrum-SideNav-itemLink  ">Product Listing</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<header class="content-header">
+				<!-- page-header -->
+<section class="page-intro">
+	
+	<h1 class="page-title">Shimmer</h1>
+
+	
+	
+	<div class="github-links spectrum-ActionGroup--compact ActionGroup--justified"><a class="spectrum-ActionButton spectrum-ActionButton--quiet spectrum-ActionButton--sizeM spectrum-ActionGroup-item github-links"
+      href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/venia-ui/reference/components/Shimmer/index.md" target="_blank">
+      <img class="spectrum-Icon spectrum-Icon--sizeS" src="/pwa-studio/assets/i/icons/edit.svg" alt="" />
+      <span class="spectrum-ActionButton-label">Edit on GitHub</span>
+    </a><a class="spectrum-ActionButton spectrum-ActionButton--quiet spectrum-ActionButton--sizeM spectrum-ActionGroup-item github-links"
+      href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /venia-ui/reference/components/Shimmer/" target="_blank">
+      <img class="spectrum-Icon spectrum-Icon--sizeS" src="/pwa-studio/assets/i/icons/bug.svg" alt="" />
+      <span class="spectrum-ActionButton-label">Log an Issue</span>
+    </a></div>
+
+  
+
+
+
+<!--   
+
+<div class="spectrum-Tags" role="list" aria-label="Tags">
+  <div class="spectrum-Tags-item" role="listitem" tabindex="0">
+    <img class="spectrum-Avatar" src="img/example-ava.jpg" alt="Avatar">
+    <span class="spectrum-Tags-itemLabel">Shantanu</span>
+  </div>
+</div> -->
+
+
+  
+
+</section>
+
+			</header>
+			<main>
+				<p>The Shimmer component is a loading indicator that takes the shape of the component being loaded.
+Instead of blocking the entire page like a traditional full-screen loader, Shimmer loaders are component-shape specific to show users previews of what’s loading on the page.</p>
+
+<p>These previews improves the perceived performance of the app and prevents CLS (Content Layout Shift).
+The Shimmer component eliminates most of the CLS on a page, which helps improve Google Lighthouse scores.</p>
+
+<!--
+The reference doc content is generated automatically from the source code.
+To update this section, update the doc blocks in the source code
+-->
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>classes</td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>Styles to apply to the <code class="language-plaintext highlighter-rouge">root</code> of the Shimmer. Available classes are <code class="language-plaintext highlighter-rouge">root</code> and <code class="language-plaintext highlighter-rouge">root_[TYPE]</code>.</td>
+    </tr>
+    <tr>
+      <td>borderRadius</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">number</code></td>
+      <td>Border radius for the shimmer.</td>
+    </tr>
+    <tr>
+      <td>height</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">number</code></td>
+      <td>Sets the height of the Shimmer. Numbers are in <code class="language-plaintext highlighter-rouge">rem</code> units. Strings are used directly (Example: ‘100px’).</td>
+    </tr>
+    <tr>
+      <td>width</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">number</code></td>
+      <td>Sets the width of the Shimmer. Numbers are in <code class="language-plaintext highlighter-rouge">rem</code> units. Strings are used directly (Example: ‘100px’).</td>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>CSS styles to apply to the Shimmer.</td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td><code class="language-plaintext highlighter-rouge">'rectangle'</code> | <code class="language-plaintext highlighter-rouge">'button'</code> | <code class="language-plaintext highlighter-rouge">'checkbox'</code> | <code class="language-plaintext highlighter-rouge">'radio'</code> | <code class="language-plaintext highlighter-rouge">'textArea'</code> | <code class="language-plaintext highlighter-rouge">'textInput'</code></td>
+      <td>The base element shape to apply to the Shimmer.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td><code class="language-plaintext highlighter-rouge">node</code></td>
+      <td>Children to output within the Shimmer. Useful for setting image placeholders.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Properties</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>classes</td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>is an object containing the class names for the Shimmer component.</td>
+    </tr>
+    <tr>
+      <td>classes.root</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the class for the container</td>
+    </tr>
+    <tr>
+      <td>classes.root_rectangle</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the class for the container of type rectangle</td>
+    </tr>
+    <tr>
+      <td>classes.root_button</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the class for the container of type button</td>
+    </tr>
+    <tr>
+      <td>classes.root_checkbox</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the class for the container of type checkbox</td>
+    </tr>
+    <tr>
+      <td>classes.root_radio</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the class for the container of type radio</td>
+    </tr>
+    <tr>
+      <td>classes.root_textArea</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the class for the container of type textArea</td>
+    </tr>
+    <tr>
+      <td>classes.root_textInput</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the class for the container of type textInput</td>
+    </tr>
+    <tr>
+      <td>borderRadius</td>
+      <td><code class="language-plaintext highlighter-rouge">number</code> | <code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the border radius of the Shimmer</td>
+    </tr>
+    <tr>
+      <td>height</td>
+      <td><code class="language-plaintext highlighter-rouge">number</code> | <code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the height of the Shimmer</td>
+    </tr>
+    <tr>
+      <td>width</td>
+      <td><code class="language-plaintext highlighter-rouge">number</code> | <code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the width of the Shimmer</td>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>is an object of inline styles</td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>is the type of the Shimmer</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td><code class="language-plaintext highlighter-rouge">node</code></td>
+      <td>are the children of the Shimmer</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Source Code</strong>: <a href="https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Shimmer/shimmer.js">pwa-studio/packages/venia-ui/lib/components/Shimmer/shimmer.js</a></p>
+
+<h2 id="shimmer-for-components">Shimmer for Components</h2>
+
+<p>When loading data, previously we would return <code class="language-plaintext highlighter-rouge">null</code> (or a full-screen loader) instead of the actual component. We can now return a
+<em><strong>shimmer</strong></em> version of the component, which will take up the same space without relying on data.</p>
+
+<p>Direct use of the <code class="language-plaintext highlighter-rouge">Shimmer</code> component within <em>normal</em> components should be avoided when possible. If the shimmer is replacing a component
+that is imported, a <code class="language-plaintext highlighter-rouge">.shimmer.js</code> file should be created for that imported component in its folder and exported in its <code class="language-plaintext highlighter-rouge">index.js</code>.</p>
+
+<h3 id="example">Example</h3>
+
+<p>There are 4 critical files for creating a Shimmer component:</p>
+
+<ul>
+  <li><strong>Main.js</strong> - the main component that has the loading status and would usually return null for the component while loading</li>
+  <li><strong>SubComponent/index.js</strong> - Previously would only export the main component. Must now export named variable for shimmer component</li>
+  <li><strong>SubComponent/subComponent</strong> - Same SubComponent as usual</li>
+  <li><strong>SubComponent/subComponent.shimmer.js</strong> - <code class="language-plaintext highlighter-rouge">.shimmer.js</code> extension is used for easily identifying that it’s a shimmer and
+the component it’s attached to. It can contain complex arrangement of base Shimmer elements, or include other subcomponents Shimmers.</li>
+</ul>
+
+<p><strong>Main.js</strong></p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">SubComponent</span><span class="p">,</span> <span class="p">{</span> <span class="nx">SubComponentShimmer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../path/to/SubComponent</span><span class="dl">'</span><span class="p">;</span>
+<span class="c1">// ....</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">isLoading</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">fetchData</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isLoading</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span>
+          <span class="p">&lt;</span><span class="nc">SubComponentShimmer</span> <span class="p">/&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="dl">'</span><span class="s1">No data</span><span class="dl">'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">&lt;</span><span class="nc">SubComponent</span> <span class="na">someValue</span><span class="p">=</span><span class="si">{</span><span class="nx">data</span><span class="si">}</span> <span class="p">/&gt;</span>
+    <span class="p">);</span>
+<span class="p">};</span>
+<span class="c1">// ....</span>
+</code></pre></div></div>
+<hr />
+
+<p><strong>../path/to/SubComponent/index.js</strong></p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="p">{</span> <span class="k">default</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./subComponent.js</span><span class="dl">'</span><span class="p">;</span>
+<span class="c1">// Export named shimmer component</span>
+<span class="k">export</span> <span class="p">{</span> <span class="k">default</span> <span class="k">as</span> <span class="nx">SubComponentShimmer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./subComponent.shimmer.js</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+<hr />
+
+<p><strong>../path/to/SubComponent/subComponent.js</strong></p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">shape</span><span class="p">,</span> <span class="nx">string</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">prop-types</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useStyle</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../path/to/classify</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">defaultClasses</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./subComponent.css</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">SubComponent</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">classes</span> <span class="o">=</span> <span class="nx">useStyle</span><span class="p">(</span><span class="nx">defaultClasses</span><span class="p">,</span> <span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">someValue</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">root</span><span class="si">}</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">item</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">someValue</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">SubComponent</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">classes</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">};</span>
+<span class="nx">SubComponent</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">classes</span><span class="p">:</span> <span class="nx">shape</span><span class="p">({</span>
+      <span class="na">root</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+      <span class="na">item</span><span class="p">:</span> <span class="nx">string</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">SubComponent</span><span class="p">;</span>
+</code></pre></div></div>
+<hr />
+
+<p><strong>../path/to/SubComponent/subComponent.shimmer.js</strong></p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useStyle</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../path/to/classify</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Shimmer</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../path/to/base/Shimmer</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">defaultClasses</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./subComponent.css</span><span class="dl">'</span><span class="p">;</span> <span class="c1">// Load same classes as real SubComponent</span>
+<span class="kd">const</span> <span class="nx">SubComponentShimmer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Important to still merge-in prop classes for extensibility/targetability</span>
+    <span class="kd">const</span> <span class="nx">classes</span> <span class="o">=</span> <span class="nx">useStyle</span><span class="p">(</span><span class="nx">defaultClasses</span><span class="p">,</span> <span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">root</span><span class="si">}</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Shimmer</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">item</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">SubComponentShimmer</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">classes</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">};</span>
+<span class="nx">SubComponentShimmer</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">classes</span><span class="p">:</span> <span class="nx">shape</span><span class="p">({</span>
+    <span class="na">root</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="na">item</span><span class="p">:</span> <span class="nx">string</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">SubComponentShimmer</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="adjusting-existing-shimmers">Adjusting existing Shimmers</h2>
+
+<p>When you make layout changes to a Shimmer’s parent component, you should also adjust the Shimmer component to match.
+In this example, we’ll add a custom attribute shimmer to the detail section of the product page.</p>
+
+<p><strong>local-intercept.js</strong></p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">Targetables</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@magento/pwa-buildpack</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">targetables</span> <span class="o">=</span> <span class="nx">Targetables</span><span class="p">.</span><span class="nx">using</span><span class="p">(</span><span class="nx">targets</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">productShimmerComponent</span> <span class="o">=</span> <span class="nx">targetables</span><span class="p">.</span><span class="nx">reactComponent</span><span class="p">(</span>
+    <span class="dl">'</span><span class="s1">@magento/venia-ui/lib/RootComponents/Product/product.shimmer</span><span class="dl">'</span>
+<span class="p">);</span>
+
+<span class="cm">/**
+ * As a best practice, you should create a separate Shimmer file for the new attribute and import it into the
+ * productShimmerComponent. But for simplicity, we'll inline the jsx as shown here.
+ */</span>
+<span class="nx">productShimmerComponent</span><span class="p">.</span><span class="nx">appendJSX</span><span class="p">(</span>
+    <span class="dl">'</span><span class="s1">section className={classes.details}</span><span class="dl">'</span>
+    <span class="s2">`&lt;div className={classes.detailsTitle}&gt;
+        &lt;Shimmer width="100%" height={1} /&gt;
+     &lt;/div&gt;
+     &lt;Shimmer width="100%" height={1} /&gt;`</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="accessibility">Accessibility</h2>
+
+<p>To maintain accessibility for screen readers, we can pass <code class="language-plaintext highlighter-rouge">aria-live="polite" aria-busy="true"</code> to the Shimmer component (or an
+element that wraps the Shimmer(s) in a more complex instance).</p>
+
+<p>It’s important to then add <code class="language-plaintext highlighter-rouge">aria-live="polite" aria-busy="false"</code> to the <em>normal</em> component that replaces the shimmer.</p>
+
+<h3 id="example-1">Example</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ....</span>
+<span class="k">import</span> <span class="nx">Shimmer</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../path/to/base/Shimmer</span><span class="dl">'</span><span class="p">;</span>
+<span class="c1">// ....</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// ....</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">Shimmer</span> <span class="p">/&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+			</main>
+			<footer class="content-footer">
+				
+
+			</footer>
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+</div>
+<!-- /.main-container -->
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+  <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+  <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+  <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+  <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+</ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2021 Adobe. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js?ver=16"></script>
+<script src="/pwa-studio/assets/js/editions.min.js?ver=16"></script>
+<script src="/pwa-studio/assets/js/page-updated.min.js?ver=16"></script>
+
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+</body>
+
+</html>
+

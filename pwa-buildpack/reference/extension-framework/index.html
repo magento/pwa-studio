@@ -1,0 +1,3304 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr" class="spectrum spectrum--medium spectrum--lightest">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  <meta http-equiv="refresh" content="0;URL='https://developer.adobe.com/commerce/pwa-studio/api/buildpack/buildbus/'" />
+  
+
+  <title>BuildBus | Magento PWA Documentation</title>
+  <meta name="description" content="Everything you need to build a Magento PWA.">
+
+  <link rel="stylesheet" href="https://use.typekit.net/iaw1apr.css">
+  <link rel="stylesheet" href="/pwa-studio/assets/css/app.css?ver=14" />
+  <link rel="stylesheet" href="/pwa-studio/assets/css/print.css?ver=14" media="print" />
+  <script src="//assets.adobedtm.com/a7d65461e54e/f87b70cb627a/launch-b042bff6c581.min.js" async></script>
+
+  <link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index: "pwa-devdocs",
+    key: "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "Commerce User Guide",
+      name: "merchdocs",
+      baseUrl: "https://docs.magento.com/user-guide"
+    },
+    {
+      label: "MBI User Guide",
+      name: "merchdocs-mbi",
+      baseUrl: "https://docs.magento.com/mbi"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+  <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+  <link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+
+<body class="layout-default">
+
+  <header class="site-header">
+
+    <nav class="site-nav">
+
+  <div class="nav-container">
+
+    <div class="menu-btn">
+      <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+    </div>
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img class="logo-image" src="/pwa-studio/assets/i/adobe-a.svg" alt="Adobe">
+      <span class="logo-text">Adobe</span>
+      <span class="site-logo">Magento PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      <!-- Main Navigation -->
+<ul class="nav-main spectrum-Tabs spectrum-Tabs--horizontal" role="menubar">
+
+  
+  <li class="nav-main-item spectrum-Tabs-item" tabindex="0" role="menuitem" aria-haspopup="true">
+    <span class="spectrum-Tabs-itemLabel" tabindex="-1">Overview</span>
+    <div class="nav-popup spectrum-Popover">
+      <ul class="spectrum-Menu">
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/technologies/overview/">PWA Studio overview</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/frequently-asked-questions/">Frequently Asked Questions</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/technologies/storefront-architecture/">Storefront architecture</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/technologies/basic-concepts/">Basic concepts</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/peregrine/">Peregrine</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/venia-pwa-concept/">Venia storefront concept</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/technologies/upward/">UPWARD</a>
+        </li> 
+        
+      </ul>
+    </div>
+  </li>
+
+  
+
+  
+  <li class="menuitem spectrum-Tabs-item ">
+    <a class="spectrum-Tabs-itemLabel" href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+  
+  <li class="nav-main-item spectrum-Tabs-item" tabindex="0" role="menuitem" aria-haspopup="true">
+    <span class="spectrum-Tabs-itemLabel" tabindex="-1">API Reference</span>
+    <div class="nav-popup spectrum-Popover">
+      <ul class="spectrum-Menu">
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/pwa-buildpack/reference/buildpack-cli/">PWA Buildpack</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/peregrine/reference/targets/">Peregrine API</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/venia-ui/reference/targets/">Venia UI API</a>
+        </li> 
+        
+      </ul>
+    </div>
+  </li>
+
+  
+
+  
+  <li class="nav-main-item spectrum-Tabs-item" tabindex="0" role="menuitem" aria-haspopup="true">
+    <span class="spectrum-Tabs-itemLabel" tabindex="-1">Integrations</span>
+    <div class="nav-popup spectrum-Popover">
+      <ul class="spectrum-Menu">
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/pagebuilder/">Page Builder</a>
+        </li> 
+        
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="/pwa-studio/product-recs/">Product Recommendations</a>
+        </li> 
+        
+      </ul>
+    </div>
+  </li>
+
+  
+
+</ul>
+
+    </div>
+
+    <div class="nav-actions">
+        
+        
+
+        <div class="app-switcher">
+  <div class="dropdown">
+    <button id="app-switcher-trigger" class="app-switcher-trigger" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false" aria-label="Documentation sites"></button>
+    <div class="dropdown-menu spectrum-Popover spectrum-Dropdown-popover spectrum-Popover--bottom dropdown-menu-right"
+      aria-labelledby="app-switcher-trigger" role="menu">
+      <div class="app-switcher-content">
+        
+        <div class="spectrum-Menu app-switcher-group">
+          <span class="spectrum-Menu-sectionHeading"
+            id="app-switcher-category-1">Developer</span>
+          <ul class="spectrum-Menu" role="group" aria-labelledby="app-switcher-category-1">
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://devdocs.magento.com/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Commerce Developer Guide">Commerce Developer Guide</a>
+            </li>
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="http://pwastudio.io/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=PWA Studio">PWA Studio</a>
+            </li>
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://omsdocs.magento.com/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Order Management">Order Management</a>
+            </li>
+            
+          </ul>
+        </div>
+        
+        <div class="spectrum-Menu app-switcher-group">
+          <span class="spectrum-Menu-sectionHeading"
+            id="app-switcher-category-2">Merchant</span>
+          <ul class="spectrum-Menu" role="group" aria-labelledby="app-switcher-category-2">
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://docs.magento.com/user-guide/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Commerce User Guide">Commerce User Guide</a>
+            </li>
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://omsdocs.magento.com/userguides/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Order Management">Order Management</a>
+            </li>
+            
+            <li class="spectrum-Menu-item" role="menuitem"><a class="spectrum-Menu-itemLabel"
+                href="https://docs.magento.com/mbi/?itm_source=pwa-devdocs&itm_medium=top_nav&itm_campaign=app_switcher&itm_term=Commerce Reporting">Commerce Reporting</a>
+            </li>
+            
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <div class="search-btn">
+  <button class="search-trigger" aria-label="Search">
+    <svg class="spectrum-Icon" focusable="false" aria-hidden="true" aria-label="Search">
+      <rect opacity="0" width="18" height="18" /><path class="a" d="M16.5865,15.107,12.7,11.2215A6.413,6.413,0,1,0,11.2215,12.7l3.886,3.886a1.05,1.05,0,0,0,1.479-1.479ZM3,7.5A4.5,4.5,0,1,1,7.5,12,4.5,4.5,0,0,1,3,7.5Z" />
+    </svg>
+  </button>
+</div>
+
+<div class="quick-search">
+  <form class="spectrum-Search spectrum-Textfield search-form" action="/pwa-studio/search/">
+  <input type="search" placeholder="Looking for something specific?" name="query" value=""
+    class="spectrum-Textfield-input spectrum-Search-input search-field form-control" autocomplete="off">
+  <svg class="spectrum-Icon spectrum-UIIcon-Magnifier spectrum-Search-icon" focusable="false" aria-hidden="true">
+    <rect fill="#ff13dc" opacity="0" width="18" height="18" />
+    <path class="a"
+      d="M16.5865,15.107,12.7,11.2215A6.413,6.413,0,1,0,11.2215,12.7l3.886,3.886a1.05,1.05,0,0,0,1.479-1.479ZM3,7.5A4.5,4.5,0,1,1,7.5,12,4.5,4.5,0,0,1,3,7.5Z" />
+  </svg>
+  <button type="reset" class="spectrum-ClearButton spectrum-Search-clearButton">
+    <svg class="spectrum-Icon spectrum-UIIcon-Cross75" focusable="false" aria-hidden="true">
+      <rect fill="#ff13dc" opacity="0" width="18" height="18" />
+      <path class="a"
+        d="M13.2425,3.343,9,7.586,4.7575,3.343a.5.5,0,0,0-.707,0L3.343,4.05a.5.5,0,0,0,0,.707L7.586,9,3.343,13.2425a.5.5,0,0,0,0,.707l.707.7075a.5.5,0,0,0,.707,0L9,10.414l4.2425,4.243a.5.5,0,0,0,.707,0l.7075-.707a.5.5,0,0,0,0-.707L10.414,9l4.243-4.2425a.5.5,0,0,0,0-.707L13.95,3.343a.5.5,0,0,0-.70711-.00039Z" />
+    </svg>
+  </button>
+</form>
+
+</div>
+
+    </div>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+  </header>
+
+  <div class="global-wrapper">
+
+    
+
+    <div class="main-container">
+      <a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry">
+        <h4 class="guide-title">PWA Buildpack API</h4>
+    </div>
+
+    <ul class="table-of-contents spectrum-SideNav spectrum-SideNav--multiLevel" >
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Extension points</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/targets/" class="spectrum-SideNav-itemLink  ">Targets</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/environment-variables/definitions-api/" class="spectrum-SideNav-itemLink  ">EnvVarDefinitions</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/transform-requests/" class="spectrum-SideNav-itemLink  ">Transform Requests</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Targetables</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/targetables/TargetableModule/" class="spectrum-SideNav-itemLink  ">TargetableModule</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/targetables/TargetableESModule/" class="spectrum-SideNav-itemLink  ">TargetableESModule</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/targetables/TargetableESModuleArray/" class="spectrum-SideNav-itemLink  ">TargetableESModuleArray</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/targetables/TargetableESModuleObject/" class="spectrum-SideNav-itemLink  ">TargetableESModuleObject</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/targetables/TargetableReactComponent/" class="spectrum-SideNav-itemLink  ">TargetableReactComponent</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/targetables/TargetableSet/" class="spectrum-SideNav-itemLink  ">TargetableSet</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/targetables/SingleImportStatement/" class="spectrum-SideNav-itemLink  ">SingleImportStatement</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Extension framework</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item is-selected">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/extension-framework/" class="spectrum-SideNav-itemLink  ">BuildBus</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/extension-framework/target/" class="spectrum-SideNav-itemLink  ">Target</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/extension-framework/targetprovider/" class="spectrum-SideNav-itemLink  ">TargetProvider</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Command line interface</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/buildpack-cli/" class="spectrum-SideNav-itemLink  ">Using the CLI</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/buildpack-cli/create-custom-origin/" class="spectrum-SideNav-itemLink  ">Create custom origin</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/buildpack-cli/create-env-file/" class="spectrum-SideNav-itemLink  ">Create environment file</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/buildpack-cli/create-project/" class="spectrum-SideNav-itemLink  ">Create project</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/buildpack-cli/load-env/" class="spectrum-SideNav-itemLink  ">Load environment file</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Developer utilities</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/buildpack-cli/load-env/#programmatic-api" class="spectrum-SideNav-itemLink  ">loadEnvironment</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/buildpack-cli/load-env/#programmatic-api" class="spectrum-SideNav-itemLink  ">createDotEnvFile</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/environment-variables/definitions-api/" class="spectrum-SideNav-itemLink  ">getEnvVarDefinitions</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Webpack tools</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/configure-webpack" class="spectrum-SideNav-itemLink  ">configureWebpack</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/magento-resolver/" class="spectrum-SideNav-itemLink  ">MagentoResolver</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/root-components-plugin/" class="spectrum-SideNav-itemLink  ">MagentoRootComponentsPlugin</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/pwa-dev-server/" class="spectrum-SideNav-itemLink  ">PWADevServer</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/serviceworker-plugin/" class="spectrum-SideNav-itemLink  ">ServiceWorkerPlugin</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="spectrum-SideNav-item ">
+            
+            <span class="spectrum-SideNav-itemLink">Environment configuration</span>
+            
+
+            
+            <ul class="spectrum-SideNav">
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/environment-variables/definitions-api/" class="spectrum-SideNav-itemLink  ">Variable definition API</a>
+                    
+                </li>
+            
+                <li class="spectrum-SideNav-item ">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/environment-variables/core-definitions/" class="spectrum-SideNav-itemLink  ">Core variable definitions</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<header class="content-header">
+				<!-- page-header -->
+<section class="page-intro">
+	
+	<h1 class="page-title">BuildBus</h1>
+
+	
+	
+	<div class="github-links spectrum-ActionGroup--compact ActionGroup--justified"><a class="spectrum-ActionButton spectrum-ActionButton--quiet spectrum-ActionButton--sizeM spectrum-ActionGroup-item github-links"
+      href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/pwa-buildpack/reference/extension-framework/index.md" target="_blank">
+      <img class="spectrum-Icon spectrum-Icon--sizeS" src="/pwa-studio/assets/i/icons/edit.svg" alt="" />
+      <span class="spectrum-ActionButton-label">Edit on GitHub</span>
+    </a><a class="spectrum-ActionButton spectrum-ActionButton--quiet spectrum-ActionButton--sizeM spectrum-ActionGroup-item github-links"
+      href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /pwa-buildpack/reference/extension-framework/" target="_blank">
+      <img class="spectrum-Icon spectrum-Icon--sizeS" src="/pwa-studio/assets/i/icons/bug.svg" alt="" />
+      <span class="spectrum-ActionButton-label">Log an Issue</span>
+    </a></div>
+
+  
+
+
+
+<!--   
+
+<div class="spectrum-Tags" role="list" aria-label="Tags">
+  <div class="spectrum-Tags-item" role="listitem" tabindex="0">
+    <img class="spectrum-Avatar" src="img/example-ava.jpg" alt="Avatar">
+    <span class="spectrum-Tags-itemLabel">Shantanu</span>
+  </div>
+</div> -->
+
+
+  
+
+</section>
+
+			</header>
+			<main>
+				<!--
+The reference doc content is generated automatically from the source code.
+To update this section, update the doc blocks in the source code
+-->
+
+<p>Modules</p>
+
+<dl>
+<dt><a href="#module_@magento/pwa-buildpack">@magento/pwa-buildpack</a></dt>
+<dd></dd>
+<dt><a href="#module_BuiltinTargets">BuiltinTargets</a></dt>
+<dd></dd>
+<dt><a href="#module_Buildpack/BuildBus">Buildpack/BuildBus</a></dt>
+<dd><p>Mapping Tapable hooks to the Buildpack facade of Targets.</p>
+</dd>
+<dt><a href="#module_Buildpack/BuildBus">Buildpack/BuildBus</a></dt>
+<dd></dd>
+<dt><a href="#module_@magento/pwa-buildpack">@magento/pwa-buildpack</a></dt>
+<dd></dd>
+<dt><a href="#module_Buildpack/BuildBus">Buildpack/BuildBus</a></dt>
+<dd></dd>
+</dl>
+
+<p>Typedefs</p>
+
+<dl>
+<dt><a href="#transformModulesIntercept">transformModulesIntercept</a> : <inlineCode>function</inlineCode></dt>
+<dd>
+
+Intercept function signature for the transformModules target.
+
+Interceptors of `transformModules` should call the [`addTransform()`](#addTransform)
+callback to add module specific transformers.
+Any returned value will be ignored.
+
+</dd>
+<dt><a href="#addTransform">addTransform</a> : <inlineCode>function</inlineCode></dt>
+<dd>
+
+Callback to add a transform.
+
+</dd>
+<dt><a href="#webpackCompilerIntercept">webpackCompilerIntercept</a> : <inlineCode>function</inlineCode></dt>
+<dd>
+
+Intercept function signature for the webpackCompiler target.
+
+Interceptors of `webpackCompiler` should tap hooks on the provided
+`compiler` object. Any returned value will be ignored.
+
+</dd>
+<dt><a href="#specialFeaturesIntercept">specialFeaturesIntercept</a> : <inlineCode>function</inlineCode></dt>
+<dd>
+
+Intercept function signature for the specialFeatures target.
+
+Interceptors of the `specialFeatures` target can use the mapping object provided
+to map special build flags to their project modules.
+
+</dd>
+<dt><a href="#transformUpwardIntercept">transformUpwardIntercept</a> ⇒ <inlineCode>Promise</inlineCode></dt>
+<dd>
+
+Intercept function signature for the transformUpward target.
+
+Interceptors of the `transformUpward` target receive the parsed UPWARD
+definition as a plain JavaScript object. Mutate that object in place to
+change the final `upward.yml` output by the build.
+
+This Target can be used asynchronously. If you need to do asynchronous work
+to get what you need to modify the UPWARD definition (for example, a network
+request) then you can provide an `async` function as interceptor (or simply
+return a Promise from any function).
+
+</dd>
+<dt><a href="#envValidationInterceptor">envValidationInterceptor</a> ⇒ <inlineCode>Boolean</inlineCode></dt>
+<dd>
+
+Intercept function signature for the validateEnv target.
+
+Interceptors of the `validateEnv` target receive a config object.
+The config object contains the project env, an onFail callback and
+the debug function to be used in case of the debug mode to log more
+inforamtion to the console.
+
+This Target can be used asynchronously in the parallel mode. If a
+validator needs to stop the process immediately, it can throw an error.
+If it needs to report an error but not stop the whole process, it can do
+so by calling the onFail function with the error message it wants to report.
+It can call the onFail multiple times if it wants to report multiple errors.
+
+All the errors will be queued and printed into the console at the end of the
+validation process and the build process will be stopeed.
+
+</dd>
+</dl>
+
+<ul>
+  <li><a href="#module_@magento/pwa-buildpack">@magento/pwa-buildpack</a>
+    <ul>
+      <li><a href="#module_@magento/pwa-buildpack..BuildBus">~BuildBus</a>
+        <ul>
+          <li><em>instance</em>
+            <ul>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus+getTargetsOf">.getTargetsOf(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus+init">.init()</a> ⇒ <code class="language-plaintext highlighter-rouge">BuildBus</code></li>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus+runPhase">.runPhase(phase)</a></li>
+            </ul>
+          </li>
+          <li><em>static</em>
+            <ul>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus.clear">.clear(context)</a></li>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus.clearAll">.clearAll()</a></li>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus.for">.for(context)</a> ⇒ <code class="language-plaintext highlighter-rouge">BuildBus</code></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#module_@magento/pwa-buildpack..Trackable">~Trackable</a>
+        <ul>
+          <li><em>instance</em>
+            <ul>
+              <li><a href="#module_@magento/pwa-buildpack..Trackable+attach">.attach(identifier, owner)</a></li>
+            </ul>
+          </li>
+          <li><em>static</em>
+            <ul>
+              <li><a href="#module_@magento/pwa-buildpack..Trackable.enableTracking">.enableTracking()</a></li>
+              <li><a href="#module_@magento/pwa-buildpack..Trackable.disableTracking">.disableTracking()</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Manages dependency participation in project builds and tasks.
+It executes their declare and intercept files so they can interact with each other.</p>
+
+<ul>
+  <li><a href="#module_@magento/pwa-buildpack..BuildBus">~BuildBus</a>
+    <ul>
+      <li><em>instance</em>
+        <ul>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus+getTargetsOf">.getTargetsOf(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus+init">.init()</a> ⇒ <code class="language-plaintext highlighter-rouge">BuildBus</code></li>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus+runPhase">.runPhase(phase)</a></li>
+        </ul>
+      </li>
+      <li><em>static</em>
+        <ul>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus.clear">.clear(context)</a></li>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus.clearAll">.clearAll()</a></li>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus.for">.for(context)</a> ⇒ <code class="language-plaintext highlighter-rouge">BuildBus</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Get <a href="TargetProvider">TargetProvider</a> for the given named dependency. Use this to
+retrieve and run targets in top-level code, when you have a reference to
+the BuildBus. Declare and intercept functions should not, and cannot,
+use this method. Instead, they retrieve external targets through their
+<code class="language-plaintext highlighter-rouge">targets.of()</code> methods.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code>
+   — TargetProvider for the dependency.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>depName</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Dependency whose targets to retrieve.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run the two defined phases, <code class="language-plaintext highlighter-rouge">declare</code> and <code class="language-plaintext highlighter-rouge">intercept</code>, in order.
+This binds all targets which the BuildBus can find by analyzing
+dependencies in the project package file.</p>
+
+<p><strong>Chainable</strong><br />
+**Returns: **
+<code class="language-plaintext highlighter-rouge">BuildBus</code>
+   — Returns this instance (chainable).</p>
+
+<p>Run the specified phase. The BuildBus finds all dependencies which say
+in their <code class="language-plaintext highlighter-rouge">package.json</code> that they need to run code in this phase.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>phase</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>‘declare’ or ‘intercept’</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Example</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">caption</span><span class="o">&gt;</span><span class="nx">Find</span> <span class="nx">all</span> <span class="nx">dependencies</span> <span class="nx">whith</span> <span class="nx">have</span> <span class="s2">`pwa-studio: { targets: { declare: './path/to/js' }} defined, and run those functions.
+bus.runPhase('declare')
+</span></code></pre></div></div>
+
+<p>Remove the cached BuildBus for the given context.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>context</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Root directory whose BuildBus to delete.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Remove all cached BuildBus objects.</p>
+
+<p>Get or create the BuildBus for the given context.
+This factory is the supported way to construct BuildBus instances.
+It caches the instances and connects them to the logging infrastructure.</p>
+
+<p>Only one BuildBus is active for a project root directory (context) at any given time.
+This way, Buildpack code can retrieve the BuildBus for a context even if the bus
+instance hasn’t been sent as a parameter.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>context</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Root directory of the BuildBus to get or create.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Example</strong> <em>(Get or create the BuildBus for the package.json file in `./project-dir`, then bind targets, then call a target.)</em></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">bus</span> <span class="o">=</span> <span class="nx">BuildBus</span><span class="p">.</span><span class="k">for</span><span class="p">(</span><span class="dl">'</span><span class="s1">./project-dir);
+bus.init();
+bus.getTargetsOf(</span><span class="dl">'</span><span class="nx">my</span><span class="o">-</span><span class="nx">extension</span><span class="dl">'</span><span class="s1">).myTarget.call();
+</span></code></pre></div></div>
+
+<p>Generic node in a tree of objects which can log their activity. Implemented
+for BuildBus, since it will eventually need sophisticated debugging and
+introspection for developers, but it has no BuildBus-specific functionality.</p>
+
+<ul>
+  <li><a href="#module_@magento/pwa-buildpack..Trackable">~Trackable</a>
+    <ul>
+      <li><em>instance</em>
+        <ul>
+          <li><a href="#module_@magento/pwa-buildpack..Trackable+attach">.attach(identifier, owner)</a></li>
+        </ul>
+      </li>
+      <li><em>static</em>
+        <ul>
+          <li><a href="#module_@magento/pwa-buildpack..Trackable.enableTracking">.enableTracking()</a></li>
+          <li><a href="#module_@magento/pwa-buildpack..Trackable.disableTracking">.disableTracking()</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Attach this Trackable to a tree. Give it a name and an owner. If the
+owner is a Trackable, then this Trackable becomes a child node of the
+owner. If the owner is a function, then this Trackable becomes a root
+node, which will log all of its <a href="#Trackable+track">track</a> calls <em>and</em> its
+descendents’ calls to the <code class="language-plaintext highlighter-rouge">owner</code> function.</p>
+
+<p><strong>See</strong>: Trackable.spec.js<br />
+<strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>identifier</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>String identifier of this Trackable</td>
+    </tr>
+    <tr>
+      <td>owner</td>
+      <td><code class="language-plaintext highlighter-rouge">Trackable</code> | <code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>Parent or root log callback</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Enable all active Trackable instances. <strong>Do not run in production</strong>.
+Carries a possibly significant performance cost.</p>
+
+<p>Disable all active Trackable instances. The parent logging callback will
+not be called.</p>
+
+<ul>
+  <li><a href="#module_BuiltinTargets">BuiltinTargets</a>
+    <ul>
+      <li><a href="#module_BuiltinTargets.envVarDefinitions">.envVarDefinitions</a> : <code class="language-plaintext highlighter-rouge">tapable.SyncHook</code></li>
+      <li><a href="#module_BuiltinTargets.transformModules">.transformModules</a> : <code class="language-plaintext highlighter-rouge">tapable.AsyncSeriesHook</code></li>
+      <li><a href="#module_BuiltinTargets.webpackCompiler">.webpackCompiler</a> : <code class="language-plaintext highlighter-rouge">tapable.SyncHook</code></li>
+      <li><a href="#module_BuiltinTargets.specialFeatures">.specialFeatures</a> : <code class="language-plaintext highlighter-rouge">tapable.SyncHook</code></li>
+      <li><a href="#module_BuiltinTargets.transformUpward">.transformUpward</a> : <code class="language-plaintext highlighter-rouge">tapable.AsyncSeriesHook</code></li>
+      <li><a href="#module_BuiltinTargets.validateEnv">.validateEnv</a> : <code class="language-plaintext highlighter-rouge">tapable.AsyncParallelHook</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Called to collect the definitions and documentation for project-wide
+configuration values. Core environment variables are defined in the
+<a href="http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/"><code class="language-plaintext highlighter-rouge">envVarDefinitions.json</code> file</a>.</p>
+
+<p>Intercept this target in your project to add new environment
+variables, typed and documented. This integrates your extension
+configuration with the project-wide environment variable system.</p>
+
+<p><strong>See</strong></p>
+
+<ul>
+  <li><a href="http://pwastudio.io/pwa-buildpack/reference/environment-variables/definitions-api/">Variable definition schema</a></li>
+  <li><a href="http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/">Core variable definitions</a></li>
+</ul>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>envVarDefinitions</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>The <a href="http://pwastudio.io/pwa-buildpack/reference/environment-variables/definitions-api/">variable definitions object</a>. Modify in place.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Example</strong> <em>(Add config fields for your extension)</em></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">targets</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">@magento/pwa-buildpack</span><span class="dl">'</span><span class="p">).</span><span class="nx">envVarDefinitions</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="nx">defs</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">defs</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">My Extension Settings</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">variables</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">MY_EXTENSION_API_KEY</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">str</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">desc</span><span class="p">:</span> <span class="dl">'</span><span class="s1">API key for remote service access.</span><span class="dl">'</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">})</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Called when configuring the loading and processing rules for Webpack.</p>
+
+<p>Interceptors receive a function <code class="language-plaintext highlighter-rouge">addTransform()</code>. They may call this function to request that Webpack process <em>a particular file</em> with a particular transform module.</p>
+
+<p>Since the storefront developer is in charge of important dependencies,
+the interceptor files in the storefront project itself should be able to
+transform ANY file from ANY dependency.
+However, interceptor files in the storefront dependencies are prevented
+from modifying files from other dependencies.</p>
+
+<p>NOTE: This is a very low-level extension point. It should be used as a
+building block for higher-level extensions that expose functional
+areas rather than files on disk.</p>
+
+<p><strong>See</strong>: <a href="#transformModulesIntercept">transformModules intercept function</a><br />
+<strong>Example</strong> <em>(Strip unnecessary Lodash code from a specific JS module.)</em></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">targets</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">@magento/pwa-buildpack</span><span class="dl">'</span><span class="p">).</span><span class="nx">transformModules</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="nx">addTransform</span> <span class="o">=&gt;</span> <span class="nx">addTransform</span><span class="p">({</span>
+  <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">babel</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">fileToTransform</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./lib/uses-pipeline-syntax.js</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">transformModule</span><span class="p">:</span> <span class="dl">'</span><span class="s1">babel-plugin-lodash</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">options</span><span class="p">:</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">async</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">lodash-bound</span><span class="dl">"</span> <span class="p">]}</span>
+<span class="p">}));</span>
+</code></pre></div></div>
+
+<p>Calls interceptors whenever a Webpack Compiler object is created.
+This almost always happens once per build, even in dev mode.</p>
+
+<p>Use an <a href="#webpackCompilerIntercept">intercept function</a> on this target
+to access the <a href="https://webpack.js.org/api/compiler-hooks/">webpack compiler</a>.</p>
+
+<p><strong>Example</strong> <em>(Tap the compiler's `watchRun` hook.)</em></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">targets</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">@magento/pwa-buildpack</span><span class="dl">'</span><span class="p">).</span><span class="nx">webpackCompiler</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="nx">compiler</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">compiler</span><span class="p">.</span><span class="nx">hooks</span><span class="p">.</span><span class="nx">watchRun</span><span class="p">.</span><span class="nx">tapPromise</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+     <span class="nx">compiler</span><span class="p">.</span><span class="nx">getInfrastructureLogger</span><span class="p">(</span><span class="dl">'</span><span class="s1">my-extension</span><span class="dl">'</span><span class="p">)</span>
+       <span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="dl">'</span><span class="s1">I do something special in the dev server!</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Collects flags for special build features that dependency packages
+want to use.</p>
+
+<p>If your extension uses ES Modules instead of CommonJS in
+its frontend code (as most should), Webpack will not parse and build
+the modules by default. It will expect extension code to be CommonJS
+style and will not process the ES Modules.
+Likewise, if your extension uses CSS Modules, you must add the <code class="language-plaintext highlighter-rouge">cssModules</code> flag using this target.
+Use a <a href="#specialFeaturesIntercept">specialFeatures intercept function</a>
+to add special build features for the modules used in your project.</p>
+
+<p><strong>See</strong>: <a href="http://pwastudio.io/pwa-buildpack/reference/configure-webpack/#special-flags">Special flags in <code class="language-plaintext highlighter-rouge">configureWebpack()</code></a><br />
+<strong>Example</strong> <em>(Declare that your extension contains CSS modules.)</em></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">targets</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">@magento/pwa-buildpack</span><span class="dl">'</span><span class="p">).</span><span class="nx">specialFeatures</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="nx">featuresByModule</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">featuresByModule</span><span class="p">[</span><span class="dl">'</span><span class="s1">my-module</span><span class="dl">'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="na">cssModules</span><span class="p">:</span> <span class="kc">true</span> <span class="p">};</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Exposes the fully merged UPWARD definition for fine tuning. The
+UpwardIncludePlugin does a simple shallow merge of the upward.yml
+files in every package which sets the <code class="language-plaintext highlighter-rouge">upward: true</code> flag in the
+<code class="language-plaintext highlighter-rouge">specialFeatures</code> object. After that is complete,
+UpwardIncludePlugin calls this target with the parsed and merged
+definition.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>interceptor</td>
+      <td><a href="#transformUpwardIntercept"><code class="language-plaintext highlighter-rouge">transformUpwardIntercept</code></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Example</strong> <em>(Send empty responses in maintenance mode.)</em></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">targets</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">@magento/pwa-buildpack</span><span class="dl">'</span><span class="p">).</span><span class="nx">transformUpward</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="nx">def</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">guardMaintenanceMode</span> <span class="o">=</span> <span class="p">(</span><span class="nx">prop</span><span class="p">,</span> <span class="nx">inline</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">def</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">when</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">matches</span><span class="p">:</span> <span class="dl">'</span><span class="s1">env.MAINTENANCE_MODE</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">pattern</span><span class="p">:</span> <span class="dl">'</span><span class="s1">.</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">use</span><span class="p">:</span> <span class="p">{</span> <span class="nx">inline</span> <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="na">default</span><span class="p">:</span> <span class="nx">def</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">guardMaintenanceMode</span><span class="p">(</span><span class="dl">'</span><span class="s1">status</span><span class="dl">'</span><span class="p">,</span> <span class="mi">503</span><span class="p">);</span>
+  <span class="nx">guardMaintenanceMode</span><span class="p">(</span><span class="dl">'</span><span class="s1">body</span><span class="dl">'</span><span class="p">,</span> <span class="dl">''</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Collect all ENV validation functions that will run against the
+project’s ENV. The functions can be async and they will run in
+parallel. If a validation function wants to stop the whole process
+for instance in case of a serious security issue, it can do so
+by throwing an error. If it wants to report an error, it can do so
+by using the onFail callback provided as an argument. A validation
+function can submit multiple errors by calling the onFail function
+multiple times. All the errors will be queued into an array and
+displayed on the console at the end of the process.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>validator</td>
+      <td><a href="#envValidationInterceptor"><code class="language-plaintext highlighter-rouge">envValidationInterceptor</code></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Example</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">targets</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">@magento/pwa-buildpack</span><span class="dl">'</span><span class="p">).</span><span class="nx">validateEnv</span><span class="p">.</span><span class="nx">tapPromise</span><span class="p">(</span><span class="nx">validateBackendUrl</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Mapping Tapable hooks to the Buildpack facade of Targets.</p>
+
+<ul>
+  <li><a href="#module_Buildpack/BuildBus">Buildpack/BuildBus</a>
+    <ul>
+      <li><a href="#module_Buildpack/BuildBus..Target">~Target</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+        <ul>
+          <li><a href="#module_Buildpack/BuildBus..Target+call">.call([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">\*</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+callAsync">.callAsync(…args)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+intercept">.intercept(options)</a> ⇒ <code class="language-plaintext highlighter-rouge">void</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+promise">.promise([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">Promise</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+tap">.tap([name], interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+tapAsync">.tapAsync(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+tapPromise">.tapPromise(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">object</code></li>
+          <li><a href="#Trackable+track">.track(args)</a></li>
+        </ul>
+      </li>
+      <li><a href="#module_Buildpack/BuildBus..TargetProvider">~TargetProvider</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+        <ul>
+          <li><a href="#new_module_Buildpack/BuildBus..TargetProvider_new">new TargetProvider(bus, dep, getExternalTargets)</a></li>
+          <li><em>instance</em>
+            <ul>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+name">.name</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+own">.own</a> : <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+phase">.phase</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+declare">.declare(declarations)</a></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+of">.of(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+              <li><a href="#Trackable+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">Object</code></li>
+              <li><a href="#Trackable+track">.track(args)</a></li>
+            </ul>
+          </li>
+          <li><em>inner</em>
+            <ul>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider..toJSON">~toJSON()</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#module_Buildpack/BuildBus..types">~types</a> : <code class="language-plaintext highlighter-rouge">Object.&lt;string, Tapable.Hook&gt;</code></li>
+      <li><a href="#module_Buildpack/BuildBus..appearsToBeTapable">~appearsToBeTapable(hookLike)</a> ⇒ <code class="language-plaintext highlighter-rouge">boolean</code></li>
+      <li><a href="#module_Buildpack/BuildBus..getTapableType">~getTapableType(hook)</a> ⇒ <code class="language-plaintext highlighter-rouge">string</code></li>
+      <li><a href="#module_Buildpack/BuildBus..getExternalTargets">~getExternalTargets</a> ⇒ <code class="language-plaintext highlighter-rouge">TargetProvider</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Represents an edge on the graph, or a “route” between stops, created between
+two extensions when one of them references the target(s) of another. When
+extension Foo requests targets of extension Bar, the BuildBus provides an
+Target instead of the literal Tapable instance. This enables
+better logging, error checking, and validation.</p>
+
+<p><strong>Extends</strong>: <code class="language-plaintext highlighter-rouge">Trackable</code><br />
+<strong>See</strong>: <a href="https://github.com/webpack/tapable">Tapable docs</a></p>
+
+<ul>
+  <li><a href="#module_Buildpack/BuildBus..Target">~Target</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+    <ul>
+      <li><a href="#module_Buildpack/BuildBus..Target+call">.call([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">\*</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+callAsync">.callAsync(…args)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+intercept">.intercept(options)</a> ⇒ <code class="language-plaintext highlighter-rouge">void</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+promise">.promise([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">Promise</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+tap">.tap([name], interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+tapAsync">.tapAsync(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+tapPromise">.tapPromise(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">object</code></li>
+      <li><a href="#Trackable+track">.track(args)</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.call(...args)</code> on the underlying Tapable Hook.
+Calls interceptors synchronously and in subscription order with the
+provided arguments. Returns the final value if it’s a Waterfall target,
+or the value returned by the first interceptor that returns a value if
+it’s a Bail target.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">\*</code>
+   — Returns whatever the underlying Tapable Hook returns.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[…args]</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>All arguments are passed to the interceptor functions that have tapped this Target.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.callAsync(...args)</code> on the underlying Tapable Hook. Calls
+interceptors asynchronously with the provided arguments. Depending on
+the Target type, calls interceptors in parallel or in subscription
+order. Last argument must be a callback. It will be invoked when all
+interceptors have run, or when the first returning interceptor has run
+if it’s a Bail target.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">undefined</code>
+   — <code class="language-plaintext highlighter-rouge">callAsync</code> returns nothing, instead passing any output of the interceptors as the first argument of the callback.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…args</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>All arguments <strong>except the last argument</strong> are passed to the interceptor functions that have tapped this Target. The last argument must be a callback function, which will receive the final output of the interceptors.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.intercept(options)</code> on the underlying Tapable Hook.
+Can register meta-interceptors for other activity on this target.
+Use only for logging and debugging.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>options</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Options for <a href="https://github.com/webpack/tapable#interception">Tapable#intercept</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.promise(...args)</code> on the underlying Tapable hook. Calls
+interceptors asynchronously with the provided arguments. Depending on
+the Target type, calls interceptors in parallel or in series. Returns a
+promise. It will be fulfilled when all interceptors have run, or when
+the first returning interceptor has run if it’s a Bail target.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">Promise</code>
+   — A Promise for any output of the target’s interceptors.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[…args]</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>All arguments are passed to the interceptor functions that have tapped this Target.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Adds a synchronous interceptor to the target.
+ If you just supply a function, it will use your extension’s package name as the name of the tap.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[name]</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>string or object containing the name of the interceptor (optional)</td>
+    </tr>
+    <tr>
+      <td>interceptor</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>interceptor function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Adds a callback-style asynchronous interceptor to the Target. The interceptor will receive a callback function as its last argument. Only supported on Async targets.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>string or object containing the name of the interceptor</td>
+    </tr>
+    <tr>
+      <td>interceptor</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>interceptor function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Adds a Promise-returning async interceptor to the Target. The interceptor may return a Promise, which the Target will resolve. Only supported on Async targets.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>string or object containing the name of the interceptor</td>
+    </tr>
+    <tr>
+      <td>interceptor</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>interceptor function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Provides the JSON object representation of this target</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+toJSON"><code class="language-plaintext highlighter-rouge">toJSON</code></a><br />
+**Returns: **
+<code class="language-plaintext highlighter-rouge">object</code>
+   — JSON object</p>
+
+<p>Push an event to the parent Trackable, or, if no parent, to the root
+output callback provided to <a href="Trackable#attach">Trackable#attach</a>. All <code class="language-plaintext highlighter-rouge">.track</code>
+calls are tagged with the instance’s identifier and then rolled up
+recursively until they call the root output callback.</p>
+
+<p>Throws an exception if <a href="Trackable#attach">Trackable#attach</a> has never been called
+on this instance.</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+track"><code class="language-plaintext highlighter-rouge">track</code></a><br />
+<strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>args</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>Any params the root logging function will understand @</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Handles interactions between a BuildBus and an “extension” package
+participating in the BuildBus declare/intercept lifecycle.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">targets</code> object used by declare and intercept functions is a TargetProvider.
+Each extension receives its own TargetProvider, which provides methods for
+declaring its own targets, intercepting its own targets, and intercepting the
+targets of other extensions.</p>
+
+<p><strong>Extends</strong>: <code class="language-plaintext highlighter-rouge">Trackable</code></p>
+
+<ul>
+  <li><a href="#module_Buildpack/BuildBus..TargetProvider">~TargetProvider</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+    <ul>
+      <li><a href="#new_module_Buildpack/BuildBus..TargetProvider_new">new TargetProvider(bus, dep, getExternalTargets)</a></li>
+      <li><em>instance</em>
+        <ul>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+name">.name</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+own">.own</a> : <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+phase">.phase</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+declare">.declare(declarations)</a></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+of">.of(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+          <li><a href="#Trackable+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">Object</code></li>
+          <li><a href="#Trackable+track">.track(args)</a></li>
+        </ul>
+      </li>
+      <li><em>inner</em>
+        <ul>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider..toJSON">~toJSON()</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Creates an instance of TargetProvider.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>bus</td>
+      <td><code class="language-plaintext highlighter-rouge">BuildBus</code> | <code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>BuildBus using this TargetProvider, or, when testing, a logging function.</td>
+    </tr>
+    <tr>
+      <td>dep</td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>The package which owns this TargetProvider.</td>
+    </tr>
+    <tr>
+      <td>dep.name</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Name of the package which owns this.</td>
+    </tr>
+    <tr>
+      <td>getExternalTargets</td>
+      <td><code class="language-plaintext highlighter-rouge">getExternalTargets</code></td>
+      <td>Function this TargetProvider will use to retrieve external packages when they are requested with <code class="language-plaintext highlighter-rouge">.of()</code>. Should usually be a delegate to BuildBus’s <a href="http://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/#buildpackbuildbusgetexternaltargets--targetprovider"><code class="language-plaintext highlighter-rouge">getExternalTargets()</code></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The targets this package has declared in the <code class="language-plaintext highlighter-rouge">declare</code> phase.</p>
+
+<p>The phase currently being executed. Either <code class="language-plaintext highlighter-rouge">declare</code> or <code class="language-plaintext highlighter-rouge">intercept</code>.</p>
+
+<p>Call this function in the declare phase to register targets that this package and
+other packages can intercept.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>declarations</td>
+      <td><code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></td>
+      <td>An object whose keys are the names of targets to declare, and whose properties are newly constructed Targets.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Call this function in the intercept phase to get the targets of other packages, which
+can then be intercepted by calling <code class="language-plaintext highlighter-rouge">.tap()</code> methods on them.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code>
+   — - An object whose keys are the names
+of the requested package’s targets, and whose values are the target
+objects.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>depName</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>The package whose targets you want to retrieve.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Serialize this Trackable and any parent Trackables.</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+toJSON"><code class="language-plaintext highlighter-rouge">toJSON</code></a><br />
+**Returns: **
+<code class="language-plaintext highlighter-rouge">Object</code>
+   — JSON-clean object that recurses up the parent tree.</p>
+
+<p>Push an event to the parent Trackable, or, if no parent, to the root
+output callback provided to <a href="Trackable#attach">Trackable#attach</a>. All <code class="language-plaintext highlighter-rouge">.track</code>
+calls are tagged with the instance’s identifier and then rolled up
+recursively until they call the root output callback.</p>
+
+<p>Throws an exception if <a href="Trackable#attach">Trackable#attach</a> has never been called
+on this instance.</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+track"><code class="language-plaintext highlighter-rouge">track</code></a><br />
+<strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>args</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>Any params the root logging function will understand @</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Dictionary of Tapable Hook classes to expose under these new names.</p>
+
+<p><strong>See</strong>: <a href="https://github.com/webpack/tapable">Tapable</a></p>
+
+<p>Use duck typing to validate that the passed object seems like a Tapable hook.
+More robust than doing <code class="language-plaintext highlighter-rouge">instanceof</code> checks; allows hooks to be proxied and
+otherwise hacked by dependencies.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">boolean</code>
+   — True if the object looks like a Tapable hook. False otherwise.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hookLike</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Does it look and act like a Tapable hook?</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Get the string type name of a provided object. If it is one of the base
+Tapable Hooks supported, returns the name of that Hook (without ‘Hook’ on
+the end). Otherwise, returns <code class="language-plaintext highlighter-rouge">&lt;unknown&gt;</code>.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">string</code>
+   — The name of the hook without ‘Hook’ on the end or <code class="language-plaintext highlighter-rouge">&lt;unknown&gt;</code></p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hook</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Potental Tapable hook object</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Respond to a request from a <a href="https://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/">TargetProvider</a>
+to retrieve a different(external) TargetProvider.</p>
+
+<p>This callback pattern helps to loosely couple TargetProviders so
+they are more testable.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">TargetProvider</code>
+   — TargetProvider for the requested targets.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>requestor</td>
+      <td><code class="language-plaintext highlighter-rouge">TargetProvider</code></td>
+      <td>TargetProvider making the request.</td>
+    </tr>
+    <tr>
+      <td>requested</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>External targets being requested.</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><a href="#module_Buildpack/BuildBus">Buildpack/BuildBus</a>
+    <ul>
+      <li><a href="#module_Buildpack/BuildBus..Target">~Target</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+        <ul>
+          <li><a href="#module_Buildpack/BuildBus..Target+call">.call([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">\*</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+callAsync">.callAsync(…args)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+intercept">.intercept(options)</a> ⇒ <code class="language-plaintext highlighter-rouge">void</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+promise">.promise([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">Promise</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+tap">.tap([name], interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+tapAsync">.tapAsync(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+tapPromise">.tapPromise(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">object</code></li>
+          <li><a href="#Trackable+track">.track(args)</a></li>
+        </ul>
+      </li>
+      <li><a href="#module_Buildpack/BuildBus..TargetProvider">~TargetProvider</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+        <ul>
+          <li><a href="#new_module_Buildpack/BuildBus..TargetProvider_new">new TargetProvider(bus, dep, getExternalTargets)</a></li>
+          <li><em>instance</em>
+            <ul>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+name">.name</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+own">.own</a> : <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+phase">.phase</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+declare">.declare(declarations)</a></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+of">.of(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+              <li><a href="#Trackable+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">Object</code></li>
+              <li><a href="#Trackable+track">.track(args)</a></li>
+            </ul>
+          </li>
+          <li><em>inner</em>
+            <ul>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider..toJSON">~toJSON()</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#module_Buildpack/BuildBus..types">~types</a> : <code class="language-plaintext highlighter-rouge">Object.&lt;string, Tapable.Hook&gt;</code></li>
+      <li><a href="#module_Buildpack/BuildBus..appearsToBeTapable">~appearsToBeTapable(hookLike)</a> ⇒ <code class="language-plaintext highlighter-rouge">boolean</code></li>
+      <li><a href="#module_Buildpack/BuildBus..getTapableType">~getTapableType(hook)</a> ⇒ <code class="language-plaintext highlighter-rouge">string</code></li>
+      <li><a href="#module_Buildpack/BuildBus..getExternalTargets">~getExternalTargets</a> ⇒ <code class="language-plaintext highlighter-rouge">TargetProvider</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Represents an edge on the graph, or a “route” between stops, created between
+two extensions when one of them references the target(s) of another. When
+extension Foo requests targets of extension Bar, the BuildBus provides an
+Target instead of the literal Tapable instance. This enables
+better logging, error checking, and validation.</p>
+
+<p><strong>Extends</strong>: <code class="language-plaintext highlighter-rouge">Trackable</code><br />
+<strong>See</strong>: <a href="https://github.com/webpack/tapable">Tapable docs</a></p>
+
+<ul>
+  <li><a href="#module_Buildpack/BuildBus..Target">~Target</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+    <ul>
+      <li><a href="#module_Buildpack/BuildBus..Target+call">.call([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">\*</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+callAsync">.callAsync(…args)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+intercept">.intercept(options)</a> ⇒ <code class="language-plaintext highlighter-rouge">void</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+promise">.promise([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">Promise</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+tap">.tap([name], interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+tapAsync">.tapAsync(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+tapPromise">.tapPromise(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">object</code></li>
+      <li><a href="#Trackable+track">.track(args)</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.call(...args)</code> on the underlying Tapable Hook.
+Calls interceptors synchronously and in subscription order with the
+provided arguments. Returns the final value if it’s a Waterfall target,
+or the value returned by the first interceptor that returns a value if
+it’s a Bail target.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">\*</code>
+   — Returns whatever the underlying Tapable Hook returns.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[…args]</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>All arguments are passed to the interceptor functions that have tapped this Target.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.callAsync(...args)</code> on the underlying Tapable Hook. Calls
+interceptors asynchronously with the provided arguments. Depending on
+the Target type, calls interceptors in parallel or in subscription
+order. Last argument must be a callback. It will be invoked when all
+interceptors have run, or when the first returning interceptor has run
+if it’s a Bail target.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">undefined</code>
+   — <code class="language-plaintext highlighter-rouge">callAsync</code> returns nothing, instead passing any output of the interceptors as the first argument of the callback.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…args</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>All arguments <strong>except the last argument</strong> are passed to the interceptor functions that have tapped this Target. The last argument must be a callback function, which will receive the final output of the interceptors.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.intercept(options)</code> on the underlying Tapable Hook.
+Can register meta-interceptors for other activity on this target.
+Use only for logging and debugging.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>options</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Options for <a href="https://github.com/webpack/tapable#interception">Tapable#intercept</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.promise(...args)</code> on the underlying Tapable hook. Calls
+interceptors asynchronously with the provided arguments. Depending on
+the Target type, calls interceptors in parallel or in series. Returns a
+promise. It will be fulfilled when all interceptors have run, or when
+the first returning interceptor has run if it’s a Bail target.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">Promise</code>
+   — A Promise for any output of the target’s interceptors.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[…args]</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>All arguments are passed to the interceptor functions that have tapped this Target.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Adds a synchronous interceptor to the target.
+ If you just supply a function, it will use your extension’s package name as the name of the tap.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[name]</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>string or object containing the name of the interceptor (optional)</td>
+    </tr>
+    <tr>
+      <td>interceptor</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>interceptor function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Adds a callback-style asynchronous interceptor to the Target. The interceptor will receive a callback function as its last argument. Only supported on Async targets.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>string or object containing the name of the interceptor</td>
+    </tr>
+    <tr>
+      <td>interceptor</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>interceptor function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Adds a Promise-returning async interceptor to the Target. The interceptor may return a Promise, which the Target will resolve. Only supported on Async targets.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>string or object containing the name of the interceptor</td>
+    </tr>
+    <tr>
+      <td>interceptor</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>interceptor function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Provides the JSON object representation of this target</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+toJSON"><code class="language-plaintext highlighter-rouge">toJSON</code></a><br />
+**Returns: **
+<code class="language-plaintext highlighter-rouge">object</code>
+   — JSON object</p>
+
+<p>Push an event to the parent Trackable, or, if no parent, to the root
+output callback provided to <a href="Trackable#attach">Trackable#attach</a>. All <code class="language-plaintext highlighter-rouge">.track</code>
+calls are tagged with the instance’s identifier and then rolled up
+recursively until they call the root output callback.</p>
+
+<p>Throws an exception if <a href="Trackable#attach">Trackable#attach</a> has never been called
+on this instance.</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+track"><code class="language-plaintext highlighter-rouge">track</code></a><br />
+<strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>args</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>Any params the root logging function will understand @</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Handles interactions between a BuildBus and an “extension” package
+participating in the BuildBus declare/intercept lifecycle.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">targets</code> object used by declare and intercept functions is a TargetProvider.
+Each extension receives its own TargetProvider, which provides methods for
+declaring its own targets, intercepting its own targets, and intercepting the
+targets of other extensions.</p>
+
+<p><strong>Extends</strong>: <code class="language-plaintext highlighter-rouge">Trackable</code></p>
+
+<ul>
+  <li><a href="#module_Buildpack/BuildBus..TargetProvider">~TargetProvider</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+    <ul>
+      <li><a href="#new_module_Buildpack/BuildBus..TargetProvider_new">new TargetProvider(bus, dep, getExternalTargets)</a></li>
+      <li><em>instance</em>
+        <ul>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+name">.name</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+own">.own</a> : <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+phase">.phase</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+declare">.declare(declarations)</a></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+of">.of(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+          <li><a href="#Trackable+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">Object</code></li>
+          <li><a href="#Trackable+track">.track(args)</a></li>
+        </ul>
+      </li>
+      <li><em>inner</em>
+        <ul>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider..toJSON">~toJSON()</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Creates an instance of TargetProvider.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>bus</td>
+      <td><code class="language-plaintext highlighter-rouge">BuildBus</code> | <code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>BuildBus using this TargetProvider, or, when testing, a logging function.</td>
+    </tr>
+    <tr>
+      <td>dep</td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>The package which owns this TargetProvider.</td>
+    </tr>
+    <tr>
+      <td>dep.name</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Name of the package which owns this.</td>
+    </tr>
+    <tr>
+      <td>getExternalTargets</td>
+      <td><code class="language-plaintext highlighter-rouge">getExternalTargets</code></td>
+      <td>Function this TargetProvider will use to retrieve external packages when they are requested with <code class="language-plaintext highlighter-rouge">.of()</code>. Should usually be a delegate to BuildBus’s <a href="http://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/#buildpackbuildbusgetexternaltargets--targetprovider"><code class="language-plaintext highlighter-rouge">getExternalTargets()</code></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The targets this package has declared in the <code class="language-plaintext highlighter-rouge">declare</code> phase.</p>
+
+<p>The phase currently being executed. Either <code class="language-plaintext highlighter-rouge">declare</code> or <code class="language-plaintext highlighter-rouge">intercept</code>.</p>
+
+<p>Call this function in the declare phase to register targets that this package and
+other packages can intercept.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>declarations</td>
+      <td><code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></td>
+      <td>An object whose keys are the names of targets to declare, and whose properties are newly constructed Targets.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Call this function in the intercept phase to get the targets of other packages, which
+can then be intercepted by calling <code class="language-plaintext highlighter-rouge">.tap()</code> methods on them.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code>
+   — - An object whose keys are the names
+of the requested package’s targets, and whose values are the target
+objects.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>depName</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>The package whose targets you want to retrieve.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Serialize this Trackable and any parent Trackables.</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+toJSON"><code class="language-plaintext highlighter-rouge">toJSON</code></a><br />
+**Returns: **
+<code class="language-plaintext highlighter-rouge">Object</code>
+   — JSON-clean object that recurses up the parent tree.</p>
+
+<p>Push an event to the parent Trackable, or, if no parent, to the root
+output callback provided to <a href="Trackable#attach">Trackable#attach</a>. All <code class="language-plaintext highlighter-rouge">.track</code>
+calls are tagged with the instance’s identifier and then rolled up
+recursively until they call the root output callback.</p>
+
+<p>Throws an exception if <a href="Trackable#attach">Trackable#attach</a> has never been called
+on this instance.</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+track"><code class="language-plaintext highlighter-rouge">track</code></a><br />
+<strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>args</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>Any params the root logging function will understand @</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Dictionary of Tapable Hook classes to expose under these new names.</p>
+
+<p><strong>See</strong>: <a href="https://github.com/webpack/tapable">Tapable</a></p>
+
+<p>Use duck typing to validate that the passed object seems like a Tapable hook.
+More robust than doing <code class="language-plaintext highlighter-rouge">instanceof</code> checks; allows hooks to be proxied and
+otherwise hacked by dependencies.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">boolean</code>
+   — True if the object looks like a Tapable hook. False otherwise.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hookLike</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Does it look and act like a Tapable hook?</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Get the string type name of a provided object. If it is one of the base
+Tapable Hooks supported, returns the name of that Hook (without ‘Hook’ on
+the end). Otherwise, returns <code class="language-plaintext highlighter-rouge">&lt;unknown&gt;</code>.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">string</code>
+   — The name of the hook without ‘Hook’ on the end or <code class="language-plaintext highlighter-rouge">&lt;unknown&gt;</code></p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hook</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Potental Tapable hook object</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Respond to a request from a <a href="https://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/">TargetProvider</a>
+to retrieve a different(external) TargetProvider.</p>
+
+<p>This callback pattern helps to loosely couple TargetProviders so
+they are more testable.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">TargetProvider</code>
+   — TargetProvider for the requested targets.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>requestor</td>
+      <td><code class="language-plaintext highlighter-rouge">TargetProvider</code></td>
+      <td>TargetProvider making the request.</td>
+    </tr>
+    <tr>
+      <td>requested</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>External targets being requested.</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><a href="#module_@magento/pwa-buildpack">@magento/pwa-buildpack</a>
+    <ul>
+      <li><a href="#module_@magento/pwa-buildpack..BuildBus">~BuildBus</a>
+        <ul>
+          <li><em>instance</em>
+            <ul>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus+getTargetsOf">.getTargetsOf(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus+init">.init()</a> ⇒ <code class="language-plaintext highlighter-rouge">BuildBus</code></li>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus+runPhase">.runPhase(phase)</a></li>
+            </ul>
+          </li>
+          <li><em>static</em>
+            <ul>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus.clear">.clear(context)</a></li>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus.clearAll">.clearAll()</a></li>
+              <li><a href="#module_@magento/pwa-buildpack..BuildBus.for">.for(context)</a> ⇒ <code class="language-plaintext highlighter-rouge">BuildBus</code></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#module_@magento/pwa-buildpack..Trackable">~Trackable</a>
+        <ul>
+          <li><em>instance</em>
+            <ul>
+              <li><a href="#module_@magento/pwa-buildpack..Trackable+attach">.attach(identifier, owner)</a></li>
+            </ul>
+          </li>
+          <li><em>static</em>
+            <ul>
+              <li><a href="#module_@magento/pwa-buildpack..Trackable.enableTracking">.enableTracking()</a></li>
+              <li><a href="#module_@magento/pwa-buildpack..Trackable.disableTracking">.disableTracking()</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Manages dependency participation in project builds and tasks.
+It executes their declare and intercept files so they can interact with each other.</p>
+
+<ul>
+  <li><a href="#module_@magento/pwa-buildpack..BuildBus">~BuildBus</a>
+    <ul>
+      <li><em>instance</em>
+        <ul>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus+getTargetsOf">.getTargetsOf(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus+init">.init()</a> ⇒ <code class="language-plaintext highlighter-rouge">BuildBus</code></li>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus+runPhase">.runPhase(phase)</a></li>
+        </ul>
+      </li>
+      <li><em>static</em>
+        <ul>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus.clear">.clear(context)</a></li>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus.clearAll">.clearAll()</a></li>
+          <li><a href="#module_@magento/pwa-buildpack..BuildBus.for">.for(context)</a> ⇒ <code class="language-plaintext highlighter-rouge">BuildBus</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Get <a href="TargetProvider">TargetProvider</a> for the given named dependency. Use this to
+retrieve and run targets in top-level code, when you have a reference to
+the BuildBus. Declare and intercept functions should not, and cannot,
+use this method. Instead, they retrieve external targets through their
+<code class="language-plaintext highlighter-rouge">targets.of()</code> methods.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code>
+   — TargetProvider for the dependency.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>depName</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Dependency whose targets to retrieve.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run the two defined phases, <code class="language-plaintext highlighter-rouge">declare</code> and <code class="language-plaintext highlighter-rouge">intercept</code>, in order.
+This binds all targets which the BuildBus can find by analyzing
+dependencies in the project package file.</p>
+
+<p><strong>Chainable</strong><br />
+**Returns: **
+<code class="language-plaintext highlighter-rouge">BuildBus</code>
+   — Returns this instance (chainable).</p>
+
+<p>Run the specified phase. The BuildBus finds all dependencies which say
+in their <code class="language-plaintext highlighter-rouge">package.json</code> that they need to run code in this phase.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>phase</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>‘declare’ or ‘intercept’</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Example</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">caption</span><span class="o">&gt;</span><span class="nx">Find</span> <span class="nx">all</span> <span class="nx">dependencies</span> <span class="nx">whith</span> <span class="nx">have</span> <span class="s2">`pwa-studio: { targets: { declare: './path/to/js' }} defined, and run those functions.
+bus.runPhase('declare')
+</span></code></pre></div></div>
+
+<p>Remove the cached BuildBus for the given context.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>context</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Root directory whose BuildBus to delete.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Remove all cached BuildBus objects.</p>
+
+<p>Get or create the BuildBus for the given context.
+This factory is the supported way to construct BuildBus instances.
+It caches the instances and connects them to the logging infrastructure.</p>
+
+<p>Only one BuildBus is active for a project root directory (context) at any given time.
+This way, Buildpack code can retrieve the BuildBus for a context even if the bus
+instance hasn’t been sent as a parameter.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>context</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Root directory of the BuildBus to get or create.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Example</strong> <em>(Get or create the BuildBus for the package.json file in `./project-dir`, then bind targets, then call a target.)</em></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">bus</span> <span class="o">=</span> <span class="nx">BuildBus</span><span class="p">.</span><span class="k">for</span><span class="p">(</span><span class="dl">'</span><span class="s1">./project-dir);
+bus.init();
+bus.getTargetsOf(</span><span class="dl">'</span><span class="nx">my</span><span class="o">-</span><span class="nx">extension</span><span class="dl">'</span><span class="s1">).myTarget.call();
+</span></code></pre></div></div>
+
+<p>Generic node in a tree of objects which can log their activity. Implemented
+for BuildBus, since it will eventually need sophisticated debugging and
+introspection for developers, but it has no BuildBus-specific functionality.</p>
+
+<ul>
+  <li><a href="#module_@magento/pwa-buildpack..Trackable">~Trackable</a>
+    <ul>
+      <li><em>instance</em>
+        <ul>
+          <li><a href="#module_@magento/pwa-buildpack..Trackable+attach">.attach(identifier, owner)</a></li>
+        </ul>
+      </li>
+      <li><em>static</em>
+        <ul>
+          <li><a href="#module_@magento/pwa-buildpack..Trackable.enableTracking">.enableTracking()</a></li>
+          <li><a href="#module_@magento/pwa-buildpack..Trackable.disableTracking">.disableTracking()</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Attach this Trackable to a tree. Give it a name and an owner. If the
+owner is a Trackable, then this Trackable becomes a child node of the
+owner. If the owner is a function, then this Trackable becomes a root
+node, which will log all of its <a href="#Trackable+track">track</a> calls <em>and</em> its
+descendents’ calls to the <code class="language-plaintext highlighter-rouge">owner</code> function.</p>
+
+<p><strong>See</strong>: Trackable.spec.js<br />
+<strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>identifier</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>String identifier of this Trackable</td>
+    </tr>
+    <tr>
+      <td>owner</td>
+      <td><code class="language-plaintext highlighter-rouge">Trackable</code> | <code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>Parent or root log callback</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Enable all active Trackable instances. <strong>Do not run in production</strong>.
+Carries a possibly significant performance cost.</p>
+
+<p>Disable all active Trackable instances. The parent logging callback will
+not be called.</p>
+
+<ul>
+  <li><a href="#module_Buildpack/BuildBus">Buildpack/BuildBus</a>
+    <ul>
+      <li><a href="#module_Buildpack/BuildBus..Target">~Target</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+        <ul>
+          <li><a href="#module_Buildpack/BuildBus..Target+call">.call([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">\*</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+callAsync">.callAsync(…args)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+intercept">.intercept(options)</a> ⇒ <code class="language-plaintext highlighter-rouge">void</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+promise">.promise([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">Promise</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+tap">.tap([name], interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+tapAsync">.tapAsync(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+tapPromise">.tapPromise(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+          <li><a href="#module_Buildpack/BuildBus..Target+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">object</code></li>
+          <li><a href="#Trackable+track">.track(args)</a></li>
+        </ul>
+      </li>
+      <li><a href="#module_Buildpack/BuildBus..TargetProvider">~TargetProvider</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+        <ul>
+          <li><a href="#new_module_Buildpack/BuildBus..TargetProvider_new">new TargetProvider(bus, dep, getExternalTargets)</a></li>
+          <li><em>instance</em>
+            <ul>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+name">.name</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+own">.own</a> : <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+phase">.phase</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+declare">.declare(declarations)</a></li>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider+of">.of(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+              <li><a href="#Trackable+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">Object</code></li>
+              <li><a href="#Trackable+track">.track(args)</a></li>
+            </ul>
+          </li>
+          <li><em>inner</em>
+            <ul>
+              <li><a href="#module_Buildpack/BuildBus..TargetProvider..toJSON">~toJSON()</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#module_Buildpack/BuildBus..types">~types</a> : <code class="language-plaintext highlighter-rouge">Object.&lt;string, Tapable.Hook&gt;</code></li>
+      <li><a href="#module_Buildpack/BuildBus..appearsToBeTapable">~appearsToBeTapable(hookLike)</a> ⇒ <code class="language-plaintext highlighter-rouge">boolean</code></li>
+      <li><a href="#module_Buildpack/BuildBus..getTapableType">~getTapableType(hook)</a> ⇒ <code class="language-plaintext highlighter-rouge">string</code></li>
+      <li><a href="#module_Buildpack/BuildBus..getExternalTargets">~getExternalTargets</a> ⇒ <code class="language-plaintext highlighter-rouge">TargetProvider</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Represents an edge on the graph, or a “route” between stops, created between
+two extensions when one of them references the target(s) of another. When
+extension Foo requests targets of extension Bar, the BuildBus provides an
+Target instead of the literal Tapable instance. This enables
+better logging, error checking, and validation.</p>
+
+<p><strong>Extends</strong>: <code class="language-plaintext highlighter-rouge">Trackable</code><br />
+<strong>See</strong>: <a href="https://github.com/webpack/tapable">Tapable docs</a></p>
+
+<ul>
+  <li><a href="#module_Buildpack/BuildBus..Target">~Target</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+    <ul>
+      <li><a href="#module_Buildpack/BuildBus..Target+call">.call([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">\*</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+callAsync">.callAsync(…args)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+intercept">.intercept(options)</a> ⇒ <code class="language-plaintext highlighter-rouge">void</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+promise">.promise([…args])</a> ⇒ <code class="language-plaintext highlighter-rouge">Promise</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+tap">.tap([name], interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+tapAsync">.tapAsync(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+tapPromise">.tapPromise(name, interceptor)</a> ⇒ <code class="language-plaintext highlighter-rouge">undefined</code></li>
+      <li><a href="#module_Buildpack/BuildBus..Target+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">object</code></li>
+      <li><a href="#Trackable+track">.track(args)</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.call(...args)</code> on the underlying Tapable Hook.
+Calls interceptors synchronously and in subscription order with the
+provided arguments. Returns the final value if it’s a Waterfall target,
+or the value returned by the first interceptor that returns a value if
+it’s a Bail target.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">\*</code>
+   — Returns whatever the underlying Tapable Hook returns.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[…args]</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>All arguments are passed to the interceptor functions that have tapped this Target.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.callAsync(...args)</code> on the underlying Tapable Hook. Calls
+interceptors asynchronously with the provided arguments. Depending on
+the Target type, calls interceptors in parallel or in subscription
+order. Last argument must be a callback. It will be invoked when all
+interceptors have run, or when the first returning interceptor has run
+if it’s a Bail target.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">undefined</code>
+   — <code class="language-plaintext highlighter-rouge">callAsync</code> returns nothing, instead passing any output of the interceptors as the first argument of the callback.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…args</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>All arguments <strong>except the last argument</strong> are passed to the interceptor functions that have tapped this Target. The last argument must be a callback function, which will receive the final output of the interceptors.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.intercept(options)</code> on the underlying Tapable Hook.
+Can register meta-interceptors for other activity on this target.
+Use only for logging and debugging.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>options</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Options for <a href="https://github.com/webpack/tapable#interception">Tapable#intercept</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Run <code class="language-plaintext highlighter-rouge">.promise(...args)</code> on the underlying Tapable hook. Calls
+interceptors asynchronously with the provided arguments. Depending on
+the Target type, calls interceptors in parallel or in series. Returns a
+promise. It will be fulfilled when all interceptors have run, or when
+the first returning interceptor has run if it’s a Bail target.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">Promise</code>
+   — A Promise for any output of the target’s interceptors.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[…args]</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>All arguments are passed to the interceptor functions that have tapped this Target.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Adds a synchronous interceptor to the target.
+ If you just supply a function, it will use your extension’s package name as the name of the tap.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[name]</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>string or object containing the name of the interceptor (optional)</td>
+    </tr>
+    <tr>
+      <td>interceptor</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>interceptor function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Adds a callback-style asynchronous interceptor to the Target. The interceptor will receive a callback function as its last argument. Only supported on Async targets.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>string or object containing the name of the interceptor</td>
+    </tr>
+    <tr>
+      <td>interceptor</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>interceptor function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Adds a Promise-returning async interceptor to the Target. The interceptor may return a Promise, which the Target will resolve. Only supported on Async targets.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>string or object containing the name of the interceptor</td>
+    </tr>
+    <tr>
+      <td>interceptor</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>interceptor function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Provides the JSON object representation of this target</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+toJSON"><code class="language-plaintext highlighter-rouge">toJSON</code></a><br />
+**Returns: **
+<code class="language-plaintext highlighter-rouge">object</code>
+   — JSON object</p>
+
+<p>Push an event to the parent Trackable, or, if no parent, to the root
+output callback provided to <a href="Trackable#attach">Trackable#attach</a>. All <code class="language-plaintext highlighter-rouge">.track</code>
+calls are tagged with the instance’s identifier and then rolled up
+recursively until they call the root output callback.</p>
+
+<p>Throws an exception if <a href="Trackable#attach">Trackable#attach</a> has never been called
+on this instance.</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+track"><code class="language-plaintext highlighter-rouge">track</code></a><br />
+<strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>args</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>Any params the root logging function will understand @</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Handles interactions between a BuildBus and an “extension” package
+participating in the BuildBus declare/intercept lifecycle.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">targets</code> object used by declare and intercept functions is a TargetProvider.
+Each extension receives its own TargetProvider, which provides methods for
+declaring its own targets, intercepting its own targets, and intercepting the
+targets of other extensions.</p>
+
+<p><strong>Extends</strong>: <code class="language-plaintext highlighter-rouge">Trackable</code></p>
+
+<ul>
+  <li><a href="#module_Buildpack/BuildBus..TargetProvider">~TargetProvider</a> ⇐ <code class="language-plaintext highlighter-rouge">Trackable</code>
+    <ul>
+      <li><a href="#new_module_Buildpack/BuildBus..TargetProvider_new">new TargetProvider(bus, dep, getExternalTargets)</a></li>
+      <li><em>instance</em>
+        <ul>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+name">.name</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+own">.own</a> : <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+phase">.phase</a> : <code class="language-plaintext highlighter-rouge">string</code></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+declare">.declare(declarations)</a></li>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider+of">.of(depName)</a> ⇒ <code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></li>
+          <li><a href="#Trackable+toJSON">.toJSON()</a> ⇒ <code class="language-plaintext highlighter-rouge">Object</code></li>
+          <li><a href="#Trackable+track">.track(args)</a></li>
+        </ul>
+      </li>
+      <li><em>inner</em>
+        <ul>
+          <li><a href="#module_Buildpack/BuildBus..TargetProvider..toJSON">~toJSON()</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Creates an instance of TargetProvider.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>bus</td>
+      <td><code class="language-plaintext highlighter-rouge">BuildBus</code> | <code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>BuildBus using this TargetProvider, or, when testing, a logging function.</td>
+    </tr>
+    <tr>
+      <td>dep</td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>The package which owns this TargetProvider.</td>
+    </tr>
+    <tr>
+      <td>dep.name</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Name of the package which owns this.</td>
+    </tr>
+    <tr>
+      <td>getExternalTargets</td>
+      <td><code class="language-plaintext highlighter-rouge">getExternalTargets</code></td>
+      <td>Function this TargetProvider will use to retrieve external packages when they are requested with <code class="language-plaintext highlighter-rouge">.of()</code>. Should usually be a delegate to BuildBus’s <a href="http://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/#buildpackbuildbusgetexternaltargets--targetprovider"><code class="language-plaintext highlighter-rouge">getExternalTargets()</code></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The targets this package has declared in the <code class="language-plaintext highlighter-rouge">declare</code> phase.</p>
+
+<p>The phase currently being executed. Either <code class="language-plaintext highlighter-rouge">declare</code> or <code class="language-plaintext highlighter-rouge">intercept</code>.</p>
+
+<p>Call this function in the declare phase to register targets that this package and
+other packages can intercept.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>declarations</td>
+      <td><code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code></td>
+      <td>An object whose keys are the names of targets to declare, and whose properties are newly constructed Targets.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Call this function in the intercept phase to get the targets of other packages, which
+can then be intercepted by calling <code class="language-plaintext highlighter-rouge">.tap()</code> methods on them.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">Object.&lt;string, Target&gt;</code>
+   — - An object whose keys are the names
+of the requested package’s targets, and whose values are the target
+objects.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>depName</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>The package whose targets you want to retrieve.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Serialize this Trackable and any parent Trackables.</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+toJSON"><code class="language-plaintext highlighter-rouge">toJSON</code></a><br />
+**Returns: **
+<code class="language-plaintext highlighter-rouge">Object</code>
+   — JSON-clean object that recurses up the parent tree.</p>
+
+<p>Push an event to the parent Trackable, or, if no parent, to the root
+output callback provided to <a href="Trackable#attach">Trackable#attach</a>. All <code class="language-plaintext highlighter-rouge">.track</code>
+calls are tagged with the instance’s identifier and then rolled up
+recursively until they call the root output callback.</p>
+
+<p>Throws an exception if <a href="Trackable#attach">Trackable#attach</a> has never been called
+on this instance.</p>
+
+<p><strong>Overrides</strong>: <a href="#Trackable+track"><code class="language-plaintext highlighter-rouge">track</code></a><br />
+<strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>args</td>
+      <td><code class="language-plaintext highlighter-rouge">\*</code></td>
+      <td>Any params the root logging function will understand @</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Dictionary of Tapable Hook classes to expose under these new names.</p>
+
+<p><strong>See</strong>: <a href="https://github.com/webpack/tapable">Tapable</a></p>
+
+<p>Use duck typing to validate that the passed object seems like a Tapable hook.
+More robust than doing <code class="language-plaintext highlighter-rouge">instanceof</code> checks; allows hooks to be proxied and
+otherwise hacked by dependencies.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">boolean</code>
+   — True if the object looks like a Tapable hook. False otherwise.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hookLike</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Does it look and act like a Tapable hook?</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Get the string type name of a provided object. If it is one of the base
+Tapable Hooks supported, returns the name of that Hook (without ‘Hook’ on
+the end). Otherwise, returns <code class="language-plaintext highlighter-rouge">&lt;unknown&gt;</code>.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">string</code>
+   — The name of the hook without ‘Hook’ on the end or <code class="language-plaintext highlighter-rouge">&lt;unknown&gt;</code></p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hook</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Potental Tapable hook object</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Respond to a request from a <a href="https://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/">TargetProvider</a>
+to retrieve a different(external) TargetProvider.</p>
+
+<p>This callback pattern helps to loosely couple TargetProviders so
+they are more testable.</p>
+
+<p>**Returns: **
+<code class="language-plaintext highlighter-rouge">TargetProvider</code>
+   — TargetProvider for the requested targets.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>requestor</td>
+      <td><code class="language-plaintext highlighter-rouge">TargetProvider</code></td>
+      <td>TargetProvider making the request.</td>
+    </tr>
+    <tr>
+      <td>requested</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>External targets being requested.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Intercept function signature for the transformModules target.</p>
+
+<p>Interceptors of <code class="language-plaintext highlighter-rouge">transformModules</code> should call the <a href="#addTransform"><code class="language-plaintext highlighter-rouge">addTransform()</code></a>
+callback to add module specific transformers.
+Any returned value will be ignored.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>addTransform</td>
+      <td><a href="#addTransform"><code class="language-plaintext highlighter-rouge">addTransform</code></a></td>
+      <td>Callback to add a transform.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Callback to add a transform.</p>
+
+<p><strong>See</strong>: <a href="https://pwastudio.io/pwa-buildpack/reference/transform-requests/#addTransform">TransformRequest</a><br />
+<strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>transformRequest</td>
+      <td><code class="language-plaintext highlighter-rouge">Buildpack/WebpackTools~TransformRequest</code></td>
+      <td><a href="https://pwastudio.io/pwa-buildpack/reference/transform-requests/#addTransform">Request</a> to apply a transform to a file provided by this dependency.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Intercept function signature for the webpackCompiler target.</p>
+
+<p>Interceptors of <code class="language-plaintext highlighter-rouge">webpackCompiler</code> should tap hooks on the provided
+<code class="language-plaintext highlighter-rouge">compiler</code> object. Any returned value will be ignored.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>compiler</td>
+      <td><code class="language-plaintext highlighter-rouge">webpack.Compiler</code></td>
+      <td>The <a href="https://webpack.js.org/api/compiler-hooks/">webpack compiler</a> instance</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Intercept function signature for the specialFeatures target.</p>
+
+<p>Interceptors of the <code class="language-plaintext highlighter-rouge">specialFeatures</code> target can use the mapping object provided
+to map special build flags to their project modules.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>featuresByModule</td>
+      <td><code class="language-plaintext highlighter-rouge">Object.&lt;string, SpecialBuildFlags&gt;</code></td>
+      <td>An object mapping of module names to their special build flags</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Intercept function signature for the transformUpward target.</p>
+
+<p>Interceptors of the <code class="language-plaintext highlighter-rouge">transformUpward</code> target receive the parsed UPWARD
+definition as a plain JavaScript object. Mutate that object in place to
+change the final <code class="language-plaintext highlighter-rouge">upward.yml</code> output by the build.</p>
+
+<p>This Target can be used asynchronously. If you need to do asynchronous work
+to get what you need to modify the UPWARD definition (for example, a network
+request) then you can provide an <code class="language-plaintext highlighter-rouge">async</code> function as interceptor (or simply
+return a Promise from any function).</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>definition</td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>Parsed UPWARD definition object.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Intercept function signature for the validateEnv target.</p>
+
+<p>Interceptors of the <code class="language-plaintext highlighter-rouge">validateEnv</code> target receive a config object.
+The config object contains the project env, an onFail callback and
+the debug function to be used in case of the debug mode to log more
+inforamtion to the console.</p>
+
+<p>This Target can be used asynchronously in the parallel mode. If a
+validator needs to stop the process immediately, it can throw an error.
+If it needs to report an error but not stop the whole process, it can do
+so by calling the onFail function with the error message it wants to report.
+It can call the onFail multiple times if it wants to report multiple errors.</p>
+
+<p>All the errors will be queued and printed into the console at the end of the
+validation process and the build process will be stopeed.</p>
+
+<p><strong>Returns: **
+**Parameters</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>config.env</td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>Project ENV</td>
+    </tr>
+    <tr>
+      <td>config.onFail</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>On fail callback</td>
+    </tr>
+    <tr>
+      <td>config.debug</td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>Debug function to be used for additional reporting in debug mode</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Source Code</strong>: <a href="https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/lib/BuildBus/BuildBus.js">pwa-studio/packages/pwa-buildpack/lib/BuildBus/BuildBus.js</a></p>
+
+			</main>
+			<footer class="content-footer">
+				
+
+			</footer>
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+</div>
+<!-- /.main-container -->
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+  <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+  <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+  <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+  <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+</ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2021 Adobe. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js?ver=16"></script>
+<script src="/pwa-studio/assets/js/editions.min.js?ver=16"></script>
+<script src="/pwa-studio/assets/js/page-updated.min.js?ver=16"></script>
+
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+</body>
+
+</html>
+
