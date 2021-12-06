@@ -1,16 +1,21 @@
 import { getAdvanced } from '../../utils';
 
 export default node => {
-    if (!node.childNodes[0]) {
+    const widgetBlock = node.childNodes[0];
+
+    if (
+        !widgetBlock ||
+        (widgetBlock && !widgetBlock.getAttribute('data-uids'))
+    ) {
         return {};
     }
 
     return {
-        displayInline: node.childNodes[0]
+        displayInline: widgetBlock
             .getAttribute('class')
             .includes('block-banners-inline'),
-        displayMode: node.childNodes[0].getAttribute('data-display-mode'),
-        uids: node.childNodes[0].getAttribute('data-uids'),
+        displayMode: widgetBlock.getAttribute('data-display-mode'),
+        uids: widgetBlock.getAttribute('data-uids'),
         ...getAdvanced(node)
     };
 };
