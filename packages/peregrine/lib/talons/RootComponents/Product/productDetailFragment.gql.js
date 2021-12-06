@@ -4,7 +4,6 @@ export const ProductDetailsFragment = gql`
     fragment ProductDetailsFragment on ProductInterface {
         __typename
         categories {
-            id
             uid
             breadcrumbs {
                 category_uid

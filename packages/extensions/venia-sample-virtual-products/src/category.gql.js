@@ -13,8 +13,9 @@ export const GET_CATEGORY = gql`
         $filters: ProductAttributeFilterInput!
         $sort: ProductAttributeSortInput
     ) {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         category(id: $id) {
-            id
+            uid
             ...CategoryFragment
         }
         products(

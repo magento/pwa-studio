@@ -15,7 +15,7 @@ export const RESOLVE_URL = gql`
                 __typename
             }
             ... on CategoryInterface {
-                id
+                uid
             }
         }
     }
