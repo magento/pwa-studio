@@ -12,6 +12,7 @@ export const GET_STORE_CONFIG_DATA = gql`
 export const GET_BREADCRUMBS = gql`
     query GetBreadcrumbs($category_id: String!) {
         categories(filters: { ids: { in: [$category_id] } }) {
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
                 breadcrumbs {
                     category_uid
