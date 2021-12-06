@@ -32,10 +32,10 @@ export const ItemsReviewFragment = gql`
             quantity
             ... on ConfigurableCartItem {
                 configurable_options {
-                    id
-                    option_label
-                    value_id
-                    value_label
+									configurable_product_option_uid
+									option_label
+									configurable_product_option_value_uid
+									value_label
                 }
             }
         }

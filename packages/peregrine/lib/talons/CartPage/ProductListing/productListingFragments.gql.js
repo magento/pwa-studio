@@ -47,11 +47,10 @@ export const ProductListingFragment = gql`
                 message
             }
             ... on ConfigurableCartItem {
-                configurable_options {
-                    id
-                    configurable_product_option_value_uid
+                configurable_options {										
+										configurable_product_option_uid
                     option_label
-                    value_id
+                    configurable_product_option_value_uid
                     value_label
                 }
             }
