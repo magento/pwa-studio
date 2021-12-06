@@ -27,9 +27,9 @@ export const GET_CART_DETAILS_QUERY = gql`
                 quantity
                 ... on ConfigurableCartItem {
                     configurable_options {
-                        id
+												configurable_product_option_uid
                         option_label
-                        value_id
+                        configurable_product_option_value_uid
                         value_label
                     }
                 }
