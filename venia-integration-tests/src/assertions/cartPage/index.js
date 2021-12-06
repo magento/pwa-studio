@@ -8,7 +8,9 @@ import {
     cartPagePriceSummaryDiscountSummary,
     cartPagePriceSummaryGiftCardSummary,
     giftOptionsSection,
+    giftOptionsGiftMessageResult,
     giftOptionsIncludeGiftReceiptCheckbox,
+    giftOptionsIncludeGiftMessageCheckbox,
     giftOptionsIncludePrintedCardCheckbox,
     giftOptionsCardToInput,
     giftOptionsCardFromInput,
@@ -135,6 +137,7 @@ export const assertPrintedCard = () => {
  *
  * @param {Object} data gift options data
  * @param {Boolean} [data.includeGiftReceipt] include gift receipt
+ * @param {Boolean} [data.includeGiftMessage] include gift message
  * @param {Boolean} [data.includePrintedCard] include printed card
  * @param {String} [data.cardTo] card to
  * @param {String} [data.cardFrom] card from
@@ -142,6 +145,7 @@ export const assertPrintedCard = () => {
  */
 export const assertCartGiftOptions = ({
     includeGiftReceipt = null,
+    includeGiftMessage = null,
     includePrintedCard = null,
     cardTo,
     cardFrom,
@@ -159,6 +163,54 @@ export const assertCartGiftOptions = ({
         }
     }
 
+    if (includeGiftMessage !== null) {
+        if (includeGiftMessage) {
+            cy.get(giftOptionsIncludeGiftMessageCheckbox)
+                .should('exist')
+                .and('be.checked');
+
+            if (cardTo) {
+                cy.get(giftOptionsGiftMessageResult)
+                    .should('exist')
+                    .and('contain', cardTo);
+            }
+
+            if (cardFrom) {
+                cy.get(giftOptionsGiftMessageResult)
+                    .should('exist')
+                    .and('contain', cardFrom);
+            }
+
+            if (cardMessage) {
+                cy.get(giftOptionsGiftMessageResult)
+                    .should('exist')
+                    .and('contain', cardMessage);
+            }
+        } else {
+            cy.get(giftOptionsIncludeGiftMessageCheckbox)
+                .should('exist')
+                .and('not.be.checked');
+
+            if (cardTo) {
+                cy.get(giftOptionsCardToInput)
+                    .should('exist')
+                    .and('contain.value', cardTo);
+            }
+
+            if (cardFrom) {
+                cy.get(giftOptionsCardFromInput)
+                    .should('exist')
+                    .and('contain.value', cardFrom);
+            }
+
+            if (cardMessage) {
+                cy.get(giftOptionsCardMessageTextarea)
+                    .should('exist')
+                    .and('contain.value', cardMessage);
+            }
+        }
+    }
+
     if (includePrintedCard !== null) {
         if (includePrintedCard) {
             cy.get(giftOptionsIncludePrintedCardCheckbox)
@@ -169,23 +221,5 @@ export const assertCartGiftOptions = ({
                 .should('exist')
                 .and('not.be.checked');
         }
-    }
-
-    if (cardTo) {
-        cy.get(giftOptionsCardToInput)
-            .should('exist')
-            .and('contain.value', cardTo);
-    }
-
-    if (cardFrom) {
-        cy.get(giftOptionsCardFromInput)
-            .should('exist')
-            .and('contain.value', cardFrom);
-    }
-
-    if (cardMessage) {
-        cy.get(giftOptionsCardMessageTextarea)
-            .should('exist')
-            .and('contain.value', cardMessage);
     }
 };

@@ -91,6 +91,7 @@ export const checkoutBillingData = [
 export const defaultGiftOptionsData = [
     {
         includeGiftReceipt: true,
+        includeGiftMessage: true,
         includePrintedCard: true,
         cardTo: 'Bender Rodríguez',
         cardFrom: 'Philip J. Fry',
@@ -98,10 +99,19 @@ export const defaultGiftOptionsData = [
     },
     {
         includeGiftReceipt: true,
+        includeGiftMessage: true,
         includePrintedCard: false,
         cardTo: 'Philip J. Fry',
         cardFrom: 'Bender Rodríguez',
         cardMessage: "Of All The Friends I've Had, You're The First."
+    },
+    {
+        includeGiftReceipt: true,
+        includeGiftMessage: false,
+        includePrintedCard: true,
+        cardTo: '',
+        cardFrom: '',
+        cardMessage: ''
     }
 ];
 export const defaultPaymentMethod = 'Credit Card';

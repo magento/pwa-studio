@@ -53,6 +53,7 @@ describe('verify gift options actions in cart', () => {
         );
         cy.intercept('POST', hitGraphqlPath, req => {
             aliasMutation(req, 'AddProductToCart');
+            aliasMutation(req, 'SetGiftOptionsOnCart');
         });
 
         // Test - Add configurable products to cart from Product Pages
@@ -124,16 +125,32 @@ describe('verify gift options actions in cart', () => {
         cy.wait(['@gqlGetProductListingQuery'], {
             timeout: 60000
         });
-        cy.wait(['@getGiftOptionsGiftMessageAll2']).its('response.body');
         cy.wait(['@getGiftOptionsFromCart']).its('response.body');
+        cy.wait(['@getGiftOptionsGiftMessageAll2']).its('response.body');
 
         toggleGiftOptionsSection();
 
         assertCartGiftOptions(defaultGiftOptionsData[1]);
 
         // Test - Update Gift Options
-        setGiftOptionsFromCartPage(defaultGiftOptionsData[0]);
+        setGiftOptionsFromCartPage({
+            ...defaultGiftOptionsData[0],
+            shouldEdit: true
+        });
+
+        cy.wait(['@gqlSetGiftOptionsOnCartMutation'], {
+            timeout: 60000
+        });
 
         assertCartGiftOptions(defaultGiftOptionsData[0]);
+
+        // Test - Remove Gift Options
+        setGiftOptionsFromCartPage(defaultGiftOptionsData[2]);
+
+        cy.wait(['@gqlSetGiftOptionsOnCartMutation'], {
+            timeout: 60000
+        });
+
+        assertCartGiftOptions(defaultGiftOptionsData[2]);
     });
 });

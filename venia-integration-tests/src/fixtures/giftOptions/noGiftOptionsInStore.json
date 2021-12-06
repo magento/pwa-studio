@@ -2,6 +2,9 @@
     "data": {
         "storeConfig": {
             "id": 1,
+            "allow_order": "0",
+            "allow_gift_receipt": "0",
+            "allow_printed_card": "0",
             "__typename": "StoreConfig"
         }
     }
