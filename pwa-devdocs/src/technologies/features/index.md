@@ -1,5 +1,6 @@
 ---
 title: Commerce features
+adobeio: /integrations/adobe-commerce/features/
 ---
 
 PWA Studio's storefront app — Venia — provides the following out-of-the-box coverage for Adobe Commerce and Magento Open Source features. The icons show the current and planned coverage of each Commerce feature. Features that are not implemented — and not yet on our roadmap — show that custom implementation is required.
