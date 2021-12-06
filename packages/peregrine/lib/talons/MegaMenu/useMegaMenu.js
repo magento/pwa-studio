@@ -146,7 +146,7 @@ export const useMegaMenu = (props = {}) => {
         );
 
         if (activeCategory) {
-            setActiveCategoryId(activeCategory.path[0]);
+            setActiveCategoryId(activeCategory.uid);
         } else {
             setActiveCategoryId(null);
         }
