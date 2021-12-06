@@ -9,7 +9,7 @@ import operations from './addToCart.gql';
  * @param {String} props.item.uid - uid of item
  * @param {String} props.item.name - name of item
  * @param {String} props.item.stock_status - stock status of item
- * @param {String} props.item.type_id - product type
+ * @param {String} props.item.__typename - product type
  * @param {String} props.item.url_key - item url key
  * @param {String} props.item.sku - item sku
  *
@@ -21,10 +21,10 @@ import operations from './addToCart.gql';
  *
  */
 const UNSUPPORTED_PRODUCT_TYPES = [
-    'virtual',
-    'bundle',
-    'grouped',
-    'downloadable'
+    'VirtualProduct',
+    'BundleProduct',
+    'GroupedProduct',
+    'DownloadableProduct'
 ];
 
 export const useAddToCartButton = props => {
@@ -34,7 +34,7 @@ export const useAddToCartButton = props => {
 
     const isInStock = item.stock_status === 'IN_STOCK';
 
-    const productType = item.type_id;
+    const productType = item.__typename;
     const isUnsupportedProductType = UNSUPPORTED_PRODUCT_TYPES.includes(
         productType
     );
@@ -48,7 +48,7 @@ export const useAddToCartButton = props => {
 
     const handleAddToCart = useCallback(async () => {
         try {
-            if (productType === 'simple') {
+            if (productType === 'SimpleProduct') {
                 setIsLoading(true);
 
                 await addToCart({
@@ -68,7 +68,7 @@ export const useAddToCartButton = props => {
                 });
 
                 setIsLoading(false);
-            } else if (productType === 'configurable') {
+            } else if (productType === 'ConfigurableProduct') {
                 history.push(`${item.url_key}${urlSuffix || ''}`);
             } else {
                 console.warn('Unsupported product type unable to handle.');
