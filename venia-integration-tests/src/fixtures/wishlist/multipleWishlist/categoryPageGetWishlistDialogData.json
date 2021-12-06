@@ -10,12 +10,12 @@
       "id": null,
       "wishlists": [
         {
-          "id": "98",
+          "id": "102",
           "name": "Wish List",
           "__typename": "Wishlist"
         },
         {
-          "id": "99",
+          "id": "103",
           "name": "Test List1",
           "__typename": "Wishlist"
         }

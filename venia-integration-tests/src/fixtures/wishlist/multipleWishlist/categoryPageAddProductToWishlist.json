@@ -3,7 +3,7 @@
         "addProductsToWishlist": {
             "user_errors": [],
             "wishlist": {
-                "id": "32",
+                "id": "104",
                 "name": "Test List2",
                 "__typename": "Wishlist"
             },
