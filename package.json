@@ -57,9 +57,9 @@
     "babel-plugin-graphql-tag": "~2.0.0",
     "caller-id": "~0.1.0",
     "chalk": "~2.4.2",
-    "chokidar": "~2.1.2",
+    "chokidar": "~3.5.2",
     "coveralls": "~3.0.3",
-    "danger": "^7.1.4",
+    "danger": "^10.7.1",
     "dotenv": "~6.2.0",
     "eslint": "~7.27.0",
     "eslint-config-prettier": "~6.0.0",
@@ -87,7 +87,7 @@
     "tailwindcss": "~2.2.7"
   },
   "optionalDependencies": {
-    "bundlesize": "~0.17.1",
+    "bundlesize": "~0.18.1",
     "sharp": "~0.29.0"
   },
   "resolutions": {
