@@ -39,11 +39,12 @@ export const ProductListFragment = gql`
             }
             quantity
             ... on ConfigurableCartItem {
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 configurable_options {
-									configurable_product_option_uid
-									option_label
-									configurable_product_option_value_uid
-									value_label
+                    configurable_product_option_uid
+                    option_label
+                    configurable_product_option_value_uid
+                    value_label
                 }
             }
         }

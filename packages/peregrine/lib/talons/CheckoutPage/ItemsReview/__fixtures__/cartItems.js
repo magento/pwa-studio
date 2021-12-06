@@ -18,14 +18,14 @@ export default {
                 quantity: 3,
                 configurable_options: [
                     {
-												configurable_product_option_uid: 179,
+                        configurable_product_option_uid: 179,
                         option_label: 'Fashion Color',
                         configurable_product_option_value_uid: 18,
                         value_label: 'Peach',
                         __typename: 'SelectedConfigurableOption'
                     },
                     {
-												configurable_product_option_uid: 182,
+                        configurable_product_option_uid: 182,
                         option_label: 'Fashion Size',
                         configurable_product_option_value_uid: 27,
                         value_label: 'M',
@@ -49,14 +49,14 @@ export default {
                 quantity: 1,
                 configurable_options: [
                     {
-												configurable_product_option_uid: 179,
+                        configurable_product_option_uid: 179,
                         option_label: 'Fashion Color',
                         configurable_product_option_value_uid: 21,
                         value_label: 'Rain',
                         __typename: 'SelectedConfigurableOption'
                     },
                     {
-												configurable_product_option_uid: 182,
+                        configurable_product_option_uid: 182,
                         option_label: 'Fashion Size',
                         configurable_product_option_value_uid: 29,
                         value_label: 'XS',
@@ -80,14 +80,14 @@ export default {
                 quantity: 3,
                 configurable_options: [
                     {
-												configurable_product_option_uid: 179,
+                        configurable_product_option_uid: 179,
                         option_label: 'Fashion Color',
                         configurable_product_option_value_uid: 20,
                         value_label: 'Lilac',
                         __typename: 'SelectedConfigurableOption'
                     },
                     {
-												configurable_product_option_uid: 182,
+                        configurable_product_option_uid: 182,
                         option_label: 'Fashion Size',
                         configurable_product_option_value_uid: 26,
                         value_label: 'L',
