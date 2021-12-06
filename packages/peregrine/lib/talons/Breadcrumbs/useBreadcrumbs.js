@@ -40,7 +40,7 @@ export const useBreadcrumbs = props => {
     const { getBreadcrumbsQuery, getStoreConfigQuery } = operations;
 
     const { data, loading, error } = useQuery(getBreadcrumbsQuery, {
-        variables: { category_uid: categoryId },
+        variables: { category_id: categoryId },
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
