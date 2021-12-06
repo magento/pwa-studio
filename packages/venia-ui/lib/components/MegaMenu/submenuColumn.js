@@ -14,7 +14,12 @@ import PropTypes from 'prop-types';
  * @param {function} props.onNavigate - function called when clicking on Link
  */
 const SubmenuColumn = props => {
-    const { category, categoryUrlSuffix, onNavigate, handleMenuItemFocus } = props;
+    const {
+        category,
+        categoryUrlSuffix,
+        onNavigate,
+        handleMenuItemFocus
+    } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     const categoryUrl = resourceUrl(

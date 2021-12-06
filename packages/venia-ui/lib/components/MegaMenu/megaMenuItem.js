@@ -102,7 +102,7 @@ const MegaMenuItem = props => {
                 handleSubMenuFocus();
                 handleMenuItemFocus(true);
             }}
-            onMouseLeave={(e) => {
+            onMouseLeave={e => {
                 handleClickOutside(e);
                 handleMenuItemFocus();
             }}
