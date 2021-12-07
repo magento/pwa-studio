@@ -2,7 +2,7 @@
     "data": {
         "createWishlist": {
             "wishlist": {
-                "id": "32",
+                "id": "104",
                 "__typename": "Wishlist"
             },
             "__typename": "CreateWishlistOutput"
