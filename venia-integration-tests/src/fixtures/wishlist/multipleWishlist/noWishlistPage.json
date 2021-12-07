@@ -1,9 +1,0 @@
-{
-    "data": {
-        "customer": {
-            "id": null,
-            "wishlists": [],
-            "__typename": "Customer"
-        }
-    }
-}
