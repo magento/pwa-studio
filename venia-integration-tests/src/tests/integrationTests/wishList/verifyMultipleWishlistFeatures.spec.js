@@ -89,7 +89,7 @@ describe('PWA-1782: verify single wishlist basic features', () => {
 
         //Go to wishlist page and assert empty wishlist page
         cy.intercept('GET', getCustomerWishlistCall, {
-            fixture: 'wishlist/multipleWishlist/noWishlistPage.json'
+            fixture: 'wishlist/multipleWishlist/defaultWishlistPage.json'
         }).as('getCustomerWishlist');
         cy.intercept('GET', getMultipleWishlistConfigCall, {
             fixture: 'wishlist/multipleWishlist/multipleWishlistEnabled.json'
@@ -125,6 +125,7 @@ describe('PWA-1782: verify single wishlist basic features', () => {
             expect(result.response.body).to.exist;
         });
 
+        assertEmptyWishlistExists('Wish List');
         assertEmptyWishlistExists('Test List1');
         assertCreateWishlistLink();
 
@@ -263,10 +264,11 @@ describe('PWA-1782: verify single wishlist basic features', () => {
         }).as('getCustomerWishlist7');
         expandCollapsedWishlists();
         cy.wait(['@getCustomerWishlist7']).its('response.body');
-
-        // assert both products exists in wishlist
         assertCreateWishlistLink();
-        assertProductInWishlist(productCarinaCardigan);
         assertProductInWishlist(productAugustaEarrings.name);
+
+        // NOTE - This will be done part of cypress streamline ticket.
+        // assert other product exists in wishlist
+        // assertProductInWishlist(productCarinaCardigan);
     });
 });
