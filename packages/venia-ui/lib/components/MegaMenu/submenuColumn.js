@@ -18,7 +18,7 @@ const SubmenuColumn = props => {
         category,
         categoryUrlSuffix,
         onNavigate,
-        handleMenuItemFocus
+        handleMenuItemBlur
     } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -69,7 +69,7 @@ const SubmenuColumn = props => {
                 data-cy="MegaMenu-SubmenuColumn-link"
                 to={categoryUrl}
                 onClick={() => {
-                    handleMenuItemFocus();
+                    handleMenuItemBlur();
                     onNavigate();
                 }}
             >
@@ -95,5 +95,5 @@ SubmenuColumn.propTypes = {
     }).isRequired,
     categoryUrlSuffix: PropTypes.string,
     onNavigate: PropTypes.func.isRequired,
-    handleMenuItemFocus: PropTypes.func.isRequired
+    handleMenuItemBlur: PropTypes.func.isRequired
 };

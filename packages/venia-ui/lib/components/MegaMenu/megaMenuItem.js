@@ -48,6 +48,7 @@ const MegaMenuItem = props => {
         isFocused,
         isActive,
         handleMenuItemFocus,
+        handleMenuItemBlur,
         isMenuActive,
         handleKeyDown
     } = talonProps;
@@ -63,7 +64,7 @@ const MegaMenuItem = props => {
                 subMenuState={subMenuState}
                 items={category.children}
                 mainNavWidth={mainNavWidth}
-                handleMenuItemFocus={handleMenuItemFocus}
+                handleMenuItemBlur={handleMenuItemBlur}
                 categoryUrlSuffix={categoryUrlSuffix}
                 onNavigate={onNavigate}
             />
@@ -96,15 +97,15 @@ const MegaMenuItem = props => {
             data-cy="MegaMenu-MegaMenuItem-megaMenuItem"
             onMouseEnter={() => {
                 handleSubMenuFocus();
-                handleMenuItemFocus(true);
+                handleMenuItemFocus();
             }}
             onTouchStart={() => {
                 handleSubMenuFocus();
-                handleMenuItemFocus(true);
+                handleMenuItemFocus();
             }}
             onMouseLeave={e => {
                 handleClickOutside(e);
-                handleMenuItemFocus();
+                handleMenuItemBlur();
             }}
         >
             <Link
