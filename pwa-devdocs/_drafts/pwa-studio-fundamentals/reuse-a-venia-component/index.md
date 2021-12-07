@@ -7,6 +7,7 @@ Here we'll quickly demonstrated how PWA Studio components can be easily reused.
 Import the CategoryList to the Foo component:    
 
 ```javascript
+/* Deprecated in PWA-12.1.0*/
 import CategoryList from '@magento/venia-ui/lib/components/CategoryList';
 ```
 
