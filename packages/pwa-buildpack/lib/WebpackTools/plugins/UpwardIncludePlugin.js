@@ -53,7 +53,7 @@ class UpwardIncludePlugin {
 
         debug('assets collection complete, %O', this.assetMap);
 
-        new CopyPlugin(Object.values(this.assetMap), {
+        new CopyPlugin({ patterns: Object.values(this.assetMap)}, {
             copyUnmodified: true,
             logLevel: 'error'
         }).apply(this.compiler);
