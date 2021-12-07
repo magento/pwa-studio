@@ -74,7 +74,7 @@ const MegaMenuItem = props => {
         isFocused,
         mainNavWidth,
         subMenuState,
-        handleMenuItemFocus,
+        handleMenuItemBlur,
         categoryUrlSuffix,
         onNavigate
     ]);
