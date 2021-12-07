@@ -44,8 +44,7 @@ beforeEach(() => {
             null,
             {
                 data: null,
-                loading: false,
-                error: null
+                loading: false
             }
         ];
     });
@@ -105,7 +104,6 @@ describe('#useNewsletter subscribe', () => {
             return [
                 mockSubscribeNewsletter,
                 {
-                    error: null,
                     data: { subscribeEmailToNewsletter: mockResponse }
                 }
             ];
@@ -120,32 +118,5 @@ describe('#useNewsletter subscribe', () => {
             variables: mockEmail
         });
         expect(talonProps.newsLetterResponse).toEqual(mockResponse);
-    });
-
-    test('it handles submission errors', async () => {
-        // Act.
-        const mockSubscribeNewsletter = jest.fn(() => {
-            throw new Error('some error');
-        });
-        useMutation.mockImplementation(() => {
-            return [
-                mockSubscribeNewsletter,
-                {
-                    error: 'some error',
-                    data: null
-                }
-            ];
-        });
-
-        createTestInstance(<Component {...props} key="a" />);
-
-        talonProps.handleSubmit(mockEmail);
-
-        // Assert.
-        expect(mockSubscribeNewsletter).toHaveBeenCalled();
-        expect(talonProps.errors).toBeInstanceOf(Map);
-        expect(talonProps.errors.get('subscribeMutation')).toEqual(
-            'some error'
-        );
     });
 });
