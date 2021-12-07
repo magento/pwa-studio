@@ -63,7 +63,7 @@ Where the actions required to manipulate the UI are located.
 Functions that perform the UI interactions in Venia, such as: selecting a specific field, clicking a button, filling in an input, any UI action that is required.
 
 ## src/assertions
-Where the test assertions are located, what  should be expected when performing a particular test. The default provided by the Cypress API is the [Chai assertion library][].
+Where the test assertions are located, what should be expected when performing a particular test. The default provided by the Cypress API is the [Chai assertion library][].
 
 [Chai assertion library]: https://docs.cypress.io/guides/references/assertions
 
