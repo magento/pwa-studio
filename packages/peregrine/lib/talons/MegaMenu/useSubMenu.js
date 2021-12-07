@@ -1,15 +1,15 @@
 import { useKeyboard } from 'react-aria';
 
 export const useSubMenu = props => {
-    const { isFocused, subMenuState, handleMenuItemFocus } = props;
+    const { isFocused, subMenuState, handleMenuItemBlur } = props;
 
     const { keyboardProps } = useKeyboard({
         onKeyDown: e => {
             //checking for Tab without Shift
             if (!e.shiftKey && e.key === 'Tab') {
-                e.target.addEventListener('blur', handleMenuItemFocus);
+                e.target.addEventListener('blur', handleMenuItemBlur);
             } else {
-                e.target.removeEventListener('blur', handleMenuItemFocus);
+                e.target.removeEventListener('blur', handleMenuItemBlur);
             }
         }
     });

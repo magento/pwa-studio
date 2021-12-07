@@ -82,6 +82,17 @@ test('handleMenuItemFocus to be called', () => {
     expect(talonProps.isMenuActive).toEqual(false);
 });
 
+test('handleMenuItemBlur to be called', () => {
+    const props = {
+        ...defaultProps
+    };
+    const { talonProps } = getTalonProps(props);
+
+    talonProps.handleMenuItemBlur();
+
+    expect(talonProps.isMenuActive).toEqual(false);
+});
+
 test('handleKeyDown called with Escape key', () => {
     const e = { key: 'Escape' };
 

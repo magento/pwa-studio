@@ -9,7 +9,7 @@ exports[`Mega menu item renders correctly it does not render submenu when item d
 >
   <mock-Submenu
     categoryUrlSuffix=".html"
-    handleMenuItemFocus={[MockFunction]}
+    handleMenuItemBlur={[MockFunction]}
     isFocused={false}
     items={
       Array [
@@ -43,7 +43,7 @@ exports[`Mega menu item renders correctly it renders correctly 1`] = `
 >
   <mock-Submenu
     categoryUrlSuffix=".html"
-    handleMenuItemFocus={[MockFunction]}
+    handleMenuItemBlur={[MockFunction]}
     isFocused={false}
     items={
       Array [

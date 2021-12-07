@@ -3,6 +3,7 @@
 exports[`Should return correct shape 1`] = `
 Object {
   "handleKeyDown": [Function],
+  "handleMenuItemBlur": [Function],
   "handleMenuItemFocus": [Function],
   "isActive": true,
   "isFocused": false,

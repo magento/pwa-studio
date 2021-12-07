@@ -26,7 +26,7 @@ const getTalonProps = props => {
 const defaultProps = {
     isFocused: true,
     subMenuState: true,
-    handleMenuItemFocus: jest.fn()
+    handleMenuItemBlur: jest.fn()
 };
 
 test('Should return correct shape', () => {
@@ -40,8 +40,8 @@ test('onKeyDown event called', () => {
         key: 'Tab',
         shiftKey: false,
         target: {
-            addEventListener: jest.fn((onKeyDown, handleMenuItemFocus) => {
-                map[onKeyDown] = handleMenuItemFocus;
+            addEventListener: jest.fn((onKeyDown, handleMenuItemBlur) => {
+                map[onKeyDown] = handleMenuItemBlur;
             })
         },
         stopPropagation: jest.fn()
