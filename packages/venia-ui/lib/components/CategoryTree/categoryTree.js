@@ -50,7 +50,7 @@ const Tree = props => {
 export default Tree;
 
 Tree.propTypes = {
-    categoryId: number,
+    categoryId: string,
     classes: shape({
         root: string,
         tree: string

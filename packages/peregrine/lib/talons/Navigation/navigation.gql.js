@@ -16,7 +16,7 @@ const GET_ROOT_CATEGORY_ID = gql`
     query getRootCategoryId {
         storeConfig {
             id
-            root_category_id
+            root_category_uid
         }
     }
 `;

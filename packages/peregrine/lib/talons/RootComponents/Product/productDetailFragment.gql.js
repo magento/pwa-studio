@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const ProductDetailsFragment = gql`
     fragment ProductDetailsFragment on ProductInterface {
         __typename
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         categories {
             uid
             breadcrumbs {
@@ -15,9 +16,7 @@ export const ProductDetailsFragment = gql`
         id
         uid
         media_gallery_entries {
-            # id is deprecated and unused in our code, but lint rules require we
-            # request it if available
-            id
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             uid
             label
             position
@@ -67,12 +66,9 @@ export const ProductDetailsFragment = gql`
                     value_index
                 }
                 product {
-                    id
                     uid
+                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     media_gallery_entries {
-                        # id is deprecated and unused in our code, but lint rules require we
-                        # request it if available
-                        id
                         uid
                         disabled
                         file

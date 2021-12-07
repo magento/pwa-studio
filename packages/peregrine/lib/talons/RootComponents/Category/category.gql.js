@@ -4,13 +4,13 @@ import { CategoryFragment, ProductsFragment } from './categoryFragments.gql';
 
 export const GET_CATEGORY = gql`
     query GetCategories(
-        $id: String!
+        $uid: String!
         $pageSize: Int!
         $currentPage: Int!
         $filters: ProductAttributeFilterInput!
         $sort: ProductAttributeSortInput
     ) {
-        categories(filters: { ids: { in: [$id] } }) {
+        categories(filters: { category_uid: { in: [$uid] } }) {
             items {
                 uid
                 ...CategoryFragment

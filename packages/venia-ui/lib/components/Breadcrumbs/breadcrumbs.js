@@ -13,7 +13,7 @@ const DELIMITER = '/';
 /**
  * Breadcrumbs! Generates a sorted display of category links.
  *
- * @param {String} props.categoryId the id of the category for which to generate breadcrumbs
+ * @param {String} props.categoryId the uid of the category for which to generate breadcrumbs
  * @param {String} props.currentProduct the name of the product we're currently on, if any.
  */
 const Breadcrumbs = props => {
@@ -103,6 +103,6 @@ const Breadcrumbs = props => {
 export default Breadcrumbs;
 
 Breadcrumbs.propTypes = {
-    categoryId: number.isRequired,
+    categoryId: string.isRequired,
     currentProduct: string
 };

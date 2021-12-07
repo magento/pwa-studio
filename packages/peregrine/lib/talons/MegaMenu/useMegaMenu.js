@@ -146,7 +146,7 @@ export const useMegaMenu = (props = {}) => {
         );
 
         if (activeCategory) {
-            setActiveCategoryId(activeCategory.uid);
+            setActiveCategoryId(activeCategory.path[0]);
         } else {
             setActiveCategoryId(null);
         }
@@ -179,7 +179,7 @@ export const useMegaMenu = (props = {}) => {
  * @property {MegaMenuCategory} megaMenuData - The Object with categories contains only categories
  *                                             with the include_in_menu = 1 flag. The categories are sorted
  *                                             based on the field position.
- * @property {int} activeCategoryId returns the currently selected category id.
+ * @property {int} activeCategoryId returns the currently selected category uid.
  * @property {String} categoryUrlSuffix  store's category url suffix to construct category URL
  * @property {Function} handleClickOutside function to handle mouse/key events.
  * @property {Boolean} subMenuState maintaining sub-menu open/close state
@@ -192,7 +192,7 @@ export const useMegaMenu = (props = {}) => {
  * Object type returned by the {@link useMegaMenu} talon.
  * @typedef {Object} MegaMenuCategory
  *
- * @property {int} id - id of the category
+ * @property {int} uid - uid of the category
  * @property {int} include_in_menu - describes if category should be included in menu
  * @property {String} name - name of the category
  * @property {int} position - value used for sorting

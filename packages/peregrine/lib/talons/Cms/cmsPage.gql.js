@@ -14,7 +14,7 @@ export const GET_CMS_PAGE = gql`
         }
         storeConfig {
             id
-            root_category_id
+            root_category_uid
         }
     }
 `;

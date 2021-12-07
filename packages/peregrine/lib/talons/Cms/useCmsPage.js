@@ -50,7 +50,7 @@ export const useCmsPage = props => {
     const shouldShowLoadingIndicator = loading && !data;
 
     const cmsPage = data ? data.cmsPage : null;
-    const rootCategoryId = data ? data.storeConfig.root_category_id : null;
+    const rootCategoryId = data ? data.storeConfig.root_category_uid : null;
 
     // Only render <RichContent /> if the page isn't empty and doesn't contain
     // the default CMS Page text. We do this so there is at least a useable home
