@@ -18,7 +18,12 @@ import FormError from '../FormError/formError';
 
 const SignIn = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+    const {
+        setDefaultUsername,
+        showCreateAccount,
+        showForgotPassword,
+        initialValues
+    } = props;
 
     const { formatMessage } = useIntl();
     const talonProps = useSignIn({
@@ -55,7 +60,7 @@ const SignIn = props => {
     };
 
     return (
-        <div className={classes.root}>
+        <div data-cy="SignIn-root" className={classes.root}>
             <span className={classes.title}>
                 <FormattedMessage
                     id={'signIn.titleText'}
@@ -67,6 +72,8 @@ const SignIn = props => {
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
+                data-cy="SignIn-form"
+                initialValues={initialValues && initialValues}
             >
                 <Field
                     label={formatMessage({
@@ -75,12 +82,15 @@ const SignIn = props => {
                     })}
                 >
                     <TextInput
+                        data-cy="SignIn-email"
                         autoComplete="email"
                         field="email"
                         validate={isRequired}
+                        data-cy="email"
                     />
                 </Field>
                 <Password
+                    data-cy="SignIn-password"
                     fieldName="password"
                     label={formatMessage({
                         id: 'signIn.passwordText',
@@ -89,12 +99,14 @@ const SignIn = props => {
                     validate={isRequired}
                     autoComplete="current-password"
                     isToggleButtonHidden={false}
+                    data-cy="password"
                 />
                 <div className={classes.forgotPasswordButtonContainer}>
                     <LinkButton
                         classes={forgotPasswordClasses}
                         type="button"
                         onClick={handleForgotPassword}
+                        data-cy="SignIn-forgotPasswordButton"
                     >
                         <FormattedMessage
                             id={'signIn.forgotPasswordText'}
@@ -103,7 +115,11 @@ const SignIn = props => {
                     </LinkButton>
                 </div>
                 <div className={classes.buttonsContainer}>
-                    <Button priority="high" type="submit">
+                    <Button
+                        priority="high"
+                        type="submit"
+                        data-cy="SignInButton-root_highPriority"
+                    >
                         <FormattedMessage
                             id={'signIn.signInText'}
                             defaultMessage={'Sign In'}
@@ -113,6 +129,7 @@ const SignIn = props => {
                         priority="normal"
                         type="button"
                         onClick={handleCreateAccount}
+                        data-cy="CreateAccount-initiateButton"
                     >
                         <FormattedMessage
                             id={'signIn.createAccountText'}
@@ -137,7 +154,10 @@ SignIn.propTypes = {
     }),
     setDefaultUsername: func,
     showCreateAccount: func,
-    showForgotPassword: func
+    showForgotPassword: func,
+    initialValues: shape({
+        email: string.isRequired
+    })
 };
 SignIn.defaultProps = {
     setDefaultUsername: () => {},

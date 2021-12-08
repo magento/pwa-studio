@@ -49,6 +49,7 @@ export const QuantityFields = props => {
                     disabled={isDecrementDisabled}
                     onClick={handleDecrement}
                     type="button"
+                    data-cy="Quantity-decrementButton"
                 >
                     <Icon classes={iconClasses} src={MinusIcon} size={22} />
                 </button>
@@ -76,6 +77,7 @@ export const QuantityFields = props => {
                     disabled={isIncrementDisabled}
                     onClick={handleIncrement}
                     type="button"
+                    data-cy="Quantity-incrementButton"
                 >
                     <Icon classes={iconClasses} src={PlusIcon} size={20} />
                 </button>
