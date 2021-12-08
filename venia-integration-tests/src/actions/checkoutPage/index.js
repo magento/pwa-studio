@@ -448,3 +448,19 @@ export const editBillingAddress = ({
 
     cy.get(fields.checkoutPageOpenedDialogEditPaymentSubmitButton).click();
 };
+
+/**
+ * Utility function to sign in guest user from CheckoutPage
+ *
+ * @param {String} [accountEmail] customer email
+ * @param {String} accountPassword customer password
+ */
+export const signInFromCheckoutPage = (accountEmail, accountPassword) => {
+    if (accountEmail) {
+        cy.get(fields.checkoutPageSignInEmailTextField).type(accountEmail);
+    }
+
+    cy.get(fields.checkoutPageSignInPasswordField).type(accountPassword);
+
+    cy.get(fields.checkoutPageSignInSubmitButton).click();
+};

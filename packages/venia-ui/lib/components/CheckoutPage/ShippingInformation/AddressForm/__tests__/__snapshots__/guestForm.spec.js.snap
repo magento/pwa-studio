@@ -36,11 +36,13 @@ Array [
             className="input"
           >
             <input
+              autoComplete="off"
               className="input"
               id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
+              onPaste={[Function]}
               value=""
             />
           </span>
@@ -475,11 +477,13 @@ Array [
             className="input"
           >
             <input
+              autoComplete="off"
               className="input"
               id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
+              onPaste={[Function]}
               value=""
             />
           </span>
@@ -910,11 +914,13 @@ Array [
             className="input"
           >
             <input
+              autoComplete="off"
               className="input"
               id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
+              onPaste={[Function]}
               value="fry@planet.express"
             />
           </span>
@@ -1363,11 +1369,13 @@ Array [
             className="input"
           >
             <input
+              autoComplete="off"
               className="input"
               id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
+              onPaste={[Function]}
               value="fry@planet.express"
             />
           </span>
