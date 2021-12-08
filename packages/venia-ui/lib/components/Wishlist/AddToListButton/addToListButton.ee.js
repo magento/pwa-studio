@@ -41,6 +41,7 @@ const AddToListButton = props => {
                 ref={buttonRef}
                 className={buttonClass}
                 {...buttonAriaProps}
+                data-cy="addToListButton-root"
             >
                 {props.icon} {buttonText}
             </button>

@@ -133,7 +133,12 @@ const CheckoutPage = props => {
         checkoutContent = (
             <div className={classes.empty_cart_container}>
                 <div className={classes.heading_container}>
-                    <h1 className={classes.heading}>{heading}</h1>
+                    <h1
+                        className={classes.heading}
+                        data-cy="ChekoutPage-heading"
+                    >
+                        {heading}
+                    </h1>
                 </div>
                 <h3>
                     <FormattedMessage
@@ -340,7 +345,12 @@ const CheckoutPage = props => {
                         cartItems={cartItems}
                         message={stockStatusMessageElement}
                     />
-                    <h1 className={classes.heading}>{headerText}</h1>
+                    <h1
+                        className={classes.heading}
+                        data-cy="ChekoutPage-headerText"
+                    >
+                        {headerText}
+                    </h1>
                 </div>
                 {signInContainerElement}
                 <div className={classes.shipping_information_container}>
