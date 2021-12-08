@@ -129,6 +129,22 @@ describe('#useGoogleReCaptcha', () => {
         });
     });
 
+    it('returns empty object when user ask for generation and it returns an error', async () => {
+        globalThis.grecaptcha = {};
+
+        const { result, waitForNextUpdate } = renderHookWithProviders();
+
+        // Wait for query to finish loading
+        await waitForNextUpdate();
+
+        // Ask generation of token
+        await act(async () => {
+            const tokenData = await result.current.generateReCaptchaData();
+
+            expect(tokenData).toEqual({});
+        });
+    });
+
     it('returns empty object when user ask for generation and script is not enabled', async () => {
         const { result, waitForNextUpdate } = renderHookWithProviders({
             renderHookOptions: {
@@ -147,7 +163,7 @@ describe('#useGoogleReCaptcha', () => {
         await act(async () => {
             const tokenData = await result.current.generateReCaptchaData();
 
-            expect(tokenData).toMatchInlineSnapshot(`Object {}`);
+            expect(tokenData).toEqual({});
         });
     });
 });

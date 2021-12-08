@@ -42,7 +42,7 @@ export const useForgotPassword = props => {
     const handleFormSubmit = useCallback(
         async ({ email }) => {
             try {
-                const reCaptchaData = generateReCaptchaData();
+                const reCaptchaData = await generateReCaptchaData();
 
                 await requestResetEmail({
                     variables: { email },
@@ -52,9 +52,8 @@ export const useForgotPassword = props => {
                 setForgotPasswordEmail(email);
                 setCompleted(true);
             } catch (error) {
-                if (process.env.NODE_ENV !== 'production') {
-                    console.error(error);
-                }
+                // Error is logged by apollo link - no need to double log.
+
                 setCompleted(false);
             }
         },

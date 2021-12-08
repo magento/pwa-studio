@@ -70,25 +70,34 @@ export const useGoogleReCaptcha = props => {
         configLoading || (isEnabled && !grecaptchaApi && status !== 'ready');
 
     // Generate the object that will be sent with the request
-    const generateReCaptchaData = useCallback(() => {
+    const generateReCaptchaData = useCallback(async () => {
         if (isEnabled) {
-            setIsGenerating(true);
+            try {
+                setIsGenerating(true);
 
-            const result = {
-                // TODO: Use Apollo Link middleware when solution is found
-                context: {
-                    headers: {
-                        [GOOGLE_RECAPTCHA_HEADER]: globalThis.grecaptcha.execute(
-                            recaptchaKey,
-                            { action: currentForm }
-                        )
+                const result = {
+                    // TODO: Use Apollo Link middleware when solution is found
+                    context: {
+                        headers: {
+                            [GOOGLE_RECAPTCHA_HEADER]: await globalThis.grecaptcha.execute(
+                                recaptchaKey,
+                                {
+                                    action: currentForm
+                                }
+                            )
+                        }
                     }
-                }
-            };
+                };
 
-            setIsGenerating(false);
+                setIsGenerating(false);
 
-            return result;
+                return result;
+            } catch (error) {
+                // Log API error
+                console.error(error);
+
+                setIsGenerating(false);
+            }
         }
 
         return {};
