@@ -49,6 +49,7 @@ const CheckoutPage = props => {
         checkoutStep,
         customer,
         error,
+        guestSignInUsername,
         handlePlaceOrder,
         hasError,
         isCartEmpty,
@@ -60,6 +61,7 @@ const CheckoutPage = props => {
         orderNumber,
         placeOrderLoading,
         setCheckoutStep,
+        setGuestSignInUsername,
         setIsUpdating,
         setShippingInformationDone,
         scrollShippingInformationIntoView,
@@ -347,6 +349,8 @@ const CheckoutPage = props => {
                             onSave={setShippingInformationDone}
                             onSuccess={scrollShippingInformationIntoView}
                             toggleActiveContent={toggleAddressBookContent}
+                            toggleSignInContent={toggleSignInContent}
+                            setGuestSignInUsername={setGuestSignInUsername}
                         />
                     </ScrollAnchor>
                 </div>
@@ -377,8 +381,10 @@ const CheckoutPage = props => {
 
     const signInElement = isGuestCheckout ? (
         <GuestSignIn
+            key={guestSignInUsername}
             isActive={activeContent === 'signIn'}
             toggleActiveContent={toggleSignInContent}
+            initialValues={{ email: guestSignInUsername }}
         />
     ) : null;
 

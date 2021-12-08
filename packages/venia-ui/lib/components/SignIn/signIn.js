@@ -18,7 +18,12 @@ import FormError from '../FormError/formError';
 
 const SignIn = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+    const {
+        setDefaultUsername,
+        showCreateAccount,
+        showForgotPassword,
+        initialValues
+    } = props;
 
     const { formatMessage } = useIntl();
     const talonProps = useSignIn({
@@ -55,7 +60,7 @@ const SignIn = props => {
     };
 
     return (
-        <div className={classes.root}>
+        <div data-cy="SignIn-root" className={classes.root}>
             <span className={classes.title}>
                 <FormattedMessage
                     id={'signIn.titleText'}
@@ -67,6 +72,7 @@ const SignIn = props => {
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
+                initialValues={initialValues && initialValues}
             >
                 <Field
                     label={formatMessage({
@@ -75,12 +81,14 @@ const SignIn = props => {
                     })}
                 >
                     <TextInput
+                        data-cy="SignIn-email"
                         autoComplete="email"
                         field="email"
                         validate={isRequired}
                     />
                 </Field>
                 <Password
+                    data-cy="SignIn-password"
                     fieldName="password"
                     label={formatMessage({
                         id: 'signIn.passwordText',
@@ -103,7 +111,11 @@ const SignIn = props => {
                     </LinkButton>
                 </div>
                 <div className={classes.buttonsContainer}>
-                    <Button priority="high" type="submit">
+                    <Button
+                        data-cy="SignIn-submitButton"
+                        priority="high"
+                        type="submit"
+                    >
                         <FormattedMessage
                             id={'signIn.signInText'}
                             defaultMessage={'Sign In'}
@@ -137,7 +149,10 @@ SignIn.propTypes = {
     }),
     setDefaultUsername: func,
     showCreateAccount: func,
-    showForgotPassword: func
+    showForgotPassword: func,
+    initialValues: shape({
+        email: string.isRequired
+    })
 };
 SignIn.defaultProps = {
     setDefaultUsername: () => {},
