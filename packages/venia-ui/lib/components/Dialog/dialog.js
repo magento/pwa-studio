@@ -116,7 +116,12 @@ const Dialog = props => {
 
     const maybeForm =
         isOpen || !shouldUnmountOnHide ? (
-            <Form className={classes.form} {...formProps} onSubmit={onConfirm}>
+            <Form
+                className={classes.form}
+                {...formProps}
+                onSubmit={onConfirm}
+                data-cy="Dialog-form"
+            >
                 {/* The Mask. */}
                 <button
                     className={classes.mask}
@@ -125,9 +130,14 @@ const Dialog = props => {
                     type="reset"
                 />
                 {/* The Dialog. */}
-                <div className={classes.dialog}>
+                <div className={classes.dialog} data-cy={title}>
                     <div className={classes.header}>
-                        <span className={classes.headerText}>{title}</span>
+                        <span
+                            className={classes.headerText}
+                            data-cy="Dialog-headerText"
+                        >
+                            {title}
+                        </span>
                         {maybeCloseXButton}
                     </div>
                     <div className={classes.body}>
@@ -140,7 +150,9 @@ const Dialog = props => {
 
     return (
         <Portal>
-            <aside className={rootClass}>{maybeForm}</aside>
+            <aside className={rootClass} data-cy="Dialog-root">
+                {maybeForm}
+            </aside>
         </Portal>
     );
 };

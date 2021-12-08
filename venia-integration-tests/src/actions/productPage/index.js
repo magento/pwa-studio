@@ -4,8 +4,8 @@ import {
     productPageOptions,
     productPageQuantityField,
     productPageSizeButton,
-    productPageColorButton,
-    addProductToWishlist
+    addProductToWishlist,
+    swatchRoot
 } from '../../fields/productPage';
 
 /**
@@ -75,5 +75,5 @@ export const setProductSizeOption = size => {
  * Utility function to select a ConfigurableProduct color option from the product page
  */
 export const setProductColorOption = color => {
-    cy.get(`${productPageColorButton}[title*="${color}"]`).click();
+    cy.get(`${swatchRoot}[title*="${color}"]`).click();
 };
