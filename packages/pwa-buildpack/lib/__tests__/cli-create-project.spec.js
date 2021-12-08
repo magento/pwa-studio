@@ -44,9 +44,6 @@ test('is a yargs builder', async () => {
     );
 
     expect(output).toMatch('Create a PWA');
-
-    // throws because it wants a positional argument--just checking
-    expect(() => createProjectCliBuilder.builder(yargs)).toThrow('positional');
 });
 
 test('locates builtin package', async () => {
