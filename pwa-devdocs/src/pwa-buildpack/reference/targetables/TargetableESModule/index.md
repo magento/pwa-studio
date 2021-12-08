@@ -1,5 +1,6 @@
 ---
 title: TargetableESModule
+adobeio: /api/buildpack/targetables/TargetableESModule/
 ---
 
 <!--

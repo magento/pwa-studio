@@ -58,6 +58,7 @@ const Item = props => {
                 className={classes.thumbnailContainer}
                 to={itemLink}
                 onClick={closeMiniCart}
+                data-cy="item-thumbnailContainer"
             >
                 <Image
                     alt={product.name}
@@ -77,6 +78,7 @@ const Item = props => {
                 className={classes.name}
                 to={itemLink}
                 onClick={closeMiniCart}
+                data-cy="item-name"
             >
                 {product.name}
             </Link>
@@ -89,7 +91,7 @@ const Item = props => {
             <span className={classes.quantity}>
                 <FormattedMessage
                     id={'productList.quantity'}
-                    defaultMessage={'Qty :'}
+                    defaultMessage={'Qty : {quantity}'}
                     values={{ quantity }}
                 />
             </span>

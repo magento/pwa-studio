@@ -1,21 +1,17 @@
-export const miniCartCounter = 'span[class^="cartTrigger-counter-"]';
+export const miniCartCounter = '[data-cy="CartTrigger-counter"]';
 
-export const miniCartRoot = '[data-cy="MiniCart-root"]';
+export const miniCartTriggerButton = '[data-cy="CartTrigger-trigger"]';
 
-export const miniCartTriggerButton = 'button[class^="cartTrigger-trigger-"]';
+export const miniCartEditCartButton = '[data-cy="Minicart-editCartButton"]';
 
-export const miniCartEditCartButton =
-    'button[class^="miniCart-editCartButton-"]';
+export const miniCartCheckoutButton = '[data-cy="Minicart-checkoutButton"]';
 
-export const miniCartCheckoutButton =
-    'button[class^="miniCart-checkoutButton-"]';
-
-export const guestElementSelector = 'form[class^="guestForm-root-"]';
+export const guestElementSelector = '[data-cy="GuestForm-root"]';
 
 export const miniCartProductLink =
-    'div[class^="miniCart-body-"] a[class^="item-name-"]';
+    '[data-cy="MiniCart-body"] [data-cy="item-name"]';
 
-export const miniCartProductImageLink = 'a[class^="item-thumbnailContainer-"]';
+export const miniCartProductImageLink = '[data-cy="item-thumbnailContainer"]';
 
 export const miniCartEmptyMessage =
     '[data-cy="MiniCart-root"] [data-cy="MiniCart-emptyMessage"]';

@@ -39,7 +39,7 @@ const BraintreeSummary = props => {
         formatMessage(
             {
                 id: 'checkoutPage.paymentSummary',
-                defaultMessage: 'Card'
+                defaultMessage: '{cardType} ending in {lastFour}'
             },
             {
                 cardType: paymentNonce.details.cardType,
@@ -94,6 +94,7 @@ const BraintreeSummary = props => {
                     className={classes.edit_button}
                     onClick={onEdit}
                     type="button"
+                    data-cy="BrainTreeSummary-editButton"
                 >
                     <Icon
                         size={16}

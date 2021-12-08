@@ -95,7 +95,7 @@
     "@graphql-tools/prisma-loader": "6.3.0"
   },
   "engines": {
-    "node": ">=10.x",
+    "node": ">=14.x",
     "yarn": ">=1.12.0"
   },
   "bundlesize": [

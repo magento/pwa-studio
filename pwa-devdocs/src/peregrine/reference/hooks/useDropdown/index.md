@@ -1,5 +1,6 @@
 ---
 title: useDropdown
+adobeio: /api/peregrine/hooks/useDropdown/
 ---
 
 <!--

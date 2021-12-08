@@ -1,5 +1,6 @@
 ---
 title: TargetableReactComponent
+adobeio: /api/buildpack/targetables/TargetableReactComponent/
 ---
 
 <!--

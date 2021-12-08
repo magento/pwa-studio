@@ -1,5 +1,6 @@
 ---
 title: TargetableModule
+adobeio: /api/buildpack/targetables/TargetableModule/
 ---
 
 <!--

@@ -44,6 +44,7 @@ exports[`renders a default address 1`] = `
       className="telephone"
     >
       <mock-FormattedMessage
+        defaultMessage="Phone {telephone}"
         id="addressBookPage.telephone"
         values={
           Object {
@@ -146,6 +147,7 @@ exports[`renders a non-default address 1`] = `
       className="telephone"
     >
       <mock-FormattedMessage
+        defaultMessage="Phone {telephone}"
         id="addressBookPage.telephone"
         values={
           Object {
@@ -321,6 +323,7 @@ exports[`renders an address with a middle name 1`] = `
       className="telephone"
     >
       <mock-FormattedMessage
+        defaultMessage="Phone {telephone}"
         id="addressBookPage.telephone"
         values={
           Object {
@@ -431,6 +434,7 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
       className="telephone"
     >
       <mock-FormattedMessage
+        defaultMessage="Phone {telephone}"
         id="addressBookPage.telephone"
         values={
           Object {
@@ -597,6 +601,7 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
       className="telephone"
     >
       <mock-FormattedMessage
+        defaultMessage="Phone {telephone}"
         id="addressBookPage.telephone"
         values={
           Object {

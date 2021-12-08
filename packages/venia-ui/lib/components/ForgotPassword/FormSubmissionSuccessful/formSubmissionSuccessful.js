@@ -14,7 +14,7 @@ const FormSubmissionSuccessful = props => {
         {
             id: 'formSubmissionSuccessful.textMessage',
             defaultMessage:
-                'If there is an account associated with your email address, you will receive an email with a link to change your password.'
+                'If there is an account associated with {email} you will receive an email with a link to change your password.'
         },
         { email }
     );
@@ -27,7 +27,9 @@ const FormSubmissionSuccessful = props => {
                     defaultMessage={'Recover Password'}
                 />
             </h2>
-            <p className={classes.text}>{textMessage}</p>
+            <p className={classes.text} data-cy="formSubmissionSuccessful-text">
+                {textMessage}
+            </p>
         </div>
     );
 };

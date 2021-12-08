@@ -43,15 +43,31 @@ export const useMagentoRoute = (props = {}) => {
 
     const component = componentMap.get(pathname);
 
-    const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery, {
-        onCompleted: async ({ route }) => {
-            if (component) {
-                return;
-            }
+    const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery);
+    // destructure the query result
+    const { data, error, loading } = queryResult;
+    const { route } = data || {};
 
+    useEffect(() => {
+        if (initialized.current || !getInlinedPageData()) {
+            runQuery({
+                fetchPolicy: 'cache-and-network',
+                nextFetchPolicy: 'cache-first',
+                variables: { url: pathname }
+            });
+            fetchedPathname.current = pathname;
+        }
+    }, [initialized, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if (component) {
+            return;
+        }
+
+        (async () => {
             const { type, ...routeData } = route || {};
-            const { id, identifier } = routeData || {};
-            const isEmpty = !id && !identifier;
+            const { id, identifier, uid } = routeData || {};
+            const isEmpty = !id && !identifier && !uid;
 
             if (!type || isEmpty) {
                 return;
@@ -71,27 +87,14 @@ export const useMagentoRoute = (props = {}) => {
 
                 setComponent(pathname, error);
             }
-        }
-    });
+        })();
+    }, [route]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    useEffect(() => {
-        if (initialized.current || !getInlinedPageData()) {
-            runQuery({
-                fetchPolicy: 'cache-and-network',
-                nextFetchPolicy: 'cache-first',
-                variables: { url: pathname }
-            });
-            fetchedPathname.current = pathname;
-        }
-    }, [initialized, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
-
-    // destructure the query result
-    const { data, error, loading } = queryResult;
-    const { route } = data || {};
-    const { id, identifier, redirect_code, relative_url, type } = route || {};
+    const { id, identifier, uid, redirect_code, relative_url, type } =
+        route || {};
 
     // evaluate both results and determine the response type
-    const empty = !route || !type || (!id && !identifier);
+    const empty = !route || !type || (!id && !identifier && !uid);
     const redirect = isRedirect(redirect_code);
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;

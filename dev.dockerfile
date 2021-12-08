@@ -2,13 +2,13 @@
 # This file is intended to be used with ./docker-compose.yml #
 ##############################################################
 
-FROM node:12.16.3-alpine as build
+FROM node:14.18.1-alpine as build
 # working directory
 WORKDIR /usr/src/app
 
 # global environment setup : yarn + dependencies needed to support node-gyp
 RUN apk --no-cache --virtual add \
-    python \
+    python3 \
     make \
     g++ \
     yarn
@@ -30,7 +30,7 @@ RUN yarn install --frozen-lockfile
 RUN yarn run build
 
 # MULTI-STAGE BUILD
-FROM node:12.16.3-alpine
+FROM node:14.18.1-alpine
 # working directory
 WORKDIR /usr/src/app
 # node:alpine comes with a configured user and group

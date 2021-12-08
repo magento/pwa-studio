@@ -1,4 +1,5 @@
-export const forgotPasswordFormEmail = '[data-cy="ForgotPasswordForm-email"]';
+export const forgotPasswordFormEmail =
+    '[data-cy="forgotPasswordForm-root"] [data-cy="email"]';
 
 export const forgotPasswordFormSubmitButton =
-    '[data-cy="ForgotPasswordForm-submitButton"]';
+    '[data-cy="forgotPasswordForm-submitButton"]';
