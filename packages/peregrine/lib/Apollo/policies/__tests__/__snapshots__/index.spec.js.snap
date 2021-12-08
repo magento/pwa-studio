@@ -57,6 +57,9 @@ Object {
         "merge": [Function],
       },
     },
+    "keyFields": Array [
+      "uid",
+    ],
   },
   "ConfigurableProduct": Object {
     "keyFields": Array [
