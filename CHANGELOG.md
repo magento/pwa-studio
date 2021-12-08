@@ -62,7 +62,7 @@ As mentioned above, we not only introduced metapackages in this release, we used
 
 ## Known Issues
 
--  Safari (macOS version) does not show toast messages or indicators when Venia switches between online and offline.
+-  Safari (macOS version) does not show toast messages or indicators when Venia switches between online and offline. This is an issue with Safari, not Venia. Safari always reports `true` for `navigator.onLine` — even when offline.
 
 ## Test Updates
 
