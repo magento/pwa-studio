@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { number, string } from 'prop-types';
+import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBreadcrumbs';

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { number, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import { useStyle } from '../../classify';
 

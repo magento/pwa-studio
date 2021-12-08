@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, number, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import { useCategoryTree } from '@magento/peregrine/lib/talons/CategoryTree';
 
 import { useStyle } from '../../classify';

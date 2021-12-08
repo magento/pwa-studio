@@ -14,6 +14,7 @@ export const RESOLVE_URL = gql`
                 uid
                 __typename
             }
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on CategoryInterface {
                 uid
             }

@@ -15,8 +15,8 @@ export const ProductDetailsFragment = gql`
         }
         id
         uid
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         media_gallery_entries {
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             uid
             label
             position
@@ -45,6 +45,7 @@ export const ProductDetailsFragment = gql`
                 attribute_id
                 id
                 label
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 values {
                     uid
                     default_label
@@ -65,6 +66,7 @@ export const ProductDetailsFragment = gql`
                     code
                     value_index
                 }
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 product {
                     uid
                     # eslint-disable-next-line @graphql-eslint/require-id-when-available
