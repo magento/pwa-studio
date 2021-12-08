@@ -48,7 +48,7 @@ const MegaMenuItem = props => {
         isFocused,
         isActive,
         handleMenuItemFocus,
-        handleMenuItemBlur,
+        handleCloseSubMenu,
         isMenuActive,
         handleKeyDown
     } = talonProps;
@@ -64,7 +64,7 @@ const MegaMenuItem = props => {
                 subMenuState={subMenuState}
                 items={category.children}
                 mainNavWidth={mainNavWidth}
-                handleMenuItemBlur={handleMenuItemBlur}
+                handleCloseSubMenu={handleCloseSubMenu}
                 categoryUrlSuffix={categoryUrlSuffix}
                 onNavigate={onNavigate}
             />
@@ -74,7 +74,7 @@ const MegaMenuItem = props => {
         isFocused,
         mainNavWidth,
         subMenuState,
-        handleMenuItemBlur,
+        handleCloseSubMenu,
         categoryUrlSuffix,
         onNavigate
     ]);
@@ -105,7 +105,7 @@ const MegaMenuItem = props => {
             }}
             onMouseLeave={e => {
                 handleClickOutside(e);
-                handleMenuItemBlur();
+                handleCloseSubMenu();
             }}
         >
             <Link

@@ -10,7 +10,7 @@ export const useMegaMenuItem = props => {
         setIsFocused(true);
     }, [setIsFocused]);
 
-    const handleMenuItemBlur = useCallback(() => {
+    const handleCloseSubMenu = useCallback(() => {
         setIsFocused(false);
     }, [setIsFocused]);
 
@@ -59,7 +59,7 @@ export const useMegaMenuItem = props => {
         isFocused,
         isActive,
         handleMenuItemFocus,
-        handleMenuItemBlur,
+        handleCloseSubMenu,
         isMenuActive,
         handleKeyDown
     };

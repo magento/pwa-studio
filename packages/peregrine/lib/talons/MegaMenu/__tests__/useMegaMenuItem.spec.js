@@ -82,13 +82,13 @@ test('handleMenuItemFocus to be called', () => {
     expect(talonProps.isMenuActive).toEqual(false);
 });
 
-test('handleMenuItemBlur to be called', () => {
+test('handleCloseSubMenu to be called', () => {
     const props = {
         ...defaultProps
     };
     const { talonProps } = getTalonProps(props);
 
-    talonProps.handleMenuItemBlur();
+    talonProps.handleCloseSubMenu();
 
     expect(talonProps.isMenuActive).toEqual(false);
 });

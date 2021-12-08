@@ -15,7 +15,7 @@ jest.mock('react', () => {
     });
 });
 
-const handleMenuItemBlur = jest.fn().mockName('handleMenuItemBlur');
+const handleCloseSubMenu = jest.fn().mockName('handleCloseSubMenu');
 
 describe('Submenu renders correctly', () => {
     const props = {
@@ -45,7 +45,7 @@ describe('Submenu renders correctly', () => {
         rootCategoryName: 'Clothing',
         firstLevelCategoryName: 'Women',
         categoryUrlSuffix: '.html',
-        handleMenuItemBlur,
+        handleCloseSubMenu,
         isFocused: false,
         subMenuState: false
     };
