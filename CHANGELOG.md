@@ -62,7 +62,7 @@ As mentioned above, we not only introduced metapackages in this release, we used
 
 ## Known Issues
 
-No known issues.
+-  Safari (macOS version) does not show toast messages or indicators when Venia switches between online and offline.
 
 ## Test Updates
 
