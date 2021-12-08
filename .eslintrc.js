@@ -43,7 +43,7 @@ const config = {
                     'error',
                     {
                         ObjectTypeDefinition: 'PascalCase',
-                        allowLeadingUnderscore : true
+                        allowLeadingUnderscore: true
                     }
                 ],
                 '@graphql-eslint/require-id-when-available': 'error'
