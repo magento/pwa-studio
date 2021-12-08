@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 let summary;
-const failures = [];
 
 const processTests = (tests, testsFile) => {
     const failedMessages = tests.filter(test => test.fail).map(test => `${testsFile} \n\n ${test.title}: \n\n\t ${test.err.estack}`);
@@ -23,8 +22,12 @@ const hasFailed = (result) => {
 
 if (testFailures === 0) {
     // no test failures
+    console.log('All Cypress tests passed 👍 \n');
+
     return;
 } else {
+    const failures = [];
+
     // test failures, lets document them
     const { results } = summary;
 
@@ -42,16 +45,12 @@ if (testFailures === 0) {
             );
         }
     })
-}
 
-const failSummary = failures.join('\n\n -------------------------------- \n\n')
+    const failSummary = failures.join('\n\n -------------------------------- \n\n')
 
-if (failSummary) {
     console.error(
         'Cypress tests in the following files did not pass 😔. \n\n\n' +
         failures.length + ' failures \n\n\n' +
         failSummary + '\n\n'
     );
-} else {
-    console.log('Cypress tests passed 👍');
 }
