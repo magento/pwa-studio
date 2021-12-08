@@ -58,9 +58,9 @@ jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
     return {
         ...apolloClient,
-        useQuery: jest
-            .fn()
-            .mockReturnValue({ data: { storeConfig: { root_category_id: 1 } } })
+        useQuery: jest.fn().mockReturnValue({
+            data: { storeConfig: { root_category_uid: 'Mg==' } }
+        })
     };
 });
 
@@ -92,7 +92,7 @@ test('it returns the proper shape', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith({
         catalogActions: expect.any(Object),
-        categoryId: expect.any(Number),
+        categoryId: expect.any(String),
         handleBack: expect.any(Function),
         handleClose: expect.any(Function),
         hasModal: expect.any(Boolean),
