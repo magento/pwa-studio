@@ -11,6 +11,7 @@
     "test:devTest": "jest",
     "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
     "test:headless": "./run-tests.js",
+    "posttest:headless": "./report-results.js",
     "test:run": "cypress run --browser chrome --config-file cypress.config.json"
   },
   "author": "Magento Commerce",
