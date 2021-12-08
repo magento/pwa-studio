@@ -15,19 +15,18 @@ import { StoreTitle } from '../../Head';
 import Password from '../../Password';
 import TextInput from '../../TextInput';
 import defaultClasses from './resetPassword.module.css';
-import resetPasswordOperations from './resetPassword.gql';
 
 const ResetPassword = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, propClasses);
-    const talonProps = useResetPassword({ ...resetPasswordOperations });
+    const talonProps = useResetPassword();
     const {
-        hasCompleted,
-        loading,
-        token,
+        isBusy,
         formErrors,
-        handleSubmit
+        handleSubmit,
+        hasCompleted,
+        token
     } = talonProps;
     const PAGE_TITLE = formatMessage({
         id: 'resetPassword.pageTitleText',
@@ -99,7 +98,7 @@ const ResetPassword = props => {
                 className={classes.submitButton}
                 type="submit"
                 priority="high"
-                disabled={loading}
+                disabled={isBusy}
             >
                 <FormattedMessage
                     id="resetPassword.savePassword"

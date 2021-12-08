@@ -15,8 +15,5 @@ export const RESET_PASSWORD_MUTATION = gql`
 `;
 
 export default {
-    queries: {},
-    mutations: {
-        resetPasswordMutation: RESET_PASSWORD_MUTATION
-    }
+    resetPasswordMutation: RESET_PASSWORD_MUTATION
 };

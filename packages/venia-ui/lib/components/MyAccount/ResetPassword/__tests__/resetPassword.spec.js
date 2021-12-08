@@ -11,8 +11,8 @@ jest.mock('@magento/peregrine', () => ({
 }));
 jest.mock('@magento/peregrine/lib/talons/MyAccount/useResetPassword', () => ({
     useResetPassword: jest.fn().mockReturnValue({
+        isBusy: false,
         hasCompleted: false,
-        loading: false,
         token: '********',
         formErrors: [],
         handleSubmit: jest.fn().mockName('handleSubmit')
@@ -31,8 +31,8 @@ test('should render properly', () => {
 
 test('should render error message if token is falsy', () => {
     useResetPassword.mockReturnValueOnce({
+        isBusy: false,
         hasCompleted: false,
-        loading: false,
         token: null,
         formErrors: [],
         handleSubmit: jest.fn()
@@ -45,8 +45,8 @@ test('should render error message if token is falsy', () => {
 
 test('should render formErrors', () => {
     useResetPassword.mockReturnValueOnce({
+        isBusy: false,
         hasCompleted: false,
-        loading: false,
         token: '**********',
         formErrors: [
             {
@@ -65,8 +65,8 @@ test('should render formErrors', () => {
 
 test('should render success message if hasCompleted is true', () => {
     useResetPassword.mockReturnValueOnce({
+        isBusy: false,
         hasCompleted: true,
-        loading: false,
         token: '**********',
         formErrors: [],
         handleSubmit: jest.fn()
@@ -81,8 +81,8 @@ test('should render toast if hasCompleted is true', () => {
     const addToast = jest.fn();
     useToasts.mockReturnValueOnce([{}, { addToast }]);
     useResetPassword.mockReturnValueOnce({
+        isBusy: false,
         hasCompleted: true,
-        loading: false,
         token: '**********',
         formErrors: [],
         handleSubmit: jest.fn()
