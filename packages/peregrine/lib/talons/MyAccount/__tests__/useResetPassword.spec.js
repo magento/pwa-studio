@@ -21,6 +21,7 @@ jest.mock('react-router-dom', () => ({
 jest.mock('@magento/peregrine/lib/hooks/useGoogleReCaptcha', () => ({
     useGoogleReCaptcha: jest.fn().mockReturnValue({
         generateReCaptchaData: jest.fn(() => {}),
+        recaptchaError: null,
         isGenerating: false,
         isLoading: false
     })

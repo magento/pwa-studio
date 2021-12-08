@@ -33,6 +33,7 @@ export const useForgotPassword = props => {
 
     const {
         generateReCaptchaData,
+        recaptchaError,
         isGenerating: recaptchaIsGenerating,
         isLoading: recaptchaIsLoading
     } = useGoogleReCaptcha({
@@ -73,7 +74,7 @@ export const useForgotPassword = props => {
 
     return {
         forgotPasswordEmail,
-        formErrors: [requestResetEmailError],
+        formErrors: [requestResetEmailError, recaptchaError],
         hasCompleted,
         formProps
     };

@@ -35,10 +35,13 @@ export const useGoogleReCaptcha = props => {
     });
 
     const [isGenerating, setIsGenerating] = useState(false);
+    const [recaptchaError, setRecaptchaError] = useState(null);
 
     const recaptchaBadge = configData?.recaptchaV3Config?.badge_position || '';
     const recaptchaKey = configData?.recaptchaV3Config?.website_key || '';
     const recaptchaLang = configData?.recaptchaV3Config?.language_code || '';
+    const recaptchaErrorMessage =
+        configData?.recaptchaV3Config?.failure_message || '';
     const activeForms = configData?.recaptchaV3Config?.forms || [];
     const isEnabled =
         !(configError instanceof Error) &&
@@ -90,21 +93,28 @@ export const useGoogleReCaptcha = props => {
                 };
 
                 setIsGenerating(false);
+                setRecaptchaError(null);
 
                 return result;
             } catch (error) {
                 // Log API error
                 console.error(error);
 
+                // Provide generic error
+                if (recaptchaErrorMessage.length > 0) {
+                    setRecaptchaError(new Error(recaptchaErrorMessage));
+                }
+
                 setIsGenerating(false);
             }
         }
 
         return {};
-    }, [currentForm, isEnabled, recaptchaKey]);
+    }, [currentForm, isEnabled, recaptchaErrorMessage, recaptchaKey]);
 
     return {
         generateReCaptchaData,
+        recaptchaError,
         isGenerating,
         isLoading
     };
@@ -119,6 +129,7 @@ export const useGoogleReCaptcha = props => {
  * @typedef {Object} GoogleReCaptchaProps
  *
  * @property {Function} generateReCaptchaData - The function to generate ReCaptcha Mutation data.
+ * @property {Error} [recaptchaError] - Generic error to show when API fails.
  * @property {Boolean} isGenerating - Indicates if hook is generating Mutation data.
  * @property {Boolean} isLoading - Indicates if hook is loading data and script.
  */

@@ -29,6 +29,7 @@ export const useResetPassword = (props = {}) => {
 
     const {
         generateReCaptchaData,
+        recaptchaError,
         isGenerating: recaptchaIsGenerating,
         isLoading: recaptchaIsLoading
     } = useGoogleReCaptcha({
@@ -64,7 +65,7 @@ export const useResetPassword = (props = {}) => {
 
     return {
         isBusy: loading || recaptchaIsGenerating || recaptchaIsLoading,
-        formErrors: [resetPasswordErrors],
+        formErrors: [resetPasswordErrors, recaptchaError],
         handleSubmit,
         hasCompleted,
         loading,

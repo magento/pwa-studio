@@ -29,7 +29,7 @@ const getReCaptchaV3ConfigMock1 = {
                 minimum_score: '0.5',
                 badge_position: 'bottomRight',
                 language_code: 'en',
-                failure_message: '',
+                failure_message: 'generic error message',
                 forms: ['CURRENT_FORM']
             }
         }
@@ -73,6 +73,7 @@ describe('#useGoogleReCaptcha', () => {
               "generateReCaptchaData": [Function],
               "isGenerating": false,
               "isLoading": true,
+              "recaptchaError": null,
             }
         `);
 
@@ -85,6 +86,7 @@ describe('#useGoogleReCaptcha', () => {
               "generateReCaptchaData": [Function],
               "isGenerating": false,
               "isLoading": false,
+              "recaptchaError": null,
             }
         `);
     });
@@ -103,6 +105,7 @@ describe('#useGoogleReCaptcha', () => {
               "generateReCaptchaData": [Function],
               "isGenerating": false,
               "isLoading": false,
+              "recaptchaError": null,
             }
         `);
     });
@@ -129,7 +132,50 @@ describe('#useGoogleReCaptcha', () => {
         });
     });
 
-    it('returns empty object when user ask for generation and it returns an error', async () => {
+    it('returns empty token object and no generic error message when user ask for generation and it returns an error', async () => {
+        const getReCaptchaV3ConfigMock2 = {
+            request: {
+                query: DEFAULT_OPERATIONS.getReCaptchaV3ConfigQuery
+            },
+            result: {
+                data: {
+                    recaptchaV3Config: {
+                        ...getReCaptchaV3ConfigMock1.result.data
+                            .recaptchaV3Config,
+                        failure_message: undefined
+                    }
+                }
+            }
+        };
+
+        globalThis.grecaptcha = {};
+
+        const { result, waitForNextUpdate } = renderHookWithProviders({
+            mocks: [getReCaptchaV3ConfigMock2]
+        });
+
+        // Wait for query to finish loading
+        await waitForNextUpdate();
+
+        // Ask generation of token
+        await act(async () => {
+            const tokenData = await result.current.generateReCaptchaData();
+
+            expect(tokenData).toEqual({});
+        });
+
+        // Check data after load
+        expect(result.current).toMatchInlineSnapshot(`
+            Object {
+              "generateReCaptchaData": [Function],
+              "isGenerating": false,
+              "isLoading": false,
+              "recaptchaError": null,
+            }
+        `);
+    });
+
+    it('returns empty token object and generic error message when user ask for generation and it returns an error', async () => {
         globalThis.grecaptcha = {};
 
         const { result, waitForNextUpdate } = renderHookWithProviders();
@@ -143,9 +189,19 @@ describe('#useGoogleReCaptcha', () => {
 
             expect(tokenData).toEqual({});
         });
+
+        // Check data after load
+        expect(result.current).toMatchInlineSnapshot(`
+            Object {
+              "generateReCaptchaData": [Function],
+              "isGenerating": false,
+              "isLoading": false,
+              "recaptchaError": [Error: generic error message],
+            }
+        `);
     });
 
-    it('returns empty object when user ask for generation and script is not enabled', async () => {
+    it('returns empty token object when user ask for generation and script is not enabled', async () => {
         const { result, waitForNextUpdate } = renderHookWithProviders({
             renderHookOptions: {
                 initialProps: {
