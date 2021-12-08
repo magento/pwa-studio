@@ -207,3 +207,12 @@ export const checkoutPageOrderConfirmationNumber =
 
 export const checkoutPageOrderConfirmationHeader =
     '[data-cy="OrderConfirmationPage-root"] [data-cy="OrderConfirmationPage-header"]';
+
+export const checkoutPageSignInEmailTextField =
+    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignIn-email"]';
+
+export const checkoutPageSignInPasswordField =
+    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignIn-password"]';
+
+export const checkoutPageSignInSubmitButton =
+    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignIn-submitButton"]';
