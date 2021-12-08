@@ -9,3 +9,4 @@ export * as pageBuilder from './pageBuilder';
 export * as productPage from './productPage';
 export * as wishlistPage from './wishlistPage';
 export * as miniCart from './miniCart';
+export * as newsletter from './newsletter';
