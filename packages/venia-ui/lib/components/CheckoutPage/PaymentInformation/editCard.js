@@ -18,7 +18,7 @@ const EditCard = props => {
     } = props;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="EditCard">
             <CreditCard
                 onPaymentReady={onPaymentReady}
                 onPaymentSuccess={onPaymentSuccess}
