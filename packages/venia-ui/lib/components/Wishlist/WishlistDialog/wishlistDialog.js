@@ -79,6 +79,7 @@ const WishlistDialog = props => {
                 className={classes.createListButton}
                 onClick={handleNewListClick}
                 type="button"
+                data-cy="WishlistDialog-createButton"
             >
                 {createButtonText}
             </button>
