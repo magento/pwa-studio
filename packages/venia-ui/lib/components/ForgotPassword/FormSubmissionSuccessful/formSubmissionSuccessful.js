@@ -27,7 +27,9 @@ const FormSubmissionSuccessful = props => {
                     defaultMessage={'Recover Password'}
                 />
             </h2>
-            <p className={classes.text}>{textMessage}</p>
+            <p className={classes.text} data-cy="formSubmissionSuccessful-text">
+                {textMessage}
+            </p>
         </div>
     );
 };
