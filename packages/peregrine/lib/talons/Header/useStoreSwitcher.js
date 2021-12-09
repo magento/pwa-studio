@@ -12,7 +12,6 @@ const mapAvailableOptions = (config, stores) => {
     const { code: configCode } = config;
 
     return stores.reduce((map, store) => {
-        console.warn(store);
         const {
             category_url_suffix,
             code,
