@@ -317,6 +317,8 @@
     "priceAdjustments.giftOptions": "See Gift Options",
     "priceAdjustments.shippingMethod": "Estimate your Shipping",
     "priceSummary.checkoutButton": "Proceed to Checkout",
+    "priceSummary.discountSummary.hideDiscounts": "Hide individual discounts.",
+    "priceSummary.discountSummary.showDiscounts": "Show individual discounts.",
     "priceSummary.errorText": "Something went wrong. Please refresh and try again.",
     "priceSummary.estimatedTotal": "Estimated Total",
     "priceSummary.lineItemLabel": "Subtotal",
