@@ -121,7 +121,6 @@ test('returns correct shape', async () => {
           "isLoading": false,
           "wishlistsData": Object {
             "customer": Object {
-              "id": "customerId",
               "wishlists": Array [
                 Object {
                   "id": "1",
