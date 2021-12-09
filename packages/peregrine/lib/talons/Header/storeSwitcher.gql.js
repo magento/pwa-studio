@@ -15,13 +15,16 @@ export const GET_ROUTE_DATA = gql`
     query getRouteData($url: String!) {
         route(url: $url) {
             type
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on CmsPage {
                 identifier
             }
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ProductInterface {
                 uid
                 __typename
             }
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on CategoryInterface {
                 uid
             }
