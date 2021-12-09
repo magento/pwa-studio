@@ -6,8 +6,8 @@ import { ShippingInformationFragment } from '../ShippingInformation/shippingInfo
 
 export const GET_CUSTOMER_ADDRESSES = gql`
     query GetCustomerAddresses {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             addresses {
                 id
                 ...CustomerAddressFragment
