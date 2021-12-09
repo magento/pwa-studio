@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 
 import createTestInstance from '../../../../../util/createTestInstance';
 import { useGuestForm } from '../useGuestForm';
@@ -8,7 +8,13 @@ import { useGuestForm } from '../useGuestForm';
 jest.mock('@apollo/client', () => ({
     useMutation: jest
         .fn()
-        .mockReturnValue([jest.fn(), { called: false, loading: false }])
+        .mockReturnValue([jest.fn(), { called: false, loading: false }]),
+    useLazyQuery: jest
+        .fn()
+        .mockReturnValue([
+            jest.fn(),
+            { data: null, called: false, loading: false, error: null }
+        ])
 }));
 
 jest.mock('../../../../../context/cart', () => {
@@ -220,4 +226,72 @@ test('should call onSuccess on mutation success', () => {
     onCompleted();
 
     expect(onSuccess).toHaveBeenCalled();
+});
+
+test('handleValidateEmail calls isEmailAvailable query if email is valid', () => {
+    const validadeEmailQuery = jest.fn();
+    useLazyQuery.mockReturnValueOnce([validadeEmailQuery, { data: null }]);
+
+    const tree = createTestInstance(
+        <Component mutations={{}} shippingData={shippingData} />
+    );
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleValidateEmail } = talonProps;
+
+    handleValidateEmail();
+    expect(validadeEmailQuery).not.toHaveBeenCalled();
+    handleValidateEmail('testmail.com');
+    expect(validadeEmailQuery).not.toHaveBeenCalled();
+    handleValidateEmail('test@mail.com');
+    expect(validadeEmailQuery).toHaveBeenCalled();
+});
+
+test('sets signIn toast visible when email is not available', () => {
+    const validadeEmailQuery = jest.fn();
+    useLazyQuery.mockReturnValueOnce([
+        validadeEmailQuery,
+        {
+            data: {
+                isEmailAvailable: {
+                    is_email_available: false
+                }
+            }
+        }
+    ]);
+
+    const tree = createTestInstance(
+        <Component mutations={{}} shippingData={shippingData} />
+    );
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { showSignInToast } = talonProps;
+
+    expect(showSignInToast).toBe(true);
+});
+
+test('handleToastAction fires up defined toast callback action', () => {
+    const removeToast = jest.fn();
+    const setGuestSignInUsername = jest.fn();
+    const toggleSignInContent = jest.fn();
+
+    const tree = createTestInstance(
+        <Component
+            mutations={{}}
+            shippingData={shippingData}
+            toggleSignInContent={toggleSignInContent}
+            setGuestSignInUsername={setGuestSignInUsername}
+        />
+    );
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleToastAction } = talonProps;
+
+    handleToastAction(removeToast, 'test@mail.com');
+    expect(setGuestSignInUsername).toHaveBeenCalledWith('test@mail.com');
+    expect(toggleSignInContent).toHaveBeenCalled();
+    expect(removeToast).toHaveBeenCalled();
 });

@@ -257,3 +257,129 @@ exports[`renders correctly 1`] = `
   </form>
 </div>
 `;
+
+exports[`renders prefilled form with initial values 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Sign-in to Your Account"
+      id="signIn.titleText"
+    />
+  </span>
+  <FormError
+    errors={
+      Array [
+        null,
+        null,
+      ]
+    }
+  />
+  <form
+    className="form"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
+        Email address
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            autoComplete="email"
+            className="input"
+            id="email"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="test@mail.com"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
+        Password
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 1,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            autoComplete="current-password"
+            className="input"
+            id="password"
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="password"
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        >
+          <i />
+        </span>
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+    <div
+      className="forgotPasswordButtonContainer"
+    >
+      <i />
+    </div>
+    <div
+      className="buttonsContainer"
+    >
+      <i />
+      <i />
+    </div>
+  </form>
+</div>
+`;

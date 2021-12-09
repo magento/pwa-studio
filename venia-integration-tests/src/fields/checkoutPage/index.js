@@ -135,10 +135,9 @@ export const orderConfirmationCreateAccountNewsletterCheckbox =
 export const orderConfirmationCreateAccountCreateAccountButton =
     '[data-cy="OrderConfirmationPage-root"] [data-cy="OrderConfirmationPage-CreateAccount-createAccountButton"]';
 
-export const checkoutPageHeading = 'h1[class^="checkoutPage-heading-"]';
+export const checkoutPageHeaderText = '[data-cy="ChekoutPage-headerText"]';
 
-export const checkoutPageGuestEmailInput =
-    'div[class^="guestForm-email-"] input[name*="email"]';
+export const checkoutPageGuestEmailInput = '[data-cy="GuestForm-email"]';
 
 export const checkoutPageShippingMethodSubmitButton =
     '[data-cy="ShippingMethod-submitButton"]';
@@ -158,16 +157,16 @@ export const checkoutPagePriceSummaryShippingPrice =
     '[data-cy="OrderSummary-root"] [data-cy="ShippingSummary-shippingValue"]';
 
 export const checkoutPageEditShippingInfoButton =
-    'button[class^="shippingInformation-editButton-"]';
+    '[data-cy="ShippingInformation-editButton"]';
 
 export const checkoutPageEditShippingMethodButton =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingMethod-done"] button[class^="completedView-editButton-"]';
+    '[data-cy="CheckoutPage-root"] [data-cy="ShippingMethod-done"] [data-cy="CompletedView-editButton"]';
 
 export const checkoutPageShippingMethodRadiolabel =
-    '[data-cy="RadioGroup-root"] span[data-cy="ShippingRadio-name"]';
+    '[data-cy="RadioGroup-root"] [data-cy="ShippingRadio-name"]';
 
 export const checkoutPageEditCreditCardButton =
-    '[data-cy="CheckoutPage-root"] button[class^="braintreeSummary-edit_button-"]';
+    '[data-cy="CheckoutPage-root"] [data-cy="BrainTreeSummary-editButton"]';
 
 export const checkoutPageCreditCardBillingAddressCheckbox =
     '[data-cy="CreditCard-root"] [data-cy="PaymentInformation-billingAddressSame"]';
@@ -200,10 +199,22 @@ export const checkoutPageBillingAddressPhoneNumberTextField =
     '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-phoneNumber"]';
 
 export const checkoutPageOpenedDialogSubmitButton =
-    'aside[class^="dialog-root_open-"] form[class^="dialog-form-"] [data-cy="Dialog-confirmButton"]';
+    '[data-cy="Dialog-root"] [data-cy="Dialog-form"] [data-cy="Dialog-confirmButton"]';
+
+export const checkoutPageOpenedDialogEditPaymentSubmitButton =
+    '[data-cy="Dialog-root"] [data-cy="Dialog-form"] [data-cy="Edit Payment Information"] [data-cy="Dialog-confirmButton"]';
 
 export const checkoutPageOrderConfirmationNumber =
     '[data-cy="OrderConfirmationPage-root"] [data-cy="OrderConfirmationPage-orderNumber"]';
 
 export const checkoutPageOrderConfirmationHeader =
     '[data-cy="OrderConfirmationPage-root"] [data-cy="OrderConfirmationPage-header"]';
+
+export const checkoutPageSignInEmailTextField =
+    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignIn-email"]';
+
+export const checkoutPageSignInPasswordField =
+    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="password"]';
+
+export const checkoutPageSignInSubmitButton =
+    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignInButton-root_highPriority"]';

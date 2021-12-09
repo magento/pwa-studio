@@ -47,6 +47,7 @@ const CreateWishlist = props => {
                 className={classes.createButton}
                 onClick={handleShowModal}
                 type="button"
+                data-cy="createWishlist-createButton"
             >
                 <div className={classes.labelContainer}>
                     {createIcon}
@@ -99,6 +100,7 @@ const CreateWishlist = props => {
                             field="name"
                             validate={isRequired}
                             validateOnBlur
+                            data-cy="createWishlist-name"
                         />
                     </Field>
                 </div>

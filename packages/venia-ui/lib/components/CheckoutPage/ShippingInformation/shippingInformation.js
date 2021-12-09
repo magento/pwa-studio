@@ -19,7 +19,9 @@ const ShippingInformation = props => {
         classes: propClasses,
         onSave,
         onSuccess,
-        toggleActiveContent
+        toggleActiveContent,
+        toggleSignInContent,
+        setGuestSignInUsername
     } = props;
     const talonProps = useShippingInformation({
         onSave,
@@ -71,6 +73,7 @@ const ShippingInformation = props => {
                 <LinkButton
                     onClick={handleEditShipping}
                     className={classes.editButton}
+                    data-cy="ShippingInformation-editButton"
                 >
                     <Icon
                         size={16}
@@ -100,6 +103,8 @@ const ShippingInformation = props => {
                 <AddressForm
                     onSuccess={onSuccess}
                     shippingData={shippingData}
+                    toggleSignInContent={toggleSignInContent}
+                    setGuestSignInUsername={setGuestSignInUsername}
                 />
             </div>
         </Fragment>
@@ -128,5 +133,7 @@ ShippingInformation.propTypes = {
     }),
     onSave: func.isRequired,
     onSuccess: func.isRequired,
-    toggleActiveContent: func.isRequired
+    toggleActiveContent: func.isRequired,
+    toggleSignInContent: func.isRequired,
+    setGuestSignInUsername: func.isRequired
 };
