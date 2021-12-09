@@ -79,3 +79,7 @@ export const getWishlistConfigForProductPageCall =
 
 export const getWishlistConfigForWishlistPageCall =
     '**/graphql?query=query+GetWishlistConfigForWishlistPageEE*';
+
+export const getPriceSummaryCall = '**/graphql?query=query+getPriceSummary*';
+
+export const getCartDetailsCall = '**/graphql?query=query+GetCartDetails*';

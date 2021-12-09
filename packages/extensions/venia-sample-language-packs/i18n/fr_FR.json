@@ -263,6 +263,8 @@
     "priceAdjustments.giftOptions": "Voir les options de cadeaux",
     "priceAdjustments.shippingMethod": "Estimez votre expédition",
     "priceSummary.checkoutButton": "Passer à la caisse",
+    "priceSummary.discountSummary.hideDiscounts": "Cacher les rabais individuels.",
+    "priceSummary.discountSummary.showDiscounts": "Afficher les rabais individuels.",
     "priceSummary.errorText": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "priceSummary.estimatedTotal": "Total estimé",
     "priceSummary.lineItemLabel": "Sous-total",

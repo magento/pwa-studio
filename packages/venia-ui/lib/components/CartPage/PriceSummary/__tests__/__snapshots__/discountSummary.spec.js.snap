@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders accumulated discount value 1`] = `
-Array [
+<li
+  className="lineItems"
+>
   <span
     className="lineItemLabel"
   >
@@ -9,7 +11,34 @@ Array [
       defaultMessage="Discounts applied"
       id="discountSummary.lineItemLabel"
     />
-  </span>,
+    <button
+      aria-expanded={false}
+      aria-label="Show individual discounts."
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={16}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 12 15 18 9"
+          />
+        </svg>
+      </span>
+    </button>
+  </span>
   <span
     className="price"
   >
@@ -26,12 +55,14 @@ Array [
     <span>
       00
     </span>
-  </span>,
-]
+  </span>
+</li>
 `;
 
 exports[`renders discount summary line item correctly 1`] = `
-Array [
+<li
+  className="lineItems"
+>
   <span
     className="lineItemLabel"
   >
@@ -39,7 +70,34 @@ Array [
       defaultMessage="Discounts applied"
       id="discountSummary.lineItemLabel"
     />
-  </span>,
+    <button
+      aria-expanded={false}
+      aria-label="Show individual discounts."
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={16}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 12 15 18 9"
+          />
+        </svg>
+      </span>
+    </button>
+  </span>
   <span
     className="price"
   >
@@ -56,8 +114,8 @@ Array [
     <span>
       00
     </span>
-  </span>,
-]
+  </span>
+</li>
 `;
 
 exports[`renders nothing if discount data is empty 1`] = `null`;
