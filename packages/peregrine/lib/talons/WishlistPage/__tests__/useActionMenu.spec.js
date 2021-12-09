@@ -18,7 +18,7 @@ jest.mock('@apollo/client', () => {
         useQuery: jest.fn().mockReturnValue({
             data: {
                 storeConfig: {
-                    store_code: '1',
+                    store_code: 'default',
                     magento_wishlist_general_is_enabled: '1',
                     enable_multiple_wishlists: '1'
                 }

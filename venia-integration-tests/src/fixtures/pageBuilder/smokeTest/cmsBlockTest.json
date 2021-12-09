@@ -12,7 +12,7 @@
             "__typename": "CmsPage"
         },
         "storeConfig": {
-            "store_code": 1,
+            "store_code": "default",
             "root_category_id": 2,
             "__typename": "StoreConfig"
         }

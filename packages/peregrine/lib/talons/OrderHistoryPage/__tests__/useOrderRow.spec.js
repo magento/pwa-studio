@@ -50,7 +50,7 @@ const dataResponse = {
             items
         },
         storeConfig: {
-            store_code: 1,
+            store_code: 'default',
             configurable_thumbnail_source: 'parent'
         }
     },
@@ -105,7 +105,7 @@ test('returns correct shape when variant', () => {
                 ]
             },
             storeConfig: {
-                store_code: 1,
+                store_code: 'default',
                 configurable_thumbnail_source: 'itself'
             }
         },
@@ -132,7 +132,7 @@ test('filters out items not in the request', () => {
                 ]
             },
             storeConfig: {
-                store_code: 1,
+                store_code: 'default',
                 configurable_thumbnail_source: 'parent'
             }
         },

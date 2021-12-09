@@ -17,7 +17,7 @@ jest.mock('@apollo/client', () => {
     const useQuery = jest.fn().mockReturnValue({
         data: {
             storeConfig: {
-                store_code: 1,
+                store_code: 'default',
                 category_url_suffix: '.html'
             }
         }

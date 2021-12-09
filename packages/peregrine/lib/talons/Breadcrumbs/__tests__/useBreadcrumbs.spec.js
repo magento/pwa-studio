@@ -52,7 +52,7 @@ jest.mock('../../../hooks/useInternalLink', () =>
 const storeConfigResponse = {
     data: {
         storeConfig: {
-            store_code: 1,
+            store_code: 'default',
             category_url_suffix: '.html'
         }
     }

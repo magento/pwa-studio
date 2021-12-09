@@ -60,7 +60,7 @@ test('returns store config EE', async () => {
             "enable_multiple_wishlists": "1",
             "magento_wishlist_general_is_enabled": "1",
             "product_url_suffix": ".html",
-            "store_code": 1,
+            "store_code": "default",
           },
         }
     `);
@@ -80,7 +80,7 @@ test('returns store config C', async () => {
           "storeConfig": Object {
             "magento_wishlist_general_is_enabled": "1",
             "product_url_suffix": ".html",
-            "store_code": 1,
+            "store_code": "default",
           },
         }
     `);
@@ -92,7 +92,7 @@ test('returns store config C', async () => {
           "storeConfig": Object {
             "magento_wishlist_general_is_enabled": "1",
             "product_url_suffix": ".html",
-            "store_code": 1,
+            "store_code": "default",
           },
         }
     `);
