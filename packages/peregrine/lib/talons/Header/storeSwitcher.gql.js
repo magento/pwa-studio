@@ -28,6 +28,7 @@ export const GET_AVAILABLE_STORES_DATA = gql`
             code
             default_display_currency_code
             id
+            store_code
             locale
             product_url_suffix
             secure_base_media_url
