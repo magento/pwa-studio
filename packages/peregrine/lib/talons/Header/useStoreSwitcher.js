@@ -12,6 +12,7 @@ const mapAvailableOptions = (config, stores) => {
     const { code: configCode } = config;
 
     return stores.reduce((map, store) => {
+        console.warn(store);
         const {
             category_url_suffix,
             code,
@@ -19,6 +20,7 @@ const mapAvailableOptions = (config, stores) => {
             locale,
             product_url_suffix,
             secure_base_media_url,
+            store_code: storeCode,
             store_group_code: storeGroupCode,
             store_group_name: storeGroupName,
             store_name: storeName,
@@ -35,6 +37,7 @@ const mapAvailableOptions = (config, stores) => {
             product_url_suffix,
             secure_base_media_url,
             sortOrder,
+            storeCode,
             storeGroupCode,
             storeGroupName,
             storeName
