@@ -28,8 +28,8 @@ export const GET_WISHLISTS = gql`
             enable_multiple_wishlists
             maximum_number_of_wishlists
         }
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             wishlists {
                 id
                 name

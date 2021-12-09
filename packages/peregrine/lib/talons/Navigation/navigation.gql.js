@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 export const GET_CUSTOMER = gql`
     query GetCustomerForLeftNav {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             email
             firstname
             lastname
