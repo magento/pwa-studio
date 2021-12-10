@@ -3,68 +3,73 @@
 let summary;
 
 const processTests = (tests, testsFile) => {
-    const failedMessages = tests.filter(test => test.fail).map(test => `${testsFile} \n\n${test.title}: \n\n${test.err.estack}`);
+    const failedMessages = tests
+        .filter(test => test.fail)
+        .map(test => `${testsFile} \n\n${test.title}: \n\n${test.err.estack}`);
 
     return failedMessages.join('\n');
-}
+};
 
 try {
     summary = require('./cypress-test-results.json');
 } catch (e) {
-    throw new Error('Unable to retrieve Cypress results. Please re-run the tests.')
+    throw new Error(
+        'Unable to retrieve Cypress results. Please re-run the tests.'
+    );
 }
 
 const testFailures = summary.stats.failures;
 
-const hasFailed = (result) => {
+const hasFailed = result => {
     return result.suites.some(suite => suite.failures.length > 0);
-}
+};
 
-const getTestStatuses = (result) => {
-    let passedTests = 0
-    let failedTests = 0
+const getTestStatuses = result => {
+    let passedTests = 0;
+    let failedTests = 0;
     let totalDuration = 0;
 
     try {
         if (result.tests.length) {
-            passedTests = passedTests + result.passes.length
-            failedTests = failedTests + result.failures.length
-            totalDuration = totalDuration + result.duration
+            passedTests = passedTests + result.passes.length;
+            failedTests = failedTests + result.failures.length;
+            totalDuration = totalDuration + result.duration;
         }
 
         if (result.suites.length) {
             result.suites.forEach(suite => {
                 if (suite.tests.length) {
-                    passedTests = passedTests + suite.passes.length
-                    failedTests = failedTests + suite.failures.length
-                    totalDuration = totalDuration + suite.duration
+                    passedTests = passedTests + suite.passes.length;
+                    failedTests = failedTests + suite.failures.length;
+                    totalDuration = totalDuration + suite.duration;
                 }
 
                 if (suite.suites.length) {
                     suite.suites.forEach(subSuite => {
-                        const subSuiteResult = getTestStatuses(subSuite)
+                        const subSuiteResult = getTestStatuses(subSuite);
 
-                        passedTests = passedTests + subSuiteResult.passedTests
-                        failedTests = failedTests + subSuiteResult.failedTests
-                        totalDuration = totalDuration + subSuiteResult.totalDuration
-                    })
+                        passedTests = passedTests + subSuiteResult.passedTests;
+                        failedTests = failedTests + subSuiteResult.failedTests;
+                        totalDuration =
+                            totalDuration + subSuiteResult.totalDuration;
+                    });
                 }
-            })
+            });
         }
     } catch (e) {
-        console.error(e)
+        console.error(e);
     }
 
     return {
         passedTests,
         failedTests,
         totalDuration
-    }
-}
+    };
+};
 
-const generateTestSummary = (result) => {
-    const testFile = result.fullFile
-    const { passedTests, failedTests, totalDuration } = getTestStatuses(result)
+const generateTestSummary = result => {
+    const testFile = result.fullFile;
+    const { passedTests, failedTests, totalDuration } = getTestStatuses(result);
 
     return {
         Spec: testFile,
@@ -72,8 +77,8 @@ const generateTestSummary = (result) => {
         Passed: passedTests,
         Failed: failedTests,
         Duration: totalDuration
-    }
-}
+    };
+};
 
 const parsedSummary = summary.results.map(generateTestSummary);
 
@@ -104,9 +109,11 @@ if (testFailures === 0) {
                     .map(suite => processTests(suite.tests, result.fullFile))
             );
         }
-    })
+    });
 
-    const failSummary = failures.join('\n\n -------------------------------- \n\n')
+    const failSummary = failures.join(
+        '\n\n -------------------------------- \n\n'
+    );
 
     console.log('Cypress tests in the following files did not pass 😔 \n\n');
     console.log('\x1b[43m', `${failures.length} failures`, '\x1b[0m', '\n\n');
