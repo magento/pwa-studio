@@ -75,7 +75,7 @@ const storeConfigResponse = {
 };
 
 const categoryPageResponse = {
-    uid: "Mw==",
+    uid: 'Mw==',
     type: 'CATEGORY'
 };
 
