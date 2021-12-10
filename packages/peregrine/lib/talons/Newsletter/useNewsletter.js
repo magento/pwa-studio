@@ -1,4 +1,4 @@
-import { useCallback, useRef, useMemo } from 'react';
+import { useCallback, useRef, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './newsletter.gql';
@@ -11,11 +11,16 @@ export const useNewsletter = (props = {}) => {
 
     const formApiRef = useRef(null);
 
+    const [newsLetterError, setNewsLetterError] = useState(null);
+
+    const clearErrors = () => setNewsLetterError(null);
+
     const [
         subscribeNewsLetter,
-        { data, error: newsLetterError, loading: subscribeLoading }
+        { data, loading: subscribeLoading }
     ] = useMutation(subscribeMutation, {
-        fetchPolicy: 'no-cache'
+        fetchPolicy: 'no-cache',
+        onError: setNewsLetterError
     });
 
     const { data: storeConfigData, loading: configLoading } = useQuery(
@@ -59,6 +64,7 @@ export const useNewsletter = (props = {}) => {
         isBusy: subscribeLoading,
         isLoading: configLoading,
         setFormApi,
-        newsLetterResponse: data && data.subscribeEmailToNewsletter
+        newsLetterResponse: data && data.subscribeEmailToNewsletter,
+        clearErrors
     };
 };

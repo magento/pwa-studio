@@ -3,8 +3,8 @@ import { CheckoutPageFragment } from '../CheckoutPage/checkoutPageFragments.gql'
 
 export const GET_CUSTOMER = gql`
     query GetCustomerAfterSignIn {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             email
             firstname
             lastname

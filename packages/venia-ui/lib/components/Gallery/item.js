@@ -138,7 +138,7 @@ GalleryItem.propTypes = {
             url: string.isRequired
         }),
         stock_status: string.isRequired,
-        type_id: string.isRequired,
+        __typename: string.isRequired,
         url_key: string.isRequired,
         sku: string.isRequired,
         price_range: shape({

@@ -53,7 +53,9 @@ exports[`CheckoutPage renders address book for customer 1`] = `
       />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
       />
     </div>
     <div
@@ -193,7 +195,9 @@ exports[`CheckoutPage renders an error and disables review order button if there
       />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
       />
     </div>
     <div
@@ -257,6 +261,11 @@ exports[`CheckoutPage renders an error and disables review order button if there
     </div>
   </div>
   <GuestSignIn
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
     isActive={false}
     toggleActiveContent={[MockFunction toggleSignInContent]}
   />
@@ -316,7 +325,9 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
       />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
       />
     </div>
     <div
@@ -414,7 +425,9 @@ exports[`CheckoutPage renders checkout content for customer - no default address
       />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
       />
     </div>
     <div
@@ -550,7 +563,9 @@ exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
       />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
       />
     </div>
     <div
@@ -589,6 +604,11 @@ exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
     </div>
   </div>
   <GuestSignIn
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
     isActive={false}
     toggleActiveContent={[MockFunction toggleSignInContent]}
   />
@@ -686,7 +706,9 @@ exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
       />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
       />
     </div>
     <div
@@ -725,6 +747,11 @@ exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
     </div>
   </div>
   <GuestSignIn
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
     isActive={false}
     toggleActiveContent={[MockFunction toggleSignInContent]}
   />
@@ -756,6 +783,11 @@ exports[`CheckoutPage renders empty cart 1`] = `
     </h3>
   </div>
   <GuestSignIn
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
     isActive={false}
     toggleActiveContent={[MockFunction toggleSignInContent]}
   />

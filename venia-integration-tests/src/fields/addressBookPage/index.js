@@ -1,63 +1,60 @@
-export const addressBookPageHeading = 'h1[class^="addressBookPage-heading-"]';
+export const addressBookPageHeading = '[data-cy="AddressBookPage-heading"]';
 
-export const addressBookAddButton =
-    'button[class^="addressBookPage-addButton-"]';
+export const addressBookAddButton = '[data-cy="AddressBookPage-addButton"]';
 
-export const addressBookContent = 'div[class^="addressBookPage-content-"]';
+export const addressBookContent = '[data-cy="AddressBookPage-content"]';
 
-export const addressCardRoot = 'div[class^="addressCard-root-"]';
+export const addressCardRoot = '[data-cy="addressCard-root"]';
 
 export const addressCardContentContainer =
-    'div[class^="addressCard-contentContainer-"]';
+    '[data-cy="addressCard-contentContainer"]';
 
-export const addressCardDefaultBadge =
-    'span[class^="addressCard-defaultBadge-"]';
+export const addressCardDefaultBadge = '[data-cy="addressCard-defaultBadge"]';
 
-export const addressCardEditButton = 'button[class^="addressCard-editButton-"]';
+export const addressCardEditButton = '[data-cy="addressCard-editButton"]';
 
-export const addressCardDeleteButton =
-    'button[class^="addressCard-deleteButton-"]';
+export const addressCardDeleteButton = '[data-cy="addressCard-deleteButton"]';
 
 export const addressCardConfirmDeleteButton =
-    'button[class^="addressCard-confirmDeleteButton-"]';
+    '[data-cy="addressCard-confirmDeleteButton"]';
 
-export const addressBookModalTitle = 'span[class^="dialog-headerText-"]';
+export const addressBookModalTitle = '[data-cy="Dialog-headerText"]';
 
 export const addressBookModalFirstNameTextField =
-    'form[class^="dialog-form-"] input[name="firstname"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="firstname"]';
 
 export const addressBookModalMiddleNameTextField =
-    'form[class^="dialog-form-"] input[name="middlename"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="middlename"]';
 
 export const addressBookModalLastNameTextField =
-    'form[class^="dialog-form-"] input[name="lastname"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="lastname"]';
 
 export const addressBookModalCountrySelectField =
-    'form[class^="dialog-form-"] select[name="country_code"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="country"]';
 
 export const addressBookModalStreet1TextField =
-    'form[class^="dialog-form-"] input[name="street[0]"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="street[0]"]';
 
 export const addressBookModalStreet2TextField =
-    'form[class^="dialog-form-"] input[name="street[1]"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="street[1]"]';
 
 export const addressBookModalCityTextField =
-    'form[class^="dialog-form-"] input[name="city"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="city"]';
 
 export const addressBookModalRegionSelectField =
-    'form[class^="dialog-form-"] select[name="region[region_id]"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="region"]';
 
 export const addressBookModalRegionTextField =
-    'form[class^="dialog-form-"] input[name="region[region]"]';
+    '[data-cy="Dialog-form"] [data-cy="AddEditDialog-root"] [data-cy="region"]';
 
 export const addressBookModalPostCodeTextField =
-    'form[class^="dialog-form-"] input[name="postcode"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="Postcode"]';
 
 export const addressBookModalTelephoneTextField =
-    'form[class^="dialog-form-"] input[name="telephone"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="telephone"]';
 
 export const addressBookModalDefaultCheckboxField =
-    'form[class^="dialog-form-"] input[name="default_shipping"]';
+    '[data-cy="Dialog-root"] [data-cy="default_shipping"]';
 
 export const addressBookModalSubmitButton =
-    'form[class^="dialog-form-"] button[class^="dialog-confirmButton-"]';
+    '[data-cy="Dialog-root"] [data-cy="Dialog-confirmButton"]';

@@ -100,6 +100,11 @@ export const useToasts = () => {
          *   This property is optional when creating toasts.
          * @property {String} [actionText] Text to display as a call to action.
          *   This property is optional when creating toasts.
+         * @property {Bool} [hasDismissAction] Indicates whether the toast should have a
+         *   dismiss action with the same behavior as the dismiss icon.
+         *   This property is optional when creating toasts.
+         * @property {String} [dismissActionText] Text to display as a call to dissmisAction.
+         *   This property is optional when creating toasts.
          * @property {Function} [onAction] Callback invoked when a user clicks the action
          *   text.
          *   This property is optional when creating toasts.

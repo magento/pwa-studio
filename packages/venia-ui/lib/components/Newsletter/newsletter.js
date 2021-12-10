@@ -29,7 +29,8 @@ const Newsletter = props => {
         isBusy,
         isLoading,
         setFormApi,
-        newsLetterResponse
+        newsLetterResponse,
+        clearErrors
     } = talonProps;
 
     useEffect(() => {
@@ -65,7 +66,7 @@ const Newsletter = props => {
     ) : null;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy={'Newsletter-root'}>
             {maybeLoadingIndicator}
             <span className={classes.title}>
                 <FormattedMessage
@@ -109,6 +110,7 @@ const Newsletter = props => {
                     className={classes.subscribe_link}
                     type="submit"
                     disabled={isBusy}
+                    onClick={clearErrors}
                 >
                     <FormattedMessage
                         id={'newsletter.subscribeText'}
@@ -116,7 +118,12 @@ const Newsletter = props => {
                     />
                 </LinkButton>
                 <div className={classes.buttonsContainer}>
-                    <Button priority="normal" type="submit" disabled={isBusy}>
+                    <Button
+                        priority="normal"
+                        type="submit"
+                        disabled={isBusy}
+                        onClick={clearErrors}
+                    >
                         <FormattedMessage
                             id={'newsletter.subscribeText'}
                             defaultMessage={'Subscribe'}

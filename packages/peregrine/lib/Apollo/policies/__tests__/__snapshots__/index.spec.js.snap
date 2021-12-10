@@ -20,7 +20,12 @@ Object {
   },
   "Breadcrumb": Object {
     "keyFields": Array [
-      "category_id",
+      "category_uid",
+    ],
+  },
+  "BundleProduct": Object {
+    "keyFields": Array [
+      "uid",
     ],
   },
   "BundleWishlistItem": Object {
@@ -53,6 +58,11 @@ Object {
       },
     },
   },
+  "ConfigurableProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
   "ConfigurableWishlistItem": Object {
     "keyFields": [Function],
   },
@@ -72,6 +82,7 @@ Object {
       },
     },
     "keyFields": [Function],
+    "merge": true,
   },
   "CustomerAddress": Object {
     "fields": Object {
@@ -93,6 +104,11 @@ Object {
   },
   "GiftCardWishlistItem": Object {
     "keyFields": [Function],
+  },
+  "GroupedProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
   },
   "GroupedProductWishlistItem": Object {
     "keyFields": [Function],
@@ -148,8 +164,18 @@ Object {
       "street",
     ],
   },
+  "SimpleProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
   "SimpleWishlistItem": Object {
     "keyFields": [Function],
+  },
+  "VirtualProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
   },
   "VirtualWishlistItem": Object {
     "keyFields": [Function],
