@@ -211,7 +211,10 @@ test('product is correct when product url suffix is configured', () => {
     useQuery
         .mockReturnValueOnce({
             data: {
-                storeConfig: { id: 1, product_url_suffix: '.html' }
+                storeConfig: {
+                    store_code: 'default',
+                    product_url_suffix: '.html'
+                }
             },
             error: null,
             loading: false
@@ -244,7 +247,10 @@ test('product is correct when product url suffix is configured with no period', 
     useQuery
         .mockReturnValueOnce({
             data: {
-                storeConfig: { id: 1, product_url_suffix: 'noperiod' }
+                storeConfig: {
+                    store_code: 'default',
+                    product_url_suffix: 'noperiod'
+                }
             },
             error: null,
             loading: false

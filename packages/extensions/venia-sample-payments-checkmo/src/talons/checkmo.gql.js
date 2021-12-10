@@ -2,8 +2,9 @@ import { gql } from '@apollo/client';
 
 export const GET_CHECKMO_CONFIG_DATA = gql`
     query storeConfigData {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             payment_checkmo_payable_to @client
             payment_checkmo_mailing_address @client
         }
