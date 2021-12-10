@@ -4,16 +4,6 @@ exports[`Should add eventListner for keydown, mouseout, mousedown 1`] = `
 Array [
   Array [
     [Window],
-    "mousedown",
-    [Function],
-  ],
-  Array [
-    [Window],
-    "mouseout",
-    [Function],
-  ],
-  Array [
-    [Window],
     "keydown",
     [Function],
   ],

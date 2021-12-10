@@ -19,8 +19,9 @@ export const ADD_PRODUCT_TO_CART = gql`
 
 export const GET_WISHLIST_CONFIG = gql`
     query GetWishlistConfigForProductCE {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             magento_wishlist_general_is_enabled
         }
     }

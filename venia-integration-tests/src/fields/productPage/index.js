@@ -2,12 +2,12 @@ export const productPageAddToCartButton =
     '[data-cy="ProductFullDetail-addToCartButton"]';
 
 export const productPageAddToWishListButton =
-    'button[class^="addToListButton-root"]';
+    '[data-cy="addToListButton-root"]';
 
 export const productPageSelectedWishlistButton =
-    '*[class^="addToListButton-root_selected-"]';
+    '[data-cy="addToListButton-root"]';
 
-export const addProductToWishlist = 'button[class^="wishlistLineItem-root-"]';
+export const addProductToWishlist = '[data-cy="WishlistLineItem-button"]';
 
 export const productPageOptions = '[data-cy="ProductOptions-Option-root"]';
 
@@ -16,9 +16,11 @@ export const productPageQuantityField =
 
 export const productPageColorButton = 'button[class^="swatch-root-"]';
 
-export const productPageSizeButton = 'button[class^="tile-root-"]';
+export const productPageSizeButton = '[data-cy="Tile-button"]';
 
 export const productPageQuantityInput =
     'input[class^="quantity-root"] [name*="quantity"]';
 
-export const productPageName = 'h1[class^="productFullDetail-productName-"]';
+export const productPageName = '[data-cy="ProductFullDetail-productName"]';
+
+export const swatchRoot = '[data-cy=Swatch-root]';

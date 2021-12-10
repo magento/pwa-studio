@@ -81,7 +81,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
     }
 
     return (
-        <aside className={rootClass}>
+        <aside className={rootClass} data-cy="AccountMenu-root">
             <div ref={ref} className={contentsClass}>
                 {accountMenuIsOpen ? dropdownContents : null}
             </div>
