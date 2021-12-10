@@ -172,6 +172,11 @@ Object {
   "SimpleWishlistItem": Object {
     "keyFields": [Function],
   },
+  "StoreConfig": Object {
+    "keyFields": Array [
+      "store_code",
+    ],
+  },
   "VirtualProduct": Object {
     "keyFields": Array [
       "uid",
