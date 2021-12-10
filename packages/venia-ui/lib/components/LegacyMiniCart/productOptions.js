@@ -19,7 +19,12 @@ const ProductOptions = props => {
                         <dt className={classes.optionName}>
                             {optionLabelString}
                         </dt>
-                        <dd className={classes.optionValue}>{value_label}</dd>
+                        <dd
+                            className={classes.optionValue}
+                            data-cy="ProductOptions-optionValue"
+                        >
+                            {value_label}
+                        </dd>
                     </div>
                 );
             }),

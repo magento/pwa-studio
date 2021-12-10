@@ -82,6 +82,7 @@ Object {
       },
     },
     "keyFields": [Function],
+    "merge": true,
   },
   "CustomerAddress": Object {
     "fields": Object {
