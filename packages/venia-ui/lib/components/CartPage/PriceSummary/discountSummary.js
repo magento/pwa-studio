@@ -4,6 +4,8 @@ import Price from '@magento/venia-ui/lib/components/Price';
 import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
+import defaultClasses from './discountSummary.module.css';
+import AnimateHeight from 'react-animate-height';
 
 const MINUS_SYMBOL = '-';
 
@@ -39,7 +41,7 @@ const getDiscount = (discounts = []) => {
  * @param {Object} props.data fragment response data
  */
 const DiscountSummary = props => {
-    const classes = useStyle({}, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const discount = getDiscount(props.data);
     const discountData = props.data;
     const { formatMessage } = useIntl();
@@ -57,33 +59,43 @@ const DiscountSummary = props => {
               defaultMessage: 'Show individual discounts.'
           });
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
-    const discounts =
-        isExpanded && discountData
-            ? discountData.map(discount => {
-                  return (
-                      <li className={classes.lineItems} key={discount.label}>
-                          <span
-                              className={classes.lineItemLabel}
-                              data-cy="PriceSummary-DiscountSummary-label"
-                          >
-                              <span data-cy="DiscountSummary-DiscountLabel">
-                                  {discount.label}
-                              </span>
-                          </span>
-                          <span
-                              data-cy="DiscountSummary-DiscountValue"
-                              className={classes.price}
-                          >
-                              {MINUS_SYMBOL}
-                              <Price
-                                  value={discount.amount.value}
-                                  currencyCode={discount.amount.currency}
-                              />
-                          </span>
-                      </li>
-                  );
-              })
-            : null;
+    classes.individualDiscountsList =
+        classes.lineItemLabel + ' ' + classes.individualDiscountsList;
+    const individualDiscounts = discountData ? (
+        <AnimateHeight duration={500} height={isExpanded ? 'auto' : 0}>
+            <ul
+                className={classes.individualDiscountsList}
+                data-cy="DiscountSummary-IndividualDiscount"
+            >
+                <hr className={classes.individualDiscountSeparator} />
+                {discountData.map(discount => {
+                    return (
+                        <li className={classes.lineItems} key={discount.label}>
+                            <span
+                                className={classes.lineItemLabel}
+                                data-cy="DiscountSummary-IndividualDiscount-Label"
+                            >
+                                <span data-cy="DiscountSummary-IndividualDiscount-DiscountLabel">
+                                    {String.fromCharCode(8226)} {discount.label}
+                                </span>
+                            </span>
+                            <span
+                                data-cy="DiscountSummary-IndividualDiscount-DiscountValue"
+                                className={classes.price}
+                            >
+                                {MINUS_SYMBOL}
+                                <Price
+                                    value={discount.amount.value}
+                                    currencyCode={discount.amount.currency}
+                                />
+                            </span>
+                        </li>
+                    );
+                })}
+                <hr className={classes.individualDiscountSeparator} />
+            </ul>
+        </AnimateHeight>
+    ) : null;
 
     return discount.value ? (
         <Fragment>
@@ -94,7 +106,7 @@ const DiscountSummary = props => {
                 >
                     <FormattedMessage
                         id={'discountSummary.lineItemLabel'}
-                        defaultMessage={'Discounts applied'}
+                        defaultMessage={'Applied discounts'}
                     />
                     <button
                         onClick={handleClick}
@@ -102,8 +114,12 @@ const DiscountSummary = props => {
                         type="button"
                         aria-expanded={isExpanded}
                         aria-label={toggleDiscountsAriaLabel}
+                        className={classes.discountsButton}
                     >
-                        <Icon src={iconSrc} size={16} />
+                        <Icon
+                            src={iconSrc}
+                            className={classes.discountButtonIcon}
+                        />
                     </button>
                 </span>
                 <span
@@ -117,7 +133,7 @@ const DiscountSummary = props => {
                     />
                 </span>
             </li>
-            {discounts}
+            {individualDiscounts}
         </Fragment>
     ) : null;
 };

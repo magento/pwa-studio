@@ -6,7 +6,8 @@ import {
     cartPageProductPrice,
     productListingProductName,
     cartPagePriceSummaryDiscountSummary,
-    cartPagePriceSummaryGiftCardSummary
+    cartPagePriceSummaryGiftCardSummary,
+    cartPageDiscountSummaryIndividualDiscount
 } from '../../fields/cartPage';
 
 /**
@@ -78,4 +79,51 @@ export const assertAppliedGiftCardInCartPage = () => {
  */
 export const assertNoGiftCardInCartPage = () => {
     cy.get(cartPagePriceSummaryGiftCardSummary).should('not.exist');
+};
+
+/**
+ * Utility function to assert discount summary exists
+ */
+export const assertDiscountSummaryInCartPage = () => {
+    cy.get(cartPagePriceSummaryDiscountSummary).should('exist');
+};
+
+/**
+ * Utility function to assert individual discount summary exists
+ */
+export const assertDiscountSummaryIndividualDiscountInCartPage = () => {
+    cy.get(cartPageDiscountSummaryIndividualDiscount).should('exist');
+};
+
+/**
+ * Utility function to assert individual discount summary not exist
+ */
+export const assertDiscountSummaryIndividualDiscountNotInCartPage = () => {
+    cy.get(cartPageDiscountSummaryIndividualDiscount).should('not.exist');
+};
+
+/**
+ * Utility function to assert individual discount summary exists
+ */
+export const assertDiscountSummaryIndividualDiscountVisibleInCartPage = () => {
+    cy.get(cartPageDiscountSummaryIndividualDiscount).should('be.visible');
+};
+
+/**
+ * Utility function to assert individual discount summary not exist
+ */
+export const assertDiscountSummaryIndividualDiscountNotVisibleInCartPage = () => {
+    cy.get(cartPageDiscountSummaryIndividualDiscount).should('not.be.visible');
+};
+
+/**
+ * Utility function to specific individual discount exists
+ */
+export const assertIndividualDiscount = (discountName, amount = 0) => {
+    const discountToCheck = cy
+        .get(cartPageDiscountSummaryIndividualDiscount)
+        .contains('li', discountName);
+    if (amount > 0) {
+        discountToCheck.contains('span', amount).should('exist');
+    }
 };

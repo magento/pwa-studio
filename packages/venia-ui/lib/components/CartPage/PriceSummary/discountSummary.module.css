@@ -1,0 +1,23 @@
+.root {
+}
+
+.discountsButton {
+    margin-left: 0.5rem;
+}
+
+.discountButtonIcon svg {
+    transform: translate(0, 0.45rem);
+}
+
+.individualDiscountSeparator {
+    margin: 1rem 0;
+    color: #e5e5e7;
+}
+.individualDiscountsList {
+}
+
+.individualDiscountsList li {
+    color: #535965;
+    padding-left: 1rem;
+    margin: 1rem 0;
+}

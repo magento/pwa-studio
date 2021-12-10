@@ -36,7 +36,13 @@ export const productSectionRemoveFromCartButton =
     '[data-cy="Product-Section-removeFromCart"] [data-cy="LegacyMiniCart-Section-button"]';
 
 export const cartPagePriceSummaryDiscountSummary =
-    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-label"]';
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-Label"]';
+
+export const cartPageDiscountSummaryDropdownButton =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="DiscountSummary-DiscountValue-TriggerButton"]';
+
+export const cartPageDiscountSummaryIndividualDiscount =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="DiscountSummary-IndividualDiscount"]';
 
 export const cartPagePriceSummaryGiftCardSummary =
     '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-GiftCardSummary-label"]';

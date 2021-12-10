@@ -86,7 +86,7 @@ export const usePriceSummary = (props = {}) => {
  *
  * @property {String} subtotal Cart subtotal (excluding tax)
  * @property {String} total Cart grand total
- * @property {Array<Object>} discounts Discounts applied to the cart
+ * @property {Array<Object>} discounts Applied discounts to the cart
  * @property {Array<Object>} giftCards Gift cards applied to the cart
  * @property {Array<Object>} taxes Taxes applied to the cart
  * @property {Array<Object>} shipping Shipping addresses associated with this cart

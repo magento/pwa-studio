@@ -159,7 +159,7 @@
     "customerForm.defaultShipping": "Make this my default address",
     "customerForm.formMessage": "The shipping address you enter will be saved to your address book and set as your default for future purchases.",
     "customerForm.loading": "Fetching Customer Details...",
-    "discountSummary.lineItemLabel": "Discounts applied",
+    "discountSummary.lineItemLabel": "Applied discounts",
     "editModal.headerText": "Edit Item",
     "Email Signup": "Email Signup",
     "errorView.header": "Oops!",

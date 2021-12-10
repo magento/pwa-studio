@@ -1,0 +1,416 @@
+{
+    "data": {
+        "cart": {
+            "id": "qM3NM32NGjOm6qF6BFHwDBmxEWrx6yyK",
+            "total_quantity": 1,
+            "applied_coupons": null,
+            "__typename": "Cart",
+            "applied_gift_cards": [],
+            "items": [
+                {
+                    "id": "124802",
+                    "uid": "MTI0ODAy",
+                    "product": {
+                        "uid": "MTE0MA==",
+                        "name": "Selena Pants",
+                        "sku": "VP01",
+                        "url_key": "selena-pants",
+                        "thumbnail": {
+                            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_2.jpg",
+                            "__typename": "ProductImage"
+                        },
+                        "small_image": {
+                            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_2.jpg",
+                            "__typename": "ProductImage"
+                        },
+                        "stock_status": "IN_STOCK",
+                        "variants": [
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yNA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzkw",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzg2",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzgy",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMQ==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzc4",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yNA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzg5",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzg1",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzgx",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMQ==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzc3",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yNA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yNw==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzkx",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yNw==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzg3",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yNw==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzgz",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMQ==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yNw==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzc5",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yNA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yNg==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzky",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMA==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yNg==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzg4",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yNg==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzg0",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            },
+                            {
+                                "attributes": [
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE3OS8yMQ==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    },
+                                    {
+                                        "uid": "Y29uZmlndXJhYmxlLzE4Mi8yNg==",
+                                        "__typename": "ConfigurableAttributeOption"
+                                    }
+                                ],
+                                "product": {
+                                    "uid": "Nzgw",
+                                    "small_image": {
+                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
+                                        "__typename": "ProductImage"
+                                    },
+                                    "__typename": "SimpleProduct"
+                                },
+                                "__typename": "ConfigurableVariant"
+                            }
+                        ],
+                        "__typename": "ConfigurableProduct"
+                    },
+                    "prices": {
+                        "price": {
+                            "currency": "USD",
+                            "value": 108,
+                            "__typename": "Money"
+                        },
+                        "__typename": "CartItemPrices"
+                    },
+                    "quantity": 1,
+                    "errors": null,
+                    "configurable_options": [
+                        {
+                            "id": 179,
+                            "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzE3OS8yMA==",
+                            "option_label": "Color",
+                            "value_id": 20,
+                            "value_label": "Lilac",
+                            "__typename": "SelectedConfigurableOption"
+                        },
+                        {
+                            "id": 182,
+                            "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                            "option_label": "Size",
+                            "value_id": 29,
+                            "value_label": "XS",
+                            "__typename": "SelectedConfigurableOption"
+                        }
+                    ],
+                    "__typename": "ConfigurableCartItem"
+                }
+            ],
+            "shipping_addresses": [],
+            "prices": {
+                "applied_taxes": [],
+                "__typename": "CartPrices",
+                "discounts": null,
+                "grand_total": {
+                    "currency": "USD",
+                    "value": 108,
+                    "__typename": "Money"
+                },
+                "subtotal_excluding_tax": {
+                    "currency": "USD",
+                    "value": 108,
+                    "__typename": "Money"
+                }
+            }
+        }
+    }
+}

@@ -110,10 +110,10 @@ export const checkoutPagePlaceOrderButton =
     '[data-cy="CheckoutPage-placeOrderButton"]';
 
 export const checkoutPagePriceSummaryDiscountSummary =
-    '[data-cy="CheckoutPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-label"]';
+    '[data-cy="CheckoutPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-Label"]';
 
 export const checkoutPagePriceSummaryGiftCardSummary =
-    '[data-cy="CheckoutPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-GiftCardSummary-label"]';
+    '[data-cy="CheckoutPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-GiftCardSummary-Label"]';
 
 export const orderConfirmationPage = '[data-cy="OrderConfirmationPage-root"]';
 
