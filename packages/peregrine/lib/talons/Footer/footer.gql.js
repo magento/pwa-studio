@@ -2,8 +2,9 @@ import { gql } from '@apollo/client';
 
 export const GET_COPYRIGHT = gql`
     query storeConfigData {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             copyright
         }
     }
