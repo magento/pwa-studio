@@ -214,7 +214,7 @@ export const checkoutPageSignInEmailTextField =
     '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignIn-email"]';
 
 export const checkoutPageSignInPasswordField =
-    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignIn-password"]';
+    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="password"]';
 
 export const checkoutPageSignInSubmitButton =
-    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignIn-submitButton"]';
+    '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignInButton-root_highPriority"]';
