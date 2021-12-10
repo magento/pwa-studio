@@ -30,6 +30,7 @@ exports[`Submenu renders correctly it renders correctly 1`] = `
         }
       }
       categoryUrlSuffix=".html"
+      handleCloseSubMenu={[MockFunction handleCloseSubMenu]}
       index={0}
       keyboardProps={Object {}}
     />
@@ -44,6 +45,7 @@ exports[`Submenu renders correctly it renders correctly 1`] = `
         }
       }
       categoryUrlSuffix=".html"
+      handleCloseSubMenu={[MockFunction handleCloseSubMenu]}
       index={1}
       keyboardProps={
         Object {
