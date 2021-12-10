@@ -50,6 +50,7 @@ const Submenu = props => {
                 category={category}
                 categoryUrlSuffix={categoryUrlSuffix}
                 onNavigate={onNavigate}
+                handleCloseSubMenu={handleCloseSubMenu}
             />
         );
     });
@@ -83,5 +84,6 @@ Submenu.propTypes = {
     ).isRequired,
     mainNavWidth: PropTypes.number.isRequired,
     categoryUrlSuffix: PropTypes.string,
-    onNavigate: PropTypes.func.isRequired
+    onNavigate: PropTypes.func.isRequired,
+    handleCloseSubMenu: PropTypes.func.isRequired
 };

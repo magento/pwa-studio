@@ -27,7 +27,9 @@ const MegaMenuItem = props => {
         categoryUrlSuffix,
         subMenuState,
         disableFocus,
-        onNavigate
+        onNavigate,
+        handleSubMenuFocus,
+        handleClickOutside
     } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -45,6 +47,7 @@ const MegaMenuItem = props => {
     const {
         isFocused,
         isActive,
+        handleMenuItemFocus,
         handleCloseSubMenu,
         isMenuActive,
         handleKeyDown
@@ -92,6 +95,18 @@ const MegaMenuItem = props => {
         <div
             className={megaMenuItemClassname}
             data-cy="MegaMenu-MegaMenuItem-megaMenuItem"
+            onMouseEnter={() => {
+                handleSubMenuFocus();
+                handleMenuItemFocus();
+            }}
+            onTouchStart={() => {
+                handleSubMenuFocus();
+                handleMenuItemFocus();
+            }}
+            onMouseLeave={e => {
+                handleClickOutside(e);
+                handleCloseSubMenu();
+            }}
         >
             <Link
                 {...linkAttributes}
@@ -127,5 +142,7 @@ MegaMenuItem.propTypes = {
     activeCategoryId: PropTypes.string,
     mainNavWidth: PropTypes.number.isRequired,
     categoryUrlSuffix: PropTypes.string,
-    onNavigate: PropTypes.func.isRequired
+    onNavigate: PropTypes.func.isRequired,
+    handleSubMenuFocus: PropTypes.func.isRequired,
+    handleClickOutside: PropTypes.func.isRequired
 };

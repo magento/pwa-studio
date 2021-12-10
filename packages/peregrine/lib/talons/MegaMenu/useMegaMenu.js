@@ -131,8 +131,6 @@ export const useMegaMenu = (props = {}) => {
         }
     };
 
-    useEventListener(globalThis, 'mousedown', handleClickOutside);
-    useEventListener(globalThis, 'mouseout', handleClickOutside);
     useEventListener(globalThis, 'keydown', handleClickOutside);
 
     const handleSubMenuFocus = useCallback(() => {
