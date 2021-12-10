@@ -18,6 +18,7 @@ const WishlistLineItem = props => {
             disabled={isDisabled}
             type="button"
             onClick={handleClick}
+            data-cy="WishlistLineItem-button"
         >
             {props.children}
         </button>

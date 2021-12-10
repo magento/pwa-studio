@@ -54,6 +54,8 @@ Object {
   },
   "handleCancel": [Function],
   "handleSubmit": [Function],
+  "handleToastAction": [Function],
+  "handleValidateEmail": [Function],
   "initialValues": Object {
     "city": "Manhattan",
     "country": "US",
@@ -74,5 +76,6 @@ Object {
   },
   "isSaving": false,
   "isUpdate": true,
+  "showSignInToast": false,
 }
 `;
