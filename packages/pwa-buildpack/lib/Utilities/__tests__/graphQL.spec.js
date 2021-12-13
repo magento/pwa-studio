@@ -130,7 +130,7 @@ describe('getStoreConfigData', () => {
                 json: () => ({
                     data: {
                         storeConfig: {
-                            id: '',
+                            store_code: '',
                             code: '',
                             locale: '',
                             secure_base_media_url: ''
@@ -169,7 +169,7 @@ describe('getStoreConfigData', () => {
                 json: () => ({
                     data: {
                         storeConfig: {
-                            id: '',
+                            store_code: '',
                             code: '',
                             locale: '',
                             secure_base_media_url: ''

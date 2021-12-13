@@ -12,8 +12,9 @@ export const CREATE_WISHLIST = gql`
 
 export const GET_MULTIPLE_WISHLISTS_ENABLED = gql`
     query getMultipleWishlistsEnabled {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             enable_multiple_wishlists
         }
     }
