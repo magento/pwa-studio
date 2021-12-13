@@ -3,7 +3,7 @@ import { func, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Edit2 as EditIcon } from 'react-feather';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 
@@ -15,7 +15,7 @@ import defaultClasses from './summary.module.css';
 const Summary = props => {
     const { onEdit } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <div className={classes.root}>
