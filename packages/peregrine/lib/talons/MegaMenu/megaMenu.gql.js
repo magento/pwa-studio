@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
 export const GET_STORE_CONFIG_DATA = gql`
     query GetStoreConfigForMegaMenu {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             category_url_suffix
         }
     }

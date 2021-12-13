@@ -65,9 +65,9 @@ const getWishlistEnabledMock = {
     result: {
         data: {
             storeConfig: {
-                id: 'storeId',
                 enable_multiple_wishlists: true,
-                maximum_number_of_wishlists: 2
+                maximum_number_of_wishlists: 2,
+                store_code: 'storeId'
             },
             customer: {
                 id: 'customerId',
@@ -130,8 +130,8 @@ test('returns correct shape', async () => {
             },
             "storeConfig": Object {
               "enable_multiple_wishlists": true,
-              "id": "storeId",
               "maximum_number_of_wishlists": 2,
+              "store_code": "storeId",
             },
           },
         }
@@ -194,9 +194,9 @@ test('canCreateWishlist is false if customer wishlist count is gte the maximum n
         result: {
             data: {
                 storeConfig: {
-                    id: 'storeId',
                     enable_multiple_wishlists: true,
-                    maximum_number_of_wishlists: 2
+                    maximum_number_of_wishlists: 2,
+                    store_code: 'storeId'
                 },
                 customer: {
                     id: 'customerId',
@@ -234,7 +234,7 @@ test('canCreateWishlist is false if enable_multiple_wishlists is false', async (
         result: {
             data: {
                 storeConfig: {
-                    id: 'storeId',
+                    store_code: 'storeId',
                     enable_multiple_wishlists: false,
                     maximum_number_of_wishlists: 1
                 },

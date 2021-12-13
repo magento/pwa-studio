@@ -315,6 +315,9 @@ const typePolicies = {
     },
     VirtualProduct: {
         keyFields: ['uid']
+    },
+    StoreConfig: {
+        keyFields: ['store_code']
     }
 };
 

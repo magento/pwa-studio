@@ -125,7 +125,7 @@ beforeAll(() => {
                 }
             ],
             storeConfig: {
-                id: 1,
+                store_code: 'default',
                 category_url_suffix: '.html'
             }
         }
