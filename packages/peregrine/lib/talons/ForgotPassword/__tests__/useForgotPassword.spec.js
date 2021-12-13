@@ -18,10 +18,9 @@ jest.mock('@apollo/client', () => ({
 
 jest.mock('@magento/peregrine/lib/hooks/useGoogleReCaptcha', () => ({
     useGoogleReCaptcha: jest.fn().mockReturnValue({
+        recaptchaLoading: false,
         generateReCaptchaData: jest.fn(() => {}),
-        recaptchaError: null,
-        isGenerating: false,
-        isLoading: false
+        recaptchaWidgetProps: {}
     })
 }));
 

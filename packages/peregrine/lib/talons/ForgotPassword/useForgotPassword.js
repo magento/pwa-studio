@@ -32,12 +32,12 @@ export const useForgotPassword = props => {
     ] = useMutation(operations.requestPasswordResetEmailMutation);
 
     const {
+        recaptchaLoading,
         generateReCaptchaData,
-        recaptchaError,
-        isGenerating: recaptchaIsGenerating,
-        isLoading: recaptchaIsLoading
+        recaptchaWidgetProps
     } = useGoogleReCaptcha({
-        currentForm: 'CUSTOMER_FORGOT_PASSWORD'
+        currentForm: 'CUSTOMER_FORGOT_PASSWORD',
+        formAction: 'forgotPassword'
     });
 
     const handleFormSubmit = useCallback(
@@ -66,15 +66,15 @@ export const useForgotPassword = props => {
     }, [onCancel]);
 
     const formProps = {
-        isBusy:
-            isResettingPassword || recaptchaIsGenerating || recaptchaIsLoading,
+        isBusy: isResettingPassword || recaptchaLoading,
         onSubmit: handleFormSubmit,
-        onCancel: handleCancel
+        onCancel: handleCancel,
+        recaptchaWidgetProps
     };
 
     return {
         forgotPasswordEmail,
-        formErrors: [requestResetEmailError, recaptchaError],
+        formErrors: [requestResetEmailError],
         hasCompleted,
         formProps
     };

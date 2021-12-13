@@ -13,5 +13,7 @@ export const requestForgotPassword = ({ email }) => {
         .clear()
         .type(email);
 
-    cy.get(forgotPasswordFormSubmitButton).click();
+    cy.get(forgotPasswordFormSubmitButton)
+        .should('not.be.disabled')
+        .click();
 };

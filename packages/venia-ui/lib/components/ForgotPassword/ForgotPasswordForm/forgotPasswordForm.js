@@ -7,12 +7,19 @@ import { useStyle } from '../../../classify';
 import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
+import GoogleReCaptcha from '../../GoogleReCaptcha';
 import TextInput from '../../TextInput';
 import defaultClasses from './forgotPasswordForm.module.css';
 
 const ForgotPasswordForm = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { initialValues, isBusy, onCancel, onSubmit } = props;
+    const {
+        initialValues,
+        isBusy,
+        onCancel,
+        onSubmit,
+        recaptchaWidgetProps
+    } = props;
 
     const { formatMessage } = useIntl();
 
@@ -36,6 +43,7 @@ const ForgotPasswordForm = props => {
                     data-cy="email"
                 />
             </Field>
+            <GoogleReCaptcha {...recaptchaWidgetProps} />
             <div className={classes.buttonContainer}>
                 <Button
                     className={classes.cancelButton}

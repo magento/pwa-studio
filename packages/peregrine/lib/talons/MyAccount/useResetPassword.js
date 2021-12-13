@@ -28,12 +28,12 @@ export const useResetPassword = (props = {}) => {
     ] = useMutation(operations.resetPasswordMutation);
 
     const {
+        recaptchaLoading,
         generateReCaptchaData,
-        recaptchaError,
-        isGenerating: recaptchaIsGenerating,
-        isLoading: recaptchaIsLoading
+        recaptchaWidgetProps
     } = useGoogleReCaptcha({
-        currentForm: 'CUSTOMER_FORGOT_PASSWORD'
+        currentForm: 'CUSTOMER_FORGOT_PASSWORD',
+        formAction: 'resetPassword'
     });
 
     const searchParams = useMemo(() => new URLSearchParams(location.search), [
@@ -64,11 +64,11 @@ export const useResetPassword = (props = {}) => {
     );
 
     return {
-        isBusy: loading || recaptchaIsGenerating || recaptchaIsLoading,
-        formErrors: [resetPasswordErrors, recaptchaError],
+        isBusy: loading || recaptchaLoading,
+        formErrors: [resetPasswordErrors],
+        recaptchaWidgetProps,
         handleSubmit,
         hasCompleted,
-        loading,
         token
     };
 };
@@ -83,6 +83,7 @@ export const useResetPassword = (props = {}) => {
  *
  * @property {Boolean} isBusy True if form awaits events. False otherwise
  * @property {Array} formErrors A list of form errors
+ * @property {Object} recaptchaWidgetProps Props for the GoogleReCaptcha component
  * @property {Function} handleSubmit Callback function to handle form submission
  * @property {Boolean} hasCompleted True if password reset mutation has completed. False otherwise
  * @property {String} token token needed for password reset, will be sent in the mutation

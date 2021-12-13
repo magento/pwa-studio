@@ -17,7 +17,7 @@ jest.mock('@magento/peregrine/lib/hooks/useScript', () => {
     };
 });
 
-const getReCaptchaV3ConfigMock1 = {
+const getReCaptchaV3ConfigMockDefault = {
     request: {
         query: DEFAULT_OPERATIONS.getReCaptchaV3ConfigQuery
     },
@@ -26,18 +26,36 @@ const getReCaptchaV3ConfigMock1 = {
             recaptchaV3Config: {
                 __typename: 'RecaptchaV3Config',
                 website_key: 'key',
-                minimum_score: '0.5',
-                badge_position: 'bottomRight',
+                badge_position: 'bottomright',
                 language_code: 'en',
-                failure_message: 'generic error message',
                 forms: ['CURRENT_FORM']
             }
         }
     }
 };
 
+const getReCaptchaV3ConfigMockInline = {
+    request: {
+        query: DEFAULT_OPERATIONS.getReCaptchaV3ConfigQuery
+    },
+    result: {
+        data: {
+            recaptchaV3Config: {
+                __typename: 'RecaptchaV3Config',
+                website_key: 'key',
+                badge_position: 'inline',
+                language_code: 'en',
+                forms: ['CURRENT_FORM']
+            }
+        }
+    }
+};
+
+const mockWidgetId = '10';
+
 const initialProps = {
-    currentForm: 'CURRENT_FORM'
+    currentForm: 'CURRENT_FORM',
+    formAction: 'testFormAction'
 };
 
 const cache = new InMemoryCache({
@@ -46,7 +64,7 @@ const cache = new InMemoryCache({
 
 const renderHookWithProviders = ({
     renderHookOptions = { initialProps },
-    mocks = [getReCaptchaV3ConfigMock1]
+    mocks = [getReCaptchaV3ConfigMockDefault]
 } = {}) => {
     const wrapper = ({ children }) => (
         <MockedProvider mocks={mocks} cache={cache} addTypename={true}>
@@ -60,61 +78,148 @@ const renderHookWithProviders = ({
 describe('#useGoogleReCaptcha', () => {
     beforeEach(() => {
         globalThis.grecaptcha = {
-            execute: (recaptchaKey, { action }) => `${recaptchaKey}_${action}`
+            execute: (recaptchaKey, { action }) => `${recaptchaKey}_${action}`,
+            render: () => mockWidgetId
         };
     });
 
     it('returns correct shape while and after loading', async () => {
-        const { result, waitForNextUpdate } = renderHookWithProviders();
+        const { result, waitFor } = renderHookWithProviders();
 
         // Check data while loading
         expect(result.current).toMatchInlineSnapshot(`
             Object {
               "generateReCaptchaData": [Function],
-              "isGenerating": false,
-              "isLoading": true,
-              "recaptchaError": null,
+              "recaptchaLoading": true,
+              "recaptchaWidgetProps": Object {
+                "containerElement": Object {
+                  "current": null,
+                },
+                "shouldRender": false,
+              },
             }
         `);
 
-        // Wait for query to finish loading
-        await waitForNextUpdate();
+        // Call script onload method
+        await act(async () => {
+            await globalThis.onloadRecaptchaCallback();
+        });
 
-        // Check data after load
+        // Wait for query to finish loading
+        await waitFor(() => result.current.recaptchaLoading === false);
+
+        // Check data while loading
         expect(result.current).toMatchInlineSnapshot(`
             Object {
               "generateReCaptchaData": [Function],
-              "isGenerating": false,
-              "isLoading": false,
-              "recaptchaError": null,
+              "recaptchaLoading": false,
+              "recaptchaWidgetProps": Object {
+                "containerElement": Object {
+                  "current": null,
+                },
+                "shouldRender": false,
+              },
             }
         `);
     });
 
-    it('returns correct shape when script is not available', async () => {
-        const { result, waitForNextUpdate } = renderHookWithProviders();
+    it('updates the badge styles when script onload method is called', async () => {
+        const floatingBadge = document.createElement('div');
+        floatingBadge.className = 'grecaptcha-badge';
+        document.body.append(floatingBadge);
 
-        globalThis.grecaptcha = undefined;
+        const { result, waitFor } = renderHookWithProviders();
+
+        // Call script onload method
+        await act(async () => {
+            await globalThis.onloadRecaptchaCallback();
+        });
 
         // Wait for query to finish loading
-        await waitForNextUpdate();
+        await waitFor(() => result.current.recaptchaLoading === false);
 
-        // Check data after load
-        expect(result.current).toMatchInlineSnapshot(`
-            Object {
-              "generateReCaptchaData": [Function],
-              "isGenerating": false,
-              "isLoading": false,
-              "recaptchaError": null,
-            }
-        `);
+        // Check floating badge style
+        expect(floatingBadge.style.zIndex).toEqual('999');
+    });
+
+    it('returns widget id when position inline and container component is defined', async () => {
+        const inlineContainer = document.createElement('div');
+
+        const { result, waitFor } = renderHookWithProviders({
+            mocks: [getReCaptchaV3ConfigMockInline]
+        });
+
+        // Create container element
+        await act(async () => {
+            const containerElement = await result.current.recaptchaWidgetProps
+                .containerElement;
+
+            containerElement.current = inlineContainer;
+        });
+
+        // Call script onload method
+        await act(async () => {
+            await globalThis.onloadRecaptchaCallback();
+        });
+
+        // Wait for query to finish loading
+        await waitFor(() => result.current.recaptchaLoading === false);
+
+        // Check Widget ID has been set on the container
+        expect(inlineContainer.dataset).toEqual(
+            expect.objectContaining({
+                widgetId: mockWidgetId
+            })
+        );
+    });
+
+    it('returns empty token object when user ask for generation and api is not defined', async () => {
+        globalThis.grecaptcha = undefined;
+
+        const { result, waitFor } = renderHookWithProviders();
+
+        // Wait for query to finish loading
+        await waitFor(() => result.current.recaptchaLoading === false);
+
+        // Ask generation of token
+        await act(async () => {
+            const tokenData = await result.current.generateReCaptchaData();
+
+            expect(tokenData).toEqual({});
+        });
+    });
+
+    it('returns empty token object when user ask for generation and it returns an error', async () => {
+        globalThis.grecaptcha = {};
+
+        const { result, waitFor } = renderHookWithProviders();
+
+        // Call script onload method
+        await act(async () => {
+            await globalThis.onloadRecaptchaCallback();
+        });
+
+        // Wait for query to finish loading
+        await waitFor(() => result.current.recaptchaLoading === false);
+
+        // Ask generation of token
+        await act(async () => {
+            const tokenData = await result.current.generateReCaptchaData();
+
+            expect(tokenData).toEqual({});
+        });
     });
 
     it('returns token when user ask for generation', async () => {
-        const { result, waitForNextUpdate } = renderHookWithProviders();
+        const { result, waitFor } = renderHookWithProviders();
+
+        // Call script onload method
+        await act(async () => {
+            await globalThis.onloadRecaptchaCallback();
+        });
 
         // Wait for query to finish loading
-        await waitForNextUpdate();
+        await waitFor(() => result.current.recaptchaLoading === false);
 
         // Ask generation of token
         await act(async () => {
@@ -124,7 +229,7 @@ describe('#useGoogleReCaptcha', () => {
                 Object {
                   "context": Object {
                     "headers": Object {
-                      "X-ReCaptcha": "key_CURRENT_FORM",
+                      "X-ReCaptcha": "key_testFormAction",
                     },
                   },
                 }
@@ -132,94 +237,43 @@ describe('#useGoogleReCaptcha', () => {
         });
     });
 
-    it('returns empty token object and no generic error message when user ask for generation and it returns an error', async () => {
-        const getReCaptchaV3ConfigMock2 = {
-            request: {
-                query: DEFAULT_OPERATIONS.getReCaptchaV3ConfigQuery
-            },
-            result: {
-                data: {
-                    recaptchaV3Config: {
-                        ...getReCaptchaV3ConfigMock1.result.data
-                            .recaptchaV3Config,
-                        failure_message: undefined
-                    }
+    it('returns token when user ask for generation with already defined inline badge', async () => {
+        const inlineContainer = document.createElement('div');
+        inlineContainer.dataset.widgetId = mockWidgetId;
+
+        const { result, waitFor } = renderHookWithProviders({
+            mocks: [getReCaptchaV3ConfigMockInline]
+        });
+
+        // Create container element
+        await act(async () => {
+            const containerElement = await result.current.recaptchaWidgetProps
+                .containerElement;
+
+            containerElement.current = inlineContainer;
+        });
+
+        // Call script onload method
+        await act(async () => {
+            await globalThis.onloadRecaptchaCallback();
+        });
+
+        // Wait for query to finish loading
+        await waitFor(() => result.current.recaptchaLoading === false);
+
+        // Ask generation of token
+        await act(async () => {
+            const tokenData = await result.current.generateReCaptchaData();
+
+            expect(tokenData).toMatchInlineSnapshot(`
+                Object {
+                  "context": Object {
+                    "headers": Object {
+                      "X-ReCaptcha": "10_testFormAction",
+                    },
+                  },
                 }
-            }
-        };
-
-        globalThis.grecaptcha = {};
-
-        const { result, waitForNextUpdate } = renderHookWithProviders({
-            mocks: [getReCaptchaV3ConfigMock2]
-        });
-
-        // Wait for query to finish loading
-        await waitForNextUpdate();
-
-        // Ask generation of token
-        await act(async () => {
-            const tokenData = await result.current.generateReCaptchaData();
-
-            expect(tokenData).toEqual({});
-        });
-
-        // Check data after load
-        expect(result.current).toMatchInlineSnapshot(`
-            Object {
-              "generateReCaptchaData": [Function],
-              "isGenerating": false,
-              "isLoading": false,
-              "recaptchaError": null,
-            }
-        `);
-    });
-
-    it('returns empty token object and generic error message when user ask for generation and it returns an error', async () => {
-        globalThis.grecaptcha = {};
-
-        const { result, waitForNextUpdate } = renderHookWithProviders();
-
-        // Wait for query to finish loading
-        await waitForNextUpdate();
-
-        // Ask generation of token
-        await act(async () => {
-            const tokenData = await result.current.generateReCaptchaData();
-
-            expect(tokenData).toEqual({});
-        });
-
-        // Check data after load
-        expect(result.current).toMatchInlineSnapshot(`
-            Object {
-              "generateReCaptchaData": [Function],
-              "isGenerating": false,
-              "isLoading": false,
-              "recaptchaError": [Error: generic error message],
-            }
-        `);
-    });
-
-    it('returns empty token object when user ask for generation and script is not enabled', async () => {
-        const { result, waitForNextUpdate } = renderHookWithProviders({
-            renderHookOptions: {
-                initialProps: {
-                    currentForm: ''
-                }
-            }
-        });
-
-        globalThis.grecaptcha = undefined;
-
-        // Wait for query to finish loading
-        await waitForNextUpdate();
-
-        // Ask generation of token
-        await act(async () => {
-            const tokenData = await result.current.generateReCaptchaData();
-
-            expect(tokenData).toEqual({});
+            `);
         });
     });
 });

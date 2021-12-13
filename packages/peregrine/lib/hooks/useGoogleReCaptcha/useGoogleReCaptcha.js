@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import useScript from '@magento/peregrine/lib/hooks/useScript';
@@ -14,7 +14,8 @@ const GOOGLE_RECAPTCHA_URL = 'https://www.google.com/recaptcha/api.js';
  *
  * @function
  *
- * @param {String} props.currentForm - form name to compare with backend
+ * @param {String} props.currentForm - Form name to match GraphQl ReCaptchaFormEnum.
+ * @param {String} props.formAction - Action name to use for logging in API.
  * @param {Object} [props.operations] - GraphQL operations to be run by the hook.
  *
  * @returns {GoogleReCaptchaProps}
@@ -24,7 +25,7 @@ const GOOGLE_RECAPTCHA_URL = 'https://www.google.com/recaptcha/api.js';
  */
 export const useGoogleReCaptcha = props => {
     const operations = mergeOperations(defaultOperations, props.operations);
-    const { currentForm } = props;
+    const { currentForm, formAction } = props;
 
     const {
         data: configData,
@@ -34,89 +35,144 @@ export const useGoogleReCaptcha = props => {
         fetchPolicy: 'cache-and-network'
     });
 
+    const [apiIsReady, setApiIsReady] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
-    const [recaptchaError, setRecaptchaError] = useState(null);
+    const [widgetId, setWidgetId] = useState(null);
 
-    const recaptchaBadge = configData?.recaptchaV3Config?.badge_position || '';
-    const recaptchaKey = configData?.recaptchaV3Config?.website_key || '';
-    const recaptchaLang = configData?.recaptchaV3Config?.language_code || '';
-    const recaptchaErrorMessage =
-        configData?.recaptchaV3Config?.failure_message || '';
+    // Container Reference to be used for the GoogleReCaptcha component
+    const inlineContainerElement = useRef(null);
+
+    const recaptchaBadge =
+        configData?.recaptchaV3Config?.badge_position &&
+        configData.recaptchaV3Config.badge_position.length > 0
+            ? configData.recaptchaV3Config.badge_position
+            : 'bottomright';
+    const recaptchaKey = configData?.recaptchaV3Config?.website_key;
+    const recaptchaLang = configData?.recaptchaV3Config?.language_code;
     const activeForms = configData?.recaptchaV3Config?.forms || [];
     const isEnabled =
         !(configError instanceof Error) &&
+        recaptchaKey &&
         recaptchaKey.length > 0 &&
         activeForms.includes(currentForm);
 
-    // Set API when available
-    const grecaptchaApi = globalThis?.grecaptcha;
+    // Determine which type of badge should be loaded
+    const isInline = recaptchaBadge === 'inline';
 
     // Construct script url with configs
     const scriptUrl = new URL(GOOGLE_RECAPTCHA_URL);
 
-    if (recaptchaKey.length > 0) {
+    scriptUrl.searchParams.append('badge', recaptchaBadge);
+
+    if (isInline) {
+        // Widget will be rendered manually in a GoogleReCaptcha component
+        scriptUrl.searchParams.append('render', 'explicit');
+        scriptUrl.searchParams.append('onload', 'onloadRecaptchaCallback');
+    } else {
+        // Widget will be rendered on load at the end of the body
         scriptUrl.searchParams.append('render', recaptchaKey);
+        scriptUrl.searchParams.append('onload', 'onloadRecaptchaCallback');
     }
-    if (recaptchaLang.length > 0) {
+
+    if (recaptchaLang && recaptchaLang.length > 0) {
         scriptUrl.searchParams.append('hl', recaptchaLang);
-    }
-    if (recaptchaBadge.length > 0) {
-        scriptUrl.searchParams.append('badge', recaptchaBadge);
     }
 
     // Load Script only if the API is not already set, if the key is set
     // and if the current form is enabled in the V3 configs
-    const status = useScript(!grecaptchaApi && isEnabled ? scriptUrl : null);
+    const status = useScript(!apiIsReady && isEnabled ? scriptUrl : null);
 
     // Wait for config to be loaded and script to be ready
     const isLoading =
-        configLoading || (isEnabled && !grecaptchaApi && status !== 'ready');
+        configLoading || (isEnabled && !apiIsReady && status !== 'ready');
+
+    // Render inline widget manually
+    useEffect(() => {
+        const inlineContainer = inlineContainerElement.current;
+
+        // Only render if container is set and API is available
+        if (
+            inlineContainer !== null &&
+            isInline &&
+            apiIsReady &&
+            widgetId === null
+        ) {
+            // Avoid loading twice if already rendered
+            if ('widgetId' in inlineContainer.dataset) {
+                setWidgetId(inlineContainer.dataset.widgetId);
+            } else {
+                const id = globalThis.grecaptcha.render(inlineContainer, {
+                    sitekey: recaptchaKey,
+                    size: 'invisible'
+                });
+
+                setWidgetId(id);
+                inlineContainer.dataset.widgetId = id;
+            }
+        }
+    }, [apiIsReady, isInline, recaptchaKey, widgetId]);
+
+    // Callback sets API as ready
+    globalThis['onloadRecaptchaCallback'] = useCallback(() => {
+        // Update non inline styles
+        if (!isInline) {
+            const floatingBadge = document.getElementsByClassName(
+                'grecaptcha-badge'
+            );
+
+            if (floatingBadge && floatingBadge.length > 0) {
+                floatingBadge[0].style.zIndex = 999;
+            }
+        }
+
+        setApiIsReady(true);
+    }, [isInline]);
 
     // Generate the object that will be sent with the request
     const generateReCaptchaData = useCallback(async () => {
-        if (isEnabled) {
+        if (apiIsReady) {
             try {
                 setIsGenerating(true);
+
+                const token = await globalThis.grecaptcha.execute(
+                    isInline ? widgetId : recaptchaKey,
+                    {
+                        action: formAction
+                    }
+                );
 
                 const result = {
                     // TODO: Use Apollo Link middleware when solution is found
                     context: {
                         headers: {
-                            [GOOGLE_RECAPTCHA_HEADER]: await globalThis.grecaptcha.execute(
-                                recaptchaKey,
-                                {
-                                    action: currentForm
-                                }
-                            )
+                            [GOOGLE_RECAPTCHA_HEADER]: token
                         }
                     }
                 };
 
                 setIsGenerating(false);
-                setRecaptchaError(null);
 
                 return result;
             } catch (error) {
                 // Log API error
                 console.error(error);
 
-                // Provide generic error
-                if (recaptchaErrorMessage.length > 0) {
-                    setRecaptchaError(new Error(recaptchaErrorMessage));
-                }
-
                 setIsGenerating(false);
             }
         }
 
         return {};
-    }, [currentForm, isEnabled, recaptchaErrorMessage, recaptchaKey]);
+    }, [apiIsReady, formAction, isInline, recaptchaKey, widgetId]);
+
+    const recaptchaWidgetProps = {
+        containerElement: inlineContainerElement,
+        shouldRender: isInline && apiIsReady
+    };
 
     return {
+        recaptchaLoading: isGenerating || isLoading,
         generateReCaptchaData,
-        recaptchaError,
-        isGenerating,
-        isLoading
+        recaptchaWidgetProps
     };
 };
 
@@ -128,8 +184,9 @@ export const useGoogleReCaptcha = props => {
  *
  * @typedef {Object} GoogleReCaptchaProps
  *
+ * @property {Boolean} recaptchaLoading - Indicates if hook is loading data or loading the script.
  * @property {Function} generateReCaptchaData - The function to generate ReCaptcha Mutation data.
- * @property {Error} [recaptchaError] - Generic error to show when API fails.
- * @property {Boolean} isGenerating - Indicates if hook is generating Mutation data.
- * @property {Boolean} isLoading - Indicates if hook is loading data and script.
+ * @property {Object} recaptchaWidgetProps - Props for the GoogleReCaptcha component.
+ * @property {Object} recaptchaWidgetProps.containerElement - Container reference.
+ * @property {Boolean} recaptchaWidgetProps.shouldRender - Checks if component should be rendered.
  */
