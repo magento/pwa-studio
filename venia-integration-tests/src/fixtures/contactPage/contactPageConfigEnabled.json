@@ -1,7 +1,7 @@
 {
     "data": {
         "storeConfig": {
-            "id": 1,
+            "store_code": "default",
             "contact_enabled": true,
             "__typename": "StoreConfig"
         }
