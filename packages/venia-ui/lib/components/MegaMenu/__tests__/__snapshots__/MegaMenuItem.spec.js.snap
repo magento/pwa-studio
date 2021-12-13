@@ -3,6 +3,9 @@
 exports[`Mega menu item renders correctly it does not render submenu when item does not have children 1`] = `
 <div
   className="megaMenuItem"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
 >
   <mock-Submenu
     categoryUrlSuffix=".html"
@@ -34,6 +37,9 @@ exports[`Mega menu item renders correctly it does not render submenu when item d
 exports[`Mega menu item renders correctly it renders correctly 1`] = `
 <div
   className="megaMenuItem"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
 >
   <mock-Submenu
     categoryUrlSuffix=".html"

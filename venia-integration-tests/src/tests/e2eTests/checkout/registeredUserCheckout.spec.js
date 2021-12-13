@@ -7,14 +7,16 @@ import {
 } from '../../../fixtures';
 import {
     checkoutPage as checkoutPageActions,
-    productPage as productPageActions
+    productPage as productPageActions,
+    toast as toastActions
 } from '../../../actions';
 import {
     cartPage as cartPageAssertions,
     checkoutPage as checkoutPageAssertions,
     header as headerAssertions,
     myAccountMenu as myAccountMenuAssertions,
-    orderHistoryPage as orderHistoryPageAssertions
+    orderHistoryPage as orderHistoryPageAssertions,
+    toast as toastAssertions
 } from '../../../assertions';
 import { aliasMutation } from '../../../utils/graphql-test-utils';
 
@@ -37,7 +39,8 @@ const {
     getProductDetailForProductPageCall,
     getProductListingCall,
     getSelectedAndAvailableShippingMethodsCall,
-    hitGraphqlPath
+    hitGraphqlPath,
+    getIsEmailAvailableCall
 } = graphqlMockedCallsFixtures;
 
 const {
@@ -45,13 +48,17 @@ const {
     reviewOrder,
     placeOrder,
     setCustomerShippingAddress,
-    editCreditCardInformation
+    editCreditCardInformation,
+    setGuestShippingAddress,
+    signInFromCheckoutPage
 } = checkoutPageActions;
 const {
     addToCartFromProductPage,
     selectOptionsFromProductPage,
     setQuantityFromProductPage
 } = productPageActions;
+
+const { clickOnToastAction } = toastActions;
 
 const { assertProductInCartPage } = cartPageAssertions;
 const {
@@ -69,6 +76,7 @@ const {
     assertPaymentMethodInOrderDetails,
     assertProductInOrderDetails
 } = orderHistoryPageAssertions;
+const { assertToastExists } = toastAssertions;
 
 const completeShippingAddress = {
     ...checkoutShippingData.us,
@@ -243,5 +251,61 @@ describe('PWA-1412: verify checkout actions', () => {
         assertPaymentMethodInOrderDetails();
         assertProductInOrderDetails(productValeriaTwoLayeredTank.name);
         assertProductInOrderDetails(productAugustaEarrings.name);
+    });
+
+    it('Registered user should be able to sign in from toast suggestion in guest checkout page', () => {
+        cy.intercept('GET', getProductDetailForProductPageCall).as(
+            'gqlGetProductDetailForProductPageQuery'
+        );
+
+        cy.intercept('GET', getIsEmailAvailableCall).as(
+            'gqlGetIsEmailAvailableQuery'
+        );
+
+        cy.intercept('POST', hitGraphqlPath, req => {
+            aliasMutation(req, 'AddProductToCart');
+            aliasMutation(req, 'SignIn');
+            aliasMutation(req, 'CreateCartAfterSignIn');
+            aliasMutation(req, 'MergeCartsAfterSignIn');
+        });
+
+        cy.visit(productValeriaTwoLayeredTank.url);
+        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
+            timeout: 60000
+        });
+
+        selectOptionsFromProductPage();
+        setQuantityFromProductPage(2);
+        addToCartFromProductPage();
+        cy.wait(['@gqlAddProductToCartMutation'], {
+            timeout: 60000
+        });
+
+        cy.visitCheckoutPage();
+        setGuestShippingAddress({
+            ...completeShippingAddress,
+            email: accountEmail
+        });
+
+        cy.wait(['@gqlGetIsEmailAvailableQuery'], {
+            timeout: 60000
+        });
+
+        // Test - Sign in from toast
+        assertToastExists();
+        clickOnToastAction();
+
+        signInFromCheckoutPage(undefined, accountPassword);
+
+        cy.wait(
+            [
+                '@gqlSignInMutation',
+                '@gqlCreateCartAfterSignInMutation',
+                '@gqlMergeCartsAfterSignInMutation'
+            ],
+            { timeout: 60000 }
+        );
+
+        assertCreateAccount(firstName);
     });
 });

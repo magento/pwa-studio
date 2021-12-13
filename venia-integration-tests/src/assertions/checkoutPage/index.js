@@ -3,7 +3,7 @@ import {
     checkoutPageSelectedShippingMethod,
     checkoutPagePaymentInformation,
     checkoutPageItemsReview,
-    checkoutPageHeading,
+    checkoutPageHeaderText,
     checkoutPageSignInButton,
     checkoutPagePriceSummarySubtotalPrice,
     checkoutPagePriceSummaryTotalPrice,
@@ -14,7 +14,8 @@ import {
     checkoutPageOrderConfirmationNumber,
     checkoutPagePriceSummaryDiscountSummary,
     checkoutPagePriceSummaryGiftCardSummary,
-    orderConfirmationPage
+    orderConfirmationPage,
+    checkoutPageOpenedDialogSubmitButton
 } from '../../fields/checkoutPage';
 import {
     defaultShippingMethod,
@@ -190,7 +191,7 @@ export const assertProductInCheckoutPage = (
  * for guest customers
  */
 export const assertCheckoutHasGuestHeader = () => {
-    cy.get(checkoutPageHeading).should('have.text', 'Guest Checkout');
+    cy.get(checkoutPageHeaderText).should('have.text', 'Guest Checkout');
 };
 
 /**
@@ -218,5 +219,11 @@ export const assertOrderConfirmationHeadingInCheckoutPage = () => {
     cy.get(checkoutPageOrderConfirmationHeader).should('exist');
     cy.get(checkoutPageOrderConfirmationNumber).should($orderNumber => {
         expect($orderNumber.text()).to.match(/(order\snumber:)\s\d+/gi);
+    });
+};
+
+export const assertUpdateDataButtonIsVisible = () => {
+    cy.get(checkoutPageOpenedDialogSubmitButton).should($updateButton => {
+        expect($updateButton).to.be.visible;
     });
 };
