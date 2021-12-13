@@ -43,7 +43,7 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
 const defaultProps = {
     queries: {
         getStoreConfigData: 'getStoreConfigData',
-        getUrlResolverData: 'getUrlResolverData',
+        getRouteData: 'getRouteData',
         getAvailableStoresData: 'getAvailableStoresData'
     }
 };
@@ -76,13 +76,14 @@ const storeConfigResponse = {
 };
 
 const categoryPageResponse = {
-    id: 1,
+    uid: 'Mw==',
     type: 'CATEGORY'
 };
 
 const productPageResponse = {
-    id: 1,
-    type: 'PRODUCT'
+    uid: 'MTEwMw==',
+    type: 'PRODUCT',
+    __typename: 'ConfigurableProduct'
 };
 
 const availableStoresResponse = [
@@ -172,7 +173,7 @@ beforeEach(() => {
         return {
             data: {
                 storeConfig: storeConfigResponse,
-                urlResolver: categoryPageResponse,
+                route: categoryPageResponse,
                 availableStores: availableStoresResponse
             },
             error: null,
@@ -372,7 +373,7 @@ describe('handleSwitchStore updates url with configured store code', () => {
             return {
                 data: {
                     storeConfig: storeConfigResponse,
-                    urlResolver: productPageResponse,
+                    route: productPageResponse,
                     availableStores: availableStoresResponse
                 }
             };
@@ -482,7 +483,7 @@ describe('handleSwitchStore updates url with store code not configured', () => {
             return {
                 data: {
                     storeConfig: storeConfigResponse,
-                    urlResolver: productPageResponse,
+                    route: productPageResponse,
                     availableStores: availableStoresResponse
                 }
             };
