@@ -6,41 +6,31 @@ export const productListingProduct =
 export const productListingProductName =
     '[data-cy="CartPage-root"] [data-cy="ProductListing-root"] [data-cy="Product-name"]';
 
-export const kebabMenuButton = 'button[class^="kebab-kebab-"]';
+export const kebabMenuButton = '[data-cy="Kebab-button"]';
 
-export const saveForLaterButton = 'button[class^="product-addToListButton-"]';
+export const saveForLaterButton = '[data-cy="addToListButton-root"]';
 
-export const cartPageProductImageLink = 'a[class^="product-imageContainer-"]';
+export const cartPageProductLink = '[data-cy="Product-imageContainer"]';
 
-export const cartPageProductLink = 'a[class^="product-imageContainer-"]';
+export const kebabMenuEditButton = '[data-cy="Product-Section-editItem"]';
 
-export const kebabMenuEditButton =
-    'li[class^="section-menuItem-"] button:first';
-
-export const editMenuColorButton =
-    'aside[class^="dialog-root_open-"] button[class^="swatch-root-"]';
-
-export const editMenuSizeButton =
-    'aside[class^="dialog-root_open-"] button[class^="tile-root-"]';
+export const editMenuSizeButton = '[data-cy="Tile-button"]';
 
 export const editMenuIncreaseQtyStepper =
-    'aside[class^="dialog-root_open-"] button[aria-label*="Increase Quantity"]';
+    '[data-cy="Dialog-root"] [data-cy="Quantity-incrementButton"]';
 
 export const editMenuUpdateCartButton =
-    'aside[class^="dialog-root_open-"] button[class^="dialog-confirmButton-"]';
+    '[data-cy="Dialog-root"] [data-cy="Dialog-confirmButton"]';
 
-export const cartPageProductName = 'div[class^="product-name-"]';
+export const cartPageProductOption = '[data-cy="ProductOptions-optionValue"]';
 
-export const cartPageProductOption = 'dd[class^="productOptions-optionValue-"]';
+export const cartPageProductQuantity = '[data-cy="QuantityFields-input"]';
 
-export const cartPageProductQuantity =
-    'div[class^="quantity-root-"] input[name="quantity"]';
+export const cartPageProductPrice = '[data-cy="Product-price"]';
 
-export const cartPageProductPrice = 'span[class^="product-price-"]';
+export const cartPageCheckoutButton = '[data-cy="PriceSummary-checkoutButton"]';
 
-export const cartPageCheckoutButton =
-    'div[class^="priceSummary-checkoutButton_container-"] button';
-export const productKebab = '[data-cy="LegacyMiniCart-Kebab-button"]';
+export const productKebab = '[data-cy="Kebab-button"]';
 
 export const productSectionRemoveFromCartButton =
     '[data-cy="Product-Section-removeFromCart"] [data-cy="LegacyMiniCart-Section-button"]';
@@ -68,6 +58,9 @@ export const shippingMethodCountrySelect =
 
 export const shippingMethodRegionField =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="ShippingMethods-ShippingForm-region"]';
+
+export const shippingMethodRegionFieldId =
+    '[data-cy="CartPage-root"] [data-cy="ShippingMethods-root"] [data-cy="ShippingMethods-ShippingForm-region"]';
 
 export const shippingMethodPostCodeTextField =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="ShippingMethods-ShippingForm-postCode"]';

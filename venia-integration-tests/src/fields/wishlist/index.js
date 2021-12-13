@@ -1,21 +1,18 @@
-export const wishlistPageHeading = 'h1[class^="wishlistPage-heading-"]';
+export const wishlistPageHeading = '[data-cy="WishlistPage-heading"]';
 
-export const wishlistRoot = 'div[class^="wishlist-root-"]';
+export const wishlistRoot = '[data-cy="Wishlist-root"]';
 
-export const wishlistItemPrice = '*[class^="wishlistItem-priceContainer-"]';
+export const wishlistItemPrice = '[data-cy="wishlistItem-priceContainer"]';
 
-export const wishlistItemAddToCartButton =
-    '*[class^="wishlistItem-addToCart-"]';
+export const wishlistItemAddToCartButton = '[data-cy="wishlistItem-addToCart"]';
 
-export const wishlistItemRemoveButton = '*[class^="wishlistItem-deleteItem-"]';
+export const wishlistItemRemoveButton = '[data-cy="wishlistItem-deleteItem"]';
 
-export const createWishlistButton =
-    'button[class^="createWishlist-createButton-"]';
+export const createWishlistButton = '[data-cy="createWishlist-createButton"]';
 
-export const wishlistNameField = 'input[name="name"]';
+export const wishlistNameField = '[data-cy="createWishlist-name"]';
 
-export const createWishlistConfirmButton =
-    'button[class^="createWishlist-confirmButton-"]';
+export const createWishlistConfirmButton = '[data-cy="Dialog-confirmButton"]';
 
 export const wishlistHeadingButtonsContainer =
-    'div[class^="wishlist-buttonsContainer-"]';
+    '[data-cy="wishlist-buttonsContainer"]';

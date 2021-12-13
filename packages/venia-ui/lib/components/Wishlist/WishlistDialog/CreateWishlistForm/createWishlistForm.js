@@ -48,6 +48,7 @@ const CreateWishlistForm = props => {
                         id={classes.listname}
                         field="listname"
                         validate={isRequired}
+                        data-cy="createWishlistForm-listname"
                     />
                 </Field>
             </div>
@@ -61,6 +62,7 @@ const CreateWishlistForm = props => {
                     onClick={handleSave}
                     priority="high"
                     type="button"
+                    data-cy="createWishListForm-saveButton"
                 >
                     {saveButtonText}
                 </Button>

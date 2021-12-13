@@ -38,7 +38,7 @@ beforeAll(() => {
     useQuery.mockReturnValue({
         data: {
             storeConfig: {
-                id: 1,
+                store_code: 'default',
                 configurable_thumbnail_source: 'parent'
             }
         }

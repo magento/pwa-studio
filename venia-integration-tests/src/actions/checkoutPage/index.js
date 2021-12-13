@@ -446,7 +446,7 @@ export const editBillingAddress = ({
             .type(telephone);
     }
 
-    cy.get(fields.checkoutPageOpenedDialogSubmitButton).click();
+    cy.get(fields.checkoutPageOpenedDialogEditPaymentSubmitButton).click();
 };
 
 /**
