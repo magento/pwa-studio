@@ -59,7 +59,7 @@ const getMultipleWishlistsEnabledQueryMock = {
         return {
             data: {
                 storeConfig: {
-                    id: '42',
+                    store_code: 'default',
                     enable_multiple_wishlists: '1'
                 }
             }
@@ -114,7 +114,12 @@ test('shouldRender is false when multiple wishlists disabled', async () => {
     const multipleWishlistsDisabledMock = {
         request: getMultipleWishlistsEnabledQueryMock.request,
         result: {
-            data: { storeConfig: { id: '42', enable_multiple_wishlists: '0' } }
+            data: {
+                storeConfig: {
+                    store_code: 'default',
+                    enable_multiple_wishlists: '0'
+                }
+            }
         }
     };
     const { result } = renderHookWithProviders({
