@@ -13,11 +13,6 @@
     text-decoration: underline;
 }
 
-.megaMenuItem:hover > div,
-.megaMenuItem:focus > div {
-    display: flex;
-}
-
 .megaMenuItem_active {
     composes: megaMenuItem;
     display: flex;

@@ -63,6 +63,11 @@ Object {
       "uid",
     ],
   },
+  "ConfigurableProductOptions": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
   "ConfigurableWishlistItem": Object {
     "keyFields": [Function],
   },
@@ -171,6 +176,11 @@ Object {
   },
   "SimpleWishlistItem": Object {
     "keyFields": [Function],
+  },
+  "StoreConfig": Object {
+    "keyFields": Array [
+      "store_code",
+    ],
   },
   "VirtualProduct": Object {
     "keyFields": Array [

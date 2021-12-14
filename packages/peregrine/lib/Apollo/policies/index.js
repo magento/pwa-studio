@@ -168,6 +168,9 @@ const typePolicies = {
     ProductImage: {
         keyFields: ['url']
     },
+    ConfigurableProductOptions: {
+        keyFields: ['uid']
+    },
     SelectedConfigurableOption: {
         // id alone is not enough to identify a selected option as it can refer
         // to something like "size" where value_id refers to "large".
@@ -314,6 +317,9 @@ const typePolicies = {
     },
     VirtualProduct: {
         keyFields: ['uid']
+    },
+    StoreConfig: {
+        keyFields: ['store_code']
     }
 };
 
