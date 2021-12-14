@@ -16,10 +16,11 @@
 
 .giftMessageResultContainer {
     composes: gap-8 from global;
-    composes: items-center from global;
+    composes: items-start from global;
 
     /* Small */
     composes: sm_flex from global;
+    composes: sm_gap-12 from global;
 }
 
 .giftMessageResult p {
@@ -31,7 +32,7 @@
     composes: mt-4 from global;
 
     /* Small */
-    composes: sm_mt-0 from global;
+    composes: sm_mt-2 from global;
 }
 
 .giftMessageActions {

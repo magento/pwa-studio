@@ -37,6 +37,7 @@
 
 .input:disabled {
     background: rgb(var(--venia-global-color-gray-100));
+    border-color: rgb(var(--venia-global-color-gray-400));
     color: rgb(var(--venia-global-color-gray-darker));
 }
 

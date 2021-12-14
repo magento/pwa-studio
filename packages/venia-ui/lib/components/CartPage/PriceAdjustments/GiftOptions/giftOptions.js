@@ -211,7 +211,7 @@ const GiftOptions = props => {
                     <Field
                         id="message"
                         label={formatMessage({
-                            id: 'giftOptions.Message',
+                            id: 'giftOptions.message',
                             defaultMessage: 'Message'
                         })}
                     >
