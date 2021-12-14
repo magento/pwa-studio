@@ -40,7 +40,7 @@ export const useDiscountSummary = props => {
     const [expanded, setExpanded] = useState(false);
 
     const handleClick = useCallback(() => {
-        setExpanded(vale => !value);
+        setExpanded(value => !value);
     }, [setExpanded]);
 
     return {
