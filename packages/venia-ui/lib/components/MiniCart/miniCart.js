@@ -117,7 +117,7 @@ const MiniCart = React.forwardRef((props, ref) => {
     ) : (
         <Fragment>
             <div className={classes.header}>{header}</div>
-            <div className={classes.body}>
+            <div className={classes.body} data-cy="MiniCart-body">
                 <ProductList
                     items={productList}
                     loading={loading}
@@ -133,6 +133,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     priority="high"
                     className={classes.checkoutButton}
                     disabled={loading || isCartEmpty}
+                    data-cy="Minicart-checkoutButton"
                 >
                     <Icon
                         size={16}
@@ -151,6 +152,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     priority="high"
                     className={classes.editCartButton}
                     disabled={loading || isCartEmpty}
+                    data-cy="Minicart-editCartButton"
                 >
                     <FormattedMessage
                         id={'miniCart.editCartButton'}

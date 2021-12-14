@@ -38,6 +38,15 @@ export const SET_GUEST_SHIPPING_MUTATION = gql`
     ${AvailablePaymentMethodsFragment}
 `;
 
+export const GET_EMAIL_AVAILABLE_QUERY = gql`
+    query IsEmailAvailable($email: String!) {
+        isEmailAvailable(email: $email) {
+            is_email_available
+        }
+    }
+`;
+
 export default {
-    setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION
+    setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION,
+    getEmailAvailableQuery: GET_EMAIL_AVAILABLE_QUERY
 };

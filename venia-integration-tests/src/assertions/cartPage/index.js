@@ -1,5 +1,5 @@
 import {
-    kebabMenuButton,
+    productKebab,
     cartPageRoot,
     cartPageProductOption,
     cartPageProductQuantity,
@@ -29,7 +29,7 @@ export const assertProductInCartPage = name => {
 export const assertKebabMenuExists = productName => {
     const itemToCheck = cy.get(cartPageRoot).contains('li', productName);
 
-    itemToCheck.get(kebabMenuButton).should('exist');
+    itemToCheck.get(productKebab).should('exist');
 };
 
 export const assertUpdatedProductColorExists = (productName, color) => {

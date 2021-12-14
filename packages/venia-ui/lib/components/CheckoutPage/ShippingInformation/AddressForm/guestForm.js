@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { func, shape, string, arrayOf, number } from 'prop-types';
+import { AlertCircle } from 'react-feather';
 import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
+import { useToasts } from '@magento/peregrine';
 
 import { useStyle } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
@@ -13,7 +15,10 @@ import FormError from '../../../FormError';
 import Region from '../../../Region';
 import Postcode from '../../../Postcode';
 import TextInput from '../../../TextInput';
+import Icon from '../../../Icon';
 import defaultClasses from './guestForm.module.css';
+
+const AlertCircleIcon = <Icon src={AlertCircle} attrs={{ width: 20 }} />;
 
 const GuestForm = props => {
     const {
@@ -21,14 +26,18 @@ const GuestForm = props => {
         classes: propClasses,
         onCancel,
         onSuccess,
-        shippingData
+        shippingData,
+        toggleSignInContent,
+        setGuestSignInUsername
     } = props;
 
     const talonProps = useGuestForm({
         afterSubmit,
         onCancel,
         onSuccess,
-        shippingData
+        shippingData,
+        toggleSignInContent,
+        setGuestSignInUsername
     });
     const {
         errors,
@@ -36,8 +45,18 @@ const GuestForm = props => {
         handleSubmit,
         initialValues,
         isSaving,
-        isUpdate
+        isUpdate,
+        handleValidateEmail,
+        showSignInToast,
+        handleToastAction
     } = talonProps;
+
+    const formApiRef = useRef();
+    const getFormApi = api => {
+        formApiRef.current = api;
+    };
+
+    const [, { addToast }] = useToasts();
 
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, propClasses);
@@ -77,6 +96,36 @@ const GuestForm = props => {
         type: 'submit'
     };
 
+    useEffect(() => {
+        if (showSignInToast) {
+            addToast({
+                type: 'info',
+                icon: AlertCircleIcon,
+                message: formatMessage({
+                    id: 'checkoutPage.suggestSignInMessage',
+                    defaultMessage:
+                        'The email you provided is associated with an existing Venia account. Would you like to sign into this account?'
+                }),
+                timeout: false,
+                dismissable: true,
+                hasDismissAction: true,
+                dismissActionText: formatMessage({
+                    id: 'checkoutPage.suggestSignInDeclineMessage',
+                    defaultMessage: 'No, thanks'
+                }),
+                actionText: formatMessage({
+                    id: 'checkoutPage.suggestSignInConfirmMessage',
+                    defaultMessage: 'Yes, sign in'
+                }),
+                onAction: removeToast =>
+                    handleToastAction(
+                        removeToast,
+                        formApiRef.current.getValue('email')
+                    )
+            });
+        }
+    }, [addToast, formatMessage, showSignInToast, handleToastAction]);
+
     return (
         <Fragment>
             <FormError errors={Array.from(errors.values())} />
@@ -85,6 +134,7 @@ const GuestForm = props => {
                 data-cy="GuestForm-root"
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
+                getApi={getFormApi}
             >
                 <div className={classes.email}>
                     <Field
@@ -95,10 +145,22 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            autoComplete="off"
                             field="email"
                             id="email"
                             data-cy="GuestForm-email"
                             validate={isRequired}
+                            onBlur={() =>
+                                handleValidateEmail(
+                                    formApiRef.current.getValue('email')
+                                )
+                            }
+                            onPaste={e => {
+                                const text = e.clipboardData.getData(
+                                    'text/plain'
+                                );
+                                handleValidateEmail(text);
+                            }}
                         />
                         {guestEmailMessage}
                     </Field>
@@ -192,10 +254,10 @@ const GuestForm = props => {
                 <div className={classes.region}>
                     <Region
                         validate={isRequired}
-                        data-cy="GuestForm-region"
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
+                        data-cy="GuestForm-region"
                     />
                 </div>
                 <div className={classes.postcode}>
@@ -283,5 +345,7 @@ GuestForm.propTypes = {
         }).isRequired,
         street: arrayOf(string),
         telephone: string
-    })
+    }),
+    toggleSignInContent: func.isRequired,
+    setGuestSignInUsername: func.isRequired
 };

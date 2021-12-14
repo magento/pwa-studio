@@ -72,11 +72,11 @@ const givenDefaultValues = () => {
     globalThis.localStorage.setItem('store_view_code', 'store_view_code');
     globalThis.localStorage.setItem(
         `${CACHE_PERSIST_PREFIX}-default`,
-        '{"StoreConfig:1":{"id":1,"__typename":"StoreConfig","code":"default"}}'
+        '{"StoreConfig:{"store_code":"default"}":{"store_code":"default","__typename":"StoreConfig","code":"default"}}'
     );
     globalThis.localStorage.setItem(
         `${CACHE_PERSIST_PREFIX}-french`,
-        '{"StoreConfig:2":{"id":2,"__typename":"StoreConfig","code":"french"}}'
+        '{"StoreConfig:{"store_code":"fr"}":{"store_code":"fr","__typename":"StoreConfig","code":"french"}}'
     );
 };
 

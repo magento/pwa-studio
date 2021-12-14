@@ -90,6 +90,7 @@ const PriceSummary = props => {
                 disabled={isPriceUpdating}
                 priority={'high'}
                 onClick={handleProceedToCheckout}
+                data-cy="PriceSummary-checkoutButton"
             >
                 <FormattedMessage
                     id={'priceSummary.checkoutButton'}

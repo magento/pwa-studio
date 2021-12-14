@@ -4,10 +4,8 @@ import {
     giftCardSectionButton,
     giftOptionsSectionButton,
     kebabMenuButton,
-    cartPageProductImageLink,
     cartPageProductLink,
     kebabMenuEditButton,
-    editMenuColorButton,
     editMenuSizeButton,
     editMenuIncreaseQtyStepper,
     editMenuUpdateCartButton,
@@ -18,6 +16,7 @@ import {
     saveForLaterButton,
     shippingMethodEstimateButton,
     shippingMethodRegionField,
+    shippingMethodRegionFieldId,
     shippingMethodPostCodeTextField,
     shippingMethodSubmitButton,
     shippingMethodSectionButton,
@@ -38,6 +37,8 @@ import {
     giftOptionsEditGiftMessageButton,
     giftOptionsUpdateGiftMessageButton
 } from '../../fields/cartPage';
+import { swatchRoot } from '../../fields/productPage';
+
 import { defaultShippingMethods } from '../../fixtures/checkoutPage';
 
 export const toggleShippingMethodSection = () => {
@@ -66,7 +67,7 @@ export const toggleGiftOptionsSection = () => {
 export const moveProductFromCartToSingleWishlist = productName => {
     const itemToMove = cy.get(cartPageRoot).contains('li', productName);
 
-    itemToMove.get(kebabMenuButton).click();
+    itemToMove.get(productKebab).click();
 
     itemToMove.get(saveForLaterButton).click();
 };
@@ -89,7 +90,7 @@ export const openProductEditMenu = productName => {
  * Utility to select a product's color in edit dialog
  */
 export const editProductColor = color => {
-    cy.get(`${editMenuColorButton}[title*="${color}"]`).click();
+    cy.get(`${swatchRoot}[title*="${color}"]`).click();
 };
 /**
  * Utility to select a product's size in edit dialog
@@ -122,7 +123,7 @@ export const goToCheckout = () => {
  * Utility to click on product image link from cart page
  */
 export const clickProductImageLinkFromCart = () => {
-    cy.get(cartPageProductImageLink).click();
+    cy.get(cartPageProductLink).click();
 };
 
 /**
@@ -167,7 +168,7 @@ export const estimateShippingMethod = ({
     }
 
     if (regionCode) {
-        cy.get(shippingMethodRegionField)
+        cy.get(shippingMethodRegionFieldId)
             .should('not.be.disabled')
             .select(regionCode);
     } else if (region) {

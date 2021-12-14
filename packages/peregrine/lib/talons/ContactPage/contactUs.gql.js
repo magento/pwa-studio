@@ -22,8 +22,9 @@ export const SUBMIT_CONTACT_FORM = gql`
 
 export const GET_STORE_CONFIG_DATA = gql`
     query GetStoreConfigForContactUs {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             contact_enabled
         }
     }

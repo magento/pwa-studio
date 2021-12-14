@@ -21,7 +21,6 @@ exports[`should render add to cart if in stock 1`] = `
   <span>
     <span>
       <svg
-        className="icon"
         fill="none"
         height={16}
         stroke="currentColor"
@@ -77,7 +76,6 @@ exports[`should render out of cart if not in stock 1`] = `
   <span>
     <span>
       <svg
-        className="icon"
         fill="none"
         height={16}
         stroke="currentColor"
@@ -141,7 +139,6 @@ exports[`should render properly 1`] = `
   <span>
     <span>
       <svg
-        className="icon"
         fill="none"
         height={16}
         stroke="currentColor"
