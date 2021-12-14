@@ -16,6 +16,7 @@ const GET_ROOT_CATEGORY_ID = gql`
     query getRootCategoryId {
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
+            store_code
             id
             root_category_uid
         }

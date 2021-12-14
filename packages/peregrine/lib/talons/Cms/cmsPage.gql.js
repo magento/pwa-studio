@@ -14,6 +14,7 @@ export const GET_CMS_PAGE = gql`
         }
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
+            store_code
             id
             root_category_uid
         }
