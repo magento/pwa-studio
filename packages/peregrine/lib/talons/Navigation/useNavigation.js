@@ -38,7 +38,7 @@ export const useNavigation = (props = {}) => {
 
     const rootCategoryId = useMemo(() => {
         if (getRootCategoryData) {
-            return getRootCategoryData.storeConfig.root_category_id;
+            return getRootCategoryData.storeConfig.root_category_uid;
         }
     }, [getRootCategoryData]);
 

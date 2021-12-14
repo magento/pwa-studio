@@ -12,14 +12,12 @@ export const GET_CATEGORY_URL_SUFFIX = gql`
 
 export const GET_NAVIGATION_MENU = gql`
     query GetNavigationMenu($id: String!) {
-        categories(filters: { ids: { in: [$id] } }) {
+        categories(filters: { category_uid: { eq: $id } }) {
             items {
-                id
                 uid
                 name
                 children {
                     children_count
-                    id
                     uid
                     include_in_menu
                     name

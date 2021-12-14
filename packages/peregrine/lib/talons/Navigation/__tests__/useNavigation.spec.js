@@ -58,9 +58,9 @@ jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
     return {
         ...apolloClient,
-        useQuery: jest
-            .fn()
-            .mockReturnValue({ data: { storeConfig: { root_category_id: 1 } } })
+        useQuery: jest.fn().mockReturnValue({
+            data: { storeConfig: { root_category_uid: 1 } }
+        })
     };
 });
 

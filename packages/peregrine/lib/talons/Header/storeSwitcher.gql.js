@@ -5,7 +5,6 @@ export const GET_STORE_CONFIG_DATA = gql`
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
             store_code
-            code
             store_name
             store_group_name
         }
@@ -37,9 +36,8 @@ export const GET_AVAILABLE_STORES_DATA = gql`
     query getAvailableStoresData {
         availableStores {
             category_url_suffix
-            code
+            store_code
             default_display_currency_code
-            id
             locale
             product_url_suffix
             secure_base_media_url

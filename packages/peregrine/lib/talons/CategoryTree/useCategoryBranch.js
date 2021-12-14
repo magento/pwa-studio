@@ -12,14 +12,14 @@ import { useCallback } from 'react';
  */
 export const useCategoryBranch = props => {
     const { category, setCategoryId } = props;
-    const { id, include_in_menu } = category;
+    const { uid, include_in_menu } = category;
 
     // `include_in_menu` is undefined when Magento <= 2.3.1
     const exclude = include_in_menu === 0;
 
     const handleClick = useCallback(() => {
-        setCategoryId(id);
-    }, [id, setCategoryId]);
+        setCategoryId(uid);
+    }, [uid, setCategoryId]);
 
     return { exclude, handleClick };
 };
