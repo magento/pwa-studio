@@ -10,10 +10,11 @@ export const EditFormFragment = gql`
         __typename
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         ... on ConfigurableProduct {
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             configurable_options {
                 attribute_code
                 attribute_id
-                id
+                uid
                 label
                 values {
                     default_label

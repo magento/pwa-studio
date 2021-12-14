@@ -66,6 +66,11 @@ Object {
       "uid",
     ],
   },
+  "ConfigurableProductOptions": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
   "ConfigurableWishlistItem": Object {
     "keyFields": [Function],
   },
