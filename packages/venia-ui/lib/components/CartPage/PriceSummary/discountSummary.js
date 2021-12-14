@@ -6,33 +6,9 @@ import Icon from '../../Icon';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import defaultClasses from './discountSummary.module.css';
 import AnimateHeight from 'react-animate-height';
+import { useDiscountSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/useDiscountSummary';
 
 const MINUS_SYMBOL = '-';
-
-const DEFAULT_AMOUNT = {
-    currency: 'USD',
-    value: 0
-};
-
-/**
- * Reduces discounts array into a single amount.
- *
- * @param {Array} discounts
- */
-const getDiscount = (discounts = []) => {
-    // discounts from data can be null
-    if (!discounts || !discounts.length) {
-        return DEFAULT_AMOUNT;
-    } else {
-        return {
-            currency: discounts[0].amount.currency,
-            value: discounts.reduce(
-                (acc, discount) => acc + discount.amount.value,
-                0
-            )
-        };
-    }
-};
 
 /**
  * A component that renders the discount summary line item.
@@ -42,14 +18,16 @@ const getDiscount = (discounts = []) => {
  */
 const DiscountSummary = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const discount = getDiscount(props.data);
-    const discountData = props.data;
     const { formatMessage } = useIntl();
-    const [isExpanded, setExpanded] = useState(false);
-    const handleClick = useCallback(() => {
-        setExpanded(value => !value);
-    }, [setExpanded]);
-    const toggleDiscountsAriaLabel = isExpanded
+
+    const {
+        totalDiscount,
+        discountData,
+        expanded,
+        handleClick
+    } = useDiscountSummary(props);
+
+    const toggleDiscountsAriaLabel = expanded
         ? formatMessage({
               id: 'priceSummary.discountSummary.hideDiscounts',
               defaultMessage: 'Hide individual discounts.'
@@ -58,11 +36,13 @@ const DiscountSummary = props => {
               id: 'priceSummary.discountSummary.showDiscounts',
               defaultMessage: 'Show individual discounts.'
           });
-    const iconSrc = isExpanded ? ArrowUp : ArrowDown;
+
+    const iconSrc = expanded ? ArrowUp : ArrowDown;
     classes.individualDiscountsList =
         classes.lineItemLabel + ' ' + classes.individualDiscountsList;
+
     const individualDiscounts = discountData ? (
-        <AnimateHeight duration={500} height={isExpanded ? 'auto' : 0}>
+        <AnimateHeight duration={500} height={expanded ? 'auto' : 0}>
             <ul
                 className={classes.individualDiscountsList}
                 data-cy="DiscountSummary-IndividualDiscount"
@@ -97,7 +77,7 @@ const DiscountSummary = props => {
         </AnimateHeight>
     ) : null;
 
-    return discount.value ? (
+    return totalDiscount.value ? (
         <Fragment>
             <li className={classes.lineItems}>
                 <span
@@ -112,7 +92,7 @@ const DiscountSummary = props => {
                         onClick={handleClick}
                         data-cy="DiscountSummary-DiscountValue-TriggerButton"
                         type="button"
-                        aria-expanded={isExpanded}
+                        aria-expanded={expanded}
                         aria-label={toggleDiscountsAriaLabel}
                         className={classes.discountsButton}
                     >
@@ -128,8 +108,8 @@ const DiscountSummary = props => {
                 >
                     {MINUS_SYMBOL}
                     <Price
-                        value={discount.value}
-                        currencyCode={discount.currency}
+                        value={totalDiscount.value}
+                        currencyCode={totalDiscount.currency}
                     />
                 </span>
             </li>
