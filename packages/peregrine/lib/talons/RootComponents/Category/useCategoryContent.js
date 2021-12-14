@@ -94,27 +94,47 @@ export const useCategoryContent = props => {
     const sortingMethods = sortData
         ? sortData?.products?.sort_fields?.options
         : null;
-    const sortingMethodsDirections = sortingMethods
-        ? sortingMethods.map(method => {
-              const sortingMethodAscending = {
-                  id: `sortItem.${method.value}Asc`,
-                  text: `${method.label} Asc`,
-                  attribute: method.value,
-                  sortDirection: 'ASC'
-              };
-              const sortingMethodDescending = {
-                  id: `sortItem.${method.value}Desc`,
-                  text: `${method.label} Desc`,
-                  attribute: method.value,
-                  sortDirection: 'DESC'
-              };
+    // price needs to be bidirectional
+    const priceSortingPropsDescending = {
+        id: 'sortItem.priceDesc',
+        text: 'Price: High to Low',
+        attribute: 'price',
+        sortDirection: 'DESC'
+    };
 
-              return [sortingMethodAscending, sortingMethodDescending];
-          })
+    const priceSortingPropsAscending = {
+        id: 'sortItem.priceAsc',
+        text: 'Price: Low to High',
+        attribute: 'price',
+        sortDirection: 'ASC'
+    };
+    const sortMethodsArray = [
+        priceSortingPropsAscending,
+        priceSortingPropsDescending
+    ];
+    const sortingMethodsDirections = sortingMethods
+        ? sortingMethods
+              .map(method => {
+                  let sortingProps;
+
+                  if (method.value !== 'price') {
+                      sortingProps = {
+                          ...sortingProps,
+                          id: `sortItem.${method.value}`,
+                          text: `${method.label}`,
+                          attribute: method.value,
+                          sortDirection: 'ASC'
+                      };
+                  }
+
+                  return sortingProps;
+              })
+              .filter(method => method !== undefined)
         : null;
+    // ensures sorting method always exists
     const availableSortMethods = sortingMethodsDirections
-        ? sortingMethodsDirections.flat()
-        : null;
+        ? [sortingMethodsDirections, sortMethodsArray].flat()
+        : sortMethodsArray;
 
     return {
         availableSortMethods,

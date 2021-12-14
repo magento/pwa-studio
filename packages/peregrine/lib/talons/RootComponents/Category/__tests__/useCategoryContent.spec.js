@@ -52,15 +52,6 @@ const mockProps = {
     }
 };
 
-const mockProductFiltersByCategoryData = {
-    products: {
-        aggregations: [
-            {
-                label: 'Label'
-            }
-        ]
-    }
-};
 const mockCategoryData = {
     categories: {
         items: [
@@ -72,21 +63,7 @@ const mockCategoryData = {
     }
 };
 
-const mockAvailableSortMethods = {
-    products: {
-        sort_fields: {
-            options: [
-                {
-                    label: 'Position',
-                    value: 'position'
-                }
-            ]
-        }
-    }
-};
-
 const mockGetFilters = jest.fn();
-const mockGetCategoryAvailableSortMethods = jest.fn();
 
 useQuery.mockReturnValue({ data: mockCategoryData });
 
