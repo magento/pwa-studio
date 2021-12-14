@@ -19,6 +19,7 @@ const mapAvailableOptions = (config, stores) => {
             locale,
             product_url_suffix,
             secure_base_media_url,
+            store_code: storeCode,
             store_group_code: storeGroupCode,
             store_group_name: storeGroupName,
             store_name: storeName,
@@ -35,6 +36,7 @@ const mapAvailableOptions = (config, stores) => {
             product_url_suffix,
             secure_base_media_url,
             sortOrder,
+            storeCode,
             storeGroupCode,
             storeGroupName,
             storeName
@@ -62,7 +64,7 @@ export const useStoreSwitcher = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         getStoreConfigData,
-        getUrlResolverData,
+        getRouteData,
         getAvailableStoresData
     } = operations;
     const { pathname } = useLocation();
@@ -78,7 +80,7 @@ export const useStoreSwitcher = (props = {}) => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const { data: urlResolverData } = useQuery(getUrlResolverData, {
+    const { data: routeData } = useQuery(getRouteData, {
         fetchPolicy: 'cache-first',
         variables: { url: pathname }
     });
@@ -107,10 +109,10 @@ export const useStoreSwitcher = (props = {}) => {
     }, [storeConfigData]);
 
     const pageType = useMemo(() => {
-        if (urlResolverData && urlResolverData.urlResolver) {
-            return urlResolverData.urlResolver.type;
+        if (routeData && routeData.route) {
+            return routeData.route.type;
         }
-    }, [urlResolverData]);
+    }, [routeData]);
 
     // availableStores => mapped options or empty map if undefined.
     const availableStores = useMemo(() => {

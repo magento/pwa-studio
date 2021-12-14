@@ -1,8 +1,21 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import { createTestInstance, useToasts } from '@magento/peregrine';
 import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
 
 import GuestForm from '../guestForm';
+
+jest.mock('@magento/peregrine', () => {
+    const state = {};
+    const api = {
+        addToast: jest.fn()
+    };
+
+    const useToasts = jest.fn(() => [state, api]);
+    return {
+        ...jest.requireActual('@magento/peregrine'),
+        useToasts
+    };
+});
 
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm'
@@ -46,6 +59,48 @@ test('renders form error', () => {
 
     const tree = createTestInstance(<GuestForm {...mockProps} />);
     expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders signIn suggestion toast message', () => {
+    const addToast = jest.fn();
+    useToasts.mockReturnValueOnce([{}, { addToast }]);
+    useGuestForm.mockReturnValueOnce({
+        ...emptyFormProps,
+        showSignInToast: true
+    });
+
+    createTestInstance(<GuestForm {...mockProps} />);
+
+    expect(addToast).toHaveBeenCalled();
+    expect(addToast.mock.calls[0][0]).toMatchInlineSnapshot(`
+        Object {
+          "actionText": "Yes, sign in",
+          "dismissActionText": "No, thanks",
+          "dismissable": true,
+          "hasDismissAction": true,
+          "icon": <Icon
+            attrs={
+              Object {
+                "width": 20,
+              }
+            }
+            src={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "color": [Function],
+                  "size": [Function],
+                },
+                "render": [Function],
+              }
+            }
+          />,
+          "message": "The email you provided is associated with an existing Venia account. Would you like to sign into this account?",
+          "onAction": [Function],
+          "timeout": false,
+          "type": "info",
+        }
+    `);
 });
 
 describe('renders prefilled form with data', () => {

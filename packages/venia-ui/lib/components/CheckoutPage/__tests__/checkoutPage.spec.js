@@ -65,6 +65,7 @@ const defaultTalonProps = {
     checkoutStep: 1,
     customer: null,
     error: false,
+    guestSignInUsername: '',
     handleSignIn: jest.fn().mockName('handleSignIn'),
     handlePlaceOrder: jest.fn().mockName('handlePlaceOrder'),
     hasError: false,
@@ -76,6 +77,7 @@ const defaultTalonProps = {
     orderDetailsLoading: false,
     orderNumber: null,
     placeOrderLoading: false,
+    setGuestSignInUsername: jest.fn().mockName('setGuestSignInUsername'),
     setIsUpdating: jest.fn().mockName('setIsUpdating'),
     setShippingInformationDone: jest
         .fn()

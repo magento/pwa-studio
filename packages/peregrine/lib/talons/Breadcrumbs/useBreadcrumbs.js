@@ -12,7 +12,7 @@ const sortCrumbs = (a, b) => a.category_level > b.category_level;
 // Generates the path for the category.
 const getPath = (path, suffix) => {
     if (path) {
-        return `/${path}${suffix}`;
+        return `/${path}${suffix || ''}`;
     }
 
     // If there is no path this is just a dead link.

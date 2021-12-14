@@ -91,6 +91,17 @@ test('renders the loading indicator when form is submitting', () => {
     });
 });
 
+test('renders prefilled form with initial values', () => {
+    const testProps = {
+        ...props,
+        initialValues: {
+            email: 'test@mail.com'
+        }
+    };
+    const component = createTestInstance(<SignIn {...testProps} />);
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
 test('displays an error message if there is a sign in error', () => {
     useMutation.mockReturnValueOnce([
         jest.fn(),

@@ -39,7 +39,7 @@ jest.mock('@apollo/client', () => {
             loading: false,
             data: {
                 storeConfig: {
-                    id: 1,
+                    store_code: 'default',
                     configurable_thumbnail_source: 'parent'
                 }
             }
@@ -133,7 +133,7 @@ test('it returns the proper shape when use variant image is configured', () => {
         loading: false,
         data: {
             storeConfig: {
-                id: 1,
+                store_code: 'default',
                 configurable_thumbnail_source: 'itself'
             }
         }
@@ -504,7 +504,7 @@ test('it returns an error message when the item has an error', () => {
         loading: false,
         data: {
             storeConfig: {
-                id: 1,
+                store_code: 'default',
                 configurable_thumbnail_source: 'itself'
             }
         }

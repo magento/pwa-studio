@@ -109,6 +109,7 @@ const typePolicies = {
     },
     Customer: {
         keyFields: () => 'Customer',
+        merge: true,
         fields: {
             addresses: {
                 merge(existing, incoming) {
@@ -166,6 +167,9 @@ const typePolicies = {
     },
     ProductImage: {
         keyFields: ['url']
+    },
+    ConfigurableProductOptions: {
+        keyFields: ['uid']
     },
     SelectedConfigurableOption: {
         // id alone is not enough to identify a selected option as it can refer
@@ -316,6 +320,9 @@ const typePolicies = {
     },
     CartItemInterface: {
         keyFields: ['uid']
+    },
+    StoreConfig: {
+        keyFields: ['store_code']
     }
 };
 
