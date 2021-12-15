@@ -90,11 +90,11 @@ export const useProductForm = props => {
     const handleOptionSelection = useCallback(
         (optionId, selection) => {
             const nextOptionSelections = new Map([...optionSelections]);
-						
+
             const initialSelection = cartItem.configurable_options.find(
                 option => option.id == optionId
             );
-						
+
             if (initialSelection.value_id === selection) {
                 nextOptionSelections.delete(optionId);
             } else {
