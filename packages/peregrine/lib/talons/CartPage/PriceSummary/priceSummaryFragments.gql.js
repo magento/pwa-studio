@@ -18,8 +18,9 @@ export const GrandTotalFragment = gql`
 export const PriceSummaryFragment = gql`
     fragment PriceSummaryFragment on Cart {
         id
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         items {
-            id
+            uid
             quantity
         }
         ...ShippingSummaryFragment
