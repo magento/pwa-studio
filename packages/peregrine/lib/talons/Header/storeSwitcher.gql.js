@@ -34,9 +34,9 @@ export const GET_ROUTE_DATA = gql`
 
 export const GET_AVAILABLE_STORES_DATA = gql`
     query getAvailableStoresData {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         availableStores {
             category_url_suffix
-            store_code
             default_display_currency_code
             locale
             product_url_suffix
