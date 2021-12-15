@@ -39,6 +39,38 @@ Array [
           />
           <div
             className="headerButtons"
+          >
+            <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
+          </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
+            }
           />
         </div>
         <section
@@ -112,7 +144,38 @@ Array [
                 ]
               }
             />
+            <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
           </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
+            }
+          />
         </div>
         <section
           className="gallery"
@@ -192,7 +255,38 @@ Array [
                 ]
               }
             />
+            <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
           </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
+            }
+          />
         </div>
         <section
           className="gallery"
@@ -280,7 +374,38 @@ Array [
                 ]
               }
             />
+            <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
           </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
+            }
+          />
         </div>
         <section
           className="gallery"
@@ -470,6 +595,38 @@ Array [
           />
           <div
             className="headerButtons"
+          >
+            <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
+          </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
+            }
           />
         </div>
         <section
@@ -585,6 +742,38 @@ Array [
           />
           <div
             className="headerButtons"
+          >
+            <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
+          </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
+            }
           />
         </div>
         <section

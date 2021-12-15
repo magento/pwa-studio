@@ -65,7 +65,7 @@ const CategoryContent = props => {
     const shouldShowFilterShimmer = filters === null;
 
     // If there are no products we can hide the sort button.
-    const shouldShowSortButtons = totalPagesFromData;
+    const shouldShowSortButtons = totalPagesFromData && availableSortMethods;
     const shouldShowSortShimmer = !totalPagesFromData && isLoading;
 
     const maybeFilterButtons = shouldShowFilterButtons ? (
