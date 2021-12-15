@@ -1,67 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`handles no data prop 1`] = `
-Object {
-  "availableSortMethods": null,
-  "categoryDescription": "Jewelry category",
-  "categoryName": "Jewelry",
-  "filters": null,
-  "items": Array [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-  ],
-  "totalCount": null,
-  "totalPagesFromData": null,
-}
-`;
-
-exports[`returns the proper shape 1`] = `
+exports[`useCategoryContent tests handles no data prop 1`] = `
 Object {
   "availableSortMethods": Array [
     Object {
-      "attribute": "position",
-      "id": "sortItem.positionAsc",
+      "attribute": "price",
+      "id": "sortItem.priceAsc",
       "sortDirection": "ASC",
-      "text": "Position Asc",
+      "text": "Price: Low to High",
     },
     Object {
-      "attribute": "position",
-      "id": "sortItem.positionDesc",
+      "attribute": "price",
+      "id": "sortItem.priceDesc",
       "sortDirection": "DESC",
-      "text": "Position Desc",
+      "text": "Price: High to Low",
     },
   ],
-  "categoryDescription": "Jewelry category",
-  "categoryName": "Jewelry",
-  "filters": Array [
-    Object {
-      "label": "Label",
-    },
-  ],
-  "items": Array [
-    Object {
-      "id": 1,
-      "name": "Ring",
-    },
-    Object {
-      "id": 2,
-      "name": "Necklace",
-    },
-  ],
-  "totalCount": 2,
-  "totalPagesFromData": 1,
-}
-`;
-
-exports[`useCategoryContent tests handles no data prop 1`] = `
-Object {
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
   "filters": null,
@@ -83,13 +37,23 @@ Object {
 
 exports[`useCategoryContent tests returns the proper shape 1`] = `
 Object {
-  "categoryDescription": "Jewelry category",
-  "categoryName": "Jewelry",
-  "filters": Array [
+  "availableSortMethods": Array [
     Object {
-      "label": "Label",
+      "attribute": "price",
+      "id": "sortItem.priceAsc",
+      "sortDirection": "ASC",
+      "text": "Price: Low to High",
+    },
+    Object {
+      "attribute": "price",
+      "id": "sortItem.priceDesc",
+      "sortDirection": "DESC",
+      "text": "Price: High to Low",
     },
   ],
+  "categoryDescription": "Jewelry category",
+  "categoryName": "Jewelry",
+  "filters": null,
   "items": Array [
     Object {
       "id": 1,

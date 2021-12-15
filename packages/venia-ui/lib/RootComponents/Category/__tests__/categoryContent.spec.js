@@ -5,7 +5,6 @@ import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
 import CategoryContent from '../categoryContent';
-import SortItem from '../../../components/ProductSort/sortItem';
 
 jest.mock('@magento/venia-ui/lib/classify');
 jest.mock('@magento/peregrine/lib/context/app', () => {
