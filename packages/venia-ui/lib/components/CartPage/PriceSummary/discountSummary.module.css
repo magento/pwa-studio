@@ -2,22 +2,40 @@
 }
 
 .discountsButton {
-    margin-left: 0.5rem;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: ml-2 from global;
 }
 
-.discountButtonIcon svg {
-    transform: translate(0, 0.45rem);
+.discountLineItems {
+    composes: lineItems from './priceSummary.module.css';
+
+    composes: items-center from global;
+}
+
+.discountLineItemLabel {
+    composes: lineItemLabel from './priceSummary.module.css';
+
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
 }
 
 .individualDiscountSeparator {
-    margin: 1rem 0;
-    color: #e5e5e7;
+    composes: mx-0 from global;
+    composes: my-4 from global;
+
+    color: rgb(var(--venia-global-color-gray-300));
 }
 .individualDiscountsList {
+    composes: lineItemLabel from './priceSummary.module.css';
 }
 
-.individualDiscountsList li {
-    color: #535965;
-    padding-left: 1rem;
-    margin: 1rem 0;
+.individualDiscountsListLineItem {
+    composes: lineItems from './priceSummary.module.css';
+    composes: mx-0 from global;
+    composes: my-4 from global;
+    composes: pl-4 from global;
+
+    color: rgb(var(--venia-global-color-gray-700));
 }

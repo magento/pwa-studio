@@ -38,8 +38,6 @@ const DiscountSummary = props => {
           });
 
     const iconSrc = expanded ? ArrowUp : ArrowDown;
-    classes.individualDiscountsList =
-        classes.lineItemLabel + ' ' + classes.individualDiscountsList;
 
     const individualDiscounts = discountData ? (
         <AnimateHeight duration={500} height={expanded ? 'auto' : 0}>
@@ -50,7 +48,10 @@ const DiscountSummary = props => {
                 <hr className={classes.individualDiscountSeparator} />
                 {discountData.map(discount => {
                     return (
-                        <li className={classes.lineItems} key={discount.label}>
+                        <li
+                            className={classes.individualDiscountsListLineItem}
+                            key={discount.label}
+                        >
                             <span
                                 className={classes.lineItemLabel}
                                 data-cy="DiscountSummary-IndividualDiscount-Label"
@@ -79,9 +80,9 @@ const DiscountSummary = props => {
 
     return totalDiscount.value ? (
         <Fragment>
-            <li className={classes.lineItems}>
+            <li className={classes.discountLineItems}>
                 <span
-                    className={classes.lineItemLabel}
+                    className={classes.discountLineItemLabel}
                     data-cy="PriceSummary-DiscountSummary-Label"
                 >
                     <FormattedMessage
@@ -96,10 +97,7 @@ const DiscountSummary = props => {
                         aria-label={toggleDiscountsAriaLabel}
                         className={classes.discountsButton}
                     >
-                        <Icon
-                            src={iconSrc}
-                            className={classes.discountButtonIcon}
-                        />
+                        <Icon src={iconSrc} />
                     </button>
                 </span>
                 <span
