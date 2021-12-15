@@ -29,6 +29,8 @@ export const getCustomerAfterCheckoutCall =
 export const getCustomerWishlistCall =
     '**/graphql?query=query+GetCustomerWishlist*';
 
+export const getDynamicBlocksCall = '**/graphql?query=query+dynamicBlocks*';
+
 export const getItemsInCartCall = '**/graphql?query=query+getItemsInCart*';
 
 export const getMultipleWishlistConfigCall =
