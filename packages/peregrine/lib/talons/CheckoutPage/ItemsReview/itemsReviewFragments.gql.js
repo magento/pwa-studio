@@ -4,8 +4,9 @@ export const ItemsReviewFragment = gql`
     fragment ItemsReviewFragment on Cart {
         id
         total_quantity
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         items {
-            id
+            uid
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             product {
                 uid
@@ -30,6 +31,7 @@ export const ItemsReviewFragment = gql`
                 }
             }
             quantity
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ConfigurableCartItem {
                 configurable_options {
                     id
