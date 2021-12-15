@@ -123,9 +123,9 @@ Now we need to apply the CSS classes we used to style the rest of our content ty
 
 ## Step 4: Apply CSS classes
 
-Applying CSS classes to your component in PWA involves importing both your CSS stylesheet and a PWA Studio function called `mergeClasses`. This function does exactly what its name implies: it merges classes from different sources into a single variable you can use to add your classes to your JSX, using `className`.
+Applying CSS classes to your component in PWA involves importing both your CSS stylesheet and a PWA Studio function called `useStyle`. This function does exactly what its name implies: it merges classes from different sources into a single variable you can use to add your classes to your JSX, using `className`.
 
-For our component, we import our component stylesheet and the `mergeClasses` function as follows:
+For our component, we import our component stylesheet and the `useStyle` function as follows:
 
 ```js
 import defaultClasses from './exampleQuote.css';

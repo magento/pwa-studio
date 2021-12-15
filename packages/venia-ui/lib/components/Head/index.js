@@ -42,8 +42,9 @@ export const Title = props => {
 
 const STORE_NAME_QUERY = gql`
     query getStoreName {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             store_name
         }
     }

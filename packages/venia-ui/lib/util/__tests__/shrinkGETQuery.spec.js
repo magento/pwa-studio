@@ -82,7 +82,7 @@ test('Shrunken category query URL is smaller than the original', () => {
               configurable_options {
                 attribute_code
                 attribute_id
-                id
+                uid
                 label
                 values {
                   default_label
