@@ -13,7 +13,7 @@
         },
         "storeConfig": {
             "store_code": "default",
-            "root_category_id": 2,
+            "root_category_uid": "Mg==",
             "__typename": "StoreConfig"
         }
     }
