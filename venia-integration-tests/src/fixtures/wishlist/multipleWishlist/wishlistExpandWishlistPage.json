@@ -31,7 +31,7 @@
                 "stock_status": "IN_STOCK",
                 "configurable_options": [
                   {
-                    "id": 48,
+                    "uid": 48,
                     "attribute_code": "fashion_color",
                     "attribute_id": "181",
                     "attribute_id_v2": 181,
@@ -93,7 +93,7 @@
                     "__typename": "ConfigurableProductOptions"
                   },
                   {
-                    "id": 49,
+                    "uid": 49,
                     "attribute_code": "fashion_size",
                     "attribute_id": "184",
                     "attribute_id_v2": 184,

@@ -3,8 +3,9 @@ import { gql } from '@apollo/client';
 export const CheckoutPageFragment = gql`
     fragment CheckoutPageFragment on Cart {
         id
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         items {
-            id
+            uid
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             product {
                 uid
