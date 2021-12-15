@@ -49,6 +49,7 @@ export const ProductListingFragment = gql`
             ... on ConfigurableCartItem {
                 # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 configurable_options {
+										id
                     configurable_product_option_uid
                     option_label
                     configurable_product_option_value_uid
