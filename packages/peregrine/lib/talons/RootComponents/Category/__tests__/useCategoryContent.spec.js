@@ -57,17 +57,6 @@ const mockProps = {
     }
 };
 
-const mockCategoryData = {
-    categories: {
-        items: [
-            {
-                name: 'Jewelry',
-                description: 'Jewelry category'
-            }
-        ]
-    }
-};
-
 const mockSortData = {
     products: {
         sort_fields: {
@@ -78,6 +67,17 @@ const mockSortData = {
                 }
             ]
         }
+    }
+};
+
+const mockCategoryData = {
+    categories: {
+        items: [
+            {
+                name: 'Jewelry',
+                description: 'Jewelry category'
+            }
+        ]
     }
 };
 
