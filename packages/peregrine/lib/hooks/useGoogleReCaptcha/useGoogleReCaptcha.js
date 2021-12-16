@@ -64,15 +64,12 @@ export const useGoogleReCaptcha = props => {
 
     scriptUrl.searchParams.append('badge', recaptchaBadge);
 
-    if (isInline) {
-        // Widget will be rendered manually in a GoogleReCaptcha component
-        scriptUrl.searchParams.append('render', 'explicit');
-        scriptUrl.searchParams.append('onload', 'onloadRecaptchaCallback');
-    } else {
-        // Widget will be rendered on load at the end of the body
-        scriptUrl.searchParams.append('render', recaptchaKey);
-        scriptUrl.searchParams.append('onload', 'onloadRecaptchaCallback');
-    }
+    // Render separate widgets with GoogleReCaptcha component when inline
+    scriptUrl.searchParams.append(
+        'render',
+        isInline ? 'explicit' : recaptchaKey
+    );
+    scriptUrl.searchParams.append('onload', 'onloadRecaptchaCallback');
 
     if (recaptchaLang && recaptchaLang.length > 0) {
         scriptUrl.searchParams.append('hl', recaptchaLang);
