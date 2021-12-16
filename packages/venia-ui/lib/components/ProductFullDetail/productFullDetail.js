@@ -16,6 +16,7 @@ import FormError from '../FormError';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichContent from '../RichContent/richContent';
 import { ProductOptionsShimmer } from '../ProductOptions';
+import CustomAttributes from './customAttributes';
 import defaultClasses from './productFullDetail.module.css';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
@@ -50,6 +51,7 @@ const ProductFullDetail = props => {
         isSupportedProductType,
         mediaGalleryEntries,
         productDetails,
+        customAttributes,
         wishlistButtonProps
     } = talonProps;
     const { formatMessage } = useIntl();
@@ -229,6 +231,7 @@ const ProductFullDetail = props => {
                         />
                     </span>
                     <strong>{productDetails.sku}</strong>
+                    <CustomAttributes customAttributes={customAttributes} />
                 </section>
             </Form>
         </Fragment>
