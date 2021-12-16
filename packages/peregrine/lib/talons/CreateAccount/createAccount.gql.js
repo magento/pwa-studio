@@ -20,8 +20,10 @@ export const CREATE_ACCOUNT = gql`
         ) {
             # The createCustomer mutation returns a non-nullable CustomerOutput type
             # which requires that at least one of the sub fields be returned.
+
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             customer {
-                id
+                email
             }
         }
     }
@@ -29,8 +31,8 @@ export const CREATE_ACCOUNT = gql`
 
 export const GET_CUSTOMER = gql`
     query GetCustomerAfterCreate {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             email
             firstname
             lastname
@@ -57,8 +59,9 @@ export const GET_CART_DETAILS = gql`
     query GetCartDetailsAfterAccountCreation($cartId: String!) {
         cart(cart_id: $cartId) {
             id
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
-                id
+                uid
                 prices {
                     price {
                         value
@@ -82,6 +85,7 @@ export const GET_CART_DETAILS = gql`
                     }
                 }
                 quantity
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableCartItem {
                     configurable_options {
                         id
@@ -111,8 +115,9 @@ export const MERGE_CARTS = gql`
             destination_cart_id: $destinationCartId
         ) {
             id
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
-                id
+                uid
             }
             ...CheckoutPageFragment
         }

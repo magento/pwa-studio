@@ -2,8 +2,9 @@ import { gql } from '@apollo/client';
 
 export const GET_CONFIGURABLE_THUMBNAIL_SOURCE = gql`
     query getConfigurableThumbnailSource {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             configurable_thumbnail_source
         }
     }

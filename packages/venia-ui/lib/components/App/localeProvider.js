@@ -5,8 +5,9 @@ import { gql, useQuery } from '@apollo/client';
 
 const GET_LOCALE = gql`
     query getLocale {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             locale
         }
     }
