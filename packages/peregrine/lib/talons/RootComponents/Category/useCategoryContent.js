@@ -123,7 +123,7 @@ export const useCategoryContent = props => {
                           id: `sortItem.${method.value}`,
                           text: `${method.label}`,
                           attribute: method.value,
-                          sortDirection: 'ASC'
+                          sortDirection: 'DESC'
                       };
                   }
 
