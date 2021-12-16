@@ -21,7 +21,7 @@ import DEFAULT_OPERATIONS from './category.gql';
  * @kind function
  *
  * @param {object}      props
- * @param {number}      props.id - Category uid.
+ * @param {String}      props.id - Category uid.
  * @param {GraphQLAST}  props.operations.getCategoryQuery - Fetches category using a server query
  * @param {GraphQLAST}  props.operations.getFilterInputsQuery - Fetches "allowed" filters using a server query
  * @param {GraphQLAST}  props.queries.getStoreConfig - Fetches store configuration using a server query
@@ -135,12 +135,12 @@ export const useCategory = props => {
 
         // Use the category uid for the current category page regardless of the
         // applied filters. Follow-up in PWA-404.
-        newFilters['category_uid'] = { eq: String(id) };
+        newFilters['category_uid'] = { eq: id };
 
         runQuery({
             variables: {
                 currentPage: Number(currentPage),
-                uid: String(id),
+                id: id,
                 filters: newFilters,
                 pageSize: Number(pageSize),
                 sort: { [currentSort.sortAttribute]: currentSort.sortDirection }

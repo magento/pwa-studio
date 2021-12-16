@@ -4,13 +4,13 @@ import { CategoryFragment, ProductsFragment } from './categoryFragments.gql';
 
 export const GET_CATEGORY = gql`
     query GetCategories(
-        $uid: String!
+        $id: String!
         $pageSize: Int!
         $currentPage: Int!
         $filters: ProductAttributeFilterInput!
         $sort: ProductAttributeSortInput
     ) {
-        categories(filters: { category_uid: { in: [$uid] } }) {
+        categories(filters: { category_uid: { in: [$id] } }) {
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
                 uid

@@ -42,7 +42,7 @@ export const useCategoryContent = props => {
         nextFetchPolicy: 'cache-first',
         skip: !categoryId,
         variables: {
-            uid: categoryId
+            id: categoryId
         }
     });
 

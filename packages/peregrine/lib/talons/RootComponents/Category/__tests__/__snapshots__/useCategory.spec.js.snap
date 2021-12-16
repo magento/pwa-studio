@@ -42,7 +42,7 @@ Object {
     "currentPage": 3,
     "filters": Object {
       "category_uid": Object {
-        "eq": "7",
+        "eq": "Mg==",
       },
       "price": Object {
         "from": "0",
@@ -53,7 +53,7 @@ Object {
     "sort": Object {
       "relevance": "DESC",
     },
-    "uid": "7",
+    "uid": "Mg==",
   },
 }
 `;

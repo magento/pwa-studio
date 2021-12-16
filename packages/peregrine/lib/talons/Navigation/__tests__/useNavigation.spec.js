@@ -27,8 +27,8 @@ jest.mock('@magento/peregrine/lib/context/catalog', () => {
     const useCatalogContext = jest.fn(() => [
         {
             categories: {
-                1: { parentId: 0 },
-                2: { parentId: 1 }
+                'Mg==': { parentId: undefined },
+                'MTA=': { parentId: 'Mg==' }
             }
         },
         {
@@ -223,7 +223,7 @@ describe('handleBack (back button)', () => {
         const { setCategoryId } = talonProps;
 
         act(() => {
-            setCategoryId(2);
+            setCategoryId('MTA=');
         });
         act(() => {
             talonProps = log.mock.calls[1][0];
@@ -234,6 +234,6 @@ describe('handleBack (back button)', () => {
         // Assert.
         talonProps = log.mock.calls[2][0];
         const { categoryId } = talonProps;
-        expect(categoryId).toBe(1);
+        expect(categoryId).toBe('Mg==');
     });
 });

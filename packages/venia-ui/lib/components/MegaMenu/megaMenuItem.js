@@ -15,7 +15,7 @@ import Icon from '../Icon';
  * The MegaMenuItem component displays mega menu item
  *
  * @param {MegaMenuCategory} props.category
- * @param {int} props.activeCategoryId - uid of active category
+ * @param {String} props.activeCategoryId - uid of active category
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
  * @param {function} props.onNavigate - function called when clicking on Link
  */
