@@ -1,16 +1,16 @@
-export const contactFormContainer = '[data-cy="ContactPage-formContainer"]';
+export const contactFormContainer = '[data-cy="ContactPage-root"]';
 
 export const contactFormName =
-    '[data-cy="ContactPage-formContainer"] input[name="name"]';
+    '[data-cy="ContactPage-formContainer"] [data-cy="name"]';
 
 export const contactFormEmail =
-    '[data-cy="ContactPage-formContainer"] input[name="email"]';
+    '[data-cy="ContactPage-formContainer"] [data-cy="email"]';
 
 export const contactFormTelephone =
-    '[data-cy="ContactPage-formContainer"] input[name="telephone"]';
+    '[data-cy="ContactPage-formContainer"] [data-cy="telephone"]';
 
 export const contactFormComment =
-    '[data-cy="ContactPage-formContainer"] textarea[name="comment"]';
+    '[data-cy="ContactPage-formContainer"] [data-cy="comment"]';
 
 export const contactFormSubmitButton =
-    '[data-cy="ContactPage-formContainer"] button[type="submit"]';
+    '[data-cy="ContactPage-formContainer"] [data-cy="submit"]';

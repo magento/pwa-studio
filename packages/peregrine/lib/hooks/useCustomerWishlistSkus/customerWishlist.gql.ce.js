@@ -1,18 +1,18 @@
 import { gql } from '@apollo/client';
-
 import { GET_PRODUCTS_IN_WISHLISTS } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/addToListButton.gql';
 
 export const GET_WISHLIST_ITEMS = gql`
     query GetWishlistItemsForLocalField($currentPage: Int!) {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             wishlists {
                 id
                 items_v2(currentPage: $currentPage, pageSize: 10) {
                     items {
                         id
+                        # eslint-disable-next-line @graphql-eslint/require-id-when-available
                         product {
-                            id
+                            uid
                             sku
                         }
                     }

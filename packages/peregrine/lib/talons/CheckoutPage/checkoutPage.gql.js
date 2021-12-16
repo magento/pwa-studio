@@ -44,8 +44,8 @@ export const GET_CHECKOUT_DETAILS = gql`
 
 export const GET_CUSTOMER = gql`
     query GetCustomerForCheckout {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             default_shipping
             firstname
         }

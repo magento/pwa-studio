@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import { CartTriggerFragment } from '../Header/cartTriggerFragments.gql';
 import { MiniCartFragment } from '../MiniCart/miniCartFragments.gql';
-
 const GET_PRODUCT_DETAIL = gql`
     query GetProductDetailForATCDialog(
         $sku: String!
@@ -24,8 +23,9 @@ const GET_PRODUCT_DETAIL = gql`
                     }
                 }
                 ... on ConfigurableProduct {
+                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     configurable_options {
-                        id
+                        uid
                         attribute_uid
                         label
                         position

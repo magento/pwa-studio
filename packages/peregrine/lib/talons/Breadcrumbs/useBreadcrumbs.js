@@ -12,7 +12,7 @@ const sortCrumbs = (a, b) => a.category_level > b.category_level;
 // Generates the path for the category.
 const getPath = (path, suffix) => {
     if (path) {
-        return `/${path}${suffix}`;
+        return `/${path}${suffix || ''}`;
     }
 
     // If there is no path this is just a dead link.
@@ -58,7 +58,7 @@ export const useBreadcrumbs = props => {
     // When we have breadcrumb data sort and normalize it for easy rendering.
     const normalizedData = useMemo(() => {
         if (!loading && data) {
-            const breadcrumbData = data.category.breadcrumbs;
+            const breadcrumbData = data.categories.items[0].breadcrumbs;
 
             return (
                 breadcrumbData &&
@@ -79,9 +79,11 @@ export const useBreadcrumbs = props => {
     const { setShimmerType } = useInternalLink('category');
 
     return {
-        currentCategory: (data && data.category.name) || '',
+        currentCategory: (data && data.categories.items[0].name) || '',
         currentCategoryPath:
-            (data && `${data.category.url_path}${categoryUrlSuffix || ''}`) ||
+            (data &&
+                `${data.categories.items[0].url_path}${categoryUrlSuffix ||
+                    ''}`) ||
             '#',
         isLoading: loading,
         hasError: !!error,

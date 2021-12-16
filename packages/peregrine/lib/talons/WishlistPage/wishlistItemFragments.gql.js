@@ -3,8 +3,9 @@ import { gql } from '@apollo/client';
 export const WishlistItemFragment = gql`
     fragment WishlistItemFragment on WishlistItemInterface {
         id
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         product {
-            id
+            uid
             image {
                 label
                 url
@@ -20,9 +21,11 @@ export const WishlistItemFragment = gql`
             }
             sku
             stock_status
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ConfigurableProduct {
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 configurable_options {
-                    id
+                    uid
                     attribute_code
                     attribute_id
                     attribute_id_v2

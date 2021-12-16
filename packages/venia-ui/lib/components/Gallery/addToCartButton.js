@@ -5,23 +5,8 @@ import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAdd
 import { ShoppingBag, XSquare } from 'react-feather';
 import Icon from '../Icon';
 import Button from '../Button';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './addToCartButton.module.css';
-
-const AddToCartIcon = (
-    <Icon
-        classes={{ icon: defaultClasses.icon }}
-        src={ShoppingBag}
-        attrs={{ width: 16 }}
-    />
-);
-const OutOfStockIcon = (
-    <Icon
-        classes={{ icon: defaultClasses.icon }}
-        src={XSquare}
-        attrs={{ width: 16 }}
-    />
-);
 
 const AddToCartButton = props => {
     const { item, urlSuffix } = props;
@@ -32,7 +17,23 @@ const AddToCartButton = props => {
     const { handleAddToCart, isDisabled, isInStock } = talonProps;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
+
+    const AddToCartIcon = (
+        <Icon
+            classes={{ icon: classes.icon }}
+            src={ShoppingBag}
+            attrs={{ width: 16 }}
+        />
+    );
+
+    const OutOfStockIcon = (
+        <Icon
+            classes={{ icon: classes.icon }}
+            src={XSquare}
+            attrs={{ width: 16 }}
+        />
+    );
 
     const buttonInStock = (
         <Button
@@ -96,7 +97,7 @@ AddToCartButton.propTypes = {
             url: string
         }),
         stock_status: string.isRequired,
-        type_id: string.isRequired,
+        __typename: string.isRequired,
         url_key: string.isRequired,
         url_suffix: string,
         sku: string.isRequired,

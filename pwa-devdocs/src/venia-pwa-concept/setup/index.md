@@ -13,20 +13,10 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 
 ## Prerequisites
 
--   [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
--   [Yarn >=1.13.0](https://yarnpkg.com)
+-   [Node >= 14.18.1](https://nodejs.org/en/)
+-   [Yarn >= 1.13.0](https://yarnpkg.com)
 -   Python 2.7 and build tools, [see the Installation instructions on `node-gyp`](https://github.com/nodejs/node-gyp#installation) for your platform.
 -   [A running instance of Magento 2.3.1 or above](#choosing-the-magento-23-backend)
-
-### Node 12 deprecation warning
-
-If you are using Node 12, you may see the following deprecation warning in the log when you run `yarn watch:venia`.
-
-```sh
-(node:89176) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
-```
-
-This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
 
 ## Step 1. Clone the PWA Studio repository
 

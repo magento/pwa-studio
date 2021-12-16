@@ -1,3 +1,5 @@
+/* Deprecated in PWA-12.1.0*/
+
 import React, { useMemo } from 'react';
 import { arrayOf, string, shape } from 'prop-types';
 import { Link } from 'react-router-dom';

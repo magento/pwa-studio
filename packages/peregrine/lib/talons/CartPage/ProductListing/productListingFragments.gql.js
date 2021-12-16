@@ -3,11 +3,12 @@ import { gql } from '@apollo/client';
 export const ProductListingFragment = gql`
     fragment ProductListingFragment on Cart {
         id
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         items {
-            id
             uid
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             product {
-                id
+                uid
                 name
                 sku
                 url_key
@@ -18,13 +19,15 @@ export const ProductListingFragment = gql`
                     url
                 }
                 stock_status
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableProduct {
                     variants {
                         attributes {
                             uid
                         }
+                        # eslint-disable-next-line @graphql-eslint/require-id-when-available
                         product {
-                            id
+                            uid
                             small_image {
                                 url
                             }
@@ -43,6 +46,7 @@ export const ProductListingFragment = gql`
                 code
                 message
             }
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ConfigurableCartItem {
                 configurable_options {
                     id

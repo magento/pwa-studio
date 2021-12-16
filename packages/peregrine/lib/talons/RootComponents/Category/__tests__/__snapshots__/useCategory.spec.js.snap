@@ -1,10 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`returns the correct shape 1`] = `
+exports[`useCategory tests returns the correct shape 1`] = `
 Object {
   "categoryData": Object {
-    "category": Object {
-      "meta_description": "Category meta-description",
+    "categories": Object {
+      "items": Array [
+        Object {
+          "meta_description": "Category meta-description",
+        },
+      ],
     },
     "products": Object {
       "page_info": Object {
@@ -32,7 +36,7 @@ Object {
 }
 `;
 
-exports[`runs the category query 1`] = `
+exports[`useCategory tests runs the category query 1`] = `
 Object {
   "variables": Object {
     "currentPage": 3,
@@ -45,7 +49,7 @@ Object {
         "to": "100",
       },
     },
-    "id": 7,
+    "id": "7",
     "pageSize": 12,
     "sort": Object {
       "relevance": "DESC",

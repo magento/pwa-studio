@@ -16,3 +16,4 @@ export * as wishlist from './wishlist';
 export * as graphqlMockedCalls from './graphqlMockedCalls';
 export * as mediaMockedCalls from './mediaMockedCalls';
 export * as miniCart from './miniCart';
+export * as newsletter from './newsletter';

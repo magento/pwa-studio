@@ -1,3 +1,5 @@
+/* Deprecated in PWA-12.1.0*/
+
 import { useQuery } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
@@ -35,7 +37,10 @@ export const useCategoryList = props => {
 
     return {
         childCategories:
-            (data && data.category && data.category.children) || null,
+            (data &&
+                data.categories.items[0] &&
+                data.categories.items[0].children) ||
+            null,
         storeConfig,
         error,
         loading

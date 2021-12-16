@@ -34,8 +34,8 @@ export const UPDATE_CUSTOMER_ADDRESS_MUTATION = gql`
 
 export const GET_CUSTOMER_QUERY = gql`
     query GetCustomer {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             default_shipping
             email
             firstname

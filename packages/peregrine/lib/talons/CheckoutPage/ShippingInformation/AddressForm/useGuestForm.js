@@ -1,15 +1,23 @@
-import { useCallback, useMemo } from 'react';
-import { useMutation } from '@apollo/client';
+import { useCallback, useMemo, useState, useEffect } from 'react';
+import { useMutation, useLazyQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './guestForm.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '../../../../context/cart';
 
 export const useGuestForm = props => {
-    const { afterSubmit, onCancel, onSuccess, shippingData } = props;
+    const {
+        afterSubmit,
+        onCancel,
+        onSuccess,
+        shippingData,
+        toggleSignInContent,
+        setGuestSignInUsername
+    } = props;
+    const [showSignInToast, setShowSignInToast] = useState(false);
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { setGuestShippingMutation } = operations;
+    const { setGuestShippingMutation, getEmailAvailableQuery } = operations;
 
     const [{ cartId }] = useCartContext();
 
@@ -21,6 +29,10 @@ export const useGuestForm = props => {
             }
         }
     );
+
+    const [runQuery, { data }] = useLazyQuery(getEmailAvailableQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     const { country } = shippingData;
     const { code: countryCode } = country;
@@ -66,17 +78,45 @@ export const useGuestForm = props => {
         onCancel();
     }, [onCancel]);
 
+    const handleValidateEmail = useCallback(
+        email => {
+            setShowSignInToast(false);
+            if (email && email.includes('@')) {
+                runQuery({ variables: { email } });
+            }
+        },
+        [runQuery]
+    );
+
+    const handleToastAction = useCallback(
+        (removeToast, email) => {
+            setGuestSignInUsername(email);
+            toggleSignInContent();
+            removeToast();
+        },
+        [setGuestSignInUsername, toggleSignInContent]
+    );
+
     const errors = useMemo(
         () => new Map([['setGuestShippingMutation', error]]),
         [error]
     );
 
+    useEffect(() => {
+        if (data) {
+            setShowSignInToast(!data.isEmailAvailable.is_email_available);
+        }
+    }, [data]);
+
     return {
         errors,
         handleCancel,
         handleSubmit,
+        handleValidateEmail,
+        handleToastAction,
         initialValues,
         isSaving: loading,
-        isUpdate
+        isUpdate,
+        showSignInToast
     };
 };
