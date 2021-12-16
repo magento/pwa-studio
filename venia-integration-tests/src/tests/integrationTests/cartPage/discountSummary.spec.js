@@ -3,7 +3,6 @@ import {
     productPage as productPageFixtures
 } from '../../../fixtures';
 import { header as headerAssertions } from '../../../assertions';
-import { cartPage as cartPageFields } from '../../../fields';
 import {
     productPage as productPageActions,
     miniCart as miniCartActions,
