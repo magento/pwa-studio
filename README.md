@@ -44,12 +44,12 @@ Install individual packages as needed instead of installing the entire `pwa-stud
 
 This repository includes the following packages:
 
-- [**peregrine**](https://magento.github.io/pwa-studio/peregrine/) - A component library for adding logic to visual components
+- [**peregrine**](https://developer.adobe.com/commerce/pwa-studio/guides/packages/peregrine/) - A component library for adding logic to visual components
 - **venia-ui** - A library of visual components for PWA storefront projects
 - **venia-concept** - A concept storefront project built using PWA Studio tools
-- [**pwa-buildpack**](https://magento.github.io/pwa-studio/pwa-buildpack/) - A tooling library to help with PWA storefront development
-- [**upward-spec**](https://magento.github.io/pwa-studio/technologies/upward/) - UPWARD specification and test suite
-- [**upward-js**](https://magento.github.io/pwa-studio/technologies/upward/reference-implementation/) - A reference implementation of the UPWARD specification
+- [**pwa-buildpack**](https://developer.adobe.com/commerce/pwa-studio/guides/packages/buildpack/) - A tooling library to help with PWA storefront development
+- [**upward-spec**](https://developer.adobe.com/commerce/pwa-studio/guides/packages/upward/) - UPWARD specification and test suite
+- [**upward-js**](https://developer.adobe.com/commerce/pwa-studio/guides/packages/upward/javascript/) - A reference implementation of the UPWARD specification
 - **babel-preset-peregrine** - A [babel][] preset plugin that is required to use peregrine components
 - **graphql-cli-validate-magento-pwa-queries** - A script to validate your project's GraphQL queries against a schema
 - [**pwa-devdocs**](pwa-devdocs) - Project source for the [documentation site][]
@@ -104,19 +104,19 @@ We would like to recognize the following community members for their efforts on 
 [Contribution guide]: .github/CONTRIBUTING.md
 [Coverage Status]: https://coveralls.io/repos/github/magento/pwa-studio/badge.svg?branch=master
 [create an issue]: https://github.com/magento/pwa-studio/issues/new
-[documentation site]: https://pwastudio.io
+[documentation site]: https://developer.adobe.com/commerce/pwa-studio/
 [Git hook]: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
 [NPM]: https://www.npmjs.com/org/magento
 [selective dependency resolutions]: https://yarnpkg.com/lang/en/docs/selective-version-resolutions/
-[Troubleshooting]: https://pwastudio.io/pwa-buildpack/troubleshooting/
-[Venia storefront setup]: https://pwastudio.io/venia-pwa-concept/setup/
-[PWA Studio fundamentals]: https://pwastudio.io/tutorials/pwa-studio-fundamentals/
+[Troubleshooting]: https://developer.adobe.com/commerce/pwa-studio/troubleshooting/
+[Venia storefront setup]: https://developer.adobe.com/commerce/pwa-studio/tutorials/setup-storefront/
+[PWA Studio fundamentals]: https://developer.adobe.com/commerce/pwa-studio/tutorials/setup-storefront/
 [workspace commands]: https://yarnpkg.com/en/docs/cli/workspace
 [Yarn Workspaces]: https://yarnpkg.com/en/docs/workspaces/
 [community wiki]: https://github.com/magento/pwa-studio/wiki
-[pwa studio overview]: https://magento.github.io/pwa-studio/technologies/overview/
-[tools and libraries]: https://magento.github.io/pwa-studio/technologies/tools-libraries/
-[venia storefront setup]: https://magento.github.io/pwa-studio/venia-pwa-concept/setup/
+[pwa studio overview]: https://developer.adobe.com/commerce/pwa-studio/guides/
+[tools and libraries]: https://developer.adobe.com/commerce/pwa-studio/guides/project/tools-libraries/
+[venia storefront setup]: https://developer.adobe.com/commerce/pwa-studio//tutorials/setup-storefront/
 [project coding standards and conventions]: https://github.com/magento/pwa-studio/wiki/Project-coding-standards-and-conventions
 [community backlog board]: https://github.com/magento/pwa-studio/projects/1
 [#pwa slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2
