@@ -3,10 +3,10 @@
 exports[`renders accumulated discount value 1`] = `
 Array [
   <li
-    className="lineItems"
+    className="discountLineItems"
   >
     <span
-      className="lineItemLabel"
+      className="discountLineItemLabel"
     >
       <mock-FormattedMessage
         defaultMessage="Applied discounts"
@@ -20,7 +20,7 @@ Array [
         type="button"
       >
         <span
-          className="discountButtonIcon"
+          className="root"
         >
           <svg
             className="icon"
@@ -79,7 +79,7 @@ Array [
           className="individualDiscountSeparator"
         />
         <li
-          className="lineItems"
+          className="individualDiscountsListLineItem"
         >
           <span
             className="lineItemLabel"
@@ -108,7 +108,7 @@ Array [
           </span>
         </li>
         <li
-          className="lineItems"
+          className="individualDiscountsListLineItem"
         >
           <span
             className="lineItemLabel"
@@ -137,7 +137,7 @@ Array [
           </span>
         </li>
         <li
-          className="lineItems"
+          className="individualDiscountsListLineItem"
         >
           <span
             className="lineItemLabel"
@@ -177,10 +177,10 @@ Array [
 exports[`renders discount summary line item correctly 1`] = `
 Array [
   <li
-    className="lineItems"
+    className="discountLineItems"
   >
     <span
-      className="lineItemLabel"
+      className="discountLineItemLabel"
     >
       <mock-FormattedMessage
         defaultMessage="Applied discounts"
@@ -194,7 +194,7 @@ Array [
         type="button"
       >
         <span
-          className="discountButtonIcon"
+          className="root"
         >
           <svg
             className="icon"
@@ -253,7 +253,7 @@ Array [
           className="individualDiscountSeparator"
         />
         <li
-          className="lineItems"
+          className="individualDiscountsListLineItem"
         >
           <span
             className="lineItemLabel"
