@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useStyle } from '../../../classify';
