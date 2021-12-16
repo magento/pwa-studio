@@ -1,7 +1,7 @@
 # Get store configuration.
 query {
     storeConfig {
-        id
+        store_code
         code
         locale
         secure_base_media_url

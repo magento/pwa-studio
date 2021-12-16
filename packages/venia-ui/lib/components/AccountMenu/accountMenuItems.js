@@ -25,12 +25,13 @@ const AccountMenuItems = props => {
     });
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="accountMenuItems-root">
             {menu}
             <button
                 className={classes.signOut}
                 onClick={handleSignOut}
                 type="button"
+                data-cy="accountMenuItems-signOut"
             >
                 <FormattedMessage
                     id={'accountMenu.signOutButtonText'}

@@ -81,3 +81,6 @@ export const getWishlistConfigForProductPageCall =
 
 export const getWishlistConfigForWishlistPageCall =
     '**/graphql?query=query+GetWishlistConfigForWishlistPageEE*';
+
+export const getIsEmailAvailableCall =
+    '**/graphql?query=query+IsEmailAvailable*';

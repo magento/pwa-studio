@@ -1,3 +1,5 @@
+/* Deprecated in PWA-12.1.0*/
+
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 

@@ -5,8 +5,9 @@ export const GET_CART_DETAILS_QUERY = gql`
     query GetCartDetailsAfterSignIn($cartId: String!) {
         cart(cart_id: $cartId) {
             id
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
-                id
+                uid
                 # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 product {
                     uid
@@ -25,6 +26,7 @@ export const GET_CART_DETAILS_QUERY = gql`
                     }
                 }
                 quantity
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableCartItem {
                     configurable_options {
                         id
