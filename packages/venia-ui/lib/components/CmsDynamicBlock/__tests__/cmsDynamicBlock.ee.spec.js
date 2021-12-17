@@ -1,9 +1,7 @@
 import React from 'react';
-import { act } from 'react-test-renderer';
 import { useQuery } from '@apollo/client';
 
 import { createTestInstance } from '@magento/peregrine';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import CmsDynamicBlock, {
     DYNAMIC_BLOCK_FIXED_TYPE,
@@ -14,14 +12,6 @@ import CmsDynamicBlock, {
 
 const mockUids = 'uids';
 const mockLocations = ['CONTENT'];
-const mockRefetch = jest.fn();
-
-jest.mock('react', () => ({
-    ...jest.requireActual('react'),
-    useRef: jest.fn().mockReturnValue({
-        current: false
-    })
-}));
 
 jest.mock('@apollo/client', () => ({
     gql: jest.fn(),
@@ -95,8 +85,7 @@ describe('#CmsDynamicBlock EE', () => {
                     ]
                 }
             },
-            loading: false,
-            refetch: mockRefetch
+            loading: false
         });
     });
 
@@ -241,18 +230,5 @@ describe('#CmsDynamicBlock EE', () => {
                 }
             })
         );
-    });
-
-    it('refetches data when user signs in', () => {
-        const tree = createTestInstance(<Component />);
-
-        // Sign in
-        act(() => {
-            useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
-
-            tree.update(<Component />);
-        });
-
-        expect(mockRefetch).toHaveBeenCalled();
     });
 });

@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { array, oneOf, oneOfType, string } from 'prop-types';
 import { gql, useQuery } from '@apollo/client';
 
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
 import DynamicBlock from './dynamicBlock';
@@ -26,24 +25,13 @@ const getDynamicBlockType = displayMode => {
 const CmsDynamicBlockGroup = props => {
     const { displayMode, locations, uids } = props;
 
-    const [{ isSignedIn }] = useUserContext();
-    const currentUserState = useRef(isSignedIn);
-
     const type = getDynamicBlockType(displayMode);
 
-    const { loading, error, data, refetch } = useQuery(GET_CMS_DYNAMIC_BLOCKS, {
+    const { loading, error, data } = useQuery(GET_CMS_DYNAMIC_BLOCKS, {
         variables: { type, locations, uids },
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
-
-    // Refecth data only when user signs in and was not already signed in
-    useEffect(() => {
-        if (currentUserState.current !== isSignedIn && isSignedIn) {
-            refetch();
-            currentUserState.current = isSignedIn;
-        }
-    }, [isSignedIn, refetch]);
 
     if (!data) {
         if (loading) {

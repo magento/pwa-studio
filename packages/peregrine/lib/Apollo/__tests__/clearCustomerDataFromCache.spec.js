@@ -40,7 +40,8 @@ test('clears customer data from cache without persistor', async () => {
     cache.restore({
         ROOT_QUERY: {
             anotherLocalField: { __ref: 'AnotherCacheEntry' },
-            customer: { __ref: 'Customer' }
+            customer: { __ref: 'Customer' },
+            dynamicBlocks: { __ref: 'DynamicBlocks' }
         },
         Customer: {
             __typename: 'Customer',
@@ -62,6 +63,18 @@ test('clears customer data from cache without persistor', async () => {
                     __ref: 'OrderItem'
                 }
             ]
+        },
+        DynamicBlocks: {
+            __typename: 'DynamicBlocks',
+            items: [
+                {
+                    __ref: 'DynamicBlock'
+                }
+            ]
+        },
+        DynamicBlock: {
+            __typename: 'DynamicBlock',
+            uid: 'dynamicBlockUID'
         },
         OrderItem: {
             __typename: 'OrderItem',
@@ -115,6 +128,18 @@ test('clears customer data from cache without persistor', async () => {
               },
             ],
           },
+          "DynamicBlock": Object {
+            "__typename": "DynamicBlock",
+            "uid": "dynamicBlockUID",
+          },
+          "DynamicBlocks": Object {
+            "__typename": "DynamicBlocks",
+            "items": Array [
+              Object {
+                "__ref": "DynamicBlock",
+              },
+            ],
+          },
           "OrderItem": Object {
             "__typename": "OrderItem",
             "id": "orderItemId",
@@ -126,6 +151,9 @@ test('clears customer data from cache without persistor', async () => {
             },
             "customer": Object {
               "__ref": "Customer",
+            },
+            "dynamicBlocks": Object {
+              "__ref": "DynamicBlocks",
             },
           },
         }
