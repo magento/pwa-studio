@@ -28,10 +28,11 @@ export const GET_CART_DETAILS_QUERY = gql`
                 quantity
                 # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableCartItem {
+                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     configurable_options {
-                        id
+                        configurable_product_option_uid
                         option_label
-                        value_id
+                        configurable_product_option_value_uid
                         value_label
                     }
                 }

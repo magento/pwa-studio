@@ -41,15 +41,15 @@ Object {
   "variables": Object {
     "currentPage": 3,
     "filters": Object {
-      "category_id": Object {
-        "eq": "7",
+      "category_uid": Object {
+        "eq": "Mg==",
       },
       "price": Object {
         "from": "0",
         "to": "100",
       },
     },
-    "id": "7",
+    "id": "Mg==",
     "pageSize": 12,
     "sort": Object {
       "relevance": "DESC",
