@@ -123,7 +123,7 @@ export const useCategoryContent = props => {
                           id: `sortItem.${method.value}`,
                           text: `${method.label}`,
                           attribute: method.value,
-                          sortDirection: 'DESC'
+                          sortDirection: 'ASC'
                       };
                   }
 
@@ -133,7 +133,15 @@ export const useCategoryContent = props => {
         : null;
     // ensures sorting method always exists
     const availableSortMethods = sortingMethodsDirections
-        ? [sortingMethodsDirections, sortMethodsArray].flat()
+        ? [sortingMethodsDirections, sortMethodsArray].flat().sort((a, b) => {
+              if (a.text < b.text) {
+                  return -1;
+              }
+              if (a.text > b.text) {
+                  return 1;
+              }
+              return 0;
+          })
         : sortMethodsArray;
 
     return {
