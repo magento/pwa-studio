@@ -214,14 +214,14 @@ export const useGiftOptions = (props = {}) => {
                 await handleRemoveGiftMessage();
             }
 
-            setGiftMessageIsChecked(!giftMessageIsChecked);
+            setGiftMessageIsChecked(prevState => !prevState);
         },
-        [giftMessageIsChecked, handleRemoveGiftMessage]
+        [handleRemoveGiftMessage]
     );
 
     const handleToggleGiftMessageResult = useCallback(() => {
-        setShowGiftMessageResult(!showGiftMessageResult);
-    }, [showGiftMessageResult]);
+        setShowGiftMessageResult(prevState => !prevState);
+    }, []);
 
     // Batch writes if the user inputs quickly.
     const debouncedOnChange = useMemo(
