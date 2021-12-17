@@ -85,7 +85,7 @@ export default SubmenuColumn;
 SubmenuColumn.propTypes = {
     category: PropTypes.shape({
         children: PropTypes.array,
-        id: PropTypes.number.isRequired,
+        uid: PropTypes.string.isRequired,
         include_in_menu: PropTypes.number,
         isActive: PropTypes.bool.isRequired,
         name: PropTypes.string.isRequired,

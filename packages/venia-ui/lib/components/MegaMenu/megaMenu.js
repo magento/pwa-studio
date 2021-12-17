@@ -58,7 +58,7 @@ const MegaMenu = props => {
                       categoryUrlSuffix={categoryUrlSuffix}
                       mainNavWidth={mainNavWidth}
                       onNavigate={handleNavigate}
-                      key={category.id}
+                      key={category.uid}
                       subMenuState={subMenuState}
                       disableFocus={disableFocus}
                       handleSubMenuFocus={handleSubMenuFocus}
