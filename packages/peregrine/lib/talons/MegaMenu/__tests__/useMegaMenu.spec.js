@@ -52,18 +52,18 @@ beforeAll(() => {
         data: {
             categoryList: [
                 {
-                    id: 2,
+                    uid: 'Mg==',
                     name: 'Default Category',
                     children: [
                         {
-                            id: 3,
+                            uid: 'MTE=',
                             include_in_menu: 1,
                             name: 'Accessories',
                             position: 4,
                             url_path: 'venia-accessories',
                             children: [
                                 {
-                                    id: 4,
+                                    uid: 'NA==',
                                     include_in_menu: 1,
                                     name: 'Belts',
                                     position: 10,
@@ -71,7 +71,7 @@ beforeAll(() => {
                                     children: []
                                 },
                                 {
-                                    id: 5,
+                                    uid: 'NQ==',
                                     include_in_menu: 1,
                                     name: 'Jewelry',
                                     position: 2,
@@ -79,7 +79,7 @@ beforeAll(() => {
                                     children: []
                                 },
                                 {
-                                    id: 6,
+                                    uid: 'Ng==',
                                     include_in_menu: 0,
                                     name: 'Scarves',
                                     position: 3,
@@ -89,14 +89,14 @@ beforeAll(() => {
                             ]
                         },
                         {
-                            id: 7,
+                            uid: 'OA==',
                             include_in_menu: 1,
                             name: 'Tops',
                             position: 3,
                             url_path: 'venia-tops',
                             children: [
                                 {
-                                    id: 8,
+                                    uid: 'OQ==',
                                     include_in_menu: 1,
                                     name: 'Blouses & Shirts',
                                     position: 1,
@@ -104,7 +104,7 @@ beforeAll(() => {
                                     children: []
                                 },
                                 {
-                                    id: 9,
+                                    uid: 'MTA=',
                                     include_in_menu: 1,
                                     name: 'Sweaters',
                                     position: 2,
@@ -114,7 +114,7 @@ beforeAll(() => {
                             ]
                         },
                         {
-                            id: 13,
+                            uid: 'MTQ=',
                             include_in_menu: 0,
                             name: 'Dresses',
                             position: 3,
@@ -146,9 +146,9 @@ test('Should set active category', () => {
     const { talonProps } = getTalonProps();
     /**
      * Child category "Belts" is active and it root category should be mark as active
-     * Parent for Belts has id 3 (Accessories)
+     * Parent for Belts has uid MTE= (Accessories)
      */
-    expect(talonProps.activeCategoryId).toEqual(3);
+    expect(talonProps.activeCategoryId).toEqual('MTE=');
 });
 
 test('Should clear active category', () => {

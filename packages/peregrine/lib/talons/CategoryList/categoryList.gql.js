@@ -14,12 +14,12 @@ export const GET_STORE_CONFIG_DATA = gql`
 
 export const GET_CATEGORY_LIST = gql`
     query GetCategoryList($id: String!) {
-        categories(filters: { ids: { in: [$id] } }) {
+        categories(filters: { category_uid: { in: [$id] } }) {
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
-                id
                 uid
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 children {
-                    id
                     uid
                     name
                     url_key
@@ -28,8 +28,8 @@ export const GET_CATEGORY_LIST = gql`
                     path
                     image
                     productImagePreview: products(pageSize: 1) {
+                        # eslint-disable-next-line @graphql-eslint/require-id-when-available
                         items {
-                            id
                             uid
                             small_image {
                                 url

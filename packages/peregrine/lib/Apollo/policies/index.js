@@ -247,6 +247,7 @@ const typePolicies = {
         }
     },
     CategoryTree: {
+        keyFields: ['uid'],
         fields: {
             children: {
                 merge(existing, incoming) {

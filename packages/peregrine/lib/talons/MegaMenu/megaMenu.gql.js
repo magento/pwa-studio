@@ -11,23 +11,27 @@ export const GET_STORE_CONFIG_DATA = gql`
 
 export const GET_MEGA_MENU = gql`
     query getMegaMenu {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         categoryList {
-            id
+            uid
             name
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             children {
-                id
+                uid
                 include_in_menu
                 name
                 position
                 url_path
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 children {
-                    id
+                    uid
                     include_in_menu
                     name
                     position
                     url_path
+                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     children {
-                        id
+                        uid
                         include_in_menu
                         name
                         position
