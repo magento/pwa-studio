@@ -12,7 +12,7 @@ export const GET_CATEGORY_URL_SUFFIX = gql`
 
 export const GET_NAVIGATION_MENU = gql`
     query GetNavigationMenu($id: String!) {
-        categories(filters: { category_uid: { in: [$id] }}) {
+        categories(filters: { category_uid: { in: [$id] } }) {
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
                 uid

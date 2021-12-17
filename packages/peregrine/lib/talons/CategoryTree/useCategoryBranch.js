@@ -14,7 +14,6 @@ export const useCategoryBranch = props => {
     const { category, setCategoryId } = props;
     const { uid: id, include_in_menu } = category;
 
-
     // `include_in_menu` is undefined when Magento <= 2.3.1
     const exclude = include_in_menu === 0;
 
