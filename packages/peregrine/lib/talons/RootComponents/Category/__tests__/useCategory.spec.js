@@ -70,7 +70,7 @@ jest.mock('@apollo/client', () => {
 });
 
 const mockProps = {
-    id: 7,
+    id: 'Mg==',
     queries: {}
 };
 
