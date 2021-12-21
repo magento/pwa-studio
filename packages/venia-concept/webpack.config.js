@@ -86,7 +86,7 @@ module.exports = async env => {
         }
     };
 
-    // Strip UPWARD mustache from template file during watch 
+    // Strip UPWARD mustache from template file during watch
     if (
         process.env.npm_lifecycle_event &&
         process.env.npm_lifecycle_event.includes('watch')
@@ -94,8 +94,8 @@ module.exports = async env => {
         const devTemplate = await getCleanTemplate('./template.html');
 
         // Generate new gitignored html file based on the cleaned template
-        await writeFile('template.generated.html', devTemplate); 
-        htmlWebpackConfig.template = './template.generated.html'; 
+        await writeFile('template.generated.html', devTemplate);
+        htmlWebpackConfig.template = './template.generated.html';
     } else {
         htmlWebpackConfig.template = './template.html';
     }
