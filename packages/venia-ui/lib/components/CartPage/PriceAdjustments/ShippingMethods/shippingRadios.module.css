@@ -1,23 +1,19 @@
 .radioContents {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.5rem;
+    composes: grid from global;
+    composes: grid-cols-autoFirst from global;
+    composes: gap-2xs from global;
+}
+
+/* TODO @TW review: what is going on here? Odd repeat of class name in snake case. */
+.radio_contents {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    grid-template-columns: 100%;
 }
 
 .radioRoot {
     /* We explicitly want one radio item per row. */
     composes: root from '../../../RadioGroup/radioGroup.module.css';
-    grid-template-columns: auto;
-}
 
-/*
- * Mobile-specific styles.
- */
-
-@media (max-width: 640px) {
-    .radio_contents {
-        display: grid;
-        grid-template-columns: 100%;
-        gap: 0.5rem;
-    }
+    composes: grid-cols-auto from global;
 }

@@ -1,8 +1,9 @@
 .root {
-    position: relative;
-    align-content: start;
-    display: grid;
-    grid-gap: 0 1rem;
+    composes: relative from global;
+    composes: content-start from global;
+    composes: grid from global;
+    composes: gap-x-0 from global;
+    composes: gap-y-xs from global;
     grid-template-areas:
         'image name'
         'image options'
@@ -16,52 +17,55 @@
 }
 
 .image {
-    background-color: rgb(var(--venia-global-color-gray));
-    border: solid 1px rgb(var(--venia-global-color-border));
-    border-radius: 2px;
-    height: 100px;
-    object-fit: contain;
-    object-position: center;
+    composes: bg-subtle from global;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: h-[100px] from global;
+    composes: object-contain from global;
+    composes: object-center from global;
+    composes: rounded-sm from global;
 }
 
 .name {
-    font-size: 0.875rem;
-    font-weight: 600;
+    composes: font-semibold from global;
+    composes: pt-0.5 from global;
+    composes: text-sm from global;
     grid-area: name;
-    padding-top: 0.125rem;
 }
 
 .quantityRow {
-    align-items: center;
+    composes: items-center from global;
 }
 
 .quantity {
-    align-items: flex-end;
-    display: flex;
+    composes: flex from global;
+    composes: items-end from global;
+    composes: self-end from global;
+    composes: text-sm from global;
     grid-column: 2 / span 1;
-    font-size: 13px;
-    align-self: end;
 }
 
 .quantityOperator {
-    align-items: center;
-    color: rgb(var(--venia-global-color-text-alt));
-    display: inline-flex;
-    margin: 0 0.375rem;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: mx-1.5 from global;
+    composes: my-0 from global;
+    composes: text-subtle from global;
 }
 
 .price {
-    align-items: center;
-    display: inline-flex;
+    composes: items-center from global;
+    composes: inline-flex from global;
 }
 
 .mask {
-    position: absolute;
-    left: -24px;
-    right: -24px;
-    top: -7px;
-    bottom: -7px;
-    background-color: rgb(var(--venia-global-color-gray));
-    opacity: 0.5;
-    z-index: 2;
+    composes: absolute from global;
+    composes: bg-subtle from global;
+    composes: bottom-[-7px] from global;
+    composes: left-[-24px] from global;
+    composes: opacity-50 from global;
+    composes: right-[-24px] from global;
+    composes: top-[-7px] from global;
+    composes: z-mask from global;
 }

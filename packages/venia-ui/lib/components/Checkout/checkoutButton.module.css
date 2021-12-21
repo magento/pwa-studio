@@ -1,5 +1,6 @@
 .icon {
     composes: root from '../Icon/icon.module.css';
+
     --stroke: white;
-    margin-top: -2px;
+    composes: -mt-0.5 from global;
 }

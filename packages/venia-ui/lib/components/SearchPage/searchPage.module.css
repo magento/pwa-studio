@@ -1,75 +1,68 @@
-:root {
-    --search-sidebar-width: 325px;
-}
-
 .root {
-    padding: 1rem;
+    composes: p-xs from global;
+
+    composes: lg_flex from global;
+    composes: lg_flex-nowrap from global;
 }
 
 .noResult {
-    display: flex;
+    composes: flex from global;
 }
 
 .headerButtons {
-    display: flex;
     flex-basis: 100%;
-    justify-content: center;
-    margin: 1rem 0;
+    composes: flex from global;
+    composes: justify-center from global;
+    composes: mx-0 from global;
+    composes: my-xs from global;
+
+    composes: lg_justify-end from global;
 }
 
 .heading {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    composes: flex from global;
+    composes: flex-wrap from global;
+    composes: justify-center from global;
+
+    composes: lg_flex-nowrap from global;
+    composes: lg_items-center from global;
+    composes: lg_justify-between from global;
+}
+
+.searchContent {
+    composes: lg_flex-grow from global;
 }
 
 .searchInfo {
-    line-height: var(--venia-global-typography-heading-lineHeight);
-    margin: 2.5rem 0 1rem;
-    max-width: 75vw;
+    composes: leading-tight from global;
+    composes: max-w-[75vw] from global;
+    composes: mb-xs from global;
+    composes: ml-0 from global;
+    composes: mr-0 from global;
+    composes: mt-10 from global;
+
+    composes: lg_m-0 from global;
+}
+
+@media (min-width: 960px) {
+    .searchInfo {
+        flex-basis: 100%;
+    }
 }
 
 .totalPages {
-    margin-left: 0.5rem;
+    composes: ml-2xs from global;
 }
 
 .headingHighlight {
-    font-weight: var(--venia-global-fontWeight-bold);
+    composes: font-bold from global;
 }
 
 .sidebar {
-    display: none;
-}
+    composes: hidden from global;
 
-@media (min-width: 1024px) {
-    .root {
-        display: flex;
-        flex-wrap: nowrap;
-    }
-
-    .heading {
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        align-items: center;
-    }
-
-    .searchInfo {
-        margin: 0;
-        flex-basis: 100%;
-    }
-
-    .headerButtons {
-        justify-content: flex-end;
-    }
-
-    .sidebar {
-        display: flex;
-        align-self: flex-start;
-        width: var(--search-sidebar-width);
-        padding-top: 4rem;
-    }
-
-    .searchContent {
-        flex-grow: 1;
-    }
+    composes: lg_flex from global;
+    composes: lg_self-start from global;
+    composes: lg_pt-16 from global;
+    composes: lg_w-filterSidebarWidth from global;
 }

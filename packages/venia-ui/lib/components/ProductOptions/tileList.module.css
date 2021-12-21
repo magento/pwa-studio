@@ -1,6 +1,6 @@
 .root {
-    display: grid;
-    gap: 1rem;
-    grid-auto-flow: column;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
     grid-template-columns: repeat(auto-fit, minmax(3rem, max-content));
 }

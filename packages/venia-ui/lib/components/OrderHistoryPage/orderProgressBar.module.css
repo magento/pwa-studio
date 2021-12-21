@@ -1,14 +1,14 @@
 .root {
-    column-gap: 0.25rem;
-    display: grid;
-    grid-auto-flow: column;
+    composes: gap-x-1 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
     grid-auto-rows: 6px;
 }
 
 .step {
-    background-color: rgb(var(--venia-global-color-gray-dark));
+    composes: bg-gray-300 from global;
 }
 
 .step_completed {
-    background-color: rgb(var(--venia-brand-color-1-700));
+    composes: bg-brand-dark from global;
 }

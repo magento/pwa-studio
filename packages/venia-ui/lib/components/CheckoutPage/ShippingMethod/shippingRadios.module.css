@@ -1,33 +1,25 @@
-.error {
-    color: rgb(var(--venia-global-color-error));
-    line-height: var(--venia-global-lineHeight-300);
-}
-
-.radioLabel {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 1rem 0.5rem;
-    justify-content: start;
-}
-
-.radioMessage {
-    display: none;
-}
-
 .radioRoot {
     /* We explicitly want one radio item per row. */
     composes: root from '../../RadioGroup/radioGroup.module.css';
-    grid-template-columns: auto;
+
+    /* TODO @TW: review (C2) */
+    composes: grid-cols-[auto] from global;
 }
 
-/*
- * Mobile-specific styles.
- */
+.radioLabel {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: grid-cols-[100%] from global;
+    composes: justify-start from global;
 
-@media (max-width: 640px) {
-    .radioLabel {
-        display: grid;
-        grid-template-columns: 100%;
-        gap: 0.5rem;
-    }
+    composes: sm_grid-cols-[auto auto] from global;
+}
+
+.radioMessage {
+    composes: hidden from global;
+}
+
+.error {
+    composes: leading-normal from global;
+    composes: text-error from global;
 }

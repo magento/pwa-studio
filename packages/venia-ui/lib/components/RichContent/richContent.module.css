@@ -71,11 +71,15 @@
     margin-top: 0;
 }
 
+/* TODO @TW: cannot compose */
 .root ol {
+    /* composes: list-decimal from global; */
     list-style-type: decimal;
 }
 
+/* TODO @TW: cannot compose */
 .root ul {
+    /* composes: list-disc from global; */
     list-style-type: disc;
 }
 
@@ -96,18 +100,26 @@
 
 .root pre {
     padding: 1rem;
+    /* composes: border from global; */
+    /* composes: border-solid from global; */
+    /* composes: border-subtle from global; */
     border: 1px solid rgb(var(--venia-global-color-border));
+    /* composes: bg-gray-900 from global; */
     background: rgb(var(--venia-global-color-gray));
 }
 
 .root :global .cms-content-important {
     padding: 1rem;
+    /* composes: border from global; */
+    /* composes: border-solid from global; */
+    /* composes: border-subtle from global; */
     border: 1px solid rgb(var(--venia-global-color-border));
+    /* composes: bg-gray-900 from global; */
     background: rgb(var(--venia-global-color-gray));
     font-size: 1.125rem;
 }
 
-@media only screen and (min-width: 769px) {
+@media (min-width: 800px) {
     .root h1 {
         font-size: 3rem;
     }

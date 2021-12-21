@@ -1,38 +1,24 @@
 .root {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: pt-xs from global;
+
+    composes: lg_pt-0 from global;
+    composes: lg_sticky from global;
+    composes: lg_top-22 from global;
 }
 
 .form {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
 }
 
 .actions {
-    text-align: center;
+    composes: text-center from global;
 }
 
 .create_account_button {
     composes: root_normalPriority from '../../Button/button.module.css';
-}
-
-/*
- * Desktop specific styles
- */
-@media (min-width: 961px) {
-    .root {
-        position: sticky;
-        top: 5.5rem;
-    }
-}
-
-/*
- * Mobile-specific styles.
- */
-@media (max-width: 960px) {
-    .root {
-        padding-top: 1rem;
-    }
 }

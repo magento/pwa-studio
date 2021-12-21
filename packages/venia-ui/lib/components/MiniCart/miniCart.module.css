@@ -1,52 +1,54 @@
 .root {
-    --content-width: 22.5rem;
-
-    height: 0;
-    overflow: visible;
-    left: -100vw;
-    opacity: 0;
-    position: absolute;
-    top: 100%;
+    composes: absolute from global;
+    composes: h-0 from global;
+    composes: left-[-100vw] from global;
+    composes: max-w-[100vw] from global;
+    composes: opacity-0 from global;
+    composes: overflow-visible from global;
+    composes: top-full from global;
+    composes: z-menu from global;
     transition: opacity 192ms var(--venia-global-anim-out),
         visibility 192ms var(--venia-global-anim-out),
         /* Adding delay to move container off the screen after previous transitions happened */
             left 0s 192ms;
-    visibility: hidden;
-    width: calc(100vw - 2rem);
-    /* max-width wider than header to let dropdown to move left on wider screens while still staying near the trigger */
-    max-width: calc(
-        var(--venia-global-maxWidth) + var(--content-width) * 2 - 8rem
-    );
-    z-index: 3;
+    width: calc(100vw - 2rem); /* TODO @TW: review */
     transform: translate3d(-50%, 0, 0);
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
 }
 
 .root_open {
     composes: root;
-    left: 50%;
-    opacity: 1;
+
+    composes: left-1/2 from global;
+    composes: opacity-100 from global;
     transition: opacity 224ms var(--venia-global-anim-in),
         visibility 224ms var(--venia-global-anim-in), left 0s;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
     visibility: visible;
 }
 
+/* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
 .contents {
-    background-color: rgb(var(--venia-global-color-background));
-    border-radius: 1px;
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: grid from global;
+    composes: max-h-[35rem] from global;
+    composes: overflow-hidden from global;
+    composes: right-0 from global;
+    composes: rounded-sm from global;
+    composes: top-0 from global;
+    composes: w-[22.5rem] from global;
     box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
-    display: grid;
-    /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
     min-height: 20rem;
-    max-height: 35rem;
-    overflow: hidden;
-    position: absolute;
-    right: 0;
-    top: 0;
     transform: translate3d(0, -8px, 0);
     transition-duration: 192ms;
     transition-property: transform;
     transition-timing-function: var(--venia-global-anim-out);
-    width: var(--content-width);
 }
 
 .contents_open {
@@ -58,35 +60,41 @@
 }
 
 .header {
-    align-items: center;
-    border-bottom: 2px solid rgb(var(--venia-global-color-gray-100));
-    display: grid;
-    font-size: var(--venia-global-typography-heading-XS-fontSize);
-    font-weight: 600;
-    grid-template-columns: 1fr auto;
-    line-height: var(--venia-global-typography-heading-lineHeight);
-    margin: 0 1rem;
-    padding: 1rem 0.5rem 0.5rem;
-    row-gap: 1rem;
+    composes: border-b-2 from global;
+    composes: border-solid from global;
+    composes: border-light from global;
+    composes: font-semibold from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+    composes: items-center from global;
+    composes: leading-tight from global;
+    composes: mx-xs from global;
+    composes: my-0 from global;
+    composes: pb-2xs from global;
+    composes: pt-xs from global;
+    composes: px-2xs from global;
+    composes: text-sm from global;
 }
 
 .stockStatusMessageContainer {
-    grid-column-end: span 2;
+    composes: col-end-span2 from global;
 }
 
+/* TODO @TW: cannot compose */
 .stockStatusMessageContainer:empty {
     display: none;
 }
 
 .body {
-    max-height: 25rem;
+    composes: max-h-[25rem] from global;
+    composes: overflow-y-auto from global;
+    composes: p-sm from global;
     min-height: 10rem;
-    overflow-y: scroll;
-    padding: 1.5rem;
 }
 
 .quantity {
-    opacity: 1;
+    composes: opacity-100 from global;
     transition-delay: 64ms;
     transition-duration: 384ms;
     transition-property: opacity;
@@ -95,11 +103,12 @@
 
 .quantity_loading {
     composes: quantity;
-    opacity: 0.5;
+
+    composes: opacity-50 from global;
 }
 
 .price {
-    opacity: 1;
+    composes: opacity-100 from global;
     transition-delay: 64ms;
     transition-duration: 384ms;
     transition-property: opacity;
@@ -108,45 +117,50 @@
 
 .price_loading {
     composes: quantity;
-    opacity: 0.5;
+
+    composes: opacity-50 from global;
 }
 
 .footer {
-    align-items: center;
-    border-top: 2px solid rgb(var(--venia-global-color-gray));
-    display: grid;
-    gap: 0.5rem;
-    font-size: var(--venia-typography-body-S-fontSize);
-    justify-items: center;
-    line-height: var(--venia-typography-body-lineHeight);
-    margin: 0 1rem;
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-light from global;
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: leading-normal from global;
+    composes: mx-xs from global;
+    composes: my-0 from global;
+    composes: overflow-hidden from global;
+    composes: p-xs from global;
+    composes: text-sm from global;
     min-height: 3rem;
-    overflow: hidden;
-    padding: 1rem;
 }
 
 .checkoutButton {
     composes: root_highPriority from '../Button/button.module.css';
+
+    composes: bg-brand-dark from global;
+    composes: border-0 from global;
+    composes: font-bold from global;
+    composes: m-auto from global;
+    composes: w-[10rem] from global;
     grid-column: 1 / span 1;
-    width: 10rem;
-    margin: auto;
-    background-color: rgb(var(--venia-brand-color-1-700));
-    border: none;
-    font-weight: bold;
 }
 
 .editCartButton {
-    text-decoration: underline;
-    font-size: var(--venia-global-fontSize-100);
+    composes: text-sm from global;
+    composes: underline from global;
 }
 
 .emptyCart {
-    display: grid;
-    gap: 2rem;
-    padding: 2rem;
+    composes: gap-md from global;
+    composes: grid from global;
+    composes: p-md from global;
 }
 
 .emptyMessage {
-    margin: auto;
-    font-weight: bold;
+    composes: font-bold from global;
+    composes: m-auto from global;
 }

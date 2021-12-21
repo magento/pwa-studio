@@ -2,11 +2,16 @@
 }
 
 .formErrors {
-    border-color: rgb(var(--venia-global-color-error));
-    border-style: solid;
-    border-width: 0 0 0 5px;
-    padding: 1rem 0 1rem 1rem;
-    display: grid;
+    composes: border-error from global;
+    composes: border-solid from global;
+    composes: border-t-0 from global;
+    composes: border-r-0 from global;
+    composes: border-b-0 from global;
+    composes: border-l-4 from global;
+    composes: grid from global;
+    composes: pl-xs from global;
+    composes: pr-0 from global;
+    composes: py-xs from global;
     grid-column: 1 / span 1;
 }
 
@@ -14,8 +19,8 @@
 }
 
 .createListButton {
-    width: 100%;
-    text-align: left;
-    height: 3.5rem;
-    font-weight: var(--venia-global-fontWeight-semibold);
+    composes: font-semibold from global;
+    composes: h-[3.5rem] from global;
+    composes: text-left from global;
+    composes: w-full from global;
 }

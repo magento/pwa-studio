@@ -1,20 +1,23 @@
 .root {
     --stroke: var(--venia-global-color-gray-600);
-    text-align: center;
-    display: grid;
+
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: text-center from global;
     grid-template-columns: 1fr 4rem 1fr;
-    grid-column-gap: 0.5rem;
-    align-items: center;
-    justify-items: center;
 }
 
 .wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    composes: flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
 }
 
+/* TODO @TW: cannot compose */
 .label:not(:focus):not(:active) {
+    /* composes: sr-only from global; */
     position: absolute;
     overflow: hidden;
     width: 1px;
@@ -25,15 +28,21 @@
 }
 
 .button {
-    align-items: center;
-    background-color: rgb(var(--venia-global-color-gray-50));
-    border: 2px solid rgb(var(--venia-global-color-gray-600));
-    border-radius: 50%;
-    display: inline-flex;
-    height: 2rem;
-    justify-content: center;
+    composes: bg-white from global;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-button from global;
+    composes: h-[2rem] from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: rounded-full from global;
+    composes: w-[2rem] from global;
     stroke: rgb(var(--stroke));
-    width: 2rem;
+
+    composes: disabled_cursor-not-allowed from global;
+
+    composes: focus_outline-none from global;
 }
 
 .button:hover {
@@ -41,18 +50,12 @@
     border-color: rgb(var(--stroke));
 }
 
+/* TODO @TW: cannot compose */
 .button:disabled,
 .button:disabled:hover {
     --stroke: rgb(var(--venia-global-color-gray-400));
+    /* composes: border-subtle from global; */
     border-color: rgb(var(--venia-global-color-gray-400));
-}
-
-.button:disabled {
-    cursor: not-allowed;
-}
-
-.button:focus {
-    outline: none;
 }
 
 .button_decrement {
@@ -64,13 +67,14 @@
 }
 
 .icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
+    composes: items-center from global;
+    composes: inline-flex from global;
+    composes: justify-center from global;
     touch-action: manipulation;
 }
 
 .input {
     composes: input from '../../TextInput/textInput.module.css';
-    text-align: center;
+
+    composes: text-center from global;
 }

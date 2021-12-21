@@ -1,40 +1,39 @@
 .root {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: center;
+    composes: flex from global;
+    composes: flex-col from global;
+    composes: h-screen from global;
+    composes: items-center from global;
+    composes: justify-center from global;
 }
 
 .title {
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
+    composes: font-semibold from global;
+    composes: text-colorDefault from global;
+    composes: text-center from global;
 }
 
 .categories {
-    margin-top: 2rem;
+    composes: mt-md from global;
 }
 
 .list {
-    margin-top: 1rem;
+    composes: mt-xs from global;
 }
 
 .listItem {
-    text-align: center;
-    text-decoration: underline;
-}
+    composes: mb-2xs from global;
+    composes: text-center from global;
+    composes: underline from global;
 
-.listItem:not(:last-child) {
-    margin-bottom: 0.5rem;
+    composes: last_mb-0 from global;
 }
 
 .imageContainer {
-    margin-bottom: 2rem;
+    composes: mb-md from global;
 }
 
 .image {
-    height: 200px;
-    width: 200px;
-    max-width: 200px;
+    composes: h-[200px] from global;
+    composes: max-w-[200px] from global;
+    composes: w-[200px] from global;
 }

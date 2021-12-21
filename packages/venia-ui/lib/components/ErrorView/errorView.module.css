@@ -1,36 +1,43 @@
 .root {
     background: var(--backroundImageUrl);
-    background-size: cover;
-    height: 600px;
-    padding: 1rem;
-
-    display: grid;
     /* two column grid because the "hangers" are on the right side of the page */
+    /* TODO @TW: review */
+    composes: bg-cover from global;
+    composes: content-center from global;
+    composes: grid from global;
+    composes: h-[600px] from global;
+    composes: p-xs from global;
     grid-template: 'content .';
-    align-content: center;
 }
 
 .content {
+    composes: content-start from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: text-center from global;
+    composes: text-white from global;
     grid-area: content;
-    display: grid;
-    grid-gap: 2rem;
-    text-align: center;
-    color: white;
+
+    composes: sm_gap-md from global;
 }
 
 .header {
-    font-size: var(--venia-global-fontSize-1000);
-    font-weight: var(--venia-global-fontWeight-semibold);
+    composes: font-semibold from global;
+    composes: text-2xl from global;
 }
 
 .message {
-    line-height: var(--venia-global-lineHeight-200);
+    composes: leading-tight from global;
+    /* add a little space so the button is centered below the message */
+    composes: pb-sm from global;
+
+    composes: sm_pb-0 from global;
 }
 
 .actionsContainer {
 }
 
-@media (max-width: 640px) {
+@media (max-width: 639px) {
     .root {
         background-image: var(--mobileBackgroundImageUrl);
         /* two row grid because the "hangers" are on the top of the page */
@@ -38,15 +45,5 @@
         grid-template-areas:
             '.'
             'content';
-    }
-
-    .content {
-        align-content: start;
-        grid-gap: 1rem;
-    }
-
-    .message {
-        /* add a little space so the button is centered below the message */
-        padding-bottom: 1.5rem;
     }
 }

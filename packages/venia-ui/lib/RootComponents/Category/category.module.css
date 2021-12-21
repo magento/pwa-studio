@@ -1,102 +1,82 @@
-:root {
-    --category-sidebar-width: 325px;
-}
-
 .root {
-    padding: 1rem;
+    composes: p-xs from global;
 }
 
 .title {
-    font-size: 1.5rem;
-    font-weight: 400;
-    padding: 0 0.5rem;
+    composes: font-normal from global;
+    composes: px-2xs from global;
+    composes: py-0 from global;
+    composes: text-xl from global;
 }
 
 .pagination {
-    position: relative;
-    bottom: 0;
+    composes: relative from global;
+    composes: bottom-0 from global;
 }
 
 .placeholder {
-    height: 100vh;
+    composes: h-screen from global;
 }
 
 .categoryTitle {
-    color: rgb(var(--venia-global-color-text));
-    padding-bottom: 1rem;
-    font-size: 1.375rem;
-    font-weight: 300;
-    line-height: 1.375rem;
-    text-align: center;
+    composes: font-light from global;
+    composes: leading-snug from global;
+    composes: pb-xs from global;
+    composes: text-colorDefault from global;
+    composes: text-center from global;
+    composes: text-xl from global;
 }
 
 .heading {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-bottom: 0.5rem;
+    composes: flex from global;
+    composes: flex-wrap from global;
+    composes: justify-center from global;
+    composes: pb-2xs from global;
+
+    composes: lg_flex-nowrap from global;
+    composes: lg_items-center from global;
+    composes: lg_justify-between from global;
+    composes: lg_pb-sm from global;
+    composes: lg_w-full from global;
+}
+
+.categoryContent {
+    composes: lg_flex-grow from global;
 }
 
 .categoryInfo {
     flex-basis: 100%;
-    line-height: var(--venia-global-typography-heading-lineHeight);
-    margin: 1rem 0;
-    max-width: 75vw;
-    text-align: center;
+    composes: leading-tight from global;
+    composes: max-w-[75vw] from global;
+    composes: mx-0 from global;
+    composes: my-xs from global;
+    composes: text-center from global;
+
+    composes: lg_m-0 from global;
+    composes: lg_text-left from global;
 }
 
 .headerButtons {
-    display: flex;
+    composes: flex from global;
+    composes: justify-center from global;
+    composes: pb-sm from global;
     flex-basis: 100%;
-    justify-content: center;
-    padding-bottom: 1.5rem;
+
+    composes: lg_justify-end from global;
+    composes: lg_pb-0 from global;
 }
 
 .contentWrapper {
-    width: 100%;
+    composes: w-full from global;
+
+    composes: lg_flex from global;
 }
 
 .sidebar {
-    display: none;
-}
+    composes: hidden from global;
 
-@media (min-width: 1024px) {
-    .contentWrapper {
-        display: flex;
-    }
-
-    .categoryHeader {
-        width: 100%;
-    }
-
-    .headerButtons {
-        justify-content: flex-end;
-    }
-
-    .heading {
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        align-items: center;
-        padding-bottom: 1.5rem;
-    }
-
-    .headerButtons {
-        padding-bottom: 0;
-    }
-
-    .categoryInfo {
-        margin: 0;
-        text-align: left;
-    }
-
-    .sidebar {
-        display: flex;
-        align-self: flex-start;
-        width: var(--category-sidebar-width);
-        padding-top: 4rem;
-    }
-
-    .categoryContent {
-        flex-grow: 1;
-    }
+    composes: lg_flex from global;
+    composes: lg_self-start from global;
+    composes: lg_pt-16 from global;
+    composes: lg_w-filterSidebarWidth from global;
 }
