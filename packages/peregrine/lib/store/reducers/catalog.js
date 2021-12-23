@@ -23,8 +23,8 @@ const initialState = {
 
 const reducerMap = {
     [actions.updateCategories]: (state, { payload }) => {
-        const { id } = payload;
-        const currentCategory = state.categories[id] || {};
+        const { uid } = payload;
+        const currentCategory = state.categories[uid] || {};
 
         // if category has already been fetched, do nothing
         if (currentCategory.children) {
@@ -35,7 +35,7 @@ const reducerMap = {
         const children = [...payload.children].sort((a, b) => {
             if (a.position > b.position) {
                 return 1;
-            } else if (a.position === b.position && a.id > b.id) {
+            } else if (a.position === b.position && a.uid > b.uid) {
                 return 1;
             } else {
                 return -1;
@@ -48,10 +48,10 @@ const reducerMap = {
 
         // merge children and add them to the Map, keyed by `id`
         for (const child of children) {
-            childMap.set(child.id, {
+            childMap.set(child.uid, {
                 ...child,
-                ...(state.categories[child.id] || {}),
-                parentId: id
+                ...(state.categories[child.uid] || {}),
+                parentId: uid
             });
         }
 
@@ -61,7 +61,7 @@ const reducerMap = {
             categories: {
                 ...state.categories,
                 ...fromPairs(childMap),
-                [id]: {
+                [uid]: {
                     ...currentCategory,
                     ...payload,
                     children: [...childMap.keys()],

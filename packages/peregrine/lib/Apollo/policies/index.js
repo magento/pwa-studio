@@ -174,7 +174,10 @@ const typePolicies = {
     SelectedConfigurableOption: {
         // id alone is not enough to identify a selected option as it can refer
         // to something like "size" where value_id refers to "large".
-        keyFields: ['id', 'value_id']
+        keyFields: [
+            'configurable_product_option_uid',
+            'configurable_product_option_value_uid'
+        ]
     },
     SelectedPaymentMethod: {
         keyFields: ['code']
@@ -244,6 +247,7 @@ const typePolicies = {
         }
     },
     CategoryTree: {
+        keyFields: ['uid'],
         fields: {
             children: {
                 merge(existing, incoming) {
