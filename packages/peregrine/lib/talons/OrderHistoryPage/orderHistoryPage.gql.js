@@ -98,8 +98,8 @@ export const GET_CUSTOMER_ORDERS = gql`
         $filter: CustomerOrdersFilterInput
         $pageSize: Int!
     ) {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             orders(filter: $filter, pageSize: $pageSize) {
                 ...CustomerOrdersFragment
             }

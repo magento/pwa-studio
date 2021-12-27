@@ -14,7 +14,12 @@ import PropTypes from 'prop-types';
  * @param {function} props.onNavigate - function called when clicking on Link
  */
 const SubmenuColumn = props => {
-    const { category, categoryUrlSuffix, onNavigate } = props;
+    const {
+        category,
+        categoryUrlSuffix,
+        onNavigate,
+        handleCloseSubMenu
+    } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     const categoryUrl = resourceUrl(
@@ -63,7 +68,10 @@ const SubmenuColumn = props => {
                 className={classes.link}
                 data-cy="MegaMenu-SubmenuColumn-link"
                 to={categoryUrl}
-                onClick={onNavigate}
+                onClick={() => {
+                    handleCloseSubMenu();
+                    onNavigate();
+                }}
             >
                 <span className={classes.heading}>{category.name}</span>
             </Link>
@@ -77,7 +85,7 @@ export default SubmenuColumn;
 SubmenuColumn.propTypes = {
     category: PropTypes.shape({
         children: PropTypes.array,
-        id: PropTypes.number.isRequired,
+        uid: PropTypes.string.isRequired,
         include_in_menu: PropTypes.number,
         isActive: PropTypes.bool.isRequired,
         name: PropTypes.string.isRequired,
@@ -86,5 +94,6 @@ SubmenuColumn.propTypes = {
         url_path: PropTypes.string.isRequired
     }).isRequired,
     categoryUrlSuffix: PropTypes.string,
-    onNavigate: PropTypes.func.isRequired
+    onNavigate: PropTypes.func.isRequired,
+    handleCloseSubMenu: PropTypes.func.isRequired
 };

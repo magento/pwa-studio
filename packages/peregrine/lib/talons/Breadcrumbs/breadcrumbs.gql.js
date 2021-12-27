@@ -2,8 +2,9 @@ import { gql } from '@apollo/client';
 
 export const GET_STORE_CONFIG_DATA = gql`
     query GetStoreConfigForBreadcrumbs {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             category_url_suffix
         }
     }
@@ -11,7 +12,8 @@ export const GET_STORE_CONFIG_DATA = gql`
 
 export const GET_BREADCRUMBS = gql`
     query GetBreadcrumbs($category_id: String!) {
-        categories(filters: { ids: { in: [$category_id] } }) {
+        categories(filters: { category_uid: { in: [$category_id] } }) {
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
                 breadcrumbs {
                     category_uid
@@ -20,7 +22,6 @@ export const GET_BREADCRUMBS = gql`
                     category_name
                     category_url_path
                 }
-                id
                 uid
                 name
                 url_path

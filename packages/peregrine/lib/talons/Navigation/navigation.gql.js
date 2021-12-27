@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 export const GET_CUSTOMER = gql`
     query GetCustomerForLeftNav {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
-            id
             email
             firstname
             lastname
@@ -14,9 +14,10 @@ export const GET_CUSTOMER = gql`
 
 const GET_ROOT_CATEGORY_ID = gql`
     query getRootCategoryId {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
-            root_category_id
+            store_code
+            root_category_uid
         }
     }
 `;

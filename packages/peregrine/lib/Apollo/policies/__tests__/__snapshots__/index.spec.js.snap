@@ -51,14 +51,27 @@ Object {
     },
     "keyFields": [Function],
   },
+  "CartItemInterface": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
   "CategoryTree": Object {
     "fields": Object {
       "children": Object {
         "merge": [Function],
       },
     },
+    "keyFields": Array [
+      "uid",
+    ],
   },
   "ConfigurableProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
+  "ConfigurableProductOptions": Object {
     "keyFields": Array [
       "uid",
     ],
@@ -82,6 +95,7 @@ Object {
       },
     },
     "keyFields": [Function],
+    "merge": true,
   },
   "CustomerAddress": Object {
     "fields": Object {
@@ -135,8 +149,8 @@ Object {
   },
   "SelectedConfigurableOption": Object {
     "keyFields": Array [
-      "id",
-      "value_id",
+      "configurable_product_option_uid",
+      "configurable_product_option_value_uid",
     ],
   },
   "SelectedPaymentMethod": Object {
@@ -170,6 +184,11 @@ Object {
   },
   "SimpleWishlistItem": Object {
     "keyFields": [Function],
+  },
+  "StoreConfig": Object {
+    "keyFields": Array [
+      "store_code",
+    ],
   },
   "VirtualProduct": Object {
     "keyFields": Array [

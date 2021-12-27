@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { string, number, shape } from 'prop-types';
+import { string, shape } from 'prop-types';
 import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
 
 import { useStyle } from '../../classify';
@@ -92,7 +92,7 @@ const CategoryList = props => {
 };
 
 CategoryList.propTypes = {
-    id: number.isRequired,
+    id: string.isRequired,
     title: string,
     classes: shape({
         root: string,

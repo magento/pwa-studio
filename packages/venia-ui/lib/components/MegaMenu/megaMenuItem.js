@@ -15,7 +15,7 @@ import Icon from '../Icon';
  * The MegaMenuItem component displays mega menu item
  *
  * @param {MegaMenuCategory} props.category
- * @param {int} props.activeCategoryId - id of active category
+ * @param {String} props.activeCategoryId - uid of active category
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
  * @param {function} props.onNavigate - function called when clicking on Link
  */
@@ -27,7 +27,9 @@ const MegaMenuItem = props => {
         categoryUrlSuffix,
         subMenuState,
         disableFocus,
-        onNavigate
+        onNavigate,
+        handleSubMenuFocus,
+        handleClickOutside
     } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -45,6 +47,7 @@ const MegaMenuItem = props => {
     const {
         isFocused,
         isActive,
+        handleMenuItemFocus,
         handleCloseSubMenu,
         isMenuActive,
         handleKeyDown
@@ -92,6 +95,18 @@ const MegaMenuItem = props => {
         <div
             className={megaMenuItemClassname}
             data-cy="MegaMenu-MegaMenuItem-megaMenuItem"
+            onMouseEnter={() => {
+                handleSubMenuFocus();
+                handleMenuItemFocus();
+            }}
+            onTouchStart={() => {
+                handleSubMenuFocus();
+                handleMenuItemFocus();
+            }}
+            onMouseLeave={e => {
+                handleClickOutside(e);
+                handleCloseSubMenu();
+            }}
         >
             <Link
                 {...linkAttributes}
@@ -116,7 +131,7 @@ export default MegaMenuItem;
 MegaMenuItem.propTypes = {
     category: PropTypes.shape({
         children: PropTypes.array,
-        id: PropTypes.number.isRequired,
+        uid: PropTypes.string.isRequired,
         include_in_menu: PropTypes.number,
         isActive: PropTypes.bool.isRequired,
         name: PropTypes.string.isRequired,
@@ -124,8 +139,10 @@ MegaMenuItem.propTypes = {
         position: PropTypes.number.isRequired,
         url_path: PropTypes.string.isRequired
     }).isRequired,
-    activeCategoryId: PropTypes.number,
+    activeCategoryId: PropTypes.string,
     mainNavWidth: PropTypes.number.isRequired,
     categoryUrlSuffix: PropTypes.string,
-    onNavigate: PropTypes.func.isRequired
+    onNavigate: PropTypes.func.isRequired,
+    handleSubMenuFocus: PropTypes.func.isRequired,
+    handleClickOutside: PropTypes.func.isRequired
 };

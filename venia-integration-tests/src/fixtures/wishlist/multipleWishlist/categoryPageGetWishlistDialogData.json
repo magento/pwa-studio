@@ -1,7 +1,7 @@
 {
   "data": {
     "storeConfig": {
-      "id": 1,
+      "store_code": "default",
       "enable_multiple_wishlists": "1",
       "maximum_number_of_wishlists": "5",
       "__typename": "StoreConfig"
