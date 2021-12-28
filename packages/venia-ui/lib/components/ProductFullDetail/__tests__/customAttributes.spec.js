@@ -1,6 +1,4 @@
 import React from 'react';
-import { act } from 'react-test-renderer';
-import { Form } from 'informed';
 
 import { createTestInstance } from '@magento/peregrine';
 
@@ -13,12 +11,6 @@ const Component = () => {
 };
 
 const givenDefaultValues = () => {
-    inputProps = {
-        customAttributes: []
-    };
-};
-
-const givenCustomAttributes = () => {
     inputProps = {
         customAttributes: []
     };
