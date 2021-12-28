@@ -26,6 +26,7 @@ describe('when the target is a link', () => {
 
     test('uses the push() function in the history object if it is internal', () => {
         const event = {
+            code: 'Enter',
             target: {
                 origin: 'https://my-magento.store',
                 tagName: 'A',
@@ -70,7 +71,7 @@ describe('when the target is a link', () => {
             preventDefault: preventDefault
         };
 
-        handleHtmlContentClick(mockHistory, event);
+        handleHtmlContentClick(mockHistory, event, true);
 
         expect(preventDefault).toHaveBeenCalled();
         expect(mockHistoryPush).not.toHaveBeenCalled();
@@ -98,7 +99,7 @@ describe('when the target is a link', () => {
             preventDefault: preventDefault
         };
 
-        handleHtmlContentClick(mockHistory, event);
+        handleHtmlContentClick(mockHistory, event, true);
 
         expect(preventDefault).toHaveBeenCalled();
         expect(mockHistoryPush).not.toHaveBeenCalled();
