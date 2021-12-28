@@ -1,18 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { array, shape, string } from 'prop-types';
-
-import { useStyle } from '../../classify';
-
-import defaultClasses from './customAttributes.module.css';
 import { FormattedMessage } from 'react-intl';
 
-// const getItemKey = ({ value_index }) => value_index;
-//
-// const getListComponent = (attribute_code, values) => {
-//     const optionType = getOptionType({ attribute_code, values });
-//
-//     return optionType === 'swatch' ? SwatchList : TileList;
-// };
+import { useStyle } from '@magento/venia-ui/lib/classify';
+
+import defaultClasses from './customAttributes.module.css';
 
 const CustomAttributes = props => {
     const { customAttributes } = props;
@@ -65,7 +57,12 @@ const CustomAttributes = props => {
                     <span className={classes.attributeLabel}>
                         {attributeLabel}
                     </span>
-                    <span className={classes.optionLabel}>{optionLabel}</span>
+
+                    {optionLabel ? (
+                        <span className={classes.optionLabel}>
+                            {optionLabel}
+                        </span>
+                    ) : null}
                 </li>
             );
         }

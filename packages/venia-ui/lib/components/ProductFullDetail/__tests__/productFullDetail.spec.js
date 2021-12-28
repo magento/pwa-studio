@@ -30,6 +30,7 @@ jest.mock('../../CartPage/ProductListing/quantity', () => ({
     QuantityFields: () => 'QuantityFields'
 }));
 jest.mock('../../RichContent/richContent', () => 'RichContent');
+jest.mock('../customAttributes', () => 'CustomAttributes');
 
 jest.mock('../../../classify');
 
@@ -187,7 +188,8 @@ const talonProps = {
             currency: 'USD',
             value: 3.5
         }
-    }
+    },
+    customAttributes: {}
 };
 
 test('it renders correctly', () => {
