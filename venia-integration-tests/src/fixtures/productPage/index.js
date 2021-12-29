@@ -32,3 +32,8 @@ export const silverAmorBangleSet = {
     name: 'Silver Amor Bangle Set',
     url: '/silver-amor-bangle-set.html'
 };
+
+export const carinaCardigan = {
+    name: 'Carina Cardigan',
+    url: '/carina-cardigan.html'
+};

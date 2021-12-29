@@ -61,6 +61,8 @@ export const megaMenuSubmenuColumnLink =
 export const productsGalleryItemName =
     '[data-cy="CategoryContent-root"] [data-cy="GalleryItem-name"], [data-cy="SearchPage-root"] [data-cy="GalleryItem-name"]';
 
+export const productAddToCartButton = '*[data-cy="AddToCartButton-root"]';
+
 export const productsNoProductsFound =
     '[data-cy="CategoryContent-root"] [data-cy="NoProductsFound-root"], [data-cy="SearchPage-noResult"]';
 
