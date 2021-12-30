@@ -1,0 +1,27 @@
+{
+    "name": "@magento/venia-payments-braintree",
+    "version": "0.0.2",
+    "publishConfig": {
+        "access": "public"
+    },
+    "description": "Provides demo Check Money Order Payment Method for PWA Studio.",
+    "main": "./intercept.js",
+    "scripts": {
+        "clean": " "
+    },
+    "repository": "github:magento/pwa-studio",
+    "license": "(OSL-3.0 OR AFL-3.0)",
+    "peerDependencies": {
+        "@magento/peregrine": "~11.0.0",
+        "@magento/pwa-buildpack": "~10.0.0",
+        "@magento/venia-ui": "~8.0.0",
+        "react": "~17.0.1",
+        "react-intl": "~5.7.0",
+        "react-router-dom": "~5.1.0"
+    },
+    "pwa-studio": {
+        "targets": {
+            "intercept": "./intercept.js"
+        }
+    }
+}
