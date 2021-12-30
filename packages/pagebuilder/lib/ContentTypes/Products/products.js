@@ -101,7 +101,9 @@ const Products = props => {
     });
 
     const { loading, error, data } = useQuery(GET_PRODUCTS_BY_URL_KEY, {
-        variables: { url_keys: urlKeys, pageSize: urlKeys.length }
+        variables: { url_keys: urlKeys, pageSize: urlKeys.length }, 
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
     if (loading) return null;
