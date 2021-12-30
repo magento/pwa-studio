@@ -38,15 +38,6 @@ export const GET_PAYMENT_INFORMATION = gql`
     ${AvailablePaymentMethodsFragment}
 `;
 
-export const GET_PAYMENT_NONCE = gql`
-    query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) @client {
-            id
-            paymentNonce
-        }
-    }
-`;
-
 export const SET_BILLING_ADDRESS = gql`
     mutation setBillingAddress(
         $cartId: String!
@@ -120,7 +111,6 @@ export const SET_FREE_PAYMENT_METHOD_ON_CART = gql`
 `;
 
 export default {
-    getPaymentNonceQuery: GET_PAYMENT_NONCE,
     getPaymentInformationQuery: GET_PAYMENT_INFORMATION,
     setBillingAddressMutation: SET_BILLING_ADDRESS,
     setFreePaymentMethodMutation: SET_FREE_PAYMENT_METHOD_ON_CART

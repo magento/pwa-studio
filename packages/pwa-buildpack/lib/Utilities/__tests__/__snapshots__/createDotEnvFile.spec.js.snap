@@ -160,13 +160,6 @@ UPWARD_JS_LOG_URL=true
 #
 ################################################################################
 
-#### Checkout and payment settings #############################################
-#
-#   Specify a Braintree API token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.
-CHECKOUT_BRAINTREE_TOKEN=sandbox_8yrzsvtm_s2bg8fs563crhqzk
-#
-################################################################################
-
 #### BuildBus and targets ######################################################
 #
 #   A list of resolvable NPM modules that BuildBus will scan for targets, in addition to those declared in project \`dependencies\` and \`devDependencies\`.

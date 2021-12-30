@@ -277,25 +277,38 @@ export const useCreditCard = props => {
      */
     const setPaymentDetailsInCache = useCallback(
         braintreeNonce => {
-            /**
-             * We dont save the nonce code due to PII,
-             * we only save the subset of details.
-             */
-            const { details, description, type } = braintreeNonce;
-            client.writeQuery({
-                query: getPaymentNonceQuery,
-                data: {
-                    cart: {
-                        __typename: 'Cart',
-                        id: cartId,
-                        paymentNonce: {
-                            details,
-                            description,
-                            type
+            if (braintreeNonce === null) {
+                client.writeQuery({
+                    query: getPaymentNonceQuery,
+                    data: {
+                        cart: {
+                            __typename: 'Cart',
+                            id: cartId,
+                            paymentNonce: null
                         }
                     }
-                }
-            });
+                });
+            } else {
+                /**
+                 * We dont save the nonce code due to PII,
+                 * we only save the subset of details.
+                 */
+                const { details, description, type } = braintreeNonce;
+                client.writeQuery({
+                    query: getPaymentNonceQuery,
+                    data: {
+                        cart: {
+                            __typename: 'Cart',
+                            id: cartId,
+                            paymentNonce: {
+                                details,
+                                description,
+                                type
+                            }
+                        }
+                    }
+                });
+            }
         },
         [cartId, client, getPaymentNonceQuery]
     );
@@ -342,13 +355,21 @@ export const useCreditCard = props => {
     const onPaymentError = useCallback(
         error => {
             setStepNumber(0);
-            setShouldRequestPaymentNonce(false);
+
+            if (error instanceof CheckoutError && error.hasPaymentExpired()) {
+                // remove token from cache and request a new
+                setPaymentDetailsInCache(null);
+                setShouldRequestPaymentNonce(true);
+            } else {
+                setShouldRequestPaymentNonce(false);
+            }
+
             resetShouldSubmit();
             if (onError) {
                 onError(error);
             }
         },
-        [onError, resetShouldSubmit]
+        [onError, resetShouldSubmit, setPaymentDetailsInCache]
     );
 
     /**

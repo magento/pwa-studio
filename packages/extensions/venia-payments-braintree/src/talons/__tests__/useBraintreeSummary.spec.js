@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useQuery } from '@apollo/client';
 
-import createTestInstance from '../../../../util/createTestInstance';
-import { useBraintreeSummary } from '../useBraintreeSummary';
+import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
+import { useBraintreeSummary } from '../useSummary';
 
 jest.mock('../../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])

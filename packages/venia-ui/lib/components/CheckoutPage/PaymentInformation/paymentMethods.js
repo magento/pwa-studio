@@ -16,7 +16,8 @@ const PaymentMethods = props => {
         onPaymentError,
         onPaymentSuccess,
         resetShouldSubmit,
-        shouldSubmit
+        shouldSubmit,
+        checkoutError
     } = props;
 
     const { formatMessage } = useIntl();
@@ -52,6 +53,7 @@ const PaymentMethods = props => {
                     onPaymentError={onPaymentError}
                     resetShouldSubmit={resetShouldSubmit}
                     shouldSubmit={shouldSubmit}
+                    checkoutError={checkoutError}
                 />
             ) : null;
 

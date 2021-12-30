@@ -116,21 +116,6 @@ test('declares checkoutPagePaymentTypes target', async () => {
     expect(interceptor).toHaveBeenCalledWith('woah');
 });
 
-test('uses RichContentRenderers to default strategy Payment Method', async () => {
-    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
-
-    const built = await buildModuleWith(
-        '../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
-        {
-            context: __dirname,
-            dependencies: ['@magento/peregrine', thisDep]
-        }
-    );
-
-    const checkoutPagePaymentTypes = built.run();
-    expect(checkoutPagePaymentTypes).toHaveProperty('braintree');
-});
-
 test('declares savedPaymentTypes target', async () => {
     const bus = mockBuildBus({
         context: __dirname,

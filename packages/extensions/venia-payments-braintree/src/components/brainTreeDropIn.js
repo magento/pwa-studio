@@ -15,7 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 
 import defaultClasses from './braintreeDropin.module.css';
-import { useStyle } from '../../../classify';
+import { useStyle } from '../../../../venia-ui/lib/classify';
 
 const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
 

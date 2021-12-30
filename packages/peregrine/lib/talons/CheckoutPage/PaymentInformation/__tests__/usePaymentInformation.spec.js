@@ -305,12 +305,6 @@ describe('testing payment error workflow', () => {
         expect(talonProps.doneEditing).toBeFalsy();
     });
 
-    test('should clear payment details from cache', () => {
-        expect(writeQuery).toHaveBeenCalled();
-        expect(writeQuery.mock.calls[0][0].query).toBe('getPaymentNonceQuery');
-        expect(writeQuery.mock.calls[0][0].data.cart.paymentNonce).toBeNull();
-    });
-
     test('should call resetShouldSubmit', () => {
         expect(resetShouldSubmit).toHaveBeenCalled();
     });

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
-import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
+import { PriceSummaryFragment } from '../../../../peregrine/lib/talons/CartPage/PriceSummary/priceSummaryFragments.gql';
+import { AvailablePaymentMethodsFragment } from '../../../../peregrine/lib/talons/CheckoutPage/PaymentInformation/paymentInformation.gql';
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {

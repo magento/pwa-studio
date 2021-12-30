@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
-import { useQuery, useApolloClient, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import DEFAULT_OPERATIONS from './paymentInformation.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -32,7 +32,7 @@ export const usePaymentInformation = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         getPaymentInformationQuery,
-        getPaymentNonceQuery,
+
         setBillingAddressMutation,
         setFreePaymentMethodMutation
     } = operations;
@@ -43,7 +43,6 @@ export const usePaymentInformation = props => {
     const [doneEditing, setDoneEditing] = useState(false);
     const [isEditModalActive, setIsEditModalActive] = useState(false);
     const [{ cartId }] = useCartContext();
-    const client = useApolloClient();
 
     /**
      * Helper Functions
@@ -86,19 +85,6 @@ export const usePaymentInformation = props => {
         setFreePaymentMethod,
         { loading: setFreePaymentMethodLoading }
     ] = useMutation(setFreePaymentMethodMutation);
-
-    const clearPaymentDetails = useCallback(() => {
-        client.writeQuery({
-            query: getPaymentNonceQuery,
-            data: {
-                cart: {
-                    __typename: 'Cart',
-                    id: cartId,
-                    paymentNonce: null
-                }
-            }
-        });
-    }, [cartId, client, getPaymentNonceQuery]);
 
     const [setBillingAddress] = useMutation(setBillingAddressMutation);
 
@@ -230,10 +216,9 @@ export const usePaymentInformation = props => {
 
     const handleExpiredPaymentError = useCallback(() => {
         setDoneEditing(false);
-        clearPaymentDetails({ variables: { cartId } });
         resetShouldSubmit();
         setCheckoutStep(CHECKOUT_STEP.PAYMENT);
-    }, [resetShouldSubmit, setCheckoutStep, clearPaymentDetails, cartId]);
+    }, [resetShouldSubmit, setCheckoutStep]);
 
     useEffect(() => {
         if (

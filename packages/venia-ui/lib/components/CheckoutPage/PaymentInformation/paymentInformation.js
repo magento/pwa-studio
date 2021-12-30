@@ -64,6 +64,7 @@ const PaymentInformation = props => {
                 onPaymentSuccess={handlePaymentSuccess}
                 resetShouldSubmit={resetShouldSubmit}
                 shouldSubmit={shouldSubmit}
+                checkoutError={checkoutError}
             />
         </Form>
     );
