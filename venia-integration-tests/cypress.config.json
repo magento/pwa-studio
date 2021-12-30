@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://develop.pwa-venia.com/",
+    "baseUrl": "http://0.0.0.0:10000/",
     "defaultCommandTimeout": 10000,
     "supportFile": "src/support/index.js",
     "pluginsFile": "src/plugins/index.js",
@@ -15,10 +15,7 @@
     "scrollBehavior": "nearest",
     "trashAssetsBeforeRuns": false,
     "chromeWebSecurity": false,
-    "ignoreTestFiles": [
-        "**/__snapshots__/*",
-        "**/__image_snapshots__/*"
-    ],
+    "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"],
     "env": {
         "defaultData_couponCode": "PWA1423",
         "defaultData_giftCardNumber": "02Y0LCHUNDRZ",
