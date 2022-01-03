@@ -12,11 +12,6 @@ export const GET_CMS_PAGE = gql`
             meta_keywords
             meta_description
         }
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            root_category_id
-        }
     }
 `;
 

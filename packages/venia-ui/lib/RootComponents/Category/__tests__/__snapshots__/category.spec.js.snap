@@ -4,7 +4,7 @@ exports[`Category Root Component error view does not render when data is present
 Array [
   "Meta",
   <CategoryContent
-    categoryId={3}
+    categoryId="Mg=="
     classes={Object {}}
     data={
       Object {
@@ -93,7 +93,7 @@ exports[`Category Root Component renders the correct tree 1`] = `
 Array [
   "Meta",
   <CategoryContent
-    categoryId={3}
+    categoryId="Mg=="
     classes={Object {}}
     data={
       Object {
