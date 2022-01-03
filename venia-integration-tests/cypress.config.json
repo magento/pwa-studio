@@ -16,7 +16,7 @@
     "trashAssetsBeforeRuns": false,
     "chromeWebSecurity": false,
     "ignoreTestFiles": [
-        "**/__snapshots__/*", 
+        "**/__snapshots__/*",
         "**/__image_snapshots__/*"
     ],
     "env": {
