@@ -57,8 +57,8 @@ const Html = props => {
 
     const history = useHistory();
 
-    const clickHandler = (event, isClick = false) => {
-        handleHtmlContentClick(history, event, isClick);
+    const clickHandler = event => {
+        handleHtmlContentClick(history, event);
     };
 
     return (
@@ -66,7 +66,7 @@ const Html = props => {
             style={dynamicStyles}
             className={[classes.root, ...cssClasses].join(' ')}
             dangerouslySetInnerHTML={toHTML(html)}
-            onClick={event => clickHandler(event, true)}
+            onClick={clickHandler}
             onKeyDown={clickHandler}
             role="presentation"
         />

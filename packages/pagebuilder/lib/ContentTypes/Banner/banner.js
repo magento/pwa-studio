@@ -274,8 +274,8 @@ const Banner = props => {
 
     const history = useHistory();
 
-    const clickHandler = (event, isClick = false) => {
-        handleHtmlContentClick(history, event, isClick);
+    const clickHandler = event => {
+        handleHtmlContentClick(history, event);
     };
 
     let BannerFragment = (
@@ -290,7 +290,7 @@ const Banner = props => {
                     className={classes.content}
                     style={contentStyles}
                     dangerouslySetInnerHTML={toHTML(content)}
-                    onClick={event => clickHandler(event, true)}
+                    onClick={clickHandler}
                     onKeyDown={clickHandler}
                     role="presentation"
                 />

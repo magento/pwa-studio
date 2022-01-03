@@ -63,6 +63,7 @@ describe('when the target is a link', () => {
                 pathname: '/shoes.html',
                 href: 'https://my-other-magento.store/shoes.html'
             },
+            type: 'click',
             view: {
                 location: {
                     origin: 'https://my-magento.store'
@@ -71,7 +72,7 @@ describe('when the target is a link', () => {
             preventDefault: preventDefault
         };
 
-        handleHtmlContentClick(mockHistory, event, true);
+        handleHtmlContentClick(mockHistory, event);
 
         expect(preventDefault).toHaveBeenCalled();
         expect(mockHistoryPush).not.toHaveBeenCalled();
@@ -91,6 +92,7 @@ describe('when the target is a link', () => {
                 target: '_blank',
                 href: 'https://my-other-magento.store/shoes.html'
             },
+            type: 'click',
             view: {
                 location: {
                     origin: 'https://my-magento.store'
@@ -99,7 +101,7 @@ describe('when the target is a link', () => {
             preventDefault: preventDefault
         };
 
-        handleHtmlContentClick(mockHistory, event, true);
+        handleHtmlContentClick(mockHistory, event);
 
         expect(preventDefault).toHaveBeenCalled();
         expect(mockHistoryPush).not.toHaveBeenCalled();
