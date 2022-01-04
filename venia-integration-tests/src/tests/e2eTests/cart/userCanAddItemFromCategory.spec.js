@@ -21,9 +21,8 @@ const { assertCartIsEmpty, assertCartTriggerCount } = headerAssertions;
 const {
     getCategoriesCall,
     getProductDetailForProductPageCall,
-		hitGraphqlPath,
+    hitGraphqlPath
 } = graphqlMockedCallsFixtures;
-
 
 describe('Verify Cart actions', () => {
     it("User shouldn't be able to add a CustomizableProduct from category page", () => {
@@ -33,9 +32,9 @@ describe('Verify Cart actions', () => {
             'gqlGetProductDetailForProductPageQuery'
         );
 
-				cy.intercept('POST', hitGraphqlPath, req => {
-					aliasMutation(req, 'AddProductToCart');
-				});
+        cy.intercept('POST', hitGraphqlPath, req => {
+            aliasMutation(req, 'AddProductToCart');
+        });
 
         cy.visit(categorySweaters);
         cy.wait(['@gqlGetCategoriesQuery'], {
@@ -43,7 +42,7 @@ describe('Verify Cart actions', () => {
         });
 
         addProductToCartFromCategoryPage(carinaCardigan.name);
-        
+
         assertCartIsEmpty();
         cy.visit(categoryJewelry);
 
@@ -51,7 +50,7 @@ describe('Verify Cart actions', () => {
             timeout: 60000
         });
         addProductToCartFromCategoryPage(silverAmorBangleSet.name);
-        
+
         assertCartTriggerCount(1);
     });
 });

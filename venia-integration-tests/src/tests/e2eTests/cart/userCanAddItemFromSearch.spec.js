@@ -1,8 +1,7 @@
 import {
     categoryPage as categoryPageFixtures,
     graphqlMockedCalls as graphqlMockedCallsFixtures,
-    productPage as productPageFixtures,
-    homePage as homePageFixtures
+    productPage as productPageFixtures
 } from '../../../fixtures';
 
 import {
@@ -53,7 +52,7 @@ describe('Verify Cart actions', () => {
             }
         );
         addProductToCartFromCategoryPage(carinaCardigan.name);
-        
+
         assertCartIsEmpty();
         triggerSearch();
         searchFromSearchBar('Semper');
@@ -64,7 +63,7 @@ describe('Verify Cart actions', () => {
             }
         );
         addProductToCartFromCategoryPage(semperBangleSet.name);
-    
+
         assertCartTriggerCount(1);
     });
 });
