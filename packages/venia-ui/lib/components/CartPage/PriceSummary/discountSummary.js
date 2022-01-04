@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 
 import { useStyle } from '../../../classify';
@@ -22,6 +22,7 @@ const getDiscount = (discounts = []) => {
         return DEFAULT_AMOUNT;
     } else {
         return {
+            label: discounts[0].label,
             currency: discounts[0].amount.currency,
             value: discounts.reduce(
                 (acc, discount) => acc + discount.amount.value,
@@ -40,6 +41,14 @@ const getDiscount = (discounts = []) => {
 const DiscountSummary = props => {
     const classes = useStyle({}, props.classes);
     const discount = getDiscount(props.data);
+    const { formatMessage } = useIntl();
+
+    const label = discount.label
+        ? discount.label
+        : formatMessage({
+            id: 'discountSummary.lineItemLabel',
+            defaultMessage: 'Discounts applied'
+        });
 
     return discount.value ? (
         <Fragment>
@@ -47,10 +56,7 @@ const DiscountSummary = props => {
                 className={classes.lineItemLabel}
                 data-cy="PriceSummary-DiscountSummary-label"
             >
-                <FormattedMessage
-                    id={'discountSummary.lineItemLabel'}
-                    defaultMessage={'Discounts applied'}
-                />
+                {label}
             </span>
             <span
                 data-cy="DiscountSummary-discountValue"
