@@ -16,8 +16,6 @@ const { searchCarina } = categoryPageFixtures;
 
 const { carinaCardigan, semperBangleSet } = productPageFixtures;
 
-const { homePage } = homePageFixtures;
-
 const { addProductToCartFromCategoryPage } = categoryPageActions;
 
 const { assertCartIsEmpty, assertCartTriggerCount } = headerAssertions;
@@ -44,7 +42,7 @@ describe('Verify Cart actions', () => {
             'gqlGetProductSearchQuery'
         );
 
-        cy.visit(homePage);
+        cy.visitHomePage();
 
         triggerSearch();
         searchFromSearchBar(searchCarina);
@@ -55,10 +53,7 @@ describe('Verify Cart actions', () => {
             }
         );
         addProductToCartFromCategoryPage(carinaCardigan.name);
-        cy.visit(carinaCardigan.url);
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-            timeout: 60000
-        });
+        
         assertCartIsEmpty();
         triggerSearch();
         searchFromSearchBar('Semper');
@@ -69,7 +64,7 @@ describe('Verify Cart actions', () => {
             }
         );
         addProductToCartFromCategoryPage(semperBangleSet.name);
-        cy.visit(semperBangleSet.url);
+    
         assertCartTriggerCount(1);
     });
 });

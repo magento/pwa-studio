@@ -8,6 +8,8 @@ import { categoryPage as categoryPageActions } from '../../../actions';
 
 import { header as headerAssertions } from '../../../assertions';
 
+import { aliasMutation } from '../../../utils/graphql-test-utils';
+
 const { categorySweaters, categoryJewelry } = categoryPageFixtures;
 
 const { carinaCardigan, silverAmorBangleSet } = productPageFixtures;
@@ -18,8 +20,10 @@ const { assertCartIsEmpty, assertCartTriggerCount } = headerAssertions;
 
 const {
     getCategoriesCall,
-    getProductDetailForProductPageCall
+    getProductDetailForProductPageCall,
+		hitGraphqlPath,
 } = graphqlMockedCallsFixtures;
+
 
 describe('Verify Cart actions', () => {
     it("User shouldn't be able to add a CustomizableProduct from category page", () => {
@@ -29,16 +33,17 @@ describe('Verify Cart actions', () => {
             'gqlGetProductDetailForProductPageQuery'
         );
 
+				cy.intercept('POST', hitGraphqlPath, req => {
+					aliasMutation(req, 'AddProductToCart');
+				});
+
         cy.visit(categorySweaters);
         cy.wait(['@gqlGetCategoriesQuery'], {
             timeout: 60000
         });
 
         addProductToCartFromCategoryPage(carinaCardigan.name);
-        cy.visit(carinaCardigan.url);
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-            timeout: 60000
-        });
+        
         assertCartIsEmpty();
         cy.visit(categoryJewelry);
 
@@ -46,7 +51,7 @@ describe('Verify Cart actions', () => {
             timeout: 60000
         });
         addProductToCartFromCategoryPage(silverAmorBangleSet.name);
-        cy.visit(silverAmorBangleSet.url);
+        
         assertCartTriggerCount(1);
     });
 });
