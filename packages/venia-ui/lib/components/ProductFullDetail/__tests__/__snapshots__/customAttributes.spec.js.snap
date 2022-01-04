@@ -5,32 +5,84 @@ exports[`#CustomAttributes renders with custom attributes not visible on front 1
 exports[`#CustomAttributes renders with custom attributes visible on front 1`] = `
 <div>
   <p>
-    <mock-FormattedMessage
-      defaultMessage="Details"
-      id="customAttributes.title"
-    />
+    Details
   </p>
   <ul>
     <li>
-      <span>
-        Attribute 1
-      </span>
-      <span>
+      <div>
+        Boolean Attribute
+      </div>
+      <div>
+        Yes
+      </div>
+    </li>
+    <li>
+      <div>
+        Date Attribute
+      </div>
+      <div>
+        <mock-FormattedDate
+          day="2-digit"
+          month="short"
+          value="2019-08-27T12:00:00"
+          year="numeric"
+        />
+      </div>
+    </li>
+    <li>
+      <div>
+        DateTime Attribute
+      </div>
+      <div>
+        <mock-FormattedDate
+          day="2-digit"
+          month="short"
+          value="2019-08-27T12:00:00"
+          year="numeric"
+        />
+        , 
+        <mock-FormattedTime
+          value="2019-08-27T12:00:00"
+        />
+      </div>
+    </li>
+    <li>
+      <div>
+        Price Attribute
+      </div>
+      <div>
+        <mock-Price
+          currencyCode="USD"
+          value={100}
+        />
+      </div>
+    </li>
+    <li>
+      <div>
+        Select Attribute
+      </div>
+      <div>
         Option 1, Option 2
-      </span>
+      </div>
     </li>
     <li>
-      <span>
-        Attribute 2
-      </span>
-      <span>
-        Option 3
-      </span>
+      <div>
+        Select Attribute without options
+      </div>
+      <div />
     </li>
     <li>
-      <span>
-        Attribute 3
-      </span>
+      <div>
+        Text Attribute
+      </div>
+      <mock-RichContent
+        classes={
+          Object {
+            "root": undefined,
+          }
+        }
+        html="<div>Text</div>"
+      />
     </li>
   </ul>
 </div>

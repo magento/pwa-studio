@@ -15,5 +15,10 @@
 
 .attributeLabel {
     composes: font-bold from global;
+    composes: inline-block from global;
     composes: mr-2 from global;
+}
+
+.attributeContent {
+    composes: inline-block from global;
 }

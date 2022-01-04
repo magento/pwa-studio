@@ -4,6 +4,20 @@ import { createTestInstance } from '@magento/peregrine';
 
 import CustomAttributes from '../customAttributes';
 
+jest.mock('react-intl', () => ({
+    FormattedDate: props => <mock-FormattedDate {...props} />,
+    FormattedMessage: ({ defaultMessage }) => defaultMessage,
+    FormattedTime: props => <mock-FormattedTime {...props} />
+}));
+
+jest.mock('@magento/venia-ui/lib/components/Price', () => {
+    return props => <mock-Price {...props} />;
+});
+
+jest.mock('@magento/venia-ui/lib/components/RichContent', () => {
+    return props => <mock-RichContent {...props} />;
+});
+
 let inputProps = {};
 
 const Component = () => {
@@ -56,20 +70,69 @@ describe('#CustomAttributes', () => {
                 {
                     attribute_metadata: {
                         is_visible_on_front: true,
-                        label: 'Attribute 2',
-                        sort_order: 2,
-                        uid: 'uid-2'
+                        label: 'Boolean Attribute',
+                        sort_order: 1,
+                        uid: 'uid-1',
+                        ui_input: {
+                            ui_input_type: 'BOOLEAN'
+                        }
                     },
                     entered_attribute_value: {
-                        value: 'Option 3'
+                        value: 'Yes'
                     }
                 },
                 {
                     attribute_metadata: {
                         is_visible_on_front: true,
-                        label: 'Attribute 1',
-                        sort_order: 1,
-                        uid: 'uid-1'
+                        label: 'Date Attribute',
+                        sort_order: 2,
+                        uid: 'uid-2',
+                        ui_input: {
+                            ui_input_type: 'DATE'
+                        }
+                    },
+                    entered_attribute_value: {
+                        value: '2019-08-27 12:00:00'
+                    }
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'DateTime Attribute',
+                        sort_order: 3,
+                        uid: 'uid-3',
+                        ui_input: {
+                            ui_input_type: 'DATETIME'
+                        }
+                    },
+                    entered_attribute_value: {
+                        value: '2019-08-27 12:00:00'
+                    }
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'Price Attribute',
+                        sort_order: 4,
+                        uid: 'uid-4',
+                        ui_input: {
+                            ui_input_type: 'PRICE'
+                        }
+                    },
+                    entered_attribute_value: {
+                        value: '100'
+                    }
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'Select Attribute',
+                        sort_order: 5,
+                        uid: 'uid-5',
+                        ui_input: {
+                            ui_input_type: 'SELECT',
+                            is_html_allowed: false
+                        }
                     },
                     selected_attribute_options: {
                         attribute_option: [
@@ -85,9 +148,13 @@ describe('#CustomAttributes', () => {
                 {
                     attribute_metadata: {
                         is_visible_on_front: true,
-                        label: 'Attribute 3',
-                        sort_order: 3,
-                        uid: 'uid-3'
+                        label: 'Select Attribute without options',
+                        sort_order: 6,
+                        uid: 'uid-6',
+                        ui_input: {
+                            ui_input_type: 'SELECT',
+                            is_html_allowed: false
+                        }
                     },
                     selected_attribute_options: {
                         attribute_option: []
@@ -95,8 +162,17 @@ describe('#CustomAttributes', () => {
                 },
                 {
                     attribute_metadata: {
-                        is_visible_on_front: false,
-                        sort_order: 4
+                        is_visible_on_front: true,
+                        label: 'Text Attribute',
+                        sort_order: 7,
+                        uid: 'uid-7',
+                        ui_input: {
+                            ui_input_type: 'TEXT',
+                            is_html_allowed: true
+                        }
+                    },
+                    entered_attribute_value: {
+                        value: '<div>Text</div>'
                     }
                 }
             ]
