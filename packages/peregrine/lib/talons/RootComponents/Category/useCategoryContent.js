@@ -114,12 +114,19 @@ export const useCategoryContent = props => {
         attribute: 'position',
         sortDirection: 'ASC'
     };
-    const sortMethodsArray = [
+    const relevanceSortProps = {
+        id: 'sortItem.relevance',
+        text: 'Best Match',
+        attribute: 'relevance',
+        sortDirection: 'DESC'
+    };
+    const defaultSortingOptions = [
         priceSortingPropsAscending,
         priceSortingPropsDescending,
-        positionSortProps
+        positionSortProps,
+        relevanceSortProps
     ];
-    const sortingMethodsDirections = sortingMethods
+    const allSortingMethods = sortingMethods
         ? sortingMethods
               .map(method => {
                   let sortingProps;
@@ -130,7 +137,7 @@ export const useCategoryContent = props => {
                           id: `sortItem.${method.value}`,
                           text: `${method.label}`,
                           attribute: method.value,
-                          sortDirection: 'DESC'
+                          sortDirection: 'ASC'
                       };
                   }
 
@@ -139,8 +146,8 @@ export const useCategoryContent = props => {
               .filter(method => method !== undefined)
         : null;
     // ensures sorting method always exists
-    const availableSortMethods = sortingMethodsDirections
-        ? [sortingMethodsDirections, sortMethodsArray].flat().sort((a, b) => {
+    const availableSortMethods = allSortingMethods
+        ? [allSortingMethods, defaultSortingOptions].flat().sort((a, b) => {
               if (a.text < b.text) {
                   return -1;
               }
@@ -149,7 +156,7 @@ export const useCategoryContent = props => {
               }
               return 0;
           })
-        : sortMethodsArray;
+        : defaultSortingOptions;
 
     return {
         availableSortMethods,
