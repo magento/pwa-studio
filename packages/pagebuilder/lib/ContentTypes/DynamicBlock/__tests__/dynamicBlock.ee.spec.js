@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
+import { DISPLAY_MODE_FIXED_TYPE } from '@magento/venia-ui/lib/components/CmsDynamicBlock/cmsDynamicBlock';
 
 import DynamicBlock from '../dynamicBlock.ee';
 
@@ -11,7 +12,7 @@ jest.mock(
 
 const defaultProps = {
     displayInline: false,
-    displayMode: 'fixed',
+    displayMode: DISPLAY_MODE_FIXED_TYPE,
     uids: 'uids',
     textAlign: 'right',
     border: 'solid',

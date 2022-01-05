@@ -4,8 +4,11 @@ import { useQuery } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
 
 import CmsDynamicBlock, {
+    DISPLAY_MODE_FIXED_TYPE,
     DYNAMIC_BLOCK_FIXED_TYPE,
+    DISPLAY_MODE_SALES_RULE_TYPE,
     DYNAMIC_BLOCK_SALES_RULE_TYPE,
+    DISPLAY_MODE_CATALOG_RULE_TYPE,
     DYNAMIC_BLOCK_CATALOG_RULE_TYPE,
     GET_CMS_DYNAMIC_BLOCKS
 } from '../cmsDynamicBlock.ee';
@@ -35,21 +38,21 @@ const Component = () => {
 
 const givenDefaultValues = () => {
     inputProps = {
-        displayMode: 'fixed',
+        displayMode: DISPLAY_MODE_FIXED_TYPE,
         uids: mockUids
     };
 };
 
 const givenCatalogRuleType = () => {
     inputProps = {
-        displayMode: 'catalogrule',
+        displayMode: DISPLAY_MODE_CATALOG_RULE_TYPE,
         uids: mockUids
     };
 };
 
 const givenSalesRuleType = () => {
     inputProps = {
-        displayMode: 'salesrule',
+        displayMode: DISPLAY_MODE_SALES_RULE_TYPE,
         uids: mockUids
     };
 };
@@ -194,23 +197,6 @@ describe('#CmsDynamicBlock EE', () => {
             GET_CMS_DYNAMIC_BLOCKS,
             expect.objectContaining({
                 variables: { type: DYNAMIC_BLOCK_FIXED_TYPE, uids: mockUids }
-            })
-        );
-    });
-
-    it('calls useQuery with locations', () => {
-        givenLocations();
-
-        createTestInstance(<Component />);
-
-        expect(useQuery).toHaveBeenCalledWith(
-            GET_CMS_DYNAMIC_BLOCKS,
-            expect.objectContaining({
-                variables: {
-                    type: DYNAMIC_BLOCK_FIXED_TYPE,
-                    locations: mockLocations,
-                    uids: mockUids
-                }
             })
         );
     });

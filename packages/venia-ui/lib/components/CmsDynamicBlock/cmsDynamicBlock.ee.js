@@ -6,16 +6,19 @@ import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
 import DynamicBlock from './dynamicBlock';
 
+export const DISPLAY_MODE_FIXED_TYPE = `fixed`;
 export const DYNAMIC_BLOCK_FIXED_TYPE = `SPECIFIED`;
+export const DISPLAY_MODE_SALES_RULE_TYPE = `salesrule`;
 export const DYNAMIC_BLOCK_SALES_RULE_TYPE = `CART_PRICE_RULE_RELATED`;
+export const DISPLAY_MODE_CATALOG_RULE_TYPE = `catalogrule`;
 export const DYNAMIC_BLOCK_CATALOG_RULE_TYPE = `CATALOG_PRICE_RULE_RELATED`;
 
 const getDynamicBlockType = displayMode => {
-    if (displayMode === 'fixed') {
+    if (displayMode === DISPLAY_MODE_FIXED_TYPE) {
         return DYNAMIC_BLOCK_FIXED_TYPE;
-    } else if (displayMode === 'salesrule') {
+    } else if (displayMode === DISPLAY_MODE_SALES_RULE_TYPE) {
         return DYNAMIC_BLOCK_SALES_RULE_TYPE;
-    } else if (displayMode === 'catalogrule') {
+    } else if (displayMode === DISPLAY_MODE_CATALOG_RULE_TYPE) {
         return DYNAMIC_BLOCK_CATALOG_RULE_TYPE;
     }
 
@@ -59,7 +62,11 @@ CmsDynamicBlockGroup.defaultProps = {
 };
 
 CmsDynamicBlockGroup.propTypes = {
-    displayMode: oneOf(['fixed', 'salesrule', 'catalogrule']),
+    displayMode: oneOf([
+        DISPLAY_MODE_FIXED_TYPE,
+        DISPLAY_MODE_SALES_RULE_TYPE,
+        DISPLAY_MODE_CATALOG_RULE_TYPE
+    ]),
     locations: array,
     uids: oneOfType([string, array]).isRequired
 };

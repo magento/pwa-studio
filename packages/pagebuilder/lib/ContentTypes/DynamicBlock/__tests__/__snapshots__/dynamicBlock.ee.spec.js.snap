@@ -24,7 +24,6 @@ exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component inlined 
   }
 >
   <mock-CmsDynamicBlockGroup
-    displayMode="fixed"
     uids="uids"
   />
 </span>
@@ -52,7 +51,6 @@ exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component with cus
   }
 >
   <mock-CmsDynamicBlockGroup
-    displayMode="fixed"
     uids="uids"
   />
 </div>
@@ -80,7 +78,6 @@ exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component without 
   }
 >
   <mock-CmsDynamicBlockGroup
-    displayMode="fixed"
     uids="uids"
   />
 </div>
