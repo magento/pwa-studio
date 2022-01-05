@@ -79,6 +79,9 @@ Object {
   "ConfigurableWishlistItem": Object {
     "keyFields": [Function],
   },
+  "Currency": Object {
+    "merge": true,
+  },
   "Customer": Object {
     "fields": Object {
       "addresses": Object {
