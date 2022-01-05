@@ -57,7 +57,7 @@ const DiscountSummary = props => {
                                 data-cy="DiscountSummary-IndividualDiscount-Label"
                             >
                                 <span data-cy="DiscountSummary-IndividualDiscount-DiscountLabel">
-                                    {String.fromCharCode(8226)} {discount.label}
+                                    {discount.label}
                                 </span>
                             </span>
                             <span

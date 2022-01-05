@@ -34,7 +34,6 @@
 .individualDiscountsListLineItem {
     composes: lineItems from './priceSummary.module.css';
     composes: mx-0 from global;
-    composes: my-4 from global;
     composes: pl-4 from global;
 
     color: rgb(var(--venia-global-color-gray-700));
