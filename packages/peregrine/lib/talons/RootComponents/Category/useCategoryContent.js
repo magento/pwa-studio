@@ -72,7 +72,7 @@ export const useCategoryContent = props => {
             getSortMethods({
                 variables: {
                     categoryIdFilter: {
-                        eq: categoryId
+                        in: categoryId
                     }
                 }
             });
@@ -108,22 +108,29 @@ export const useCategoryContent = props => {
         attribute: 'price',
         sortDirection: 'ASC'
     };
+    const positionSortProps = {
+        id: 'sortItem.position',
+        text: 'Position',
+        attribute: 'position',
+        sortDirection: 'ASC'
+    };
     const sortMethodsArray = [
         priceSortingPropsAscending,
-        priceSortingPropsDescending
+        priceSortingPropsDescending,
+        positionSortProps
     ];
     const sortingMethodsDirections = sortingMethods
         ? sortingMethods
               .map(method => {
                   let sortingProps;
 
-                  if (method.value !== 'price') {
+                  if (method.value !== 'price' && method.value !== 'position') {
                       sortingProps = {
                           ...sortingProps,
                           id: `sortItem.${method.value}`,
                           text: `${method.label}`,
                           attribute: method.value,
-                          sortDirection: 'ASC'
+                          sortDirection: 'DESC'
                       };
                   }
 
