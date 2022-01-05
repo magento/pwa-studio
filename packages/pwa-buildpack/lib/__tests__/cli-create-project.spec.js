@@ -46,6 +46,20 @@ test('is a yargs builder', async () => {
     expect(output).toMatch('Create a PWA');
 });
 
+test('throws when directory argument is missing', async () => {
+    const parser = yargs
+        .command({ ...createProjectCliBuilder, handler: jest.fn() })
+        .help();
+
+    const output = await new Promise(resolve =>
+        parser.parse('create-project', err => resolve(err))
+    );
+
+    expect(output).toMatchInlineSnapshot(
+        `[YError: Not enough non-option arguments: got 0, need at least 1]`
+    );
+});
+
 test('locates builtin package', async () => {
     fse.ensureDir.mockResolvedValueOnce(true);
     fse.readdir.mockResolvedValueOnce(true);
