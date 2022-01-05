@@ -10,6 +10,36 @@ exports[`#CustomAttributes renders with custom attributes visible on front 1`] =
   <ul>
     <li>
       <div>
+        Boolean Attribute without data
+      </div>
+    </li>
+    <li>
+      <div>
+        Date Attribute without data
+      </div>
+    </li>
+    <li>
+      <div>
+        DateTime Attribute without data
+      </div>
+    </li>
+    <li>
+      <div>
+        Price Attribute without data
+      </div>
+    </li>
+    <li>
+      <div>
+        Select Attribute without options
+      </div>
+    </li>
+    <li>
+      <div>
+        Text Attribute without data
+      </div>
+    </li>
+    <li>
+      <div>
         Boolean Attribute
       </div>
       <div>
@@ -59,7 +89,7 @@ exports[`#CustomAttributes renders with custom attributes visible on front 1`] =
     </li>
     <li>
       <div>
-        Select Attribute
+        Select Attribute without html content
       </div>
       <div>
         Option 1, Option 2
@@ -67,22 +97,34 @@ exports[`#CustomAttributes renders with custom attributes visible on front 1`] =
     </li>
     <li>
       <div>
-        Select Attribute without options
+        Select Attribute with html content
       </div>
-      <div />
+      <div>
+        <mock-RichContent
+          html="<span>Option 1</span>"
+        />
+        <mock-RichContent
+          html="<span>Option 2</span>"
+        />
+      </div>
     </li>
     <li>
       <div>
-        Text Attribute
+        Text Attribute without html content
       </div>
-      <mock-RichContent
-        classes={
-          Object {
-            "root": undefined,
-          }
-        }
-        html="<div>Text</div>"
-      />
+      <div>
+        Text
+      </div>
+    </li>
+    <li>
+      <div>
+        Text Attribute with html content
+      </div>
+      <div>
+        <mock-RichContent
+          html="<div>Text</div>"
+        />
+      </div>
     </li>
   </ul>
 </div>

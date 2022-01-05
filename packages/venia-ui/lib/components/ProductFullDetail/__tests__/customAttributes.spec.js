@@ -70,9 +70,85 @@ describe('#CustomAttributes', () => {
                 {
                     attribute_metadata: {
                         is_visible_on_front: true,
-                        label: 'Boolean Attribute',
+                        label: 'Boolean Attribute without data',
                         sort_order: 1,
                         uid: 'uid-1',
+                        ui_input: {
+                            ui_input_type: 'BOOLEAN'
+                        }
+                    },
+                    entered_attribute_value: {}
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'Date Attribute without data',
+                        sort_order: 2,
+                        uid: 'uid-2',
+                        ui_input: {
+                            ui_input_type: 'DATE'
+                        }
+                    },
+                    entered_attribute_value: {}
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'DateTime Attribute without data',
+                        sort_order: 3,
+                        uid: 'uid-3',
+                        ui_input: {
+                            ui_input_type: 'DATETIME'
+                        }
+                    },
+                    entered_attribute_value: {}
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'Price Attribute without data',
+                        sort_order: 4,
+                        uid: 'uid-4',
+                        ui_input: {
+                            ui_input_type: 'PRICE'
+                        }
+                    },
+                    entered_attribute_value: {}
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'Select Attribute without options',
+                        sort_order: 5,
+                        uid: 'uid-5',
+                        ui_input: {
+                            ui_input_type: 'SELECT',
+                            is_html_allowed: false
+                        }
+                    },
+                    selected_attribute_options: {
+                        attribute_option: []
+                    }
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'Text Attribute without data',
+                        sort_order: 6,
+                        uid: 'uid-6',
+                        ui_input: {
+                            ui_input_type: 'TEXT',
+                            is_html_allowed: false
+                        }
+                    },
+                    entered_attribute_value: {}
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'Boolean Attribute',
+                        sort_order: 7,
+                        uid: 'uid-7',
                         ui_input: {
                             ui_input_type: 'BOOLEAN'
                         }
@@ -85,8 +161,8 @@ describe('#CustomAttributes', () => {
                     attribute_metadata: {
                         is_visible_on_front: true,
                         label: 'Date Attribute',
-                        sort_order: 2,
-                        uid: 'uid-2',
+                        sort_order: 8,
+                        uid: 'uid-8',
                         ui_input: {
                             ui_input_type: 'DATE'
                         }
@@ -99,8 +175,8 @@ describe('#CustomAttributes', () => {
                     attribute_metadata: {
                         is_visible_on_front: true,
                         label: 'DateTime Attribute',
-                        sort_order: 3,
-                        uid: 'uid-3',
+                        sort_order: 9,
+                        uid: 'uid-9',
                         ui_input: {
                             ui_input_type: 'DATETIME'
                         }
@@ -113,8 +189,8 @@ describe('#CustomAttributes', () => {
                     attribute_metadata: {
                         is_visible_on_front: true,
                         label: 'Price Attribute',
-                        sort_order: 4,
-                        uid: 'uid-4',
+                        sort_order: 9,
+                        uid: 'uid-9',
                         ui_input: {
                             ui_input_type: 'PRICE'
                         }
@@ -126,9 +202,9 @@ describe('#CustomAttributes', () => {
                 {
                     attribute_metadata: {
                         is_visible_on_front: true,
-                        label: 'Select Attribute',
-                        sort_order: 5,
-                        uid: 'uid-5',
+                        label: 'Select Attribute without html content',
+                        sort_order: 10,
+                        uid: 'uid-10',
                         ui_input: {
                             ui_input_type: 'SELECT',
                             is_html_allowed: false
@@ -148,24 +224,46 @@ describe('#CustomAttributes', () => {
                 {
                     attribute_metadata: {
                         is_visible_on_front: true,
-                        label: 'Select Attribute without options',
-                        sort_order: 6,
-                        uid: 'uid-6',
+                        label: 'Select Attribute with html content',
+                        sort_order: 10,
+                        uid: 'uid-10',
                         ui_input: {
                             ui_input_type: 'SELECT',
-                            is_html_allowed: false
+                            is_html_allowed: true
                         }
                     },
                     selected_attribute_options: {
-                        attribute_option: []
+                        attribute_option: [
+                            {
+                                label: '<span>Option 1</span>'
+                            },
+                            {
+                                label: '<span>Option 2</span>'
+                            }
+                        ]
                     }
                 },
                 {
                     attribute_metadata: {
                         is_visible_on_front: true,
-                        label: 'Text Attribute',
-                        sort_order: 7,
-                        uid: 'uid-7',
+                        label: 'Text Attribute without html content',
+                        sort_order: 11,
+                        uid: 'uid-11',
+                        ui_input: {
+                            ui_input_type: 'TEXT',
+                            is_html_allowed: false
+                        }
+                    },
+                    entered_attribute_value: {
+                        value: 'Text'
+                    }
+                },
+                {
+                    attribute_metadata: {
+                        is_visible_on_front: true,
+                        label: 'Text Attribute with html content',
+                        sort_order: 12,
+                        uid: 'uid-12',
                         ui_input: {
                             ui_input_type: 'TEXT',
                             is_html_allowed: true

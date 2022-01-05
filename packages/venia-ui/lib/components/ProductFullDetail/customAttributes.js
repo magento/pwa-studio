@@ -55,110 +55,146 @@ const CustomAttributes = props => {
                 } = attribute_metadata.ui_input;
                 let attributeContent;
 
-                if (entered_attribute_value?.value) {
-                    attributeContent = entered_attribute_value.value;
-                } else if (
-                    selected_attribute_options?.attribute_option.length > 0
-                ) {
-                    attributeContent = selected_attribute_options.attribute_option
-                        .map(option => {
-                            return option.label;
-                        })
-                        .join(', ');
-                }
-
                 switch (type) {
                     case 'BOOLEAN': {
-                        attributeContent = (
-                            <div className={classes.attributeContent}>
-                                {attributeContent}
-                            </div>
-                        );
+                        if (entered_attribute_value?.value) {
+                            attributeContent = (
+                                <div className={classes.attributeContent}>
+                                    {entered_attribute_value.value}
+                                </div>
+                            );
+                        }
 
                         break;
                     }
 
                     // TODO: Get correct data from GraphQl based on config time zone
                     case 'DATE': {
-                        // Convert date to ISO-8601 format so Safari can also parse it
-                        const isoFormattedDate = attributeContent.replace(
-                            ' ',
-                            'T'
-                        );
+                        if (entered_attribute_value?.value) {
+                            // Convert date to ISO-8601 format so Safari can also parse it
+                            const isoFormattedDate = entered_attribute_value.value.replace(
+                                ' ',
+                                'T'
+                            );
 
-                        attributeContent = (
-                            <div className={classes.attributeContent}>
-                                <FormattedDate
-                                    value={isoFormattedDate}
-                                    year="numeric"
-                                    month="short"
-                                    day="2-digit"
-                                />
-                            </div>
-                        );
+                            attributeContent = (
+                                <div className={classes.attributeContent}>
+                                    <FormattedDate
+                                        value={isoFormattedDate}
+                                        year="numeric"
+                                        month="short"
+                                        day="2-digit"
+                                    />
+                                </div>
+                            );
+                        }
 
                         break;
                     }
 
                     // TODO: Get correct data from GraphQl based on config time zone
                     case 'DATETIME': {
-                        // Convert date to ISO-8601 format so Safari can also parse it
-                        const isoFormattedDate = attributeContent.replace(
-                            ' ',
-                            'T'
-                        );
-
-                        attributeContent = (
-                            <div className={classes.attributeContent}>
-                                <FormattedDate
-                                    value={isoFormattedDate}
-                                    year="numeric"
-                                    month="short"
-                                    day="2-digit"
-                                />
-                                {/* eslint-disable-next-line react/jsx-no-literals */}
-                                {', '}
-                                <FormattedTime value={isoFormattedDate} />
-                            </div>
-                        );
-
-                        break;
-                    }
-
-                    case 'PRICE': {
-                        // TODO: Get complete price data from GraphQl including currency
-                        attributeContent = (
-                            <div className={classes.attributeContent}>
-                                <Price
-                                    value={parseInt(attributeContent)}
-                                    currencyCode={storeCurrency}
-                                />
-                            </div>
-                        );
-
-                        break;
-                    }
-
-                    // TODO: Get decoded wysiwyg widgets from GraphQl
-                    default: {
-                        if (isHtml) {
-                            attributeContent = (
-                                <RichContent
-                                    classes={{
-                                        root: classes.attributeContentHtml
-                                    }}
-                                    html={attributeContent}
-                                />
+                        if (entered_attribute_value?.value) {
+                            // Convert date to ISO-8601 format so Safari can also parse it
+                            const isoFormattedDate = entered_attribute_value.value.replace(
+                                ' ',
+                                'T'
                             );
-                        } else {
+
                             attributeContent = (
                                 <div className={classes.attributeContent}>
-                                    {attributeContent}
+                                    <FormattedDate
+                                        value={isoFormattedDate}
+                                        year="numeric"
+                                        month="short"
+                                        day="2-digit"
+                                    />
+                                    {/* eslint-disable-next-line react/jsx-no-literals */}
+                                    {', '}
+                                    <FormattedTime value={isoFormattedDate} />
                                 </div>
                             );
                         }
 
                         break;
+                    }
+
+                    case 'PRICE': {
+                        if (entered_attribute_value?.value) {
+                            // TODO: Get complete price data from GraphQl including currency
+                            attributeContent = (
+                                <div className={classes.attributeContent}>
+                                    <Price
+                                        value={parseInt(
+                                            entered_attribute_value.value
+                                        )}
+                                        currencyCode={storeCurrency}
+                                    />
+                                </div>
+                            );
+                        }
+
+                        break;
+                    }
+
+                    default: {
+                        // For SELECT and MULTISELECT types
+                        if (
+                            selected_attribute_options?.attribute_option
+                                ?.length > 0
+                        ) {
+                            if (isHtml) {
+                                const options = selected_attribute_options.attribute_option.map(
+                                    (option, key) => {
+                                        return (
+                                            // TODO: Get decoded wysiwyg widgets from GraphQl
+                                            <RichContent
+                                                key={key}
+                                                html={option.label}
+                                            />
+                                        );
+                                    }
+                                );
+
+                                attributeContent = (
+                                    <div
+                                        className={classes.attributeContentHtml}
+                                    >
+                                        {options}
+                                    </div>
+                                );
+                            } else {
+                                const options = selected_attribute_options.attribute_option
+                                    .map(option => option.label)
+                                    .join(', ');
+
+                                attributeContent = (
+                                    <div className={classes.attributeContent}>
+                                        {options}
+                                    </div>
+                                );
+                            }
+                        } else if (entered_attribute_value?.value) {
+                            // For TEXT and TEXTAREA types
+                            if (isHtml) {
+                                // TODO: Get decoded wysiwyg widgets from GraphQl
+                                attributeContent = (
+                                    <div
+                                        className={classes.attributeContentHtml}
+                                    >
+                                        <RichContent
+                                            html={entered_attribute_value.value}
+                                        />
+                                    </div>
+                                );
+                            } else {
+                                attributeContent = (
+                                    <div className={classes.attributeContent}>
+                                        {entered_attribute_value.value}
+                                    </div>
+                                );
+                            }
+                        }
                     }
                 }
 
