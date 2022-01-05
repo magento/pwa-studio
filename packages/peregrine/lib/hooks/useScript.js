@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
  * @see https://usehooks.com/useScript/.
  *
  * @param {String} src - the script src.
+ *
+ * @returns {string} - returns one of the possible status: "idle", "loading", "ready" or "error"
  */
 export default src => {
     // Keep track of script status ("idle", "loading", "ready", "error")
@@ -61,5 +63,6 @@ export default src => {
         },
         [src] // Only re-run effect if script src changes
     );
+
     return status;
 };
