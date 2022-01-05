@@ -49,7 +49,7 @@ const talonProps = {
 };
 
 const categoryProps = {
-    id: 3
+    uid: 'Mg=='
 };
 
 describe('Category Root Component', () => {

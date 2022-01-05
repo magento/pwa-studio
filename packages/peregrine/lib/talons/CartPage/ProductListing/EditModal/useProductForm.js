@@ -90,6 +90,7 @@ export const useProductForm = props => {
     const handleOptionSelection = useCallback(
         (optionId, selection) => {
             const nextOptionSelections = new Map([...optionSelections]);
+
             const initialSelection = cartItem.configurable_options.find(
                 option => option.id == optionId
             );

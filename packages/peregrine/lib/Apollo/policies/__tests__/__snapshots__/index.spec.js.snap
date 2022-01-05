@@ -62,6 +62,9 @@ Object {
         "merge": [Function],
       },
     },
+    "keyFields": Array [
+      "uid",
+    ],
   },
   "ConfigurableProduct": Object {
     "keyFields": Array [
@@ -75,6 +78,9 @@ Object {
   },
   "ConfigurableWishlistItem": Object {
     "keyFields": [Function],
+  },
+  "Currency": Object {
+    "merge": true,
   },
   "Customer": Object {
     "fields": Object {
@@ -146,8 +152,8 @@ Object {
   },
   "SelectedConfigurableOption": Object {
     "keyFields": Array [
-      "id",
-      "value_id",
+      "configurable_product_option_uid",
+      "configurable_product_option_value_uid",
     ],
   },
   "SelectedPaymentMethod": Object {

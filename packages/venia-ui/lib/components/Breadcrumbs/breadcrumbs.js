@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { number, string } from 'prop-types';
+import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBreadcrumbs';
@@ -13,7 +13,7 @@ const DELIMITER = '/';
 /**
  * Breadcrumbs! Generates a sorted display of category links.
  *
- * @param {String} props.categoryId the id of the category for which to generate breadcrumbs
+ * @param {String} props.categoryId the uid of the category for which to generate breadcrumbs
  * @param {String} props.currentProduct the name of the product we're currently on, if any.
  */
 const Breadcrumbs = props => {
@@ -103,6 +103,6 @@ const Breadcrumbs = props => {
 export default Breadcrumbs;
 
 Breadcrumbs.propTypes = {
-    categoryId: number.isRequired,
+    categoryId: string.isRequired,
     currentProduct: string
 };
