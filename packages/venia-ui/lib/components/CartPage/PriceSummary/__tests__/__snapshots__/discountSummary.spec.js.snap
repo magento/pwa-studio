@@ -85,8 +85,7 @@ Array [
             className="lineItemLabel"
           >
             <span>
-              •
-               
+              Discount 1
             </span>
           </span>
           <span
@@ -114,8 +113,7 @@ Array [
             className="lineItemLabel"
           >
             <span>
-              •
-               
+              Discount 2
             </span>
           </span>
           <span
@@ -143,8 +141,7 @@ Array [
             className="lineItemLabel"
           >
             <span>
-              •
-               
+              Discount 3
             </span>
           </span>
           <span
@@ -258,10 +255,7 @@ Array [
           <span
             className="lineItemLabel"
           >
-            <span>
-              •
-               
-            </span>
+            <span />
           </span>
           <span
             className="price"
