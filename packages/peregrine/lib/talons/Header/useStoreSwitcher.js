@@ -9,12 +9,12 @@ import DEFAULT_OPERATIONS from './storeSwitcher.gql';
 const storage = new BrowserPersistence();
 
 const mapAvailableOptions = (config, stores) => {
-    const { code: configCode } = config;
+    const { store_code: configCode } = config;
 
     return stores.reduce((map, store) => {
         const {
             category_url_suffix,
-            code,
+            store_code: code,
             default_display_currency_code: currency,
             locale,
             product_url_suffix,
@@ -104,7 +104,7 @@ export const useStoreSwitcher = (props = {}) => {
 
     const currentStoreCode = useMemo(() => {
         if (storeConfigData) {
-            return storeConfigData.storeConfig.code;
+            return storeConfigData.storeConfig.store_code;
         }
     }, [storeConfigData]);
 
