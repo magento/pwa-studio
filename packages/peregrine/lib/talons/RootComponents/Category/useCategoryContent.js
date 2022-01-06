@@ -92,7 +92,7 @@ export const useCategoryContent = props => {
         ? categoryData.categories.items[0].description
         : null;
     const sortingMethods = sortData
-        ? sortData?.products?.sort_fields?.options
+        ? sortData.products.sort_fields.options
         : null;
     // price needs to be bidirectional
     const priceSortingPropsDescending = {
