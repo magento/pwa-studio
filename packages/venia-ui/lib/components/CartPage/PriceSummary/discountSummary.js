@@ -13,7 +13,6 @@ const MINUS_SYMBOL = '-';
 /**
  * A component that renders the discount summary line item.
  *
- * 
  * @param {Object} props.classes
  * @param {Object} props.data fragment response data
  */
