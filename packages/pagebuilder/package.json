@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pagebuilder#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/pagebuilder#readme",
   "dependencies": {},
   "devDependencies": {
     "@magento/peregrine": "~12.1.0",
