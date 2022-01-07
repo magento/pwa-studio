@@ -9,12 +9,16 @@ import SortItem from './sortItem';
 import defaultClasses from './productSort.module.css';
 import Button from '../Button';
 import Icon from '../Icon';
+import useProductSort from '@magento/peregrine/lib/talons/ProductSort/productSort';
 
 const ProductSort = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
+
+    const talonProps = useProductSort({ sortingMethods: availableSortMethods });
+    const { orderedAvailableSortMethods } = talonProps;
 
     // click event for menu items
     const handleItemClick = useCallback(
@@ -36,23 +40,26 @@ const ProductSort = props => {
             return null;
         }
 
-        const itemElements = Array.from(availableSortMethods, sortItem => {
-            const { attribute, sortDirection } = sortItem;
-            const isActive =
-                currentSort.sortAttribute === attribute &&
-                currentSort.sortDirection === sortDirection;
+        const itemElements = Array.from(
+            orderedAvailableSortMethods,
+            sortItem => {
+                const { attribute, sortDirection } = sortItem;
+                const isActive =
+                    currentSort.sortAttribute === attribute &&
+                    currentSort.sortDirection === sortDirection;
 
-            const key = `${attribute}--${sortDirection}`;
-            return (
-                <li key={key} className={classes.menuItem}>
-                    <SortItem
-                        sortItem={sortItem}
-                        active={isActive}
-                        onClick={handleItemClick}
-                    />
-                </li>
-            );
-        });
+                const key = `${attribute}--${sortDirection}`;
+                return (
+                    <li key={key} className={classes.menuItem}>
+                        <SortItem
+                            sortItem={sortItem}
+                            active={isActive}
+                            onClick={handleItemClick}
+                        />
+                    </li>
+                );
+            }
+        );
 
         return <div className={classes.menu}>{<ul>{itemElements}</ul>}</div>;
     }, [
@@ -132,35 +139,6 @@ ProductSort.propTypes = {
         })
     ),
     sortProps: array
-};
-
-ProductSort.defaultProps = {
-    availableSortMethods: [
-        {
-            id: 'sortItem.position',
-            text: 'Position',
-            attribute: 'position',
-            sortDirection: 'ASC'
-        },
-        {
-            id: 'sortItem.relevance',
-            text: 'Best Match',
-            attribute: 'relevance',
-            sortDirection: 'DESC'
-        },
-        {
-            id: 'sortItem.priceAsc',
-            text: 'Price: Low to High',
-            attribute: 'price',
-            sortDirection: 'ASC'
-        },
-        {
-            id: 'sortItem.priceDesc',
-            text: 'Price: High to Low',
-            attribute: 'price',
-            sortDirection: 'DESC'
-        }
-    ]
 };
 
 export default ProductSort;

@@ -1,0 +1,1 @@
+export { useProductSort } from './productSort';
