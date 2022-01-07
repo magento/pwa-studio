@@ -4,16 +4,28 @@ exports[`searchCategory returns the correct shape 1`] = `
 Object {
   "availableSortMethods": Array [
     Object {
-      "attribute": "position",
-      "id": "sortItem.positionAsc",
-      "sortDirection": "ASC",
-      "text": "Position Asc",
+      "attribute": "relevance",
+      "id": "sortItem.relevance",
+      "sortDirection": "DESC",
+      "text": "Best Match",
     },
     Object {
       "attribute": "position",
-      "id": "sortItem.positionDesc",
+      "id": "sortItem.position",
+      "sortDirection": "ASC",
+      "text": "Position",
+    },
+    Object {
+      "attribute": "price",
+      "id": "sortItem.priceDesc",
       "sortDirection": "DESC",
-      "text": "Position Desc",
+      "text": "Price: High to Low",
+    },
+    Object {
+      "attribute": "price",
+      "id": "sortItem.priceAsc",
+      "sortDirection": "ASC",
+      "text": "Price: Low to High",
     },
   ],
   "data": Object {

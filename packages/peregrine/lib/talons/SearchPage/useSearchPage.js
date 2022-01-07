@@ -278,7 +278,7 @@ export const useSearchPage = (props = {}) => {
     ];
 
     const sortingMethods = sortData
-        ? sortData.products.sort_fields.options
+        ? sortData.products.sort_fields?.options
         : null;
     const allSortingMethods = sortingMethods
         ? sortingMethods
