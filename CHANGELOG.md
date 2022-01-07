@@ -1,4 +1,4 @@
-# Release 12.1.0
+# Release  12.1.0
 
 **NOTE:**
 _This changelog only contains release notes for PWA Studio and Venia 12.1.0_
