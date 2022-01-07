@@ -31,7 +31,7 @@ const useProductSort = ({ sortingMethods }) => {
         relevanceSortProps
     ];
 
-    const allSortingMethods = sortingMethods
+    const sortMethodsFromQuery = sortingMethods
         ? sortingMethods
               .map(method => {
                   let sortingProps;
@@ -48,11 +48,12 @@ const useProductSort = ({ sortingMethods }) => {
 
                   return sortingProps;
               })
-              .filter(method => method !== undefined)
+              .filter(method => !!method)
         : null;
+    console.log(sortMethodsFromQuery);
     // ensures sorting method always exists
-    const orderedAvailableSortMethods = allSortingMethods
-        ? [allSortingMethods, defaultSortingOptions].flat().sort((a, b) => {
+    const orderedAvailableSortMethods = sortMethodsFromQuery
+        ? [sortMethodsFromQuery, defaultSortingOptions].flat().sort((a, b) => {
               if (a.text < b.text) {
                   return -1;
               }
