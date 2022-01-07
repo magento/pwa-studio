@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/peregrine#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/peregrine#readme",
   "dependencies": {
     "fast-glob": "~3.2.4"
   },

@@ -45,7 +45,7 @@ Visit the [`peregrine`][] package to view the source or contribute to this proje
 
 [venia]: {%link venia-pwa-concept/index.md %}
 
-[`peregrine`]: https://github.com/magento/pwa-studio/tree/master/packages/peregrine
+[`peregrine`]: https://github.com/magento/pwa-studio/tree/main/packages/peregrine
 [custom react hooks]: https://reactjs.org/docs/hooks-custom.html
 [destructure]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 [jsdoc]: https://devdocs.io/jsdoc/

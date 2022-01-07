@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/venia-ui#readme",
   "dependencies": {
     "informed": "~3.29.0",
     "jarallax": "~1.11.1",

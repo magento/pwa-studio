@@ -29,7 +29,7 @@
     "bugs": {
         "url": "https://github.com/magento/pwa-studio/issues"
     },
-    "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pwa-devdocs#readme",
+    "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/pwa-devdocs#readme",
     "devDependencies": {
         "browser-sync": "~2.26.14",
         "css-loader": "^2.1.1",

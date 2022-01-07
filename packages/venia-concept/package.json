@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-concept#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/venia-concept#readme",
   "dependencies": {
     "@magento/pwa-buildpack": "~11.0.0"
   },
