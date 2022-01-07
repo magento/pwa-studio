@@ -29,7 +29,7 @@ const Footer = props => {
 
             const itemKey = `text: ${text} path:${path}`;
             const child = path ? (
-                <Link className={classes.link} to={path}>
+                <Link className={classes.link} to={path} data-cy="Footer-link">
                     <FormattedMessage id={text} defaultMessage={text} />
                 </Link>
             ) : (
@@ -53,7 +53,7 @@ const Footer = props => {
     });
 
     return (
-        <footer className={classes.root}>
+        <footer className={classes.root} data-cy="Footer-root">
             <div className={classes.links}>
                 {linkGroups}
                 <div className={classes.callout}>

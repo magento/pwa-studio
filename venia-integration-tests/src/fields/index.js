@@ -13,3 +13,4 @@ export * as productPage from './productPage';
 export * as wishlist from './wishlist';
 export * as miniCart from './miniCart';
 export * as newsletter from './newsletter';
+export * as footer from './footer';
