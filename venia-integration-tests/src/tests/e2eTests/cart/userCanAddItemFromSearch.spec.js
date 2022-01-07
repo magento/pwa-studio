@@ -52,7 +52,10 @@ describe('Verify Cart actions', () => {
             }
         );
         addProductToCartFromCategoryPage(carinaCardigan.name);
-
+        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
+            timeout: 60000
+        });
+        cy.url().should('include', carinaCardigan.url);
         assertCartIsEmpty();
         triggerSearch();
         searchFromSearchBar('Semper');
@@ -63,6 +66,10 @@ describe('Verify Cart actions', () => {
             }
         );
         addProductToCartFromCategoryPage(semperBangleSet.name);
+        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
+            timeout: 60000
+        });
+        cy.url().should('include', semperBangleSet.url);
 
         assertCartTriggerCount(1);
     });

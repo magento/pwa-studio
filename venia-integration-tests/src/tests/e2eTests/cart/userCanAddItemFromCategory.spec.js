@@ -43,6 +43,11 @@ describe('Verify Cart actions', () => {
 
         addProductToCartFromCategoryPage(carinaCardigan.name);
 
+        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
+            timeout: 60000
+        });
+        cy.url().should('include', carinaCardigan.url);
+
         assertCartIsEmpty();
         cy.visit(categoryJewelry);
 
