@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pwa-buildpack#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "~0.1.7",
     "@magento/upward-js": "~5.2.0",

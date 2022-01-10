@@ -189,12 +189,12 @@ See the [venia-consumer-example][] project to see how a non-Venia application ca
 [venia-consumer-example]: https://github.com/magento-research/venia-consumer-example
 [es modules]: https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
 [webpack optimization]: https://webpack.js.org/guides/tree-shaking/
-[loadingindicator]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/LoadingIndicator
-[richtext]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/components/RichText
-[venia adapter]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js
-[productfulldetail]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/ProductFullDetail
-[categorylist]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/CategoryList
-[`src/drivers`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/index.js
+[loadingindicator]: https://github.com/magento/pwa-studio/tree/main/packages/venia-concept/src/components/LoadingIndicator
+[richtext]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/components/RichText
+[venia adapter]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/drivers/adapter.js
+[productfulldetail]: https://github.com/magento/pwa-studio/tree/main/packages/venia-concept/src/components/ProductFullDetail
+[categorylist]: https://github.com/magento/pwa-studio/tree/main/packages/venia-concept/src/components/CategoryList
+[`src/drivers`]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/drivers/index.js
 [apollo]: https://www.apollographql.com/docs/react/
 [react redux]: https://react-redux.js.org/
 [redux store]: https://redux.js.org/api/store
@@ -202,5 +202,5 @@ See the [venia-consumer-example][] project to see how a non-Venia application ca
 [apollo client]: https://www.apollographql.com/docs/react/essentials/get-started.html#creating-client
 [webpack]: https://webpack.js.org/
 [rollup]: https://rollupjs.org/guide/en
-[`makeurl.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/util/makeUrl.js
+[`makeurl.js`]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/util/makeUrl.js
 [`adapter.js`]: https://github.com/magento/pwa-studio/blob/a40c4a7b9c5e7161e4e1534eb90e511d6559e36b/packages/venia-concept/src/drivers/adapter.js

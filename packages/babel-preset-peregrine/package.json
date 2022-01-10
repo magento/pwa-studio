@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/babel-preset-peregrine#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/babel-preset-peregrine#readme",
   "peerDependencies": {
     "@babel/core": "~7.15.0",
     "@babel/plugin-proposal-class-properties": "~7.14.5",
