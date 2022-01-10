@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, number, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import { useCategoryTree } from '@magento/peregrine/lib/talons/CategoryTree';
 
 import { useStyle } from '../../classify';
@@ -50,7 +50,7 @@ const Tree = props => {
 export default Tree;
 
 Tree.propTypes = {
-    categoryId: number,
+    categoryId: string,
     classes: shape({
         root: string,
         tree: string

@@ -15,7 +15,7 @@ In its current state, the storefront contains examples for Product Details and C
 
 Visit the [`venia-pwa-concept`][] package in the PWA Studio repository to contribute to the development of this project.
 
-[`venia-pwa-concept`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
+[`venia-pwa-concept`]: https://github.com/magento/pwa-studio/tree/main/packages/venia-concept
 [PWA Buildpack]: {% link pwa-buildpack/index.md %}
 [Peregrine]: {% link peregrine/index.md %}
 

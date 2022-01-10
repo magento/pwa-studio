@@ -10,11 +10,6 @@
       "meta_keywords": "",
       "meta_description": "",
       "__typename": "CmsPage"
-    },
-    "storeConfig": {
-      "store_code": "default",
-      "root_category_id": 2,
-      "__typename": "StoreConfig"
     }
   }
 }

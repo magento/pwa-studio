@@ -25,6 +25,6 @@
         "enable": true,
         "frequency": "quarterly",
         "customName": "PWA Studio Static Scan",
-        "branchesToScan": ["master", "develop"]
+        "branchesToScan": ["main", "develop"]
     }
 }

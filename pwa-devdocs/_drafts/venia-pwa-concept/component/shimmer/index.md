@@ -85,11 +85,11 @@ export { default as SubComponentShimmer } from './subComponent.shimmer.js';
 ```jsx
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { mergeClasses } from '../../path/to/classify';
+import { useStyle } from '../../path/to/classify';
 import defaultClasses from './subComponent.css';
 
 const SubComponent = (props) => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { someValue } = props;
     
     return (
@@ -116,13 +116,13 @@ export default SubComponent;
 **../path/to/SubComponent/subComponent.shimmer.js**
 ```jsx
 import React from 'react';
-import { mergeClasses } from '../../path/to/classify';
+import { useStyle } from '../../path/to/classify';
 import Shimmer from '../path/to/base/Shimmer';
 import defaultClasses from './subComponent.css'; // Load same classes as real SubComponent
 
 const SubComponentShimmer = (props) => {
     // Important to still merge-in prop classes for extensibility/targetability
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     
     return (
       <div className={classes.root}>

@@ -26,6 +26,7 @@ describe('when the target is a link', () => {
 
     test('uses the push() function in the history object if it is internal', () => {
         const event = {
+            code: 'Enter',
             target: {
                 origin: 'https://my-magento.store',
                 tagName: 'A',
@@ -62,6 +63,7 @@ describe('when the target is a link', () => {
                 pathname: '/shoes.html',
                 href: 'https://my-other-magento.store/shoes.html'
             },
+            type: 'click',
             view: {
                 location: {
                     origin: 'https://my-magento.store'
@@ -90,6 +92,7 @@ describe('when the target is a link', () => {
                 target: '_blank',
                 href: 'https://my-other-magento.store/shoes.html'
             },
+            type: 'click',
             view: {
                 location: {
                     origin: 'https://my-magento.store'
