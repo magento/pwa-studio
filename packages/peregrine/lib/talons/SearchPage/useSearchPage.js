@@ -245,7 +245,7 @@ export const useSearchPage = (props = {}) => {
     useScrollTopOnChange(currentPage);
 
     const availableSortMethods = sortData
-        ? sortData?.products?.sort_fields?.options
+        ? sortData.products.sort_fields.options
         : null;
 
     return {
