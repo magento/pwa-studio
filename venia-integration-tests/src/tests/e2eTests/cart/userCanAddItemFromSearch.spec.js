@@ -24,7 +24,8 @@ const { triggerSearch, searchFromSearchBar } = headerActions;
 const {
     getProductDetailForProductPageCall,
     getProductFiltersBySearchCall,
-    getProductSearchCall
+    getProductSearchCall,
+		getStoreConfigDataForGalleryEECall,
 } = graphqlMockedCallsFixtures;
 
 describe('Verify Cart actions', () => {
@@ -41,6 +42,10 @@ describe('Verify Cart actions', () => {
             'gqlGetProductSearchQuery'
         );
 
+				cy.intercept('GET', getStoreConfigDataForGalleryEECall,).as(
+					'gqlGetStoreConfigDataForGallery'
+				);
+
         cy.visitHomePage();
 
         triggerSearch();
@@ -51,6 +56,11 @@ describe('Verify Cart actions', () => {
                 timeout: 60000
             }
         );
+
+				cy.wait(['@gqlGetStoreConfigDataForGallery'], {
+					timeout: 60000
+				});
+				
         addProductToCartFromCategoryPage(carinaCardigan.name);
         cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
             timeout: 60000

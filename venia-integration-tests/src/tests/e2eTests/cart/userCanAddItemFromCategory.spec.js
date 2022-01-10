@@ -21,7 +21,8 @@ const { assertCartIsEmpty, assertCartTriggerCount } = headerAssertions;
 const {
     getCategoriesCall,
     getProductDetailForProductPageCall,
-    hitGraphqlPath
+    hitGraphqlPath,
+		getStoreConfigDataForGalleryEECall,
 } = graphqlMockedCallsFixtures;
 
 describe('Verify Cart actions', () => {
@@ -36,11 +37,19 @@ describe('Verify Cart actions', () => {
             aliasMutation(req, 'AddProductToCart');
         });
 
+				cy.intercept('GET', getStoreConfigDataForGalleryEECall,).as(
+					'gqlGetStoreConfigDataForGallery'
+				);
+
         cy.visit(categorySweaters);
         cy.wait(['@gqlGetCategoriesQuery'], {
             timeout: 60000
         });
 
+				cy.wait(['@gqlGetStoreConfigDataForGallery'], {
+					timeout: 60000
+				});
+				
         addProductToCartFromCategoryPage(carinaCardigan.name);
 
         cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
