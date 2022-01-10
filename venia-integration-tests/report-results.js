@@ -2,6 +2,15 @@
 
 let summary;
 
+try {
+    summary = require('./cypress-test-results.json');
+} catch (e) {
+    console.error(
+        'Unable to retrieve Cypress results. Please re-run the tests.'
+    );
+    process.exit(1);
+}
+
 const processTests = (tests, testsFile) => {
     const failedMessages = tests
         .filter(test => test.fail)
@@ -9,14 +18,6 @@ const processTests = (tests, testsFile) => {
 
     return failedMessages.join('\n');
 };
-
-try {
-    summary = require('./cypress-test-results.json');
-} catch (e) {
-    throw new Error(
-        'Unable to retrieve Cypress results. Please re-run the tests.'
-    );
-}
 
 const testFailures = summary.stats.failures;
 
@@ -82,11 +83,10 @@ const generateTestSummary = result => {
 
 const parsedSummary = summary.results.map(generateTestSummary);
 
-console.table(parsedSummary);
-console.log('\n');
-
 if (testFailures === 0) {
     // no test failures
+    console.table(parsedSummary);
+    console.log('\n');
     console.log('\x1b[32m', 'All Cypress tests passed 👍', '\x1b[0m', '\n\n');
 
     return;
@@ -114,8 +114,8 @@ if (testFailures === 0) {
     const failSummary = failures.join(
         '\n\n -------------------------------- \n\n'
     );
-
-    console.log('Cypress tests in the following files did not pass 😔 \n\n');
     console.log('\x1b[43m', `${failures.length} failures`, '\x1b[0m', '\n\n');
     console.log('\x1b[31m', `${failSummary} \n\n`, '\x1b[0m');
+    console.log('Cypress tests in the following files did not pass 😔 \n');
+    console.table(parsedSummary);
 }
