@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import { ChevronDown as ArrowDown } from 'react-feather';
-import { FormattedMessage } from 'react-intl';
-import { array, arrayOf, shape, string, oneOf } from 'prop-types';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { array, arrayOf, shape, string } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 import { useStyle } from '../../classify';
@@ -9,16 +9,38 @@ import SortItem from './sortItem';
 import defaultClasses from './productSort.module.css';
 import Button from '../Button';
 import Icon from '../Icon';
-import useProductSort from '@magento/peregrine/lib/talons/ProductSort/productSort';
 
 const ProductSort = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
+    const { locale } = useIntl();
 
-    const talonProps = useProductSort({ sortingMethods: availableSortMethods });
-    const { orderedAvailableSortMethods } = talonProps;
+    const orderSortingList = useCallback(
+        list => {
+            return list.sort((a, b) =>
+                a.text.localeCompare(b.text, locale, { sensitivity: 'base' })
+            );
+        },
+        [locale]
+    );
+
+    const sortMethodsFromConfig = availableSortMethods
+        ? availableSortMethods
+              .map(method => {
+                  const { value, label } = method;
+                  if (value !== 'price' && value !== 'position') {
+                      return {
+                          id: `sortItem.${value}`,
+                          text: `${label}`,
+                          attribute: value,
+                          sortDirection: 'ASC'
+                      };
+                  }
+              })
+              .filter(method => !!method)
+        : null;
 
     // click event for menu items
     const handleItemClick = useCallback(
@@ -40,36 +62,71 @@ const ProductSort = props => {
             return null;
         }
 
-        const itemElements = Array.from(
-            orderedAvailableSortMethods,
-            sortItem => {
-                const { attribute, sortDirection } = sortItem;
-                const isActive =
-                    currentSort.sortAttribute === attribute &&
-                    currentSort.sortDirection === sortDirection;
-
-                const key = `${attribute}--${sortDirection}`;
-                return (
-                    <li key={key} className={classes.menuItem}>
-                        <SortItem
-                            sortItem={sortItem}
-                            active={isActive}
-                            onClick={handleItemClick}
-                        />
-                    </li>
-                );
+        const defaultSortMethods = [
+            {
+                id: 'sortItem.relevance',
+                text: 'Best Match',
+                attribute: 'relevance',
+                sortDirection: 'DESC'
+            },
+            {
+                id: 'sortItem.position',
+                text: 'Position',
+                attribute: 'position',
+                sortDirection: 'ASC'
+            },
+            {
+                id: 'sortItem.priceDesc',
+                text: 'Price: High to Low',
+                attribute: 'price',
+                sortDirection: 'DESC'
+            },
+            {
+                id: 'sortItem.priceAsc',
+                text: 'Price: Low to High',
+                attribute: 'price',
+                sortDirection: 'ASC'
             }
-        );
+        ];
 
-        return <div className={classes.menu}>{<ul>{itemElements}</ul>}</div>;
+        const allSortingMethods = sortMethodsFromConfig
+            ? orderSortingList(
+                  [sortMethodsFromConfig, defaultSortMethods].flat()
+              )
+            : defaultSortMethods;
+
+        const itemElements = Array.from(allSortingMethods, sortItem => {
+            const { attribute, sortDirection } = sortItem;
+            const isActive =
+                currentSort.sortAttribute === attribute &&
+                currentSort.sortDirection === sortDirection;
+
+            const key = `${attribute}--${sortDirection}`;
+            return (
+                <li key={key} className={classes.menuItem}>
+                    <SortItem
+                        sortItem={sortItem}
+                        active={isActive}
+                        onClick={handleItemClick}
+                    />
+                </li>
+            );
+        });
+
+        return (
+            <div className={classes.menu}>
+                <ul>{itemElements}</ul>
+            </div>
+        );
     }, [
-        availableSortMethods,
         classes.menu,
         classes.menuItem,
         currentSort.sortAttribute,
         currentSort.sortDirection,
         expanded,
-        handleItemClick
+        handleItemClick,
+        orderSortingList,
+        sortMethodsFromConfig
     ]);
 
     // expand or collapse on click
@@ -121,8 +178,6 @@ const ProductSort = props => {
     );
 };
 
-const sortDirections = oneOf(['ASC', 'DESC']);
-
 ProductSort.propTypes = {
     classes: shape({
         menuItem: string,
@@ -132,10 +187,8 @@ ProductSort.propTypes = {
     }),
     availableSortMethods: arrayOf(
         shape({
-            text: string,
-            id: string,
-            attribute: string,
-            sortDirection: sortDirections
+            label: string,
+            value: string
         })
     ),
     sortProps: array
