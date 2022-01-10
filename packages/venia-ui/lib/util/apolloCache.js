@@ -50,9 +50,9 @@ export const cacheKeyFromType = object => {
                 : defaultDataIdFromObject(object);
         // ID field is not based on selected values and is not unique; use unique value ID instead.
         case MagentoGraphQLTypes.SelectedConfigurableOption:
-            return object.value_id
+            return object.configurable_product_option_value_uid
                 ? `${MagentoGraphQLTypes.SelectedConfigurableOption}:${
-                      object.value_id
+                      object.configurable_product_option_value_uid
                   }`
                 : null;
         // Only maintain a single cart entry

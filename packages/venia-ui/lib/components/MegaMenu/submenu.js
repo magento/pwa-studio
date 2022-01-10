@@ -46,7 +46,7 @@ const Submenu = props => {
             <SubmenuColumn
                 index={index}
                 keyboardProps={keyboardProps}
-                key={category.id}
+                key={category.uid}
                 category={category}
                 categoryUrlSuffix={categoryUrlSuffix}
                 onNavigate={onNavigate}
@@ -73,7 +73,7 @@ Submenu.propTypes = {
     items: PropTypes.arrayOf(
         PropTypes.shape({
             children: PropTypes.array.isRequired,
-            id: PropTypes.number.isRequired,
+            uid: PropTypes.string.isRequired,
             include_in_menu: PropTypes.number.isRequired,
             isActive: PropTypes.bool.isRequired,
             name: PropTypes.string.isRequired,

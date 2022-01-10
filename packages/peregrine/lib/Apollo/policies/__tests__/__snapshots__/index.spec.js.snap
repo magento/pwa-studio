@@ -51,20 +51,36 @@ Object {
     },
     "keyFields": [Function],
   },
+  "CartItemInterface": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
   "CategoryTree": Object {
     "fields": Object {
       "children": Object {
         "merge": [Function],
       },
     },
+    "keyFields": Array [
+      "uid",
+    ],
   },
   "ConfigurableProduct": Object {
     "keyFields": Array [
       "uid",
     ],
   },
+  "ConfigurableProductOptions": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
   "ConfigurableWishlistItem": Object {
     "keyFields": [Function],
+  },
+  "Currency": Object {
+    "merge": true,
   },
   "Customer": Object {
     "fields": Object {
@@ -136,8 +152,8 @@ Object {
   },
   "SelectedConfigurableOption": Object {
     "keyFields": Array [
-      "id",
-      "value_id",
+      "configurable_product_option_uid",
+      "configurable_product_option_value_uid",
     ],
   },
   "SelectedPaymentMethod": Object {
