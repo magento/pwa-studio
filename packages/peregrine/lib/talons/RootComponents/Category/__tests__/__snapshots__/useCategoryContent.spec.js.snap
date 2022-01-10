@@ -2,32 +2,7 @@
 
 exports[`useCategoryContent tests handles no data prop 1`] = `
 Object {
-  "availableSortMethods": Array [
-    Object {
-      "attribute": "price",
-      "id": "sortItem.priceAsc",
-      "sortDirection": "ASC",
-      "text": "Price: Low to High",
-    },
-    Object {
-      "attribute": "price",
-      "id": "sortItem.priceDesc",
-      "sortDirection": "DESC",
-      "text": "Price: High to Low",
-    },
-    Object {
-      "attribute": "position",
-      "id": "sortItem.position",
-      "sortDirection": "ASC",
-      "text": "Position",
-    },
-    Object {
-      "attribute": "relevance",
-      "id": "sortItem.relevance",
-      "sortDirection": "DESC",
-      "text": "Best Match",
-    },
-  ],
+  "availableSortMethods": null,
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
   "filters": null,
@@ -49,32 +24,7 @@ Object {
 
 exports[`useCategoryContent tests returns the proper shape 1`] = `
 Object {
-  "availableSortMethods": Array [
-    Object {
-      "attribute": "price",
-      "id": "sortItem.priceAsc",
-      "sortDirection": "ASC",
-      "text": "Price: Low to High",
-    },
-    Object {
-      "attribute": "price",
-      "id": "sortItem.priceDesc",
-      "sortDirection": "DESC",
-      "text": "Price: High to Low",
-    },
-    Object {
-      "attribute": "position",
-      "id": "sortItem.position",
-      "sortDirection": "ASC",
-      "text": "Position",
-    },
-    Object {
-      "attribute": "relevance",
-      "id": "sortItem.relevance",
-      "sortDirection": "DESC",
-      "text": "Best Match",
-    },
-  ],
+  "availableSortMethods": null,
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
   "filters": null,

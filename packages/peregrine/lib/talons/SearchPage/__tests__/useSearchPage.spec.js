@@ -24,19 +24,7 @@ const mockUseSort = jest
     ])
     .mockName('mockUseSort');
 const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
-const mockAvailableSortMethods = {
-    products: {
-        sort_fields: {
-            options: [
-                {
-                    label: 'Position',
-                    value: 'position'
-                }
-            ]
-        }
-    }
-};
-const mockGetSearchAvailableSortMethods = jest.fn();
+
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
     useLocation: jest.fn(() => ({ pathname: '', search: '' }))
@@ -90,8 +78,8 @@ jest.mock('@apollo/client', () => {
         error: null,
         loading: false
     });
-    const runQuery = jest.fn();
-    const queryResult = {
+    const runSearchQuery = jest.fn();
+    const searchQueryResult = {
         data: {
             products: {
                 page_info: {
@@ -102,22 +90,42 @@ jest.mock('@apollo/client', () => {
         error: null,
         loading: false
     };
-    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+    const useLazyQuery = jest.fn(() => [runSearchQuery, searchQueryResult]);
     return { ...apolloClient, useLazyQuery, useQuery };
 });
 const initialProps = { queries: {} };
-useLazyQuery.mockReturnValueOnce([
-    mockGetSearchAvailableSortMethods,
-    { data: mockAvailableSortMethods }
-]);
+
+const mockAvailableSortMethods = {
+    products: {
+        sort_fields: {
+            options: [
+                {
+                    label: 'Position',
+                    value: 'position'
+                }
+            ]
+        }
+    }
+};
+
+const mockGetSearchAvailableSortMethods = jest.fn();
+
 describe('searchCategory', () => {
     test('returns the correct shape', () => {
+        useLazyQuery.mockReturnValueOnce([
+            mockGetSearchAvailableSortMethods,
+            { data: mockAvailableSortMethods }
+        ]);
         createTestInstance(<Component {...initialProps} />);
         const talonProps = log.mock.calls[0][0];
         expect(talonProps).toMatchSnapshot();
     });
     test('is null when no filters exist', () => {
         // Arrange.
+        useLazyQuery.mockReturnValueOnce([
+            mockGetSearchAvailableSortMethods,
+            { data: mockAvailableSortMethods }
+        ]);
         getFiltersFromSearch.mockReturnValueOnce(new Map());
         // Act.
         createTestInstance(<Component {...initialProps} />);
@@ -127,6 +135,10 @@ describe('searchCategory', () => {
     });
     test('is null when category_id doesnt exist', () => {
         // Arrange.
+        useLazyQuery.mockReturnValueOnce([
+            mockGetSearchAvailableSortMethods,
+            { data: mockAvailableSortMethods }
+        ]);
         const map = new Map().set('not_category_id', 'unit test');
         getFiltersFromSearch.mockReturnValueOnce(map);
         // Act.
@@ -137,6 +149,10 @@ describe('searchCategory', () => {
     });
     test('is correct when a single category filter exists', () => {
         // Arrange.
+        useLazyQuery.mockReturnValueOnce([
+            mockGetSearchAvailableSortMethods,
+            { data: mockAvailableSortMethods }
+        ]);
         const map = new Map().set('category_id', new Set(['Bottoms,11']));
         getFiltersFromSearch.mockReturnValueOnce(map);
         // Act.
@@ -147,6 +163,10 @@ describe('searchCategory', () => {
     });
     test('is correct when multiple category filters exist', () => {
         // Arrange.
+        useLazyQuery.mockReturnValueOnce([
+            mockGetSearchAvailableSortMethods,
+            { data: mockAvailableSortMethods }
+        ]);
         const map = new Map().set(
             'category_id',
             new Set(['Bottoms,11', 'Skirts,12'])
@@ -191,14 +211,26 @@ describe('searchCategory', () => {
         'Changing %s current page to 1.',
         (description, sortParams, expected) => {
             mockUseSort.mockReturnValueOnce([sortParams, jest.fn()]);
+            useLazyQuery.mockReturnValueOnce([
+                mockGetSearchAvailableSortMethods,
+                { data: mockAvailableSortMethods }
+            ]);
             const tree = createTestInstance(<Component {...initialProps} />);
             act(() => {
+                useLazyQuery.mockReturnValueOnce([
+                    mockGetSearchAvailableSortMethods,
+                    { data: mockAvailableSortMethods }
+                ]);
                 tree.update(<Component {...initialProps} />);
             });
             expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
         }
     );
     test('preserve history when search term changes on Search Page', () => {
+        useLazyQuery.mockReturnValueOnce([
+            mockGetSearchAvailableSortMethods,
+            { data: mockAvailableSortMethods }
+        ]);
         mockUseSort.mockReturnValueOnce([
             {
                 sortText: 'Best Match',
@@ -210,6 +242,10 @@ describe('searchCategory', () => {
         const tree = createTestInstance(<Component {...initialProps} />);
         expect(mockSetCurrentPage).not.toHaveBeenCalledWith(1, true);
         act(() => {
+            useLazyQuery.mockReturnValueOnce([
+                mockGetSearchAvailableSortMethods,
+                { data: mockAvailableSortMethods }
+            ]);
             tree.update(<Component {...initialProps} />);
         });
         expect(mockSetCurrentPage).toHaveBeenCalledWith(1, true);
