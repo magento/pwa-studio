@@ -202,7 +202,7 @@ Examples of invalid URLS:
 
 **Next:** [Rendering web pages using the TemplateResolver][]
 
-[upward specification]: https://github.com/magento/pwa-studio/tree/master/packages/upward-spec
+[upward specification]: https://github.com/magento/pwa-studio/tree/main/packages/upward-spec
 [node]: https://nodejs.org
 [yarn]: https://yarnpkg.com/en/
 [npm]: https://www.npmjs.com/get-npm
