@@ -56,7 +56,7 @@ It also combines Redux reducers and middlewares.
 The `src/sw.js` file contains the service worker configuration.
 
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
-[UPWARD]: https://github.com/magento/pwa-studio/tree/master/packages/upward-spec
+[UPWARD]: https://github.com/magento/pwa-studio/tree/main/packages/upward-spec
 [Webpack]: https://webpack.js.org/
 [Install Venia sample data]: {% link venia-pwa-concept/install-sample-data/index.md %}
 [Venia setup]: {% link venia-pwa-concept/setup/index.md %}
@@ -73,11 +73,11 @@ The `src/sw.js` file contains the service worker configuration.
 [Redux middleware pattern]: https://redux.js.org/advanced/middleware
 [UPWARD server specification]: {%link technologies/upward/index.md %}
 [mustache]: https://mustache.github.io/
-[`deployVeniaSampleData.sh`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/deployVeniaSampleData.sh
-[`server.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/server.js
-[`venia-concept`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
-[`upward.yml`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/upward.yml
-[`templates`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/templates
-[`venia-static`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-ui/venia-static
-[`src`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src
-[`webpack.config.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/webpack.config.js
+[`deployVeniaSampleData.sh`]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/deployVeniaSampleData.sh
+[`server.js`]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/server.js
+[`venia-concept`]: https://github.com/magento/pwa-studio/tree/main/packages/venia-concept
+[`upward.yml`]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/upward.yml
+[`templates`]: https://github.com/magento/pwa-studio/tree/main/packages/venia-concept/templates
+[`venia-static`]: https://github.com/magento/pwa-studio/tree/main/packages/venia-ui/venia-static
+[`src`]: https://github.com/magento/pwa-studio/tree/main/packages/venia-concept/src
+[`webpack.config.js`]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/webpack.config.js
