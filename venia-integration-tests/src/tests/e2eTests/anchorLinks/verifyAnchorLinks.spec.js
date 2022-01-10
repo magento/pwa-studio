@@ -41,7 +41,7 @@ const {
     setQuantityFromProductPage,
     addToCartFromProductPage
 } = productPageActions;
-const { assertGuestCheckoutPage, assertAnchorLink } = miniCartAssertions;
+const { assertGuestCheckoutPage } = miniCartAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('PWA-1424: verify anchor links', () => {
@@ -70,28 +70,28 @@ describe('PWA-1424: verify anchor links', () => {
 
         cy.visitPage(checkoutRoute);
         assertGuestCheckoutPage();
-        assertAnchorLink('/checkout');
+        cy.checkUrlPath('/checkout');
 
         cy.visitPage(homePage);
         triggerMiniCart();
         clickProductLinkFromMiniCart();
         assertProductName(productValeriaTwoLayeredTank.name);
-        assertAnchorLink(productValeriaTwoLayeredTank.url);
+        cy.checkUrlPath(productValeriaTwoLayeredTank.url);
 
         cy.visitPage(homePage);
         triggerMiniCart();
         clickProductImageLinkFromMiniCart();
         assertProductName(productValeriaTwoLayeredTank.name);
-        assertAnchorLink(productValeriaTwoLayeredTank.url);
+        cy.checkUrlPath(productValeriaTwoLayeredTank.url);
 
         cy.visitPage(cartPageRoute);
         clickProductImageLinkFromCart();
         assertProductName(productValeriaTwoLayeredTank.name);
-        assertAnchorLink(productValeriaTwoLayeredTank.url);
+        cy.checkUrlPath(productValeriaTwoLayeredTank.url);
 
         cy.visitPage(cartPageRoute);
         clickProductLinkFromCart();
         assertProductName(productValeriaTwoLayeredTank.name);
-        assertAnchorLink(productValeriaTwoLayeredTank.url);
+        cy.checkUrlPath(productValeriaTwoLayeredTank.url);
     });
 });
