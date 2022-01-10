@@ -22,7 +22,7 @@ const {
     getCategoriesCall,
     getProductDetailForProductPageCall,
     hitGraphqlPath,
-		getStoreConfigDataForGalleryEECall,
+    getStoreConfigDataForGalleryEECall
 } = graphqlMockedCallsFixtures;
 
 describe('Verify Cart actions', () => {
@@ -37,25 +37,25 @@ describe('Verify Cart actions', () => {
             aliasMutation(req, 'AddProductToCart');
         });
 
-				cy.intercept('GET', getStoreConfigDataForGalleryEECall,).as(
-					'gqlGetStoreConfigDataForGallery'
-				);
+        cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
+            'gqlGetStoreConfigDataForGallery'
+        );
 
         cy.visit(categorySweaters);
         cy.wait(['@gqlGetCategoriesQuery'], {
             timeout: 60000
         });
 
-				cy.wait(['@gqlGetStoreConfigDataForGallery'], {
-					timeout: 60000
-				});
-				
+        cy.wait(['@gqlGetStoreConfigDataForGallery'], {
+            timeout: 60000
+        });
+
         addProductToCartFromCategoryPage(carinaCardigan.name);
 
         cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
             timeout: 60000
         });
-        cy.url().should('include', carinaCardigan.url);
+        cy.checkUrlPath(carinaCardigan.url);
 
         assertCartIsEmpty();
         cy.visit(categoryJewelry);

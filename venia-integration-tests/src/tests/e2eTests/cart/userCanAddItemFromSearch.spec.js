@@ -25,7 +25,7 @@ const {
     getProductDetailForProductPageCall,
     getProductFiltersBySearchCall,
     getProductSearchCall,
-		getStoreConfigDataForGalleryEECall,
+    getStoreConfigDataForGalleryEECall
 } = graphqlMockedCallsFixtures;
 
 describe('Verify Cart actions', () => {
@@ -42,9 +42,9 @@ describe('Verify Cart actions', () => {
             'gqlGetProductSearchQuery'
         );
 
-				cy.intercept('GET', getStoreConfigDataForGalleryEECall,).as(
-					'gqlGetStoreConfigDataForGallery'
-				);
+        cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
+            'gqlGetStoreConfigDataForGallery'
+        );
 
         cy.visitHomePage();
 
@@ -57,15 +57,15 @@ describe('Verify Cart actions', () => {
             }
         );
 
-				cy.wait(['@gqlGetStoreConfigDataForGallery'], {
-					timeout: 60000
-				});
-				
+        cy.wait(['@gqlGetStoreConfigDataForGallery'], {
+            timeout: 60000
+        });
+
         addProductToCartFromCategoryPage(carinaCardigan.name);
         cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
             timeout: 60000
         });
-        cy.url().should('include', carinaCardigan.url);
+        cy.checkUrlPath(carinaCardigan.url);
         assertCartIsEmpty();
         triggerSearch();
         searchFromSearchBar('Semper');
@@ -76,10 +76,6 @@ describe('Verify Cart actions', () => {
             }
         );
         addProductToCartFromCategoryPage(semperBangleSet.name);
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-            timeout: 60000
-        });
-        cy.url().should('include', semperBangleSet.url);
 
         assertCartTriggerCount(1);
     });
