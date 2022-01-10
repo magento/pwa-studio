@@ -21,15 +21,29 @@ test('renders correctly', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('calls onCLick handler onMouseDown', () => {
+test('calls onClick handler on mousedown event', () => {
     const component = createTestInstance(<Component />);
     const { root } = component;
+    const eventMock = {
+        button: 0
+    };
 
-    root.findByType('button').props.onMouseDown();
+    root.findByType('button').props.onMouseDown(eventMock);
     expect(mockOnClick).toHaveBeenCalled();
 });
 
-test('calls onCLick handler on keyboard Enter or space press', () => {
+test('it does not call onClick handler on right mousedown event', () => {
+    const component = createTestInstance(<Component />);
+    const { root } = component;
+    const eventMock = {
+        button: 1
+    };
+
+    root.findByType('button').props.onMouseDown(eventMock);
+    expect(mockOnClick).not.toHaveBeenCalled();
+});
+
+test('calls onClick handler on keyboard Enter or space press', () => {
     const component = createTestInstance(<Component />);
     const { root } = component;
 

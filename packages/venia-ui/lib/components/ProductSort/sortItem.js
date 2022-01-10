@@ -11,16 +11,24 @@ const SortItem = props => {
     const { active, onClick, sortItem } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
-    const handleClick = useCallback(() => {
-        onClick(sortItem);
-    }, [sortItem, onClick]);
+    const handleClick = useCallback(
+        e => {
+            if (e.button === 0) {
+                onClick(sortItem);
+            }
+        },
+        [sortItem, onClick]
+    );
 
-    const handleKeyDown = e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleClick();
-        }
-    };
+    const handleKeyDown = useCallback(
+        e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onClick(sortItem);
+            }
+        },
+        [onClick, sortItem]
+    );
 
     const activeIcon = active ? <Icon size={20} src={Check} /> : null;
 
@@ -28,7 +36,7 @@ const SortItem = props => {
         <button
             className={classes.root}
             data-cy={active ? 'SortItem-activeButton' : 'SortItem-button'}
-            onMouseDown={handleClick}
+            onMouseDown={e => handleClick(e)}
             onKeyDown={handleKeyDown}
         >
             <span className={classes.content}>
