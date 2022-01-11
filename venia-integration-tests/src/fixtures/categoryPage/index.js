@@ -15,7 +15,11 @@ export const categoryTops = {
 
 export const categorySweaters = './venia-tops/venia-sweaters.html?page=1';
 
+export const categoryJewelry = './venia-accessories/venia-jewelry.html?page=1';
+
 export const productCarinaCardigan = 'Carina Cardigan';
+
+export const searchCarina = 'Carina';
 
 export const filtersData = {
     category: {
