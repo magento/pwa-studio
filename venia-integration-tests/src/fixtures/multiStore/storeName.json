@@ -1,0 +1,9 @@
+{
+  "data": {
+    "storeConfig": {
+      "store_code": "view_1_b",
+      "store_name": "View One B",
+      "__typename": "StoreConfig"
+    }
+  }
+}
