@@ -145,7 +145,7 @@ Congratulations! You have set up your development environment for the Venia stor
 [troubleshooting]: {% link pwa-buildpack/troubleshooting/index.md %}
 [magento compatibility table]: {% link technologies/magento-compatibility/index.md %}
 
-[venia pwa concept storefront]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
+[venia pwa concept storefront]: https://github.com/magento/pwa-studio/tree/main/packages/venia-concept
 [vagrant box for magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
 [pwa studio]: https://github.com/magento/pwa-studio
 [local development instance]: https://devdocs.magento.com/guides/v2.3/install-gde/bk-install-guide.html
