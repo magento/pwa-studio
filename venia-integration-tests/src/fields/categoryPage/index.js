@@ -47,10 +47,6 @@ export const categoryTreeBranchTarget =
 export const categoryTreeLeafTarget =
     '[data-cy="CategoryTree-root"] [data-cy="CategoryTree-Leaf-target"]';
 
-export const galleryItemRoot = '[data-cy="GalleryItem-root"]';
-
-export const galleryItemImage = '[data-cy="GalleryItem-image"]';
-
 export const megaMenuMega = '[data-cy="MegaMenu-megaMenu"]';
 
 export const megaMenuMegaMenuItem =
@@ -89,7 +85,7 @@ export const productSortSortItemActive =
     '[data-cy="ProductSort-root"] [data-cy="SortItem-activeButton"]';
 
 export const productRatingSummary = '[data-cy="ratingSummary"]';
-		
+
 export const searchBarSuggestedProduct =
     '[data-cy="SearchBar-root"] [data-cy="SuggestedProduct-root"]';
 
