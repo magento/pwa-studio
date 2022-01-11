@@ -26,12 +26,14 @@ jest.mock('@apollo/client', () => {
 });
 
 const mockProductFiltersByCategoryData = {
-    products: {
-        aggregations: [
-            {
-                label: 'Label'
-            }
-        ]
+    data: {
+        products: {
+            aggregations: [
+                {
+                    label: 'Label'
+                }
+            ]
+        }
     }
 };
 
@@ -58,14 +60,16 @@ const mockProps = {
 };
 
 const mockSortData = {
-    products: {
-        sort_fields: {
-            options: [
-                {
-                    label: 'label',
-                    value: 'value'
-                }
-            ]
+    data: {
+        products: {
+            sort_fields: {
+                options: [
+                    {
+                        label: 'label',
+                        value: 'value'
+                    }
+                ]
+            }
         }
     }
 };
@@ -94,11 +98,11 @@ useQuery.mockReturnValue({ data: mockCategoryData });
 describe('useCategoryContent tests', () => {
     it('returns the proper shape', () => {
         useLazyQuery
-            .mockReturnValueOnce([mockGetSortMethods, mockSortData])
             .mockReturnValueOnce([
                 mockGetFilters,
                 mockProductFiltersByCategoryData
-            ]);
+            ])
+            .mockReturnValueOnce([mockGetSortMethods, mockSortData]);
         const rendered = createTestInstance(<Component {...mockProps} />);
 
         const talonProps = rendered.root.findByType('i').props;
@@ -112,11 +116,11 @@ describe('useCategoryContent tests', () => {
 
     it('handles default category id', () => {
         useLazyQuery
-            .mockReturnValueOnce([mockGetSortMethods, mockSortData])
             .mockReturnValueOnce([
                 mockGetFilters,
                 mockProductFiltersByCategoryData
-            ]);
+            ])
+            .mockReturnValueOnce([mockGetSortMethods, mockSortData]);
         const testProps = Object.assign({}, mockProps, {
             categoryId: 0
         });

@@ -24,10 +24,19 @@ Object {
 
 exports[`useCategoryContent tests returns the proper shape 1`] = `
 Object {
-  "availableSortMethods": null,
+  "availableSortMethods": Array [
+    Object {
+      "label": "label",
+      "value": "value",
+    },
+  ],
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
-  "filters": null,
+  "filters": Array [
+    Object {
+      "label": "Label",
+    },
+  ],
   "items": Array [
     Object {
       "id": 1,
