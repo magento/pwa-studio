@@ -57,8 +57,8 @@ const Html = props => {
 
     const history = useHistory();
 
-    const clickHandler = e => {
-        handleHtmlContentClick(history, e);
+    const clickHandler = event => {
+        handleHtmlContentClick(history, event);
     };
 
     return (

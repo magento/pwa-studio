@@ -6,10 +6,15 @@
  * @param {Event} event
  */
 const handleHtmlContentClick = (history, event) => {
-    const { target } = event;
+    const { code, target, type } = event;
+
+    // Check if element is clicked or using accepted keyboard event
+    const shouldIntercept =
+        type === 'click' || code === 'Enter' || code === 'Space';
+
     // Intercept link clicks and check to see if the
     // destination is internal to avoid refreshing the page
-    if (target.tagName === 'A') {
+    if (target.tagName === 'A' && shouldIntercept) {
         event.preventDefault();
 
         const eventOrigin = event.view.location.origin;
