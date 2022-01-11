@@ -1,333 +1,326 @@
 {
   "data": {
+    "categories": {
+      "items": [
+        {
+          "uid": "OQ==",
+          "meta_title": null,
+          "meta_keywords": null,
+          "meta_description": null,
+          "__typename": "CategoryTree"
+        }
+      ],
+      "__typename": "CategoryResult"
+    },
     "products": {
       "items": [
         {
-          "id": 1152,
-          "uid": "MTE1Mg==",
-          "name": "Angelina Tank Dress",
+          "id": 1116,
+          "uid": "MTExNg==",
+          "name": "Carina Cardigan",
           "price_range": {
             "maximum_price": {
               "regular_price": {
                 "currency": "USD",
-                "value": 98
-              }
-            }
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
           },
-          "sku": "VD01",
+          "sku": "VSW01",
           "small_image": {
-            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg"
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            "__typename": "ProductImage"
           },
-          "rating_summary": 3.4,
           "stock_status": "IN_STOCK",
+          "rating_summary": 100,
           "__typename": "ConfigurableProduct",
-          "url_key": "angelina-tank-dress"
+          "url_key": "carina-cardigan"
+        },
+        {
+          "id": 1115,
+          "uid": "MTExNQ==",
+          "name": "Juno Sweater",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 68,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW02",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "juno-sweater"
+        },
+        {
+          "id": 1114,
+          "uid": "MTExNA==",
+          "name": "Phoebe Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW03",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw03-kh_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "phoebe-cardigan"
+        },
+        {
+          "id": 1113,
+          "uid": "MTExMw==",
+          "name": "Rosalina Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW04",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw04-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "rosalina-cardigan"
+        },
+        {
+          "id": 1112,
+          "uid": "MTExMg==",
+          "name": "Hanna Sweater",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW05",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw05-kh_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "hanna-sweater"
+        },
+        {
+          "id": 1111,
+          "uid": "MTExMQ==",
+          "name": "Sabina Hooded Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW06",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw06-rn_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "sabina-hooded-cardigan"
+        },
+        {
+          "id": 1110,
+          "uid": "MTExMA==",
+          "name": "Brigid Boucle Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 118,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW07",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw07-mt_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "brigid-boucle-cardigan"
+        },
+        {
+          "id": 1109,
+          "uid": "MTEwOQ==",
+          "name": "Roxana Cropped Sweater",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW08",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw08-ll_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "roxana-cropped-sweater"
+        },
+        {
+          "id": 1108,
+          "uid": "MTEwOA==",
+          "name": "Helena Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW09",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw09-rn_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "helena-cardigan"
+        },
+        {
+          "id": 1107,
+          "uid": "MTEwNw==",
+          "name": "Corina Lace-Back Sweater",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW10",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw10-ly_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "corina-lace-back-sweater"
+        },
+        {
+          "id": 1106,
+          "uid": "MTEwNg==",
+          "name": "Echo Sweater",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW11",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw11-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "echo-sweater"
+        },
+        {
+          "id": 1105,
+          "uid": "MTEwNQ==",
+          "name": "Lorena Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW12",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw12-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "lorena-cardigan"
         }
       ],
-      "total_count": 1,
-      "filters": [
-        {
-          "name": "Category",
-          "filter_items_count": 6,
-          "request_var": "cat",
-          "filter_items": [
-            {
-              "label": "Bottoms",
-              "value_string": "10"
-            },
-            {
-              "label": "Tops",
-              "value_string": "7"
-            },
-            {
-              "label": "Dresses",
-              "value_string": "13"
-            },
-            {
-              "label": "Accessories",
-              "value_string": "3"
-            },
-            {
-              "label": "Shop The Look",
-              "value_string": "14"
-            },
-            {
-              "label": "New Products",
-              "value_string": "21"
-            }
-          ]
-        },
-        {
-          "name": "Fashion Material",
-          "filter_items_count": 15,
-          "request_var": "fashion_material",
-          "filter_items": [
-            {
-              "label": "14K Gold",
-              "value_string": "16"
-            },
-            {
-              "label": "Acrylic",
-              "value_string": "37"
-            },
-            {
-              "label": "Cashmere",
-              "value_string": "38"
-            },
-            {
-              "label": "Sterling Silver",
-              "value_string": "17"
-            },
-            {
-              "label": "Cotton",
-              "value_string": "39"
-            },
-            {
-              "label": "Linen",
-              "value_string": "40"
-            },
-            {
-              "label": "Leather",
-              "value_string": "41"
-            },
-            {
-              "label": "Nylon",
-              "value_string": "42"
-            },
-            {
-              "label": "Organic Cotton",
-              "value_string": "43"
-            },
-            {
-              "label": "Polyester",
-              "value_string": "44"
-            },
-            {
-              "label": "Rayon",
-              "value_string": "45"
-            },
-            {
-              "label": "Silk",
-              "value_string": "46"
-            },
-            {
-              "label": "Spandex",
-              "value_string": "47"
-            },
-            {
-              "label": "Viscose",
-              "value_string": "48"
-            },
-            {
-              "label": "Wool",
-              "value_string": "49"
-            }
-          ]
-        },
-        {
-          "name": "Fashion Style",
-          "filter_items_count": 19,
-          "request_var": "fashion_style",
-          "filter_items": [
-            {
-              "label": "Above Knee",
-              "value_string": "50"
-            },
-            {
-              "label": "Below Knee",
-              "value_string": "51"
-            },
-            {
-              "label": "Ankle Length",
-              "value_string": "52"
-            },
-            {
-              "label": "Halter Top",
-              "value_string": "53"
-            },
-            {
-              "label": "Short Sleeve",
-              "value_string": "54"
-            },
-            {
-              "label": "Sleeveless",
-              "value_string": "55"
-            },
-            {
-              "label": "Long Sleeve",
-              "value_string": "56"
-            },
-            {
-              "label": "3/4 Sleeve",
-              "value_string": "57"
-            },
-            {
-              "label": "Slim Fit",
-              "value_string": "58"
-            },
-            {
-              "label": "Wide Leg",
-              "value_string": "59"
-            },
-            {
-              "label": "Capri",
-              "value_string": "60"
-            },
-            {
-              "label": "Full Length",
-              "value_string": "61"
-            },
-            {
-              "label": "Straight Leg",
-              "value_string": "62"
-            },
-            {
-              "label": "Open Front",
-              "value_string": "63"
-            },
-            {
-              "label": "Crew",
-              "value_string": "64"
-            },
-            {
-              "label": "Hooded",
-              "value_string": "65"
-            },
-            {
-              "label": "Scoopneck",
-              "value_string": "66"
-            },
-            {
-              "label": "V-neck",
-              "value_string": "67"
-            },
-            {
-              "label": "Button-down",
-              "value_string": "68"
-            }
-          ]
-        },
-        {
-          "name": "Color",
-          "filter_items_count": 10,
-          "request_var": "fashion_color",
-          "filter_items": [
-            {
-              "label": "Gold",
-              "value_string": "14"
-            },
-            {
-              "label": "Peach",
-              "value_string": "18"
-            },
-            {
-              "label": "Khaki",
-              "value_string": "19"
-            },
-            {
-              "label": "Silver",
-              "value_string": "15"
-            },
-            {
-              "label": "Lilac",
-              "value_string": "20"
-            },
-            {
-              "label": "Rain",
-              "value_string": "21"
-            },
-            {
-              "label": "Mint",
-              "value_string": "22"
-            },
-            {
-              "label": "Lily",
-              "value_string": "23"
-            },
-            {
-              "label": "Latte",
-              "value_string": "24"
-            },
-            {
-              "label": "Cocoa",
-              "value_string": "25"
-            }
-          ]
-        },
-        {
-          "name": "Size",
-          "filter_items_count": 9,
-          "request_var": "fashion_size",
-          "filter_items": [
-            {
-              "label": "XS",
-              "value_string": "29"
-            },
-            {
-              "label": "S",
-              "value_string": "28"
-            },
-            {
-              "label": "M",
-              "value_string": "27"
-            },
-            {
-              "label": "L",
-              "value_string": "26"
-            },
-            {
-              "label": "2",
-              "value_string": "30"
-            },
-            {
-              "label": "4",
-              "value_string": "31"
-            },
-            {
-              "label": "6",
-              "value_string": "32"
-            },
-            {
-              "label": "8",
-              "value_string": "33"
-            },
-            {
-              "label": "10",
-              "value_string": "34"
-            }
-          ]
-        },
-        {
-          "name": "Price",
-          "filter_items_count": 2,
-          "request_var": "price",
-          "filter_items": [
-            {
-              "label": "<span class=\"price\">$0.00</span> - <span class=\"price\">$99.99</span>",
-              "value_string": "0-100"
-            },
-            {
-              "label": "<span class=\"price\">$100.00</span> - <span class=\"price\">$199.99</span>",
-              "value_string": "100-200"
-            }
-          ]
-        },
-        {
-          "name": "Has Video",
-          "filter_items_count": 2,
-          "request_var": "has_video",
-          "filter_items": [
-            {
-              "label": "Yes",
-              "value_string": "1"
-            },
-            {
-              "label": "No",
-              "value_string": "0"
-            }
-          ]
-        }
-      ]
+      "page_info": {
+        "total_pages": 1,
+        "__typename": "SearchResultPageInfo"
+      },
+      "total_count": 12,
+      "__typename": "Products"
     }
   }
 }
