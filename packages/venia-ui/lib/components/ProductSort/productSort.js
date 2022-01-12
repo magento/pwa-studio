@@ -15,15 +15,26 @@ const ProductSort = props => {
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
-    const { locale } = useIntl();
+    const { formatMessage } = useIntl();
 
     const orderSortingList = useCallback(
         list => {
-            return list.sort((a, b) =>
-                a.text.localeCompare(b.text, locale, { sensitivity: 'base' })
-            );
+            return list.sort((a, b) => {
+                const aText = formatMessage({
+                    id: a.id,
+                    defaultMessage: a.text
+                });
+                const bText = formatMessage({
+                    id: b.id,
+                    defaultMessage: b.text
+                });
+
+                return aText.localeCompare(bText, undefined, {
+                    sensitivity: 'base'
+                });
+            });
         },
-        [locale]
+        [formatMessage]
     );
 
     const sortMethodsFromConfig = availableSortMethods
