@@ -13,6 +13,7 @@ const SortItem = props => {
 
     const handleClick = useCallback(
         e => {
+            // use only left click for selection
             if (e.button === 0) {
                 onClick(sortItem);
             }
@@ -36,7 +37,7 @@ const SortItem = props => {
         <button
             className={classes.root}
             data-cy={active ? 'SortItem-activeButton' : 'SortItem-button'}
-            onMouseDown={e => handleClick(e)}
+            onMouseDown={handleClick}
             onKeyDown={handleKeyDown}
         >
             <span className={classes.content}>

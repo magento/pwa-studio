@@ -21,6 +21,7 @@ const FilterItem = props => {
 
     const handleClick = useCallback(
         e => {
+            // use only left click for selection
             if (e.button !== 0) return;
 
             toggleItem({ group, item });
