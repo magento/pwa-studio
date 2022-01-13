@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import { default as PriceComponent } from '@magento/venia-ui/lib/components/Price';
+import PriceComponent from '@magento/venia-ui/lib/components/Price';
 
 import defaultClasses from './price.module.css';
 
