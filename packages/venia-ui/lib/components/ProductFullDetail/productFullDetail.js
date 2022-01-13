@@ -16,7 +16,7 @@ import FormError from '../FormError';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichContent from '../RichContent/richContent';
 import { ProductOptionsShimmer } from '../ProductOptions';
-import CustomAttributes from './customAttributes';
+import CustomAttributes from './CustomAttributes';
 import defaultClasses from './productFullDetail.module.css';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));

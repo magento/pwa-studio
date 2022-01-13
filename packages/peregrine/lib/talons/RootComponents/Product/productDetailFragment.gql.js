@@ -59,7 +59,6 @@ export const ProductDetailsFragment = gql`
                     label
                 }
                 data_type
-                sort_order
                 is_system
                 is_visible_on_front
                 entity_type
@@ -138,7 +137,6 @@ export const ProductDetailsFragment = gql`
                                 label
                             }
                             data_type
-                            sort_order
                             is_system
                             is_visible_on_front
                             entity_type

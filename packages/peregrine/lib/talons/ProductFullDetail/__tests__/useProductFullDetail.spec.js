@@ -135,7 +135,6 @@ const configurableProductProps = {
                         }
                     ],
                     data_type: 'COMPLEX',
-                    sort_order: 10,
                     is_system: false,
                     is_visible_on_front: true,
                     entity_type: 'PRODUCT',
@@ -171,7 +170,6 @@ const configurableProductProps = {
                         }
                     ],
                     data_type: 'COMPLEX',
-                    sort_order: 20,
                     is_system: false,
                     is_visible_on_front: true,
                     entity_type: 'PRODUCT',
@@ -220,7 +218,6 @@ const configurableProductProps = {
                                     }
                                 ],
                                 data_type: 'COMPLEX',
-                                sort_order: 30,
                                 is_system: false,
                                 is_visible_on_front: true,
                                 entity_type: 'PRODUCT',

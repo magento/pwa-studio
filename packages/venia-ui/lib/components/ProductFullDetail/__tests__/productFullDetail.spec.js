@@ -30,7 +30,7 @@ jest.mock('../../CartPage/ProductListing/quantity', () => ({
     QuantityFields: () => 'QuantityFields'
 }));
 jest.mock('../../RichContent/richContent', () => 'RichContent');
-jest.mock('../customAttributes', () => 'CustomAttributes');
+jest.mock('../CustomAttributes', () => 'CustomAttributes');
 
 jest.mock('../../../classify');
 
