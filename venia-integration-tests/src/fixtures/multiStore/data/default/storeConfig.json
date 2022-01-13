@@ -1,0 +1,16 @@
+{
+  "data": {
+    "storeConfig": {
+      "store_code": "default",
+      "contact_enabled": true,
+      "category_url_suffix": ".html",
+      "configurable_thumbnail_source": "parent",
+      "store_name": "Default Store View",
+      "locale": "en_US",
+      "newsletter_enabled": true,
+      "store_group_name": "Main Website Store",
+      "copyright": "Copyright \u00a9 2013-present Magento, Inc. All rights reserved.",
+      "__typename": "StoreConfig"
+    }
+  }
+}
