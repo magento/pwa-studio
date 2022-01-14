@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Select renders empty when no data is provided 1`] = `null`;
+
+exports[`#Select renders label only when data is missing 1`] = `
+<div>
+  Select Label
+</div>
+`;
+
+exports[`#Select renders options with html when data is provided 1`] = `
+Array [
+  <div>
+    Select Label
+  </div>,
+  <div>
+    <mock-RichContent
+      html="<span>Option 1</span>"
+    />
+    <mock-RichContent
+      html="<span>Option 2</span>"
+    />
+  </div>,
+]
+`;
+
+exports[`#Select renders options without html when data is provided 1`] = `
+Array [
+  <div>
+    Select Label
+  </div>,
+  <div>
+    Option 1, Option 2
+  </div>,
+]
+`;
