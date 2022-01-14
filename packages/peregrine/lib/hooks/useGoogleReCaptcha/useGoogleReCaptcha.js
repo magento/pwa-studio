@@ -35,7 +35,9 @@ export const useGoogleReCaptcha = props => {
         fetchPolicy: 'cache-and-network'
     });
 
-    const [apiIsReady, setApiIsReady] = useState(false);
+    const [apiIsReady, setApiIsReady] = useState(
+        globalThis.hasOwnProperty('grecaptcha')
+    );
     const [isGenerating, setIsGenerating] = useState(false);
     const [widgetId, setWidgetId] = useState(null);
 

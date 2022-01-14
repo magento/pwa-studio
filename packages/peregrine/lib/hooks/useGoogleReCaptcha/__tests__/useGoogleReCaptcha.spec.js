@@ -75,12 +75,14 @@ const renderHookWithProviders = ({
     return renderHook(useGoogleReCaptcha, { wrapper, ...renderHookOptions });
 };
 
+const grecaptchaMock = {
+    execute: (recaptchaKey, { action }) => `${recaptchaKey}_${action}`,
+    render: () => mockWidgetId
+};
+
 describe('#useGoogleReCaptcha', () => {
-    beforeEach(() => {
-        globalThis.grecaptcha = {
-            execute: (recaptchaKey, { action }) => `${recaptchaKey}_${action}`,
-            render: () => mockWidgetId
-        };
+    afterEach(() => {
+        delete globalThis.grecaptcha;
     });
 
     it('returns correct shape while and after loading', async () => {
@@ -103,6 +105,7 @@ describe('#useGoogleReCaptcha', () => {
         // Call script onload method
         await act(async () => {
             await globalThis.onloadRecaptchaCallback();
+            globalThis.grecaptcha = grecaptchaMock;
         });
 
         // Wait for query to finish loading
@@ -133,6 +136,7 @@ describe('#useGoogleReCaptcha', () => {
         // Call script onload method
         await act(async () => {
             await globalThis.onloadRecaptchaCallback();
+            globalThis.grecaptcha = grecaptchaMock;
         });
 
         // Wait for query to finish loading
@@ -143,6 +147,10 @@ describe('#useGoogleReCaptcha', () => {
     });
 
     it('returns widget id when position inline and container component is defined', async () => {
+        const floatingBadge = document.createElement('div');
+        floatingBadge.className = 'grecaptcha-badge';
+        document.body.append(floatingBadge);
+
         const inlineContainer = document.createElement('div');
 
         const { result, waitFor } = renderHookWithProviders({
@@ -160,10 +168,14 @@ describe('#useGoogleReCaptcha', () => {
         // Call script onload method
         await act(async () => {
             await globalThis.onloadRecaptchaCallback();
+            globalThis.grecaptcha = grecaptchaMock;
         });
 
         // Wait for query to finish loading
         await waitFor(() => result.current.recaptchaLoading === false);
+
+        // Check floating badge style is not updated
+        expect(floatingBadge.style.zIndex).not.toEqual('999');
 
         // Check Widget ID has been set on the container
         expect(inlineContainer.dataset).toEqual(
@@ -174,8 +186,6 @@ describe('#useGoogleReCaptcha', () => {
     });
 
     it('returns empty token object when user ask for generation and api is not defined', async () => {
-        globalThis.grecaptcha = undefined;
-
         const { result, waitFor } = renderHookWithProviders();
 
         // Wait for query to finish loading
@@ -216,6 +226,7 @@ describe('#useGoogleReCaptcha', () => {
         // Call script onload method
         await act(async () => {
             await globalThis.onloadRecaptchaCallback();
+            globalThis.grecaptcha = grecaptchaMock;
         });
 
         // Wait for query to finish loading
@@ -256,6 +267,7 @@ describe('#useGoogleReCaptcha', () => {
         // Call script onload method
         await act(async () => {
             await globalThis.onloadRecaptchaCallback();
+            globalThis.grecaptcha = grecaptchaMock;
         });
 
         // Wait for query to finish loading
