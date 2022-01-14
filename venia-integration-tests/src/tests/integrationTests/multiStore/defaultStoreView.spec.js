@@ -1,3 +1,11 @@
+import {
+    assertCategoryInCategoryTree,
+    assertNumberOfCategoriesInCategoryTree
+} from '../../../assertions/categoryTree';
+import {
+    assertCategoryInMegaMenu,
+    assertNumberOfCategoriesInMegaMenu
+} from '../../../assertions/megaMenu';
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const {
     getStoreConfigDataCall,
@@ -38,7 +46,7 @@ const getInterceptHandler = filename => {
 };
 
 describe('PWA-1408: Verify data displayed is from Default Root Category', () => {
-    it('displays subcategories from the default root category', () => {
+    beforeEach(() => {
         cy.intercept('GET', getAvailableStoresDataCall, req => {
             req.reply({
                 fixture: `${DATA_DIRECTORY}/availableStores.json`
@@ -117,8 +125,41 @@ describe('PWA-1408: Verify data displayed is from Default Root Category', () => 
             getStoreNameCall,
             getInterceptHandler('storeConfig')
         ).as('getMockStoreName');
+    });
 
-
+    it('displays subcategories from the default root category', () => {
         cy.visitPage('/');
+
+        cy.wait([
+            '@getMockAvailableStores',
+            '@getMockMegaMenu',
+            '@getMockRootCategoryId',
+            '@getMockNavigationMenu',
+            '@getMockStoreConfig',
+            '@getMockStoreConfigForMegaMenu',
+            '@getMockStoreConfigForContactUs',
+            '@getMockStoreConfigForNewsletter',
+            '@mockStoreConfig',
+            '@getMockStoreConfigForCategoryTree',
+            '@getMockLocale',
+            '@getMockStoreConfigForMiniCart',
+            '@getMockStoreName'
+        ]);
+
+        // There are only 4 categories for the default store in the mock data
+        assertNumberOfCategoriesInMegaMenu(4);
+        assertNumberOfCategoriesInCategoryTree(4);
+
+        // Verify default categories are listed in the MegaMenu component
+        assertCategoryInMegaMenu('Tops');
+        assertCategoryInMegaMenu('Bottoms');
+        assertCategoryInMegaMenu('Dresses');
+        assertCategoryInMegaMenu('Accessories');
+
+        //Verify default categories are listed in the CategoryTree navigation
+        assertCategoryInCategoryTree('Tops');
+        assertCategoryInCategoryTree('Bottoms');
+        assertCategoryInCategoryTree('Dresses');
+        assertCategoryInCategoryTree('Accessories');
     });
 });
