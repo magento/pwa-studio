@@ -1,4 +1,13 @@
 import {
+    hoverCategoryFromMegaMenu,
+    selectCategoryFromMegaMenu
+} from '../../../actions/categoryPage';
+import { toggleHeaderNav } from '../../../actions/header';
+import {
+    assertNumberOfProductsListed,
+    assertProductsFound
+} from '../../../assertions/categoryPage';
+import {
     assertCategoryInCategoryTree,
     assertNumberOfCategoriesInCategoryTree
 } from '../../../assertions/categoryTree';
@@ -7,6 +16,7 @@ import {
     assertNumberOfCategoriesInMegaMenu
 } from '../../../assertions/megaMenu';
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
+import { getCategoriesCall } from '../../../fixtures/graphqlMockedCalls';
 const {
     getStoreConfigDataCall,
     getStoreNameCall,
@@ -161,5 +171,39 @@ describe('PWA-1408: Verify data displayed is from Default Root Category', () => 
         assertCategoryInCategoryTree('Bottoms');
         assertCategoryInCategoryTree('Dresses');
         assertCategoryInCategoryTree('Accessories');
+    });
+
+    it('displays products from the default store', () => {
+        cy.visitPage('/');
+
+        cy.wait([
+            '@getMockAvailableStores',
+            '@getMockMegaMenu',
+            '@getMockRootCategoryId',
+            '@getMockNavigationMenu',
+            '@getMockStoreConfig',
+            '@getMockStoreConfigForMegaMenu',
+            '@getMockStoreConfigForContactUs',
+            '@getMockStoreConfigForNewsletter',
+            '@mockStoreConfig',
+            '@getMockStoreConfigForCategoryTree',
+            '@getMockLocale',
+            '@getMockStoreConfigForMiniCart',
+            '@getMockStoreName'
+        ]);
+
+        selectCategoryFromMegaMenu('Accessories');
+
+        cy.intercept(
+            getCategoriesCall,
+            getInterceptHandler('accessoriesCategory')
+        ).as('getMockAccessoriesCategory');
+
+        cy.wait('@getMockAccessoriesCategory');
+
+        assertProductsFound();
+
+        // There are only 3 accessories for the default store in the mock data
+        assertNumberOfProductsListed(3);
     });
 });
