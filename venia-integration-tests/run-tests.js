@@ -46,18 +46,13 @@ if (!baseUrl) {
         'Missing baseUrl. Please provide a baseUrl using the --baseUrl arg'
     );
 
-    return;
+    process.exit(1);
 }
 
 const files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js');
 
-if (files.length < threads) {
-    console.error('Can not have more parallel runs than tests.');
-
-    return;
-}
-
-const testsPerRun = files.length / threads;
+const threadCount = Math.min(files.length, threads);
+const testsPerRun = files.length / threadCount;
 const dockerRuns = {};
 
 const port = new URL(baseUrl).port;
@@ -84,8 +79,9 @@ const start = process.hrtime();
 
 // remove old test results
 rmSync('cypress/results', { recursive: true, force: true });
+rmSync('cypress-test-results.json', { force: true });
 
-for (let i = 0; i < threads; i++) {
+for (let i = 0; i < threadCount; i++) {
     const filesToTest = files.slice(testsPerRun * i, testsPerRun * (i + 1));
 
     const commandWithSpecFiles = `${dockerCommand} --spec ${filesToTest.join(

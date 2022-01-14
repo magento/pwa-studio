@@ -5,6 +5,7 @@
   "scripts": {
     "clearCache:mac": "rm -rf ~/Library/Application\\ Support/Cypress/cy/*",
     "danger": "danger-ci",
+    "posttest:headless": "./report-results.js",
     "test": "cypress open --browser chrome --config-file cypress.config.json",
     "test:ci": "./run-tests.js -t 4",
     "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
