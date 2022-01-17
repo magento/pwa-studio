@@ -57,22 +57,24 @@ export const useGiftOptions = (props = {}) => {
     const [savingOptions, setSavingOptions] = useState([]);
 
     const initialValues = useMemo(() => {
-        const hasInitialGiftMessage =
-            cart?.gift_message?.from.length > 0 ||
-            cart?.gift_message?.to.length > 0 ||
-            cart?.gift_message?.message.length > 0;
+        if (formApiRef?.current?.getState()?.values === undefined) {
+            const hasInitialGiftMessage =
+                cart?.gift_message?.from.length > 0 ||
+                cart?.gift_message?.to.length > 0 ||
+                cart?.gift_message?.message.length > 0;
 
-        setGiftMessageIsChecked(hasInitialGiftMessage);
-        setShowGiftMessageResult(hasInitialGiftMessage);
+            setGiftMessageIsChecked(hasInitialGiftMessage);
+            setShowGiftMessageResult(hasInitialGiftMessage);
 
-        return {
-            cardFrom: cart?.gift_message?.from || '',
-            cardTo: cart?.gift_message?.to || '',
-            cardMessage: cart?.gift_message?.message || '',
-            includeGiftReceipt: cart?.gift_receipt_included === true,
-            includeGiftMessage: hasInitialGiftMessage,
-            includePrintedCard: cart?.printed_card_included === true
-        };
+            return {
+                cardFrom: cart?.gift_message?.from || '',
+                cardTo: cart?.gift_message?.to || '',
+                cardMessage: cart?.gift_message?.message || '',
+                includeGiftReceipt: cart?.gift_receipt_included === true,
+                includeGiftMessage: hasInitialGiftMessage,
+                includePrintedCard: cart?.printed_card_included === true
+            };
+        }
     }, [cart]);
 
     const giftMessageResult = useMemo(
