@@ -75,6 +75,7 @@ export const useGiftOptions = (props = {}) => {
                 includePrintedCard: cart?.printed_card_included === true
             };
         }
+        return {};
     }, [cart]);
 
     const giftMessageResult = useMemo(
