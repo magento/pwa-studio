@@ -35,3 +35,27 @@ export const forgotPasswordSubmitButton =
 
 export const forgotPasswordSuccess =
     '[data-cy="formSubmissionSuccessful-text"]';
+
+export const forgotPasswordForm =
+    '[data-cy="AccountMenu-root"] [data-cy="forgotPasswordForm-root"]';
+
+export const forgotPasswordTitleText =
+    '[data-cy="AccountMenu-root"] [data-cy="ForgotPassword-title"]';
+
+export const forgotPasswordInstructionsText =
+    '[data-cy="AccountMenu-root"] [data-cy="ForgotPassword-instructions"]';
+
+export const signInTitleText =
+    '[data-cy="AccountMenu-root"] [data-cy="SignIn-title"]';
+
+export const signInFormLabels =
+    '[data-cy="AccountMenu-root"] [data-cy="SignIn-form"] label';
+
+export const createAccountFormLabels =
+    '[data-cy="AccountMenu-root"] [data-cy="CreateAccount-form"] label';
+
+export const createAccountTitle =
+    '[data-cy="AccountMenu-root"] [data-cy="CreateAccount-title"]';
+
+export const createAccountCancelButton =
+    '[data-cy="AccountMenu-root"] [data-cy="CreateAccount-cancelButton"]';
