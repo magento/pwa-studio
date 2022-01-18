@@ -10,8 +10,15 @@ import {
     productsPagination,
     productsPaginationTileActive,
     productSortSortItemActive,
-    searchBarSuggestedProduct
+    searchBarSuggestedProduct,
+    filterSidebarHeaderTitle,
+    categoryPageAddToCartButton,
+    filterSidebarShowMoreLessButton,
+    productSortButton,
+    productSortSortItem,
+    productPrice
 } from '../../fields/categoryPage';
+import { validateLanguage } from '../../utils/language-test-utils';
 
 /**
  * Utility function to assert selected product in wishlist
@@ -124,4 +131,42 @@ export const assertNoProductSuggestion = () => {
  */
 export const assertActiveSortItem = sortLabel => {
     cy.get(productSortSortItemActive).should('contain', sortLabel);
+};
+
+/**
+ * Utility function to assert CategoryPage text is in correct language (french or english)
+ * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ */
+export const assertCategoryPageTextLanguage = language => {
+    const textToValidate = [];
+    cy.get(filterSidebarHeaderTitle).then($title =>
+        textToValidate.push($title.text())
+    );
+    cy.get(categoryPageAddToCartButton)
+        .first()
+        .then($button => textToValidate.push($button.text().toLowerCase()));
+    cy.get(productSortButton).then($button => {
+        textToValidate.push($button.text());
+        $button.click();
+    });
+    cy.get(productSortSortItem).then($item =>
+        textToValidate.push($item.text())
+    );
+    cy.get(filterSidebarShowMoreLessButton).then($button => {
+        textToValidate.push($button.text());
+        expect(validateLanguage(textToValidate.join(','), language)).to.be.true;
+    });
+};
+
+/**
+ * Utility function to assert products in CategoryPage displays correct currency.
+ *
+ * @param {String} currency currency code to validate
+ */
+export const assertCategoryPageProductsHaveCurrency = currency => {
+    const currencySymbolMap = {
+        USD: '$',
+        EUR: '€'
+    };
+    cy.get(productPrice).should('contain', currencySymbolMap[currency]);
 };
