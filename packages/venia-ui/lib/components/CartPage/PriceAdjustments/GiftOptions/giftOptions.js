@@ -34,7 +34,11 @@ const GiftOptions = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <Form {...optionsFormProps} className={classes.root}>
+        <Form
+            data-cy="GiftOptions-form"
+            {...optionsFormProps}
+            className={classes.root}
+        >
             <div className={classes.option}>
                 <Checkbox
                     {...giftReceiptProps}

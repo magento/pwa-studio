@@ -68,8 +68,9 @@ const StoreSwitcher = props => {
     }
 
     return (
-        <div className={classes.root}>
+        <div data-cy="StoreSwitcher-root" className={classes.root}>
             <button
+                data-cy="StoreSwitcher-triggerButton"
                 className={classes.trigger}
                 aria-label={currentStoreName}
                 onClick={handleTriggerClick}

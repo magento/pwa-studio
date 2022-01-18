@@ -39,7 +39,7 @@ const SuggestedProduct = props => {
                 width={IMAGE_WIDTH}
             />
             <span className={classes.name}>{name}</span>
-            <span className={classes.price}>
+            <span data-cy="SuggestedProduct-price" className={classes.price}>
                 <Price
                     currencyCode={price.regularPrice.amount.currency}
                     value={price.regularPrice.amount.value}

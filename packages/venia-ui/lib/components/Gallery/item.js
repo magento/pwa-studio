@@ -101,7 +101,7 @@ const GalleryItem = props => {
             >
                 <span>{name}</span>
             </Link>
-            <div className={classes.price}>
+            <div data-cy="Gallery-Item-price" className={classes.price}>
                 <Price
                     value={price_range.maximum_price.regular_price.value}
                     currencyCode={
