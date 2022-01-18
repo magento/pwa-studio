@@ -19,7 +19,8 @@ import {
     megaMenuMega,
     megaMenuMegaMenuItem,
     megaMenuMegaMenuItemLink,
-    megaMenuSubmenuColumnLink
+    megaMenuSubmenuColumnLink,
+    productsGalleryItemName
 } from '../../fields/categoryPage';
 
 /**
@@ -227,4 +228,10 @@ export const selectCategoryFromMegaMenu = categoryName => {
     cy.get(`${megaMenuMegaMenuItemLink}, ${megaMenuSubmenuColumnLink}`)
         .filter(`:contains("${categoryName}")`)
         .click({ force: true });
+};
+
+export const selectProductFromCategoryPage = productName => {
+    cy.get(productsGalleryItemName)
+        .contains(productName)
+        .click();
 };

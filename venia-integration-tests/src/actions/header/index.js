@@ -2,7 +2,11 @@ import {
     appMaskButton,
     headerNavTrigger,
     headerSearchTrigger,
-    searchBarSearchField
+    searchBarSearchField,
+    headerStoreSwitcherTriggerButton,
+    headerCurrencySwitcherTriggerButton,
+    headerStoreSwitcherItemButton,
+    headerCurrencySwitcherItemButton
 } from '../../fields/header';
 
 export const toggleHeaderNav = () => {
@@ -38,3 +42,25 @@ export const searchFromSearchBar = (searchString, submitForm = true) => {
         triggerSearch();
     }
 };
+
+export const triggerStoreSwitcherMenu = () => {
+    cy.get(headerStoreSwitcherTriggerButton).click();
+};
+
+export const triggerCurrencySwitcherMenu = () => {
+    cy.get(headerCurrencySwitcherTriggerButton).click();
+};
+
+export const changeStoreView = store => {
+    cy.get(headerStoreSwitcherItemButton)
+        .contains(store)
+        .click();
+};
+
+export const changeCurrency = currency => {
+    cy.get(headerCurrencySwitcherItemButton)
+        .contains(currency)
+        .click();
+};
+
+export const triggerAccountMenu = () => {};
