@@ -15,26 +15,17 @@ const ProductSort = props => {
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
-    const { formatMessage } = useIntl();
+    const { formatMessage, locale } = useIntl();
 
     const orderSortingList = useCallback(
         list => {
             return list.sort((a, b) => {
-                const aText = formatMessage({
-                    id: a.id,
-                    defaultMessage: a.text
-                });
-                const bText = formatMessage({
-                    id: b.id,
-                    defaultMessage: b.text
-                });
-
-                return aText.localeCompare(bText, undefined, {
+                return a.text.localeCompare(b.text, locale, {
                     sensitivity: 'base'
                 });
             });
         },
-        [formatMessage]
+        [locale]
     );
 
     const sortMethodsFromConfig = availableSortMethods
@@ -44,7 +35,7 @@ const ProductSort = props => {
                   if (value !== 'price' && value !== 'position') {
                       return {
                           id: `sortItem.${value}`,
-                          text: `${label}`,
+                          text: label,
                           attribute: value,
                           sortDirection: 'ASC'
                       };
@@ -76,25 +67,37 @@ const ProductSort = props => {
         const defaultSortMethods = [
             {
                 id: 'sortItem.relevance',
-                text: 'Best Match',
+                text: formatMessage({
+                    id: 'sortItem.relevance',
+                    defaultMessage: 'Best Match'
+                }),
                 attribute: 'relevance',
                 sortDirection: 'DESC'
             },
             {
                 id: 'sortItem.position',
-                text: 'Position',
+                text: formatMessage({
+                    id: 'sortItem.position',
+                    defaultMessage: 'Position'
+                }),
                 attribute: 'position',
                 sortDirection: 'ASC'
             },
             {
                 id: 'sortItem.priceDesc',
-                text: 'Price: High to Low',
+                text: formatMessage({
+                    id: 'sortItem.priceDesc',
+                    defaultMessage: 'Price: High to Low'
+                }),
                 attribute: 'price',
                 sortDirection: 'DESC'
             },
             {
                 id: 'sortItem.priceAsc',
-                text: 'Price: Low to High',
+                text: formatMessage({
+                    id: 'sortItem.priceAsc',
+                    defaultMessage: 'Price: Low to High'
+                }),
                 attribute: 'price',
                 sortDirection: 'ASC'
             }
@@ -135,6 +138,7 @@ const ProductSort = props => {
         currentSort.sortAttribute,
         currentSort.sortDirection,
         expanded,
+        formatMessage,
         handleItemClick,
         orderSortingList,
         sortMethodsFromConfig
