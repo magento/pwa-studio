@@ -9,6 +9,7 @@ import {
     productsNoProductsFound,
     productsPagination,
     productsPaginationTileActive,
+    productRatingSummary,
     productSortSortItemActive,
     searchBarSuggestedProduct,
     filterSidebarHeaderTitle,
@@ -169,4 +170,11 @@ export const assertCategoryPageProductsHaveCurrency = currency => {
         EUR: '€'
     };
     cy.get(productPrice).should('contain', currencySymbolMap[currency]);
+};
+
+export const assertRatingSummary = productName => {
+    cy.contains(productName)
+        .children()
+        .get(productRatingSummary)
+        .should('exist');
 };
