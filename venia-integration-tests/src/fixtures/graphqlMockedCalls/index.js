@@ -82,3 +82,11 @@ export const getWishlistConfigForWishlistPageCall =
 
 export const getIsEmailAvailableCall =
     '**/graphql?query=query+IsEmailAvailable*';
+
+export const getAvailableStoresConfigDataCall =
+    '**/graphql?query=query+GetAvailableStoresData*';
+
+export const getCurrencyDataCall = '**/graphql?query=query+GetCurrencyData*';
+
+export const getStoreConfigDataCall =
+    '**/graphql?query=query+GetStoreConfigData*';
