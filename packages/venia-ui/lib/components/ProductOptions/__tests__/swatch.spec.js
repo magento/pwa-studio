@@ -5,7 +5,7 @@ import Swatch from '../swatch';
 import Icon from '../../Icon';
 
 jest.mock('../../../classify');
-jest.mock('uuid/v4', () => () => '00000000-0000-0000-0000-000000000000');
+jest.mock('uuid', () => () => '00000000-0000-0000-0000-000000000000');
 
 const defaultProps = {
     item: {

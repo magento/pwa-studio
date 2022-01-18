@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { number, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import { useStyle } from '../../classify';
 
@@ -10,10 +10,10 @@ import { GET_PAGE_SIZE } from './category.gql';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
 const Category = props => {
-    const { id } = props;
+    const { uid } = props;
 
     const talonProps = useCategory({
-        id,
+        id: uid,
         queries: {
             getPageSize: GET_PAGE_SIZE
         }
@@ -45,7 +45,7 @@ const Category = props => {
         <Fragment>
             <Meta name="description" content={metaDescription} />
             <CategoryContent
-                categoryId={id}
+                categoryId={uid}
                 classes={classes}
                 data={categoryData}
                 isLoading={loading}
@@ -63,11 +63,11 @@ Category.propTypes = {
         root: string,
         title: string
     }),
-    id: number
+    uid: string
 };
 
 Category.defaultProps = {
-    id: 3
+    uid: 'Mg=='
 };
 
 export default Category;

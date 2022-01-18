@@ -71,9 +71,6 @@ test('page is set to loading when checking the network for updates', () => {
                 cmsPage: {
                     url_key: 'cached_page',
                     content: 'Cached Page.'
-                },
-                storeConfig: {
-                    root_category_id: 2
                 }
             },
             error: false,
@@ -105,9 +102,6 @@ test('renders default content', () => {
                     title: 'Home Page',
                     url_key: 'homepage',
                     content: 'CMS homepage content goes here.'
-                },
-                storeConfig: {
-                    root_category_id: 2
                 }
             },
             error: false,
@@ -131,9 +125,6 @@ test('render RichContent when content is present', () => {
                     content_heading: 'This is a rich content heading',
                     content:
                         '<div class="richContent">This is rich content</div>'
-                },
-                storeConfig: {
-                    root_category_id: 2
                 }
             },
             error: false,
@@ -160,9 +151,6 @@ test('do not render heading when empty', () => {
                     content_heading: '',
                     content:
                         '<div class="richContent">This is rich content</div>'
-                },
-                storeConfig: {
-                    root_category_id: 2
                 }
             },
             error: false,
@@ -185,9 +173,6 @@ test('render root class with layout when defined', () => {
                     content:
                         '<div class="richContent">This is rich content</div>',
                     page_layout: '1column'
-                },
-                storeConfig: {
-                    root_category_id: 2
                 }
             },
             error: false,
@@ -210,9 +195,6 @@ test('render meta information based on meta data from GraphQL', () => {
                     title: 'Test Title',
                     meta_title: 'Test Meta Title',
                     meta_description: 'Test Meta Description'
-                },
-                storeConfig: {
-                    root_category_id: 2
                 }
             },
             error: false,
