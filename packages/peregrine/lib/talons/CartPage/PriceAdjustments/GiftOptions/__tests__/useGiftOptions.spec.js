@@ -147,6 +147,14 @@ describe('#useGiftOptions', () => {
     it('returns correct shape while and after loading', async () => {
         const { result, waitForNextUpdate } = renderHookWithProviders();
 
+        await act(() => {
+            result.current.optionsFormProps.getApi({
+                getState: jest.fn().mockImplementation(() => {
+                    return {};
+                })
+            });
+        });
+
         // Check data while loading
         expect(result.current).toMatchInlineSnapshot(`
             Object {
@@ -330,6 +338,9 @@ describe('#useGiftOptions', () => {
         // Test checkbox checked
         await act(() => {
             result.current.optionsFormProps.getApi({
+                getState: jest.fn().mockImplementation(() => {
+                    return {};
+                }),
                 getValue: jest.fn().mockReturnValue(true)
             });
 
@@ -438,6 +449,11 @@ describe('#useGiftOptions', () => {
         // Removes Gift Message
         await act(() => {
             result.current.optionsFormProps.getApi({
+                getState: jest.fn().mockImplementation(() => {
+                    return {
+                        invalid: false
+                    };
+                }),
                 getValue: jest.fn().mockImplementation(field => {
                     return mockFormValues3[field];
                 }),
