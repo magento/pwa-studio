@@ -14,6 +14,7 @@ import defaultClasses from './item.module.css';
 import AddToCartbutton from '../Gallery/addToCartButton';
 import Image from '../Image';
 import GalleryItemShimmer from './item.shimmer';
+// eslint-disable-next-line no-unused-vars
 import Rating from '../Rating';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
@@ -45,6 +46,7 @@ const GalleryItem = props => {
         return <GalleryItemShimmer classes={classes} />;
     }
 
+    // eslint-disable-next-line no-unused-vars
     const { name, price_range, small_image, url_key, rating_summary } = item;
 
     const { url: smallImageURL } = small_image;
