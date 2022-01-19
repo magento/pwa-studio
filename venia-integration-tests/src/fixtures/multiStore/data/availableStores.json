@@ -17,19 +17,6 @@
       {
         "category_url_suffix": ".html",
         "default_display_currency_code": "USD",
-        "locale": "fr_FR",
-        "product_url_suffix": ".html",
-        "secure_base_media_url": "https:\/\/venia.magento.com\/media\/",
-        "store_code": "french",
-        "store_group_code": "main_website_store",
-        "store_group_name": "Main Website Store",
-        "store_name": "French",
-        "store_sort_order": 0,
-        "__typename": "StoreConfig"
-      },
-      {
-        "category_url_suffix": ".html",
-        "default_display_currency_code": "USD",
         "locale": "en_US",
         "product_url_suffix": ".html",
         "secure_base_media_url": "https:\/\/venia.magento.com\/media\/",

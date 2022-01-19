@@ -1,0 +1,25 @@
+{
+  "data": {
+    "categories": {
+      "items": [
+        {
+          "uid": "MjQ=",
+          "meta_title": null,
+          "meta_keywords": null,
+          "meta_description": null,
+          "__typename": "CategoryTree"
+        }
+      ],
+      "__typename": "CategoryResult"
+    },
+    "products": {
+      "items": [],
+      "page_info": {
+        "total_pages": 0,
+        "__typename": "SearchResultPageInfo"
+      },
+      "total_count": 0,
+      "__typename": "Products"
+    }
+  }
+}

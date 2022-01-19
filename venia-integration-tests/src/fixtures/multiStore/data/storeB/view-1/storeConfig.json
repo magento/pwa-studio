@@ -1,14 +1,14 @@
 {
   "data": {
     "storeConfig": {
-      "store_code": "default",
+      "store_code": "view_1_b",
       "contact_enabled": true,
       "category_url_suffix": ".html",
       "configurable_thumbnail_source": "parent",
-      "store_name": "Default Store View",
+      "store_name": "View One B",
       "locale": "en_US",
       "newsletter_enabled": true,
-      "store_group_name": "Main Website Store",
+      "store_group_name": "Store B",
       "copyright": "Copyright \u00a9 2013-present Magento, Inc. All rights reserved.",
       "product_url_suffix": ".html",
       "magento_wishlist_general_is_enabled": "1",

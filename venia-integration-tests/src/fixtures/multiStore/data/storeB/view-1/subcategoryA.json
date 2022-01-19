@@ -1,0 +1,76 @@
+{
+  "data": {
+    "categories": {
+      "items": [
+        {
+          "uid": "MjM=",
+          "meta_title": null,
+          "meta_keywords": null,
+          "meta_description": null,
+          "__typename": "CategoryTree"
+        }
+      ],
+      "__typename": "CategoryResult"
+    },
+    "products": {
+      "items": [
+        {
+          "id": 2,
+          "uid": "Mg==",
+          "name": "Augusta Earrings",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VA12-SI-NA",
+          "small_image": {
+            "url": "https:\/\/magento.test\/media\/catalog\/product\/cache\/9035ce720818089a082f5297e3136814\/v\/a\/va12-ts_main.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "SimpleProduct",
+          "url_key": "augusta-earrings"
+        },
+        {
+          "id": 1,
+          "uid": "MQ==",
+          "name": "Carmina Earrings",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "USD",
+                "value": 58,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VA11-GO-NA",
+          "small_image": {
+            "url": "https:\/\/magento.test\/media\/catalog\/product\/cache\/9035ce720818089a082f5297e3136814\/v\/a\/va11-sg_main.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "SimpleProduct",
+          "url_key": "carmina-earrings"
+        }
+      ],
+      "page_info": {
+        "total_pages": 1,
+        "__typename": "SearchResultPageInfo"
+      },
+      "total_count": 2,
+      "__typename": "Products"
+    }
+  }
+}
