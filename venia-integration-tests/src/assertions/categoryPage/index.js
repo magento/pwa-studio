@@ -9,6 +9,7 @@ import {
     productsNoProductsFound,
     productsPagination,
     productsPaginationTileActive,
+    productRatingSummary,
     productSortSortItemActive,
     searchBarSuggestedProduct
 } from '../../fields/categoryPage';
@@ -124,4 +125,11 @@ export const assertNoProductSuggestion = () => {
  */
 export const assertActiveSortItem = sortLabel => {
     cy.get(productSortSortItemActive).should('contain', sortLabel);
+};
+
+export const assertRatingSummary = productName => {
+    cy.contains(productName)
+        .children()
+        .get(productRatingSummary)
+        .should('exist');
 };

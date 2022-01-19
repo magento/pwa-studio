@@ -11,7 +11,7 @@ const Rating = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <div className={classes.ratingAverage}>
+        <div className={classes.ratingAverage} data-cy="ratingSummary">
             <span className={classes.ratingValue}>
                 {((rating * 5) / 100).toFixed(1)}
             </span>{' '}
