@@ -46,7 +46,7 @@ const {
     assertForgotPasswordTextLanguage
 } = accountAccessAssertions;
 
-const { assertFooterLanguageText } = footerAssertions;
+const { assertFooterTextLanguage } = footerAssertions;
 
 const {
     assertProductPageTextLanguage,
@@ -335,7 +335,7 @@ describe('PWA-1415: Verify Venia Localization', () => {
         cy.wait(5000);
 
         // check footer language
-        assertFooterLanguageText('eng');
+        assertFooterTextLanguage('eng');
 
         triggerSearch();
         searchFromSearchBar('Dress', false);
@@ -494,7 +494,7 @@ describe('PWA-1415: Verify Venia Localization', () => {
         cy.visitHomePage();
 
         // check footer language
-        assertFooterLanguageText('fra');
+        assertFooterTextLanguage('fra');
 
         triggerSearch();
         searchFromSearchBar('Dress', false);

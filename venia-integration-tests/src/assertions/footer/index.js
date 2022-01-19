@@ -11,7 +11,11 @@ import {
     footerTermsText
 } from '../../fields/footer';
 
-export const assertFooterLanguageText = language => {
+/**
+ * Utility function to assert Footer text is in correct language (french or english)
+ * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ */
+export const assertFooterTextLanguage = language => {
     const textToValidate = [];
     cy.get(footerLinks).then($links => textToValidate.push($links.text()));
     cy.get(footerLabels).then($labels => textToValidate.push($labels.text()));
