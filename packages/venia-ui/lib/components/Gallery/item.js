@@ -9,13 +9,13 @@ import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGallery
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
-import Image from '../Image';
-import GalleryItemShimmer from './item.shimmer';
 import defaultClasses from './item.module.css';
-import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 import AddToCartbutton from '../Gallery/addToCartButton';
+import Image from '../Image';
+import GalleryItemShimmer from './item.shimmer';
 import Rating from '../Rating';
+import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -68,9 +68,11 @@ const GalleryItem = props => {
         </div>
     );
 
-    const ratingAverage = rating_summary ? (
-        <Rating rating={rating_summary} />
-    ) : null;
+    // Hide the Rating component until it is updated with the new look and feel (PWA-2512).
+    const ratingAverage = null;
+    // const ratingAverage = rating_summary ? (
+    //     <Rating rating={rating_summary} />
+    // ) : null;
 
     return (
         <div className={classes.root} aria-live="polite" aria-busy="false">
