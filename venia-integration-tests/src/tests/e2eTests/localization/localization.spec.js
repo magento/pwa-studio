@@ -150,26 +150,12 @@ const {
 } = accountAccessFixtures;
 
 describe('PWA-1415: Verify Venia Localization', () => {
-    it('should display French store and Euro currency by default', () => {
+    it('should display Default Store View by default and not display currency switcher (USD only)', () => {
         cy.visitHomePage();
-
-        assertStoreIsDisplayed('French Store View');
-        assertCurrencyIsDisplayed('EUR');
-
-        triggerCurrencySwitcherMenu();
-        assertCurrencyIsSelected('EUR');
-
-        triggerStoreSwitcherMenu();
-        assertStoreIsSelected('French Store View');
-    });
-
-    it('should not display currency switcher when Default Store View is selected (only USD)', () => {
-        cy.visitHomePage();
-
-        triggerStoreSwitcherMenu();
-        changeStoreView('Default Store View');
 
         assertStoreIsDisplayed('Default Store View');
+        triggerStoreSwitcherMenu();
+        assertStoreIsSelected('Default Store View');
         assertCurrencyIsNotDisplayed();
     });
 
@@ -183,18 +169,18 @@ describe('PWA-1415: Verify Venia Localization', () => {
         });
 
         cy.get(cmsPageContentHeading).then($heading => {
-            expect($heading.text()).to.equal('Custom page for French Store');
+            expect($heading.text()).to.equal('Custom page for Default Store');
         });
 
         triggerStoreSwitcherMenu();
-        changeStoreView('Default Store View');
+        changeStoreView('French Store View');
 
         cy.wait(['@gqlGetCMSPageQuery'], {
             timeout: 60000
         });
 
         cy.get(cmsPageContentHeading).then($heading => {
-            expect($heading.text()).to.equal('Custom page for Default Store');
+            expect($heading.text()).to.equal('Custom page for French Store');
         });
     });
 
@@ -202,9 +188,9 @@ describe('PWA-1415: Verify Venia Localization', () => {
         cy.visitHomePage();
         selectCategoryFromMegaMenu('Bottoms');
 
-        cy.url().then(url => cy.visit(url.replace('fr', 'default')));
-        assertStoreIsDisplayed('Default Store View');
-        assertStoreIsSelected('Default Store View');
+        cy.url().then(url => cy.visit(url.replace('default', 'fr')));
+        assertStoreIsDisplayed('French Store View');
+        assertStoreIsSelected('French Store View');
     });
 
     it('should be able to place an order in French store', () => {
@@ -231,6 +217,10 @@ describe('PWA-1415: Verify Venia Localization', () => {
         });
 
         cy.visitHomePage();
+        triggerStoreSwitcherMenu();
+        changeStoreView('French Store View');
+        // wait page reload
+        cy.wait(5000);
         assertStoreIsDisplayed('French Store View');
 
         cy.visit(productIsadoraSkirt.url);
@@ -329,10 +319,6 @@ describe('PWA-1415: Verify Venia Localization', () => {
         });
 
         cy.visitHomePage();
-        triggerStoreSwitcherMenu();
-        changeStoreView('Default Store View');
-        // wait page reload
-        cy.wait(5000);
 
         // check footer language
         assertFooterTextLanguage('eng');
@@ -492,6 +478,11 @@ describe('PWA-1415: Verify Venia Localization', () => {
         });
 
         cy.visitHomePage();
+        triggerStoreSwitcherMenu();
+        changeStoreView('French Store View');
+        // wait page reload
+        cy.wait(5000);
+        assertStoreIsDisplayed('French Store View');
 
         // check footer language
         assertFooterTextLanguage('fra');
@@ -641,6 +632,11 @@ describe('PWA-1415: Verify Venia Localization', () => {
         });
 
         cy.visitHomePage();
+        triggerStoreSwitcherMenu();
+        changeStoreView('French Store View');
+        // wait page reload
+        cy.wait(5000);
+        assertStoreIsDisplayed('French Store View');
         triggerCurrencySwitcherMenu();
         changeCurrency('USD');
         // wait page reload
@@ -696,6 +692,11 @@ describe('PWA-1415: Verify Venia Localization', () => {
         });
 
         cy.visitHomePage();
+        triggerStoreSwitcherMenu();
+        changeStoreView('French Store View');
+        // wait page reload
+        cy.wait(5000);
+        assertStoreIsDisplayed('French Store View');
 
         cy.on('url:changed', newUrl => {
             const { pathname } = new URL(newUrl);
@@ -751,10 +752,6 @@ describe('PWA-1415: Verify Venia Localization', () => {
         });
 
         cy.visitHomePage();
-        triggerStoreSwitcherMenu();
-        changeStoreView('Default Store View');
-        // wait page reload
-        cy.wait(5000);
 
         cy.on('url:changed', newUrl => {
             const { pathname } = new URL(newUrl);
