@@ -109,7 +109,7 @@ export const filterSidebarHeaderTitle =
     '[data-cy="CategoryContent-root"] [data-cy="FilterSidebar-root"] [data-cy="FilterSidebar-headerTitle"]';
 
 export const productPrice =
-    '[data-cy="CategoryContent-root"] [data-cy="Gallery-root"] [data-cy="Gallery-Item-price"]';
+    '[data-cy="CategoryContent-root"] [data-cy="Gallery-root"] [data-cy="GalleryItem-price"]';
 
 export const categoryContentInfo =
     '[data-cy="CategoryContent-root"] [data-cy="CategoryContent-categoryInfo"]';
