@@ -159,6 +159,18 @@ describe('PWA-1415: Verify Venia Localization', () => {
         assertCurrencyIsNotDisplayed();
     });
 
+    it('should display EUR currency by default if French Store View is selected', () => {
+        cy.visitHomePage();
+        triggerStoreSwitcherMenu();
+        changeStoreView('French Store View');
+        // wait for page reload
+        cy.wait(5000);
+        assertStoreIsDisplayed('French Store View');
+        assertCurrencyIsDisplayed('€ EUR');
+        triggerCurrencySwitcherMenu();
+        assertCurrencyIsSelected('€ EUR');
+    });
+
     it('should load custom CMS page content according to the selected store', () => {
         cy.intercept('GET', getCMSPage).as('gqlGetCMSPageQuery');
 
