@@ -13,7 +13,7 @@ import {
 
 /**
  * Utility function to assert Footer text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertFooterTextLanguage = language => {
     const textToValidate = [];

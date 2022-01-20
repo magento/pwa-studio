@@ -58,7 +58,7 @@ export const assertCurrencyIsSelected = currency => {
 
 /**
  * Utility function to assert Header text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertHeaderTextLanguage = language => {
     const textToValidate = [];
@@ -79,7 +79,7 @@ export const assertHeaderTextLanguage = language => {
 /**
  * Utility function to assert products in ProductSuggestions displays correct currency.
  *
- * @param {String} currency currency code to validate
+ * @param {String} currency -- currency code to validate
  */
 export const assertProductSuggestionsHasCurrency = currency => {
     const currencySymbolMap = {

@@ -27,7 +27,7 @@ export const assertProductName = name => {
 
 /**
  * Utility function to assert ProductPage text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertProductPageTextLanguage = language => {
     const textToValidate = [];
@@ -52,7 +52,7 @@ export const assertProductPageTextLanguage = language => {
 /**
  * Utility function to assert product in ProductPage displays correct currency.
  *
- * @param {String} currency currency code to validate
+ * @param {String} currency -- currency code to validate
  */
 export const assertProductPriceHasCurrency = currency => {
     const currencySymbolMap = {

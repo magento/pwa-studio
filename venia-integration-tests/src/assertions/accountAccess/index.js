@@ -30,7 +30,7 @@ export const assertResetPasswordSuccess = accountEmail => {
 
 /**
  * Utility function to assert SignIn menu text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertSignInTextLanguage = language => {
     const textToValidate = [];
@@ -50,7 +50,7 @@ export const assertSignInTextLanguage = language => {
 
 /**
  * Utility function to assert ForgotPassword menu text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertForgotPasswordTextLanguage = language => {
     const textToValidate = [];
@@ -73,7 +73,7 @@ export const assertForgotPasswordTextLanguage = language => {
 
 /**
  * Utility function to assert CreateAccount menu text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertCreateAccountTextLanguage = language => {
     const textToValidate = [];

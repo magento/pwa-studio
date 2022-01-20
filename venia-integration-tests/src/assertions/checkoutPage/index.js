@@ -243,7 +243,7 @@ export const assertUpdateDataButtonIsVisible = () => {
 
 /**
  * Utility function to assert ShippingInformation section text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertShippingInformationTextLanguage = language => {
     const textToValidate = [];
@@ -262,7 +262,7 @@ export const assertShippingInformationTextLanguage = language => {
 
 /**
  * Utility function to assert PaymentInformation section text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertPaymentInformationTextLanguage = language => {
     const textToValidate = [];
@@ -280,7 +280,7 @@ export const assertPaymentInformationTextLanguage = language => {
 
 /**
  * Utility function to assert PriceAdjustments section text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertPriceAdjustmentsTextLanguage = language => {
     const textToValidate = [];
@@ -303,7 +303,7 @@ export const assertPriceAdjustmentsTextLanguage = language => {
 
 /**
  * Utility function to assert OrderConfirmationPage text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertOrderConfirmationPageTextLanguage = language => {
     const textToValidate = [];
@@ -331,7 +331,7 @@ export const assertOrderConfirmationPageTextLanguage = language => {
 /**
  * Utility function to assert prices in CheckoutPage displays correct currency.
  *
- * @param {String} currency currency code to validate
+ * @param {String} currency -- currency code to validate
  */
 export const assertCheckoutPageHasCurrency = currency => {
     const currencySymbolMap = {

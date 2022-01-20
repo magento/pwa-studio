@@ -136,7 +136,7 @@ export const assertActiveSortItem = sortLabel => {
 
 /**
  * Utility function to assert CategoryPage text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertCategoryPageTextLanguage = language => {
     const textToValidate = [];
@@ -162,7 +162,7 @@ export const assertCategoryPageTextLanguage = language => {
 /**
  * Utility function to assert products in CategoryPage displays correct currency.
  *
- * @param {String} currency currency code to validate
+ * @param {String} currency -- currency code to validate
  */
 export const assertCategoryPageProductsHaveCurrency = currency => {
     const currencySymbolMap = {

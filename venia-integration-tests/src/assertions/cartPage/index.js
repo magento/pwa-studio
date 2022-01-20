@@ -99,7 +99,7 @@ export const assertNoGiftCardInCartPage = () => {
 
 /**
  * Utility function to assert CartPage text is in correct language (french or english)
- * @param {String} language language to validate (ISO639 codes only, eg. "fra,eng")
+ * @param {String} language --language to validate (ISO639 codes only, eg. "fra,eng")
  */
 export const assertCartPageTextLanguage = language => {
     const textToValidate = [];
@@ -146,7 +146,7 @@ export const assertCartPageTextLanguage = language => {
 /**
  * Utility function to assert products in CartPage displays correct currency.
  *
- * @param {String} currency currency code to validate
+ * @param {String} currency -- currency code to validate
  */
 export const assertCartPageHasCurrency = currency => {
     const currencySymbolMap = {
