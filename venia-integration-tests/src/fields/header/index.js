@@ -41,3 +41,6 @@ export const headerSearchAutocompleteSuggestionsHeading =
 
 export const headerSearchAutocompleteSuggestionPrice =
     '[data-cy="Header-root"] [data-cy="Autocomplete-root"] [data-cy="SuggestedProduct-price"]';
+
+export const headerAccountMenuTrigger =
+    '[data-cy="Header-root"] [data-cy="AccountTrigger-trigger"]';

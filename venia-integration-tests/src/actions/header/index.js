@@ -6,7 +6,8 @@ import {
     headerStoreSwitcherTriggerButton,
     headerCurrencySwitcherTriggerButton,
     headerStoreSwitcherItemButton,
-    headerCurrencySwitcherItemButton
+    headerCurrencySwitcherItemButton,
+    headerAccountMenuTrigger
 } from '../../fields/header';
 
 export const toggleHeaderNav = () => {
@@ -61,4 +62,8 @@ export const changeCurrency = currency => {
     cy.get(headerCurrencySwitcherItemButton)
         .contains(currency)
         .click();
+};
+
+export const triggerAccountMenu = () => {
+    cy.get(headerAccountMenuTrigger).click();
 };
