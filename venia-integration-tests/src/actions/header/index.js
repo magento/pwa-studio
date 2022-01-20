@@ -62,5 +62,3 @@ export const changeCurrency = currency => {
         .contains(currency)
         .click();
 };
-
-export const triggerAccountMenu = () => {};
