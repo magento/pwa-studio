@@ -11,3 +11,4 @@ export * as pageBuilder from './pageBuilder';
 export * as productPage from './productPage';
 export * as toast from './toast';
 export * as wishlistPage from './wishlistPage';
+export * as footer from './footer';

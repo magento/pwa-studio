@@ -165,6 +165,9 @@ const typePolicies = {
             }
         }
     },
+    Currency: {
+        merge: true
+    },
     ProductImage: {
         keyFields: ['url']
     },

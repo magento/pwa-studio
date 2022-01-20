@@ -85,6 +85,8 @@ export const productSortSortItem =
 export const productSortSortItemActive =
     '[data-cy="ProductSort-root"] [data-cy="SortItem-activeButton"]';
 
+export const productRatingSummary = '[data-cy="ratingSummary"]';
+
 export const searchBarSuggestedProduct =
     '[data-cy="SearchBar-root"] [data-cy="SuggestedProduct-root"]';
 

@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/upward-js#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/upward-js#readme",
   "dependencies": {
     "@apollo/client": "~3.4.0",
     "camelspace": "~1.0.0",
