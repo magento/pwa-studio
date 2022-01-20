@@ -229,7 +229,7 @@ export const checkoutPageShippingInformationTitle =
     '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="ShippingInformation-editTitle"]';
 
 export const checkoutPageBillingAddressSelectLabel =
-    '[data-cy="CheckoutPage-root"] [data-cy="CreditCard-root"] [data-cy="CreditCard-AddressCheck-root"] label';
+    '[data-cy="CheckoutPage-root"] [data-cy="CreditCard-root"] [data-cy="CreditCard-AddressCheck-root"] [data-cy="Checkbox-label"]';
 
 export const checkoutPageBillingAddressFields =
     '[data-cy="CheckoutPage-root"] [data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddressFields"]';
