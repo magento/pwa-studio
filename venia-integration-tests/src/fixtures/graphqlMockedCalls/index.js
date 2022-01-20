@@ -29,6 +29,8 @@ export const getCustomerAfterCheckoutCall =
 export const getCustomerWishlistCall =
     '**/graphql?query=query+GetCustomerWishlist*';
 
+export const getGiftOptionsCall = '**/graphql?query=query+GetGiftOptions*';
+
 export const getItemsInCartCall = '**/graphql?query=query+getItemsInCart*';
 
 export const getMultipleWishlistConfigCall =
@@ -67,6 +69,9 @@ export const getShippingMethodsCall =
 
 export const getStoreConfigDataForGalleryEECall =
     '**/graphql?query=query+GetStoreConfigDataForGalleryEE*';
+
+export const getStoreConfigForGiftOptionsCall =
+    '**/graphql?query=query+GetStoreConfigForGiftOptions*';
 
 export const getWishlistDialogDataCall =
     '**/graphql?query=query+getWishlistsDialogData*';

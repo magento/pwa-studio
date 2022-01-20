@@ -15,6 +15,11 @@ Object {
         "code": "GiftCardCode",
       },
     ],
+    "giftOptions": Object {
+      "printed_card": Object {
+        "value": 10,
+      },
+    },
     "shipping": Array [
       Object {
         "city": "Calder",
@@ -44,7 +49,7 @@ Object {
       },
     ],
     "total": Object {
-      "value": 30,
+      "value": 40,
     },
   },
   "handleProceedToCheckout": [Function],

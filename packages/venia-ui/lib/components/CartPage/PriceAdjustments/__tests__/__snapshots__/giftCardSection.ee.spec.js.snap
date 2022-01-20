@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#GiftCardSection EE renders 1`] = `
+<mock-Section
+  id="gift_card"
+  title="Apply Gift Card"
+>
+  <require('../GiftCards')
+    setIsCartUpdating={false}
+  />
+</mock-Section>
+`;
