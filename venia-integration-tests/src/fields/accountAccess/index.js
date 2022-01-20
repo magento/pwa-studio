@@ -9,7 +9,7 @@ export const signInPasswordTextField =
 export const signInSubmitButton =
     '[data-cy="AccountMenu-root"] [data-cy="SignIn-form"] [data-cy="SignInButton-root_highPriority"]';
 
-export const signOutLink = '[data-cy="accountMenuItems-signOut"]';
+export const signOutLink = '[data-cy="AccountMenuItems-signOut"]';
 
 export const forgotPasswordLink = '[data-cy="SignIn-forgotPasswordButton"]';
 
