@@ -3,15 +3,15 @@ import { useQuery } from '@apollo/client';
 
 import { createTestInstance } from '@magento/peregrine';
 
-import CmsDynamicBlock, {
+import {
     DISPLAY_MODE_FIXED_TYPE,
     DYNAMIC_BLOCK_FIXED_TYPE,
     DISPLAY_MODE_SALES_RULE_TYPE,
     DYNAMIC_BLOCK_SALES_RULE_TYPE,
     DISPLAY_MODE_CATALOG_RULE_TYPE,
-    DYNAMIC_BLOCK_CATALOG_RULE_TYPE,
-    GET_CMS_DYNAMIC_BLOCKS
-} from '../cmsDynamicBlock.ee';
+    DYNAMIC_BLOCK_CATALOG_RULE_TYPE
+} from '../constants';
+import CmsDynamicBlock, { GET_CMS_DYNAMIC_BLOCKS } from '../cmsDynamicBlock.ee';
 
 const mockUids = 'uids';
 const mockLocations = ['CONTENT'];

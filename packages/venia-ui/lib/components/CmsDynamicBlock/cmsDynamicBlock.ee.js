@@ -4,14 +4,15 @@ import { gql, useQuery } from '@apollo/client';
 
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
+import {
+    DISPLAY_MODE_FIXED_TYPE,
+    DYNAMIC_BLOCK_FIXED_TYPE,
+    DISPLAY_MODE_SALES_RULE_TYPE,
+    DYNAMIC_BLOCK_SALES_RULE_TYPE,
+    DISPLAY_MODE_CATALOG_RULE_TYPE,
+    DYNAMIC_BLOCK_CATALOG_RULE_TYPE
+} from './constants';
 import DynamicBlock from './dynamicBlock';
-
-export const DISPLAY_MODE_FIXED_TYPE = `fixed`;
-export const DYNAMIC_BLOCK_FIXED_TYPE = `SPECIFIED`;
-export const DISPLAY_MODE_SALES_RULE_TYPE = `salesrule`;
-export const DYNAMIC_BLOCK_SALES_RULE_TYPE = `CART_PRICE_RULE_RELATED`;
-export const DISPLAY_MODE_CATALOG_RULE_TYPE = `catalogrule`;
-export const DYNAMIC_BLOCK_CATALOG_RULE_TYPE = `CATALOG_PRICE_RULE_RELATED`;
 
 const getDynamicBlockType = displayMode => {
     if (displayMode === DISPLAY_MODE_FIXED_TYPE) {
@@ -31,9 +32,7 @@ const CmsDynamicBlockGroup = props => {
     const type = getDynamicBlockType(displayMode);
 
     const { loading, error, data } = useQuery(GET_CMS_DYNAMIC_BLOCKS, {
-        variables: { type, locations, uids },
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
+        variables: { type, locations, uids }
     });
 
     if (!data) {
@@ -74,7 +73,7 @@ CmsDynamicBlockGroup.propTypes = {
 export default CmsDynamicBlockGroup;
 
 export const GET_CMS_DYNAMIC_BLOCKS = gql`
-    query dynamicBlocks(
+    query GetCmsDynamicBlocks(
         $type: DynamicBlockTypeEnum!
         $locations: [DynamicBlockLocationEnum]
         $uids: [ID]!
