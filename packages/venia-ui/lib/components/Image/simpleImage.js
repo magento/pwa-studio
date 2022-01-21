@@ -36,6 +36,7 @@ const SimpleImage = props => {
             onLoad={handleLoad}
             src={src}
             width={width}
+            style={{"--height": height+"px", "--width": width+"px"}}
         />
     );
 };

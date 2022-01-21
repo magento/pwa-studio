@@ -61,6 +61,7 @@ const ResourceImage = props => {
             src={src}
             srcSet={srcSet}
             width={width}
+            style={{"--height": height+"px", "--width": width+"px"}}
         />
     );
 };
