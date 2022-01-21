@@ -1,0 +1,27 @@
+{
+    "data": {
+        "cart": {
+            "id": "1234",
+            "__typename": "Cart",
+            "gift_message": {
+                "to": "Philip J. Fry",
+                "from": "Bender Rodríguez",
+                "message": "Of All The Friends I've Had, You're The First.",
+                "__typename": "GiftMessage"
+            },
+            "gift_receipt_included": true,
+            "printed_card_included": false,
+            "prices": {
+                "gift_options": {
+                    "printed_card": {
+                        "value": 10,
+                        "currency": "USD",
+                        "__typename": "Money"
+                    },
+                    "__typename": "GiftOptionsPrices"
+                },
+                "__typename": "CartPrices"
+            }
+        }
+    }
+}
