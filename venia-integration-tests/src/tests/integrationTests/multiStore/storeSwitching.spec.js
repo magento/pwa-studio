@@ -1,23 +1,33 @@
 import { selectCategoryFromMegaMenu } from '../../../actions/categoryPage';
+
 import {
     selectStoreView,
     toggleHeaderStoreSwitcher
 } from '../../../actions/storeSwitcher';
+
 import {
     assertNoProductsFound,
     assertNumberOfProductsListed,
+    assertProductIsInGallery,
     assertProductsFound
 } from '../../../assertions/categoryPage';
+
 import {
     assertCategoryInCategoryTree,
     assertNumberOfCategoriesInCategoryTree
 } from '../../../assertions/categoryTree';
+
 import {
     assertCategoryInMegaMenu,
     assertNumberOfCategoriesInMegaMenu
 } from '../../../assertions/megaMenu';
+
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
-import { getCategoriesCall } from '../../../fixtures/graphqlMockedCalls';
+import {
+    defaultAccessoriesProducts,
+    defaultStore,
+    secondStore,
+} from '../../../fixtures/multiStore';
 const {
     getStoreConfigDataCall,
     getStoreNameCall,
@@ -31,7 +41,8 @@ const {
     getLocaleCall,
     getRootCategoryIdCall,
     getStoreConfigForMiniCartCall,
-    getStoreConfigForCategoryTreeCall
+    getStoreConfigForCategoryTreeCall,
+    getCategoriesCall
 } = graphqlMockedCallsFixtures;
 
 const DATA_DIRECTORY = 'multiStore/data';
@@ -41,7 +52,7 @@ const getFixtureLocationPrefix = req => {
         headers: { store }
     } = req;
     switch (store) {
-        case 'view_1_b':
+        case secondStore.viewOne.storeCode:
             return `${DATA_DIRECTORY}/storeB/view-1`;
         default:
             return `${DATA_DIRECTORY}/default`;
@@ -141,7 +152,9 @@ describe('default store', () => {
 
         // App sends default header on initial visit
         cy.intercept(getAvailableStoresDataCall, req => {
-            expect(req.headers.store).to.equal('default');
+            expect(req.headers.store).to.equal(
+                defaultStore.defaultView.storeCode
+            );
         });
 
         cy.wait([
@@ -160,21 +173,14 @@ describe('default store', () => {
             '@getMockStoreName'
         ]);
 
-        // There are only 4 categories for the default store in the mock data
-        assertNumberOfCategoriesInMegaMenu(4);
-        assertNumberOfCategoriesInCategoryTree(4);
+        // Assertions to make sure we are using the mock data for categories
+        assertNumberOfCategoriesInMegaMenu(defaultStore.categories.length);
+        assertNumberOfCategoriesInCategoryTree(defaultStore.categories.length);
 
-        // Verify default categories are listed in the MegaMenu component
-        assertCategoryInMegaMenu('Tops');
-        assertCategoryInMegaMenu('Bottoms');
-        assertCategoryInMegaMenu('Dresses');
-        assertCategoryInMegaMenu('Accessories');
-
-        //Verify default categories are listed in the CategoryTree navigation
-        assertCategoryInCategoryTree('Tops');
-        assertCategoryInCategoryTree('Bottoms');
-        assertCategoryInCategoryTree('Dresses');
-        assertCategoryInCategoryTree('Accessories');
+        defaultStore.categories.forEach(categoryLabel => {
+            assertCategoryInMegaMenu(categoryLabel);
+            assertCategoryInCategoryTree(categoryLabel);
+        });
     });
 
     it('displays assigned products', () => {
@@ -196,7 +202,7 @@ describe('default store', () => {
             '@getMockStoreName'
         ]);
 
-        selectCategoryFromMegaMenu('Accessories');
+        selectCategoryFromMegaMenu(defaultStore.categories[3]);
 
         cy.intercept(
             getCategoriesCall,
@@ -207,8 +213,12 @@ describe('default store', () => {
 
         assertProductsFound();
 
-        // There are only 3 accessories for the default store in the mock data
-        assertNumberOfProductsListed(3);
+        // Assertions to make sure we are using the mock data for accessories
+        assertNumberOfProductsListed(defaultAccessoriesProducts.length);
+
+        defaultAccessoriesProducts.forEach(productName => {
+            assertProductIsInGallery(productName);
+        });
     });
 });
 
@@ -236,25 +246,24 @@ describe('Switching to another store', () => {
 
         // App sends the correct header after switching stores
         cy.intercept(getAvailableStoresDataCall, req => {
-            expect(req.headers.store).to.equal('view_1_b');
+            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
             req.reply({
                 fixture: `${DATA_DIRECTORY}/availableStores.json`
             });
         });
 
-        selectStoreView('Store B - View One B');
+        selectStoreView(
+            `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
+        );
 
-        // There are only 2 categories for Store B in the mock data
-        assertNumberOfCategoriesInMegaMenu(2);
-        assertNumberOfCategoriesInCategoryTree(2);
+        // Assert categories for second store
+        assertNumberOfCategoriesInMegaMenu(secondStore.categories.length);
+        assertNumberOfCategoriesInCategoryTree(secondStore.categories.length);
 
-        // Verify Store B categories are listed in the MegaMenu component
-        assertCategoryInMegaMenu('Subcategory A');
-        assertCategoryInMegaMenu('Subcategory B');
-
-        //Verify Store B categories are listed in the CategoryTree navigation
-        assertCategoryInCategoryTree('Subcategory A');
-        assertCategoryInCategoryTree('Subcategory B');
+        secondStore.categories.forEach(categoryLabel => {
+            assertCategoryInMegaMenu(categoryLabel);
+            assertCategoryInCategoryTree(categoryLabel);
+        });
     });
 
     it('Shows products specific to the categories in the different store', () => {
@@ -278,13 +287,15 @@ describe('Switching to another store', () => {
 
         toggleHeaderStoreSwitcher();
 
-        selectStoreView('Store B - View One B');
+        selectStoreView(
+            `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
+        );
 
         cy.intercept(getCategoriesCall, getInterceptHandler('subcategoryA')).as(
             'getMockSubcategoryACategory'
         );
 
-        selectCategoryFromMegaMenu('Subcategory A');
+        selectCategoryFromMegaMenu(secondStore.categories[0]);
 
         cy.wait('@getMockSubcategoryACategory');
 
@@ -297,7 +308,7 @@ describe('Switching to another store', () => {
             'getMockSubcategoryBCategory'
         );
 
-        selectCategoryFromMegaMenu('Subcategory B');
+        selectCategoryFromMegaMenu(secondStore.categories[1]);
 
         cy.wait('@getMockSubcategoryBCategory');
 
