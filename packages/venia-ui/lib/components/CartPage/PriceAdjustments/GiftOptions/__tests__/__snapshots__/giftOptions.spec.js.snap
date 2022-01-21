@@ -1,87 +1,1027 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders gift options in venia cart page 1`] = `
-<form
-  onKeyDown={[Function]}
-  onReset={[Function]}
-  onSubmit={[Function]}
+exports[`#GiftOptions renders empty form when no options are enabled 1`] = `
+<mock-Form
+  className="root"
 >
-  <div>
-    <label>
-      <input
-        checked={false}
-        id="00000000-0000-4000-8000-000000000000"
-        name="includeGiftReceipt"
-        onBlur={[Function]}
-        onChange={[Function]}
-        type="checkbox"
+  <mock-FormError
+    errors={Array []}
+  />
+</mock-Form>
+`;
+
+exports[`#GiftOptions renders form returns errors 1`] = `
+<mock-Form
+  className="root"
+>
+  <mock-FormError
+    errors={
+      Array [
+        Object {
+          "message": "error",
+        },
+      ]
+    }
+  />
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftReceipt"
+        label="Include gift receipt"
       />
-      <span>
-        <svg
-          fill="none"
-          height={24}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={24}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="18"
-            rx="2"
-            ry="2"
-            width="18"
-            x="3"
-            y="3"
-          />
-        </svg>
-      </span>
-      <span>
-        Include gift receipt
-      </span>
-    </label>
-    <p />
+    </div>
   </div>
-  <div>
-    <label>
-      <input
-        checked={false}
-        id="00000000-0000-4000-8000-000000000000"
-        name="includePrintedCard"
-        onBlur={[Function]}
-        onChange={[Function]}
-        type="checkbox"
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftMessage"
+        label="Optional Message"
       />
-      <span>
-        <svg
-          fill="none"
-          height={24}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={24}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="18"
-            rx="2"
-            ry="2"
-            width="18"
-            x="3"
-            y="3"
-          />
-        </svg>
-      </span>
-      <span>
-        Include printed card
-      </span>
-    </label>
-    <p />
+    </div>
   </div>
-  <div />
-</form>
+  <div
+    className="hidden"
+  >
+    <div
+      className="giftMessageResult"
+    >
+      <p>
+        <strong>
+          To:
+        </strong>
+         
+      </p>
+      <p>
+        <strong>
+          From:
+        </strong>
+         
+      </p>
+      <p />
+    </div>
+    <mock-LinkButton
+      classes={
+        Object {
+          "root": "editGiftMessageButton",
+        }
+      }
+    >
+      <mock-Icon
+        classes={
+          Object {
+            "icon": null,
+          }
+        }
+        size={16}
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
+      />
+      <span
+        className="actionLabel"
+      >
+        Edit
+      </span>
+    </mock-LinkButton>
+  </div>
+  <div
+    className="giftMessageFields"
+  >
+    <mock-Field
+      id="to"
+      label="To"
+    >
+      <mock-TextInput
+        field="cardTo"
+      />
+    </mock-Field>
+    <mock-Field
+      id="cardFrom"
+      label="From"
+    >
+      <mock-TextInput
+        field="cardFrom"
+      />
+    </mock-Field>
+    <mock-Field
+      id="message"
+      label="Message"
+    >
+      <mock-TextArea
+        field="cardMessage"
+        placeholder="Enter your message here"
+      />
+    </mock-Field>
+    <div
+      className="giftMessageActions"
+    >
+      <mock-Button>
+        Add Message
+      </mock-Button>
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includePrintedCard"
+        label="Add printed card"
+      />
+    </div>
+  </div>
+</mock-Form>
+`;
+
+exports[`#GiftOptions renders form when gift message exists 1`] = `
+<mock-Form
+  className="root"
+>
+  <mock-FormError
+    errors={Array []}
+  />
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftReceipt"
+        label="Include gift receipt"
+      />
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftMessage"
+        label="Optional Message"
+      />
+    </div>
+  </div>
+  <div
+    className="hidden"
+  >
+    <div
+      className="giftMessageResult"
+    >
+      <p>
+        <strong>
+          To:
+        </strong>
+         To
+      </p>
+      <p>
+        <strong>
+          From:
+        </strong>
+         From
+      </p>
+      <p>
+        Message
+      </p>
+    </div>
+    <mock-LinkButton
+      classes={
+        Object {
+          "root": "editGiftMessageButton",
+        }
+      }
+    >
+      <mock-Icon
+        classes={
+          Object {
+            "icon": null,
+          }
+        }
+        size={16}
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
+      />
+      <span
+        className="actionLabel"
+      >
+        Edit
+      </span>
+    </mock-LinkButton>
+  </div>
+  <div
+    className="giftMessageFields"
+  >
+    <mock-Field
+      id="to"
+      label="To"
+    >
+      <mock-TextInput
+        field="cardTo"
+      />
+    </mock-Field>
+    <mock-Field
+      id="cardFrom"
+      label="From"
+    >
+      <mock-TextInput
+        field="cardFrom"
+      />
+    </mock-Field>
+    <mock-Field
+      id="message"
+      label="Message"
+    >
+      <mock-TextArea
+        field="cardMessage"
+        placeholder="Enter your message here"
+      />
+    </mock-Field>
+    <div
+      className="giftMessageActions"
+    >
+      <mock-Button>
+        Cancel
+      </mock-Button>
+      <mock-Button>
+        Update Message
+      </mock-Button>
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includePrintedCard"
+        label="Add printed card"
+      />
+    </div>
+  </div>
+</mock-Form>
+`;
+
+exports[`#GiftOptions renders form when gift message exists and form is opened 1`] = `
+<mock-Form
+  className="root"
+>
+  <mock-FormError
+    errors={Array []}
+  />
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftReceipt"
+        label="Include gift receipt"
+      />
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftMessage"
+        label="Optional Message"
+      />
+    </div>
+  </div>
+  <div
+    className="giftMessageResultContainer"
+  >
+    <div
+      className="giftMessageResult"
+    >
+      <p>
+        <strong>
+          To:
+        </strong>
+         To
+      </p>
+      <p>
+        <strong>
+          From:
+        </strong>
+         From
+      </p>
+      <p>
+        Message
+      </p>
+    </div>
+    <mock-LinkButton
+      classes={
+        Object {
+          "root": "editGiftMessageButton",
+        }
+      }
+    >
+      <mock-Icon
+        classes={
+          Object {
+            "icon": null,
+          }
+        }
+        size={16}
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
+      />
+      <span
+        className="actionLabel"
+      >
+        Edit
+      </span>
+    </mock-LinkButton>
+  </div>
+  <div
+    className="hidden"
+  >
+    <mock-Field
+      id="to"
+      label="To"
+    >
+      <mock-TextInput
+        field="cardTo"
+      />
+    </mock-Field>
+    <mock-Field
+      id="cardFrom"
+      label="From"
+    >
+      <mock-TextInput
+        field="cardFrom"
+      />
+    </mock-Field>
+    <mock-Field
+      id="message"
+      label="Message"
+    >
+      <mock-TextArea
+        field="cardMessage"
+        placeholder="Enter your message here"
+      />
+    </mock-Field>
+    <div
+      className="giftMessageActions"
+    >
+      <mock-Button>
+        Cancel
+      </mock-Button>
+      <mock-Button>
+        Update Message
+      </mock-Button>
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includePrintedCard"
+        label="Add printed card"
+      />
+    </div>
+  </div>
+</mock-Form>
+`;
+
+exports[`#GiftOptions renders form when gift message form is opened 1`] = `
+<mock-Form
+  className="root"
+>
+  <mock-FormError
+    errors={Array []}
+  />
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftReceipt"
+        label="Include gift receipt"
+      />
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftMessage"
+        label="Optional Message"
+      />
+    </div>
+  </div>
+  <div
+    className="giftMessageResultContainer"
+  >
+    <div
+      className="giftMessageResult"
+    >
+      <p>
+        <strong>
+          To:
+        </strong>
+         
+      </p>
+      <p>
+        <strong>
+          From:
+        </strong>
+         
+      </p>
+      <p />
+    </div>
+    <mock-LinkButton
+      classes={
+        Object {
+          "root": "editGiftMessageButton",
+        }
+      }
+    >
+      <mock-Icon
+        classes={
+          Object {
+            "icon": null,
+          }
+        }
+        size={16}
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
+      />
+      <span
+        className="actionLabel"
+      >
+        Edit
+      </span>
+    </mock-LinkButton>
+  </div>
+  <div
+    className="hidden"
+  >
+    <mock-Field
+      id="to"
+      label="To"
+    >
+      <mock-TextInput
+        field="cardTo"
+      />
+    </mock-Field>
+    <mock-Field
+      id="cardFrom"
+      label="From"
+    >
+      <mock-TextInput
+        field="cardFrom"
+      />
+    </mock-Field>
+    <mock-Field
+      id="message"
+      label="Message"
+    >
+      <mock-TextArea
+        field="cardMessage"
+        placeholder="Enter your message here"
+      />
+    </mock-Field>
+    <div
+      className="giftMessageActions"
+    >
+      <mock-Button>
+        Add Message
+      </mock-Button>
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includePrintedCard"
+        label="Add printed card"
+      />
+    </div>
+  </div>
+</mock-Form>
+`;
+
+exports[`#GiftOptions renders form when options are enabled 1`] = `
+<mock-Form
+  className="root"
+>
+  <mock-FormError
+    errors={Array []}
+  />
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftReceipt"
+        label="Include gift receipt"
+      />
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftMessage"
+        label="Optional Message"
+      />
+    </div>
+  </div>
+  <div
+    className="hidden"
+  >
+    <div
+      className="giftMessageResult"
+    >
+      <p>
+        <strong>
+          To:
+        </strong>
+         
+      </p>
+      <p>
+        <strong>
+          From:
+        </strong>
+         
+      </p>
+      <p />
+    </div>
+    <mock-LinkButton
+      classes={
+        Object {
+          "root": "editGiftMessageButton",
+        }
+      }
+    >
+      <mock-Icon
+        classes={
+          Object {
+            "icon": null,
+          }
+        }
+        size={16}
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
+      />
+      <span
+        className="actionLabel"
+      >
+        Edit
+      </span>
+    </mock-LinkButton>
+  </div>
+  <div
+    className="giftMessageFields"
+  >
+    <mock-Field
+      id="to"
+      label="To"
+    >
+      <mock-TextInput
+        field="cardTo"
+      />
+    </mock-Field>
+    <mock-Field
+      id="cardFrom"
+      label="From"
+    >
+      <mock-TextInput
+        field="cardFrom"
+      />
+    </mock-Field>
+    <mock-Field
+      id="message"
+      label="Message"
+    >
+      <mock-TextArea
+        field="cardMessage"
+        placeholder="Enter your message here"
+      />
+    </mock-Field>
+    <div
+      className="giftMessageActions"
+    >
+      <mock-Button>
+        Add Message
+      </mock-Button>
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includePrintedCard"
+        label="Add printed card"
+      />
+    </div>
+  </div>
+</mock-Form>
+`;
+
+exports[`#GiftOptions renders loading indicator when loading 1`] = `<mock-LoadingIndicator />`;
+
+exports[`#GiftOptions renders printed card price when above 0 1`] = `
+<mock-Form
+  className="root"
+>
+  <mock-FormError
+    errors={Array []}
+  />
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftReceipt"
+        label="Include gift receipt"
+      />
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftMessage"
+        label="Optional Message"
+      />
+    </div>
+  </div>
+  <div
+    className="hidden"
+  >
+    <div
+      className="giftMessageResult"
+    >
+      <p>
+        <strong>
+          To:
+        </strong>
+         
+      </p>
+      <p>
+        <strong>
+          From:
+        </strong>
+         
+      </p>
+      <p />
+    </div>
+    <mock-LinkButton
+      classes={
+        Object {
+          "root": "editGiftMessageButton",
+        }
+      }
+    >
+      <mock-Icon
+        classes={
+          Object {
+            "icon": null,
+          }
+        }
+        size={16}
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
+      />
+      <span
+        className="actionLabel"
+      >
+        Edit
+      </span>
+    </mock-LinkButton>
+  </div>
+  <div
+    className="giftMessageFields"
+  >
+    <mock-Field
+      id="to"
+      label="To"
+    >
+      <mock-TextInput
+        field="cardTo"
+      />
+    </mock-Field>
+    <mock-Field
+      id="cardFrom"
+      label="From"
+    >
+      <mock-TextInput
+        field="cardFrom"
+      />
+    </mock-Field>
+    <mock-Field
+      id="message"
+      label="Message"
+    >
+      <mock-TextArea
+        field="cardMessage"
+        placeholder="Enter your message here"
+      />
+    </mock-Field>
+    <div
+      className="giftMessageActions"
+    >
+      <mock-Button>
+        Add Message
+      </mock-Button>
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includePrintedCard"
+        label={
+          Array [
+            "Add printed card",
+            <React.Fragment>
+               ( + 
+              <Unknown
+                currencyCode="USD"
+                value={10}
+              />
+              )
+            </React.Fragment>,
+          ]
+        }
+      />
+    </div>
+  </div>
+</mock-Form>
+`;
+
+exports[`#GiftOptions renders spinners when gift options are saving 1`] = `
+<mock-Form
+  className="root"
+>
+  <mock-FormError
+    errors={Array []}
+  />
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftReceipt"
+        label="Include gift receipt"
+      />
+    </div>
+    <div
+      className="savingContainer"
+    >
+      <span
+        className="savingText"
+      >
+        Saving
+      </span>
+      <mock-Spinner
+        classes={
+          Object {
+            "root": "savingSpinner",
+          }
+        }
+      />
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includeGiftMessage"
+        label="Optional Message"
+      />
+    </div>
+    <div
+      className="savingContainer"
+    >
+      <span
+        className="savingText"
+      >
+        Saving
+      </span>
+      <mock-Spinner
+        classes={
+          Object {
+            "root": "savingSpinner",
+          }
+        }
+      />
+    </div>
+  </div>
+  <div
+    className="hidden"
+  >
+    <div
+      className="giftMessageResult"
+    >
+      <p>
+        <strong>
+          To:
+        </strong>
+         
+      </p>
+      <p>
+        <strong>
+          From:
+        </strong>
+         
+      </p>
+      <p />
+    </div>
+    <mock-LinkButton
+      classes={
+        Object {
+          "root": "editGiftMessageButton",
+        }
+      }
+    >
+      <mock-Icon
+        classes={
+          Object {
+            "icon": null,
+          }
+        }
+        size={16}
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
+      />
+      <span
+        className="actionLabel"
+      >
+        Edit
+      </span>
+    </mock-LinkButton>
+  </div>
+  <div
+    className="giftMessageFields"
+  >
+    <mock-Field
+      id="to"
+      label="To"
+    >
+      <mock-TextInput
+        field="cardTo"
+      />
+    </mock-Field>
+    <mock-Field
+      id="cardFrom"
+      label="From"
+    >
+      <mock-TextInput
+        field="cardFrom"
+      />
+    </mock-Field>
+    <mock-Field
+      id="message"
+      label="Message"
+    >
+      <mock-TextArea
+        field="cardMessage"
+        placeholder="Enter your message here"
+      />
+    </mock-Field>
+    <div
+      className="giftMessageActions"
+    >
+      <mock-Button>
+        Add Message
+      </mock-Button>
+    </div>
+  </div>
+  <div
+    className="option"
+  >
+    <div
+      className="checkboxContainer"
+    >
+      <mock-Checkbox
+        field="includePrintedCard"
+        label="Add printed card"
+      />
+    </div>
+    <div
+      className="savingContainer"
+    >
+      <span
+        className="savingText"
+      >
+        Saving
+      </span>
+      <mock-Spinner
+        classes={
+          Object {
+            "root": "savingSpinner",
+          }
+        }
+      />
+    </div>
+  </div>
+</mock-Form>
 `;
