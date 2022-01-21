@@ -163,8 +163,7 @@ getModuleRules.css = async ({ hasFlag, mode }) => ({
                         },
                         sourceMap: mode === 'development'
                     }
-                },
-                'postcss-loader'
+                }
             ]
         },
         {
