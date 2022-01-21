@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 
 import { DiscountSummaryFragment } from './discountSummary.gql';
 import { GiftCardSummaryFragment } from './queries/giftCardSummary';
+import { GiftOptionsSummaryFragment } from './queries/giftOptionsSummary';
 import { ShippingSummaryFragment } from './shippingSummary.gql';
 import { TaxSummaryFragment } from './taxSummary.gql';
 
@@ -33,9 +34,11 @@ export const PriceSummaryFragment = gql`
             }
         }
         ...GiftCardSummaryFragment
+        ...GiftOptionsSummaryFragment
     }
     ${DiscountSummaryFragment}
     ${GiftCardSummaryFragment}
+    ${GiftOptionsSummaryFragment}
     ${GrandTotalFragment}
     ${ShippingSummaryFragment}
     ${TaxSummaryFragment}

@@ -5,7 +5,7 @@ export const priceSummaryResponse = {
                 value: 20
             },
             grand_total: {
-                value: 30
+                value: 40
             },
             discounts: [
                 {
@@ -20,7 +20,12 @@ export const priceSummaryResponse = {
                         value: 7
                     }
                 }
-            ]
+            ],
+            gift_options: {
+                printed_card: {
+                    value: 10
+                }
+            }
         },
         applied_gift_cards: [
             {
