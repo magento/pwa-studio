@@ -20,7 +20,8 @@ import {
     megaMenuMegaMenuItem,
     megaMenuMegaMenuItemLink,
     megaMenuSubmenuColumnLink,
-    productsGalleryItemName
+    productsGalleryItemName,
+    categoryPageProductGalleryItem
 } from '../../fields/categoryPage';
 
 /**
@@ -190,7 +191,8 @@ export const createWishlistViaDialog = wishlistName => {
  */
 export const addProductToCartFromCategoryPage = productToAdd => {
     // add product to cart
-    cy.contains(productToAdd)
+    cy.get(categoryPageProductGalleryItem)
+        .contains(productToAdd)
         .siblings()
         .find(categoryPageAddToCartButton)
         .click();

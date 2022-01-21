@@ -40,7 +40,7 @@ export const createWishlistConfirmButton =
     '[data-cy="createWishListForm-saveButton"]';
 
 export const categoryPageAddToCartButton =
-    '[data-cy="CategoryContent-root"] [data-cy="Gallery-root"] button[class^="addToCartButton-root-"]';
+    '[data-cy="AddToCartButton-buttonInStock"]';
 
 export const categoryTreeBranchTarget =
     '[data-cy="CategoryTree-root"] [data-cy="CategoryTree-Branch-target"]';
@@ -116,3 +116,6 @@ export const categoryContentInfo =
 
 export const filterSidebarShowMoreLessButton =
     '[data-cy="CategoryContent-root"] [data-cy="FilterSidebar-root"] [data-cy="FilterList-showMoreLessButton"]';
+
+export const categoryPageProductGalleryItem =
+    '[data-cy="CategoryContent-root"] [data-cy="GalleryItem-root"]';
