@@ -2,8 +2,16 @@ import {
     appMaskButton,
     headerNavTrigger,
     headerSearchTrigger,
-    searchBarSearchField
+    searchBarSearchField,
+    headerLogo
 } from '../../fields/header';
+
+/**
+ * Utility function to click on logo
+ */
+export const clickHeaderLogo = () => {
+    cy.get(headerLogo).click();
+};
 
 export const toggleHeaderNav = () => {
     cy.get(headerNavTrigger).click();

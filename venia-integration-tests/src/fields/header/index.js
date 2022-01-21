@@ -11,3 +11,6 @@ export const headerSearchTrigger =
 
 export const searchBarSearchField =
     '[data-cy="SearchBar-root"] [data-cy="SearchField-textInput"]';
+
+export const headerLogo =
+    '[data-cy="Header-root"] [class^="header-logoContainer"]';
