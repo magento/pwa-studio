@@ -53,6 +53,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+        style={Object {}}
       />
       <img
         alt="image-product"
@@ -61,6 +62,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
         onError={[Function]}
         onLoad={[Function]}
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+        style={Object {}}
       />
     </div>
     <button
@@ -161,6 +163,11 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+        style={
+          Object {
+            "--width": "640px",
+          }
+        }
         width={640}
       />
       <img
@@ -180,6 +187,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
 /media/catalog/product/thumbnail1.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
 /media/catalog/product/thumbnail1.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
 /media/catalog/product/thumbnail1.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+        style={
+          Object {
+            "--height": "800px",
+            "--width": "640px",
+          }
+        }
         width={640}
       />
     </div>
@@ -240,6 +253,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           height={170}
           loading="eager"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+          style={
+            Object {
+              "--height": "170px",
+              "--width": "135px",
+            }
+          }
           width={135}
         />
         <img
@@ -259,6 +278,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
 /media/catalog/product/thumbnail1.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
 /media/catalog/product/thumbnail1.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
 /media/catalog/product/thumbnail1.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+          style={
+            Object {
+              "--height": "170px",
+              "--width": "135px",
+            }
+          }
           width={135}
         />
       </div>
@@ -278,6 +303,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           height={170}
           loading="eager"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+          style={
+            Object {
+              "--height": "170px",
+              "--width": "135px",
+            }
+          }
           width={135}
         />
         <img
@@ -297,6 +328,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
 /media/catalog/product/thumbnail2.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
 /media/catalog/product/thumbnail2.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
 /media/catalog/product/thumbnail2.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+          style={
+            Object {
+              "--height": "170px",
+              "--width": "135px",
+            }
+          }
           width={135}
         />
       </div>
@@ -316,6 +353,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           height={170}
           loading="eager"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+          style={
+            Object {
+              "--height": "170px",
+              "--width": "135px",
+            }
+          }
           width={135}
         />
         <img
@@ -335,6 +378,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
 /media/catalog/product/thumbnail3.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
 /media/catalog/product/thumbnail3.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
 /media/catalog/product/thumbnail3.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+          style={
+            Object {
+              "--height": "170px",
+              "--width": "135px",
+            }
+          }
           width={135}
         />
       </div>
@@ -354,6 +403,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           height={170}
           loading="eager"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+          style={
+            Object {
+              "--height": "170px",
+              "--width": "135px",
+            }
+          }
           width={135}
         />
         <img
@@ -373,6 +428,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
 /media/catalog/product/thumbnail4.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
 /media/catalog/product/thumbnail4.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
 /media/catalog/product/thumbnail4.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+          style={
+            Object {
+              "--height": "170px",
+              "--width": "135px",
+            }
+          }
           width={135}
         />
       </div>

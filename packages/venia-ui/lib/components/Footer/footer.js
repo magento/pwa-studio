@@ -10,7 +10,7 @@ import Newsletter from '../Newsletter';
 import { useStyle } from '../../classify';
 import defaultClasses from './footer.module.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
-import resourceUrl from "@magento/peregrine/lib/util/makeUrl";
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 const Footer = props => {
     const { links } = props;
@@ -100,10 +100,7 @@ const Footer = props => {
                     </li>
                 </ul>
                 <p className={classes.copyright}>{copyrightText || null}</p>
-                <Link
-                    to={resourceUrl('/')}
-                    className={classes.logoContainer}
-                >
+                <Link to={resourceUrl('/')} className={classes.logoContainer}>
                     <Logo classes={{ logo: classes.logo }} />
                 </Link>
             </div>

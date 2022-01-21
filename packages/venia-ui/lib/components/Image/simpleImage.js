@@ -23,11 +23,18 @@ const SimpleImage = props => {
         width,
         ...rest
     } = props;
-
+    const dimensionAttributes = {};
+    if (typeof height !== 'undefined') {
+        dimensionAttributes['--height'] = height + 'px';
+    }
+    if (typeof width !== 'undefined') {
+        dimensionAttributes['--width'] = width + 'px';
+    }
     // Note: Attributes that are allowed to be overridden must appear before the spread of `rest`.
     return (
         <img
             loading="lazy"
+            style={dimensionAttributes}
             {...rest}
             alt={alt}
             className={className}
@@ -36,7 +43,6 @@ const SimpleImage = props => {
             onLoad={handleLoad}
             src={src}
             width={width}
-            style={{"--height": height+"px", "--width": width+"px"}}
         />
     );
 };

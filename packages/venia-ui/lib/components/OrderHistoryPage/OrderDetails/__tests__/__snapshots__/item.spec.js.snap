@@ -14,6 +14,11 @@ exports[`should render properly 1`] = `
         className="undefined undefined"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+        style={
+          Object {
+            "--width": "50px",
+          }
+        }
         width={50}
       />
       <img
@@ -33,6 +38,12 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=960&hei
 https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
 https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
 https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
+        style={
+          Object {
+            "--height": "62.5px",
+            "--width": "50px",
+          }
+        }
         width={50}
       />
     </div>
