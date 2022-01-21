@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Textarea renders empty when no data is provided 1`] = `null`;
+
+exports[`#Textarea renders label only when data is missing 1`] = `
+<div>
+  Textarea Label
+</div>
+`;
+
+exports[`#Textarea renders textarea with html when data is provided 1`] = `
+Array [
+  <div>
+    Textarea Label
+  </div>,
+  <div>
+    <mock-RichContent
+      html="<div>Textarea</div>"
+    />
+  </div>,
+]
+`;
+
+exports[`#Textarea renders textarea without html when data is provided 1`] = `
+Array [
+  <div>
+    Textarea Label
+  </div>,
+  <div>
+    Textarea
+  </div>,
+]
+`;

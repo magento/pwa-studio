@@ -119,6 +119,67 @@ const configurableProductProps = {
                 ]
             }
         ],
+        custom_attributes: [
+            {
+                entered_attribute_value: {
+                    value: 'Custom Label'
+                },
+                attribute_metadata: {
+                    uid: 'attribute-uid-1',
+                    code: 'attribute_code_1',
+                    label: 'Attribute Label 1',
+                    attribute_labels: [
+                        {
+                            store_code: 'default',
+                            label: 'Default Label 1'
+                        }
+                    ],
+                    data_type: 'COMPLEX',
+                    is_system: false,
+                    is_visible_on_front: true,
+                    entity_type: 'PRODUCT',
+                    ui_input: {
+                        ui_input_type: 'MULTISELECT',
+                        is_html_allowed: true
+                    }
+                }
+            },
+            {
+                selected_attribute_options: {
+                    attribute_option: [
+                        {
+                            uid: 'option-uid-1',
+                            label: 'Custom Label 1',
+                            is_default: true
+                        },
+                        {
+                            uid: 'option-uid-2',
+                            label: 'Custom Label 2',
+                            is_default: true
+                        }
+                    ]
+                },
+                attribute_metadata: {
+                    uid: 'attribute-uid-2',
+                    code: 'attribute_code_2',
+                    label: 'Attribute Label 2',
+                    attribute_labels: [
+                        {
+                            store_code: 'default',
+                            label: 'Default Label 2'
+                        }
+                    ],
+                    data_type: 'COMPLEX',
+                    is_system: false,
+                    is_visible_on_front: true,
+                    entity_type: 'PRODUCT',
+                    ui_input: {
+                        ui_input_type: 'MULTISELECT',
+                        is_html_allowed: true
+                    }
+                }
+            }
+        ],
         variants: [
             {
                 attributes: [
@@ -140,7 +201,33 @@ const configurableProductProps = {
                                 value: 99
                             }
                         }
-                    }
+                    },
+                    custom_attributes: [
+                        {
+                            entered_attribute_value: {
+                                value: 'Custom Label'
+                            },
+                            attribute_metadata: {
+                                uid: 'attribute-uid-3',
+                                code: 'attribute_code_3',
+                                label: 'Attribute Label 3',
+                                attribute_labels: [
+                                    {
+                                        store_code: 'default',
+                                        label: 'Default Label 3'
+                                    }
+                                ],
+                                data_type: 'COMPLEX',
+                                is_system: false,
+                                is_visible_on_front: true,
+                                entity_type: 'PRODUCT',
+                                ui_input: {
+                                    ui_input_type: 'MULTISELECT',
+                                    is_html_allowed: true
+                                }
+                            }
+                        }
+                    ]
                 },
                 __typename: 'ConfigurableVariant'
             },
@@ -164,7 +251,8 @@ const configurableProductProps = {
                                 value: 99
                             }
                         }
-                    }
+                    },
+                    custom_attributes: []
                 },
                 __typename: 'ConfigurableVariant'
             }
