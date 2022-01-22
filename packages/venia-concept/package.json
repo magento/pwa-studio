@@ -131,7 +131,7 @@
     "workbox-webpack-plugin": "~6.2.4"
   },
   "optionalDependencies": {
-    "sharp": "~0.29.0"
+    "sharp": "~0.29.3"
   },
   "engines": {
     "node": ">=14.x",
