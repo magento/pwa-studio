@@ -149,7 +149,7 @@ const CheckoutPage = props => {
             </div>
         );
     } else {
-        const signInContainerElement = isGuestCheckout ? (
+        const signInContainerElement = (isGuestCheckout && checkoutStep !== CHECKOUT_STEP.REVIEW) ? (
             <div className={classes.signInContainer}>
                 <span className={classes.signInLabel}>
                     <FormattedMessage
