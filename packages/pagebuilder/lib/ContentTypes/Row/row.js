@@ -172,7 +172,7 @@ const Row = props => {
                 videoLoop,
                 videoPlayOnlyVisible,
                 videoLazyLoading,
-                zIndex: "auto"
+                zIndex: 'auto'
             });
 
             parallaxElement.jarallax.video &&
