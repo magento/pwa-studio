@@ -149,27 +149,28 @@ const CheckoutPage = props => {
             </div>
         );
     } else {
-        const signInContainerElement = (isGuestCheckout && checkoutStep !== CHECKOUT_STEP.REVIEW) ? (
-            <div className={classes.signInContainer}>
-                <span className={classes.signInLabel}>
-                    <FormattedMessage
-                        id={'checkoutPage.signInLabel'}
-                        defaultMessage={'Sign in for Express Checkout'}
-                    />
-                </span>
-                <Button
-                    className={classes.signInButton}
-                    data-cy="CheckoutPage-signInButton"
-                    onClick={toggleSignInContent}
-                    priority="normal"
-                >
-                    <FormattedMessage
-                        id={'checkoutPage.signInButton'}
-                        defaultMessage={'Sign In'}
-                    />
-                </Button>
-            </div>
-        ) : null;
+        const signInContainerElement =
+            isGuestCheckout && checkoutStep !== CHECKOUT_STEP.REVIEW ? (
+                <div className={classes.signInContainer}>
+                    <span className={classes.signInLabel}>
+                        <FormattedMessage
+                            id={'checkoutPage.signInLabel'}
+                            defaultMessage={'Sign in for Express Checkout'}
+                        />
+                    </span>
+                    <Button
+                        className={classes.signInButton}
+                        data-cy="CheckoutPage-signInButton"
+                        onClick={toggleSignInContent}
+                        priority="normal"
+                    >
+                        <FormattedMessage
+                            id={'checkoutPage.signInButton'}
+                            defaultMessage={'Sign In'}
+                        />
+                    </Button>
+                </div>
+            ) : null;
 
         const shippingMethodSection =
             checkoutStep >= CHECKOUT_STEP.SHIPPING_METHOD ? (
