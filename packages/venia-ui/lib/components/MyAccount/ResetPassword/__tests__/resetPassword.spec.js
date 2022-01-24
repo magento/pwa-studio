@@ -11,8 +11,8 @@ jest.mock('@magento/peregrine', () => ({
 }));
 jest.mock('@magento/peregrine/lib/talons/MyAccount/useResetPassword', () => ({
     useResetPassword: jest.fn().mockReturnValue({
-        isBusy: false,
         hasCompleted: false,
+        loading: false,
         token: '********',
         formErrors: [],
         handleSubmit: jest.fn().mockName('handleSubmit')
@@ -31,12 +31,11 @@ test('should render properly', () => {
 
 test('should render error message if token is falsy', () => {
     useResetPassword.mockReturnValueOnce({
-        isBusy: false,
-        formErrors: [],
-        recaptchaWidgetProps: {},
-        handleSubmit: jest.fn(),
         hasCompleted: false,
-        token: null
+        loading: false,
+        token: null,
+        formErrors: [],
+        handleSubmit: jest.fn()
     });
 
     const tree = createTestInstance(<ResetPassword />);
@@ -46,7 +45,9 @@ test('should render error message if token is falsy', () => {
 
 test('should render formErrors', () => {
     useResetPassword.mockReturnValueOnce({
-        isBusy: false,
+        hasCompleted: false,
+        loading: false,
+        token: '**********',
         formErrors: [
             {
                 graphQLErrors: {
@@ -54,10 +55,7 @@ test('should render formErrors', () => {
                 }
             }
         ],
-        recaptchaWidgetProps: {},
-        handleSubmit: jest.fn(),
-        hasCompleted: false,
-        token: '**********'
+        handleSubmit: jest.fn()
     });
 
     const tree = createTestInstance(<ResetPassword />);
@@ -67,12 +65,11 @@ test('should render formErrors', () => {
 
 test('should render success message if hasCompleted is true', () => {
     useResetPassword.mockReturnValueOnce({
-        isBusy: false,
-        formErrors: [],
-        recaptchaWidgetProps: {},
-        handleSubmit: jest.fn(),
         hasCompleted: true,
-        token: '**********'
+        loading: false,
+        token: '**********',
+        formErrors: [],
+        handleSubmit: jest.fn()
     });
 
     const tree = createTestInstance(<ResetPassword />);
@@ -84,12 +81,11 @@ test('should render toast if hasCompleted is true', () => {
     const addToast = jest.fn();
     useToasts.mockReturnValueOnce([{}, { addToast }]);
     useResetPassword.mockReturnValueOnce({
-        isBusy: false,
-        formErrors: [],
-        recaptchaWidgetProps: {},
-        handleSubmit: jest.fn(),
         hasCompleted: true,
-        token: '**********'
+        loading: false,
+        token: '**********',
+        formErrors: [],
+        handleSubmit: jest.fn()
     });
 
     createTestInstance(<ResetPassword />);

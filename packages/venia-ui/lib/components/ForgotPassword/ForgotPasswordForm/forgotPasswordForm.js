@@ -1,25 +1,18 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { bool, func, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { useStyle } from '../../../classify';
 import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
-import GoogleReCaptcha from '../../GoogleReCaptcha';
 import TextInput from '../../TextInput';
 import defaultClasses from './forgotPasswordForm.module.css';
 
 const ForgotPasswordForm = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const {
-        initialValues,
-        isBusy,
-        onCancel,
-        onSubmit,
-        recaptchaWidgetProps
-    } = props;
+    const { initialValues, isResettingPassword, onSubmit, onCancel } = props;
 
     const { formatMessage } = useIntl();
 
@@ -43,11 +36,10 @@ const ForgotPasswordForm = props => {
                     data-cy="email"
                 />
             </Field>
-            <GoogleReCaptcha {...recaptchaWidgetProps} />
             <div className={classes.buttonContainer}>
                 <Button
                     className={classes.cancelButton}
-                    disabled={isBusy}
+                    disabled={isResettingPassword}
                     type="button"
                     priority="low"
                     onClick={onCancel}
@@ -59,7 +51,7 @@ const ForgotPasswordForm = props => {
                 </Button>
                 <Button
                     className={classes.submitButton}
-                    disabled={isBusy}
+                    disabled={isResettingPassword}
                     type="submit"
                     priority="high"
                     data-cy="forgotPasswordForm-submitButton"
@@ -82,14 +74,12 @@ ForgotPasswordForm.propTypes = {
     initialValues: shape({
         email: string
     }),
-    isBusy: bool,
     onCancel: func.isRequired,
     onSubmit: func.isRequired
 };
 
 ForgotPasswordForm.defaultProps = {
-    initialValues: {},
-    isBusy: false
+    initialValues: {}
 };
 
 export default ForgotPasswordForm;

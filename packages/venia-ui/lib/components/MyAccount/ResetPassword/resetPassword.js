@@ -11,34 +11,38 @@ import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import FormErrors from '../../FormError';
-import GoogleReCaptcha from '../../GoogleReCaptcha';
 import { StoreTitle } from '../../Head';
 import Password from '../../Password';
 import TextInput from '../../TextInput';
 import defaultClasses from './resetPassword.module.css';
+import resetPasswordOperations from './resetPassword.gql';
 
 const ResetPassword = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, propClasses);
-    const talonProps = useResetPassword();
+    const talonProps = useResetPassword({ ...resetPasswordOperations });
     const {
-        isBusy,
-        formErrors,
-        recaptchaWidgetProps,
-        handleSubmit,
         hasCompleted,
-        token
+        loading,
+        token,
+        formErrors,
+        handleSubmit
     } = talonProps;
-
+    const PAGE_TITLE = formatMessage({
+        id: 'resetPassword.pageTitleText',
+        defaultMessage: 'Reset Password'
+    });
     const tokenMissing = (
-        <div className={classes.invalidToken}>
-            <FormattedMessage
-                id={'resetPassword.invalidTokenMessage'}
-                defaultMessage={
-                    'Uh oh, something went wrong. Check the link or try again.'
-                }
-            />
+        <div className={classes.invalidTokenContainer}>
+            <div className={classes.invalidToken}>
+                <FormattedMessage
+                    id={'resetPassword.invalidTokenMessage'}
+                    defaultMessage={
+                        'Uh oh, something went wrong. Check the link or try again.'
+                    }
+                />
+            </div>
         </div>
     );
 
@@ -57,16 +61,18 @@ const ResetPassword = props => {
         }
     }, [addToast, formatMessage, hasCompleted]);
     const recoverPassword = hasCompleted ? (
-        <div className={classes.successMessage}>
-            <FormattedMessage
-                id={'resetPassword.successMessage'}
-                defaultMessage={
-                    'Your new password has been saved. Please use this password to sign into your Account.'
-                }
-            />
+        <div className={classes.successMessageContainer}>
+            <div className={classes.successMessage}>
+                <FormattedMessage
+                    id={'resetPassword.successMessage'}
+                    defaultMessage={
+                        'Your new password has been saved. Please use this password to sign into your Account.'
+                    }
+                />
+            </div>
         </div>
     ) : (
-        <Form className={classes.form} onSubmit={handleSubmit}>
+        <Form className={classes.container} onSubmit={handleSubmit}>
             <div className={classes.description}>
                 <FormattedMessage
                     id={'resetPassword.descriptionText'}
@@ -79,6 +85,9 @@ const ResetPassword = props => {
                 <TextInput field={'email'} validate={isRequired} />
             </Field>
             <Password
+                classes={{
+                    root: classes.password
+                }}
                 label={formatMessage({
                     id: 'resetPassword.newPasswordText',
                     defaultMessage: 'New Password'
@@ -86,41 +95,31 @@ const ResetPassword = props => {
                 fieldName={'newPassword'}
                 isToggleButtonHidden={false}
             />
-            <GoogleReCaptcha {...recaptchaWidgetProps} />
-            <div className={classes.buttonContainer}>
-                <Button
-                    className={classes.submitButton}
-                    type="submit"
-                    priority="high"
-                    disabled={isBusy}
-                >
-                    <FormattedMessage
-                        id="resetPassword.savePassword"
-                        defaultMessage="Save Password"
-                    />
-                </Button>
-            </div>
-            <FormErrors errors={formErrors} />
+            <Button
+                className={classes.submitButton}
+                type="submit"
+                priority="high"
+                disabled={loading}
+            >
+                <FormattedMessage
+                    id="resetPassword.savePassword"
+                    defaultMessage="Save Password"
+                />
+            </Button>
+            <FormErrors
+                classes={{
+                    root: classes.errorMessage
+                }}
+                errors={formErrors}
+            />
         </Form>
     );
 
     return (
         <div className={classes.root}>
-            <StoreTitle>
-                {formatMessage({
-                    id: 'resetPassword.title',
-                    defaultMessage: 'Reset Password'
-                })}
-            </StoreTitle>
-            <h1 className={classes.header}>
-                <FormattedMessage
-                    id="resetPassword.header"
-                    defaultMessage="Reset Password"
-                />
-            </h1>
-            <div className={classes.contentContainer}>
-                {token ? recoverPassword : tokenMissing}
-            </div>
+            <StoreTitle>{PAGE_TITLE}</StoreTitle>
+            <h1 className={classes.heading}>{PAGE_TITLE}</h1>
+            {token ? recoverPassword : tokenMissing}
         </div>
     );
 };
@@ -129,14 +128,16 @@ export default ResetPassword;
 
 ResetPassword.propTypes = {
     classes: shape({
-        root: string,
-        header: string,
-        contentContainer: string,
-        form: string,
+        container: string,
         description: string,
+        errorMessage: string,
+        heading: string,
         invalidToken: string,
-        buttonContainer: string,
+        invalidTokenContainer: string,
+        password: string,
+        root: string,
         submitButton: string,
-        successMessage: string
+        successMessage: string,
+        successMessageContainer: string
     })
 };

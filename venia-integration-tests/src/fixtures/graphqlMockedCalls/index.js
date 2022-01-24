@@ -56,9 +56,6 @@ export const getProductFiltersBySearchCall =
 
 export const getProductSearchCall = '**/graphql?query=query+ProductSearch*';
 
-export const getReCaptchaV3ConfigCall =
-    '**/graphql?query=query+GetReCaptchaV3Config*';
-
 export const getRegionsCall = '**/graphql?query=query+GetRegions*';
 
 export const getSelectedAndAvailableShippingMethodsCall =
