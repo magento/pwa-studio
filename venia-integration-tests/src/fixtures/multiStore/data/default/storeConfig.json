@@ -6,6 +6,7 @@
       "category_url_suffix": ".html",
       "configurable_thumbnail_source": "parent",
       "store_name": "Default Store View",
+      "grid_per_page": 12,
       "locale": "en_US",
       "newsletter_enabled": true,
       "store_group_name": "Main Website Store",
