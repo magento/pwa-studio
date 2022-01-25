@@ -1,0 +1,8 @@
+{
+  "data": {
+    "products": {
+      "aggregations": [],
+      "__typename": "Products"
+    }
+  }
+}

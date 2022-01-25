@@ -1,13 +1,7 @@
-import { goToCheckout } from '../../../actions/cartPage';
 import {
     addProductToCartFromCategoryPage,
     selectCategoryFromMegaMenu
 } from '../../../actions/categoryPage';
-import {
-    editCreditCardInformation,
-    setGuestShippingAddress,
-    submitShippingMethod
-} from '../../../actions/checkoutPage';
 import {
     goToCartPageFromEditCartButton,
     triggerMiniCart
@@ -30,8 +24,6 @@ import {
     assertCategoryInCategoryTree,
     assertNumberOfCategoriesInCategoryTree
 } from '../../../assertions/categoryTree';
-import {
-    assertPaymentInformationInCheckoutPage} from '../../../assertions/checkoutPage';
 import { assertCartTriggerCount } from '../../../assertions/header';
 
 import {
@@ -39,37 +31,23 @@ import {
     assertNumberOfCategoriesInMegaMenu
 } from '../../../assertions/megaMenu';
 import { assertProductInList } from '../../../assertions/miniCart';
-import {
-    assertErrorInPage} from '../../../assertions/notFoundPage';
+import { assertErrorInPage } from '../../../assertions/notFoundPage';
 
-import {
-    accountAccess,
-    graphqlMockedCalls as graphqlMockedCallsFixtures
-} from '../../../fixtures';
-import { accountEmail } from '../../../fixtures/accountAccess';
-import { checkoutShippingData } from '../../../fixtures/checkoutPage';
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 import {
     checkUserIsAuthedCall,
-    getBillingAddressCall,
     getBreadcrumbsCall,
     getCartDetailsCall,
     getCategoryDataCall,
-    getCheckoutDetailsCall,
     getCMSPage,
-    getCountriesCall,
     getCurrencyDataCall,
     getFilterInputsForCategoryCall,
-    getIsEmailAvailableCall,
     getItemCountCall,
     getPageSizeCall,
-    getPaymentInformationCall,
     getPriceSummaryCall,
     getProductFiltersByCategoryCall,
     getProductsByUrlKeyCall,
-    getRegionsCall,
     getRouteDataCall,
-    getSelectedAndAvailableShippingMethodsCall,
-    getShippingInformationCall,
     getStoreConfigDataForGalleryEECall,
     getStoreConfigForBreadcrumbsCall,
     getStoreConfigForCarouselEECall,
@@ -89,9 +67,7 @@ import {
 } from '../../../fixtures/multiStore';
 import {
     accessoriesRouteData,
-    getCartData,
-    homeRouteData,
-    subcategoryARouteData
+    getCartData
 } from '../../../fixtures/multiStore/interceptHandlers';
 const {
     getStoreConfigDataCall,
@@ -198,12 +174,6 @@ const setupAccessoriesPageRequests = targetStoreCode => {
 const setupCategoryAPageRequests = targetStoreCode => {
     cy.intercept(
         'GET',
-        resolveUrlCall,
-        subcategoryARouteData(targetStoreCode)
-    ).as('getMockSubCategoryARouteData');
-
-    cy.intercept(
-        'GET',
         getCategoriesCall,
         getInterceptHandler('subcategoryA', targetStoreCode)
     ).as('getMockSubcategoryACategory');
@@ -229,6 +199,38 @@ const setupCategoryAPageRequests = targetStoreCode => {
         expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
         req.reply({
             fixture: `${DATA_DIRECTORY}/storeB/subcategoryAFilterInputs.json`
+        });
+    }).as('getMockFilterInputs');
+};
+
+const setupCategoryBPageRequests = targetStoreCode => {
+    cy.intercept(
+        'GET',
+        getCategoriesCall,
+        getInterceptHandler('subcategoryB', targetStoreCode)
+    ).as('getMockSubcategoryACategory');
+
+    cy.intercept(
+        'GET',
+        getBreadcrumbsCall,
+        getInterceptHandler('subcategoryB', targetStoreCode)
+    ).as('getMockBreadcrumbsData');
+    cy.intercept(
+        'GET',
+        getCategoryDataCall,
+        getInterceptHandler('subcategoryB', targetStoreCode)
+    ).as('getMockCategoryData');
+
+    cy.intercept('GET', getProductFiltersByCategoryCall, req => {
+        expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
+        req.reply({
+            fixture: `${DATA_DIRECTORY}/storeB/subcategoryBProductFilters.json`
+        });
+    }).as('getMockProductFilter');
+    cy.intercept('GET', getFilterInputsForCategoryCall, req => {
+        expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
+        req.reply({
+            fixture: `${DATA_DIRECTORY}/storeB/subcategoryBFilterInputs.json`
         });
     }).as('getMockFilterInputs');
 };
@@ -430,25 +432,53 @@ const setupMockNetworkRequests = headerStoreCode => {
     });
 };
 
+const setupMockRouteData = storeCode => {
+    cy.intercept('GET', resolveUrlCall, req => {
+        expect(req.headers.store).to.equal(storeCode);
+
+        const url = new URL(req.headers.referer);
+
+        switch (url.pathname) {
+            case '/':
+                req.alias = 'mockHomeRouteData';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/homeRoute.json`
+                });
+                break;
+            case accessoriesPathname:
+                req.alias = 'mockAccessoriesRouteData';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/default/accessoriesRoute.json`
+                });
+                break;
+            case subcategoryAPathname:
+                req.alias = 'mockSubcategoryARouteData';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/subcategoryARoute.json`
+                });
+                break;
+            case subcategoryBPathname:
+                req.alias = 'mockSubcategoryBRouteData';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/subcategoryBRoute.json`
+                });
+                break;
+        }
+    });
+};
+
 describe('default store', () => {
-    it.skip('displays subcategories from the default root category', () => {
+    it('displays subcategories from the default root category', () => {
         setupMockNetworkRequests(defaultStore.defaultView.storeCode);
+        setupMockRouteData(defaultStore.defaultView.storeCode);
+
         cy.visitPage('/');
 
         cy.wait([
-            '@getMockAvailableStores',
             '@getMockMegaMenu',
-            '@getMockRootCategoryId',
             '@getMockNavigationMenu',
-            '@getMockStoreConfig',
             '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForContactUs',
-            '@getMockStoreConfigForNewsletter',
-            '@mockStoreConfig',
-            '@getMockStoreConfigForCategoryTree',
-            '@getMockLocale',
-            '@getMockStoreConfigForMiniCart',
-            '@getMockStoreName'
+            '@getMockStoreConfigForCategoryTree'
         ]);
 
         // Assertions to make sure we are using the mock data for categories
@@ -461,35 +491,24 @@ describe('default store', () => {
         });
     });
 
-    it.skip('displays assigned products', () => {
+    it('displays assigned products', () => {
         setupMockNetworkRequests(defaultStore.defaultView.storeCode);
+        setupMockRouteData(defaultStore.defaultView.storeCode);
+
         cy.visitPage('/');
 
         cy.wait([
-            '@getMockAvailableStores',
             '@getMockMegaMenu',
-            '@getMockRootCategoryId',
             '@getMockNavigationMenu',
-            '@getMockStoreConfig',
             '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForContactUs',
-            '@getMockStoreConfigForNewsletter',
-            '@mockStoreConfig',
-            '@getMockStoreConfigForCategoryTree',
-            '@getMockLocale',
-            '@getMockStoreConfigForMiniCart',
-            '@getMockStoreName'
+            '@getMockStoreConfigForCategoryTree'
         ]);
 
-        selectCategoryFromMegaMenu(defaultStore.categories[3]);
+        // Setup calls for the accessories page
+        setupAccessoriesPageRequests(defaultStore.defaultView.storeCode);
 
-        cy.intercept(
-            getCategoriesCall,
-            getInterceptHandler(
-                'accessoriesCategory',
-                defaultStore.defaultView.storeCode
-            )
-        ).as('getMockAccessoriesCategory');
+        // Navigate to the accessories category
+        selectCategoryFromMegaMenu(defaultStore.categories[3]);
 
         cy.wait('@getMockAccessoriesCategory');
 
@@ -505,50 +524,24 @@ describe('default store', () => {
 });
 
 describe('Switching to another store', () => {
-    it.skip('Shows categories specific to the different store', () => {
+    it('Shows categories specific to the different store', () => {
         setupMockNetworkRequests(defaultStore.defaultView.storeCode);
-
-        cy.intercept('GET', resolveUrlCall, req => {
-            const url = new URL(req.headers.referer);
-            expect(url.pathname).to.equal('/');
-            expect(req.headers.store).to.equal(
-                defaultStore.defaultView.storeCode
-            );
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/homeRoute.json`
-            });
-        });
+        setupMockRouteData(defaultStore.defaultView.storeCode);
 
         cy.visitPage('/');
 
         cy.wait([
-            '@getMockAvailableStores',
             '@getMockMegaMenu',
-            '@getMockRootCategoryId',
             '@getMockNavigationMenu',
-            '@getMockStoreConfig',
             '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForContactUs',
-            '@getMockStoreConfigForNewsletter',
-            '@mockStoreConfig',
-            '@getMockStoreConfigForCategoryTree',
-            '@getMockLocale',
-            '@getMockStoreConfigForMiniCart',
-            '@getMockStoreName'
+            '@getMockStoreConfigForCategoryTree'
         ]);
 
-        // Switch to second store view
+        // Setup network interactions for the second store view
         setupMockNetworkRequests(secondStore.viewOne.storeCode);
+        setupMockRouteData(secondStore.viewOne.storeCode);
 
-        cy.intercept('GET', resolveUrlCall, req => {
-            const url = new URL(req.headers.referer);
-            expect(url.pathname).to.equal('/');
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/homeRoute.json`
-            });
-        });
-
+        // Switch to second store view
         toggleHeaderStoreSwitcher();
         selectStoreView(
             `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
@@ -563,18 +556,11 @@ describe('Switching to another store', () => {
             assertCategoryInCategoryTree(categoryLabel);
         });
 
-        // Switch to different store one view
+        // Setup network interactions for a different store one view
         setupMockNetworkRequests(defaultStore.viewOne.storeCode);
+        setupMockRouteData(defaultStore.viewOne.storeCode);
 
-        cy.intercept('GET', resolveUrlCall, req => {
-            const url = new URL(req.headers.referer);
-            expect(url.pathname).to.equal('/');
-            expect(req.headers.store).to.equal(defaultStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/homeRoute.json`
-            });
-        });
-
+        // Switch to different store one view
         toggleHeaderStoreSwitcher();
         selectStoreView(
             `${defaultStore.groupName} - ${defaultStore.viewOne.storeName}`
@@ -590,103 +576,35 @@ describe('Switching to another store', () => {
         });
     });
 
-    it.skip('Shows products specific to the categories in the different store', () => {
+    it('Shows products specific to the categories in the different store', () => {
         setupMockNetworkRequests(defaultStore.defaultView.storeCode);
-
-        cy.intercept('GET', resolveUrlCall, req => {
-            const url = new URL(req.headers.referer);
-            expect(url.pathname).to.equal('/');
-            expect(req.headers.store).to.equal(
-                defaultStore.defaultView.storeCode
-            );
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/homeRoute.json`
-            });
-        });
+        setupMockRouteData(defaultStore.defaultView.storeCode);
 
         cy.visitPage('/');
 
         cy.wait([
-            '@getMockAvailableStores',
+            '@mockHomeRouteData',
             '@getMockMegaMenu',
-            '@getMockRootCategoryId',
             '@getMockNavigationMenu',
-            '@getMockStoreConfig',
             '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForContactUs',
-            '@getMockStoreConfigForNewsletter',
-            '@mockStoreConfig',
-            '@getMockStoreConfigForCategoryTree',
-            '@getMockLocale',
-            '@getMockStoreConfigForMiniCart',
-            '@getMockStoreName'
+            '@getMockStoreConfigForCategoryTree'
         ]);
 
-        // Switch to second store view
+        // Setup mock network interactions
         setupMockNetworkRequests(secondStore.viewOne.storeCode);
+        setupMockRouteData(secondStore.viewOne.storeCode);
 
-        cy.intercept(
-            'GET',
-            resolveUrlCall,
-            homeRouteData(secondStore.viewOne.storeCode)
-        ).as('mockedResolvedHomeUrl');
-
+        // Switch to second store view
         toggleHeaderStoreSwitcher();
 
         selectStoreView(
             `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
         );
 
-        cy.wait('@mockedResolvedHomeUrl');
-
-        // Go to the first category
-        cy.intercept('GET', resolveUrlCall, req => {
-            const url = new URL(req.headers.referer);
-            expect(url.pathname).to.equal(subcategoryAPathname);
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/storeB/subcategoryARoute.json`
-            });
-        }).as('getMockFirstCategoryRouteData');
-
-        cy.intercept('GET', getBreadcrumbsCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/storeB/view-1/subcategoryA.json`
-            });
-        });
-        cy.intercept('GET', getCategoryDataCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/storeB/view-1/subcategoryA.json`
-            });
-        }).as('mockCategoryData');
-        cy.intercept('GET', getProductFiltersByCategoryCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/storeB/subcategoryAProductFilters.json`
-            });
-        }).as('mockProductFilter');
-        cy.intercept('GET', getFilterInputsForCategoryCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/storeB/subcategoryAFilterInputs.json`
-            });
-        }).as('mockProductFilter');
-
-        cy.intercept(
-            'GET',
-            getCategoriesCall,
-            getInterceptHandler('subcategoryA', secondStore.viewOne.storeCode)
-        ).as('getMockSubcategoryACategory');
+        //Setup network mock network requests for the first category page
+        setupCategoryAPageRequests(secondStore.viewOne.storeCode);
 
         selectCategoryFromMegaMenu(secondStore.categories[0]);
-
-        cy.wait([
-            '@mockCategoryData',
-            '@getMockSubcategoryACategory',
-            '@getMockFirstCategoryRouteData'
-        ]);
 
         // Make sure we are using the mock data for the second store products
         assertProductsFound();
@@ -697,63 +615,36 @@ describe('Switching to another store', () => {
             assertProductIsInGallery(productName);
         });
 
+        // Setup network interactions for second category
+        setupCategoryBPageRequests(secondStore.viewOne.storeCode);
+
         // Visit second category
-        cy.intercept(
-            getCategoriesCall,
-            getInterceptHandler('subcategoryB', secondStore.viewOne.storeCode)
-        ).as('getMockSubcategoryBCategory');
-
-        cy.intercept('GET', resolveUrlCall, req => {
-            const url = new URL(req.headers.referer);
-            expect(url.pathname).to.equal(subcategoryBPathname);
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/storeB/subcategoryBRoute.json`
-            });
-        }).as('getMockSecondaryCategoryRouteData');
-
-        cy.intercept('GET', getBreadcrumbsCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/storeB/view-1/subcategoryB.json`
-            });
-        });
-
         selectCategoryFromMegaMenu(secondStore.categories[1]);
-
-        cy.wait([
-            '@getMockSubcategoryBCategory',
-            '@getMockSecondaryCategoryRouteData'
-        ]);
 
         // These are no products assigned to Subcategory B in the mock data
         assertNoProductsFound();
     });
 });
 
-describe('cart and checkout', () => {
-    it('lets users add products to cart regardless of store view and checkout', () => {
+describe('Shopping cart', () => {
+    it('lets users add products to cart regardless of store view', () => {
         setupMockNetworkRequests(defaultStore.defaultView.storeCode);
+        setupMockRouteData(defaultStore.defaultView.storeCode);
+
         // Visit default store and add a product
         cy.visitPage('/');
 
+        setupAccessoriesPageRequests(defaultStore.defaultView.storeCode);
+
         selectCategoryFromMegaMenu(defaultStore.categories[3]);
-
-        cy.intercept(
-            getCategoriesCall,
-            getInterceptHandler(
-                'accessoriesCategory',
-                defaultStore.defaultView.storeCode
-            )
-        ).as('getMockAccessoriesCategory');
-
-        cy.wait('@getMockAccessoriesCategory');
 
         // Intercept calls that update the cart
         cy.intercept('POST', hitGraphqlPath, req => {
             expect(req.headers.store).to.equal(
                 defaultStore.defaultView.storeCode
             );
+            const { operationName } = req.body;
+            console.log(operationName);
             req.reply({
                 fixture: `${DATA_DIRECTORY}/cart/addProductsToCart1.json`
             });
@@ -776,6 +667,7 @@ describe('cart and checkout', () => {
 
         // Visit View 1 from default store and add product
         setupMockNetworkRequests(defaultStore.viewOne.storeCode);
+        setupMockRouteData(defaultStore.viewOne.storeCode);
 
         // Setup cart endpoint responses
         setupMockCartDataRequests(1, defaultStore.viewOne.storeCode);
@@ -819,17 +711,22 @@ describe('cart and checkout', () => {
 
         // Visit View 1 B from Store B
         setupMockNetworkRequests(secondStore.viewOne.storeCode);
+        setupMockRouteData(secondStore.viewOne.storeCode);
 
         setupMockCartDataRequests(2, secondStore.viewOne.storeCode);
 
         cy.intercept('GET', resolveUrlCall, req => {
             const url = new URL(req.headers.referer);
-            expect(url.pathname).to.equal(accessoriesPathname);
+
             expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/storeB/accessoriesRoute.json`
-            });
-        }).as('getMockAccessoriesRouteData');
+
+            if (url.pathname === accessoriesPathname) {
+                req.alias = 'getMockAccesiesRouteData';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/accessoriesRoute.json`
+                });
+            }
+        });
 
         toggleHeaderStoreSwitcher();
 
@@ -847,7 +744,6 @@ describe('cart and checkout', () => {
         selectCategoryFromMegaMenu(secondStore.categories[0]);
 
         cy.wait([
-            '@getMockSubCategoryARouteData',
             '@getMockSubcategoryACategory',
             '@getMockBreadcrumbsData',
             '@getMockCategoryData',
@@ -855,7 +751,6 @@ describe('cart and checkout', () => {
             '@getMockFilterInputs'
         ]);
 
-        // Add third item to cart
         // Intercept calls that update the cart
         cy.intercept('POST', hitGraphqlPath, req => {
             expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
@@ -866,6 +761,7 @@ describe('cart and checkout', () => {
 
         setupMockCartDataRequests(3, secondStore.viewOne.storeCode);
 
+        // Add third item to cart
         addProductToCartFromCategoryPage(subcategoryAProducts[1]);
 
         cy.wait(['@mockAddItemToCart3']);
@@ -886,146 +782,5 @@ describe('cart and checkout', () => {
         assertProductInCartPage(defaultAccessoriesProducts[1]);
         assertProductInCartPage(defaultAccessoriesProducts[2]);
         assertProductInCartPage(subcategoryAProducts[1]);
-
-        // Setup checkout page data
-        cy.intercept('GET', getCheckoutDetailsCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/cart/details.json`
-            });
-        }).as('getMockCheckoutDetailsCall');
-
-        cy.intercept('GET', getRouteDataCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/routeData.json`
-            });
-        }).as('getMockCheckoutRouteData');
-
-        cy.intercept('GET', getShippingInformationCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/cart/details.json`
-            });
-        }).as('getMockShippingInformation');
-
-        cy.intercept('GET', getCountriesCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/countries.json`
-            });
-        }).as('getMockCountriesCall');
-
-        cy.intercept('GET', getRegionsCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/regions.json`
-            });
-        }).as('getMockRegionsCall');
-
-        cy.intercept('GET', getIsEmailAvailableCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/emailAvailable.json`
-            });
-        }).as('getMockIsEmailAvailable');
-
-        cy.intercept('GET', getSelectedAndAvailableShippingMethodsCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/selectedAvailableShippingMethods.json`
-            });
-        }).as('getMockSelectedAvailableShippingMethods');
-
-        // Go to checkout page
-        goToCheckout();
-
-        const { firstName, lastName } = accountAccess;
-
-        const completeShippingAddress = {
-            ...checkoutShippingData.us,
-            email: accountEmail,
-            firstName,
-            lastName
-        };
-
-        cy.intercept('POST', hitGraphqlPath, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/setGuestShipping.json`
-            });
-        }).as('mockSetGuestShippingOperation');
-
-        setGuestShippingAddress(completeShippingAddress);
-
-        cy.wait([
-            '@getMockCountriesCall',
-            '@getMockRegionsCall',
-            '@mockSetGuestShippingOperation'
-        ]);
-
-        cy.intercept('POST', hitGraphqlPath, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/setShippingMethodOnCart.json`
-            });
-        }).as('mockSetShippingMethods');
-
-        cy.intercept('GET', getPaymentInformationCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/paymentInformation.json`
-            });
-        }).as('mockPaymentInformation');
-
-        cy.intercept('GET', getBillingAddressCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/billingAddress.json`
-            });
-        });
-
-        submitShippingMethod();
-
-        cy.wait(['@mockSetShippingMethods', '@mockPaymentInformation']);
-
-        cy.intercept('POST', hitGraphqlPath, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/checkout/setBillingAddress.json`
-            });
-        }).as('mockSetBillingAddress');
-
-        assertPaymentInformationInCheckoutPage({
-            shortDescription: 'Braintree'
-        });
-
-        editCreditCardInformation({
-            name: 'John Doe',
-            number: '4111111111111111',
-            expiration: '01/23',
-            cvv: '456'
-        });
-
-        cy.intercept('GET', getCheckoutDetailsCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/cart/finalCartDetails.json`
-            });
-        });
-        cy.intercept('GET', getSelectedAndAvailableShippingMethodsCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/cart/finalCartDetails.json`
-            });
-        });
-        cy.intercept('GET', getPaymentInformationCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/cart/finalCartDetails.json`
-            });
-        });
-
-        //reviewOrder();
     });
 });
