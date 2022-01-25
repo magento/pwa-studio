@@ -19,6 +19,8 @@ export const defaultAccessoriesProducts = [
     'Carmina Necklace'
 ];
 
+export const accessoriesPathname = '/venia-accessories.html';
+
 /**
  * Second store related values
  */
@@ -40,3 +42,5 @@ export const subcategoryAPathname = '/subcategory-a.html';
 export const subcategoryAProducts = ['Augusta Earrings', 'Carmina Earrings'];
 
 export const subcategoryBPathname = '/subcategory-b.html';
+
+export const addItemToCartOperation = 'AddItemToCart';
