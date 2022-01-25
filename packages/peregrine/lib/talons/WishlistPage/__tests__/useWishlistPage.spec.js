@@ -73,13 +73,19 @@ test('shouldRenderVisibilityToggle is false if 1 or less lists', () => {
     talonProps = instance.root.findByType('i').props.talonProps;
 
     expect(talonProps.shouldRenderVisibilityToggle).toBeFalsy();
+});
+
+test('shouldRenderVisibilityToggle is false if limit of list reached', () => {
+    useQuery.mockReturnValueOnce({
+        data: { customer: { wishlists: [] } }
+    });
+
+    const instance = createTestInstance(<Component {...props} />);
+    const talonProps = instance.root.findByType('i').props.talonProps;
 
     useQuery.mockReturnValueOnce({
         data: { customer: { wishlists: ['wishlist1', 'wishlist2'] } }
     });
 
-    instance = createTestInstance(<Component {...props} />);
-    talonProps = instance.root.findByType('i').props.talonProps;
-
-    expect(talonProps.shouldRenderVisibilityToggle).toBeTruthy();
+    expect(talonProps.shouldRenderVisibilityToggle).toBeFalsy();
 });

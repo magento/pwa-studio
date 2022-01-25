@@ -7,6 +7,7 @@ export const GET_WISHLIST_CONFIG = gql`
             store_code
             magento_wishlist_general_is_enabled
             enable_multiple_wishlists
+            maximum_multiple_wishlist_number
         }
     }
 `;

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -16,6 +16,7 @@ export const useWishlistPage = (props = {}) => {
     const { getCustomerWishlistQuery } = operations;
 
     const [{ isSignedIn }] = useUserContext();
+    const [numberOfWishlists, setNumberOfWishlists] = useState(1);
 
     const { data, error, loading } = useQuery(getCustomerWishlistQuery, {
         fetchPolicy: 'cache-and-network',
@@ -24,6 +25,8 @@ export const useWishlistPage = (props = {}) => {
     });
 
     const derivedWishlists = useMemo(() => {
+        setNumberOfWishlists(data && data.customer.wishlists.length);
+
         return (data && data.customer.wishlists) || [];
     }, [data]);
 
@@ -34,6 +37,7 @@ export const useWishlistPage = (props = {}) => {
     return {
         errors,
         loading,
+        numberOfWishlists,
         shouldRenderVisibilityToggle: derivedWishlists.length > 1,
         wishlists: derivedWishlists
     };

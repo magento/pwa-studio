@@ -60,7 +60,8 @@ const getMultipleWishlistsEnabledQueryMock = {
             data: {
                 storeConfig: {
                     store_code: 'default',
-                    enable_multiple_wishlists: '1'
+                    enable_multiple_wishlists: '1',
+                    maximum_multiple_wishlist_number: 5
                 }
             }
         };
@@ -117,7 +118,8 @@ test('shouldRender is false when multiple wishlists disabled', async () => {
             data: {
                 storeConfig: {
                     store_code: 'default',
-                    enable_multiple_wishlists: '0'
+                    enable_multiple_wishlists: '0',
+                    maximum_multiple_wishlist_number: 5
                 }
             }
         }

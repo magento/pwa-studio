@@ -6,17 +6,13 @@ Object {
     "getCustomerWishlistQuery" => undefined,
   },
   "loading": undefined,
+  "numberOfWishlists": undefined,
   "shouldRenderVisibilityToggle": false,
   "wishlists": Array [],
 }
 `;
 
-exports[`return wishlist data 1`] = `
-Array [
-  "wishlist1",
-  "wishlist2",
-]
-`;
+exports[`return wishlist data 1`] = `Array []`;
 
 exports[`works without props 1`] = `
 Object {
@@ -24,6 +20,7 @@ Object {
     "getCustomerWishlistQuery" => undefined,
   },
   "loading": undefined,
+  "numberOfWishlists": undefined,
   "shouldRenderVisibilityToggle": false,
   "wishlists": Array [],
 }
