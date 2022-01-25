@@ -1,0 +1,62 @@
+{
+  "data": {
+    "cart": {
+      "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+      "shipping_addresses": [
+        {
+          "available_shipping_methods": [
+            {
+              "amount": {
+                "currency": "USD",
+                "value": 0,
+                "__typename": "Money"
+              },
+              "available": true,
+              "carrier_code": "freeshipping",
+              "carrier_title": "Free Shipping",
+              "method_code": "freeshipping",
+              "method_title": "Free",
+              "__typename": "AvailableShippingMethod"
+            },
+            {
+              "amount": {
+                "currency": "USD",
+                "value": 10,
+                "__typename": "Money"
+              },
+              "available": true,
+              "carrier_code": "flatrate",
+              "carrier_title": "Flat Rate",
+              "method_code": "flatrate",
+              "method_title": "Fixed",
+              "__typename": "AvailableShippingMethod"
+            }
+          ],
+          "street": [
+            "111 57th Street"
+          ],
+          "__typename": "ShippingCartAddress",
+          "selected_shipping_method": null,
+          "city": "New New York",
+          "country": {
+            "code": "US",
+            "label": "US",
+            "__typename": "CartAddressCountry"
+          },
+          "firstname": "John",
+          "lastname": "Doe",
+          "postcode": "10019",
+          "region": {
+            "code": "NY",
+            "label": "New York",
+            "region_id": 43,
+            "__typename": "CartAddressRegion"
+          },
+          "telephone": "+12345678909"
+        }
+      ],
+      "__typename": "Cart",
+      "email": "test@fake.email"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "data": {
+    "cart": {
+      "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+      "billingAddress": null,
+      "__typename": "Cart"
+    }
+  }
+}

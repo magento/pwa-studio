@@ -1,0 +1,46 @@
+{
+  "data": {
+    "cart": {
+      "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+      "selected_payment_method": {
+        "code": "",
+        "__typename": "SelectedPaymentMethod"
+      },
+      "shipping_addresses": [
+        {
+          "firstname": "John",
+          "lastname": "Doe",
+          "street": [
+            "111 57th Street",
+            "Suite 1000"
+          ],
+          "city": "New New York",
+          "region": {
+            "code": "NY",
+            "__typename": "CartAddressRegion"
+          },
+          "postcode": "10019",
+          "country": {
+            "code": "US",
+            "__typename": "CartAddressCountry"
+          },
+          "telephone": "+12345678909",
+          "__typename": "ShippingCartAddress"
+        }
+      ],
+      "available_payment_methods": [
+        {
+          "code": "braintree",
+          "title": "Credit Card (Braintree)",
+          "__typename": "AvailablePaymentMethod"
+        },
+        {
+          "code": "checkmo",
+          "title": "Check \/ Money order Updated Title",
+          "__typename": "AvailablePaymentMethod"
+        }
+      ],
+      "__typename": "Cart"
+    }
+  }
+}

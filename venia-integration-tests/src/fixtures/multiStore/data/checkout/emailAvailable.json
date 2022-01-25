@@ -1,0 +1,8 @@
+{
+  "data": {
+    "isEmailAvailable": {
+      "is_email_available": true,
+      "__typename": "IsEmailAvailableOutput"
+    }
+  }
+}

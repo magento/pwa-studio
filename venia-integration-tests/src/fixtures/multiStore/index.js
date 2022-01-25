@@ -44,3 +44,9 @@ export const subcategoryAProducts = ['Augusta Earrings', 'Carmina Earrings'];
 export const subcategoryBPathname = '/subcategory-b.html';
 
 export const addItemToCartOperation = 'AddItemToCart';
+
+/**
+ * Checkout page
+ */
+
+export const setGuestShippingOperation = 'SetGuestShipping'

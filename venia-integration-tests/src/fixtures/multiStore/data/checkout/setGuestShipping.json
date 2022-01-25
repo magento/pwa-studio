@@ -1,0 +1,102 @@
+{
+  "data": {
+    "setGuestEmailOnCart": {
+      "cart": {
+        "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN"
+      }
+    },
+    "setShippingAddressesOnCart": {
+      "cart": {
+        "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+        "email": "40492test@example.com",
+        "shipping_addresses": [
+          {
+            "city": "New New York",
+            "country": {
+              "code": "US",
+              "label": "US"
+            },
+            "firstname": "John",
+            "lastname": "Doe",
+            "postcode": "10019",
+            "region": {
+              "code": "NY",
+              "label": "New York",
+              "region_id": 43
+            },
+            "street": [
+              "111 57th Street",
+              "Suite 1000"
+            ],
+            "telephone": "+12345678909",
+            "available_shipping_methods": [
+              {
+                "amount": {
+                  "currency": "USD",
+                  "value": 0
+                },
+                "available": true,
+                "carrier_code": "freeshipping",
+                "carrier_title": "Free Shipping",
+                "method_code": "freeshipping",
+                "method_title": "Free"
+              },
+              {
+                "amount": {
+                  "currency": "USD",
+                  "value": 10
+                },
+                "available": true,
+                "carrier_code": "flatrate",
+                "carrier_title": "Flat Rate",
+                "method_code": "flatrate",
+                "method_title": "Fixed"
+              }
+            ],
+            "selected_shipping_method": null
+          }
+        ],
+        "items": [
+          {
+            "uid": "MTI5MDcz",
+            "quantity": 1
+          },
+          {
+            "uid": "MTI5MDc0",
+            "quantity": 1
+          }
+        ],
+        "prices": {
+          "applied_taxes": [
+            {
+              "amount": {
+                "currency": "USD",
+                "value": 15.58
+              }
+            }
+          ],
+          "discounts": null,
+          "grand_total": {
+            "currency": "USD",
+            "value": 201.58
+          },
+          "subtotal_excluding_tax": {
+            "currency": "USD",
+            "value": 186
+          }
+        },
+        "__typename": "Cart",
+        "available_payment_methods": [
+          {
+            "code": "braintree",
+            "title": "Credit Card (Braintree)"
+          },
+          {
+            "code": "checkmo",
+            "title": "Check / Money order Updated Title"
+          }
+        ]
+      }
+    }
+  }
+}

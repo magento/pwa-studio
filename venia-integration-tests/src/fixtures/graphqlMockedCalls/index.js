@@ -17,6 +17,11 @@ export const getAvailableStoresDataCall =
 
 export const getBreadcrumbsCall = '**/graphql?query=query+GetBreadcrumbs*';
 
+export const getBillingAddressCall =
+    '**/graphql?query=query+getBillingAddress*';
+
+export const getCartDetailsCall = '**/graphql?query=query+GetCartDetails*';
+
 export const getCategoriesCall = '**/graphql?query=query+GetCategories*';
 
 export const getCategoryDataCall = '**/graphql?query=query+getCategoryData*';
@@ -64,6 +69,8 @@ export const getPageSizeCall = '**/graphql?query=query+getPageSize*';
 export const getPaymentInformationCall =
     '**/graphql?query=query+getPaymentInformation*';
 
+export const getPriceSummaryCall = '**/graphql?query=query+getPriceSummary*';
+
 export const getProductDetailForProductPageCall =
     '**/graphql?query=query+getProductDetailForProductPage*';
 
@@ -94,6 +101,9 @@ export const getSelectedAndAvailableShippingMethodsCall =
 export const getShippingMethodsCall =
     '**/graphql?query=query+GetShippingMethods*';
 
+export const getShippingInformationCall =
+    '**/graphql?query=query+GetShippingInformation*';
+
 export const getStoreConfigDataCall =
     '**/graphql?query=query+getStoreConfigData*';
 
@@ -102,6 +112,9 @@ export const getStoreConfigForBreadcrumbsCall =
 
 export const getStoreConfigForCategoryTreeCall =
     '**/graphql?query=query+GetStoreConfigForCategoryTree*';
+
+export const getStoreConfigForCartPageCall =
+    '**/graphql?query=query+getStoreConfigForCartPage*';
 
 export const getStoreConfigForCarouselEECall =
     '**/graphql?query=query+GetStoreConfigForCarouselEE*';

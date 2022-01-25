@@ -1,0 +1,99 @@
+{
+  "data": {
+    "setBillingAddressOnCart": {
+      "cart": {
+        "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+        "billing_address": {
+          "firstname": "John",
+          "lastname": "Doe",
+          "country": {
+            "code": "US",
+            "__typename": "CartAddressCountry"
+          },
+          "street": [
+            "111 57th Street",
+            "Suite 1000"
+          ],
+          "city": "New New York",
+          "region": {
+            "code": "NY",
+            "label": "New York",
+            "region_id": 43,
+            "__typename": "CartAddressRegion"
+          },
+          "postcode": "10019",
+          "telephone": "+12345678909",
+          "__typename": "BillingCartAddress"
+        },
+        "items": [
+          {
+            "uid": "MTI5MDcz",
+            "quantity": 1,
+            "__typename": "SimpleCartItem"
+          },
+          {
+            "uid": "MTI5MDc0",
+            "quantity": 1,
+            "__typename": "SimpleCartItem"
+          }
+        ],
+        "shipping_addresses": [
+          {
+            "selected_shipping_method": {
+              "amount": {
+                "currency": "USD",
+                "value": 0,
+                "__typename": "Money"
+              },
+              "__typename": "SelectedShippingMethod"
+            },
+            "street": [
+              "111 57th Street",
+              "Suite 1000"
+            ],
+            "__typename": "ShippingCartAddress"
+          }
+        ],
+        "__typename": "Cart",
+        "prices": {
+          "applied_taxes": [
+            {
+              "amount": {
+                "currency": "USD",
+                "value": 15.58,
+                "__typename": "Money"
+              },
+              "__typename": "CartTaxItem"
+            }
+          ],
+          "__typename": "CartPrices",
+          "discounts": null,
+          "grand_total": {
+            "currency": "USD",
+            "value": 201.58,
+            "__typename": "Money"
+          },
+          "subtotal_excluding_tax": {
+            "currency": "USD",
+            "value": 186,
+            "__typename": "Money"
+          }
+        },
+        "applied_gift_cards": [],
+        "available_payment_methods": [
+          {
+            "code": "braintree",
+            "title": "Credit Card (Braintree)",
+            "__typename": "AvailablePaymentMethod"
+          },
+          {
+            "code": "checkmo",
+            "title": "Check \/ Money order Updated Title",
+            "__typename": "AvailablePaymentMethod"
+          }
+        ]
+      },
+      "__typename": "SetBillingAddressOnCartOutput"
+    }
+  }
+}
