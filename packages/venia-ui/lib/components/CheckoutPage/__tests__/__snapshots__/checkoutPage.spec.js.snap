@@ -46,6 +46,17 @@ exports[`CheckoutPage renders address book for customer 1`] = `
       </h1>
     </div>
     <div
+      className="sticky_container"
+    >
+      <div
+        className="summaryContainer"
+      >
+        <OrderSummary
+          isUpdating={false}
+        />
+      </div>
+    </div>
+    <div
       className="shipping_information_container"
     >
       <div
@@ -84,13 +95,6 @@ exports[`CheckoutPage renders address book for customer 1`] = `
           id="checkoutPage.paymentInformationStep"
         />
       </h3>
-    </div>
-    <div
-      className="summaryContainer"
-    >
-      <OrderSummary
-        isUpdating={false}
-      />
     </div>
   </div>
   <AddressBook
@@ -150,42 +154,53 @@ exports[`CheckoutPage renders an error and disables review order button if there
       </h1>
     </div>
     <div
-      className="signInContainer"
+      className="sticky_container"
     >
-      <span
-        className="signInLabel"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Sign in for Express Checkout"
-          id="checkoutPage.signInLabel"
-        />
-      </span>
-      <button
-        className="signInButton"
-        disabled={false}
-        onClick={[MockFunction toggleSignInContent]}
-        onDragStart={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchCancel={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        type="button"
+      <div
+        className="signInContainer"
       >
         <span
-          className="content"
+          className="signInLabel"
         >
           <mock-FormattedMessage
-            defaultMessage="Sign In"
-            id="checkoutPage.signInButton"
+            defaultMessage="Sign in for Express Checkout"
+            id="checkoutPage.signInLabel"
           />
         </span>
-      </button>
+        <button
+          className="signInButton"
+          disabled={false}
+          onClick={[MockFunction toggleSignInContent]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="button"
+        >
+          <span
+            className="content"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Sign In"
+              id="checkoutPage.signInButton"
+            />
+          </span>
+        </button>
+      </div>
+      <div
+        className="summaryContainer"
+      >
+        <OrderSummary
+          isUpdating={true}
+        />
+      </div>
     </div>
     <div
       className="shipping_information_container"
@@ -252,13 +267,6 @@ exports[`CheckoutPage renders an error and disables review order button if there
         />
       </span>
     </button>
-    <div
-      className="summaryContainer"
-    >
-      <OrderSummary
-        isUpdating={true}
-      />
-    </div>
   </div>
   <GuestSignIn
     initialValues={
@@ -318,6 +326,17 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
       </h1>
     </div>
     <div
+      className="sticky_container"
+    >
+      <div
+        className="summaryContainer"
+      >
+        <OrderSummary
+          isUpdating={false}
+        />
+      </div>
+    </div>
+    <div
       className="shipping_information_container"
     >
       <div
@@ -356,13 +375,6 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
           id="checkoutPage.paymentInformationStep"
         />
       </h3>
-    </div>
-    <div
-      className="summaryContainer"
-    >
-      <OrderSummary
-        isUpdating={false}
-      />
     </div>
   </div>
   <AddressBook
@@ -418,6 +430,17 @@ exports[`CheckoutPage renders checkout content for customer - no default address
       </h1>
     </div>
     <div
+      className="sticky_container"
+    >
+      <div
+        className="summaryContainer"
+      >
+        <OrderSummary
+          isUpdating={false}
+        />
+      </div>
+    </div>
+    <div
       className="shipping_information_container"
     >
       <div
@@ -456,13 +479,6 @@ exports[`CheckoutPage renders checkout content for customer - no default address
           id="checkoutPage.paymentInformationStep"
         />
       </h3>
-    </div>
-    <div
-      className="summaryContainer"
-    >
-      <OrderSummary
-        isUpdating={false}
-      />
     </div>
   </div>
   <AddressBook
@@ -518,42 +534,53 @@ exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
       </h1>
     </div>
     <div
-      className="signInContainer"
+      className="sticky_container"
     >
-      <span
-        className="signInLabel"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Sign in for Express Checkout"
-          id="checkoutPage.signInLabel"
-        />
-      </span>
-      <button
-        className="signInButton"
-        disabled={false}
-        onClick={[MockFunction toggleSignInContent]}
-        onDragStart={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchCancel={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        type="button"
+      <div
+        className="signInContainer"
       >
         <span
-          className="content"
+          className="signInLabel"
         >
           <mock-FormattedMessage
-            defaultMessage="Sign In"
-            id="checkoutPage.signInButton"
+            defaultMessage="Sign in for Express Checkout"
+            id="checkoutPage.signInLabel"
           />
         </span>
-      </button>
+        <button
+          className="signInButton"
+          disabled={false}
+          onClick={[MockFunction toggleSignInContent]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="button"
+        >
+          <span
+            className="content"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Sign In"
+              id="checkoutPage.signInButton"
+            />
+          </span>
+        </button>
+      </div>
+      <div
+        className="summaryContainer"
+      >
+        <OrderSummary
+          isUpdating={false}
+        />
+      </div>
     </div>
     <div
       className="shipping_information_container"
@@ -594,13 +621,6 @@ exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
           id="checkoutPage.paymentInformationStep"
         />
       </h3>
-    </div>
-    <div
-      className="summaryContainer"
-    >
-      <OrderSummary
-        isUpdating={false}
-      />
     </div>
   </div>
   <GuestSignIn
@@ -661,42 +681,53 @@ exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
       </h1>
     </div>
     <div
-      className="signInContainer"
+      className="sticky_container"
     >
-      <span
-        className="signInLabel"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Sign in for Express Checkout"
-          id="checkoutPage.signInLabel"
-        />
-      </span>
-      <button
-        className="signInButton"
-        disabled={false}
-        onClick={[MockFunction toggleSignInContent]}
-        onDragStart={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchCancel={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        type="button"
+      <div
+        className="signInContainer"
       >
         <span
-          className="content"
+          className="signInLabel"
         >
           <mock-FormattedMessage
-            defaultMessage="Sign In"
-            id="checkoutPage.signInButton"
+            defaultMessage="Sign in for Express Checkout"
+            id="checkoutPage.signInLabel"
           />
         </span>
-      </button>
+        <button
+          className="signInButton"
+          disabled={false}
+          onClick={[MockFunction toggleSignInContent]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="button"
+        >
+          <span
+            className="content"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Sign In"
+              id="checkoutPage.signInButton"
+            />
+          </span>
+        </button>
+      </div>
+      <div
+        className="summaryContainer"
+      >
+        <OrderSummary
+          isUpdating={false}
+        />
+      </div>
     </div>
     <div
       className="shipping_information_container"
@@ -737,13 +768,6 @@ exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
           id="checkoutPage.paymentInformationStep"
         />
       </h3>
-    </div>
-    <div
-      className="summaryContainer"
-    >
-      <OrderSummary
-        isUpdating={false}
-      />
     </div>
   </div>
   <GuestSignIn

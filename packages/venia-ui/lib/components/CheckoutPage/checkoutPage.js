@@ -353,7 +353,10 @@ const CheckoutPage = props => {
                         {headerText}
                     </h1>
                 </div>
-                {signInContainerElement}
+                <div className={classes.sticky_container}>
+                    {signInContainerElement}
+                    {orderSummary}
+                </div>
                 <div className={classes.shipping_information_container}>
                     <ScrollAnchor ref={shippingInformationRef}>
                         <ShippingInformation
@@ -376,7 +379,6 @@ const CheckoutPage = props => {
                 {priceAdjustmentsSection}
                 {reviewOrderButton}
                 {itemsReview}
-                {orderSummary}
                 {placeOrderButton}
             </div>
         );
@@ -439,6 +441,7 @@ CheckoutPage.propTypes = {
         summaryContainer: string,
         formErrors: string,
         review_order_button: string,
-        place_order_button: string
+        place_order_button: string,
+        sticky_container: string
     })
 };

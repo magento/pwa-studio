@@ -18,6 +18,7 @@
 .heading_container {
     display: grid;
     row-gap: 1rem;
+    grid-column: 1 / span 2;
 }
 
 .heading {
@@ -93,6 +94,11 @@
 }
 
 .summaryContainer {
+}
+
+.sticky_container {
+    display: grid;
+    gap: 2rem;
     grid-column: 1 / span 1;
 }
 
@@ -107,6 +113,9 @@
 
 @media (min-width: 961px) {
     .summaryContainer {
+    }
+
+    .sticky_container {
         grid-column: 2 / span 1;
         grid-row: 2 / span 3;
         position: sticky;
@@ -147,7 +156,6 @@
         grid-row-start: 1;
         grid-auto-flow: row;
         justify-items: center;
-        margin-bottom: 1rem;
     }
 
     .stepper_heading {
