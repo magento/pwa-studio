@@ -412,6 +412,7 @@
     "sortItem.priceAsc": "Price: Low to High",
     "sortItem.priceDesc": "Price: High to Low",
     "sortItem.relevance": "Best Match",
+    "sortItem.position": "Position",
     "stockStatusMessage.message": "An item in your cart is currently out-of-stock and must be removed in order to Checkout.",
     "storedPayments.creditCard": "Credit Card",
     "storedPayments.delete": "Delete",

@@ -7,7 +7,9 @@ const mockOnApply = jest.fn();
 
 jest.mock('../filterDefault', () => {
     const mockedFilterDefault = jest.fn(({ onMouseDown }) => {
-        onMouseDown();
+        onMouseDown({
+            button: 0
+        });
         return null;
     });
 
@@ -137,5 +139,17 @@ describe('#FilterItem', () => {
 
         createTestInstance(<Component />);
         expect(mockOnApply).toHaveBeenCalled();
+    });
+
+    it('does not call onApply with right mouse click', () => {
+        givenOnApply();
+        mockFilterDefault.mockImplementationOnce(({ onMouseDown }) => {
+            onMouseDown({
+                button: 1
+            });
+            return null;
+        });
+        createTestInstance(<Component />);
+        expect(mockOnApply).not.toHaveBeenCalled();
     });
 });

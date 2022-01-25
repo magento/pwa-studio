@@ -25,6 +25,7 @@ export const useSearchPage = (props = {}) => {
         getFilterInputsQuery,
         getPageSize,
         getProductFiltersBySearchQuery,
+        getSearchAvailableSortMethods,
         productSearchQuery
     } = operations;
 
@@ -32,6 +33,15 @@ export const useSearchPage = (props = {}) => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
+
+    const [getSortMethods, { data: sortData }] = useLazyQuery(
+        getSearchAvailableSortMethods,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
+    );
+
     const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 
     const sortProps = useSort();
@@ -193,6 +203,16 @@ export const useSearchPage = (props = {}) => {
         }
     }, [currentSort, search, setCurrentPage]);
 
+    useEffect(() => {
+        if (inputText) {
+            getSortMethods({
+                variables: {
+                    search: inputText
+                }
+            });
+        }
+    }, [inputText, getSortMethods]);
+
     // Fetch category filters for when a user is searching in a category.
     const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersBySearchQuery,
@@ -224,7 +244,12 @@ export const useSearchPage = (props = {}) => {
 
     useScrollTopOnChange(currentPage);
 
+    const availableSortMethods = sortData
+        ? sortData.products.sort_fields.options
+        : null;
+
     return {
+        availableSortMethods,
         data,
         error,
         filters,
