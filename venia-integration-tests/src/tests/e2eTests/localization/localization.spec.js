@@ -18,14 +18,11 @@ import {
 } from '../../../assertions';
 import {
     header as headerActions,
-    categoryPage as categoryPageActions,
     productPage as productPageActions,
     checkoutPage as checkoutPageActions,
     cartPage as cartPageActions,
-    miniCart as miniCartActions,
-    myAccountMenu as myAccountMenuActions
+    miniCart as miniCartActions
 } from '../../../actions';
-import { cmsPage as cmsPageFields } from '../../../fields';
 import { aliasMutation } from '../../../utils/graphql-test-utils';
 
 const {
@@ -84,7 +81,6 @@ const {
     triggerStoreSwitcherMenu,
     triggerSearch,
     searchFromSearchBar,
-    triggerAccountMenu,
     changeCurrency
 } = headerActions;
 
@@ -100,11 +96,6 @@ const {
 } = checkoutPageActions;
 
 const {
-    selectCategoryFromMegaMenu,
-    selectProductFromCategoryPage
-} = categoryPageActions;
-
-const {
     addToCartFromProductPage,
     selectOptionsFromProductPage
 } = productPageActions;
@@ -113,12 +104,7 @@ const { triggerMiniCart, goToCartPageFromEditCartButton } = miniCartActions;
 
 const { goToCheckout } = cartPageActions;
 
-const { goToMyAccount } = myAccountMenuActions;
-
-const { cmsPageContentHeading } = cmsPageFields;
-
 const {
-    getCMSPage,
     hitGraphqlPath,
     getSelectedAndAvailableShippingMethodsCall,
     getPaymentInformationCall,
@@ -128,11 +114,7 @@ const {
     getAutocompleteResultsCall
 } = graphqlMockedCallsFixtures;
 
-const {
-    productIsadoraSkirt,
-    productAugustaEarrings,
-    productValeriaTwoLayeredTank
-} = productPageFixtures;
+const { productIsadoraSkirt, productAugustaEarrings } = productPageFixtures;
 
 const { categoryTops } = categoryPageFixtures;
 
@@ -169,15 +151,6 @@ describe('PWA-1415: Verify Venia Localization', () => {
         assertCurrencyIsDisplayed('EUR');
         triggerCurrencySwitcherMenu();
         assertCurrencyIsSelected('EUR');
-    });
-
-    it('should update store accordingly if changed from url', () => {
-        cy.visitHomePage();
-        selectCategoryFromMegaMenu('Bottoms');
-
-        cy.url().then(url => cy.visit(url.replace('default', 'fr')));
-        assertStoreIsDisplayed('French Store View');
-        assertStoreIsSelected('French Store View');
     });
 
     it('should be able to place an order in French store', () => {
@@ -666,120 +639,5 @@ describe('PWA-1415: Verify Venia Localization', () => {
         // check checkoutPage currency
         goToCheckout();
         assertCheckoutPageHasCurrency('USD');
-    });
-
-    it('should show french store view code in url', () => {
-        cy.intercept('GET', getProductDetailForProductPageCall).as(
-            'gqlGetProductDetailForProductPageQuery'
-        );
-
-        cy.intercept('POST', hitGraphqlPath, req => {
-            aliasMutation(req, 'SignIn');
-            aliasMutation(req, 'AddProductToCart');
-        });
-
-        cy.visitHomePage();
-        triggerStoreSwitcherMenu();
-        changeStoreView('French Store View');
-        // wait page reload
-        cy.wait(5000);
-        assertStoreIsDisplayed('French Store View');
-
-        cy.on('url:changed', newUrl => {
-            const { pathname } = new URL(newUrl);
-            if (pathname === '/') return;
-            expect(pathname).to.contain('/fr');
-        });
-
-        // navigate across app's pages to validate store code in url
-        cy.toggleLoginDialog();
-
-        //create account and sign in
-        cy.signInAccount(accountEmail, accountPassword);
-
-        cy.wait(['@gqlSignInMutation'], {
-            timeout: 60000
-        });
-        triggerAccountMenu();
-        goToMyAccount(firstName, 'Historique des commandes');
-        goToMyAccount(firstName, 'Listes de favoris');
-        goToMyAccount(firstName, "Carnet d'adresses");
-        goToMyAccount(firstName, 'Paiements enregistrés');
-        goToMyAccount(firstName, 'Les communications');
-        goToMyAccount(firstName, 'Information sur le compte');
-
-        triggerSearch();
-        searchFromSearchBar('Dress', true);
-        selectCategoryFromMegaMenu('Blouses & Shirts');
-        selectProductFromCategoryPage(productValeriaTwoLayeredTank.name);
-
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-            timeout: 60000
-        });
-
-        selectOptionsFromProductPage();
-        addToCartFromProductPage();
-        cy.wait(['@gqlAddProductToCartMutation'], {
-            timeout: 60000
-        });
-
-        triggerMiniCart();
-        goToCartPageFromEditCartButton();
-        goToCheckout();
-    });
-
-    it('should show default store view code in url', () => {
-        cy.intercept('GET', getProductDetailForProductPageCall).as(
-            'gqlGetProductDetailForProductPageQuery'
-        );
-
-        cy.intercept('POST', hitGraphqlPath, req => {
-            aliasMutation(req, 'SignIn');
-            aliasMutation(req, 'AddProductToCart');
-        });
-
-        cy.visitHomePage();
-
-        cy.on('url:changed', newUrl => {
-            const { pathname } = new URL(newUrl);
-            if (pathname === '/') return;
-            expect(pathname).to.contain('/default');
-        });
-
-        // navigate across app's pages to validate store code in url
-        cy.toggleLoginDialog();
-
-        //create account and sign in
-        cy.signInAccount(accountEmail, accountPassword);
-
-        cy.wait(['@gqlSignInMutation'], {
-            timeout: 60000
-        });
-        triggerAccountMenu();
-        goToMyAccount(firstName, 'Order History');
-        goToMyAccount(firstName, 'Favorites Lists');
-        goToMyAccount(firstName, 'Address Book');
-        goToMyAccount(firstName, 'Saved Payments');
-        goToMyAccount(firstName, 'Communications');
-        goToMyAccount(firstName, 'Account Information');
-
-        triggerSearch();
-        searchFromSearchBar('Dress', true);
-        selectCategoryFromMegaMenu('Blouses & Shirts');
-        selectProductFromCategoryPage(productValeriaTwoLayeredTank.name);
-
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-            timeout: 60000
-        });
-
-        selectOptionsFromProductPage();
-        addToCartFromProductPage();
-        cy.wait(['@gqlAddProductToCartMutation'], {
-            timeout: 60000
-        });
-
-        triggerMiniCart();
-        goToCartPageFromEditCartButton();
-        goToCheckout();
     });
 });
