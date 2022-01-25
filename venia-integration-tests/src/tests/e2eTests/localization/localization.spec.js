@@ -171,31 +171,6 @@ describe('PWA-1415: Verify Venia Localization', () => {
         assertCurrencyIsSelected('EUR');
     });
 
-    it('should load custom CMS page content according to the selected store', () => {
-        cy.intercept('GET', getCMSPage).as('gqlGetCMSPageQuery');
-
-        cy.visitHomePage();
-        cy.visit('/custom-page');
-        cy.wait(['@gqlGetCMSPageQuery'], {
-            timeout: 60000
-        });
-
-        cy.get(cmsPageContentHeading).then($heading => {
-            expect($heading.text()).to.equal('Custom page for Default Store');
-        });
-
-        triggerStoreSwitcherMenu();
-        changeStoreView('French Store View');
-
-        cy.wait(['@gqlGetCMSPageQuery'], {
-            timeout: 60000
-        });
-
-        cy.get(cmsPageContentHeading).then($heading => {
-            expect($heading.text()).to.equal('Custom page for French Store');
-        });
-    });
-
     it('should update store accordingly if changed from url', () => {
         cy.visitHomePage();
         selectCategoryFromMegaMenu('Bottoms');
