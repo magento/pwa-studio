@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import defaultClasses from './column.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import { arrayOf, oneOf, shape, string } from 'prop-types';
+import { arrayOf, oneOf, shape, string, object } from 'prop-types';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 
 const { matchMedia } = globalThis;
 
@@ -40,6 +41,7 @@ const Column = props => {
         marginLeft,
         marginRight,
         marginTop,
+        mediaQueries,
         minHeight,
         mobileImage,
         paddingBottom,
@@ -50,6 +52,8 @@ const Column = props => {
         verticalAlignment,
         width
     } = props;
+
+    const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
 
     let image = desktopImage;
     if (mobileImage && matchMedia && matchMedia('(max-width: 768px)').matches) {
@@ -151,7 +155,7 @@ const Column = props => {
 
     return (
         <div
-            style={dynamicStyles}
+            style={{ ...dynamicStyles, ...mediaQueryStyles }}
             ref={columnElement}
             className={[classes.root, ...cssClasses].join(' ')}
         >
@@ -184,6 +188,7 @@ const Column = props => {
  * @property {String} marginRight CSS margin right property
  * @property {String} marginTop CSS margin top property
  * @property {String} maxWidth Maximum width of the video
+ * @property {Array} mediaQueries List of media query rules to be applied to the component
  * @property {String} minHeight - CSS min-height property
  * @property {String} mobileImage Background image url to be used for mobile screen width
  * @property {String} paddingBottom CSS padding bottom property
@@ -219,6 +224,12 @@ Column.propTypes = {
     marginLeft: string,
     marginRight: string,
     marginTop: string,
+    MediaQueries: arrayOf(
+        shape({
+            media: string,
+            style: object
+        })
+    ),
     minHeight: string,
     mobileImage: string,
     paddingBottom: string,
