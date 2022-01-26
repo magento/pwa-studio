@@ -79,6 +79,7 @@ export const GET_CMS_DYNAMIC_BLOCKS = gql`
                 }
                 uid
             }
+            salesRulesData @client
         }
     }
 `;

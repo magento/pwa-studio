@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -17,23 +17,19 @@ export const flatten = cartData => {
 
         return prevItem + currentWeight * quantity;
     }, 0);
+    const shippingAddresses = cartData?.cart?.shipping_addresses || [];
     const subtotalExcludingTax =
         cartData?.cart?.prices?.subtotal_excluding_tax?.value || 0;
     const subtotalIncludingTax =
         cartData?.cart?.prices?.subtotal_including_tax?.value || 0;
     const selectedPaymentMethod =
         cartData?.cart?.selected_payment_method?.code || null;
-    const shippingCountryCode =
-        cartData?.cart?.shipping_addresses[0]?.country?.code || null;
-    const shippingPostCode =
-        cartData?.cart?.shipping_addresses[0]?.postcode || null;
-    const shippingRegionCode =
-        cartData?.cart?.shipping_addresses[0]?.region?.code || null;
-    const shippingRegionId =
-        cartData?.cart?.shipping_addresses[0]?.region?.region_id || null;
+    const shippingCountryCode = shippingAddresses[0]?.country?.code || null;
+    const shippingPostCode = shippingAddresses[0]?.postcode || null;
+    const shippingRegionCode = shippingAddresses[0]?.region?.code || null;
+    const shippingRegionId = shippingAddresses[0]?.region?.region_id || null;
     const selectedShippingMethod =
-        cartData?.cart?.shipping_addresses[0]?.selected_shipping_method
-            ?.method_code || null;
+        shippingAddresses[0]?.selected_shipping_method?.method_code || null;
     const totalQuantity = cartData?.cart?.total_quantity || 0;
 
     return JSON.stringify([
@@ -79,34 +75,68 @@ export const useCmsDynamicBlock = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const { data: cartData } = useQuery(getSalesRulesDataQuery, {
-        variables: { cartId },
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        skip: !cartId
-    });
-
-    const { loading, error, data, refetch } = useQuery(
+    const { client, loading, error, data, refetch } = useQuery(
         getCmsDynamicBlocksQuery,
         {
-            variables: { cartId, type, locations, uids }
+            variables: { cartId, type, locations, uids },
+            skip: !cartId
         }
     );
 
-    const salesRulesData = flatten(cartData);
-    const prevSalesRulesData = useRef(salesRulesData);
-
-    // Refetch data if cart conditions have changed
-    useEffect(() => {
-        if (prevSalesRulesData.current !== salesRulesData) {
-            refetch().then(() => {
-                prevSalesRulesData.current = salesRulesData;
-            });
+    const { loading: cartLoading, data: cartData } = useQuery(
+        getSalesRulesDataQuery,
+        {
+            variables: { cartId },
+            skip: !cartId
         }
-    }, [salesRulesData, refetch]);
+    );
+
+    const currentSalesRulesData = flatten(cartData);
+    const isLoading = loading || cartLoading;
+    const cachedSalesRulesData = data?.dynamicBlocks?.salesRulesData;
+
+    const updateSalesRulesData = useCallback(
+        (currentData = {}, currentSalesRulesData) => {
+            client.writeQuery({
+                query: getCmsDynamicBlocksQuery,
+                data: {
+                    dynamicBlocks: {
+                        ...currentData,
+                        salesRulesData: currentSalesRulesData
+                    }
+                },
+                variables: {
+                    cartId,
+                    type,
+                    locations,
+                    uids
+                },
+                skip: !cartId
+            });
+        },
+        [cartId, client, getCmsDynamicBlocksQuery, locations, type, uids]
+    );
+
+    useEffect(() => {
+        if (data && cachedSalesRulesData !== currentSalesRulesData) {
+            if (!cachedSalesRulesData) {
+                // Save cart conditions data in cache
+                updateSalesRulesData(data.dynamicBlocks, currentSalesRulesData);
+            } else {
+                // Refetch cms data if there's a mismatch
+                refetch();
+            }
+        }
+    }, [
+        cachedSalesRulesData,
+        currentSalesRulesData,
+        data,
+        refetch,
+        updateSalesRulesData
+    ]);
 
     return {
-        loading,
+        loading: isLoading,
         error,
         data
     };
