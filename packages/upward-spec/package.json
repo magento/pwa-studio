@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-spec",
-  "version": "5.2.0-alpha.2",
+  "version": "5.2.0-alpha.3",
   "publishConfig": {
     "access": "public"
   },
