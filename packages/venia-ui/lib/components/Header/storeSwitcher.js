@@ -41,7 +41,11 @@ const StoreSwitcher = props => {
                 label = `${storeGroupName} - ${storeName}`;
             }
             stores.push(
-                <li key={code} className={classes.menuItem} data-cy="StoreSwitcher-view">
+                <li
+                    key={code}
+                    className={classes.menuItem}
+                    data-cy="StoreSwitcher-view"
+                >
                     <SwitcherItem
                         active={isCurrent}
                         onClick={handleSwitchStore}
@@ -54,7 +58,11 @@ const StoreSwitcher = props => {
         });
 
         groups.push(
-            <ul className={classes.groupList} key={key} data-cy="StoreSwitcher-group">
+            <ul
+                className={classes.groupList}
+                key={key}
+                data-cy="StoreSwitcher-group"
+            >
                 {stores}
             </ul>
         );
@@ -78,7 +86,11 @@ const StoreSwitcher = props => {
             >
                 {triggerLabel}
             </button>
-            <div ref={storeMenuRef} className={menuClassName} data-cy="StoreSwitcher-menu">
+            <div
+                ref={storeMenuRef}
+                className={menuClassName}
+                data-cy="StoreSwitcher-menu"
+            >
                 <div className={classes.groups}>{groups}</div>
             </div>
         </div>

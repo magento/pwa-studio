@@ -509,6 +509,8 @@ const interceptStoreRequests = expectedStoreCode => {
  */
 const interceptRouteDataRequests = expectedStoreCode => {
     cy.intercept('GET', resolveUrlCall, req => {
+        expect(req.headers.store).to.equal(expectedStoreCode);
+
         const url = new URL(req.headers.referer);
 
         switch (url.pathname) {
