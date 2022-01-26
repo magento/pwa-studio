@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -96,7 +96,7 @@ export const useCmsDynamicBlock = props => {
     const cachedSalesRulesData = data?.dynamicBlocks?.salesRulesData;
 
     const updateSalesRulesData = useCallback(
-        (currentData = {}, currentSalesRulesData) => {
+        (currentData, currentSalesRulesData) => {
             client.writeQuery({
                 query: getCmsDynamicBlocksQuery,
                 data: {
