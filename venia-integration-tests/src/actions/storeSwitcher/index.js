@@ -1,6 +1,6 @@
 import {
     headerStoreSwitcherGroup,
-    headerStoreSwitcherTrigger,
+    headerStoreSwitcherTrigger
 } from '../../fields/storeSwitcher';
 
 export const toggleHeaderStoreSwitcher = () => {
