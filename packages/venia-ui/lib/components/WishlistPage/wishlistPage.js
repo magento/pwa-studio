@@ -15,7 +15,6 @@ const WishlistPage = props => {
     const {
         errors,
         loading,
-        numberOfWishlists,
         shouldRenderVisibilityToggle,
         wishlists
     } = talonProps;
@@ -75,7 +74,7 @@ const WishlistPage = props => {
         content = (
             <Fragment>
                 {wishlistElements}
-                <CreateWishlist numberOfWishlists={numberOfWishlists} />
+                <CreateWishlist numberOfWishlists={wishlists.length} />
             </Fragment>
         );
     }
