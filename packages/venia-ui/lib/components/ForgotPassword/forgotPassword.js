@@ -9,8 +9,6 @@ import { useStyle } from '../../classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
 
-import forgotPasswordOperations from './forgotPassword.gql';
-
 import defaultClasses from './forgotPassword.module.css';
 
 const ForgotPassword = props => {
@@ -18,17 +16,14 @@ const ForgotPassword = props => {
 
     const { formatMessage } = useIntl();
     const talonProps = useForgotPassword({
-        onCancel,
-        ...forgotPasswordOperations
+        onCancel
     });
 
     const {
         forgotPasswordEmail,
         formErrors,
-        handleCancel,
-        handleFormSubmit,
         hasCompleted,
-        isResettingPassword
+        formProps
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -48,12 +43,7 @@ const ForgotPassword = props => {
                 />
             </h2>
             <p className={classes.instructions}>{INSTRUCTIONS}</p>
-            <ForgotPasswordForm
-                initialValues={initialValues}
-                isResettingPassword={isResettingPassword}
-                onSubmit={handleFormSubmit}
-                onCancel={handleCancel}
-            />
+            <ForgotPasswordForm initialValues={initialValues} {...formProps} />
             <FormErrors errors={formErrors} />
         </Fragment>
     );
