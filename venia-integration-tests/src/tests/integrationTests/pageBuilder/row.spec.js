@@ -5,7 +5,7 @@ import {
 const { getCMSPage } = graphqlMockedCallsFixtures;
 const { successImage } = mediaMockedCallsFixtures;
 
-describe('PWA-1156: verify pagebuilder row content', () => {
+describe.skip('PWA-1156: verify pagebuilder row content', () => {
     it('verify row content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/row/row-1.json'
@@ -347,6 +347,27 @@ describe('PWA-1156: verify pagebuilder row content', () => {
                 name: 'Page Builder Row Video Background3',
                 timeout: 60000
             });
+        });
+    });
+});
+
+describe('PWA-1471: Verify pagebuilder row media query', () => {
+    it('should apply mediaQuery styles', () => {
+        cy.intercept('GET', getCMSPage, {
+            fixture: 'pageBuilder/row/row-media-query'
+        }).as('@getCMSMockData');
+        cy.visitHomePage();
+        cy.wait(['@getCMSMockData']).its('response.body');
+        cy.loadFullPage().then(() => {
+            cy.captureFullPageScreenshot({
+                name: 'Row media query (Desktop)',
+                timeout: 60000
+            });
+        });
+        cy.viewport('ipad-2');
+        cy.captureFullPageScreenshot({
+            name: 'Row media query (Mobile)',
+            timeout: 60000
         });
     });
 });

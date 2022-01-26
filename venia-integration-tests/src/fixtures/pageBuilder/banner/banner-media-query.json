@@ -1,0 +1,15 @@
+{
+  "data": {
+    "cmsPage": {
+      "url_key": "home",
+      "content": "<style>#html-body [data-pb-style=B8J1VJC]{justify-content:flex-start;display:flex;flex-direction:column;margin-top:50px}#html-body [data-pb-style=B8J1VJC],#html-body [data-pb-style=WOEJ97N]{background-position:left top;background-size:cover;background-repeat:no-repeat;background-attachment:scroll}#html-body [data-pb-style=TU6VF5V]{border-radius:0;min-height:400px;background-color:transparent}@media only screen and (max-width: 768px) { #html-body [data-pb-style=TU6VF5V]{border-radius:0;min-height:200px;background-color:transparent} }<\/style><div data-content-type=\"row\" data-appearance=\"contained\" data-element=\"main\"><div data-enable-parallax=\"0\" data-parallax-speed=\"0.5\" data-background-images=\"{}\" data-background-type=\"image\" data-video-loop=\"true\" data-video-play-only-visible=\"true\" data-video-lazy-load=\"true\" data-video-fallback-src=\"\" data-element=\"inner\" data-pb-style=\"B8J1VJC\"><div data-content-type=\"text\" data-appearance=\"default\" data-element=\"main\"><p><span style=\"font-size: 20px;\">Media query Banner (min-height 200px)<\/span><\/p><\/div><div data-content-type=\"banner\" data-appearance=\"poster\" data-show-button=\"never\" data-show-overlay=\"never\" data-element=\"main\"><div data-element=\"empty_link\"><div class=\"pagebuilder-banner-wrapper\" data-background-images=\"{\\&quot;desktop_image\\&quot;:\\&quot;https:\/\/master-7rqtwti-ktefqhpptmkrc.eu-4.magentosite.cloud\/media\/wysiwyg\/venia-hero1.jpg\\&quot;}\" data-background-type=\"image\" data-video-loop=\"true\" data-video-play-only-visible=\"true\" data-video-lazy-load=\"true\" data-video-fallback-src=\"\" data-element=\"wrapper\" data-pb-style=\"WOEJ97N\"><div class=\"pagebuilder-overlay pagebuilder-poster-overlay\" data-overlay-color=\"\" data-element=\"overlay\" data-pb-style=\"TU6VF5V\"><div class=\"pagebuilder-poster-content\"><div data-element=\"content\"><\/div><\/div><\/div><\/div><\/div><\/div><\/div><\/div>",
+      "content_heading": "",
+      "title": "PWA-1471 Verify Banner media query",
+      "page_layout": "cms-full-width",
+      "meta_title": "",
+      "meta_keywords": "",
+      "meta_description": "",
+      "__typename": "CmsPage"
+    }
+  }
+}
