@@ -92,14 +92,38 @@ export const giftCardCardTextField =
 export const giftCardCardApplyButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftCards-apply"]';
 
+export const giftOptionsSection =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-giftOptionsSection"]';
+
 export const giftOptionsSectionButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-giftOptionsSection"] [data-cy="Section-titleContainer"]';
 
 export const giftOptionsIncludeGiftReceiptCheckbox =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-includeGiftReceipt"]';
 
+export const giftOptionsIncludeGiftMessageCheckbox =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-includeGiftMessage"]';
+
 export const giftOptionsIncludePrintedCardCheckbox =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-includePrintedCard"]';
 
+export const giftOptionsGiftMessageResult =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-giftMessageResult"]';
+
+export const giftOptionsCardToInput =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-cardTo"]';
+
+export const giftOptionsCardFromInput =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-cardFrom"]';
+
 export const giftOptionsCardMessageTextarea =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-cardMessage"]';
+
+export const giftOptionsEditGiftMessageButton =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-editGiftMessageButton"]';
+
+export const giftOptionsCancelGiftMessageButton =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-cancelGiftMessageButton"]';
+
+export const giftOptionsUpdateGiftMessageButton =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-updateGiftMessageButton"]';

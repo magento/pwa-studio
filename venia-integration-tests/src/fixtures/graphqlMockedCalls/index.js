@@ -47,6 +47,8 @@ export const getCustomerWishlistCall =
 export const getFilterInputsForCategoryCall =
     '**/graphql?query=query+GetFilterInputsForCategory*';
 
+export const getGiftOptionsCall = '**/graphql?query=query+GetGiftOptions*';
+
 export const getItemCountCall = '**/graphql?query=query+getItemCount*';
 
 export const getItemsInCartCall = '**/graphql?query=query+getItemsInCart*';
@@ -88,6 +90,9 @@ export const getProductSearchCall = '**/graphql?query=query+ProductSearch*';
 export const getProductsByUrlKeyCall =
     '**/graphql?query=query+getProductsByUrlKey*';
 
+export const getReCaptchaV3ConfigCall =
+    '**/graphql?query=query+GetReCaptchaV3Config*';
+
 export const getRegionsCall = '**/graphql?query=query+GetRegions*';
 
 export const getRootCategoryIdCall =
@@ -121,6 +126,9 @@ export const getStoreConfigForCarouselEECall =
 
 export const getStoreConfigDataForGalleryEECall =
     '**/graphql?query=query+GetStoreConfigDataForGalleryEE*';
+
+export const getStoreConfigForGiftOptionsCall =
+    '**/graphql?query=query+GetStoreConfigForGiftOptions*';
 
 export const getStoreConfigForMegaMenuCall =
     '**/graphql?query=query+GetStoreConfigForMegaMenu*';

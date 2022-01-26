@@ -5,6 +5,7 @@ export * as cartPage from './cartPage';
 export * as categoryPage from './categoryPage';
 export * as categoryTree from './categoryTree';
 export * as checkoutPage from './checkoutPage';
+export * as forgotPasswordPage from './forgotPasswordPage';
 export * as header from './header';
 export * as megaMenu from './megaMenu';
 export * as myAccountMenu from './myAccountMenu';

@@ -9,6 +9,7 @@ import {
     productsNoProductsFound,
     productsPagination,
     productsPaginationTileActive,
+    productRatingSummary,
     productSortSortItemActive,
     searchBarSuggestedProduct
 } from '../../fields/categoryPage';
@@ -126,6 +127,7 @@ export const assertActiveSortItem = sortLabel => {
     cy.get(productSortSortItemActive).should('contain', sortLabel);
 };
 
+
 /**
  * Assert number of products listed
  *
@@ -133,4 +135,12 @@ export const assertActiveSortItem = sortLabel => {
  */
 export const assertNumberOfProductsListed = number => {
     cy.get(productsGalleryItemName).should('have.length', number);
+}
+
+  
+export const assertRatingSummary = productName => {
+    cy.contains(productName)
+        .children()
+        .get(productRatingSummary)
+        .should('exist');
 };

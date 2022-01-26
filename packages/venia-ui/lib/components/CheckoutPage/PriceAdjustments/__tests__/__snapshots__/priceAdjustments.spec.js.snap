@@ -18,12 +18,7 @@ exports[`renders price adjustments 1`] = `
     <GiftCardSection
       setIsCartUpdating={[MockFunction setPageIsUpdating]}
     />
-    <mock-Section
-      id="gift_options"
-      title="See Gift Options"
-    >
-      <GiftOptions />
-    </mock-Section>
+    <GiftOptionsSection />
   </mock-Accordion>
 </div>
 `;

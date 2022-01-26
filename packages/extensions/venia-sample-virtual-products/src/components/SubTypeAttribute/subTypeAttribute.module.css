@@ -1,9 +1,0 @@
-.root {
-    color: rgb(var(--venia-global-color-text-hint));
-    font-size: var(--venia-typography-detail-L-fontSize);
-}
-
-.root:empty {
-    background-color: rgb(var(--venia-global-color-gray));
-    min-height: 1rem;
-}
