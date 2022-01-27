@@ -5,7 +5,7 @@ import {
 const { getCMSPage } = graphqlMockedCallsFixtures;
 const { successImage } = mediaMockedCallsFixtures;
 
-describe.skip('PWA-1156: verify pagebuilder row content', () => {
+describe('PWA-1156: verify pagebuilder row content', () => {
     it('verify row content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/row/row-1.json'

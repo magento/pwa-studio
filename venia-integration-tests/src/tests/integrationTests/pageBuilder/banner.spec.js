@@ -2,7 +2,7 @@ import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtu
 const { getCMSPage } = graphqlMockedCallsFixtures;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe.skip('PWA-1154: verify pagebuilder banner content', () => {
+describe('PWA-1154: verify pagebuilder banner content', () => {
     it('verify banner content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/banner/banner.json'
