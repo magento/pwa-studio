@@ -3,6 +3,15 @@ import { string, shape, object, arrayOf } from 'prop-types';
 
 const { matchMedia } = globalThis;
 
+/**
+ * A hook that will return all matched styles for any given media queries using the
+ * matchMedia API (https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia)
+ *
+ * @param {Object} props
+ * @param {Array} props.mediaQueries The array of media rules and respective styles to apply
+ *
+ * @returns {Object}
+ */
 export const useMediaQuery = props => {
     const [styles, setStyles] = useState({});
 
@@ -14,12 +23,34 @@ export const useMediaQuery = props => {
         const mqlList = mediaQueries.map(({ media }) => matchMedia(media));
 
         const handleMatch = (query, i) => {
-            query.matches ? setStyles(mediaQueries[i].style) : setStyles({});
+            if (query.matches) {
+                setStyles(prevState => ({
+                    ...prevState,
+                    ...mediaQueries[i].style
+                }));
+            } else {
+                setStyles(prevState => {
+                    const filteredState = Object.keys(prevState)
+                        .filter(
+                            key => mediaQueries[i].style[key] !== prevState[key]
+                        )
+                        .reduce((obj, key) => {
+                            return {
+                                ...obj,
+                                [key]: prevState[key]
+                            };
+                        }, {});
+                    return filteredState;
+                });
+            }
         };
 
         mqlList.forEach((mql, i) => {
             if (mql.matches) {
-                setStyles(mediaQueries[i].style);
+                setStyles(prevState => ({
+                    ...prevState,
+                    ...mediaQueries[i].style
+                }));
             }
             mql.addEventListener('change', query => handleMatch(query, i));
         });
