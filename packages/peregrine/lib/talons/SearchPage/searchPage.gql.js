@@ -21,6 +21,7 @@ export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
                     label
                     value
                 }
+                position
             }
         }
     }
