@@ -46,9 +46,9 @@ const DiscountSummary = props => {
     const label = discount.label
         ? discount.label
         : formatMessage({
-            id: 'discountSummary.lineItemLabel',
-            defaultMessage: 'Discounts applied'
-        });
+              id: 'discountSummary.lineItemLabel',
+              defaultMessage: 'Discounts applied'
+          });
 
     return discount.value ? (
         <Fragment>
