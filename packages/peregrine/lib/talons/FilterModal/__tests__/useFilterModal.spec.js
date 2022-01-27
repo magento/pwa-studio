@@ -8,7 +8,6 @@ import { useFilterModal } from '../useFilterModal';
 jest.mock('../helpers', () => ({
     getStateFromSearch: jest.fn(() => ({})),
     getSearchFromState: jest.fn(() => 'searchFromState'),
-    sortFiltersArray: jest.fn(props => props),
     stripHtml: jest.fn(() => 'strippedHtml')
 }));
 

@@ -20,7 +20,6 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                     label
                     value
                 }
-                position
             }
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
