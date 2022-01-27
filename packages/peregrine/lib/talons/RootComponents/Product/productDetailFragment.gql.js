@@ -60,11 +60,13 @@ export const ProductDetailsFragment = gql`
                 }
                 data_type
                 is_system
-                is_visible_on_front
                 entity_type
                 ui_input {
                     ui_input_type
                     is_html_allowed
+                }
+                ... on ProductAttributeMetadata {
+                    used_in_components
                 }
             }
         }
@@ -138,11 +140,13 @@ export const ProductDetailsFragment = gql`
                             }
                             data_type
                             is_system
-                            is_visible_on_front
                             entity_type
                             ui_input {
                                 ui_input_type
                                 is_html_allowed
+                            }
+                            ... on ProductAttributeMetadata {
+                                used_in_components
                             }
                         }
                     }

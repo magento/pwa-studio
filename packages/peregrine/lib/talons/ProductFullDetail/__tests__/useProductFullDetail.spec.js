@@ -136,12 +136,12 @@ const configurableProductProps = {
                     ],
                     data_type: 'COMPLEX',
                     is_system: false,
-                    is_visible_on_front: true,
                     entity_type: 'PRODUCT',
                     ui_input: {
                         ui_input_type: 'MULTISELECT',
                         is_html_allowed: true
-                    }
+                    },
+                    used_in_components: []
                 }
             },
             {
@@ -171,12 +171,12 @@ const configurableProductProps = {
                     ],
                     data_type: 'COMPLEX',
                     is_system: false,
-                    is_visible_on_front: true,
                     entity_type: 'PRODUCT',
                     ui_input: {
                         ui_input_type: 'MULTISELECT',
                         is_html_allowed: true
-                    }
+                    },
+                    used_in_components: []
                 }
             }
         ],
@@ -219,12 +219,12 @@ const configurableProductProps = {
                                 ],
                                 data_type: 'COMPLEX',
                                 is_system: false,
-                                is_visible_on_front: true,
                                 entity_type: 'PRODUCT',
                                 ui_input: {
                                     ui_input_type: 'MULTISELECT',
                                     is_html_allowed: true
-                                }
+                                },
+                                used_in_components: []
                             }
                         }
                     ]
