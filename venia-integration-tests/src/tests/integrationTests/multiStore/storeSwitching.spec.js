@@ -725,7 +725,6 @@ describe('shopping cart', () => {
                 defaultStore.defaultView.storeCode
             );
             const { operationName } = req.body;
-            console.log(operationName);
             req.reply({
                 fixture: `${DATA_DIRECTORY}/cart/addProductsToCart1.json`
             });
