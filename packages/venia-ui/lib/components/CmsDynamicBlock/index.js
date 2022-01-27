@@ -1,1 +1,2 @@
-export { default } from './cmsBlock';
+export { default } from './cmsDynamicBlock';
+export * from './constants';

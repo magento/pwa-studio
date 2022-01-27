@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
 
 export const CategoryFragment = gql`
+    # eslint-disable-next-line @graphql-eslint/require-id-when-available
     fragment CategoryFragment on CategoryTree {
-        id
+        uid
         meta_title
         meta_keywords
         meta_description

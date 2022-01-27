@@ -1,17 +1,17 @@
 import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
+import { DISPLAY_MODE_FIXED_TYPE } from '@magento/venia-ui/lib/components/CmsDynamicBlock';
 
 import DynamicBlock from '../dynamicBlock.ee';
 
-jest.mock(
-    '@magento/venia-ui/lib/components/CmsDynamicBlock/cmsDynamicBlock',
-    () => props => <mock-CmsDynamicBlockGroup {...props} />
-);
+jest.mock('@magento/venia-ui/lib/components/CmsDynamicBlock', () => props => (
+    <mock-CmsDynamicBlockGroup {...props} />
+));
 
 const defaultProps = {
     displayInline: false,
-    displayMode: 'fixed',
+    displayMode: DISPLAY_MODE_FIXED_TYPE,
     uids: 'uids',
     textAlign: 'right',
     border: 'solid',

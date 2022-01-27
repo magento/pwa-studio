@@ -1,6 +1,6 @@
 <!--
 Before submitting this pull request, please make sure you have read our Contribution Guidelines and your PR meets our contribution standards:
-https://github.com/magento/pwa-studio/blob/master/.github/CONTRIBUTING.md
+https://github.com/magento/pwa-studio/blob/main/.github/CONTRIBUTING.md
 
 Please fill out as much information as you can about your PR to help speed up the review process.
 If your PR addresses an existing GitHub Issue, please refer to it in the title or Additional Information section to make the connection.

@@ -57,16 +57,16 @@ const Text = props => {
 
     const history = useHistory();
 
-    const clickHandler = e => {
-        handleHtmlContentClick(history, e);
+    const clickHandler = event => {
+        handleHtmlContentClick(history, event);
     };
 
     return (
         <div
-            onClick={clickHandler}
             style={dynamicStyles}
             className={[classes.root, ...cssClasses].join(' ')}
             dangerouslySetInnerHTML={toHTML(content)}
+            onClick={clickHandler}
             onKeyDown={clickHandler}
             role="presentation"
         />

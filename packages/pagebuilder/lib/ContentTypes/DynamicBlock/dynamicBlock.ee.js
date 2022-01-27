@@ -2,7 +2,11 @@ import React from 'react';
 import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import CmsDynamicBlockGroup from '@magento/venia-ui/lib/components/CmsDynamicBlock/cmsDynamicBlock';
+import CmsDynamicBlockGroup, {
+    DISPLAY_MODE_FIXED_TYPE,
+    DISPLAY_MODE_SALES_RULE_TYPE,
+    DISPLAY_MODE_CATALOG_RULE_TYPE
+} from '@magento/venia-ui/lib/components/CmsDynamicBlock';
 import defaultClasses from './dynamicBlock.module.css';
 
 /**
@@ -102,7 +106,11 @@ DynamicBlock.propTypes = {
         root: string
     }),
     displayInline: bool,
-    displayMode: oneOf(['fixed', 'salesrule', 'catalogrule']),
+    displayMode: oneOf([
+        DISPLAY_MODE_FIXED_TYPE,
+        DISPLAY_MODE_SALES_RULE_TYPE,
+        DISPLAY_MODE_CATALOG_RULE_TYPE
+    ]),
     uids: string,
     textAlign: string,
     border: string,
