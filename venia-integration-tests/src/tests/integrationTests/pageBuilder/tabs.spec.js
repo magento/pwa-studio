@@ -20,7 +20,7 @@ describe('PWA-1471: Verify pagebuilder tabs media query', () => {
     it('should apply mediaQuery styles', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/tabs/tabs-media-query'
-        }).as('@getCMSMockData');
+        }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.loadFullPage().then(() => {

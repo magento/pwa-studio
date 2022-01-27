@@ -355,7 +355,7 @@ describe('PWA-1471: Verify pagebuilder row media query', () => {
     it('should apply mediaQuery styles', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/row/row-media-query'
-        }).as('@getCMSMockData');
+        }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.loadFullPage().then(() => {
