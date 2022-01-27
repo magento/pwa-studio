@@ -40,13 +40,8 @@ export const useProduct = props => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const productUrlSuffix = useMemo(() => {
-        if (storeConfigData) {
-            return storeConfigData.storeConfig.product_url_suffix;
-        }
-    }, [storeConfigData]);
-
     const slug = pathname.split('/').pop();
+    const productUrlSuffix = storeConfigData?.storeConfig?.product_url_suffix;
     const urlKey = productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
 
     const { error, loading, data } = useQuery(getProductDetailQuery, {

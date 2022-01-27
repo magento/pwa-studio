@@ -1,0 +1,17 @@
+{
+    "data": {
+        "dynamicBlocks": {
+            "items": [
+                {
+                    "content": {
+                        "html": "<style>#html-body [data-pb-style=HR6PHM5]{justify-content:flex-start;display:flex;flex-direction:column;background-position:left top;background-size:cover;background-repeat:no-repeat;background-attachment:scroll}</style><div data-content-type=\"row\" data-appearance=\"contained\" data-element=\"main\"><div data-enable-parallax=\"0\" data-parallax-speed=\"0.5\" data-background-images=\"{}\" data-background-type=\"image\" data-video-loop=\"true\" data-video-play-only-visible=\"true\" data-video-lazy-load=\"true\" data-video-fallback-src=\"\" data-element=\"inner\" data-pb-style=\"HR6PHM5\"><div data-content-type=\"text\" data-appearance=\"default\" data-element=\"main\"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam architecto autem commodi cum deserunt error, ipsum molestiae obcaecati optio perspiciatis possimus quod repellat totam unde ut vel veniam voluptas.</p></div></div></div>",
+                        "__typename": "ComplexTextValue"
+                    },
+                    "uid": "mock-2",
+                    "__typename": "DynamicBlock"
+                }
+            ],
+            "__typename": "DynamicBlocks"
+        }
+    }
+}
