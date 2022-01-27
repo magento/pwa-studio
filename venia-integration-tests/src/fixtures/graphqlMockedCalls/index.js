@@ -44,6 +44,9 @@ export const getCustomerAfterCheckoutCall =
 export const getCustomerWishlistCall =
     '**/graphql?query=query+GetCustomerWishlist*';
 
+export const getDynamicBlocksCall =
+    '**/graphql?query=query+GetCmsDynamicBlocks*';
+
 export const getFilterInputsForCategoryCall =
     '**/graphql?query=query+GetFilterInputsForCategory*';
 

@@ -6,7 +6,8 @@ import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from '../MagentoRoute/magentoRoute.gql';
 
 const useLink = (props, passedOperations = {}) => {
-    const { prefetchType: shouldPrefetch, innerRef: originalRef, to } = props;
+    const { innerRef: originalRef, to } = props;
+    const shouldPrefetch = props.prefetchType || props.shouldPrefetch;
     const operations = shouldPrefetch
         ? mergeOperations(DEFAULT_OPERATIONS, passedOperations)
         : {};
