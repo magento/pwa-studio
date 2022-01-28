@@ -7,6 +7,8 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import AttributeType from './AttributeType';
 import defaultClasses from './customAttributes.module.css';
 
+export const IS_VISIBLE_ON_FRONT = 'PRODUCT_DETAILS_PAGE';
+
 const CustomAttributes = props => {
     const { customAttributes } = props;
     const classes = useStyle(defaultClasses, props.classes);
@@ -14,11 +16,11 @@ const CustomAttributes = props => {
     const list = useMemo(
         () =>
             customAttributes.reduce((previousAttribute, currentAttribute) => {
+                const usedInComponents =
+                    currentAttribute.attribute_metadata?.used_in_components ||
+                    [];
                 // Visible on front attributes only
-                if (
-                    currentAttribute.attribute_metadata.is_visible_on_front ===
-                    true
-                ) {
+                if (usedInComponents.includes(IS_VISIBLE_ON_FRONT)) {
                     const attributeContent = (
                         <li
                             key={currentAttribute.attribute_metadata.uid}

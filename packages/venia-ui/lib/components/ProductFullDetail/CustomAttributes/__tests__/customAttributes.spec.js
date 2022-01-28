@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
 
-import CustomAttributes from '../customAttributes';
+import CustomAttributes, { IS_VISIBLE_ON_FRONT } from '../customAttributes';
 
 jest.mock('react-intl', () => ({
     FormattedMessage: ({ defaultMessage }) => defaultMessage
@@ -40,31 +40,30 @@ describe('#CustomAttributes', () => {
             customAttributes: [
                 {
                     attribute_metadata: {
-                        is_visible_on_front: true,
+                        used_in_components: [IS_VISIBLE_ON_FRONT],
                         uid: 'uid-1'
                     }
                 },
                 {
                     attribute_metadata: {
-                        is_visible_on_front: true,
+                        used_in_components: [IS_VISIBLE_ON_FRONT],
                         uid: 'uid-2'
                     }
                 },
                 {
                     attribute_metadata: {
-                        is_visible_on_front: false,
+                        used_in_components: [],
                         uid: 'uid-3'
                     }
                 },
                 {
                     attribute_metadata: {
-                        is_visible_on_front: true,
+                        used_in_components: [IS_VISIBLE_ON_FRONT],
                         uid: 'uid-4'
                     }
                 },
                 {
                     attribute_metadata: {
-                        is_visible_on_front: false,
                         uid: 'uid-5'
                     }
                 }
