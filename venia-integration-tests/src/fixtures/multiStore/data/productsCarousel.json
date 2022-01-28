@@ -1,0 +1,623 @@
+{
+  "data": {
+    "products": {
+      "items": [
+        {
+          "id": 1152,
+          "uid": "MTE1Mg==",
+          "name": "Angelina Tank Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 69.26,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD01",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd01-ll_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "angelina-tank-dress"
+        },
+        {
+          "id": 1151,
+          "uid": "MTE1MQ==",
+          "name": "Candace Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 76.32,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD02",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd02-ll_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "candace-dress"
+        },
+        {
+          "id": 1150,
+          "uid": "MTE1MA==",
+          "name": "Karena Halter Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 55.12,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD03",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd03-mt_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "karena-halter-dress"
+        },
+        {
+          "id": 1149,
+          "uid": "MTE0OQ==",
+          "name": "Felicia Maxi Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 90.46,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD04",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd04-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "felicia-maxi-dress"
+        },
+        {
+          "id": 1148,
+          "uid": "MTE0OA==",
+          "name": "Veronica Maxi Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 62.19,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD05",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd05-ly_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "veronica-maxi-dress"
+        },
+        {
+          "id": 1147,
+          "uid": "MTE0Nw==",
+          "name": "Flora Tank Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 104.59,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD06",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd06-mt_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "flora-tank-dress"
+        },
+        {
+          "id": 1146,
+          "uid": "MTE0Ng==",
+          "name": "Paulina Draped Tank Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 76.32,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD07",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd07-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "paulina-draped-tank-dress"
+        },
+        {
+          "id": 1145,
+          "uid": "MTE0NQ==",
+          "name": "Valentina Tank Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 55.12,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD08",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd08-ll_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "valentina-tank-dress"
+        },
+        {
+          "id": 1144,
+          "uid": "MTE0NA==",
+          "name": "Alexia Maxi Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 55.12,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD09",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd09-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "alexia-maxi-dress"
+        },
+        {
+          "id": 1143,
+          "uid": "MTE0Mw==",
+          "name": "Claudia Crochet Dress",
+          "price_range": {
+            "maximum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 69.26,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VD10",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/d\/vd10-ly_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "claudia-crochet-dress"
+        }
+      ],
+      "total_count": 10,
+      "filters": [
+        {
+          "name": "Category",
+          "filter_items_count": 6,
+          "request_var": "cat",
+          "filter_items": [
+            {
+              "label": "Bottoms",
+              "value_string": "10",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Tops",
+              "value_string": "7",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Dresses",
+              "value_string": "13",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Accessories",
+              "value_string": "3",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Shop The Look",
+              "value_string": "14",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "New Products",
+              "value_string": "21",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Price",
+          "filter_items_count": 2,
+          "request_var": "price",
+          "filter_items": [
+            {
+              "label": "<span class=\"price\">\u20ac0.00<\/span> - <span class=\"price\">\u20ac99.99<\/span>",
+              "value_string": "0-100",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "<span class=\"price\">\u20ac100.00<\/span> - <span class=\"price\">\u20ac199.99<\/span>",
+              "value_string": "100-200",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Color",
+          "filter_items_count": 10,
+          "request_var": "fashion_color",
+          "filter_items": [
+            {
+              "label": "Gold",
+              "value_string": "14",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Peach",
+              "value_string": "18",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Khaki",
+              "value_string": "19",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Silver",
+              "value_string": "15",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Lilac",
+              "value_string": "20",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Rain",
+              "value_string": "21",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Mint",
+              "value_string": "22",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Lily",
+              "value_string": "23",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Latte",
+              "value_string": "24",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Cocoa",
+              "value_string": "25",
+              "__typename": "SwatchLayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Material",
+          "filter_items_count": 15,
+          "request_var": "fashion_material",
+          "filter_items": [
+            {
+              "label": "14K Gold",
+              "value_string": "16",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Acrylic",
+              "value_string": "37",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Cashmere",
+              "value_string": "38",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Sterling Silver",
+              "value_string": "17",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Cotton",
+              "value_string": "39",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Linen",
+              "value_string": "40",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Leather",
+              "value_string": "41",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Nylon",
+              "value_string": "42",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Organic Cotton",
+              "value_string": "43",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Polyester",
+              "value_string": "44",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Rayon",
+              "value_string": "45",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Silk",
+              "value_string": "46",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Spandex",
+              "value_string": "47",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Viscose",
+              "value_string": "48",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Wool",
+              "value_string": "49",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Size",
+          "filter_items_count": 9,
+          "request_var": "fashion_size",
+          "filter_items": [
+            {
+              "label": "XS",
+              "value_string": "29",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "S",
+              "value_string": "28",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "M",
+              "value_string": "27",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "L",
+              "value_string": "26",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "2",
+              "value_string": "30",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "4",
+              "value_string": "31",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "6",
+              "value_string": "32",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "8",
+              "value_string": "33",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "10",
+              "value_string": "34",
+              "__typename": "SwatchLayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Style",
+          "filter_items_count": 19,
+          "request_var": "fashion_style",
+          "filter_items": [
+            {
+              "label": "Above Knee",
+              "value_string": "50",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Below Knee",
+              "value_string": "51",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Ankle Length",
+              "value_string": "52",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Halter Top",
+              "value_string": "53",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Short Sleeve",
+              "value_string": "54",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Sleeveless",
+              "value_string": "55",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Long Sleeve",
+              "value_string": "56",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "3\/4 Sleeve",
+              "value_string": "57",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Slim Fit",
+              "value_string": "58",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Wide Leg",
+              "value_string": "59",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Capri",
+              "value_string": "60",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Full Length",
+              "value_string": "61",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Straight Leg",
+              "value_string": "62",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Open Front",
+              "value_string": "63",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Crew",
+              "value_string": "64",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Hooded",
+              "value_string": "65",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Scoopneck",
+              "value_string": "66",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "V-neck",
+              "value_string": "67",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Button-down",
+              "value_string": "68",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Has Video",
+          "filter_items_count": 2,
+          "request_var": "has_video",
+          "filter_items": [
+            {
+              "label": "Yes",
+              "value_string": "1",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "No",
+              "value_string": "0",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        }
+      ],
+      "__typename": "Products"
+    }
+  }
+}
