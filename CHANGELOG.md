@@ -6,14 +6,15 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## New Features
 
-- **Updated to node 14**
-- **New Venia default pages** - Venia now ships with the following default pages enabled:
+-  **New Venia CMS pages** - Venia now ships with PWA versions of the Commerce and Open Source default CMS pages: _About Us_, _Contact Us_, _Customer Service_, _Newsletter Subscription_. Out of the box, these pages are ready to use or customize as needed.
 
-    - Contact us
-    - About us
-    - Customer Support
-    - Newsletter subscription
+-  **Luma and Venia can now be deployed to the same cloud environment** — This deployment option makes it easier for customers to deploy their PWA site alongside their existing Luma site while they migrate from Luma to Venia.
 
+-  **Venia Homepage is now the same for Adobe Commerce and Open Source** — Previously, the Venia Homepage rendered Page Builder content for Adobe Commerce sites and different content for Magento Open Source sites. But now that Page Builder is a part of Magento Open Source, the Venia Homepage renders the same content for both sites.
+
+-  **Contact Us Block can be managed with Page Builder** — You can now customize the Contact Us Block in the Admin UI using Page Builder. No development required.
+
+-  **Updated Node version to 14** — All builds in PWA Studio, including the scaffolding CLI, now use Node 14.
 
 ## Summary of all changes
 
@@ -87,24 +88,6 @@ _For older release notes, see_ [PWA Studio releases][].
 | Bug   | Home page tabbing leads to page transition                                                                                              | [3625][]              |
 | Bug   | Browser Reload on any Category load all products from default category                                                                  | [3655][],[18][]        |
 
-## Bugs
-
-- [3542][] fixes a scenario where the 404 page was inaccessible due to a race condition.
-- [3551][] updates the @babel/preset-env dependency to prevent builds from failing because of newer 'optional chaining' syntax.
-- [3571][] fixes an issue that prevented some variables from displaying in the mini-cart and elsewhere. Values are now properly set.
-- [3520][] now properly clears secondary caches when logging out from a different store.
-- [3515][] PWA now properly hides mobile images on the desktop.
-- [3524][] fixes a bug that caused PageBuilder buttons and links to execute a full page load. 
-- [3553][] now properly adds the URL suffix when redirecting to a configurable product.
-- [3575][] updates the Apollo client to prevent intermittent loading errors on the Category page.
-- [3599][] refactors the `hover` effect in the MegaMenuItem component to close properly after clicking.
-- [3622][] fixes a console warning around currency after upgrading Apollo.
-- [3573][] updates AddToCartButton.js to better handle CSS classes.
-- [3603][] adds a null check validation around the breadcrumb link suffix.
-- [3584][] fixes a Javascript error when submitting a Newsletter form.
-- [3625][] fixes PageBuilder events to prevent a Tab from causing page transitions.
-- [3655][] now prevents all Category products from loading when refreshing a subcategory page.
-
 ## Metapackage introduction and updates
 
 As mentioned above, we not only introduced metapackages in this release, we used them! Our fix for the cart rendering issue ([3447][]) required new GraphQL fields that we added to the metapackages. These new fields require you to install one or both of our metapackages into your PWA apps (depending on your backend target). If you missed the links provided above, here they are again:
@@ -120,10 +103,6 @@ As mentioned above, we not only introduced metapackages in this release, we used
 ## Known Issues
 
 -  Safari (macOS version) does not show toast messages or indicators when Venia switches between online and offline. This is an issue with Safari, not Venia. Safari always reports `true` for `navigator.onLine` — even when offline. We have submitted this issue to Apple. If you have an Apple account, you can search for the issue using this Feedback ID: FB9802994.
-
-## Test Updates
-
-
 
 ## Upgrading from a previous version
 
