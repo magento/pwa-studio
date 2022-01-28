@@ -102,7 +102,7 @@ As mentioned above, we not only introduced metapackages in this release, we used
 
 ## Documentation updates
 
--  **Metapackage Installation**: Added instructions for installing our new metapackages for both local and cloud-based environments. The instructions have been added to the READMEs of the Open Source and Commerce repos: [PWA Magento Open Source metapackage][] and [PWA Adobe Commerce metapackage][].
+-  **contactUs Mutation**: Added the [contactUs][] mutation topic to the GraphQL Developer Guide.
 
 ## Known Issues
 
@@ -248,3 +248,4 @@ Your project may not depend on some of the packages listed in this table.
 [3664]: https://github.com/magento/pwa-studio/pull/3664
 [3665]: https://github.com/magento/pwa-studio/pull/3665
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
+[contactUs]: https://devdocs.magento.com/guides/v2.4/graphql/mutations/contact-us.html
