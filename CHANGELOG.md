@@ -88,14 +88,6 @@ _For older release notes, see_ [PWA Studio releases][].
 | Bug   | Home page tabbing leads to page transition                                                                                              | [3625][]              |
 | Bug   | Browser Reload on any Category load all products from default category                                                                  | [3655][],[18][]        |
 
-## Metapackage introduction and updates
-
-As mentioned above, we not only introduced metapackages in this release, we used them! Our fix for the cart rendering issue ([3447][]) required new GraphQL fields that we added to the metapackages. These new fields require you to install one or both of our metapackages into your PWA apps (depending on your backend target). If you missed the links provided above, here they are again:
-
-**For Open Source backends**: Install the [PWA Magento Open Source metapackage][].
-
-**For Adobe Commerce backends**: Install the [PWA Adobe Commerce metapackage][].
-
 ## Documentation updates
 
 -  **contactUs Mutation**: Added the [contactUs][] mutation topic to the GraphQL Developer Guide.
