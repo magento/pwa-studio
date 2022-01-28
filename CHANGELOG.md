@@ -69,7 +69,7 @@ _For older release notes, see_ [PWA Studio releases][].
 | Story | Sorting product listing by custom attribute                                                                                             | [3619][]          |
 | Story | \[GraphQL] Sort products without custom attribute to end                                                                                | [18][]                |
 | Bug   | 404 routes cause error page                                                                                                             | [3542][]              |
-| Bug   | Scaffold project > yarn build  fails on develop.                                                                                        | [3551][]              |
+| Bug   | Scaffold project > yarn build fails on develop.                                                                                        | [3551][]              |
 | Bug   | storybook command failing                                                                                                               | [3567][]              |
 | Bug   | Minicart missing quantity while switching views                                                                                         | [3571][]              |
 | Bug   | Order history data not being cleared from cache on logout                                                                               | [3520][]              |
@@ -83,10 +83,27 @@ _For older release notes, see_ [PWA Studio releases][].
 | Bug   | Remove server chunk generation from webpack                                                                                             | [3608][]              |
 | Bug   | \[Issue] Improve Gallery/AddToCartButton.js                                                                                             | [3573][]              |
 | Bug   | \[bug]: Breadcrumbs 'Shop' link redirects to '/shopnull'                                                                                | [3603][]              |
-| Bug   | Multiple Wishlist cypress integration test failing on develop because of browser console error                                          | No PR                 |
 | Bug   | Newsletter form displays two errors                                                                                                     | [3584][]              |
 | Bug   | Home page tabbing leads to page transition                                                                                              | [3625][]              |
 | Bug   | Browser Reload on any Category load all products from default category                                                                  | [3655][],[18][]        |
+
+## Bugs
+
+- [3542][] fixes a scenario where the 404 page was inaccessible due to a race condition.
+- [3551][] updates the @babel/preset-env dependency to prevent builds from failing because of newer 'optional chaining' syntax.
+- [3571][] fixes an issue that prevented some variables from displaying in the mini-cart and elsewhere. Values are now properly set.
+- [3520][] now properly clears secondary caches when logging out from a different store.
+- [3515][] PWA now properly hides mobile images on the desktop.
+- [3524][] fixes a bug that caused PageBuilder buttons and links to execute a full page load. 
+- [3553][] now properly adds the URL suffix when redirecting to a configurable product.
+- [3575][] updates the Apollo client to prevent intermittent loading errors on the Category page.
+- [3599][] refactors the `hover` effect in the MegaMenuItem component to close properly after clicking.
+- [3622][] fixes a console warning around currency after upgrading Apollo.
+- [3573][] updates AddToCartButton.js to better handle CSS classes.
+- [3603][] adds a null check validation around the breadcrumb link suffix.
+- [3584][] fixes a Javascript error when submitting a Newsletter form.
+- [3625][] fixes PageBuilder events to prevent a Tab from causing page transitions.
+- [3655][] now prevents all Category products from loading when refreshing a subcategory page.
 
 ## Metapackage introduction and updates
 
