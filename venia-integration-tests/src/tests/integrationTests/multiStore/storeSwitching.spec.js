@@ -724,7 +724,6 @@ describe('shopping cart', () => {
             expect(req.headers.store).to.equal(
                 defaultStore.defaultView.storeCode
             );
-            const { operationName } = req.body;
             req.reply({
                 fixture: `${DATA_DIRECTORY}/cart/addProductsToCart1.json`
             });
