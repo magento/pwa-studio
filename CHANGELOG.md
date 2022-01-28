@@ -4,7 +4,20 @@
 _This changelog only contains release notes for PWA Studio and Venia 12.2.0_
 _For older release notes, see_ [PWA Studio releases][].
 
-| Type  | Description                                                                                                                             | GitHub PR             |
+## New Features
+
+- **Updated to node 14** - 
+- **New Venia default pages** - Venia now ships with the following default pages enabled:
+
+    - Contact us
+    - About us
+    - Customer Support
+    - Newsletter subscription
+
+
+## Summary of all changes
+
+| Type  |Description                                                                                                                             |GitHub PR             |
 | :---- | :-------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
 | Story | \[Docs] Shimmer and UPWARD Inlining                                                                                                     | [3548][]              |
 | Story | Add Cypress test coverage: Venia Filters, Search, Sort/Pagination                                                                       | [3519][][files][]     |
