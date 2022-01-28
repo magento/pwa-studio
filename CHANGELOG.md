@@ -92,6 +92,74 @@ _For older release notes, see_ [PWA Studio releases][].
 | Bug   | Build fails in scaffolded project created via npm repo                                                                                  | [3664][]              |
 | Bug   | Mini cart remaining product gets disabled if user has 2 or more products and deletes first (top) product                                | [3665][]              |
 
+## Metapackage introduction and updates
+
+As mentioned above, we not only introduced metapackages in this release, we used them! Our fix for the cart rendering issue ([3447][]) required new GraphQL fields that we added to the metapackages. These new fields require you to install one or both of our metapackages into your PWA apps (depending on your backend target). If you missed the links provided above, here they are again:
+
+**For Open Source backends**: Install the [PWA Magento Open Source metapackage][].
+
+**For Adobe Commerce backends**: Install the [PWA Adobe Commerce metapackage][].
+
+## Documentation updates
+
+-  **Metapackage Installation**: Added instructions for installing our new metapackages for both local and cloud-based environments. The instructions have been added to the READMEs of the Open Source and Commerce repos: [PWA Magento Open Source metapackage][] and [PWA Adobe Commerce metapackage][].
+
+## Known Issues
+
+-  Safari (macOS version) does not show toast messages or indicators when Venia switches between online and offline. This is an issue with Safari, not Venia. Safari always reports `true` for `navigator.onLine` — even when offline. We have submitted this issue to Apple. If you have an Apple account, you can search for the issue using this Feedback ID: FB9802994.
+
+## Test Updates
+
+-  [3460][] — Added Docker parallelization for Cypress testing to cut testing times by 50%. When run synchronously, the whole suite of tests took about 30 minutes. Now it takes 13–15 minutes.
+
+-  [3506][] - Fixed outdated snapshots for failing Page Builder tests on the `develop` branch. The tests started failing when the Newsletter form was added to the footer.
+
+## Upgrading from a previous version
+
+Use the steps outlined in this section to update your [scaffolded project][] from 12.0.0 to 12.1.0.
+See [Upgrading versions][] for more information about upgrading between PWA Studio versions.
+
+[scaffolded project]: https://magento.github.io/pwa-studio/tutorials/pwa-studio-fundamentals/project-setup/
+[upgrading versions]: https://magento.github.io/pwa-studio/technologies/upgrading-versions/
+
+### Add the new metapackages to your project
+
+As noted above, you need to add one or both of our new metapackages to your projects. Use these instructions:
+
+-  **For Open Source backends**: Install the [PWA Magento Open Source metapackage][].
+
+-  **For Adobe Commerce backends**: Install the [PWA Adobe Commerce metapackage][].
+
+### Update dependencies
+
+Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
+The following table lists the latest versions of each package as of 12.1.0.
+Versions that are in **bold** indicate a version change for this release.
+
+**Note:**
+Your project may not depend on some of the packages listed in this table.
+
+| Package                               | Latest version |
+| ------------------------------------- | -------------- |
+| `babel-preset-peregrine`              | 1.1.0          |
+| **_`create-pwa`_**                    | _**2.0.1**_    |
+| **_`upward-security-headers`_**       | _**1.0.5**_    |
+| **_`venia-adobe-data-layer`_**        | _**1.0.2**_    |
+| `venia-sample-backends`               | 0.0.4          |
+| **_`venia-sample-language-packs`_**   | _**0.0.5**_    |
+| **_`venia-sample-payments-checkmo`_** | _**0.0.3**_    |
+| **_`pagebuilder`_**                   | _**7.0.1**_    |
+| **_`peregrine`_**                     | _**12.1.0**_   |
+| `pwa-buildpack`                       | 11.0.0         |
+| **_`pwa-theme-venia`_**               | _**1.1.0**_    |
+| `upward-js`                           | 5.2.0          |
+| `upward-spec`                         | 5.1.0          |
+| **_`venia-concept`_**                 | _**12.1.0**_   |
+| **_`venia-ui`_**                      | _**9.1.0**_    |
+| `magento2-upward-connector`           | 1.3.0          |
+| `upward-php`                          | 1.2.0          |
+
+
 [3548]: https://github.com/magento/pwa-studio/pull/3548
 [3519]: https://github.com/magento/pwa-studio/pull/3519
 [files]: https://github.com/magento-commerce/pwa-tests/pull/35/files
