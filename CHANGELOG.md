@@ -6,7 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## New Features
 
-- **Updated to node 14** - 
+- **Updated to node 14**
 - **New Venia default pages** - Venia now ships with the following default pages enabled:
 
     - Contact us
@@ -20,12 +20,12 @@ _For older release notes, see_ [PWA Studio releases][].
 | Type  |Description                                                                                                                             |GitHub PR             |
 | :---- | :-------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
 | Story | \[Docs] Shimmer and UPWARD Inlining                                                                                                     | [3548][]              |
-| Story | Add Cypress test coverage: Venia Filters, Search, Sort/Pagination                                                                       | [3519][][files][]     |
+| Story | Add Cypress test coverage: Venia Filters, Search, Sort/Pagination                                                                       | [3519][],[35][]     |
 | Story | Add Cypress test coverage: VeniaRemoveItemFromMiniCart                                                                                  | [3508][]              |
 | Story | Add Cypress test coverage: VeniaGuestIsAbleToAccessCategories.xml                                                                       | [3507][]              |
-| Story | Add Cypress test coverage: VeniaCartPage\*                                                                                              | [3509][][34][]        |
-| Story | Add Cypress test coverage: VeniaCartPageGuestCheckoutRegionWithCC                                                                       | [3505][][31][]        |
-| Story | Add Cypress test coverage: VeniaCartPageGuestCheckout                                                                                   | [3504][][29][]        |
+| Story | Add Cypress test coverage: VeniaCartPage\*                                                                                              | [3509][],[34][]        |
+| Story | Add Cypress test coverage: VeniaCartPageGuestCheckoutRegionWithCC                                                                       | [3505][],[31][]        |
+| Story | Add Cypress test coverage: VeniaCartPageGuestCheckout                                                                                   | [3504][],[29][]        |
 | Story | Update ConfigurableProductOptions GraphQL field from id to uid                                                                          | [3588][]              |
 | Story | Update ProductInterface GraphQL field from id to uid                                                                                    | [3580][]              |
 | Story | Update Customer.id GraphQL field                                                                                                        | [3594][]              |
@@ -46,14 +46,14 @@ _For older release notes, see_ [PWA Studio releases][].
 | Story | Update ProductInterface.type_id GraphQL field to use \_\_typename                                                                       | [3586][]              |
 | Story | Added fade-in-out transition to the colour swatch checkmark                                                                             | [3526][]              |
 | Story | UPWARD JS Computed resolver                                                                                                             | [3533][]              |
-| Story | Add Cypress test coverage: VeniaCartPageEditCardAndCheckout                                                                             | [3525][][36][]        |
-| Story | Add Cypress test coverage: VeniaAnchorLinks                                                                                             | [3518][][37][]        |
-| Story | Add Cypress test coverage: RegisteredUserCartPageCheckout                                                                               | [3500][][27][]        |
+| Story | Add Cypress test coverage: VeniaCartPageEditCardAndCheckout                                                                             | [3525][],[36][]        |
+| Story | Add Cypress test coverage: VeniaAnchorLinks                                                                                             | [3518][],[37][]        |
+| Story | Add Cypress test coverage: RegisteredUserCartPageCheckout                                                                               | [3500][],[27][]        |
 | Story | Upgrade Apollo Client to 3.4.0                                                                                                          | [3491][]              |
 | Story | About Us                                                                                                                                | [3483][][11][]        |
-| Story | Customer Service                                                                                                                        | [3465][][1][]         |
+| Story | Customer Service                                                                                                                        | [3465][],[1][]         |
 | Story | Newsletter Subscription                                                                                                                 | [3521][]              |
-| Story | Contact Us Block                                                                                                                        | [3544][][13][]        |
+| Story | Contact Us Block                                                                                                                        | [3544][],[13][]        |
 | Story | Contact Us                                                                                                                              | [3538][]              |
 | Story | Guest Checkout: check if email is associated with the account                                                                           | [3529][]              |
 | Story | Feature: Add ability to deploy Luma and Venia on single cloud env                                                                       | [11][]                |
@@ -61,12 +61,12 @@ _For older release notes, see_ [PWA Studio releases][].
 | Story | Archive MFTF Repo                                                                                                                       | [39][]                |
 | Story | Homepage unification for CE and EE                                                                                                      | [3564][]              |
 | Story | Improve Version banner                                                                                                                  | [3555][]              |
-| Story | Upgrade Node 14 and Scaffold Node 16                                                                                                    | [3552][][101][]       |
+| Story | Upgrade Node 14 and Scaffold Node 16                                                                                                    | [3552][],[101][]       |
 | Story | Fail build when @magento/pwa metapackage is not installed                                                                               | [3561][]              |
 | Story | Filtering Product by the custom product attribute with input type select                                                                | [15][]                |
 | Story | Do not show Ratings                                                                                                                     | [3654][]              |
-| Story | Viewing product attribute value in PDP                                                                                                  | [3624][][14][]        |
-| Story | Sorting product listing by custom attribute                                                                                             | [3619][][][]          |
+| Story | Viewing product attribute value in PDP                                                                                                  | [3624][],[14][]        |
+| Story | Sorting product listing by custom attribute                                                                                             | [3619][]          |
 | Story | \[GraphQL] Sort products without custom attribute to end                                                                                | [18][]                |
 | Bug   | 404 routes cause error page                                                                                                             | [3542][]              |
 | Bug   | Scaffold project > yarn build  fails on develop.                                                                                        | [3551][]              |
@@ -77,7 +77,7 @@ _For older release notes, see_ [PWA Studio releases][].
 | Bug   | Pagebuilder links force browser to load full page                                                                                       | [3524][]              |
 | Bug   | Add to Cart on category page for non-default store ends up in 404 page if store view level unique catalog product suffixes are enabled. | [3553][]              |
 | Bug   | Category page fails to load intermittently when there is Apollo related console warning.                                                | [3575][]              |
-| Bug   | Dependency on Magento was sneaked in as part of the Computed Resolver work                                                              | [16][][6][]           |
+| Bug   | Dependency on Magento was sneaked in as part of the Computed Resolver work                                                              | [16][],[6][]           |
 | Bug   | \[bug]: When clicking a submenu in the mega the submenu won't close                                                                     | [3599][]              |
 | Bug   | Fix console warning for currency                                                                                                        | [3622][]              |
 | Bug   | Remove server chunk generation from webpack                                                                                             | [3608][]              |
@@ -86,11 +86,7 @@ _For older release notes, see_ [PWA Studio releases][].
 | Bug   | Multiple Wishlist cypress integration test failing on develop because of browser console error                                          | No PR                 |
 | Bug   | Newsletter form displays two errors                                                                                                     | [3584][]              |
 | Bug   | Home page tabbing leads to page transition                                                                                              | [3625][]              |
-| Bug   | Browser Reload on any Category load all products from default category                                                                  | [3655][][18][]        |
-| Bug   | Unable to install venia sample data meta package on Cloud  env                                                                          | [16][]                |
-| Bug   | \[bug]: Duplicate Styles                                                                                                                | [files][]             |
-| Bug   | Build fails in scaffolded project created via npm repo                                                                                  | [3664][]              |
-| Bug   | Mini cart remaining product gets disabled if user has 2 or more products and deletes first (top) product                                | [3665][]              |
+| Bug   | Browser Reload on any Category load all products from default category                                                                  | [3655][],[18][]        |
 
 ## Metapackage introduction and updates
 
@@ -162,7 +158,7 @@ Your project may not depend on some of the packages listed in this table.
 
 [3548]: https://github.com/magento/pwa-studio/pull/3548
 [3519]: https://github.com/magento/pwa-studio/pull/3519
-[files]: https://github.com/magento-commerce/pwa-tests/pull/35/files
+[35]: https://github.com/magento-commerce/pwa-tests/pull/35/files
 [3508]: https://github.com/magento/pwa-studio/pull/3508
 [3507]: https://github.com/magento/pwa-studio/pull/3507
 [3509]: https://github.com/magento/pwa-studio/pull/3509
@@ -220,7 +216,6 @@ Your project may not depend on some of the packages listed in this table.
 [3624]: https://github.com/magento/pwa-studio/pull/3624
 [14]: https://github.com/magento-commerce/magento2-pwa/pull/14
 [3619]: https://github.com/magento/pwa-studio/pull/3619
-[]: <>
 [18]: https://github.com/magento-commerce/magento2-pwa/pull/18
 [3542]: https://github.com/magento/pwa-studio/pull/3542
 [3551]: https://github.com/magento/pwa-studio/pull/3551
@@ -244,7 +239,7 @@ Your project may not depend on some of the packages listed in this table.
 [3655]: https://github.com/magento/pwa-studio/pull/3655
 [18]: https://github.com/magento-commerce/magento2-upward-connector/pull/18
 [16]: https://github.com/magento-commerce/venia-sample-data-modules/pull/16
-[files]: https://github.com/magento/pwa-studio/pull/3658/files
+[3658]: https://github.com/magento/pwa-studio/pull/3658/files
 [3664]: https://github.com/magento/pwa-studio/pull/3664
 [3665]: https://github.com/magento/pwa-studio/pull/3665
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
