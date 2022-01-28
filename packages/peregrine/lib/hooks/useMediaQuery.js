@@ -12,7 +12,7 @@ const { matchMedia } = globalThis;
  *
  * @returns {Object}
  */
-export const useMediaQuery = props => {
+export const useMediaQuery = (props = { mediaQueries: [] }) => {
     const [styles, setStyles] = useState({});
 
     const { mediaQueries } = props;

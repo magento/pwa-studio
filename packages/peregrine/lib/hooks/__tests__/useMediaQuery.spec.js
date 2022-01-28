@@ -62,7 +62,7 @@ const Component = ({ mockProps }) => {
 
 describe('UseMediaQuery', () => {
     it('should return empty styles if no media query is provided', () => {
-        createTestInstance(<Component mockProps={{ mediaQueries: [] }} />);
+        createTestInstance(<Component />);
         expect(log).toHaveBeenLastCalledWith({});
     });
 
