@@ -106,13 +106,11 @@ As mentioned above, we not only introduced metapackages in this release, we used
 
 ## Test Updates
 
--  [3460][] — Added Docker parallelization for Cypress testing to cut testing times by 50%. When run synchronously, the whole suite of tests took about 30 minutes. Now it takes 13–15 minutes.
 
--  [3506][] - Fixed outdated snapshots for failing Page Builder tests on the `develop` branch. The tests started failing when the Newsletter form was added to the footer.
 
 ## Upgrading from a previous version
 
-Use the steps outlined in this section to update your [scaffolded project][] from 12.0.0 to 12.1.0.
+Use the steps outlined in this section to update your [scaffolded project][] from 12.1.0 to 12.2.0.
 See [Upgrading versions][] for more information about upgrading between PWA Studio versions.
 
 [scaffolded project]: https://magento.github.io/pwa-studio/tutorials/pwa-studio-fundamentals/project-setup/
@@ -129,7 +127,7 @@ As noted above, you need to add one or both of our new metapackages to your proj
 ### Update dependencies
 
 Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
-The following table lists the latest versions of each package as of 12.1.0.
+The following table lists the latest versions of each package as of 12.2.0.
 Versions that are in **bold** indicate a version change for this release.
 
 **Note:**
@@ -137,24 +135,25 @@ Your project may not depend on some of the packages listed in this table.
 
 | Package                               | Latest version |
 | ------------------------------------- | -------------- |
-| `babel-preset-peregrine`              | 1.1.0          |
-| **_`create-pwa`_**                    | _**2.0.1**_    |
-| **_`upward-security-headers`_**       | _**1.0.5**_    |
-| **_`venia-adobe-data-layer`_**        | _**1.0.2**_    |
-| `venia-sample-backends`               | 0.0.4          |
-| **_`venia-sample-language-packs`_**   | _**0.0.5**_    |
-| **_`venia-sample-payments-checkmo`_** | _**0.0.3**_    |
-| **_`pagebuilder`_**                   | _**7.0.1**_    |
-| **_`peregrine`_**                     | _**12.1.0**_   |
-| `pwa-buildpack`                       | 11.0.0         |
-| **_`pwa-theme-venia`_**               | _**1.1.0**_    |
-| `upward-js`                           | 5.2.0          |
-| `upward-spec`                         | 5.1.0          |
-| **_`venia-concept`_**                 | _**12.1.0**_   |
-| **_`venia-ui`_**                      | _**9.1.0**_    |
-| `magento2-upward-connector`           | 1.3.0          |
-| `upward-php`                          | 1.2.0          |
-
+| **`babel-preset-peregrine`**          | **1.2.0**      |
+| **_`create-pwa`_**                    | _**2.1.0**_    |
+| **_`upward-security-headers`_**       | _**1.0.6**_    |
+| **_`venia-adobe-data-layer`_**        | _**1.0.3**_    |
+| **`venia-sample-backends`**           | **0.0.5**      |
+| **_`venia-sample-language-packs`_**   | _**0.0.6**_    |
+| **_`venia-sample-payments-checkmo`_** | _**0.0.4**_    |
+| **_`pagebuilder`_**                   | _**7.1.0**_    |
+| **_`peregrine`_**                     | _**12.2.0**_   |
+| **`pwa-buildpack`**                   | **11.1.0**     |
+| **_`pwa-theme-venia`_**               | _**1.2.0**_    |
+| **`upward-js`**                       | **5.3.0**      |
+| **`upward-spec`**                     | **5.2.0**      |
+| **_`venia-concept`_**                 | _**12.2.0**_   |
+| **_`venia-ui`_**                      | _**9.2.0**_    |
+| **`magento2-pwa`**                    | **0.1.0**      |
+| **`magento-venia-sample-data-modules`**| **0.0.1**     |
+| **`magento2-upward-connector`**       | **2.0.0**      |
+| **`upward-php`**                      | **2.0.0**      |
 
 [3548]: https://github.com/magento/pwa-studio/pull/3548
 [3519]: https://github.com/magento/pwa-studio/pull/3519
