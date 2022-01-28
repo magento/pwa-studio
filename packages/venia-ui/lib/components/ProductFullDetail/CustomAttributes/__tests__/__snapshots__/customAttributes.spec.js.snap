@@ -11,8 +11,10 @@ exports[`#CustomAttributes renders with custom attributes visible on front only 
         data={
           Object {
             "attribute_metadata": Object {
-              "is_visible_on_front": true,
               "uid": "uid-1",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
             },
           }
         }
@@ -23,8 +25,10 @@ exports[`#CustomAttributes renders with custom attributes visible on front only 
         data={
           Object {
             "attribute_metadata": Object {
-              "is_visible_on_front": true,
               "uid": "uid-2",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
             },
           }
         }
@@ -35,8 +39,10 @@ exports[`#CustomAttributes renders with custom attributes visible on front only 
         data={
           Object {
             "attribute_metadata": Object {
-              "is_visible_on_front": true,
               "uid": "uid-4",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
             },
           }
         }
