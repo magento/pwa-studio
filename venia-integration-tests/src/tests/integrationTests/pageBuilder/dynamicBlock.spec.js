@@ -1,12 +1,23 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
-const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('PWA-1170: verify pagebuilder dynamic block content is rendered correctly', () => {
+const { getCMSPage, getDynamicBlocksCall } = graphqlMockedCallsFixtures;
+
+describe('Verify pagebuilder dynamic block content is rendered correctly', () => {
     it('verify dynamic block content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/dynamicBlock/dynamicBlock.json'
-        }).as('getCMSMockData');
-        cy.visitHomePage();
-        cy.wait(['@getCMSMockData']).its('response.body');
+        }).as('gqlGetCMSMockData');
+        cy.intercept(
+            'GET',
+            getDynamicBlocksCall + encodeURIComponent('mock-3') + '*',
+            {
+                fixture: 'pageBuilder/dynamicBlock/dynamicBlock-mock-3.json'
+            }
+        ).as('gqlGetDynamicBlockMock3');
+
+        cy.visit('/');
+        cy.wait(['@gqlGetCMSMockData']).its('response.body');
+        cy.wait(['@gqlGetDynamicBlockMock3']);
+
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Dynamic Block Snapshot',
