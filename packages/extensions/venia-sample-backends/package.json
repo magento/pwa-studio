@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-backends",
-  "version": "0.0.5-alpha3",
+  "version": "0.0.5-beta.1",
   "publishConfig": {
     "access": "public"
   },
@@ -13,7 +13,7 @@
   "repository": "github:magento/pwa-studio",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
-    "@magento/pwa-buildpack": "11.1.0-alpha.3",
+    "@magento/pwa-buildpack": "11.1.0-beta.1",
     "node-fetch": "~2.3.0"
   },
   "pwa-studio": {
