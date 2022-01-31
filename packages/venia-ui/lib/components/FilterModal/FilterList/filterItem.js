@@ -19,20 +19,32 @@ const FilterItem = props => {
         [title, value]
     );
 
-    const handleClick = useCallback(() => {
-        toggleItem({ group, item });
+    const handleClick = useCallback(
+        e => {
+            // use only left click for selection
+            if (e.button !== 0) return;
 
-        if (typeof onApply === 'function') {
-            onApply(group, item);
-        }
-    }, [group, item, toggleItem, onApply]);
+            toggleItem({ group, item });
 
-    const handleKeyDown = e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleClick();
-        }
-    };
+            if (typeof onApply === 'function') {
+                onApply(group, item);
+            }
+        },
+        [group, item, toggleItem, onApply]
+    );
+
+    const handleKeyDown = useCallback(
+        e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleItem({ group, item });
+                if (typeof onApply === 'function') {
+                    onApply(group, item);
+                }
+            }
+        },
+        [group, item, onApply, toggleItem]
+    );
 
     return (
         <FilterDefault

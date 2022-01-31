@@ -9,6 +9,7 @@ import { useFilterState } from '../FilterModal';
 import {
     getSearchFromState,
     getStateFromSearch,
+    sortFiltersArray,
     stripHtml
 } from '../FilterModal/helpers';
 
@@ -77,7 +78,9 @@ export const useFilterSidebar = props => {
         const keys = new Set();
         const itemsByGroup = new Map();
 
-        for (const filter of filters) {
+        const sortedFilters = sortFiltersArray([...filters]);
+
+        for (const filter of sortedFilters) {
             const { options, label: name, attribute_code: group } = filter;
 
             // If this aggregation is not a possible filter, just back out.
