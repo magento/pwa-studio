@@ -18,7 +18,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 -  **Updated Node version to 14** — All builds in PWA Studio, including the scaffolding CLI, now use Node 14.
 
--  **Added Venia Sample Data metapackage** — This metapackage provides a new way to create your own sample data for your Venia-based PWA sites. For more details, see the [Venia sample data metapackage](https://developer.adobe.com/commerce/pwa-studio/metapackages/venia-sample-data) documentation.
+-  **Added Venia Sample Data metapackage** — This metapackage provides a new way to create your own sample data for your Venia-based PWA sites.
 
 ## Summary of all changes
 
