@@ -6,6 +6,8 @@ Magento PWA Studio is a collection of tools that lets developers build complex P
 
 ## Contributions
 
+
+
 Are you interested in contributing to the PWA Studio project?
 Check out the [community wiki][] to learn how to contribute to PWA Studio.
 
