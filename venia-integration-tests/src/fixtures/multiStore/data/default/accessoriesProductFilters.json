@@ -1,0 +1,222 @@
+{
+  "data": {
+    "products": {
+      "aggregations": [
+        {
+          "label": "Category",
+          "count": 6,
+          "attribute_code": "category_id",
+          "options": [
+            {
+              "label": "Accessories",
+              "value": "3",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Jewelry",
+              "value": "5",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Scarves",
+              "value": "6",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Belts",
+              "value": "4",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Shop The Look",
+              "value": "14",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Timeless Sophistication",
+              "value": "20",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Price",
+          "count": 2,
+          "attribute_code": "price",
+          "options": [
+            {
+              "label": "0-100",
+              "value": "0_100",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "100-200",
+              "value": "100_200",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Color",
+          "count": 10,
+          "attribute_code": "fashion_color",
+          "options": [
+            {
+              "label": "Gold",
+              "value": "14",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Peach",
+              "value": "18",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Khaki",
+              "value": "19",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Silver",
+              "value": "15",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Lilac",
+              "value": "20",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Rain",
+              "value": "21",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Mint",
+              "value": "22",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Lily",
+              "value": "23",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Latte",
+              "value": "24",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Cocoa",
+              "value": "25",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Material",
+          "count": 9,
+          "attribute_code": "fashion_material",
+          "options": [
+            {
+              "label": "14K Gold",
+              "value": "16",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Sterling Silver",
+              "value": "17",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Cotton",
+              "value": "39",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Leather",
+              "value": "41",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Organic Cotton",
+              "value": "43",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Polyester",
+              "value": "44",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Rayon",
+              "value": "45",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Spandex",
+              "value": "47",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Viscose",
+              "value": "48",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Has Video",
+          "count": 2,
+          "attribute_code": "has_video",
+          "options": [
+            {
+              "label": "0",
+              "value": "0",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "1",
+              "value": "1",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Size",
+          "count": 4,
+          "attribute_code": "fashion_size",
+          "options": [
+            {
+              "label": "XS",
+              "value": "29",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "S",
+              "value": "28",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "M",
+              "value": "27",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "L",
+              "value": "26",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        }
+      ],
+      "__typename": "Products"
+    }
+  }
+}
