@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-concept",
-  "version": "12.2.0-beta.1",
+  "version": "12.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/venia-concept#readme",
   "dependencies": {
-    "@magento/pwa-buildpack": "11.1.0-beta.1"
+    "@magento/pwa-buildpack": "~11.1.0"
   },
   "devDependencies": {
     "@adobe/apollo-link-mutation-queue": "~1.0.2",
@@ -50,13 +50,13 @@
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@babel/preset-env": "~7.16.0",
     "@babel/runtime": "~7.15.3",
-    "@magento/babel-preset-peregrine": "1.2.0-beta.1",
+    "@magento/babel-preset-peregrine": "~1.2.0",
     "@magento/eslint-config": "~1.5.0",
-    "@magento/pagebuilder": "7.1.0-beta.1",
-    "@magento/peregrine": "12.2.0-beta.1",
-    "@magento/pwa-theme-venia": "1.2.0-beta.1",
-    "@magento/upward-security-headers": "1.0.6-beta.1",
-    "@magento/venia-ui": "9.2.0-beta.1",
+    "@magento/pagebuilder": "~7.1.0",
+    "@magento/peregrine": "~12.2.0",
+    "@magento/pwa-theme-venia": "~1.2.0",
+    "@magento/upward-security-headers": "~1.0.6",
+    "@magento/venia-ui": "~9.2.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~6.3.7",
     "@types/node": "16",
