@@ -6,13 +6,13 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
--  **New Venia CMS pages** - Venia now ships with PWA versions of the Commerce and Open Source default CMS pages: _About Us_, _Contact Us_, _Customer Service_, _Newsletter Subscription_. Out of the box, these pages are ready to use or customize as needed.
+-  **New Venia CMS pages** - Venia now ships with PWA versions of the Commerce and Magento Open Source default CMS pages: _About Us_, _Contact Us_, _Customer Service_, _Newsletter Subscription_. Out of the box, these pages are ready to use or customize as needed.
 
 -  **Luma and Venia can now be deployed to the same cloud environment** — This deployment option makes it easier for customers to deploy their PWA site alongside their existing Luma site while they migrate from Luma to Venia.
 
 -  **Deprecated GraphQL fields removed from Venia** — In this release, we removed the usage of all deprecated GraphQL fields in Venia.
 
--  **Venia Homepage is now the same for Adobe Commerce and Open Source** — Previously, the Venia Homepage rendered Page Builder content for Adobe Commerce sites and different content for Magento Open Source sites. But now that Page Builder is a part of Magento Open Source, the Venia Homepage renders the same content for both sites.
+-  **Venia Homepage is now the same for Adobe Commerce and Magento Open Source** — Previously, the Venia Homepage rendered Page Builder content for Adobe Commerce sites and different content for Magento Open Source sites. But now that Page Builder is a part of Magento Open Source, the Venia Homepage renders the same content for both sites.
 
 -  **Contact Us Block can be managed with Page Builder** — You can now customize the Contact Us Block in the Admin UI using Page Builder. No development required.
 
