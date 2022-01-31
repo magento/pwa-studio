@@ -1,0 +1,115 @@
+{
+  "data": {
+    "categoryList": [
+      {
+        "uid": "Mg==",
+        "name": "Default Category",
+        "children": [
+          {
+            "uid": "OA==",
+            "include_in_menu": 1,
+            "name": "Tops",
+            "position": 1,
+            "url_path": "venia-tops",
+            "children": [
+              {
+                "uid": "OQ==",
+                "include_in_menu": 1,
+                "name": "Blouses & Shirts",
+                "position": 1,
+                "url_path": "venia-tops\/venia-blouses",
+                "children": [],
+                "__typename": "CategoryTree"
+              },
+              {
+                "uid": "MTA=",
+                "include_in_menu": 1,
+                "name": "Sweaters",
+                "position": 2,
+                "url_path": "venia-tops\/venia-sweaters",
+                "children": [],
+                "__typename": "CategoryTree"
+              }
+            ],
+            "__typename": "CategoryTree"
+          },
+          {
+            "uid": "MTE=",
+            "include_in_menu": 1,
+            "name": "Bottoms",
+            "position": 2,
+            "url_path": "venia-bottoms",
+            "children": [
+              {
+                "uid": "MTI=",
+                "include_in_menu": 1,
+                "name": "Pants & Shorts",
+                "position": 1,
+                "url_path": "venia-bottoms\/venia-pants",
+                "children": [],
+                "__typename": "CategoryTree"
+              },
+              {
+                "uid": "MTM=",
+                "include_in_menu": 1,
+                "name": "Skirts",
+                "position": 2,
+                "url_path": "venia-bottoms\/venia-skirts",
+                "children": [],
+                "__typename": "CategoryTree"
+              }
+            ],
+            "__typename": "CategoryTree"
+          },
+          {
+            "uid": "MTQ=",
+            "include_in_menu": 1,
+            "name": "Dresses",
+            "position": 3,
+            "url_path": "venia-dresses",
+            "children": [],
+            "__typename": "CategoryTree"
+          },
+          {
+            "uid": "Mw==",
+            "include_in_menu": 1,
+            "name": "Accessories",
+            "position": 4,
+            "url_path": "venia-accessories",
+            "children": [
+              {
+                "uid": "NA==",
+                "include_in_menu": 1,
+                "name": "Belts",
+                "position": 1,
+                "url_path": "venia-accessories\/venia-belts",
+                "children": [],
+                "__typename": "CategoryTree"
+              },
+              {
+                "uid": "NQ==",
+                "include_in_menu": 1,
+                "name": "Jewelry",
+                "position": 2,
+                "url_path": "venia-accessories\/venia-jewelry",
+                "children": [],
+                "__typename": "CategoryTree"
+              },
+              {
+                "uid": "Ng==",
+                "include_in_menu": 1,
+                "name": "Scarves",
+                "position": 3,
+                "url_path": "venia-accessories\/venia-scarves",
+                "children": [],
+                "__typename": "CategoryTree"
+              }
+            ],
+            "__typename": "CategoryTree"
+          }
+        ],
+        "__typename": "CategoryTree"
+      }
+    ]
+  }
+}

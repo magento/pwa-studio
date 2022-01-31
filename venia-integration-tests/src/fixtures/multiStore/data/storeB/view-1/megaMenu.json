@@ -1,0 +1,31 @@
+{
+  "data": {
+    "categoryList": [
+      {
+        "uid": "MjI=",
+        "name": "New Root",
+        "children": [
+          {
+            "uid": "MjM=",
+            "include_in_menu": 1,
+            "name": "Subcategory A",
+            "position": 1,
+            "url_path": "subcategory-a",
+            "children": [],
+            "__typename": "CategoryTree"
+          },
+          {
+            "uid": "MjQ=",
+            "include_in_menu": 1,
+            "name": "Subcategory B",
+            "position": 2,
+            "url_path": "subcategory-b",
+            "children": [],
+            "__typename": "CategoryTree"
+          }
+        ],
+        "__typename": "CategoryTree"
+      }
+    ]
+  }
+}
