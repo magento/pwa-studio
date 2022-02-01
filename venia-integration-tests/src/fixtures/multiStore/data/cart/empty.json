@@ -1,0 +1,18 @@
+{
+  "data": {
+    "cart": {
+      "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+      "total_quantity": 0,
+      "prices": {
+        "subtotal_excluding_tax": {
+          "currency": "USD",
+          "value": 0,
+          "__typename": "Money"
+        },
+        "__typename": "CartPrices"
+      },
+      "items": [],
+      "__typename": "Cart"
+    }
+  }
+}
