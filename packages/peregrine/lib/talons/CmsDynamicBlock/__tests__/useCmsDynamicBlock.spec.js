@@ -10,8 +10,14 @@ import { useCmsDynamicBlock } from '../useCmsDynamicBlock';
 
 const mockCartId = 'cart123';
 const mockLocations = 'location';
+const mockProductId = 'productUid';
 const mockUids = 'blockUid1';
+const mockUrlKey = 'product-url';
 const mockType = 'type';
+
+jest.mock('react-router-dom', () => ({
+    useLocation: jest.fn(() => ({ pathname: 'product-url.html' }))
+}));
 
 jest.mock('@magento/peregrine/lib/context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: 'cart123' }])
@@ -74,6 +80,36 @@ const getCmsDynamicBlocksMock2 = {
                             __typename: 'ComplexTextValue'
                         },
                         uid: 'blockUid2',
+                        __typename: 'DynamicBlock'
+                    }
+                ],
+                __typename: 'DynamicBlocks'
+            }
+        }
+    }
+};
+
+const getCmsDynamicBlocksMock3 = {
+    request: {
+        query: DEFAULT_OPERATIONS.getCmsDynamicBlocksQuery,
+        variables: {
+            cartId: mockCartId,
+            type: mockType,
+            locations: mockLocations,
+            uids: mockUids,
+            productId: mockProductId
+        }
+    },
+    result: {
+        data: {
+            dynamicBlocks: {
+                items: [
+                    {
+                        content: {
+                            html: '<mock-DynamicBlock />',
+                            __typename: 'ComplexTextValue'
+                        },
+                        uid: 'blockUid3',
                         __typename: 'DynamicBlock'
                     }
                 ],
@@ -185,6 +221,40 @@ const getSalesRulesDataMock2 = {
     }
 };
 
+const getStoreConfigDataMock1 = {
+    request: {
+        query: DEFAULT_OPERATIONS.getStoreConfigData
+    },
+    result: {
+        data: {
+            storeConfig: {
+                product_url_suffix: '.html'
+            }
+        }
+    }
+};
+
+const getProductDetailDataMock1 = {
+    request: {
+        query: DEFAULT_OPERATIONS.getProductDetailQuery,
+        variables: {
+            urlKey: mockUrlKey
+        }
+    },
+    result: {
+        data: {
+            products: {
+                items: [
+                    {
+                        uid: mockProductId,
+                        url_key: mockUrlKey
+                    }
+                ]
+            }
+        }
+    }
+};
+
 const cache = new InMemoryCache({
     typePolicies
 });
@@ -213,12 +283,12 @@ const renderHookWithProviders = ({
 };
 
 describe('#useCmsDynamicBlock', () => {
+    beforeEach(() => {
+        return cache.reset();
+    });
+
     it('returns correct shape while and after loading and refetch after cart data update', async () => {
-        const {
-            result,
-            waitForNextUpdate,
-            waitForValueToChange
-        } = renderHookWithProviders();
+        const { result, waitForValueToChange } = renderHookWithProviders();
 
         // Check data while loading
         expect(result.current).toMatchInlineSnapshot(`
@@ -229,8 +299,7 @@ describe('#useCmsDynamicBlock', () => {
             }
         `);
 
-        // Wait for query to finish loading
-        await waitForNextUpdate();
+        await waitForValueToChange(() => result.current.data);
 
         // Check data after load
         expect(result.current).toMatchInlineSnapshot(`
@@ -285,6 +354,42 @@ describe('#useCmsDynamicBlock', () => {
                     },
                   ],
                   "salesRulesData": "[null,215,232.74,\\"moneyorder\\",\\"US\\",\\"90210\\",\\"CA\\",12,\\"flatrate\\",3]",
+                },
+              },
+              "error": undefined,
+              "loading": false,
+            }
+        `);
+    });
+
+    it('returns correct shape when on product detail page', async () => {
+        const { result, waitForValueToChange } = renderHookWithProviders({
+            mocks: [
+                getCmsDynamicBlocksMock3,
+                getStoreConfigDataMock1,
+                getProductDetailDataMock1
+            ]
+        });
+
+        await waitForValueToChange(() => result.current.loading);
+
+        // Check data after load
+        expect(result.current).toMatchInlineSnapshot(`
+            Object {
+              "data": Object {
+                "dynamicBlocks": Object {
+                  "__typename": "DynamicBlocks",
+                  "items": Array [
+                    Object {
+                      "__typename": "DynamicBlock",
+                      "content": Object {
+                        "__typename": "ComplexTextValue",
+                        "html": "<mock-DynamicBlock />",
+                      },
+                      "uid": "blockUid3",
+                    },
+                  ],
+                  "salesRulesData": "[0,0,0,null,null,null,null,null,null,0]",
                 },
               },
               "error": undefined,
