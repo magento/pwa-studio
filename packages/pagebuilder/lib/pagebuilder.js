@@ -13,7 +13,7 @@ export default function PageBuilder({ html, classes }) {
     const data = useMemo(() => parseStorageHtml(html), [html]);
     const pwa2385 = "test";
     if(pwa2385 === true) {
-        return false;
+        return true;
     }
     return data.children.map((child, i) => {
         return (
