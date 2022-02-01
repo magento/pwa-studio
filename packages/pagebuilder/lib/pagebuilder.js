@@ -11,6 +11,8 @@ import parseStorageHtml from './parseStorageHtml';
  */
 export default function PageBuilder({ html, classes }) {
     const data = useMemo(() => parseStorageHtml(html), [html]);
+    const pwa2835 = "test";
+    console.log(pwa2835);
     return data.children.map((child, i) => {
         return (
             <div className={classes.root} key={i}>
