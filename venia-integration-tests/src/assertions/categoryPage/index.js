@@ -127,6 +127,15 @@ export const assertActiveSortItem = sortLabel => {
     cy.get(productSortSortItemActive).should('contain', sortLabel);
 };
 
+/**
+ * Assert number of products listed
+ *
+ * @param {Number} number number of products
+ */
+export const assertNumberOfProductsListed = number => {
+    cy.get(productsGalleryItemName).should('have.length', number);
+};
+
 export const assertRatingSummary = productName => {
     cy.contains(productName)
         .children()

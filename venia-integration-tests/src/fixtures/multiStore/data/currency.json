@@ -1,0 +1,12 @@
+{
+  "data": {
+    "currency": {
+      "default_display_currency_code": "USD",
+      "available_currency_codes": [
+        "EUR",
+        "USD"
+      ],
+      "__typename": "Currency"
+    }
+  }
+}
