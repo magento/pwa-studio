@@ -1,9 +1,9 @@
 import {
     categoryPage as categoryPageFixtures,
     graphqlMockedCalls as graphqlMockedCallsFixtures
-} from '../../fixtures/index';
+} from '../../../fixtures';
 
-import { categoryPage as categoryPageAssertions } from '../../assertions/index';
+import { categoryPage as categoryPageAssertions } from '../../../assertions';
 
 const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
 
