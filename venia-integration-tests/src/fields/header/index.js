@@ -13,16 +13,16 @@ export const searchBarSearchField =
     '[data-cy="SearchBar-root"] [data-cy="SearchField-textInput"]';
 
 export const headerStoreSwitcherTriggerButton =
-    '[data-cy="Header-Switchers"] [data-cy="StoreSwitcher-root"] [data-cy="StoreSwitcher-triggerButton"]';
+    '[data-cy="Header-switchers"] [data-cy="StoreSwitcher-root"] [data-cy="StoreSwitcher-trigger"]';
 
 export const headerCurrencySwitcherTriggerButton =
-    '[data-cy="Header-Switchers"] [data-cy="CurrencySwitcher-root"] [data-cy="CurrencySwitcher-triggerButton"]';
+    '[data-cy="Header-switchers"] [data-cy="CurrencySwitcher-root"] [data-cy="CurrencySwitcher-triggerButton"]';
 
 export const headerStoreSwitcherItemButton =
-    '[data-cy="Header-Switchers"] [data-cy="StoreSwitcher-root"] [data-cy="SwitcherItem-button"]';
+    '[data-cy="Header-switchers"] [data-cy="StoreSwitcher-root"] [data-cy="SwitcherItem-button"]';
 
 export const headerCurrencySwitcherItemButton =
-    '[data-cy="Header-Switchers"] [data-cy="CurrencySwitcher-root"] [data-cy="SwitcherItem-button"]';
+    '[data-cy="Header-switchers"] [data-cy="CurrencySwitcher-root"] [data-cy="SwitcherItem-button"]';
 
 export const headerSwitcherItemSelectedIcon =
     '[data-cy="SwitcherItem-activeIcon"]';

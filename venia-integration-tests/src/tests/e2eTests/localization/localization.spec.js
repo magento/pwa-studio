@@ -27,7 +27,6 @@ import { aliasMutation } from '../../../utils/graphql-test-utils';
 
 const {
     assertCurrencyIsDisplayed,
-    assertCurrencyIsNotDisplayed,
     assertCurrencyIsSelected,
     assertStoreIsDisplayed,
     assertStoreIsSelected,
@@ -132,13 +131,16 @@ const {
 } = accountAccessFixtures;
 
 describe('PWA-1415: Verify Venia Localization', () => {
-    it('should display Default Store View by default and not display currency switcher (USD only)', () => {
+    it('should display Default Store View and USD currency by default', () => {
         cy.visitHomePage();
 
         assertStoreIsDisplayed('Default Store View');
         triggerStoreSwitcherMenu();
         assertStoreIsSelected('Default Store View');
-        assertCurrencyIsNotDisplayed();
+
+        assertCurrencyIsDisplayed('USD');
+        triggerCurrencySwitcherMenu();
+        assertCurrencyIsSelected('USD');
     });
 
     it('should display EUR currency by default if French Store View is selected', () => {
