@@ -24,10 +24,17 @@ jest.mock('@apollo/client', () => {
         useQuery: jest.fn()
     };
 });
-const Component = props => {
-    const talonprops = useCategoryContent(props);
 
-    return <i {...talonprops} />;
+const mockProductFiltersByCategoryData = {
+    data: {
+        products: {
+            aggregations: [
+                {
+                    label: 'Label'
+                }
+            ]
+        }
+    }
 };
 
 const mockProps = {
@@ -52,15 +59,21 @@ const mockProps = {
     }
 };
 
-const mockProductFiltersByCategoryData = {
-    products: {
-        aggregations: [
-            {
-                label: 'Label'
+const mockSortData = {
+    data: {
+        products: {
+            sort_fields: {
+                options: [
+                    {
+                        label: 'label',
+                        value: 'value'
+                    }
+                ]
             }
-        ]
+        }
     }
 };
+
 const mockCategoryData = {
     categories: {
         items: [
@@ -72,27 +85,42 @@ const mockCategoryData = {
     }
 };
 
+const mockGetSortMethods = jest.fn();
 const mockGetFilters = jest.fn();
 
-useLazyQuery.mockReturnValue([
-    mockGetFilters,
-    { data: mockProductFiltersByCategoryData }
-]);
+const Component = props => {
+    const talonprops = useCategoryContent(props);
+
+    return <i {...talonprops} />;
+};
 
 useQuery.mockReturnValue({ data: mockCategoryData });
-
 describe('useCategoryContent tests', () => {
     it('returns the proper shape', () => {
+        useLazyQuery
+            .mockReturnValueOnce([
+                mockGetFilters,
+                mockProductFiltersByCategoryData
+            ])
+            .mockReturnValueOnce([mockGetSortMethods, mockSortData]);
         const rendered = createTestInstance(<Component {...mockProps} />);
 
         const talonProps = rendered.root.findByType('i').props;
 
         expect(mockGetFilters).toHaveBeenCalled();
+        expect(mockGetSortMethods).toHaveBeenCalled();
         expect(useQuery).toHaveBeenCalled();
+        expect(useLazyQuery).toHaveBeenCalled();
         expect(talonProps).toMatchSnapshot();
     });
 
     it('handles default category id', () => {
+        useLazyQuery
+            .mockReturnValueOnce([
+                mockGetFilters,
+                mockProductFiltersByCategoryData
+            ])
+            .mockReturnValueOnce([mockGetSortMethods, mockSortData]);
         const testProps = Object.assign({}, mockProps, {
             categoryId: 0
         });

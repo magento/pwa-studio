@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`returns the correct shape 1`] = `
+exports[`searchCategory returns the correct shape 1`] = `
 Object {
+  "availableSortMethods": Array [
+    Object {
+      "label": "Position",
+      "value": "position",
+    },
+  ],
   "data": Object {
     "products": Object {
       "page_info": Object {

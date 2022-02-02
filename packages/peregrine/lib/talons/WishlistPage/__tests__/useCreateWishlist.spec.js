@@ -38,7 +38,21 @@ const getCustomerWishlistsMock = {
                         {
                             id: 42,
                             items_count: 0,
-                            name: 'Test WishList',
+                            name: 'My first wishList',
+                            visibility: 'PRIVATE',
+                            sharing_code: 'code'
+                        },
+                        {
+                            id: 43,
+                            items_count: 0,
+                            name: 'My second wishList',
+                            visibility: 'PRIVATE',
+                            sharing_code: 'code'
+                        },
+                        {
+                            id: 44,
+                            items_count: 0,
+                            name: 'My third wishList',
                             visibility: 'PRIVATE',
                             sharing_code: 'code'
                         }
@@ -60,7 +74,8 @@ const getMultipleWishlistsEnabledQueryMock = {
             data: {
                 storeConfig: {
                     store_code: 'default',
-                    enable_multiple_wishlists: '1'
+                    enable_multiple_wishlists: '1',
+                    maximum_number_of_wishlists: 3
                 }
             }
         };
@@ -100,7 +115,16 @@ const renderHookWithProviders = ({
         </MockedProvider>
     );
 
-    return renderHook(useCreateWishlist, { wrapper, ...renderHookOptions });
+    const numberOfWishlists = mocks[1].result().data?.customer?.wishlists
+        ?.length;
+
+    return renderHook(
+        () =>
+            useCreateWishlist({
+                numberOfWishlists: numberOfWishlists
+            }),
+        { wrapper, ...renderHookOptions }
+    );
 };
 
 test('should return properly', async () => {
@@ -117,7 +141,32 @@ test('shouldRender is false when multiple wishlists disabled', async () => {
             data: {
                 storeConfig: {
                     store_code: 'default',
-                    enable_multiple_wishlists: '0'
+                    enable_multiple_wishlists: '0',
+                    maximum_number_of_wishlists: 3
+                }
+            }
+        }
+    };
+    const { result } = renderHookWithProviders({
+        mocks: [
+            createWishlistMock,
+            getCustomerWishlistsMock,
+            multipleWishlistsDisabledMock
+        ]
+    });
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect(result.current.shouldRender).toBe(false);
+});
+
+test('shouldRender is false if number of multiple wishlists reaches maximum limit number', async () => {
+    const multipleWishlistsDisabledMock = {
+        request: getMultipleWishlistsEnabledQueryMock.request,
+        result: {
+            data: {
+                storeConfig: {
+                    store_code: 'default',
+                    enable_multiple_wishlists: '1',
+                    maximum_number_of_wishlists: 3
                 }
             }
         }

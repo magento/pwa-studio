@@ -17,9 +17,11 @@ import FormError from '../FormError/formError';
 import defaultClasses from './createWishlist.module.css';
 
 const CreateWishlist = props => {
+    const { numberOfWishlists } = props;
+
     const classes = useStyle(defaultClasses, props.classes);
 
-    const talonProps = useCreateWishlist();
+    const talonProps = useCreateWishlist({ numberOfWishlists });
     const {
         handleCreateList,
         handleHideModal,

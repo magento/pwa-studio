@@ -129,12 +129,17 @@
     text-align: center;
 }
 
-.logo {
+.logoContainer {
     grid-area: a;
 }
 
+.logo {
+    height: var(--height);
+    width: var(--width);
+}
+
 @media (max-width: 960px) {
-    .logo {
+    .logoContainer {
         margin-top: 2.5rem;
     }
 }
