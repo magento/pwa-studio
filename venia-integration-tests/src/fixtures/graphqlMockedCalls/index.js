@@ -168,11 +168,6 @@ export const getIsEmailAvailableCall =
 export const getAvailableStoresConfigDataCall =
     '**/graphql?query=query+GetAvailableStoresData*';
 
-export const getCurrencyDataCall = '**/graphql?query=query+GetCurrencyData*';
-
-export const getStoreConfigDataCall =
-    '**/graphql?query=query+GetStoreConfigData*';
-    
 export const miniCartQueryCall = '**/graphql?query=query+MiniCartQuery*';
 
 export const resolveUrlCall = '**/graphql?query=query+ResolveURL*';
