@@ -7,12 +7,12 @@ exports[`Should render properly 1`] = `
   <Item
     closeMiniCart={[MockFunction closeMiniCart]}
     handleRemoveItem={[MockFunction handleRemoveItem]}
-    id="1"
     product={
       Object {
         "name": "Simple Product",
       }
     }
+    uid="1"
   />
 </div>
 `;
