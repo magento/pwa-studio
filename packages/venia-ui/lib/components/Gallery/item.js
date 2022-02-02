@@ -77,7 +77,12 @@ const GalleryItem = props => {
     // ) : null;
 
     return (
-        <div className={classes.root} aria-live="polite" aria-busy="false">
+        <div
+            data-cy="GalleryItem-root"
+            className={classes.root}
+            aria-live="polite"
+            aria-busy="false"
+        >
             <Link
                 onClick={handleLinkClick}
                 to={productLink}
@@ -105,7 +110,7 @@ const GalleryItem = props => {
             >
                 <span>{name}</span>
             </Link>
-            <div className={classes.price}>
+            <div data-cy="GalleryItem-price" className={classes.price}>
                 <Price
                     value={price_range.maximum_price.regular_price.value}
                     currencyCode={

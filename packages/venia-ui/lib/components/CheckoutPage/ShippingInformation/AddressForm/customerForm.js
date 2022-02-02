@@ -76,7 +76,7 @@ const CustomerForm = props => {
     ) : null;
 
     const formMessageRow = !hasDefaultShipping ? (
-        <div className={classes.formMessage}>
+        <div data-cy="CustomerForm-formMessage" className={classes.formMessage}>
             <Message>
                 <FormattedMessage
                     id={'customerForm.formMessage'}

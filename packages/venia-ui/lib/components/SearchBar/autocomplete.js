@@ -124,8 +124,10 @@ const Autocomplete = props => {
             : messageTpl;
 
     return (
-        <div className={rootClassName}>
-            <div className={classes.message}>{message}</div>
+        <div data-cy="Autocomplete-root" className={rootClassName}>
+            <div data-cy="Autocomplete-message" className={classes.message}>
+                {message}
+            </div>
             <div className={classes.suggestions}>
                 <Suggestions
                     displayResult={displayResult}

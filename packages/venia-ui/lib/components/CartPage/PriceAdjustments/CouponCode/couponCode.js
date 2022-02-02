@@ -123,7 +123,11 @@ const CouponCode = props => {
             : classes.entryForm;
 
         return (
-            <Form className={formClass} onSubmit={handleApplyCoupon}>
+            <Form
+                data-cy="CouponCode-form"
+                className={formClass}
+                onSubmit={handleApplyCoupon}
+            >
                 <Field
                     id="couponCode"
                     label={formatMessage({

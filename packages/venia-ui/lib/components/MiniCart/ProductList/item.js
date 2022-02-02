@@ -88,14 +88,14 @@ const Item = props => {
                     options: classes.options
                 }}
             />
-            <span className={classes.quantity}>
+            <span data-cy="MiniCart-Item-quantity" className={classes.quantity}>
                 <FormattedMessage
                     id={'productList.quantity'}
                     defaultMessage={'Qty : {quantity}'}
                     values={{ quantity }}
                 />
             </span>
-            <span className={classes.price}>
+            <span data-cy="MiniCart-Item-price" className={classes.price}>
                 <Price
                     currencyCode={prices.price.currency}
                     value={prices.price.value}

@@ -93,7 +93,7 @@ const CartPage = props => {
                 })}
             </StoreTitle>
             <div className={classes.heading_container}>
-                <h1 className={classes.heading}>
+                <h1 data-cy="CartPage-heading" className={classes.heading}>
                     <FormattedMessage
                         id={'cartPage.heading'}
                         defaultMessage={'Cart'}
