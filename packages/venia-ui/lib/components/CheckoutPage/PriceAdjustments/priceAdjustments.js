@@ -26,6 +26,7 @@ const PriceAdjustments = props => {
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
                 <Section
+                    data-cy="PriceAdjustments-couponCodeSection"
                     id={'coupon_code'}
                     title={formatMessage({
                         id: 'checkoutPage.couponCode',

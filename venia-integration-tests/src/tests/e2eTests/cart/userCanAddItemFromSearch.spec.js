@@ -5,8 +5,8 @@ import {
 } from '../../../fixtures';
 
 import {
-    categoryPage as categoryPageActions,
-    header as headerActions
+    header as headerActions,
+    searchPage as searchPageActions
 } from '../../../actions';
 
 import { header as headerAssertions } from '../../../assertions';
@@ -15,11 +15,11 @@ const { searchCarina } = categoryPageFixtures;
 
 const { carinaCardigan, semperBangleSet } = productPageFixtures;
 
-const { addProductToCartFromCategoryPage } = categoryPageActions;
-
 const { assertCartIsEmpty, assertCartTriggerCount } = headerAssertions;
 
 const { triggerSearch, searchFromSearchBar } = headerActions;
+
+const { addProductToCartFromSearchPage } = searchPageActions;
 
 const {
     getProductDetailForProductPageCall,
@@ -61,7 +61,7 @@ describe('Verify Cart actions', () => {
             timeout: 60000
         });
 
-        addProductToCartFromCategoryPage(carinaCardigan.name);
+        addProductToCartFromSearchPage(carinaCardigan.name);
         cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
             timeout: 60000
         });
@@ -75,7 +75,7 @@ describe('Verify Cart actions', () => {
                 timeout: 60000
             }
         );
-        addProductToCartFromCategoryPage(semperBangleSet.name);
+        addProductToCartFromSearchPage(semperBangleSet.name);
 
         assertCartTriggerCount(1);
     });

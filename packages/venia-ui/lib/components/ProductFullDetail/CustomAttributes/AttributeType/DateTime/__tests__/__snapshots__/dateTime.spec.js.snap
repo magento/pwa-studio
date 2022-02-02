@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#DateTime renders date time when data is provided 1`] = `
+Array [
+  <div>
+    DateTime Label
+  </div>,
+  <div>
+    <mock-FormattedDate
+      day="2-digit"
+      month="short"
+      value="2019-08-27T12:00:00"
+      year="numeric"
+    />
+    , 
+    <mock-FormattedTime
+      value="2019-08-27T12:00:00"
+    />
+  </div>,
+]
+`;
+
+exports[`#DateTime renders empty when no data is provided 1`] = `null`;
+
+exports[`#DateTime renders label only when data is missing 1`] = `
+<div>
+  DateTime Label
+</div>
+`;

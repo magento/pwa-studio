@@ -36,13 +36,18 @@ const ForgotPassword = props => {
         <FormSubmissionSuccessful email={forgotPasswordEmail} />
     ) : (
         <Fragment>
-            <h2 className={classes.title}>
+            <h2 data-cy="ForgotPassword-title" className={classes.title}>
                 <FormattedMessage
                     id={'forgotPassword.recoverPasswordText'}
                     defaultMessage={'Recover Password'}
                 />
             </h2>
-            <p className={classes.instructions}>{INSTRUCTIONS}</p>
+            <p
+                data-cy="ForgotPassword-instructions"
+                className={classes.instructions}
+            >
+                {INSTRUCTIONS}
+            </p>
             <ForgotPasswordForm initialValues={initialValues} {...formProps} />
             <FormErrors errors={formErrors} />
         </Fragment>
