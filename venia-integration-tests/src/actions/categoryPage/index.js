@@ -19,7 +19,9 @@ import {
     megaMenuMega,
     megaMenuMegaMenuItem,
     megaMenuMegaMenuItemLink,
-    megaMenuSubmenuColumnLink
+    megaMenuSubmenuColumnLink,
+    productsGalleryItemName,
+    categoryPageProductGalleryItem
 } from '../../fields/categoryPage';
 
 /**
@@ -189,11 +191,12 @@ export const createWishlistViaDialog = wishlistName => {
 };
 
 /**
- * Utility function to add product to wishlist from category page
+ * Utility function to add product to cart from category page
  */
 export const addProductToCartFromCategoryPage = productToAdd => {
     // add product to cart
-    cy.contains(productToAdd)
+    cy.get(categoryPageProductGalleryItem)
+        .contains(productToAdd)
         .siblings()
         .find(categoryPageAddToCartButton)
         .click();
@@ -231,4 +234,10 @@ export const selectCategoryFromMegaMenu = categoryName => {
     cy.get(`${megaMenuMegaMenuItemLink}, ${megaMenuSubmenuColumnLink}`)
         .filter(`:contains("${categoryName}")`)
         .click({ force: true });
+};
+
+export const selectProductFromCategoryPage = productName => {
+    cy.get(productsGalleryItemName)
+        .contains(productName)
+        .click();
 };

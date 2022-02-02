@@ -18,20 +18,25 @@ const AccountMenuItems = props => {
 
     const menu = menuItems.map(item => {
         return (
-            <Link className={classes.link} key={item.name} to={item.url}>
+            <Link
+                data-cy="AccountMenuItems-link"
+                className={classes.link}
+                key={item.name}
+                to={item.url}
+            >
                 <FormattedMessage id={item.id} defaultMessage={item.name} />
             </Link>
         );
     });
 
     return (
-        <div className={classes.root} data-cy="accountMenuItems-root">
+        <div className={classes.root} data-cy="AccountMenuItems-root">
             {menu}
             <button
                 className={classes.signOut}
                 onClick={handleSignOut}
                 type="button"
-                data-cy="accountMenuItems-signOut"
+                data-cy="AccountMenuItems-signOut"
             >
                 <FormattedMessage
                     id={'accountMenu.signOutButtonText'}

@@ -32,7 +32,9 @@ const CMSPage = props => {
 
     const headingElement =
         content_heading !== '' ? (
-            <h1 className={classes.heading}>{content_heading}</h1>
+            <h1 data-cy="Cms-contentHeading" className={classes.heading}>
+                {content_heading}
+            </h1>
         ) : null;
 
     const pageTitle = meta_title || title;
