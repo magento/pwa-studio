@@ -1,0 +1,11 @@
+{
+    "data": {
+        "storeConfig": {
+            "store_code": "default",
+            "allow_order": "0",
+            "allow_gift_receipt": "0",
+            "allow_printed_card": "0",
+            "__typename": "StoreConfig"
+        }
+    }
+}

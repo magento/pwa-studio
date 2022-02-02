@@ -45,6 +45,7 @@
 }
 
 .input:disabled {
+    background: rgb(var(--venia-global-color-gray-100));
     cursor: default;
 }
 

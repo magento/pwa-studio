@@ -29,8 +29,13 @@ import {
     giftCardCardApplyButton,
     giftCardRemoveButton,
     giftOptionsIncludeGiftReceiptCheckbox,
+    giftOptionsIncludeGiftMessageCheckbox,
     giftOptionsIncludePrintedCardCheckbox,
-    giftOptionsCardMessageTextarea
+    giftOptionsCardToInput,
+    giftOptionsCardFromInput,
+    giftOptionsCardMessageTextarea,
+    giftOptionsEditGiftMessageButton,
+    giftOptionsUpdateGiftMessageButton
 } from '../../fields/cartPage';
 import { swatchRoot } from '../../fields/productPage';
 
@@ -241,30 +246,62 @@ export const removeGiftCardsFromCartPage = () => {
  * Utility function to set Gift Options from Cart Page
  *
  * @param {Object} data gift options data
+ * @param {Boolean} [data.shouldEdit] should click on edit button
  * @param {Boolean} [data.includeGiftReceipt] include gift receipt
+ * @param {Boolean} [data.includeGiftMessage] include gift message
  * @param {Boolean} [data.includePrintedCard] include printed card
+ * @param {String} [data.cardTo] card to
+ * @param {String} [data.cardFrom] card from
  * @param {String} [data.cardMessage] card message
  */
 export const setGiftOptionsFromCartPage = ({
+    shouldEdit = false,
     includeGiftReceipt = false,
+    includeGiftMessage = false,
     includePrintedCard = false,
+    cardTo,
+    cardFrom,
     cardMessage
 }) => {
+    if (shouldEdit) {
+        cy.get(giftOptionsEditGiftMessageButton).click();
+    }
+
     if (includeGiftReceipt) {
         cy.get(giftOptionsIncludeGiftReceiptCheckbox).check();
     } else {
         cy.get(giftOptionsIncludeGiftReceiptCheckbox).uncheck();
     }
 
+    if (includeGiftMessage) {
+        cy.get(giftOptionsIncludeGiftMessageCheckbox).check();
+
+        if (cardTo) {
+            cy.get(giftOptionsCardToInput)
+                .clear()
+                .type(cardTo);
+        }
+
+        if (cardFrom) {
+            cy.get(giftOptionsCardFromInput)
+                .clear()
+                .type(cardFrom);
+        }
+
+        if (cardMessage) {
+            cy.get(giftOptionsCardMessageTextarea)
+                .clear()
+                .type(cardMessage);
+        }
+
+        cy.get(giftOptionsUpdateGiftMessageButton).click();
+    } else {
+        cy.get(giftOptionsIncludeGiftMessageCheckbox).uncheck();
+    }
+
     if (includePrintedCard) {
         cy.get(giftOptionsIncludePrintedCardCheckbox).check();
     } else {
         cy.get(giftOptionsIncludePrintedCardCheckbox).uncheck();
-    }
-
-    if (cardMessage) {
-        cy.get(giftOptionsCardMessageTextarea)
-            .clear()
-            .type(cardMessage);
     }
 };

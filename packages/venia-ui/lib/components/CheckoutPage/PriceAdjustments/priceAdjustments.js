@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useIntl } from 'react-intl';
 import { func } from 'prop-types';
 
 import { useStyle } from '../../../classify';
+import LoadingIndicator from '../../LoadingIndicator';
 import { Accordion, Section } from '../../Accordion';
 import CouponCode from '../../CartPage/PriceAdjustments/CouponCode';
 import GiftCardSection from '../../CartPage/PriceAdjustments/giftCardSection';
-import GiftOptions from '../../CartPage/PriceAdjustments/GiftOptions';
+import GiftOptionsSection from '../../CartPage/PriceAdjustments/giftOptionsSection';
 
 import defaultClasses from './priceAdjustments.module.css';
 
@@ -31,18 +32,12 @@ const PriceAdjustments = props => {
                         defaultMessage: 'Enter Coupon Code'
                     })}
                 >
-                    <CouponCode setIsCartUpdating={setPageIsUpdating} />
+                    <Suspense fallback={<LoadingIndicator />}>
+                        <CouponCode setIsCartUpdating={setPageIsUpdating} />
+                    </Suspense>
                 </Section>
                 <GiftCardSection setIsCartUpdating={setPageIsUpdating} />
-                <Section
-                    id={'gift_options'}
-                    title={formatMessage({
-                        id: 'checkoutPage.giftOptions',
-                        defaultMessage: 'See Gift Options'
-                    })}
-                >
-                    <GiftOptions />
-                </Section>
+                <GiftOptionsSection />
             </Accordion>
         </div>
     );

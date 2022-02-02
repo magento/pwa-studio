@@ -1,0 +1,19 @@
+import gql from 'graphql-tag';
+
+export const RESET_PASSWORD_MUTATION = gql`
+    mutation resetPassword(
+        $email: String!
+        $token: String!
+        $newPassword: String!
+    ) {
+        resetPassword(
+            email: $email
+            resetPasswordToken: $token
+            newPassword: $newPassword
+        )
+    }
+`;
+
+export default {
+    resetPasswordMutation: RESET_PASSWORD_MUTATION
+};
