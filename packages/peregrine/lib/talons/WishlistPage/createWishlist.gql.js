@@ -16,6 +16,7 @@ export const GET_MULTIPLE_WISHLISTS_ENABLED = gql`
         storeConfig {
             store_code
             enable_multiple_wishlists
+            maximum_number_of_wishlists
         }
     }
 `;

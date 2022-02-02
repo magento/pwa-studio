@@ -7,10 +7,12 @@ import WISHLIST_PAGE_OPERATIONS from './wishlistPage.gql';
 
 /**
  * @function
+ * @param {number} props.numberOfWishlists - The current number of wishlists created
  *
  * @returns {CreateWishListProps}
  */
-export const useCreateWishlist = (props = {}) => {
+export const useCreateWishlist = (props = { numberOfWishlists: 1 }) => {
+    const { numberOfWishlists } = props;
     const operations = mergeOperations(
         DEFAULT_OPERATIONS,
         WISHLIST_PAGE_OPERATIONS,
@@ -39,11 +41,12 @@ export const useCreateWishlist = (props = {}) => {
     const shouldRender = useMemo(() => {
         return (
             (storeConfigData &&
-                storeConfigData.storeConfig.enable_multiple_wishlists ===
-                    '1') ||
+                storeConfigData.storeConfig.enable_multiple_wishlists === '1' &&
+                numberOfWishlists <
+                    storeConfigData.storeConfig.maximum_number_of_wishlists) ||
             false
         );
-    }, [storeConfigData]);
+    }, [storeConfigData, numberOfWishlists]);
 
     const handleShowModal = useCallback(() => {
         setIsModalOpen(true);
