@@ -98,6 +98,9 @@ const Tabs = props => {
     const handleScroll = useCallback(
         event => {
             const navScrollElement = event.target;
+            // Sync scrollLeft
+            scrollX.current = event.target.scrollLeft;
+
             if (navScrollElement.scrollLeft > 0) {
                 // If we've scrolled to the end of the scrollable element we only display a left gradient
                 if (

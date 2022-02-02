@@ -1,0 +1,59 @@
+{
+  "data": {
+    "categories": {
+      "items": [
+        {
+          "uid": "Mg==",
+          "name": "Default Category",
+          "children": [
+            {
+              "children_count": "2",
+              "uid": "OA==",
+              "include_in_menu": 1,
+              "name": "Tops",
+              "position": 1,
+              "url_path": "venia-tops",
+              "url_suffix": ".html",
+              "__typename": "CategoryTree"
+            },
+            {
+              "children_count": "2",
+              "uid": "MTE=",
+              "include_in_menu": 1,
+              "name": "Bottoms",
+              "position": 2,
+              "url_path": "venia-bottoms",
+              "url_suffix": ".html",
+              "__typename": "CategoryTree"
+            },
+            {
+              "children_count": "0",
+              "uid": "MTQ=",
+              "include_in_menu": 1,
+              "name": "Dresses",
+              "position": 3,
+              "url_path": "venia-dresses",
+              "url_suffix": ".html",
+              "__typename": "CategoryTree"
+            },
+            {
+              "children_count": "3",
+              "uid": "Mw==",
+              "include_in_menu": 1,
+              "name": "Accessories",
+              "position": 4,
+              "url_path": "venia-accessories",
+              "url_suffix": ".html",
+              "__typename": "CategoryTree"
+            }
+          ],
+          "children_count": "19",
+          "include_in_menu": 1,
+          "url_path": null,
+          "__typename": "CategoryTree"
+        }
+      ],
+      "__typename": "CategoryResult"
+    }
+  }
+}
