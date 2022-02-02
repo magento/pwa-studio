@@ -2,6 +2,7 @@
 
 exports[`useCategoryContent tests handles no data prop 1`] = `
 Object {
+  "availableSortMethods": null,
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
   "filters": null,
@@ -23,6 +24,12 @@ Object {
 
 exports[`useCategoryContent tests returns the proper shape 1`] = `
 Object {
+  "availableSortMethods": Array [
+    Object {
+      "label": "label",
+      "value": "value",
+    },
+  ],
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
   "filters": Array [

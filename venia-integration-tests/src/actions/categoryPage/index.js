@@ -112,6 +112,10 @@ export const selectFilterFromList = (
     cy.get(filtersFilterBlock)
         .contains(filtersFilterBlock, filterListName)
         .then($filterBlock => {
+            // Toggle block if not expanded
+            if ($filterBlock.find(filterListItemElement).length === 0) {
+                toggleFilterBlock(filterListName, isMobile);
+            }
             cy.wrap($filterBlock)
                 .find(filterListItemElement)
                 .contains(filterListItemElement, filterLabel)
