@@ -74,7 +74,7 @@ const WishlistPage = props => {
         content = (
             <Fragment>
                 {wishlistElements}
-                <CreateWishlist />
+                <CreateWishlist numberOfWishlists={wishlists.length} />
             </Fragment>
         );
     }
