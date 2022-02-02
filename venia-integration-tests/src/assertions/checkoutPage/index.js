@@ -15,12 +15,25 @@ import {
     checkoutPagePriceSummaryDiscountSummary,
     checkoutPagePriceSummaryGiftCardSummary,
     orderConfirmationPage,
-    checkoutPageOpenedDialogSubmitButton
+    checkoutPageOpenedDialogSubmitButton,
+    checkoutPageShippingInformationTitle,
+    checkoutPageShippingCustomerForm,
+    checkoutPageShippingCustomerSubmitButton,
+    checkoutPageBillingAddressSelectLabel,
+    checkoutPageBillingAddressFields,
+    checkoutPagePriceAdjustmentCouponSection,
+    checkoutPagePriceAdjustmentsGiftCardSection,
+    checkoutPagePriceAdjustmentsGiftOptionsSection,
+    orderConfirmationPageAdditionalText,
+    orderConfirmationPageItemsTotalQuantity,
+    orderConfirmationPageShippingInformationHeading,
+    orderConfirmationPageShippingMethodHeading
 } from '../../fields/checkoutPage';
 import {
     defaultShippingMethod,
     defaultShippingMethods
 } from '../../fixtures/checkoutPage';
+import { validateLanguage } from '../../utils/language-test-utils';
 
 /**
  * Utility function to assert Address is in Shipping Information
@@ -233,4 +246,111 @@ export const assertUpdateDataButtonIsVisible = () => {
     cy.get(checkoutPageOpenedDialogSubmitButton).should($updateButton => {
         expect($updateButton).to.be.visible;
     });
+};
+
+/**
+ * Utility function to assert ShippingInformation section text is in correct language (french or english)
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
+ */
+export const assertShippingInformationTextLanguage = language => {
+    const textToValidate = [];
+    cy.get(checkoutPageShippingInformationTitle).then($title =>
+        textToValidate.push($title.text())
+    );
+    cy.get(checkoutPageShippingCustomerForm).within(() => {
+        cy.get('label').then($label => textToValidate.push($label.text()));
+        cy.get('p').then($p => textToValidate.push($p.text()));
+    });
+    cy.get(checkoutPageShippingCustomerSubmitButton).then($button => {
+        textToValidate.push($button.text());
+        expect(validateLanguage(textToValidate.join(','), language)).to.be.true;
+    });
+};
+
+/**
+ * Utility function to assert PaymentInformation section text is in correct language (french or english)
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
+ */
+export const assertPaymentInformationTextLanguage = language => {
+    const textToValidate = [];
+    cy.get(checkoutPageBillingAddressSelectLabel).then($label =>
+        textToValidate.push($label.text())
+    );
+    cy.get(checkoutPageBillingAddressFields).within(() => {
+        cy.get('label').then($label => {
+            textToValidate.push($label.text());
+            expect(validateLanguage(textToValidate.join(','), language)).to.be
+                .true;
+        });
+    });
+};
+
+/**
+ * Utility function to assert PriceAdjustments section text is in correct language (french or english)
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
+ */
+export const assertPriceAdjustmentsTextLanguage = language => {
+    const textToValidate = [];
+    cy.get(checkoutPagePriceAdjustmentCouponSection).within(() => {
+        cy.get('label').then($label => textToValidate.push($label.text()));
+        cy.get('button').then($button => textToValidate.push($button.text()));
+    });
+    cy.get(checkoutPagePriceAdjustmentsGiftCardSection).within(() => {
+        cy.get('label').then($label => textToValidate.push($label.text()));
+        cy.get('button').then($button => textToValidate.push($button.text()));
+    });
+    cy.get(checkoutPagePriceAdjustmentsGiftOptionsSection).within(() => {
+        cy.get('label').then($label => {
+            textToValidate.push($label.text());
+            expect(validateLanguage(textToValidate.join(','), language)).to.be
+                .true;
+        });
+    });
+};
+
+/**
+ * Utility function to assert OrderConfirmationPage text is in correct language (french or english)
+ * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
+ */
+export const assertOrderConfirmationPageTextLanguage = language => {
+    const textToValidate = [];
+    cy.get(checkoutPageOrderConfirmationHeader).then($header =>
+        textToValidate.push($header.text())
+    );
+    cy.get(checkoutPageOrderConfirmationNumber).then($number =>
+        textToValidate.push($number.text().replace(/\d:/, ''))
+    );
+    cy.get(orderConfirmationPageShippingInformationHeading).then($heading =>
+        textToValidate.push($heading.text())
+    );
+    cy.get(orderConfirmationPageShippingMethodHeading).then($heading =>
+        textToValidate.push($heading.text())
+    );
+    cy.get(orderConfirmationPageItemsTotalQuantity).then($quantity =>
+        textToValidate.push($quantity.text().replace(/\d/, ''))
+    );
+    cy.get(orderConfirmationPageAdditionalText).then($text => {
+        textToValidate.push($text.text());
+        expect(validateLanguage(textToValidate.join(','), language)).to.be.true;
+    });
+};
+
+/**
+ * Utility function to assert prices in CheckoutPage displays correct currency.
+ *
+ * @param {String} currency -- currency code to validate
+ */
+export const assertCheckoutPageHasCurrency = currency => {
+    const currencySymbolMap = {
+        USD: '$',
+        EUR: '€'
+    };
+    cy.get(checkoutPagePriceSummarySubtotalPrice).should(
+        'contain',
+        currencySymbolMap[currency]
+    );
+    cy.get(checkoutPagePriceSummaryTotalPrice).should(
+        'contain',
+        currencySymbolMap[currency]
+    );
 };

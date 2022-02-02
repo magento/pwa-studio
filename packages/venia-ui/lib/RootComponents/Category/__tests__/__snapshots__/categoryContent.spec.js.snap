@@ -41,6 +41,16 @@ Array [
             className="headerButtons"
           >
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -135,6 +145,16 @@ Array [
               }
             />
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -236,6 +256,16 @@ Array [
               }
             />
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -345,6 +375,16 @@ Array [
               }
             />
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -557,6 +597,16 @@ Array [
             className="headerButtons"
           >
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -694,6 +744,16 @@ Array [
             className="headerButtons"
           >
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {

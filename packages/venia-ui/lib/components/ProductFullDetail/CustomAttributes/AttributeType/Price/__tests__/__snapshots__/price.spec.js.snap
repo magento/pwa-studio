@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Price renders empty when no data is provided 1`] = `null`;
+
+exports[`#Price renders label only when data is missing 1`] = `
+<div>
+  Price Label
+</div>
+`;
+
+exports[`#Price renders price when data is provided 1`] = `
+Array [
+  <div>
+    Price Label
+  </div>,
+  <div>
+    <mock-Price
+      currencyCode="USD"
+      value={100}
+    />
+  </div>,
+]
+`;

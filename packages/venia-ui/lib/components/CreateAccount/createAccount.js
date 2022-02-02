@@ -38,6 +38,7 @@ const CreateAccount = props => {
 
     const cancelButton = props.isCancelButtonHidden ? null : (
         <Button
+            data-cy="CreateAccount-cancelButton"
             className={classes.cancelButton}
             disabled={isDisabled}
             type="button"
@@ -68,11 +69,12 @@ const CreateAccount = props => {
 
     return (
         <Form
+            data-cy="CreateAccount-form"
             className={classes.root}
             initialValues={initialValues}
             onSubmit={handleSubmit}
         >
-            <h2 className={classes.title}>
+            <h2 data-cy="CreateAccount-title" className={classes.title}>
                 <FormattedMessage
                     id={'createAccount.createAccountText'}
                     defaultMessage={'Create an Account'}

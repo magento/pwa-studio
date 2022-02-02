@@ -62,7 +62,10 @@ const ItemsReview = props => {
             data-cy="ItemsReview-container"
         >
             <div className={classes.items_container}>
-                <div className={classes.total_quantity}>
+                <div
+                    data-cy="ItemsReview-totalQuantity"
+                    className={classes.total_quantity}
+                >
                     <span className={classes.total_quantity_amount}>
                         {totalQuantity}
                     </span>

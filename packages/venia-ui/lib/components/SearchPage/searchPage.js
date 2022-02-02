@@ -26,6 +26,7 @@ const SearchPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useSearchPage();
     const {
+        availableSortMethods,
         data,
         error,
         filters,
@@ -109,7 +110,7 @@ const SearchPage = props => {
     const shouldShowFilterShimmer = filters === null;
 
     // If there are no products we can hide the sort button.
-    const shouldShowSortButtons = productsCount;
+    const shouldShowSortButtons = productsCount && availableSortMethods;
     const shouldShowSortShimmer = !productsCount && loading;
 
     const maybeFilterButtons = shouldShowFilterButtons ? (
@@ -129,7 +130,12 @@ const SearchPage = props => {
     ) : null;
 
     const maybeSortButton = shouldShowSortButtons ? (
-        <ProductSort sortProps={sortProps} />
+        availableSortMethods && (
+            <ProductSort
+                sortProps={sortProps}
+                availableSortMethods={availableSortMethods}
+            />
+        )
     ) : shouldShowSortShimmer ? (
         <ProductSortShimmer />
     ) : null;

@@ -33,7 +33,7 @@ const {
     openEditShippingInformationDialog,
     selectShippingMethod,
     openEditPaymentInformationDialog,
-    enableBillingAddressForm,
+    toggleBillingAddressForm,
     editBillingAddress,
     placeOrder
 } = checkoutPageActions;
@@ -232,7 +232,7 @@ describe('PWA-1414: Verify cart editing and checkout', () => {
         openEditPaymentInformationDialog();
 
         editCreditCardInformation({ ...checkoutBillingData[1] });
-        enableBillingAddressForm();
+        toggleBillingAddressForm();
         editBillingAddress(checkoutCustomer3);
 
         cy.wait(
