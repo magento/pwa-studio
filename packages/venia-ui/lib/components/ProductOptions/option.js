@@ -68,7 +68,10 @@ const Option = props => {
                 onSelectionChange={handleSelectionChange}
             />
             <dl className={classes.selection}>
-                <dt className={classes.selectionLabel}>
+                <dt
+                    data-cy="ProductOptions-Option-selectedLabel"
+                    className={classes.selectionLabel}
+                >
                     <FormattedMessage
                         id="productOptions.selectedLabel"
                         defaultMessage="Selected {label}:"

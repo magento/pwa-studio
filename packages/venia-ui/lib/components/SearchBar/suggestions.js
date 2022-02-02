@@ -41,7 +41,7 @@ const Suggestions = props => {
                 onNavigate={onNavigate}
                 value={searchValue}
             />
-            <h2 className={classes.heading}>
+            <h2 data-cy="Suggestions-heading" className={classes.heading}>
                 <span>
                     <FormattedMessage
                         id={'searchBar.heading'}

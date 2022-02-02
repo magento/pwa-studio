@@ -39,7 +39,8 @@ export const wishlistNameField = '[data-cy="createWishlistForm-listname"]';
 export const createWishlistConfirmButton =
     '[data-cy="createWishListForm-saveButton"]';
 
-export const categoryPageAddToCartButton = '*[class^="addToCartButton-root-"]';
+export const categoryPageAddToCartButton =
+    '[data-cy="AddToCartButton-buttonInStock"]';
 
 export const categoryTreeBranchTarget =
     '[data-cy="CategoryTree-root"] [data-cy="CategoryTree-Branch-target"]';
@@ -103,3 +104,18 @@ export const filterListItemElement = '[data-cy="FilterList-item"]';
 
 export const filterDefaultCheckboxElement =
     '[data-cy="FilterDefault-checkbox"]';
+
+export const filterSidebarHeaderTitle =
+    '[data-cy="CategoryContent-root"] [data-cy="FilterSidebar-root"] [data-cy="FilterSidebar-headerTitle"]';
+
+export const productPrice =
+    '[data-cy="CategoryContent-root"] [data-cy="Gallery-root"] [data-cy="GalleryItem-price"]';
+
+export const categoryContentInfo =
+    '[data-cy="CategoryContent-root"] [data-cy="CategoryContent-categoryInfo"]';
+
+export const filterSidebarShowMoreLessButton =
+    '[data-cy="CategoryContent-root"] [data-cy="FilterSidebar-root"] [data-cy="FilterList-showMoreLessButton"]';
+
+export const categoryPageProductGalleryItem =
+    '[data-cy="CategoryContent-root"] [data-cy="GalleryItem-root"]';

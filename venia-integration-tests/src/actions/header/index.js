@@ -3,7 +3,12 @@ import {
     headerNavTrigger,
     headerSearchTrigger,
     searchBarSearchField,
-    headerLogo
+    headerLogo,
+    headerStoreSwitcherTriggerButton,
+    headerCurrencySwitcherTriggerButton,
+    headerStoreSwitcherItemButton,
+    headerCurrencySwitcherItemButton,
+    headerAccountMenuTrigger
 } from '../../fields/header';
 
 /**
@@ -45,4 +50,28 @@ export const searchFromSearchBar = (searchString, submitForm = true) => {
         // Close Search Bar after submit
         triggerSearch();
     }
+};
+
+export const triggerStoreSwitcherMenu = () => {
+    cy.get(headerStoreSwitcherTriggerButton).click();
+};
+
+export const triggerCurrencySwitcherMenu = () => {
+    cy.get(headerCurrencySwitcherTriggerButton).click();
+};
+
+export const changeStoreView = store => {
+    cy.get(headerStoreSwitcherItemButton)
+        .contains(store)
+        .click();
+};
+
+export const changeCurrency = currency => {
+    cy.get(headerCurrencySwitcherItemButton)
+        .contains(currency)
+        .click();
+};
+
+export const triggerAccountMenu = () => {
+    cy.get(headerAccountMenuTrigger).click();
 };

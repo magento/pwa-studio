@@ -37,6 +37,7 @@ const AddToCartButton = props => {
 
     const buttonInStock = (
         <Button
+            data-cy="AddToCartButton-buttonInStock"
             aria-label={formatMessage({
                 id: 'addToCartButton.addItemToCartAriaLabel',
                 defaultMessage: 'Add to Cart'
@@ -59,6 +60,7 @@ const AddToCartButton = props => {
 
     const buttonOutOfStock = (
         <Button
+            data-cy="AddtoCartButton-buttonOutOfStock"
             aria-label={formatMessage({
                 id: 'addToCartButton.itemOutOfStockAriaLabel',
                 defaultMessage: 'Out of Stock'
