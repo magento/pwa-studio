@@ -15,7 +15,7 @@ const props = {
     handleRemoveItem: jest.fn().mockName('handleRemoveItem'),
     items: [
         {
-            id: '1',
+            uid: '1',
             product: {
                 name: 'Simple Product'
             }
