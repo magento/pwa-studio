@@ -22,9 +22,7 @@ const toggleLoginDialog = () => {
 
 const createAccount = (firstName, lastName, accountEmail, accountPassword) => {
     // Click on create account button
-    cy.get(createAccountInitiateButton)
-        .contains('Create an Account')
-        .click();
+    cy.get(createAccountInitiateButton).click();
 
     // Enter user name
     cy.get(firstNameTextField).type(firstName);
@@ -39,9 +37,7 @@ const createAccount = (firstName, lastName, accountEmail, accountPassword) => {
     cy.get(createAccountPasswordTextField).type(accountPassword);
 
     // Submit form
-    cy.get(createAccountSubmitButton)
-        .contains('Create an Account')
-        .click();
+    cy.get(createAccountSubmitButton).click();
 };
 
 const resetPassword = accountEmail => {
@@ -67,9 +63,7 @@ const signInAccount = (accountEmail, accountPassword) => {
     cy.get(signInPasswordTextField).type(accountPassword);
 
     // Submit form
-    cy.get(signInSubmitButton)
-        .contains('Sign In')
-        .click();
+    cy.get(signInSubmitButton).click();
 };
 
 const signOutAccount = () => {

@@ -8,6 +8,6 @@ Object {
   "handleShowModal": [Function],
   "isModalOpen": false,
   "loading": false,
-  "shouldRender": true,
+  "shouldRender": false,
 }
 `;

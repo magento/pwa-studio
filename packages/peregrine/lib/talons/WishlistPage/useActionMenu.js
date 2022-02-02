@@ -99,10 +99,10 @@ export const useActionMenu = (props = {}) => {
         [getCustomerWishlistQuery, id, updateWishlist]
     );
 
-    const errors = useMemo(
-        () => (displayError ? [updateWishlistErrors] : [false]),
-        [updateWishlistErrors, displayError]
-    );
+    const errors = useMemo(() => (displayError ? [updateWishlistErrors] : []), [
+        updateWishlistErrors,
+        displayError
+    ]);
 
     return {
         editFavoritesListIsOpen,

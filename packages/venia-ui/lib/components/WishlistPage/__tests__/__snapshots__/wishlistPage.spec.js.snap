@@ -18,7 +18,9 @@ exports[`empty single wishlist 1`] = `
     />
   </h1>
   <Wishlist />
-  <CreateWishlist />
+  <CreateWishlist
+    numberOfWishlists={0}
+  />
 </div>
 `;
 
@@ -48,7 +50,9 @@ exports[`renders a single wishlist without visibility toggle 1`] = `
     }
     isCollapsed={false}
   />
-  <CreateWishlist />
+  <CreateWishlist
+    numberOfWishlists={1}
+  />
 </div>
 `;
 
@@ -229,6 +233,8 @@ exports[`renders wishlist data 1`] = `
     }
     isCollapsed={true}
   />
-  <CreateWishlist />
+  <CreateWishlist
+    numberOfWishlists={2}
+  />
 </div>
 `;
