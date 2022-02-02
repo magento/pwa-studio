@@ -1,3 +1,6 @@
+export const checkUserIsAuthedCall =
+    '**/graphql?query=query+checkUserIsAuthed*';
+
 export const hitGraphqlPath = '**/graphql';
 
 export const getAppliedCouponsCall =
@@ -8,6 +11,16 @@ export const getAppliedGiftCardsCall =
 
 export const getAutocompleteResultsCall =
     '**/graphql?query=query+getAutocompleteResults*';
+
+export const getAvailableStoresDataCall =
+    '**/graphql?query=query+getAvailableStoresData*';
+
+export const getBreadcrumbsCall = '**/graphql?query=query+GetBreadcrumbs*';
+
+export const getBillingAddressCall =
+    '**/graphql?query=query+getBillingAddress*';
+
+export const getCartDetailsCall = '**/graphql?query=query+GetCartDetails*';
 
 export const getCategoriesCall = '**/graphql?query=query+GetCategories*';
 
@@ -23,24 +36,45 @@ export const getCMSPage = '**/graphql?query=query+GetCmsPage*';
 export const getContactPageEnabledCall =
     '**/graphql?query=query+GetStoreConfigForContactUs*';
 
+export const getCurrencyDataCall = '**/graphql?query=query+getCurrencyData*';
+
 export const getCustomerAfterCheckoutCall =
     '**/graphql?query=query+GetCustomerAfterCheckout*';
 
 export const getCustomerWishlistCall =
     '**/graphql?query=query+GetCustomerWishlist*';
 
+export const getDynamicBlocksCall =
+    '**/graphql?query=query+GetCmsDynamicBlocks*';
+
+export const getFilterInputsForCategoryCall =
+    '**/graphql?query=query+GetFilterInputsForCategory*';
+
 export const getGiftOptionsCall = '**/graphql?query=query+GetGiftOptions*';
 
+export const getItemCountCall = '**/graphql?query=query+getItemCount*';
+
 export const getItemsInCartCall = '**/graphql?query=query+getItemsInCart*';
+
+export const getMegaMenuCall = '**/graphql?query=query+getMegaMenu*';
+
+export const getLocaleCall = '**/graphql?query=query+getLocale*';
 
 export const getMultipleWishlistConfigCall =
     '**/graphql?query=query+getMultipleWishlistsEnabled*';
 
+export const getNavigationMenuCall =
+    '**/graphql?query=query+GetNavigationMenu*';
+
 export const getNewCustomerWishlistCall =
     '**/graphql?query=query+getCustomerWishlist*';
 
+export const getPageSizeCall = '**/graphql?query=query+getPageSize*';
+
 export const getPaymentInformationCall =
     '**/graphql?query=query+getPaymentInformation*';
+
+export const getPriceSummaryCall = '**/graphql?query=query+getPriceSummary*';
 
 export const getProductDetailForProductPageCall =
     '**/graphql?query=query+getProductDetailForProductPage*';
@@ -56,10 +90,18 @@ export const getProductFiltersBySearchCall =
 
 export const getProductSearchCall = '**/graphql?query=query+ProductSearch*';
 
+export const getProductsByUrlKeyCall =
+    '**/graphql?query=query+getProductsByUrlKey*';
+
 export const getReCaptchaV3ConfigCall =
     '**/graphql?query=query+GetReCaptchaV3Config*';
 
 export const getRegionsCall = '**/graphql?query=query+GetRegions*';
+
+export const getRootCategoryIdCall =
+    '**/graphql?query=query+getRootCategoryId*';
+
+export const getRouteDataCall = '**/graphql?query=query+getRouteData*';
 
 export const getSelectedAndAvailableShippingMethodsCall =
     '**/graphql?query=query+getSelectedAndAvailableShippingMethods*';
@@ -67,11 +109,43 @@ export const getSelectedAndAvailableShippingMethodsCall =
 export const getShippingMethodsCall =
     '**/graphql?query=query+GetShippingMethods*';
 
+export const getShippingInformationCall =
+    '**/graphql?query=query+GetShippingInformation*';
+
+export const getStoreConfigDataCall =
+    '**/graphql?query=query+getStoreConfigData*';
+
+export const getStoreConfigForBreadcrumbsCall =
+    '**/graphql?query=query+GetStoreConfigForBreadcrumbs*';
+
+export const getStoreConfigForCategoryTreeCall =
+    '**/graphql?query=query+GetStoreConfigForCategoryTree*';
+
+export const getStoreConfigForCartPageCall =
+    '**/graphql?query=query+getStoreConfigForCartPage*';
+
+export const getStoreConfigForCarouselEECall =
+    '**/graphql?query=query+GetStoreConfigForCarouselEE*';
+
 export const getStoreConfigDataForGalleryEECall =
     '**/graphql?query=query+GetStoreConfigDataForGalleryEE*';
 
 export const getStoreConfigForGiftOptionsCall =
     '**/graphql?query=query+GetStoreConfigForGiftOptions*';
+
+export const getStoreConfigForMegaMenuCall =
+    '**/graphql?query=query+GetStoreConfigForMegaMenu*';
+
+export const getStoreConfigForMiniCartCall =
+    '**/graphql?query=query+getStoreConfigForMiniCart*';
+
+export const getStoreConfigForContactUsCall =
+    '**/graphql?query=query+GetStoreConfigForContactUs*';
+
+export const getStoreConfigForNewsletterCall =
+    '**/graphql?query=query+GetStoreConfigForNewsletter*';
+
+export const getStoreNameCall = '**/graphql?query=query+getStoreName*';
 
 export const getWishlistDialogDataCall =
     '**/graphql?query=query+getWishlistsDialogData*';
@@ -98,3 +172,9 @@ export const getCurrencyDataCall = '**/graphql?query=query+GetCurrencyData*';
 
 export const getStoreConfigDataCall =
     '**/graphql?query=query+GetStoreConfigData*';
+    
+export const miniCartQueryCall = '**/graphql?query=query+MiniCartQuery*';
+
+export const resolveUrlCall = '**/graphql?query=query+ResolveURL*';
+
+export const storeConfigDataCall = '**/graphql?query=query+storeConfigData*';

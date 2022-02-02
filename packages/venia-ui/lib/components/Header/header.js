@@ -51,7 +51,7 @@ const Header = props => {
     return (
         <Fragment>
             <div className={classes.switchersContainer}>
-                <div data-cy="Header-Switchers" className={classes.switchers}>
+                <div className={classes.switchers} data-cy="Header-switchers">
                     <StoreSwitcher />
                     <CurrencySwitcher />
                 </div>

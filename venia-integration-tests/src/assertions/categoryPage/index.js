@@ -172,6 +172,14 @@ export const assertCategoryPageProductsHaveCurrency = currency => {
     cy.get(productPrice).should('contain', currencySymbolMap[currency]);
 };
 
+/* Assert number of products listed
+ *
+ * @param {Number} number number of products
+ */
+export const assertNumberOfProductsListed = number => {
+    cy.get(productsGalleryItemName).should('have.length', number);
+};
+
 export const assertRatingSummary = productName => {
     cy.contains(productName)
         .children()

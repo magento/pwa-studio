@@ -66,7 +66,7 @@ export const useSignIn = props => {
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
-                await apolloClient.clearCacheData(apolloClient, 'checkout');
+                await apolloClient.clearCacheData(apolloClient, 'customer');
                 await removeCart();
 
                 // Create and get the customer's cart id.
