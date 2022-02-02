@@ -23,7 +23,6 @@ export const GET_AVAILABLE_STORES_DATA = gql`
     query getAvailableStoresData {
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         availableStores {
-            code
             default_display_currency_code
             locale
             secure_base_media_url
