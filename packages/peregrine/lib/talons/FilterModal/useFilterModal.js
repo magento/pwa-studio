@@ -6,7 +6,12 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useFilterState } from './useFilterState';
-import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
+import {
+    getSearchFromState,
+    getStateFromSearch,
+    sortFiltersArray,
+    stripHtml
+} from './helpers';
 
 import DEFAULT_OPERATIONS from './filterModal.gql';
 
@@ -83,7 +88,9 @@ export const useFilterModal = props => {
         const keys = new Set();
         const itemsByGroup = new Map();
 
-        for (const filter of filters) {
+        const sortedFilters = sortFiltersArray([...filters]);
+
+        for (const filter of sortedFilters) {
             const { options, label: name, attribute_code: group } = filter;
 
             // If this aggregation is not a possible filter, just back out.
