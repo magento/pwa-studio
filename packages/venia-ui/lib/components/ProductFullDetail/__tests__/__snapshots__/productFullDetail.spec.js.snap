@@ -153,6 +153,9 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -280,6 +283,9 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -441,6 +447,9 @@ exports[`it renders an error for an invalid cart 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -602,6 +611,9 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -764,6 +776,9 @@ Array [
       <strong>
         BTTF123
       </strong>
+      <CustomAttributes
+        customAttributes={Object {}}
+      />
     </section>
   </form>,
 ]
@@ -922,6 +937,9 @@ exports[`it renders correctly 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -1079,6 +1097,9 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -1236,6 +1257,9 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -1393,6 +1417,9 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -1554,6 +1581,9 @@ exports[`it renders form level errors 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -1724,6 +1754,9 @@ exports[`it renders message with unsupported product type 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -1851,6 +1884,9 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
@@ -2010,6 +2046,9 @@ exports[`renders a WishlistButton with props 1`] = `
     <strong>
       BTTF123
     </strong>
+    <CustomAttributes
+      customAttributes={Object {}}
+    />
   </section>
 </form>
 `;
