@@ -224,7 +224,7 @@ Column.propTypes = {
     marginLeft: string,
     marginRight: string,
     marginTop: string,
-    MediaQueries: arrayOf(
+    mediaQueries: arrayOf(
         shape({
             media: string,
             style: object
