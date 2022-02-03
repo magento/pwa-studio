@@ -75,6 +75,14 @@ const defaultProps = {
 };
 
 const talonProps = {
+    availableSortMethods: [
+        {
+            id: 'sortItem.method',
+            text: 'sortItem.text',
+            attribute: 'sortItem.attribute',
+            sortDirection: 'ASC'
+        }
+    ],
     categoryName: 'Name',
     categoryDescription: 'test',
     filters: {},
