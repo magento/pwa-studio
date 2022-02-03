@@ -24,13 +24,22 @@ export const useCategoryContent = props => {
 
     const {
         getCategoryContentQuery,
-        getProductFiltersByCategoryQuery
+        getProductFiltersByCategoryQuery,
+        getCategoryAvailableSortMethodsQuery
     } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
 
     const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersByCategoryQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
+    );
+
+    const [getSortMethods, { data: sortData }] = useLazyQuery(
+        getCategoryAvailableSortMethodsQuery,
         {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first'
@@ -58,6 +67,18 @@ export const useCategoryContent = props => {
         }
     }, [categoryId, getFilters]);
 
+    useEffect(() => {
+        if (categoryId) {
+            getSortMethods({
+                variables: {
+                    categoryIdFilter: {
+                        in: categoryId
+                    }
+                }
+            });
+        }
+    }, [categoryId, getSortMethods]);
+
     const filters = filterData ? filterData.products.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
     const totalPagesFromData = data
@@ -70,8 +91,12 @@ export const useCategoryContent = props => {
     const categoryDescription = categoryData
         ? categoryData.categories.items[0].description
         : null;
+    const availableSortMethods = sortData
+        ? sortData.products.sort_fields.options
+        : null;
 
     return {
+        availableSortMethods,
         categoryName,
         categoryDescription,
         filters,

@@ -91,7 +91,10 @@ const OrderConfirmationPage = props => {
                         values={{ orderNumber }}
                     />
                 </div>
-                <div className={classes.shippingInfoHeading}>
+                <div
+                    data-cy="OrderConfirmationPage-shippingInfoHeading"
+                    className={classes.shippingInfoHeading}
+                >
                     <FormattedMessage
                         id={'global.shippingInformation'}
                         defaultMessage={'Shipping Information'}
@@ -105,7 +108,10 @@ const OrderConfirmationPage = props => {
                         {additionalAddressString}
                     </span>
                 </div>
-                <div className={classes.shippingMethodHeading}>
+                <div
+                    data-cy="OrderConfirmationPage-shippingMethodHeading"
+                    className={classes.shippingMethodHeading}
+                >
                     <FormattedMessage
                         id={'global.shippingMethod'}
                         defaultMessage={'Shipping Method'}
@@ -115,7 +121,10 @@ const OrderConfirmationPage = props => {
                 <div className={classes.itemsReview}>
                     <ItemsReview data={data} />
                 </div>
-                <div className={classes.additionalText}>
+                <div
+                    data-cy="OrderConfirmationPage-additionalText"
+                    className={classes.additionalText}
+                >
                     <FormattedMessage
                         id={'checkoutPage.additionalText'}
                         defaultMessage={
