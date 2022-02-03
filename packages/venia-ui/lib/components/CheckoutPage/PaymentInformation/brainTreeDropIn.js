@@ -161,9 +161,7 @@ const BraintreeDropin = props => {
             teardownAndRenderDropin();
         }
 
-        return () => {
-            unmounted = true;
-        };
+
     }, [
         shouldTeardownDropin,
         dropinInstance,

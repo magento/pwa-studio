@@ -27,6 +27,7 @@ import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
+import GoogleReCaptcha from "../GoogleReCaptcha";
 
 import defaultClasses from './checkoutPage.module.css';
 import ScrollAnchor from '../ScrollAnchor/scrollAnchor';
@@ -73,6 +74,7 @@ const CheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
+        recaptchaWidgetProps,
         toggleAddressBookContent,
         toggleSignInContent
     } = talonProps;
@@ -376,6 +378,7 @@ const CheckoutPage = props => {
                 {reviewOrderButton}
                 {itemsReview}
                 {orderSummary}
+                <GoogleReCaptcha {...recaptchaWidgetProps} />
                 {placeOrderButton}
             </div>
         );

@@ -14,6 +14,7 @@ import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
 
 import CheckoutError from './CheckoutError';
+import {useGoogleReCaptcha} from "../../hooks/useGoogleReCaptcha";
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -73,6 +74,15 @@ export const useCheckoutPage = (props = {}) => {
         getOrderDetailsQuery,
         placeOrderMutation
     } = operations;
+
+    const {
+        recaptchaLoading,
+        generateReCaptchaData,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'PLACE_ORDER',
+        formAction: 'placeOrder'
+    });
 
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
@@ -146,8 +156,8 @@ export const useCheckoutPage = (props = {}) => {
             ? checkoutQueryNetworkStatus < 7
             : true;
 
-        return checkoutQueryInFlight || customerLoading;
-    }, [checkoutQueryNetworkStatus, customerLoading]);
+        return checkoutQueryInFlight || customerLoading || recaptchaLoading;
+    }, [checkoutQueryNetworkStatus, customerLoading, recaptchaLoading]);
 
     const customer = customerData && customerData.customer;
 
@@ -240,10 +250,13 @@ export const useCheckoutPage = (props = {}) => {
     useEffect(() => {
         async function placeOrderAndCleanup() {
             try {
+                const reCaptchaData = await generateReCaptchaData();
+
                 await placeOrder({
                     variables: {
                         cartId
-                    }
+                    },
+                    ...reCaptchaData
                 });
                 // Cleanup stale cart and customer info.
                 await removeCart();
@@ -271,6 +284,7 @@ export const useCheckoutPage = (props = {}) => {
         cartId,
         createCart,
         fetchCartId,
+        generateReCaptchaData,
         orderDetailsData,
         placeOrder,
         removeCart,
@@ -312,6 +326,7 @@ export const useCheckoutPage = (props = {}) => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
+        recaptchaWidgetProps,
         toggleAddressBookContent,
         toggleSignInContent
     };

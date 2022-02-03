@@ -16,6 +16,7 @@ import { useStyle } from '../../../classify';
 
 import defaultClasses from './creditCard.module.css';
 import FormError from '../../FormError';
+import GoogleReCaptcha from "../../GoogleReCaptcha";
 
 const STEP_DESCRIPTIONS = [
     { defaultMessage: 'Loading Payment', id: 'checkoutPage.step0' },
@@ -83,7 +84,8 @@ const CreditCard = props => {
         initialValues,
         shippingAddressCountry,
         shouldTeardownDropin,
-        resetShouldTeardownDropin
+        resetShouldTeardownDropin,
+        recaptchaWidgetProps
     } = talonProps;
 
     const creditCardComponentClassName = isLoading
@@ -154,6 +156,7 @@ const CreditCard = props => {
         <div className={classes.root} data-cy="CreditCard-root">
             <div className={creditCardComponentClassName}>
                 <FormError
+                    allowErrorMessages
                     classes={{ root: classes.formErrorContainer }}
                     errors={Array.from(errors.values())}
                 />
@@ -304,6 +307,7 @@ const CreditCard = props => {
                         />
                     </Field>
                 </div>
+                <GoogleReCaptcha {...recaptchaWidgetProps} />
             </div>
             {loadingIndicator}
         </div>

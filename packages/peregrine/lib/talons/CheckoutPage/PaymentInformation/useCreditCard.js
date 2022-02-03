@@ -6,6 +6,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useCartContext } from '../../../context/cart';
 
 import DEFAULT_OPERATIONS from './creditCard.gql';
+import {useGoogleReCaptcha} from "../../../hooks/useGoogleReCaptcha";
 
 const getRegion = region => {
     return region.region_id || region.label || region.code;
@@ -107,6 +108,15 @@ export const useCreditCard = props => {
         setCreditCardDetailsOnCartMutation
     } = operations;
 
+    const {
+        recaptchaLoading,
+        generateReCaptchaData,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'BRAINTREE',
+        formAction: 'braintree'
+    });
+
     /**
      * Definitions
      */
@@ -121,9 +131,9 @@ export const useCreditCard = props => {
      * payment flow.
      *
      * `0` No call made yet
-     * `1` Billing address mutation intiated
-     * `2` Braintree nonce requsted
-     * `3` Payment information mutation intiated
+     * `1` Billing address mutation initiated
+     * `2` Braintree nonce requested
+     * `3` Payment information mutation initiated
      * `4` All mutations done
      */
     const [stepNumber, setStepNumber] = useState(0);
@@ -133,7 +143,7 @@ export const useCreditCard = props => {
     const { validate: validateBillingAddressForm } = useFormApi();
     const [{ cartId }] = useCartContext();
 
-    const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 3);
+    const isLoading = isDropinLoading || recaptchaLoading || (stepNumber >= 1 && stepNumber <= 3);
 
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
         skip: !cartId,
@@ -305,18 +315,24 @@ export const useCreditCard = props => {
      * on the cart along with the payment method used in
      * this case `braintree`.
      */
-    const updateCCDetailsOnCart = useCallback(
-        braintreeNonce => {
-            const { nonce } = braintreeNonce;
-            updateCCDetails({
-                variables: {
-                    cartId,
-                    paymentMethod: 'braintree',
-                    paymentNonce: nonce
-                }
-            });
+    const updateCCDetailsOnCart = useCallback(async (braintreeNonce) => {
+            try {
+                const {nonce} = braintreeNonce;
+                const reCaptchaData = await generateReCaptchaData();
+
+                await updateCCDetails({
+                    variables: {
+                        cartId,
+                        paymentMethod: 'braintree',
+                        paymentNonce: nonce
+                    },
+                    ...reCaptchaData
+                });
+            } catch (error) {
+                // Error is logged by apollo link - no need to double log.
+            }
         },
-        [updateCCDetails, cartId]
+        [updateCCDetails, cartId, generateReCaptchaData]
     );
 
     /**
@@ -545,6 +561,7 @@ export const useCreditCard = props => {
         initialValues,
         shippingAddressCountry,
         shouldTeardownDropin,
-        resetShouldTeardownDropin
+        resetShouldTeardownDropin,
+        recaptchaWidgetProps
     };
 };
