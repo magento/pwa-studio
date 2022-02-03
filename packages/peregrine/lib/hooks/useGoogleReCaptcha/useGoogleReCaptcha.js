@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import useScript from '@magento/peregrine/lib/hooks/useScript';
@@ -42,7 +42,14 @@ export const useGoogleReCaptcha = props => {
     const [widgetId, setWidgetId] = useState(null);
 
     // Container Reference to be used for the GoogleReCaptcha component
-    const inlineContainerElement = useRef(null);
+    const [inlineContainer, setInlineContainer] = useState(null);
+
+    // callback to update container element ref in case of mount/unmount
+    const updateInlineContainerRef = useCallback(node => {
+        if (node !== null) {
+            setInlineContainer(node);
+        }
+    }, []);
 
     const recaptchaBadge =
         configData?.recaptchaV3Config?.badge_position &&
@@ -87,8 +94,6 @@ export const useGoogleReCaptcha = props => {
 
     // Render inline widget manually
     useEffect(() => {
-        const inlineContainer = inlineContainerElement.current;
-
         // Only render if container is set and API is available
         if (
             inlineContainer !== null &&
@@ -109,7 +114,7 @@ export const useGoogleReCaptcha = props => {
                 inlineContainer.dataset.widgetId = id;
             }
         }
-    }, [apiIsReady, isInline, recaptchaKey, widgetId]);
+    }, [apiIsReady, isInline, recaptchaKey, widgetId, inlineContainer]);
 
     // Callback sets API as ready
     globalThis['onloadRecaptchaCallback'] = useCallback(() => {
@@ -164,7 +169,7 @@ export const useGoogleReCaptcha = props => {
     }, [apiIsReady, formAction, isInline, recaptchaKey, widgetId]);
 
     const recaptchaWidgetProps = {
-        containerElement: inlineContainerElement,
+        containerElementRef: updateInlineContainerRef,
         shouldRender: isInline && apiIsReady
     };
 

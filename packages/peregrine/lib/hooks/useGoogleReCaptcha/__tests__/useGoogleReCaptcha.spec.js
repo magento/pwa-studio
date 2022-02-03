@@ -94,9 +94,7 @@ describe('#useGoogleReCaptcha', () => {
               "generateReCaptchaData": [Function],
               "recaptchaLoading": true,
               "recaptchaWidgetProps": Object {
-                "containerElement": Object {
-                  "current": null,
-                },
+                "containerElementRef": [Function],
                 "shouldRender": false,
               },
             }
@@ -117,9 +115,7 @@ describe('#useGoogleReCaptcha', () => {
               "generateReCaptchaData": [Function],
               "recaptchaLoading": false,
               "recaptchaWidgetProps": Object {
-                "containerElement": Object {
-                  "current": null,
-                },
+                "containerElementRef": [Function],
                 "shouldRender": false,
               },
             }
