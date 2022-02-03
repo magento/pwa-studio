@@ -40,6 +40,14 @@ jest.mock('../../../context/user', () => ({
     ])
 }));
 
+jest.mock('../../../hooks/useGoogleReCaptcha', () => ({
+    useGoogleReCaptcha: jest.fn().mockReturnValue({
+        recaptchaLoading: false,
+        generateReCaptchaData: jest.fn(() => {}),
+        recaptchaWidgetProps: {}
+    })
+}));
+
 const signInVariables = {
     email: 'fry@planetexpress.com',
     password: 'slurm is the best'
@@ -108,7 +116,11 @@ test('returns correct shape', () => {
           "handleCreateAccount": [Function],
           "handleForgotPassword": [Function],
           "handleSubmit": [Function],
-          "isBusy": false,
+          "isBusy": true,
+          "recaptchaWidgetProps": Object {
+            "containerElementRef": [Function],
+            "shouldRender": false,
+          },
           "setFormApi": [Function],
         }
     `);

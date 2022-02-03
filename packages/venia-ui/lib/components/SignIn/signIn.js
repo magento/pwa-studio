@@ -15,6 +15,7 @@ import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 import LinkButton from '../LinkButton';
 import Password from '../Password';
 import FormError from '../FormError/formError';
+import GoogleRecaptcha from '../GoogleReCaptcha';
 
 const SignIn = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -39,7 +40,8 @@ const SignIn = props => {
         handleForgotPassword,
         handleSubmit,
         isBusy,
-        setFormApi
+        setFormApi,
+        recaptchaWidgetProps
     } = talonProps;
 
     if (isBusy) {
@@ -114,6 +116,7 @@ const SignIn = props => {
                         />
                     </LinkButton>
                 </div>
+                <GoogleRecaptcha {...recaptchaWidgetProps} />
                 <div className={classes.buttonsContainer}>
                     <Button
                         priority="high"
