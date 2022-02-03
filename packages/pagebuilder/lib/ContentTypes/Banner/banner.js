@@ -96,8 +96,7 @@ const Banner = props => {
         borderColor,
         borderWidth,
         borderRadius,
-        textAlign,
-        ...(appearance !== 'poster' && mediaQueryStyles)
+        textAlign
     };
     const overlayStyles = {
         backgroundColor: showOverlay !== 'never' ? overlayColor : null
