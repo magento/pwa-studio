@@ -296,7 +296,7 @@ const Banner = props => {
                 className={overlayClass}
                 style={{
                     ...overlayStyles,
-                    ...mediaQueryStyles
+                    ...(appearance === 'poster' && mediaQueryStyles)
                 }}
             >
                 <div
