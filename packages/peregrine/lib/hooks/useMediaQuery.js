@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { string, shape, object, arrayOf } from 'prop-types';
 
 const { matchMedia } = globalThis;
@@ -15,14 +15,19 @@ const { matchMedia } = globalThis;
 export const useMediaQuery = (props = { mediaQueries: [] }) => {
     const [styles, setStyles] = useState({});
 
+    const isMountedRef = useRef(null);
+
     const { mediaQueries } = props;
 
     useEffect(() => {
+        isMountedRef.current = true;
         if (!mediaQueries) return;
 
         const mqlList = mediaQueries.map(({ media }) => matchMedia(media));
 
         const handleMatch = (query, i) => {
+            if (!isMountedRef.current) return;
+
             if (query.matches) {
                 setStyles(prevState => ({
                     ...prevState,
@@ -56,6 +61,7 @@ export const useMediaQuery = (props = { mediaQueries: [] }) => {
         });
 
         return () => {
+            isMountedRef.current = false;
             mqlList.forEach((mql, i) => {
                 mql.removeEventListener('change', query =>
                     handleMatch(query, i)
