@@ -61,6 +61,7 @@ const {
     assertSelectedShippingMethodInCheckoutPage,
     assertOrderSummaryInCheckoutPage,
     assertSignInButtonExists,
+    assertSignInButtonNotExist,
     assertProductInCheckoutPage,
     assertPaymentInformationInCheckoutPage,
     assertBillingInformationInCheckoutPage,
@@ -168,7 +169,7 @@ describe('PWA-1414: Verify cart editing and checkout', () => {
 
         goToCheckout();
         assertCheckoutHasGuestHeader();
-
+        assertSignInButtonExists();
         setGuestShippingAddress(checkoutCustomer1);
         cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
             timeout: 60000
@@ -197,7 +198,7 @@ describe('PWA-1414: Verify cart editing and checkout', () => {
         );
 
         assertCheckoutHasGuestHeader();
-        assertSignInButtonExists();
+        assertSignInButtonNotExist();
         assertOrderSummaryInCheckoutPage();
         assertAddressInShippingInformationInCheckoutPage(checkoutCustomer1);
         assertSelectedShippingMethodInCheckoutPage();
