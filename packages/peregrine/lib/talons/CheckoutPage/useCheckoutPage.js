@@ -14,7 +14,7 @@ import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
 
 import CheckoutError from './CheckoutError';
-import {useGoogleReCaptcha} from "../../hooks/useGoogleReCaptcha";
+import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,

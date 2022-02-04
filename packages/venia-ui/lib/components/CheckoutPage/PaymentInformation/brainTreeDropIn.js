@@ -160,8 +160,6 @@ const BraintreeDropin = props => {
         if (shouldTeardownDropin) {
             teardownAndRenderDropin();
         }
-
-
     }, [
         shouldTeardownDropin,
         dropinInstance,

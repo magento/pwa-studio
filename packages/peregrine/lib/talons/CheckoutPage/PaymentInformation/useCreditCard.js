@@ -6,7 +6,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useCartContext } from '../../../context/cart';
 
 import DEFAULT_OPERATIONS from './creditCard.gql';
-import {useGoogleReCaptcha} from "../../../hooks/useGoogleReCaptcha";
+import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 
 const getRegion = region => {
     return region.region_id || region.label || region.code;
@@ -143,7 +143,10 @@ export const useCreditCard = props => {
     const { validate: validateBillingAddressForm } = useFormApi();
     const [{ cartId }] = useCartContext();
 
-    const isLoading = isDropinLoading || recaptchaLoading || (stepNumber >= 1 && stepNumber <= 3);
+    const isLoading =
+        isDropinLoading ||
+        recaptchaLoading ||
+        (stepNumber >= 1 && stepNumber <= 3);
 
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
         skip: !cartId,
@@ -315,9 +318,10 @@ export const useCreditCard = props => {
      * on the cart along with the payment method used in
      * this case `braintree`.
      */
-    const updateCCDetailsOnCart = useCallback(async (braintreeNonce) => {
+    const updateCCDetailsOnCart = useCallback(
+        async braintreeNonce => {
             try {
-                const {nonce} = braintreeNonce;
+                const { nonce } = braintreeNonce;
                 const reCaptchaData = await generateReCaptchaData();
 
                 await updateCCDetails({

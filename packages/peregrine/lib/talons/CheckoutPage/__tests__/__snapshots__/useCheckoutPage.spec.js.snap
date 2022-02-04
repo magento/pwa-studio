@@ -23,6 +23,10 @@ Object {
   "orderDetailsLoading": false,
   "orderNumber": null,
   "placeOrderLoading": false,
+  "recaptchaWidgetProps": Object {
+    "containerElementRef": [Function],
+    "shouldRender": false,
+  },
   "resetReviewOrderButtonClicked": [Function],
   "reviewOrderButtonClicked": false,
   "scrollShippingInformationIntoView": [Function],

@@ -16,7 +16,7 @@ import { useStyle } from '../../../classify';
 
 import defaultClasses from './creditCard.module.css';
 import FormError from '../../FormError';
-import GoogleReCaptcha from "../../GoogleReCaptcha";
+import GoogleReCaptcha from '../../GoogleReCaptcha';
 
 const STEP_DESCRIPTIONS = [
     { defaultMessage: 'Loading Payment', id: 'checkoutPage.step0' },
