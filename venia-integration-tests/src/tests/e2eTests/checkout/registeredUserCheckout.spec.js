@@ -85,7 +85,7 @@ const completeShippingAddress = {
 };
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('PWA-1412: verify checkout actions', () => {
+describe('PWA-1412: verify registered user checkout actions', () => {
     it('user should be able to place an order as a registered customer', () => {
         cy.intercept('GET', getCheckoutDetailsCall).as(
             'gqlGetCheckoutDetailsQuery'

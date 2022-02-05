@@ -19,7 +19,7 @@ const {
 } = categoryPageAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('PWA-1406: verify category actions', () => {
+describe('PWA-1406: verify user search actions', () => {
     it('user should be able search with different inputs', () => {
         cy.intercept('GET', getProductFiltersBySearchCall).as(
             'gqlGetProductFiltersBySearchQuery'
