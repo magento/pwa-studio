@@ -75,11 +75,7 @@ export const useCheckoutPage = (props = {}) => {
         placeOrderMutation
     } = operations;
 
-    const {
-        recaptchaLoading,
-        generateReCaptchaData,
-        recaptchaWidgetProps
-    } = useGoogleReCaptcha({
+    const { generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
         currentForm: 'PLACE_ORDER',
         formAction: 'placeOrder'
     });
@@ -156,8 +152,8 @@ export const useCheckoutPage = (props = {}) => {
             ? checkoutQueryNetworkStatus < 7
             : true;
 
-        return checkoutQueryInFlight || customerLoading || recaptchaLoading;
-    }, [checkoutQueryNetworkStatus, customerLoading, recaptchaLoading]);
+        return checkoutQueryInFlight || customerLoading;
+    }, [checkoutQueryNetworkStatus, customerLoading]);
 
     const customer = customerData && customerData.customer;
 
