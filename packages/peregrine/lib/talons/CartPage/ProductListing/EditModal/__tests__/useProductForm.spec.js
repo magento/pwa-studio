@@ -25,7 +25,8 @@ jest.mock('@apollo/client', () => ({
 jest.mock('../productForm.gql', () => ({
     getConfigurableOptionsQuery: 'getConfigurableOptionsQuery',
     updateQuantityMutation: 'updateQuantityMutation',
-    updateConfigurableOptionsMutation: 'updateConfigurableOptionsMutation'
+    updateConfigurableOptionsMutation: 'updateConfigurableOptionsMutation',
+    getConfigurableThumbnailSourceQuery: 'getConfigurableThumbnailSourceQuery'
 }));
 
 jest.mock('../../../../../context/app', () => {

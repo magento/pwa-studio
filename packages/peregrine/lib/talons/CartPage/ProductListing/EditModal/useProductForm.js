@@ -35,6 +35,7 @@ export const useProductForm = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const {
+        getConfigurableThumbnailSourceQuery,
         getConfigurableOptionsQuery,
         updateConfigurableOptionsMutation,
         updateQuantityMutation
@@ -87,6 +88,10 @@ export const useProductForm = props => {
         }
     });
 
+    const { data: storeConfigData } = useQuery(getConfigurableThumbnailSourceQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
+
     const handleOptionSelection = useCallback(
         (optionId, selection) => {
             const nextOptionSelections = new Map([...optionSelections]);
@@ -136,6 +141,10 @@ export const useProductForm = props => {
             });
         }
     }, [cartItem, configItem, configurableOptionCodes, optionSelections]);
+
+    const configurableThumbnailSource = useMemo(() => {
+        return storeConfigData?.storeConfig?.configurable_thumbnail_source;
+    }, [storeConfigData]);
 
     useEffect(() => {
         let variantPrice = null;
@@ -208,7 +217,8 @@ export const useProductForm = props => {
         isLoading: !!loading,
         isSaving,
         isDialogOpen: cartItem !== null,
-        handleClose
+        handleClose,
+        configurableThumbnailSource
     };
 };
 

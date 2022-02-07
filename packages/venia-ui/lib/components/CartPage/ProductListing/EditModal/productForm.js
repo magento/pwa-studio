@@ -34,7 +34,8 @@ const ProductForm = props => {
         isLoading,
         isSaving,
         isDialogOpen,
-        handleClose
+        handleClose,
+        configurableThumbnailSource
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -46,14 +47,14 @@ const ProductForm = props => {
 
     const message = isLoading
         ? formatMessage({
-              id: 'productForm.fetchingProductOptions',
-              defaultMessage: 'Fetching Product Options...'
-          })
+            id: 'productForm.fetchingProductOptions',
+            defaultMessage: 'Fetching Product Options...'
+        })
             ? isSaving
             : formatMessage({
-                  id: 'productForm.updatingCart',
-                  defaultMessage: 'Updating Cart...'
-              })
+                id: 'productForm.updatingCart',
+                defaultMessage: 'Updating Cart...'
+            })
         : null;
 
     const maybeLoadingIndicator =
@@ -90,7 +91,7 @@ const ProductForm = props => {
                     errors={Array.from(errors.values())}
                     scrollOnError={false}
                 />
-                <ProductDetail item={cartItem} variantPrice={variantPrice} />
+                <ProductDetail item={cartItem} variantPrice={variantPrice} configurableThumbnailSource={configurableThumbnailSource} />
                 <Options
                     classes={{
                         root: classes.optionRoot

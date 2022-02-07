@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
+import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
 import { useStyle } from '../../../../classify';
 import Image from '../../../Image';
@@ -9,7 +10,7 @@ import defaultClasses from './productDetail.module.css';
 const IMAGE_SIZE = 240;
 
 const ProductDetail = props => {
-    const { item, variantPrice } = props;
+    const { item, variantPrice, configurableThumbnailSource } = props;
     const { formatMessage } = useIntl();
     const { prices, product } = item;
     const { price } = prices;
@@ -17,10 +18,8 @@ const ProductDetail = props => {
     const {
         name,
         sku,
-        small_image: smallImage,
         stock_status: stockStatusValue
     } = product;
-    const { url: imageURL } = smallImage;
     const stockStatusLabels = new Map([
         [
             'IN_STOCK',
@@ -44,7 +43,7 @@ const ProductDetail = props => {
             defaultMessage: 'Unknown'
         });
     const classes = useStyle(defaultClasses, props.classes);
-
+    const configured_variant = configuredVariant(item.configurable_options, product)
     return (
         <div className={classes.root}>
             <Image
@@ -54,7 +53,10 @@ const ProductDetail = props => {
                     root: classes.imageContainer
                 }}
                 width={IMAGE_SIZE}
-                resource={imageURL}
+                resource={configurableThumbnailSource === 'itself' &&
+                    configured_variant
+                    ? configured_variant.small_image.url
+                    : product.small_image.url}
             />
             <span className={classes.productName}>{name}</span>
             <div className={classes.stockRow}>
