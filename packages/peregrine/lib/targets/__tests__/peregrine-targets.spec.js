@@ -205,6 +205,7 @@ test('exposes all hooks and targets', async () => {
           talons.Pagination.usePagination.wrapWith() wraps export "usePagination" from "Pagination/usePagination.js"
           talons.Password.usePassword.wrapWith() wraps export "usePassword" from "Password/usePassword.js"
           talons.Postcode.usePostcode.wrapWith() wraps export "usePostcode" from "Postcode/usePostcode.js"
+          talons.ProductFullDetail.CustomAttributes.AttributeType.useAttributeType.wrapWith() wraps export "useAttributeType" from "ProductFullDetail/CustomAttributes/AttributeType/useAttributeType.js"
           talons.ProductFullDetail.useProductFullDetail.wrapWith() wraps export "useProductFullDetail" from "ProductFullDetail/useProductFullDetail.js"
           talons.ProductImageCarousel.useProductImageCarousel.wrapWith() wraps export "useProductImageCarousel" from "ProductImageCarousel/useProductImageCarousel.js"
           talons.ProductImageCarousel.useThumbnail.wrapWith() wraps export "useThumbnail" from "ProductImageCarousel/useThumbnail.js"

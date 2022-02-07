@@ -8,7 +8,8 @@ import {
 import {
     cartPage as cartPageActions,
     miniCart as miniCartActions,
-    productPage as productPageActions
+    productPage as productPageActions,
+    header as headerActions
 } from '../../../actions';
 import {
     productPage as productPageAssertions,
@@ -21,6 +22,8 @@ const {
     clickProductLinkFromMiniCart,
     clickProductImageLinkFromMiniCart
 } = miniCartActions;
+
+const { clickHeaderLogo } = headerActions;
 const { assertProductName } = productPageAssertions;
 
 const { checkoutRoute } = miniCartFixtures;
@@ -71,6 +74,9 @@ describe('PWA-1424: verify anchor links', () => {
         cy.visitPage(checkoutRoute);
         assertGuestCheckoutPage();
         cy.checkUrlPath('/checkout');
+
+        clickHeaderLogo();
+        cy.checkUrlPath(homePage);
 
         cy.visitPage(homePage);
         triggerMiniCart();

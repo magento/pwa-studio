@@ -36,7 +36,9 @@ const SearchTrigger = React.forwardRef((props, ref) => {
             ref={ref}
         >
             <Icon src={SearchIcon} />
-            <span className={classes.label}>{searchText}</span>
+            <span data-cy="SearchTrigger-label" className={classes.label}>
+                {searchText}
+            </span>
         </button>
     );
 });

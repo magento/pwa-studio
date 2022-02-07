@@ -149,7 +149,9 @@ const CheckoutPage = props => {
             </div>
         );
     } else {
-        const signInContainerElement = isGuestCheckout ? (
+        const signInContainerVisible =
+            isGuestCheckout && checkoutStep !== CHECKOUT_STEP.REVIEW;
+        const signInContainerElement = signInContainerVisible ? (
             <div className={classes.signInContainer}>
                 <span className={classes.signInLabel}>
                     <FormattedMessage
@@ -284,7 +286,14 @@ const CheckoutPage = props => {
         );
 
         const orderSummary = shouldRenderPriceSummary ? (
-            <div className={classes.summaryContainer}>
+            <div
+                className={
+                    classes.summaryContainer +
+                    (signInContainerVisible
+                        ? ' ' + classes.signInContainerVisible
+                        : '')
+                }
+            >
                 <OrderSummary isUpdating={isUpdating} />
             </div>
         ) : null;
@@ -438,6 +447,7 @@ CheckoutPage.propTypes = {
         summaryContainer: string,
         formErrors: string,
         review_order_button: string,
-        place_order_button: string
+        place_order_button: string,
+        signInContainerVisible: string
     })
 };

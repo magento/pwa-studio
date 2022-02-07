@@ -305,7 +305,11 @@ const GiftOptions = props => {
         ) : null;
 
     return (
-        <Form {...optionsFormProps} className={classes.root}>
+        <Form
+            data-cy="GiftOptions-form"
+            {...optionsFormProps}
+            className={classes.root}
+        >
             <FormError errors={Array.from(errors.values())} />
             {includeGiftReceipt}
             {includeGiftMessage}

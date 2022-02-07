@@ -66,6 +66,14 @@ export const assertCreateWishlistLink = () => {
 };
 
 /**
+ * Utility function to assert create wishlist link does not exist
+ */
+export const assertCreateWishlistLinkNotVisible = () => {
+    // assert create a list link does not exist
+    cy.get(createWishlistButton).should('not.exist');
+};
+
+/**
  * Utility function to assert empty wishlist for multiple wishlists
  */
 export const assertEmptyWishlistExists = wishlistName => {

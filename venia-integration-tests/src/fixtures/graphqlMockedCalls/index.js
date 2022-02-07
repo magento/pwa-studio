@@ -165,6 +165,9 @@ export const getWishlistConfigForWishlistPageCall =
 export const getIsEmailAvailableCall =
     '**/graphql?query=query+IsEmailAvailable*';
 
+export const getAvailableStoresConfigDataCall =
+    '**/graphql?query=query+GetAvailableStoresData*';
+
 export const miniCartQueryCall = '**/graphql?query=query+MiniCartQuery*';
 
 export const resolveUrlCall = '**/graphql?query=query+ResolveURL*';

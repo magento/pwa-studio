@@ -118,8 +118,11 @@ const ShippingMethod = props => {
         }
 
         contents = (
-            <div className={classes.root}>
-                <h3 className={classes.editingHeading}>
+            <div data-cy="ShippingMethod-root" className={classes.root}>
+                <h3
+                    data-cy="ShippingMethod-heading"
+                    className={classes.editingHeading}
+                >
                     <FormattedMessage
                         id={'shippingMethod.heading'}
                         defaultMessage={'Shipping Method'}
