@@ -5,7 +5,9 @@
             "badge_position": "inline",
             "language_code": "en",
             "forms": [
-                "CUSTOMER_FORGOT_PASSWORD"
+                "CUSTOMER_FORGOT_PASSWORD",
+                "PLACE_ORDER",
+                "BRAINTREE"
             ],
             "__typename": "ReCaptchaConfigurationV3"
         }
