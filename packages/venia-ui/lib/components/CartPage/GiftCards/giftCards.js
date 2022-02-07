@@ -221,7 +221,7 @@ const GiftCards = props => {
 
 export default props => {
     return (
-        <Form>
+        <Form data-cy="GiftCards-form">
             <GiftCards {...props} />
         </Form>
     );

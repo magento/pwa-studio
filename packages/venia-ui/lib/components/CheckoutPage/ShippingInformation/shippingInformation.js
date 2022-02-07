@@ -93,7 +93,10 @@ const ShippingInformation = props => {
         </Fragment>
     ) : (
         <Fragment>
-            <h3 className={classes.editTitle}>
+            <h3
+                data-cy="ShippingInformation-editTitle"
+                className={classes.editTitle}
+            >
                 <FormattedMessage
                     id={'shippingInformation.editTitle'}
                     defaultMessage={'1. Shipping Information'}
