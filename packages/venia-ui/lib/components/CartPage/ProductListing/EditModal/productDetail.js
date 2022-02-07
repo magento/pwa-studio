@@ -15,11 +15,7 @@ const ProductDetail = props => {
     const { prices, product } = item;
     const { price } = prices;
     const { currency, value: unitPrice } = variantPrice || price;
-    const {
-        name,
-        sku,
-        stock_status: stockStatusValue
-    } = product;
+    const { name, sku, stock_status: stockStatusValue } = product;
     const stockStatusLabels = new Map([
         [
             'IN_STOCK',
@@ -43,7 +39,10 @@ const ProductDetail = props => {
             defaultMessage: 'Unknown'
         });
     const classes = useStyle(defaultClasses, props.classes);
-    const configured_variant = configuredVariant(item.configurable_options, product)
+    const configured_variant = configuredVariant(
+        item.configurable_options,
+        product
+    );
     return (
         <div className={classes.root}>
             <Image
@@ -53,10 +52,12 @@ const ProductDetail = props => {
                     root: classes.imageContainer
                 }}
                 width={IMAGE_SIZE}
-                resource={configurableThumbnailSource === 'itself' &&
+                resource={
+                    configurableThumbnailSource === 'itself' &&
                     configured_variant
-                    ? configured_variant.small_image.url
-                    : product.small_image.url}
+                        ? configured_variant.small_image.url
+                        : product.small_image.url
+                }
             />
             <span className={classes.productName}>{name}</span>
             <div className={classes.stockRow}>

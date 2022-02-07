@@ -88,9 +88,12 @@ export const useProductForm = props => {
         }
     });
 
-    const { data: storeConfigData } = useQuery(getConfigurableThumbnailSourceQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const { data: storeConfigData } = useQuery(
+        getConfigurableThumbnailSourceQuery,
+        {
+            fetchPolicy: 'cache-and-network'
+        }
+    );
 
     const handleOptionSelection = useCallback(
         (optionId, selection) => {
