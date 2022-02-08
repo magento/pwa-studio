@@ -7,7 +7,7 @@ import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishl
 jest.mock('@magento/peregrine/lib/talons/WishlistPage/useWishlist');
 jest.mock('../../../classify');
 jest.mock('../wishlistItems', () => 'WishlistItems');
-jest.mock('../actionMenu.ee', () => 'ActionMenu');
+jest.mock('../actionMenu.ac', () => 'ActionMenu');
 
 const baseProps = {
     data: {

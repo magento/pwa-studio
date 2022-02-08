@@ -56,15 +56,15 @@ async function validateQueries(context, argv) {
             magentoBackendEdition,
             clients,
             filesGlob,
-            ceFilesGlob,
-            eeFilesGlob,
+            mosFilesGlob,
+            acFilesGlob,
             ignore
         } = configArgs;
 
-        if (magentoBackendEdition === 'CE') {
-            ignore.push(eeFilesGlob);
+        if (magentoBackendEdition === 'MOS') {
+            ignore.push(acFilesGlob);
         } else {
-            ignore.push(ceFilesGlob);
+            ignore.push(mosFilesGlob);
         }
 
         /**

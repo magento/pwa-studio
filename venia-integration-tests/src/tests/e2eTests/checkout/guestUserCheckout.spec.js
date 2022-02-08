@@ -90,7 +90,7 @@ const completeShippingAddress = {
     lastName
 };
 
-// TODO add tags CE, EE to test to filter and run tests as needed
+// TODO add tags MOS, AC to test to filter and run tests as needed
 describe('PWA-1413: verify checkout actions', () => {
     it('user should be able to place an order as a guest', () => {
         cy.intercept('GET', getAppliedCouponsCall).as(

@@ -46,7 +46,7 @@ const {
 } = productPageActions;
 const { assertGuestCheckoutPage } = miniCartAssertions;
 
-// TODO add tags CE, EE to test to filter and run tests as needed
+// TODO add tags MOS, AC to test to filter and run tests as needed
 describe('PWA-1424: verify anchor links', () => {
     it('user should be able to add products to the cart', () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(

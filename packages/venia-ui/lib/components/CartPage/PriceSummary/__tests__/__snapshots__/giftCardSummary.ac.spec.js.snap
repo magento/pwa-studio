@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#GiftCardSummary AC renders accumulated gift card value 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Gift Card(s) applied"
+      id="giftCardSummary.lineItemLabel"
+    />
+  </span>,
+  <span
+    className="price"
+  >
+    -
+    <span>
+      $
+    </span>
+    <span>
+      2
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;
+
+exports[`#GiftCardSummary AC renders gift card summary line item correctly 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Gift Card(s) applied"
+      id="giftCardSummary.lineItemLabel"
+    />
+  </span>,
+  <span
+    className="price"
+  >
+    -
+    <span>
+      $
+    </span>
+    <span>
+      10
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;
+
+exports[`#GiftCardSummary AC renders nothing if gift card data is empty 1`] = `null`;
+
+exports[`#GiftCardSummary AC renders nothing if gift card value is "0" 1`] = `null`;

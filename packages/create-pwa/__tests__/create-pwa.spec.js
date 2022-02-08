@@ -29,7 +29,7 @@ jest.mock('inquirer', () => ({
         template: '@magento/venia-concept@8.0.0',
         backendUrl:
             'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/',
-        backendEdition: 'EE',
+        backendEdition: 'AC',
         braintreeToken: 'sandbox_8yrzsvtm_s2bg8fs563crhqzk',
         npmClient: 'yarn',
         install: false
@@ -169,7 +169,7 @@ describe('Testing questions', () => {
             question => question.name === 'backendEdition'
         );
 
-        expect(backendEditionQuestion.default).toBe('EE');
+        expect(backendEditionQuestion.default).toBe('AC');
     });
 
     test('validating npmClient default if process.env.npm_config_user_agent includes yarn', async () => {
@@ -221,7 +221,7 @@ test('should execute buildpack with answers provided', async () => {
     await createPWA();
 
     expect(execa.shell.mock.calls[0][0]).toMatchInlineSnapshot(
-        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --backend-edition \\"EE\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
+        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --backend-edition \\"AC\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
     );
 });
 
@@ -242,7 +242,7 @@ test('should not include customBackendUrl in shell script', async () => {
     await createPWA();
 
     expect(execa.shell.mock.calls[0][0]).toMatchInlineSnapshot(
-        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --backend-edition \\"EE\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
+        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --backend-edition \\"AC\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
     );
 });
 

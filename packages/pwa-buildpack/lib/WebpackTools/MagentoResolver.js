@@ -9,7 +9,7 @@ const { CachedInputFileSystem, ResolverFactory } = require('enhanced-resolve');
 /**
  * @typedef {Object} Buildpack/WebpackTools~MagentoResolverOptions
  * @module MagentoResolver
- * @property {boolean} isEE Resolve Magento Commerce (`*.ee.js`) modules instead of Magento Open Source `*.ce.js` modules
+ * @property {boolean} isAC Resolve Adobe Commerce (`*.ac.js`) modules instead of Magento Open Source `*.mos.js` modules
  * @property {Object} paths Filesystem paths to resolve from
  */
 
@@ -59,20 +59,25 @@ class MagentoResolver {
      * @param {Buildpack/WebpackTools~MagentoResolverOptions} options
      */
     constructor(options) {
-        const { isEE, paths, ...restOptions } = options;
+        const { isAC, paths, ...restOptions } = options;
         if (!paths || typeof paths.root !== 'string') {
             throw new Error(
                 'new MagentoResolver(options) requires "options.paths.root" to be a string'
             );
         }
+
+        const versionExtensions = isAC
+            ? ['.ac.js', '.ee.js']
+            : ['.mos.js', '.ce.js'];
+
         const extensions = [
             '.wasm',
             '.mjs',
-            isEE ? '.ee.js' : '.ce.js',
             '.js',
             '.jsx',
             '.json',
-            '.graphql'
+            '.graphql',
+            ...versionExtensions
         ];
         /** @ignore */
         this._root = paths.root;

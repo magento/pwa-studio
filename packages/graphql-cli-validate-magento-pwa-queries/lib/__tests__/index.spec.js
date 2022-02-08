@@ -58,9 +58,9 @@ describe('handler', () => {
                     clients: ['apollo', 'literal'],
                     filesGlob: '*.graphql',
                     ignore: ['*.js'],
-                    magentoBackendEdition: 'CE',
-                    ceFilesGlob: 'ceFilesGlob',
-                    eeFilesGlob: 'eeFilesGlob'
+                    magentoBackendEdition: 'MOS',
+                    mosFilesGlob: 'mosFilesGlob',
+                    acFilesGlob: 'acFilesGlob'
                 }
             },
             schemaPath: 'unit test'
@@ -230,13 +230,13 @@ describe('handler', () => {
         expect(mockProcessExit).toHaveBeenCalledWith(1);
     });
 
-    test('it ignores EE files if magentoBackendEdition is CE', async () => {
+    test('it ignores AC files if magentoBackendEdition is MOS', async () => {
         await plugin.handler(mockContext, mockArgs);
 
-        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('eeFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('acFilesGlob');
     });
 
-    test('it ignores CE files if magentoBackendEdition is EE', async () => {
+    test('it ignores MOS files if magentoBackendEdition is AC', async () => {
         getProjectConfig.mockResolvedValueOnce({
             config: {
                 extensions: {
@@ -244,9 +244,9 @@ describe('handler', () => {
                         clients: ['apollo', 'literal'],
                         filesGlob: '*.graphql',
                         ignore: ['*.js'],
-                        magentoBackendEdition: 'EE',
-                        ceFilesGlob: 'ceFilesGlob',
-                        eeFilesGlob: 'eeFilesGlob'
+                        magentoBackendEdition: 'AC',
+                        mosFilesGlob: 'mosFilesGlob',
+                        acFilesGlob: 'acFilesGlob'
                     }
                 },
                 schemaPath: 'unit test'
@@ -255,6 +255,6 @@ describe('handler', () => {
 
         await plugin.handler(mockContext, mockArgs);
 
-        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('ceFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('mosFilesGlob');
     });
 });

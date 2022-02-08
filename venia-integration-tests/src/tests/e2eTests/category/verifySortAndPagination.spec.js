@@ -24,7 +24,7 @@ const {
     assertPaginationActivePage
 } = categoryPageAssertions;
 
-// TODO add tags CE, EE to test to filter and run tests as needed
+// TODO add tags MOS, AC to test to filter and run tests as needed
 describe('PWA-1410: verify category actions', () => {
     it('user should be able to sort products and use pagination', () => {
         cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');

@@ -14,7 +14,7 @@
     "test:headless": "./run-tests.js",
     "test:run": "cypress run --browser chrome --config-file cypress.config.json"
   },
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#GiftOptionsSummary AC renders accumulated gift options value 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Printed Card"
+      id="giftOptionsSummary.lineItemLabel"
+    />
+  </span>,
+  <span
+    className="price"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      10
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;
+
+exports[`#GiftOptionsSummary AC renders gift options summary line item correctly 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Printed Card"
+      id="giftOptionsSummary.lineItemLabel"
+    />
+  </span>,
+  <span
+    className="price"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      10
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;
+
+exports[`#GiftOptionsSummary AC renders nothing if gift options data is empty 1`] = `null`;
+
+exports[`#GiftOptionsSummary AC renders nothing if gift options value is "0" 1`] = `null`;

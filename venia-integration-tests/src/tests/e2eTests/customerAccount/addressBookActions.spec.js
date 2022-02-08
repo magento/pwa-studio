@@ -49,7 +49,7 @@ const {
 } = addressBookPageAssertions;
 const { assertCreateAccount } = myAccountMenuAssertions;
 
-// TODO add tags CE, EE to test to filter and run tests as needed
+// TODO add tags MOS, AC to test to filter and run tests as needed
 describe('PWA-1421: verify customer account address book actions', () => {
     it('user should be able to update their address book', () => {
         // Test - Create an account
