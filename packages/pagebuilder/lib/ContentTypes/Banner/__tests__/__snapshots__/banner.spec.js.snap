@@ -503,7 +503,6 @@ exports[`renders an empty Banner component 1`] = `
         "borderColor": undefined,
         "borderRadius": undefined,
         "borderWidth": undefined,
-        "minHeight": undefined,
         "textAlign": undefined,
       }
     }

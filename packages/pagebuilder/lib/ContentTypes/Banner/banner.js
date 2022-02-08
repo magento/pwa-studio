@@ -211,7 +211,6 @@ const Banner = props => {
     }, [backgroundElement, image, intersectionObserver, setBgImage]);
 
     if (appearance === 'poster') {
-        wrapperStyles.minHeight = minHeight;
         overlayStyles.minHeight = minHeight;
         overlayStyles.paddingTop = paddingTop;
         overlayStyles.paddingRight = paddingRight;
@@ -287,7 +286,7 @@ const Banner = props => {
             className={classes.wrapper}
             style={{
                 ...wrapperStyles,
-                ...mediaQueryStyles
+                ...(appearance !== 'poster' && mediaQueryStyles)
             }}
             ref={backgroundElement}
         >
