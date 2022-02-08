@@ -51,8 +51,9 @@ const CurrencySwitcher = props => {
     });
 
     return (
-        <div className={classes.root}>
+        <div data-cy="CurrencySwitcher-root" className={classes.root}>
             <button
+                data-cy="CurrencySwitcher-triggerButton"
                 className={classes.trigger}
                 aria-label={currentCurrencyCode}
                 onClick={handleTriggerClick}

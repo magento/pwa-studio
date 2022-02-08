@@ -2,8 +2,21 @@ import {
     appMaskButton,
     headerNavTrigger,
     headerSearchTrigger,
-    searchBarSearchField
+    searchBarSearchField,
+    headerLogo,
+    headerStoreSwitcherTriggerButton,
+    headerCurrencySwitcherTriggerButton,
+    headerStoreSwitcherItemButton,
+    headerCurrencySwitcherItemButton,
+    headerAccountMenuTrigger
 } from '../../fields/header';
+
+/**
+ * Utility function to click on logo
+ */
+export const clickHeaderLogo = () => {
+    cy.get(headerLogo).click();
+};
 
 export const toggleHeaderNav = () => {
     cy.get(headerNavTrigger).click();
@@ -37,4 +50,28 @@ export const searchFromSearchBar = (searchString, submitForm = true) => {
         // Close Search Bar after submit
         triggerSearch();
     }
+};
+
+export const triggerStoreSwitcherMenu = () => {
+    cy.get(headerStoreSwitcherTriggerButton).click();
+};
+
+export const triggerCurrencySwitcherMenu = () => {
+    cy.get(headerCurrencySwitcherTriggerButton).click();
+};
+
+export const changeStoreView = store => {
+    cy.get(headerStoreSwitcherItemButton)
+        .contains(store)
+        .click();
+};
+
+export const changeCurrency = currency => {
+    cy.get(headerCurrencySwitcherItemButton)
+        .contains(currency)
+        .click();
+};
+
+export const triggerAccountMenu = () => {
+    cy.get(headerAccountMenuTrigger).click();
 };

@@ -38,7 +38,12 @@ const Checkbox = props => {
 
     return (
         <Fragment>
-            <label aria-label={ariaLabel} className={classes.root} htmlFor={id}>
+            <label
+                data-cy="Checkbox-label"
+                aria-label={ariaLabel}
+                className={classes.root}
+                htmlFor={id}
+            >
                 <InformedCheckbox
                     {...rest}
                     className={classes.input}

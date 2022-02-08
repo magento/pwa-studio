@@ -39,6 +39,37 @@ export const ProductDetailsFragment = gql`
         }
         stock_status
         url_key
+        custom_attributes {
+            selected_attribute_options {
+                attribute_option {
+                    uid
+                    label
+                    is_default
+                }
+            }
+            entered_attribute_value {
+                value
+            }
+            attribute_metadata {
+                uid
+                code
+                label
+                attribute_labels {
+                    store_code
+                    label
+                }
+                data_type
+                is_system
+                entity_type
+                ui_input {
+                    ui_input_type
+                    is_html_allowed
+                }
+                ... on ProductAttributeMetadata {
+                    used_in_components
+                }
+            }
+        }
         ... on ConfigurableProduct {
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             configurable_options {
@@ -85,6 +116,37 @@ export const ProductDetailsFragment = gql`
                             amount {
                                 currency
                                 value
+                            }
+                        }
+                    }
+                    custom_attributes {
+                        selected_attribute_options {
+                            attribute_option {
+                                uid
+                                label
+                                is_default
+                            }
+                        }
+                        entered_attribute_value {
+                            value
+                        }
+                        attribute_metadata {
+                            uid
+                            code
+                            label
+                            attribute_labels {
+                                store_code
+                                label
+                            }
+                            data_type
+                            is_system
+                            entity_type
+                            ui_input {
+                                ui_input_type
+                                is_html_allowed
+                            }
+                            ... on ProductAttributeMetadata {
+                                used_in_components
                             }
                         }
                     }
