@@ -75,15 +75,6 @@ const ProductSort = props => {
                 sortDirection: 'DESC'
             },
             {
-                id: 'sortItem.position',
-                text: formatMessage({
-                    id: 'sortItem.position',
-                    defaultMessage: 'Position'
-                }),
-                attribute: 'position',
-                sortDirection: 'ASC'
-            },
-            {
                 id: 'sortItem.priceDesc',
                 text: formatMessage({
                     id: 'sortItem.priceDesc',
@@ -102,6 +93,22 @@ const ProductSort = props => {
                 sortDirection: 'ASC'
             }
         ];
+
+        // Do not display Position in Search
+        if (!currentSort.isSearch) {
+            Object.assign(
+                {
+                    id: 'sortItem.position',
+                    text: formatMessage({
+                        id: 'sortItem.position',
+                        defaultMessage: 'Position'
+                    }),
+                    attribute: 'position',
+                    sortDirection: 'ASC'
+                },
+                defaultSortMethods
+            );
+        }
 
         const allSortingMethods = sortMethodsFromConfig
             ? orderSortingList(
