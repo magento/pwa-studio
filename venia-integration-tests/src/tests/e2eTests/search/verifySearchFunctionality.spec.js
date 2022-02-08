@@ -33,7 +33,8 @@ describe('PWA-1406: verify user search actions', () => {
         // Test - Search by valid SKU - 1
         triggerSearch();
         searchFromSearchBar(searchData.validSku1);
-
+        // Needed to avoid intermittent call being made before cypress even starts waiting for it
+        cy.wait(1000);
         cy.wait(
             ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
             {

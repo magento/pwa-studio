@@ -69,11 +69,11 @@ const getTestStatuses = result => {
 };
 
 const generateTestSummary = result => {
-    const testFile = result.fullFile;
+  const testName = result.suites[0].title;
     const { passedTests, failedTests, totalDuration } = getTestStatuses(result);
 
     return {
-        Spec: testFile,
+        Title : testName,
         Status: failedTests > 0 ? ' ❌ ' : ' ✅ ',
         Passed: passedTests,
         Failed: failedTests,
