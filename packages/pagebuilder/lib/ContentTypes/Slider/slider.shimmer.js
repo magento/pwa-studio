@@ -37,9 +37,7 @@ const SliderShimmer = props => {
     const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
 
     const dynamicStyles = {
-        minHeight: mediaQueryStyles?.minHeight
-            ? mediaQueryStyles.minHeight
-            : minHeight,
+        minHeight: mediaQueryStyles?.minHeight || minHeight,
         border,
         borderWidth,
         marginTop,
