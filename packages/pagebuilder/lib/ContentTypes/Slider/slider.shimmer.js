@@ -37,7 +37,9 @@ const SliderShimmer = props => {
     const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
 
     const dynamicStyles = {
-        minHeight,
+        minHeight: mediaQueryStyles?.minHeight
+            ? mediaQueryStyles.minHeight
+            : minHeight,
         border,
         borderWidth,
         marginTop,
@@ -51,12 +53,6 @@ const SliderShimmer = props => {
     };
 
     const dotsContainer = showDots ? <div className="slick-dots" /> : null;
-
-    if (mediaQueryStyles?.minHeight) {
-        dynamicStyles.minHeight = mediaQueryStyles.minHeight;
-    } else {
-        dynamicStyles.minHeight = minHeight;
-    }
 
     return (
         <Shimmer

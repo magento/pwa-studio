@@ -43,7 +43,9 @@ const BannerShimmer = props => {
     };
 
     const wrapperStyles = {
-        minHeight,
+        minHeight: mediaQueryStyles?.minHeight
+            ? mediaQueryStyles.minHeight
+            : minHeight,
         border,
         borderWidth,
         paddingTop,
@@ -51,12 +53,6 @@ const BannerShimmer = props => {
         paddingBottom,
         paddingLeft
     };
-
-    if (mediaQueryStyles?.minHeight) {
-        wrapperStyles.minHeight = mediaQueryStyles.minHeight;
-    } else {
-        wrapperStyles.minHeight = minHeight;
-    }
 
     return (
         <Shimmer
