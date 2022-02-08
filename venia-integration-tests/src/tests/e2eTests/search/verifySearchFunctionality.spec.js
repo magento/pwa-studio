@@ -72,7 +72,7 @@ describe('PWA-1406: verify user search actions', () => {
 
         // Test - Search by valid Product Name
         triggerSearch();
-        searchFromSearchBar(searchData.validProductName1);
+        searchFromSearchBar(searchData.validProductSearch);
 
         cy.wait(
             ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],

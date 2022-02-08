@@ -49,7 +49,8 @@ export const searchData = {
     validProductHref1: '/vitalia-top.html',
     validProductName2: 'Valeria Two-Layer Tank',
     validProductHref2: '/valeria-two-layer-tank.html',
-    invalidProductName: 'Valeriaxyz'
+    invalidProductName: 'Valeriaxyz',
+    validProductSearch: 'Vitalia Dress',
 };
 
 export const sortData = {

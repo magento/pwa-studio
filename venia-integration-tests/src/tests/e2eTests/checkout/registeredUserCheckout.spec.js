@@ -140,7 +140,7 @@ describe('PWA-1412: verify registered user checkout actions', () => {
             accountPassword
         );
         // Needed to avoid intermittent call being made before cypress even starts waiting for it
-        cy.wait(1000);
+        cy.wait(2000);
         cy.wait(
             [
                 '@gqlCreateAccountMutation',
