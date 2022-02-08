@@ -133,14 +133,15 @@ describe('PWA-1412: verify registered user checkout actions', () => {
 
         toggleLoginDialog();
 
+        //wait for control to be in sync to avoid "No request ever occurred." intermittent issue
+        cy.wait(2000);
         cy.createAccount(
             accountAccessFixtures.firstName,
             lastName,
             accountEmail,
             accountPassword
         );
-        // Needed to avoid intermittent call being made before cypress even starts waiting for it
-        cy.wait(2000);
+
         cy.wait(
             [
                 '@gqlCreateAccountMutation',
