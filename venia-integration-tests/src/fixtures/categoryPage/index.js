@@ -50,7 +50,7 @@ export const searchData = {
     validProductName2: 'Valeria Two-Layer Tank',
     validProductHref2: '/valeria-two-layer-tank.html',
     invalidProductName: 'Valeriaxyz',
-    validProductSearch: 'Vitalia Dress',
+    validProductSearch: 'Vitalia Dress'
 };
 
 export const sortData = {
