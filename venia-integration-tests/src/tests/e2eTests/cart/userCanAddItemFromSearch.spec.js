@@ -28,7 +28,7 @@ const {
     getStoreConfigDataForGalleryEECall
 } = graphqlMockedCallsFixtures;
 
-describe('Verify Cart actions', () => {
+describe('Verify Add to cart actions from search page', () => {
     it("User shouldn't be able to add a CustomizableProduct from search", () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(
             'gqlGetProductDetailForProductPageQuery'
