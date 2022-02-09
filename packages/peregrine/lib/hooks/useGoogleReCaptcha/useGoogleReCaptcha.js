@@ -191,6 +191,6 @@ export const useGoogleReCaptcha = props => {
  * @property {Boolean} recaptchaLoading - Indicates if hook is loading data or loading the script.
  * @property {Function} generateReCaptchaData - The function to generate ReCaptcha Mutation data.
  * @property {Object} recaptchaWidgetProps - Props for the GoogleReCaptcha component.
- * @property {Function} recaptchaWidgetProps.containerElement - Container reference.
+ * @property {Function} recaptchaWidgetProps.containerElement - Container reference callback.
  * @property {Boolean} recaptchaWidgetProps.shouldRender - Checks if component should be rendered.
  */
