@@ -149,7 +149,7 @@ describe('PWA-1412: verify registered user checkout actions', () => {
         );
 
         cy.wait(['@gqlGetCustomerAfterCreateQuery'], {
-                timeout: 60000
+            timeout: 60000
         });
 
         assertCreateAccount(firstName);

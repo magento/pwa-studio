@@ -174,6 +174,8 @@ export const resolveUrlCall = '**/graphql?query=query+ResolveURL*';
 
 export const storeConfigDataCall = '**/graphql?query=query+storeConfigData*';
 
-export const getCartDetailsAfterAccountCreationCall = '**/graphql?query=query+GetCartDetailsAfterAccountCreation*';
+export const getCartDetailsAfterAccountCreationCall =
+    '**/graphql?query=query+GetCartDetailsAfterAccountCreation*';
 
-export const getCustomerAfterCreateCall = '**/graphql?query=query+GetCustomerAfterCreate*';
+export const getCustomerAfterCreateCall =
+    '**/graphql?query=query+GetCustomerAfterCreate*';
