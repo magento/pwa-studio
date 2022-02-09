@@ -241,4 +241,5 @@ export const useProductForm = props => {
  * @property {boolean} isSaving True if the form is saving data. False otherwise.
  * @property {boolean} isDialogOpen True if the form is visible. False otherwise.
  * @property {function} handleClose A callback function for handling form closing
+ * @property {String} configurableThumbnailSource A string indicating which thumbnail should be used for configurable products
  */

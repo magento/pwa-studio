@@ -6,6 +6,7 @@ import {
     cartItem,
     configurableItemResponse
 } from '../__fixtures__/configurableProduct';
+import { configurableThumbnailSourceResponse } from '../__fixtures__/configurableThumbnailSource';
 import { useProductForm } from '../useProductForm';
 
 jest.mock('@apollo/client', () => ({
@@ -59,7 +60,9 @@ const mockProps = {
 };
 
 test('returns correct shape with fetched options', () => {
-    useQuery.mockReturnValueOnce(configurableItemResponse);
+    useQuery
+        .mockReturnValueOnce(configurableItemResponse)
+        .mockReturnValueOnce(configurableThumbnailSourceResponse);
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
@@ -136,7 +139,9 @@ describe('form submission', () => {
     const updateItemQuantity = jest.fn().mockResolvedValue();
     const updateConfigurableOptions = jest.fn().mockResolvedValue();
     const setupMockedReturns = () => {
-        useQuery.mockReturnValueOnce(configurableItemResponse);
+        useQuery
+            .mockReturnValueOnce(configurableItemResponse)
+            .mockReturnValueOnce(configurableThumbnailSourceResponse);
         useMutation
             .mockReturnValueOnce([
                 updateItemQuantity,
