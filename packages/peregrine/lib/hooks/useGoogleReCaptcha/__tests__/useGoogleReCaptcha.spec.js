@@ -94,7 +94,7 @@ describe('#useGoogleReCaptcha', () => {
               "generateReCaptchaData": [Function],
               "recaptchaLoading": true,
               "recaptchaWidgetProps": Object {
-                "containerElementRef": [Function],
+                "containerElement": [Function],
                 "shouldRender": false,
               },
             }
@@ -115,7 +115,7 @@ describe('#useGoogleReCaptcha', () => {
               "generateReCaptchaData": [Function],
               "recaptchaLoading": false,
               "recaptchaWidgetProps": Object {
-                "containerElementRef": [Function],
+                "containerElement": [Function],
                 "shouldRender": false,
               },
             }
@@ -155,10 +155,10 @@ describe('#useGoogleReCaptcha', () => {
 
         // Create container element
         await act(async () => {
-            const containerElementRef = await result.current
-                .recaptchaWidgetProps.containerElementRef;
+            const containerElement = await result.current.recaptchaWidgetProps
+                .containerElement;
 
-            containerElementRef(inlineContainer);
+            containerElement(inlineContainer);
         });
 
         // Call script onload method
@@ -254,10 +254,10 @@ describe('#useGoogleReCaptcha', () => {
 
         // Create container element
         await act(async () => {
-            const containerElementRef = await result.current
-                .recaptchaWidgetProps.containerElementRef;
+            const containerElement = await result.current.recaptchaWidgetProps
+                .containerElement;
 
-            containerElementRef(inlineContainer);
+            containerElement(inlineContainer);
         });
 
         // Call script onload method

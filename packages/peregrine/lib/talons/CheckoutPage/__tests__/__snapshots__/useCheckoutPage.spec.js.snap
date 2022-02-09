@@ -24,7 +24,7 @@ Object {
   "orderNumber": null,
   "placeOrderLoading": false,
   "recaptchaWidgetProps": Object {
-    "containerElementRef": [Function],
+    "containerElement": [Function],
     "shouldRender": false,
   },
   "resetReviewOrderButtonClicked": [Function],
