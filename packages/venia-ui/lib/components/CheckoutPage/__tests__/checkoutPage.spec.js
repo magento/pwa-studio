@@ -84,6 +84,10 @@ const defaultTalonProps = {
         .mockName('setShippingInformationDone'),
     setShippingMethodDone: jest.fn().mockName('setShippingMethodDone'),
     setPaymentInformationDone: jest.fn().mockName('setPaymentInformationDone'),
+    recaptchaWidgetProps: {
+        containerElementRef: [Function],
+        shouldRender: false
+    },
     toggleAddressBookContent: jest.fn().mockName('toggleAddressBookContent'),
     toggleSignInContent: jest.fn().mockName('toggleSignInContent')
 };

@@ -293,6 +293,9 @@ const CheckoutPage = props => {
                     classes.summaryContainer +
                     (signInContainerVisible
                         ? ' ' + classes.signInContainerVisible
+                        : '') +
+                    (recaptchaWidgetProps.shouldRender
+                        ? ' ' + classes.reCaptchaMargin
                         : '')
                 }
             >
@@ -451,6 +454,7 @@ CheckoutPage.propTypes = {
         formErrors: string,
         review_order_button: string,
         place_order_button: string,
-        signInContainerVisible: string
+        signInContainerVisible: string,
+        reCaptchaMargin: string
     })
 };
