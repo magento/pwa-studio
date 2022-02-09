@@ -8,7 +8,6 @@ import { useStyle } from '../../classify';
 import { isRequired } from '../../util/formValidators';
 import Button from '../Button';
 import Field from '../Field';
-import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
 import defaultClasses from './signIn.module.css';
 import { GET_CART_DETAILS_QUERY } from './signIn.gql';
@@ -43,19 +42,6 @@ const SignIn = props => {
         setFormApi,
         recaptchaWidgetProps
     } = talonProps;
-
-    if (isBusy) {
-        return (
-            <div className={classes.modal_active}>
-                <LoadingIndicator>
-                    <FormattedMessage
-                        id={'signIn.loadingText'}
-                        defaultMessage={'Signing In'}
-                    />
-                </LoadingIndicator>
-            </div>
-        );
-    }
 
     const forgotPasswordClasses = {
         root: classes.forgotPasswordButton
@@ -122,6 +108,7 @@ const SignIn = props => {
                         priority="high"
                         type="submit"
                         data-cy="SignInButton-root_highPriority"
+                        disabled={isBusy}
                     >
                         <FormattedMessage
                             id={'signIn.signInText'}
