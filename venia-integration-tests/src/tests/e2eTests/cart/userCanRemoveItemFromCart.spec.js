@@ -35,7 +35,7 @@ const { assertProductInCartPage } = cartPageAssertions;
 const { assertCartIsEmpty, assertCartTriggerCount } = headerAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('verify cart actions', () => {
+describe('verify remove item cart action', () => {
     it('user should be able to remove an item from the cart', () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(
             'gqlGetProductDetailForProductPageQuery'
