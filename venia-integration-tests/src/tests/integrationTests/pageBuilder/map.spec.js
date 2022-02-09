@@ -45,7 +45,8 @@ describe('PWA-1172: verify pagebuilder map content is rendered correctly', () =>
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
-
+        //Allow map frames to load
+        cy.wait(5000);
         cy.window().then(win => {
             // Create a Google API Mock window object
             win.google = createGoogleMapApi(googleApi);
