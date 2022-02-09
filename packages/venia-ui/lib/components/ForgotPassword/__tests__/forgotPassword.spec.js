@@ -19,7 +19,8 @@ jest.mock(
                 handleCancel: onCancel,
                 handleFormSubmit: jest.fn(),
                 hasCompleted: mockHasCompleted,
-                isResettingPassword: false
+                isResettingPassword: false,
+                recaptchaWidgetProps: {}
             }))
     })
 );

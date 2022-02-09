@@ -15,7 +15,8 @@ jest.mock('@magento/peregrine/lib/talons/MyAccount/useResetPassword', () => ({
         loading: false,
         token: '********',
         formErrors: [],
-        handleSubmit: jest.fn().mockName('handleSubmit')
+        handleSubmit: jest.fn().mockName('handleSubmit'),
+        recaptchaWidgetProps: {}
     })
 }));
 
