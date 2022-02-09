@@ -19,7 +19,7 @@ const {
 } = categoryPageAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('PWA-1406: verify category actions', () => {
+describe('PWA-1406: verify user search actions', () => {
     it('user should be able search with different inputs', () => {
         cy.intercept('GET', getProductFiltersBySearchCall).as(
             'gqlGetProductFiltersBySearchQuery'
@@ -33,7 +33,8 @@ describe('PWA-1406: verify category actions', () => {
         // Test - Search by valid SKU - 1
         triggerSearch();
         searchFromSearchBar(searchData.validSku1);
-
+        // Needed to avoid intermittent call being made before cypress even starts waiting for it
+        cy.wait(1000);
         cy.wait(
             ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
             {
@@ -71,7 +72,7 @@ describe('PWA-1406: verify category actions', () => {
 
         // Test - Search by valid Product Name
         triggerSearch();
-        searchFromSearchBar(searchData.validProductName1);
+        searchFromSearchBar(searchData.validProductSearch);
 
         cy.wait(
             ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],

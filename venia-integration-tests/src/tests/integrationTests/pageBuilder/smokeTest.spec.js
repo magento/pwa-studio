@@ -7,6 +7,8 @@ describe('PWA-1165: verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        //wait for product in banner slider to load
+        cy.wait(5000);
 
         cy.scrollTo('bottom', { duration: 2000 });
 
