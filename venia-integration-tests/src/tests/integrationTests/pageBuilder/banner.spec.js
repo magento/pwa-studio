@@ -134,6 +134,8 @@ describe('PWA-1154: verify pagebuilder banner content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        //Product cache image loading takes time
+        cy.wait(5000);
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page10',
