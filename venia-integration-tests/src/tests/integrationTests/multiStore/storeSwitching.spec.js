@@ -48,9 +48,9 @@ import {
     getProductFiltersByCategoryCall,
     getProductsByUrlKeyCall,
     getRouteDataCall,
-    getStoreConfigDataForGalleryEECall,
+    getStoreConfigDataForGalleryACCall,
     getStoreConfigForBreadcrumbsCall,
-    getStoreConfigForCarouselEECall,
+    getStoreConfigForCarouselACCall,
     getStoreConfigForCartPageCall,
     hitGraphqlPath,
     miniCartQueryCall,
@@ -469,8 +469,8 @@ const interceptStoreRequests = expectedStoreCode => {
             call: getStoreNameCall
         },
         {
-            alias: 'getMockStoreConfigForCarouselEE',
-            call: getStoreConfigForCarouselEECall
+            alias: 'getMockStoreConfigForCarouselAC',
+            call: getStoreConfigForCarouselACCall
         },
         {
             alias: 'getMockStoreConfigForBreadcrumbs',
@@ -481,8 +481,8 @@ const interceptStoreRequests = expectedStoreCode => {
             call: getPageSizeCall
         },
         {
-            alias: 'getMockStoreConfigDataForGalleryEE',
-            call: getStoreConfigDataForGalleryEECall
+            alias: 'getMockStoreConfigDataForGalleryAC',
+            call: getStoreConfigDataForGalleryACCall
         },
         {
             alias: 'getMockStoreConfigForCartPage',
@@ -766,7 +766,7 @@ describe('shopping cart', () => {
             '@getMockFilterInput',
             '@getMockAccessoryBreadcrumbs',
             '@getMockCategoryData',
-            '@getMockStoreConfigDataForGalleryEE'
+            '@getMockStoreConfigDataForGalleryAC'
         ]);
 
         assertProductsFound();

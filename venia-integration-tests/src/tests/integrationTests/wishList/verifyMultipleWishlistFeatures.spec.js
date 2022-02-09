@@ -50,7 +50,7 @@ const { assertProductSelectIndicator } = productPageAssertions;
 const {
     getCustomerWishlistCall,
     getMultipleWishlistConfigCall,
-    getStoreConfigDataForGalleryEECall,
+    getStoreConfigDataForGalleryACCall,
     getWishlistDialogDataCall,
     getWishlistitemsForLocalFieldsCall,
     hitGraphqlPath,
@@ -139,7 +139,7 @@ describe('PWA-1782: verify single wishlist basic features', () => {
             fixture:
                 'wishlist/multipleWishlist/categoryPageGetWishlistConfigForGallery.json'
         }).as('getGalleryWishlist');
-        cy.intercept('GET', getStoreConfigDataForGalleryEECall, {
+        cy.intercept('GET', getStoreConfigDataForGalleryACCall, {
             fixture:
                 'wishlist/multipleWishlist/categoryPageGalleryWishlistConfig.json'
         }).as('getGalleryWishlistConfig');
