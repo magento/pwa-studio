@@ -40,7 +40,9 @@ const {
     getProductListingCall,
     getSelectedAndAvailableShippingMethodsCall,
     hitGraphqlPath,
-    getIsEmailAvailableCall
+    getIsEmailAvailableCall,
+    getCartDetailsAfterAccountCreationCall,
+    getCustomerAfterCreateCall
 } = graphqlMockedCallsFixtures;
 
 const {
@@ -103,12 +105,18 @@ describe('PWA-1412: verify registered user checkout actions', () => {
         cy.intercept('GET', getSelectedAndAvailableShippingMethodsCall).as(
             'gqlGetSelectedAndAvailableShippingMethodsQuery'
         );
+        cy.intercept('GET', getCartDetailsAfterAccountCreationCall).as(
+            'gqlGetCartDetailsAfterAccountCreationQuery'
+        );
+        cy.intercept('GET', getCustomerAfterCreateCall).as(
+            'gqlGetCustomerAfterCreateQuery'
+        );
         cy.intercept('POST', hitGraphqlPath, req => {
             aliasMutation(req, 'CreateAccount');
             aliasMutation(req, 'placeOrder');
             aliasMutation(req, 'setBillingAddress');
             aliasMutation(req, 'setSelectedPaymentMethod');
-            aliasMutation(req, 'MergeCartsAfterAccountCreation');
+            aliasMutation(req, 'GetCartDetailsAfterAccountCreation');
             aliasMutation(req, 'SignInAfterCreate');
             aliasMutation(req, 'AddProductToCart');
         });
@@ -133,8 +141,6 @@ describe('PWA-1412: verify registered user checkout actions', () => {
 
         toggleLoginDialog();
 
-        //wait for control to be in sync to avoid "No request ever occurred." intermittent issue
-        cy.wait(2000);
         cy.createAccount(
             accountAccessFixtures.firstName,
             lastName,
@@ -142,16 +148,9 @@ describe('PWA-1412: verify registered user checkout actions', () => {
             accountPassword
         );
 
-        cy.wait(
-            [
-                '@gqlCreateAccountMutation',
-                '@gqlSignInAfterCreateMutation',
-                '@gqlMergeCartsAfterAccountCreationMutation'
-            ],
-            {
+        cy.wait(['@gqlGetCustomerAfterCreateQuery'], {
                 timeout: 60000
-            }
-        );
+        });
 
         assertCreateAccount(firstName);
 
