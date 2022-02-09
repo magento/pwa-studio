@@ -118,7 +118,7 @@ test('returns correct shape', () => {
           "handleSubmit": [Function],
           "isBusy": true,
           "recaptchaWidgetProps": Object {
-            "containerElementRef": [Function],
+            "containerElement": [Function],
             "shouldRender": false,
           },
           "setFormApi": [Function],
