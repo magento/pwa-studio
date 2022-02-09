@@ -94,7 +94,7 @@ describe('#useGoogleReCaptcha', () => {
               "generateReCaptchaData": [Function],
               "recaptchaLoading": true,
               "recaptchaWidgetProps": Object {
-                "containerElementRef": [Function],
+                "containerElement": [Function],
                 "shouldRender": false,
               },
             }
@@ -115,7 +115,7 @@ describe('#useGoogleReCaptcha', () => {
               "generateReCaptchaData": [Function],
               "recaptchaLoading": false,
               "recaptchaWidgetProps": Object {
-                "containerElementRef": [Function],
+                "containerElement": [Function],
                 "shouldRender": false,
               },
             }
@@ -158,7 +158,7 @@ describe('#useGoogleReCaptcha', () => {
             const containerElement = await result.current.recaptchaWidgetProps
                 .containerElement;
 
-            containerElement.current = inlineContainer;
+            containerElement(inlineContainer);
         });
 
         // Call script onload method
@@ -257,7 +257,7 @@ describe('#useGoogleReCaptcha', () => {
             const containerElement = await result.current.recaptchaWidgetProps
                 .containerElement;
 
-            containerElement.current = inlineContainer;
+            containerElement(inlineContainer);
         });
 
         // Call script onload method
