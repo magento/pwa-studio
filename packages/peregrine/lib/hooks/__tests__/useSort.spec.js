@@ -53,3 +53,14 @@ test('should render with updated sort order', () => {
     const [{ sortText: nextSortText }] = nextResult;
     expect(nextSortText).toBe('Price: Low to High');
 });
+
+test('search default sort order should be best match', () => {
+    const sortOrder = {
+        sortFromSearch: true
+    };
+
+    createTestInstance(<TestComponent props={sortOrder} />);
+    const result = log.mock.calls[0][0];
+    const [{ sortText }] = result;
+    expect(sortText).toBe('Best Match');
+});

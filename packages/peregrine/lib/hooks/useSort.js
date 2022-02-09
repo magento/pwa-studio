@@ -12,7 +12,7 @@ const searchSort = {
     sortText: 'Best Match',
     sortId: 'sortItem.relevance',
     sortAttribute: 'relevance',
-    sortDirection: 'ASC'
+    sortDirection: 'DESC'
 };
 
 /**
@@ -21,8 +21,8 @@ const searchSort = {
  * @returns {[{sortDirection: string, sortAttribute: string, sortText: string}, React.Dispatch<React.SetStateAction<{sortDirection: string, sortAttribute: string, sortText: string}>>]}
  */
 export const useSort = (props = {}) => {
-    const { isSearch = false } = props;
+    const { sortFromSearch = false } = props;
     return useState(() =>
-        Object.assign({}, isSearch ? searchSort : defaultSort, props)
+        Object.assign({}, sortFromSearch ? searchSort : defaultSort, props)
     );
 };

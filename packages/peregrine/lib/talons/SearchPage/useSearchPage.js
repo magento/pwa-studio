@@ -44,7 +44,7 @@ export const useSearchPage = (props = {}) => {
 
     const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 
-    const sortProps = useSort({ isSearch: true });
+    const sortProps = useSort({ sortFromSearch: true });
     const [currentSort] = sortProps;
     const { sortAttribute, sortDirection } = currentSort;
     // Keep track of the sort criteria so we can tell when they change.

@@ -47,11 +47,14 @@ const ProductSort = props => {
     // click event for menu items
     const handleItemClick = useCallback(
         sortAttribute => {
-            setSort({
-                sortText: sortAttribute.text,
-                sortId: sortAttribute.id,
-                sortAttribute: sortAttribute.attribute,
-                sortDirection: sortAttribute.sortDirection
+            setSort(prevSort => {
+                return {
+                    sortText: sortAttribute.text,
+                    sortId: sortAttribute.id,
+                    sortAttribute: sortAttribute.attribute,
+                    sortDirection: sortAttribute.sortDirection,
+                    sortFromSearch: prevSort.sortFromSearch
+                };
             });
             setExpanded(false);
         },
@@ -95,19 +98,16 @@ const ProductSort = props => {
         ];
 
         // Do not display Position in Search
-        if (!currentSort.isSearch) {
-            Object.assign(
-                {
+        if (!currentSort.sortFromSearch) {
+            defaultSortMethods.push({
+                id: 'sortItem.position',
+                text: formatMessage({
                     id: 'sortItem.position',
-                    text: formatMessage({
-                        id: 'sortItem.position',
-                        defaultMessage: 'Position'
-                    }),
-                    attribute: 'position',
-                    sortDirection: 'ASC'
-                },
-                defaultSortMethods
-            );
+                    defaultMessage: 'Position'
+                }),
+                attribute: 'position',
+                sortDirection: 'ASC'
+            });
         }
 
         const allSortingMethods = sortMethodsFromConfig
@@ -144,6 +144,7 @@ const ProductSort = props => {
         classes.menuItem,
         currentSort.sortAttribute,
         currentSort.sortDirection,
+        currentSort.sortFromSearch,
         expanded,
         formatMessage,
         handleItemClick,
