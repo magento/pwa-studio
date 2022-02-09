@@ -390,8 +390,8 @@ const CheckoutPage = props => {
                 {reviewOrderButton}
                 {itemsReview}
                 {orderSummary}
-                <GoogleReCaptcha {...recaptchaWidgetProps} />
                 {placeOrderButton}
+                <GoogleReCaptcha {...recaptchaWidgetProps} />
             </div>
         );
     }
