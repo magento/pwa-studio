@@ -15,9 +15,9 @@ const ForgotPasswordForm = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const {
         initialValues,
-        isBusy,
-        onCancel,
+        isResettingPassword,
         onSubmit,
+        onCancel,
         recaptchaWidgetProps
     } = props;
 
@@ -47,7 +47,7 @@ const ForgotPasswordForm = props => {
             <div className={classes.buttonContainer}>
                 <Button
                     className={classes.cancelButton}
-                    disabled={isBusy}
+                    disabled={isResettingPassword}
                     type="button"
                     priority="low"
                     onClick={onCancel}
@@ -59,7 +59,7 @@ const ForgotPasswordForm = props => {
                 </Button>
                 <Button
                     className={classes.submitButton}
-                    disabled={isBusy}
+                    disabled={isResettingPassword}
                     type="submit"
                     priority="high"
                     data-cy="forgotPasswordForm-submitButton"
@@ -82,14 +82,14 @@ ForgotPasswordForm.propTypes = {
     initialValues: shape({
         email: string
     }),
-    isBusy: bool,
+    isResettingPassword: bool,
     onCancel: func.isRequired,
     onSubmit: func.isRequired
 };
 
 ForgotPasswordForm.defaultProps = {
     initialValues: {},
-    isBusy: false
+    isResettingPassword: false
 };
 
 export default ForgotPasswordForm;

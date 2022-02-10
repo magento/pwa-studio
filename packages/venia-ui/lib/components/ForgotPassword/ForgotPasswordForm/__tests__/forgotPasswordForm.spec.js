@@ -9,7 +9,7 @@ jest.mock('../../../../classify');
 test('renders when not busy', () => {
     const wrapper = createTestInstance(
         <ForgotPasswordForm
-            isBusy={false}
+            isResettingPassword={false}
             onCancel={() => {}}
             onSubmit={() => {}}
         />
@@ -20,7 +20,7 @@ test('renders when not busy', () => {
 test('renders when busy', () => {
     const wrapper = createTestInstance(
         <ForgotPasswordForm
-            isBusy={true}
+            isResettingPassword={true}
             onCancel={() => {}}
             onSubmit={() => {}}
         />
@@ -32,7 +32,7 @@ test('calls onSubmit callback', () => {
     const onSubmit = jest.fn();
     const wrapper = createTestInstance(
         <ForgotPasswordForm
-            isBusy={false}
+            isResettingPassword={false}
             onCancel={() => {}}
             onSubmit={onSubmit}
         />
