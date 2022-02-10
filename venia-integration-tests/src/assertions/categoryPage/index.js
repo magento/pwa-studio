@@ -135,7 +135,7 @@ export const assertActiveSortItem = sortLabel => {
 };
 
 /**
- * Asset Sort Item not available from list
+ * Assert Sort Item not available from list
  *
  * @param {String} sortLabel product name
  */
