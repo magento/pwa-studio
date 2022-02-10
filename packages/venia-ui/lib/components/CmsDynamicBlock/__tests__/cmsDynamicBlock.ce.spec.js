@@ -2,13 +2,13 @@ import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
 
-import GiftOptionsSection from '../giftOptionsSection.mos';
+import CmsDynamicBlock from '../cmsDynamicBlock.ce';
 
 const Component = () => {
-    return <GiftOptionsSection />;
+    return <CmsDynamicBlock />;
 };
 
-describe('#GiftOptionsSection MOS', () => {
+describe('#CmsDynamicBlock MOS', () => {
     it('renders', () => {
         const tree = createTestInstance(<Component />);
 

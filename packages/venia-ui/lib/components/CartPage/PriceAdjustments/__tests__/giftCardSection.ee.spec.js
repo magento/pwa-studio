@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
 
-import GiftCardSection from '../giftCardSection.ac';
+import GiftCardSection from '../giftCardSection.ee';
 
 jest.mock('../../../Accordion', () => ({
     Section: ({ children, ...rest }) => (

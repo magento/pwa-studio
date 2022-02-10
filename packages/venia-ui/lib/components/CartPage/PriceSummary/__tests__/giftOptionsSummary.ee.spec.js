@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
 
-import GiftOptionsSummary from '../giftOptionsSummary.ac';
+import GiftOptionsSummary from '../giftOptionsSummary.ee';
 
 const defaultProps = {
     classes: {

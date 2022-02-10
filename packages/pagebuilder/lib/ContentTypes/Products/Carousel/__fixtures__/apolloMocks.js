@@ -1,5 +1,5 @@
-import acOperations from '../carousel.gql.ac';
-import mosOperations from '../carousel.gql.mos';
+import acOperations from '../carousel.gql.ee';
+import mosOperations from '../carousel.gql.ce';
 
 export const mockGetStoreConfigAC = {
     request: {

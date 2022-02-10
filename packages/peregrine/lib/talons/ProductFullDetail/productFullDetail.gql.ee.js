@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import defaultOperations from './productFullDetail.gql.mos';
+import defaultOperations from './productFullDetail.gql.ce';
 
 export const GET_WISHLIST_CONFIG = gql`
     query GetWishlistConfigForProductAC {

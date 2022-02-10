@@ -12,8 +12,8 @@ import {
 import { useCarousel } from '../useCarousel';
 
 import defaultOperations from '../carousel.gql';
-import mosOperations from '../carousel.gql.mos';
-import acOperations from '../carousel.gql.ac';
+import mosOperations from '../carousel.gql.ce';
+import acOperations from '../carousel.gql.ee';
 
 jest.mock(
     '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',

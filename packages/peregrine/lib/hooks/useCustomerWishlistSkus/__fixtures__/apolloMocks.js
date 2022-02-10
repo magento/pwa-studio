@@ -1,4 +1,4 @@
-import operations from '../customerWishlist.gql.ac';
+import operations from '../customerWishlist.gql.ee';
 
 export const mockGetWishlistItemsPage1 = {
     request: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import GiftCardSummary from '../giftCardSummary.ac';
+import GiftCardSummary from '../giftCardSummary.ee';
 
 const defaultProps = {
     classes: {

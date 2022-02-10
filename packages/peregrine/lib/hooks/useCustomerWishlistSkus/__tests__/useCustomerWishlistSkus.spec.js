@@ -5,7 +5,7 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 
-import operations from '../customerWishlist.gql.ac';
+import operations from '../customerWishlist.gql.ee';
 import {
     mockGetWishlistItemsPage1,
     mockGetWishlistItemsPage2

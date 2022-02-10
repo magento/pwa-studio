@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { useUserContext } from '../../context/user';
 import mergeOperations from '../../util/shallowMerge';
 
-import defaultOperations from './customerWishlist.gql.ac';
+import defaultOperations from './customerWishlist.gql.ee';
 
 /**
  * A hook that queries for products in a customer's wishlists and maintains a

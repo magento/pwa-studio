@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
-import CreateWishlist from '../createWishlist.ac';
+import CreateWishlist from '../createWishlist.ee';
 import { useCreateWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useCreateWishlist';
 
 jest.mock('../../../classify');

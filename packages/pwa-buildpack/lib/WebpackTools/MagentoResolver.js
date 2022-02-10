@@ -9,7 +9,7 @@ const { CachedInputFileSystem, ResolverFactory } = require('enhanced-resolve');
 /**
  * @typedef {Object} Buildpack/WebpackTools~MagentoResolverOptions
  * @module MagentoResolver
- * @property {boolean} isAC Resolve Adobe Commerce (`*.ac.js`) modules instead of Magento Open Source `*.mos.js` modules
+ * @property {boolean} isAC Resolve Adobe Commerce (`*.ac.js` or `*.ee.js`) modules instead of Magento Open Source (`*.mos.js` or `*.ce.js`) modules
  * @property {Object} paths Filesystem paths to resolve from
  */
 

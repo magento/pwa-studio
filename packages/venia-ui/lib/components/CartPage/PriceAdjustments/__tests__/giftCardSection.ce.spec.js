@@ -2,16 +2,16 @@ import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
 
-import GiftCardSummary from '../giftCardSummary.mos';
+import GiftCardSection from '../giftCardSection.ce';
 
 const Component = () => {
-    return <GiftCardSummary />;
+    return <GiftCardSection />;
 };
 
-describe('#GiftCardSummary MOS', () => {
+describe('#GiftCardSection MOS', () => {
     it('renders', () => {
         const tree = createTestInstance(<Component />);
 
-        expect(tree.toJSON()).toMatchSnapshot();
+        expect(tree.toJSON()).toBe(null);
     });
 });

@@ -3,7 +3,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { DISPLAY_MODE_FIXED_TYPE } from '@magento/venia-ui/lib/components/CmsDynamicBlock';
 
-import DynamicBlock from '../dynamicBlock.ac';
+import DynamicBlock from '../dynamicBlock.ee';
 
 jest.mock('@magento/venia-ui/lib/components/CmsDynamicBlock', () => props => (
     <mock-CmsDynamicBlockGroup {...props} />

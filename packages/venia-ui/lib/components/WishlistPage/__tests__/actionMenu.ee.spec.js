@@ -2,7 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useActionMenu } from '@magento/peregrine/lib/talons/WishlistPage/useActionMenu';
-import ActionMenu from '../actionMenu.ac';
+import ActionMenu from '../actionMenu.ee';
 
 jest.mock('@magento/peregrine/lib/talons/WishlistPage/useActionMenu');
 jest.mock('../wishlistListActionsDialog', () => 'WishlistListActionsDialog');

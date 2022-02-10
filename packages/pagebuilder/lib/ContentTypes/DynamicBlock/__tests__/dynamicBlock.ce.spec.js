@@ -2,13 +2,13 @@ import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
 
-import GiftOptionsSummary from '../giftOptionsSummary.mos';
+import DynamicBlock from '../dynamicBlock.ce';
 
 const Component = () => {
-    return <GiftOptionsSummary />;
+    return <DynamicBlock />;
 };
 
-describe('#GiftOptionsSummary MOS', () => {
+describe('#PageBuilder DynamicBlock MOS', () => {
     it('renders', () => {
         const tree = createTestInstance(<Component />);
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import AddToListButton from '../addToListButton.mos';
+import AddToListButton from '../addToListButton.ce';
 import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton';
 import { useCommonToasts } from '../useCommonToasts';
 

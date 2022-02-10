@@ -60,12 +60,15 @@ describe('handler', () => {
                     ignore: ['*.js'],
                     magentoBackendEdition: 'MOS',
                     mosFilesGlob: 'mosFilesGlob',
-                    acFilesGlob: 'acFilesGlob'
+                    ceFilesGlob: 'ceFilesGlob',
+                    acFilesGlob: 'acFilesGlob',
+                    eeFilesGlob: 'eeFilesGlob'
                 }
             },
             schemaPath: 'unit test'
         }
     });
+
     const mockContext = {
         getProjectConfig,
         spinner: {
@@ -230,13 +233,39 @@ describe('handler', () => {
         expect(mockProcessExit).toHaveBeenCalledWith(1);
     });
 
-    test('it ignores AC files if magentoBackendEdition is MOS', async () => {
+    test('it ignores AC and EE files if magentoBackendEdition is MOS', async () => {
         await plugin.handler(mockContext, mockArgs);
 
         expect(globSyncSpy.mock.calls[0][1].ignore).toContain('acFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('eeFilesGlob');
     });
 
-    test('it ignores MOS files if magentoBackendEdition is AC', async () => {
+    test('it ignores AC and EE files if magentoBackendEdition is CE', async () => {
+        getProjectConfig.mockResolvedValueOnce({
+            config: {
+                extensions: {
+                    'validate-magento-pwa-queries': {
+                        clients: ['apollo', 'literal'],
+                        filesGlob: '*.graphql',
+                        ignore: ['*.js'],
+                        magentoBackendEdition: 'CE',
+                        mosFilesGlob: 'mosFilesGlob',
+                        ceFilesGlob: 'ceFilesGlob',
+                        acFilesGlob: 'acFilesGlob',
+                        eeFilesGlob: 'eeFilesGlob'
+                    }
+                },
+                schemaPath: 'unit test'
+            }
+        });
+
+        await plugin.handler(mockContext, mockArgs);
+
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('acFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('eeFilesGlob');
+    });
+
+    test('it ignores MOS and CE files if magentoBackendEdition is AC', async () => {
         getProjectConfig.mockResolvedValueOnce({
             config: {
                 extensions: {
@@ -246,7 +275,9 @@ describe('handler', () => {
                         ignore: ['*.js'],
                         magentoBackendEdition: 'AC',
                         mosFilesGlob: 'mosFilesGlob',
-                        acFilesGlob: 'acFilesGlob'
+                        ceFilesGlob: 'ceFilesGlob',
+                        acFilesGlob: 'acFilesGlob',
+                        eeFilesGlob: 'eeFilesGlob'
                     }
                 },
                 schemaPath: 'unit test'
@@ -256,5 +287,31 @@ describe('handler', () => {
         await plugin.handler(mockContext, mockArgs);
 
         expect(globSyncSpy.mock.calls[0][1].ignore).toContain('mosFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('ceFilesGlob');
+    });
+
+    test('it ignores MOS and CE files if magentoBackendEdition is EE', async () => {
+        getProjectConfig.mockResolvedValueOnce({
+            config: {
+                extensions: {
+                    'validate-magento-pwa-queries': {
+                        clients: ['apollo', 'literal'],
+                        filesGlob: '*.graphql',
+                        ignore: ['*.js'],
+                        magentoBackendEdition: 'EE',
+                        mosFilesGlob: 'mosFilesGlob',
+                        ceFilesGlob: 'ceFilesGlob',
+                        acFilesGlob: 'acFilesGlob',
+                        eeFilesGlob: 'eeFilesGlob'
+                    }
+                },
+                schemaPath: 'unit test'
+            }
+        });
+
+        await plugin.handler(mockContext, mockArgs);
+
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('mosFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('ceFilesGlob');
     });
 });

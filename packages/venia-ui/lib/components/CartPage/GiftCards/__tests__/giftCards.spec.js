@@ -22,7 +22,7 @@ jest.mock(
 );
 
 jest.mock(
-    '@magento/peregrine/lib/talons/CartPage/GiftCards/giftCardQueries.gql.ac.js',
+    '@magento/peregrine/lib/talons/CartPage/GiftCards/giftCardQueries.gql.ee.js',
     () => ({
         getAppliedGiftCardsQuery: 'mock cart',
         getGiftCardBalanceQuery: 'mock balance',

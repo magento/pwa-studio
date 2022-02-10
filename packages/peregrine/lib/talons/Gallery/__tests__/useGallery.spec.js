@@ -12,8 +12,8 @@ import {
 import { useGallery } from '../useGallery';
 
 import defaultOperations from '../gallery.gql';
-import mosOperations from '../gallery.gql.mos';
-import acOperations from '../gallery.gql.ac';
+import mosOperations from '../gallery.gql.ce';
+import acOperations from '../gallery.gql.ee';
 
 jest.mock(
     '../../../hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',

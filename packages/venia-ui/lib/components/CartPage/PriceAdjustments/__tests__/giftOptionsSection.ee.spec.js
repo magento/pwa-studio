@@ -3,7 +3,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useGiftOptionsSection } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useGiftOptionsSection';
 
-import GiftOptionsSection from '../giftOptionsSection.ac';
+import GiftOptionsSection from '../giftOptionsSection.ee';
 
 jest.mock(
     '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useGiftOptionsSection'
