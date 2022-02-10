@@ -1,7 +1,8 @@
 import {
     getAdvanced,
     getBackgroundImages,
-    getVerticalAlignment
+    getVerticalAlignment,
+    getMediaQueries
 } from '../../utils';
 
 export default node => {
@@ -11,6 +12,7 @@ export default node => {
         ...getVerticalAlignment(node),
         backgroundColor: node.style.backgroundColor,
         ...getBackgroundImages(node),
-        ...getAdvanced(node)
+        ...getAdvanced(node),
+        ...getMediaQueries(node)
     };
 };
