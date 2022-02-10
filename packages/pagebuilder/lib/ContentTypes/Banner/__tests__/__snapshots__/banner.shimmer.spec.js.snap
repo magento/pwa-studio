@@ -25,7 +25,6 @@ exports[`renders a BannerShimmer component with minHeight 1`] = `
         "borderColor": undefined,
         "borderRadius": undefined,
         "borderWidth": undefined,
-        "minHeight": "400px",
         "textAlign": undefined,
       }
     }
