@@ -148,7 +148,7 @@ export const useStoreSwitcher = (props = {}) => {
                     variables: {
                         url: pathname
                     },
-                    context: { headers: { code: storeCode } }
+                    context: { headers: { store: storeCode } }
                 });
                 if (routeData.route) {
                     newPath = routeData.route.relative_url;
