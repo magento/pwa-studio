@@ -73,11 +73,11 @@ class MagentoResolver {
         const extensions = [
             '.wasm',
             '.mjs',
+            ...versionExtensions,
             '.js',
             '.jsx',
             '.json',
-            '.graphql',
-            ...versionExtensions
+            '.graphql'
         ];
         /** @ignore */
         this._root = paths.root;

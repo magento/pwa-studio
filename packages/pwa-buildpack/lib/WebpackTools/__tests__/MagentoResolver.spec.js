@@ -6,12 +6,12 @@ describe('legacy functionality', () => {
         const extensions = [
             '.wasm',
             '.mjs',
+            '.ac.js',
+            '.ee.js',
             '.js',
             '.jsx',
             '.json',
-            '.graphql',
-            '.ac.js',
-            '.ee.js'
+            '.graphql'
         ];
         await expect(
             MagentoResolver.configure({
@@ -31,12 +31,12 @@ describe('legacy functionality', () => {
         const extensions = [
             '.wasm',
             '.mjs',
+            '.mos.js',
+            '.ce.js',
             '.js',
             '.jsx',
             '.json',
-            '.graphql',
-            '.mos.js',
-            '.ce.js'
+            '.graphql'
         ];
         await expect(
             MagentoResolver.configure({
