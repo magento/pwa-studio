@@ -5,7 +5,8 @@ import {
     getMargin,
     getPadding,
     getTextAlign,
-    getVerticalAlignment
+    getVerticalAlignment,
+    getMediaQueries
 } from '../../utils';
 
 export default node => {
@@ -33,6 +34,7 @@ export default node => {
         ...getPadding(node),
         ...getBorder(contentEl),
         ...getIsHidden(node),
-        ...getCssClasses(node)
+        ...getCssClasses(node),
+        ...getMediaQueries(contentEl)
     };
 };
