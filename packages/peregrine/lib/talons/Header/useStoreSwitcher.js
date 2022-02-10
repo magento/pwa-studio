@@ -1,7 +1,8 @@
 import { useQuery } from '@apollo/client';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './storeSwitcher.gql';
@@ -57,7 +58,6 @@ const mapAvailableOptions = (config, stores) => {
 
 export const useStoreSwitcher = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const [newStoreCode, setNewStoreCode] = useState(null);
     const { availableRoutes = [] } = props;
     const internalRoutes = useMemo(() => {
         return availableRoutes.map(path => {
@@ -85,12 +85,7 @@ export const useStoreSwitcher = (props = {}) => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const { refetch: refetchRouteData } = useQuery(getRouteData, {
-        fetchPolicy: 'no-cache',
-        variables: { url: pathname },
-        skip: !newStoreCode,
-        context: { headers: { code: newStoreCode } }
-    });
+    const fetchRouteData = useAwaitQuery(getRouteData);
 
     const { data: availableStoresData } = useQuery(getAvailableStoresData, {
         fetchPolicy: 'cache-and-network',
@@ -148,18 +143,20 @@ export const useStoreSwitcher = (props = {}) => {
             if (internalRoutes.includes(pathname)) {
                 newPath = pathname;
             } else {
-                setNewStoreCode(storeCode);
-                const { data: routeData } = await refetchRouteData({
-                    url: pathname
+                const { data: routeData } = await fetchRouteData({
+                    fetchPolicy: 'no-cache',
+                    variables: {
+                        url: pathname
+                    },
+                    context: { headers: { code: storeCode } }
                 });
-                setNewStoreCode(null);
                 if (routeData.route) {
                     newPath = routeData.route.relative_url;
                 }
             }
             return newPath.startsWith('/') ? newPath.substr(1) : newPath;
         },
-        [setNewStoreCode, pathname, refetchRouteData, internalRoutes]
+        [pathname, fetchRouteData, internalRoutes]
     );
 
     const handleSwitchStore = useCallback(
