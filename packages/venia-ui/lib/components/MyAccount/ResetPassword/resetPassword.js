@@ -16,19 +16,20 @@ import { StoreTitle } from '../../Head';
 import Password from '../../Password';
 import TextInput from '../../TextInput';
 import defaultClasses from './resetPassword.module.css';
+import resetPasswordOperations from './resetPassword.gql';
 
 const ResetPassword = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, propClasses);
-    const talonProps = useResetPassword();
+    const talonProps = useResetPassword({ ...resetPasswordOperations });
     const {
-        isBusy,
-        formErrors,
-        recaptchaWidgetProps,
-        handleSubmit,
         hasCompleted,
-        token
+        loading,
+        token,
+        formErrors,
+        handleSubmit,
+        recaptchaWidgetProps
     } = talonProps;
 
     const tokenMissing = (
@@ -92,7 +93,7 @@ const ResetPassword = props => {
                     className={classes.submitButton}
                     type="submit"
                     priority="high"
-                    disabled={isBusy}
+                    disabled={loading}
                 >
                     <FormattedMessage
                         id="resetPassword.savePassword"
