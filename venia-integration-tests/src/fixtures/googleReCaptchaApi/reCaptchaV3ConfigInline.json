@@ -5,7 +5,10 @@
             "badge_position": "inline",
             "language_code": "en",
             "forms": [
-                "CUSTOMER_FORGOT_PASSWORD"
+                "CUSTOMER_CREATE",
+                "CUSTOMER_EDIT",
+                "CUSTOMER_FORGOT_PASSWORD",
+                "CUSTOMER_LOGIN"
             ],
             "__typename": "ReCaptchaConfigurationV3"
         }
