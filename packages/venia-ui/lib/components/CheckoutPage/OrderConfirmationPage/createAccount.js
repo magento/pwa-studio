@@ -19,6 +19,7 @@ import Field from '../../Field';
 import FormError from '../../FormError';
 import TextInput from '../../TextInput';
 import Password from '../../Password';
+import GoogleReCaptcha from '../../GoogleReCaptcha';
 
 import defaultClasses from './createAccount.module.css';
 
@@ -158,6 +159,7 @@ const CreateAccount = props => {
                         })}
                     />
                 </div>
+                <GoogleReCaptcha {...recaptchaWidgetProps} />
                 <div className={classes.actions}>
                     <Button
                         disabled={isDisabled}
