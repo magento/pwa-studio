@@ -6,7 +6,8 @@ import {
     getPadding,
     getTextAlign,
     getVerticalAlignment,
-    verticalAlignmentToFlex
+    verticalAlignmentToFlex,
+    getMediaQueries
 } from '../utils';
 
 test('can retrieve background image from node', () => {
@@ -123,4 +124,23 @@ test('can retrieve CSS classes', () => {
     ]);
     node.innerHTML = '<div></div>';
     expect(getCssClasses(node.childNodes[0]).cssClasses).toEqual([]);
+});
+
+test('can retrieve mediaQueries', () => {
+    const node = document.createElement('div');
+    node.setAttribute('data-media-0', 'only screen and (min-width: 768px)');
+    node.setAttribute(
+        'data-media-style-0',
+        'display: flex; min-height: 300px;'
+    );
+    const { mediaQueries } = getMediaQueries(node);
+    expect(mediaQueries).toEqual([
+        {
+            media: 'only screen and (min-width: 768px)',
+            style: {
+                display: 'flex',
+                minHeight: '300px'
+            }
+        }
+    ]);
 });

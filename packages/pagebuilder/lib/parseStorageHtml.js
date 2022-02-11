@@ -84,6 +84,7 @@ const bodyId = 'html-body';
 const convertToInlineStyles = document => {
     const styleBlocks = document.getElementsByTagName('style');
     const styles = {};
+    const mediaStyles = {};
 
     if (styleBlocks.length > 0) {
         Array.from(styleBlocks).forEach(styleBlock => {
@@ -100,10 +101,41 @@ const convertToInlineStyles = document => {
                         }
                         styles[selector].push(rule.style);
                     });
+                } else if (rule instanceof CSSMediaRule) {
+                    Array.from(rule.media).forEach(media => {
+                        const styles = Array.from(rule.cssRules).map(rule => {
+                            return {
+                                selectors: rule.selectorText
+                                    .split(',')
+                                    .map(selector => selector.trim()),
+                                css: rule.style.cssText
+                            };
+                        });
+                        mediaStyles[media] = styles;
+                    });
                 }
             });
         });
     }
+
+    Object.keys(mediaStyles).map((media, i) => {
+        mediaStyles[media].forEach(style => {
+            style.selectors.forEach(selector => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.setAttribute(`data-media-${i}`, media);
+                    const savedStyles = element.getAttribute(
+                        `data-media-style-${i}`
+                    );
+                    // avoids overwriting previously saved styles
+                    element.setAttribute(
+                        `data-media-style-${i}`,
+                        `${savedStyles ? `${savedStyles} ` : ''}${style.css}`
+                    );
+                }
+            });
+        });
+    });
 
     Object.keys(styles).map(selector => {
         const element = document.querySelector(selector);

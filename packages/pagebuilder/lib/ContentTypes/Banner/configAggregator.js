@@ -5,7 +5,8 @@ import {
     getPadding,
     getTextAlign,
     getCssClasses,
-    getIsHidden
+    getIsHidden,
+    getMediaQueries
 } from '../../utils';
 
 /**
@@ -84,6 +85,7 @@ export default (node, props) => {
         ...getCssClasses(node),
         ...getMargin(node),
         ...getPadding(minHeightPaddingElement),
-        ...getIsHidden(node)
+        ...getIsHidden(node),
+        ...getMediaQueries(minHeightPaddingElement)
     };
 };
