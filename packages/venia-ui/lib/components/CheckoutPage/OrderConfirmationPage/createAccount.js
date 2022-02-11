@@ -59,7 +59,13 @@ const CreateAccount = props => {
         onSubmit
     });
 
-    const { errors, handleSubmit, isDisabled, initialValues } = talonProps;
+    const {
+        errors,
+        handleSubmit,
+        isDisabled,
+        initialValues,
+        recaptchaWidgetProps
+    } = talonProps;
 
     return (
         <div className={classes.root}>

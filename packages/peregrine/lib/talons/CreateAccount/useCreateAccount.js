@@ -259,6 +259,6 @@ export const useCreateAccount = props => {
  * @property {SanitizedInitialValues} initialValues initial values for the create account form
  * @property {Boolean} isDisabled true if either details are being fetched or form is being submitted. False otherwise.
  * @property {Object} recaptchaWidgetProps - Props for the GoogleReCaptcha component.
- * @property {Function} recaptchaWidgetProps.containerElementRef - Container reference callback.
+ * @property {Function} recaptchaWidgetProps.containerElement - Container reference callback.
  * @property {Boolean} recaptchaWidgetProps.shouldRender - Checks if component should be rendered.
  */
