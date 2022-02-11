@@ -157,7 +157,7 @@ describe('PWA-1156: verify pagebuilder row content', () => {
             });
         });
     });
-    Failing on CI with access restriction 403, need to update  source
+    
     it('verify row video background3', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/row/row-video-background-3.json'
