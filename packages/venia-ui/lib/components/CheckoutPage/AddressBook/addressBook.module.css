@@ -2,6 +2,7 @@
     composes: hidden from global;
 }
 
+/* prettier-ignore */
 .root_active {
     composes: root;
 
@@ -15,7 +16,8 @@
     composes: items-center from global;
     composes: justify-between from global;
 
-    composes: lg_grid-cols-[60px, 1fr] from global;
+    /* TODO @TW: review (B7) */
+    composes: lg_grid-cols-[60px,1fr] from global;
 }
 
 @media (max-width: 959px) {
