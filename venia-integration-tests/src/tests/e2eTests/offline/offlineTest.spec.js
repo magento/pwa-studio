@@ -4,7 +4,10 @@ import {
 	productPage as productPageFixtures
 } from '../../../fixtures';
 
-import { header as headerActions } from '../../../actions';
+import { 
+	header as headerActions,
+	offline as offlineActions
+} from '../../../actions';
 
 import { 
 	categoryPage as categoryPageAssertions,
@@ -18,6 +21,8 @@ const { carinaCardigan } = productPageFixtures;
 
 const { triggerSearch, searchFromSearchBar } = headerActions;
 
+const { checkServiceWorker } = offlineActions;
+
 const {
 	assertProductIsInProductSuggestion,
 	assertProductIsInGallery
@@ -30,7 +35,8 @@ const {
 
 const {
 	assertOffline,
-	assertOnline
+	assertOnline, 
+	assertServiceWorkerIsActivated
 } = offlineAssertions;
 
 const {
@@ -51,7 +57,7 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
 		cy.intercept('GET', getProductDetailForProductPageCall).as(
 				'gqlGetProductDetailForProductPageQuery'
 		);
-
+		
 		cy.intercept('GET', getStoreConfigDataCall).as(
 			'gqlGetStoreConfigDataQuery'
 		);
@@ -76,8 +82,11 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
 		cy.wait(['@gqlGetStoreConfigDataQuery'], {
 			timeout: 60000
 		});
-
-		cy.visitHomePage();
+		
+		cy.visitHomePage().then(() => {
+			const status = checkServiceWorker();
+			assertServiceWorkerIsActivated(status);
+		});
 
 		cy.visit(categorySweaters);
 		
