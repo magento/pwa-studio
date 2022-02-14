@@ -4,6 +4,12 @@ import {
 } from '../../../fixtures';
 import { header as headerActions } from '../../../actions';
 import { categoryPage as categoryPageAssertions } from '../../../assertions';
+import { sortData } from '../../../fixtures/categoryPage';
+import {
+    assertActiveSortItem,
+    assertNotAvailableSortItem
+} from '../../../assertions/categoryPage';
+import { sortProducts, toggleProductSort } from '../../../actions/categoryPage';
 
 const { searchData } = categoryPageFixtures;
 const {
@@ -44,6 +50,12 @@ describe('PWA-1406: verify user search actions', () => {
 
         assertProductIsInGallery(searchData.validProductName1);
 
+        // Test - Position sort not available in search
+        toggleProductSort();
+        assertNotAvailableSortItem(sortData.position);
+
+        assertActiveSortItem(sortData.bestMatch);
+
         // Test - Search by valid SKU - 2
         triggerSearch();
         searchFromSearchBar(searchData.validSku2);
@@ -82,5 +94,13 @@ describe('PWA-1406: verify user search actions', () => {
         );
 
         assertProductIsInGallery(searchData.validProductName1);
+
+        toggleProductSort();
+        sortProducts(sortData.priceHighLow);
+
+        // Test - Position sort not available in search even after changing sort
+        toggleProductSort();
+        assertActiveSortItem(sortData.priceHighLow);
+        assertNotAvailableSortItem(sortData.position);
     });
 });

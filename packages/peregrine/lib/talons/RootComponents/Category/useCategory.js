@@ -54,7 +54,7 @@ export const useCategory = props => {
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 
-    const sortProps = useSort();
+    const sortProps = useSort({ sortFromSearch: false });
     const [currentSort] = sortProps;
 
     // Keep track of the sort criteria so we can tell when they change.
