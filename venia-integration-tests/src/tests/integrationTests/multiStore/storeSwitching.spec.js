@@ -363,11 +363,38 @@ const interceptStoreRequests = expectedStoreCode => {
 
     // Requests for data about the homepage route
     cy.intercept('GET', getRouteDataCall, req => {
-        expect(req.headers.store).to.equal(expectedStoreCode);
-        req.reply({
-            fixture: `${DATA_DIRECTORY}/homeRoute.json`
-        });
-    }).as('getMockHomeRoute');
+        const {headers, query} = req;
+        const url = JSON.parse(query.variables).url;
+
+        expect(headers.store).to.equal(expectedStoreCode);
+
+        switch (url) {
+            case '/':
+                req.alias = 'mockHomeRouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/homeRoute.json`
+                });
+                break;
+            case accessoriesPathname:
+                req.alias = 'mockAccessoriesRouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/default/accessoriesRoute.json`
+                });
+                break;
+            case subcategoryAPathname:
+                req.alias = 'mockSubcategoryARouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/subcategoryARoute.json`
+                });
+                break;
+            case subcategoryBPathname:
+                req.alias = 'mockSubcategoryBRouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/subcategoryBRoute.json`
+                });
+                break;
+        }
+    });
 
     // Requests for currency data
     cy.intercept('GET', getCurrencyDataCall, req => {
