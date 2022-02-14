@@ -115,6 +115,7 @@ const Image = props => {
 
         return (
             <figure
+                data-cy="PageBuilder-Image-root"
                 style={figureStyles}
                 className={[classes.root, ...cssClasses].join(' ')}
             >
@@ -129,6 +130,7 @@ const Image = props => {
     } else {
         return (
             <figure
+                data-cy="PageBuilder-Image-root"
                 style={figureStyles}
                 className={[classes.root, ...cssClasses].join(' ')}
             >
