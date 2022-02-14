@@ -2,19 +2,23 @@
   "data": {
     "cart": {
       "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+      "total_quantity": 4,
+      "prices": {
+        "subtotal_excluding_tax": {
+          "currency": "USD",
+          "value": 312,
+          "__typename": "Money"
+        },
+        "__typename": "CartPrices"
+      },
       "items": [
         {
           "uid": "MTI5MDUw",
           "product": {
             "uid": "NA==",
             "name": "Augusta Necklace",
-            "sku": "VA14-SI-NA",
             "url_key": "augusta-necklace",
             "thumbnail": {
-              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
-              "__typename": "ProductImage"
-            },
-            "small_image": {
               "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
               "__typename": "ProductImage"
             },
@@ -30,7 +34,6 @@
             "__typename": "CartItemPrices"
           },
           "quantity": 1,
-          "errors": null,
           "__typename": "SimpleCartItem"
         },
         {
@@ -38,13 +41,8 @@
           "product": {
             "uid": "Mw==",
             "name": "Carmina Necklace",
-            "sku": "VA13-GO-NA",
             "url_key": "carmina-necklace",
             "thumbnail": {
-              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va13-sg_main.jpg",
-              "__typename": "ProductImage"
-            },
-            "small_image": {
               "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va13-sg_main.jpg",
               "__typename": "ProductImage"
             },
@@ -60,7 +58,6 @@
             "__typename": "CartItemPrices"
           },
           "quantity": 1,
-          "errors": null,
           "__typename": "SimpleCartItem"
         },
         {
@@ -68,8 +65,13 @@
           "product": {
             "uid": "MTEyMA==",
             "name": "Carina Cardigan",
+            "sku": "VSW01",
             "url_key": "carina-cardigan",
             "thumbnail": {
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_2.jpg",
+              "__typename": "ProductImage"
+            },
+            "small_image": {
               "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_2.jpg",
               "__typename": "ProductImage"
             },
@@ -88,7 +90,7 @@
                 ],
                 "product": {
                   "uid": "Mzk4",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -109,7 +111,7 @@
                 ],
                 "product": {
                   "uid": "Mzk0",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -130,7 +132,7 @@
                 ],
                 "product": {
                   "uid": "Mzkw",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -151,7 +153,7 @@
                 ],
                 "product": {
                   "uid": "Mzg2",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -172,7 +174,7 @@
                 ],
                 "product": {
                   "uid": "Mzk3",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -193,7 +195,7 @@
                 ],
                 "product": {
                   "uid": "Mzkz",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -214,7 +216,7 @@
                 ],
                 "product": {
                   "uid": "Mzg5",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -235,7 +237,7 @@
                 ],
                 "product": {
                   "uid": "Mzg1",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -256,7 +258,7 @@
                 ],
                 "product": {
                   "uid": "Mzk5",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -277,7 +279,7 @@
                 ],
                 "product": {
                   "uid": "Mzk1",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -298,7 +300,7 @@
                 ],
                 "product": {
                   "uid": "Mzkx",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -319,7 +321,7 @@
                 ],
                 "product": {
                   "uid": "Mzg3",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -340,7 +342,7 @@
                 ],
                 "product": {
                   "uid": "NDAw",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -361,7 +363,7 @@
                 ],
                 "product": {
                   "uid": "Mzk2",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -382,7 +384,7 @@
                 ],
                 "product": {
                   "uid": "Mzky",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -403,7 +405,7 @@
                 ],
                 "product": {
                   "uid": "Mzg4",
-                  "thumbnail": {
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -423,8 +425,10 @@
             "__typename": "CartItemPrices"
           },
           "quantity": 1,
+          "errors": null,
           "configurable_options": [
             {
+              "id": 179,
               "configurable_product_option_uid": "Y29uZmlndXJhYmxlLzExMjAvMTc5",
               "option_label": "Fashion Color",
               "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzE3OS8yMQ==",
@@ -432,6 +436,7 @@
               "__typename": "SelectedConfigurableOption"
             },
             {
+              "id": 182,
               "configurable_product_option_uid": "Y29uZmlndXJhYmxlLzExMjAvMTgy",
               "option_label": "Fashion Size",
               "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
@@ -446,13 +451,8 @@
           "product": {
             "uid": "MQ==",
             "name": "Carmina Earrings",
-            "sku": "VA11-GO-NA",
             "url_key": "carmina-earrings",
             "thumbnail": {
-              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va11-sg_main.jpg",
-              "__typename": "ProductImage"
-            },
-            "small_image": {
               "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va11-sg_main.jpg",
               "__typename": "ProductImage"
             },
@@ -468,7 +468,6 @@
             "__typename": "CartItemPrices"
           },
           "quantity": 1,
-          "errors": null,
           "__typename": "SimpleCartItem"
         }
       ],

@@ -24,6 +24,9 @@ export const getCartDetailsCall = '**/graphql?query=query+GetCartDetails*';
 
 export const getCategoriesCall = '**/graphql?query=query+GetCategories*';
 
+export const getCategoryAvailableSortMethodsCall =
+    '**/graphql?query=query+getCategoryAvailableSortMethods*';
+
 export const getCategoryDataCall = '**/graphql?query=query+getCategoryData*';
 
 export const getCheckoutDetailsCall =

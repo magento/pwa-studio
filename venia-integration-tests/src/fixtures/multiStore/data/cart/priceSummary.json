@@ -14,6 +14,11 @@
           "__typename": "SimpleCartItem"
         },
         {
+          "uid": "NDEzNg==",
+          "quantity": 1,
+          "__typename": "ConfigurableCartItem"
+        },
+        {
           "uid": "MTI5MDU4",
           "quantity": 1,
           "__typename": "SimpleCartItem"
@@ -27,12 +32,12 @@
         "discounts": null,
         "grand_total": {
           "currency": "USD",
-          "value": 234,
+          "value": 312,
           "__typename": "Money"
         },
         "subtotal_excluding_tax": {
           "currency": "USD",
-          "value": 234,
+          "value": 312,
           "__typename": "Money"
         },
         "gift_options": {
