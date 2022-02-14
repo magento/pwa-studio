@@ -40,7 +40,8 @@ export const triggerSearch = () => {
  * @param {Boolean} [submitForm] submit form
  */
 export const searchFromSearchBar = (searchString, submitForm = true) => {
-    cy.get(searchBarSearchField)
+		cy.wait(6000)
+    .get(searchBarSearchField)
         .clear()
         .type(searchString);
 

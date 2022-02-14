@@ -112,6 +112,7 @@ export const assertProductIsInProductSuggestion = (
     productName,
     productHref
 ) => {
+		cy.wait(4000);
     cy.get(searchBarSuggestedProduct).should('contain', productName);
     cy.get(searchBarSuggestedProduct)
         .invoke('attr', 'href')
