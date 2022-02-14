@@ -1,5 +1,4 @@
-
 export const checkServiceWorker = () => {
-	const serviceWorkerStatus = navigator?.serviceWorker?.controller?.state;
-	return serviceWorkerStatus;
+    const serviceWorkerStatus = navigator?.serviceWorker?.controller?.state;
+    return serviceWorkerStatus;
 };
