@@ -9,10 +9,9 @@
 
 @media (min-width: 960px) {
     .root {
-        grid-template-columns: minmax(9rem, 1fr) minmax(9rem, 1fr) minmax(
-                9rem,
-                1fr
-            ) 16rem 2fr 3rem;
+        grid-template-columns:
+            minmax(9rem, 1fr) minmax(9rem, 1fr) minmax(9rem, 1fr)
+            16rem 2fr 3rem;
     }
 }
 
