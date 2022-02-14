@@ -26,10 +26,6 @@ jest.mock('@magento/peregrine/lib/hooks/useGoogleReCaptcha', () => ({
     })
 }));
 
-jest.mock('../resetPassword.gql', () => ({
-    resetPasswordMutation: 'resetPasswordMutation'
-}));
-
 const Component = props => {
     const talonProps = useResetPassword(props);
 
@@ -53,7 +49,11 @@ const getTalonProps = props => {
 };
 
 test('should render properly', () => {
-    const { talonProps } = getTalonProps();
+    const { talonProps } = getTalonProps({
+        mutations: {
+            resetPasswordMutation: 'resetPasswordMutation'
+        }
+    });
 
     expect(talonProps).toMatchSnapshot();
 });
@@ -67,7 +67,11 @@ test('should set hasCompleted to true if submission is successful', async () => 
             error: null
         }
     ]);
-    const { talonProps, update } = getTalonProps();
+    const { talonProps, update } = getTalonProps({
+        mutations: {
+            resetPasswordMutation: 'resetPasswordMutation'
+        }
+    });
 
     await talonProps.handleSubmit({
         email: 'gooseton@adobe.com',
@@ -94,7 +98,11 @@ test('should set hasCompleted to false if submission is not successful', async (
             error: null
         }
     ]);
-    const { talonProps, update } = getTalonProps();
+    const { talonProps, update } = getTalonProps({
+        mutations: {
+            resetPasswordMutation: 'resetPasswordMutation'
+        }
+    });
 
     await talonProps.handleSubmit({
         email: 'gooseton@adobe.com',
@@ -118,7 +126,11 @@ test('should not run mutation if token is missing', async () => {
             error: null
         }
     ]);
-    const { talonProps, update } = getTalonProps();
+    const { talonProps, update } = getTalonProps({
+        mutations: {
+            resetPasswordMutation: 'resetPasswordMutation'
+        }
+    });
 
     await talonProps.handleSubmit({
         email: 'gooseton@adobe.com',
