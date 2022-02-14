@@ -363,7 +363,7 @@ const interceptStoreRequests = expectedStoreCode => {
 
     // Requests for data about the homepage route
     cy.intercept('GET', getRouteDataCall, req => {
-        const {headers, query} = req;
+        const { headers, query } = req;
         const url = JSON.parse(query.variables).url;
 
         expect(headers.store).to.equal(expectedStoreCode);
