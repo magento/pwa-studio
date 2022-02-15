@@ -3,7 +3,8 @@
  */
 export const defaultStore = {
     defaultView: {
-        storeCode: 'default'
+        storeCode: 'default',
+        storeName: 'Default Store View'
     },
     viewOne: {
         storeCode: 'view_1',

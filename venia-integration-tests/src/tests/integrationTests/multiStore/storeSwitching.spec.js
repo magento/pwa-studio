@@ -144,23 +144,10 @@ const getInterceptHandler = (filename, expectedStoreCode) => {
 const getCartFixtureData = (items, expectedStoreCode) => {
     return req => {
         expect(req.headers.store).to.equal(expectedStoreCode);
-        switch (items) {
-            case 1:
-                req.reply({
-                    fixture: `${DATA_DIRECTORY}/cart/cart-1.json`
-                });
-                break;
-            case 2:
-                req.reply({
-                    fixture: `${DATA_DIRECTORY}/cart/cart-2.json`
-                });
-                break;
-            case 3:
-                req.reply({
-                    fixture: `${DATA_DIRECTORY}/cart/cart-3.json`
-                });
-                break;
-        }
+
+        req.reply({
+            fixture: `${DATA_DIRECTORY}/cart/cart-${items}.json`
+        });
     };
 };
 
@@ -594,51 +581,41 @@ const interceptRouteDataRequests = expectedStoreCode => {
 
         switch (url) {
             case '/':
-            case `/${defaultStore.viewOne.storeCode}`:
-            case `/${secondStore.viewOne.storeCode}`:
                 req.alias = 'mockHomeRouteData';
                 req.reply({
                     fixture: `${DATA_DIRECTORY}/homeRoute.json`
                 });
                 break;
-            case `/${defaultStore.viewOne}${defaultStore.accessoriesPathname}`:
-            case `/${defaultStore.viewOne.storeCode}${
-                defaultStore.accessoriesPathname
-            }`:
             case defaultStore.accessoriesPathname:
                 req.alias = 'mockAccessoriesRouteData';
                 req.reply({
                     fixture: `${DATA_DIRECTORY}/default/accessoriesRoute.json`
                 });
                 break;
-            case `/${defaultStore.viewOne}${defaultStore.topsPathname}`:
-            case `/${defaultStore.viewOne.storeCode}${
-                defaultStore.topsPathname
-            }`:
             case defaultStore.topsPathname:
                 req.alias = 'mockTopsRouteData';
                 req.reply({
                     fixture: `${DATA_DIRECTORY}/default/topsRoute.json`
                 });
                 break;
-            case `/${defaultStore.viewOne}${defaultStore.product1Pathname}`:
-            case `/${defaultStore.viewOne.storeCode}${
-                defaultStore.product1Pathname
-            }`:
             case defaultStore.product1Pathname:
                 req.alias = 'mockProduct1RouteData';
                 req.reply({
                     fixture: `${DATA_DIRECTORY}/default/product1Route.json`
                 });
                 break;
-            case `/${secondStore.viewOne.storeCode}${subcategoryAPathname}`:
+            case secondStore.accessoriesPathname:
+                req.alias = 'getMockAccessoriesRouteData';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/accessoriesRoute.json`
+                });
+                break;
             case subcategoryAPathname:
                 req.alias = 'mockSubcategoryARouteData';
                 req.reply({
                     fixture: `${DATA_DIRECTORY}/storeB/subcategoryARoute.json`
                 });
                 break;
-            case `/${secondStore.viewOne.storeCode}${subcategoryBPathname}`:
             case subcategoryBPathname:
                 req.alias = 'mockSubcategoryBRouteData';
                 req.reply({
@@ -712,7 +689,7 @@ describe('default store', () => {
         // Navigate to the accessories category
         selectCategoryFromMegaMenu(defaultStore.categories[3]);
 
-        cy.wait('@getMockAccessoriesCategory');
+        cy.wait('@getMockCategories');
 
         assertUrlSuffix();
         assertProductsFound();
@@ -978,26 +955,6 @@ describe('shopping cart', () => {
 
         interceptCartDataRequests(3, secondStore.viewOne.storeCode);
 
-        cy.intercept('GET', resolveUrlCall, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-
-            const reqUrl = new URL(req.url);
-            const url = JSON.parse(reqUrl.searchParams.get('variables')).url;
-
-            if (
-                url === secondStore.accessoriesPathname ||
-                url ===
-                    `/${secondStore.viewOne.storeCode}${
-                        secondStore.accessoriesPathname
-                    }`
-            ) {
-                req.alias = 'getMockAccessoriesRouteData';
-                req.reply({
-                    fixture: `${DATA_DIRECTORY}/storeB/accessoriesRoute.json`
-                });
-            }
-        });
-
         toggleHeaderStoreSwitcher();
 
         selectStoreView(
@@ -1029,7 +986,7 @@ describe('shopping cart', () => {
 
         cy.wait(['@mockAddItemToCart4']);
 
-        // Make sure we have 3 products added to cart
+        // Make sure we have 4 products added to cart
         assertCartTriggerCount(4);
         assertProductInList(subcategoryAProducts[1]);
 
@@ -1047,5 +1004,19 @@ describe('shopping cart', () => {
         assertProductInCartPage(defaultAccessoriesProducts[2]);
         assertProductInCartPage(defaultTopsProducts[0]);
         assertProductInCartPage(subcategoryAProducts[1]);
+
+        // Visit back View 1 from default store and validate store config
+        interceptStoreRequests(defaultStore.defaultView.storeCode);
+        interceptRouteDataRequests(defaultStore.defaultView.storeCode);
+        interceptCartDataRequests(4, defaultStore.defaultView.storeCode);
+        interceptCartPageRequests(defaultStore.defaultView.storeCode);
+
+        toggleHeaderStoreSwitcher();
+
+        selectStoreView(
+            `${defaultStore.groupName} - ${defaultStore.defaultView.storeName}`
+        );
+
+        cy.wait(['@getMockProductListing']);
     });
 });
