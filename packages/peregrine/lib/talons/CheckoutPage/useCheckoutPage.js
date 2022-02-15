@@ -6,6 +6,8 @@ import {
     useQuery
 } from '@apollo/client';
 
+import { useHistory } from 'react-router-dom';
+
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
@@ -64,6 +66,7 @@ export const CHECKOUT_STEP = {
  * }
  */
 export const useCheckoutPage = (props = {}) => {
+    const history = useHistory();
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const {
@@ -276,6 +279,15 @@ export const useCheckoutPage = (props = {}) => {
         removeCart,
         isPlacingOrder
     ]);
+
+    useEffect(() => {
+        if (orderDetailsData && placeOrderData) {
+            history.push('/order-confirmation', {
+                data: orderDetailsData,
+                orderNumber: placeOrderData.placeOrder.order.order_number
+            });
+        }
+    }, [orderDetailsData, placeOrderData]);
 
     return {
         activeContent,

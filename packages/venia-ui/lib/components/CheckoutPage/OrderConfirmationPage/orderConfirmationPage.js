@@ -3,6 +3,8 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { object, shape, string } from 'prop-types';
 import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
+import { useLocation } from 'react-router-dom';
+
 import { useStyle } from '../../../classify';
 import { StoreTitle } from '../../../components/Head';
 import CreateAccount from './createAccount';
@@ -11,11 +13,13 @@ import defaultClasses from './orderConfirmationPage.module.css';
 
 const OrderConfirmationPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { data, orderNumber } = props;
+    const location = useLocation();
+    const { data, orderNumber } = location.state;
     const { formatMessage } = useIntl();
 
     const talonProps = useOrderConfirmationPage({
-        data
+        data,
+        orderNumber
     });
 
     const { flatData, isSignedIn } = talonProps;

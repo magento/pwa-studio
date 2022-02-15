@@ -24,7 +24,7 @@ export const flatten = data => {
 };
 
 export const useOrderConfirmationPage = props => {
-    const { data } = props;
+    const { data, orderNumber } = props;
     const [{ isSignedIn }] = useUserContext();
 
     return {
