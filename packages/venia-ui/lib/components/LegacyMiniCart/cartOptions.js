@@ -9,7 +9,6 @@ import { useCartOptions } from '@magento/peregrine/lib/talons/LegacyMiniCart/use
 import { useStyle } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
-import Quantity from '../ProductQuantity';
 import {
     ADD_CONFIGURABLE_MUTATION,
     ADD_SIMPLE_MUTATION
@@ -50,11 +49,9 @@ const CartOptions = props => {
     const {
         itemName,
         itemPrice,
-        initialQuantity,
         handleCancel,
         handleSelectionChange,
         handleUpdate,
-        handleValueChange,
         isUpdateDisabled
     } = talonProps;
 
@@ -86,10 +83,6 @@ const CartOptions = props => {
                     <h2 className={classes.quantityTitle}>
                         <span>{QUANTITY_TITLE}</span>
                     </h2>
-                    <Quantity
-                        initialValue={initialQuantity}
-                        onValueChange={handleValueChange}
-                    />
                 </section>
             </div>
             <div className={classes.save}>

@@ -21,11 +21,6 @@ exports[`it renders the correct tree 1`] = `
           Quantity
         </span>
       </h2>
-      <Quantity
-        initialValue={99}
-        onValueChange={[Function]}
-        selectLabel="product's quantity"
-      />
     </section>
   </div>
   <div>
