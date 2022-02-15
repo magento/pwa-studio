@@ -11,6 +11,7 @@ export default node => {
     }
 
     return {
+        minHeight: widgetBlock.style.minHeight || null,
         displayInline: widgetBlock
             .getAttribute('class')
             .includes('block-banners-inline'),
