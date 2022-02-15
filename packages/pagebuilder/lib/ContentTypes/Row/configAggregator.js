@@ -2,7 +2,8 @@ import {
     getAdvanced,
     getBackgroundImages,
     getVerticalAlignment,
-    getIsHidden
+    getIsHidden,
+    getMediaQueries
 } from '../../utils';
 
 export default (node, props) => {
@@ -35,6 +36,7 @@ export default (node, props) => {
             dataNode.getAttribute('data-video-lazy-load') === 'true',
         videoOverlayColor: videoOverlayColor || null,
         ...getAdvanced(dataNode),
-        ...getIsHidden(node)
+        ...getIsHidden(node),
+        ...getMediaQueries(dataNode)
     };
 };

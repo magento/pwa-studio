@@ -1,0 +1,15 @@
+{
+  "data": {
+    "cmsPage": {
+      "url_key": "home",
+      "content": "<style>#html-body [data-pb-style=EU9Q11C],#html-body [data-pb-style=J7T0QL5]{justify-content:flex-start;display:flex;flex-direction:column;background-color:#8400fe;background-position:left top;background-size:cover;background-repeat:no-repeat;background-attachment:scroll;width:50%;align-self:stretch}#html-body [data-pb-style=J7T0QL5]{background-color:#0000fe;min-height:300px}@media only screen and (max-width: 768px) { #html-body [data-pb-style=EU9Q11C],#html-body [data-pb-style=J7T0QL5]{display:flex;flex-direction:column;align-self:stretch;min-height:500px}#html-body [data-pb-style=J7T0QL5]{min-height:200px} }<\/style><div class=\"pagebuilder-column-group\" style=\"display: flex;\" data-content-type=\"column-group\" data-grid-size=\"12\" data-element=\"main\"><div class=\"pagebuilder-column\" data-content-type=\"column\" data-appearance=\"full-height\" data-background-images=\"{}\" data-element=\"main\" data-pb-style=\"EU9Q11C\"><div data-content-type=\"text\" data-appearance=\"default\" data-element=\"main\"><p><span style=\"color: #ffffff;\">Media query column (min-height 500px)<\/span><\/p><\/div><\/div><div class=\"pagebuilder-column\" data-content-type=\"column\" data-appearance=\"full-height\" data-background-images=\"{}\" data-element=\"main\" data-pb-style=\"J7T0QL5\"><div data-content-type=\"text\" data-appearance=\"default\" data-element=\"main\"><p><span style=\"color: #ffffff;\">Media query column (min-height 200px)<\/span><\/p><\/div><\/div><\/div>",
+      "content_heading": "",
+      "title": "PWA-1471 Verify Column media query",
+      "page_layout": "cms-full-width",
+      "meta_title": "",
+      "meta_keywords": "",
+      "meta_description": "",
+      "__typename": "CmsPage"
+    }
+  }
+}

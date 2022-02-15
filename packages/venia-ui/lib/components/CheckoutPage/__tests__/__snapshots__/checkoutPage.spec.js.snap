@@ -253,7 +253,7 @@ exports[`CheckoutPage renders an error and disables review order button if there
       </span>
     </button>
     <div
-      className="summaryContainer"
+      className="summaryContainer signInContainerVisible"
     >
       <OrderSummary
         isUpdating={true}
@@ -596,7 +596,7 @@ exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
       </h3>
     </div>
     <div
-      className="summaryContainer"
+      className="summaryContainer signInContainerVisible"
     >
       <OrderSummary
         isUpdating={false}
@@ -739,7 +739,7 @@ exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
       </h3>
     </div>
     <div
-      className="summaryContainer"
+      className="summaryContainer signInContainerVisible"
     >
       <OrderSummary
         isUpdating={false}

@@ -250,7 +250,8 @@ const jestConfig = {
                 inPackage('scripts/shim.js'),
                 // Always mock `fetch` instead of doing real network calls
                 inPackage('scripts/fetch-mock.js'),
-                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
+                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js'),
+                inPackage('scripts/matchMedia.js')
             ],
             // Give jsdom a real URL for router testing.
             testURL: 'http://localhost/'

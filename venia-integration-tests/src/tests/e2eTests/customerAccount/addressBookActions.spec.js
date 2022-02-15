@@ -70,7 +70,8 @@ describe('PWA-1421: verify customer account address book actions', () => {
             accountEmail,
             accountPassword
         );
-
+        // Needed to avoid intermittent call being made before cypress even starts waiting for it
+        cy.wait(1000);
         cy.wait(
             ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
             {
