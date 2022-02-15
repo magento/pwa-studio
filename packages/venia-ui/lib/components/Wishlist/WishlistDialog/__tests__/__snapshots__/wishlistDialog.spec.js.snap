@@ -41,7 +41,12 @@ exports[`renders existing wishlists 1`] = `
           onClick={[Function]}
           type="button"
         >
-          "Scott's Wishlist"
+          <h2
+            className="lineItemName"
+            title="\\"Scott's Wishlist\\""
+          >
+            "Scott's Wishlist"
+          </h2>
         </button>
       </li>
     </ul>
