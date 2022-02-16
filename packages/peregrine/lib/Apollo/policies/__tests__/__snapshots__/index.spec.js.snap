@@ -151,10 +151,7 @@ Object {
     },
   },
   "SelectedConfigurableOption": Object {
-    "keyFields": Array [
-      "configurable_product_option_uid",
-      "configurable_product_option_value_uid",
-    ],
+    "keyFields": [Function],
   },
   "SelectedPaymentMethod": Object {
     "keyFields": Array [
