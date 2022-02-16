@@ -72,6 +72,7 @@ const Item = props => {
                             ? configured_variant.thumbnail.url
                             : product.thumbnail.url
                     }
+                    data-cy="item-image"
                 />
             </Link>
             <Link

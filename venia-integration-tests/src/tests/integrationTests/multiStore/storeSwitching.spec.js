@@ -8,6 +8,12 @@ import {
 } from '../../../actions/miniCart';
 
 import {
+    addToCartFromProductPage,
+    setProductSizeOption,
+    setProductColorOption
+} from '../../../actions/productPage';
+
+import {
     selectStoreView,
     toggleHeaderStoreSwitcher
 } from '../../../actions/storeSwitcher';
@@ -30,7 +36,10 @@ import {
     assertCategoryInMegaMenu,
     assertNumberOfCategoriesInMegaMenu
 } from '../../../assertions/megaMenu';
-import { assertProductInList } from '../../../assertions/miniCart';
+import {
+    assertProductInList,
+    assertProductImageDisplayed
+} from '../../../assertions/miniCart';
 import { assertErrorInPage } from '../../../assertions/notFoundPage';
 
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
@@ -50,6 +59,7 @@ import {
     getRouteDataCall,
     getStoreConfigDataForGalleryEECall,
     getStoreConfigForBreadcrumbsCall,
+    getStoreConfigForGiftOptionsCall,
     getStoreConfigForCarouselEECall,
     getStoreConfigForCartPageCall,
     hitGraphqlPath,
@@ -296,6 +306,41 @@ const interceptCategoryBPageRequests = expectedStoreCode => {
     }).as('getMockFilterInputs');
 };
 
+const interceptProductPageRequests = expectedStoreCode => {
+    cy.intercept(
+        'GET',
+        '**/graphql?query=query+getProductDetailForProductPage*',
+        req => {
+            expect(req.headers.store).to.equal(expectedStoreCode);
+            req.reply({
+                fixture: `${DATA_DIRECTORY}/storeB/productDetailScarf.json`
+            });
+        }
+    ).as('getProductDetailForProductPage');
+
+    cy.intercept(
+        'GET',
+        '**/graphql?query=query+getCategoryAvailableSortMethods*',
+        req => {
+            expect(req.headers.store).to.equal(expectedStoreCode);
+            req.reply({
+                fixture: `${DATA_DIRECTORY}/storeB/categorySortMethods.json`
+            });
+        }
+    ).as('getCategoryAvailableSortMethods');
+
+    cy.intercept(
+        'GET',
+        '**/graphql?query=query+GetWishlistConfigForProductEE*',
+        req => {
+            expect(req.headers.store).to.equal(expectedStoreCode);
+            req.reply({
+                fixture: `${DATA_DIRECTORY}/storeB/wishlistConfig.json`
+            });
+        }
+    ).as('getCategoryAvailableSortMethods');
+};
+
 /**
  * Setup network intercepts that return mocked data for requests
  * specific to the Cart page
@@ -491,6 +536,10 @@ const interceptStoreRequests = expectedStoreCode => {
         {
             alias: 'getMockRootCategoryId',
             call: getRootCategoryIdCall
+        },
+        {
+            alias: 'getMockStoreConfigForGiftOptions',
+            call: getStoreConfigForGiftOptionsCall
         }
     ];
     storeConfigRequests.forEach(request => {
@@ -542,6 +591,24 @@ const interceptRouteDataRequests = expectedStoreCode => {
                 req.alias = 'mockSubcategoryBRouteData';
                 req.reply({
                     fixture: `${DATA_DIRECTORY}/storeB/subcategoryBRoute.json`
+                });
+                break;
+        }
+    });
+};
+
+const interceptProductRouteDataRequests = expectedStoreCode => {
+    cy.intercept('GET', resolveUrlCall, req => {
+        expect(req.headers.store).to.equal(expectedStoreCode);
+
+        const url = new URL(req.headers.referer);
+
+        switch (url.pathname) {
+            case `/${secondStore.viewOne.storeCode}${subcategoryAPathname}`:
+            case subcategoryAPathname:
+                req.alias = 'mockProductScarfRouteData';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/productScarfRoute.json`
                 });
                 break;
         }
@@ -837,12 +904,17 @@ describe('shopping cart', () => {
 
         interceptCartDataRequests(3, secondStore.viewOne.storeCode);
 
+        interceptProductRouteDataRequests(secondStore.viewOne.storeCode);
+        interceptProductPageRequests(secondStore.viewOne.storeCode);
+
         // Add third item to cart
         assertProductsFound();
         addProductToCartFromCategoryPage(subcategoryAProducts[1]);
+        setProductColorOption('Khaki');
+        setProductSizeOption('M');
+        addToCartFromProductPage();
 
         cy.wait(['@mockAddItemToCart3']);
-
         // Make sure we have 3 products added to cart
         assertCartTriggerCount(3);
         assertProductInList(subcategoryAProducts[1]);
@@ -850,8 +922,15 @@ describe('shopping cart', () => {
         // Setup mock network responses for the cart page
         interceptCartPageRequests(secondStore.viewOne.storeCode);
 
-        // Navigate to the cart page
+        // Open MiniCart
         triggerMiniCart();
+
+        // Assert correct product image urls
+        assertProductImageDisplayed('va14-ts_main', 0);
+        assertProductImageDisplayed('va13-sg_main', 1);
+        assertProductImageDisplayed('va03-kh_main_1', 2);
+
+        // Navigate to the cart page
         goToCartPageFromEditCartButton();
 
         cy.wait(['@getMockProductListing']);
