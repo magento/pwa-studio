@@ -4,7 +4,6 @@ import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import Button from '../../Button';
-import LoadingIndicator from '../../LoadingIndicator';
 import SignIn from '../signIn';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useMutation } from '@apollo/client';
@@ -17,7 +16,12 @@ jest.mock('@apollo/client', () => ({
         {
             error: null
         }
-    ])
+    ]),
+    useQuery: jest.fn().mockImplementation(() => ({
+        data: {},
+        error: null,
+        loading: false
+    }))
 }));
 jest.mock('../../../classify');
 jest.mock('../../Button', () => () => <i />);
@@ -65,30 +69,17 @@ const props = {
     showForgotPassword: jest.fn(),
     signIn: jest.fn(),
     hasError: false,
-    isSigningIn: false
+    isSigningIn: false,
+    recaptchaWidgetProps: {
+        containerElement: jest.fn(),
+        shouldRender: false
+    }
 };
 
 test('renders correctly', () => {
     const component = createTestInstance(<SignIn {...props} />);
 
     expect(component.toJSON()).toMatchSnapshot();
-});
-
-test('renders the loading indicator when form is submitting', () => {
-    const [userState, userApi] = useUserContext();
-    useUserContext.mockReturnValueOnce([
-        { ...userState, isGettingDetails: true },
-        userApi
-    ]);
-
-    const testProps = {
-        ...props
-    };
-    const { root } = createTestInstance(<SignIn {...testProps} />);
-
-    act(() => {
-        expect(root.findByType(LoadingIndicator)).toBeTruthy();
-    });
 });
 
 test('renders prefilled form with initial values', () => {

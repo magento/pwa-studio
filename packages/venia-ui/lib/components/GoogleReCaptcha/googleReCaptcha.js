@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, object, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
@@ -35,14 +35,14 @@ const GoogleReCaptcha = props => {
  * @property {Object} classes An object containing the class names for the
  * GoogleReCaptcha component.
  * @property {String} classes.root class for root container
- * @property {Object} containerElement Element reference
+ * @property {Function} containerElement Element callback ref
  * @property {Boolean} shouldRender Checks if component should be rendered
  */
 GoogleReCaptcha.propTypes = {
     classes: shape({
         root: string
     }),
-    containerElement: object.isRequired,
+    containerElement: func.isRequired,
     shouldRender: bool.isRequired
 };
 
