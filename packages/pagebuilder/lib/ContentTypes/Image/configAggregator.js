@@ -19,10 +19,10 @@ export default node => {
 
     const mobileImageSrc = () => {
         if (imageNode[1]) {
-            return imageNode[1].getAttribute('src');
+            return imageNode[1].getAttribute('data-src');
         }
         if (imageNode[0]) {
-            return imageNode[0].getAttribute('src');
+            return imageNode[0].getAttribute('data-src');
         }
         return null;
     };
@@ -30,7 +30,7 @@ export default node => {
     const props = {
         desktopImage:
             imageNode[0] && imageNode[1]
-                ? imageNode[0].getAttribute('src')
+                ? imageNode[0].getAttribute('data-src')
                 : null,
         mobileImage: mobileImageSrc(),
         altText: imageNode[0] ? imageNode[0].getAttribute('alt') : null,
