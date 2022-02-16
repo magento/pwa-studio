@@ -25,6 +25,11 @@ export const productIsadoraSkirt = {
     url: '/isadora-skirt.html'
 };
 
+export const productAngelinaTankDress = {
+    name: 'Angelina Tank Dress',
+    url: '/angelina-tank-dress.html'
+};
+
 /**
  * Sample simple product
  */

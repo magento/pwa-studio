@@ -18,6 +18,7 @@
 .heading_container {
     display: grid;
     row-gap: 1rem;
+    grid-column: 1 / span 1;
 }
 
 .heading {
@@ -46,6 +47,7 @@
 }
 
 .signInContainer {
+    grid-row-start: 1;
     align-items: center;
     border: 2px solid rgb(var(--venia-global-color-gray-400));
     border-radius: 0.375rem;
@@ -113,6 +115,9 @@
         top: 5.5rem;
         height: min-content;
     }
+    .signInContainerVisible {
+        grid-row: 1 / span 3;
+    }
 }
 
 .review_order_button {
@@ -144,7 +149,6 @@
     }
 
     .signInContainer {
-        grid-row-start: 1;
         grid-auto-flow: row;
         justify-items: center;
         margin-bottom: 1rem;

@@ -136,6 +136,15 @@ export const assertActiveSortItem = sortLabel => {
 };
 
 /**
+ * Assert Sort Item not available from list
+ *
+ * @param {String} sortLabel product name
+ */
+export const assertNotAvailableSortItem = sortLabel => {
+    cy.get(productSortSortItem).should('not.contain', sortLabel);
+};
+
+/**
  * Utility function to assert CategoryPage text is in correct language (french or english)
  * @param {String} language -- language to validate (ISO639 codes only, eg. "fra,eng")
  */

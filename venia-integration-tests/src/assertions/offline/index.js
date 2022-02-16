@@ -1,17 +1,19 @@
 export const assertOffline = () => {
     return cy
-        .wrap(window)
+        .window()
         .its('navigator.onLine')
         .should('be.false');
 };
 
 export const assertOnline = () => {
     return cy
-        .wrap(window)
+        .window()
         .its('navigator.onLine')
         .should('be.true');
 };
 
 export const assertServiceWorkerIsActivated = activeStatus => {
-    expect(activeStatus).to.equal('activated');
+    const active =
+        activeStatus === 'activating' || activeStatus === 'activated';
+    expect(active).to.be.true;
 };

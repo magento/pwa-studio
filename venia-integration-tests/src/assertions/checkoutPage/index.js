@@ -215,6 +215,13 @@ export const assertSignInButtonExists = () => {
 };
 
 /**
+ * Utility function to assert if SignIn button is not present in CheckoutPage
+ */
+export const assertSignInButtonNotExist = () => {
+    cy.get(checkoutPageSignInButton).should('not.exist');
+};
+
+/**
  * Utility function to assert OrderSummary is present in CheckoutPage
  * @param {String} [shippingMethod]
  */

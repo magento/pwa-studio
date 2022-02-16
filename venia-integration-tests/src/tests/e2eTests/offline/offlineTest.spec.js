@@ -6,7 +6,7 @@ import {
 
 import {
     header as headerActions,
-    offline as offlineActions
+    categoryPage as categoryPageActions
 } from '../../../actions';
 
 import {
@@ -15,17 +15,16 @@ import {
     offline as offlineAssertions
 } from '../../../assertions';
 
-const {
-    categorySweaters,
-    productCarinaCardigan,
-    searchData
-} = categoryPageFixtures;
+const { categoryDresses, searchData } = categoryPageFixtures;
 
-const { carinaCardigan } = productPageFixtures;
+const {
+    selectCategoryFromMegaMenu,
+    selectProductFromCategoryPage
+} = categoryPageActions;
+
+const { productAngelinaTankDress } = productPageFixtures;
 
 const { triggerSearch, searchFromSearchBar } = headerActions;
-
-const { checkServiceWorker } = offlineActions;
 
 const {
     assertProductIsInProductSuggestion,
@@ -34,11 +33,7 @@ const {
 
 const { assertToastExists, assertToastMessage } = toastAssertions;
 
-const {
-    assertOffline,
-    assertOnline,
-    assertServiceWorkerIsActivated
-} = offlineAssertions;
+const { assertOffline, assertServiceWorkerIsActivated } = offlineAssertions;
 
 const {
     getCategoriesCall,
@@ -47,10 +42,19 @@ const {
     getProductFiltersBySearchCall,
     getProductSearchCall,
     getAutocompleteResultsCall,
-    getStoreConfigDataCall
+    getStoreConfigDataCall,
+    getCategoryDataCall
 } = graphqlMockedCallsFixtures;
 
 describe('PWA-1085: Verify cached pages are rendered correctly on offline mode', () => {
+    before(() => {
+        navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+            assertServiceWorkerIsActivated(
+                serviceWorkerRegistration?.active?.state
+            );
+        });
+    });
+
     it('user should be able to navigate on offline mode', () => {
         cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
 
@@ -60,6 +64,10 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
 
         cy.intercept('GET', getStoreConfigDataCall).as(
             'gqlGetStoreConfigDataQuery'
+        );
+
+        cy.intercept('GET', getCategoryDataCall).as(
+            'gqlGetCategoryDataCallQuery'
         );
 
         cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
@@ -83,12 +91,14 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
             timeout: 60000
         });
 
-        cy.visitHomePage().then(() => {
-            const status = checkServiceWorker();
-            assertServiceWorkerIsActivated(status);
-        });
+        // called to wait cache load properly
+        cy.wait(4000);
 
-        cy.visit(categorySweaters);
+        cy.visit(categoryDresses.url);
+
+        cy.wait(['@gqlGetCategoryDataCallQuery'], {
+            timeout: 60000
+        });
 
         cy.wait(['@gqlGetCategoriesQuery'], {
             timeout: 60000
@@ -98,6 +108,8 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
             timeout: 60000
         });
 
+        cy.wait(4000);
+
         triggerSearch();
         searchFromSearchBar(searchData.validSku1, false);
 
@@ -105,7 +117,7 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
             timeout: 60000
         });
 
-        cy.visit(categorySweaters);
+        cy.visit(categoryDresses.url);
         cy.wait(4000);
 
         cy.wait(['@gqlGetCategoriesQuery'], {
@@ -128,80 +140,40 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
             searchData.validProductHref1
         );
 
-        assertProductIsInGallery(productCarinaCardigan);
+        assertProductIsInGallery(productAngelinaTankDress.name);
 
-        cy.visit(carinaCardigan.url);
-        cy.wait(4000);
+        cy.visit(productAngelinaTankDress.url);
+
         cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
             timeout: 60000
         });
+        cy.wait(4000);
 
         cy.visitHomePage();
 
         cy.goOffline();
+
         assertOffline();
 
         assertToastExists();
 
-        cy.goOnline();
-        assertOnline();
-
-        cy.goOffline();
-        assertOffline();
         assertToastMessage(
             'You are offline. Some features may be unavailable.'
         );
 
-        cy.goOnline();
-        assertOnline();
-        cy.goOffline();
-        assertOffline();
+        selectCategoryFromMegaMenu(categoryDresses.name);
 
-        cy.goOnline();
-        assertOnline();
-
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
-
-        cy.goOffline();
-        assertOffline();
-        cy.visit(categorySweaters);
+        selectProductFromCategoryPage(productAngelinaTankDress.name);
 
         triggerSearch();
 
-        cy.goOnline();
-        assertOnline();
-
-        cy.goOffline();
-        assertOffline();
         searchFromSearchBar(searchData.validSku1, false);
 
         cy.wait(4000);
 
-        cy.goOnline();
-        assertOnline();
-
-        cy.goOffline();
-        assertOffline();
         assertProductIsInProductSuggestion(
             searchData.validProductName1,
             searchData.validProductHref1
         );
-
-        cy.goOnline();
-        assertOnline();
-        cy.goOffline();
-        assertOffline();
-        assertProductIsInGallery(productCarinaCardigan);
-
-        cy.goOnline();
-        assertOnline();
-        cy.goOffline();
-        assertOffline();
-        cy.visit(carinaCardigan.url);
-
-        cy.goOnline();
-        assertOnline();
     });
 });
