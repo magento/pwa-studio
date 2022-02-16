@@ -1,0 +1,15 @@
+{
+  "data": {
+    "cmsPage": {
+      "url_key": "home",
+      "content": "<style>#html-body [data-pb-style=HQ3TIKJ]{justify-content:flex-start;display:flex;flex-direction:column;background-color:#0000fe;background-position:left top;background-size:cover;background-repeat:no-repeat;background-attachment:scroll;border-style:none;border-color:#000;border-width:5px;min-height:300px;margin-top:50px}@media only screen and (max-width: 768px) { #html-body [data-pb-style=HQ3TIKJ]{display:flex;flex-direction:column;min-height:150px} }<\/style><div data-content-type=\"row\" data-appearance=\"contained\" data-element=\"main\"><div data-enable-parallax=\"0\" data-parallax-speed=\"0.5\" data-background-images=\"{}\" data-background-type=\"image\" data-video-loop=\"true\" data-video-play-only-visible=\"true\" data-video-lazy-load=\"true\" data-video-fallback-src=\"\" data-element=\"inner\" data-pb-style=\"HQ3TIKJ\"><div data-content-type=\"text\" data-appearance=\"default\" data-element=\"main\"><p><span style=\"font-size: 20px; color: #ffffff;\">Media query row (min-height 150px)<\/span><\/p><\/div><\/div><\/div>",
+      "content_heading": "",
+      "title": "PWA-1471 Verify Row media query",
+      "page_layout": "1column",
+      "meta_title": "",
+      "meta_keywords": "",
+      "meta_description": "",
+      "__typename": "CmsPage"
+    }
+  }
+}

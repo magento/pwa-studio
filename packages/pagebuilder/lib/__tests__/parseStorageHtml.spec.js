@@ -75,3 +75,38 @@ test('convert to inline styles', () => {
     getElementsByTagNameSpy.mockRestore();
     setAttributeSpy.mockRestore();
 });
+
+test('saves media query styles into data attributes', () => {
+    const styleSheet = new CSSStyleSheet();
+    styleSheet.insertRule(
+        '#html-body [data-pb-style=D119W07] { color: transparent }',
+        0
+    );
+    styleSheet.insertRule(
+        '@media only screen and (max-width: 768px) { #html-body [data-pb-style=D119W07] { min-height: 100px }}',
+        1
+    );
+    const getElementsByTagNameSpy = jest
+        .spyOn(Document.prototype, 'getElementsByTagName')
+        .mockReturnValueOnce([
+            {
+                sheet: styleSheet
+            }
+        ]);
+    const setAttributeSpy = jest
+        .spyOn(Element.prototype, 'setAttribute')
+        .mockImplementation();
+    parseStorageHtml(testMasterFormat);
+    expect(setAttributeSpy).toHaveBeenNthCalledWith(
+        1,
+        'data-media-0',
+        'only screen and (max-width: 768px)'
+    );
+    expect(setAttributeSpy).toHaveBeenNthCalledWith(
+        2,
+        'data-media-style-0',
+        'min-height: 100px;'
+    );
+    getElementsByTagNameSpy.mockRestore();
+    setAttributeSpy.mockRestore();
+});
