@@ -1,8 +1,17 @@
 import React, { Children } from 'react';
-import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
+import {
+    arrayOf,
+    bool,
+    number,
+    oneOf,
+    shape,
+    string,
+    object
+} from 'prop-types';
 import SlickSlider from 'react-slick';
 import defaultClasses from './slider.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
+import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 import { jarallax } from 'jarallax';
 
 /**
@@ -37,6 +46,7 @@ const Slider = props => {
         marginRight,
         marginBottom,
         marginLeft,
+        mediaQueries,
         paddingTop,
         paddingRight,
         paddingBottom,
@@ -44,6 +54,8 @@ const Slider = props => {
         cssClasses = [],
         children
     } = props;
+
+    const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
 
     const dynamicStyles = {
         minHeight,
@@ -101,7 +113,7 @@ const Slider = props => {
             aria-live="polite"
             aria-busy="false"
             className={[classes.root, ...cssClasses].join(' ')}
-            style={dynamicStyles}
+            style={{ ...dynamicStyles, ...mediaQueryStyles }}
         >
             <SlickSlider {...sliderSettings}>{children}</SlickSlider>
         </div>
@@ -135,6 +147,7 @@ const Slider = props => {
  * @property {String} marginRight CSS margin right property
  * @property {String} marginBottom CSS margin bottom property
  * @property {String} marginLeft CSS margin left property
+ * @property {Array} mediaQueries List of media query rules to be applied to the component
  * @property {String} paddingTop CSS padding top property
  * @property {String} paddingRight CSS padding right property
  * @property {String} paddingBottom CSS padding bottom property
@@ -166,6 +179,12 @@ Slider.propTypes = {
     marginRight: string,
     marginBottom: string,
     marginLeft: string,
+    mediaQueries: arrayOf(
+        shape({
+            media: string,
+            style: object
+        })
+    ),
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,
