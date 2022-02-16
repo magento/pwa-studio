@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
 
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import Shimmer from '@magento/venia-ui/lib/components/Shimmer/shimmer.js';
 import { useCmsPage } from '@magento/peregrine/lib/talons/Cms/useCmsPage';
 import RichContent from '../../components/RichContent';
 import { Meta, StoreTitle } from '../../components/Head';
@@ -18,7 +18,12 @@ const CMSPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     if (shouldShowLoadingIndicator) {
-        return fullPageLoadingIndicator;
+        // return shimmer for CMSPage;
+        return (
+            <div className={rootClassName} aria-live="polite" aria-busy="true">
+                <Shimmer width="100%" height="880px" />
+            </div>
+        );
     }
 
     const {
