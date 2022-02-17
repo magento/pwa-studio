@@ -5,6 +5,7 @@ import mergeOperations from '../../../util/shallowMerge';
 import { useUserContext } from '../../../context/user';
 import { useCartContext } from '../../../context/cart';
 import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
+import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 
 import DEFAULT_OPERATIONS from './createAccount.gql';
 
@@ -23,7 +24,8 @@ import DEFAULT_OPERATIONS from './createAccount.gql';
  *   errors: Map,
  *   handleSubmit: function,
  *   isDisabled: boolean,
- *   initialValues: object
+ *   initialValues: object,
+ *   recaptchaWidgetProps: { containerElement: function, shouldRender: boolean }
  * }}
  */
 export const useCreateAccount = props => {
@@ -62,10 +64,22 @@ export const useCreateAccount = props => {
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
+    const {
+        generateReCaptchaData,
+        recaptchaLoading,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_CREATE',
+        formAction: 'createAccount'
+    });
+
     const handleSubmit = useCallback(
         async formValues => {
             setIsSubmitting(true);
             try {
+                // Get reCaptchaV3 Data for createAccount mutation
+                const recaptchaDataForCreateAccount = await generateReCaptchaData();
+
                 // Create the account and then sign in.
                 await createAccount({
                     variables: {
@@ -74,13 +88,19 @@ export const useCreateAccount = props => {
                         lastname: formValues.customer.lastname,
                         password: formValues.password,
                         is_subscribed: !!formValues.subscribe
-                    }
+                    },
+                    ...recaptchaDataForCreateAccount
                 });
+
+                // Get reCaptchaV3 Data for signIn mutation
+                const recaptchaDataForSignIn = await generateReCaptchaData();
+
                 const signInResponse = await signIn({
                     variables: {
                         email: formValues.customer.email,
                         password: formValues.password
-                    }
+                    },
+                    ...recaptchaDataForSignIn
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
@@ -117,6 +137,7 @@ export const useCreateAccount = props => {
             fetchCartDetails,
             fetchCartId,
             fetchUserDetails,
+            generateReCaptchaData,
             getCartDetails,
             getUserDetails,
             onSubmit,
@@ -147,7 +168,8 @@ export const useCreateAccount = props => {
     return {
         errors,
         handleSubmit,
-        isDisabled: isSubmitting || isGettingDetails,
-        initialValues: sanitizedInitialValues
+        isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
+        initialValues: sanitizedInitialValues,
+        recaptchaWidgetProps
     };
 };

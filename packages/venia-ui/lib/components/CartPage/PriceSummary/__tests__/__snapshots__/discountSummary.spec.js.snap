@@ -1,14 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders "Discount applied" label if label data is empty 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Discounts applied
+  </span>,
+  <span
+    className="price"
+  >
+    -
+    <span>
+      $
+    </span>
+    <span>
+      1
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;
+
 exports[`renders accumulated discount value 1`] = `
 Array [
   <span
     className="lineItemLabel"
   >
-    <mock-FormattedMessage
-      defaultMessage="Discounts applied"
-      id="discountSummary.lineItemLabel"
-    />
+    Discounts applied
   </span>,
   <span
     className="price"
@@ -30,15 +54,39 @@ Array [
 ]
 `;
 
+exports[`renders discount label value from data  1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Rebate
+  </span>,
+  <span
+    className="price"
+  >
+    -
+    <span>
+      $
+    </span>
+    <span>
+      1
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;
+
 exports[`renders discount summary line item correctly 1`] = `
 Array [
   <span
     className="lineItemLabel"
   >
-    <mock-FormattedMessage
-      defaultMessage="Discounts applied"
-      id="discountSummary.lineItemLabel"
-    />
+    Special rebate
   </span>,
   <span
     className="price"

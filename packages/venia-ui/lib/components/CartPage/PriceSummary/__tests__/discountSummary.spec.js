@@ -15,7 +15,8 @@ const defaultProps = {
             amount: {
                 value: 10,
                 currency: 'USD'
-            }
+            },
+            label: 'Special rebate'
         }
     ]
 };
@@ -73,6 +74,41 @@ test('renders nothing if discount value is "0"', () => {
             {
                 amount: {
                     value: 0,
+                    currency: 'USD'
+                }
+            }
+        ]
+    };
+    const tree = createTestInstance(<DiscountSummary {...props} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders discount label value from data ', () => {
+    const props = {
+        ...defaultProps,
+        data: [
+            {
+                amount: {
+                    value: 1,
+                    currency: 'USD'
+                },
+                label: 'Rebate'
+            }
+        ]
+    };
+    const tree = createTestInstance(<DiscountSummary {...props} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders "Discount applied" label if label data is empty', () => {
+    const props = {
+        ...defaultProps,
+        data: [
+            {
+                amount: {
+                    value: 1,
                     currency: 'USD'
                 }
             }
