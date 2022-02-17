@@ -53,10 +53,14 @@ const ImageShimmer = props => {
         borderRadius
     };
 
-    if (window.matchMedia('(max-width: 48rem)').matches && mobileImage) {
+    if (
+        window.matchMedia('(max-width: 48rem)').matches &&
+        mobileImage &&
+        mobileImage.dimensions
+    ) {
         imageStyles.height = mobileImage.dimensions.height;
         imageStyles.width = mobileImage.dimensions.width;
-    } else if (desktopImage) {
+    } else if (desktopImage && desktopImage.dimensions) {
         imageStyles.height = desktopImage.dimensions.height;
         imageStyles.width = desktopImage.dimensions.width;
     } else {
