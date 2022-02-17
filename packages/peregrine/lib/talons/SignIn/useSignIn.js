@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
 import { useApolloClient, useMutation } from '@apollo/client';
 
+import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha/useGoogleReCaptcha';
 import mergeOperations from '../../util/shallowMerge';
 import { useCartContext } from '../../context/cart';
 import { useUserContext } from '../../context/user';
@@ -42,6 +43,15 @@ export const useSignIn = props => {
         fetchPolicy: 'no-cache'
     });
 
+    const {
+        generateReCaptchaData,
+        recaptchaLoading,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_LOGIN',
+        formAction: 'signIn'
+    });
+
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
@@ -57,9 +67,16 @@ export const useSignIn = props => {
                 // Get source cart id (guest cart id).
                 const sourceCartId = cartId;
 
+                // Get recaptchaV3 data for login
+                const recaptchaData = await generateReCaptchaData();
+
                 // Sign in and set the token.
                 const signInResponse = await signIn({
-                    variables: { email, password }
+                    variables: {
+                        email,
+                        password
+                    },
+                    ...recaptchaData
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
@@ -96,10 +113,11 @@ export const useSignIn = props => {
         },
         [
             cartId,
-            apolloClient,
-            removeCart,
+            generateReCaptchaData,
             signIn,
             setToken,
+            apolloClient,
+            removeCart,
             createCart,
             fetchCartId,
             mergeCarts,
@@ -144,7 +162,8 @@ export const useSignIn = props => {
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy: isGettingDetails || isSigningIn,
-        setFormApi
+        isBusy: isGettingDetails || isSigningIn || recaptchaLoading,
+        setFormApi,
+        recaptchaWidgetProps
     };
 };
