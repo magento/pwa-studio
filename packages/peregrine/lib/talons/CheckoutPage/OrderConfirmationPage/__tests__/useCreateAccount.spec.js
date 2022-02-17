@@ -121,6 +121,14 @@ useCartContext.mockImplementation(() => {
 jest.mock('../../../../hooks/useAwaitQuery');
 useAwaitQuery.mockImplementation(jest.fn());
 
+jest.mock('../../../../hooks/useGoogleReCaptcha', () => ({
+    useGoogleReCaptcha: jest.fn().mockReturnValue({
+        recaptchaLoading: false,
+        generateReCaptchaData: jest.fn(() => {}),
+        recaptchaWidgetProps: {}
+    })
+}));
+
 const handleSubmit = jest.fn();
 
 const initialProps = {

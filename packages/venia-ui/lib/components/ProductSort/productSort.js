@@ -47,11 +47,14 @@ const ProductSort = props => {
     // click event for menu items
     const handleItemClick = useCallback(
         sortAttribute => {
-            setSort({
-                sortText: sortAttribute.text,
-                sortId: sortAttribute.id,
-                sortAttribute: sortAttribute.attribute,
-                sortDirection: sortAttribute.sortDirection
+            setSort(prevSort => {
+                return {
+                    sortText: sortAttribute.text,
+                    sortId: sortAttribute.id,
+                    sortAttribute: sortAttribute.attribute,
+                    sortDirection: sortAttribute.sortDirection,
+                    sortFromSearch: prevSort.sortFromSearch
+                };
             });
             setExpanded(false);
         },
@@ -75,15 +78,6 @@ const ProductSort = props => {
                 sortDirection: 'DESC'
             },
             {
-                id: 'sortItem.position',
-                text: formatMessage({
-                    id: 'sortItem.position',
-                    defaultMessage: 'Position'
-                }),
-                attribute: 'position',
-                sortDirection: 'ASC'
-            },
-            {
                 id: 'sortItem.priceDesc',
                 text: formatMessage({
                     id: 'sortItem.priceDesc',
@@ -102,6 +96,19 @@ const ProductSort = props => {
                 sortDirection: 'ASC'
             }
         ];
+
+        // Do not display Position in Search
+        if (!currentSort.sortFromSearch) {
+            defaultSortMethods.push({
+                id: 'sortItem.position',
+                text: formatMessage({
+                    id: 'sortItem.position',
+                    defaultMessage: 'Position'
+                }),
+                attribute: 'position',
+                sortDirection: 'ASC'
+            });
+        }
 
         const allSortingMethods = sortMethodsFromConfig
             ? orderSortingList(
@@ -137,6 +144,7 @@ const ProductSort = props => {
         classes.menuItem,
         currentSort.sortAttribute,
         currentSort.sortDirection,
+        currentSort.sortFromSearch,
         expanded,
         formatMessage,
         handleItemClick,
