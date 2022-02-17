@@ -20,7 +20,7 @@ const CMSPage = props => {
     if (shouldShowLoadingIndicator) {
         // return shimmer for CMSPage;
         return (
-            <div className={rootClassName} aria-live="polite" aria-busy="true">
+            <div className={classes.root} aria-live="polite" aria-busy="true">
                 <Shimmer width="100%" height="880px" />
             </div>
         );

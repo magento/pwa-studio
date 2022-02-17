@@ -7,8 +7,6 @@ const RootShimmer = props => {
     const { type } = props;
 
     if (!type || typeof TYPES[type] === 'undefined') {
-        // Investigate why it still shows on CMSPages
-        // even when it was not called
         return fullPageLoadingIndicator;
     }
 
