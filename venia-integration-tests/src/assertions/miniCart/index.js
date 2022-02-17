@@ -9,7 +9,6 @@ import {
     miniCartCheckoutButton,
     miniCartEditCartButton,
     miniCartItemPrice,
-    miniCartProductImageLink,
     miniCartProductImage
 } from '../../fields/miniCart';
 
@@ -70,10 +69,9 @@ export const assertMiniCartProductHasCurrency = currency => {
  * @param {Number} index -- index of product in MiniCart
  */
 export const assertProductImageDisplayed = (src, index) => {
-    cy.get(miniCartProductImageLink)
+    cy.get(miniCartProductImage)
+        .filter(':odd')
         .eq(index)
-        .find(miniCartProductImage)
-        .eq(1)
         .should('have.attr', 'src')
         .should('contain', src);
 };
