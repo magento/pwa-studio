@@ -12,6 +12,7 @@ exports[`hides visibility toggle 1`] = `
     >
       <h2
         className="name"
+        title="Favorites List"
       >
         Favorites List
       </h2>
@@ -79,6 +80,7 @@ exports[`render closed with items 1`] = `
     >
       <h2
         className="name"
+        title="Favorites List"
       >
         Favorites List
       </h2>
@@ -146,6 +148,7 @@ exports[`render loading state 1`] = `
     >
       <h2
         className="name"
+        title="Favorites List"
       >
         Favorites List
       </h2>
@@ -289,6 +292,7 @@ exports[`render open with no items 1`] = `
     >
       <h2
         className="name"
+        title="Favorites List"
       >
         Favorites List
       </h2>
