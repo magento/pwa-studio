@@ -35,6 +35,10 @@ const defaultTalonProps = {
             firstname: 'Avatar',
             lastname: 'Aang'
         }
+    },
+    recaptchaWidgetProps: {
+        containerElement: jest.fn(),
+        shouldRender: false
     }
 };
 describe('CreateAccount', () => {
