@@ -250,7 +250,8 @@ const jestConfig = {
                 inPackage('scripts/shim.js'),
                 // Always mock `fetch` instead of doing real network calls
                 inPackage('scripts/fetch-mock.js'),
-                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
+                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js'),
+                inPackage('scripts/matchMedia.js')
             ],
             // Give jsdom a real URL for router testing.
             testURL: 'http://localhost/'
@@ -274,11 +275,6 @@ const jestConfig = {
                 path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
             ]
         })),
-        configureProject(
-            'extensions/venia-sample-virtual-products',
-            'Venia Virtual Products',
-            inPackage => testReactComponents(inPackage)
-        ),
         configureProject(
             'extensions/venia-sample-payments-checkmo',
             'Check Money Order Payment',

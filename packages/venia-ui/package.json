@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "9.1.0",
+  "version": "9.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/venia-ui#readme",
   "dependencies": {
     "informed": "~3.29.0",
     "jarallax": "~1.11.1",
@@ -79,8 +79,8 @@
   "peerDependencies": {
     "@apollo/client": "~3.4.0",
     "@magento/babel-preset-peregrine": "~1.2.0",
-    "@magento/peregrine": "~12.1.0",
-    "@magento/pwa-buildpack": "~11.0.0",
+    "@magento/peregrine": "~12.2.0",
+    "@magento/pwa-buildpack": "~11.1.0",
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.16.0",
     "graphql": "~15.5.0",

@@ -25,9 +25,7 @@ Object {
 exports[`returns correct shape 1`] = `
 Object {
   "editFavoritesListIsOpen": false,
-  "formErrors": Array [
-    false,
-  ],
+  "formErrors": Array [],
   "handleActionMenuClick": [Function],
   "handleEditWishlist": [Function],
   "handleHideDialogs": [Function],

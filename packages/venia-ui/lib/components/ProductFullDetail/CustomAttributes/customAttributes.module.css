@@ -1,0 +1,14 @@
+.root {
+    composes: mt-8 from global;
+}
+
+.title {
+    composes: font-semibold from global;
+}
+
+.list {
+    composes: list-disc from global;
+    composes: mb-4 from global;
+    composes: mt-4 from global;
+    composes: pl-6 from global;
+}

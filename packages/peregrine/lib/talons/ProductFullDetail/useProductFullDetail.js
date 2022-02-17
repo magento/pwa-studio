@@ -135,12 +135,12 @@ const getBreadcrumbCategoryId = categories => {
     // Until we can get the single canonical breadcrumb path to a product we
     // will just return the first category id of the potential leaf categories.
     const leafCategory = categories.find(
-        category => !breadcrumbSet.has(category.id)
+        category => !breadcrumbSet.has(category.uid)
     );
 
     // If we couldn't find a leaf category then just use the first category
     // in the list for this product.
-    return leafCategory.id || categories[0].id;
+    return leafCategory.uid || categories[0].uid;
 };
 
 const getConfigPrice = (product, optionCodes, optionSelections) => {
@@ -168,6 +168,26 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
     }
 
     return value;
+};
+
+const getCustomAttributes = (product, optionCodes, optionSelections) => {
+    const { custom_attributes, variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (isConfigurable && optionsSelected) {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        return item.product.custom_attributes;
+    }
+
+    return custom_attributes;
 };
 
 /**
@@ -273,6 +293,11 @@ export const useProductFullDetail = props => {
 
     const mediaGalleryEntries = useMemo(
         () => getMediaGalleryEntries(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
+    const customAttributes = useMemo(
+        () => getCustomAttributes(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
     );
 
@@ -488,6 +513,7 @@ export const useProductFullDetail = props => {
             storeConfigData &&
             !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
         productDetails,
+        customAttributes,
         wishlistButtonProps,
         wishlistItemOptions
     };

@@ -16,6 +16,12 @@ exports[`renders root class if not the active Thumbnail 1`] = `
       height={170}
       loading="eager"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+      style={
+        Object {
+          "--height": "170px",
+          "--width": "135px",
+        }
+      }
       width={135}
     />
     <img
@@ -35,6 +41,12 @@ exports[`renders root class if not the active Thumbnail 1`] = `
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+      style={
+        Object {
+          "--height": "170px",
+          "--width": "135px",
+        }
+      }
       width={135}
     />
   </div>
@@ -57,6 +69,12 @@ exports[`renders the Thumbnail component correctly 1`] = `
       height={170}
       loading="eager"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+      style={
+        Object {
+          "--height": "170px",
+          "--width": "135px",
+        }
+      }
       width={135}
     />
     <img
@@ -76,6 +94,12 @@ exports[`renders the Thumbnail component correctly 1`] = `
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+      style={
+        Object {
+          "--height": "170px",
+          "--width": "135px",
+        }
+      }
       width={135}
     />
   </div>
@@ -97,6 +121,7 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
       className="image placeholder"
       loading="eager"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+      style={Object {}}
     />
     <img
       alt="placeholder-thumbnail"
@@ -105,6 +130,7 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
       onError={[Function]}
       onLoad={[Function]}
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+      style={Object {}}
     />
   </div>
 </span>

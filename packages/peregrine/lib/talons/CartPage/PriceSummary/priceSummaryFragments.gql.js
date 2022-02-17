@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 
 import { DiscountSummaryFragment } from './discountSummary.gql';
 import { GiftCardSummaryFragment } from './queries/giftCardSummary';
+import { GiftOptionsSummaryFragment } from './queries/giftOptionsSummary';
 import { ShippingSummaryFragment } from './shippingSummary.gql';
 import { TaxSummaryFragment } from './taxSummary.gql';
 
@@ -17,8 +18,9 @@ export const GrandTotalFragment = gql`
 export const PriceSummaryFragment = gql`
     fragment PriceSummaryFragment on Cart {
         id
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         items {
-            id
+            uid
             quantity
         }
         ...ShippingSummaryFragment
@@ -32,9 +34,11 @@ export const PriceSummaryFragment = gql`
             }
         }
         ...GiftCardSummaryFragment
+        ...GiftOptionsSummaryFragment
     }
     ${DiscountSummaryFragment}
     ${GiftCardSummaryFragment}
+    ${GiftOptionsSummaryFragment}
     ${GrandTotalFragment}
     ${ShippingSummaryFragment}
     ${TaxSummaryFragment}

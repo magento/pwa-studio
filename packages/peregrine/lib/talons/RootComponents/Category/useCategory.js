@@ -21,7 +21,7 @@ import DEFAULT_OPERATIONS from './category.gql';
  * @kind function
  *
  * @param {object}      props
- * @param {number}      props.id - Category Id.
+ * @param {String}      props.id - Category uid.
  * @param {GraphQLAST}  props.operations.getCategoryQuery - Fetches category using a server query
  * @param {GraphQLAST}  props.operations.getFilterInputsQuery - Fetches "allowed" filters using a server query
  * @param {GraphQLAST}  props.queries.getStoreConfig - Fetches store configuration using a server query
@@ -54,7 +54,7 @@ export const useCategory = props => {
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 
-    const sortProps = useSort();
+    const sortProps = useSort({ sortFromSearch: false });
     const [currentSort] = sortProps;
 
     // Keep track of the sort criteria so we can tell when they change.
@@ -133,14 +133,14 @@ export const useCategory = props => {
             newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
         });
 
-        // Use the category id for the current category page regardless of the
+        // Use the category uid for the current category page regardless of the
         // applied filters. Follow-up in PWA-404.
-        newFilters['category_id'] = { eq: String(id) };
+        newFilters['category_uid'] = { eq: id };
 
         runQuery({
             variables: {
                 currentPage: Number(currentPage),
-                id: String(id),
+                id: id,
                 filters: newFilters,
                 pageSize: Number(pageSize),
                 sort: { [currentSort.sortAttribute]: currentSort.sortDirection }

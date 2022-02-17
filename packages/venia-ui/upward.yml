@@ -115,7 +115,7 @@ veniaPageType:
         - type: cms_page
           fetch: 'identifier'
         - type: category
-          fetch: 'id'
+          fetch: 'uid'
 
 # Nonce for page type inline script
 veniaPageTypeNonce:

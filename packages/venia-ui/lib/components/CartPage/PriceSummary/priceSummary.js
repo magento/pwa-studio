@@ -7,6 +7,7 @@ import { useStyle } from '../../../classify';
 import defaultClasses from './priceSummary.module.css';
 import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
+import GiftOptionsSummary from './giftOptionsSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
 
@@ -57,7 +58,15 @@ const PriceSummary = props => {
         return null;
     }
 
-    const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
+    const {
+        subtotal,
+        total,
+        discounts,
+        giftCards,
+        giftOptions,
+        taxes,
+        shipping
+    } = flatData;
 
     const isPriceUpdating = isUpdating || isLoading;
     const priceClass = isPriceUpdating ? classes.priceUpdating : classes.price;
@@ -94,7 +103,10 @@ const PriceSummary = props => {
     return (
         <div className={classes.root} data-cy="PriceSummary-root">
             <div className={classes.lineItems}>
-                <span className={classes.lineItemLabel}>
+                <span
+                    data-cy="PriceSummary-lineItemLabel"
+                    className={classes.lineItemLabel}
+                >
                     <FormattedMessage
                         id={'priceSummary.lineItemLabel'}
                         defaultMessage={'Subtotal'}
@@ -123,6 +135,13 @@ const PriceSummary = props => {
                     }}
                     data={giftCards}
                 />
+                <GiftOptionsSummary
+                    classes={{
+                        lineItemLabel: classes.lineItemLabel,
+                        price: priceClass
+                    }}
+                    data={giftOptions}
+                />
                 <TaxSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
@@ -139,7 +158,12 @@ const PriceSummary = props => {
                     data={shipping}
                     isCheckout={isCheckout}
                 />
-                <span className={classes.totalLabel}>{totalPriceLabel}</span>
+                <span
+                    data-cy="PriceSummary-totalLabel"
+                    className={classes.totalLabel}
+                >
+                    {totalPriceLabel}
+                </span>
                 <span
                     data-cy="PriceSummary-totalValue"
                     className={totalPriceClass}

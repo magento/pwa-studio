@@ -205,11 +205,17 @@ exports[`footer renders copyright 1`] = `
       foo
     </p>
     <a
-      className="logo"
+      className="logoContainer"
       href="/"
       onClick={[Function]}
     >
-      <i />
+      <i
+        classes={
+          Object {
+            "logo": "logo",
+          }
+        }
+      />
     </a>
   </div>
 </footer>

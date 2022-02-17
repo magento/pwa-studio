@@ -17,4 +17,9 @@ const getIframeBody = iframe => {
     );
 };
 
+const checkUrlPath = path => {
+    return cy.url().should('include', path);
+};
+
 Cypress.Commands.add('getIframeBody', getIframeBody);
+Cypress.Commands.add('checkUrlPath', checkUrlPath);

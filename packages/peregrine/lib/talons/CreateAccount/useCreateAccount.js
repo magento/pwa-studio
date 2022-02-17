@@ -6,6 +6,7 @@ import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
+import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
 import DEFAULT_OPERATIONS from './createAccount.gql';
 
@@ -68,6 +69,15 @@ export const useCreateAccount = props => {
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
+    const {
+        generateReCaptchaData,
+        recaptchaLoading,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_CREATE',
+        formAction: 'createAccount'
+    });
+
     const handleCancel = useCallback(() => {
         onCancel();
     }, [onCancel]);
@@ -79,6 +89,9 @@ export const useCreateAccount = props => {
                 // Get source cart id (guest cart id).
                 const sourceCartId = cartId;
 
+                // Get reCaptchaV3 Data for createAccount mutation
+                const recaptchaDataForCreateAccount = await generateReCaptchaData();
+
                 // Create the account and then sign in.
                 await createAccount({
                     variables: {
@@ -87,13 +100,19 @@ export const useCreateAccount = props => {
                         lastname: formValues.customer.lastname,
                         password: formValues.password,
                         is_subscribed: !!formValues.subscribe
-                    }
+                    },
+                    ...recaptchaDataForCreateAccount
                 });
+
+                // Get reCaptchaV3 Data for signIn mutation
+                const recaptchaDataForSignIn = await generateReCaptchaData();
+
                 const signInResponse = await signIn({
                     variables: {
                         email: formValues.customer.email,
                         password: formValues.password
-                    }
+                    },
+                    ...recaptchaDataForSignIn
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
@@ -137,11 +156,12 @@ export const useCreateAccount = props => {
         },
         [
             cartId,
-            apolloClient,
-            removeCart,
+            generateReCaptchaData,
             createAccount,
             signIn,
             setToken,
+            apolloClient,
+            removeCart,
             createCart,
             fetchCartId,
             mergeCarts,
@@ -176,7 +196,8 @@ export const useCreateAccount = props => {
         handleCancel,
         handleSubmit,
         initialValues: sanitizedInitialValues,
-        isDisabled: isSubmitting || isGettingDetails
+        isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
+        recaptchaWidgetProps
     };
 };
 
@@ -237,4 +258,7 @@ export const useCreateAccount = props => {
  * @property {Function} handleSubmit callback function to handle form submission
  * @property {SanitizedInitialValues} initialValues initial values for the create account form
  * @property {Boolean} isDisabled true if either details are being fetched or form is being submitted. False otherwise.
+ * @property {Object} recaptchaWidgetProps - Props for the GoogleReCaptcha component.
+ * @property {Function} recaptchaWidgetProps.containerElement - Container reference callback.
+ * @property {Boolean} recaptchaWidgetProps.shouldRender - Checks if component should be rendered.
  */

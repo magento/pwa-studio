@@ -32,6 +32,7 @@ const { createWishlist, expandCollapsedWishlists } = wishlistPageActions;
 const {
     assertEmptyWishlistExists,
     assertCreateWishlistLink,
+    assertCreateWishlistLinkNotVisible,
     assertProductInWishlist
 } = wishlistAssertions;
 const { categoryTops, productCarinaCardigan } = categoryPageFixtures;
@@ -266,6 +267,38 @@ describe('PWA-1782: verify single wishlist basic features', () => {
         cy.wait(['@getCustomerWishlist7']).its('response.body');
         assertCreateWishlistLink();
         assertProductInWishlist(productAugustaEarrings.name);
+
+        // Create two empty wishlists and assert its empty
+        cy.intercept('POST', hitGraphqlPath, req => {
+            if (req.body.operationName.includes('createWishlist')) {
+                req.reply({
+                    fixture:
+                        'wishlist/multipleWishlist/wishlistPageCreateWishlist4.json'
+                });
+            }
+        }).as('createWishlist4');
+        cy.intercept('POST', hitGraphqlPath, req => {
+            if (req.body.operationName.includes('createWishlist')) {
+                req.reply({
+                    fixture:
+                        'wishlist/multipleWishlist/wishlistPageCreateWishlist5.json'
+                });
+            }
+        }).as('createWishlist5');
+
+        createWishlist('Test List4');
+        createWishlist('Test List5');
+
+        cy.intercept('GET', getCustomerWishlistCall, {
+            fixture: 'wishlist/multipleWishlist/fiveWishlistOneProductPage.json'
+        }).as('getCustomerWishlist8');
+        cy.wait(['@getCustomerWishlist8']).its('response.body');
+
+        assertEmptyWishlistExists('Test List4');
+        assertEmptyWishlistExists('Test List5');
+
+        // Verify that wishlist button is removed when maximum number of wishlists reached
+        assertCreateWishlistLinkNotVisible();
 
         // NOTE - This will be done part of cypress streamline ticket.
         // assert other product exists in wishlist

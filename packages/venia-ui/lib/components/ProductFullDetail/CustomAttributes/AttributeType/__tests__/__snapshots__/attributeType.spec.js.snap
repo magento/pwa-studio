@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#AttributeType renders boolean attribute type component 1`] = `
+<mock-Boolean
+  attribute_metadata={
+    Object {
+      "ui_input": Object {
+        "ui_input_type": "BOOLEAN",
+      },
+    }
+  }
+/>
+`;
+
+exports[`#AttributeType renders date attribute type component 1`] = `
+<mock-Date
+  attribute_metadata={
+    Object {
+      "ui_input": Object {
+        "ui_input_type": "DATE",
+      },
+    }
+  }
+/>
+`;
+
+exports[`#AttributeType renders date time attribute type component 1`] = `
+<mock-DateTime
+  attribute_metadata={
+    Object {
+      "ui_input": Object {
+        "ui_input_type": "DATETIME",
+      },
+    }
+  }
+/>
+`;
+
+exports[`#AttributeType renders multiselect attribute type component 1`] = `
+<mock-Multiselect
+  attribute_metadata={
+    Object {
+      "ui_input": Object {
+        "ui_input_type": "MULTISELECT",
+      },
+    }
+  }
+/>
+`;
+
+exports[`#AttributeType renders null when no data is provided 1`] = `null`;
+
+exports[`#AttributeType renders null when type is not found 1`] = `null`;
+
+exports[`#AttributeType renders price attribute type component 1`] = `
+<mock-Price
+  attribute_metadata={
+    Object {
+      "ui_input": Object {
+        "ui_input_type": "PRICE",
+      },
+    }
+  }
+/>
+`;
+
+exports[`#AttributeType renders select attribute type component 1`] = `
+<mock-Select
+  attribute_metadata={
+    Object {
+      "ui_input": Object {
+        "ui_input_type": "SELECT",
+      },
+    }
+  }
+/>
+`;
+
+exports[`#AttributeType renders text attribute type component 1`] = `
+<mock-Text
+  attribute_metadata={
+    Object {
+      "ui_input": Object {
+        "ui_input_type": "TEXT",
+      },
+    }
+  }
+/>
+`;
+
+exports[`#AttributeType renders textarea attribute type component 1`] = `
+<mock-Textarea
+  attribute_metadata={
+    Object {
+      "ui_input": Object {
+        "ui_input_type": "TEXTAREA",
+      },
+    }
+  }
+/>
+`;

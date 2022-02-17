@@ -23,3 +23,18 @@ export const miniCartProduct =
     '[data-cy="MiniCart-root"] [data-cy="MiniCart-ProductList-root"] [data-cy="MiniCart-Item-root"]';
 
 export const miniCartProductDelete = '[data-cy="MiniCart-Item-deleteButton"]';
+
+export const miniCartTotalQuantity =
+    '[data-cy="MiniCart-root"] [data-cy="MiniCart-totalQuantity"]';
+
+export const miniCartSubtotalPrice =
+    '[data-cy="MiniCart-root"] [data-cy="MiniCart-subtotalPrice"]';
+
+export const miniCartSubtotalPriceLabel =
+    '[data-cy="MiniCart-root"] [data-cy="MiniCart-subtotalPriceLabel"]';
+
+export const miniCartItemQuantity =
+    '[data-cy="MiniCart-root"] [data-cy="MiniCart-Item-root"] [data-cy="MiniCart-Item-quantity"]';
+
+export const miniCartItemPrice =
+    '[data-cy="MiniCart-root"] [data-cy="MiniCart-Item-root"] [data-cy="MiniCart-Item-price"]';

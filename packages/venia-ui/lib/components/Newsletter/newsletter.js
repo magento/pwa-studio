@@ -68,14 +68,17 @@ const Newsletter = props => {
     return (
         <div className={classes.root} data-cy={'Newsletter-root'}>
             {maybeLoadingIndicator}
-            <span className={classes.title}>
+            <span data-cy="Newsletter-title" className={classes.title}>
                 <FormattedMessage
                     id={'newsletter.titleText'}
                     defaultMessage={'Subscribe to Venia'}
                 />
             </span>
 
-            <p className={classes.newsletter_text}>
+            <p
+                data-cy="Newsletter-infoText"
+                className={classes.newsletter_text}
+            >
                 <FormattedMessage
                     id={'newsletter.infoText'}
                     defaultMessage={
@@ -107,6 +110,7 @@ const Newsletter = props => {
                     />
                 </Field>
                 <LinkButton
+                    data-cy="Newsletter-submitButton"
                     className={classes.subscribe_link}
                     type="submit"
                     disabled={isBusy}

@@ -15,7 +15,8 @@ jest.mock('@magento/peregrine/lib/talons/MyAccount/useResetPassword', () => ({
         loading: false,
         token: '********',
         formErrors: [],
-        handleSubmit: jest.fn().mockName('handleSubmit')
+        handleSubmit: jest.fn().mockName('handleSubmit'),
+        recaptchaWidgetProps: {}
     })
 }));
 
@@ -35,7 +36,8 @@ test('should render error message if token is falsy', () => {
         loading: false,
         token: null,
         formErrors: [],
-        handleSubmit: jest.fn()
+        handleSubmit: jest.fn(),
+        recaptchaWidgetProps: {}
     });
 
     const tree = createTestInstance(<ResetPassword />);
@@ -55,7 +57,8 @@ test('should render formErrors', () => {
                 }
             }
         ],
-        handleSubmit: jest.fn()
+        handleSubmit: jest.fn(),
+        recaptchaWidgetProps: {}
     });
 
     const tree = createTestInstance(<ResetPassword />);
@@ -69,7 +72,8 @@ test('should render success message if hasCompleted is true', () => {
         loading: false,
         token: '**********',
         formErrors: [],
-        handleSubmit: jest.fn()
+        handleSubmit: jest.fn(),
+        recaptchaWidgetProps: {}
     });
 
     const tree = createTestInstance(<ResetPassword />);
@@ -85,7 +89,8 @@ test('should render toast if hasCompleted is true', () => {
         loading: false,
         token: '**********',
         formErrors: [],
-        handleSubmit: jest.fn()
+        handleSubmit: jest.fn(),
+        recaptchaWidgetProps: {}
     });
 
     createTestInstance(<ResetPassword />);

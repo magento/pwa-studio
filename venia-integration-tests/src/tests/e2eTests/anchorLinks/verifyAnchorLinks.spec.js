@@ -8,7 +8,8 @@ import {
 import {
     cartPage as cartPageActions,
     miniCart as miniCartActions,
-    productPage as productPageActions
+    productPage as productPageActions,
+    header as headerActions
 } from '../../../actions';
 import {
     productPage as productPageAssertions,
@@ -21,6 +22,8 @@ const {
     clickProductLinkFromMiniCart,
     clickProductImageLinkFromMiniCart
 } = miniCartActions;
+
+const { clickHeaderLogo } = headerActions;
 const { assertProductName } = productPageAssertions;
 
 const { checkoutRoute } = miniCartFixtures;
@@ -41,11 +44,11 @@ const {
     setQuantityFromProductPage,
     addToCartFromProductPage
 } = productPageActions;
-const { assertGuestCheckoutPage, assertAnchorLink } = miniCartAssertions;
+const { assertGuestCheckoutPage } = miniCartAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('PWA-1424: verify anchor links', () => {
-    it('user should be able to add products to the cart', () => {
+    it('Verify venia anchor links', () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(
             'gqlGetProductDetailForProductPageQuery'
         );
@@ -70,28 +73,31 @@ describe('PWA-1424: verify anchor links', () => {
 
         cy.visitPage(checkoutRoute);
         assertGuestCheckoutPage();
-        assertAnchorLink('/checkout');
+        cy.checkUrlPath('/checkout');
+
+        clickHeaderLogo();
+        cy.checkUrlPath(homePage);
 
         cy.visitPage(homePage);
         triggerMiniCart();
         clickProductLinkFromMiniCart();
         assertProductName(productValeriaTwoLayeredTank.name);
-        assertAnchorLink(productValeriaTwoLayeredTank.url);
+        cy.checkUrlPath(productValeriaTwoLayeredTank.url);
 
         cy.visitPage(homePage);
         triggerMiniCart();
         clickProductImageLinkFromMiniCart();
         assertProductName(productValeriaTwoLayeredTank.name);
-        assertAnchorLink(productValeriaTwoLayeredTank.url);
+        cy.checkUrlPath(productValeriaTwoLayeredTank.url);
 
         cy.visitPage(cartPageRoute);
         clickProductImageLinkFromCart();
         assertProductName(productValeriaTwoLayeredTank.name);
-        assertAnchorLink(productValeriaTwoLayeredTank.url);
+        cy.checkUrlPath(productValeriaTwoLayeredTank.url);
 
         cy.visitPage(cartPageRoute);
         clickProductLinkFromCart();
         assertProductName(productValeriaTwoLayeredTank.name);
-        assertAnchorLink(productValeriaTwoLayeredTank.url);
+        cy.checkUrlPath(productValeriaTwoLayeredTank.url);
     });
 });
