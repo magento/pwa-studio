@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a DynamicBlockShimmer component with minHeight 1`] = `
+<div
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": "40px",
+    }
+  }
+>
+  <div
+    aria-busy="true"
+    aria-live="polite"
+    className=" "
+    style={Object {}}
+  >
+    <div
+      style={
+        Object {
+          "border": undefined,
+          "borderWidth": undefined,
+          "paddingBottom": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+        }
+      }
+    >
+      <div>
+        <div />
+      </div>
+    </div>
+  </div>
+</div>
+`;

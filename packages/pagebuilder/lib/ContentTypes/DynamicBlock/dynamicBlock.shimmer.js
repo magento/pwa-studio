@@ -48,7 +48,8 @@ const DynamicBlockShimmer = props => {
         paddingLeft
     };
 
-    return (
+    // Only render shimmer if min-height specified
+    return minHeight ? (
         <div className={classes.parent} style={rootStyles}>
             <Shimmer
                 aria-live="polite"
@@ -68,7 +69,7 @@ const DynamicBlockShimmer = props => {
                 </div>
             </Shimmer>
         </div>
-    );
+    ) : null;
 };
 
 /**
