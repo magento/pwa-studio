@@ -91,7 +91,7 @@ const Wishlist = props => {
 
     const wishlistName = name ? (
         <div className={classes.nameContainer}>
-            <h2 className={classes.name} data-cy="Wishlist-name">
+            <h2 className={classes.name} data-cy="Wishlist-name" title={name}>
                 {name}
             </h2>
         </div>
