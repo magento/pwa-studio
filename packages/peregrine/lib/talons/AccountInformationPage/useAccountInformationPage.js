@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useUserContext } from '../../context/user';
+import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
 export const useAccountInformationPage = props => {
     const {
@@ -45,6 +46,15 @@ export const useAccountInformationPage = props => {
             loading: isChangingCustomerPassword
         }
     ] = useMutation(changeCustomerPasswordMutation);
+
+    const {
+        generateReCaptchaData,
+        recaptchaLoading,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_EDIT',
+        formAction: 'editCustomer'
+    });
 
     const initialValues = useMemo(() => {
         if (accountInformationData) {
@@ -97,11 +107,13 @@ export const useAccountInformationPage = props => {
                     });
                 }
                 if (password && newPassword) {
+                    const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
                     await changeCustomerPassword({
                         variables: {
                             currentPassword: password,
                             newPassword: newPassword
-                        }
+                        },
+                        ...recaptchaDataForChangeCustomerPassword
                     });
                 }
                 // After submission, close the form if there were no errors.
@@ -117,10 +129,11 @@ export const useAccountInformationPage = props => {
             }
         },
         [
-            setCustomerInformation,
+            initialValues,
             handleCancel,
-            changeCustomerPassword,
-            initialValues
+            setCustomerInformation,
+            generateReCaptchaData,
+            changeCustomerPassword
         ]
     );
 
@@ -134,10 +147,14 @@ export const useAccountInformationPage = props => {
         handleSubmit,
         handleChangePassword,
         initialValues,
-        isDisabled: isUpdatingCustomerInformation || isChangingCustomerPassword,
+        isDisabled:
+            isUpdatingCustomerInformation ||
+            isChangingCustomerPassword ||
+            recaptchaLoading,
         isUpdateMode,
         loadDataError,
         shouldShowNewPassword,
-        showUpdateMode
+        showUpdateMode,
+        recaptchaWidgetProps
     };
 };
