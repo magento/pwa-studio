@@ -18,6 +18,7 @@ import TextInput from '../TextInput';
 import defaultClasses from './createAccount.module.css';
 import FormError from '../FormError';
 import Password from '../Password';
+import GoogleRecaptcha from '../GoogleReCaptcha';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
@@ -31,7 +32,8 @@ const CreateAccount = props => {
         handleCancel,
         handleSubmit,
         isDisabled,
-        initialValues
+        initialValues,
+        recaptchaWidgetProps
     } = talonProps;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
@@ -157,6 +159,7 @@ const CreateAccount = props => {
                     })}
                 />
             </div>
+            <GoogleRecaptcha {...recaptchaWidgetProps} />
             <div className={classes.actions}>
                 {submitButton}
                 {cancelButton}

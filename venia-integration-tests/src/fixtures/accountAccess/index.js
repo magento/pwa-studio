@@ -15,3 +15,6 @@ const id = uuid();
 
 export const accountEmail = `${id}test@example.com`;
 export const updatedAccountEmail = `${id}test2@example.com`;
+
+export const signInFormAction = 'signIn';
+export const createAccountFormAction = 'createAccount';

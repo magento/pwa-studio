@@ -177,10 +177,15 @@ const typePolicies = {
     SelectedConfigurableOption: {
         // id alone is not enough to identify a selected option as it can refer
         // to something like "size" where value_id refers to "large".
-        keyFields: [
-            'configurable_product_option_uid',
-            'configurable_product_option_value_uid'
-        ]
+        // TODO: Use configurable_product_option_uid for ConfigurableWishlistItem when available in 2.4.5
+        keyFields: fields => {
+            return fields.configurable_product_option_uid
+                ? [
+                      'configurable_product_option_uid',
+                      'configurable_product_option_value_uid'
+                  ]
+                : ['id', 'value_id'];
+        }
     },
     SelectedPaymentMethod: {
         keyFields: ['code']
