@@ -3,7 +3,6 @@ import { arrayOf, shape, string, object } from 'prop-types';
 import defaultClasses from './dynamicBlock.shimmer.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
-import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 
 /**
  * Page Builder Dynamic Block Shimmer component.
@@ -24,7 +23,6 @@ const DynamicBlockShimmer = props => {
         marginRight,
         marginBottom,
         marginLeft,
-        //mediaQueries,
         minHeight,
         paddingTop,
         paddingRight,
@@ -33,17 +31,15 @@ const DynamicBlockShimmer = props => {
         cssClasses = []
     } = props;
 
-    //const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
-
     const rootStyles = {
         marginTop,
         marginRight,
         marginBottom,
-        marginLeft
+        marginLeft,
+        minHeight
     };
 
     const wrapperStyles = {
-        minHeight: /*mediaQueryStyles?.minHeight ||*/ minHeight,
         border,
         borderWidth,
         paddingTop,
@@ -53,7 +49,7 @@ const DynamicBlockShimmer = props => {
     };
 
     return (
-        <div className={classes.parent}>
+        <div className={classes.parent} style={rootStyles}>
             <Shimmer
                 aria-live="polite"
                 aria-busy="true"
@@ -64,7 +60,6 @@ const DynamicBlockShimmer = props => {
                         ...cssClasses
                     ].join(' ')
                 }}
-                style={rootStyles}
             >
                 <div className={classes.wrapper} style={wrapperStyles}>
                     <div className={classes.overlay}>

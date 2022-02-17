@@ -1,14 +1,14 @@
+.parent:first-child {
+    display: flex;
+}
+
+.parent:not(:first-of-type) {
+    display: none;
+}
+
 .shimmerRoot {
     composes: root_rectangle from '~@magento/venia-ui/lib/components/Shimmer/shimmer.module.css';
     composes: root from './dynamicBlock.module.css';
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-.parent {
-    position: relative;
     flex: 1;
 }
 

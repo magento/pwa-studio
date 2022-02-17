@@ -10,8 +10,11 @@ export default node => {
         return {};
     }
 
+    const row = widgetBlock.closest('[data-content-type="dynamic_block"]')
+        .parentElement;
+
     return {
-        minHeight: widgetBlock.style.minHeight || null,
+        minHeight: row && row.style.minHeight ? row.style.minHeight : null,
         displayInline: widgetBlock
             .getAttribute('class')
             .includes('block-banners-inline'),

@@ -17,8 +17,16 @@ export default (node, props) => {
             : dataNode.childNodes[0] &&
               dataNode.childNodes[0].getAttribute('data-video-overlay-color');
 
+    let minHeight = null;
+    if (
+        dataNode.childNodes[0].getAttribute('data-content-type') !==
+        'dynamic_block'
+    ) {
+        minHeight = dataNode.style.minHeight;
+    }
+
     return {
-        minHeight: dataNode.style.minHeight ? dataNode.style.minHeight : null,
+        minHeight,
         ...getVerticalAlignment(dataNode),
         backgroundColor: dataNode.style.backgroundColor
             ? dataNode.style.backgroundColor
