@@ -3,6 +3,7 @@
 }
 .img {
     max-width: 100%;
+    vertical-align: middle;
 }
 
 @media (min-width: 48rem) {
