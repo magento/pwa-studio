@@ -74,7 +74,18 @@ const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
     ${CartPageFragment}
 `;
 
+const GET_CONFIGURABLE_THUMBNAIL_SOURCE = gql`
+    query getConfigurableThumbnailSource {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
+        storeConfig {
+            store_code
+            configurable_thumbnail_source
+        }
+    }
+`;
+
 export default {
+    getConfigurableThumbnailSourceQuery: GET_CONFIGURABLE_THUMBNAIL_SOURCE,
     getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
     updateQuantityMutation: UPDATE_QUANTITY_MUTATION,
     updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS_MUTATION

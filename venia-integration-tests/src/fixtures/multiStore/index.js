@@ -39,7 +39,10 @@ export const secondStore = {
 };
 
 export const subcategoryAPathname = '/subcategory-a.html';
-export const subcategoryAProducts = ['Augusta Earrings', 'Carmina Earrings'];
+export const subcategoryAProducts = [
+    'Augusta Earrings',
+    'Ombre Infinity Scarf'
+];
 
 export const subcategoryBPathname = '/subcategory-b.html';
 
