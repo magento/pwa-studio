@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer/shimmer.js';
 import { useStyle } from '../../classify';
@@ -9,11 +9,9 @@ const CMSPageShimmer = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <Fragment>
-            <div className={classes.root} aria-live="polite" aria-busy="true">
-                <Shimmer width="100%" height="880px" key="banner" />
-            </div>
-        </Fragment>
+        <div className={classes.root} aria-live="polite" aria-busy="true">
+            <Shimmer width="100%" height="880px" key="banner" />
+        </div>
     );
 };
 

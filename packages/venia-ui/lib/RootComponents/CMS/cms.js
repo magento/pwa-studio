@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
 
 import CMSPageShimmer from './cms.shimmer';
