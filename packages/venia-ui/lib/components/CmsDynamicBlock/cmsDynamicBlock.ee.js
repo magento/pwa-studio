@@ -1,7 +1,7 @@
 import React from 'react';
 import { array, oneOf, oneOfType, string } from 'prop-types';
-import { gql, useQuery } from '@apollo/client';
 
+import { useCmsDynamicBlock } from '@magento/peregrine/lib/talons/CmsDynamicBlock/useCmsDynamicBlock';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
 import {
@@ -27,12 +27,12 @@ const getDynamicBlockType = displayMode => {
 };
 
 const CmsDynamicBlockGroup = props => {
-    const { displayMode, locations, uids } = props;
-
+    const { displayMode } = props;
     const type = getDynamicBlockType(displayMode);
 
-    const { loading, error, data } = useQuery(GET_CMS_DYNAMIC_BLOCKS, {
-        variables: { type, locations, uids }
+    const { loading, error, data } = useCmsDynamicBlock({
+        ...props,
+        type
     });
 
     if (!data) {
@@ -71,26 +71,3 @@ CmsDynamicBlockGroup.propTypes = {
 };
 
 export default CmsDynamicBlockGroup;
-
-export const GET_CMS_DYNAMIC_BLOCKS = gql`
-    query GetCmsDynamicBlocks(
-        $type: DynamicBlockTypeEnum!
-        $locations: [DynamicBlockLocationEnum]
-        $uids: [ID]!
-    ) {
-        dynamicBlocks(
-            input: {
-                dynamic_block_uids: $uids
-                locations: $locations
-                type: $type
-            }
-        ) {
-            items {
-                content {
-                    html
-                }
-                uid
-            }
-        }
-    }
-`;
