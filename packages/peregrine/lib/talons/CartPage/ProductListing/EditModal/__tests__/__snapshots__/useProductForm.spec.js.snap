@@ -118,6 +118,7 @@ Object {
       },
     ],
   },
+  "configurableThumbnailSource": "parent",
   "errors": Map {
     "updateQuantityMutation" => null,
     "updateConfigurableOptionsMutation" => null,
