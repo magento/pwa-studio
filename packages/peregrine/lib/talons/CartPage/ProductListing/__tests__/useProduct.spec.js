@@ -173,12 +173,11 @@ test('it returns the proper shape when use variant image is configured', () => {
             },
             configurable_options: [
                 {
-                    id: 22,
+                    configurable_product_option_uid: 22,
                     configurable_product_option_value_uid:
-                        'selected-option-uid',
+                        'Y29uZmlndXJhYmxlLzIyLzI=',
                     option_label: 'Color',
-                    value_label: 'red',
-                    value_id: 2
+                    value_label: 'red'
                 }
             ]
         }
