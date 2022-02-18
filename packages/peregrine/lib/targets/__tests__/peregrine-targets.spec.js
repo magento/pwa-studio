@@ -150,6 +150,7 @@ test('exposes all hooks and targets', async () => {
           talons.CheckoutPage.ShippingMethod.useShippingMethod.wrapWith() wraps export "useShippingMethod" from "CheckoutPage/ShippingMethod/useShippingMethod.js"
           talons.CheckoutPage.useCheckoutPage.wrapWith() wraps export "useCheckoutPage" from "CheckoutPage/useCheckoutPage.js"
           talons.Cms.useCmsPage.wrapWith() wraps export "useCmsPage" from "Cms/useCmsPage.js"
+          talons.CmsDynamicBlock.useCmsDynamicBlock.wrapWith() wraps export "useCmsDynamicBlock" from "CmsDynamicBlock/useCmsDynamicBlock.js"
           talons.CommunicationsPage.useCommunicationsPage.wrapWith() wraps export "useCommunicationsPage" from "CommunicationsPage/useCommunicationsPage.js"
           talons.ContactPage.useContactLink.wrapWith() wraps export "useContactLink" from "ContactPage/useContactLink.js"
           talons.ContactPage.useContactPage.wrapWith() wraps export "useContactPage" from "ContactPage/useContactPage.js"

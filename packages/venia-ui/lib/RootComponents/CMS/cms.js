@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
 
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import CMSPageShimmer from './cms.shimmer';
 import { useCmsPage } from '@magento/peregrine/lib/talons/Cms/useCmsPage';
 import RichContent from '../../components/RichContent';
 import { Meta, StoreTitle } from '../../components/Head';
@@ -18,7 +18,7 @@ const CMSPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     if (shouldShowLoadingIndicator) {
-        return fullPageLoadingIndicator;
+        return <CMSPageShimmer classes={classes} />;
     }
 
     const {
@@ -41,7 +41,6 @@ const CMSPage = props => {
     const rootClassName = page_layout
         ? classes[`root_${toCamelCase(page_layout)}`]
         : classes.root;
-
     return (
         <Fragment>
             <StoreTitle>{pageTitle}</StoreTitle>
