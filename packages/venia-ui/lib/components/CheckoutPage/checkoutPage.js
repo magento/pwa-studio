@@ -61,6 +61,7 @@ const CheckoutPage = props => {
         orderDetailsLoading,
         orderNumber,
         placeOrderLoading,
+        placeOrderButtonClicked,
         setCheckoutStep,
         setGuestSignInUsername,
         setIsUpdating,
@@ -272,7 +273,10 @@ const CheckoutPage = props => {
                     className={classes.place_order_button}
                     data-cy="CheckoutPage-placeOrderButton"
                     disabled={
-                        isUpdating || placeOrderLoading || orderDetailsLoading
+                        isUpdating ||
+                        placeOrderLoading ||
+                        orderDetailsLoading ||
+                        placeOrderButtonClicked
                     }
                 >
                     <FormattedMessage

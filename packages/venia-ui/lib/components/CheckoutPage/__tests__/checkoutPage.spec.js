@@ -77,6 +77,7 @@ const defaultTalonProps = {
     orderDetailsLoading: false,
     orderNumber: null,
     placeOrderLoading: false,
+    placeOrderButtonClicked: false,
     setGuestSignInUsername: jest.fn().mockName('setGuestSignInUsername'),
     setIsUpdating: jest.fn().mockName('setIsUpdating'),
     setShippingInformationDone: jest

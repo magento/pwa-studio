@@ -89,6 +89,9 @@ export const useCheckoutPage = (props = {}) => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
+    const [placeOrderButtonClicked, setPlaceOrderButtonClicked] = useState(
+        false
+    );
     const [activeContent, setActiveContent] = useState('checkout');
     const [checkoutStep, setCheckoutStep] = useState(
         CHECKOUT_STEP.SHIPPING_ADDRESS
@@ -233,6 +236,7 @@ export const useCheckoutPage = (props = {}) => {
                 cartId
             }
         });
+        setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
     }, [cartId, getOrderDetails]);
 
@@ -266,8 +270,7 @@ export const useCheckoutPage = (props = {}) => {
                     'An error occurred during when placing the order',
                     err
                 );
-                setReviewOrderButtonClicked(false);
-                setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+                setPlaceOrderButtonClicked(false);
             }
         }
 
@@ -309,6 +312,7 @@ export const useCheckoutPage = (props = {}) => {
             (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
             null,
         placeOrderLoading,
+        placeOrderButtonClicked,
         setCheckoutStep,
         setGuestSignInUsername,
         setIsUpdating,
