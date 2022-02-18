@@ -60,8 +60,8 @@ test('Snapshot test when configured to use variant image', () => {
         {
             option_label: 'Color',
             value_label: 'red',
-            id: 22,
-            value_id: 2
+            configurable_product_option_uid: 22,
+            configurable_product_option_value_uid: 'Y29uZmlndXJhYmxlLzIyLzI='
         }
     ];
     const tree = createTestInstance(

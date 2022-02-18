@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Shimmer is present when loading but no data 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root"
+>
+  <div
+    className="root_rectangle"
+    style={
+      Object {
+        "height": "880px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;

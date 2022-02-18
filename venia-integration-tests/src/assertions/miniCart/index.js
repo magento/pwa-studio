@@ -8,7 +8,8 @@ import {
     miniCartSubtotalPrice,
     miniCartCheckoutButton,
     miniCartEditCartButton,
-    miniCartItemPrice
+    miniCartItemPrice,
+    miniCartProductImage
 } from '../../fields/miniCart';
 
 export const assertGuestCheckoutPage = () => {
@@ -59,4 +60,18 @@ export const assertMiniCartProductHasCurrency = currency => {
         currencySymbolMap[currency]
     );
     cy.get(miniCartItemPrice).should('contain', currencySymbolMap[currency]);
+};
+
+/**
+ * Utility function to assert product in MiniCart displays correct image.
+ *
+ * @param {String} src -- fragment of image src
+ * @param {Number} index -- index of product in MiniCart
+ */
+export const assertProductImageDisplayed = (src, index) => {
+    cy.get(miniCartProductImage)
+        .filter(':odd')
+        .eq(index)
+        .should('have.attr', 'src')
+        .should('contain', src);
 };
