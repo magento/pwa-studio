@@ -10,8 +10,7 @@ export default node => {
         return {};
     }
 
-    const row = widgetBlock.closest('[data-content-type="dynamic_block"]')
-        .parentElement;
+    const row = widgetBlock.closest('[data-content-type="row"]')?.firstChild;
 
     return {
         minHeight: row && row.style.minHeight ? row.style.minHeight : null,
