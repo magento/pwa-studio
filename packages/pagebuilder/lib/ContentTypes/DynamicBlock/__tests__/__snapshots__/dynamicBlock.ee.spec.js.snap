@@ -4,6 +4,8 @@ exports[`#PageBuilder DynamicBlock EE does not render a Dynamic Block component 
 
 exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component inlined 1`] = `
 <span
+  aria-busy="false"
+  aria-live="polite"
   className=""
   style={
     Object {
@@ -32,6 +34,8 @@ exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component inlined 
 
 exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component with custom classes 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className=" test-class"
   style={
     Object {
@@ -60,6 +64,8 @@ exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component with cus
 
 exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component without custom classes 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className=""
   style={
     Object {

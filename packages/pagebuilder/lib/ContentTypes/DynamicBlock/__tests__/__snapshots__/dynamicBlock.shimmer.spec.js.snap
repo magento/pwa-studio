@@ -2,6 +2,8 @@
 
 exports[`renders a DynamicBlockShimmer component with minHeight 1`] = `
 <div
+  aria-busy="true"
+  aria-live="polite"
   style={
     Object {
       "marginBottom": undefined,
@@ -13,8 +15,6 @@ exports[`renders a DynamicBlockShimmer component with minHeight 1`] = `
   }
 >
   <div
-    aria-busy="true"
-    aria-live="polite"
     className=" "
     style={Object {}}
   >

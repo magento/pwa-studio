@@ -1,8 +1,9 @@
-.parent:first-child {
+.parent {
     display: flex;
 }
 
-.parent:not(:first-of-type) {
+/* Only show one shimmer when multiple dynamic blocks */
+.parent + .parent {
     display: none;
 }
 

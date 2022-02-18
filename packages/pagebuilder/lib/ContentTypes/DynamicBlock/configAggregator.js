@@ -10,6 +10,7 @@ export default node => {
         return {};
     }
 
+    // dynamicBlock shimmer uses minHeight from closest row
     const row = widgetBlock.closest('[data-content-type="row"]')?.firstChild;
 
     return {

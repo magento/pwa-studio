@@ -50,10 +50,13 @@ const DynamicBlockShimmer = props => {
 
     // Only render shimmer if min-height specified
     return minHeight ? (
-        <div className={classes.parent} style={rootStyles}>
+        <div
+            className={classes.parent}
+            style={rootStyles}
+            aria-live="polite"
+            aria-busy="true"
+        >
             <Shimmer
-                aria-live="polite"
-                aria-busy="true"
                 classes={{
                     root_rectangle: [
                         classes.root,

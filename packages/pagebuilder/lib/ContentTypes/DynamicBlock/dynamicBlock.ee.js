@@ -72,6 +72,8 @@ const DynamicBlock = props => {
         <RootTag
             style={dynamicStyles}
             className={[classes.root, ...cssClasses].join(' ')}
+            aria-live="polite"
+            aria-busy="false"
         >
             <CmsDynamicBlockGroup displayMode={displayMode} uids={uids} />
         </RootTag>
