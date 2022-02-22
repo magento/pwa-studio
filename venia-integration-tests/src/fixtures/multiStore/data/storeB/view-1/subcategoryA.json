@@ -42,28 +42,74 @@
         },
         {
           "id": 1,
-          "uid": "MQ==",
-          "name": "Carmina Earrings",
+          "uid": "MTE2NA==",
+          "name": "Ombre Infinity Scarf",
           "price_range": {
             "maximum_price": {
               "regular_price": {
                 "currency": "USD",
-                "value": 58,
+                "value": 48,
                 "__typename": "Money"
               },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
           },
-          "sku": "VA11-GO-NA",
+          "sku": "VA03",
           "small_image": {
-            "url": "https:\/\/magento.test\/media\/catalog\/product\/cache\/9035ce720818089a082f5297e3136814\/v\/a\/va11-sg_main.jpg",
+            "url": "https:\/\/magento.test\/media\/catalog\/product\/cache\/9035ce720818089a082f5297e3136814\/v\/a\/va13-sg_main.jpg",
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
           "rating_summary": 0,
-          "__typename": "SimpleProduct",
-          "url_key": "carmina-earrings"
+          "__typename": "ConfigurableProduct",
+          "url_key": "ombre-infinity-scarf",
+          "configurable_options": [
+            {
+              "label": "Fashion Color",
+              "uid": "Y29uZmlndXJhYmxlLzExNjQvMTc5",
+              "values": [
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                  "label": "Khaki"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE3OS8yMw==",
+                  "label": "Lilac"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE3OS8yNg==",
+                  "label": "Lily"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE3OS8yNw==",
+                  "label": "Latte"
+                }
+              ]
+            },
+            {
+              "label": "Fashion Size",
+              "uid": "Y29uZmlndXJhYmxlLzExNjQvMTgy",
+              "values": [
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                  "label": "L"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMA==",
+                  "label": "M"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMQ==",
+                  "label": "S"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMg==",
+                  "label": "XS"
+                }
+              ]
+            }
+          ]
         }
       ],
       "page_info": {

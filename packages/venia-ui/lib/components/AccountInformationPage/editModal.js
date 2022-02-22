@@ -6,6 +6,7 @@ import { useStyle } from '../../classify';
 import EditForm from './editForm';
 import FormError from '../FormError';
 import Dialog from '../Dialog';
+import GoogleReCaptcha from '../GoogleReCaptcha';
 import defaultClasses from './editModal.module.css';
 
 const EditModal = props => {
@@ -18,7 +19,8 @@ const EditModal = props => {
         initialValues,
         isDisabled,
         isOpen,
-        shouldShowNewPassword
+        shouldShowNewPassword,
+        recaptchaWidgetProps
     } = props;
     const { formatMessage } = useIntl();
 
@@ -50,6 +52,7 @@ const EditModal = props => {
                 handleChangePassword={onChangePassword}
                 shouldShowNewPassword={shouldShowNewPassword}
             />
+            <GoogleReCaptcha {...recaptchaWidgetProps} />
         </Dialog>
     );
 };
@@ -65,5 +68,9 @@ EditModal.propTypes = {
     handleSubmit: func,
     initialValues: object,
     isDisabled: bool,
-    isOpen: bool
+    isOpen: bool,
+    recaptchaWidgetProps: shape({
+        containerElement: func,
+        shouldRender: bool
+    })
 };

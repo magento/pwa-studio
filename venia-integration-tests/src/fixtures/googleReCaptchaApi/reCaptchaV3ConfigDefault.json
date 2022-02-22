@@ -8,6 +8,10 @@
                 "CUSTOMER_FORGOT_PASSWORD",
                 "PLACE_ORDER",
                 "BRAINTREE"
+                "CUSTOMER_CREATE",
+                "CUSTOMER_EDIT",
+                "CUSTOMER_FORGOT_PASSWORD",
+                "CUSTOMER_LOGIN"
             ],
             "__typename": "ReCaptchaConfigurationV3"
         }

@@ -10,6 +10,10 @@ export const MiniCartFragment = gql`
                 currency
                 value
             }
+            subtotal_including_tax {
+                currency
+                value
+            }
         }
         ...ProductListFragment
     }

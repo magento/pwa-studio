@@ -60,9 +60,9 @@ exports[`Snapshot test when configured to use variant image 1`] = `
     options={
       Array [
         Object {
-          "id": 22,
+          "configurable_product_option_uid": 22,
+          "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzIyLzI=",
           "option_label": "Color",
-          "value_id": 2,
           "value_label": "red",
         },
       ]
