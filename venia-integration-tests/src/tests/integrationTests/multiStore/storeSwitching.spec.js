@@ -530,7 +530,7 @@ const interceptStoreRequests = expectedStoreCode => {
             call: getStoreConfigForCarouselEECall
         },
         {
-            alias: 'getMockStoreConfigForCarouselEE',
+            alias: 'getMockWishlistConfigForProductPage',
             call: getWishlistConfigForProductPageCall
         },
         {
@@ -574,10 +574,10 @@ const interceptStoreRequests = expectedStoreCode => {
  */
 const interceptRouteDataRequests = expectedStoreCode => {
     cy.intercept('GET', resolveUrlCall, req => {
-        expect(req.headers.store).to.equal(expectedStoreCode);
+        const { headers, query } = req;
+        const url = JSON.parse(query.variables.toString()).url;
 
-        const reqUrl = new URL(req.url);
-        const url = JSON.parse(reqUrl.searchParams.get('variables')).url;
+        expect(headers.store).to.equal(expectedStoreCode);
 
         switch (url) {
             case '/':
@@ -711,10 +711,10 @@ describe('switching to another store', () => {
         cy.visitPage('/');
 
         cy.wait([
+            '@getMockCmsPage',
+            '@getMockProductCarousel',
             '@getMockMegaMenu',
-            '@getMockNavigationMenu',
-            '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForCategoryTree'
+            '@getMockNavigationMenu'
         ]);
 
         // Setup network interactions for the second store view
@@ -726,6 +726,13 @@ describe('switching to another store', () => {
         selectStoreView(
             `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
         );
+
+        cy.wait([
+            '@getMockCmsPage',
+            '@getMockProductCarousel',
+            '@getMockMegaMenu',
+            '@getMockNavigationMenu'
+        ]);
 
         // Should not have any url suffix
         assertNoUrlSuffix();
@@ -741,10 +748,10 @@ describe('switching to another store', () => {
         cy.visitPage('/');
 
         cy.wait([
+            '@getMockCmsPage',
+            '@getMockProductCarousel',
             '@getMockMegaMenu',
-            '@getMockNavigationMenu',
-            '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForCategoryTree'
+            '@getMockNavigationMenu'
         ]);
 
         // Setup network interactions for the second store view
@@ -756,6 +763,13 @@ describe('switching to another store', () => {
         selectStoreView(
             `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
         );
+
+        cy.wait([
+            '@getMockCmsPage',
+            '@getMockProductCarousel',
+            '@getMockMegaMenu',
+            '@getMockNavigationMenu'
+        ]);
 
         // Assert categories for second store
         assertNumberOfCategoriesInMegaMenu(secondStore.categories.length);
@@ -776,6 +790,13 @@ describe('switching to another store', () => {
             `${defaultStore.groupName} - ${defaultStore.viewOne.storeName}`
         );
 
+        cy.wait([
+            '@getMockCmsPage',
+            '@getMockProductCarousel',
+            '@getMockMegaMenu',
+            '@getMockNavigationMenu'
+        ]);
+
         // Assertions to make sure we are showing the default mock data
         assertNumberOfCategoriesInMegaMenu(defaultStore.categories.length);
         assertNumberOfCategoriesInCategoryTree(defaultStore.categories.length);
@@ -793,11 +814,10 @@ describe('switching to another store', () => {
         cy.visitPage('/');
 
         cy.wait([
-            '@mockHomeRouteData',
+            '@getMockCmsPage',
+            '@getMockProductCarousel',
             '@getMockMegaMenu',
-            '@getMockNavigationMenu',
-            '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForCategoryTree'
+            '@getMockNavigationMenu'
         ]);
 
         // Setup mock network interactions
@@ -810,6 +830,13 @@ describe('switching to another store', () => {
         selectStoreView(
             `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
         );
+
+        cy.wait([
+            '@getMockCmsPage',
+            '@getMockProductCarousel',
+            '@getMockMegaMenu',
+            '@getMockNavigationMenu'
+        ]);
 
         //Setup network mock network requests for the first category page
         interceptCategoryAPageRequests(secondStore.viewOne.storeCode);
@@ -891,7 +918,13 @@ describe('shopping cart', () => {
             `${defaultStore.groupName} - ${defaultStore.viewOne.storeName}`
         );
 
-        cy.wait(['@mockAccessoriesRouteData']);
+        cy.wait([
+            '@getMockCategories',
+            '@getMockBreadcrumbs',
+            '@getMockCategoryData',
+            '@getMockProductFilter',
+            '@getMockFilterInput'
+        ]);
 
         assertProductsFound();
 
@@ -961,7 +994,13 @@ describe('shopping cart', () => {
             `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
         );
 
-        cy.wait('@getMockAccessoriesRouteData');
+        cy.wait([
+            '@getMockCategories',
+            '@getMockBreadcrumbs',
+            '@getMockCategoryData',
+            '@getMockProductFilter',
+            '@getMockFilterInput'
+        ]);
 
         assertErrorInPage();
 
