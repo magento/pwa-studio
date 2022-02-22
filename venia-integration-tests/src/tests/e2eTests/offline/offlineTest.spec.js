@@ -15,73 +15,61 @@ import {
     offline as offlineAssertions
 } from '../../../assertions';
 
-const { categoryDresses, searchData } = categoryPageFixtures;
+const { categoryTops, searchData } = categoryPageFixtures;
 
 const {
     selectCategoryFromMegaMenu,
     selectProductFromCategoryPage
 } = categoryPageActions;
 
-const { productAngelinaTankDress } = productPageFixtures;
+const { productVitaliaTop, carinaCardigan } = productPageFixtures;
 
-const { triggerSearch, searchFromSearchBar } = headerActions;
+const { triggerSearch, searchFromSearchBar, clickHeaderLogo } = headerActions;
 
-const {
-    assertProductIsInProductSuggestion,
-    assertProductIsInGallery
-} = categoryPageAssertions;
+const { assertProductIsInProductSuggestion } = categoryPageAssertions;
 
 const { assertToastExists, assertToastMessage } = toastAssertions;
 
 const { assertOffline, assertServiceWorkerIsActivated } = offlineAssertions;
 
 const {
-    getCategoriesCall,
     getProductDetailForProductPageCall,
     getStoreConfigDataForGalleryEECall,
-    getProductFiltersBySearchCall,
     getProductSearchCall,
+		getCategoriesCall,
     getAutocompleteResultsCall,
     getStoreConfigDataCall,
     getCategoryDataCall
 } = graphqlMockedCallsFixtures;
 
+const WAIT__TIME = 4000;
+
+beforeEach(() => {
+		navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+				assertServiceWorkerIsActivated(
+						serviceWorkerRegistration?.active?.state
+				);
+		});
+	});
+
 describe('PWA-1085: Verify cached pages are rendered correctly on offline mode', () => {
-    before(() => {
-        navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-            assertServiceWorkerIsActivated(
-                serviceWorkerRegistration?.active?.state
-            );
-        });
-    });
-
     it('user should be able to navigate on offline mode', () => {
+				cy.intercept('GET', getStoreConfigDataCall).as(
+					'gqlGetStoreConfigDataQuery'
+				);
+				cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
+					'gqlGetStoreConfigDataForGallery'
+				);
         cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
-
+				cy.intercept('GET', getCategoryDataCall).as(
+						'gqlGetCategoryDataCallQuery'
+				);
         cy.intercept('GET', getProductDetailForProductPageCall).as(
             'gqlGetProductDetailForProductPageQuery'
         );
-
-        cy.intercept('GET', getStoreConfigDataCall).as(
-            'gqlGetStoreConfigDataQuery'
-        );
-
-        cy.intercept('GET', getCategoryDataCall).as(
-            'gqlGetCategoryDataCallQuery'
-        );
-
-        cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
-            'gqlGetStoreConfigDataForGallery'
-        );
-
-        cy.intercept('GET', getProductFiltersBySearchCall).as(
-            'gqlGetProductFiltersBySearchQuery'
-        );
-
         cy.intercept('GET', getProductSearchCall).as(
             'gqlGetProductSearchQuery'
         );
-
         cy.intercept('GET', getAutocompleteResultsCall).as(
             'gqlGetAutoCompleteResultsQuery'
         );
@@ -91,44 +79,20 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
             timeout: 60000
         });
 
-        // called to wait cache load properly
-        cy.wait(4000);
+        cy.visit(categoryTops.url);
 
-        cy.visit(categoryDresses.url);
-
-        cy.wait(['@gqlGetCategoryDataCallQuery'], {
-            timeout: 60000
-        });
-
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
-
-        cy.wait(['@gqlGetStoreConfigDataForGallery'], {
-            timeout: 60000
-        });
-
-        cy.wait(4000);
+        cy.wait(
+            [
+                '@gqlGetCategoryDataCallQuery',
+                '@gqlGetStoreConfigDataForGallery'
+            ],
+            {
+                timeout: 60000
+            }
+        );
 
         triggerSearch();
-        searchFromSearchBar(searchData.validSku1, false);
 
-        cy.wait(['@gqlGetAutoCompleteResultsQuery'], {
-            timeout: 60000
-        });
-
-        cy.visit(categoryDresses.url);
-        cy.wait(4000);
-
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
-
-        cy.wait(['@gqlGetStoreConfigDataForGallery'], {
-            timeout: 60000
-        });
-
-        triggerSearch();
         searchFromSearchBar(searchData.validSku1, false);
 
         cy.wait(['@gqlGetAutoCompleteResultsQuery'], {
@@ -140,14 +104,33 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
             searchData.validProductHref1
         );
 
-        assertProductIsInGallery(productAngelinaTankDress.name);
+        cy.visit(categoryTops.url).then(() => cy.wait(WAIT__TIME)); // cy.wait needed to assert that Cypress cached files
 
-        cy.visit(productAngelinaTankDress.url);
+        cy.wait(['@gqlGetCategoriesQuery'], {
+            timeout: 60000
+        });
+
+        triggerSearch();
+        searchFromSearchBar(searchData.validSku1, false);
+
+        assertProductIsInProductSuggestion(
+            searchData.validProductName1,
+            searchData.validProductHref1
+        );
+
+        cy.wait(['@gqlGetAutoCompleteResultsQuery'], {
+            timeout: 60000
+        });
+
+        cy.visit(productVitaliaTop.url).then(() => cy.wait(WAIT__TIME));
 
         cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
             timeout: 60000
         });
-        cy.wait(4000);
+
+        selectCategoryFromMegaMenu(categoryTops.name);
+
+        selectProductFromCategoryPage(carinaCardigan.name);
 
         cy.visitHomePage();
 
@@ -161,19 +144,19 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
             'You are offline. Some features may be unavailable.'
         );
 
-        selectCategoryFromMegaMenu(categoryDresses.name);
+        selectCategoryFromMegaMenu(categoryTops.name);
 
-        selectProductFromCategoryPage(productAngelinaTankDress.name);
+        selectProductFromCategoryPage(carinaCardigan.name);
 
         triggerSearch();
 
         searchFromSearchBar(searchData.validSku1, false);
 
-        cy.wait(4000);
-
         assertProductIsInProductSuggestion(
             searchData.validProductName1,
             searchData.validProductHref1
         );
+
+        clickHeaderLogo();
     });
 });

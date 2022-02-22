@@ -1,3 +1,7 @@
+/**
+ * Utility function to simulate an offline network status
+ * @link https://www.cypress.io/blog/2020/11/12/testing-application-in-offline-network-mode/
+ */
 const goOffline = () => {
     cy.log('**go offline**')
         .then(() => {

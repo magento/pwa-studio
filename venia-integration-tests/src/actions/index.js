@@ -15,4 +15,3 @@ export * as toast from './toast';
 export * as wishlistPage from './wishlistPage';
 export * as footer from './footer';
 export * as searchPage from './searchPage';
-export * as offline from './offline';

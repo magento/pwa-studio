@@ -19,6 +19,7 @@ import {
     productSortSortItem,
     productPrice
 } from '../../fields/categoryPage';
+
 import { validateLanguage } from '../../utils/language-test-utils';
 
 /**
@@ -110,10 +111,15 @@ export const assertProductIsInGallery = productName => {
  */
 export const assertProductIsInProductSuggestion = (
     productName,
-    productHref
+    productHref,
+		wait = 4000
 ) => {
-    cy.wait(4000);
     cy.get(searchBarSuggestedProduct).should('contain', productName);
+    cy.get(searchBarSuggestedProduct)
+        .should('be.visible')
+        .then(() => {
+            cy.wait(wait);
+        });
     cy.get(searchBarSuggestedProduct)
         .invoke('attr', 'href')
         .should('contain', productHref);
