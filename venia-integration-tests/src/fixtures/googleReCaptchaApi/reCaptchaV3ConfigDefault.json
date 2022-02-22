@@ -7,7 +7,7 @@
             "forms": [
                 "CUSTOMER_FORGOT_PASSWORD",
                 "PLACE_ORDER",
-                "BRAINTREE"
+                "BRAINTREE",
                 "CUSTOMER_CREATE",
                 "CUSTOMER_EDIT",
                 "CUSTOMER_FORGOT_PASSWORD",
