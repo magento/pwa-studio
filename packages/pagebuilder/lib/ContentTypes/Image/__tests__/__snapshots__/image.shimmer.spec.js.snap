@@ -28,8 +28,8 @@ exports[`renders ImageShimmer correctly renders a ImageShimmer using desktop ima
         "borderColor": undefined,
         "borderRadius": undefined,
         "borderWidth": undefined,
-        "height": 300,
-        "width": 400,
+        "height": "300px",
+        "width": "400px",
       }
     }
   />
@@ -62,8 +62,8 @@ exports[`renders ImageShimmer correctly renders a ImageShimmer using desktop ima
         "borderColor": undefined,
         "borderRadius": undefined,
         "borderWidth": undefined,
-        "height": 300,
-        "width": 400,
+        "height": "300px",
+        "width": "400px",
       }
     }
   />
@@ -96,8 +96,8 @@ exports[`renders ImageShimmer correctly renders a ImageShimmer using mobile imag
         "borderColor": undefined,
         "borderRadius": undefined,
         "borderWidth": undefined,
-        "height": 250,
-        "width": 125,
+        "height": "250px",
+        "width": "125px",
       }
     }
   />
@@ -130,8 +130,8 @@ exports[`renders ImageShimmer correctly renders a ImageShimmer using mobile imag
         "borderColor": undefined,
         "borderRadius": undefined,
         "borderWidth": undefined,
-        "height": 250,
-        "width": 125,
+        "height": "250px",
+        "width": "125px",
       }
     }
   />

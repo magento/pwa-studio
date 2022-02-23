@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { arrayOf, shape, string, number } from 'prop-types';
 import defaultClasses from './image.shimmer.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -53,22 +53,56 @@ const ImageShimmer = props => {
         borderRadius
     };
 
-    if (
-        window.matchMedia('(max-width: 48rem)').matches &&
-        mobileImage &&
-        mobileImage.dimensions
-    ) {
-        imageStyles.height = mobileImage.dimensions.height;
-        imageStyles.width = mobileImage.dimensions.width;
-    } else if (desktopImage && desktopImage.dimensions) {
-        imageStyles.height = desktopImage.dimensions.height;
-        imageStyles.width = desktopImage.dimensions.width;
-    } else {
+    const figureRef = useRef();
+
+    const dimensions = useMemo(() => {
+        const value = {
+            height: 0,
+            width: 0
+        };
+        if (
+            window.matchMedia('(max-width: 48rem)').matches &&
+            mobileImage &&
+            mobileImage.dimensions
+        ) {
+            value.width = mobileImage.dimensions.width;
+            value.height = mobileImage.dimensions.height;
+        } else if (desktopImage && desktopImage.dimensions) {
+            value.width = desktopImage.dimensions.width;
+            value.height = desktopImage.dimensions.height;
+        } else {
+            return null;
+        }
+        return value;
+    }, [desktopImage, mobileImage]);
+
+    useEffect(() => {
+        if (figureRef.current) {
+            const width = figureRef.current.offsetWidth;
+            if (dimensions.width > width) {
+                if (
+                    window.matchMedia('(max-width: 48rem)').matches &&
+                    mobileImage &&
+                    mobileImage.dimensions
+                ) {
+                    dimensions.width = width;
+                    dimensions.height =
+                        dimensions.width * mobileImage.dimensions.ratio;
+                } else if (desktopImage && desktopImage.dimensions) {
+                    dimensions.width = width;
+                    dimensions.height =
+                        dimensions.width * desktopImage.dimensions.ratio;
+                }
+            }
+        }
+    }, [desktopImage, dimensions, mobileImage]);
+
+    if (!dimensions) {
         return null;
     }
 
     return (
-        <figure style={figureStyles}>
+        <figure style={figureStyles} ref={figureRef}>
             <Shimmer
                 aria-live="polite"
                 aria-busy="true"
@@ -80,6 +114,8 @@ const ImageShimmer = props => {
                     ].join(' ')
                 }}
                 style={imageStyles}
+                height={dimensions.height + 'px'}
+                width={dimensions.width + 'px'}
             />
         </figure>
     );
