@@ -93,3 +93,21 @@ test('config is aggregated correctly for row appearance == full-width with video
         })
     );
 });
+
+test('config is aggregated correctly for row containing dynamic block', () => {
+    const node = document.createElement('div');
+    node.innerHTML = `<div data-content-type="row" data-appearance="contained" data-element="main"><div class="class1 class2" data-enable-parallax="0" data-parallax-speed="0.5" data-background-images="{}" data-element="inner" style="justify-content: flex-start; display: flex; flex-direction: column; background-position: left top; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; text-align: right; border-style: dashed; border-color: rgb(252, 0, 9); border-width: 20px; border-radius: 30px; margin: 5px; padding: 10px; min-height: 40px;"><div data-content-type="dynamic_block" data-appearance="default" data-element="main">{{widget type="Magento\\Banner\\Block\\Widget\\Banner" display_mode="fixed" rotate="" template="widget/block.phtml" banner_ids="2" unique_id="2" type_name="Dynamic Blocks Rotator"}}</div></div></div>`;
+    const config = configAggregator(node.childNodes[0], {
+        appearance: 'contained'
+    });
+
+    // minHeight should be null, minHeight is managed by dynamicBlock
+    expect(config).toEqual(
+        expect.objectContaining({
+            minHeight: null,
+            backgroundColor: null,
+            enableParallax: false,
+            parallaxSpeed: 0.5
+        })
+    );
+});

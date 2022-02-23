@@ -36,6 +36,7 @@ const DynamicBlock = props => {
         marginRight,
         marginBottom,
         marginLeft,
+        minHeight,
         paddingTop,
         paddingRight,
         paddingBottom,
@@ -53,6 +54,7 @@ const DynamicBlock = props => {
         marginRight,
         marginBottom,
         marginLeft,
+        minHeight,
         paddingTop,
         paddingRight,
         paddingBottom,
@@ -70,6 +72,8 @@ const DynamicBlock = props => {
         <RootTag
             style={dynamicStyles}
             className={[classes.root, ...cssClasses].join(' ')}
+            aria-live="polite"
+            aria-busy="false"
         >
             <CmsDynamicBlockGroup displayMode={displayMode} uids={uids} />
         </RootTag>
