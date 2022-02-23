@@ -18,7 +18,10 @@ import {
 } from '../../../actions/storeSwitcher';
 
 import { assertUrlSuffix, assertNoUrlSuffix } from '../../../assertions/app';
-import { assertProductInCartPage } from '../../../assertions/cartPage';
+import {
+    assertProductInCartPage,
+    assertProductImageDisplayedInCartPage
+} from '../../../assertions/cartPage';
 
 import {
     assertNoProductsFound,
@@ -50,6 +53,7 @@ import {
     getCartDetailsCall,
     getCategoryAvailableSortMethodsCall,
     getCategoryDataCall,
+    getConfigurableThumbnailSourceCall,
     getCMSPage,
     getCurrencyDataCall,
     getFilterInputsForCategoryCall,
@@ -527,6 +531,10 @@ const interceptStoreRequests = expectedStoreCode => {
         {
             alias: 'getMockStoreConfigForNewsletter',
             call: getStoreConfigForNewsletterCall
+        },
+        {
+            alias: 'getMockConfigurableThumbnailSource',
+            call: getConfigurableThumbnailSourceCall
         },
         {
             alias: 'mockStoreConfig',
@@ -1038,8 +1046,6 @@ describe('shopping cart', () => {
 
         selectCategoryFromMegaMenu(secondStore.categories[0]);
 
-        cy.pause(); // WIP
-
         // Intercept calls that update the cart
         cy.intercept('POST', hitGraphqlPath, req => {
             expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
@@ -1077,7 +1083,8 @@ describe('shopping cart', () => {
         // Assert correct product image urls
         assertProductImageDisplayed('va14-ts_main', 0);
         assertProductImageDisplayed('va13-sg_main', 1);
-        assertProductImageDisplayed('va03-kh_main_1', 2);
+        assertProductImageDisplayed('vsw01-pe_main_1', 2);
+        assertProductImageDisplayed('va03-kh_main_1', 3);
 
         // Navigate to the cart page
         goToCartPageFromEditCartButton();
@@ -1089,6 +1096,10 @@ describe('shopping cart', () => {
         assertProductInCartPage(defaultAccessoriesProducts[2]);
         assertProductInCartPage(defaultTopsProducts[0]);
         assertProductInCartPage(subcategoryAProducts[1]);
+
+        // Test image source
+        assertProductImageDisplayedInCartPage('vsw01-pe_main_1', 2);
+        assertProductImageDisplayedInCartPage('va03-kh_main_1', 3);
 
         // Visit back View 1 from default store and validate store config
         interceptStoreRequests(defaultStore.defaultView.storeCode);
@@ -1103,5 +1114,9 @@ describe('shopping cart', () => {
         );
 
         cy.wait(['@getMockProductListing']);
+
+        // Test if image source has changed
+        assertProductImageDisplayedInCartPage('vsw01-rn_main_2', 2);
+        assertProductImageDisplayedInCartPage('va03-ly_main_2', 3);
     });
 });

@@ -15,11 +15,11 @@
             "sku": "VA14-SI-NA",
             "url_key": "augusta-necklace",
             "thumbnail": {
-              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va14-ts_main.jpg",
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
               "__typename": "ProductImage"
             },
             "small_image": {
-              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va14-ts_main.jpg",
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
               "__typename": "ProductImage"
             },
             "stock_status": "IN_STOCK",
@@ -45,11 +45,11 @@
             "sku": "VA13-GO-NA",
             "url_key": "carmina-necklace",
             "thumbnail": {
-              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va13-sg_main.jpg",
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va13-sg_main.jpg",
               "__typename": "ProductImage"
             },
             "small_image": {
-              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va13-sg_main.jpg",
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va13-sg_main.jpg",
               "__typename": "ProductImage"
             },
             "stock_status": "IN_STOCK",
@@ -72,7 +72,6 @@
           "product": {
             "uid": "MTEyMA==",
             "name": "Carina Cardigan",
-            "sku": "VSW01",
             "url_key": "carina-cardigan",
             "thumbnail": {
               "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_2.jpg",
@@ -97,6 +96,10 @@
                 ],
                 "product": {
                   "uid": "Mzk4",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
                     "__typename": "ProductImage"
@@ -118,6 +121,10 @@
                 ],
                 "product": {
                   "uid": "Mzk0",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
                     "__typename": "ProductImage"
@@ -139,6 +146,10 @@
                 ],
                 "product": {
                   "uid": "Mzkw",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
                     "__typename": "ProductImage"
@@ -160,6 +171,10 @@
                 ],
                 "product": {
                   "uid": "Mzg2",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
                     "__typename": "ProductImage"
@@ -181,6 +196,10 @@
                 ],
                 "product": {
                   "uid": "Mzk3",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
                     "__typename": "ProductImage"
@@ -202,6 +221,10 @@
                 ],
                 "product": {
                   "uid": "Mzkz",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
                     "__typename": "ProductImage"
@@ -223,6 +246,10 @@
                 ],
                 "product": {
                   "uid": "Mzg5",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
                     "__typename": "ProductImage"
@@ -244,6 +271,10 @@
                 ],
                 "product": {
                   "uid": "Mzg1",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
                     "__typename": "ProductImage"
@@ -265,6 +296,10 @@
                 ],
                 "product": {
                   "uid": "Mzk5",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
                     "__typename": "ProductImage"
@@ -286,6 +321,10 @@
                 ],
                 "product": {
                   "uid": "Mzk1",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
                     "__typename": "ProductImage"
@@ -307,6 +346,10 @@
                 ],
                 "product": {
                   "uid": "Mzkx",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
                     "__typename": "ProductImage"
@@ -328,6 +371,10 @@
                 ],
                 "product": {
                   "uid": "Mzg3",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
                     "__typename": "ProductImage"
@@ -349,6 +396,10 @@
                 ],
                 "product": {
                   "uid": "NDAw",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-kh_main_1.jpg",
                     "__typename": "ProductImage"
@@ -370,6 +421,10 @@
                 ],
                 "product": {
                   "uid": "Mzk2",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-ll_main_1.jpg",
                     "__typename": "ProductImage"
@@ -391,6 +446,10 @@
                 ],
                 "product": {
                   "uid": "Mzky",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-pe_main_1.jpg",
                     "__typename": "ProductImage"
@@ -412,6 +471,10 @@
                 ],
                 "product": {
                   "uid": "Mzg4",
+                  "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsw01-rn_main_1.jpg",
                     "__typename": "ProductImage"
@@ -432,10 +495,8 @@
             "__typename": "CartItemPrices"
           },
           "quantity": 1,
-          "errors": null,
           "configurable_options": [
             {
-              "id": 179,
               "configurable_product_option_uid": "Y29uZmlndXJhYmxlLzExMjAvMTc5",
               "option_label": "Fashion Color",
               "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzE3OS8yMQ==",
@@ -443,7 +504,6 @@
               "__typename": "SelectedConfigurableOption"
             },
             {
-              "id": 182,
               "configurable_product_option_uid": "Y29uZmlndXJhYmxlLzExMjAvMTgy",
               "option_label": "Fashion Size",
               "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
@@ -463,6 +523,10 @@
               "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_2.jpg",
               "__typename": "ProductImage"
             },
+            "small_image": {
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_2.jpg",
+              "__typename": "ProductImage"
+            },
             "stock_status": "IN_STOCK",
             "variants": [
               {
@@ -479,6 +543,10 @@
                 "product": {
                   "uid": "MTA2Mg==",
                   "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-kh_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -503,6 +571,10 @@
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-la_main_1.jpg",
                     "__typename": "ProductImage"
                   },
+                  "small_image": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-la_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "__typename": "SimpleProduct"
                 },
                 "__typename": "ConfigurableVariant"
@@ -521,6 +593,10 @@
                 "product": {
                   "uid": "MTA1NA==",
                   "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ll_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -545,6 +621,10 @@
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_1.jpg",
                     "__typename": "ProductImage"
                   },
+                  "small_image": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "__typename": "SimpleProduct"
                 },
                 "__typename": "ConfigurableVariant"
@@ -563,6 +643,10 @@
                 "product": {
                   "uid": "MTA2MQ==",
                   "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-kh_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -587,6 +671,10 @@
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-la_main_1.jpg",
                     "__typename": "ProductImage"
                   },
+                  "small_image": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-la_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "__typename": "SimpleProduct"
                 },
                 "__typename": "ConfigurableVariant"
@@ -605,6 +693,10 @@
                 "product": {
                   "uid": "MTA1Mw==",
                   "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ll_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -629,6 +721,10 @@
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_1.jpg",
                     "__typename": "ProductImage"
                   },
+                  "small_image": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "__typename": "SimpleProduct"
                 },
                 "__typename": "ConfigurableVariant"
@@ -647,6 +743,10 @@
                 "product": {
                   "uid": "MTA2Mw==",
                   "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-kh_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -671,6 +771,10 @@
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-la_main_1.jpg",
                     "__typename": "ProductImage"
                   },
+                  "small_image": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-la_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "__typename": "SimpleProduct"
                 },
                 "__typename": "ConfigurableVariant"
@@ -689,6 +793,10 @@
                 "product": {
                   "uid": "MTA1NQ==",
                   "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ll_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -713,6 +821,10 @@
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_1.jpg",
                     "__typename": "ProductImage"
                   },
+                  "small_image": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "__typename": "SimpleProduct"
                 },
                 "__typename": "ConfigurableVariant"
@@ -731,6 +843,10 @@
                 "product": {
                   "uid": "MTA2NA==",
                   "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-kh_main_1.jpg",
                     "__typename": "ProductImage"
                   },
@@ -755,6 +871,10 @@
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-la_main_1.jpg",
                     "__typename": "ProductImage"
                   },
+                  "small_image": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-la_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "__typename": "SimpleProduct"
                 },
                 "__typename": "ConfigurableVariant"
@@ -776,6 +896,10 @@
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ll_main_1.jpg",
                     "__typename": "ProductImage"
                   },
+                  "small_image": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
                   "__typename": "SimpleProduct"
                 },
                 "__typename": "ConfigurableVariant"
@@ -794,6 +918,10 @@
                 "product": {
                   "uid": "MTA1Mg==",
                   "thumbnail": {
+                    "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "small_image": {
                     "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_1.jpg",
                     "__typename": "ProductImage"
                   },

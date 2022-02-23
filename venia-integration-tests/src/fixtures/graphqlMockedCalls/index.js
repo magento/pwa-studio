@@ -36,6 +36,9 @@ export const getCountriesCall = '**/graphql?query=query+GetCountries*';
 
 export const getCMSPage = '**/graphql?query=query+GetCmsPage*';
 
+export const getConfigurableThumbnailSourceCall =
+    '**/graphql?query=query+getConfigurableThumbnailSource*';
+
 export const getContactPageEnabledCall =
     '**/graphql?query=query+GetStoreConfigForContactUs*';
 

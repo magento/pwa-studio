@@ -4,6 +4,7 @@ import {
     cartPageProductOption,
     cartPageProductQuantity,
     cartPageProductPrice,
+    cartPageProductImageLink,
     productListingProductName,
     cartPagePriceSummaryDiscountSummary,
     cartPagePriceSummaryGiftCardSummary,
@@ -214,6 +215,20 @@ export const assertNoPrintedCard = () => {
  */
 export const assertPrintedCard = () => {
     cy.get(giftOptionsIncludePrintedCardCheckbox).should('exist');
+};
+
+/**
+ * Utility function to assert product in Cart Page displays correct image.
+ *
+ * @param {String} src -- fragment of image src
+ * @param {Number} index -- index of product in MiniCart
+ */
+export const assertProductImageDisplayedInCartPage = (src, index) => {
+    cy.get(cartPageProductImageLink)
+        .filter(':odd')
+        .eq(index)
+        .should('have.attr', 'src')
+        .should('contain', src);
 };
 
 /**
