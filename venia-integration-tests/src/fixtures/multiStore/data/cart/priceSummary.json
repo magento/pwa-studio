@@ -19,9 +19,9 @@
           "__typename": "ConfigurableCartItem"
         },
         {
-          "uid": "MTI5MDU4",
+          "uid": "NTQxMw==",
           "quantity": 1,
-          "__typename": "SimpleCartItem"
+          "__typename": "ConfigurableCartItem"
         }
       ],
       "shipping_addresses": [],

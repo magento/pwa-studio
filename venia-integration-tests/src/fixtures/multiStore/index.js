@@ -39,12 +39,16 @@ export const secondStore = {
         storeName: 'View Two B'
     },
     accessoriesPathname: '/venia-accessories',
+    product2Pathname: '/ombre-infinity-scarf',
     categories: ['Subcategory A', 'Subcategory B'],
     groupName: 'Store B'
 };
 
 export const subcategoryAPathname = '/subcategory-a';
-export const subcategoryAProducts = ['Augusta Earrings', 'Carmina Earrings'];
+export const subcategoryAProducts = [
+    'Augusta Earrings',
+    'Ombre Infinity Scarf'
+];
 
 export const subcategoryBPathname = '/subcategory-b';
 

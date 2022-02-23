@@ -84,8 +84,8 @@ test('mutation passes options for configurable item', () => {
             ...baseProps.item,
             configurable_options: [
                 {
-                    configurable_product_option_uid: 'option-1',
-                    configurable_product_option_value_uid: 'value-1'
+                    id: 'option-1',
+                    value_id: 'value-1'
                 }
             ],
             product: {

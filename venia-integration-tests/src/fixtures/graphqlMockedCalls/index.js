@@ -182,3 +182,6 @@ export const getCartDetailsAfterAccountCreationCall =
 
 export const getCustomerAfterCreateCall =
     '**/graphql?query=query+GetCustomerAfterCreate*';
+
+export const getCustomerInfoCall =
+    '**/graphql?query=query+GetCustomerInformation*';
