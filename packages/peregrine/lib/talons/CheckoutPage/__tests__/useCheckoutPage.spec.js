@@ -309,7 +309,7 @@ test("should place order and cleanup when we have order details and place order 
     expect(createCart).toHaveBeenCalledWith({ fetchCartId });
 });
 
-test('should set checkout step and review order button click state when an error ocurrs during placeOrderAndCleanup()', async () => {
+test('should be able to place order again when an error ocurrs during placeOrderAndCleanup()', async () => {
     const consoleErrorSpy = jest.spyOn(console, 'error');
     const createCart = jest.fn();
     const removeCart = jest.fn(() => {
@@ -336,8 +336,7 @@ test('should set checkout step and review order button click state when an error
     const updatedProps = update(defaultProps);
 
     expect(consoleErrorSpy).toHaveBeenCalled();
-    expect(updatedProps.reviewOrderButtonClicked).toBeFalsy();
-    expect(updatedProps.checkoutStep).toEqual(CHECKOUT_STEP.PAYMENT);
+    expect(updatedProps.placeOrderButtonClicked).toBeFalsy();
 });
 
 test('hasError should be true if place order mutation failed with errors', () => {

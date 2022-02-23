@@ -83,6 +83,7 @@ const grecaptchaMock = {
 describe('#useGoogleReCaptcha', () => {
     afterEach(() => {
         delete globalThis.grecaptcha;
+        globalThis['recaptchaCallbacks'] = {};
     });
 
     it('returns correct shape while and after loading', async () => {

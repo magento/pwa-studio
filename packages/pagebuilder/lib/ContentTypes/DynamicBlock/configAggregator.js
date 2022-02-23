@@ -10,7 +10,11 @@ export default node => {
         return {};
     }
 
+    // dynamicBlock shimmer uses minHeight from closest row
+    const row = widgetBlock.closest('[data-content-type="row"]')?.firstChild;
+
     return {
+        minHeight: row && row.style.minHeight ? row.style.minHeight : null,
         displayInline: widgetBlock
             .getAttribute('class')
             .includes('block-banners-inline'),
