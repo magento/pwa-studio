@@ -24,7 +24,6 @@ describe('PWA-1172: verify pagebuilder map content is rendered correctly', () =>
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Verify Map - All content',
-                blackout: ['iframe'],
                 timeout: 60000
             });
         });
@@ -72,7 +71,6 @@ describe('PWA-1172: verify pagebuilder map content is rendered correctly', () =>
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Verify Map - 2 Locations',
-                blackout: ['iframe'],
                 timeout: 60000
             });
         });
