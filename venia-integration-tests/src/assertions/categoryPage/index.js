@@ -109,6 +109,7 @@ export const assertProductIsInGallery = productName => {
  *
  * @param {String} productName product name
  * @param {String} productHref product href
+ * @param {Number} [wait] wait period for cache persistence
  */
 export const assertProductIsInProductSuggestion = (
     productName,
