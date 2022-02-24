@@ -46,6 +46,22 @@ describe('keyArgs property for Query.fields entries', () => {
     });
 });
 
+test('SelectedConfigurableOption returns correct key fields base on available data', () => {
+    const { SelectedConfigurableOption } = typePolicies;
+    expect(SelectedConfigurableOption.keyFields({ id: 1 })).toStrictEqual([
+        'id',
+        'value_id'
+    ]);
+    expect(
+        SelectedConfigurableOption.keyFields({
+            configurable_product_option_uid: 1
+        })
+    ).toStrictEqual([
+        'configurable_product_option_uid',
+        'configurable_product_option_value_uid'
+    ]);
+});
+
 describe('Cart type provides the correct values', () => {
     const { keyFields, fields } = typePolicies.Cart;
 
@@ -368,7 +384,8 @@ test('wishlist entities have correct keys', () => {
         BundleWishlistItem,
         GroupedProductWishlistItem,
         ConfigurableWishlistItem,
-        GiftCardWishlistItem
+        GiftCardWishlistItem,
+        SelectedConfigurableOption
     } = typePolicies;
     expect(Wishlist.keyFields({ id: 1 })).toBe('CustomerWishlist:1');
     expect(WishlistItem.keyFields({ id: 1 })).toBe('CustomerWishlistItem:1');
@@ -393,6 +410,10 @@ test('wishlist entities have correct keys', () => {
     expect(GiftCardWishlistItem.keyFields({ id: 1 })).toBe(
         'CustomerGiftCardWishlistItem:1'
     );
+    expect(SelectedConfigurableOption.keyFields({ id: 1 })).toStrictEqual([
+        'id',
+        'value_id'
+    ]);
 });
 
 test('local customerWishlistProducts field returns expected data', () => {

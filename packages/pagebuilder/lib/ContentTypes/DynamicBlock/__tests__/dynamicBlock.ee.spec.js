@@ -22,6 +22,7 @@ const defaultProps = {
     marginRight: '10px',
     marginBottom: '10px',
     marginLeft: '10px',
+    minHeight: '40px',
     paddingTop: '10px',
     paddingRight: '10px',
     paddingBottom: '10px',

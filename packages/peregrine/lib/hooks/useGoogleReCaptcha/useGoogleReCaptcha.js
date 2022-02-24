@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import useScript from '@magento/peregrine/lib/hooks/useScript';
@@ -35,6 +35,9 @@ export const useGoogleReCaptcha = props => {
         fetchPolicy: 'cache-and-network'
     });
 
+    if (!globalThis['recaptchaCallbacks']) {
+        globalThis['recaptchaCallbacks'] = {};
+    }
     const [apiIsReady, setApiIsReady] = useState(
         globalThis.hasOwnProperty('grecaptcha')
     );
@@ -42,7 +45,14 @@ export const useGoogleReCaptcha = props => {
     const [widgetId, setWidgetId] = useState(null);
 
     // Container Reference to be used for the GoogleReCaptcha component
-    const inlineContainerElement = useRef(null);
+    const [inlineContainer, setInlineContainer] = useState(null);
+
+    // callback to update container element ref in case of mount/unmount
+    const updateInlineContainerRef = useCallback(node => {
+        if (node !== null) {
+            setInlineContainer(node);
+        }
+    }, []);
 
     const recaptchaBadge =
         configData?.recaptchaV3Config?.badge_position &&
@@ -87,8 +97,6 @@ export const useGoogleReCaptcha = props => {
 
     // Render inline widget manually
     useEffect(() => {
-        const inlineContainer = inlineContainerElement.current;
-
         // Only render if container is set and API is available
         if (
             inlineContainer !== null &&
@@ -109,23 +117,34 @@ export const useGoogleReCaptcha = props => {
                 inlineContainer.dataset.widgetId = id;
             }
         }
-    }, [apiIsReady, isInline, recaptchaKey, widgetId]);
+    }, [apiIsReady, isInline, recaptchaKey, widgetId, inlineContainer]);
 
     // Callback sets API as ready
-    globalThis['onloadRecaptchaCallback'] = useCallback(() => {
-        // Update non inline styles
-        if (!isInline) {
-            const floatingBadge = document.getElementsByClassName(
-                'grecaptcha-badge'
-            );
+    if (!globalThis['recaptchaCallbacks'][formAction] && isEnabled) {
+        globalThis['recaptchaCallbacks'][formAction] = () => {
+            // Update non inline styles
+            if (!isInline) {
+                const floatingBadge = document.getElementsByClassName(
+                    'grecaptcha-badge'
+                );
 
-            if (floatingBadge && floatingBadge.length > 0) {
-                floatingBadge[0].style.zIndex = 999;
+                if (floatingBadge && floatingBadge.length > 0) {
+                    floatingBadge[0].style.zIndex = 999;
+                }
             }
-        }
 
-        setApiIsReady(true);
-    }, [isInline]);
+            setApiIsReady(true);
+        };
+    }
+
+    // Callback loops through each instance and set API as ready
+    globalThis['onloadRecaptchaCallback'] = useCallback(() => {
+        for (const key in globalThis['recaptchaCallbacks']) {
+            globalThis['recaptchaCallbacks'][key]();
+        }
+        // Reset value after
+        globalThis['recaptchaCallbacks'] = {};
+    }, []);
 
     // Generate the object that will be sent with the request
     const generateReCaptchaData = useCallback(async () => {
@@ -164,8 +183,8 @@ export const useGoogleReCaptcha = props => {
     }, [apiIsReady, formAction, isInline, recaptchaKey, widgetId]);
 
     const recaptchaWidgetProps = {
-        containerElement: inlineContainerElement,
-        shouldRender: isInline && apiIsReady
+        containerElement: updateInlineContainerRef,
+        shouldRender: !!(isEnabled && isInline && apiIsReady)
     };
 
     return {
@@ -186,6 +205,6 @@ export const useGoogleReCaptcha = props => {
  * @property {Boolean} recaptchaLoading - Indicates if hook is loading data or loading the script.
  * @property {Function} generateReCaptchaData - The function to generate ReCaptcha Mutation data.
  * @property {Object} recaptchaWidgetProps - Props for the GoogleReCaptcha component.
- * @property {Object} recaptchaWidgetProps.containerElement - Container reference.
+ * @property {Function} recaptchaWidgetProps.containerElement - Container reference callback.
  * @property {Boolean} recaptchaWidgetProps.shouldRender - Checks if component should be rendered.
  */

@@ -34,6 +34,7 @@ const { cartPageRoute } = cartPageFixtures;
 const { homePage } = homePageFixtures;
 const { wishlistRoute } = wishlistFixtures;
 const {
+    productJunoSweater,
     productValeriaTwoLayeredTank,
     silverAmorBangleSet
 } = productPageFixtures;
@@ -44,7 +45,8 @@ const { goToMyAccount } = myAccountMenuActions;
 const { addProductToWishlistFromCategoryPage } = categoryPageActions;
 const {
     addProductToWishlistFromProductPage,
-    addToCartFromProductPage
+    addToCartFromProductPage,
+    selectOptionsFromProductPage
 } = productPageActions;
 const { removeProductFromSingleWishlist } = wishlistPageActions;
 
@@ -92,6 +94,7 @@ describe('PWA-1781: verify single wishlist basic features', () => {
         assertWishlistHeading(wishlistPage);
         assertEmptyWishlistExists('Wish List');
 
+        // Add Configurable Product from Catalog Page
         cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
 
@@ -105,7 +108,17 @@ describe('PWA-1781: verify single wishlist basic features', () => {
 
         assertProductInWishlist(productCarinaCardigan);
 
+        // Add Configurable Product from Product Detail Page without options selected
         cy.visitPage(productValeriaTwoLayeredTank.url);
+        addProductToWishlistFromProductPage();
+
+        cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
+            timeout: 60000
+        });
+
+        // Add Configurable Product from Product Detail Page with options selected
+        cy.visitPage(productJunoSweater.url);
+        selectOptionsFromProductPage();
         addProductToWishlistFromProductPage();
 
         cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
@@ -116,7 +129,9 @@ describe('PWA-1781: verify single wishlist basic features', () => {
 
         assertProductInWishlist(productCarinaCardigan);
         assertProductInWishlist(productValeriaTwoLayeredTank.name);
+        assertProductInWishlist(productJunoSweater.name);
 
+        // Add Simple Product to Cart
         cy.visitPage(silverAmorBangleSet.url);
         addToCartFromProductPage();
 
@@ -124,6 +139,7 @@ describe('PWA-1781: verify single wishlist basic features', () => {
             timeout: 60000
         });
 
+        // Move Simple Product from Cart
         cy.visitPage(cartPageRoute);
         moveProductFromCartToSingleWishlist(silverAmorBangleSet.name);
 
@@ -137,6 +153,7 @@ describe('PWA-1781: verify single wishlist basic features', () => {
         assertProductInWishlist(productValeriaTwoLayeredTank.name);
         assertProductInWishlist(silverAmorBangleSet.name);
 
+        // Remove Product
         removeProductFromSingleWishlist(productCarinaCardigan);
 
         cy.wait(['@gqlRemoveProductsFromWishlistMutation'], {

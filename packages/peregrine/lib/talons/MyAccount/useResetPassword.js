@@ -3,29 +3,26 @@ import { useLocation } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-
-import defaultOperations from './resetPassword.gql';
 
 /**
  * Returns props necessary to render a ResetPassword form.
  *
- * @param {Object} [props.operations] - GraphQL operations to be run by the hook.
+ * @param {function} props.mutations - mutation to call when the user submits the new password.
  *
  * @returns {ResetPasswordProps} - GraphQL mutations for the reset password form.
  *
  * @example <caption>Importing into your project</caption>
  * import { useResetPassword } from '@magento/peregrine/lib/talons/MyAccount/useResetPassword.js';
  */
-export const useResetPassword = (props = {}) => {
-    const operations = mergeOperations(defaultOperations, props.operations);
+export const useResetPassword = props => {
+    const { mutations } = props;
 
     const [hasCompleted, setHasCompleted] = useState(false);
     const location = useLocation();
     const [
         resetPassword,
         { error: resetPasswordErrors, loading }
-    ] = useMutation(operations.resetPasswordMutation);
+    ] = useMutation(mutations.resetPasswordMutation);
 
     const {
         recaptchaLoading,
@@ -64,16 +61,28 @@ export const useResetPassword = (props = {}) => {
     );
 
     return {
-        isBusy: loading || recaptchaLoading,
         formErrors: [resetPasswordErrors],
-        recaptchaWidgetProps,
         handleSubmit,
         hasCompleted,
-        token
+        loading: loading || recaptchaLoading,
+        token,
+        recaptchaWidgetProps
     };
 };
 
 /** JSDocs type definitions */
+
+/**
+ * GraphQL mutations for the reset password form.
+ * This is a type used by the {@link useResetPassword} talon.
+ *
+ * @typedef {Object} ResetPasswordMutations
+ *
+ * @property {GraphQLAST} resetPasswordMutation mutation for resetting password
+ *
+ * @see [resetPassword.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/MyAccount/ResetPassword/resetPassword.gql.js}
+ * for the query used in Venia
+ */
 
 /**
  * Object type returned by the {@link useResetPassword} talon.
@@ -81,10 +90,10 @@ export const useResetPassword = (props = {}) => {
  *
  * @typedef {Object} ResetPasswordProps
  *
- * @property {Boolean} isBusy True if form awaits events. False otherwise
  * @property {Array} formErrors A list of form errors
- * @property {Object} recaptchaWidgetProps Props for the GoogleReCaptcha component
  * @property {Function} handleSubmit Callback function to handle form submission
  * @property {Boolean} hasCompleted True if password reset mutation has completed. False otherwise
+ * @property {Boolean} loading True if form awaits events. False otherwise
  * @property {String} token token needed for password reset, will be sent in the mutation
+ * @property {Object} recaptchaWidgetProps Props for the GoogleReCaptcha component
  */

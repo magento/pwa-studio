@@ -4,6 +4,8 @@ exports[`#PageBuilder DynamicBlock AC does not render a Dynamic Block component 
 
 exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component inlined 1`] = `
 <span
+  aria-busy="false"
+  aria-live="polite"
   className=""
   style={
     Object {
@@ -15,6 +17,7 @@ exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component inlined 
       "marginLeft": "10px",
       "marginRight": "10px",
       "marginTop": "10px",
+      "minHeight": "40px",
       "paddingBottom": "10px",
       "paddingLeft": "10px",
       "paddingRight": "10px",
@@ -31,6 +34,8 @@ exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component inlined 
 
 exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component with custom classes 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className=" test-class"
   style={
     Object {
@@ -42,6 +47,7 @@ exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component with cus
       "marginLeft": "10px",
       "marginRight": "10px",
       "marginTop": "10px",
+      "minHeight": "40px",
       "paddingBottom": "10px",
       "paddingLeft": "10px",
       "paddingRight": "10px",
@@ -58,6 +64,8 @@ exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component with cus
 
 exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component without custom classes 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className=""
   style={
     Object {
@@ -69,6 +77,7 @@ exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component without 
       "marginLeft": "10px",
       "marginRight": "10px",
       "marginTop": "10px",
+      "minHeight": "40px",
       "paddingBottom": "10px",
       "paddingLeft": "10px",
       "paddingRight": "10px",

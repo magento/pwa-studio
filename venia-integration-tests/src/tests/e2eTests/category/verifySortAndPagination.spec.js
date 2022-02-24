@@ -94,7 +94,7 @@ describe('PWA-1410: verify sort and pagination', () => {
         });
 
         toggleProductSort();
-        assertActiveSortItem(sortData.position);
+        assertActiveSortItem(sortData.bestMatch);
         sortProducts(sortData.priceLowHigh);
 
         cy.wait(['@gqlGetProductSearchQuery'], {
