@@ -12,6 +12,7 @@ import {
     productRatingSummary,
     productSortSortItemActive,
     searchBarSuggestedProduct,
+    searchBarSuggestedProductImage,
     filterSidebarHeaderTitle,
     categoryPageAddToCartButton,
     filterSidebarShowMoreLessButton,
@@ -112,10 +113,11 @@ export const assertProductIsInGallery = productName => {
 export const assertProductIsInProductSuggestion = (
     productName,
     productHref,
-		wait = 4000
+    wait = 4000
 ) => {
     cy.get(searchBarSuggestedProduct).should('contain', productName);
-    cy.get(searchBarSuggestedProduct)
+    cy.get(searchBarSuggestedProduct).should('be.visible');
+    cy.get(searchBarSuggestedProductImage)
         .should('be.visible')
         .then(() => {
             cy.wait(wait);
