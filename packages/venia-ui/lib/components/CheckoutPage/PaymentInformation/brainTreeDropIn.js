@@ -129,8 +129,6 @@ const BraintreeDropin = props => {
      * The parent component does this by setting `shouldTeardownDropin` `true`.
      */
     useEffect(() => {
-        let unmounted = false;
-
         const teardownAndRenderDropin = async () => {
             try {
                 dropinInstance.teardown();
@@ -138,32 +136,18 @@ const BraintreeDropin = props => {
 
                 const instance = await createDropinInstance();
 
-                if (!unmounted) {
-                    setDropinInstance(instance);
-                    onReady(true);
-                } else {
-                    /**
-                     * Component has been unmounted, tear down the instance.
-                     */
-                    instance.teardown();
-                }
+                setDropinInstance(instance);
+                onReady(true);
             } catch (err) {
                 console.error(
                     `Unable to tear down and re-initialize Credit Card form (Braintree). \n${err}`
                 );
-                if (!unmounted) {
-                    setIsError(true);
-                }
             }
         };
 
         if (shouldTeardownDropin) {
             teardownAndRenderDropin();
         }
-
-        return () => {
-            unmounted = true;
-        };
     }, [
         shouldTeardownDropin,
         dropinInstance,
