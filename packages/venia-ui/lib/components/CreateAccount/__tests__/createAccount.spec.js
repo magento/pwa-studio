@@ -12,7 +12,12 @@ jest.mock('@apollo/client', () => ({
         {
             error: null
         }
-    ])
+    ]),
+    useQuery: jest.fn().mockImplementation(() => ({
+        data: {},
+        loading: false,
+        error: null
+    }))
 }));
 
 jest.mock('../../../util/formValidators');

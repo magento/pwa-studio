@@ -23,6 +23,7 @@ Object {
   "onPaymentError": [Function],
   "onPaymentReady": [Function],
   "onPaymentSuccess": [Function],
+  "recaptchaWidgetProps": Object {},
   "resetShouldTeardownDropin": [Function],
   "shippingAddressCountry": "UK",
   "shouldRequestPaymentNonce": false,
