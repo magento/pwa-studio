@@ -113,7 +113,7 @@ export const checkoutPagePriceSummaryDiscountSummary =
     '[data-cy="CheckoutPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-Label"]';
 
 export const checkoutPagePriceSummaryGiftCardSummary =
-    '[data-cy="CheckoutPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-GiftCardSummary-Label"]';
+    '[data-cy="CheckoutPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-GiftCardSummary-label"]';
 
 export const orderConfirmationPage = '[data-cy="OrderConfirmationPage-root"]';
 
