@@ -21,6 +21,11 @@ exports[`Snapshot test 1`] = `
           className="undefined undefined"
           loading="eager"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+          style={
+            Object {
+              "--width": "100px",
+            }
+          }
           width={100}
         />
         <img
@@ -40,6 +45,12 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
+          style={
+            Object {
+              "--height": "125px",
+              "--width": "100px",
+            }
+          }
           width={100}
         />
       </div>
@@ -85,6 +96,11 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
           className="undefined undefined"
           loading="eager"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+          style={
+            Object {
+              "--width": "100px",
+            }
+          }
           width={100}
         />
         <img
@@ -104,6 +120,12 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
+          style={
+            Object {
+              "--height": "125px",
+              "--width": "100px",
+            }
+          }
           width={100}
         />
       </div>
@@ -149,6 +171,11 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
           className="undefined undefined"
           loading="eager"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+          style={
+            Object {
+              "--width": "100px",
+            }
+          }
           width={100}
         />
         <img
@@ -168,6 +195,12 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
+          style={
+            Object {
+              "--height": "125px",
+              "--width": "100px",
+            }
+          }
           width={100}
         />
       </div>

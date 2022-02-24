@@ -75,13 +75,13 @@ const PWADevServer = {
                         url.port = detectedAddress.port;
                     }
                     let readyNotice = chalk.green(
-                        `PWADevServer ready at ${chalk.greenBright.underline(
+                        `PWADevServer ready at \n ${chalk.greenBright.underline(
                             url.href
                         )}`
                     );
                     if (graphqlPlayground) {
                         readyNotice +=
-                            '\n' +
+                            '\n\n' +
                             chalk.blueBright(
                                 `GraphQL Playground ready at ${chalk.blueBright.underline(
                                     new URL('/graphiql', url.origin).href
@@ -92,7 +92,7 @@ const PWADevServer = {
                         boxen(readyNotice, {
                             borderColor: 'gray',
                             float: 'center',
-                            align: 'center',
+                            textAlignment: 'center',
                             margin: 1,
                             padding: 1
                         })

@@ -23,6 +23,12 @@ exports[`renders if \`items\` is an array of objects 1`] = `
           height={375}
           loading="eager"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+          style={
+            Object {
+              "--height": "375px",
+              "--width": "100px",
+            }
+          }
           width={100}
         />
         <img
@@ -42,6 +48,11 @@ exports[`renders if \`items\` is an array of objects 1`] = `
 /test/product/1.png 1280w,
 /test/product/1.png 1600w,
 /test/product/1.png 2560w"
+          style={
+            Object {
+              "--width": "100px",
+            }
+          }
           width={100}
         />
       </div>
@@ -108,6 +119,12 @@ exports[`renders if \`items\` is an array of objects 1`] = `
           height={375}
           loading="eager"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+          style={
+            Object {
+              "--height": "375px",
+              "--width": "100px",
+            }
+          }
           width={100}
         />
         <img
@@ -127,6 +144,11 @@ exports[`renders if \`items\` is an array of objects 1`] = `
 /test/product/2.png 1280w,
 /test/product/2.png 1600w,
 /test/product/2.png 2560w"
+          style={
+            Object {
+              "--width": "100px",
+            }
+          }
           width={100}
         />
       </div>

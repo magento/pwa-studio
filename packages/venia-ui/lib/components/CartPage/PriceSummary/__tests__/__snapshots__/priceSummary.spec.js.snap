@@ -45,6 +45,9 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
       />
       <li
         className="lineItems"
+      />
+      <li
+        className="lineItems"
       >
         <span
           className="totalLabel"
@@ -147,6 +150,9 @@ exports[`renders PriceSummary correctly on checkout page 1`] = `
       />
       <li
         className="lineItems"
+      />
+      <li
+        className="lineItems"
       >
         <span
           className="totalLabel"
@@ -226,6 +232,9 @@ exports[`renders summary with loading state if query is loading 1`] = `
           </span>
         </span>
       </li>
+      <li
+        className="lineItems"
+      />
       <li
         className="lineItems"
       />

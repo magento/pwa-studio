@@ -8,6 +8,11 @@ export const productCarminaEarrings = {
     url: '/carmina-earrings.html'
 };
 
+export const productJunoSweater = {
+    name: 'Juno Sweater',
+    url: '/juno-sweater.html'
+};
+
 export const productValeriaTwoLayeredTank = {
     name: 'Valeria Two-Layer Tank',
     url: '/valeria-two-layer-tank.html',
@@ -31,4 +36,14 @@ export const productIsadoraSkirt = {
 export const silverAmorBangleSet = {
     name: 'Silver Amor Bangle Set',
     url: '/silver-amor-bangle-set.html'
+};
+
+export const carinaCardigan = {
+    name: 'Carina Cardigan',
+    url: '/carina-cardigan.html'
+};
+
+export const semperBangleSet = {
+    name: 'Semper Bangle Set',
+    url: '/semper-bangle-set.html'
 };

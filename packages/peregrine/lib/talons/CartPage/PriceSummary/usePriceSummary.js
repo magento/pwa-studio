@@ -21,6 +21,7 @@ const flattenData = data => {
         total: data.cart.prices.grand_total,
         discounts: data.cart.prices.discounts,
         giftCards: data.cart.applied_gift_cards,
+        giftOptions: data.cart.prices.gift_options,
         taxes: data.cart.prices.applied_taxes,
         shipping: data.cart.shipping_addresses
     };
@@ -88,6 +89,7 @@ export const usePriceSummary = (props = {}) => {
  * @property {String} total Cart grand total
  * @property {Array<Object>} discounts Applied discounts to the cart
  * @property {Array<Object>} giftCards Gift cards applied to the cart
+ * @property {Array<Object>} giftOptions Gift Options applied to the cart
  * @property {Array<Object>} taxes Taxes applied to the cart
  * @property {Array<Object>} shipping Shipping addresses associated with this cart
  */

@@ -165,6 +165,9 @@ export const checkoutPageEditShippingMethodButton =
 export const checkoutPageShippingMethodRadiolabel =
     '[data-cy="RadioGroup-root"] [data-cy="ShippingRadio-name"]';
 
+export const checkoutPageShippingMethodHeading =
+    '[data-cy="CheckoutPage-root"] [data-cy="ShippingMethod-root"] [data-cy="ShippingMethod-heading"]';
+
 export const checkoutPageEditCreditCardButton =
     '[data-cy="CheckoutPage-root"] [data-cy="BrainTreeSummary-editButton"]';
 
@@ -218,3 +221,36 @@ export const checkoutPageSignInPasswordField =
 
 export const checkoutPageSignInSubmitButton =
     '[data-cy="CheckoutPage-root"] [data-cy="SignIn-root"] [data-cy="SignInButton-root_highPriority"]';
+
+export const checkoutPageCreditCardPaymentSelectInput =
+    '[data-cy="PaymentInformation-root"] [data-cy="RadioGroup-root"] input[value="braintree"]';
+
+export const checkoutPageShippingInformationTitle =
+    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="ShippingInformation-editTitle"]';
+
+export const checkoutPageBillingAddressSelectLabel =
+    '[data-cy="CheckoutPage-root"] [data-cy="CreditCard-root"] [data-cy="CreditCard-AddressCheck-root"] [data-cy="Checkbox-label"]';
+
+export const checkoutPageBillingAddressFields =
+    '[data-cy="CheckoutPage-root"] [data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddressFields"]';
+
+export const checkoutPagePriceAdjustmentCouponSection =
+    '[data-cy="CheckoutPage-root"] [data-cy="PriceAdjustments-couponCodeSection"]';
+
+export const checkoutPagePriceAdjustmentsGiftOptionsSection =
+    '[data-cy="CheckoutPage-root"] [data-cy="PriceAdjustments-giftOptionsSection"]';
+
+export const checkoutPagePriceAdjustmentsGiftCardSection =
+    '[data-cy="CheckoutPage-root"] [data-cy="PriceAdjustments-giftCardSection"]';
+
+export const orderConfirmationPageShippingInformationHeading =
+    '[data-cy="OrderConfirmationPage-root"] [data-cy="OrderConfirmationPage-shippingInfoHeading"]';
+
+export const orderConfirmationPageShippingMethodHeading =
+    '[data-cy="OrderConfirmationPage-root"] [data-cy="OrderConfirmationPage-shippingMethodHeading"]';
+
+export const orderConfirmationPageAdditionalText =
+    '[data-cy="OrderConfirmationPage-root"] [data-cy="OrderConfirmationPage-additionalText"]';
+
+export const orderConfirmationPageItemsTotalQuantity =
+    '[data-cy="OrderConfirmationPage-root"] [data-cy="ItemsReview-container"] [data-cy="ItemsReview-totalQuantity"]';

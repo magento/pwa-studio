@@ -75,7 +75,8 @@ test('render row with parallax initializes JarallaxVideo', () => {
         videoLazyLoading: true,
         videoLoop: true,
         videoPlayOnlyVisible: true,
-        videoSrc: 'https://example.video'
+        videoSrc: 'https://example.video',
+        zIndex: 'auto'
     });
 });
 

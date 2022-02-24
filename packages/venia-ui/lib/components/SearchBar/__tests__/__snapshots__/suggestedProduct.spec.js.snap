@@ -10,6 +10,11 @@ Array [
       className="image placeholder"
       loading="eager"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+      style={
+        Object {
+          "--width": "60px",
+        }
+      }
       width={60}
     />
     <img
@@ -29,6 +34,12 @@ Array [
 /media/catalog/category/minimalist.jpg 1280w,
 /media/catalog/category/minimalist.jpg 1600w,
 /media/catalog/category/minimalist.jpg 2560w"
+      style={
+        Object {
+          "--height": "75px",
+          "--width": "60px",
+        }
+      }
       width={60}
     />
   </div>,

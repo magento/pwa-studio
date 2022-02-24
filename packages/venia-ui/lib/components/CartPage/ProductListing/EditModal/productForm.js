@@ -34,7 +34,8 @@ const ProductForm = props => {
         isLoading,
         isSaving,
         isDialogOpen,
-        handleClose
+        handleClose,
+        configurableThumbnailSource
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -90,7 +91,11 @@ const ProductForm = props => {
                     errors={Array.from(errors.values())}
                     scrollOnError={false}
                 />
-                <ProductDetail item={cartItem} variantPrice={variantPrice} />
+                <ProductDetail
+                    item={cartItem}
+                    variantPrice={variantPrice}
+                    configurableThumbnailSource={configurableThumbnailSource}
+                />
                 <Options
                     classes={{
                         root: classes.optionRoot

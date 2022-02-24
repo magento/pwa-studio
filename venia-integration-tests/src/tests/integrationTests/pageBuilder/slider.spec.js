@@ -171,3 +171,24 @@ describe('PWA-1151: verify slider content', () => {
         });
     });
 });
+
+describe('PWA-1471: Verify pagebuilder slider media query', () => {
+    it('should apply mediaQuery styles', () => {
+        cy.intercept('GET', getCMSPage, {
+            fixture: 'pageBuilder/slider/slider-media-query'
+        }).as('getCMSMockData');
+        cy.visitHomePage();
+        cy.wait(['@getCMSMockData']).its('response.body');
+        cy.loadFullPage().then(() => {
+            cy.captureFullPageScreenshot({
+                name: 'Slider media query (Desktop)',
+                timeout: 60000
+            });
+        });
+        cy.viewport('ipad-2');
+        cy.captureFullPageScreenshot({
+            name: 'Slider media query (Mobile)',
+            timeout: 60000
+        });
+    });
+});

@@ -5,6 +5,7 @@ import { useFormState } from 'informed';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useCreditCard, mapAddressData } from '../useCreditCard';
 import { act } from 'react-test-renderer';
+import waitForExpect from 'wait-for-expect';
 
 /**
  * Mock Functions
@@ -120,6 +121,14 @@ const operations = {
 };
 
 jest.mock('@apollo/client');
+
+jest.mock('@magento/peregrine/lib/hooks/useGoogleReCaptcha', () => ({
+    useGoogleReCaptcha: jest.fn().mockReturnValue({
+        recaptchaLoading: false,
+        generateReCaptchaData: jest.fn(() => {}),
+        recaptchaWidgetProps: {}
+    })
+}));
 
 jest.mock('../../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
@@ -717,7 +726,7 @@ describe('Testing payment success workflow', () => {
         });
     });
 
-    test('Should call setCreditCardDetailsOnCartMutation on payment success', () => {
+    test('Should call setCreditCardDetailsOnCartMutation on payment success', async () => {
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
             operations,
@@ -728,12 +737,14 @@ describe('Testing payment success workflow', () => {
 
         talonProps.onPaymentSuccess(samplePaymentNonce);
 
-        expect(setCreditCardDetailsOnCart).toHaveBeenCalledWith({
-            variables: {
-                cartId: '123',
-                paymentMethod: 'braintree',
-                paymentNonce: samplePaymentNonce.nonce
-            }
+        await waitForExpect(() => {
+            expect(setCreditCardDetailsOnCart).toHaveBeenCalledWith({
+                variables: {
+                    cartId: '123',
+                    paymentMethod: 'braintree',
+                    paymentNonce: samplePaymentNonce.nonce
+                }
+            });
         });
     });
 

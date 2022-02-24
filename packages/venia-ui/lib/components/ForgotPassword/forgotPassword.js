@@ -28,7 +28,8 @@ const ForgotPassword = props => {
         handleCancel,
         handleFormSubmit,
         hasCompleted,
-        isResettingPassword
+        isResettingPassword,
+        recaptchaWidgetProps
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -41,18 +42,24 @@ const ForgotPassword = props => {
         <FormSubmissionSuccessful email={forgotPasswordEmail} />
     ) : (
         <Fragment>
-            <h2 className={classes.title}>
+            <h2 data-cy="ForgotPassword-title" className={classes.title}>
                 <FormattedMessage
                     id={'forgotPassword.recoverPasswordText'}
                     defaultMessage={'Recover Password'}
                 />
             </h2>
-            <p className={classes.instructions}>{INSTRUCTIONS}</p>
+            <p
+                data-cy="ForgotPassword-instructions"
+                className={classes.instructions}
+            >
+                {INSTRUCTIONS}
+            </p>
             <ForgotPasswordForm
                 initialValues={initialValues}
                 isResettingPassword={isResettingPassword}
                 onSubmit={handleFormSubmit}
                 onCancel={handleCancel}
+                recaptchaWidgetProps={recaptchaWidgetProps}
             />
             <FormErrors errors={formErrors} />
         </Fragment>

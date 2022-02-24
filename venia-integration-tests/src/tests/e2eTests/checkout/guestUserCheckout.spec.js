@@ -28,11 +28,7 @@ const {
     accountPassword
 } = accountAccessFixtures;
 const { cartPageRoute } = cartPageFixtures;
-const {
-    checkoutShippingData,
-    defaultGiftOptionsData,
-    defaultShippingMethods
-} = checkoutPageFixtures;
+const { checkoutShippingData, defaultShippingMethods } = checkoutPageFixtures;
 const { accountInformationPage } = myAccountMenuFixtures;
 const {
     getAppliedCouponsCall,
@@ -58,12 +54,10 @@ const {
     toggleShippingMethodEstimate,
     toggleCouponCodeSection,
     toggleGiftCardSection,
-    toggleGiftOptionsSection,
     estimateShippingMethod,
     selectShippingMethodFromCartPage,
     setCouponCodeFromCartPage,
-    setGiftCardFromCartPage,
-    setGiftOptionsFromCartPage
+    setGiftCardFromCartPage
 } = cartPageActions;
 const {
     reviewOrder,
@@ -97,7 +91,7 @@ const completeShippingAddress = {
 };
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('PWA-1413: verify checkout actions', () => {
+describe('PWA-1413: verify guest user checkout actions', () => {
     it('user should be able to place an order as a guest', () => {
         cy.intercept('GET', getAppliedCouponsCall).as(
             'gqlGetAppliedCouponsQuery'
@@ -223,10 +217,6 @@ describe('PWA-1413: verify checkout actions', () => {
         cy.wait(['@gqlapplyGiftCardToCartMutation'], {
             timeout: 60000
         });
-
-        // Test - Add Gift Options
-        toggleGiftOptionsSection();
-        setGiftOptionsFromCartPage(defaultGiftOptionsData);
 
         // Test - Set Guest Shipping Address
         cy.visitCheckoutPage();

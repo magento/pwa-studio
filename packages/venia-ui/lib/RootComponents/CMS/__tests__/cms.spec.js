@@ -13,11 +13,7 @@ jest.mock('../../../components/Head', () => ({
     StoreTitle: () => 'Title',
     Meta: () => 'Meta'
 }));
-jest.mock('../../../components/LoadingIndicator', () => {
-    return {
-        fullPageLoadingIndicator: 'LoadingIndicator'
-    };
-});
+
 jest.mock('../../../components/RichContent', () => 'RichContent');
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
@@ -50,7 +46,7 @@ const props = {
     id: 1
 };
 
-test('fullPageLoadingIndicator is present when loading but no data', () => {
+test('Shimmer is present when loading but no data', () => {
     useQuery.mockImplementation(() => {
         return {
             data: false,
@@ -59,9 +55,8 @@ test('fullPageLoadingIndicator is present when loading but no data', () => {
         };
     });
 
-    const { root } = createTestInstance(<CMSPage {...props} />);
-    expect(root.children.length).toEqual(1);
-    expect(root.children[0]).toEqual('LoadingIndicator');
+    const instance = createTestInstance(<CMSPage {...props} />);
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('page is set to loading when checking the network for updates', () => {

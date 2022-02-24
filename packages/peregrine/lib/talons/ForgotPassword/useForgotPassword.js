@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
+import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha';
+
 /**
  * Returns props necessary to render a ForgotPassword form.
  *
@@ -25,17 +27,34 @@ export const useForgotPassword = props => {
         { error: requestResetEmailError, loading: isResettingPassword }
     ] = useMutation(mutations.requestPasswordResetEmailMutation);
 
+    const {
+        recaptchaLoading,
+        generateReCaptchaData,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_FORGOT_PASSWORD',
+        formAction: 'forgotPassword'
+    });
+
     const handleFormSubmit = useCallback(
         async ({ email }) => {
             try {
-                await requestResetEmail({ variables: { email } });
+                const reCaptchaData = await generateReCaptchaData();
+
+                await requestResetEmail({
+                    variables: { email },
+                    ...reCaptchaData
+                });
+
                 setForgotPasswordEmail(email);
                 setCompleted(true);
-            } catch (err) {
+            } catch (error) {
+                // Error is logged by apollo link - no need to double log.
+
                 setCompleted(false);
             }
         },
-        [requestResetEmail]
+        [generateReCaptchaData, requestResetEmail]
     );
 
     const handleCancel = useCallback(() => {
@@ -48,7 +67,8 @@ export const useForgotPassword = props => {
         handleCancel,
         handleFormSubmit,
         hasCompleted,
-        isResettingPassword
+        isResettingPassword: isResettingPassword || recaptchaLoading,
+        recaptchaWidgetProps
     };
 };
 
@@ -77,5 +97,6 @@ export const useForgotPassword = props => {
  * @property {Function} handleCancel Callback function to handle form cancellations
  * @property {Function} handleFormSubmit Callback function to handle form submission
  * @property {Boolean} hasCompleted True if password reset mutation has completed. False otherwise
- * @property {Boolean} isResettingPassword True if password reset mutation is in progress. False otherwise
+ * @property {Boolean} isResettingPassword True if form awaits events. False otherwise
+ * @property {Object} recaptchaWidgetProps Props for the GoogleReCaptcha component
  */

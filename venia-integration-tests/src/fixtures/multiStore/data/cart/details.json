@@ -1,0 +1,493 @@
+{
+  "data": {
+    "cart": {
+      "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+      "total_quantity": 3,
+      "applied_coupons": null,
+      "__typename": "Cart",
+      "applied_gift_cards": [],
+      "items": [
+        {
+          "uid": "MTI5MDUw",
+          "product": {
+            "uid": "NA==",
+            "name": "Augusta Necklace",
+            "sku": "VA14-SI-NA",
+            "url_key": "augusta-necklace",
+            "thumbnail": {
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
+              "__typename": "ProductImage"
+            },
+            "small_image": {
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
+              "__typename": "ProductImage"
+            },
+            "stock_status": "IN_STOCK",
+            "__typename": "SimpleProduct"
+          },
+          "prices": {
+            "price": {
+              "currency": "USD",
+              "value": 98,
+              "__typename": "Money"
+            },
+            "__typename": "CartItemPrices"
+          },
+          "quantity": 1,
+          "errors": null,
+          "__typename": "SimpleCartItem"
+        },
+        {
+          "uid": "MTI5MDU2",
+          "product": {
+            "uid": "Mw==",
+            "name": "Carmina Necklace",
+            "sku": "VA13-GO-NA",
+            "url_key": "carmina-necklace",
+            "thumbnail": {
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va13-sg_main.jpg",
+              "__typename": "ProductImage"
+            },
+            "small_image": {
+              "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va13-sg_main.jpg",
+              "__typename": "ProductImage"
+            },
+            "stock_status": "IN_STOCK",
+            "__typename": "SimpleProduct"
+          },
+          "prices": {
+            "price": {
+              "currency": "USD",
+              "value": 78,
+              "__typename": "Money"
+            },
+            "__typename": "CartItemPrices"
+          },
+          "quantity": 1,
+          "errors": null,
+          "__typename": "SimpleCartItem"
+        },
+        {
+          "uid": "NDE0OQ==",
+          "product": {
+            "uid": "MTE2NA==",
+            "name": "Ombre Infinity Scarf",
+            "sku": "VA03",
+            "url_key": "ombre-infinity-scarf",
+            "thumbnail": {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ly_main_2.jpg",
+              "__typename": "ProductImage"
+            },
+            "small_image": {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ly_main_2.jpg",
+              "__typename": "ProductImage"
+            },
+            "stock_status": "IN_STOCK",
+            "variants": [
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMQ==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA2Mg==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yNw==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMQ==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1OA==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-la_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yMw==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMQ==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1NA==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yNg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMQ==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1MA==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ly_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA2MQ==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yNw==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1Nw==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-la_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yMw==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1Mw==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yNg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA0OQ==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ly_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMA==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA2Mw==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yNw==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMA==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1OQ==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-la_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yMw==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMA==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1NQ==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yNg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMA==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1MQ==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ly_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA2NA==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-kh_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yNw==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA2MA==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-la_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yMw==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1Ng==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ll_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              },
+              {
+                "attributes": [
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE3OS8yNg==",
+                    "__typename": "ConfigurableAttributeOption"
+                  },
+                  {
+                    "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                    "__typename": "ConfigurableAttributeOption"
+                  }
+                ],
+                "product": {
+                  "uid": "MTA1Mg==",
+                  "small_image": {
+                    "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ly_main_1.jpg",
+                    "__typename": "ProductImage"
+                  },
+                  "__typename": "SimpleProduct"
+                },
+                "__typename": "ConfigurableVariant"
+              }
+            ],
+            "__typename": "ConfigurableProduct"
+          },
+          "prices": {
+            "price": {
+              "currency": "EUR",
+              "value": 48,
+              "__typename": "Money"
+            },
+            "__typename": "CartItemPrices"
+          },
+          "quantity": 1,
+          "errors": null,
+          "configurable_options": [
+            {
+              "id": 179,
+              "configurable_product_option_uid": "Y29uZmlndXJhYmxlLzExNjQvMTc5",
+              "option_label": "Color",
+              "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+              "value_label": "Khaki",
+              "__typename": "SelectedConfigurableOption"
+            },
+            {
+              "id": 182,
+              "configurable_product_option_uid": "Y29uZmlndXJhYmxlLzExNjQvMTgy",
+              "option_label": "Size",
+              "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzE4Mi8zMA==",
+              "value_label": "M",
+              "__typename": "SelectedConfigurableOption"
+            }
+          ],
+          "__typename": "ConfigurableCartItem"
+        }
+      ],
+      "shipping_addresses": [],
+      "prices": {
+        "applied_taxes": [],
+        "__typename": "CartPrices",
+        "discounts": null,
+        "grand_total": {
+          "currency": "USD",
+          "value": 234,
+          "__typename": "Money"
+        },
+        "subtotal_excluding_tax": {
+          "currency": "USD",
+          "value": 234,
+          "__typename": "Money"
+        },
+        "gift_options": {
+          "printed_card": {
+            "value": 0,
+            "currency": "USD",
+            "__typename": "Money"
+          },
+          "__typename": "GiftOptionsPrices"
+        }
+      },
+      "available_payment_methods": [
+        {
+          "code": "braintree",
+          "title": "Credit Card (Braintree)"
+        },
+        {
+          "code": "checkmo",
+          "title": "Check / Money order Updated Title"
+        }
+      ]
+    }
+  }
+}

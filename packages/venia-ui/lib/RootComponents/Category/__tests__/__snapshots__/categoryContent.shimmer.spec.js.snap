@@ -143,6 +143,7 @@ Array [
                       className="image placeholder"
                       loading="eager"
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                     <img
                       alt="Placeholder for gallery item image"
@@ -151,6 +152,7 @@ Array [
                       onError={[Function]}
                       onLoad={[Function]}
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                   </div>
                 </div>
@@ -192,6 +194,7 @@ Array [
                       className="image placeholder"
                       loading="eager"
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                     <img
                       alt="Placeholder for gallery item image"
@@ -200,6 +203,7 @@ Array [
                       onError={[Function]}
                       onLoad={[Function]}
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                   </div>
                 </div>
@@ -241,6 +245,7 @@ Array [
                       className="image placeholder"
                       loading="eager"
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                     <img
                       alt="Placeholder for gallery item image"
@@ -249,6 +254,7 @@ Array [
                       onError={[Function]}
                       onLoad={[Function]}
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                   </div>
                 </div>
@@ -290,6 +296,7 @@ Array [
                       className="image placeholder"
                       loading="eager"
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                     <img
                       alt="Placeholder for gallery item image"
@@ -298,6 +305,7 @@ Array [
                       onError={[Function]}
                       onLoad={[Function]}
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                   </div>
                 </div>
@@ -339,6 +347,7 @@ Array [
                       className="image placeholder"
                       loading="eager"
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                     <img
                       alt="Placeholder for gallery item image"
@@ -347,6 +356,7 @@ Array [
                       onError={[Function]}
                       onLoad={[Function]}
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                   </div>
                 </div>
@@ -388,6 +398,7 @@ Array [
                       className="image placeholder"
                       loading="eager"
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                     <img
                       alt="Placeholder for gallery item image"
@@ -396,6 +407,7 @@ Array [
                       onError={[Function]}
                       onLoad={[Function]}
                       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                      style={Object {}}
                     />
                   </div>
                 </div>
