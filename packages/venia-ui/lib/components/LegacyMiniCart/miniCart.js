@@ -10,6 +10,9 @@ import Mask from './mask';
 import defaultClasses from './miniCart.module.css';
 import { useStyle } from '../../classify';
 
+/**
+ * @deprecated
+ */
 const LegacyMiniCart = props => {
     const {
         cartItems,

@@ -1,20 +1,15 @@
 import React, { Fragment } from 'react';
 import { useIntl } from 'react-intl';
-import { Form } from 'informed';
-import { func, number, string } from 'prop-types';
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
 
-import { useStyle } from '../../../classify';
-import Icon from '../../Icon';
-import TextInput from '../../TextInput';
-import { Message } from '../../Field';
-import defaultClasses from './quantity.module.css';
+import { useStyle } from '../../classify';
+import Icon from '../Icon';
+import TextInput from '../TextInput';
+import { Message } from '../Field';
+import defaultClasses from './QuantityStepper.module.css';
 
-/**
- * @deprecated - use components/QuantityStepper instead
- */
-export const QuantityFields = props => {
+const QuantityStepper = props => {
     const { initialValue, itemId, label, min, onChange, message } = props;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
@@ -61,7 +56,7 @@ export const QuantityFields = props => {
                         id: 'quantity.input',
                         defaultMessage: 'Item Quantity'
                     })}
-                    data-cy="QuantityFields-input"
+                    data-cy="QuantityStepper-input"
                     classes={{ input: classes.input }}
                     field="quantity"
                     id={itemId}
@@ -90,38 +85,10 @@ export const QuantityFields = props => {
     );
 };
 
-const Quantity = props => {
-    return (
-        <Form
-            initialValues={{
-                quantity: props.initialValue
-            }}
-        >
-            <QuantityFields {...props} />
-        </Form>
-    );
-};
-
-Quantity.propTypes = {
-    initialValue: number,
-    itemId: string,
-    label: string,
-    min: number,
-    onChange: func,
-    message: string
-};
-
-Quantity.defaultProps = {
-    label: 'Quantity',
+QuantityStepper.defaultProps = {
     min: 0,
     initialValue: 1,
     onChange: () => {}
 };
 
-QuantityFields.defaultProps = {
-    min: 0,
-    initialValue: 1,
-    onChange: () => {}
-};
-
-export default Quantity;
+export default QuantityStepper;
