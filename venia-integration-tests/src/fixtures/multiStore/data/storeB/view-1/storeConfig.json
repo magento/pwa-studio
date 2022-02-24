@@ -5,7 +5,7 @@
       "root_category_uid": "MjI=",
       "contact_enabled": true,
       "category_url_suffix": ".html",
-      "configurable_thumbnail_source": "parent",
+      "configurable_thumbnail_source": "itself",
       "store_name": "View One B",
       "grid_per_page": 12,
       "locale": "en_US",

@@ -27,6 +27,7 @@ import { BannerShimmer } from './ContentTypes/Banner';
 import ButtonItem from './ContentTypes/ButtonItem';
 import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
 import { SliderShimmer } from './ContentTypes/Slider';
+import { DynamicBlockShimmer } from './ContentTypes/DynamicBlock';
 
 /* istanbul ignore next */
 const contentTypesConfig = {
@@ -76,7 +77,8 @@ const contentTypesConfig = {
     },
     dynamic_block: {
         configAggregator: dynamicBlockConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/DynamicBlock'))
+        component: React.lazy(() => import('./ContentTypes/DynamicBlock')),
+        componentShimmer: DynamicBlockShimmer
     },
     products: {
         configAggregator: productsConfigAggregator,

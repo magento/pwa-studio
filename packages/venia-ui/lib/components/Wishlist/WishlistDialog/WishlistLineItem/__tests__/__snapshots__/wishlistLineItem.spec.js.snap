@@ -6,5 +6,9 @@ exports[`renders the correct tree 1`] = `
   disabled={false}
   onClick={[Function]}
   type="button"
-/>
+>
+  <h2
+    className="lineItemName"
+  />
+</button>
 `;

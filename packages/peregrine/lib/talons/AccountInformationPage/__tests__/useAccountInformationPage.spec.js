@@ -41,6 +41,14 @@ jest.mock('@apollo/client', () => ({
     })
 }));
 
+jest.mock('../../../hooks/useGoogleReCaptcha', () => ({
+    useGoogleReCaptcha: jest.fn().mockReturnValue({
+        recaptchaLoading: false,
+        generateReCaptchaData: jest.fn(() => {}),
+        recaptchaWidgetProps: {}
+    })
+}));
+
 const Component = props => {
     const talonProps = useAccountInformationPage(props);
     return <i talonProps={talonProps} />;

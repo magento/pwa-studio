@@ -8,6 +8,7 @@ exports[`Should return correct shape 1`] = `
     className="credit_card_root"
   >
     <FormError
+      allowErrorMessages={true}
       classes={
         Object {
           "root": "formErrorContainer",
