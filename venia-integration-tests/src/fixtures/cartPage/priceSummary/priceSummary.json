@@ -4,7 +4,7 @@
       "id": "uXi9SCVHi84xQ5aXqo2rFDm4WCVREsUH",
       "items": [
         {
-          "id": "16",
+          "uid":"MTI=",
           "quantity": 1,
           "__typename": "ConfigurableCartItem"
         }
