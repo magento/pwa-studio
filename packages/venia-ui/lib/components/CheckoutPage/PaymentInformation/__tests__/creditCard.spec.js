@@ -83,7 +83,8 @@ const useCreditCardReturnValue = {
         phoneNumber: 'sample phone number',
         isBillingAddressSame: false
     },
-    shippingAddressCountry: 'US'
+    shippingAddressCountry: 'US',
+    recaptchaWidgetProps: {}
 };
 
 test('Should return correct shape', () => {

@@ -25,7 +25,7 @@ const {
     recaptchaWidgetId
 } = googleReCaptchaApiFixtures;
 
-describe('verify Google ReCaptcha', () => {
+describe('verify Google ReCaptcha on forget password', () => {
     it('user can fill and submit form with default badge position', () => {
         // Prevent default Google ReCaptcha API from loading
         cy.intercept('https://www.google.com/recaptcha/api.js?*', {}).as(
