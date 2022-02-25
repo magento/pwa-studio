@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './image.module.css';
-import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
+import { arrayOf, bool, oneOf, shape, string, number } from 'prop-types';
 import { Link } from 'react-router-dom';
 import resolveLinkProps from '../../resolveLinkProps';
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -67,10 +67,10 @@ const Image = props => {
         return null;
     }
 
-    const SourceFragment = mobileImage ? (
+    const MobileSourceFragment = mobileImage ? (
         <source
             media="(max-width: 48rem)"
-            srcSet={resourceUrl(mobileImage, {
+            srcSet={resourceUrl(mobileImage.src, {
                 type: 'image-wysiwyg',
                 quality: 85
             })}
@@ -80,7 +80,7 @@ const Image = props => {
     );
 
     const imgSrc = desktopImage
-        ? resourceUrl(desktopImage, {
+        ? resourceUrl(desktopImage.src, {
               type: 'image-wysiwyg',
               quality: 85
           })
@@ -94,7 +94,7 @@ const Image = props => {
     const PictureFragment = (
         <>
             <picture>
-                {SourceFragment}
+                {MobileSourceFragment}
                 <img
                     className={imgClassName}
                     srcSet={`${imgSrc} 1x`}
@@ -147,8 +147,8 @@ const Image = props => {
  *
  * @property {Object} classes An object containing the class names for the Image
  * @property {String} classes.img CSS classes for the img element
- * @property {String} desktopImage URL src of the desktop image
- * @property {String} mobileImage URL src of the mobile image
+ * @property {Object} desktopImage desktop image URL src and dimensions
+ * @property {Object} mobileImage mobile image URL src and dimensions
  * @property {String} altText Alternate text
  * @property {String} title Title of the image
  * @property {String} link URL to redirect to
@@ -176,8 +176,22 @@ Image.propTypes = {
         img: string,
         mobileOnly: string
     }),
-    desktopImage: string,
-    mobileImage: string,
+    desktopImage: shape({
+        src: string,
+        dimensions: shape({
+            height: number,
+            ratio: number,
+            width: number
+        })
+    }),
+    mobileImage: shape({
+        src: string,
+        dimensions: shape({
+            height: number,
+            ratio: number,
+            width: number
+        })
+    }),
     altText: string,
     title: string,
     link: string,
