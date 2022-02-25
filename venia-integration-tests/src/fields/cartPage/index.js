@@ -15,6 +15,9 @@ export const saveForLaterButton = '[data-cy="addToListButton-root"]';
 
 export const cartPageProductLink = '[data-cy="Product-imageContainer"]';
 
+export const cartPageProductImageLink =
+    '[data-cy="Product-imageContainer"] [data-cy="Product-image"]';
+
 export const kebabMenuEditButton = '[data-cy="Product-Section-editItem"]';
 
 export const editMenuSizeButton = '[data-cy="Tile-button"]';

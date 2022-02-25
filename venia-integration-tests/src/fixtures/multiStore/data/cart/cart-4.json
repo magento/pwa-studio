@@ -2,6 +2,15 @@
   "data": {
     "cart": {
       "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+      "total_quantity": 4,
+      "prices": {
+        "subtotal_excluding_tax": {
+          "currency": "USD",
+          "value": 312,
+          "__typename": "Money"
+        },
+        "__typename": "CartPrices"
+      },
       "items": [
         {
           "uid": "MTI5MDUw",
