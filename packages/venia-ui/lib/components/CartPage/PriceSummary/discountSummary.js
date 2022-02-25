@@ -1,36 +1,14 @@
 import React, { Fragment } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
-
 import { useStyle } from '../../../classify';
+import Icon from '../../Icon';
+import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
+import defaultClasses from './discountSummary.module.css';
+import AnimateHeight from 'react-animate-height';
+import { useDiscountSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/useDiscountSummary';
 
 const MINUS_SYMBOL = '-';
-
-const DEFAULT_AMOUNT = {
-    currency: 'USD',
-    value: 0
-};
-
-/**
- * Reduces discounts array into a single amount.
- *
- * @param {Array} discounts
- */
-const getDiscount = (discounts = []) => {
-    // discounts from data can be null
-    if (!discounts || !discounts.length) {
-        return DEFAULT_AMOUNT;
-    } else {
-        return {
-            label: discounts[0].label,
-            currency: discounts[0].amount.currency,
-            value: discounts.reduce(
-                (acc, discount) => acc + discount.amount.value,
-                0
-            )
-        };
-    }
-};
 
 /**
  * A component that renders the discount summary line item.
@@ -39,35 +17,101 @@ const getDiscount = (discounts = []) => {
  * @param {Object} props.data fragment response data
  */
 const DiscountSummary = props => {
-    const classes = useStyle({}, props.classes);
-    const discount = getDiscount(props.data);
+    const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
-    const label = discount.label
-        ? discount.label
+    const {
+        totalDiscount,
+        discountData,
+        expanded,
+        handleClick
+    } = useDiscountSummary(props);
+
+    const toggleDiscountsAriaLabel = expanded
+        ? formatMessage({
+              id: 'priceSummary.discountSummary.hideDiscounts',
+              defaultMessage: 'Hide individual discounts.'
+          })
         : formatMessage({
-              id: 'discountSummary.lineItemLabel',
-              defaultMessage: 'Discounts applied'
+              id: 'priceSummary.discountSummary.showDiscounts',
+              defaultMessage: 'Show individual discounts.'
           });
 
-    return discount.value ? (
+    const iconSrc = expanded ? ArrowUp : ArrowDown;
+
+    const individualDiscounts = discountData ? (
+        <AnimateHeight duration={500} height={expanded ? 'auto' : 0}>
+            <ul
+                className={classes.individualDiscountsList}
+                data-cy="DiscountSummary-IndividualDiscount"
+            >
+                <hr className={classes.individualDiscountSeparator} />
+                {discountData.map(discount => {
+                    return (
+                        <li
+                            className={classes.individualDiscountsListLineItem}
+                            key={discount.label}
+                        >
+                            <span
+                                className={classes.lineItemLabel}
+                                data-cy="DiscountSummary-IndividualDiscount-Label"
+                            >
+                                <span data-cy="DiscountSummary-IndividualDiscount-DiscountLabel">
+                                    {discount.label}
+                                </span>
+                            </span>
+                            <span
+                                data-cy="DiscountSummary-IndividualDiscount-DiscountValue"
+                                className={classes.price}
+                            >
+                                {MINUS_SYMBOL}
+                                <Price
+                                    value={discount.amount.value}
+                                    currencyCode={discount.amount.currency}
+                                />
+                            </span>
+                        </li>
+                    );
+                })}
+                <hr className={classes.individualDiscountSeparator} />
+            </ul>
+        </AnimateHeight>
+    ) : null;
+
+    return totalDiscount.value ? (
         <Fragment>
-            <span
-                className={classes.lineItemLabel}
-                data-cy="PriceSummary-DiscountSummary-label"
-            >
-                {label}
-            </span>
-            <span
-                data-cy="DiscountSummary-discountValue"
-                className={classes.price}
-            >
-                {MINUS_SYMBOL}
-                <Price
-                    value={discount.value}
-                    currencyCode={discount.currency}
-                />
-            </span>
+            <li className={classes.discountLineItems}>
+                <span
+                    className={classes.discountLineItemLabel}
+                    data-cy="PriceSummary-DiscountSummary-Label"
+                >
+                    <FormattedMessage
+                        id={'discountSummary.lineItemLabel'}
+                        defaultMessage={'Applied discounts'}
+                    />
+                    <button
+                        onClick={handleClick}
+                        data-cy="DiscountSummary-DiscountValue-TriggerButton"
+                        type="button"
+                        aria-expanded={expanded}
+                        aria-label={toggleDiscountsAriaLabel}
+                        className={classes.discountsButton}
+                    >
+                        <Icon src={iconSrc} />
+                    </button>
+                </span>
+                <span
+                    data-cy="DiscountSummary-discountValue"
+                    className={classes.price}
+                >
+                    {MINUS_SYMBOL}
+                    <Price
+                        value={totalDiscount.value}
+                        currencyCode={totalDiscount.currency}
+                    />
+                </span>
+            </li>
+            {individualDiscounts}
         </Fragment>
     ) : null;
 };
