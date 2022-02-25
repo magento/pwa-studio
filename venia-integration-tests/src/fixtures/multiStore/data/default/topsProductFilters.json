@@ -1,0 +1,292 @@
+{
+  "data": {
+    "products": {
+      "aggregations": [
+        {
+          "label": "Price",
+          "count": 2,
+          "attribute_code": "price",
+          "options": [
+            {
+              "label": "0-100",
+              "value": "0_100",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "100-200",
+              "value": "100_200",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Category",
+          "count": 8,
+          "attribute_code": "category_id",
+          "options": [
+            {
+              "label": "Tops",
+              "value": "8",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Blouses & Shirts",
+              "value": "9",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Sweaters",
+              "value": "10",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Shop The Look",
+              "value": "15",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Minimalist Sensibility",
+              "value": "16",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Outside the Lines",
+              "value": "17",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Carefree Days",
+              "value": "18",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Perfectly Beachy",
+              "value": "19",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": null,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Color",
+          "count": 8,
+          "attribute_code": "fashion_color",
+          "options": [
+            {
+              "label": "Gold",
+              "value": "14",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Peach",
+              "value": "21",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Khaki",
+              "value": "22",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Lilac",
+              "value": "23",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Rain",
+              "value": "24",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Mint",
+              "value": "25",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Lily",
+              "value": "26",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Latte",
+              "value": "27",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Material",
+          "count": 10,
+          "attribute_code": "fashion_material",
+          "options": [
+            {
+              "label": "Acrylic",
+              "value": "40",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Cashmere",
+              "value": "41",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Cotton",
+              "value": "42",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Nylon",
+              "value": "45",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Organic Cotton",
+              "value": "46",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Rayon",
+              "value": "48",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Silk",
+              "value": "49",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Spandex",
+              "value": "50",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Viscose",
+              "value": "51",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Wool",
+              "value": "52",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Size",
+          "count": 4,
+          "attribute_code": "fashion_size",
+          "options": [
+            {
+              "label": "L",
+              "value": "29",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "M",
+              "value": "30",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "S",
+              "value": "31",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "XS",
+              "value": "32",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Style",
+          "count": 10,
+          "attribute_code": "fashion_style",
+          "options": [
+            {
+              "label": "Short Sleeve",
+              "value": "57",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Sleeveless",
+              "value": "58",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Long Sleeve",
+              "value": "59",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "3\/4 Sleeve",
+              "value": "60",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Open Front",
+              "value": "66",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Crew",
+              "value": "67",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Hooded",
+              "value": "68",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Scoopneck",
+              "value": "69",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "V-neck",
+              "value": "70",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Button-down",
+              "value": "71",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Has Video",
+          "count": 2,
+          "attribute_code": "has_video",
+          "options": [
+            {
+              "label": "0",
+              "value": "0",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "1",
+              "value": "1",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        }
+      ],
+      "__typename": "Products"
+    }
+  }
+}
