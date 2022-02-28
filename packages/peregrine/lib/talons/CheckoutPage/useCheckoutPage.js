@@ -281,13 +281,13 @@ export const useCheckoutPage = (props = {}) => {
     ]);
 
     useEffect(() => {
-        if (orderDetailsData && placeOrderData) {
+        if (isSignedIn && placeOrderData) {
             history.push('/order-confirmation', {
-                data: orderDetailsData,
-                orderNumber: placeOrderData.placeOrder.order.order_number
+                orderNumber: placeOrderData.placeOrder.order.order_number,
+                items: cartItems
             });
         }
-    }, [orderDetailsData, placeOrderData]);
+    }, [isSignedIn, placeOrderData, cartItems]);
 
     return {
         activeContent,

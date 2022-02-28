@@ -26,6 +26,7 @@ import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import ItemsReview from './ItemsReview';
+import OrderConfirmationPage from './OrderConfirmationPage';
 
 import defaultClasses from './checkoutPage.module.css';
 import ScrollAnchor from '../ScrollAnchor/scrollAnchor';
@@ -56,6 +57,8 @@ const CheckoutPage = props => {
         isLoading,
         isUpdating,
         orderDetailsLoading,
+        orderDetailsData,
+        orderNumber,
         placeOrderLoading,
         setCheckoutStep,
         setGuestSignInUsername,
@@ -117,7 +120,14 @@ const CheckoutPage = props => {
               defaultMessage: 'Checkout'
           });
 
-    if (isLoading) {
+    if (isGuestCheckout && orderDetailsData) {
+        return (
+            <OrderConfirmationPage
+                data={orderDetailsData}
+                orderNumber={orderNumber}
+            />
+        );
+    } else if (isLoading) {
         return fullPageLoadingIndicator;
     } else if (isCartEmpty) {
         checkoutContent = (
@@ -248,7 +258,7 @@ const CheckoutPage = props => {
         const itemsReview =
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
                 <div className={classes.items_review_container}>
-                    <ItemsReview />
+                    <ItemsReview items={cartItems} />
                 </div>
             ) : null;
 
