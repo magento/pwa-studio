@@ -11,7 +11,7 @@ import defaultClasses from './miniCart.module.css';
 import { useStyle } from '../../classify';
 
 /**
- * @deprecated
+ * @deprecated - use component/MiniCart instead
  */
 const LegacyMiniCart = props => {
     const {

@@ -1,1 +1,1 @@
-export { default } from './QuantityStepper';
+export { default } from './quantityStepper';

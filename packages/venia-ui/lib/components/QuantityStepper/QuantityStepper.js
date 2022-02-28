@@ -7,7 +7,7 @@ import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import TextInput from '../TextInput';
 import { Message } from '../Field';
-import defaultClasses from './QuantityStepper.module.css';
+import defaultClasses from './quantityStepper.module.css';
 
 const QuantityStepper = props => {
     const { initialValue, itemId, label, min, onChange, message } = props;
