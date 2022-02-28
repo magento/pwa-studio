@@ -39,9 +39,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
           "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "carina-cardigan"
+          "url_key": "carina-cardigan",
+          "variants": [
+            {
+              "product": {
+                "uid": "Mzk4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzk0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzkw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzg2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzk3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzkz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzg5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzg1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzk5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzk1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzkx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzg3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDAw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzk2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzky",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzg4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1119,
@@ -64,9 +211,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
           "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "juno-sweater"
+          "url_key": "juno-sweater",
+          "variants": [
+            {
+              "product": {
+                "uid": "Mzgy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzc4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzc0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzcw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzgx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzc3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzcz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzY5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzgz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzc5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzc1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzcx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzg0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzgw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzc2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "Mzcy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1118,
@@ -89,9 +383,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
           "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "phoebe-cardigan"
+          "url_key": "phoebe-cardigan",
+          "variants": [
+            {
+              "product": {
+                "uid": "MzY2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzYy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzU4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzU0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzY1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzYx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzU3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzUz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzY3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzYz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzU5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzU1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzY4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzY0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzYw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MzU2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         }
       ],
       "page_info": {

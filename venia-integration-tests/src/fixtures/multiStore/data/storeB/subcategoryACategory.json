@@ -61,8 +61,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "ombre-infinity-scarf"
+          "url_key": "ombre-infinity-scarf",
+          "variants": [
+            {
+              "product": {
+                "uid": "MTA2Mg==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1OA==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1NA==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1MA==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA2MQ==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1Nw==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1Mw==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA0OQ==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA2Mw==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1OQ==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1NQ==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1MQ==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA2NA==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA2MA==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1Ng==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "MTA1Mg==",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         }
       ],
       "page_info": {

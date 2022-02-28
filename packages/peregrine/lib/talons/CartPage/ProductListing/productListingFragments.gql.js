@@ -32,6 +32,8 @@ export const ProductListingFragment = gql`
                             small_image {
                                 url
                             }
+                            stock_status
+                            only_x_left_in_stock
                         }
                     }
                 }
