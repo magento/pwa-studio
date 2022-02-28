@@ -13,6 +13,11 @@ export const categoryTops = {
     url: 'venia-tops.html?page=1'
 };
 
+export const categoryDresses = {
+    name: 'Dresses',
+    url: 'venia-dresses.html?page=1'
+};
+
 export const categorySweaters = './venia-tops/venia-sweaters.html?page=1';
 
 export const categoryJewelry = './venia-accessories/venia-jewelry.html?page=1';

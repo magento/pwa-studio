@@ -13,7 +13,7 @@ export const searchBarSearchField =
     '[data-cy="SearchBar-root"] [data-cy="SearchField-textInput"]';
 
 export const headerLogo =
-    '[data-cy="Header-root"] [class^="header-logoContainer"]';
+    '[data-cy="Header-root"] [data-cy="Header-logoContainer"]';
 
 export const headerStoreSwitcherTriggerButton =
     '[data-cy="Header-switchers"] [data-cy="StoreSwitcher-root"] [data-cy="StoreSwitcher-trigger"]';
