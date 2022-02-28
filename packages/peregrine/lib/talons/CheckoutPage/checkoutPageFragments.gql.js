@@ -10,6 +10,7 @@ export const CheckoutPageFragment = gql`
             product {
                 uid
                 stock_status
+                only_x_left_in_stock
             }
         }
         # If total quantity is falsy we render empty.

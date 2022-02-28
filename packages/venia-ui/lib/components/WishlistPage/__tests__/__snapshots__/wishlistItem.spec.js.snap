@@ -121,6 +121,22 @@ exports[`it renders a configurable wishlist item 1`] = `
   >
     Color : Black
   </span>
+  <mock-StockStatus
+    item={
+      Object {
+        "name": "Shoggoth Shirt",
+        "price_range": Object {
+          "maximum_price": Object {
+            "final_price": Object {
+              "currency": "USD",
+              "value": 123.45,
+            },
+          },
+        },
+        "stock_status": "IN_STOCK",
+      }
+    }
+  />
 </div>
 `;
 
@@ -227,5 +243,21 @@ exports[`it renders a simple wishlist item 1`] = `
       45
     </span>
   </div>
+  <mock-StockStatus
+    item={
+      Object {
+        "name": "Shoggoth Shirt",
+        "price_range": Object {
+          "maximum_price": Object {
+            "final_price": Object {
+              "currency": "USD",
+              "value": 123.45,
+            },
+          },
+        },
+        "stock_status": "IN_STOCK",
+      }
+    }
+  />
 </div>
 `;

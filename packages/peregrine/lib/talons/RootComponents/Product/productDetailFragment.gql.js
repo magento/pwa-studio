@@ -38,6 +38,7 @@ export const ProductDetailsFragment = gql`
             url
         }
         stock_status
+        only_x_left_in_stock
         url_key
         custom_attributes {
             selected_attribute_options {
@@ -111,6 +112,7 @@ export const ProductDetailsFragment = gql`
                     }
                     sku
                     stock_status
+                    only_x_left_in_stock
                     price {
                         regularPrice {
                             amount {

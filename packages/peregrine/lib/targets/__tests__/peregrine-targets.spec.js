@@ -230,6 +230,7 @@ test('exposes all hooks and targets', async () => {
           talons.SearchPage.useSearchPage.wrapWith() wraps export "useSearchPage" from "SearchPage/useSearchPage.js"
           talons.SignIn.useSignIn.wrapWith() wraps export "useSignIn" from "SignIn/useSignIn.js"
           talons.SignInPage.useSignInPage.wrapWith() wraps export "useSignInPage" from "SignInPage/useSignInPage.js"
+          talons.StockStatusMessage.useStockStatus.wrapWith() wraps export "useStockStatus" from "StockStatusMessage/useStockStatus.js"
           talons.StockStatusMessage.useStockStatusMessage.wrapWith() wraps export "useStockStatusMessage" from "StockStatusMessage/useStockStatusMessage.js"
           talons.Wishlist.AddToListButton.helpers.useSingleWishlist.wrapWith() wraps export "useSingleWishlist" from "Wishlist/AddToListButton/helpers/useSingleWishlist.js"
           talons.Wishlist.AddToListButton.useAddToListButton.ce.wrapWith() wraps export "useAddToListButton.ce" from "Wishlist/AddToListButton/useAddToListButton.ce.js"

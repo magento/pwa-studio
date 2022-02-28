@@ -373,6 +373,8 @@
     "sortItem.priceAsc": "Prix croissant",
     "sortItem.priceDesc": "Prix décroissant",
     "sortItem.relevance": "Meilleure correspondance",
+    "stockStatus.lowStock": "Stock faible",
+    "stockStatus.outOfStock": "Cet article est actuellement en rupture de stock",
     "stockStatusMessage.message": "Un article de votre panier est actuellement en rupture de stock et doit être retiré pour pouvoir passer à la caisse.",
     "taxSummary.estimatedTax": "Taxe estimée",
     "taxSummary.tax": "Taxe",

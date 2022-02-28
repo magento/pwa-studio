@@ -96,6 +96,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={true}
@@ -226,6 +227,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={false}
@@ -390,6 +392,7 @@ exports[`it renders an error for an invalid cart 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={false}
@@ -554,6 +557,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={false}
@@ -719,6 +723,7 @@ Array [
     <section
       className="actions"
     >
+      <mock-StockStatus />
       <button
         className="root_highPriority"
         disabled={false}
@@ -880,6 +885,7 @@ exports[`it renders correctly 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={false}
@@ -1040,6 +1046,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={false}
@@ -1200,6 +1207,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={false}
@@ -1360,6 +1368,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={false}
@@ -1524,6 +1533,7 @@ exports[`it renders form level errors 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={false}
@@ -1684,6 +1694,7 @@ exports[`it renders message with unsupported product type 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <div
       className="unavailableContainer"
     >
@@ -1827,6 +1838,7 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={true}
@@ -1987,6 +1999,7 @@ exports[`renders a WishlistButton with props 1`] = `
   <section
     className="actions"
   >
+    <mock-StockStatus />
     <button
       className="root_highPriority"
       disabled={false}

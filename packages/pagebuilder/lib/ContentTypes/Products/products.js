@@ -297,8 +297,20 @@ export const GET_PRODUCTS_BY_URL_KEY = gql`
                     url
                 }
                 stock_status
+                only_x_left_in_stock
+                rating_summary
                 __typename
                 url_key
+                ... on ConfigurableProduct {
+                    variants {
+                        # eslint-disable-next-line @graphql-eslint/require-id-when-available
+                        product {
+                            uid
+                            stock_status
+                            only_x_left_in_stock
+                        }
+                    }
+                }
             }
             total_count
             filters {

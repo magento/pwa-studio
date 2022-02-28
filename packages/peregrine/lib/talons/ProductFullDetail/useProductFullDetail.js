@@ -190,6 +190,26 @@ const getCustomAttributes = (product, optionCodes, optionSelections) => {
     return custom_attributes;
 };
 
+const getSelectedItem = (product, optionCodes, optionSelections) => {
+    const { variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (isConfigurable && optionsSelected) {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        return item.product;
+    }
+
+    return product;
+};
+
 /**
  * @param {GraphQLDocument} props.addConfigurableProductToCartMutation - configurable product mutation
  * @param {GraphQLDocument} props.addSimpleProductToCartMutation - configurable product mutation
@@ -298,6 +318,11 @@ export const useProductFullDetail = props => {
 
     const customAttributes = useMemo(
         () => getCustomAttributes(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
+    const selectedItem = useMemo(
+        () => getSelectedItem(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
     );
 
@@ -514,6 +539,7 @@ export const useProductFullDetail = props => {
             !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
         productDetails,
         customAttributes,
+        selectedItem,
         wishlistButtonProps,
         wishlistItemOptions
     };

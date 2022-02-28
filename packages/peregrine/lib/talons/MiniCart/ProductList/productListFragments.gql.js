@@ -15,6 +15,7 @@ export const ProductListFragment = gql`
                     url
                 }
                 stock_status
+                only_x_left_in_stock
                 # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableProduct {
                     variants {
@@ -24,6 +25,8 @@ export const ProductListFragment = gql`
                         # eslint-disable-next-line @graphql-eslint/require-id-when-available
                         product {
                             uid
+                            stock_status
+                            only_x_left_in_stock
                             thumbnail {
                                 url
                             }

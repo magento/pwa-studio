@@ -10,7 +10,10 @@ jest.mock('../../../components/Head', () => ({
 }));
 
 jest.mock('../../../classify');
-jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
+jest.mock('../../StockStatusMessage', () => ({
+    __esModule: true,
+    StockStatusMessage: 'StockStatusMessage'
+}));
 jest.mock('../PriceAdjustments', () => 'PriceAdjustments');
 jest.mock('../PriceSummary', () => 'PriceSummary');
 jest.mock('../ProductListing', () => 'ProductListing');

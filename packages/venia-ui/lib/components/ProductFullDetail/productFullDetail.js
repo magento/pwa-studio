@@ -16,6 +16,7 @@ import FormError from '../FormError';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichContent from '../RichContent/richContent';
 import { ProductOptionsShimmer } from '../ProductOptions';
+import { StockStatus } from '../StockStatusMessage';
 import CustomAttributes from './CustomAttributes';
 import defaultClasses from './productFullDetail.module.css';
 
@@ -52,6 +53,7 @@ const ProductFullDetail = props => {
         mediaGalleryEntries,
         productDetails,
         customAttributes,
+        selectedItem,
         wishlistButtonProps
     } = talonProps;
     const { formatMessage } = useIntl();
@@ -215,6 +217,7 @@ const ProductFullDetail = props => {
                     />
                 </section>
                 <section className={classes.actions}>
+                    <StockStatus item={selectedItem} />
                     {cartActionContent}
                     <Suspense fallback={null}>
                         <WishlistButton {...wishlistButtonProps} />

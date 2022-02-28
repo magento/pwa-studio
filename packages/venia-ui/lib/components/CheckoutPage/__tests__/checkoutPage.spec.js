@@ -44,7 +44,10 @@ jest.mock('../../../classify');
 
 jest.mock('../../../components/Head', () => ({ StoreTitle: () => 'Title' }));
 jest.mock('../../FormError', () => 'FormError');
-jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
+jest.mock('../../StockStatusMessage', () => ({
+    __esModule: true,
+    StockStatusMessage: 'StockStatusMessage'
+}));
 jest.mock('../ItemsReview', () => 'ItemsReview');
 jest.mock('../GuestSignIn', () => 'GuestSignIn');
 jest.mock('../OrderSummary', () => 'OrderSummary');

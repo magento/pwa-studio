@@ -7,6 +7,10 @@ jest.mock('../../../classify');
 jest.mock('../../StockStatusMessage', () => props => (
     <mock-StockStatusMessage {...props} />
 ));
+jest.mock('../../StockStatusMessage', () => ({
+    __esModule: true,
+    StockStatusMessage: props => <mock-StockStatusMessage {...props} />
+}));
 jest.mock('../ProductList', () => () => <mock-ProductList />);
 
 jest.mock('@magento/peregrine', () => ({

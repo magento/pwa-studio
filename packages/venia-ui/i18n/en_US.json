@@ -425,6 +425,8 @@
     "sortItem.priceDesc": "Price: High to Low",
     "sortItem.relevance": "Best Match",
     "sortItem.position": "Position",
+    "stockStatus.lowStock": "Only a few left in stock",
+    "stockStatus.outOfStock": "This item is currently out of stock",
     "stockStatusMessage.message": "An item in your cart is currently out-of-stock and must be removed in order to Checkout.",
     "storedPayments.creditCard": "Credit Card",
     "storedPayments.delete": "Delete",
