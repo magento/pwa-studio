@@ -80,6 +80,7 @@ const defaultTalonProps = {
     orderDetailsLoading: false,
     orderNumber: null,
     placeOrderLoading: false,
+    placeOrderButtonClicked: false,
     setGuestSignInUsername: jest.fn().mockName('setGuestSignInUsername'),
     setIsUpdating: jest.fn().mockName('setIsUpdating'),
     setShippingInformationDone: jest
@@ -87,6 +88,10 @@ const defaultTalonProps = {
         .mockName('setShippingInformationDone'),
     setShippingMethodDone: jest.fn().mockName('setShippingMethodDone'),
     setPaymentInformationDone: jest.fn().mockName('setPaymentInformationDone'),
+    recaptchaWidgetProps: {
+        containerElement: [Function],
+        shouldRender: false
+    },
     toggleAddressBookContent: jest.fn().mockName('toggleAddressBookContent'),
     toggleSignInContent: jest.fn().mockName('toggleSignInContent')
 };

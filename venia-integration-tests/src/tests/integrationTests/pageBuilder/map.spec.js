@@ -7,20 +7,14 @@ const { createGoogleMapApi } = googleMapApiFixtures;
 
 describe('PWA-1172: verify pagebuilder map content is rendered correctly', () => {
     it('verify google map api load with content', () => {
-        cy.intercept('https://maps.googleapis.com/maps/api/js?*').as(
-            'googleApi'
-        );
+        // Prevent default Google API from loading
+        cy.intercept('https://maps.googleapis.com/maps/api/js?*', {});
 
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/map/map1.json'
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
-
-        cy.wait(['@googleApi'])
-            .its('response.url')
-            .should('contain', 'googleapis');
-
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Verify Map - All content',
