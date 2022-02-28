@@ -87,7 +87,7 @@ Tailwind plugins may need to be installed globally (not in package only).
 
 // ----------------------------------------------
 // B6. Using CSS Modules compose (like SCSS/Less "extends") breaks Tailwind
-// Comment: TODO @TW: review (B6)
+// TODO @TW: review (B6)
 
 Using compositions for cases like "menu / menu_open" breaks Tailwind.
 Where you have based styles on "menu", and something like:
@@ -134,6 +134,30 @@ GOOD PATTERN (only variants in JSX, not "root"):
 .root_open { composes: root; }
 
 
+// ----------------------------------------------
+// B7. Prettier mangles TW2 arbitrary values syntax
+// TODO @TW: review (B7)
+
+See: https://github.com/magento/pwa-studio/pull/3686#issuecomment-1029360673
++ follow-up comments for detail.
+
+In TW2, to use spaces in arbitrary values, use the "," character.
+The generated class name will contain a " " replacement.
+
+Problem: Prettier requires a real " " after commas in CSS, and it "fixes" it by mangling it.
+TW2 won't generate the class, so the UI breaks.
+
+# Original
+composes: lg_grid-cols-[2fr,1fr] from global;
+
+# Prettier version, space added, TW won't generate the rule so it doesn't apply
+composes: lg_grid-cols-[2fr, 1fr] from global;
+
+In TW3, an "_" is used as the space character, which Prettier won't mangle.
+
+As a workaround before updating to TW3, all instances that Prettier mangles will have ignore comments.
+
+
 
 // ==============================================
 // C. Theme Implementation Issues
@@ -152,7 +176,7 @@ See: packages/venia-ui/lib/index.module.css
 
 // ----------------------------------------------
 // C2. Cross-component CSS breaks Tailwind specificity
-// Comment: TODO @TW: review (C2)
+// TODO @TW: review (C2)
 
 Components should not import CSS from other components.
 Components should own their styles only, and expose a prop API to render variants.

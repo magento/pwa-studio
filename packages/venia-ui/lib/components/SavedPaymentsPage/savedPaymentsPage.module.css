@@ -24,13 +24,15 @@
     composes: lg_text-center from global;
 }
 
+/* prettier-ignore */
 .content {
     composes: gap-xs from global;
     composes: grid from global;
     composes: grid-cols-1 from global;
     grid-auto-rows: minmax(6rem, max-content);
 
-    composes: lg_grid-cols-[1fr, 1fr, 1fr] from global;
+    /* TODO @TW: review (B7) */
+    composes: lg_grid-cols-[1fr,1fr,1fr] from global;
 }
 
 .noPayments {
