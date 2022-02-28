@@ -15,3 +15,4 @@ export * as wishlist from './wishlist';
 export * as miniCart from './miniCart';
 export * as toast from './toast';
 export * as footer from './footer';
+export * as offline from './offline';

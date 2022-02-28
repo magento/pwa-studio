@@ -90,6 +90,9 @@ export const productRatingSummary = '[data-cy="ratingSummary"]';
 export const searchBarSuggestedProduct =
     '[data-cy="SearchBar-root"] [data-cy="SuggestedProduct-root"]';
 
+export const searchBarSuggestedProductImage =
+    '[data-cy="SuggestedProduct-image"]';
+
 export const searchBarSuggestedProductName =
     '[data-cy="SearchBar-root"] [data-cy="SuggestedProduct-name"]';
 
