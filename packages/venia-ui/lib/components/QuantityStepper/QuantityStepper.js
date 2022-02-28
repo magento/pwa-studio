@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useIntl } from 'react-intl';
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
-import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
+import { useQuantityStepper } from '@magento/peregrine/lib/talons/QuantityStepper/useQuantityStepper';
 
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
@@ -15,7 +15,7 @@ const QuantityStepper = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
-    const talonProps = useQuantity({
+    const talonProps = useQuantityStepper({
         initialValue,
         min,
         onChange
@@ -88,7 +88,7 @@ const QuantityStepper = props => {
 QuantityStepper.defaultProps = {
     min: 0,
     initialValue: 1,
-    onChange: () => {}
+    onChange: () => { }
 };
 
 export default QuantityStepper;
