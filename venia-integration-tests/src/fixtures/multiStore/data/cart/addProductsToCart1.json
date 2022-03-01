@@ -18,8 +18,13 @@
             "product": {
               "uid": "NA==",
               "name": "Augusta Necklace",
+              "sku": "VA14-SI-NA",
               "url_key": "augusta-necklace",
               "thumbnail": {
+                "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
+                "__typename": "ProductImage"
+              },
+              "small_image": {
                 "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
                 "__typename": "ProductImage"
               },
@@ -35,6 +40,7 @@
               "__typename": "CartItemPrices"
             },
             "quantity": 1,
+            "errors": null,
             "__typename": "SimpleCartItem"
           }
         ],

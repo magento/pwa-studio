@@ -41,6 +41,7 @@
     "lodash.throttle": "~4.1.1",
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",
+    "react-animate-height": "^2.0.23",
     "react-aria": "~3.4.0",
     "react-feather": "~2.0.3",
     "react-helmet-async": "^1.0.2",

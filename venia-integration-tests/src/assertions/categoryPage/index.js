@@ -12,6 +12,7 @@ import {
     productRatingSummary,
     productSortSortItemActive,
     searchBarSuggestedProduct,
+    searchBarSuggestedProductImage,
     filterSidebarHeaderTitle,
     categoryPageAddToCartButton,
     filterSidebarShowMoreLessButton,
@@ -19,6 +20,7 @@ import {
     productSortSortItem,
     productPrice
 } from '../../fields/categoryPage';
+
 import { validateLanguage } from '../../utils/language-test-utils';
 
 /**
@@ -107,12 +109,20 @@ export const assertProductIsInGallery = productName => {
  *
  * @param {String} productName product name
  * @param {String} productHref product href
+ * @param {Number} [wait] wait period for cache persistence
  */
 export const assertProductIsInProductSuggestion = (
     productName,
-    productHref
+    productHref,
+    wait = 4000
 ) => {
     cy.get(searchBarSuggestedProduct).should('contain', productName);
+    cy.get(searchBarSuggestedProduct).should('be.visible');
+    cy.get(searchBarSuggestedProductImage)
+        .should('be.visible')
+        .then(() => {
+            cy.wait(wait);
+        });
     cy.get(searchBarSuggestedProduct)
         .invoke('attr', 'href')
         .should('contain', productHref);
