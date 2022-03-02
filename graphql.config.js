@@ -4,9 +4,10 @@ require('dotenv').config({
 });
 
 const excludePatterns =
+    process.env.MAGENTO_BACKEND_EDITION === 'AC' ||
     process.env.MAGENTO_BACKEND_EDITION === 'EE'
-        ? ['!**/*.ce.js']
-        : ['!**/*.ee.js'];
+        ? ['!**/*.mos.js', '!**/*.ce.js']
+        : ['!**/*.ac.js', '!**/*.ee.js'];
 
 const config = {
     schema: [

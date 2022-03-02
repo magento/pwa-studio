@@ -27,7 +27,7 @@ export const createWishlist = wishlistName => {
  * Utility function to remove given item from a single wishlist.
  * The utility assumes that the action is called from the wishlist page.
  *
- * Note: Only useful if CE or EE with mutiple wishlists disabled
+ * Note: Only useful if MOS or AC with mutiple wishlists disabled
  *
  * @param {String} productName name of the product to remove
  */
