@@ -23,7 +23,7 @@ const givenDefaultValues = () => {
     };
 };
 
-describe('#GiftCardSection EE', () => {
+describe('#GiftCardSection AC', () => {
     beforeEach(() => {
         givenDefaultValues();
     });

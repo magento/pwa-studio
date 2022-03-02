@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { ProductListingFragment } from './productListingFragments.gql';
 
 export const GET_WISHLIST_CONFIG = gql`
-    query GetWishlistConfigForCartPageCE {
+    query GetWishlistConfigForCartPageMOS {
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
             store_code

@@ -28,7 +28,7 @@
     "watch": "webpack-dev-server --progress --color --env.mode development"
   },
   "repository": "github:magento/pwa-studio",
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"

@@ -30,6 +30,11 @@ export const productIsadoraSkirt = {
     url: '/isadora-skirt.html'
 };
 
+export const productVitaliaTop = {
+    name: 'Vitalia Top',
+    url: '/vitalia-top.html'
+};
+
 /**
  * Sample simple product
  */

@@ -1,0 +1,40 @@
+.root {
+}
+
+.discountsButton {
+    composes: grid from global;
+    composes: items-center from global;
+    composes: ml-2 from global;
+}
+
+.discountLineItems {
+    composes: lineItems from './priceSummary.module.css';
+
+    composes: items-center from global;
+}
+
+.discountLineItemLabel {
+    composes: lineItemLabel from './priceSummary.module.css';
+
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+}
+
+.individualDiscountSeparator {
+    composes: mx-0 from global;
+    composes: my-4 from global;
+
+    color: rgb(var(--venia-global-color-gray-300));
+}
+.individualDiscountsList {
+    composes: lineItemLabel from './priceSummary.module.css';
+}
+
+.individualDiscountsListLineItem {
+    composes: lineItems from './priceSummary.module.css';
+    composes: mx-0 from global;
+    composes: pl-4 from global;
+
+    color: rgb(var(--venia-global-color-gray-700));
+}

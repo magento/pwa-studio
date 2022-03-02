@@ -25,7 +25,7 @@ const {
     getProductDetailForProductPageCall,
     getProductFiltersBySearchCall,
     getProductSearchCall,
-    getStoreConfigDataForGalleryEECall
+    getStoreConfigDataForGalleryACCall
 } = graphqlMockedCallsFixtures;
 
 describe('Verify Add to cart actions from search page', () => {
@@ -42,7 +42,7 @@ describe('Verify Add to cart actions from search page', () => {
             'gqlGetProductSearchQuery'
         );
 
-        cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
+        cy.intercept('GET', getStoreConfigDataForGalleryACCall).as(
             'gqlGetStoreConfigDataForGallery'
         );
 

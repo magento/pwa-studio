@@ -109,7 +109,7 @@ module.exports.builder = yargs =>
             },
             backendEdition: {
                 describe:
-                    'Edition of the magento store (Enterprise Edition or Community Edition)'
+                    'Edition of the magento store (Adobe Commerce or Magento Open Source)'
             },
             braintreeToken: {
                 describe:

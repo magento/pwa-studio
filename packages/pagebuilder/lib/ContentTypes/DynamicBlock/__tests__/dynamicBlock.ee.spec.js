@@ -22,13 +22,14 @@ const defaultProps = {
     marginRight: '10px',
     marginBottom: '10px',
     marginLeft: '10px',
+    minHeight: '40px',
     paddingTop: '10px',
     paddingRight: '10px',
     paddingBottom: '10px',
     paddingLeft: '10px'
 };
 
-describe('#PageBuilder DynamicBlock EE', () => {
+describe('#PageBuilder DynamicBlock AC', () => {
     it('renders a Dynamic Block component without custom classes', () => {
         const component = createTestInstance(
             <DynamicBlock {...defaultProps} />

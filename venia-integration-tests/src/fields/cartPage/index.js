@@ -15,6 +15,9 @@ export const saveForLaterButton = '[data-cy="addToListButton-root"]';
 
 export const cartPageProductLink = '[data-cy="Product-imageContainer"]';
 
+export const cartPageProductImageLink =
+    '[data-cy="Product-imageContainer"] [data-cy="Product-image"]';
+
 export const kebabMenuEditButton = '[data-cy="Product-Section-editItem"]';
 
 export const editMenuSizeButton = '[data-cy="Tile-button"]';
@@ -45,7 +48,13 @@ export const cartPagePriceSummarySubtotalValue =
     '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-subtotalValue"]';
 
 export const cartPagePriceSummaryDiscountSummary =
-    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-label"]';
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-Label"]';
+
+export const cartPageDiscountSummaryDropdownButton =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="DiscountSummary-DiscountValue-TriggerButton"]';
+
+export const cartPageDiscountSummaryIndividualDiscount =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="DiscountSummary-IndividualDiscount"]';
 
 export const cartPagePriceSummaryGiftCardSummary =
     '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-GiftCardSummary-label"]';

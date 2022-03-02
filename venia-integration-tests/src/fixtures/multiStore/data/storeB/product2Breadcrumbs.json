@@ -1,0 +1,16 @@
+{
+  "data": {
+    "categories": {
+      "items": [
+        {
+          "breadcrumbs": null,
+          "uid": "MjM=",
+          "name": "Subcategory A",
+          "url_path": "subcategory-a",
+          "__typename": "CategoryTree"
+        }
+      ],
+      "__typename": "CategoryResult"
+    }
+  }
+}
