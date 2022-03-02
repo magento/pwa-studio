@@ -8,9 +8,7 @@ export const useItemsReview = props => {
     const [showAllItems, setShowAllItems] = useState(false);
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
-    const {
-        getConfigurableThumbnailSource,
-    } = operations;
+    const { getConfigurableThumbnailSource } = operations;
 
     const { items: itemsData } = props;
 
@@ -44,13 +42,10 @@ export const useItemsReview = props => {
 
     const items = itemsData || [];
 
-    const totalQuantity = items
-        ? items.reduce(
-              (previousValue, currentValue) =>
-                  previousValue + currentValue.quantity,
-              0
-          )
-        : 0;
+    const totalQuantity = items.reduce(
+        (previousValue, currentValue) => previousValue + currentValue.quantity,
+        0
+    );
 
     return {
         items,
