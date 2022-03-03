@@ -3,7 +3,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import {
     useStockStatus,
-    LOW_STOCK,
+    // LOW_STOCK,
     OUT_OF_STOCK
 } from '@magento/peregrine/lib/talons/StockStatusMessage';
 
@@ -42,15 +42,15 @@ describe('#StockStatus', () => {
         expect(tree.toJSON()).toMatchSnapshot();
     });
 
-    it('renders low in stock message if low stock status is returned', () => {
-        useStockStatus.mockReturnValueOnce({
-            stockStatus: LOW_STOCK
-        });
-
-        const tree = createTestInstance(<Component />);
-
-        expect(tree.toJSON()).toMatchSnapshot();
-    });
+    // it('renders low in stock message if low stock status is returned', () => {
+    //     useStockStatus.mockReturnValueOnce({
+    //         stockStatus: LOW_STOCK
+    //     });
+    //
+    //     const tree = createTestInstance(<Component />);
+    //
+    //     expect(tree.toJSON()).toMatchSnapshot();
+    // });
 
     it('renders out of stock message if out of stock status is returned', () => {
         useStockStatus.mockReturnValueOnce({

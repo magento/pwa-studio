@@ -4,7 +4,7 @@ import { arrayOf, number, shape, string } from 'prop-types';
 
 import {
     useStockStatus,
-    LOW_STOCK,
+    // LOW_STOCK,
     OUT_OF_STOCK
 } from '@magento/peregrine/lib/talons/StockStatusMessage';
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -21,12 +21,13 @@ const StockStatus = props => {
                 id={'stockStatus.outOfStock'}
                 defaultMessage={'This item is currently out of stock'}
             />
-        ) : stockStatus === LOW_STOCK ? (
-            <FormattedMessage
-                id={'stockStatus.lowStock'}
-                defaultMessage={'Only a few left in stock'}
-            />
-        ) : null;
+        ) : // This will be used for low stock property
+        // ) : stockStatus === LOW_STOCK ? (
+        //     <FormattedMessage
+        //         id={'stockStatus.lowStock'}
+        //         defaultMessage={'Only a few left in stock'}
+        //     />
+        null;
 
     return message ? <div className={classes.root}>{message}</div> : null;
 };
