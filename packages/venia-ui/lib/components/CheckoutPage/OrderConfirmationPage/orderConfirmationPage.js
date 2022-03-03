@@ -17,7 +17,7 @@ const OrderConfirmationPage = props => {
     const location = useLocation();
     const data = props.data;
     const orderNumber = props.orderNumber || location.state.orderNumber;
-    const cartItems = data? data.cart.items : location.state.items;
+    const cartItems = data ? data.cart.items : location.state.items;
 
     const { formatMessage } = useIntl();
 
