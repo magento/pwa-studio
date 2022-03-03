@@ -29,7 +29,7 @@ const defaultProps = {
     paddingLeft: '10px'
 };
 
-describe('#PageBuilder DynamicBlock EE', () => {
+describe('#PageBuilder DynamicBlock AC', () => {
     it('renders a Dynamic Block component without custom classes', () => {
         const component = createTestInstance(
             <DynamicBlock {...defaultProps} />

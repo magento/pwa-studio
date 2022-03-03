@@ -10431,7 +10431,7 @@
             },
             {
               "name": "wishlists",
-              "description": "An array of wishlists. In Magento Open Source, customers are limited to one wish list. The number of wish lists is configurable for Magento Commerce",
+              "description": "An array of wishlists. In Magento Open Source, customers are limited to one wish list. The number of wish lists is configurable for Adobe Commerce",
               "args": [
                 {
                   "name": "pageSize",

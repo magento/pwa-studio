@@ -22,7 +22,7 @@ const {
     getCategoriesCall,
     getProductDetailForProductPageCall,
     hitGraphqlPath,
-    getStoreConfigDataForGalleryEECall
+    getStoreConfigDataForGalleryACCall
 } = graphqlMockedCallsFixtures;
 
 describe('Verify Add to Cart actions on category page', () => {
@@ -37,7 +37,7 @@ describe('Verify Add to Cart actions on category page', () => {
             aliasMutation(req, 'AddProductToCart');
         });
 
-        cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
+        cy.intercept('GET', getStoreConfigDataForGalleryACCall).as(
             'gqlGetStoreConfigDataForGallery'
         );
 

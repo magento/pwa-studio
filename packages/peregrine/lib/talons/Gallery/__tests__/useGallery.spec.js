@@ -5,15 +5,15 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import typePolicies from '../../../Apollo/policies';
 import {
-    mockGetStoreConfigCE,
-    mockGetStoreConfigEE
+    mockGetStoreConfigMOS,
+    mockGetStoreConfigAC
 } from '../__fixtures__/apolloMocks';
 
 import { useGallery } from '../useGallery';
 
 import defaultOperations from '../gallery.gql';
-import ceOperations from '../gallery.gql.ce';
-import eeOperations from '../gallery.gql.ee';
+import mosOperations from '../gallery.gql.ce';
+import acOperations from '../gallery.gql.ee';
 
 jest.mock(
     '../../../hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
@@ -39,11 +39,11 @@ const renderHookWithProviders = ({
     return renderHook(useGallery, { wrapper, ...renderHookOptions });
 };
 
-test('returns store config EE', async () => {
-    defaultOperations.getStoreConfigQuery = eeOperations.getStoreConfigQuery;
+test('returns store config AC', async () => {
+    defaultOperations.getStoreConfigQuery = acOperations.getStoreConfigQuery;
 
     const { result, waitForNextUpdate } = renderHookWithProviders({
-        mocks: [mockGetStoreConfigEE]
+        mocks: [mockGetStoreConfigAC]
     });
 
     expect(result.current).toMatchInlineSnapshot(`
@@ -66,14 +66,14 @@ test('returns store config EE', async () => {
     `);
 });
 
-test('returns store config CE', async () => {
-    defaultOperations.getStoreConfigQuery = ceOperations.getStoreConfigQuery;
+test('returns store config MOS', async () => {
+    defaultOperations.getStoreConfigQuery = mosOperations.getStoreConfigQuery;
 
     const { result, waitForNextUpdate } = renderHookWithProviders({
-        mocks: [mockGetStoreConfigCE]
+        mocks: [mockGetStoreConfigMOS]
     });
 
-    // I am unsure why this test renders without a loading state whereas the EE
+    // I am unsure why this test renders without a loading state whereas the AC
     // test renders with a loading (null) state.
     expect(result.current).toMatchInlineSnapshot(`
         Object {

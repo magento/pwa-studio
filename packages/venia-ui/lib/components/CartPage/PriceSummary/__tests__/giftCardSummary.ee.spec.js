@@ -18,7 +18,7 @@ const defaultProps = {
     ]
 };
 
-describe('#GiftCardSummary EE', () => {
+describe('#GiftCardSummary AC', () => {
     it('renders gift card summary line item correctly', () => {
         const tree = createTestInstance(<GiftCardSummary {...defaultProps} />);
 

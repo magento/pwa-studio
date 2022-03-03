@@ -48,11 +48,13 @@ Array [
   },
   Object {
     "choices": Array [
+      "AC",
       "EE",
+      "MOS",
       "CE",
     ],
-    "default": "EE",
-    "message": "Edition of the magento store (Enterprise Edition or Community Edition)",
+    "default": "AC",
+    "message": "Edition of the magento store (Adobe Commerce or Magento Open Source)",
     "name": "backendEdition",
     "type": "list",
   },
@@ -90,9 +92,9 @@ Array [
   ],
   Array [
     "
-Running command: 
+Running command:
 
-[97mbuildpack create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --backend-edition \\"EE\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install[39m
+[97mbuildpack create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --backend-edition \\"AC\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install[39m
 [97m[39m
 [97m[39m",
   ],
