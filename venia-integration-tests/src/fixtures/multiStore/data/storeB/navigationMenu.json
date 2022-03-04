@@ -13,7 +13,7 @@
               "name": "Subcategory A",
               "position": 1,
               "url_path": "subcategory-a",
-              "url_suffix": ".html",
+              "url_suffix": "",
               "__typename": "CategoryTree"
             },
             {
@@ -23,7 +23,7 @@
               "name": "Subcategory B",
               "position": 2,
               "url_path": "subcategory-b",
-              "url_suffix": ".html",
+              "url_suffix": "",
               "__typename": "CategoryTree"
             }
           ],

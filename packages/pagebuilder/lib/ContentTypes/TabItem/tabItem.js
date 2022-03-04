@@ -1,9 +1,10 @@
 import React from 'react';
 import { verticalAlignmentToFlex } from '../../utils';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './tabItem.module.css';
-import { arrayOf, oneOf, shape, string } from 'prop-types';
+import { arrayOf, oneOf, shape, string, object } from 'prop-types';
 
 const { matchMedia } = globalThis;
 
@@ -40,6 +41,7 @@ const TabItem = props => {
         marginRight,
         marginBottom,
         marginLeft,
+        mediaQueries,
         paddingTop,
         paddingRight,
         paddingBottom,
@@ -47,6 +49,8 @@ const TabItem = props => {
         children,
         cssClasses = []
     } = props;
+
+    const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
 
     let image = desktopImage;
     if (mobileImage && matchMedia && matchMedia('(max-width: 768px)').matches) {
@@ -94,7 +98,7 @@ const TabItem = props => {
 
     return (
         <div
-            style={dynamicStyles}
+            style={{ ...dynamicStyles, ...mediaQueryStyles }}
             className={[cssClasses, classes.root].join(' ')}
         >
             {children}
@@ -128,6 +132,7 @@ const TabItem = props => {
  * @property {String} marginRight CSS margin right property
  * @property {String} marginBottom CSS margin bottom property
  * @property {String} marginLeft CSS margin left property
+ * @property {Array} mediaQueries List of media query rules to be applied to the component
  * @property {String} paddingTop CSS padding top property
  * @property {String} paddingRight CSS padding right property
  * @property {String} paddingBottom CSS padding bottom property
@@ -157,6 +162,12 @@ TabItem.propTypes = {
     marginRight: string,
     marginBottom: string,
     marginLeft: string,
+    mediaQueries: arrayOf(
+        shape({
+            media: string,
+            style: object
+        })
+    ),
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,

@@ -115,6 +115,9 @@
         top: 5.5rem;
         height: min-content;
     }
+    .reCaptchaMargin {
+        margin-bottom: 5.5rem;
+    }
     .signInContainerVisible {
         grid-row: 1 / span 3;
     }

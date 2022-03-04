@@ -1,8 +1,9 @@
 import React from 'react';
-import { arrayOf, shape, string } from 'prop-types';
+import { arrayOf, shape, string, object } from 'prop-types';
 import defaultClasses from './banner.shimmer.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
+import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 
 /**
  * Page Builder Banner Shimmer component.
@@ -24,12 +25,15 @@ const BannerShimmer = props => {
         marginRight,
         marginBottom,
         marginLeft,
+        mediaQueries,
         paddingTop,
         paddingRight,
         paddingBottom,
         paddingLeft,
         cssClasses = []
     } = props;
+
+    const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
 
     const rootStyles = {
         marginTop,
@@ -39,7 +43,7 @@ const BannerShimmer = props => {
     };
 
     const wrapperStyles = {
-        minHeight,
+        minHeight: mediaQueryStyles?.minHeight || minHeight,
         border,
         borderWidth,
         paddingTop,
@@ -89,6 +93,7 @@ const BannerShimmer = props => {
  * @property {String} marginRight CSS margin right property
  * @property {String} marginBottom CSS margin bottom property
  * @property {String} marginLeft CSS margin left property
+ * @property {Array} mediaQueries List of media query rules to be applied to the component
  * @property {String} paddingTop CSS padding top property
  * @property {String} paddingRight CSS padding right property
  * @property {String} paddingBottom CSS padding bottom property
@@ -111,6 +116,12 @@ BannerShimmer.propTypes = {
     marginRight: string,
     marginBottom: string,
     marginLeft: string,
+    mediaQueries: arrayOf(
+        shape({
+            media: string,
+            style: object
+        })
+    ),
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,

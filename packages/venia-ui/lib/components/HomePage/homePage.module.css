@@ -419,3 +419,15 @@
 :global(.venia-home-products .slick-slider .slick-dots .slick-active > button) {
     background-color: hsl(205 004% 048%) !important;
 }
+
+:global(.venia-home-banner-text > div) {
+    flex-direction: unset !important;
+    justify-content: normal !important;
+}
+
+@media (max-width: 960px) {
+    :global(.venia-home-banner-text > div) {
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+}

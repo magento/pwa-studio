@@ -8,6 +8,11 @@ export const productCarminaEarrings = {
     url: '/carmina-earrings.html'
 };
 
+export const productJunoSweater = {
+    name: 'Juno Sweater',
+    url: '/juno-sweater.html'
+};
+
 export const productValeriaTwoLayeredTank = {
     name: 'Valeria Two-Layer Tank',
     url: '/valeria-two-layer-tank.html',
@@ -23,6 +28,11 @@ export const productValeriaTwoLayeredTank = {
 export const productIsadoraSkirt = {
     name: 'Isadora Skirt',
     url: '/isadora-skirt.html'
+};
+
+export const productVitaliaTop = {
+    name: 'Vitalia Top',
+    url: '/vitalia-top.html'
 };
 
 /**

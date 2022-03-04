@@ -50,6 +50,14 @@ jest.mock('../../../store/actions/cart', () => {
     });
 });
 
+jest.mock('../../../hooks/useGoogleReCaptcha', () => ({
+    useGoogleReCaptcha: jest.fn().mockReturnValue({
+        recaptchaLoading: false,
+        generateReCaptchaData: jest.fn(() => {}),
+        recaptchaWidgetProps: {}
+    })
+}));
+
 const Component = props => {
     const talonProps = useCreateAccount(props);
 

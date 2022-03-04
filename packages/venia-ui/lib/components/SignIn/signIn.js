@@ -8,13 +8,13 @@ import { useStyle } from '../../classify';
 import { isRequired } from '../../util/formValidators';
 import Button from '../Button';
 import Field from '../Field';
-import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
 import defaultClasses from './signIn.module.css';
 import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 import LinkButton from '../LinkButton';
 import Password from '../Password';
 import FormError from '../FormError/formError';
+import GoogleRecaptcha from '../GoogleReCaptcha';
 
 const SignIn = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -39,21 +39,9 @@ const SignIn = props => {
         handleForgotPassword,
         handleSubmit,
         isBusy,
-        setFormApi
+        setFormApi,
+        recaptchaWidgetProps
     } = talonProps;
-
-    if (isBusy) {
-        return (
-            <div className={classes.modal_active}>
-                <LoadingIndicator>
-                    <FormattedMessage
-                        id={'signIn.loadingText'}
-                        defaultMessage={'Signing In'}
-                    />
-                </LoadingIndicator>
-            </div>
-        );
-    }
 
     const forgotPasswordClasses = {
         root: classes.forgotPasswordButton
@@ -114,11 +102,13 @@ const SignIn = props => {
                         />
                     </LinkButton>
                 </div>
+                <GoogleRecaptcha {...recaptchaWidgetProps} />
                 <div className={classes.buttonsContainer}>
                     <Button
                         priority="high"
                         type="submit"
                         data-cy="SignInButton-root_highPriority"
+                        disabled={isBusy}
                     >
                         <FormattedMessage
                             id={'signIn.signInText'}

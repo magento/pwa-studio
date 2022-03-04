@@ -17,6 +17,7 @@ Object {
   "isDisabled": false,
   "isUpdateMode": false,
   "loadDataError": null,
+  "recaptchaWidgetProps": Object {},
   "shouldShowNewPassword": false,
   "showUpdateMode": [Function],
 }
@@ -61,6 +62,7 @@ Object {
   "isDisabled": false,
   "isUpdateMode": false,
   "loadDataError": null,
+  "recaptchaWidgetProps": Object {},
   "shouldShowNewPassword": false,
   "showUpdateMode": [Function],
 }
@@ -76,6 +78,7 @@ Object {
   "isDisabled": false,
   "isUpdateMode": false,
   "loadDataError": undefined,
+  "recaptchaWidgetProps": Object {},
   "shouldShowNewPassword": false,
   "showUpdateMode": [Function],
 }
@@ -109,6 +112,7 @@ Object {
   "isDisabled": false,
   "isUpdateMode": false,
   "loadDataError": null,
+  "recaptchaWidgetProps": Object {},
   "shouldShowNewPassword": false,
   "showUpdateMode": [Function],
 }

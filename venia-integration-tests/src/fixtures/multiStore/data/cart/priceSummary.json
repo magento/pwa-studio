@@ -14,9 +14,14 @@
           "__typename": "SimpleCartItem"
         },
         {
-          "uid": "MTI5MDU4",
+          "uid": "NDEzNg==",
           "quantity": 1,
-          "__typename": "SimpleCartItem"
+          "__typename": "ConfigurableCartItem"
+        },
+        {
+          "uid": "NTQxMw==",
+          "quantity": 1,
+          "__typename": "ConfigurableCartItem"
         }
       ],
       "shipping_addresses": [],
@@ -27,12 +32,12 @@
         "discounts": null,
         "grand_total": {
           "currency": "USD",
-          "value": 234,
+          "value": 312,
           "__typename": "Money"
         },
         "subtotal_excluding_tax": {
           "currency": "USD",
-          "value": 234,
+          "value": 312,
           "__typename": "Money"
         },
         "gift_options": {

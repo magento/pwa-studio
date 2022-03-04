@@ -37,6 +37,7 @@ const SuggestedProduct = props => {
                 classes={{ image: classes.thumbnail, root: classes.image }}
                 resource={small_image}
                 width={IMAGE_WIDTH}
+                data-cy="SuggestedProduct-image"
             />
             <span className={classes.name}>{name}</span>
             <span data-cy="SuggestedProduct-price" className={classes.price}>

@@ -16,6 +16,7 @@ import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
 
 import CheckoutError from './CheckoutError';
+import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -77,6 +78,11 @@ export const useCheckoutPage = (props = {}) => {
         placeOrderMutation
     } = operations;
 
+    const { generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
+        currentForm: 'PLACE_ORDER',
+        formAction: 'placeOrder'
+    });
+
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
     );
@@ -86,6 +92,9 @@ export const useCheckoutPage = (props = {}) => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
+    const [placeOrderButtonClicked, setPlaceOrderButtonClicked] = useState(
+        false
+    );
     const [activeContent, setActiveContent] = useState('checkout');
     const [checkoutStep, setCheckoutStep] = useState(
         CHECKOUT_STEP.SHIPPING_ADDRESS
@@ -230,6 +239,7 @@ export const useCheckoutPage = (props = {}) => {
                 cartId
             }
         });
+        setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
     }, [cartId, getOrderDetails]);
 
@@ -243,10 +253,13 @@ export const useCheckoutPage = (props = {}) => {
     useEffect(() => {
         async function placeOrderAndCleanup() {
             try {
+                const reCaptchaData = await generateReCaptchaData();
+
                 await placeOrder({
                     variables: {
                         cartId
-                    }
+                    },
+                    ...reCaptchaData
                 });
                 // Cleanup stale cart and customer info.
                 await removeCart();
@@ -260,8 +273,7 @@ export const useCheckoutPage = (props = {}) => {
                     'An error occurred during when placing the order',
                     err
                 );
-                setReviewOrderButtonClicked(false);
-                setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+                setPlaceOrderButtonClicked(false);
             }
         }
 
@@ -274,6 +286,7 @@ export const useCheckoutPage = (props = {}) => {
         cartId,
         createCart,
         fetchCartId,
+        generateReCaptchaData,
         orderDetailsData,
         placeOrder,
         removeCart,
@@ -311,6 +324,7 @@ export const useCheckoutPage = (props = {}) => {
             (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
             null,
         placeOrderLoading,
+        placeOrderButtonClicked,
         setCheckoutStep,
         setGuestSignInUsername,
         setIsUpdating,
@@ -324,6 +338,7 @@ export const useCheckoutPage = (props = {}) => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
+        recaptchaWidgetProps,
         toggleAddressBookContent,
         toggleSignInContent
     };

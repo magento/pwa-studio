@@ -1,4 +1,4 @@
-import { getAdvanced } from '../../utils';
+import { getAdvanced, getMediaQueries } from '../../utils';
 
 export default node => {
     const autoplaySpeed = parseInt(node.getAttribute('data-autoplay-speed'));
@@ -11,6 +11,7 @@ export default node => {
         showArrows: node.getAttribute('data-show-arrows') === 'true',
         showDots: node.getAttribute('data-show-dots') === 'true',
         ...(!isNaN(autoplaySpeed) && { autoplaySpeed }),
-        ...getAdvanced(node)
+        ...getAdvanced(node),
+        ...getMediaQueries(node)
     };
 };

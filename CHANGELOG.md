@@ -64,7 +64,7 @@ _For older release notes, see_ [PWA Studio releases][].
 | Story | Feature: Add ability to deploy Luma and Venia on single cloud env                                                                       | [11][]            |
 | Story | Add cypress test for Mini cart                                                                                                          | [3559][]          |
 | Story | Archive MFTF Repo                                                                                                                       | [39][]            |
-| Story | Homepage unification for CE and EE                                                                                                      | [3564][]          |
+| Story | Homepage unification for MOS and AC                                                                                                     | [3564][]          |
 | Story | Improve Version banner                                                                                                                  | [3555][]          |
 | Story | Upgrade Node 14 and Scaffold Node 16                                                                                                    | [3552][], [101][] |
 | Story | Fail build when @magento/pwa metapackage is not installed                                                                               | [3561][]          |

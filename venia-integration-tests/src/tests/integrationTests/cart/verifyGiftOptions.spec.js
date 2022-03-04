@@ -42,7 +42,7 @@ const {
     assertCartGiftOptions
 } = cartPageAssertions;
 
-// TODO add tags CE, EE to test to filter and run tests as needed
+// TODO add tags MOS, AC to test to filter and run tests as needed
 describe('verify gift options actions in cart', () => {
     it('user should be able to add and update gift options', () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(
