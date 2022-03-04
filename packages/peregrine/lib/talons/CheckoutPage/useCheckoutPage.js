@@ -287,7 +287,7 @@ export const useCheckoutPage = (props = {}) => {
                 items: cartItems
             });
         }
-    }, [isSignedIn, placeOrderData, cartItems]);
+    }, [isSignedIn, placeOrderData, cartItems, history]);
 
     return {
         activeContent,

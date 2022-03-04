@@ -79,13 +79,13 @@ export const useOrderConfirmationPage = props => {
                 }
             });
         }
-    }, [props.orderNumber, props.data]);
+    }, [props.orderNumber, props.data, fetchOrderConfirmationDetails]);
 
     useEffect(() => {
         if (!isSignedIn && !props.data) {
             history.replace('/checkout');
         }
-    });
+    }, [isSignedIn, history, props.data]);
 
     return {
         flatData,
