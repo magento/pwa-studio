@@ -82,10 +82,10 @@ export const useOrderConfirmationPage = props => {
     }, [props.orderNumber, props.data]);
 
     useEffect(() => {
-      if(!isSignedIn && !props.data) {
-        history.replace('/checkout')
-      }
-    })
+        if (!isSignedIn && !props.data) {
+            history.replace('/checkout');
+        }
+    });
 
     return {
         flatData,
