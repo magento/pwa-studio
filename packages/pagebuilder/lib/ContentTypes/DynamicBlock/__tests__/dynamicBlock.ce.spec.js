@@ -8,7 +8,7 @@ const Component = () => {
     return <DynamicBlock />;
 };
 
-describe('#PageBuilder DynamicBlock CE', () => {
+describe('#PageBuilder DynamicBlock MOS', () => {
     it('renders', () => {
         const tree = createTestInstance(<Component />);
 

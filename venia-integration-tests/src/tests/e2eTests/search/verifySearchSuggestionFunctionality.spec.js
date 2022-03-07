@@ -19,7 +19,7 @@ const {
     assertNoProductSuggestion
 } = categoryPageAssertions;
 
-// TODO add tags CE, EE to test to filter and run tests as needed
+// TODO add tags MOS, AC to test to filter and run tests as needed
 describe('PWA-1400: verify user search suggestion actions', () => {
     it('user should be able search with different inputs and view different suggestions', () => {
         cy.intercept('GET', getAutocompleteResultsCall).as(

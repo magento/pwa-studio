@@ -8,7 +8,7 @@ const Component = () => {
     return <GiftCardSection />;
 };
 
-describe('#GiftCardSection CE', () => {
+describe('#GiftCardSection MOS', () => {
     it('renders', () => {
         const tree = createTestInstance(<Component />);
 
