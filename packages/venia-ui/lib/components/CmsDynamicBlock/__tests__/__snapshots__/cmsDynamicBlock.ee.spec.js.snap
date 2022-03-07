@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#CmsDynamicBlock EE renders DynamicBlock when data with type catalogrule 1`] = `
+exports[`#CmsDynamicBlock AC renders DynamicBlock when data with type catalogrule 1`] = `
 <mock-DynamicBlock
   content={
     Object {
@@ -12,7 +12,7 @@ exports[`#CmsDynamicBlock EE renders DynamicBlock when data with type catalogrul
 />
 `;
 
-exports[`#CmsDynamicBlock EE renders DynamicBlock when data with type fixed 1`] = `
+exports[`#CmsDynamicBlock AC renders DynamicBlock when data with type fixed 1`] = `
 <mock-DynamicBlock
   content={
     Object {
@@ -24,7 +24,7 @@ exports[`#CmsDynamicBlock EE renders DynamicBlock when data with type fixed 1`] 
 />
 `;
 
-exports[`#CmsDynamicBlock EE renders DynamicBlock when data with type salesrule 1`] = `
+exports[`#CmsDynamicBlock AC renders DynamicBlock when data with type salesrule 1`] = `
 <mock-DynamicBlock
   content={
     Object {
@@ -36,7 +36,7 @@ exports[`#CmsDynamicBlock EE renders DynamicBlock when data with type salesrule 
 />
 `;
 
-exports[`#CmsDynamicBlock EE renders DynamicBlock when data with unknown type 1`] = `
+exports[`#CmsDynamicBlock AC renders DynamicBlock when data with unknown type 1`] = `
 <mock-DynamicBlock
   content={
     Object {
@@ -48,14 +48,14 @@ exports[`#CmsDynamicBlock EE renders DynamicBlock when data with unknown type 1`
 />
 `;
 
-exports[`#CmsDynamicBlock EE renders ErrorView when error 1`] = `
+exports[`#CmsDynamicBlock AC renders ErrorView when error 1`] = `
 <mock-ErrorView
   message="Error"
 />
 `;
 
-exports[`#CmsDynamicBlock EE renders null when items are empty 1`] = `null`;
+exports[`#CmsDynamicBlock AC renders null when items are empty 1`] = `null`;
 
-exports[`#CmsDynamicBlock EE renders null when loading 1`] = `null`;
+exports[`#CmsDynamicBlock AC renders null when loading 1`] = `null`;
 
-exports[`#CmsDynamicBlock EE renders null when no data 1`] = `null`;
+exports[`#CmsDynamicBlock AC renders null when no data 1`] = `null`;

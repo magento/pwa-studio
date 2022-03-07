@@ -244,20 +244,20 @@ test('does not warn if backendUrl matches env', async () => {
 
 test('warns if backendEdition does not match env', async () => {
     const old = process.env.MAGENTO_BACKEND_EDITION;
-    process.env.MAGENTO_BACKEND_EDITION = 'CE';
+    process.env.MAGENTO_BACKEND_EDITION = 'MOS';
     fse.ensureDir.mockResolvedValueOnce(true);
     fse.readdir.mockResolvedValueOnce(true);
     await expect(
         createProjectCliBuilder.handler({
             backendUrl: 'https://example.com',
-            backendEdition: 'EE',
+            backendEdition: 'AC',
             name: 'goo',
             template: 'venia-concept',
             directory: '/project',
             npmClient: 'yarn'
         })
     ).resolves.not.toThrow();
-    expect(process.env.MAGENTO_BACKEND_EDITION).not.toBe('EE');
+    expect(process.env.MAGENTO_BACKEND_EDITION).not.toBe('AC');
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringMatching('Environment variable overrides!')
     );
@@ -266,20 +266,20 @@ test('warns if backendEdition does not match env', async () => {
 
 test('does not warn if backendEdition matches env', async () => {
     const old = process.env.MAGENTO_BACKEND_EDITION;
-    process.env.MAGENTO_BACKEND_EDITION = 'EE';
+    process.env.MAGENTO_BACKEND_EDITION = 'AC';
     fse.ensureDir.mockResolvedValueOnce(true);
     fse.readdir.mockResolvedValueOnce(true);
     await expect(
         createProjectCliBuilder.handler({
             backendUrl: 'https://example.com',
-            backendEdition: 'EE',
+            backendEdition: 'AC',
             name: 'goo',
             template: 'venia-concept',
             directory: '/project',
             npmClient: 'yarn'
         })
     ).resolves.not.toThrow();
-    expect(process.env.MAGENTO_BACKEND_EDITION).toBe('EE');
+    expect(process.env.MAGENTO_BACKEND_EDITION).toBe('AC');
     process.env.MAGENTO_BACKEND_EDITION = old;
 });
 

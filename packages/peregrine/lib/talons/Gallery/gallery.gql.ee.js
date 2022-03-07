@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_STORE_CONFIG_DATA = gql`
-    query GetStoreConfigDataForGalleryEE {
+    query GetStoreConfigDataForGalleryAC {
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
             store_code

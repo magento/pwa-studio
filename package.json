@@ -15,7 +15,7 @@
     "packages/venia-concept",
     "packages/venia-ui"
   ],
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "homepage": "https://github.com/magento/pwa-studio",
   "bugs": {

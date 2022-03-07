@@ -63,9 +63,9 @@ import {
     getProductFiltersByCategoryCall,
     getProductsByUrlKeyCall,
     getRouteDataCall,
-    getStoreConfigDataForGalleryEECall,
+    getStoreConfigDataForGalleryACCall,
     getStoreConfigForBreadcrumbsCall,
-    getStoreConfigForCarouselEECall,
+    getStoreConfigForCarouselACCall,
     getStoreConfigForCartPageCall,
     getWishlistConfigForProductPageCall,
     hitGraphqlPath,
@@ -443,8 +443,8 @@ const interceptStoreRequests = expectedStoreCode => {
             call: getStoreNameCall
         },
         {
-            alias: 'getMockStoreConfigForCarouselEE',
-            call: getStoreConfigForCarouselEECall
+            alias: 'getMockStoreConfigForCarouselAC',
+            call: getStoreConfigForCarouselACCall
         },
         {
             alias: 'getMockWishlistConfigForProductPage',
@@ -459,8 +459,8 @@ const interceptStoreRequests = expectedStoreCode => {
             call: getPageSizeCall
         },
         {
-            alias: 'getMockStoreConfigDataForGalleryEE',
-            call: getStoreConfigDataForGalleryEECall
+            alias: 'getMockStoreConfigDataForGalleryAC',
+            call: getStoreConfigDataForGalleryACCall
         },
         {
             alias: 'getMockStoreConfigForGiftOptions',
