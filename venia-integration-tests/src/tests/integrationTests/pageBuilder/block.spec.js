@@ -5,12 +5,10 @@ describe('PWA-1158: verify pagebuilder block content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/block/block.json'
         }).as('getCMSMockData');
-        cy.clearLocalStorage();
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.scrollTo('bottom', { duration: 2000 });
         cy.get('[role="tabpanel"] button').should('be.visible');
-        cy.wait(15000);
         cy.get('.slick-slider')
             .eq(0)
             .scrollIntoView()
