@@ -5,6 +5,7 @@ describe('PWA-1158: verify pagebuilder block content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/block/block.json'
         }).as('getCMSMockData');
+        cy.clearLocalStorage();
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.scrollTo('bottom', { duration: 2000 });
