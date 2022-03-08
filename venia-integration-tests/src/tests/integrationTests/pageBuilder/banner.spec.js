@@ -1,6 +1,7 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-// TODO add tags CE, EE to test to filter and run tests as needed
+
+// TODO add tags MOS, AC to test to filter and run tests as needed
 describe('PWA-1154: verify pagebuilder banner content', () => {
     it('verify banner content', () => {
         cy.intercept('GET', getCMSPage, {
@@ -134,11 +135,34 @@ describe('PWA-1154: verify pagebuilder banner content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        //Product cache image loading takes time
+        cy.wait(5000);
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page10',
                 timeout: 180000
             });
+        });
+    });
+});
+
+describe('PWA-1471: Verify pagebuilder banner media query', () => {
+    it('should apply mediaQuery styles', () => {
+        cy.intercept('GET', getCMSPage, {
+            fixture: 'pageBuilder/banner/banner-media-query'
+        }).as('getCMSMockData');
+        cy.visitHomePage();
+        cy.wait(['@getCMSMockData']).its('response.body');
+        cy.loadFullPage().then(() => {
+            cy.captureFullPageScreenshot({
+                name: 'Banner media query (Desktop)',
+                timeout: 180000
+            });
+        });
+        cy.viewport('ipad-2');
+        cy.captureFullPageScreenshot({
+            name: 'Banner media query (Mobile)',
+            timeout: 180000
         });
     });
 });

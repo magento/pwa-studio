@@ -14,17 +14,18 @@
     "test:headless": "./run-tests.js",
     "test:run": "cypress run --browser chrome --config-file cypress.config.json"
   },
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "cypress": "~7.1.0",
+    "cypress": "~9.4.0",
     "cypress-image-snapshot": "~4.0.1",
-    "danger": "^7.1.4",
+    "danger": "^10.7.1",
+    "franc-min": "~6.0.0",
     "glob": "~7.2.0",
-    "jest": "~26.0.1",
+    "jest": "~27.4.7",
     "jimp": "~0.16.1",
-    "mochawesome": "~6.2.2",
+    "mochawesome": "~7.0.0",
     "mochawesome-merge": "~4.2.0",
     "yargs": "~17.3.0"
   }

@@ -133,9 +133,9 @@ module.exports = async () => {
             name: 'backendEdition',
             type: 'list',
             message:
-                'Edition of the magento store (Enterprise Edition or Community Edition)',
-            choices: ['EE', 'CE'],
-            default: 'EE'
+                'Edition of the magento store (Adobe Commerce or Magento Open Source)',
+            choices: ['AC', 'EE', 'MOS', 'CE'],
+            default: 'AC'
         },
         {
             name: 'braintreeToken',

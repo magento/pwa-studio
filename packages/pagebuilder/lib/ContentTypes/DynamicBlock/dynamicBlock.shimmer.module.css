@@ -1,0 +1,26 @@
+.parent {
+    display: flex;
+}
+
+/* Only show one shimmer when multiple dynamic blocks */
+.parent + .parent {
+    display: none;
+}
+
+.shimmerRoot {
+    composes: root_rectangle from '~@magento/venia-ui/lib/components/Shimmer/shimmer.module.css';
+    composes: root from './dynamicBlock.module.css';
+    flex: 1;
+}
+
+.wrapper {
+    composes: wrapper from './dynamicBlock.module.css';
+}
+
+.overlay {
+    composes: overlay from './dynamicBlock.module.css';
+}
+
+.content {
+    composes: content from './dynamicBlock.module.css';
+}

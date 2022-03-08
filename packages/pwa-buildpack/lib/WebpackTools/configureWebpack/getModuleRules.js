@@ -157,6 +157,7 @@ getModuleRules.css = async ({ hasFlag, mode }) => ({
                 {
                     loader: 'css-loader',
                     options: {
+                        importLoaders: 1,
                         modules: {
                             getLocalIdent,
                             localIdentName: `[name]-[local]-[hash:base64:3]`
@@ -181,6 +182,7 @@ getModuleRules.css = async ({ hasFlag, mode }) => ({
                 {
                     loader: 'css-loader',
                     options: {
+                        importLoaders: 1,
                         modules: false,
                         sourceMap: mode === 'development'
                     }

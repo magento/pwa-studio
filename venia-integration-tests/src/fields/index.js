@@ -17,4 +17,6 @@ export * as storeSwitcher from './storeSwitcher';
 export * as wishlist from './wishlist';
 export * as miniCart from './miniCart';
 export * as newsletter from './newsletter';
+export * as cmsPage from './cmsPage';
 export * as footer from './footer';
+export * as searchPage from './searchPage';

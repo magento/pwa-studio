@@ -2,9 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import defaultClasses from './row.module.css';
 import { verticalAlignmentToFlex } from '../../utils';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
+import {
+    arrayOf,
+    oneOf,
+    shape,
+    bool,
+    string,
+    number,
+    object
+} from 'prop-types';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useDetectScrollWidth } from '@magento/peregrine/lib/hooks/useDetectScrollWidth';
+import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 
 const { matchMedia } = globalThis;
 
@@ -24,6 +33,7 @@ const Row = props => {
     const backgroundElement = useRef(null);
     const [bgImageStyle, setBgImageStyle] = useState(null);
     const classes = useStyle(defaultClasses, props.classes);
+
     const {
         appearance,
         verticalAlignment,
@@ -46,6 +56,7 @@ const Row = props => {
         marginRight,
         marginBottom,
         marginLeft,
+        mediaQueries,
         paddingTop,
         paddingRight,
         paddingBottom,
@@ -60,6 +71,8 @@ const Row = props => {
         videoLazyLoading,
         videoOverlayColor
     } = props;
+
+    const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
 
     let image = desktopImage;
     if (mobileImage && matchMedia && matchMedia('(max-width: 768px)').matches) {
@@ -171,7 +184,8 @@ const Row = props => {
                 videoSrc,
                 videoLoop,
                 videoPlayOnlyVisible,
-                videoLazyLoading
+                videoLazyLoading,
+                zIndex: 'auto'
             });
 
             parallaxElement.jarallax.video &&
@@ -218,6 +232,7 @@ const Row = props => {
                 ref={backgroundElement}
                 style={{
                     ...dynamicStyles,
+                    ...mediaQueryStyles,
                     marginLeft: null,
                     marginRight: null,
                     '--pbRowMarginLeft': marginLeft,
@@ -241,6 +256,7 @@ const Row = props => {
                 ref={backgroundElement}
                 style={{
                     ...dynamicStyles,
+                    ...mediaQueryStyles,
                     marginLeft: null,
                     marginRight: null,
                     '--pbRowMarginLeft': marginLeft,
@@ -263,7 +279,7 @@ const Row = props => {
             <div
                 ref={backgroundElement}
                 className={classes.inner}
-                style={dynamicStyles}
+                style={{ ...dynamicStyles, ...mediaQueryStyles }}
             >
                 {videoOverlay}
                 {children}
@@ -301,6 +317,7 @@ const Row = props => {
  * @property {String} marginRight CSS margin right property
  * @property {String} marginBottom CSS margin bottom property
  * @property {String} marginLeft CSS margin left property
+ * @property {Array} mediaQueries List of media query rules to be applied to the component
  * @property {String} paddingTop CSS padding top property
  * @property {String} paddingRight CSS padding right property
  * @property {String} paddingBottom CSS padding bottom property
@@ -343,6 +360,12 @@ Row.propTypes = {
     marginRight: string,
     marginBottom: string,
     marginLeft: string,
+    mediaQueries: arrayOf(
+        shape({
+            media: string,
+            style: object
+        })
+    ),
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,

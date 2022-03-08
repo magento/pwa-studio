@@ -103,7 +103,10 @@ const FilterSidebar = props => {
         >
             <div className={classes.body}>
                 <div className={classes.header}>
-                    <h2 className={classes.headerTitle}>
+                    <h2
+                        data-cy="FilterSidebar-headerTitle"
+                        className={classes.headerTitle}
+                    >
                         <FormattedMessage
                             id={'filterModal.headerTitle'}
                             defaultMessage={'Filters'}

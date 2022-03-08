@@ -35,7 +35,8 @@ import {
     giftOptionsCardFromInput,
     giftOptionsCardMessageTextarea,
     giftOptionsEditGiftMessageButton,
-    giftOptionsUpdateGiftMessageButton
+    giftOptionsUpdateGiftMessageButton,
+    cartPageDiscountSummaryDropdownButton
 } from '../../fields/cartPage';
 import { swatchRoot } from '../../fields/productPage';
 
@@ -59,6 +60,10 @@ export const toggleGiftCardSection = () => {
 
 export const toggleGiftOptionsSection = () => {
     cy.get(giftOptionsSectionButton).click();
+};
+
+export const toggleDiscountSection = () => {
+    cy.get(cartPageDiscountSummaryDropdownButton).click();
 };
 
 /**

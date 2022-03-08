@@ -18,6 +18,7 @@ import TextInput from '../TextInput';
 import defaultClasses from './createAccount.module.css';
 import FormError from '../FormError';
 import Password from '../Password';
+import GoogleRecaptcha from '../GoogleReCaptcha';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
@@ -31,13 +32,15 @@ const CreateAccount = props => {
         handleCancel,
         handleSubmit,
         isDisabled,
-        initialValues
+        initialValues,
+        recaptchaWidgetProps
     } = talonProps;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
 
     const cancelButton = props.isCancelButtonHidden ? null : (
         <Button
+            data-cy="CreateAccount-cancelButton"
             className={classes.cancelButton}
             disabled={isDisabled}
             type="button"
@@ -68,11 +71,12 @@ const CreateAccount = props => {
 
     return (
         <Form
+            data-cy="CreateAccount-form"
             className={classes.root}
             initialValues={initialValues}
             onSubmit={handleSubmit}
         >
-            <h2 className={classes.title}>
+            <h2 data-cy="CreateAccount-title" className={classes.title}>
                 <FormattedMessage
                     id={'createAccount.createAccountText'}
                     defaultMessage={'Create an Account'}
@@ -155,6 +159,7 @@ const CreateAccount = props => {
                     })}
                 />
             </div>
+            <GoogleRecaptcha {...recaptchaWidgetProps} />
             <div className={classes.actions}>
                 {submitButton}
                 {cancelButton}

@@ -47,6 +47,7 @@ export const WishlistItemFragment = gql`
                 }
             }
         }
+        # TODO: Use configurable_product_option_uid for ConfigurableWishlistItem when available in 2.4.5
         ... on ConfigurableWishlistItem {
             configurable_options {
                 id

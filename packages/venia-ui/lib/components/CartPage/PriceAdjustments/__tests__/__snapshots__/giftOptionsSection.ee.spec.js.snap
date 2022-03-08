@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#GiftOptionsSection EE renders loading 1`] = `null`;
+exports[`#GiftOptionsSection AC renders loading 1`] = `null`;
 
-exports[`#GiftOptionsSection EE renders not loading and not visible 1`] = `null`;
+exports[`#GiftOptionsSection AC renders not loading and not visible 1`] = `null`;
 
-exports[`#GiftOptionsSection EE renders not loading and visible 1`] = `
+exports[`#GiftOptionsSection AC renders not loading and visible 1`] = `
 <mock-Section
   id="gift_options"
   title="See Gift Options"

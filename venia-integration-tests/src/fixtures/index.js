@@ -21,3 +21,4 @@ export * as mediaMockedCalls from './mediaMockedCalls';
 export * as miniCart from './miniCart';
 export * as newsletter from './newsletter';
 export * as customerService from './customerService';
+export * as aboutUsPage from './aboutUsPage';

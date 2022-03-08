@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "9.1.0",
+  "version": "9.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -26,7 +26,7 @@
     "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
   "repository": "github:magento/pwa-studio",
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
@@ -41,6 +41,7 @@
     "lodash.throttle": "~4.1.1",
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",
+    "react-animate-height": "^2.0.23",
     "react-aria": "~3.4.0",
     "react-feather": "~2.0.3",
     "react-helmet-async": "^1.0.2",
@@ -79,8 +80,8 @@
   "peerDependencies": {
     "@apollo/client": "~3.4.0",
     "@magento/babel-preset-peregrine": "~1.2.0",
-    "@magento/peregrine": "~12.1.0",
-    "@magento/pwa-buildpack": "~11.0.0",
+    "@magento/peregrine": "~12.2.0",
+    "@magento/pwa-buildpack": "~11.1.0",
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.16.0",
     "graphql": "~15.5.0",

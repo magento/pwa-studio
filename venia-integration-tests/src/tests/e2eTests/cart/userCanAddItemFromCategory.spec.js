@@ -22,10 +22,10 @@ const {
     getCategoriesCall,
     getProductDetailForProductPageCall,
     hitGraphqlPath,
-    getStoreConfigDataForGalleryEECall
+    getStoreConfigDataForGalleryACCall
 } = graphqlMockedCallsFixtures;
 
-describe('Verify Cart actions', () => {
+describe('Verify Add to Cart actions on category page', () => {
     it("User shouldn't be able to add a CustomizableProduct from category page", () => {
         cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
 
@@ -37,7 +37,7 @@ describe('Verify Cart actions', () => {
             aliasMutation(req, 'AddProductToCart');
         });
 
-        cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
+        cy.intercept('GET', getStoreConfigDataForGalleryACCall).as(
             'gqlGetStoreConfigDataForGallery'
         );
 

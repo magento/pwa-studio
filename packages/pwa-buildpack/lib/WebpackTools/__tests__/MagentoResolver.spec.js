@@ -2,10 +2,11 @@ const path = require('path');
 const MagentoResolver = require('../MagentoResolver');
 
 describe('legacy functionality', () => {
-    test('static configure() produces a webpack resolver config with .ee.js extension if backend is enterprise edition', async () => {
+    test('static configure() produces a webpack resolver config with .ac.js extension if backend is Adobe Commerce', async () => {
         const extensions = [
             '.wasm',
             '.mjs',
+            '.ac.js',
             '.ee.js',
             '.js',
             '.jsx',
@@ -15,7 +16,7 @@ describe('legacy functionality', () => {
         await expect(
             MagentoResolver.configure({
                 paths: { root: 'fakeRoot' },
-                isEE: true
+                isAC: true
             })
         ).resolves.toEqual({
             alias: {},
@@ -26,10 +27,11 @@ describe('legacy functionality', () => {
         });
     });
 
-    test('static configure() produces a webpack resolver config with .ce.js extension if backend is not enterprise edition', async () => {
+    test('static configure() produces a webpack resolver config with .mos.js extension if backend is not Adobe Commerce', async () => {
         const extensions = [
             '.wasm',
             '.mjs',
+            '.mos.js',
             '.ce.js',
             '.js',
             '.jsx',
@@ -39,7 +41,7 @@ describe('legacy functionality', () => {
         await expect(
             MagentoResolver.configure({
                 paths: { root: 'fakeRoot' },
-                isEE: false
+                isAC: false
             })
         ).resolves.toEqual({
             alias: {},
@@ -58,7 +60,7 @@ describe('legacy functionality', () => {
 });
 
 const context = path.resolve(__dirname, './__fixtures__/resolverContext');
-test('creates a promisifed resolver which respects provided config', async () => {
+test('creates a promisified resolver which respects provided config', async () => {
     const resolver = new MagentoResolver({
         paths: {
             root: context
@@ -73,6 +75,11 @@ test('creates a promisifed resolver which respects provided config', async () =>
             ['localModule1', './localModule1/index.wasm'],
             // module folder
             ['depModule1', 'node_modules/depModule1/index.js'],
+            // module folder 2
+            [
+                'depModule1BackwardCompatible',
+                'node_modules/depModule1BackwardCompatible/index.js'
+            ],
             // recursively resolve parent folder deps
             ['jest', require.resolve('jest')]
         ].map(([request, expected]) =>
@@ -97,24 +104,42 @@ test('rejects if it has been configured weird', async () => {
     await expect(resolver.resolve('./bogus')).rejects.toThrowError();
 });
 
-test('uses *.ee.js or *.ce.js depending on isEE boolean', async () => {
-    const ceResolver = new MagentoResolver({
+test('uses *.ac.js/*.ee.js or /*.mos.js/*.ce.js depending on isAC boolean', async () => {
+    const mosResolver = new MagentoResolver({
         paths: {
             root: context
         },
-        isEE: false
+        isAC: false
     });
-    await expect(ceResolver.resolve('depModule1/someFeature')).resolves.toBe(
-        path.resolve(context, 'node_modules/depModule1/someFeature.ce.js')
+    await expect(mosResolver.resolve('depModule1/someFeature')).resolves.toBe(
+        path.resolve(context, 'node_modules/depModule1/someFeature.mos.js')
     );
 
-    const eeResolver = new MagentoResolver({
+    await expect(
+        mosResolver.resolve('depModule1BackwardCompatible/someFeature')
+    ).resolves.toBe(
+        path.resolve(
+            context,
+            'node_modules/depModule1BackwardCompatible/someFeature.ce.js'
+        )
+    );
+
+    const acResolver = new MagentoResolver({
         paths: {
             root: context
         },
-        isEE: true
+        isAC: true
     });
-    await expect(eeResolver.resolve('depModule1/someFeature')).resolves.toBe(
-        path.resolve(context, 'node_modules/depModule1/someFeature.ee.js')
+    await expect(acResolver.resolve('depModule1/someFeature')).resolves.toBe(
+        path.resolve(context, 'node_modules/depModule1/someFeature.ac.js')
+    );
+
+    await expect(
+        acResolver.resolve('depModule1BackwardCompatible/someFeature')
+    ).resolves.toBe(
+        path.resolve(
+            context,
+            'node_modules/depModule1BackwardCompatible/someFeature.ee.js'
+        )
     );
 });

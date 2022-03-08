@@ -170,6 +170,26 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
     return value;
 };
 
+const getCustomAttributes = (product, optionCodes, optionSelections) => {
+    const { custom_attributes, variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (isConfigurable && optionsSelected) {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        return item.product.custom_attributes;
+    }
+
+    return custom_attributes;
+};
+
 /**
  * @param {GraphQLDocument} props.addConfigurableProductToCartMutation - configurable product mutation
  * @param {GraphQLDocument} props.addSimpleProductToCartMutation - configurable product mutation
@@ -273,6 +293,11 @@ export const useProductFullDetail = props => {
 
     const mediaGalleryEntries = useMemo(
         () => getMediaGalleryEntries(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
+    const customAttributes = useMemo(
+        () => getCustomAttributes(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
     );
 
@@ -488,6 +513,7 @@ export const useProductFullDetail = props => {
             storeConfigData &&
             !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
         productDetails,
+        customAttributes,
         wishlistButtonProps,
         wishlistItemOptions
     };

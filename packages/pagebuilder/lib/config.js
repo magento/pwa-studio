@@ -6,7 +6,7 @@ import Column from './ContentTypes/Column';
 import columnGroupConfigAggregator from './ContentTypes/ColumnGroup/configAggregator';
 import ColumnGroup from './ContentTypes/ColumnGroup';
 import imageConfigAggregator from './ContentTypes/Image/configAggregator';
-import Image from './ContentTypes/Image';
+import { ImageShimmer } from './ContentTypes/Image';
 import headingConfigAggregator from './ContentTypes/Heading/configAggregator';
 import Heading from './ContentTypes/Heading';
 import textConfigAggregator from './ContentTypes/Text/configAggregator';
@@ -27,6 +27,7 @@ import { BannerShimmer } from './ContentTypes/Banner';
 import ButtonItem from './ContentTypes/ButtonItem';
 import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
 import { SliderShimmer } from './ContentTypes/Slider';
+import { DynamicBlockShimmer } from './ContentTypes/DynamicBlock';
 
 /* istanbul ignore next */
 const contentTypesConfig = {
@@ -44,7 +45,8 @@ const contentTypesConfig = {
     },
     image: {
         configAggregator: imageConfigAggregator,
-        component: Image
+        component: React.lazy(() => import('./ContentTypes/Image')),
+        componentShimmer: ImageShimmer
     },
     heading: {
         configAggregator: headingConfigAggregator,
@@ -76,7 +78,8 @@ const contentTypesConfig = {
     },
     dynamic_block: {
         configAggregator: dynamicBlockConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/DynamicBlock'))
+        component: React.lazy(() => import('./ContentTypes/DynamicBlock')),
+        componentShimmer: DynamicBlockShimmer
     },
     products: {
         configAggregator: productsConfigAggregator,

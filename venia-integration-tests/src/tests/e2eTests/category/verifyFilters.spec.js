@@ -36,8 +36,8 @@ const {
     assertPaginationActivePage
 } = categoryPageAssertions;
 
-// TODO add tags CE, EE to test to filter and run tests as needed
-describe('PWA-1402: verify category actions', () => {
+// TODO add tags MOS, AC to test to filter and run tests as needed
+describe('PWA-1402: verify filter actions', () => {
     it('user should be able to filter results in Category and Search pages', () => {
         cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
         cy.intercept('GET', getCategoryDataCall).as('gqlGetCategoryDataQuery');

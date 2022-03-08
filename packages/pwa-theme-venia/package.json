@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-theme-venia",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -10,6 +10,6 @@
     "clean": " "
   },
   "repository": "https://github.com/github:magento/pwa-studio",
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)"
 }

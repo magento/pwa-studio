@@ -24,8 +24,8 @@ const {
     assertPaginationActivePage
 } = categoryPageAssertions;
 
-// TODO add tags CE, EE to test to filter and run tests as needed
-describe('PWA-1410: verify category actions', () => {
+// TODO add tags MOS, AC to test to filter and run tests as needed
+describe('PWA-1410: verify sort and pagination', () => {
     it('user should be able to sort products and use pagination', () => {
         cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
         cy.intercept('GET', getCategoryDataCall).as('gqlGetCategoryDataQuery');
@@ -94,7 +94,7 @@ describe('PWA-1410: verify category actions', () => {
         });
 
         toggleProductSort();
-        assertActiveSortItem(sortData.position);
+        assertActiveSortItem(sortData.bestMatch);
         sortProducts(sortData.priceLowHigh);
 
         cy.wait(['@gqlGetProductSearchQuery'], {

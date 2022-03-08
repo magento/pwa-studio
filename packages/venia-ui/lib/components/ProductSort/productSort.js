@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import { ChevronDown as ArrowDown } from 'react-feather';
-import { FormattedMessage } from 'react-intl';
-import { array, arrayOf, shape, string, oneOf } from 'prop-types';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { array, arrayOf, shape, string } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 import { useStyle } from '../../classify';
@@ -15,15 +15,46 @@ const ProductSort = props => {
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
+    const { formatMessage, locale } = useIntl();
+
+    const orderSortingList = useCallback(
+        list => {
+            return list.sort((a, b) => {
+                return a.text.localeCompare(b.text, locale, {
+                    sensitivity: 'base'
+                });
+            });
+        },
+        [locale]
+    );
+
+    const sortMethodsFromConfig = availableSortMethods
+        ? availableSortMethods
+              .map(method => {
+                  const { value, label } = method;
+                  if (value !== 'price' && value !== 'position') {
+                      return {
+                          id: `sortItem.${value}`,
+                          text: label,
+                          attribute: value,
+                          sortDirection: 'ASC'
+                      };
+                  }
+              })
+              .filter(method => !!method)
+        : null;
 
     // click event for menu items
     const handleItemClick = useCallback(
         sortAttribute => {
-            setSort({
-                sortText: sortAttribute.text,
-                sortId: sortAttribute.id,
-                sortAttribute: sortAttribute.attribute,
-                sortDirection: sortAttribute.sortDirection
+            setSort(prevSort => {
+                return {
+                    sortText: sortAttribute.text,
+                    sortId: sortAttribute.id,
+                    sortAttribute: sortAttribute.attribute,
+                    sortDirection: sortAttribute.sortDirection,
+                    sortFromSearch: prevSort.sortFromSearch
+                };
             });
             setExpanded(false);
         },
@@ -36,7 +67,56 @@ const ProductSort = props => {
             return null;
         }
 
-        const itemElements = Array.from(availableSortMethods, sortItem => {
+        const defaultSortMethods = [
+            {
+                id: 'sortItem.relevance',
+                text: formatMessage({
+                    id: 'sortItem.relevance',
+                    defaultMessage: 'Best Match'
+                }),
+                attribute: 'relevance',
+                sortDirection: 'DESC'
+            },
+            {
+                id: 'sortItem.priceDesc',
+                text: formatMessage({
+                    id: 'sortItem.priceDesc',
+                    defaultMessage: 'Price: High to Low'
+                }),
+                attribute: 'price',
+                sortDirection: 'DESC'
+            },
+            {
+                id: 'sortItem.priceAsc',
+                text: formatMessage({
+                    id: 'sortItem.priceAsc',
+                    defaultMessage: 'Price: Low to High'
+                }),
+                attribute: 'price',
+                sortDirection: 'ASC'
+            }
+        ];
+
+        // Do not display Position in Search
+        if (!currentSort.sortFromSearch) {
+            defaultSortMethods.push({
+                id: 'sortItem.position',
+                text: formatMessage({
+                    id: 'sortItem.position',
+                    defaultMessage: 'Position'
+                }),
+                attribute: 'position',
+                sortDirection: 'ASC'
+            });
+        }
+
+        const allSortingMethods = sortMethodsFromConfig
+            ? orderSortingList(
+                  [sortMethodsFromConfig, defaultSortMethods].flat()
+              )
+            : defaultSortMethods;
+
+        const itemElements = Array.from(allSortingMethods, sortItem => {
             const { attribute, sortDirection } = sortItem;
             const isActive =
                 currentSort.sortAttribute === attribute &&
@@ -60,13 +140,16 @@ const ProductSort = props => {
             </div>
         );
     }, [
-        availableSortMethods,
         classes.menu,
         classes.menuItem,
         currentSort.sortAttribute,
         currentSort.sortDirection,
+        currentSort.sortFromSearch,
         expanded,
-        handleItemClick
+        formatMessage,
+        handleItemClick,
+        orderSortingList,
+        sortMethodsFromConfig
     ]);
 
     // expand or collapse on click
@@ -118,8 +201,6 @@ const ProductSort = props => {
     );
 };
 
-const sortDirections = oneOf(['ASC', 'DESC']);
-
 ProductSort.propTypes = {
     classes: shape({
         menuItem: string,
@@ -129,42 +210,11 @@ ProductSort.propTypes = {
     }),
     availableSortMethods: arrayOf(
         shape({
-            text: string,
-            id: string,
-            attribute: string,
-            sortDirection: sortDirections
+            label: string,
+            value: string
         })
     ),
     sortProps: array
-};
-
-ProductSort.defaultProps = {
-    availableSortMethods: [
-        {
-            text: 'Position',
-            id: 'sortItem.position',
-            attribute: 'position',
-            sortDirection: 'ASC'
-        },
-        {
-            id: 'sortItem.relevance',
-            text: 'Best Match',
-            attribute: 'relevance',
-            sortDirection: 'DESC'
-        },
-        {
-            id: 'sortItem.priceAsc',
-            text: 'Price: Low to High',
-            attribute: 'price',
-            sortDirection: 'ASC'
-        },
-        {
-            id: 'sortItem.priceDesc',
-            text: 'Price: High to Low',
-            attribute: 'price',
-            sortDirection: 'DESC'
-        }
-    ]
 };
 
 export default ProductSort;

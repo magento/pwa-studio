@@ -27,6 +27,9 @@
 
 .name {
     font-weight: var(--venia-global-fontWeight-semibold);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .buttonsContainer {

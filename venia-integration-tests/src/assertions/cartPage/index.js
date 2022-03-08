@@ -4,9 +4,26 @@ import {
     cartPageProductOption,
     cartPageProductQuantity,
     cartPageProductPrice,
+    cartPageProductImageLink,
     productListingProductName,
     cartPagePriceSummaryDiscountSummary,
     cartPagePriceSummaryGiftCardSummary,
+    cartPageHeading,
+    cartPagePriceSummarySubtotalLabel,
+    cartPagePriceSummaryTotalLabel,
+    cartPageCheckoutButton,
+    cartPagePriceAdjustmentSectionTitleButtons,
+    shippingMethodSectionButton,
+    shippingMethodSection,
+    couponCodeSectionButton,
+    couponCodeForm,
+    couponCodeSubmitButton,
+    giftOptionsSectionButton,
+    giftOptionsForm,
+    giftCardSectionButton,
+    giftCardsForm,
+    cartPagePriceSummaryTotalValue,
+    cartPagePriceSummarySubtotalValue,
     giftOptionsSection,
     giftOptionsGiftMessageResult,
     giftOptionsIncludeGiftReceiptCheckbox,
@@ -14,8 +31,10 @@ import {
     giftOptionsIncludePrintedCardCheckbox,
     giftOptionsCardToInput,
     giftOptionsCardFromInput,
-    giftOptionsCardMessageTextarea
+    giftOptionsCardMessageTextarea,
+    cartPageDiscountSummaryIndividualDiscount
 } from '../../fields/cartPage';
+import { validateLanguage } from '../../utils/language-test-utils';
 
 /**
  * Utility function to assert Product is in Cart Page
@@ -89,6 +108,120 @@ export const assertNoGiftCardInCartPage = () => {
 };
 
 /**
+ * Utility function to assert discount summary exists
+ */
+export const assertDiscountSummaryInCartPage = () => {
+    cy.get(cartPagePriceSummaryDiscountSummary).should('exist');
+};
+
+/**
+ * Utility function to assert individual discount summary exists
+ */
+export const assertDiscountSummaryIndividualDiscountInCartPage = () => {
+    cy.get(cartPageDiscountSummaryIndividualDiscount).should('exist');
+};
+
+/**
+ * Utility function to assert individual discount summary not exist
+ */
+export const assertDiscountSummaryIndividualDiscountNotInCartPage = () => {
+    cy.get(cartPageDiscountSummaryIndividualDiscount).should('not.exist');
+};
+
+/**
+ * Utility function to assert individual discount summary exists
+ */
+export const assertDiscountSummaryIndividualDiscountVisibleInCartPage = () => {
+    cy.get(cartPageDiscountSummaryIndividualDiscount).should('be.visible');
+};
+
+/**
+ * Utility function to assert individual discount summary not exist
+ */
+export const assertDiscountSummaryIndividualDiscountNotVisibleInCartPage = () => {
+    cy.get(cartPageDiscountSummaryIndividualDiscount).should('not.be.visible');
+};
+
+/**
+ * Utility function to specific individual discount exists
+ */
+export const assertIndividualDiscount = (discountName, amount = 0) => {
+    const discountToCheck = cy
+        .get(cartPageDiscountSummaryIndividualDiscount)
+        .contains('li', discountName);
+    if (amount > 0) {
+        discountToCheck.contains('span', amount).should('exist');
+    }
+};
+
+/**
+ * Utility function to assert CartPage text is in correct language (french or english)
+ * @param {String} language --language to validate (ISO639 codes only, eg. "fra,eng")
+ */
+export const assertCartPageTextLanguage = language => {
+    const textToValidate = [];
+    cy.get(cartPageHeading).then($heading =>
+        textToValidate.push($heading.text())
+    );
+    cy.get(cartPagePriceSummarySubtotalLabel).then($label =>
+        textToValidate.push($label.text())
+    );
+    cy.get(cartPagePriceSummaryTotalLabel).then($label =>
+        textToValidate.push($label.text())
+    );
+    cy.get(cartPageCheckoutButton).then($button =>
+        textToValidate.push($button.text())
+    );
+    cy.get(cartPagePriceAdjustmentSectionTitleButtons).then($buttons =>
+        textToValidate.push($buttons.text())
+    );
+    cy.get(shippingMethodSectionButton).click();
+    cy.get(shippingMethodSection).within(() => {
+        cy.get('p').then($p => textToValidate.push($p.text()));
+        cy.get('button').then($button => textToValidate.push($button.text()));
+    });
+    cy.get(couponCodeSectionButton).click();
+    cy.get(couponCodeForm).within(() => {
+        cy.get('label').then($label => textToValidate.push($label.text()));
+    });
+    cy.get(couponCodeSubmitButton).then($button =>
+        textToValidate.push($button.text())
+    );
+    cy.get(giftCardSectionButton).click();
+    cy.get(giftCardsForm).within(() => {
+        cy.get('label').then($label => textToValidate.push($label.text()));
+        cy.get('button').then($button => textToValidate.push($button.text()));
+    });
+
+    cy.get(giftOptionsSectionButton).click();
+    cy.get(giftOptionsForm).within(() => {
+        cy.get('label').then($label => textToValidate.push($label.text()));
+        expect(validateLanguage(textToValidate.join(','), language)).to.be.true;
+    });
+};
+
+/**
+ * Utility function to assert products in CartPage displays correct currency.
+ *
+ * @param {String} currency -- currency code to validate
+ */
+export const assertCartPageHasCurrency = currency => {
+    const currencySymbolMap = {
+        USD: '$',
+        EUR: '€'
+    };
+    cy.get(cartPagePriceSummarySubtotalValue).should(
+        'contain',
+        currencySymbolMap[currency]
+    );
+    cy.get(cartPagePriceSummaryTotalValue).should(
+        'contain',
+        currencySymbolMap[currency]
+    );
+    cy.get(cartPageProductPrice).should('contain', currencySymbolMap[currency]);
+};
+
+/*
  * Utility function to assert Gift Options Section is not available
  */
 export const assertNoGiftOptionsSection = () => {
@@ -130,6 +263,20 @@ export const assertNoPrintedCard = () => {
  */
 export const assertPrintedCard = () => {
     cy.get(giftOptionsIncludePrintedCardCheckbox).should('exist');
+};
+
+/**
+ * Utility function to assert product in Cart Page displays correct image.
+ *
+ * @param {String} src -- fragment of image src
+ * @param {Number} index -- index of product in MiniCart
+ */
+export const assertProductImageDisplayedInCartPage = (src, index) => {
+    cy.get(cartPageProductImageLink)
+        .filter(':odd')
+        .eq(index)
+        .should('have.attr', 'src')
+        .should('contain', src);
 };
 
 /**

@@ -14,10 +14,13 @@ const SwitcherItem = props => {
         onClick(option);
     }, [option, onClick]);
 
-    const activeIcon = active ? <Icon size={20} src={Check} /> : null;
+    const activeIcon = active ? (
+        <Icon data-cy="SwitcherItem-activeIcon" size={20} src={Check} />
+    ) : null;
 
     return (
         <button
+            data-cy="SwitcherItem-button"
             className={classes.root}
             disabled={active}
             onClick={handleClick}

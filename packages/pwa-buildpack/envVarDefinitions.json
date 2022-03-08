@@ -17,9 +17,9 @@
                 {
                     "name": "MAGENTO_BACKEND_EDITION",
                     "type": "str",
-                    "desc": "Specify the edition of the magento store (Enterprise Edition or Community Edition). Can be one of CE or EE.",
-                    "example": "EE",
-                    "default": "EE"
+                    "desc": "Specify the edition of the magento store (Adobe Commerce or Magento Open Source). Can be one of MOS or AC.",
+                    "example": "AC",
+                    "default": "AC"
                 }
             ]
         },

@@ -1,0 +1,39 @@
+{
+  "data": {
+    "categories": {
+      "items": [
+        {
+          "uid": "MjI=",
+          "name": "New Root",
+          "children": [
+            {
+              "children_count": "0",
+              "uid": "MjM=",
+              "include_in_menu": 1,
+              "name": "Subcategory A",
+              "position": 1,
+              "url_path": "subcategory-a",
+              "url_suffix": "",
+              "__typename": "CategoryTree"
+            },
+            {
+              "children_count": "0",
+              "uid": "MjQ=",
+              "include_in_menu": 1,
+              "name": "Subcategory B",
+              "position": 2,
+              "url_path": "subcategory-b",
+              "url_suffix": "",
+              "__typename": "CategoryTree"
+            }
+          ],
+          "children_count": "2",
+          "include_in_menu": 1,
+          "url_path": null,
+          "__typename": "CategoryTree"
+        }
+      ],
+      "__typename": "CategoryResult"
+    }
+  }
+}

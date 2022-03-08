@@ -52,7 +52,7 @@ Paste the output of `yarn build:report`, and any other context about the problem
 -   Device [e.g. iPhone6, PC, Mac, Pixel3]:
 -   Browser [e.g. Chrome, Safari]:
 -   Browser Version [e.g. 22]:
--   Magento Version [e.g Magento Commerce 2.4]:
+-   Magento Version [e.g Adobe Commerce 2.4]:
 
 <!-- Complete the following sections to help us apply appropriate labels! -->
 
