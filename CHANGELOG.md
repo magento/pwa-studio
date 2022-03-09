@@ -105,7 +105,6 @@ Your project may not depend on some of the packages listed in this table.
 | `create-pwa`                        | **2.2.0**      |
 | `upward-security-headers`           | **1.0.7**      |
 | `venia-adobe-data-layer`            | **1.0.4**      |
-| `venia-sample-data`                 | **0.0.1**      |
 | `venia-sample-backends`             | **0.0.6**      |
 | `venia-sample-language-packs`       | **0.0.7**      |
 | `venia-sample-payments-checkmo`     | **0.0.5**      |
