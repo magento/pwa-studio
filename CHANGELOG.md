@@ -25,8 +25,7 @@ _For older release notes, see_ [PWA Studio releases][].
 -   Configurable images are now shown in the Edit Cart Item menu. Previously, the parent image would be shown, without configured options. — [3695][]
 -   PWA Studio can now retrieve image metadata from PageBuilder. — [16,17][]
 -   Dependency packages have been updated. See https://github.com/magento/pwa-studio/pull/3611 for more details about specific package versions. — [3611][]
--   Shimmers are now loaded when rendering a PageBuilder CMS page. This will help with CLS numbers and load speed. — [3711][]
--   Added [best practices documentation](https://developer.adobe.com/dreamweaver/guides/best-practices/index.html) for Customer Segments.  
+-   Shimmers are now loaded when rendering a PageBuilder CMS page. This will help with CLS numbers and load speed. — [3711][]  
 -   Reporting has been improved when running Cypress tests on a head-less instance. — [3613][]
 -   Adobe Commerce users can now set gift options on the Order level. — [3540][]
 -   The correct product-specific image is now displayed in the mini-cart. Previously, the default product image was shown. — [3690][]
@@ -76,6 +75,56 @@ _For older release notes, see_ [PWA Studio releases][].
 | Bug   | Header - Logo dimensions overlap with main content                                                                                                | [3659][]                      |
 | Bug   | [PB] Click target for long spanning tabs is inconsistent                                                                                         | [3676][]                      |
 | Bug   | Venia sample data personalized content not updating                                                                                               | [20][]                        |
+
+## Documentation updates
+
+-   Added [best practices documentation](https://developer.adobe.com/dreamweaver/guides/best-practices/index.html) for Customer Segments.
+
+## Known Issues
+
+-  None!
+
+## Upgrading from a previous version
+
+Use the steps outlined in this section to update your [scaffolded project][] from 12.2.0 to 12.3.0.
+See [Upgrading versions][] for more information about upgrading between PWA Studio versions.
+
+[scaffolded project]: https://magento.github.io/pwa-studio/tutorials/pwa-studio-fundamentals/project-setup/
+[upgrading versions]: https://magento.github.io/pwa-studio/technologies/upgrading-versions/
+
+### Update dependencies
+
+Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
+The following table lists the latest versions of each package as of 12.3.0.
+
+**Note:**
+Your project may not depend on some of the packages listed in this table.
+
+| Package                             | Latest version |
+|-------------------------------------|----------------|
+| `babel-preset-peregrine`            | **1.2.0**      |
+| `create-pwa`                        | **2.2.0**      |
+| `upward-security-headers`           | **1.0.7**      |
+| `venia-adobe-data-layer`            | **1.0.4**      |
+| `venia-sample-data`                 | **0.0.1**      |
+| `venia-sample-backends`             | **0.0.6**      |
+| `venia-sample-language-packs`       | **0.0.7**      |
+| `venia-sample-payments-checkmo`     | **0.0.5**      |
+| `pagebuilder`                       | **7.2.0**      |
+| `peregrine`                         | **12.3.0**     |
+| `pwa-buildpack`                     | **11.2.0**     |
+| `pwa-theme-venia`                   | **1.2.0**      |
+| `upward-js`                         | **5.3.0**      |
+| `upward-spec`                       | **5.2.0**      |
+| `venia-concept`                     | **12.3.0**     |
+| `venia-ui`                          | **9.3.0**      |
+| `magento2-pwa`                      | **0.2.0**      |
+| `magento2-pwa-commerce`             | **0.0.1**      |
+| `magento-venia-sample-data-modules` | **0.0.2**      |
+| `magento-venia-sample-data-modules-ee`| **0.0.1**    |
+| `magento2-upward-connector`         | **2.0.1**      |
+| `upward-php`                        | **2.0.1**      |
+
 
 [3713]: https://github.com/magento/pwa-studio/pull/3713
 [19]: https://github.com/magento-commerce/venia-sample-data-modules/pull/19.
