@@ -7,8 +7,8 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights  
   
--   Added shimmer loaders on dynamic blocks to avoid layout shift. Shimmer loaders will only be rendered if minHeight is specified on the row containing a dynamic block. This gives flexibility to users to display a shimmer or not (if a dynamic block would not render most of the time, we probably do not want to display a shimmer) — [3713][]
--   Added the new `PersonalizedContentSampleDataVenia` module that contains customer segments, dynamic blocks and cart rule promotion sample data for personalized content. — [19][],[2][],[3670][]
+-   Added shimmer loaders for Dynamic blocks to avoid layout shift. Shimmer loaders are only rendered if `minHeight` is specified on the Row containing the Dynamic block. This implementation gives you a choice: You can set the Row's `minHeight` to render the shimmer or remove the `minHeight` to remove the shimmer. For Dynamic blocks that rarely render, we recommend removing the `minHeight` property from the Rows containing those Dynamic blocks. — [3713][]
+-   Added the new `PersonalizedContentSampleDataVenia` module that contains customer segments, dynamic blocks, and cart rule promotion sample data for personalized content. — [19][],[2][],[3670][]
 -   You can now use ReCaptcha V3 on the Braintree payment form and the Place Order form. — [3691][],[24][]
 -   reCAPTCHA V3 validation is now available on the following customer forms:
     - Customer Login
@@ -18,26 +18,26 @@ _For older release notes, see_ [PWA Studio releases][].
 -   In the Link component, `prefetchType` property has been renamed to `shouldPrefetch`. This helps to clarify that it is a boolean, rather a property that returns a type. `prefetchType` is deprecated but not removed. — [3646][]
 -   Store-view specific label and localization support has been added for product attributes. — [17][]
 -   Refactored the reCaptcha to ensure it is backwards compatible with 12.2.0. — [3696][]
--   The "Sign In" link has been removed from from the 2nd stage of checkout. This will ensure the cart configuration (guest or account holder) does not change in the middle of checkout. — [3672][]
--   Images from PageBuilder content now include height and width dimensions. This will help with initial layout rendering. — [files][]
--   Shopping cart promotions are now properly displayed depending on customer segment. For instance, an incorrect promotion could be displayed when merging a guest cart with a customer cart. — [3609][]
+-   The "Sign In" link has been removed from the 2nd stage of checkout. This ensures the cart configuration (guest or account holder) does not change in the middle of checkout. — [3672][]
+-   Images from Page Builder content now include height and width dimensions. This helps reduce CLS when rendering the images. — [files][]
+-   Shopping cart promotions are now properly displayed depending on customer segment. For example, an incorrect promotion could be displayed when merging a guest cart with a customer cart. — [3609][]
 -   You can now make GraphQL queries for dynamic blocks. — [3587][],[2][]
--   Configurable images are now shown in the Edit Cart Item menu. Previously, the parent image would be shown, without configured options. — [3695][]
--   PWA Studio can now retrieve image metadata from PageBuilder. — [16][],[17][]
+-   Configurable images are now shown in the Edit Cart Item menu. Previously, the parent image would be shown without configuration options. — [3695][]
+-   PWA Studio can now retrieve image metadata from Page Builder. — [16][],[17][]
 -   Dependency packages have been updated. See https://github.com/magento/pwa-studio/pull/3611 for more details about specific package versions. — [3611][]
--   Shimmers are now loaded when rendering a PageBuilder CMS page. This will help with CLS numbers and load speed. — [3711][]  
+-   Shimmers are now loaded when rendering a Page Builder CMS page. This helps reduce CLS and increase load speed. — [3711][]  
 -   Reporting has been improved when running Cypress tests on a head-less instance. — [3613][]
 -   Adobe Commerce users can now set gift options on the Order level. — [3540][]
--   The correct product-specific image is now displayed in the mini-cart. Previously, the default product image was shown. — [3690][]
--   Long wish list names no longer break the layout or force scrolling to close modal dialogs. — [3706][]
--   We now use "Best Match" as the default sort order on the Search Results page. Previously "Position" was the default order. — [3698][]
+-   The correct product-specific image is now displayed in the mini-cart. Previously, the default product image was always shown. — [3690][]
+-   Long Wish List names no longer break the layout or force users to scroll in order to close modal dialogs. — [3706][]
+-   We now use "Best Match" as the default sort order on the Search Results page. Previously, "Position" was the default sort order. — [3698][]
 -   Products with configurable product variants are now properly added to Wish Lists. Previously, adding a configurable product threw an error. — [files][]
 -   GraphQL now properly returns only qualified blocks to PWA Studio. Previously, unqualified blocks were mistakenly sent in the query. — [3678][],[3][]
 -   The virtual products extension has been removed. — [3612][]
--   Changed instances of the `useMemo` type to `const` in the `productUrlSuffix` talon to improve performance. — [3660][]
--   PWA Studio now properly hides the "Create a list" button when reaching the maximum number of wishlists in the users "Favorite lists". Previously, the button was displayed when the max number was reached. — [3668][]
--   CSS has been adjusted so that the header logo no longer overlaps the main navigation. — [3659][]
--   Fix click target accuracy when clicking tab in a long list of tabs from PageBuilder. — [3676][]
+-   To increase performance, instances of the *useMemo* type have been changed to *const* in the *productUrlSuffix* talon. — [3660][]
+-   PWA Studio now properly hides the "Create a list" button when reaching the maximum number of Wish Lists within a user's "Favorite lists". Previously, the button was displayed even after the maximum number of lists was reached. — [3668][]
+-  Fixed the CSS in the Header component so that the Header logo no longer overlaps the main navigation. — [3659][]
+-   Added support that makes it easier to click-select tabs when they are displayed in a long list of Tab Items from Page Builder. — [3676][]
 -   Fixed a bug where personalized data was not displaying due to a missing block. — [20][]
 
 
@@ -48,7 +48,7 @@ _For older release notes, see_ [PWA Studio releases][].
 | Story | Add reCaptcha to the Checkout  Forms                                                                                                              | [3691][], [24][]              |
 | Story | Add reCaptcha to the Account Information Forms                                                                                                    | [3702][]                      |
 | Story | Add reCaptcha to the Forgot Password  Form                                                                                                        | [3604][], [12][], [20][]      |
-| Story | [Issue] Rename Link's prefetchType prop                                                                                                           | [3646][]                      |
+| Story | Rename Link's prefetchType prop                                                                                                           | [3646][]                      |
 | Story | Store view specific label/localization support for product attributes                                                                             | [17][]                        |
 | Story | Update Magento capability table                                                                                                                   | [3724][]                      |
 | Story | reFACTA reCAPTCHA                                                                                                                                 | [3696][]                      |
@@ -67,12 +67,12 @@ _For older release notes, see_ [PWA Studio releases][].
 | Bug   | Change default sort order on Search page to 'Relevance'                                                                                           | [3698][]                      |
 | Bug   | Wishlist page error when configured variant added                                                                                                 | [files][]                     |
 | Bug   | Fix Cypress Page Builder tests                                                                                                                    | [3715][]                      |
-| Bug   | [bug]: Dynamic Blocks GraphQL returns non-qualified blocks                                                                                        | [3678][], [3][]               |
+| Bug   | Dynamic Blocks GraphQL returns non-qualified blocks                                                                                        | [3678][], [3][]               |
 | Bug   | Remove virtual products extension                                                                                                                 | [3612][]                      |
-| Bug   | [feature]: Possible wrong usage of useMemo                                                                                                        | [3660][]                      |
-| Bug   | [bug]: PWA multiple wishlist: storefront still showing create wishlist button when reach max number of allowed wishlists configured in magento    | [3668][]                      |
+| Bug   | Possible wrong usage of useMemo                                                                                                        | [3660][]                      |
+| Bug   |  PWA multiple wish lists: storefront still showing create wishlist button when reaching the max number of allowed wish lists configured in Commerce    | [3668][]                      |
 | Bug   | Header - Logo dimensions overlap with main content                                                                                                | [3659][]                      |
-| Bug   | [PB] Click target for long spanning tabs is inconsistent                                                                                          | [3676][]                      |
+| Bug   | Click target for long-spanning tabs is inconsistent                                                                                          | [3676][]                      |
 | Bug   | Venia sample data personalized content not updating                                                                                               | [20][]                        |
 
 ## Documentation updates
