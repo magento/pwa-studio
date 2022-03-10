@@ -88,7 +88,7 @@ const QuantityStepper = props => {
 QuantityStepper.defaultProps = {
     min: 0,
     initialValue: 1,
-    onChange: () => { }
+    onChange: () => {}
 };
 
 export default QuantityStepper;
