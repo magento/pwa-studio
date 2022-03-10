@@ -65,7 +65,7 @@ _For older release notes, see_ [PWA Studio releases][].
 | Bug   | Parent product image thumbnail has been shown in mini cart instead of product itself                                                              | [3690][]                      |
 | Bug   | Long wishlist name length breaks layout                                                                                                           | [3706][]                      |
 | Bug   | Change default sort order on Search page to 'Relevance'                                                                                           | [3698][]                      |
-| Bug   | Wishlist page error when configured variant added                                                                                                 | [files][]                     |
+| Bug   | Wishlist page error when configured variant added                                                                                                 | [3703][]                     |
 | Bug   | Fix Cypress Page Builder tests                                                                                                                    | [3715][]                      |
 | Bug   | Dynamic Blocks GraphQL returns non-qualified blocks                                                                                        | [3678][], [3][]               |
 | Bug   | Remove virtual products extension                                                                                                                 | [3612][]                      |
@@ -161,7 +161,7 @@ Your project may not depend on some of the packages listed in this table.
 [3690]: https://github.com/magento/pwa-studio/pull/3690
 [3706]: https://github.com/magento/pwa-studio/pull/3706
 [3698]: https://github.com/magento/pwa-studio/pull/3698
-[files]: https://github.com/magento/pwa-studio/pull/3703/files
+[3703]: https://github.com/magento/pwa-studio/pull/3703/files
 [3715]: https://github.com/magento/pwa-studio/pull/3715
 [3678]: https://github.com/magento/pwa-studio/pull/3678
 [3]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/3
