@@ -124,8 +124,8 @@ Your project may not depend on some of the packages listed in this table.
 | `magento2-pwa-commerce`             | **0.0.1**      |
 | `magento-venia-sample-data-modules` | **0.0.2**      |
 | `magento-venia-sample-data-modules-ee`| **0.0.1**    |
-| `magento2-upward-connector`         | **2.0.1**      |
-| `upward-php`                        | **2.0.1**      |
+| `magento2-upward-connector`         | **2.0.0**      |
+| `upward-php`                        | **2.0.0**      |
 
 
 [3713]: https://github.com/magento/pwa-studio/pull/3713
