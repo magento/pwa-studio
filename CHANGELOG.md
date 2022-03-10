@@ -29,7 +29,6 @@ _For older release notes, see_ [PWA Studio releases][].
 -   Store-view specific label and localization support has been added for product attributes. — [17][]
 -   PWA Studio can now retrieve image metadata from Page Builder. — [16][],[17][]
 
-
 ### Other highlights
 
 -   In the Link component, `prefetchType` property has been renamed to `shouldPrefetch`. This helps to clarify that it is a boolean, rather a property that returns a type. `prefetchType` is deprecated but not removed. — [3646][]
@@ -82,7 +81,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Documentation updates
 
--   Added [best practices documentation](https://developer.adobe.com/dreamweaver/guides/best-practices/index.html) for Customer Segments.
+-   Added [best practices documentation](https://developer.adobe.com/pwa-studio/guides/best-practices/index.html) for Customer Segments.
 
 ## Known issues
 
