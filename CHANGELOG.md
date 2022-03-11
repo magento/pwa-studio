@@ -85,7 +85,8 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Known issues
 
--  None!
+-  In some scenarios, applying a coupon to a guest cart will fail if a coupon has already been applied in a separate cart in the same browser.
+   For instance: As a logged-in user, apply a coupon to the cart and then log out. Then try to apply a coupon to a second, guest cart. This second coupon may raise an error. Clearing the cache solves the issue. 
 
 ## Upgrading from a previous version
 
