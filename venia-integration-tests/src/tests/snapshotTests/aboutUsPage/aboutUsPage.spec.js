@@ -1,8 +1,8 @@
 import {
     graphqlMockedCalls as graphqlMockedCallsFixtures,
     homePage as homePageFixtures
-} from '../../../fixtures';
-import { clickOnfooterLinks } from '../../../actions/footer';
+} from '../../../fixtures/index';
+import { clickOnfooterLinks } from '../../../actions/footer/index';
 
 const { getCMSPage } = graphqlMockedCallsFixtures;
 

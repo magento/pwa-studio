@@ -1,4 +1,4 @@
-import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures/index';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 describe('PWA-1164: verify pagebuilder text content is rendered correctly', () => {
     it('verify text content', () => {

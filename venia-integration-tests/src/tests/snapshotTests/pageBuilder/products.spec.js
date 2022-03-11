@@ -1,4 +1,4 @@
-import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures/index';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 
 describe('PWA-1167: verify pagebuilder products content type', () => {

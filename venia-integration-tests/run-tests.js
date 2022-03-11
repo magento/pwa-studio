@@ -49,7 +49,15 @@ if (!baseUrl) {
     process.exit(1);
 }
 
-const files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js');
+let files = null;
+
+if (process.env.FunctionalTests) {
+   files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js', {"ignore":['./src/tests/snapshotTests/**/*']});
+} else if (process.env.SanpshotTests) {
+   files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js', {"ignore":['./src/tests/e2eTests/**/*', './src/tests/integrationTests/**/*']});
+} else {
+   files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js');
+}
 
 const threadCount = Math.min(files.length, threads);
 const testsPerRun = files.length / threadCount;

@@ -1,7 +1,7 @@
 import {
     graphqlMockedCalls as graphqlMockedCallsFixtures,
     mediaMockedCalls as mediaMockedCallsFixtures
-} from '../../../fixtures';
+} from '../../../fixtures/index';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 const { successImage } = mediaMockedCallsFixtures;
 

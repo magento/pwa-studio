@@ -1,15 +1,15 @@
-import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures/index';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('PWA-1169: verify pagebuilder buttons content is rendered correctly', () => {
-    it('verify buttons content', () => {
+describe('PWA-1168: verify pagebuilder divider content is rendered correctly', () => {
+    it('verify divider content', () => {
         cy.intercept('GET', getCMSPage, {
-            fixture: 'pageBuilder/buttons/buttons.json'
+            fixture: 'pageBuilder/divider/divider.json'
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
-                name: 'Page Builder Buttons Page',
+                name: 'Page Builder Divider Page',
                 timeout: 60000
             });
         });
