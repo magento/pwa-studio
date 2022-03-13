@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg class="lh-vars lh-gauge" viewBox="0 0 60 60"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="60px" height="60px" class="lh-vars" viewBox="0 0 60 60"
+    xmlns="http://www.w3.org/2000/svg">
     <style>
         <!-- 164 is ~= (2 * Math.PI * 26) <- (circle radius) https://codepen.io/xgad/post/svg-radial-progress-meters
         A lighthouse score of 50 is `stroke-dasharray: 82 164`.
@@ -62,8 +60,8 @@
 
     </style>
     <g class="lh-gauge__wrapper--pass lh-gauge__score">
-        <circle class="lh-gauge-base" r="26" cx="30" cy="30" stroke-width="4"></circle>
-        <circle class="lh-gauge-arc" r="26" cx="30" cy="30" stroke-width="4"></circle>
+        <circle class="lh-gauge-base" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
+        <circle class="lh-gauge-arc" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
         <text x="16" y="38">90</text>
     </g>
 </svg>

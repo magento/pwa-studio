@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg class="lh-vars lh-gauge" viewBox="0 0 60 60"
+<svg width="60px" height="60px" class="lh-vars" viewBox="0 0 60 60" version="1.1"
     xmlns="http://www.w3.org/2000/svg">
     <style>
         <!-- 164 is ~= (2 * Math.PI * 26) <- (circle radius) https://codepen.io/xgad/post/svg-radial-progress-meters
@@ -11,12 +10,6 @@
             --score: 73;
             --full-circle: 164;
         }
-        .lh-gauge {
-            stroke-linecap: round;
-            width: var(--size);
-            height: var(--size);
-        }
-
         .lh-gauge-base {
             opacity: 0.1;
         }
@@ -61,8 +54,8 @@
 
     </style>
     <g class="lh-gauge__wrapper--average lh-gauge__score">
-        <circle class="lh-gauge-base" r="26" cx="30" cy="30" stroke-width="4"></circle>
-        <circle class="lh-gauge-arc" r="26" cx="30" cy="30" stroke-width="4"></circle>
+        <circle class="lh-gauge-base" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
+        <circle class="lh-gauge-arc" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
         <text x="16" y="38">73</text>
     </g>
 </svg>
