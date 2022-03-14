@@ -31,17 +31,42 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ### Other highlights
 
--   In the Link component, `prefetchType` property has been renamed to `shouldPrefetch`. This helps to clarify that it is a boolean, rather a property that returns a type. `prefetchType` is deprecated but not removed. — [3646][]
--   Refactored the reCaptcha to ensure it is backwards compatible with 12.2.0. — [3696][]
--   The "Sign In" link has been removed from the 2nd stage of checkout. This ensures the cart configuration (guest or account holder) does not change in the middle of checkout. — [3672][]
--   Dependency packages have been updated. See https://github.com/magento/pwa-studio/pull/3611 for more details about specific package versions. — [3611][]
--   Reporting has been improved when running Cypress tests on a head-less instance. — [3613][]
--   Adobe Commerce users can now set gift options on the Order level. — [3540][]
--   Long Wish List names no longer break the layout or force users to scroll in order to close modal dialogs. — [3706][]
--   Products with configurable product variants are now properly added to Wish Lists. Previously, adding a configurable product threw an error. — [files][]
--   The virtual products extension has been removed. — [3612][]
--   To increase performance, instances of the *useMemo* type have been changed to *const* in the *productUrlSuffix* talon. — [3660][]
--   Added support that makes it easier to click-select tabs when they are displayed in a long list of Tab Items from Page Builder. — [3676][]
+-  In the Link component, `prefetchType` property has been renamed to `shouldPrefetch`. This helps to clarify that it is a boolean, rather a property that returns a type. `prefetchType` is deprecated but not removed. — [3646][]
+-  Refactored the reCaptcha to ensure it is backwards compatible with 12.2.0. — [3696][]
+-  The "Sign In" link has been removed from the 2nd stage of checkout. This ensures the cart configuration (guest or account holder) does not change in the middle of checkout. — [3672][]
+-  Dependency packages have been updated. See https://github.com/magento/pwa-studio/pull/3611 for more details about specific package versions. — [3611][]
+-  Reporting has been improved when running Cypress tests on a headless instance. — [3613][]
+-  Adobe Commerce users can now set gift options on the Order level. — [3540][]
+-  Long Wish List names no longer break the layout or force users to scroll in order to close modal dialogs. — [3706][]
+-  Products with configurable product variants are now properly added to Wish Lists. Previously, adding a configurable product threw an error. — [files][]
+-  The virtual products extension has been removed. — [3612][]
+-  To increase performance, instances of the *useMemo* type have been changed to *const* in the *productUrlSuffix* talon. — [3660][]
+-  Added support that makes it easier to click-select tabs when they are displayed in a long list of Tab Items from Page Builder. — [3676][]
+
+## 12.3.0 Lighthouse scores
+
+With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 12.3.0 release of these pages on desktop and mobile devices.
+
+### Desktop scores
+|  | Home Page | Product Category | Product Details | Search Results |
+| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
+| **Desktop** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
+| Performance | ![](images/score_90.svg) | ![](images/score_78.svg) | ![](images/score_73.svg) | ![](images/score_90.svg) |
+| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| PWA | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
+
+### Mobile scores
+?
+|  | &nbsp;&nbsp;Home Page&nbsp;&nbsp; | Product Category | Product Details | Search Results |
+| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
+| **Mobile** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
+| Performance | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| PWA | ![](images/pwa_imperfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
 
 ## Stories and bug fixes
 
