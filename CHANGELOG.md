@@ -38,7 +38,7 @@ _For older release notes, see_ [PWA Studio releases][].
 -  Reporting has been improved when running Cypress tests on a headless instance. — [3613][]
 -  Adobe Commerce users can now set gift options on the Order level. — [3540][]
 -  Long Wish List names no longer break the layout or force users to scroll in order to close modal dialogs. — [3706][]
--  Products with configurable product variants are now properly added to Wish Lists. Previously, adding a configurable product threw an error. — [files][]
+-  Products with configurable product variants are now properly added to Wish Lists. Previously, adding a configurable product threw an error. — [3703][]
 -  The virtual products extension has been removed. — [3612][]
 -  To increase performance, instances of the *useMemo* type have been changed to *const* in the *productUrlSuffix* talon. — [3660][]
 -  Added support that makes it easier to click-select tabs when they are displayed in a long list of Tab Items from Page Builder. — [3676][]
@@ -191,7 +191,7 @@ Your project may not depend on some of the packages listed in this table.
 [3690]: https://github.com/magento/pwa-studio/pull/3690
 [3706]: https://github.com/magento/pwa-studio/pull/3706
 [3698]: https://github.com/magento/pwa-studio/pull/3698
-[3703]: https://github.com/magento/pwa-studio/pull/3703/files
+[3703]: https://github.com/magento/pwa-studio/pull/3703
 [3715]: https://github.com/magento/pwa-studio/pull/3715
 [3678]: https://github.com/magento/pwa-studio/pull/3678
 [3]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/3
