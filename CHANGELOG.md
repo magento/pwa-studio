@@ -1,100 +1,101 @@
-# Release 12.2.0
+# Release 12.3.0
 
 **NOTE:**
-_This changelog only contains release notes for PWA Studio and Venia 12.2.0_
+_This changelog only contains release notes for PWA Studio and Venia 12.3.0_
 _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
--  **New Venia CMS pages** - Venia now ships with PWA versions of the Commerce and Magento Open Source default CMS pages: _About Us_, _Contact Us_, _Customer Service_, _Newsletter Subscription_. Out of the box, these pages are ready to use or customize as needed.
+### Personalized content support
 
--  **Luma and Venia can now be deployed to the same cloud environment** — This deployment option makes it easier for customers to deploy their PWA site alongside their existing Luma site while they migrate from Luma to Venia.
+-   Added shimmer loaders for Dynamic blocks to avoid layout shift. Shimmer loaders are only rendered if `minHeight` is specified on the Row containing the Dynamic block. This implementation gives you a choice: You can set the Row's `minHeight` to render the shimmer or remove the `minHeight` to remove the shimmer. For Dynamic blocks that rarely render, we recommend removing the `minHeight` property from the Rows containing those Dynamic blocks. — [3713][]
+-   Added the new `PersonalizedContentSampleDataVenia` module that contains customer segments, dynamic blocks, and cart rule promotion sample data for personalized content. — [19][],[2][],[3670][]
+-   Shopping cart promotions are now properly displayed depending on customer segment. — [3609][]
+-   You can now make GraphQL queries for dynamic blocks. — [3587][],[2][]
 
--  **Deprecated GraphQL fields removed from Venia** — In this release, we removed the usage of all deprecated GraphQL fields in Venia.
+### ReCaptcha support
 
--  **Venia Homepage is now the same for Adobe Commerce and Magento Open Source** — Previously, the Venia Homepage rendered Page Builder content for Adobe Commerce sites and different content for Magento Open Source sites. But now that Page Builder is a part of Magento Open Source, the Venia Homepage renders the same content for both sites.
+-   You can now use ReCaptcha V3 on the Braintree payment form and the Place Order form. — [3691][],[24][]
+-   reCAPTCHA V3 validation is now available on the following customer forms:
+    - Customer Login
+    - Customer account creation
+    - Customer information change (password) — [3702][]
+    - Forgot Password form. — [3604][],[12][],[20][]
 
--  **Contact Us Block can be managed with Page Builder** — You can now customize the Contact Us Block in the Admin UI using Page Builder. No development required.
+### PageBuilder content optimization
 
--  **Updated Node version to 14** — All builds in PWA Studio, including the scaffolding CLI, now use Node 14.
+-   Shimmers are now loaded when rendering a Page Builder CMS page. This helps reduce CLS and increase load speed. — [3711][]
+-   Images from Page Builder content now include height and width dimensions. This helps reduce CLS when rendering the images. — [3712][]
+-   Store-view specific label and localization support has been added for product attributes. — [17][]
+-   PWA Studio can now retrieve image metadata from Page Builder. — [16][],[17][]
 
--  **Added Venia Sample Data metapackage** — This metapackage provides a new way to create your own sample data for your Venia-based PWA sites.
+### Other highlights
 
-## Summary of all changes
+-  In the Link component, `prefetchType` property has been renamed to `shouldPrefetch`. This helps to clarify that it is a boolean, rather a property that returns a type. `prefetchType` is deprecated but not removed. — [3646][]
+-  Refactored the reCaptcha to ensure it is backwards compatible with 12.2.0. — [3696][]
+-  The "Sign In" link has been removed from the 2nd stage of checkout. This ensures the cart configuration (guest or account holder) does not change in the middle of checkout. — [3672][]
+-  Dependency packages have been updated. See https://github.com/magento/pwa-studio/pull/3611 for more details about specific package versions. — [3611][]
+-  Reporting has been improved when running Cypress tests on a headless instance. — [3613][]
+-  Adobe Commerce users can now set gift options on the Order level. — [3540][]
+-  Long Wish List names no longer break the layout or force users to scroll in order to close modal dialogs. — [3706][]
+-  Products with configurable product variants are now properly added to Wish Lists. Previously, adding a configurable product threw an error. — [3703][]
+-  The virtual products extension has been removed. — [3612][]
+-  To increase performance, instances of the *useMemo* type have been changed to *const* in the *productUrlSuffix* talon. — [3660][]
+-  Added support that makes it easier to click-select tabs when they are displayed in a long list of Tab Items from Page Builder. — [3676][]
 
-| Type  | Description                                                                                                                             | GitHub PR         |
-|:------|:----------------------------------------------------------------------------------------------------------------------------------------|:------------------|
-| Story | \[Docs] Shimmer and UPWARD Inlining                                                                                                     | [3548][]          |
-| Story | Add Cypress test coverage: Venia Filters, Search, Sort/Pagination                                                                       | [3519][], [35][]  |
-| Story | Add Cypress test coverage: VeniaRemoveItemFromMiniCart                                                                                  | [3508][]          |
-| Story | Add Cypress test coverage: VeniaGuestIsAbleToAccessCategories.xml                                                                       | [3507][]          |
-| Story | Add Cypress test coverage: VeniaCartPage\*                                                                                              | [3509][], [34][]  |
-| Story | Add Cypress test coverage: VeniaCartPageGuestCheckoutRegionWithCC                                                                       | [3505][], [31][]  |
-| Story | Add Cypress test coverage: VeniaCartPageGuestCheckout                                                                                   | [3504][], [29][]  |
-| Story | Update ConfigurableProductOptions GraphQL field from id to uid                                                                          | [3588][]          |
-| Story | Update ProductInterface GraphQL field from id to uid                                                                                    | [3580][]          |
-| Story | Update Customer.id GraphQL field                                                                                                        | [3594][]          |
-| Story | Update sample data on Venia Home Page                                                                                                   | [9][]             |
-| Story | \[Issue] Add newsletter in footer                                                                                                       | [3486][]          |
-| Story | GQL returns parameters(metadata) that define custom attributes of a product product - specifically Select input                         | [3][]             |
-| Story | GQL returns product-specific values of custom product attribute (Select input)                                                          | [9][]             |
-| Story | GQL support for the reCaptcha API                                                                                                       | [7][]             |
-| Story | Configuration Validation for reCaptcha v2                                                                                               | [8][]             |
-| Story | Streamline Cypress tests and create documentation                                                                                       | [3576][]          |
-| Story | Update StoreConfig fields                                                                                                               | [3616][]          |
-| Story | Update StoreConfig.id GraphQL field to store_code                                                                                       | [3593][]          |
-| Story | Update CategoryTree.id GraphQL field to uid                                                                                             | [3598][]          |
-| Story | Update category GraphQL query to categories query                                                                                       | [3577][]          |
-| Story | Update urlResolver GraphQL usages to route                                                                                              | [3589][]          |
-| Story | Update SelectedConfigurableOption GraphQL fields                                                                                        | [3601][]          |
-| Story | Update CartItemInterface GraphQL field from id to uid                                                                                   | [3597][]          |
-| Story | Update ProductInterface.type_id GraphQL field to use \_\_typename                                                                       | [3586][]          |
-| Story | Added fade-in-out transition to the colour swatch checkmark                                                                             | [3526][]          |
-| Story | UPWARD JS Computed resolver                                                                                                             | [3533][]          |
-| Story | Add Cypress test coverage: VeniaCartPageEditCardAndCheckout                                                                             | [3525][], [36][]  |
-| Story | Add Cypress test coverage: VeniaAnchorLinks                                                                                             | [3518][], [37][]  |
-| Story | Add Cypress test coverage: RegisteredUserCartPageCheckout                                                                               | [3500][], [27][]  |
-| Story | Upgrade Apollo Client to 3.4.0                                                                                                          | [3491][]          |
-| Story | About Us                                                                                                                                | [3483][], [11][]  |
-| Story | Customer Service                                                                                                                        | [3465][], [1][]   |
-| Story | Newsletter Subscription                                                                                                                 | [3521][]          |
-| Story | Contact Us Block                                                                                                                        | [3544][], [13][]  |
-| Story | Contact Us                                                                                                                              | [3538][]          |
-| Story | Guest Checkout: check if email is associated with the account                                                                           | [3529][]          |
-| Story | Feature: Add ability to deploy Luma and Venia on single cloud env                                                                       | [11][]            |
-| Story | Add cypress test for Mini cart                                                                                                          | [3559][]          |
-| Story | Archive MFTF Repo                                                                                                                       | [39][]            |
-| Story | Homepage unification for MOS and AC                                                                                                     | [3564][]          |
-| Story | Improve Version banner                                                                                                                  | [3555][]          |
-| Story | Upgrade Node 14 and Scaffold Node 16                                                                                                    | [3552][], [101][] |
-| Story | Fail build when @magento/pwa metapackage is not installed                                                                               | [3561][]          |
-| Story | Filtering Product by the custom product attribute with input type select                                                                | [15][]            |
-| Story | Do not show Ratings                                                                                                                     | [3654][]          |
-| Story | Viewing product attribute value in PDP                                                                                                  | [3624][], [14][]  |
-| Story | Sorting product listing by custom attribute                                                                                             | [3619][]          |
-| Story | \[GraphQL] Sort products without custom attribute to end                                                                                | [18][]            |
-| Bug   | 404 routes cause error page                                                                                                             | [3542][]          |
-| Bug   | Scaffold project > yarn build fails on develop.                                                                                         | [3551][]          |
-| Bug   | storybook command failing                                                                                                               | [3567][]          |
-| Bug   | Minicart missing quantity while switching views                                                                                         | [3571][]          |
-| Bug   | Order history data not being cleared from cache on logout                                                                               | [3520][]          |
-| Bug   | Pagebuilder image content-type: mobile image is visible on desktop                                                                      | [3515][]          |
-| Bug   | Pagebuilder links force browser to load full page                                                                                       | [3524][]          |
-| Bug   | Add to Cart on category page for non-default store ends up in 404 page if store view level unique catalog product suffixes are enabled. | [3553][]          |
-| Bug   | Category page fails to load intermittently when there is Apollo related console warning.                                                | [3575][]          |
-| Bug   | Dependency on Magento was sneaked in as part of the Computed Resolver work                                                              | [16][], [6][]     |
-| Bug   | \[bug]: When clicking a submenu in the mega the submenu won't close                                                                     | [3599][]          |
-| Bug   | Fix console warning for currency                                                                                                        | [3622][]          |
-| Bug   | Remove server chunk generation from webpack                                                                                             | [3608][]          |
-| Bug   | \[Issue] Improve Gallery/AddToCartButton.js                                                                                             | [3573][]          |
-| Bug   | \[bug]: Breadcrumbs 'Shop' link redirects to '/shopnull'                                                                                | [3603][]          |
-| Bug   | Newsletter form displays two errors                                                                                                     | [3584][]          |
-| Bug   | Home page tabbing leads to page transition                                                                                              | [3625][]          |
-| Bug   | Browser Reload on any Category load all products from default category                                                                  | [3655][], [18][]  |
+## 12.3.0 Lighthouse scores
+
+With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 12.3.0 release of these pages on desktop and mobile devices.
+
+| | Home Page | Product Category | Product Details | Search Results |
+| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
+| **Venia Pages** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
+| Desktop Performance | ![](images/score_90.svg "Desktop & Mobile") | ![](images/score_78.svg "Desktop & Mobile") | ![](images/score_73.svg "Desktop & Mobile") | ![](images/score_90.svg "Desktop & Mobile") |
+| Mobile Performance | ![](images/score_27.svg "Desktop & Mobile") | ![](images/score_27.svg "Desktop & Mobile") | ![](images/score_26.svg "Desktop & Mobile") | ![](images/score_33.svg "Desktop & Mobile") |
+| Accessibility<br/>_(same for both)_ | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") |
+| Best Practices<br/>_(same for both)_ | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") |
+| SEO<br/>_(same for both)_ | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") |
+| PWA | ![Desktop](images/pwa_perfect.svg "Desktop") ![Mobile](images/pwa_imperfect.svg "Mobile") | ![](images/pwa_perfect.svg "Desktop & Mobile") | ![](images/pwa_perfect.svg "Desktop & Mobile") | ![](images/pwa_perfect.svg "Desktop & Mobile") |
+
+## Stories and bug fixes
+
+| Type  | Description                                                                                                                                       | GitHub PR                       |
+| :---- | :------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------ |
+| Story | Shimmer Loader for Dynamic Blocks                                                                                                                 | [3713][]                      |
+| Story | Query for available Dynamic Blocks                                                                                                                | [3587][], [2][]               |
+| Story | CMS Page Shimmer Loader                                                                                                                           | [3711][]                      |
+| Story | Update the Sample Data with Personalized content                                                                                                  | [19][], [2][], [3670][]       |
+| Story | reFactored reCAPTCHA                                                                                                                              | [3696][]                      |
+| Story | Add reCaptcha to the Checkout Forms                                                                                                               | [3691][], [24][]              |
+| Story | Add reCaptcha to the Account Information Forms                                                                                                    | [3702][]                      |
+| Story | Add reCaptcha to the Forgot Password  Form                                                                                                        | [3604][], [12][], [20][]      |
+| Story | Rename Link's prefetchType prop                                                                                                                   | [3646][]                      |
+| Story | Store view specific label/localization support for product attributes                                                                             | [17][]                        |
+| Story | Update Magento capability table                                                                                                                   | [3724][]                      |
+| Story | Remove Sign-In link on 2nd step of checkout                                                                                                       | [3672][]                      |
+| Story | Images to include dimensions                                                                                                                      | [3703][]                     |
+| Story | Validate Shopping Cart Promotions are displayed correctly                                                                                         | [3609][]                      |
+| Story | Configurable images are not shown in Edit Cart Item menu                                                                                          | [3695][]                      |
+| Story | Backend PageBuilder image metadata support                                                                                                        | [16][], [17][]                |
+| Story | Update packages and dependencies                                                                                                                  | [3611][]                      |
+| Story | Add cypress status reporting while running headless                                                                                               | [3613][]                      |
+| Bug   | Gift options on Order Level (Commerce only)                                                                                                       | [3540][]                      |
+| Bug   | Parent product image thumbnail has been shown in mini cart instead of product itself                                                              | [3690][]                      |
+| Bug   | Long wishlist name length breaks layout                                                                                                           | [3706][]                      |
+| Bug   | Change default sort order on Search page to 'Best Match'                                                                                          | [3698][]                      |
+| Bug   | Wishlist page error when configured variant added                                                                                                 | [3703][]                      |
+| Bug   | Fix Cypress Page Builder tests                                                                                                                    | [3715][]                      |
+| Bug   | Dynamic Blocks GraphQL returns non-qualified blocks                                                                                               | [3678][], [3][]               |
+| Bug   | Remove virtual products extension                                                                                                                 | [3612][]                      |
+| Bug   | Possible wrong usage of useMemo                                                                                                                   | [3660][]                      |
+| Bug   | PWA multiple wish lists: storefront still showing create wishlist button when reaching the max number of allowed wish lists configured in Commerce| [3668][]                      |
+| Bug   | Header - Logo dimensions overlap with main content                                                                                                | [3659][]                      |
+| Bug   | Click target for long-spanning tabs is inconsistent                                                                                               | [3676][]                      |
+| Bug   | Venia sample data personalized content not updating                                                                                               | [20][]                        |
 
 ## Documentation updates
 
--  **contactUs Mutation**: Added the [contactUs][] mutation topic to the GraphQL Developer Guide.
+-  Added [best practices documentation](https://developer.adobe.com/pwa-studio/guides/best-practices/index.html) for Customer Segments.
 
 ## Known Issues
 
