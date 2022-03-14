@@ -169,6 +169,8 @@ Your project may not depend on some of the packages listed in this table.
 [25]: https://github.com/magento-commerce/magento2-pwa/pull/25
 [4]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/4
 [22]: https://github.com/magento-commerce/venia-sample-data-modules/pull/22
+[3576]: https://github.com/magento/pwa-studio/pull/3576
+[3616]: https://github.com/magento/pwa-studio/pull/3616
 [3]: http://github.com/magento-commerce/venia-sample-data-modules-ee/pull/3
 [3646]: https://github.com/magento/pwa-studio/pull/3646
 [17]: https://github.com/magento-commerce/magento2-pwa/pull/17
@@ -177,6 +179,7 @@ Your project may not depend on some of the packages listed in this table.
 [3672]: https://github.com/magento/pwa-studio/pull/3672
 [3712]: https://github.com/magento/pwa-studio/pull/3712/files
 [3609]: https://github.com/magento/pwa-studio/pull/3609
+[37]: https://github.com/magento-commerce/pwa-tests/pull/37
 [3587]: https://github.com/magento/pwa-studio/pull/3587
 [2]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/2
 [3695]: https://github.com/magento/pwa-studio/pull/3695
@@ -184,6 +187,11 @@ Your project may not depend on some of the packages listed in this table.
 [17]: https://github.com/magento-commerce/venia-sample-data-modules/pull/17
 [14]: https://github.com/magento-commerce/venia-sample-data-modules/pull/14
 [11]: https://github.com/magento-commerce/magento2-pwa/pull/11
+[3559]: https://github.com/magento/pwa-studio/pull/3559
+[39]: https://github.com/magento-commerce/pwa-tests/pull/39
+[3564]: https://github.com/magento/pwa-studio/pull/3564
+[3555]: https://github.com/magento/pwa-studio/pull/3555
+[3552]: https://github.com/magento/pwa-studio/pull/3552
 [7]: https://github.com/magento-commerce/upward-php/pull/7
 [17]: https://github.com/magento-commerce/magento2-upward-connector/pull/17
 [3611]: https://github.com/magento/pwa-studio/pull/3611
