@@ -59,6 +59,10 @@ module.exports = [
         type: 'function'
     },
     {
+        target: 'pagebuilder/lib/ContentTypes/DynamicBlock/dynamicBlock.ee.js',
+        type: 'function'
+    },
+    {
         target: 'pagebuilder/lib/ContentTypes/Html/html.js',
         type: 'function'
     },

@@ -194,9 +194,12 @@ export function cssToJSXStyle(style) {
 }
 
 /**
+ * Retrieve media queries from a master format node
  *
- * @param  node
- * @returns {{mediaQueries: [{media: string, style: string}]}}
+ * @param node
+ * @param {Array} mediaQueries
+ *
+ * @returns {{mediaQueries: {media: string, style: string}}}
  */
 export function getMediaQueries(node) {
     const response = [];
