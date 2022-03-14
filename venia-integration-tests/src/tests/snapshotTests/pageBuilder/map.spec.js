@@ -1,7 +1,7 @@
 import {
     graphqlMockedCalls as graphqlMockedCallsFixtures,
     googleMapApi as googleMapApiFixtures
-} from '../../../fixtures/index';
+} from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 const { createGoogleMapApi } = googleMapApiFixtures;
 

@@ -1,4 +1,4 @@
-import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures/index';
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage, getDynamicBlocksCall } = graphqlMockedCallsFixtures;
 
 describe('Verify pagebuilder dynamic block content is rendered correctly', () => {
