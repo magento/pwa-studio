@@ -1,10 +1,10 @@
 # PWA Studio Release 12.3.0
 
-**NOTE:**  
-_This changelog contains release notes for PWA Studio and Venia 12.3.0_  
+**NOTE:**
+_This changelog contains release notes for PWA Studio and Venia 12.3.0_
 _For older release notes, see_ [PWA Studio releases][].
 
-## Highlights  
+## Highlights
 
 ### Personalized content support
 
@@ -24,7 +24,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ### PageBuilder content optimization
 
--   Shimmers are now loaded when rendering a Page Builder CMS page. This helps reduce CLS and increase load speed. — [3711][] 
+-   Shimmers are now loaded when rendering a Page Builder CMS page. This helps reduce CLS and increase load speed. — [3711][]
 -   Images from Page Builder content now include height and width dimensions. This helps reduce CLS when rendering the images. — [3712][]
 -   Store-view specific label and localization support has been added for product attributes. — [17][]
 -   PWA Studio can now retrieve image metadata from Page Builder. — [16][],[17][]
@@ -86,7 +86,7 @@ _For older release notes, see_ [PWA Studio releases][].
 ## Known issues
 
 -  In some scenarios, applying a coupon to a guest cart will fail if a coupon has already been applied in a separate cart in the same browser.
-   For instance: As a logged-in user, apply a coupon to the cart and then log out. Then try to apply a coupon to a second, guest cart. This second coupon may raise an error. Clearing the cache solves the issue. 
+   For instance: As a logged-in user, apply a coupon to the cart and then log out. Then try to apply a coupon to a second, guest cart. This second coupon may raise an error. Clearing the cache solves the issue.
 
 ## Upgrading from a previous version
 

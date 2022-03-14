@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>pwa_perfect</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#00C852" offset="0%"></stop>
+            <stop stop-color="#009688" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="pwa_perfect" fill-rule="nonzero">
+            <circle id="Oval" fill="#E0E0E0" cx="24" cy="24" r="24"></circle>
+            <g id="Group" transform="translate(14.400000, 9.600000)">
+                <polygon id="Path" fill="#000000" points="14.128 5.912 14.688 4.512 16.288 4.512 15.52 2.4 16.48 1.42108547e-15 19.2 7.2 17.192 7.2 16.728 5.912"></polygon>
+                <polygon id="Path" fill="#304FFE" points="12.416 7.2 15.336 1.42108547e-15 13.4 1.42108547e-15 11.4 4.656 10 1.42108547e-15 8.512 1.42108547e-15 6.992 4.656 5.912 2.536 4.944 5.512 5.92 7.2 7.824 7.2 9.2 3.04 10.512 7.2"></polygon>
+                <path d="M1.84,4.728 L3.024,4.728 C3.384,4.728 3.704,4.688 3.984,4.608 L4.296,3.664 L5.152,1.024 C5.08616565,0.918950174 5.01120954,0.819901036 4.928,0.728 C4.488,0.248 3.84,4.26325641e-15 2.992,4.26325641e-15 L0,4.26325641e-15 L0,7.2 L1.84,7.2 L1.84,4.72 L1.84,4.728 Z M3.408,1.656 C3.584,1.832 3.672,2.056 3.672,2.352 C3.672,2.64 3.592,2.872 3.44,3.048 C3.28,3.232 2.968,3.328 2.52,3.328 L1.832,3.328 L1.832,1.4 L2.528,1.4 C2.944,1.4 3.24,1.48 3.408,1.656 L3.408,1.656 Z" id="Shape" fill="#000000"></path>
+            </g>
+            <g id="Group" transform="translate(14.400000, 22.400000)">
+                <circle id="Oval" fill="#FFFFFF" cx="9.6" cy="9.6" r="9.6"></circle>
+                <path d="M9.6,1.6 C5.181722,1.6 1.6,5.181722 1.6,9.6 C1.6,14.018278 5.181722,17.6 9.6,17.6 C14.018278,17.6 17.6,14.018278 17.6,9.6 C17.6,5.181722 14.018278,1.6 9.6,1.6 Z M8,13.6 L4,9.6 L5.128,8.472 L8,11.336 L14.072,5.264 L15.2,6.4 L8,13.6 Z" id="Shape" fill="url(#linearGradient-1)"></path>
+            </g>
+        </g>
+    </g>
+</svg>
