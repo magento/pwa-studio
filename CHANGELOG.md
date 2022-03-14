@@ -1,7 +1,7 @@
-# Release 12.3.0
+# PWA Studio Release 12.3.0
 
 **NOTE:**
-_This changelog only contains release notes for PWA Studio and Venia 12.3.0_
+_This changelog contains release notes for PWA Studio and Venia 12.3.0_
 _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
@@ -46,6 +46,18 @@ _For older release notes, see_ [PWA Studio releases][].
 ## 12.3.0 Lighthouse scores
 
 With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 12.3.0 release of these pages on desktop and mobile devices.
+
+### Desktop scores
+|  | Home Page | Product Category | Product Details | Search Results |
+| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
+| **Desktop** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
+| Performance | ![](images/score_90.svg) | ![](images/score_78.svg) | ![](images/score_73.svg) | ![](images/score_90.svg) |
+| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| PWA | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
+
+### Mobile scores
 
 | | Home Page | Product Category | Product Details | Search Results |
 | ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
@@ -97,22 +109,23 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 
 -  Added [best practices documentation](https://developer.adobe.com/pwa-studio/guides/best-practices/index.html) for Customer Segments.
 
-## Known Issues
+## Known issues
 
--  Safari (macOS version) does not show toast messages or indicators when Venia switches between online and offline. This is an issue with Safari, not Venia. Safari always reports `true` for `navigator.onLine` — even when offline. We have submitted this issue to Apple. If you have an Apple account, you can search for the issue using this Feedback ID: FB9802994.
+-  In some scenarios, applying a coupon to a guest cart will fail if a coupon has already been applied in a separate cart in the same browser.
+   For instance: As a logged-in user, apply a coupon to the cart and then log out. Then try to apply a coupon to a second, guest cart. This second coupon may raise an error. Clearing the cache solves the issue.
 
 ## Upgrading from a previous version
 
-Use the steps outlined in this section to update your [scaffolded project][] from 12.1.0 to 12.2.0.
+Use the steps outlined in this section to update your [scaffolded project][] from 12.2.0 to 12.3.0.
 See [Upgrading versions][] for more information about upgrading between PWA Studio versions.
 
-[scaffolded project]: https://magento.github.io/pwa-studio/tutorials/pwa-studio-fundamentals/project-setup/
-[upgrading versions]: https://magento.github.io/pwa-studio/technologies/upgrading-versions/
+[scaffolded project]: https://developer.adobe.com/commerce/pwa-studio/tutorials/
+[upgrading versions]: https://developer.adobe.com/commerce/pwa-studio/guides/upgrading-versions/
 
 ### Update dependencies
 
 Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
-The following table lists the latest versions of each package as of 12.2.0, including the new venia-sample-data package.
+The following table lists the latest versions of each package as of 12.3.0.
 
 **Note:**
 Your project may not depend on some of the packages listed in this table.
@@ -120,110 +133,74 @@ Your project may not depend on some of the packages listed in this table.
 | Package                             | Latest version |
 |-------------------------------------|----------------|
 | `babel-preset-peregrine`            | **1.2.0**      |
-| `create-pwa`                        | **2.1.0**      |
-| `upward-security-headers`           | **1.0.6**      |
-| `venia-adobe-data-layer`            | **1.0.3**      |
-| `venia-sample-data`                 | **0.0.1**      |
-| `venia-sample-backends`             | **0.0.5**      |
-| `venia-sample-language-packs`       | **0.0.6**      |
-| `venia-sample-payments-checkmo`     | **0.0.4**      |
-| `pagebuilder`                       | **7.1.0**      |
-| `peregrine`                         | **12.2.0**     |
-| `pwa-buildpack`                     | **11.1.0**     |
+| `create-pwa`                        | **2.2.0**      |
+| `upward-security-headers`           | **1.0.7**      |
+| `venia-adobe-data-layer`            | **1.0.4**      |
+| `venia-sample-backends`             | **0.0.6**      |
+| `venia-sample-language-packs`       | **0.0.7**      |
+| `venia-sample-payments-checkmo`     | **0.0.5**      |
+| `pagebuilder`                       | **7.2.0**      |
+| `peregrine`                         | **12.3.0**     |
+| `pwa-buildpack`                     | **11.2.0**     |
 | `pwa-theme-venia`                   | **1.2.0**      |
 | `upward-js`                         | **5.3.0**      |
 | `upward-spec`                       | **5.2.0**      |
-| `venia-concept`                     | **12.2.0**     |
-| `venia-ui`                          | **9.2.0**      |
-| `magento2-pwa`                      | **0.1.0**      |
-| `magento-venia-sample-data-modules` | **0.0.1**      |
+| `venia-concept`                     | **12.3.0**     |
+| `venia-ui`                          | **9.3.0**      |
+| `magento2-pwa`                      | **0.2.0**      |
+| `magento2-pwa-commerce`             | **0.0.1**      |
+| `magento-venia-sample-data-modules` | **0.0.2**      |
+| `magento-venia-sample-data-modules-ee`| **0.0.1**    |
 | `magento2-upward-connector`         | **2.0.0**      |
 | `upward-php`                        | **2.0.0**      |
 
-[3548]: https://github.com/magento/pwa-studio/pull/3548
-[3519]: https://github.com/magento/pwa-studio/pull/3519
+[3713]: https://github.com/magento/pwa-studio/pull/3713
+[19]: https://github.com/magento-commerce/venia-sample-data-modules/pull/19.
 [35]: https://github.com/magento-commerce/pwa-tests/pull/35/files
-[3508]: https://github.com/magento/pwa-studio/pull/3508
-[3507]: https://github.com/magento/pwa-studio/pull/3507
-[3509]: https://github.com/magento/pwa-studio/pull/3509
-[34]: https://github.com/magento-commerce/pwa-tests/pull/34
-[3505]: https://github.com/magento/pwa-studio/pull/3505
-[31]: https://github.com/magento-commerce/pwa-tests/pull/31
+[2]: https://github.com/magento-commerce/venia-sample-data-modules-ee/pull/2
+[3670]: https://github.com/magento/pwa-studio/pull/3670
+[3691]: https://github.com/magento/pwa-studio/pull/3691
 [3504]: https://github.com/magento/pwa-studio/pull/3504
-[29]: https://github.com/magento-commerce/pwa-tests/pull/29
-[3588]: https://github.com/magento/pwa-studio/pull/3588
-[3580]: https://github.com/magento/pwa-studio/pull/3580
-[3594]: https://github.com/magento/pwa-studio/pull/3594
-[9]: https://github.com/magento-commerce/venia-sample-data-modules/pull/9
-[3486]: https://github.com/magento/pwa-studio/pull/3486
-[3]: https://github.com/magento-commerce/magento2-pwa/pull/3
-[9]: https://github.com/magento-commerce/magento2-pwa/pull/9
-[7]: https://github.com/magento-commerce/magento2-pwa/pull/7
-[8]: https://github.com/magento-commerce/magento2-pwa/pull/8
-[3576]: https://github.com/magento/pwa-studio/pull/3576
-[3616]: https://github.com/magento/pwa-studio/pull/3616
-[3593]: https://github.com/magento/pwa-studio/pull/3593
-[3598]: https://github.com/magento/pwa-studio/pull/3598
-[3577]: https://github.com/magento/pwa-studio/pull/3577
-[3589]: https://github.com/magento/pwa-studio/pull/3589
-[3601]: https://github.com/magento/pwa-studio/pull/3601
-[3597]: https://github.com/magento/pwa-studio/pull/3597
-[3586]: https://github.com/magento/pwa-studio/pull/3586
-[3526]: https://github.com/magento/pwa-studio/pull/3526
-[3533]: https://github.com/magento/pwa-studio/pull/3533
-[3525]: https://github.com/magento/pwa-studio/pull/3525
-[36]: https://github.com/magento-commerce/pwa-tests/pull/36
-[3518]: https://github.com/magento/pwa-studio/pull/3518
-[37]: https://github.com/magento-commerce/pwa-tests/pull/37
-[3500]: https://github.com/magento/pwa-studio/pull/3500
-[27]: https://github.com/magento-commerce/pwa-tests/pull/27
-[3491]: https://github.com/magento/pwa-studio/pull/3491
-[3483]: https://github.com/magento/pwa-studio/pull/3483
-[11]: https://github.com/magento-commerce/venia-sample-data-modules/pull/11
-[3465]: https://github.com/magento/pwa-studio/pull/3465
-[1]: https://github.com/magento-untitled-geese/venia-sample-data-modules/pull/1
-[3521]: https://github.com/magento/pwa-studio/pull/3521
-[3544]: https://github.com/magento/pwa-studio/pull/3544
-[13]: https://github.com/magento-commerce/venia-sample-data-modules/pull/13
-[3538]: https://github.com/magento/pwa-studio/pull/3538
-[3529]: https://github.com/magento/pwa-studio/pull/3529
-[11]: https://github.com/magento-commerce/magento2-upward-connector/pull/11
-[3559]: https://github.com/magento/pwa-studio/pull/3559
-[39]: https://github.com/magento-commerce/pwa-tests/pull/39
-[3564]: https://github.com/magento/pwa-studio/pull/3564
-[3555]: https://github.com/magento/pwa-studio/pull/3555
-[3552]: https://github.com/magento/pwa-studio/pull/3552
-[101]: https://github.com/magento-commerce/pwa-studio-cicd/pull/101
-[3561]: https://github.com/magento/pwa-studio/pull/3561
-[15]: https://github.com/magento-commerce/magento2-pwa/pull/15
-[3654]: https://github.com/magento/pwa-studio/pull/3654
-[3624]: https://github.com/magento/pwa-studio/pull/3624
-[14]: https://github.com/magento-commerce/magento2-pwa/pull/14
-[3619]: https://github.com/magento/pwa-studio/pull/3619
-[18]: https://github.com/magento-commerce/magento2-pwa/pull/18
-[3542]: https://github.com/magento/pwa-studio/pull/3542
-[3551]: https://github.com/magento/pwa-studio/pull/3551
-[3567]: https://github.com/magento/pwa-studio/pull/3567
-[3571]: https://github.com/magento/pwa-studio/pull/3571
-[3520]: https://github.com/magento/pwa-studio/pull/3520
-[3515]: https://github.com/magento/pwa-studio/pull/3515
-[3524]: https://github.com/magento/pwa-studio/pull/3524
-[3553]: https://github.com/magento/pwa-studio/pull/3553
-[3575]: https://github.com/magento/pwa-studio/pull/3575
-[16]: https://github.com/magento-commerce/magento2-upward-connector/pull/16
-[6]: https://github.com/magento-commerce/upward-php/pull/6
-[3599]: https://github.com/magento/pwa-studio/pull/3599
-[3622]: https://github.com/magento/pwa-studio/pull/3622
-[3608]: https://github.com/magento/pwa-studio/pull/3608
-[3573]: https://github.com/magento/pwa-studio/pull/3573
-[3603]: https://github.com/magento/pwa-studio/pull/3603
-[3584]: https://github.com/magento/pwa-studio/pull/3584
-[3625]: https://github.com/magento/pwa-studio/pull/3625
-[3655]: https://github.com/magento/pwa-studio/pull/3655
-[18]: https://github.com/magento-commerce/magento2-upward-connector/pull/18
-[16]: https://github.com/magento-commerce/venia-sample-data-modules/pull/16
-[3658]: https://github.com/magento/pwa-studio/pull/3658/files
-[3664]: https://github.com/magento/pwa-studio/pull/3664
-[3665]: https://github.com/magento/pwa-studio/pull/3665
+[24]: https://github.com/magento-commerce/magento2-pwa/pull/24
+[3702]: https://github.com/magento/pwa-studio/pull/3702
+[3604]: https://github.com/magento/pwa-studio/pull/3604
+[12]: https://github.com/magento-commerce/magento2-pwa/pull/12
+[20]: https://github.com/magento-commerce/magento2-pwa/pull/20
+[25]: https://github.com/magento-commerce/magento2-pwa/pull/25
+[4]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/4
+[22]: https://github.com/magento-commerce/venia-sample-data-modules/pull/22
+[3]: http://github.com/magento-commerce/venia-sample-data-modules-ee/pull/3
+[3646]: https://github.com/magento/pwa-studio/pull/3646
+[17]: https://github.com/magento-commerce/magento2-pwa/pull/17
+[3724]: https://github.com/magento/pwa-studio/pull/3724
+[3696]: https://github.com/magento/pwa-studio/pull/3696
+[3672]: https://github.com/magento/pwa-studio/pull/3672
+[3712]: https://github.com/magento/pwa-studio/pull/3712/files
+[3609]: https://github.com/magento/pwa-studio/pull/3609
+[3587]: https://github.com/magento/pwa-studio/pull/3587
+[2]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/2
+[3695]: https://github.com/magento/pwa-studio/pull/3695
+[16]: https://github.com/magento-commerce/magento2-pwa/pull/16
+[17]: https://github.com/magento-commerce/venia-sample-data-modules/pull/17
+[14]: https://github.com/magento-commerce/venia-sample-data-modules/pull/14
+[11]: https://github.com/magento-commerce/magento2-pwa/pull/11
+[7]: https://github.com/magento-commerce/upward-php/pull/7
+[17]: https://github.com/magento-commerce/magento2-upward-connector/pull/17
+[3611]: https://github.com/magento/pwa-studio/pull/3611
+[3711]: https://github.com/magento/pwa-studio/pull/3711
+[3613]: https://github.com/magento/pwa-studio/pull/3613
+[3540]: https://github.com/magento/pwa-studio/pull/3540
+[3690]: https://github.com/magento/pwa-studio/pull/3690
+[3706]: https://github.com/magento/pwa-studio/pull/3706
+[3698]: https://github.com/magento/pwa-studio/pull/3698
+[3703]: https://github.com/magento/pwa-studio/pull/3703
+[3715]: https://github.com/magento/pwa-studio/pull/3715
+[3678]: https://github.com/magento/pwa-studio/pull/3678
+[3]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/3
+[3612]: https://github.com/magento/pwa-studio/pull/3612
+[3660]: https://github.com/magento/pwa-studio/pull/3660
+[3668]: https://github.com/magento/pwa-studio/pull/3668
+[3659]: https://github.com/magento/pwa-studio/pull/3659
+[3676]: https://github.com/magento/pwa-studio/pull/3676
+[20]: https://github.com/magento-commerce/venia-sample-data-modules/pull/20
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
-[contactUs]: https://devdocs.magento.com/guides/v2.4/graphql/mutations/contact-us.html
