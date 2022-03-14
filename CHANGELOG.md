@@ -4,7 +4,7 @@
 _This changelog contains release notes for PWA Studio and Venia 12.3.0_
 _For older release notes, see_ [PWA Studio releases][].
 
-## Highlights
+## 12.3.0 Highlights
 
 ### Personalized content support
 
@@ -46,18 +46,6 @@ _For older release notes, see_ [PWA Studio releases][].
 ## 12.3.0 Lighthouse scores
 
 With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 12.3.0 release of these pages on desktop and mobile devices.
-
-### Desktop scores
-|  | Home Page | Product Category | Product Details | Search Results |
-| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
-| **Desktop** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-| Performance | ![](images/score_90.svg) | ![](images/score_78.svg) | ![](images/score_73.svg) | ![](images/score_90.svg) |
-| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| PWA | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
-
-### Mobile scores
 
 | | Home Page | Product Category | Product Details | Search Results |
 | ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
@@ -155,7 +143,7 @@ Your project may not depend on some of the packages listed in this table.
 | `upward-php`                        | **2.0.0**      |
 
 [3713]: https://github.com/magento/pwa-studio/pull/3713
-[19]: https://github.com/magento-commerce/venia-sample-data-modules/pull/19.
+[19]: https://github.com/magento-commerce/venia-sample-data-modules/pull/19
 [35]: https://github.com/magento-commerce/pwa-tests/pull/35/files
 [2]: https://github.com/magento-commerce/venia-sample-data-modules-ee/pull/2
 [3670]: https://github.com/magento/pwa-studio/pull/3670
@@ -177,7 +165,7 @@ Your project may not depend on some of the packages listed in this table.
 [3724]: https://github.com/magento/pwa-studio/pull/3724
 [3696]: https://github.com/magento/pwa-studio/pull/3696
 [3672]: https://github.com/magento/pwa-studio/pull/3672
-[3712]: https://github.com/magento/pwa-studio/pull/3712/files
+[3712]: https://github.com/magento/pwa-studio/pull/3712
 [3609]: https://github.com/magento/pwa-studio/pull/3609
 [37]: https://github.com/magento-commerce/pwa-tests/pull/37
 [3587]: https://github.com/magento/pwa-studio/pull/3587
