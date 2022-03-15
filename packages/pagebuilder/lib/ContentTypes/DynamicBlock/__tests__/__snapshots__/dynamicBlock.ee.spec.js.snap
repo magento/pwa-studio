@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#PageBuilder DynamicBlock EE does not render a Dynamic Block component when no uids are provided 1`] = `null`;
+exports[`#PageBuilder DynamicBlock AC does not render a Dynamic Block component when no uids are provided 1`] = `null`;
 
-exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component inlined 1`] = `
+exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component inlined 1`] = `
 <span
   aria-busy="false"
   aria-live="polite"
@@ -32,7 +32,7 @@ exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component inlined 
 </span>
 `;
 
-exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component with custom classes 1`] = `
+exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component with custom classes 1`] = `
 <div
   aria-busy="false"
   aria-live="polite"
@@ -62,7 +62,7 @@ exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component with cus
 </div>
 `;
 
-exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component without custom classes 1`] = `
+exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component without custom classes 1`] = `
 <div
   aria-busy="false"
   aria-live="polite"

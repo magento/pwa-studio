@@ -1,5 +1,5 @@
 /**
- * Gift Options Prices are an EE-only feature.
- * Here in CE, don't render the component at all.
+ * Gift Options Prices are an AC-only feature.
+ * Here in MOS, don't render the component at all.
  */
 export default () => null;

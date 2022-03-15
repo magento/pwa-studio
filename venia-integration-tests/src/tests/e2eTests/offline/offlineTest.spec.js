@@ -34,7 +34,7 @@ const { assertOffline, assertServiceWorkerIsActivated } = offlineAssertions;
 
 const {
     getProductDetailForProductPageCall,
-    getStoreConfigDataForGalleryEECall,
+    getStoreConfigDataForGalleryACCall,
     getProductSearchCall,
     getCategoriesCall,
     getAutocompleteResultsCall,
@@ -57,7 +57,7 @@ describe('PWA-1085: Verify cached pages are rendered correctly on offline mode',
         cy.intercept('GET', getStoreConfigDataCall).as(
             'gqlGetStoreConfigDataQuery'
         );
-        cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
+        cy.intercept('GET', getStoreConfigDataForGalleryACCall).as(
             'gqlGetStoreConfigDataForGallery'
         );
         cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');

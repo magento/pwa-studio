@@ -141,10 +141,12 @@ async function configureWebpack(options) {
         output: path.resolve(context, 'dist')
     };
 
-    const isEE = projectConfig.env.MAGENTO_BACKEND_EDITION === 'EE';
+    const isAC =
+        projectConfig.env.MAGENTO_BACKEND_EDITION === 'AC' ||
+        projectConfig.env.MAGENTO_BACKEND_EDITION === 'EE';
 
     const resolverOpts = {
-        isEE,
+        isAC,
         paths: {
             root: context
         }
