@@ -13,6 +13,9 @@ export const ProductDetailsFragment = gql`
         description {
             html
         }
+        short_description {
+            html
+        }
         id
         uid
         # eslint-disable-next-line @graphql-eslint/require-id-when-available

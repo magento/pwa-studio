@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { array, shape, string } from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
@@ -10,7 +9,7 @@ import defaultClasses from './customAttributes.module.css';
 export const IS_VISIBLE_ON_FRONT = 'PRODUCT_DETAILS_PAGE';
 
 const CustomAttributes = props => {
-    const { customAttributes } = props;
+    const { customAttributes, showLabels } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     const list = useMemo(
@@ -26,7 +25,7 @@ const CustomAttributes = props => {
                             key={currentAttribute.attribute_metadata.uid}
                             className={classes.listItem}
                         >
-                            <AttributeType data={currentAttribute} />
+                            <AttributeType showLabels={showLabels} data={currentAttribute} />
                         </li>
                     );
 
@@ -44,12 +43,6 @@ const CustomAttributes = props => {
 
     return (
         <div className={classes.root}>
-            <p className={classes.title}>
-                <FormattedMessage
-                    id={'customAttributes.title'}
-                    defaultMessage={'Details'}
-                />
-            </p>
             <ul className={classes.list}>{list}</ul>
         </div>
     );

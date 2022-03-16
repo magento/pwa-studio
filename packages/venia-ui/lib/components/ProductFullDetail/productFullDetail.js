@@ -5,6 +5,9 @@ import { Form } from 'informed';
 import { Info } from 'react-feather';
 
 import Price from '@magento/venia-ui/lib/components/Price';
+export {
+    default as detectPageBuilder
+} from '@magento/pagebuilder/lib/detectPageBuilder';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
@@ -18,6 +21,7 @@ import RichContent from '../RichContent/richContent';
 import { ProductOptionsShimmer } from '../ProductOptions';
 import CustomAttributes from './CustomAttributes';
 import defaultClasses from './productFullDetail.module.css';
+import detectPageBuilder from '@magento/pagebuilder/lib/detectPageBuilder';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -54,6 +58,7 @@ const ProductFullDetail = props => {
         customAttributes,
         wishlistButtonProps
     } = talonProps;
+
     const { formatMessage } = useIntl();
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -128,6 +133,22 @@ const ProductFullDetail = props => {
         }
     }
 
+    let customAttributesDetails = [];
+    const customAttributesDetailsPageBuilder = [];
+    if (Array.isArray(customAttributes)) {
+        customAttributes.forEach(customAttribute => {
+            if (
+                detectPageBuilder(customAttribute.entered_attribute_value.value)
+            ) {
+                customAttributesDetailsPageBuilder.push(customAttribute);
+            } else {
+                customAttributesDetails.push(customAttribute);
+            }
+        });
+    } else {
+        customAttributesDetails = customAttributes;
+    }
+
     const cartCallToActionText = !isOutOfStock ? (
         <FormattedMessage
             id="productFullDetail.addItemToCart"
@@ -163,6 +184,10 @@ const ProductFullDetail = props => {
         </div>
     );
 
+    const shortDescription = productDetails.shortDescription ? (
+        <RichContent html={productDetails.shortDescription.html} />
+    ) : null;
+
     return (
         <Fragment>
             {breadcrumbs}
@@ -187,6 +212,7 @@ const ProductFullDetail = props => {
                             value={productDetails.price.value}
                         />
                     </p>
+                    {shortDescription}
                 </section>
                 <section className={classes.imageCarousel}>
                     <Carousel images={mediaGalleryEntries} />
@@ -226,21 +252,30 @@ const ProductFullDetail = props => {
                         className={classes.descriptionTitle}
                     >
                         <FormattedMessage
-                            id={'productFullDetail.productDescription'}
-                            defaultMessage={'Product Description'}
+                            id={'productFullDetail.description'}
+                            defaultMessage={'Description'}
                         />
                     </span>
                     <RichContent html={productDetails.description} />
                 </section>
                 <section className={classes.details}>
-                    <span className={classes.detailsTitle}>
+                    <span
+                        data-cy="ProductFullDetail-detailsTitle"
+                        className={classes.detailsTitle}
+                    >
                         <FormattedMessage
-                            id={'global.sku'}
-                            defaultMessage={'SKU'}
+                            id={'productFullDetail.details'}
+                            defaultMessage={'Details'}
                         />
                     </span>
-                    <strong>{productDetails.sku}</strong>
-                    <CustomAttributes customAttributes={customAttributes} />
+                    <CustomAttributes customAttributes={customAttributesDetails} />
+                </section>
+                <section className={classes.detailsPageBuilder}>
+                    <CustomAttributes
+                        classes={{list: classes.detailsPageBuilderList}}
+                        customAttributes={customAttributesDetailsPageBuilder}
+                        showLabels={false}
+                    />
                 </section>
             </Form>
         </Fragment>
@@ -253,6 +288,8 @@ ProductFullDetail.propTypes = {
         description: string,
         descriptionTitle: string,
         details: string,
+        detailsPageBuilder: string,
+        detailsPageBuilderList: string,
         detailsTitle: string,
         imageCarousel: string,
         options: string,
@@ -260,6 +297,7 @@ ProductFullDetail.propTypes = {
         productPrice: string,
         quantity: string,
         quantityTitle: string,
+        quantityRoot: string,
         root: string,
         title: string,
         unavailableContainer: string
@@ -286,7 +324,11 @@ ProductFullDetail.propTypes = {
                 file: string.isRequired
             })
         ),
-        description: string
+        description: string,
+        short_description: shape({
+            html: string,
+            __typename: string
+        })
     }).isRequired
 };
 

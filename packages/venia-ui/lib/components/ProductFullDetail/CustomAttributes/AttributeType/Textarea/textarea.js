@@ -18,9 +18,9 @@ import defaultClasses from './textarea.module.css';
  */
 const Textarea = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { attribute_metadata = {}, entered_attribute_value = {} } = props;
+    const { attribute_metadata = {}, entered_attribute_value = {}, showLabels=true } = props;
 
-    const attributeLabel = attribute_metadata.label ? (
+    const attributeLabel = attribute_metadata.label && showLabels ? (
         <div className={classes.label}>{attribute_metadata.label}</div>
     ) : null;
     let attributeContent;
@@ -30,6 +30,7 @@ const Textarea = props => {
 
         if (isHtml) {
             // TODO: Get decoded wysiwyg widgets from GraphQl
+
             attributeContent = (
                 <div className={classes.contentHtml}>
                     <RichContent html={entered_attribute_value.value} />

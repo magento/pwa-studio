@@ -14,7 +14,7 @@
             'images quantity'
             'images cart'
             'images .';
-        grid-template-columns: 1.5625fr 1fr;
+        grid-template-columns: minmax(0, 1.5625fr) minmax(0, 1fr);
         grid-template-rows: repeat(5, min-content) 1fr [fold];
         padding: 2.5rem 1rem;
     }
@@ -121,7 +121,6 @@
 .description {
     composes: section;
     grid-column: 1 / span 1;
-    grid-row: fold / span 1;
 }
 
 @media (min-width: 1024px) {
@@ -142,6 +141,15 @@
     composes: section;
     grid-column: 2 / span 1;
     grid-row: fold / span 1;
+}
+
+.detailsPageBuilder {
+    composes: section;
+    grid-column: 1 / span 2;
+}
+
+.detailsPageBuilderList {
+    list-style: none;
 }
 
 @media (min-width: 1024px) {
