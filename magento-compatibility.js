@@ -4,6 +4,7 @@
 
 // PWA Studio version -> Magento version.
 module.exports = {
+    '12.3.0': '2.4.3',
     '12.2.0': '2.4.3',
     '12.1.0': '2.4.3',
     '12.0.0': '2.4.3',
