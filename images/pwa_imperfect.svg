@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>pwa_icon</title>
+    <defs>
+        <linearGradient x1="76.056%" y1="82.995%" x2="24.111%" y2="24.735%" id="linearGradient-1">
+            <stop stop-color="#A5D6A7" offset="0%"></stop>
+            <stop stop-color="#80CBC4" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="pwa_icon" fill-rule="nonzero">
+            <circle id="Oval" fill="#E0E0E0" cx="30" cy="30" r="30"></circle>
+            <g id="Group" transform="translate(18.000000, 12.000000)" fill="#B0B0B0">
+                <polygon id="Path" points="17.66 7.39 18.36 5.64 20.36 5.64 19.4 3 20.6 1.77635684e-15 24 9 21.49 9 20.91 7.39"></polygon>
+                <polygon id="Path" points="15.52 9 19.17 1.77635684e-15 16.75 1.77635684e-15 14.25 5.82 12.5 1.77635684e-15 10.64 1.77635684e-15 8.74 5.82 7.39 3.17 6.18 6.89 7.4 9 9.78 9 11.5 3.8 13.14 9"></polygon>
+                <path d="M2.3,5.91 L3.78,5.91 C4.23,5.91 4.63,5.86 4.98,5.76 L5.37,4.58 L6.44,1.28 C6.35770706,1.14868772 6.26401193,1.0248763 6.16,0.91 C5.61,0.31 4.8,5.32907052e-15 3.74,5.32907052e-15 L0,5.32907052e-15 L0,9 L2.3,9 L2.3,5.9 L2.3,5.91 Z M4.26,2.07 C4.48,2.29 4.59,2.57 4.59,2.94 C4.59,3.3 4.49,3.59 4.3,3.81 C4.1,4.04 3.71,4.16 3.15,4.16 L2.29,4.16 L2.29,1.75 L3.16,1.75 C3.68,1.75 4.05,1.85 4.26,2.07 L4.26,2.07 Z" id="Shape"></path>
+            </g>
+            <g id="Group" transform="translate(20.000000, 29.000000)">
+                <path d="M33.629,19.487 C29.357,24.94 23.238,28.877 16.214,30.356 L3,17.142 L17.142,3 L33.63,19.487 L33.629,19.487 Z" id="Path" fill="url(#linearGradient-1)"></path>
+                <g id="lh-gauge--pwa__installable-badge-8">
+                    <circle id="Oval" fill="#FFFFFF" cx="10" cy="10" r="10"></circle>
+                    <path d="M10,4.167 C6.77898039,4.16810385 4.16810385,6.77898039 4.167,10 C4.16810385,13.2210196 6.77898039,15.8318962 10,15.833 C13.2210196,15.8318962 15.8318962,13.2210196 15.833,10 C15.8318962,6.77898039 13.2210196,4.16810385 10,4.167 Z M12.917,10.583 L10.583,10.583 L10.583,12.917 L9.417,12.917 L9.417,10.583 L7.083,10.583 L7.083,9.417 L9.417,9.417 L9.417,7.083 L10.583,7.083 L10.583,9.417 L12.917,9.417 L12.917,10.583 Z" id="Shape" fill="#009688"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
