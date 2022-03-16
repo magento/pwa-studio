@@ -161,7 +161,7 @@ GalleryItem.propTypes = {
     }),
     storeConfig: shape({
         magento_wishlist_general_is_enabled: string.isRequired,
-        product_url_suffix: string.isRequired
+        product_url_suffix: string
     })
 };
 
