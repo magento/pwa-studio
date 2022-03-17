@@ -1,6 +1,6 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('PWA-1161: verify pagebuilder video content is rendered correctly', () => {
+describe('PWA-1161: verify pagebuilder video content is rendered correctly', { tags: ['@commerce', '@open-source'] },() => {
     it('verify video content alignment', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/video/video.json'

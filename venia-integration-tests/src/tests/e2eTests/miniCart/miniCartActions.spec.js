@@ -36,7 +36,7 @@ const { assertCartEmptyMessage, assertProductInList } = miniCartAssertions;
 
 const { assertCartIsEmpty, assertCartTriggerCount } = headerAssertions;
 
-describe('PWA-1398: verify mini cart actions', () => {
+describe('PWA-1398: verify mini cart actions', { tags: ['@commerce', '@open-source'] }, () => {
     it('user should be able to remove products', () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(
             'gqlGetProductDetailForProductPageQuery'

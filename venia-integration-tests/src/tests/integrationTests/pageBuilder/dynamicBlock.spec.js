@@ -1,7 +1,7 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage, getDynamicBlocksCall } = graphqlMockedCallsFixtures;
 
-describe('Verify pagebuilder dynamic block content is rendered correctly', () => {
+describe('Verify pagebuilder dynamic block content is rendered correctly', { tags: ['@commerce', '@open-source'] },() => {
     it('verify dynamic block content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/dynamicBlock/dynamicBlock.json'

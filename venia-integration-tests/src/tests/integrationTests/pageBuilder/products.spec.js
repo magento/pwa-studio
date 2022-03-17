@@ -1,7 +1,7 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 
-describe('PWA-1167: verify pagebuilder products content type', () => {
+describe('PWA-1167: verify pagebuilder products content type', { tags: ['@commerce', '@open-source'] },() => {
     context('desktop viewport', () => {
         it('verify products grid', () => {
             cy.intercept('GET', getCMSPage, {

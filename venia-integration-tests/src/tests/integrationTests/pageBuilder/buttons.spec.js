@@ -1,6 +1,6 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('PWA-1169: verify pagebuilder buttons content is rendered correctly', () => {
+describe('PWA-1169: verify pagebuilder buttons content is rendered correctly', { tags: ['@commerce', '@open-source'] },() => {
     it('verify buttons content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/buttons/buttons.json'

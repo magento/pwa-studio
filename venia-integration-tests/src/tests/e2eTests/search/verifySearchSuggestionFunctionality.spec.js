@@ -20,7 +20,7 @@ const {
 } = categoryPageAssertions;
 
 // TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1400: verify user search suggestion actions', () => {
+describe('PWA-1400: verify user search suggestion actions', { tags: ['@commerce', '@open-source'] },() => {
     it('user should be able search with different inputs and view different suggestions', () => {
         cy.intercept('GET', getAutocompleteResultsCall).as(
             'gqlGetAutocompleteResultsQuery'

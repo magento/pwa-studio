@@ -10,3 +10,7 @@ import './exceptions';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 
 addMatchImageSnapshotCommand();
+
+import  registerCypressGrep  from 'cypress-grep'
+
+registerCypressGrep();

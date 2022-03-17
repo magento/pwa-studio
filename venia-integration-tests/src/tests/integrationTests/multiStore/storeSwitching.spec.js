@@ -553,7 +553,7 @@ const interceptRouteDataRequests = expectedStoreCode => {
     });
 };
 
-describe('default store', () => {
+describe('default store', { tags: ['@commerce'] },() => {
     it('contains valid CMS Page data', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);
@@ -633,7 +633,7 @@ describe('default store', () => {
     });
 });
 
-describe('switching to another store', () => {
+describe('switching to another store', { tags: ['@commerce'] },() => {
     it('contains valid CMS Page data specific to the different store', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);
@@ -801,7 +801,7 @@ describe('switching to another store', () => {
     });
 });
 
-describe('shopping cart', () => {
+describe('shopping cart', { tags: ['@commerce'] }, () => {
     it('lets users add products to cart regardless of store view', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);

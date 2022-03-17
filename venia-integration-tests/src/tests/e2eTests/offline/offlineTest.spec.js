@@ -52,7 +52,7 @@ beforeEach(() => {
     });
 });
 
-describe('PWA-1085: Verify cached pages are rendered correctly on offline mode', () => {
+describe('PWA-1085: Verify cached pages are rendered correctly on offline mode', { tags: ['@commerce', '@open-source'] },() => {
     it('user should be able to navigate on offline mode', () => {
         cy.intercept('GET', getStoreConfigDataCall).as(
             'gqlGetStoreConfigDataQuery'

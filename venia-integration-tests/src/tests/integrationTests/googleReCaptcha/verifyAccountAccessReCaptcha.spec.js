@@ -24,7 +24,7 @@ const {
     recaptchaWidgetId
 } = googleReCaptchaApiFixtures;
 
-describe('verify Google ReCaptcha for AccountAccess', () => {
+describe('verify Google ReCaptcha for AccountAccess', { tags: ['@commerce', '@open-source'] },() => {
     it('user can create account with default badge position', () => {
         // Prevent default Google ReCaptcha API from loading
         cy.intercept('https://www.google.com/recaptcha/api.js?*', {}).as(

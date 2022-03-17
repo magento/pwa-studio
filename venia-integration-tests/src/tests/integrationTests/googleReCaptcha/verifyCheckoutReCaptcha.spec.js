@@ -62,7 +62,7 @@ const {
     recaptchaWidgetId
 } = googleReCaptchaApiFixtures;
 
-describe('verify Google ReCaptcha in checkout', () => {
+describe('verify Google ReCaptcha in checkout', { tags: ['@commerce', '@open-source'] },() => {
     it('user can fill and submit payment form and place order with inline badge position', () => {
         // Intercepts
         cy.intercept('https://www.google.com/recaptcha/api.js?*', {}).as(

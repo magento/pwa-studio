@@ -1,6 +1,6 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('PWA-1157: verify pagebuilder column content is rendered correctly', () => {
+describe('PWA-1157: verify pagebuilder column content is rendered correctly', { tags: ['@commerce', '@open-source'] },() => {
     it('verify column content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/column/column.json'
@@ -16,7 +16,7 @@ describe('PWA-1157: verify pagebuilder column content is rendered correctly', ()
     });
 });
 
-describe('PWA-1471: Verify pagebuilder column media query', () => {
+describe('PWA-1471: Verify pagebuilder column media query', { tags: ['@commerce', '@open-source'] }, () => {
     it('should apply mediaQuery styles', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/column/column-media-query.json'

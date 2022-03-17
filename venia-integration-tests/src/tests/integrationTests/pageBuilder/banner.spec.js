@@ -2,7 +2,7 @@ import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtu
 const { getCMSPage } = graphqlMockedCallsFixtures;
 
 // TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1154: verify pagebuilder banner content', () => {
+describe('PWA-1154: verify pagebuilder banner content', { tags: ['@commerce', '@open-source'] },() => {
     it('verify banner content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/banner/banner.json'
@@ -146,7 +146,7 @@ describe('PWA-1154: verify pagebuilder banner content', () => {
     });
 });
 
-describe('PWA-1471: Verify pagebuilder banner media query', () => {
+describe('PWA-1471: Verify pagebuilder banner media query', { tags: ['@commerce', '@open-source'] },() => {
     it('should apply mediaQuery styles', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/banner/banner-media-query'

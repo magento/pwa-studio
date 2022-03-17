@@ -22,7 +22,7 @@ afterEach(() => {
 });
 
 describe('verify version banner', () => {
-    it('user can see list of important package versions', () => {
+    it('user can see list of important package versions', { tags: ['@commerce', '@open-source'] },() => {
         cy.intercept('GET', clientJs).as('resourceClientJs');
 
         cy.visit(homePage);

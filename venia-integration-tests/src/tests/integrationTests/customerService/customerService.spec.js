@@ -3,7 +3,7 @@ import { clickOnfooterLinks } from '../../../actions/footer';
 
 const { getCMSPage } = graphqlMockedCallsFixtures;
 
-describe('Customer Service Page', () => {
+describe('Customer Service Page', { tags: ['@commerce', '@open-source'] }, () => {
     it('Verify content', () => {
         cy.visitHomePage();
         cy.scrollTo('bottom');
