@@ -89,8 +89,8 @@ const completeShippingAddress = {
     lastName
 };
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1870: verify uk region checkout actions', { tags: ['@commerce', '@open-source'] }, () => {
+
+describe('PWA-1870: verify uk region checkout actions', { tags: ['@commerce', '@open-source', '@ci'] }, () => {
     it('user should be able to place an order as a guest with an specified Region and a credit card', () => {
         cy.intercept('GET', getCheckoutDetailsCall).as(
             'gqlGetCheckoutDetailsQuery'

@@ -1,6 +1,6 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('PWA-1168: verify pagebuilder divider content is rendered correctly', { tags: ['@commerce', '@open-source'] }, () => {
+describe('PWA-1168: verify pagebuilder divider content is rendered correctly', { tags: ['@commerce', '@open-source', '@ci'] }, () => {
     it('verify divider content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/divider/divider.json'

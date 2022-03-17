@@ -1,8 +1,8 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1154: verify pagebuilder banner content', { tags: ['@commerce', '@open-source'] },() => {
+
+describe('PWA-1154: verify pagebuilder banner content', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('verify banner content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/banner/banner.json'
@@ -146,7 +146,7 @@ describe('PWA-1154: verify pagebuilder banner content', { tags: ['@commerce', '@
     });
 });
 
-describe('PWA-1471: Verify pagebuilder banner media query', { tags: ['@commerce', '@open-source'] },() => {
+describe('PWA-1471: Verify pagebuilder banner media query', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('should apply mediaQuery styles', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/banner/banner-media-query'

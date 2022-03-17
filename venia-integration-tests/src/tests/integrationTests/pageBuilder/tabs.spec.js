@@ -1,6 +1,6 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('PWA-1155: verify pagebuilder tabs content is rendered correctly', { tags: ['@commerce', '@open-source'] },() => {
+describe('PWA-1155: verify pagebuilder tabs content is rendered correctly', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('verify tabs content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/tabs/tabs.json'
@@ -16,7 +16,7 @@ describe('PWA-1155: verify pagebuilder tabs content is rendered correctly', { ta
     });
 });
 
-describe('PWA-1471: Verify pagebuilder tabs media query', { tags: ['@commerce', '@open-source'] },() => {
+describe('PWA-1471: Verify pagebuilder tabs media query', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('should apply mediaQuery styles', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/tabs/tabs-media-query'

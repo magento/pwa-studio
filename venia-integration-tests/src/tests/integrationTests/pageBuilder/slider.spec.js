@@ -1,7 +1,7 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 
-describe('PWA-1151: verify slider content', { tags: ['@commerce', '@open-source'] },() => {
+describe('PWA-1151: verify slider content', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('verify slider content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/slider/slider.json'
@@ -172,7 +172,7 @@ describe('PWA-1151: verify slider content', { tags: ['@commerce', '@open-source'
     });
 });
 
-describe('PWA-1471: Verify pagebuilder slider media query', { tags: ['@commerce', '@open-source'] },() => {
+describe('PWA-1471: Verify pagebuilder slider media query', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('should apply mediaQuery styles', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/slider/slider-media-query'

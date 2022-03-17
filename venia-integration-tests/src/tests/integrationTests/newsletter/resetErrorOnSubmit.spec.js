@@ -13,7 +13,7 @@ import { newsletterRoot } from '../../../fields/newsletter';
 
 const { hitGraphqlPath } = graphqlMockedCallsFixtures;
 
-describe('verify newsletter form',  { tags: ['@commerce', '@open-source'] }, () => {
+describe('verify newsletter form',  { tags: ['@commerce', '@open-source', '@ci'] }, () => {
     it('Validate validations', () => {
         cy.intercept('POST', hitGraphqlPath, req => {
             if (req.body.operationName.includes('subscribeToNewsletter')) {

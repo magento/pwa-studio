@@ -38,7 +38,7 @@ const {
     editAccountInformationPassword
 } = accountInformationPageActions;
 
-describe('Verify Google ReCaptcha for Account Information changes', { tags: ['@commerce', '@open-source'] },() => {
+describe('Verify Google ReCaptcha for Account Information changes', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('user can edit account information with default badge position', () => {
         // Prevent default Google ReCaptcha API from loading
         cy.intercept('https://www.google.com/recaptcha/api.js?*', {}).as(

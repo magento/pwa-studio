@@ -130,7 +130,7 @@ const {
     accountPassword
 } = accountAccessFixtures;
 
-describe('PWA-1415: Verify Venia Localization', { tags: ['@commerce'] }, () => {
+describe('PWA-1415: Verify Venia Localization', { tags: ['@commerce',  '@ci'] }, () => {
     it('should display Default Store View and USD currency by default', () => {
         cy.visitHomePage();
 

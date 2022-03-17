@@ -32,6 +32,13 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
         type: 'string',
         nargs: 1
     })
+    .option('g', {
+        alias: 'tags',
+        default: '@ci+-@skip',
+        describe: 'Select tests based on tag value',
+        type: 'string',
+        nargs: 1
+    })
     .option('h', {
         alias: 'help',
         describe: 'Show run-tests help'
@@ -39,7 +46,7 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .help('h', 'Show run-tests help')
     .version(false).argv;
 
-const { baseUrl, threads, update, spec } = argv;
+const { baseUrl, threads, update, spec, tags } = argv;
 
 if (!baseUrl) {
     console.error(
@@ -65,14 +72,14 @@ if (port) {
 
     dockerCommand = `docker run --rm -v ${
         process.env.PWD
-    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=https://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
+    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=https://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --env grepTags=${tags} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
 } else {
     // run docker on remote instance
     console.log(`Running tests on remote instance ${baseUrl}`);
 
     dockerCommand = `docker run --rm -v ${
         process.env.PWD
-    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
+    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --env grepTags=${tags} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
 }
 
 const start = process.hrtime();

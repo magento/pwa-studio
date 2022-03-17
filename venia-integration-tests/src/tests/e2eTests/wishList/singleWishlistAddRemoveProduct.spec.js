@@ -59,8 +59,8 @@ const {
 } = wishlistAssertions;
 const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1781: verify single wishlist basic features', { tags: ['@commerce', '@open-source'] },() => {
+
+describe('PWA-1781: verify single wishlist basic features', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('user should be able to add and remove products from wishlist', () => {
         cy.intercept('POST', hitGraphqlPath, req => {
             aliasMutation(req, 'CreateAccount');

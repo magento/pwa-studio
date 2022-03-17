@@ -5,7 +5,7 @@ import {
 const { getCMSPage } = graphqlMockedCallsFixtures;
 const { successImage } = mediaMockedCallsFixtures;
 
-describe('PWA-1156: verify pagebuilder row content', { tags: ['@commerce', '@open-source'] }, () => {
+describe('PWA-1156: verify pagebuilder row content', { tags: ['@commerce', '@open-source', '@ci'] }, () => {
     it('verify row content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/row/row-1.json'
@@ -351,7 +351,7 @@ describe('PWA-1156: verify pagebuilder row content', { tags: ['@commerce', '@ope
     });
 });
 
-describe('PWA-1471: Verify pagebuilder row media query', { tags: ['@commerce', '@open-source'] },() => {
+describe('PWA-1471: Verify pagebuilder row media query', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('should apply mediaQuery styles', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/row/row-media-query'

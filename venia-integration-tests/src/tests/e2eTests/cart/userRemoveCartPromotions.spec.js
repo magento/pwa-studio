@@ -46,8 +46,8 @@ const {
 } = cartPageAssertions;
 const { assertCartTriggerCount } = headerAssertions;
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1407: verify remove promotion cart action', { tags: ['@commerce'] },() => {
+
+describe('PWA-1407: verify remove promotion cart action', { tags: ['@commerce',  '@ci'] },() => {
     it('user should be able to add and remove promotions from cart', () => {
         cy.intercept('GET', getAppliedCouponsCall).as(
             'gqlGetAppliedCouponsQuery'

@@ -23,7 +23,7 @@ const {
     contactFormComment
 } = contactPageFixtures;
 
-describe('verify contact form', { tags: ['@commerce', '@open-source'] },() => {
+describe('verify contact form', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('user can fill and submit form', () => {
         cy.intercept('GET', getContactPageEnabledCall, {
             fixture: 'contactPage/contactPageConfigEnabled.json'

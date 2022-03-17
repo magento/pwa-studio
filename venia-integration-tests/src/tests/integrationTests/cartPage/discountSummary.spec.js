@@ -33,7 +33,7 @@ const {
     getProductListingCall
 } = graphqlMockedCallsFixtures;
 
-describe('Verify discount summary based on cart price rule ', { tags: ['@commerce', '@open-source'] },() => {
+describe('Verify discount summary based on cart price rule ', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('Discount summary dropdown renders correctly', () => {
         cy.intercept('POST', hitGraphqlPath, req => {
             aliasMutation(req, 'AddProductToCart');

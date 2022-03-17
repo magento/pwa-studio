@@ -24,8 +24,8 @@ const {
     assertProductIsInGallery
 } = categoryPageAssertions;
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1406: verify user search actions', { tags: ['@commerce', '@open-source'] },() => {
+
+describe('PWA-1406: verify user search actions', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('user should be able search with different inputs', () => {
         cy.intercept('GET', getProductFiltersBySearchCall).as(
             'gqlGetProductFiltersBySearchQuery'

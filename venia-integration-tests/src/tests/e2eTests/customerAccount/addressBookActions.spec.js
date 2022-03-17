@@ -49,8 +49,8 @@ const {
 } = addressBookPageAssertions;
 const { assertCreateAccount } = myAccountMenuAssertions;
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1421: verify customer account address book actions', { tags: ['@commerce', '@open-source'] },() => {
+
+describe('PWA-1421: verify customer account address book actions', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('user should be able to update their address book', () => {
         // Test - Create an account
         cy.intercept('POST', hitGraphqlPath, req => {

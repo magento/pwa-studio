@@ -46,8 +46,8 @@ const {
 } = productPageActions;
 const { assertGuestCheckoutPage } = miniCartAssertions;
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1424: verify anchor links', { tags: ['@commerce', '@open-source'] }, () => {
+
+describe('PWA-1424: verify anchor links', { tags: ['@commerce', '@open-source', '@ci'] }, () => {
     it('Verify venia anchor links',  () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(
             'gqlGetProductDetailForProductPageQuery'

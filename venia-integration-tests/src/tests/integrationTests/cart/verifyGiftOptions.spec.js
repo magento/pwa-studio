@@ -42,8 +42,8 @@ const {
     assertCartGiftOptions
 } = cartPageAssertions;
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('verify gift options actions in cart', { tags: ['@commerce'] }, () => {
+
+describe('verify gift options actions in cart', { tags: ['@commerce',  '@ci'] }, () => {
     it('user should be able to add and update gift options', () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(
             'gqlGetProductDetailForProductPageQuery'

@@ -6,7 +6,7 @@ import { clickOnfooterLinks } from '../../../actions/footer';
 
 const { getCMSPage } = graphqlMockedCallsFixtures;
 
-describe('About Us Page', { tags: ['@commerce', '@open-source'] },() => {
+describe('About Us Page', { tags: ['@commerce', '@open-source', '@ci'] },() => {
     it('Verify content', () => {
         cy.visit(homePageFixtures.homePage);
         cy.scrollTo('bottom');
