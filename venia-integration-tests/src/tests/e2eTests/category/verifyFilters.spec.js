@@ -36,200 +36,211 @@ const {
     assertPaginationActivePage
 } = categoryPageAssertions;
 
+describe(
+    'PWA-1402: verify filter actions',
+    { tags: ['@commerce', '@open-source', '@ci'] },
+    () => {
+        it('user should be able to filter results in Category and Search pages', () => {
+            cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
+            cy.intercept('GET', getCategoryDataCall).as(
+                'gqlGetCategoryDataQuery'
+            );
+            cy.intercept('GET', getProductFiltersByCategoryCall).as(
+                'gqlGetProductFiltersByCategoryQuery'
+            );
+            cy.intercept('GET', getProductFiltersBySearchCall).as(
+                'gqlGetProductFiltersBySearchQuery'
+            );
+            cy.intercept('GET', getProductSearchCall).as(
+                'gqlGetProductSearchQuery'
+            );
 
-describe('PWA-1402: verify filter actions', { tags: ['@commerce', '@open-source', '@ci'] },() => {
-    it('user should be able to filter results in Category and Search pages', () => {
-        cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
-        cy.intercept('GET', getCategoryDataCall).as('gqlGetCategoryDataQuery');
-        cy.intercept('GET', getProductFiltersByCategoryCall).as(
-            'gqlGetProductFiltersByCategoryQuery'
-        );
-        cy.intercept('GET', getProductFiltersBySearchCall).as(
-            'gqlGetProductFiltersBySearchQuery'
-        );
-        cy.intercept('GET', getProductSearchCall).as(
-            'gqlGetProductSearchQuery'
-        );
+            // Test - Add simple product to cart from Product Page
+            cy.visit(categoryTops.url);
 
-        // Test - Add simple product to cart from Product Page
-        cy.visit(categoryTops.url);
+            cy.wait(
+                [
+                    '@gqlGetCategoriesQuery',
+                    '@gqlGetCategoryDataQuery',
+                    '@gqlGetProductFiltersByCategoryQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
 
-        cy.wait(
-            [
-                '@gqlGetCategoriesQuery',
-                '@gqlGetCategoryDataQuery',
-                '@gqlGetProductFiltersByCategoryQuery'
-            ],
-            {
+            assertCategoryTitle(categoryTops.name);
+
+            // Test - Desktop - Add and clear Price filter
+            selectFilterFromList(
+                filtersData.price.name,
+                filtersData.price.defaultOption,
+                false
+            );
+
+            cy.wait(['@gqlGetCategoriesQuery'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        assertCategoryTitle(categoryTops.name);
+            assertNoPagination();
+            clearFilters(false);
 
-        // Test - Desktop - Add and clear Price filter
-        selectFilterFromList(
-            filtersData.price.name,
-            filtersData.price.defaultOption,
-            false
-        );
-
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
-
-        assertNoPagination();
-        clearFilters(false);
-
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
-
-        assertCategoryTitle(categoryTops.name);
-        assertPaginationActivePage(1);
-
-        // Test - Desktop - Add Color and Material filters
-        toggleFilterList(filtersData.color.name, false);
-        selectFilterFromList(
-            filtersData.color.name,
-            filtersData.color.defaultOption,
-            false
-        );
-        toggleFilterList(filtersData.material.name, false);
-        selectFilterFromList(
-            filtersData.material.name,
-            filtersData.material.defaultOption,
-            false
-        );
-
-        assertNoProductsFound();
-
-        // Test - Desktop - Search for category Top and filter results
-        triggerSearch();
-        searchFromSearchBar(categoryTops.name);
-
-        cy.wait(
-            ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
-            {
+            cy.wait(['@gqlGetCategoriesQuery'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        selectFilterFromList(
-            filtersData.price.name,
-            filtersData.price.defaultOption,
-            false
-        );
-        selectFilterFromList(
-            filtersData.category.name,
-            filtersData.category.defaultOption,
-            false
-        );
-        assertProductsFound();
-        assertNoPagination();
-        clearFilters(false);
+            assertCategoryTitle(categoryTops.name);
+            assertPaginationActivePage(1);
 
-        cy.wait(['@gqlGetProductSearchQuery'], {
-            timeout: 60000
-        });
+            // Test - Desktop - Add Color and Material filters
+            toggleFilterList(filtersData.color.name, false);
+            selectFilterFromList(
+                filtersData.color.name,
+                filtersData.color.defaultOption,
+                false
+            );
+            toggleFilterList(filtersData.material.name, false);
+            selectFilterFromList(
+                filtersData.material.name,
+                filtersData.material.defaultOption,
+                false
+            );
 
-        assertPaginationActivePage(1);
+            assertNoProductsFound();
 
-        // Test - Mobile - Add and clear Price filter
-        cy.viewport(375, 812);
-        cy.visit(categoryTops.url);
+            // Test - Desktop - Search for category Top and filter results
+            triggerSearch();
+            searchFromSearchBar(categoryTops.name);
 
-        cy.wait(
-            [
-                '@gqlGetCategoriesQuery',
-                '@gqlGetCategoryDataQuery',
-                '@gqlGetProductFiltersByCategoryQuery'
-            ],
-            {
+            cy.wait(
+                [
+                    '@gqlGetProductFiltersBySearchQuery',
+                    '@gqlGetProductSearchQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
+
+            selectFilterFromList(
+                filtersData.price.name,
+                filtersData.price.defaultOption,
+                false
+            );
+            selectFilterFromList(
+                filtersData.category.name,
+                filtersData.category.defaultOption,
+                false
+            );
+            assertProductsFound();
+            assertNoPagination();
+            clearFilters(false);
+
+            cy.wait(['@gqlGetProductSearchQuery'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        // Test - Mobile - Add and clear Price filter
-        toggleFilterModal();
-        toggleFilterBlock(filtersData.price.name);
-        selectFilterFromList(
-            filtersData.price.name,
-            filtersData.price.defaultOption
-        );
-        applyFiltersFromFilterModal();
+            assertPaginationActivePage(1);
 
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
+            // Test - Mobile - Add and clear Price filter
+            cy.viewport(375, 812);
+            cy.visit(categoryTops.url);
 
-        assertCategoryTitle(categoryTops.name);
-        assertNoPagination();
-        toggleFilterModal();
-        clearFilter(filtersData.price.defaultOption);
-        applyFiltersFromFilterModal();
+            cy.wait(
+                [
+                    '@gqlGetCategoriesQuery',
+                    '@gqlGetCategoryDataQuery',
+                    '@gqlGetProductFiltersByCategoryQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
 
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
+            // Test - Mobile - Add and clear Price filter
+            toggleFilterModal();
+            toggleFilterBlock(filtersData.price.name);
+            selectFilterFromList(
+                filtersData.price.name,
+                filtersData.price.defaultOption
+            );
+            applyFiltersFromFilterModal();
 
-        // Test - Mobile - Add Color and Material filters
-        toggleFilterModal();
-        toggleFilterBlock(filtersData.color.name);
-        toggleFilterList(filtersData.color.name);
-        selectFilterFromList(
-            filtersData.color.name,
-            filtersData.color.defaultOption
-        );
-        toggleFilterBlock(filtersData.material.name);
-        toggleFilterList(filtersData.material.name);
-        selectFilterFromList(
-            filtersData.material.name,
-            filtersData.material.defaultOption
-        );
-        applyFiltersFromFilterModal();
-
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
-
-        assertNoProductsFound();
-
-        // Test - Mobile - Search for category Top and filter results
-        triggerSearch();
-        searchFromSearchBar(categoryTops.name);
-
-        cy.wait(
-            ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
-            {
+            cy.wait(['@gqlGetCategoriesQuery'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        toggleFilterModal();
-        toggleFilterBlock(filtersData.price.name);
-        selectFilterFromList(
-            filtersData.price.name,
-            filtersData.price.defaultOption
-        );
-        applyFiltersFromFilterModal();
-        toggleFilterModal();
-        toggleFilterBlock(filtersData.category.name);
-        selectFilterFromList(
-            filtersData.category.name,
-            filtersData.category.defaultOption
-        );
-        applyFiltersFromFilterModal();
-        assertProductsFound();
-        assertNoPagination();
-        toggleFilterModal();
-        clearFilters();
-        applyFiltersFromFilterModal();
+            assertCategoryTitle(categoryTops.name);
+            assertNoPagination();
+            toggleFilterModal();
+            clearFilter(filtersData.price.defaultOption);
+            applyFiltersFromFilterModal();
 
-        cy.wait(['@gqlGetProductSearchQuery'], {
-            timeout: 60000
+            cy.wait(['@gqlGetCategoriesQuery'], {
+                timeout: 60000
+            });
+
+            // Test - Mobile - Add Color and Material filters
+            toggleFilterModal();
+            toggleFilterBlock(filtersData.color.name);
+            toggleFilterList(filtersData.color.name);
+            selectFilterFromList(
+                filtersData.color.name,
+                filtersData.color.defaultOption
+            );
+            toggleFilterBlock(filtersData.material.name);
+            toggleFilterList(filtersData.material.name);
+            selectFilterFromList(
+                filtersData.material.name,
+                filtersData.material.defaultOption
+            );
+            applyFiltersFromFilterModal();
+
+            cy.wait(['@gqlGetCategoriesQuery'], {
+                timeout: 60000
+            });
+
+            assertNoProductsFound();
+
+            // Test - Mobile - Search for category Top and filter results
+            triggerSearch();
+            searchFromSearchBar(categoryTops.name);
+
+            cy.wait(
+                [
+                    '@gqlGetProductFiltersBySearchQuery',
+                    '@gqlGetProductSearchQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
+
+            toggleFilterModal();
+            toggleFilterBlock(filtersData.price.name);
+            selectFilterFromList(
+                filtersData.price.name,
+                filtersData.price.defaultOption
+            );
+            applyFiltersFromFilterModal();
+            toggleFilterModal();
+            toggleFilterBlock(filtersData.category.name);
+            selectFilterFromList(
+                filtersData.category.name,
+                filtersData.category.defaultOption
+            );
+            applyFiltersFromFilterModal();
+            assertProductsFound();
+            assertNoPagination();
+            toggleFilterModal();
+            clearFilters();
+            applyFiltersFromFilterModal();
+
+            cy.wait(['@gqlGetProductSearchQuery'], {
+                timeout: 60000
+            });
+
+            assertPaginationActivePage(1);
         });
-
-        assertPaginationActivePage(1);
-    });
-});
+    }
+);

@@ -19,53 +19,56 @@ const {
     assertNoProductSuggestion
 } = categoryPageAssertions;
 
+describe(
+    'PWA-1400: verify user search suggestion actions',
+    { tags: ['@commerce', '@open-source', '@ci'] },
+    () => {
+        it('user should be able search with different inputs and view different suggestions', () => {
+            cy.intercept('GET', getAutocompleteResultsCall).as(
+                'gqlGetAutocompleteResultsQuery'
+            );
+            cy.intercept('GET', getProductFiltersBySearchCall).as(
+                'gqlGetProductFiltersBySearchQuery'
+            );
+            cy.intercept('GET', getProductSearchCall).as(
+                'gqlGetProductSearchQuery'
+            );
 
-describe('PWA-1400: verify user search suggestion actions', { tags: ['@commerce', '@open-source', '@ci'] },() => {
-    it('user should be able search with different inputs and view different suggestions', () => {
-        cy.intercept('GET', getAutocompleteResultsCall).as(
-            'gqlGetAutocompleteResultsQuery'
-        );
-        cy.intercept('GET', getProductFiltersBySearchCall).as(
-            'gqlGetProductFiltersBySearchQuery'
-        );
-        cy.intercept('GET', getProductSearchCall).as(
-            'gqlGetProductSearchQuery'
-        );
+            cy.visitHomePage();
 
-        cy.visitHomePage();
+            // Test - Search by valid SKU - 1
+            triggerSearch();
+            searchFromSearchBar(searchData.validSku1, false);
 
-        // Test - Search by valid SKU - 1
-        triggerSearch();
-        searchFromSearchBar(searchData.validSku1, false);
+            cy.wait(['@gqlGetAutocompleteResultsQuery'], {
+                timeout: 60000
+            });
 
-        cy.wait(['@gqlGetAutocompleteResultsQuery'], {
-            timeout: 60000
+            assertProductIsInProductSuggestion(
+                searchData.validProductName1,
+                searchData.validProductHref1
+            );
+
+            // Test - Search by valid SKU - 2
+            searchFromSearchBar(searchData.validSku2, false);
+
+            cy.wait(['@gqlGetAutocompleteResultsQuery'], {
+                timeout: 60000
+            });
+
+            assertProductIsInProductSuggestion(
+                searchData.validProductName2,
+                searchData.validProductHref2
+            );
+
+            // Test - Search by invalid SKU
+            searchFromSearchBar(searchData.invalidSku, false);
+
+            cy.wait(['@gqlGetAutocompleteResultsQuery'], {
+                timeout: 60000
+            });
+
+            assertNoProductSuggestion();
         });
-
-        assertProductIsInProductSuggestion(
-            searchData.validProductName1,
-            searchData.validProductHref1
-        );
-
-        // Test - Search by valid SKU - 2
-        searchFromSearchBar(searchData.validSku2, false);
-
-        cy.wait(['@gqlGetAutocompleteResultsQuery'], {
-            timeout: 60000
-        });
-
-        assertProductIsInProductSuggestion(
-            searchData.validProductName2,
-            searchData.validProductHref2
-        );
-
-        // Test - Search by invalid SKU
-        searchFromSearchBar(searchData.invalidSku, false);
-
-        cy.wait(['@gqlGetAutocompleteResultsQuery'], {
-            timeout: 60000
-        });
-
-        assertNoProductSuggestion();
-    });
-});
+    }
+);

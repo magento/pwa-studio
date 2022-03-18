@@ -36,57 +36,62 @@ const {
     assertCategoryInMegaMenu
 } = categoryPageAssertions;
 
+describe(
+    'PWA-1409: verify category access',
+    { tags: ['@commerce', '@open-source', '@ci'] },
+    () => {
+        it('user should be able to access the Categories via Home page and from Main Menu left drawer', () => {
+            cy.intercept('GET', getCategoryDataCall).as(
+                'getCategoryDataCallQuery'
+            );
+            cy.intercept('GET', getCMSPage).as('gqlGetCMSPageQuery');
 
-describe('PWA-1409: verify category access', { tags: ['@commerce', '@open-source', '@ci'] },() => {
-    it('user should be able to access the Categories via Home page and from Main Menu left drawer', () => {
-        cy.intercept('GET', getCategoryDataCall).as('getCategoryDataCallQuery');
-        cy.intercept('GET', getCMSPage).as('gqlGetCMSPageQuery');
+            const getNavigationMenuCall =
+                '**/graphql?query=query+GetNavigationMenu*';
+            cy.intercept('GET', getNavigationMenuCall).as(
+                'gqlGetNavigationMenuQuery'
+            );
 
-        const getNavigationMenuCall =
-            '**/graphql?query=query+GetNavigationMenu*';
-        cy.intercept('GET', getNavigationMenuCall).as(
-            'gqlGetNavigationMenuQuery'
-        );
+            // Test - Mobile Navigation
+            cy.viewport(375, 812);
+            cy.visit(homePage);
 
-        // Test - Mobile Navigation
-        cy.viewport(375, 812);
-        cy.visit(homePage);
+            cy.wait(['@gqlGetCMSPageQuery'], {
+                timeout: 60000
+            });
 
-        cy.wait(['@gqlGetCMSPageQuery'], {
-            timeout: 60000
+            toggleHeaderNav();
+            selectCategoryFromTree(categoryBottoms);
+            assertCategoryInTree(categorySkirts);
+
+            // Test - Desktop Navigation
+            closeAppMask();
+            cy.viewport(1280, 1024);
+
+            hoverCategoryFromMegaMenu(categoryAccessories);
+            assertCategoryInMegaMenu(categoryBelts);
+            selectCategoryFromMegaMenu(categoryBelts);
+
+            cy.wait(['@getCategoryDataCallQuery'], {
+                timeout: 60000
+            });
+
+            assertCategoryTitle(categoryBelts);
+
+            // Test - Navigation from CMS Content
+            cy.visit(homePage);
+
+            cy.wait(['@gqlGetCMSPageQuery'], {
+                timeout: 60000
+            });
+
+            clickOnBannerElementContaining(buttonShopNow);
+
+            cy.wait(['@getCategoryDataCallQuery'], {
+                timeout: 60000
+            });
+
+            assertCategoryTitle(categoryShopTheLook);
         });
-
-        toggleHeaderNav();
-        selectCategoryFromTree(categoryBottoms);
-        assertCategoryInTree(categorySkirts);
-
-        // Test - Desktop Navigation
-        closeAppMask();
-        cy.viewport(1280, 1024);
-
-        hoverCategoryFromMegaMenu(categoryAccessories);
-        assertCategoryInMegaMenu(categoryBelts);
-        selectCategoryFromMegaMenu(categoryBelts);
-
-        cy.wait(['@getCategoryDataCallQuery'], {
-            timeout: 60000
-        });
-
-        assertCategoryTitle(categoryBelts);
-
-        // Test - Navigation from CMS Content
-        cy.visit(homePage);
-
-        cy.wait(['@gqlGetCMSPageQuery'], {
-            timeout: 60000
-        });
-
-        clickOnBannerElementContaining(buttonShopNow);
-
-        cy.wait(['@getCategoryDataCallQuery'], {
-            timeout: 60000
-        });
-
-        assertCategoryTitle(categoryShopTheLook);
-    });
-});
+    }
+);

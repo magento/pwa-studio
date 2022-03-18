@@ -46,104 +46,114 @@ const {
 } = accountInformationPageAssertions;
 const { assertCreateAccount, assertSignedOut } = myAccountMenuAssertions;
 
+describe(
+    'PWA-1423: verify customer account actions',
+    { tags: ['@commerce', '@open-source', '@ci'] },
+    () => {
+        it('user should be able to create a new account and edit their information', () => {
+            // Test - Create an account
+            cy.intercept('POST', hitGraphqlPath, req => {
+                aliasMutation(req, 'ChangeCustomerPassword');
+                aliasMutation(req, 'CreateAccount');
+                aliasMutation(req, 'createCart');
+                aliasMutation(req, 'requestPasswordResetEmail');
+                aliasMutation(req, 'SetCustomerInformation');
+                aliasMutation(req, 'SignIn');
+                aliasMutation(req, 'SignInAfterCreate');
+            });
 
-describe('PWA-1423: verify customer account actions', { tags: ['@commerce', '@open-source', '@ci'] },() => {
-    it('user should be able to create a new account and edit their information', () => {
-        // Test - Create an account
-        cy.intercept('POST', hitGraphqlPath, req => {
-            aliasMutation(req, 'ChangeCustomerPassword');
-            aliasMutation(req, 'CreateAccount');
-            aliasMutation(req, 'createCart');
-            aliasMutation(req, 'requestPasswordResetEmail');
-            aliasMutation(req, 'SetCustomerInformation');
-            aliasMutation(req, 'SignIn');
-            aliasMutation(req, 'SignInAfterCreate');
-        });
+            cy.visitPage(homePage);
 
-        cy.visitPage(homePage);
+            cy.toggleLoginDialog();
+            cy.createAccount(
+                accountAccessFixtures.firstName,
+                lastName,
+                accountEmail,
+                accountPassword
+            );
 
-        cy.toggleLoginDialog();
-        cy.createAccount(
-            accountAccessFixtures.firstName,
-            lastName,
-            accountEmail,
-            accountPassword
-        );
+            cy.wait(
+                ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
+                {
+                    timeout: 60000
+                }
+            );
 
-        cy.wait(
-            ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
-            {
+            assertCreateAccount(firstName);
+
+            // Test - Edit Account Information
+            goToMyAccount(firstName, accountInformationPage);
+
+            assertAccountInformationHeading(accountInformationPage);
+            assertAccountInformationEditButton();
+
+            openAccountInformationEditModal();
+            assertAccountInformationEditHeading(
+                accountInformationEditModalTitle
+            );
+
+            editAccountInformation(
+                updatedFirstName,
+                updatedLastName,
+                updatedAccountEmail,
+                accountPassword
+            );
+
+            cy.wait(['@gqlSetCustomerInformationMutation'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        assertCreateAccount(firstName);
+            // Test - Edit Account Information Password
+            openAccountInformationEditModal();
+            assertAccountInformationEditHeading(
+                accountInformationEditModalTitle
+            );
 
-        // Test - Edit Account Information
-        goToMyAccount(firstName, accountInformationPage);
+            editAccountInformationPassword(
+                accountPassword,
+                updatedAccountPassword
+            );
 
-        assertAccountInformationHeading(accountInformationPage);
-        assertAccountInformationEditButton();
+            cy.wait(['@gqlChangeCustomerPasswordMutation'], {
+                timeout: 60000
+            });
 
-        openAccountInformationEditModal();
-        assertAccountInformationEditHeading(accountInformationEditModalTitle);
+            // Test - Sign Out
+            cy.toggleLoginDialog();
+            cy.signOutAccount();
 
-        editAccountInformation(
-            updatedFirstName,
-            updatedLastName,
-            updatedAccountEmail,
-            accountPassword
-        );
+            // Wait for page refresh
+            cy.wait(5000);
 
-        cy.wait(['@gqlSetCustomerInformationMutation'], {
-            timeout: 60000
+            cy.wait(['@gqlcreateCartMutation'], {
+                timeout: 60000
+            });
+
+            assertSignedOut();
+
+            // Test - Reset Password
+            cy.toggleLoginDialog();
+
+            cy.resetPassword(updatedAccountEmail);
+
+            cy.wait(['@gqlrequestPasswordResetEmailMutation'], {
+                timeout: 60000
+            });
+
+            assertResetPasswordSuccess(updatedAccountEmail);
+
+            // Close menu
+            cy.toggleLoginDialog();
+
+            // Test - Sign In with updated email and updated password
+            cy.toggleLoginDialog();
+            cy.signInAccount(updatedAccountEmail, updatedAccountPassword);
+
+            cy.wait(['@gqlSignInMutation'], {
+                timeout: 60000
+            });
+
+            assertCreateAccount(updatedFirstName);
         });
-
-        // Test - Edit Account Information Password
-        openAccountInformationEditModal();
-        assertAccountInformationEditHeading(accountInformationEditModalTitle);
-
-        editAccountInformationPassword(accountPassword, updatedAccountPassword);
-
-        cy.wait(['@gqlChangeCustomerPasswordMutation'], {
-            timeout: 60000
-        });
-
-        // Test - Sign Out
-        cy.toggleLoginDialog();
-        cy.signOutAccount();
-
-        // Wait for page refresh
-        cy.wait(5000);
-
-        cy.wait(['@gqlcreateCartMutation'], {
-            timeout: 60000
-        });
-
-        assertSignedOut();
-
-        // Test - Reset Password
-        cy.toggleLoginDialog();
-
-        cy.resetPassword(updatedAccountEmail);
-
-        cy.wait(['@gqlrequestPasswordResetEmailMutation'], {
-            timeout: 60000
-        });
-
-        assertResetPasswordSuccess(updatedAccountEmail);
-
-        // Close menu
-        cy.toggleLoginDialog();
-
-        // Test - Sign In with updated email and updated password
-        cy.toggleLoginDialog();
-        cy.signInAccount(updatedAccountEmail, updatedAccountPassword);
-
-        cy.wait(['@gqlSignInMutation'], {
-            timeout: 60000
-        });
-
-        assertCreateAccount(updatedFirstName);
-    });
-});
+    }
+);
