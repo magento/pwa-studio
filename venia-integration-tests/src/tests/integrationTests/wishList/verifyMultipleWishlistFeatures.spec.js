@@ -61,7 +61,7 @@ const {
 } = graphqlMockedCallsFixtures;
 
 
-describe('PWA-1782: verify single wishlist basic features', { tags: ['@commerce', '@open-source', '@ci'] },() => {
+describe('PWA-1782: verify multiple wishlist basic features', { tags: ['@commerce', '@ci'] },() => {
     it('user should be able to add and remove products from wishlist', () => {
         cy.intercept('POST', hitGraphqlPath, req => {
             aliasMutation(req, 'CreateAccount');

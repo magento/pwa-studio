@@ -1,6 +1,6 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('PWA-1165: verify pagebuilder smoke test content', { tags: ['@commerce', '@open-source', '@ci'] },() => {
+describe('PWA-1165: verify pagebuilder smoke test content', { tags: ['@commerce', '@ci'] },() => {
     it('verify smoke test content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/smokeTest/smokeTest.json'
