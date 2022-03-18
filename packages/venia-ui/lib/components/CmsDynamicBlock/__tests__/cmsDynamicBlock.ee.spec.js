@@ -52,7 +52,7 @@ const givenUnknownType = () => {
     };
 };
 
-describe('#CmsDynamicBlock EE', () => {
+describe('#CmsDynamicBlock AC', () => {
     beforeEach(() => {
         givenDefaultValues();
     });

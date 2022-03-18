@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "11.1.0",
+  "version": "11.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -19,7 +19,7 @@
     "babel",
     "webpack"
   ],
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"

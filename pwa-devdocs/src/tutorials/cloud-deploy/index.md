@@ -3,12 +3,12 @@ title: Magento Cloud deployment
 adobeio: /tutorials/production-deployment/adobe-commerce/
 ---
 
-[Magento Commerce Cloud][] is a managed, automated hosting platform for the Magento Commerce software.
+[Adobe Commerce Cloud][] is a managed, automated hosting platform for the Adobe Commerce software.
 You can use this platform to host your storefront code by installing packages developed specifically to connect your storefront with Magento on the same server.
 
-This tutorial provides the general steps for adding your storefront onto your Magento Commerce Cloud project and setting it as the front end application.
+This tutorial provides the general steps for adding your storefront onto your Adobe Commerce Cloud project and setting it as the front end application.
 By the end of this tutorial, you will have a Cloud project setup that includes your storefront project's code bundles.
-You can use this setup to update and deploy your storefront project in Magento Commerce Cloud.
+You can use this setup to update and deploy your storefront project in Adobe Commerce Cloud.
 
 ## Prerequisites
 
@@ -121,14 +121,14 @@ you do not need to add it manually to your project.
 
 PWA Studio storefronts require you to set the following [environment variables][] in your project for the build and runtime processes:
 
-| Name                                 | Buildtime                                     | Runtime                                       | Description                                                       |
-| ------------------------------------ | --------------------------------------------- | --------------------------------------------- | ----------------------------------------------------------------- |
-| `CONFIG__DEFAULT__WEB__UPWARD__PATH` |                                               | <i class="material-icons green">check_box</i> | Absolute path to UPWARD YAML configuration                        |
-| `NODE_ENV`                           | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> | Specifies the node environment type                               |
-| `MAGENTO_BACKEND_URL`                | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> | URL of your Magento backend                                       |
-| `CHECKOUT_BRAINTREE_TOKEN`           | <i class="material-icons green">check_box</i> |                                               | Braintree token associated with your Magento backend              |
-| `MAGENTO_BACKEND_EDITION`            | <i class="material-icons green">check_box</i> |                                               | Must be `EE` since Cloud only supports Magento Enterprise Edition |
-| `IMAGE_OPTIMIZING_ORIGIN`            | <i class="material-icons green">check_box</i> |                                               | Origin to use for images in the UI                                |
+| Name                                 | Buildtime                                     | Runtime                                       | Description                                           |
+| ------------------------------------ | --------------------------------------------- | --------------------------------------------- |-------------------------------------------------------|
+| `CONFIG__DEFAULT__WEB__UPWARD__PATH` |                                               | <i class="material-icons green">check_box</i> | Absolute path to UPWARD YAML configuration            |
+| `NODE_ENV`                           | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> | Specifies the node environment type                   |
+| `MAGENTO_BACKEND_URL`                | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> | URL of your Magento backend                           |
+| `CHECKOUT_BRAINTREE_TOKEN`           | <i class="material-icons green">check_box</i> |                                               | Braintree token associated with your Magento backend  |
+| `MAGENTO_BACKEND_EDITION`            | <i class="material-icons green">check_box</i> |                                               | Must be `AC` since Cloud only supports Adobe Commerce |
+| `IMAGE_OPTIMIZING_ORIGIN`            | <i class="material-icons green">check_box</i> |                                               | Origin to use for images in the UI                    |
 
 ### Set runtime variables
 
@@ -151,7 +151,7 @@ Your `.env` file should have entries that look like the following:
 NODE_ENV=production
 MAGENTO_BACKEND_URL=https://[your-cloud-url-here]/
 CHECKOUT_BRAINTREE_TOKEN=<generated token from Braintree>
-MAGENTO_BACKEND_EDITION=EE
+MAGENTO_BACKEND_EDITION=AC
 IMAGE_OPTIMIZING_ORIGIN=backend
 ENABLE_EXPRESS_SERVER_COMPRESSION=false
 ```
@@ -211,7 +211,7 @@ git commit -m "Added storefront file bundles" &&
 git push origin
 ```
 
-After you push changes to your Cloud project, the remote build process runs and deploys a live instance of your site to the Magento Commerce Cloud service.
+After you push changes to your Cloud project, the remote build process runs and deploys a live instance of your site to the Adobe Commerce Cloud service.
 
 ### Merging environments
 
@@ -234,7 +234,7 @@ variables, such as `CONFIG__DEFAULT__WEB__UPWARD__PATH` and `MAGENTO_BACKEND_URL
 [magento2-upward-connector]: https://github.com/magento/magento2-upward-connector
 [upward-php]: https://github.com/magento/upward-php
 
-[magento commerce cloud]: https://devdocs.magento.com/cloud/bk-cloud.html
+[adobe commerce cloud]: https://devdocs.magento.com/cloud/bk-cloud.html
 [features and workflows]: https://devdocs.magento.com/cloud/architecture/cloud-architecture.html
 [starter workflow]: https://devdocs.magento.com/cloud/architecture/starter-develop-deploy-workflow.html
 [pro workflow]: https://devdocs.magento.com/cloud/architecture/pro-develop-deploy-workflow.html

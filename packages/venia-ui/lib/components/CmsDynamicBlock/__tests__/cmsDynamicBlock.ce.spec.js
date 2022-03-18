@@ -8,7 +8,7 @@ const Component = () => {
     return <CmsDynamicBlock />;
 };
 
-describe('#CmsDynamicBlock CE', () => {
+describe('#CmsDynamicBlock MOS', () => {
     it('renders', () => {
         const tree = createTestInstance(<Component />);
 

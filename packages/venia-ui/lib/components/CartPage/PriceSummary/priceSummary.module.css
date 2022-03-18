@@ -14,10 +14,12 @@
 }
 
 .lineItemLabel {
+    composes: my-2 from global;
     justify-self: start;
 }
 
 .price {
+    composes: self-center from global;
     justify-self: end;
 }
 

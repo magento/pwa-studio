@@ -10,6 +10,6 @@
     "clean": " "
   },
   "repository": "https://github.com/github:magento/pwa-studio",
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)"
 }

@@ -102,74 +102,92 @@ const PriceSummary = props => {
 
     return (
         <div className={classes.root} data-cy="PriceSummary-root">
-            <div className={classes.lineItems}>
-                <span
-                    data-cy="PriceSummary-lineItemLabel"
-                    className={classes.lineItemLabel}
-                >
-                    <FormattedMessage
-                        id={'priceSummary.lineItemLabel'}
-                        defaultMessage={'Subtotal'}
+            <div>
+                <ul>
+                    <li className={classes.lineItems}>
+                        <span
+                            data-cy="PriceSummary-lineItemLabel"
+                            className={classes.lineItemLabel}
+                        >
+                            <FormattedMessage
+                                id={'priceSummary.lineItemLabel'}
+                                defaultMessage={'Subtotal'}
+                            />
+                        </span>
+                        <span
+                            data-cy="PriceSummary-subtotalValue"
+                            className={priceClass}
+                        >
+                            <Price
+                                value={subtotal.value}
+                                currencyCode={subtotal.currency}
+                            />
+                        </span>
+                    </li>
+                    <DiscountSummary
+                        classes={{
+                            lineItems: classes.lineItems,
+                            lineItemLabel: classes.lineItemLabel,
+                            price: priceClass
+                        }}
+                        data={discounts}
                     />
-                </span>
-                <span
-                    data-cy="PriceSummary-subtotalValue"
-                    className={priceClass}
-                >
-                    <Price
-                        value={subtotal.value}
-                        currencyCode={subtotal.currency}
-                    />
-                </span>
-                <DiscountSummary
-                    classes={{
-                        lineItemLabel: classes.lineItemLabel,
-                        price: priceClass
-                    }}
-                    data={discounts}
-                />
-                <GiftCardSummary
-                    classes={{
-                        lineItemLabel: classes.lineItemLabel,
-                        price: priceClass
-                    }}
-                    data={giftCards}
-                />
-                <GiftOptionsSummary
-                    classes={{
-                        lineItemLabel: classes.lineItemLabel,
-                        price: priceClass
-                    }}
-                    data={giftOptions}
-                />
-                <TaxSummary
-                    classes={{
-                        lineItemLabel: classes.lineItemLabel,
-                        price: priceClass
-                    }}
-                    data={taxes}
-                    isCheckout={isCheckout}
-                />
-                <ShippingSummary
-                    classes={{
-                        lineItemLabel: classes.lineItemLabel,
-                        price: priceClass
-                    }}
-                    data={shipping}
-                    isCheckout={isCheckout}
-                />
-                <span
-                    data-cy="PriceSummary-totalLabel"
-                    className={classes.totalLabel}
-                >
-                    {totalPriceLabel}
-                </span>
-                <span
-                    data-cy="PriceSummary-totalValue"
-                    className={totalPriceClass}
-                >
-                    <Price value={total.value} currencyCode={total.currency} />
-                </span>
+                    <li className={classes.lineItems}>
+                        <GiftCardSummary
+                            classes={{
+                                lineItemLabel: classes.lineItemLabel,
+                                price: priceClass
+                            }}
+                            data={giftCards}
+                        />
+                    </li>
+                    <li className={classes.lineItems}>
+                        <GiftOptionsSummary
+                            classes={{
+                                lineItemLabel: classes.lineItemLabel,
+                                price: priceClass
+                            }}
+                            data={giftOptions}
+                        />
+                    </li>
+                    <li className={classes.lineItems}>
+                        <TaxSummary
+                            classes={{
+                                lineItemLabel: classes.lineItemLabel,
+                                price: priceClass
+                            }}
+                            data={taxes}
+                            isCheckout={isCheckout}
+                        />
+                    </li>
+                    <li className={classes.lineItems}>
+                        <ShippingSummary
+                            classes={{
+                                lineItemLabel: classes.lineItemLabel,
+                                price: priceClass
+                            }}
+                            data={shipping}
+                            isCheckout={isCheckout}
+                        />
+                    </li>
+                    <li className={classes.lineItems}>
+                        <span
+                            data-cy="PriceSummary-totalLabel"
+                            className={classes.totalLabel}
+                        >
+                            {totalPriceLabel}
+                        </span>
+                        <span
+                            data-cy="PriceSummary-totalValue"
+                            className={totalPriceClass}
+                        >
+                            <Price
+                                value={total.value}
+                                currencyCode={total.currency}
+                            />
+                        </span>
+                    </li>
+                </ul>
             </div>
             {proceedToCheckoutButton}
         </div>

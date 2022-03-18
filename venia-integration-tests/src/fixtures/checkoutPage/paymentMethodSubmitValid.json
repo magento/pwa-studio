@@ -1,0 +1,16 @@
+{
+    "data": {
+        "setPaymentMethodOnCart": {
+            "cart": {
+                "id": "4LQ2mSwA5A1Ej3YOb03k69bnXuejZLak",
+                "selected_payment_method": {
+                    "code": "braintree",
+                    "title": "Credit Card",
+                    "__typename": "SelectedPaymentMethod"
+                },
+                "__typename": "Cart"
+            },
+            "__typename": "SetPaymentMethodOnCartOutput"
+        }
+    }
+}

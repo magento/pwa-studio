@@ -1,9 +1,9 @@
-import eeOperations from '../gallery.gql.ee';
-import ceOperations from '../gallery.gql.ce';
+import acOperations from '../gallery.gql.ee';
+import mosOperations from '../gallery.gql.ce';
 
-export const mockGetStoreConfigEE = {
+export const mockGetStoreConfigAC = {
     request: {
-        query: eeOperations.getStoreConfigQuery
+        query: acOperations.getStoreConfigQuery
     },
     result: {
         data: {
@@ -17,9 +17,9 @@ export const mockGetStoreConfigEE = {
     }
 };
 
-export const mockGetStoreConfigCE = {
+export const mockGetStoreConfigMOS = {
     request: {
-        query: ceOperations.getStoreConfigQuery
+        query: mosOperations.getStoreConfigQuery
     },
     result: {
         data: {

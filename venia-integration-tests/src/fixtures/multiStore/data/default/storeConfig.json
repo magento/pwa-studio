@@ -1,6 +1,9 @@
 {
   "data": {
     "storeConfig": {
+      "allow_gift_receipt": "0",
+      "allow_order": "0",
+      "allow_printed_card": "0",
       "store_code": "default",
       "root_category_uid": "Mg==",
       "contact_enabled": true,
