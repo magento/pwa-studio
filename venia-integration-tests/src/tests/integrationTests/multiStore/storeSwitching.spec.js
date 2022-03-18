@@ -979,6 +979,7 @@ describe('shopping cart', () => {
         cy.wait(['@mockProduct2RouteData']);
 
         setProductColorOption('Khaki');
+        setProductSizeOption('S'); // This variant is disabled, make sure error is not thrown
         setProductSizeOption('M');
         addToCartFromProductPage();
 
