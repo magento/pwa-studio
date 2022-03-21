@@ -12,7 +12,7 @@ describe('About Us Page', () => {
         cy.scrollTo('bottom');
         clickOnfooterLinks('About Us');
         cy.intercept('GET', getCMSPage, {
-            fixture: 'customerService/customerService.json'
+            fixture: 'aboutUsPage/aboutUsPage.json'
         }).as('getCMSMockData');
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.loadFullPage().then(() => {
