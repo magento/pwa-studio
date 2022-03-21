@@ -42,7 +42,7 @@ const extend = {
     borderColor: theme => ({
         button: theme('colors.gray.600'),
         error: theme('colors.red.400'),
-        info: theme('colors.emerald.600'),
+        info: theme('colors.green.600'),
         input: theme('colors.gray.600'),
         light: theme('colors.gray.100'),
         shaded: {
@@ -52,8 +52,8 @@ const extend = {
         },
         strong: theme('colors.gray.800'),
         subtle: theme('colors.gray.300'),
-        success: theme('colors.emerald.600'),
-        warning: theme('colors.amber.500')
+        success: theme('colors.green.600'),
+        warning: theme('colors.yellow.500')
     }),
     borderRadius: {
         // Primitive
@@ -179,11 +179,12 @@ const extend = {
         behind: '-1',
         surface: '1',
         foreground: '10',
-        header: '15',
         button: '20',
         buttonHover: '21',
         buttonFocus: '22',
-        dropdown: '50',
+        dropdown: '23',
+        header: '40',
+        headerDropdown: '41',
         mask: '60',
         menu: '70',
         dialog: '80',

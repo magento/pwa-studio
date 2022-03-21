@@ -30,7 +30,7 @@
 
 .addButton {
     composes: border-2 from global;
-    composes: border-solid from global;
+    composes: border-dashed from global;
     composes: border-subtle from global;
     composes: font-semibold from global;
     composes: rounded-md from global;

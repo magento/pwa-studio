@@ -113,7 +113,7 @@
 }
 
 .controls {
-    composes: border from global;
+    composes: border-l from global;
     composes: border-solid from global;
     composes: border-subtle from global;
     composes: pl-3 from global;

@@ -2,7 +2,6 @@
     composes: absolute from global;
     composes: bg-white from global;
     composes: flex-wrap from global;
-    composes: hidden from global;
     composes: justify-between from global;
     composes: left-0 from global;
     composes: px-3 from global;
@@ -24,9 +23,13 @@
     top: 0;
 }
 
+.submenu_inactive {
+    composes: submenu;
+    composes: hidden from global;
+}
+
 .submenu_active {
     composes: submenu;
-
     composes: flex from global;
 }
 

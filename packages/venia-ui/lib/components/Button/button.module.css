@@ -25,9 +25,11 @@
     composes: active_border-brand-darkest from global;
     composes: active_text-brand-darkest from global;
 
+    composes: disabled_bg-gray-400 from global;
     composes: disabled_border-gray-400 from global;
+    composes: disabled_opacity-50 from global;
     composes: disabled_pointer-events-none from global;
-    composes: disabled_text-gray-400 from global;
+    composes: disabled_text-white from global;
 
     composes: focus_shadow-inputFocus from global;
 

@@ -7,10 +7,15 @@
 }
 
 .link {
-    composes: root from '../LinkButton/linkButton.module.css';
-
+    composes: cursor-pointer from global;
+    composes: font-semibold from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
     composes: justify-start from global;
+    composes: leading-tight from global;
+    composes: max-w-full from global;
     composes: no-underline from global;
+    composes: pointer-events-auto from global;
     composes: text-subtle from global;
 
     composes: hover_text-colorDefault from global;
