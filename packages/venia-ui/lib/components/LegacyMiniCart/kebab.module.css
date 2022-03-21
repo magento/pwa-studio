@@ -10,6 +10,7 @@
 
 .dropdown {
     composes: absolute from global;
+    composes: bg-body from global;
     composes: grid from global;
     composes: items-center from global;
     composes: right-5 from global;
