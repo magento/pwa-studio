@@ -52,11 +52,22 @@ if (!baseUrl) {
 let files = null;
 
 if (process.env.FunctionalTests) {
-   files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js', {"ignore":['./src/tests/snapshotTests/**/*']});
+    files = spec
+        ? spec.split(',')
+        : glob.sync('./src/tests/**/*.spec.js', {
+              ignore: ['./src/tests/snapshotTests/**/*']
+          });
 } else if (process.env.SanpshotTests) {
-   files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js', {"ignore":['./src/tests/e2eTests/**/*', './src/tests/integrationTests/**/*']});
+    files = spec
+        ? spec.split(',')
+        : glob.sync('./src/tests/**/*.spec.js', {
+              ignore: [
+                  './src/tests/e2eTests/**/*',
+                  './src/tests/integrationTests/**/*'
+              ]
+          });
 } else {
-   files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js');
+    files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js');
 }
 
 const threadCount = Math.min(files.length, threads);
