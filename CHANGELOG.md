@@ -4,7 +4,7 @@
 _This changelog contains release notes for PWA Studio and Venia 12.3.0_
 _For older release notes, see_ [PWA Studio releases][].
 
-## Highlights
+## 12.3.0 Highlights
 
 ### Personalized content support
 
@@ -47,26 +47,15 @@ _For older release notes, see_ [PWA Studio releases][].
 
 With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 12.3.0 release of these pages on desktop and mobile devices.
 
-### Desktop scores
-|  | Home Page | Product Category | Product Details | Search Results |
+| | Home Page | Product Category | Product Details | Search Results |
 | ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
-| **Desktop** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-| Performance | ![](images/score_90.svg) | ![](images/score_78.svg) | ![](images/score_73.svg) | ![](images/score_90.svg) |
-| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| PWA | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
-
-### Mobile scores
-
-|  | &nbsp;&nbsp;Home Page&nbsp;&nbsp; | Product Category | Product Details | Search Results |
-| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
-| **Mobile** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-| Performance | ![](images/score_27.svg) | ![](images/score_27.svg) | ![](images/score_26.svg) | ![](images/score_33.svg) |
-| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| PWA | ![](images/pwa_imperfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
+| **Venia Pages** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
+| Desktop Performance | ![](images/score_90.svg "Desktop & Mobile") | ![](images/score_78.svg "Desktop & Mobile") | ![](images/score_73.svg "Desktop & Mobile") | ![](images/score_90.svg "Desktop & Mobile") |
+| Mobile Performance | ![](images/score_27.svg "Desktop & Mobile") | ![](images/score_27.svg "Desktop & Mobile") | ![](images/score_26.svg "Desktop & Mobile") | ![](images/score_33.svg "Desktop & Mobile") |
+| Accessibility<br/>_(same for both)_ | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") |
+| Best Practices<br/>_(same for both)_ | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") |
+| SEO<br/>_(same for both)_ | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") |
+| PWA | ![Desktop](images/pwa_perfect.svg "Desktop") ![Mobile](images/pwa_imperfect.svg "Mobile") | ![](images/pwa_perfect.svg "Desktop & Mobile") | ![](images/pwa_perfect.svg "Desktop & Mobile") | ![](images/pwa_perfect.svg "Desktop & Mobile") |
 
 ## Stories and bug fixes
 
@@ -84,7 +73,7 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 | Story | Store view specific label/localization support for product attributes                                                                             | [17][]                        |
 | Story | Update Magento capability table                                                                                                                   | [3724][]                      |
 | Story | Remove Sign-In link on 2nd step of checkout                                                                                                       | [3672][]                      |
-| Story | Images to include dimensions                                                                                                                      | [files][]                     |
+| Story | Images to include dimensions                                                                                                                      | [3703][]                     |
 | Story | Validate Shopping Cart Promotions are displayed correctly                                                                                         | [3609][]                      |
 | Story | Configurable images are not shown in Edit Cart Item menu                                                                                          | [3695][]                      |
 | Story | Backend PageBuilder image metadata support                                                                                                        | [16][], [17][]                |
@@ -106,7 +95,7 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 
 ## Documentation updates
 
--   Added [best practices documentation](https://developer.adobe.com/pwa-studio/guides/best-practices/index.html) for Customer Segments.
+-  Added [best practices documentation](https://developer.adobe.com/pwa-studio/guides/best-practices/index.html) for Customer Segments.
 
 ## Known issues
 
@@ -153,12 +142,13 @@ Your project may not depend on some of the packages listed in this table.
 | `magento2-upward-connector`         | **2.0.0**      |
 | `upward-php`                        | **2.0.0**      |
 
-
 [3713]: https://github.com/magento/pwa-studio/pull/3713
-[19]: https://github.com/magento-commerce/venia-sample-data-modules/pull/19.
+[19]: https://github.com/magento-commerce/venia-sample-data-modules/pull/19
+[35]: https://github.com/magento-commerce/pwa-tests/pull/35/files
 [2]: https://github.com/magento-commerce/venia-sample-data-modules-ee/pull/2
 [3670]: https://github.com/magento/pwa-studio/pull/3670
 [3691]: https://github.com/magento/pwa-studio/pull/3691
+[3504]: https://github.com/magento/pwa-studio/pull/3504
 [24]: https://github.com/magento-commerce/magento2-pwa/pull/24
 [3702]: https://github.com/magento/pwa-studio/pull/3702
 [3604]: https://github.com/magento/pwa-studio/pull/3604
@@ -167,14 +157,17 @@ Your project may not depend on some of the packages listed in this table.
 [25]: https://github.com/magento-commerce/magento2-pwa/pull/25
 [4]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/4
 [22]: https://github.com/magento-commerce/venia-sample-data-modules/pull/22
+[3576]: https://github.com/magento/pwa-studio/pull/3576
+[3616]: https://github.com/magento/pwa-studio/pull/3616
 [3]: http://github.com/magento-commerce/venia-sample-data-modules-ee/pull/3
 [3646]: https://github.com/magento/pwa-studio/pull/3646
 [17]: https://github.com/magento-commerce/magento2-pwa/pull/17
 [3724]: https://github.com/magento/pwa-studio/pull/3724
 [3696]: https://github.com/magento/pwa-studio/pull/3696
 [3672]: https://github.com/magento/pwa-studio/pull/3672
-[3712]: https://github.com/magento/pwa-studio/pull/3712/files
+[3712]: https://github.com/magento/pwa-studio/pull/3712
 [3609]: https://github.com/magento/pwa-studio/pull/3609
+[37]: https://github.com/magento-commerce/pwa-tests/pull/37
 [3587]: https://github.com/magento/pwa-studio/pull/3587
 [2]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/2
 [3695]: https://github.com/magento/pwa-studio/pull/3695
@@ -182,6 +175,11 @@ Your project may not depend on some of the packages listed in this table.
 [17]: https://github.com/magento-commerce/venia-sample-data-modules/pull/17
 [14]: https://github.com/magento-commerce/venia-sample-data-modules/pull/14
 [11]: https://github.com/magento-commerce/magento2-pwa/pull/11
+[3559]: https://github.com/magento/pwa-studio/pull/3559
+[39]: https://github.com/magento-commerce/pwa-tests/pull/39
+[3564]: https://github.com/magento/pwa-studio/pull/3564
+[3555]: https://github.com/magento/pwa-studio/pull/3555
+[3552]: https://github.com/magento/pwa-studio/pull/3552
 [7]: https://github.com/magento-commerce/upward-php/pull/7
 [17]: https://github.com/magento-commerce/magento2-upward-connector/pull/17
 [3611]: https://github.com/magento/pwa-studio/pull/3611
