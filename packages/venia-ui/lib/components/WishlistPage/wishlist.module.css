@@ -43,6 +43,9 @@
 
 .name {
     composes: font-semibold from global;
+    composes: overflow-hidden from global;
+    composes: whitespace-nowrap from global;
+    composes: text-ellipsis from global;
 }
 
 .buttonsContainer {

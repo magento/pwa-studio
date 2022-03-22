@@ -1,6 +1,6 @@
 {
   "name": "@magento/create-pwa",
-  "version": "2.0.1",
+  "version": "2.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -22,15 +22,15 @@
     "create-pwa-app",
     "pwa-studio"
   ],
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/create-pwa#readme",
   "dependencies": {
-    "@magento/pwa-buildpack": "~11.0.0",
-    "@magento/venia-concept": "~12.1.0",
+    "@magento/pwa-buildpack": "~11.2.0",
+    "@magento/venia-concept": "~12.3.0",
     "chalk": "^2.4.2",
     "change-case": "^3.1.0",
     "compression": "~1.7.4",

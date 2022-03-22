@@ -14,7 +14,7 @@ test('renders an empty Image component', () => {
 
 test('renders a Image component', () => {
     const imageProps = {
-        desktopImage: 'test-image.png'
+        desktopImage: { src: 'test-image.png' }
     };
     const component = createTestInstance(<Image {...imageProps} />);
 
@@ -23,8 +23,8 @@ test('renders a Image component', () => {
 
 test('renders a Image component with all props configured', () => {
     const imageProps = {
-        desktopImage: 'desktop-image.png',
-        mobileImage: 'mobile-image.png',
+        desktopImage: { src: 'desktop-image.png' },
+        mobileImage: { src: 'mobile-image.png' },
         altText: 'Alt Text',
         title: 'Title Text',
         link: 'http://www.adobe.com/',
@@ -53,7 +53,7 @@ test('renders a Image component with all props configured', () => {
 
 test('renders a Image component with openInNewTab set to false', () => {
     const imageProps = {
-        desktopImage: 'desktop-image.png',
+        desktopImage: { src: 'desktop-image.png' },
         link: 'http://www.adobe.com/',
         linkType: 'default',
         openInNewTab: false
@@ -65,7 +65,7 @@ test('renders a Image component with openInNewTab set to false', () => {
 
 test('renders a Image component with only mobile image', () => {
     const imageProps = {
-        mobileImage: 'mobile-image.png'
+        mobileImage: { src: 'mobile-image.png' }
     };
     const component = createTestInstance(<Image {...imageProps} />);
 

@@ -15,6 +15,7 @@ import defaultClasses from './item.module.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 import AddToCartbutton from '../Gallery/addToCartButton';
+// eslint-disable-next-line no-unused-vars
 import Rating from '../Rating';
 
 // The placeholder image is 4:5, so we should make sure to size our product
@@ -45,6 +46,7 @@ const GalleryItem = props => {
         return <GalleryItemShimmer classes={classes} />;
     }
 
+    // eslint-disable-next-line no-unused-vars
     const { name, price_range, small_image, url_key, rating_summary } = item;
 
     const { url: smallImageURL } = small_image;
@@ -68,12 +70,19 @@ const GalleryItem = props => {
         </div>
     );
 
-    const ratingAverage = rating_summary ? (
-        <Rating rating={rating_summary} />
-    ) : null;
+    // Hide the Rating component until it is updated with the new look and feel (PWA-2512).
+    const ratingAverage = null;
+    // const ratingAverage = rating_summary ? (
+    //     <Rating rating={rating_summary} />
+    // ) : null;
 
     return (
-        <div className={classes.root} aria-live="polite" aria-busy="false">
+        <div
+            data-cy="GalleryItem-root"
+            className={classes.root}
+            aria-live="polite"
+            aria-busy="false"
+        >
             <Link
                 onClick={handleLinkClick}
                 to={productLink}
@@ -101,7 +110,7 @@ const GalleryItem = props => {
             >
                 <span>{name}</span>
             </Link>
-            <div className={classes.price}>
+            <div data-cy="GalleryItem-price" className={classes.price}>
                 <Price
                     value={price_range.maximum_price.regular_price.value}
                     currencyCode={
@@ -152,7 +161,7 @@ GalleryItem.propTypes = {
     }),
     storeConfig: shape({
         magento_wishlist_general_is_enabled: string.isRequired,
-        product_url_suffix: string.isRequired
+        product_url_suffix: string
     })
 };
 

@@ -20,6 +20,11 @@ exports[`it renders a configurable wishlist item 1`] = `
       className="image placeholder"
       loading="eager"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+      style={
+        Object {
+          "--width": "400px",
+        }
+      }
       width={400}
     />
     <img
@@ -30,6 +35,12 @@ exports[`it renders a configurable wishlist item 1`] = `
       onError={[Function]}
       onLoad={[Function]}
       src="https://magento.test/shoggoth-shirt.jpg"
+      style={
+        Object {
+          "--height": "500px",
+          "--width": "400px",
+        }
+      }
       width={400}
     />
   </div>
@@ -125,6 +136,11 @@ exports[`it renders a simple wishlist item 1`] = `
       className="image placeholder"
       loading="eager"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+      style={
+        Object {
+          "--width": "400px",
+        }
+      }
       width={400}
     />
     <img
@@ -135,6 +151,12 @@ exports[`it renders a simple wishlist item 1`] = `
       onError={[Function]}
       onLoad={[Function]}
       src="https://magento.test/shoggoth-shirt.jpg"
+      style={
+        Object {
+          "--height": "500px",
+          "--width": "400px",
+        }
+      }
       width={400}
     />
   </div>

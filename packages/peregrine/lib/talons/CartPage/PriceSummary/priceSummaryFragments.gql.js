@@ -32,6 +32,10 @@ export const PriceSummaryFragment = gql`
                 currency
                 value
             }
+            subtotal_including_tax {
+                currency
+                value
+            }
         }
         ...GiftCardSummaryFragment
         ...GiftOptionsSummaryFragment

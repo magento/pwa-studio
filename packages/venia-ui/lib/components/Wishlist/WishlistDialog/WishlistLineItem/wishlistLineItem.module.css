@@ -7,3 +7,10 @@
     composes: text-left from global;
     composes: w-full from global;
 }
+
+.lineItemName {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 600px;
+}

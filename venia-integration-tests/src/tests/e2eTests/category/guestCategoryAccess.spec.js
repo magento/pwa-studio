@@ -36,8 +36,8 @@ const {
     assertCategoryInMegaMenu
 } = categoryPageAssertions;
 
-// TODO add tags CE, EE to test to filter and run tests as needed
-describe('PWA-1409: verify checkout actions', () => {
+// TODO add tags MOS, AC to test to filter and run tests as needed
+describe('PWA-1409: verify category access', () => {
     it('user should be able to access the Categories via Home page and from Main Menu left drawer', () => {
         cy.intercept('GET', getCategoryDataCall).as('getCategoryDataCallQuery');
         cy.intercept('GET', getCMSPage).as('gqlGetCMSPageQuery');

@@ -111,6 +111,7 @@ const Product = props => {
                         }}
                         width={IMAGE_SIZE}
                         resource={image}
+                        data-cy="Product-image"
                     />
                 </Link>
                 <div className={classes.details}>

@@ -67,7 +67,8 @@
 }
 
 .logo {
-    composes: h-full from global;
+    height: var(--height);
+    width: var(--width);
 }
 
 .primaryActions {
@@ -82,7 +83,6 @@
 .logoContainer {
     composes: col-start-2 from global;
     composes: justify-self-center from global;
-    composes: my-4 from global;
 
     composes: lg_col-end-3 from global;
     composes: lg_col-start-1 from global;

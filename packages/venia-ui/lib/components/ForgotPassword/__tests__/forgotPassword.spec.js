@@ -16,12 +16,11 @@ jest.mock(
             .mockImplementation(({ onCancel = jest.fn() }) => ({
                 forgotPasswordEmail: 'gooseton@goosemail.com',
                 formErrors: [],
+                handleCancel: onCancel,
+                handleFormSubmit: jest.fn(),
                 hasCompleted: mockHasCompleted,
-                formProps: {
-                    isBusy: false,
-                    onSubmit: jest.fn(),
-                    onCancel
-                }
+                isResettingPassword: false,
+                recaptchaWidgetProps: {}
             }))
     })
 );

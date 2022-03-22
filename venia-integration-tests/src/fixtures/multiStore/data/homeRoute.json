@@ -1,6 +1,8 @@
 {
   "data": {
     "route": {
+      "relative_url": "home",
+      "redirect_code": 0,
       "type": "CMS_PAGE",
       "identifier": "home",
       "__typename": "CmsPage"

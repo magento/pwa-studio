@@ -15,7 +15,7 @@ const TestComponent = (props = {}) => {
     return <i />;
 };
 
-test('should render without an error', () => {
+test('should render without an error with position sort by default', () => {
     createTestInstance(<TestComponent />);
     const result = log.mock.calls[0][0];
     const [{ sortText }] = result;
@@ -52,4 +52,15 @@ test('should render with updated sort order', () => {
     const nextResult = log.mock.calls[1][0];
     const [{ sortText: nextSortText }] = nextResult;
     expect(nextSortText).toBe('Price: Low to High');
+});
+
+test('should render search with best match sort by default', () => {
+    const sortOrder = {
+        sortFromSearch: true
+    };
+
+    createTestInstance(<TestComponent props={sortOrder} />);
+    const result = log.mock.calls[0][0];
+    const [{ sortText }] = result;
+    expect(sortText).toBe('Best Match');
 });

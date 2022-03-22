@@ -17,7 +17,7 @@ const defaultProps = {
     }
 };
 
-describe('#GiftOptionsSummary EE', () => {
+describe('#GiftOptionsSummary AC', () => {
     it('renders gift options summary line item correctly', () => {
         const tree = createTestInstance(
             <GiftOptionsSummary {...defaultProps} />

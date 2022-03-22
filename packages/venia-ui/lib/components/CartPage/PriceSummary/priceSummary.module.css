@@ -15,10 +15,12 @@
 
 .lineItemLabel {
     composes: justify-self-start from global;
+    composes: my-2 from global;
 }
 
 .price {
     composes: justify-self-end from global;
+    composes: self-center from global;
 }
 
 .totalLabel {

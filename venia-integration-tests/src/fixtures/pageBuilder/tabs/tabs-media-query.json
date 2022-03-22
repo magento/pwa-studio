@@ -1,0 +1,15 @@
+{
+  "data": {
+    "cmsPage": {
+      "url_key": "home",
+      "content": "<style>#html-body [data-pb-style=DUMFX3V]{justify-content:flex-start;display:flex;flex-direction:column;background-position:left top;background-size:cover;background-repeat:no-repeat;background-attachment:scroll;margin-top:50px}#html-body [data-pb-style=J4C8VTJ]{border-style:solid;border-color:#000;border-width:5px}#html-body [data-pb-style=EUKMC1P]{text-align:left}#html-body [data-pb-style=YHU0LXX]{border-style:solid;border-color:#000;border-width:5px;min-height:300px}#html-body [data-pb-style=NF4LUBM]{justify-content:flex-start;display:flex;flex-direction:column;background-color:#0000fe;background-position:left top;background-size:cover;background-repeat:no-repeat;background-attachment:scroll;border-style:none;border-color:#0000fe;border-width:5px;min-height:400px}#html-body [data-pb-style=S8YGXUC]{padding-top:50px}@media only screen and (max-width: 768px) { #html-body [data-pb-style=YHU0LXX]{min-height:200px}#html-body [data-pb-style=NF4LUBM]{display:flex;flex-direction:column;min-height:200px} }<\/style><div data-content-type=\"row\" data-appearance=\"contained\" data-element=\"main\"><div data-enable-parallax=\"0\" data-parallax-speed=\"0.5\" data-background-images=\"{}\" data-background-type=\"image\" data-video-loop=\"true\" data-video-play-only-visible=\"true\" data-video-lazy-load=\"true\" data-video-fallback-src=\"\" data-element=\"inner\" data-pb-style=\"DUMFX3V\"><div data-content-type=\"text\" data-appearance=\"default\" data-element=\"main\"><p style=\"text-align: left;\"><span style=\"font-size: 20px;\">Media query Tabs (min-height 200px)<\/span><\/p><\/div><\/div><\/div><div class=\"tab-align-left\" data-content-type=\"tabs\" data-appearance=\"default\" data-active-tab=\"0\" data-element=\"main\"><ul role=\"tablist\" class=\"tabs-navigation\" data-element=\"navigation\" data-pb-style=\"EUKMC1P\"><li role=\"tab\" class=\"tab-header\" data-element=\"headers\" data-pb-style=\"J4C8VTJ\"><a href=\"#XKTCOC0\" class=\"tab-title\"><span class=\"tab-title\">Tab 1<\/span><\/a><\/li><\/ul><div class=\"tabs-content\" data-element=\"content\" data-pb-style=\"YHU0LXX\"><div data-content-type=\"tab-item\" data-appearance=\"default\" data-tab-name=\"Tab 1\" data-background-images=\"{}\" data-element=\"main\" id=\"XKTCOC0\" data-pb-style=\"NF4LUBM\"><div data-content-type=\"text\" data-appearance=\"default\" data-element=\"main\" data-pb-style=\"S8YGXUC\"><p style=\"text-align: center;\"><span style=\"font-size: 20px; color: #ffffff;\">min-height 200px<\/span><\/p><\/div><\/div><\/div><\/div>",
+      "content_heading": "",
+      "title": "PWA-1471 Verify Tabs media query",
+      "page_layout": "cms-full-width",
+      "meta_title": "",
+      "meta_keywords": "",
+      "meta_description": "",
+      "__typename": "CmsPage"
+    }
+  }
+}

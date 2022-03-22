@@ -1,0 +1,121 @@
+{
+  "data": {
+    "__type": {
+      "inputFields": [
+        {
+          "name": "category_id",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "category_uid",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "description",
+          "type": {
+            "name": "FilterMatchTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "fashion_color",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "fashion_material",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "fashion_size",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "fashion_style",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "format",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "has_video",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "name",
+          "type": {
+            "name": "FilterMatchTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "price",
+          "type": {
+            "name": "FilterRangeTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "short_description",
+          "type": {
+            "name": "FilterMatchTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "sku",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        },
+        {
+          "name": "url_key",
+          "type": {
+            "name": "FilterEqualTypeInput",
+            "__typename": "__Type"
+          },
+          "__typename": "__InputValue"
+        }
+      ],
+      "__typename": "__Type"
+    }
+  }
+}

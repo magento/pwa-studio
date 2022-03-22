@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { Check } from 'react-feather';
 import { bool, func, shape, string } from 'prop-types';
 
@@ -11,16 +10,25 @@ const SortItem = props => {
     const { active, onClick, sortItem } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
-    const handleClick = useCallback(() => {
-        onClick(sortItem);
-    }, [sortItem, onClick]);
+    const handleClick = useCallback(
+        e => {
+            // use only left click for selection
+            if (e.button === 0) {
+                onClick(sortItem);
+            }
+        },
+        [sortItem, onClick]
+    );
 
-    const handleKeyDown = e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleClick();
-        }
-    };
+    const handleKeyDown = useCallback(
+        e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onClick(sortItem);
+            }
+        },
+        [onClick, sortItem]
+    );
 
     const activeIcon = active ? <Icon size={20} src={Check} /> : null;
 
@@ -32,12 +40,7 @@ const SortItem = props => {
             onKeyDown={handleKeyDown}
         >
             <span className={classes.content}>
-                <span className={classes.text}>
-                    <FormattedMessage
-                        id={sortItem.id}
-                        defaultMessage={sortItem.text}
-                    />
-                </span>
+                <span className={classes.text}>{sortItem.text}</span>
                 {activeIcon}
             </span>
         </button>

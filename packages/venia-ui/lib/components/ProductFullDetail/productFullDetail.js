@@ -16,6 +16,7 @@ import FormError from '../FormError';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichContent from '../RichContent/richContent';
 import { ProductOptionsShimmer } from '../ProductOptions';
+import CustomAttributes from './CustomAttributes';
 import defaultClasses from './productFullDetail.module.css';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
@@ -50,6 +51,7 @@ const ProductFullDetail = props => {
         isSupportedProductType,
         mediaGalleryEntries,
         productDetails,
+        customAttributes,
         wishlistButtonProps
     } = talonProps;
     const { formatMessage } = useIntl();
@@ -176,7 +178,10 @@ const ProductFullDetail = props => {
                     >
                         {productDetails.name}
                     </h1>
-                    <p className={classes.productPrice}>
+                    <p
+                        data-cy="ProductFullDetail-productPrice"
+                        className={classes.productPrice}
+                    >
                         <Price
                             currencyCode={productDetails.price.currency}
                             value={productDetails.price.value}
@@ -194,7 +199,10 @@ const ProductFullDetail = props => {
                 />
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
-                    <span className={classes.quantityTitle}>
+                    <span
+                        data-cy="ProductFullDetail-quantityTitle"
+                        className={classes.quantityTitle}
+                    >
                         <FormattedMessage
                             id={'global.quantity'}
                             defaultMessage={'Quantity'}
@@ -213,7 +221,10 @@ const ProductFullDetail = props => {
                     </Suspense>
                 </section>
                 <section className={classes.description}>
-                    <span className={classes.descriptionTitle}>
+                    <span
+                        data-cy="ProductFullDetail-descriptionTitle"
+                        className={classes.descriptionTitle}
+                    >
                         <FormattedMessage
                             id={'productFullDetail.productDescription'}
                             defaultMessage={'Product Description'}
@@ -229,6 +240,7 @@ const ProductFullDetail = props => {
                         />
                     </span>
                     <strong>{productDetails.sku}</strong>
+                    <CustomAttributes customAttributes={customAttributes} />
                 </section>
             </Form>
         </Fragment>

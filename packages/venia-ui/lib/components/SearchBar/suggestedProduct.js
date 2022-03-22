@@ -37,9 +37,10 @@ const SuggestedProduct = props => {
                 classes={{ image: classes.thumbnail, root: classes.image }}
                 resource={small_image}
                 width={IMAGE_WIDTH}
+                data-cy="SuggestedProduct-image"
             />
             <span className={classes.name}>{name}</span>
-            <span className={classes.price}>
+            <span data-cy="SuggestedProduct-price" className={classes.price}>
                 <Price
                     currencyCode={price.regularPrice.amount.currency}
                     value={price.regularPrice.amount.value}

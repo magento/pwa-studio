@@ -5,15 +5,15 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 import {
-    mockGetStoreConfigCE,
-    mockGetStoreConfigEE
+    mockGetStoreConfigMOS,
+    mockGetStoreConfigAC
 } from '../__fixtures__/apolloMocks';
 
 import { useCarousel } from '../useCarousel';
 
 import defaultOperations from '../carousel.gql';
-import ceOperations from '../carousel.gql.ce';
-import eeOperations from '../carousel.gql.ee';
+import mosOperations from '../carousel.gql.ce';
+import acOperations from '../carousel.gql.ee';
 
 jest.mock(
     '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
@@ -39,11 +39,11 @@ const renderHookWithProviders = ({
     return renderHook(useCarousel, { wrapper, ...renderHookOptions });
 };
 
-test('returns store config EE', async () => {
-    defaultOperations.getStoreConfigQuery = eeOperations.getStoreConfigQuery;
+test('returns store config AC', async () => {
+    defaultOperations.getStoreConfigQuery = acOperations.getStoreConfigQuery;
 
     const { result, waitForNextUpdate } = renderHookWithProviders({
-        mocks: [mockGetStoreConfigEE]
+        mocks: [mockGetStoreConfigAC]
     });
 
     expect(result.current).toMatchInlineSnapshot(`
@@ -67,13 +67,13 @@ test('returns store config EE', async () => {
 });
 
 test('returns store config C', async () => {
-    defaultOperations.getStoreConfigQuery = ceOperations.getStoreConfigQuery;
+    defaultOperations.getStoreConfigQuery = mosOperations.getStoreConfigQuery;
 
     const { result, waitForNextUpdate } = renderHookWithProviders({
-        mocks: [mockGetStoreConfigCE]
+        mocks: [mockGetStoreConfigMOS]
     });
 
-    // I am unsure why this test renders without a loading state whereas the EE
+    // I am unsure why this test renders without a loading state whereas the AC
     // test renders with a loading (null) state.
     expect(result.current).toMatchInlineSnapshot(`
         Object {

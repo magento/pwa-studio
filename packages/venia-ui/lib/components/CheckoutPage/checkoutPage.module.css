@@ -26,8 +26,10 @@
 }
 
 .heading_container {
-    composes: grid from global;
+    composes: col-span-1 from global;
+    composes: col-start-1 from global;
     composes: gap-y-xs from global;
+    composes: grid from global;
 }
 
 .heading {
@@ -135,6 +137,12 @@
     .summaryContainer {
         grid-column: 2 / span 1;
         grid-row: 2 / span 3;
+    }
+    .reCaptchaMargin {
+        margin-bottom: 5.5rem;
+    }
+    .signInContainerVisible {
+        grid-row: 1 / span 3;
     }
 }
 

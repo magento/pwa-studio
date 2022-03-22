@@ -137,7 +137,16 @@ const testReactComponents = inPackage => ({
         '@magento/venia-drivers':
             '<rootDir>/packages/venia-ui/lib/drivers/index.js'
     },
-    moduleFileExtensions: ['ee.js', 'ce.js', 'js', 'json', 'jsx', 'node'],
+    moduleFileExtensions: [
+        'ac.js',
+        'ee.js',
+        'mos.js',
+        'ce.js',
+        'js',
+        'json',
+        'jsx',
+        'node'
+    ],
     // Reproduce the Webpack resolution config that lets Venia import
     // from `src` instead of with relative paths:
     modulePaths: [
@@ -235,7 +244,9 @@ const jestConfig = {
         configureProject('peregrine', 'Peregrine', inPackage => ({
             // Make sure we can test extension files.
             moduleFileExtensions: [
+                'ac.js',
                 'ee.js',
+                'mos.js',
                 'ce.js',
                 'js',
                 'json',
@@ -250,7 +261,8 @@ const jestConfig = {
                 inPackage('scripts/shim.js'),
                 // Always mock `fetch` instead of doing real network calls
                 inPackage('scripts/fetch-mock.js'),
-                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
+                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js'),
+                inPackage('scripts/matchMedia.js')
             ],
             // Give jsdom a real URL for router testing.
             testURL: 'http://localhost/'

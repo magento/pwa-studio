@@ -20,7 +20,13 @@ const WishlistLineItem = props => {
             onClick={handleClick}
             data-cy="WishlistLineItem-button"
         >
-            {props.children}
+            <h2
+                className={classes.lineItemName}
+                data-cy="WishlistLineItem-name"
+                title={props.children}
+            >
+                {props.children}
+            </h2>
         </button>
     );
 };

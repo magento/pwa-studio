@@ -46,7 +46,7 @@ const {
 } = accountInformationPageAssertions;
 const { assertCreateAccount, assertSignedOut } = myAccountMenuAssertions;
 
-// TODO add tags CE, EE to test to filter and run tests as needed
+// TODO add tags MOS, AC to test to filter and run tests as needed
 describe('PWA-1423: verify customer account actions', () => {
     it('user should be able to create a new account and edit their information', () => {
         // Test - Create an account

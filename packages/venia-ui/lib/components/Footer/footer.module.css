@@ -146,7 +146,12 @@
     composes: text-center from global;
 }
 
-.logo {
+.logoContainer {
     grid-area: a;
     composes: mt-10 from global;
+}
+
+.logo {
+    height: var(--height);
+    width: var(--width);
 }
