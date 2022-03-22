@@ -1,0 +1,27 @@
+{
+  "data": {
+    "products": {
+      "sort_fields": {
+        "options": [
+          {
+            "label": "Position",
+            "value": "position",
+            "__typename": "SortField"
+          },
+          {
+            "label": "Product Name",
+            "value": "name",
+            "__typename": "SortField"
+          },
+          {
+            "label": "Price",
+            "value": "price",
+            "__typename": "SortField"
+          }
+        ],
+        "__typename": "SortFields"
+      },
+      "__typename": "Products"
+    }
+  }
+}

@@ -1,30 +1,18 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
 
 import { createTestInstance } from '@magento/peregrine';
+import { useCmsDynamicBlock } from '@magento/peregrine/lib/talons/CmsDynamicBlock/useCmsDynamicBlock';
 
 import {
     DISPLAY_MODE_FIXED_TYPE,
-    DYNAMIC_BLOCK_FIXED_TYPE,
     DISPLAY_MODE_SALES_RULE_TYPE,
-    DYNAMIC_BLOCK_SALES_RULE_TYPE,
-    DISPLAY_MODE_CATALOG_RULE_TYPE,
-    DYNAMIC_BLOCK_CATALOG_RULE_TYPE
+    DISPLAY_MODE_CATALOG_RULE_TYPE
 } from '../constants';
-import CmsDynamicBlock, { GET_CMS_DYNAMIC_BLOCKS } from '../cmsDynamicBlock.ee';
+import CmsDynamicBlock from '../cmsDynamicBlock.ee';
 
 const mockUids = 'uids';
-const mockLocations = ['CONTENT'];
 
-jest.mock('@apollo/client', () => ({
-    gql: jest.fn(),
-    useQuery: jest.fn()
-}));
-
-jest.mock('@magento/peregrine/lib/context/user', () => ({
-    useUserContext: jest.fn().mockReturnValue([{ isSignedIn: false }])
-}));
-
+jest.mock('@magento/peregrine/lib/talons/CmsDynamicBlock/useCmsDynamicBlock');
 jest.mock('@magento/venia-ui/lib/components/ErrorView', () => props => (
     <mock-ErrorView {...props} />
 ));
@@ -64,37 +52,15 @@ const givenUnknownType = () => {
     };
 };
 
-const givenLocations = () => {
-    inputProps = {
-        locations: mockLocations,
-        uids: mockUids
-    };
-};
-
-describe('#CmsDynamicBlock EE', () => {
+describe('#CmsDynamicBlock AC', () => {
     beforeEach(() => {
         givenDefaultValues();
-
-        useQuery.mockReturnValueOnce({
-            data: {
-                dynamicBlocks: {
-                    items: [
-                        {
-                            content: {
-                                html: 'Hello World'
-                            },
-                            uid: 'uid'
-                        }
-                    ]
-                }
-            },
-            loading: false
-        });
     });
 
     it('renders null when loading', () => {
-        useQuery.mockReturnValueOnce({
+        useCmsDynamicBlock.mockReturnValueOnce({
             data: null,
+            error: undefined,
             loading: true
         });
 
@@ -104,36 +70,10 @@ describe('#CmsDynamicBlock EE', () => {
     });
 
     it('renders ErrorView when error', () => {
-        useQuery.mockReturnValueOnce({
+        useCmsDynamicBlock.mockReturnValueOnce({
             data: null,
-            loading: false,
             error: {
                 message: 'Error'
-            }
-        });
-
-        const component = createTestInstance(<Component />);
-
-        expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('renders null when no data', () => {
-        useQuery.mockReturnValueOnce({
-            data: null,
-            loading: false
-        });
-
-        const component = createTestInstance(<Component />);
-
-        expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('renders null when items are empty', () => {
-        useQuery.mockReturnValue({
-            data: {
-                dynamicBlocks: {
-                    items: []
-                }
             },
             loading: false
         });
@@ -143,78 +83,129 @@ describe('#CmsDynamicBlock EE', () => {
         expect(component.toJSON()).toMatchSnapshot();
     });
 
-    it('renders DynamicBlock when data with type fixed', () => {
-        const component = createTestInstance(<Component />);
+    it('renders null when no data', () => {
+        useCmsDynamicBlock.mockReturnValueOnce({
+            data: null,
+            error: undefined,
+            loading: false
+        });
 
-        expect(useQuery).toHaveBeenCalledWith(
-            GET_CMS_DYNAMIC_BLOCKS,
-            expect.objectContaining({
-                variables: { type: DYNAMIC_BLOCK_FIXED_TYPE, uids: mockUids }
-            })
-        );
+        const component = createTestInstance(<Component />);
 
         expect(component.toJSON()).toMatchSnapshot();
     });
 
-    it('calls useQuery with type catalogrule', () => {
+    it('renders null when items are empty', () => {
+        useCmsDynamicBlock.mockReturnValue({
+            data: {
+                dynamicBlocks: {
+                    items: []
+                }
+            },
+            error: undefined,
+            loading: false
+        });
+
+        const component = createTestInstance(<Component />);
+
+        expect(component.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders DynamicBlock when data with type fixed', () => {
+        useCmsDynamicBlock.mockReturnValue({
+            data: {
+                dynamicBlocks: {
+                    items: [
+                        {
+                            uid: 'itemUid1',
+                            content: {
+                                html: '<div>Item 1</div>'
+                            }
+                        }
+                    ]
+                }
+            },
+            error: undefined,
+            loading: false
+        });
+
+        const component = createTestInstance(<Component />);
+
+        expect(component.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders DynamicBlock when data with type catalogrule', () => {
         givenCatalogRuleType();
 
-        createTestInstance(<Component />);
-
-        expect(useQuery).toHaveBeenCalledWith(
-            GET_CMS_DYNAMIC_BLOCKS,
-            expect.objectContaining({
-                variables: {
-                    type: DYNAMIC_BLOCK_CATALOG_RULE_TYPE,
-                    uids: mockUids
+        useCmsDynamicBlock.mockReturnValue({
+            data: {
+                dynamicBlocks: {
+                    items: [
+                        {
+                            uid: 'itemUid1',
+                            content: {
+                                html: '<div>Item 1</div>'
+                            }
+                        }
+                    ]
                 }
-            })
-        );
+            },
+            error: undefined,
+            loading: false
+        });
+
+        const component = createTestInstance(<Component />);
+
+        expect(component.toJSON()).toMatchSnapshot();
     });
 
-    it('calls useQuery with type salesrule', () => {
+    it('renders DynamicBlock when data with type salesrule', () => {
         givenSalesRuleType();
 
-        createTestInstance(<Component />);
-
-        expect(useQuery).toHaveBeenCalledWith(
-            GET_CMS_DYNAMIC_BLOCKS,
-            expect.objectContaining({
-                variables: {
-                    type: DYNAMIC_BLOCK_SALES_RULE_TYPE,
-                    uids: mockUids
+        useCmsDynamicBlock.mockReturnValue({
+            data: {
+                dynamicBlocks: {
+                    items: [
+                        {
+                            uid: 'itemUid1',
+                            content: {
+                                html: '<div>Item 1</div>'
+                            }
+                        }
+                    ]
                 }
-            })
-        );
+            },
+            error: undefined,
+            loading: false
+        });
+
+        const component = createTestInstance(<Component />);
+
+        expect(component.toJSON()).toMatchSnapshot();
     });
 
-    it('calls useQuery with unknown type', () => {
+    it('renders DynamicBlock when data with unknown type', () => {
         givenUnknownType();
 
-        createTestInstance(<Component />);
-
-        expect(useQuery).toHaveBeenCalledWith(
-            GET_CMS_DYNAMIC_BLOCKS,
-            expect.objectContaining({
-                variables: { type: DYNAMIC_BLOCK_FIXED_TYPE, uids: mockUids }
-            })
-        );
-    });
-
-    it('calls useQuery with locations', () => {
-        givenLocations();
-
-        createTestInstance(<Component />);
-
-        expect(useQuery).toHaveBeenCalledWith(
-            GET_CMS_DYNAMIC_BLOCKS,
-            expect.objectContaining({
-                variables: {
-                    type: DYNAMIC_BLOCK_FIXED_TYPE,
-                    locations: mockLocations,
-                    uids: mockUids
+        useCmsDynamicBlock.mockReturnValue({
+            data: {
+                dynamicBlocks: {
+                    items: [
+                        {
+                            uid: 'itemUid1',
+                            content: {
+                                html: '<div>Item 1</div>'
+                            }
+                        }
+                    ]
                 }
-            })
-        );
+            },
+            error: undefined,
+            loading: false
+        });
+
+        const component = createTestInstance(<Component />);
+
+        expect(component.toJSON()).toMatchSnapshot();
     });
 });

@@ -68,6 +68,7 @@ const Header = props => {
                     <Link
                         to={resourceUrl('/')}
                         className={classes.logoContainer}
+                        data-cy="Header-logoContainer"
                     >
                         <Logo classes={{ logo: classes.logo }} />
                     </Link>

@@ -35,6 +35,9 @@ export const useGoogleReCaptcha = props => {
         fetchPolicy: 'cache-and-network'
     });
 
+    if (!globalThis['recaptchaCallbacks']) {
+        globalThis['recaptchaCallbacks'] = {};
+    }
     const [apiIsReady, setApiIsReady] = useState(
         globalThis.hasOwnProperty('grecaptcha')
     );
@@ -117,20 +120,31 @@ export const useGoogleReCaptcha = props => {
     }, [apiIsReady, isInline, recaptchaKey, widgetId, inlineContainer]);
 
     // Callback sets API as ready
-    globalThis['onloadRecaptchaCallback'] = useCallback(() => {
-        // Update non inline styles
-        if (!isInline) {
-            const floatingBadge = document.getElementsByClassName(
-                'grecaptcha-badge'
-            );
+    if (!globalThis['recaptchaCallbacks'][formAction] && isEnabled) {
+        globalThis['recaptchaCallbacks'][formAction] = () => {
+            // Update non inline styles
+            if (!isInline) {
+                const floatingBadge = document.getElementsByClassName(
+                    'grecaptcha-badge'
+                );
 
-            if (floatingBadge && floatingBadge.length > 0) {
-                floatingBadge[0].style.zIndex = 999;
+                if (floatingBadge && floatingBadge.length > 0) {
+                    floatingBadge[0].style.zIndex = 999;
+                }
             }
-        }
 
-        setApiIsReady(true);
-    }, [isInline]);
+            setApiIsReady(true);
+        };
+    }
+
+    // Callback loops through each instance and set API as ready
+    globalThis['onloadRecaptchaCallback'] = useCallback(() => {
+        for (const key in globalThis['recaptchaCallbacks']) {
+            globalThis['recaptchaCallbacks'][key]();
+        }
+        // Reset value after
+        globalThis['recaptchaCallbacks'] = {};
+    }, []);
 
     // Generate the object that will be sent with the request
     const generateReCaptchaData = useCallback(async () => {
@@ -170,7 +184,7 @@ export const useGoogleReCaptcha = props => {
 
     const recaptchaWidgetProps = {
         containerElement: updateInlineContainerRef,
-        shouldRender: isInline && apiIsReady
+        shouldRender: !!(isEnabled && isInline && apiIsReady)
     };
 
     return {

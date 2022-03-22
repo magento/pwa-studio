@@ -16,7 +16,7 @@ import defaultClasses from './googleReCaptcha.module.css';
  * @returns {React.Element} A React component that displays a container to be used by the useGoogleReCaptcha hook.
  */
 const GoogleReCaptcha = props => {
-    const { containerElement, shouldRender = false } = props;
+    const { containerElement = () => {}, shouldRender = false } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     // Do not display if position is not inline

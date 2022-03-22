@@ -86,7 +86,7 @@ exports[`it returns the proper shape when use variant image is configured 1`] = 
         "item": Object {
           "quantity": 7,
           "selected_options": Array [
-            "selected-option-uid",
+            "Y29uZmlndXJhYmxlLzIyLzI=",
           ],
           "sku": "unit-test-sku",
         },
@@ -106,10 +106,9 @@ exports[`it returns the proper shape when use variant image is configured 1`] = 
         "name": "unit test",
         "options": Array [
           Object {
-            "configurable_product_option_value_uid": "selected-option-uid",
-            "id": 22,
+            "configurable_product_option_uid": 22,
+            "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzIyLzI=",
             "option_label": "Color",
-            "value_id": 2,
             "value_label": "red",
           },
         ],

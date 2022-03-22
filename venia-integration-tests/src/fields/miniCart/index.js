@@ -13,6 +13,9 @@ export const miniCartProductLink =
 
 export const miniCartProductImageLink = '[data-cy="item-thumbnailContainer"]';
 
+export const miniCartProductImage =
+    '[data-cy="MiniCart-root"] [data-cy="MiniCart-ProductList-root"] [data-cy="Item-image"]';
+
 export const miniCartEmptyMessage =
     '[data-cy="MiniCart-root"] [data-cy="MiniCart-emptyMessage"]';
 

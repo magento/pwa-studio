@@ -15,7 +15,7 @@ const {
 const {
     getCategoriesCall,
     getProductDetailForProductPageCall,
-    getStoreConfigDataForGalleryEECall
+    getStoreConfigDataForGalleryACCall
 } = graphqlMockedCallsFixtures;
 
 describe('Verify product Rating Summary', () => {
@@ -28,7 +28,7 @@ describe('Verify product Rating Summary', () => {
             'gqlGetProductDetailForProductPageQuery'
         );
 
-        cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
+        cy.intercept('GET', getStoreConfigDataForGalleryACCall).as(
             'gqlGetStoreConfigDataForGallery'
         );
 

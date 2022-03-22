@@ -18,7 +18,7 @@ export const ADD_PRODUCT_TO_CART = gql`
 `;
 
 export const GET_WISHLIST_CONFIG = gql`
-    query GetWishlistConfigForProductCE {
+    query GetWishlistConfigForProductMOS {
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
             store_code

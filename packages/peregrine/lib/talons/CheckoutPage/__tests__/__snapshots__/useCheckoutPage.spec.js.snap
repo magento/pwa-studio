@@ -22,7 +22,12 @@ Object {
   "orderDetailsData": null,
   "orderDetailsLoading": false,
   "orderNumber": null,
+  "placeOrderButtonClicked": false,
   "placeOrderLoading": false,
+  "recaptchaWidgetProps": Object {
+    "containerElement": [Function],
+    "shouldRender": false,
+  },
   "resetReviewOrderButtonClicked": [Function],
   "reviewOrderButtonClicked": false,
   "scrollShippingInformationIntoView": [Function],
