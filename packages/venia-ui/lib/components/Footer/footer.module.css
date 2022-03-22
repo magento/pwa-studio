@@ -149,6 +149,8 @@
 .logoContainer {
     grid-area: a;
     composes: mt-10 from global;
+
+    composes: lg_mt-0 from global;
 }
 
 .logo {
