@@ -84,14 +84,14 @@ if (port) {
 
     dockerCommand = `docker run --rm -v ${
         process.env.PWD
-    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=https://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
+    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress docker-hub-remote.dr-uw2.adobeitc.com/cypress/included:8.3.1 run --browser chrome --config baseUrl=https://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
 } else {
     // run docker on remote instance
     console.log(`Running tests on remote instance ${baseUrl}`);
 
     dockerCommand = `docker run --rm -v ${
         process.env.PWD
-    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
+    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress docker-hub-remote.dr-uw2.adobeitc.com/cypress/included:8.3.1 run --browser chrome --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
 }
 
 const start = process.hrtime();
