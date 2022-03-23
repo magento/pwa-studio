@@ -78,9 +78,10 @@ const port = new URL(baseUrl).port;
 
 let dockerCommand = null;
 
-let dockerImage = "cypress/included:8.3.1";
+let dockerImage = 'cypress/included:8.3.1';
 if (process.env.CI) {
-    dockerImage = "docker-hub-remote.dr-uw2.adobeitc.com/cypress/included:8.3.1"
+    dockerImage =
+        'docker-hub-remote.dr-uw2.adobeitc.com/cypress/included:8.3.1';
 }
 
 if (port) {
