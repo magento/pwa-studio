@@ -22,7 +22,7 @@
     composes: m-0 from global;
     composes: rounded-full from global;
     composes: w-[1.5rem] from global;
-    composes: z-surface from global;
+    composes: z-foreground from global;
     grid-area: input;
 
     composes: active_outline-none from global;
@@ -37,7 +37,7 @@
 .icon {
     composes: h-[1.5rem] from global;
     composes: w-[1.5rem] from global;
-    composes: z-foreground from global;
+    composes: z-surface from global;
     grid-area: input;
 }
 
@@ -64,5 +64,5 @@
     composes: m-0 from global;
     composes: rounded-full from global;
     composes: w-[1.5rem] from global;
-    composes: z-surface from global;
+    composes: z-foreground from global;
 }
