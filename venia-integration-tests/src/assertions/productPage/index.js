@@ -68,4 +68,4 @@ export const assertProductPriceHasCurrency = currency => {
  */
 export const assertProductIsOutOfStock = () => {
     cy.get(productPageAddToCartButton).contains('OUT OF STOCK');
-}
+};
