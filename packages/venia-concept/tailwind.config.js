@@ -1,8 +1,8 @@
 // TODO @TW:
 // Node path should be committed, but it makes preset dev impossible.
 // Local path is the only way to develop "tailwind.preset.js".
-// const venia = require('@magento/pwa-theme-venia');
-const venia = require('../pwa-theme-venia');
+const venia = require('@magento/pwa-theme-venia');
+// const venia = require('../pwa-theme-venia');
 
 const config = {
     mode: 'jit',
