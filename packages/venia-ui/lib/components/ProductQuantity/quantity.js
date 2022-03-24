@@ -7,6 +7,9 @@ import Select from '../Select';
 import mockData from './mockData';
 import defaultClasses from './quantity.module.css';
 
+/**
+ * @deprecated
+ */
 const Quantity = props => {
     const { classes: propClasses, selectLabel, ...restProps } = props;
     const { formatMessage } = useIntl();
