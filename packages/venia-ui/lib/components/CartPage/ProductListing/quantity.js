@@ -31,6 +31,10 @@ Quantity.defaultProps = {
     onChange: () => {}
 };
 
+/**
+ * @deprecated - moved to component directory in 12.4.0
+ * @see QuantityStepper
+ */
 export const QuantityFields = QuantityStepper;
 
 export default Quantity;
