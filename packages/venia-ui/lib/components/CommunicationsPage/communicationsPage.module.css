@@ -2,9 +2,9 @@
     composes: grid from global;
     composes: gap-y-md from global;
     composes: px-sm from global;
+    composes: py-md from global;
 
     composes: lg_px-lg from global;
-    composes: lg_py-md from global;
 }
 
 .title {

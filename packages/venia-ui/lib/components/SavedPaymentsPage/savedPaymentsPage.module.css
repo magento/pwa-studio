@@ -3,9 +3,9 @@
     composes: mx-auto from global;
     composes: my-0 from global;
     composes: px-sm from global;
+    composes: py-md from global;
 
     composes: lg_px-lg from global;
-    composes: lg_py-md from global;
 }
 
 .heading {
