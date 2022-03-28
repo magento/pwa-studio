@@ -2,29 +2,31 @@
     composes: gap-x-xs from global;
     composes: grid from global;
     composes: grid-cols-autoFirst from global;
-    composes: mt-sm from global;
-    composes: opacity-100 from global;
+    composes: overflow-hidden from global;
+
     grid-template-rows: auto auto 1fr;
     transition-delay: 64ms;
     transition-duration: 384ms;
     transition-property: opacity, visbility;
     transition-timing-function: var(--venia-global-anim-standard);
+}
 
-    /* TODO @TW: review (B6) */
-    /* composes: visible from global; */
-    visibility: visible;
+.root_visible {
+    composes: root;
+
+    composes: h-auto from global;
+    composes: mt-sm from global;
+    composes: opacity-100 from global;
+    composes: visible from global;
 }
 
 .root_hidden {
     composes: root;
 
     composes: h-0 from global;
+    composes: invisible from global;
     composes: mt-0 from global;
     composes: opacity-0 from global;
-
-    /* TODO @TW: review (B6) */
-    /* composes: invisible from global; */
-    visibility: hidden;
 }
 
 .thumbnail {
