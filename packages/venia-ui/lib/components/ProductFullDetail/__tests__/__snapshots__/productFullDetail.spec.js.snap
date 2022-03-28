@@ -91,7 +91,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -221,7 +221,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -385,7 +385,7 @@ exports[`it renders an error for an invalid cart 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -549,7 +549,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -714,7 +714,7 @@ Array [
           id="global.quantity"
         />
       </span>
-      QuantityFields
+      QuantityStepper
     </section>
     <section
       className="actions"
@@ -875,7 +875,7 @@ exports[`it renders correctly 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1035,7 +1035,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1195,7 +1195,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1355,7 +1355,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1519,7 +1519,7 @@ exports[`it renders form level errors 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1679,7 +1679,7 @@ exports[`it renders message with unsupported product type 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1822,7 +1822,7 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1982,7 +1982,7 @@ exports[`renders a WishlistButton with props 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"

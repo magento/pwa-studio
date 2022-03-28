@@ -1,10 +1,10 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
+import { useQuantityStepper } from '@magento/peregrine/lib/talons/QuantityStepper/useQuantityStepper';
 import Quantity from '../quantity';
 
 jest.mock('../../../../classify');
-jest.mock('@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity');
+jest.mock('@magento/peregrine/lib/talons/QuantityStepper/useQuantityStepper');
 
 const mockOnChange = jest.fn();
 const defaultProps = {
@@ -17,7 +17,7 @@ const defaultProps = {
 };
 
 test('renders quantity correctly', () => {
-    useQuantity.mockReturnValueOnce({
+    useQuantityStepper.mockReturnValueOnce({
         isDecrementDisabled: false,
         isIncrementDisabled: false,
         handleBlur: jest.fn(),

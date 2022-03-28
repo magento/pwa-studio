@@ -22,13 +22,11 @@ jest.mock(
     }
 );
 
+jest.mock('../../QuantityStepper', () => () => 'QuantityStepper');
 jest.mock('../../Breadcrumbs', () => 'Breadcrumbs');
 jest.mock('../../FormError', () => 'FormError');
 jest.mock('../../ProductImageCarousel', () => 'ProductImageCarousel');
 jest.mock('../../ProductOptions', () => () => 'ProductOptions');
-jest.mock('../../CartPage/ProductListing/quantity', () => ({
-    QuantityFields: () => 'QuantityFields'
-}));
 jest.mock('../../RichContent/richContent', () => 'RichContent');
 jest.mock('../CustomAttributes', () => 'CustomAttributes');
 
