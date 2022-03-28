@@ -109,8 +109,11 @@ const extend = {
         span1: 'span 1',
         span2: 'span 2'
     },
+    // TODO @TW:
+    // With Tailwind 3.0, write a plugin for this property.
     gridTemplateColumns: {
         auto: 'auto',
+        autoAuto: 'auto auto',
         autoFirst: 'auto 1fr',
         autoLast: '1fr auto',
         carouselThumbnailList: 'repeat(auto-fit, 1rem)',

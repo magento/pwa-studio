@@ -12,7 +12,7 @@
     composes: grid-cols-[100%] from global;
     composes: justify-start from global;
 
-    composes: sm_grid-cols-[auto auto] from global;
+    composes: sm_grid-cols-autoAuto from global;
 }
 
 .radioMessage {

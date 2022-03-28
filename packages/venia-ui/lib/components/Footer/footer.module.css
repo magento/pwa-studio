@@ -27,16 +27,15 @@
 
 .links {
     composes: gap-x-md from global;
-    composes: gap-y-2xs from global;
+    composes: gap-y-md from global;
     composes: grid from global;
     composes: grid-flow-row from global;
     composes: px-xs from global;
     composes: py-0 from global;
     grid-area: links;
-    grid-auto-columns: 18rem;
     grid-template-columns: repeat(
         auto-fit,
-        minmax(12rem, 1fr)
+        minmax(10rem, 1fr)
     ); /* TODO @TW: review */
 
     composes: md_gap-x-md from global;
@@ -66,10 +65,11 @@
 .callout {
     composes: justify-self-start from global;
     composes: leading-normal from global;
-    composes: max-w-xs from global;
+    composes: max-w-[20rem] from global;
     composes: text-sm from global;
 
     composes: lg_justify-self-center from global;
+    composes: lg_min-w-[20rem] from global;
 }
 
 .calloutHeading {

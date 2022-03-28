@@ -7,6 +7,7 @@
     composes: mx-auto from global;
     composes: my-0 from global;
     composes: px-sm from global;
+    composes: py-sm from global;
 
     composes: lg_gap-md from global;
     /* TODO @TW: review (B7) */
@@ -16,8 +17,8 @@
 }
 
 .mainContainer {
+    composes: col-start-1 from global;
     composes: grid from global;
-    grid-column: 1;
     composes: gap-y-xs from global;
 }
 
@@ -25,9 +26,10 @@
     composes: border-t from global;
     composes: border-solid from global;
     composes: border-subtle from global;
-    grid-column: 2;
+    composes: col-start-1 from global;
 
     composes: lg_border-0 from global;
+    composes: lg_col-start-2 from global;
 }
 
 .header {
