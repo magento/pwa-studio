@@ -4,36 +4,22 @@
 
 /* prettier-ignore */
 .root_active {
-    composes: root;
-
-    grid-template-areas:
-        'header buttons'
-        'content content';
-    grid-template-columns: auto auto;
     composes: gap-y-xs from global;
     composes: grid from global;
     composes: grid-cols-1 from global;
     composes: items-center from global;
     composes: justify-between from global;
 
-    /* TODO @TW: review (B7) */
-    composes: lg_grid-cols-[60px,1fr] from global;
-}
-
-@media (max-width: 959px) {
-    .root_active {
-        grid-template-areas:
-            'header'
-            'content'
-            'buttons';
-        grid-template-rows: 60px 1fr 60px;
-    }
+    composes: lg_grid-cols-autoAuto from global;
 }
 
 .headerText {
+    composes: flex from global;
+    composes: items-center from global;
     composes: leading-tight from global;
+    composes: min-h-[3.5rem] from global;
+    composes: row-start-1 from global;
     composes: text-subtle from global;
-    grid-area: header;
 }
 
 .buttonContainer {
@@ -41,12 +27,14 @@
     composes: grid from global;
     composes: grid-cols-2 from global;
     composes: grid-flow-col from global;
+    composes: items-center from global;
     composes: justify-center from global;
-    grid-area: buttons;
+    composes: min-h-[3.5rem] from global;
+    composes: row-start-3 from global;
 
     composes: xs_grid-cols-auto from global;
-
     composes: lg_justify-end from global;
+    composes: lg_row-start-1 from global;
 }
 
 @media (max-width: 479px) {
@@ -57,7 +45,6 @@
 }
 
 .content {
-    composes: border from global;
     composes: border-solid from global;
     composes: border-subtle from global;
     composes: border-t-0 from global;
@@ -65,12 +52,13 @@
     composes: grid-cols-1 from global;
     composes: gap-xs from global;
     composes: pt-0 from global;
-    grid-area: content;
+    composes: row-start-2 from global;
     grid-auto-rows: minmax(6rem, max-content);
 
     composes: lg_border-top-1 from global;
-    composes: lg_pt-md from global;
+    composes: lg_col-span-2 from global;
     composes: lg_grid-cols-3 from global;
+    composes: lg_pt-md from global;
 }
 
 .addButton {
