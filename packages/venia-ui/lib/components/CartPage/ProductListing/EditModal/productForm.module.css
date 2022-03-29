@@ -21,8 +21,7 @@
 }
 
 .quantityRoot {
-    composes: root from '../quantity.module.css';
-
+    composes: root from '../../../QuantityStepper/quantityStepper.module.css';
     grid-template-columns: auto 4rem auto;
     composes: justify-start from global;
     composes: px-xs from global;

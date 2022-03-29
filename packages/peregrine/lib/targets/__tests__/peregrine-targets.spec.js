@@ -216,6 +216,7 @@ test('exposes all hooks and targets', async () => {
           talons.ProductOptions.useOptions.wrapWith() wraps export "useOptions" from "ProductOptions/useOptions.js"
           talons.ProductOptions.useSwatch.wrapWith() wraps export "useSwatch" from "ProductOptions/useSwatch.js"
           talons.ProductOptions.useTile.wrapWith() wraps export "useTile" from "ProductOptions/useTile.js"
+          talons.QuantityStepper.useQuantityStepper.wrapWith() wraps export "useQuantityStepper" from "QuantityStepper/useQuantityStepper.js"
           talons.Region.useRegion.wrapWith() wraps export "useRegion" from "Region/useRegion.js"
           talons.RootComponents.Category.useCategory.wrapWith() wraps export "useCategory" from "RootComponents/Category/useCategory.js"
           talons.RootComponents.Category.useCategoryContent.wrapWith() wraps export "useCategoryContent" from "RootComponents/Category/useCategoryContent.js"
