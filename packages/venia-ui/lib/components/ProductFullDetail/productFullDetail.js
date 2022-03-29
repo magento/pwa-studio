@@ -13,7 +13,7 @@ import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
 import FormError from '../FormError';
-import { QuantityFields } from '../CartPage/ProductListing/quantity';
+import QuantityStepper from '../QuantityStepper';
 import RichContent from '../RichContent/richContent';
 import { ProductOptionsShimmer } from '../ProductOptions';
 import CustomAttributes from './CustomAttributes';
@@ -208,7 +208,7 @@ const ProductFullDetail = props => {
                             defaultMessage={'Quantity'}
                         />
                     </span>
-                    <QuantityFields
+                    <QuantityStepper
                         classes={{ root: classes.quantityRoot }}
                         min={1}
                         message={errors.get('quantity')}
