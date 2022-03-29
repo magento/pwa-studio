@@ -6,7 +6,7 @@ import { useStyle } from '../../../../classify';
 import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
-import { QuantityFields } from '../quantity';
+import QuantityStepper from '../../../QuantityStepper';
 import defaultClasses from './productForm.module.css';
 import Dialog from '../../../Dialog';
 import ProductDetail from './productDetail';
@@ -110,7 +110,7 @@ const ProductForm = props => {
                         defaultMessage={'Quantity'}
                     />
                 </h3>
-                <QuantityFields
+                <QuantityStepper
                     classes={{
                         root: classes.quantityRoot
                     }}

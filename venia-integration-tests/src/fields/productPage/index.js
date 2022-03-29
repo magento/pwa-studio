@@ -12,7 +12,7 @@ export const addProductToWishlist = '[data-cy="WishlistLineItem-button"]';
 export const productPageOptions = '[data-cy="ProductOptions-Option-root"]';
 
 export const productPageQuantityField =
-    '[data-cy="ProductFullDetail-root"] [data-cy="QuantityFields-input"]';
+    '[data-cy="ProductFullDetail-root"] [data-cy="QuantityStepper-input"]';
 
 export const productPageColorButton = '[data-cy="Swatch-root"]';
 

@@ -3,7 +3,7 @@ import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 import { Form, Text } from 'informed';
 
-import { useQuantity } from '../useQuantity';
+import { useQuantityStepper } from '../useQuantityStepper';
 
 // Could not figure out fakeTimers. Just mock debounce and call callback.
 jest.mock('lodash.debounce', () => {
@@ -12,7 +12,7 @@ jest.mock('lodash.debounce', () => {
 
 const log = jest.fn();
 const Component = props => {
-    const talonProps = useQuantity({ ...props });
+    const talonProps = useQuantityStepper({ ...props });
 
     useEffect(() => {
         log(talonProps);
