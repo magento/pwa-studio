@@ -82,7 +82,7 @@
 :global(.venia-home-slider .slick-slider) {
     min-height: 628px !important;
     max-width: 1440px;
-    width: 100vw;
+    width: 100%;
 }
 
 /*
