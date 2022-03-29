@@ -1,9 +1,6 @@
 .radioRoot {
-    /* We explicitly want one radio item per row. */
-    composes: root from '../../RadioGroup/radioGroup.module.css';
-
-    /* TODO @TW: review (C2) */
-    composes: grid-cols-[auto] from global;
+    composes: gap-2xs from global;
+    composes: grid from global;
 }
 
 .radioLabel {

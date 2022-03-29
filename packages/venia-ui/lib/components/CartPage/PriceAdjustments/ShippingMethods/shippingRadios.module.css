@@ -4,16 +4,7 @@
     composes: gap-2xs from global;
 }
 
-/* TODO @TW review: what is going on here? Odd repeat of class name in snake case. */
-.radio_contents {
+.radioRoot {
     composes: gap-2xs from global;
     composes: grid from global;
-    grid-template-columns: 100%;
-}
-
-.radioRoot {
-    /* We explicitly want one radio item per row. */
-    composes: root from '../../../RadioGroup/radioGroup.module.css';
-
-    composes: grid-cols-auto from global;
 }

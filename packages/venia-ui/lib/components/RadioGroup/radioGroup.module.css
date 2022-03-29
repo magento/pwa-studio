@@ -1,11 +1,6 @@
 .root {
     composes: gap-2xs from global;
     composes: grid from global;
-    /*
-     * Each grid item gets at least 125px.
-     * Wrap the grid items.
-     */
-    composes: grid-cols-radioGroupRoot from global;
 }
 
 .radioContainer {
