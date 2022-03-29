@@ -30,7 +30,7 @@ export const editMenuUpdateCartButton =
 
 export const cartPageProductOption = '[data-cy="ProductOptions-optionValue"]';
 
-export const cartPageProductQuantity = '[data-cy="QuantityFields-input"]';
+export const cartPageProductQuantity = '[data-cy="QuantityStepper-input"]';
 
 export const cartPageProductPrice = '[data-cy="Product-price"]';
 
