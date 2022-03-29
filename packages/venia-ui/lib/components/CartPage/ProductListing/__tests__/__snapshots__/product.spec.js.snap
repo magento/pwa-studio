@@ -266,6 +266,7 @@ exports[`renders configurable product with options 1`] = `
           className="menuItem"
         >
           <button
+            className="button"
             onMouseDown={[MockFunction]}
           >
             <span
@@ -299,6 +300,7 @@ exports[`renders configurable product with options 1`] = `
           className="menuItem"
         >
           <button
+            className="button"
             onMouseDown={[MockFunction]}
           >
             <span
@@ -597,6 +599,7 @@ exports[`renders out of stock product 1`] = `
           className="menuItem"
         >
           <button
+            className="button"
             onMouseDown={[MockFunction]}
           >
             <span
@@ -895,6 +898,7 @@ exports[`renders simple product correctly 1`] = `
           className="menuItem"
         >
           <button
+            className="button"
             onMouseDown={[MockFunction]}
           >
             <span
