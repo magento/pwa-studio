@@ -1,22 +1,18 @@
 .root {
-    composes: col-span-2 from global;
-    composes: col-start-auto from global;
+    composes: col-span-6 from global;
     composes: gap-none from global;
     composes: grid from global;
-    composes: justify-items-center from global;
+    composes: items-start from global;
+    composes: max-w-[20rem] from global;
+    composes: mx-auto from global;
     composes: relative from global;
-    composes: text-center from global;
 
-    composes: md_justify-items-stretch from global;
-    composes: md_text-left from global;
-    composes: lg_col-span-1 from global;
+    composes: sm_col-span-3 from global;
 }
 
 .form {
     composes: gap-y-xs from global;
     composes: grid from global;
-    composes: max-w-[20rem] from global;
-    composes: min-w-[16rem] from global;
     composes: relative from global;
 }
 

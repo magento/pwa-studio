@@ -6,55 +6,36 @@
     composes: grid from global;
     composes: leading-normal from global;
     composes: max-w-site from global;
+    composes: min-h-[15rem] from global;
     composes: mx-auto from global;
     composes: my-0 from global;
     composes: pt-16 from global;
     composes: text-sm from global;
     composes: text-subtle from global;
     composes: w-full from global;
-    grid-template-areas:
-        'links'
-        'brand';
-    grid-template-columns: 100%;
-    min-height: 15rem;
-}
-
-@media (max-width: 959px) {
-    .root {
-        grid-template-areas: 'links' 'brand';
-    }
 }
 
 .links {
     composes: gap-x-md from global;
-    composes: gap-y-md from global;
+    composes: gap-y-lg from global;
     composes: grid from global;
-    composes: grid-flow-row from global;
+    composes: grid-cols-6 from global;
+    composes: grid-flow-row-dense from global;
     composes: px-xs from global;
-    composes: py-0 from global;
-    grid-area: links;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(10rem, 1fr)
-    ); /* TODO @TW: review */
 
-    composes: md_gap-x-md from global;
-    composes: md_gap-y-md from global;
-    composes: md_px-xs from global;
-
-    composes: lg_grid-flow-col from global;
-}
-
-@media (min-width: 960px) {
-    .links {
-        grid-template-columns: repeat(3, 1.5fr) 3fr; /* TODO @TW: review */
-    }
+    composes: xs_px-md from global;
+    composes: lg_gap-x-sm from global;
+    composes: lg_gap-y-md from global;
+    composes: lg_grid-cols-12 from global;
 }
 
 .linkGroup {
+    composes: col-span-3 from global;
     composes: content-start from global;
     composes: gap-xs from global;
     composes: grid from global;
+
+    composes: xs_col-span-2 from global;
 }
 
 .linkItem {
@@ -63,13 +44,14 @@
 }
 
 .callout {
-    composes: justify-self-start from global;
+    composes: col-span-3 from global;
     composes: leading-normal from global;
     composes: max-w-[20rem] from global;
     composes: text-sm from global;
 
-    composes: lg_justify-self-center from global;
-    composes: lg_min-w-[20rem] from global;
+    composes: xs_col-span-6 from global;
+    composes: xs_mx-auto from global;
+    composes: sm_col-span-3 from global;
 }
 
 .calloutHeading {
@@ -106,7 +88,6 @@
     composes: px-md from global;
     composes: text-center from global;
     composes: w-full from global;
-    grid-area: brand;
     grid-template-areas: 'a b c';
 
     composes: lg_gap-0 from global;
