@@ -10,7 +10,6 @@
     justify-content: center;
     min-height: 2.5rem;
     padding: 0.625rem 0.75rem 0.625rem 0.5rem;
-    white-space: nowrap;
 }
 
 .root svg {
