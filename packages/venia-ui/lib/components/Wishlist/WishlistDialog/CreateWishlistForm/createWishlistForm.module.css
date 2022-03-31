@@ -5,8 +5,8 @@
 }
 
 .actions {
-    padding-top: 2rem;
-    display: grid;
-    grid-gap: 0.5rem;
-    grid-auto-flow: column;
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: pt-md from global;
 }

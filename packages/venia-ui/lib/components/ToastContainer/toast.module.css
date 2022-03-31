@@ -1,30 +1,26 @@
-@value info: rgb(0, 104, 108);
-@value warning: rgb(var(--venia-global-color-orange));
-@value error: rgb(220, 20, 60);
-@value success: rgb(var(--venia-global-color-green-500));
-
 .root {
-    align-items: start;
-    background-color: white;
-    border-radius: 2px;
+    composes: bg-white from global;
+    composes: border from global;
+    composes: border-shaded-10 from global;
+    composes: border-solid from global;
+    composes: font-light from global;
+    composes: gap-x-2 from global;
+    composes: gap-y-3 from global;
+    composes: grid from global;
+    composes: items-start from global;
+    composes: justify-items-start from global;
+    composes: leading-tight from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: p-xs from global;
+    composes: rounded-sm from global;
+    composes: text-colorDefault from global;
+    composes: text-sm from global;
+    composes: w-[20rem] from global;
+    animation: toast-pulsate 0.5s 1s;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
-    color: rgb(33, 33, 33);
-    display: grid;
-    font-family: var(--venia-global-fontFamily-sansSerif);
-    font-size: 0.8rem;
-    font-weight: lighter;
-    gap: 0.5rem 0.75rem;
     grid-template-areas: 'icon message controls';
     grid-auto-columns: min-content auto min-content;
-    justify-items: start;
-    line-height: 1.25rem;
-    margin: 0 auto;
-    padding: 1rem;
-    width: 20rem;
-
-    border: 1px solid;
-    border-color: #d1d1d1;
-    animation: toast-pulsate 0.5s 1s;
 }
 
 @keyframes toast-pulsate {
@@ -45,51 +41,62 @@
 
 .infoToast {
     composes: root;
-    border-bottom: 4px solid info;
+
+    composes: border-b-4 from global;
+    composes: border-solid from global;
+    composes: border-info from global;
 }
 
 .infoToast > .icon {
-    --stroke: info;
+    --stroke: rgb(0, 104, 108);
 }
 
 .warningToast {
     composes: root;
-    border-bottom: 4px solid warning;
+
+    composes: border-b-4 from global;
+    composes: border-solid from global;
+    composes: border-warning from global;
 }
 
 .warningToast > .icon {
-    --stroke: warning;
+    --stroke: rgb(var(--venia-global-color-orange));
 }
 
 .errorToast {
     composes: root;
-    border-bottom: 4px solid error;
+
+    composes: border-b-4 from global;
+    composes: border-solid from global;
+    composes: border-error from global;
 }
 
 .errorToast > .icon {
-    --stroke: error;
+    --stroke: rgb(220, 20, 60);
 }
 
 .successToast {
     composes: root;
-    border-bottom: 4px solid success;
+
+    composes: border-b-4 from global;
+    composes: border-solid from global;
+    composes: border-success from global;
 }
 
 .successToast > .icon {
-    --stroke: success;
+    --stroke: rgb(var(--venia-global-color-green-500));
 }
 
 .message {
+    composes: flex from global;
+    composes: text-sm from global;
     grid-area: message;
-    display: flex;
-    font-family: var(--venia-global-fontFamily-sansSerif);
-    font-size: 0.875rem;
 
     /* For wrapping...*/
     /* These are technically the same, but use both */
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+    composes: break-words from global;
 
+    /* TODO @TW review */
     -ms-word-break: break-all;
     /* This is the dangerous one in WebKit, as it breaks things wherever */
     word-break: break-all;
@@ -106,17 +113,19 @@
 }
 
 .controls {
+    composes: border-l from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: pl-3 from global;
     grid-area: controls;
-    border-left: 1px solid rgb(224, 224, 224);
-    padding-left: 0.75rem;
 }
 
 .actionButton {
-    font-weight: 600;
-    text-decoration: underline;
-    color: rgb(33, 33, 33);
+    composes: font-semibold from global;
+    composes: text-colorDefault from global;
+    composes: underline from global;
 }
 
 .dismissButton {
-    color: rgb(112, 112, 112);
+    composes: text-subtle from global;
 }

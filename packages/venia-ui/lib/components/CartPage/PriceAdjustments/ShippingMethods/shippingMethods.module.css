@@ -1,15 +1,15 @@
 .root {
-    display: grid;
-    gap: 1rem;
+    composes: gap-xs from global;
+    composes: grid from global;
 }
 
 .message {
-    font-size: 0.875rem;
-    line-height: 1.5rem;
+    composes: leading-normal from global;
+    composes: text-sm from global;
 }
 
 .prompt {
-    font-weight: var(--venia-global-fontWeight-semibold);
+    composes: font-semibold from global;
 }
 
 .shipping_methods {
@@ -18,25 +18,16 @@
 
 .shipping_methods_hidden {
     composes: shipping_methods;
-    display: none;
+    composes: hidden from global;
 }
 
 .mask {
-    opacity: 0.5;
-    pointer-events: none;
+    composes: opacity-50 from global;
+    composes: pointer-events-none from global;
 }
 
 .estimateButton {
     composes: root_normalPriority from '../../../Button/button.module.css';
-    justify-self: start;
-}
 
-/*
- * Mobile-specific styles.
- */
-
-@media (max-width: 640px) {
-    .root {
-        padding-right: unset;
-    }
+    composes: justify-self-start from global;
 }

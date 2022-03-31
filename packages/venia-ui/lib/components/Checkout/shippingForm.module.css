@@ -15,5 +15,5 @@
 
 /* fields */
 .shippingMethod {
-    grid-column-end: span 1;
+    composes: col-end-span1 from global;
 }

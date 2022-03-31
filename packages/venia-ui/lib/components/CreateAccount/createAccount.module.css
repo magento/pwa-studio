@@ -1,29 +1,33 @@
 .root {
-    display: grid;
-    gap: 0.9375rem;
-    justify-items: stretch;
-    padding: 1rem 1.5rem;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: justify-items-stretch from global;
+    composes: px-sm from global;
+    composes: py-xs from global;
 }
 
 .message {
-    background-color: rgb(var(--venia-global-color-gray));
-    border-radius: 4px;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    padding: 1rem;
+    composes: bg-subtle from global;
+    composes: leading-tight from global;
+    composes: p-xs from global;
+    composes: rounded from global;
+    composes: text-sm from global;
 }
 
+/* TODO @TW: cannot compose */
 .message:empty {
     display: none;
 }
 
 .actions {
-    display: grid;
-    gap: 1rem;
-    grid-auto-flow: column;
-    justify-content: center;
-    margin-top: 1rem;
-    text-align: center;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: justify-center from global;
+    composes: mt-xs from global;
+    composes: text-center from global;
+
+    composes: lg_grid-flow-col from global;
 }
 
 .cancelButton {
@@ -32,19 +36,12 @@
 
 .submitButton {
     composes: root_highPriority from '../Button/button.module.css';
-    grid-column-start: 2;
+
+    composes: col-start-auto from global;
+
+    composes: lg_col-start-2 from global;
 }
 
 .subscribe {
-    margin-left: -0.375rem;
-}
-
-@media (max-width: 960px) {
-    .actions {
-        grid-auto-flow: row;
-    }
-
-    .submitButton {
-        grid-column-start: auto;
-    }
+    composes: -ml-1.5 from global;
 }

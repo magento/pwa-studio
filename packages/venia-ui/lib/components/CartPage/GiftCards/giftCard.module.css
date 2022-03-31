@@ -1,10 +1,10 @@
 .card_info {
-    display: grid;
-    row-gap: 0.5rem;
+    composes: grid from global;
+    composes: gap-y-2xs from global;
 }
 
 .balance {
-    font-size: 0.875rem;
+    composes: text-sm from global;
 }
 
 .code {

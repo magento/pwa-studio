@@ -1,78 +1,99 @@
 .root {
-    align-content: flex-start;
-    border: 2px solid rgb(var(--venia-global-color-gray-400));
-    border-radius: 0.375rem;
-    display: grid;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: content-start from global;
+    composes: grid from global;
+    composes: p-xs from global;
+    composes: relative from global;
+    composes: rounded-md from global;
     grid-template-columns: 1fr max-content;
-    padding: 1.25rem 2rem;
-    position: relative;
+
+    composes: sm_px-md from global;
+    composes: sm_px-5 from global;
 }
 
 .root_updated {
     composes: root;
+
     animation: flash var(--venia-global-anim-bounce) 640ms 2;
 }
 
 .confirmDeleteContainer {
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    height: 100%;
-    justify-items: center;
-    left: 0;
-    padding: 1.25rem 2rem;
-    position: absolute;
-    top: 0;
-    width: 100%;
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: gap-md from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: h-full from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: left-0 from global;
+    composes: p-xs from global;
+    composes: top-0 from global;
+    composes: w-full from global;
+
+    composes: sm_px-md from global;
+    composes: sm_py-5 from global;
+}
+
+@media (min-width: 640px) {
+    .confirmDeleteContainer {
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
 }
 
 .confirmDeleteButton {
     composes: root_normalPriorityNegative from '../Button/button.module.css';
 
-    background-color: white;
-    order: 1;
+    composes: bg-white from global;
+    composes: order-first from global;
+    composes: sm_order-1 from global;
 }
+
 .cancelDeleteButton {
     composes: root_lowPriority from '../Button/button.module.css';
 
-    background-color: white;
+    composes: bg-white from global;
 }
 
 .contentContainer {
-    display: grid;
-    row-gap: 0.5rem;
+    composes: gap-y-2xs from global;
+    composes: grid from global;
 }
 
 .actionContainer {
-    align-content: start;
-    display: grid;
-    justify-items: start;
-    row-gap: 0.5rem;
+    composes: content-start from global;
+    composes: gap-y-2xs from global;
+    composes: grid from global;
+    composes: justify-items-start from global;
 }
 
 .defaultBadge {
-    width: max-content;
-    padding: 0.375rem 1.5rem;
-    margin-bottom: 0.25rem;
-    border: 1px solid rgb(var(--venia-global-color-gray-400));
-    border-radius: 0.375rem;
-    font-size: 0.75rem;
-    font-weight: 600;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: mb-2xs from global;
+    composes: px-sm from global;
+    composes: py-1.5 from global;
+    composes: rounded-md from global;
+    composes: text-xs from global;
+    composes: w-max from global;
 }
 
 .name {
-    font-weight: 600;
+    composes: font-semibold from global;
 }
 
 .telephone {
-    margin-top: 0.5rem;
+    composes: mt-2xs from global;
 }
 
 .linkButton {
     composes: root from '../LinkButton/linkButton.module.css';
-    text-decoration: none;
+
+    composes: no-underline from global;
 }
 
 .editButton {
@@ -83,29 +104,10 @@
     composes: linkButton;
 }
 
-@media (max-width: 640px) {
-    .root {
-        padding: 1rem;
-    }
+.actionLabel {
+    composes: hidden from global;
 
-    .confirmDeleteContainer {
-        padding: 1rem;
-        grid-template-columns: 1fr;
-    }
-
-    .confirmDeleteButton {
-        order: 0;
-    }
-}
-
-@media (max-width: 384px) {
-    .actionLabel {
-        display: none;
-    }
-
-    .linkButton {
-        padding: 0 0.25rem 0.25rem;
-    }
+    composes: xs_inline from global;
 }
 
 @keyframes flash {

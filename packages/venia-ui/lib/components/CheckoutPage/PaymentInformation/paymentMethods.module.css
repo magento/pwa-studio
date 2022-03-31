@@ -1,33 +1,36 @@
 .root {
-    display: grid;
-    padding: 2rem;
-    padding-bottom: 1rem;
+    composes: grid from global;
+    composes: p-md from global;
+    composes: pb-xs from global;
 }
 
 .radio_group {
-    display: grid;
+    composes: grid from global;
 }
 
 .payment_method {
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: pb-xs from global;
+    composes: pt-xs from global;
+
+    composes: last_pt-0 from global;
 }
 
-.payment_method:not(:first-child) {
-    padding-top: 1rem;
-}
-
+/* TODO @TW: cannot compose */
 .payment_method:last-of-type {
+    /* composes: border-b-0 from global; */
     border-bottom-width: 0;
 }
 
 .radio_label {
-    font-weight: 600;
-    justify-self: start;
+    composes: font-semibold from global;
+    composes: justify-self-start from global;
 }
 
 .payment_errors {
-    display: grid;
-    gap: 0.5em;
-    color: rgb(var(--venia-global-color-error));
+    composes: grid from global;
+    composes: gap-2xs from global;
+    composes: text-error from global;
 }

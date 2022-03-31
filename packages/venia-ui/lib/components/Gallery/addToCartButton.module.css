@@ -1,36 +1,26 @@
 .root {
     composes: root_highPriority from '../Button/button.module.css';
-    margin-left: -0.5rem;
+
+    composes: min-w-[6.125rem] from global;
+    composes: -ml-2xs from global;
+    composes: px-2xs from global;
+    composes: py-0 from global;
+    composes: self-center from global;
     min-height: 2rem;
-    padding: 0 0.5rem;
-    align-self: center;
+
+    composes: sm_min-w-[8rem] from global;
+    /* composes: md_min-w-0 from global; */
 }
 
 .icon {
-    display: none;
-    stroke: #fff;
+    composes: inline from global;
+    composes: stroke-white from global;
+
+    composes: xs_hidden from global;
 }
 
 .text {
-    display: inline;
-}
+    composes: hidden from global;
 
-@media (max-width: 640px) {
-    .root {
-        min-width: 8rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .root {
-        min-width: 6.125rem;
-    }
-
-    .icon {
-        display: inline;
-    }
-
-    .text {
-        display: none;
-    }
+    composes: xs_inline from global;
 }

@@ -1,51 +1,50 @@
 .root {
-    display: grid;
-    gap: 1rem;
-    padding: 2rem;
-    border: 2px solid rgb(var(--venia-global-color-gray-400));
-    border-radius: 0.375rem;
+    composes: border-0 from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+    composes: rounded-none from global;
+
+    composes: lg_border-2 from global;
+    composes: lg_border-solid from global;
+    composes: lg_border-subtle from global;
+    composes: lg_p-md from global;
+    composes: lg_rounded-md from global;
 }
 
 .heading {
-    font-weight: var(--venia-global-fontWeight-bold);
-    padding-bottom: 0.5rem;
+    composes: font-bold from global;
+    composes: pb-2xs from global;
 }
 
 .subTotal {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
 }
 
 .discount {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
 }
 
 .tax {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
 }
 
 .shipping {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
 }
 
 .total {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
-    font-weight: var(--venia-global-fontWeight-bold);
-}
-
-@media (max-width: 960px) {
-    .root {
-        border: none;
-        border-radius: 0rem;
-        padding: 1rem 0rem;
-    }
+    composes: font-bold from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
 }

@@ -1,4 +1,6 @@
 .root {
-    border: 2px solid rgb(var(--venia-global-color-gray-400));
-    border-radius: 0.375rem;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: rounded-md from global;
 }

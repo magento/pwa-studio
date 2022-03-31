@@ -1,22 +1,24 @@
 .root {
     --stroke: rgb(var(--venia-global-color-text));
-    align-items: center;
-    display: flex;
+
+    composes: flex from global;
+    composes: h-[3rem] from global;
+    composes: items-center from global;
+    composes: ml-18 from global;
+    composes: w-[3rem] from global;
     grid-area: primary;
-    height: 3rem;
-    margin-left: 4.5rem;
-    width: 3rem;
+
+    composes: sm_justify-self-start from global;
+    composes: sm_ml-10 from global;
 }
 
-@media (min-width: 641px) {
+@media (min-width: 640px) {
     .root {
-        justify-self: start;
-        margin-left: 2.5rem;
         grid-column: 3 / 4;
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
     .root {
         grid-column: 2 / 3;
     }

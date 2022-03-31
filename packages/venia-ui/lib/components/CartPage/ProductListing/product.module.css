@@ -1,26 +1,28 @@
 .root {
-    display: grid;
-    row-gap: 0.5rem;
+    composes: gap-y-2xs from global;
+    composes: grid from global;
 }
 
 .item {
-    align-items: start;
-    display: grid;
-    grid-gap: 0.5rem 1rem;
+    composes: gap-x-2xs from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: items-start from global;
     grid-template-areas: 'image details kebab';
     grid-template-columns: 100px 1fr min-content;
 }
 
 .item_disabled {
     composes: item;
-    opacity: 0.5;
+    composes: opacity-50 from global;
 }
 
 .errorText {
-    color: rgb(var(--venia-global-color-error));
-    line-height: var(--venia-global-lineHeight-300);
+    composes: leading-normal from global;
+    composes: text-error from global;
 }
 
+/* TODO @TW: cannot compose */
 .errorText:empty {
     display: none;
 }
@@ -30,111 +32,117 @@
 }
 
 .imageRoot {
-    height: 100%;
+    composes: h-full from global;
 }
 
 .image {
-    background-color: rgb(var(--venia-global-color-gray));
-    border: solid 1px rgb(var(--venia-global-color-border));
-    border-radius: 2px;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
+    composes: bg-subtle from global;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: h-full from global;
+    composes: object-contain from global;
+    composes: object-center from global;
+    composes: rounded-sm from global;
 }
 
 .details {
-    display: grid;
-    gap: 0.5rem;
-    grid-area: details;
-    grid-template-areas:
-        'name name'
-        'options quantity'
-        'price quantity'
-        'stock quantity';
-    grid-template-columns: 2fr 1fr;
-    line-height: 1.5;
+    composes: gap-2xs from global;
+    composes: leading-normal from global;
+
+    composes: sm_grid from global;
+}
+
+@media (min-width: 640px) {
+    .details {
+        grid-area: details;
+        grid-template-areas:
+            'name name'
+            'options quantity'
+            'price quantity'
+            'stock quantity';
+        grid-template-columns: 2fr 1fr;
+    }
 }
 
 .name {
+    composes: font-semibold from global;
     grid-area: name;
-    font-weight: var(--venia-global-fontWeight-semibold);
 }
 
 .price {
+    composes: text-sm from global;
     grid-area: price;
-    font-size: var(--venia-typography-body-S-fontSize);
 }
 
 .quantity {
-    align-items: start;
-    display: grid;
+    composes: grid from global;
+    composes: items-start from global;
+    composes: justify-items-start from global;
     grid-area: quantity;
-    justify-items: center;
+
+    composes: sm_justify-items-center from global;
 }
 
 .kebab {
+    composes: relative from global;
     grid-area: kebab;
-    position: relative;
 }
 
 .sectionText {
-    padding: 0.25rem 0.5rem;
-    font-size: var(--venia-typography-body-S-fontSize);
-    pointer-events: none;
+    composes: pointer-events-none from global;
+    composes: px-2xs from global;
+    composes: py-1 from global;
+    composes: text-sm from global;
 }
 
 .options {
+    composes: gap-0.5 from global;
+    composes: grid from global;
+    composes: text-sm from global;
     grid-area: options;
-    font-size: var(--venia-typography-body-S-fontSize);
-    display: grid;
-    grid-gap: 0.125rem;
 }
 
 .optionLabel {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
+    composes: auto-cols-max from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
 }
 
 .stockStatusMessage {
-    color: rgb(var(--venia-global-color-error));
-    font-size: var(--venia-global-fontSize-100);
-    font-weight: var(--venia-global-fontWeight-semibold);
+    composes: font-semibold from global;
+    composes: text-error from global;
+    composes: text-sm from global;
     grid-area: stock;
 }
 
+/* TODO @TW: cannot compose */
 .stockStatusMessage:empty {
     display: none;
 }
 
 .addToListButton {
     --stroke: rgb(var(--venia-global-color-teal));
-    align-content: center;
-    column-gap: 1.125rem;
-    display: inline-flex;
-    font-size: var(--venia-typography-body-S-fontSize);
-    padding: 0.875rem 0.625rem;
-    width: 100%;
+
+    composes: content-center from global;
+    composes: gap-x-xs from global;
+    composes: inline-flex from global;
+    composes: px-2.5 from global;
+    composes: py-3.5 from global;
+    composes: text-sm from global;
+    composes: w-full from global;
 }
 
 .addToListButton_selected {
-    display: none;
+    composes: hidden from global;
 }
 
-@media (max-width: 640px) {
-    .details {
-        grid-template: none;
-    }
-
+@media (max-width: 639px) {
     .name,
     .options,
     .price,
     .stockStatusMessage,
     .quantity {
         grid-area: auto;
-    }
-
-    .quantity {
-        justify-items: start;
     }
 }

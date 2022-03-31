@@ -10,7 +10,7 @@
 
     /* Medium */
     composes: md_mb-10 from global;
-    composes: md_text-5xl from global;
+    composes: md_text-4xl from global;
 }
 
 .root_empty,

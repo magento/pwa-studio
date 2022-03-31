@@ -1,21 +1,22 @@
 .root {
-    align-items: center;
-    display: flex;
-    width: 100%;
+    composes: flex from global;
+    composes: items-center from global;
+    composes: w-full from global;
 }
 
 .content {
-    align-items: center;
-    display: grid;
-    gap: 0.75rem;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr;
-    height: 2.5rem;
-    padding: 0 0.75rem;
-    width: 100%;
+    composes: items-center from global;
+    composes: grid from global;
+    composes: grid-cols-[1fr] from global;
+    composes: grid-flow-col from global;
+    composes: gap-3 from global;
+    composes: h-[2.5rem] from global;
+    composes: px-3 from global;
+    composes: py-0 from global;
+    composes: w-full from global;
 }
 
 .text {
-    text-align: left;
-    white-space: nowrap;
+    composes: text-left from global;
+    composes: whitespace-nowrap from global;
 }
