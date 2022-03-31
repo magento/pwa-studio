@@ -1,23 +1,26 @@
 /* Deprecated in PWA-12.1.0*/
 
 .root {
-    display: block;
-    line-height: 1rem;
-    text-align: center;
-    width: 6rem;
+    composes: block from global;
+    composes: leading-none from global;
+    composes: text-center from global;
+    composes: w-[6rem] from global;
 }
 
 .imageContainer {
-    margin: 0 0.5rem 1rem 0.5rem;
+    composes: mb-4 from global;
+    composes: ml-2 from global;
+    composes: mr-2 from global;
+    composes: mt-0 from global;
 }
 
 .image {
-    border-radius: 50%;
+    composes: block from global;
+    composes: h-[5rem] from global;
+    composes: object-cover from global;
+    composes: object-center from global;
+    composes: rounded-full from global;
     box-shadow: 0 0 0 1px rgb(var(--venia-global-color-border));
-    display: block;
-    height: 5rem;
-    object-fit: cover;
-    object-position: center;
 }
 
 .image_empty {
@@ -25,5 +28,5 @@
 }
 
 .name {
-    display: block;
+    composes: block from global;
 }

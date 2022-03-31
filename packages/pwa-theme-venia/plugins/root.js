@@ -1,8 +1,8 @@
 const { declareColors } = require('../lib/colors');
 
-const addRulesets = ({ addBase }) => {
+const addRulesets = ({ addBase, theme }) => {
     addBase({
-        ':root': declareColors()
+        ':root': declareColors(theme('venia.plugins.root.colors'))
     });
 };
 

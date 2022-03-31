@@ -1,10 +1,11 @@
 .root {
-    display: grid;
-    grid-gap: 2rem 1rem;
+    composes: gap-x-md from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
 }
 
 .errorText {
-    color: rgb(var(--venia-global-color-error));
-    line-height: var(--venia-global-lineHeight-300);
-    margin-bottom: 1rem;
+    composes: leading-normal from global;
+    composes: mb-xs from global;
+    composes: text-error from global;
 }

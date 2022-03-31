@@ -1,11 +1,9 @@
 .root {
-    display: grid;
-    grid-gap: 2rem;
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-}
+    composes: gap-x-xs from global;
+    composes: gap-y-md from global;
+    composes: grid from global;
 
-@media (max-width: 480px) {
-    .root {
-        column-gap: 1rem;
-    }
+    composes: xs_gap-x-md from global;
+    composes: xs_gap-y-md from global;
 }

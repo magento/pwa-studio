@@ -1,10 +1,13 @@
 .products {
-    border-top: 1px solid rgb(var(--venia-global-color-border));
-    display: grid;
-    gap: 0.75rem;
-    padding-top: 0.75rem;
+    composes: border-t from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: gap-3 from global;
+    composes: grid from global;
+    composes: pt-3 from global;
 }
 
+/* TODO @TW: cannot compose */
 .products:empty {
     display: none;
 }

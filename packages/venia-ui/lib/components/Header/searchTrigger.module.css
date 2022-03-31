@@ -1,23 +1,18 @@
 .root {
     composes: root from '../clickable.module.css';
+
+    composes: h-lg from global;
+    composes: w-lg from global;
     transition-property: color;
     transition-duration: 224ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    height: 3rem;
-    width: 3rem;
+
+    composes: sm_w-auto from global;
 }
 
 .label {
-    display: none;
-}
+    composes: hidden from global;
 
-@media (min-width: 641px) {
-    .root {
-        width: auto;
-    }
-
-    .label {
-        display: initial;
-        margin-inline-start: 0.25rem;
-    }
+    composes: sm_inline from global;
+    composes: sm_ml-1 from global;
 }
