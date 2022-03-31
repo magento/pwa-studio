@@ -37,6 +37,7 @@ const Section = props => {
     return (
         <li className={classes.menuItem} {...restProps}>
             <button
+                className={classes.button}
                 onMouseDown={onClick}
                 data-cy="LegacyMiniCart-Section-button"
             >
@@ -49,6 +50,7 @@ const Section = props => {
 
 Section.propTypes = {
     classes: shape({
+        button: string,
         icon: string,
         icon_filled: string,
         menuItem: string,

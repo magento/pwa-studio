@@ -1,94 +1,130 @@
 .root {
-    composes: root from '../clickable.module.css';
-    --stroke: var(--venia-brand-color-1-700);
-    background: none;
-    border-color: rgb(var(--stroke));
-    border-radius: 10rem;
-    border-style: solid;
-    border-width: 2px;
-    color: rgb(var(--stroke));
-    font-size: var(--venia-global-fontSize-100);
-    font-weight: var(--venia-global-fontWeight-bold);
-    line-height: 1.25rem;
-    max-width: 100%;
-    min-width: 10rem;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: cursor-pointer from global;
+    composes: font-bold from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: leading-tight from global;
+    composes: max-w-full from global;
+    composes: min-w-[10rem] from global;
+    composes: outline-none from global;
+    composes: pointer-events-auto from global;
+    composes: px-sm from global;
+    composes: rounded-full from global;
+    composes: text-center from global;
+    composes: text-sm from global;
+    composes: uppercase from global;
+    padding-top: calc(0.5rem + 1px); /* TODO @TW: review */
+    padding-bottom: calc(0.5rem - 1px); /* TODO @TW: review */
     min-height: 2.5rem;
-    outline: none;
-    padding: calc(0.5rem + 1px) 1.5rem calc(0.5rem - 1px);
-    text-transform: uppercase;
     transition-duration: 256ms;
     transition-property: background-color, border-color, color;
     transition-timing-function: var(--venia-global-anim-standard);
-}
 
-.root:hover {
-    --stroke: var(--venia-brand-color-1-800);
-}
+    composes: disabled_bg-gray-400 from global;
+    composes: disabled_border-gray-400 from global;
+    composes: disabled_opacity-50 from global;
+    composes: disabled_pointer-events-none from global;
+    composes: disabled_text-white from global;
 
-.root:focus {
-    box-shadow: -6px 6px rgb(var(--venia-brand-color-1-100));
+    composes: focus_shadow-inputFocus from global;
 }
 
 .root:active {
     transition-duration: 128ms;
-    --stroke: var(--venia-brand-color-1-800);
 }
 
 /**
  * Some browsers retain the :hover state after a click, this ensures if a button becomes disabled after
  * being clicked it will be visually disabled.
  */
-.root:disabled,
 .root:hover:disabled {
+    /* TODO @TW: cannot compose. This may not be possible with two variants. */
     pointer-events: none;
-    --stroke: var(--venia-global-color-gray-400);
 }
 
-.content {
-    align-items: center;
-    display: inline-grid;
-    gap: 0.35rem;
-    grid-auto-flow: column;
-    justify-content: center;
-    justify-items: center;
-}
-
-/* derived classes */
 .root_lowPriority {
     composes: root;
-    --stroke: var(--venia-global-color-gray-700);
-}
-.root_lowPriority:hover {
-    --stroke: var(--venia-global-color-gray-900);
-}
-.root_lowPriorityNegative {
-    composes: root_lowPriority;
-    --stroke: var(--venia-global-color-red-700);
-}
-.root_lowPriorityNegative:hover {
-    --stroke: var(--venia-global-color-red-800);
+
+    composes: bg-transparent from global;
+    composes: border-gray-700 from global;
+    composes: text-gray-700 from global;
+
+    composes: active_border-gray-800 from global;
+    composes: active_text-gray-800 from global;
+
+    composes: hover_border-gray-800 from global;
+    composes: hover_text-gray-800 from global;
 }
 
 .root_normalPriority {
     composes: root;
-}
-.root_normalPriorityNegative {
-    composes: root_normalPriority;
-    --stroke: var(--venia-global-color-red-700);
-}
-.root_normalPriorityNegative:hover {
-    --stroke: var(--venia-global-color-red-800);
+
+    composes: bg-transparent from global;
+    composes: border-brand-dark from global;
+    composes: text-brand-dark from global;
+
+    composes: active_border-brand-darkest from global;
+    composes: active_text-brand-darkest from global;
+
+    composes: hover_border-brand-darkest from global;
+    composes: hover_text-brand-darkest from global;
 }
 
 .root_highPriority {
     composes: root;
-    background-color: rgb(var(--stroke));
-    color: rgb(var(--venia-global-color-gray-50));
+
+    composes: bg-brand-dark from global;
+    composes: border-brand-dark from global;
+    composes: text-white from global;
+
+    composes: active_bg-brand-darkest from global;
+    composes: active_border-brand-darkest from global;
+    composes: active_text-white from global;
+
+    composes: hover_bg-brand-darkest from global;
+    composes: hover_border-brand-darkest from global;
+    composes: hover_text-white from global;
 }
+
+.root_lowPriorityNegative,
+.root_normalPriorityNegative {
+    composes: root;
+
+    composes: bg-transparent from global;
+    composes: border-red-600 from global;
+    composes: text-red-600 from global;
+
+    composes: active_border-red-700 from global;
+    composes: active_text-red-700 from global;
+
+    composes: hover_border-red-700 from global;
+    composes: hover_text-red-700 from global;
+}
+
 .root_highPriorityNegative {
-    composes: root_highPriority;
-    --stroke: var(--venia-global-color-red-700);
+    composes: root;
+
+    composes: bg-red-600 from global;
+    composes: border-red-600 from global;
+    composes: text-white from global;
+
+    composes: active_bg-red-700 from global;
+    composes: active_border-red-700 from global;
+    composes: active_text-white from global;
+
+    composes: hover_bg-red-700 from global;
+    composes: hover_border-red-700 from global;
+    composes: hover_text-white from global;
 }
-.root_highPriorityNegative:hover {
-    --stroke: var(--venia-global-color-red-800);
+
+.content {
+    composes: gap-1.5 from global;
+    composes: grid-flow-col from global;
+    composes: inline-grid from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: justify-items-center from global;
 }

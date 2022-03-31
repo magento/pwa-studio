@@ -2,58 +2,63 @@
 }
 
 .body {
-    overflow: auto;
+    composes: overflow-auto from global;
 }
 
 .buttons {
-    padding: 1rem 1rem 2.5rem;
-    display: grid;
-    grid-auto-flow: column;
-    gap: 1rem;
-    justify-content: center;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-center from global;
+    composes: pb-md from global;
+    composes: pt-xs from global;
+    composes: px-xs from global;
 }
 
 .cancelButton {
     composes: root_lowPriority from '../Button/button.module.css';
 
-    min-width: 9rem;
+    composes: min-w-[9rem] from global;
 }
 
 .confirmButton {
     composes: root_highPriority from '../Button/button.module.css';
 
-    min-width: 9rem;
+    composes: min-w-[9rem] from global;
 }
 
 .contents {
-    padding: 1rem;
-    height: fit-content;
+    composes: h-fitContent from global;
+    composes: p-xs from global;
 }
 
 .createButton {
-    width: 100%;
+    composes: w-full from global;
 }
 
 .form {
-    display: grid;
-    gap: 2rem;
-    padding: 0.5rem 1rem;
-    margin: auto;
+    composes: gap-md from global;
+    composes: grid from global;
+    composes: m-auto from global;
+    composes: px-xs from global;
+    composes: py-2xs from global;
 }
 
 .icon {
-    stroke: rgb(var(--venia-brand-color-1-600));
+    composes: stroke-brand-base from global;
 }
 
 .labelContainer {
-    align-items: center;
-    border: 2px dashed rgb(var(--venia-global-color-gray-400));
-    border-radius: 0.375rem;
-    color: rgb(var(--venia-brand-color-1-600));
-    column-gap: 0.5rem;
-    display: grid;
-    font-weight: var(--venia-global-fontWeight-semibold);
-    grid-auto-flow: column;
-    height: 6rem;
-    justify-content: center;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: h-[6rem] from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: rounded-md from global;
+    composes: text-brand-dark from global;
 }

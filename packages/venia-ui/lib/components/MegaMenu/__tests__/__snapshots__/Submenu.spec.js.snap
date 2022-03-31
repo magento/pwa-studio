@@ -2,7 +2,7 @@
 
 exports[`Submenu renders correctly it renders correctly 1`] = `
 <div
-  className="submenu"
+  className="submenu_inactive"
 >
   <div
     className="submenuItems"

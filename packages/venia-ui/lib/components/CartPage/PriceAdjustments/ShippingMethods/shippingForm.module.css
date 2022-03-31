@@ -1,6 +1,7 @@
 .root {
-    display: grid;
-    gap: 0.9375rem 1.5rem;
+    composes: gap-x-xs from global;
+    composes: gap-y-sm from global;
+    composes: grid from global;
     grid-template-columns: 2fr 1fr;
     grid-template-areas:
         'country country'
@@ -9,7 +10,7 @@
 }
 
 .formTitle {
-    font-weight: 600;
+    composes: font-semibold from global;
 }
 
 .zip {
@@ -18,10 +19,11 @@
 
 .submit {
     composes: root_normalPriority from '../../../Button/button.module.css';
-    justify-self: flex-start;
+
+    composes: justify-self-start from global;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 639px) {
     .root {
         /* Only one column in mobile view. */
         grid-template-columns: 100%;
@@ -30,6 +32,5 @@
             'state'
             'zip'
             'submit';
-        padding-right: unset;
     }
 }

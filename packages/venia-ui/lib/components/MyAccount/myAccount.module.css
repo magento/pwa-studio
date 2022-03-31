@@ -1,5 +1,5 @@
 .root {
-    display: grid;
-    grid-auto-flow: row;
-    row-gap: 1.5rem;
+    composes: gap-y-sm from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
 }

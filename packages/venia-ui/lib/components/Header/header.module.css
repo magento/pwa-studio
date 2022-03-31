@@ -1,8 +1,8 @@
 .root {
     composes: auto-cols-fr from global;
-    composes: bg-white from global;
+    composes: bg-header from global;
     composes: border-b from global;
-    composes: border-neutral-l1 from global;
+    composes: border-subtle from global;
     composes: grid from global;
     composes: h-auto from global;
     composes: justify-center from global;
@@ -10,11 +10,8 @@
     composes: top-0 from global;
     composes: sticky from global;
     composes: w-full from global;
-    composes: z-10 from global;
-}
+    composes: z-header from global;
 
-/* Large screen styles */
-.root {
     composes: lg_px-8 from global;
 }
 
@@ -23,11 +20,11 @@
     composes: grid from global;
     composes: grid-flow-col from global;
     composes: justify-end from global;
-    composes: max-w-desktop from global;
+    composes: max-w-site from global;
     composes: mx-auto from global;
     composes: relative from global;
     composes: w-full from global;
-    composes: z-11 from global;
+    composes: z-menu from global;
 }
 
 .switchersContainer {
@@ -60,18 +57,13 @@
     composes: h-14 from global;
     composes: items-center from global;
     composes: justify-self-center from global;
-    composes: max-w-desktop from global;
-    composes: min-height-header from global;
+    composes: max-w-site from global;
     composes: w-full from global;
-    composes: z-3 from global;
-}
+    composes: z-header from global;
 
-/* Large screen styles */
-.toolbar {
     composes: lg_h-20 from global;
     composes: lg_gap-x-8 from global;
     composes: lg_grid-cols-12 from global;
-    composes: lg_min-height-header from global;
 }
 
 .logo {
@@ -91,10 +83,7 @@
 .logoContainer {
     composes: col-start-2 from global;
     composes: justify-self-center from global;
-}
 
-/* Large screen styles */
-.logoContainer {
     composes: lg_col-end-3 from global;
     composes: lg_col-start-1 from global;
     composes: lg_justify-self-start from global;
@@ -110,10 +99,7 @@
     composes: justify-items-end from global;
     composes: justify-self-end from global;
     composes: w-max from global;
-}
 
-/* Large screen styles */
-.secondaryActions {
     composes: lg_col-end-13 from global;
     composes: lg_col-start-10 from global;
     composes: lg_gap-x-4 from global;
@@ -128,16 +114,18 @@
 
 .input {
     composes: input from '../TextInput/textInput.module.css';
+
     composes: max-w-sm from global;
 }
 
 .loader,
-.loader:before,
-.loader:after {
+.loaderBefore,
+.loaderAfter {
     --dot-size: 2em;
     --dot-font-size: 6px;
     --dot-shadow-offset: calc(-1 * var(--dot-size) + var(--dot-font-size));
-    border-radius: 50%;
+
+    composes: rounded-full from global;
     width: var(--dot-size);
     height: var(--dot-size);
     animation: pulse 1.8s infinite ease-in-out;
@@ -145,30 +133,32 @@
 }
 
 .loader {
+    composes: mb-0 from global;
+    composes: mx-auto from global;
     composes: relative from global;
-    color: rgb(var(--venia-global-color-gray-dark));
+    composes: text-subtle from global;
     font-size: var(--dot-font-size);
-    margin: var(--dot-shadow-offset) auto 0;
+    margin-top: var(--dot-shadow-offset);
     transform: translateZ(0);
     animation-delay: -0.16s;
 }
 
-.loader:before,
-.loader:after {
+.loaderBefore,
+.loaderAfter {
+    composes: absolute from global;
+    composes: top-0 from global;
     content: '';
-    position: absolute;
-    top: 0;
 }
 
-.loader:before {
-    color: rgb(var(--venia-global-color-gray));
-    left: -3.5em;
+.loaderBefore {
+    composes: left-[-3.5em] from global;
+    composes: text-gray-100 from global;
     animation-delay: -0.32s;
 }
 
-.loader:after {
-    color: rgb(var(--venia-global-color-gray-darker));
-    left: 3.5em;
+.loaderAfter {
+    composes: left-[3.5em] from global;
+    composes: text-gray-600 from global;
 }
 
 @keyframes pulse {

@@ -60,7 +60,7 @@
     z-index: 1;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     :global(.venia-home-slider ~ div) {
         grid-auto-flow: row;
         grid-template-columns: 100%;
@@ -81,6 +81,7 @@
  */
 :global(.venia-home-slider .slick-slider) {
     min-height: 628px !important;
+    margin-left: -1rem;
     max-width: 1440px;
     width: 100vw;
 }
@@ -130,7 +131,7 @@
     }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     :global(.venia-home-slider .slick-slide > div > div > div) {
         align-content: end;
         background-position: right center !important;
@@ -229,7 +230,7 @@
     width: 100% !important;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     :global(.venia-home-callout) {
         justify-self: center;
         max-width: 640px;
@@ -253,7 +254,7 @@
     width: 16rem;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     :global(.venia-home-callout-text) {
         transform: translate3d(0, 0.5rem, 0);
     }
@@ -287,7 +288,7 @@
     width: 100% !important;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     :global(.venia-home-banner-a-content) {
         grid-column: 1 / span 1;
         padding-top: 0 !important;
@@ -323,7 +324,7 @@
     width: 100% !important;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     :global(.venia-home-banner-a-image) {
         background-position: center bottom !important;
         grid-column: 1 / span 1;
@@ -343,7 +344,7 @@
     width: 100% !important;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     :global(.venia-home-banner-b-image) {
         grid-column: 1 / span 1;
     }
@@ -356,7 +357,7 @@
     width: 100% !important;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     :global(.venia-home-banner-b-content) {
         grid-column: 1 / span 1;
         margin: 0 1rem !important;
