@@ -8,7 +8,7 @@ const { getCMSPage } = graphqlMockedCallsFixtures;
 
 describe(
     'About Us Page',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@snapshot'] },
     () => {
         it('Verify content', () => {
             cy.visit(homePageFixtures.homePage);
