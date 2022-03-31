@@ -85,12 +85,14 @@ export const useCategoryContent = props => {
         ? data.products.page_info.total_pages
         : null;
     const totalCount = data ? data.products.total_count : null;
-    const categoryName = categoryData
-        ? categoryData.categories.items[0].name
-        : null;
-    const categoryDescription = categoryData
-        ? categoryData.categories.items[0].description
-        : null;
+    const categoryName =
+        categoryData && categoryData.categories.items.length
+            ? categoryData.categories.items[0].name
+            : null;
+    const categoryDescription =
+        categoryData && categoryData.categories.items.length
+            ? categoryData.categories.items[0].description
+            : null;
     const availableSortMethods = sortData
         ? sortData.products.sort_fields.options
         : null;
