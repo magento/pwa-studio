@@ -1,43 +1,51 @@
 .root {
+    composes: items-center from global;
+    composes: justify-items-center from global;
     composes: justify-self-center from global;
-    align-items: center;
+    composes: max-w-site from global;
+    composes: px-xs from global;
+    composes: py-0 from global;
+    composes: w-full from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: hidden from global; */
     display: none;
-    justify-items: center;
-    max-width: var(--venia-global-maxWidth);
-    padding: 0 1rem;
-    width: 100%;
 }
 
 .root_open {
     composes: root;
+
+    composes: z-dropdown from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: grid from global; */
     display: grid;
-    z-index: 3;
 }
 
 .form {
-    align-items: center;
-    display: grid;
-    justify-items: stretch;
-    width: 100%;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-items-stretch from global;
+    composes: w-full from global;
 }
 
 .container {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    max-width: 24rem;
-    padding-bottom: 1rem;
-    position: relative;
-    width: 100%;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: max-w-[24rem] from global;
+    composes: pb-xs from global;
+    composes: relative from global;
+    composes: w-full from global;
 }
 
 .search {
-    display: grid;
-    position: relative;
+    composes: grid from global;
+    composes: relative from global;
 }
 
 .autocomplete {
-    display: grid;
-    position: relative;
-    z-index: 1;
+    composes: grid from global;
+    composes: relative from global;
+    composes: z-menu from global;
 }

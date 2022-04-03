@@ -1,4 +1,4 @@
 .root {
-    display: grid;
-    gap: 1.5rem;
+    composes: gap-sm from global;
+    composes: grid from global;
 }

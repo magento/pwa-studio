@@ -1,30 +1,32 @@
 .root {
-    align-content: center;
-    align-items: center;
-    display: grid;
-    gap: 3rem;
+    composes: content-center from global;
+    composes: gap-lg from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: justify-items-center from global;
     height: calc(100% - 6rem);
-    justify-content: center;
-    justify-items: center;
-    margin: 3rem 0;
-    width: 100%;
+    composes: mx-0 from global;
+    composes: my-lg from global;
+    composes: w-full from global;
 }
 
 .global {
     composes: root;
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
+
+    composes: fixed from global;
+    composes: h-full from global;
+    composes: left-0 from global;
+    composes: m-0 from global;
+    composes: top-0 from global;
+    composes: w-full from global;
 }
 
 .message {
-    color: rgb(var(--venia-global-color-text-alt));
-    font-size: 1rem;
-    letter-spacing: 0.25rem;
-    text-transform: uppercase;
+    composes: text-colorDefault from global;
+    composes: text-subtle from global;
+    composes: uppercase from global;
+    letter-spacing: 0.25em;
 }
 
 .indicator {

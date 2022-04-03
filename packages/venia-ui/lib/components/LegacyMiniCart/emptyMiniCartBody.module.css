@@ -1,16 +1,16 @@
 .root {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
-    text-align: center;
+    composes: items-center from global;
+    composes: flex from global;
+    composes: flex-col from global;
+    composes: justify-center from global;
+    composes: p-xs from global;
+    composes: text-center from global;
 }
 
 .emptyTitle {
-    font-size: 1.5rem;
-    line-height: 1.25;
-    margin-bottom: 1.5rem;
+    composes: leading-tight from global;
+    composes: mb-sm from global;
+    composes: text-xl from global;
 }
 
 .continue {

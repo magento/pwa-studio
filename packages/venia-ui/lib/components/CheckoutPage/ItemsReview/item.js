@@ -18,7 +18,7 @@ const Item = props => {
         configurableThumbnailSource
     } = props;
     const classes = useStyle(defaultClasses, propClasses);
-    const className = isHidden ? classes.root_hidden : classes.root;
+    const className = isHidden ? classes.root_hidden : classes.root_visible;
     const configured_variant = configuredVariant(configurable_options, product);
     return (
         <div className={className}>

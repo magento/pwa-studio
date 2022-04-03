@@ -1,12 +1,12 @@
 .root {
-    display: grid;
-    row-gap: 0.375rem;
+    composes: gap-y-1.5 from global;
+    composes: grid from global;
 }
 
 .heading {
+    composes: font-bold from global;
+    composes: pb-1.5 from global;
     grid-row: 1 / span 1;
-    font-weight: var(--venia-global-fontWeight-bold);
-    padding-bottom: 0.375rem;
 }
 
 .payment_type {

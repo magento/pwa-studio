@@ -1,15 +1,16 @@
 .root {
-    align-items: center;
-    column-gap: 0.25rem;
-    display: grid;
+    composes: gap-x-1 from global;
+    composes: grid from global;
+    composes: h-full from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: px-1 from global;
+    composes: py-0 from global;
     grid-template-columns: repeat(5, 1fr);
-    height: 100%;
-    justify-items: center;
-    padding: 0 0.25rem;
 }
 
 .remainderCount {
-    color: rgb(var(--venia-global-color-text-hint));
-    font-size: var(--venia-typography-body-S-fontSize);
-    justify-self: center;
+    composes: justify-self-center from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
 }

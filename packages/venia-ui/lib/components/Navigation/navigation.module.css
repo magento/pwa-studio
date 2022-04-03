@@ -1,106 +1,120 @@
-/* animation helpers */
-
-.enter {
-    transition-duration: 384ms;
-    transition-timing-function: var(--venia-global-anim-in);
-}
-
-.exit {
+.root {
+    composes: bg-white from global;
+    composes: bottom-0 from global;
+    composes: grid from global;
+    composes: left-0 from global;
+    composes: max-w-modal from global;
+    composes: opacity-0 from global;
+    composes: overflow-hidden from global;
+    composes: fixed from global;
+    composes: top-0 from global;
+    composes: w-full from global;
+    composes: z-menu from global;
+    grid-template-rows: auto 1fr auto;
+    transform: translate3d(-100%, 0, 0);
     transition-duration: 192ms;
+    transition-property: opacity, transform, visibility;
     transition-timing-function: var(--venia-global-anim-out);
-}
 
-.hidden {
-    opacity: 0;
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
     visibility: hidden;
 }
 
-.visible {
-    opacity: 1;
+.root_open {
+    composes: root;
+
+    composes: opacity-100 from global;
+    composes: shadow-modal from global;
+    transform: translate3d(0, 0, 0);
+    transition-duration: 384ms;
+    transition-timing-function: var(--venia-global-anim-in);
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
     visibility: visible;
 }
 
-/* module */
-
-.root {
-    composes: exit hidden;
-    background-color: white;
-    bottom: 0;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    left: 0;
-    max-width: 360px;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    transform: translate3d(-100%, 0, 0);
-    transition-property: opacity, transform, visibility;
-    width: 100%;
-    z-index: 3;
-}
-
-.root_open {
-    composes: root enter visible;
-    box-shadow: 1px 0 rgb(var(--venia-global-color-border));
-    transform: translate3d(0, 0, 0);
-}
-
 .header {
-    align-content: center;
-    background-color: rgb(var(--venia-global-color-gray));
-    box-shadow: 0 1px rgb(var(--venia-global-color-border));
-    display: grid;
+    composes: bg-subtle from global;
+    composes: content-center from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: h-[3.5rem] from global;
+    composes: relative from global;
+    composes: shadow-thin from global;
+    composes: z-foreground from global;
     grid-auto-columns: 3.5rem;
-    grid-auto-flow: column;
     grid-auto-rows: 3.5rem;
     grid-template-columns: 3.5rem 1fr 3.5rem;
-    height: 3.5rem;
-    position: relative;
-    z-index: 1;
 }
 
 .body {
-    composes: exit visible;
-    min-height: 0;
-    overflow: auto;
+    composes: min-h-0 from global;
+    composes: opacity-100 from global;
+    composes: overflow-auto from global;
+    transition-duration: 192ms;
     transition-property: opacity, visibility;
+    transition-timing-function: var(--venia-global-anim-out);
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
 }
 
 .body_masked {
-    composes: body enter hidden;
+    composes: body;
+
+    composes: opacity-0 from global;
+    transition-duration: 384ms;
+    transition-timing-function: var(--venia-global-anim-in);
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
 }
 
 .footer {
 }
 
 .switchers {
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: space-between;
-    background-color: rgb(var(--venia-global-color-gray-100));
-    width: 100%;
-}
+    composes: bg-gray-100 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-between from global;
+    composes: w-full from global;
 
-@media (min-width: 641px) {
-    .switchers {
-        display: none;
-    }
+    composes: sm_hidden from global;
 }
 
 .modal {
-    composes: exit hidden;
-    background-color: white;
-    bottom: 0;
-    left: 0;
-    overflow: auto;
-    position: absolute;
-    right: 0;
-    top: 3.5rem;
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: bottom-0 from global;
+    composes: left-0 from global;
+    composes: opacity-0 from global;
+    composes: overflow-auto from global;
+    composes: right-0 from global;
+    composes: top-lg from global;
     transform: translate3d(-100%, 0, 0);
+    transition-duration: 192ms;
     transition-property: opacity, transform, visibility;
+    transition-timing-function: var(--venia-global-anim-out);
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
 }
 
 .modal_open {
-    composes: modal enter visible;
+    composes: modal;
+
+    composes: opacity-100 from global;
     transform: translate3d(0, 0, 0);
+    transition-duration: 384ms;
+    transition-timing-function: var(--venia-global-anim-in);
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
 }
