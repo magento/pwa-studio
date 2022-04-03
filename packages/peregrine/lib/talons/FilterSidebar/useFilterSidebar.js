@@ -73,15 +73,26 @@ export const useFilterSidebar = props => {
     }, [DISABLED_FILTERS, attributeCodes, introspectionData]);
 
     // iterate over filters once to set up all the collections we need
-    const [filterNames, filterKeys, filterItems] = useMemo(() => {
+    const [
+        filterNames,
+        filterKeys,
+        filterItems,
+        filterFrontendInput
+    ] = useMemo(() => {
         const names = new Map();
         const keys = new Set();
+        const frontendInput = new Map();
         const itemsByGroup = new Map();
 
         const sortedFilters = sortFiltersArray([...filters]);
 
         for (const filter of sortedFilters) {
-            const { options, label: name, attribute_code: group } = filter;
+            const {
+                options,
+                label: name,
+                attribute_code: group,
+                frontend_input
+            } = filter;
 
             // If this aggregation is not a possible filter, just back out.
             if (possibleFilters.has(group)) {
@@ -89,6 +100,9 @@ export const useFilterSidebar = props => {
 
                 // add filter name
                 names.set(group, name);
+
+                // Add frontend input type
+                frontendInput.set(group, frontend_input);
 
                 // add filter key permutations
                 keys.add(`${group}[filter]`);
@@ -101,7 +115,7 @@ export const useFilterSidebar = props => {
             }
         }
 
-        return [names, keys, itemsByGroup];
+        return [names, keys, itemsByGroup, frontendInput];
     }, [filters, possibleFilters]);
 
     // on apply, write filter state to location
@@ -192,6 +206,7 @@ export const useFilterSidebar = props => {
         filterItems,
         filterKeys,
         filterNames,
+        filterFrontendInput,
         filterState,
         handleApply,
         handleClose,

@@ -10,6 +10,7 @@ exports[`automatically selects first option when none selected 1`] = `
     className="root"
   >
     <label
+      aria-label=""
       className="root"
       htmlFor="method--usps|priority"
     >
@@ -62,6 +63,7 @@ exports[`automatically selects first option when none selected 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       className="root"
       htmlFor="method--fedex|nextday"
     >
@@ -136,6 +138,7 @@ exports[`renders list of shipping methods 1`] = `
     className="root"
   >
     <label
+      aria-label=""
       className="root"
       htmlFor="method--usps|priority"
     >
@@ -188,6 +191,7 @@ exports[`renders list of shipping methods 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       className="root"
       htmlFor="method--fedex|nextday"
     >

@@ -129,6 +129,7 @@ describe('#useFilterModal', () => {
             filterItems: expect.any(Object),
             filterKeys: expect.any(Object),
             filterNames: expect.any(Object),
+            filterFrontendInput: expect.any(Object),
             filterState: expect.any(Object),
             handleApply: expect.any(Function),
             handleClose: expect.any(Function),

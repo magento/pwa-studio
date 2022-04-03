@@ -65,13 +65,20 @@ jest.mock('react-aria', () => ({
 jest.mock('@magento/peregrine/lib/talons/FilterModal', () => ({
     useFilterModal: jest.fn(({ filters }) => {
         const names = new Map();
+        const filterFrontendInput = new Map();
         const itemsByGroup = new Map();
 
         for (const filter of filters) {
-            const { options, label: name, attribute_code: group } = filter;
+            const {
+                options,
+                label: name,
+                attribute_code: group,
+                frontend_input
+            } = filter;
             const items = [];
             // add filter name
             names.set(group, name);
+            filterFrontendInput.set(group, frontend_input);
 
             // add items
             for (const { label, value } of options) {
@@ -84,6 +91,7 @@ jest.mock('@magento/peregrine/lib/talons/FilterModal', () => ({
             filterApi: null,
             filterItems: itemsByGroup,
             filterNames: names,
+            filterFrontendInput,
             filterState: mockFilterState,
             handleApply: jest.fn(),
             handleClose: jest.fn(),

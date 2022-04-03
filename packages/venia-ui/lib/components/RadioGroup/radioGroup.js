@@ -35,6 +35,7 @@ const RadioGroup = props => {
                     root: classes.radioContainer
                 }}
                 id={`${field}--${value}`}
+                field={field}
                 value={value}
             />
         ));
