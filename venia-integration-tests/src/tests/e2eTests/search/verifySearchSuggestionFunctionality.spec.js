@@ -21,7 +21,7 @@ const {
 
 describe(
     'PWA-1400: verify user search suggestion actions',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@search'] },
     () => {
         it('user should be able search with different inputs and view different suggestions', () => {
             cy.intercept('GET', getAutocompleteResultsCall).as(

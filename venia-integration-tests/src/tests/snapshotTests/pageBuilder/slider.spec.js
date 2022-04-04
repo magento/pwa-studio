@@ -3,7 +3,7 @@ const { getCMSPage } = graphqlMockedCallsFixtures;
 
 describe(
     'PWA-1151: verify slider content',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         it('verify slider content', () => {
             cy.intercept('GET', getCMSPage, {

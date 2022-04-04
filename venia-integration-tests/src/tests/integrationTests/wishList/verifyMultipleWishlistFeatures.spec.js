@@ -62,7 +62,7 @@ const {
 
 describe(
     'PWA-1782: verify multiple wishlist basic features',
-    { tags: ['@commerce', '@ci'] },
+    { tags: ['@commerce', '@ci', '@wishlist'] },
     () => {
         it('user should be able to add and remove products from wishlist', () => {
             cy.intercept('POST', hitGraphqlPath, req => {

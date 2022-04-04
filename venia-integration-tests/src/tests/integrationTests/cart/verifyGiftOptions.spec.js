@@ -44,7 +44,7 @@ const {
 
 describe(
     'verify gift options actions in cart',
-    { tags: ['@commerce', '@ci'] },
+    { tags: ['@commerce', '@ci', '@cart'] },
     () => {
         it('user should be able to add and update gift options', () => {
             cy.intercept('GET', getProductDetailForProductPageCall).as(

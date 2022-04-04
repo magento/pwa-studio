@@ -38,7 +38,7 @@ const { assertCartIsEmpty, assertCartTriggerCount } = headerAssertions;
 
 describe(
     'PWA-1398: verify mini cart actions',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@cart'] },
     () => {
         it('user should be able to remove products', () => {
             cy.intercept('GET', getProductDetailForProductPageCall).as(

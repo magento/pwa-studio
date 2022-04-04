@@ -54,7 +54,7 @@ beforeEach(() => {
 
 describe(
     'PWA-1085: Verify cached pages are rendered correctly on offline mode',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@offline'] },
     () => {
         it('user should be able to navigate on offline mode', () => {
             cy.intercept('GET', getStoreConfigDataCall).as(

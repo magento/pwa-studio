@@ -35,7 +35,7 @@ const {
 
 describe(
     'Verify discount summary based on cart price rule ',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@cart'] },
     () => {
         it('Discount summary dropdown renders correctly', () => {
             cy.intercept('POST', hitGraphqlPath, req => {

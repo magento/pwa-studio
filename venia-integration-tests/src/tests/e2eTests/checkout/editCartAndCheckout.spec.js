@@ -86,7 +86,7 @@ const {
 
 describe(
     'PWA-1414: Verify cart editing and checkout',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@checkout', '@cart'] },
     () => {
         it('should be able to edit a configurable product and place an order', () => {
             cy.intercept('GET', getProductDetailForProductPageCall).as(

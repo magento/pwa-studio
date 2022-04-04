@@ -553,7 +553,7 @@ const interceptRouteDataRequests = expectedStoreCode => {
     });
 };
 
-describe('default store', { tags: ['@commerce', '@ci'] }, () => {
+describe('default store', { tags: ['@commerce', '@ci', '@multistore'] }, () => {
     it('contains valid CMS Page data', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);

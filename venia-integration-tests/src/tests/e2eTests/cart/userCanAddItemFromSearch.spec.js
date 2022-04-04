@@ -30,7 +30,7 @@ const {
 
 describe(
     'Verify Add to cart actions from search page',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@cart'] },
     () => {
         it("User shouldn't be able to add a CustomizableProduct from search", () => {
             cy.intercept('GET', getProductDetailForProductPageCall).as(

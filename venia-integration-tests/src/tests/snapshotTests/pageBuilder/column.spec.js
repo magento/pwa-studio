@@ -2,7 +2,7 @@ import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtu
 const { getCMSPage } = graphqlMockedCallsFixtures;
 describe(
     'PWA-1157: verify pagebuilder column content is rendered correctly',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         it('verify column content', () => {
             cy.intercept('GET', getCMSPage, {

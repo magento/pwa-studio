@@ -2,7 +2,7 @@ import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtu
 const { getCMSPage } = graphqlMockedCallsFixtures;
 describe(
     'PWA-1155: verify pagebuilder tabs content is rendered correctly',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         it('verify tabs content', () => {
             cy.intercept('GET', getCMSPage, {
@@ -22,7 +22,7 @@ describe(
 
 describe(
     'PWA-1471: Verify pagebuilder tabs media query',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         it('should apply mediaQuery styles', () => {
             cy.intercept('GET', getCMSPage, {

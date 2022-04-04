@@ -26,7 +26,7 @@ const {
 
 describe(
     'PWA-1410: verify sort and pagination',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@category', '@sort', '@pagination'] },
     () => {
         it('user should be able to sort products and use pagination', () => {
             cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');

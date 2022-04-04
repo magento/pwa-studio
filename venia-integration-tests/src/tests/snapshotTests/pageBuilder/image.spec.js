@@ -2,7 +2,7 @@ import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtu
 const { getCMSPage } = graphqlMockedCallsFixtures;
 describe(
     'PWA-1166: pagebuilder > image',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         context('desktop viewport', () => {
             it('renders properly', () => {

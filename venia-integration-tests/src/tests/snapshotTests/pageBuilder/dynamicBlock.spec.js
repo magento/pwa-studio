@@ -3,7 +3,7 @@ const { getCMSPage, getDynamicBlocksCall } = graphqlMockedCallsFixtures;
 
 describe(
     'Verify pagebuilder dynamic block content is rendered correctly',
-    { tags: ['@commerce', '@ci'] },
+    { tags: ['@commerce', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         it('verify dynamic block content', () => {
             cy.intercept('GET', getCMSPage, {

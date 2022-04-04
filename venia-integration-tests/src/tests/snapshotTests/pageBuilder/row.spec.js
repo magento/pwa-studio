@@ -7,7 +7,7 @@ const { successImage } = mediaMockedCallsFixtures;
 
 describe(
     'PWA-1156: verify pagebuilder row content',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         it('verify row content', () => {
             cy.intercept('GET', getCMSPage, {

@@ -7,7 +7,7 @@ const { createGoogleMapApi } = googleMapApiFixtures;
 
 describe(
     'PWA-1172: verify pagebuilder map content is rendered correctly',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         it('verify google map api load with content', () => {
             // Prevent default Google API from loading

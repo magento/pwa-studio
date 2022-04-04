@@ -48,7 +48,7 @@ const { assertCreateAccount, assertSignedOut } = myAccountMenuAssertions;
 
 describe(
     'PWA-1423: verify customer account actions',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@authuser'] },
     () => {
         it('user should be able to create a new account and edit their information', () => {
             // Test - Create an account

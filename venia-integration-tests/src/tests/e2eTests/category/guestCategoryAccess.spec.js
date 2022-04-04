@@ -38,7 +38,7 @@ const {
 
 describe(
     'PWA-1409: verify category access',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@category'] },
     () => {
         it('user should be able to access the Categories via Home page and from Main Menu left drawer', () => {
             cy.intercept('GET', getCategoryDataCall).as(

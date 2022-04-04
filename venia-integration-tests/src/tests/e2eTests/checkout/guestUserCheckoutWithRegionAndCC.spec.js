@@ -91,7 +91,7 @@ const completeShippingAddress = {
 
 describe(
     'PWA-1870: verify uk region checkout actions',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@checkout', '@cart'] },
     () => {
         it('user should be able to place an order as a guest with an specified Region and a credit card', () => {
             cy.intercept('GET', getCheckoutDetailsCall).as(

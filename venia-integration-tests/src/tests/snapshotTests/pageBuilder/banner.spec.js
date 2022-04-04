@@ -3,7 +3,7 @@ const { getCMSPage } = graphqlMockedCallsFixtures;
 
 describe(
     'PWA-1154: verify pagebuilder banner content',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         it('verify banner content', () => {
             cy.intercept('GET', getCMSPage, {

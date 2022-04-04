@@ -3,7 +3,7 @@ const { getCMSPage } = graphqlMockedCallsFixtures;
 
 describe(
     'PWA-1167: verify pagebuilder products content type',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         context('desktop viewport', () => {
             it('verify products grid', () => {
