@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const glob = require('glob');
-const fs = require("fs");
+const fs = require('fs');
 const { exec, execSync } = require('child_process');
 const { rmSync } = require('fs');
 
@@ -141,12 +141,12 @@ for (let i = 0; i < threadCount; i++) {
 
         if (Object.values(dockerRuns).every(r => r.completed)) {
             // build final results json
-            if (fs.existsSync("cypress/results")) {
+            if (fs.existsSync('cypress/results')) {
                 execSync(
                     'mochawesome-merge cypress/results/*.json -o cypress-test-results.json'
                 );
             }
-            
+
             const totalTime = process.hrtime(start)[0];
 
             console.log(`\nAll runs completed in ${totalTime} seconds\n`);
