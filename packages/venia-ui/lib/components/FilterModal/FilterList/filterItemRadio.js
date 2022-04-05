@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { func, number, oneOfType, shape, string } from 'prop-types';
 import Radio from '../../RadioGroup/radio';
-import defaultClasses from './filteritemRadio.module.css';
+import defaultClasses from './filterItemRadio.module.css';
 import { useStyle } from '../../../classify';
 import { useIntl } from 'react-intl';
 
