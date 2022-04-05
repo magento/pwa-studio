@@ -41,6 +41,22 @@ const mockFilters = [
                 value: 1
             }
         ]
+    },
+    {
+        attribute_code: 'boolean_filter',
+        label: 'Boolean Filter',
+        options: [
+            {
+                __typename: 'AggregationOption',
+                label: '0',
+                value: '0'
+            },
+            {
+                __typename: 'AggregationOption',
+                label: '1',
+                value: '1'
+            }
+        ]
     }
 ];
 
@@ -62,6 +78,26 @@ jest.mock('react-aria', () => ({
     })
 }));
 
+// TODO: Get all frontend input type from gql if other filter input types are needed
+// See: https://github.com/magento-commerce/magento2-pwa/pull/26
+const isBooleanFilter = options => {
+    return (
+        options.length === 2 &&
+        JSON.stringify(options[0]) ===
+            JSON.stringify({
+                __typename: 'AggregationOption',
+                label: '0',
+                value: '0'
+            }) &&
+        JSON.stringify(options[1]) ===
+            JSON.stringify({
+                __typename: 'AggregationOption',
+                label: '1',
+                value: '1'
+            })
+    );
+};
+
 jest.mock('@magento/peregrine/lib/talons/FilterModal', () => ({
     useFilterModal: jest.fn(({ filters }) => {
         const names = new Map();
@@ -69,20 +105,31 @@ jest.mock('@magento/peregrine/lib/talons/FilterModal', () => ({
         const itemsByGroup = new Map();
 
         for (const filter of filters) {
-            const {
-                options,
-                label: name,
-                attribute_code: group,
-                frontend_input
-            } = filter;
+            const { options, label: name, attribute_code: group } = filter;
             const items = [];
             // add filter name
             names.set(group, name);
-            filterFrontendInput.set(group, frontend_input);
 
-            // add items
-            for (const { label, value } of options) {
-                items.push({ title: label, value });
+            if (isBooleanFilter(options)) {
+                filterFrontendInput.set(group, 'boolean');
+                // add items
+                items.push({
+                    title: 'No',
+                    value: '0',
+                    label: name + ': ' + 'No'
+                });
+                items.push({
+                    title: 'Yes',
+                    value: '1',
+                    label: name + ': ' + 'Yes'
+                });
+            } else {
+                filterFrontendInput.set(group, null);
+
+                // add items
+                for (const { label, value } of options) {
+                    items.push({ title: label, value });
+                }
             }
             itemsByGroup.set(group, items);
         }

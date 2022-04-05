@@ -36,8 +36,6 @@ const PaymentMethods = props => {
         return null;
     }
 
-    const field = 'selectedPaymentMethod';
-
     const radios = availablePaymentMethods
         .map(({ code, title }) => {
             // If we don't have an implementation for a method type, ignore it.
@@ -63,7 +61,6 @@ const PaymentMethods = props => {
                         id={id}
                         label={title}
                         value={code}
-                        field={field}
                         classes={{
                             label: classes.radio_label
                         }}

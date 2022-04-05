@@ -1,23 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { arrayOf, func, number, oneOfType, shape, string } from 'prop-types';
 import setValidator from '@magento/peregrine/lib/validators/set';
 import RadioGroup from '../../RadioGroup';
 import FilterItemRadio from './filterItemRadio';
+import { useFieldApi } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 const FilterItemRadioGroup = props => {
-    const {
-        filterApi,
-        filterState,
-        group,
-        items,
-        name,
-        onApply,
-        labels
-    } = props;
+    const { filterApi, filterState, group, items, onApply, labels } = props;
+
     const radioItems = useMemo(() => {
         return items.map(item => {
             const code = `item-${group}-${item.value}`;
-            item.label = name + ': ' + item.title.toString();
             return (
                 <FilterItemRadio
                     key={code}
@@ -27,14 +21,35 @@ const FilterItemRadioGroup = props => {
                     item={item}
                     onApply={onApply}
                     labels={labels}
-                    field={`item-${group}`}
                 />
             );
         });
-    }, [filterApi, filterState, group, items, labels, name, onApply]);
+    }, [filterApi, filterState, group, items, labels, onApply]);
+
+    const fieldValue = useMemo(() => {
+        if (filterState) {
+            for (const item of items) {
+                if (filterState.has(item)) {
+                    return item.value;
+                }
+            }
+        }
+
+        return null;
+    }, [filterState, items]);
+    const field = `item-${group}`;
+    const fieldApi = useFieldApi(field);
+    const fieldState = useFieldState(field);
+    useEffect(() => {
+        if (field && fieldValue === null) {
+            fieldApi.reset();
+        } else if (field && fieldValue !== fieldState.value) {
+            fieldApi.setValue(fieldValue);
+        }
+    }, [field, fieldApi, fieldState.value, fieldValue]);
 
     return (
-        <RadioGroup field={`item-${group}`} data-cy="FilterDefault-radioGroup">
+        <RadioGroup field={field} data-cy="FilterDefault-radioGroup">
             {radioItems}
         </RadioGroup>
     );

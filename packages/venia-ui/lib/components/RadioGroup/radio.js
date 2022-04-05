@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Circle } from 'react-feather';
 import { node, shape, string } from 'prop-types';
-import { Radio as InformedRadio, useFieldApi } from 'informed';
+import { Radio as InformedRadio } from 'informed';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './radio.module.css';
-import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 /* TODO: change lint config to use `label-has-associated-control` */
 /* eslint-disable jsx-a11y/label-has-for */
@@ -17,19 +16,9 @@ const RadioOption = props => {
         id,
         label,
         value,
-        field,
-        fieldValue,
         ...rest
     } = props;
     const classes = useStyle(defaultClasses, propClasses);
-
-    const fieldApi = useFieldApi(field);
-    const fieldState = useFieldState(field);
-    useEffect(() => {
-        if (field && fieldValue && value !== fieldState.value) {
-            fieldApi.setValue(value);
-        }
-    }, [field, fieldApi, fieldState.value, fieldValue, value]);
 
     return (
         <label
@@ -65,8 +54,7 @@ RadioOption.propTypes = {
     }),
     id: string.isRequired,
     label: node.isRequired,
-    value: node.isRequired,
-    field: string.isRequired
+    value: node.isRequired
 };
 
 /* eslint-enable jsx-a11y/label-has-for */

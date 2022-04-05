@@ -72,6 +72,24 @@ export const useFilterSidebar = props => {
         return nextFilters;
     }, [DISABLED_FILTERS, attributeCodes, introspectionData]);
 
+    const isBooleanFilter = options => {
+        return (
+            options.length === 2 &&
+            JSON.stringify(options[0]) ===
+                JSON.stringify({
+                    __typename: 'AggregationOption',
+                    label: '0',
+                    value: '0'
+                }) &&
+            JSON.stringify(options[1]) ===
+                JSON.stringify({
+                    __typename: 'AggregationOption',
+                    label: '1',
+                    value: '1'
+                })
+        );
+    };
+
     // iterate over filters once to set up all the collections we need
     const [
         filterNames,
@@ -87,12 +105,7 @@ export const useFilterSidebar = props => {
         const sortedFilters = sortFiltersArray([...filters]);
 
         for (const filter of sortedFilters) {
-            const {
-                options,
-                label: name,
-                attribute_code: group,
-                frontend_input
-            } = filter;
+            const { options, label: name, attribute_code: group } = filter;
 
             // If this aggregation is not a possible filter, just back out.
             if (possibleFilters.has(group)) {
@@ -101,15 +114,31 @@ export const useFilterSidebar = props => {
                 // add filter name
                 names.set(group, name);
 
-                // Add frontend input type
-                frontendInput.set(group, frontend_input);
-
                 // add filter key permutations
                 keys.add(`${group}[filter]`);
 
-                // add items
-                for (const { label, value } of options) {
-                    items.push({ title: stripHtml(label), value });
+                // TODO: Get all frontend input type from gql if other filter input types are needed
+                // See https://github.com/magento-commerce/magento2-pwa/pull/26
+                if (isBooleanFilter(options)) {
+                    frontendInput.set(group, 'boolean');
+                    // add items
+                    items.push({
+                        title: 'No',
+                        value: '0',
+                        label: name + ':' + 'No'
+                    });
+                    items.push({
+                        title: 'Yes',
+                        value: '1',
+                        label: name + ':' + 'Yes'
+                    });
+                } else {
+                    // Add frontend input type
+                    frontendInput.set(group, null);
+                    // add items
+                    for (const { label, value } of options) {
+                        items.push({ title: stripHtml(label), value });
+                    }
                 }
                 itemsByGroup.set(group, items);
             }
