@@ -37,7 +37,7 @@
     "@magento/peregrine": "~12.3.0",
     "@magento/pwa-buildpack": "~11.2.0",
     "@magento/venia-ui": "~9.3.0",
-    "@storybook/react": "~6.3.7",
+    "@storybook/react": "~6.4.9",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
