@@ -67,5 +67,5 @@ export const assertProductPriceHasCurrency = currency => {
  * Utility function to assert product in ProductPage displays out of stock.
  */
 export const assertProductIsOutOfStock = () => {
-    cy.get(productPageAddToCartButton).contains('OUT OF STOCK');
+    cy.get(productPageAddToCartButton).contains('Out of Stock');
 };
