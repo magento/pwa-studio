@@ -1,15 +1,19 @@
 .root {
-    background-color: white;
-    padding: 0;
+    composes: bg-white from global;
+    composes: p-0 from global;
 }
 
 .root_open {
     composes: root;
-    position: relative;
-    z-index: 3;
+
+    composes: relative from global;
+    composes: z-foreground from global;
 }
 
 .placeholderButton {
-    text-align: center;
-    margin: 1.5rem 0 1rem 0;
+    composes: mt-sm from global;
+    composes: mr-0 from global;
+    composes: mb-xs from global;
+    composes: ml-0 from global;
+    composes: text-center from global;
 }

@@ -1,46 +1,52 @@
 .contents {
     composes: contents from '../../../Dialog/dialog.module.css';
-    position: relative;
+
+    composes: relative from global;
 }
 
 .optionRoot {
-    border-bottom: 1px solid rgb(var(--venia-global-color-border));
-    padding: 1rem 0;
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
 }
 
 .quantityLabel {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
-    padding-top: 1rem;
+    composes: font-semibold from global;
+    composes: leading-normal from global;
+    composes: mb-sm from global;
+    composes: pt-xs from global;
+    composes: text-colorDefault from global;
 }
 
 .quantityRoot {
-    composes: root from '../quantity.module.css';
+    composes: root from '../../../QuantityStepper/quantityStepper.module.css';
     grid-template-columns: auto 4rem auto;
-    justify-content: start;
-    padding: 0 1rem;
+    composes: justify-start from global;
+    composes: px-xs from global;
+    composes: py-0 from global;
 }
 
 .loading {
     composes: root from '../../../LoadingIndicator/indicator.module.css';
-    height: unset;
-    left: 0;
-    position: absolute;
-    text-align: center;
-    top: 50%;
+
+    composes: absolute from global;
+    composes: h-unset from global;
+    composes: left-0 from global;
+    composes: text-center from global;
+    composes: top-2/4 from global;
+    composes: z-mask from global;
     transform: translateY(-50%);
-    z-index: 10;
 }
 
 .dataError {
-    color: rgb(var(--venia-global-color-error));
-    display: inline-block;
-    padding-top: 1rem;
-    line-height: var(--venia-global-lineHeight-300);
+    composes: inline-block from global;
+    composes: leading-normal from global;
+    composes: pt-xs from global;
+    composes: text-error from global;
 }
 
 .errorContainer {
-    padding-top: 1rem;
+    composes: pt-xs from global;
 }

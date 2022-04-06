@@ -7,7 +7,17 @@ import actions from '../actions/user';
 
 export const name = 'user';
 
-const isSignedIn = () => !!storage.getItem('signin_token');
+const rawSignInToken = storage.getRawItem('signin_token');
+
+const isSignedIn = () => !!rawSignInToken;
+
+const getToken = () => {
+    if (!rawSignInToken) {
+        return undefined;
+    }
+    const { value } = JSON.parse(rawSignInToken);
+    return value;
+};
 
 const initialState = {
     currentUser: {
@@ -20,7 +30,7 @@ const initialState = {
     isResettingPassword: false,
     isSignedIn: isSignedIn(),
     resetPasswordError: null,
-    token: storage.getItem('signin_token')
+    token: getToken()
 };
 
 const reducerMap = {

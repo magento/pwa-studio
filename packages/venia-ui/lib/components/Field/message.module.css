@@ -1,17 +1,21 @@
 .root {
-    color: rgb(var(--venia-global-color-text));
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1rem;
-    padding: 0.625rem 0.125rem 0.125rem;
+    composes: font-normal from global;
+    composes: leading-none from global;
+    composes: pb-0.5 from global;
+    composes: pt-2.5 from global;
+    composes: px-0.5 from global;
+    composes: text-colorDefault from global;
+    composes: text-sm from global;
 }
 
+/* TODO @TW: cannot compose */
 .root:empty {
     display: none;
 }
 
 .root_error {
     composes: root;
-    color: rgb(var(--venia-global-color-error));
-    font-weight: var(--venia-global-fontWeight-semibold);
+
+    composes: font-semibold from global;
+    composes: text-error from global;
 }

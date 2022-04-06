@@ -1,47 +1,46 @@
 .root {
-    display: block;
-    width: 100%;
-    background-color: white;
-    border: none;
-}
-.root:focus {
-    background-image: radial-gradient(
-        circle,
-        rgb(var(--venia-global-color-gray)),
-        white
-    );
-    outline: 0 none;
+    composes: bg-white from global;
+    composes: block from global;
+    composes: border-0 from global;
+    composes: w-full from global;
+
+    composes: focus_bg-gradient-radial from global;
+    composes: focus_outline-none from global;
 }
 
 .content {
-    align-items: center;
-    border-bottom: 1px solid rgb(var(--venia-global-color-border));
-    display: grid;
-    gap: 1rem;
-    grid-auto-flow: column;
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-items-start from global;
+    composes: mx-sm from global;
+    composes: my-0 from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+    composes: text-left from global;
     grid-template-columns: 5rem 1fr 2rem;
-    justify-items: start;
-    margin: 0 1.5rem;
     min-height: 4.5rem;
-    padding: 1rem 0;
-    text-align: left;
 }
 
 .label {
-    color: rgb(var(--venia-global-color-teal));
-    font-size: 14px;
-    font-weight: 600;
+    composes: font-semibold from global;
+    composes: text-brand from global;
+    composes: text-sm from global;
 }
 
 .summary {
-    font-size: 13px;
-    justify-self: stretch;
-    line-height: 1.5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    composes: justify-self-stretch from global;
+    composes: leading-normal from global;
+    composes: overflow-hidden from global;
+    composes: overflow-ellipsis from global;
+    composes: text-sm from global;
+    composes: whitespace-nowrap from global;
 }
 
 .icon {
-    justify-self: center;
+    composes: justify-self-center from global;
 }

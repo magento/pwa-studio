@@ -1,5 +1,5 @@
 .root {
-    padding: 1rem;
+    composes: p-xs from global;
 }
 
 .confirmButton {
@@ -8,13 +8,13 @@
 }
 
 .errorMessage {
-    color: rgb(var(--venia-global-color-error));
-    font-size: var(--venia-typography-body-S-fontSize);
-    font-weight: var(--venia-global-fontWeight-semibold);
-    line-height: var(--venia-global-lineHeight-300);
-    padding-bottom: 1rem;
+    composes: font-semibold from global;
+    composes: leading-normal from global;
+    composes: pb-xs from global;
+    composes: text-error from global;
+    composes: text-sm from global;
 }
 
 .prompt {
-    font-weight: var(--venia-global-fontWeight-semibold);
+    composes: font-semibold from global;
 }

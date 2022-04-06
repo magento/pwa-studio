@@ -48,7 +48,7 @@ exports[`#MegaMenu renders menu if in viewport 1`] = `
       </span>
     </a>
     <div
-      className="submenu"
+      className="submenu_inactive"
     >
       <div
         className="submenuItems"

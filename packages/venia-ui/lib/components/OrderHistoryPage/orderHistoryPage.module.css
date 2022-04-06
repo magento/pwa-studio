@@ -1,74 +1,70 @@
 .root {
-    display: grid;
-    padding: 2rem 3rem;
-    row-gap: 2rem;
+    composes: grid from global;
+    composes: gap-y-md from global;
+    composes: px-sm from global;
+    composes: py-md from global;
+
+    composes: lg_px-lg from global;
 }
 
 .heading {
-    font-family: var(--venia-global-fontFamily-serif);
-    font-weight: var(--venia-global-fontWeight-bold);
-    justify-self: center;
-    text-transform: capitalize;
+    composes: font-bold from global;
+    composes: font-serif from global;
+    composes: justify-self-center from global;
+    composes: capitalize from global;
 }
 
 .emptyHistoryMessage {
-    text-align: center;
+    composes: text-center from global;
 }
 
 .orderHistoryTable {
-    display: grid;
-    row-gap: 1rem;
+    composes: grid from global;
+    composes: gap-y-xs from global;
 }
 
 .filterRow {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
+    composes: flex from global;
+    composes: flex-col from global;
+    composes: gap-y-xs from global;
+    composes: items-start from global;
+    composes: justify-between from global;
+
+    composes: lg_flex-row from global;
+    composes: lg_gap-y-0 from global;
+    composes: lg_items-center from global;
 }
 
 .pageInfo {
-    font-size: var(--venia-typography-body-S-fontSize);
+    composes: text-sm from global;
 }
 
 .search {
-    display: grid;
-    gap: 1rem;
-    grid-auto-flow: column;
-    width: 22rem;
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-self-center from global;
+    composes: w-full from global;
+
+    composes: lg_gap-xs from global;
+    composes: lg_justify-self-left from global;
+    composes: lg_w-[22rem] from global;
 }
 
 .searchButton {
     composes: root_highPriority from '../Button/button.module.css';
 
-    width: 5rem;
-    height: 2rem;
-    min-width: 5rem;
+    composes: h-[2rem] from global;
+    composes: min-w-[5rem] from global;
+    composes: w-[5rem] from global;
 }
 
 .submitIcon {
-    color: white;
+    composes: text-white from global;
 }
 
 .loadMoreButton {
     composes: root_lowPriority from '../Button/button.module.css';
-    justify-self: center;
-}
 
-@media (max-width: 960px) {
-    .root {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
-
-    .filterRow {
-        align-items: flex-start;
-        flex-direction: column;
-        row-gap: 1rem;
-    }
-
-    .search {
-        gap: 0.5rem;
-        width: 100%;
-        justify-self: center;
-    }
+    composes: justify-self-center from global;
 }

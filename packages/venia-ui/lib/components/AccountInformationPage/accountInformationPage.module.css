@@ -1,37 +1,43 @@
 .root {
-    display: grid;
-    padding: 2.5rem 3rem;
-    row-gap: 2rem;
+    composes: grid from global;
+    composes: gap-y-md from global;
+    composes: px-lg from global;
+    composes: py-md from global;
 }
 
 .title {
-    justify-self: center;
-    font-family: var(--venia-global-fontFamily-serif);
-    font-weight: var(--venia-global-fontWeight-bold);
+    composes: font-bold from global;
+    composes: font-serif from global;
+    composes: justify-self-center from global;
 }
 
 .accountDetails {
-    display: grid;
-    row-gap: 2rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    composes: gap-y-md from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+
+    composes: lg_grid-cols-3 from global;
 }
 
 .lineItemsContainer {
+    composes: gap-3 from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: leading-normal from global;
     grid-column: 1 / span 1;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr 1fr;
-    line-height: 1.5rem;
+
+    composes: lg_gap-xs from global;
+    composes: lg_grid-cols-2 from global;
 }
 
 .lineItemLabel {
-    font-weight: var(--venia-global-fontWeight-bold);
+    composes: font-bold from global;
 }
 
 .nameLabel,
 .emailLabel,
 .passwordLabel {
-    composes: lineItemLabel;
+    composes: font-bold from global;
 }
 
 .nameValue,
@@ -41,28 +47,9 @@
 
 .editButtonContainer {
     grid-column: 1 / span 1;
-    text-align: center;
+    composes: text-center from global;
 }
 
 .editInformationButton {
     composes: root_normalPriority from '../Button/button.module.css';
-}
-
-@media (min-width: 961px) {
-    .nameLabel,
-    .emailLabel,
-    .passwordLabel {
-        composes: lineItemLabel;
-    }
-}
-
-@media (max-width: 960px) {
-    .accountDetails {
-        grid-template-columns: 1fr;
-    }
-
-    .lineItemsContainer {
-        grid-template-columns: 1fr;
-        grid-gap: 0.75rem;
-    }
 }

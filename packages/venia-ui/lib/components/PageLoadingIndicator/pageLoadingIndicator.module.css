@@ -1,26 +1,27 @@
 .root {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 2px;
-    background: rgb(var(--venia-global-color-gray-100));
+    composes: bg-gray-100 from global;
+    composes: h-[2px] from global;
+    composes: relative from global;
+    composes: overflow-hidden from global;
+    composes: w-full from global;
 }
 
 .root_absolute {
     composes: root;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+
+    composes: absolute from global;
+    composes: bottom-0 from global;
+    composes: left-0 from global;
 }
 
 .indicator_off {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    background: rgb(var(--venia-global-color-blue-600));
+    composes: absolute from global;
+    composes: bg-brand-dark from global;
+    composes: h-full from global;
+    composes: left-0 from global;
+    composes: opacity-0 from global;
+    composes: top-0 from global;
+    composes: w-full from global;
     transform: translateX(-100%);
     transform-origin: left;
     transition: transform 0.25s linear;
@@ -28,12 +29,12 @@
 
 .indicator_loading {
     composes: indicator_off;
-    opacity: 1;
+    composes: opacity-100 from global;
     transform: translateX(-25%);
 }
 
 .indicator_done {
     composes: indicator_off;
-    opacity: 1;
+    composes: opacity-100 from global;
     transform: translateX(0%);
 }

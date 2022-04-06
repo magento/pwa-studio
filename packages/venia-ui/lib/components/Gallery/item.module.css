@@ -1,11 +1,11 @@
 .root {
-    align-content: start;
-    display: grid;
-    row-gap: 0.5rem;
+    composes: content-start from global;
+    composes: grid from global;
+    composes: gap-y-2xs from global;
 }
 
 .images {
-    display: grid;
+    composes: grid from global;
     grid-template-areas: 'main';
     position: relative;
 }
@@ -15,59 +15,63 @@
 }
 
 .image {
-    display: block;
-    height: 100%;
-    object-fit: contain;
+    composes: block from global;
+    composes: h-full from global;
+    composes: object-contain from global;
+    composes: w-full from global;
     transition: opacity 512ms ease-out;
-    width: 100%;
 }
 
 .imageLoaded {
     composes: loaded from '../Image/image.module.css';
-    opacity: 1;
+
+    composes: opacity-100 from global;
 }
 
 .imageNotLoaded {
     composes: notLoaded from '../Image/image.module.css';
-    opacity: 0;
+
+    composes: opacity-0 from global;
 }
 
 .imagePlaceholder {
     composes: image;
-    background-color: rgb(var(--venia-global-color-gray));
+
+    composes: bg-subtle from global;
 }
 
 .actionsContainer {
-    column-gap: 1rem;
-    display: grid;
+    composes: gap-x-xs from global;
+    composes: grid from global;
+    composes: pl-2xs from global;
     grid-template-columns: auto auto;
-    padding-left: 0.5rem;
 }
 
+/* TODO @TW: cannot compose */
 .actionsContainer:empty {
     display: none;
 }
 
 .name {
-    font-weight: var(--venia-global-fontWeight-semibold);
+    composes: font-semibold from global;
 }
 
 .name,
 .price {
-    font-size: var(--venia-typography-detail-XL-fontSize);
+    composes: text-colorDefault from global;
     min-height: 1rem;
 }
 
 .unavailableContainer {
-    align-items: center;
-    background-color: rgb(var(--venia-global-color-gray));
-    color: rgb(var(--venia-global-color-gray-700));
-    column-gap: 0.5rem;
-    display: grid;
-    font-style: italic;
-    grid-auto-flow: column;
-    justify-content: start;
-    padding: 0.75rem;
-    width: 100%;
-    font-size: var(--venia-global-fontSize-100);
+    composes: bg-subtle from global;
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: italic from global;
+    composes: items-center from global;
+    composes: justify-start from global;
+    composes: p-3 from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
+    composes: w-full from global;
 }

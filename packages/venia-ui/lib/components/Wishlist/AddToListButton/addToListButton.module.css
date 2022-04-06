@@ -1,16 +1,17 @@
 .root {
-    column-gap: 0.5rem;
-    display: inline-flex;
-    align-items: center;
+    composes: gap-x-2xs from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
     min-height: 3rem;
-    min-width: 3rem;
+    composes: min-w-[3rem] from global;
 }
 
 .root_selected {
     composes: root;
+
     --selectedColor: rgb(var(--venia-global-color-red-400));
     --fill: var(--selectedColor);
     --stroke: var(--selectedColor);
 
-    text-decoration: none;
+    composes: no-underline from global;
 }

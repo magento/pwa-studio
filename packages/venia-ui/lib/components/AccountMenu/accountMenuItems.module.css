@@ -1,26 +1,31 @@
 .root {
-    display: grid;
-    grid-auto-flow: row;
-    justify-content: stretch;
-    row-gap: 1.5rem;
-    padding: 1.5rem;
+    composes: gap-y-sm from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: justify-stretch from global;
+    composes: p-sm from global;
 }
 
 .link {
-    composes: root from '../LinkButton/linkButton.module.css';
+    composes: cursor-pointer from global;
+    composes: font-semibold from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-start from global;
+    composes: leading-tight from global;
+    composes: max-w-full from global;
+    composes: no-underline from global;
+    composes: pointer-events-auto from global;
+    composes: text-subtle from global;
 
-    color: rgb(var(--venia-global-color-gray-700));
-    justify-content: start;
-    text-decoration: none;
-}
-
-.link:hover {
-    color: rgb(var(--venia-global-color-gray-600));
+    composes: hover_text-colorDefault from global;
 }
 
 .signOut {
     composes: link;
 
-    border-top: 2px solid rgb(var(--venia-global-color-gray));
-    padding-top: 1rem;
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-light from global;
+    composes: pt-xs from global;
 }

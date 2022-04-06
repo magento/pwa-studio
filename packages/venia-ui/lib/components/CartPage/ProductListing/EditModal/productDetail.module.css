@@ -1,30 +1,33 @@
 .root {
-    border-bottom: 1px solid rgb(var(--venia-global-color-border));
-    display: grid;
-    gap: 1rem;
-    padding-bottom: 1rem;
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: pb-xs from global;
 }
 
 .imageContainer {
-    justify-self: center;
+    composes: justify-self-center from global;
 }
 
 .image {
-    padding: 0 2rem;
+    composes: px-md from global;
+    composes: py-0 from global;
 }
 
 .productName {
-    font-size: 1.5rem;
-    font-weight: 600;
+    composes: font-semibold from global;
+    composes: text-xl from global;
 }
 
 .stockRow {
-    display: flex;
-    font-weight: 300;
-    font-size: 0.875rem;
-    justify-content: space-between;
+    composes: flex from global;
+    composes: font-light from global;
+    composes: justify-between from global;
+    composes: text-sm from global;
 }
 
 .price {
-    font-weight: 600;
+    composes: font-semibold from global;
 }
