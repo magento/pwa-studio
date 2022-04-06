@@ -80,7 +80,7 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
         });
         const stockStatus = item?.product?.stock_status;
 
-        return stockStatus === OUT_OF_STOCK_CODE;
+        return stockStatus === OUT_OF_STOCK_CODE || !stockStatus;
     }
     return stock_status === OUT_OF_STOCK_CODE;
 };
