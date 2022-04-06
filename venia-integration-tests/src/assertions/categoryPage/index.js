@@ -173,7 +173,7 @@ export const assertCategoryPageTextLanguage = language => {
         .then($button => textToValidate.push($button.text().toLowerCase()));
     cy.get(productSortButton).then($button => {
         textToValidate.push($button.text());
-        $button.trigger("click");
+        $button.trigger('click');
     });
     cy.get(productSortSortItem).then($item =>
         textToValidate.push($item.text())
