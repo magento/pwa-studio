@@ -135,12 +135,12 @@ export const useFilterModal = props => {
                     items.push({
                         title: 'No',
                         value: '0',
-                        label: name + ': ' + 'No'
+                        label: name + ':' + 'No'
                     });
                     items.push({
                         title: 'Yes',
                         value: '1',
-                        label: name + ': ' + 'Yes'
+                        label: name + ':' + 'Yes'
                     });
                 } else {
                     // Add frontend input type
