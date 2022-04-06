@@ -246,7 +246,7 @@ export const useProductFullDetail = props => {
         }
     ] = useMutation(
         addConfigurableProductToCartMutation ||
-        operations.addConfigurableProductToCartMutation
+            operations.addConfigurableProductToCartMutation
     );
 
     const [
@@ -254,7 +254,7 @@ export const useProductFullDetail = props => {
         { error: errorAddingSimpleProduct, loading: isAddSimpleLoading }
     ] = useMutation(
         addSimpleProductToCartMutation ||
-        operations.addSimpleProductToCartMutation
+            operations.addSimpleProductToCartMutation
     );
 
     const [
@@ -484,13 +484,13 @@ export const useProductFullDetail = props => {
         buttonText: isSelected =>
             isSelected
                 ? formatMessage({
-                    id: 'wishlistButton.addedText',
-                    defaultMessage: 'Added to Favorites'
-                })
+                      id: 'wishlistButton.addedText',
+                      defaultMessage: 'Added to Favorites'
+                  })
                 : formatMessage({
-                    id: 'wishlistButton.addText',
-                    defaultMessage: 'Add to Favorites'
-                }),
+                      id: 'wishlistButton.addText',
+                      defaultMessage: 'Add to Favorites'
+                  }),
         item: wishlistItemOptions,
         storeConfig: storeConfigData ? storeConfigData.storeConfig : {}
     };
