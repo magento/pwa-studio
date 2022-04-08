@@ -58,7 +58,7 @@ If you have an issue that cannot be resolved, please [create an issue][].
 
 ### PWA Studio UI Kit for Adobe XD
 
-Adobe XD makes handoff between designers and engineers more efficient through easy-to-use collaboration tools. The PWA Studio UI Kit contains a collection of templates and components compatible with Adobe Commerce.
+Adobe XD makes handoff between designers and engineers more efficient through easy-to-use collaboration tools. The [PWA Studio UI Kit](https://developer.adobe.com/commerce-xd-kits/) contains a collection of templates and components compatible with Adobe Commerce.
 
 ### Join the conversation
 
