@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { func, number, oneOfType, shape, string } from 'prop-types';
+import { func, number, oneOfType, shape, string, instanceOf } from 'prop-types';
 import Radio from '../../RadioGroup/radio';
 import defaultClasses from './filterItemRadio.module.css';
 import { useStyle } from '../../../classify';
@@ -55,7 +55,7 @@ const FilterItemRadio = props => {
 };
 
 FilterItemRadio.defaultProps = {
-    onChange: null
+    onApply: null
 };
 
 FilterItemRadio.propTypes = {
@@ -69,7 +69,8 @@ FilterItemRadio.propTypes = {
         value: oneOfType([number, string]).isRequired,
         label: string
     }).isRequired,
-    onChange: func
+    onApply: func,
+    labels: instanceOf(Map).isRequired
 };
 
 export default FilterItemRadio;

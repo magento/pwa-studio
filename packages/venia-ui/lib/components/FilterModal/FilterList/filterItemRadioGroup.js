@@ -1,5 +1,13 @@
 import React, { useMemo, useEffect } from 'react';
-import { arrayOf, func, number, oneOfType, shape, string } from 'prop-types';
+import {
+    arrayOf,
+    func,
+    number,
+    oneOfType,
+    shape,
+    string,
+    instanceOf
+} from 'prop-types';
 import setValidator from '@magento/peregrine/lib/validators/set';
 import RadioGroup from '../../RadioGroup';
 import FilterItemRadio from './filterItemRadio';
@@ -56,7 +64,7 @@ const FilterItemRadioGroup = props => {
 };
 
 FilterItemRadioGroup.defaultProps = {
-    onChange: null
+    onApply: null
 };
 
 FilterItemRadioGroup.propTypes = {
@@ -71,7 +79,8 @@ FilterItemRadioGroup.propTypes = {
             value: oneOfType([number, string]).isRequired
         })
     ).isRequired,
-    onChange: func
+    onApply: func,
+    labels: instanceOf(Map).isRequired
 };
 
 export default FilterItemRadioGroup;
