@@ -4,8 +4,6 @@ import { createTestInstance } from '@magento/peregrine';
 import { CACHE_PERSIST_PREFIX } from '@magento/peregrine/lib/Apollo/constants';
 import { useAdapter } from '../useAdapter';
 
-const log = jest.fn();
-
 jest.mock('@apollo/client', () => ({
     ApolloLink: {
         from: jest.fn(() => {})
@@ -35,25 +33,17 @@ jest.mock('@magento/peregrine/lib/Apollo/magentoGqlCacheLink', () => {
     };
 });
 
-let inputValues = {};
-
-const Component = () => {
+const Component = ({ log, inputValues }) => {
     const talonProps = useAdapter(inputValues);
 
     useEffect(() => {
         log(talonProps);
-    }, [talonProps]);
+    }, [talonProps, log]);
 
     return null;
 };
 
 const givenDefaultValues = () => {
-    inputValues = {
-        origin: 'https://example.com',
-        store: 'default',
-        styles: {}
-    };
-
     global.AVAILABLE_STORE_VIEWS = [
         {
             code: 'default'
@@ -81,13 +71,19 @@ const givenDefaultValues = () => {
 };
 
 describe('#useAdapter', () => {
-    beforeEach(() => {
-        log.mockClear();
+    beforeAll(() => {
         givenDefaultValues();
     });
 
     it('returns correct shape', () => {
-        createTestInstance(<Component />);
+        const log = jest.fn();
+        const inputValues = {
+            origin: 'https://example.com',
+            store: 'default',
+            styles: {}
+        };
+
+        createTestInstance(<Component log={log} inputValues={inputValues} />);
 
         expect(log).toMatchInlineSnapshot(`
             [MockFunction] {
@@ -136,5 +132,64 @@ describe('#useAdapter', () => {
               ],
             }
         `);
+    });
+
+    it('allows to set a custom api endpoint', () => {
+        const log = jest.fn();
+        const inputValues = {
+            endpoint: 'https://foo.bar/api/graphql',
+            store: 'default',
+            styles: {}
+        };
+
+        createTestInstance(<Component log={log} inputValues={inputValues} />);
+
+        expect(log).toMatchInlineSnapshot(`
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                Object {
+                  "apolloProps": Object {
+                    "client": Object {
+                      "apiBase": "https://foo.bar/api/graphql",
+                      "clearCacheData": [Function],
+                      "persistor": Object {
+                        "restore": [MockFunction] {
+                          "calls": Array [
+                            Array [],
+                          ],
+                          "results": Array [
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                          ],
+                        },
+                      },
+                    },
+                  },
+                  "initialized": false,
+                  "reduxProps": Object {
+                    "store": "default",
+                  },
+                  "routerProps": Object {
+                    "basename": null,
+                    "getUserConfirmation": [Function],
+                  },
+                  "styleProps": Object {
+                    "initialState": Object {},
+                  },
+                  "urlHasStoreCode": false,
+                },
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+      `);
     });
 });
