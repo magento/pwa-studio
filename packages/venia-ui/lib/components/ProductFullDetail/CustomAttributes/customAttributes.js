@@ -25,7 +25,10 @@ const CustomAttributes = props => {
                             key={currentAttribute.attribute_metadata.uid}
                             className={classes.listItem}
                         >
-                            <AttributeType showLabels={showLabels} data={currentAttribute} />
+                            <AttributeType
+                                showLabels={showLabels}
+                                data={currentAttribute}
+                            />
                         </li>
                     );
 
@@ -34,7 +37,7 @@ const CustomAttributes = props => {
 
                 return previousAttribute;
             }, []),
-        [classes, customAttributes]
+        [classes, customAttributes, showLabels]
     );
 
     if (list.length === 0) {

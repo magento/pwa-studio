@@ -18,11 +18,16 @@ import defaultClasses from './textarea.module.css';
  */
 const Textarea = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { attribute_metadata = {}, entered_attribute_value = {}, showLabels=true } = props;
+    const {
+        attribute_metadata = {},
+        entered_attribute_value = {},
+        showLabels = true
+    } = props;
 
-    const attributeLabel = attribute_metadata.label && showLabels ? (
-        <div className={classes.label}>{attribute_metadata.label}</div>
-    ) : null;
+    const attributeLabel =
+        attribute_metadata.label && showLabels ? (
+            <div className={classes.label}>{attribute_metadata.label}</div>
+        ) : null;
     let attributeContent;
 
     if (entered_attribute_value.value) {

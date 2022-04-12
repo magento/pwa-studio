@@ -5,9 +5,6 @@ import { Form } from 'informed';
 import { Info } from 'react-feather';
 
 import Price from '@magento/venia-ui/lib/components/Price';
-export {
-    default as detectPageBuilder
-} from '@magento/pagebuilder/lib/detectPageBuilder';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
@@ -21,7 +18,6 @@ import RichContent from '../RichContent/richContent';
 import { ProductOptionsShimmer } from '../ProductOptions';
 import CustomAttributes from './CustomAttributes';
 import defaultClasses from './productFullDetail.module.css';
-import detectPageBuilder from '@magento/pagebuilder/lib/detectPageBuilder';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -138,7 +134,8 @@ const ProductFullDetail = props => {
     if (Array.isArray(customAttributes)) {
         customAttributes.forEach(customAttribute => {
             if (
-                detectPageBuilder(customAttribute.entered_attribute_value.value)
+                customAttribute.attribute_metadata.ui_input.ui_input_type ===
+                'PAGEBUILDER'
             ) {
                 customAttributesDetailsPageBuilder.push(customAttribute);
             } else {
@@ -268,11 +265,13 @@ const ProductFullDetail = props => {
                             defaultMessage={'Details'}
                         />
                     </span>
-                    <CustomAttributes customAttributes={customAttributesDetails} />
+                    <CustomAttributes
+                        customAttributes={customAttributesDetails}
+                    />
                 </section>
                 <section className={classes.detailsPageBuilder}>
                     <CustomAttributes
-                        classes={{list: classes.detailsPageBuilderList}}
+                        classes={{ list: classes.detailsPageBuilderList }}
                         customAttributes={customAttributesDetailsPageBuilder}
                         showLabels={false}
                     />
