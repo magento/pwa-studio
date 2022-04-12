@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useEventContext } from '@magento/peregrine/lib/context/event';
 
 const dismissers = new WeakMap();
 
@@ -92,6 +93,14 @@ export const useApp = props => {
             }
         }
     }, [handleIsOnline, handleIsOffline, hasBeenOffline, isOnline]);
+
+    const [eventState] = useEventContext()
+
+    useEffect(() => {
+        eventState.subscribe((value) => {
+            console.log({ value })
+        })
+    }, [eventState])
 
     const handleCloseDrawer = useCallback(() => {
         closeDrawer();

@@ -5,6 +5,7 @@ import CartContextProvider from '../context/cart';
 import CatalogContextProvider from '../context/catalog';
 import CheckoutContextProvider from '../context/checkout';
 import ErrorContextProvider from '../context/unhandledErrors';
+import EventContextProvider from '../context/event';
 import RootComponentsProvider from '../context/rootComponents';
 import UserContextProvider from '../context/user';
 
@@ -20,6 +21,7 @@ const contextProviders = [
     CatalogContextProvider,
     CartContextProvider,
     CheckoutContextProvider,
+    EventContextProvider,
     RootComponentsProvider
 ];
 
