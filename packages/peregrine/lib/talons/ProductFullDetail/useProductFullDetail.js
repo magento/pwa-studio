@@ -78,8 +78,9 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
             optionSelections,
             variants
         });
+        const stockStatus = item?.product?.stock_status;
 
-        return item.product.stock_status === OUT_OF_STOCK_CODE;
+        return stockStatus === OUT_OF_STOCK_CODE || !stockStatus;
     }
     return stock_status === OUT_OF_STOCK_CODE;
 };
@@ -184,7 +185,7 @@ const getCustomAttributes = (product, optionCodes, optionSelections) => {
             variants
         });
 
-        return item.product.custom_attributes;
+        return item?.product?.custom_attributes || [];
     }
 
     return custom_attributes;

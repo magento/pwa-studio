@@ -348,6 +348,22 @@ describe('shouldShowConfigurableProductOutOfStockButton', () => {
         expect(talonProps.isOutOfStock).toBeTruthy();
         expect(talonProps.isAddToCartDisabled).toBeTruthy();
     });
+
+    test('is true (and should not error) if product is in stock and a disabled option is selected', () => {
+        const tree = createTestInstance(
+            <Component {...configurableProductProps} />
+        );
+
+        const { root } = tree;
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange('1', 4);
+        });
+
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.isOutOfStock).toBeTruthy();
+        expect(talonProps.isAddToCartDisabled).toBeTruthy();
+    });
 });
 
 describe('shouldShowWishlistButton', () => {
