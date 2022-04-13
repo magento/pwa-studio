@@ -5,8 +5,8 @@ import { oneOf, shape, string, bool } from 'prop-types';
 import { useStyle } from '../../classify';
 import defaultClasses from './button.module.css';
 
-const getRootClassName = (priority, negative) =>
-    `root_${priority}Priority${negative ? 'Negative' : ''}`;
+const getRootClassName = (priority, negative, size) =>
+    `root_${priority}Priority${size ? `_${size}` : ''}${negative ? 'Negative' : ''}`;
 
 /**
  * A component for buttons.
@@ -23,6 +23,7 @@ const Button = props => {
         children,
         classes: propClasses,
         priority,
+        size,
         negative,
         disabled,
         onPress,
@@ -41,7 +42,7 @@ const Button = props => {
     );
 
     const classes = useStyle(defaultClasses, propClasses);
-    const rootClassName = classes[getRootClassName(priority, negative)];
+    const rootClassName = classes[getRootClassName(priority, negative,size)];
 
     return (
         <button
@@ -83,14 +84,16 @@ Button.propTypes = {
         root_lowPriority: string,
         root_normalPriority: string
     }),
-    priority: oneOf(['high', 'low', 'normal']).isRequired,
+    priority: oneOf(['marketing', 'primary', 'secondary', 'tertiary']).isRequired,
+    size: oneOf(['large', 'medium', 'small']),
     type: oneOf(['button', 'reset', 'submit']).isRequired,
     negative: bool,
     disabled: bool
 };
 
 Button.defaultProps = {
-    priority: 'normal',
+    priority: 'secondary',
+    size: 'medium',
     type: 'button',
     negative: false,
     disabled: false

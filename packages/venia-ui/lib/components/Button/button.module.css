@@ -1,35 +1,36 @@
 .root {
-    composes: border-2 from global;
+    composes: border-0 from global;
     composes: border-solid from global;
     composes: cursor-pointer from global;
+    composes: duration-200 from global;
+    composes: ease-standard from global;
     composes: font-bold from global;
     composes: inline-flex from global;
     composes: items-center from global;
     composes: justify-center from global;
     composes: leading-tight from global;
     composes: max-w-full from global;
-    composes: min-w-[10rem] from global;
     composes: outline-none from global;
     composes: pointer-events-auto from global;
-    composes: px-sm from global;
+    composes: px-md from global;
+    composes: py-xs from global;
     composes: rounded-full from global;
     composes: text-center from global;
-    composes: text-sm from global;
     composes: uppercase from global;
-    padding-top: calc(0.5rem + 1px); /* TODO @TW: review */
-    padding-bottom: calc(0.5rem - 1px); /* TODO @TW: review */
-    min-height: 2.5rem;
-    transition-duration: 256ms;
-    transition-property: background-color, border-color, color;
-    transition-timing-function: var(--venia-global-anim-standard);
+    composes: transition-colors from global;
 
-    composes: disabled_bg-gray-400 from global;
-    composes: disabled_border-gray-400 from global;
-    composes: disabled_opacity-50 from global;
+    composes: active_bg-brand-700 from global;
+    composes: active_text-neutral-200 from global;
+
+    composes: disabled_bg-neutral-300 from global;
+    composes: disabled_text-neutral-500 from global;
+    composes: disabled_border-0 from global;
     composes: disabled_pointer-events-none from global;
-    composes: disabled_text-white from global;
 
     composes: focus_shadow-inputFocus from global;
+
+    composes: hover_bg-brand-600 from global;
+    composes: hover_text-neutral-200 from global;
 }
 
 .root:active {
@@ -43,6 +44,115 @@
 .root:hover:disabled {
     /* TODO @TW: cannot compose. This may not be possible with two variants. */
     pointer-events: none;
+}
+
+.root_marketingPriority {
+    composes: root;
+
+    composes: bg-brand-500 from global;
+    composes: text-lg from global;
+    composes: text-neutral-200 from global;
+}
+
+.root_marketingPriority_large {
+    composes: root_marketingPriority;
+}
+
+.root_marketingPriority_medium {
+    composes: root_marketingPriority;
+}
+
+.root_marketingPriority_small {
+    composes: root_marketingPriority;
+}
+
+.root_primaryPriority {
+    composes: root;
+
+    composes: bg-brand-500 from global;
+    composes: normal-case from global;
+    composes: text-neutral-200 from global;
+
+    composes: active_bg-brand-700 from global;
+
+    composes: hover_bg-brand-600 from global;
+}
+.root_primaryPriority_large {
+    composes: root_primaryPriority;
+
+    composes: text-lg from global;
+}
+
+.root_primaryPriority_medium {
+    composes: root_primaryPriority;
+
+    composes: text-base from global;
+}
+
+.root_primaryPriority_small {
+    composes: root_primaryPriority;
+
+    composes: text-sm from global;
+}
+
+.root_secondaryPriority {
+    composes: root;
+
+    composes: border-2 from global;
+    composes: border-brand-500 from global;
+    composes: normal-case from global;
+    composes: text-neutral-800 from global;
+}
+
+.root_secondaryPriority_large {
+    composes: root_secondaryPriority;
+
+    composes: text-lg from global;
+}
+
+.root_secondaryPriority_medium {
+    composes: root_secondaryPriority;
+
+    composes: text-base from global;
+}
+
+.root_secondaryPriority_small {
+    composes: root_secondaryPriority;
+
+    composes: text-sm from global;
+}
+
+.root_tertiaryPriority {
+    composes: root;
+
+    composes: normal-case from global;
+}
+
+.root_tertiaryPriority_large {
+    composes: root_tertiaryPriority;
+
+    composes: text-lg from global;
+    composes: text-neutral-800 from global;
+
+    composes: active_bg-transparent from global;
+    composes: active_text-neutral-800 from global;
+
+    composes: disabled_bg-transparent from global;
+
+    composes: hover_bg-transparent from global;
+    composes: hover_text-neutral-800 from global;
+}
+
+.root_tertiaryPriority_medium {
+    composes: root_tertiaryPriority;
+
+    composes: text-base from global;
+}
+
+.root_tertiaryPriority_small {
+    composes: root_tertiaryPriority;
+
+    composes: text-sm from global;
 }
 
 .root_lowPriority {
