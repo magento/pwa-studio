@@ -171,6 +171,14 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
     return value;
 };
 
+const attributeLabelCompare = (attribute1, attribute2) => {
+    const label1 = attribute1['attribute_metadata']['label'].toLowerCase();
+    const label2 = attribute2['attribute_metadata']['label'].toLowerCase();
+    if (label1 < label2) return -1;
+    else if (label1 > label2) return 1;
+    else return 0;
+};
+
 const getCustomAttributes = (product, optionCodes, optionSelections) => {
     const { custom_attributes, variants } = product;
     const isConfigurable = isProductConfigurable(product);
@@ -185,10 +193,14 @@ const getCustomAttributes = (product, optionCodes, optionSelections) => {
             variants
         });
 
-        return item?.product?.custom_attributes || [];
+        return item && item.product
+            ? [...item.product.custom_attributes].sort(attributeLabelCompare)
+            : [];
     }
 
-    return custom_attributes;
+    return custom_attributes
+        ? [...custom_attributes].sort(attributeLabelCompare)
+        : [];
 };
 
 /**
