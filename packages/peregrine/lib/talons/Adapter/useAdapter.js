@@ -31,7 +31,7 @@ export const useAdapter = props => {
                 ? new URL(endpoint)
                 : new URL('/graphql', origin)
             ).toString(),
-        [origin, endpoint]
+        [endpoint, origin]
     );
 
     const authLink = useMemo(
