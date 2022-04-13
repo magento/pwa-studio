@@ -20,7 +20,7 @@ import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import shrinkQuery from '@magento/peregrine/lib/util/shrinkQuery';
 
 export const useAdapter = props => {
-    const { origin, endpoint, store, styles } = props;
+    const { endpoint, origin, store, styles } = props;
     const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
     const basename = urlHasStoreCode ? `/${storeCode}` : null;
     const [initialized, setInitialized] = useState(false);
