@@ -23,6 +23,7 @@ const FilterSidebar = props => {
         filterApi,
         filterItems,
         filterNames,
+        filterFrontendInput,
         filterState,
         handleApply,
         handleReset
@@ -54,12 +55,13 @@ const FilterSidebar = props => {
             Array.from(filterItems, ([group, items], iteration) => {
                 const blockState = filterState.get(group);
                 const groupName = filterNames.get(group);
-
+                const frontendInput = filterFrontendInput.get(group);
                 return (
                     <FilterBlock
                         key={group}
                         filterApi={filterApi}
                         filterState={blockState}
+                        filterFrontendInput={frontendInput}
                         group={group}
                         items={items}
                         name={groupName}
@@ -72,6 +74,7 @@ const FilterSidebar = props => {
             filterApi,
             filterItems,
             filterNames,
+            filterFrontendInput,
             filterState,
             filterCountToOpen,
             handleApplyFilter
