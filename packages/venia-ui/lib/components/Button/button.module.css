@@ -50,17 +50,22 @@
     composes: root;
 
     composes: bg-neutral-200 from global;
-    composes: border-2 from global;
+    composes: border from global;
     composes: border-neutral-400 from global;
     composes: normal-case from global;
     composes: rounded-radius1 from global;
     composes: text-neutral-800 from global;
-    composes: text-sm from global;
+    composes: text-xs from global;
 
     composes: active_bg-transparent from global;
+    composes: active_text-neutral-800 from global;
+
+    composes: disabled_bg-neutral-200 from global;
+    composes: disabled_border from global;
+    composes: disabled_text-neutral-400 from global;
 
     composes: hover_bg-neutral-200 from global;
-    composes: hover_text-neutral-400 from global;
+    composes: hover_text-neutral-800 from global;
 }
 
 .root_marketing {
@@ -83,10 +88,25 @@
     composes: hover_bg-brand-600 from global;
 }
 
+.root_primary_Negative {
+    composes: root_primary;
+
+    composes: bg-alert-500 from global;
+
+    composes: active_bg-alert-800 from global;
+
+    composes: hover_bg-alert-800 from global;
+}
+
 .root_primary_large {
     composes: root_primary;
 
     composes: text-lg from global;
+}
+
+.root_primary_large_Negative {
+    composes: root_primary_large;
+    composes: root_primary_Negative;
 }
 
 .root_primary_medium {
@@ -95,10 +115,20 @@
     composes: text-base from global;
 }
 
+.root_primary_medium_Negative {
+    composes: root_primary_medium;
+    composes: root_primary_Negative;
+}
+
 .root_primary_small {
     composes: root_primary;
 
     composes: text-sm from global;
+}
+
+.root_primary_small_Negative {
+    composes: root_primary_small;
+    composes: root_primary_Negative;
 }
 
 .root_secondary {
@@ -113,11 +143,11 @@
 .root_secondary_Negative {
     composes: root_secondary;
 
-    composes: active_bg-alert-500 from global;
-    composes: active_text-neutral-200 from global;
-
     composes: border-alert-500 from global;
     composes: text-alert-800 from global;
+
+    composes: active_bg-alert-500 from global;
+    composes: active_text-neutral-200 from global;
 
     composes: hover_bg-alert-500 from global;
     composes: hover_text-neutral-200 from global;
@@ -171,10 +201,25 @@
     composes: hover_text-neutral-800 from global;
 }
 
+.root_quiet_Negative {
+    composes: root_quiet;
+
+    composes: text-alert-800 from global;
+
+    composes: active_text-alert-800 from global;
+
+    composes: hover_text-alert-800 from global;
+}
+
 .root_quiet_large {
     composes: root_quiet;
 
     composes: text-lg from global;
+}
+
+.root_quiet_large_Negative {
+    composes: root_quiet_large;
+    composes: root_quiet_Negative;
 }
 
 .root_quiet_medium {
@@ -183,10 +228,20 @@
     composes: text-base from global;
 }
 
+.root_quiet_medium_Negative {
+    composes: root_quiet_medium;
+    composes: root_quiet_Negative;
+}
+
 .root_quiet_small {
     composes: root_quiet;
 
     composes: text-sm from global;
+}
+
+.root_quiet_small_Negative {
+    composes: root_quiet_small;
+    composes: root_quiet_Negative;
 }
 
 .root_lowPriority {
