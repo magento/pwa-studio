@@ -83,20 +83,23 @@ export const useFilterModal = props => {
     }, [DISABLED_FILTERS, attributeCodes, introspectionData]);
 
     const isBooleanFilter = options => {
+        const optionsString = JSON.stringify(options);
         return (
             options.length === 2 &&
-            JSON.stringify(options[0]) ===
+            optionsString.includes(
                 JSON.stringify({
                     __typename: 'AggregationOption',
                     label: '0',
                     value: '0'
-                }) &&
-            JSON.stringify(options[1]) ===
+                })
+            ) &&
+            optionsString.includes(
                 JSON.stringify({
                     __typename: 'AggregationOption',
                     label: '1',
                     value: '1'
                 })
+            )
         );
     };
 
