@@ -47,10 +47,23 @@
 }
 
 .root_action {
-  
+    composes: root;
+
+    composes: bg-neutral-200 from global;
+    composes: border-2 from global;
+    composes: border-neutral-400 from global;
+    composes: normal-case from global;
+    composes: rounded-radius1 from global;
+    composes: text-neutral-800 from global;
+    composes: text-sm from global;
+
+    composes: active_bg-transparent from global;
+
+    composes: hover_bg-neutral-200 from global;
+    composes: hover_text-neutral-400 from global;
 }
 
-.root_marketing{
+.root_marketing {
     composes: root;
 
     composes: bg-brand-500 from global;
@@ -58,7 +71,7 @@
     composes: text-neutral-200 from global;
 }
 
-.root_primary{
+.root_primary {
     composes: root;
 
     composes: bg-brand-500 from global;
@@ -88,7 +101,7 @@
     composes: text-sm from global;
 }
 
-.root_secondary{
+.root_secondary {
     composes: root;
 
     composes: border-2 from global;

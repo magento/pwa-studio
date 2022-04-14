@@ -14,7 +14,7 @@ const CheckoutButton = props => {
     const buttonText = 'Checkout';
 
     return (
-        <Button priority="high" disabled={disabled} onClick={onClick}>
+        <Button design="primary" disabled={disabled} onClick={onClick}>
             <Icon classes={iconClasses} src={LockIcon} size={20} />
             <span>{buttonText}</span>
         </Button>

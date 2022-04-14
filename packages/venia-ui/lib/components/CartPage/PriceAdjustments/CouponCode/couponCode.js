@@ -152,7 +152,7 @@ const CouponCode = props => {
                     <Button
                         data-cy="CouponCode-submit"
                         disabled={applyingCoupon}
-                        priority={'normal'}
+                        design={'secondary'}
                         type={'submit'}
                     >
                         <FormattedMessage

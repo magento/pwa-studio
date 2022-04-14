@@ -135,7 +135,7 @@ const OrderHistoryPage = props => {
             classes={{ root_lowPriority: classes.loadMoreButton }}
             disabled={isBackgroundLoading || isLoadingWithoutData}
             onClick={loadMoreOrders}
-            priority="low"
+            design="secondary"
         >
             <FormattedMessage
                 id={'orderHistoryPage.loadMore'}
@@ -176,7 +176,7 @@ const OrderHistoryPage = props => {
                             disabled={
                                 isBackgroundLoading || isLoadingWithoutData
                             }
-                            priority={'high'}
+                            design={'primary'}
                             type="submit"
                         >
                             {submitIcon}

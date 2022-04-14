@@ -29,7 +29,7 @@ const FilterFooter = props => {
                 data-cy="FilterFooter-button"
                 aria-label={buttonLabel}
                 aria-disabled={!touched}
-                priority="high"
+                design="primary"
             >
                 {buttonLabel}
             </Button>

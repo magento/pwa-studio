@@ -114,7 +114,7 @@ const CreditCard = props => {
                 disabled={isDeletingPayment}
                 onClick={handleDeletePayment}
                 negative={true}
-                priority="normal"
+                design="secondary"
                 type="button"
             >
                 <FormattedMessage
@@ -126,7 +126,7 @@ const CreditCard = props => {
                 classes={{ root_lowPriority: classes.cancelDeleteButton }}
                 disabled={isDeletingPayment}
                 onClick={toggleDeleteConfirmation}
-                priority="low"
+                design="secondary"
                 type="button"
             >
                 <FormattedMessage

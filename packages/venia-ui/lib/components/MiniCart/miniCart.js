@@ -133,7 +133,7 @@ const MiniCart = React.forwardRef((props, ref) => {
             <div className={classes.footer}>
                 <Button
                     onClick={handleProceedToCheckout}
-                    priority="high"
+                    design="primary"
                     className={classes.checkoutButton}
                     disabled={loading || isCartEmpty}
                     data-cy="Minicart-checkoutButton"
@@ -152,7 +152,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                 </Button>
                 <Button
                     onClick={handleEditCart}
-                    priority="high"
+                    design="primary"
                     className={classes.editCartButton}
                     disabled={loading || isCartEmpty}
                     data-cy="Minicart-editCartButton"

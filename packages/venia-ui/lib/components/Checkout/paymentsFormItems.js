@@ -155,10 +155,10 @@ const PaymentsFormItems = props => {
                 {billingAddressFields}
             </div>
             <div className={classes.footer}>
-                <Button priority="high" type="submit" disabled={isDisabled}>
+                <Button design="primary" type="submit" disabled={isDisabled}>
                     {submitButtonText}
                 </Button>
-                <Button onClick={handleCancel} priority="low">
+                <Button onClick={handleCancel} design="quiet">
                     {cancelButtonText}
                 </Button>
             </div>

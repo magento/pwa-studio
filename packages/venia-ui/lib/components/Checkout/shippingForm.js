@@ -59,10 +59,10 @@ const ShippingForm = props => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Button priority="high" type="submit" disabled={isSubmitting}>
+                <Button design="primary" type="submit" disabled={isSubmitting}>
                     {submitButtonText}
                 </Button>
-                <Button onClick={handleCancel} priority="low">
+                <Button onClick={handleCancel} design="quiet">
                     {cancelButtonText}
                 </Button>
             </div>

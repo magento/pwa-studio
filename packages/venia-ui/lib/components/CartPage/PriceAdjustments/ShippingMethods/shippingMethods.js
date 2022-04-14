@@ -67,10 +67,10 @@ const ShippingMethods = props => {
         </Fragment>
     ) : (
         <Button
-            priority="normal"
+            design="secondary"
             type="button"
             classes={{
-                root_normalPriority: classes.estimateButton
+                root_secondary: classes.estimateButton
             }}
             data-cy="ShippingMethods-estimateButton"
             onClick={showForm}

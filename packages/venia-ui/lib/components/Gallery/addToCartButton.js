@@ -42,10 +42,9 @@ const AddToCartButton = props => {
                 id: 'addToCartButton.addItemToCartAriaLabel',
                 defaultMessage: 'Add to Cart'
             })}
-            className={classes.root}
             disabled={isDisabled}
             onPress={handleAddToCart}
-            priority="high"
+            design="primary"
             type="button"
         >
             {AddToCartIcon}
@@ -65,10 +64,9 @@ const AddToCartButton = props => {
                 id: 'addToCartButton.itemOutOfStockAriaLabel',
                 defaultMessage: 'Out of Stock'
             })}
-            className={classes.root}
             disabled={isDisabled}
             onPress={handleAddToCart}
-            priority="high"
+            design="primary"
             type="button"
         >
             {OutOfStockIcon}

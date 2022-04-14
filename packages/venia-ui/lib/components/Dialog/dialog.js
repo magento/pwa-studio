@@ -67,10 +67,10 @@ const Dialog = props => {
         shouldDisableAllButtons || shouldDisableConfirmButton;
 
     const cancelButtonClasses = {
-        root_lowPriority: classes.cancelButton
+        root_secondary: classes.cancelButton
     };
     const confirmButtonClasses = {
-        root_highPriority: classes.confirmButton
+        root_primary: classes.confirmButton
     };
 
     const maybeCloseXButton = !isModal ? (

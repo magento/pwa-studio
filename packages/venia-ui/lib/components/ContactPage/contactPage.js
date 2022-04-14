@@ -232,7 +232,7 @@ const ContactPage = props => {
                             </Field>
                             <div className={classes.buttonsContainer}>
                                 <Button
-                                    priority="high"
+                                    design="primary"
                                     type="submit"
                                     disabled={isBusy}
                                     data-cy="submit"

@@ -147,10 +147,10 @@ const AddressForm = props => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Button type="submit" priority="high" disabled={isSubmitting}>
+                <Button type="submit" design="primary" disabled={isSubmitting}>
                     {submitText}
                 </Button>
-                <Button onClick={handleCancel} priority="low">
+                <Button onClick={handleCancel} design="quiet">
                     {cancelText}
                 </Button>
             </div>

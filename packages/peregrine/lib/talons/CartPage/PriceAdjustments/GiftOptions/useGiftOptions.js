@@ -301,7 +301,7 @@ export const useGiftOptions = (props = {}) => {
     const cancelGiftMessageButtonProps = {
         disabled:
             !giftMessageIsChecked || savingOptions.includes('giftMessage'),
-        priority: 'low',
+        design: 'quiet',
         type: 'button',
         onClick: handleToggleGiftMessageResult
     };
@@ -309,7 +309,7 @@ export const useGiftOptions = (props = {}) => {
     const saveGiftMessageButtonProps = {
         disabled:
             !giftMessageIsChecked || savingOptions.includes('giftMessage'),
-        priority: 'normal',
+        design: 'secondary',
         type: 'button',
         onClick: handleUpdateGiftMessage
     };

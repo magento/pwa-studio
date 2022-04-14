@@ -105,7 +105,7 @@ const SignIn = props => {
                 <GoogleRecaptcha {...recaptchaWidgetProps} />
                 <div className={classes.buttonsContainer}>
                     <Button
-                        priority="high"
+                        design="primary"
                         type="submit"
                         data-cy="SignInButton-root_highPriority"
                         disabled={isBusy}
@@ -116,7 +116,7 @@ const SignIn = props => {
                         />
                     </Button>
                     <Button
-                        priority="normal"
+                        design="secondary"
                         type="button"
                         onClick={handleCreateAccount}
                         data-cy="CreateAccount-initiateButton"

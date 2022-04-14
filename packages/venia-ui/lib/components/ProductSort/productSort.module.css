@@ -55,7 +55,7 @@
 
 .sortText {
     composes: leading-normal from global;
-    composes: text-colorDefault from global;
+    composes: text-neutral-800 from global;
 }
 
 .desktopIconWrapper {
