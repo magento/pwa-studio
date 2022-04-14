@@ -77,7 +77,7 @@ const dockerRuns = {};
 const port = new URL(baseUrl).port;
 
 let dockerCommand = null;
-
+let dockerImage = "cypress/included:8.3.1";
 if (process.env.CI) {
     dockerImage = process.env.DockerRegistry + dockerImage
 };
