@@ -17,6 +17,6 @@
     composes: break-words from global;
 }
 
-.option ~ .option::before {
-    content: ', ';
+.option:not(:last-child)::after {
+    content: ',\00a0';
 }
