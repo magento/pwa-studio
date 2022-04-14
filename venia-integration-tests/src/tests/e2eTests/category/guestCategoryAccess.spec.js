@@ -64,7 +64,7 @@ describe('PWA-1409: verify category access', () => {
         closeAppMask();
         cy.viewport(1280, 1024);
 
-        hoverCategoryFromMegaMenu(categoryAccessories);
+        hoverCategoryFromMegaMenu(categoryAccessories.name);
         assertCategoryInMegaMenu(categoryBelts);
         selectCategoryFromMegaMenu(categoryBelts);
 

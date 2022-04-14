@@ -12,7 +12,6 @@
     composes: py-2.5 from global;
     composes: rounded-md from global;
     composes: text-white from global;
-    composes: whitespace-nowrap from global;
 }
 
 /* TODO @TW: cannot compose */
