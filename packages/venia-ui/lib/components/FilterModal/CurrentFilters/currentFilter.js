@@ -26,7 +26,7 @@ const CurrentFilter = props => {
             defaultMessage: 'Clear filter "{name}"'
         },
         {
-            name: item.title
+            name: item.label ? item.label : item.title
         }
     );
 
@@ -39,7 +39,9 @@ const CurrentFilter = props => {
             >
                 <Icon size={20} src={Remove} />
             </Trigger>
-            <span className={classes.text}>{item.title}</span>
+            <span className={classes.text}>
+                {item.label ? item.label : item.title}
+            </span>
         </span>
     );
 };
