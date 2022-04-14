@@ -89,6 +89,7 @@ exports[`it disables the submit button while loading 1`] = `
               className="root"
             >
               <label
+                aria-label=""
                 className="root"
                 htmlFor="shipping_method--flatrate|flatrate"
               >
@@ -298,6 +299,7 @@ exports[`it renders correctly 1`] = `
               className="root"
             >
               <label
+                aria-label=""
                 className="root"
                 htmlFor="shipping_method--flatrate|flatrate"
               >

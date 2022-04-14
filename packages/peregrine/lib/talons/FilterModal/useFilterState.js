@@ -37,6 +37,14 @@ const reducer = (state, action) => {
 
             return nextState;
         }
+        case 'remove group': {
+            const { group } = payload;
+            const nextState = new Map(state);
+
+            nextState.delete(group);
+
+            return nextState;
+        }
         case 'toggle item': {
             const { group, item } = payload;
             const nextState = new Map(state);
@@ -89,6 +97,13 @@ export const useFilterState = () => {
         [dispatch]
     );
 
+    const removeGroup = useCallback(
+        payload => {
+            dispatch({ payload, type: 'remove group' });
+        },
+        [dispatch]
+    );
+
     const setItems = useCallback(
         payload => {
             dispatch({ payload, type: 'set items' });
@@ -109,10 +124,19 @@ export const useFilterState = () => {
             clear,
             dispatch,
             removeItem,
+            removeGroup,
             setItems,
             toggleItem
         }),
-        [addItem, clear, dispatch, removeItem, setItems, toggleItem]
+        [
+            addItem,
+            clear,
+            dispatch,
+            removeItem,
+            removeGroup,
+            setItems,
+            toggleItem
+        ]
     );
 
     return [state, api];

@@ -21,7 +21,9 @@ import {
     megaMenuMegaMenuItemLink,
     megaMenuSubmenuColumnLink,
     productsGalleryItemName,
-    categoryPageProductGalleryItem
+    categoryPageProductGalleryItem,
+    filterDefaultRadioElement,
+    filterRadioRoot
 } from '../../fields/categoryPage';
 
 /**
@@ -102,11 +104,13 @@ export const toggleFilterList = (filterListName, isMobile = true) => {
  * @param {String} filterListName filter list name
  * @param {String} filterLabel filter label
  * @param {Boolean} [isMobile] is mobile
+ * @param {Boolean} [isRadio] is Radio
  */
 export const selectFilterFromList = (
     filterListName,
     filterLabel,
-    isMobile = true
+    isMobile = true,
+    isRadio = false
 ) => {
     const filtersFilterBlock =
         sharedFilterElements[isMobile ? 'mobile' : 'desktop'].filterBlock;
@@ -118,11 +122,20 @@ export const selectFilterFromList = (
             if ($filterBlock.find(filterListItemElement).length === 0) {
                 toggleFilterBlock(filterListName, isMobile);
             }
-            cy.wrap($filterBlock)
-                .find(filterListItemElement)
-                .contains(filterListItemElement, filterLabel)
-                .find(filterDefaultCheckboxElement)
-                .check();
+
+            if (isRadio) {
+                cy.wrap($filterBlock)
+                    .find(filterListItemElement)
+                    .contains(filterRadioRoot, filterLabel)
+                    .find(filterDefaultRadioElement)
+                    .check();
+            } else {
+                cy.wrap($filterBlock)
+                    .find(filterListItemElement)
+                    .contains(filterListItemElement, filterLabel)
+                    .find(filterDefaultCheckboxElement)
+                    .check();
+            }
         });
 };
 
