@@ -90,7 +90,7 @@ const AccountInformationPage = props => {
                         <Button
                             disabled={false}
                             onClick={showUpdateMode}
-                            priority="secondary"
+                            design="secondary"
                             data-cy="AccountInformationPage-editInformationButton"
                         >
                             <FormattedMessage

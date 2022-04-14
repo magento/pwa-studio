@@ -46,7 +46,11 @@
     pointer-events: none;
 }
 
-.root_marketingPriority {
+.root_action {
+  
+}
+
+.root_marketing{
     composes: root;
 
     composes: bg-brand-500 from global;
@@ -54,19 +58,7 @@
     composes: text-neutral-200 from global;
 }
 
-.root_marketingPriority_large {
-    composes: root_marketingPriority;
-}
-
-.root_marketingPriority_medium {
-    composes: root_marketingPriority;
-}
-
-.root_marketingPriority_small {
-    composes: root_marketingPriority;
-}
-
-.root_primaryPriority {
+.root_primary{
     composes: root;
 
     composes: bg-brand-500 from global;
@@ -78,25 +70,25 @@
     composes: hover_bg-brand-600 from global;
 }
 
-.root_primaryPriority_large {
-    composes: root_primaryPriority;
+.root_primary_large {
+    composes: root_primary;
 
     composes: text-lg from global;
 }
 
-.root_primaryPriority_medium {
-    composes: root_primaryPriority;
+.root_primary_medium {
+    composes: root_primary;
 
     composes: text-base from global;
 }
 
-.root_primaryPriority_small {
-    composes: root_primaryPriority;
+.root_primary_small {
+    composes: root_primary;
 
     composes: text-sm from global;
 }
 
-.root_secondaryPriority {
+.root_secondary{
     composes: root;
 
     composes: border-2 from global;
@@ -105,8 +97,8 @@
     composes: text-neutral-800 from global;
 }
 
-.root_secondaryPriority_Negative {
-    composes: root_secondaryPriority;
+.root_secondary_Negative {
+    composes: root_secondary;
 
     composes: active_bg-alert-500 from global;
     composes: active_text-neutral-200 from global;
@@ -118,40 +110,40 @@
     composes: hover_text-neutral-200 from global;
 }
 
-.root_secondaryPriority_large {
-    composes: root_secondaryPriority;
+.root_secondary_large {
+    composes: root_secondary;
 
     composes: text-lg from global;
 }
 
-.root_secondaryPriority_large_Negative {
-    composes: root_secondaryPriority_Negative;
-    composes: root_secondaryPriority_large;
+.root_secondary_large_Negative {
+    composes: root_secondary_Negative;
+    composes: root_secondary_large;
 }
 
-.root_secondaryPriority_medium {
-    composes: root_secondaryPriority;
+.root_secondary_medium {
+    composes: root_secondary;
 
     composes: text-base from global;
 }
 
-.root_secondaryPriority_medium_Negative {
-    composes: root_secondaryPriority_Negative;
-    composes: root_secondaryPriority_medium;
+.root_secondary_medium_Negative {
+    composes: root_secondary_Negative;
+    composes: root_secondary_medium;
 }
 
-.root_secondaryPriority_small {
-    composes: root_secondaryPriority;
+.root_secondary_small {
+    composes: root_secondary;
 
     composes: text-sm from global;
 }
 
-.root_secondaryPriority_small_Negative {
-    composes: root_secondaryPriority_Negative;
-    composes: root_secondaryPriority_small;
+.root_secondary_small_Negative {
+    composes: root_secondary_Negative;
+    composes: root_secondary_small;
 }
 
-.root_tertiaryPriority {
+.root_quiet {
     composes: root;
 
     composes: normal-case from global;
@@ -166,20 +158,20 @@
     composes: hover_text-neutral-800 from global;
 }
 
-.root_tertiaryPriority_large {
-    composes: root_tertiaryPriority;
+.root_quiet_large {
+    composes: root_quiet;
 
     composes: text-lg from global;
 }
 
-.root_tertiaryPriority_medium {
-    composes: root_tertiaryPriority;
+.root_quiet_medium {
+    composes: root_quiet;
 
     composes: text-base from global;
 }
 
-.root_tertiaryPriority_small {
-    composes: root_tertiaryPriority;
+.root_quiet_small {
+    composes: root_quiet;
 
     composes: text-sm from global;
 }

@@ -81,7 +81,7 @@ const AddressCard = props => {
         <div className={classes.confirmDeleteContainer}>
             <Button
                 disabled={isDeletingCustomerAddress}
-                priority="secondary"
+                design="secondary"
                 type="button"
                 negative={true}
                 onClick={onConfirmDelete}
@@ -94,7 +94,7 @@ const AddressCard = props => {
             </Button>
             <Button
                 disabled={isDeletingCustomerAddress}
-                priority="secondary"
+                design="secondary"
                 type="button"
                 onClick={onCancelDelete}
             >
