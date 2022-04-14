@@ -36,12 +36,6 @@ const AddressCard = props => {
     } = address;
 
     const classes = useStyle(defaultClasses, propClasses);
-    const confirmDeleteButtonClasses = {
-        root_normalPriorityNegative: classes.confirmDeleteButton
-    };
-    const cancelDeleteButtonClasses = {
-        root_lowPriority: classes.cancelDeleteButton
-    };
 
     const streetRows = street.map((row, index) => {
         return (
@@ -70,7 +64,6 @@ const AddressCard = props => {
 
     const deleteButtonElement = !default_shipping ? (
         <LinkButton
-            classes={{ root: classes.deleteButton }}
             onClick={onDelete}
             data-cy="addressCard-deleteButton"
         >
@@ -87,9 +80,8 @@ const AddressCard = props => {
     const maybeConfirmingDeleteOverlay = isConfirmingDelete ? (
         <div className={classes.confirmDeleteContainer}>
             <Button
-                classes={confirmDeleteButtonClasses}
                 disabled={isDeletingCustomerAddress}
-                priority="normal"
+                priority="secondary"
                 type="button"
                 negative={true}
                 onClick={onConfirmDelete}
@@ -101,9 +93,8 @@ const AddressCard = props => {
                 />
             </Button>
             <Button
-                classes={cancelDeleteButtonClasses}
                 disabled={isDeletingCustomerAddress}
-                priority="low"
+                priority="secondary"
                 type="button"
                 onClick={onCancelDelete}
             >
@@ -140,7 +131,6 @@ const AddressCard = props => {
             </div>
             <div className={classes.actionContainer}>
                 <LinkButton
-                    classes={{ root: classes.editButton }}
                     onClick={onEdit}
                     data-cy="addressCard-editButton"
                 >
@@ -184,10 +174,7 @@ AddressCard.propTypes = {
         country: string,
         defaultBadge: string,
         defaultCard: string,
-        deleteButton: string,
-        editButton: string,
         flash: string,
-        linkButton: string,
         name: string,
         root: string,
         root_updated: string,

@@ -6,7 +6,7 @@ import { useStyle } from '../../classify';
 import defaultClasses from './button.module.css';
 
 const getRootClassName = (priority, negative, size) =>
-    `root_${priority}Priority${size ? `_${size}` : ''}${negative ? 'Negative' : ''}`;
+    `root_${priority}Priority${size ? `_${size}` : ''}${negative ? '_Negative' : ''}`;
 
 /**
  * A component for buttons.

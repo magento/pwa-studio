@@ -13,7 +13,7 @@
     composes: outline-none from global;
     composes: pointer-events-auto from global;
     composes: px-md from global;
-    composes: py-xs from global;
+    composes: py-2xs from global;
     composes: rounded-full from global;
     composes: text-center from global;
     composes: uppercase from global;
@@ -77,6 +77,7 @@
 
     composes: hover_bg-brand-600 from global;
 }
+
 .root_primaryPriority_large {
     composes: root_primaryPriority;
 
@@ -104,10 +105,28 @@
     composes: text-neutral-800 from global;
 }
 
+.root_secondaryPriority_Negative {
+    composes: root_secondaryPriority;
+
+    composes: active_bg-alert-500 from global;
+    composes: active_text-neutral-200 from global;
+
+    composes: border-alert-500 from global;
+    composes: text-alert-800 from global;
+
+    composes: hover_bg-alert-500 from global;
+    composes: hover_text-neutral-200 from global;
+}
+
 .root_secondaryPriority_large {
     composes: root_secondaryPriority;
 
     composes: text-lg from global;
+}
+
+.root_secondaryPriority_large_Negative {
+    composes: root_secondaryPriority_Negative;
+    composes: root_secondaryPriority_large;
 }
 
 .root_secondaryPriority_medium {
@@ -116,22 +135,26 @@
     composes: text-base from global;
 }
 
+.root_secondaryPriority_medium_Negative {
+    composes: root_secondaryPriority_Negative;
+    composes: root_secondaryPriority_medium;
+}
+
 .root_secondaryPriority_small {
     composes: root_secondaryPriority;
 
     composes: text-sm from global;
 }
 
+.root_secondaryPriority_small_Negative {
+    composes: root_secondaryPriority_Negative;
+    composes: root_secondaryPriority_small;
+}
+
 .root_tertiaryPriority {
     composes: root;
 
     composes: normal-case from global;
-}
-
-.root_tertiaryPriority_large {
-    composes: root_tertiaryPriority;
-
-    composes: text-lg from global;
     composes: text-neutral-800 from global;
 
     composes: active_bg-transparent from global;
@@ -141,6 +164,12 @@
 
     composes: hover_bg-transparent from global;
     composes: hover_text-neutral-800 from global;
+}
+
+.root_tertiaryPriority_large {
+    composes: root_tertiaryPriority;
+
+    composes: text-lg from global;
 }
 
 .root_tertiaryPriority_medium {
