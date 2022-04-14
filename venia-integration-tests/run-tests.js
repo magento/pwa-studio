@@ -78,10 +78,9 @@ const port = new URL(baseUrl).port;
 
 let dockerCommand = null;
 
-let dockerImage = "cypress/included:8.3.1";
 if (process.env.CI) {
-    dockerImage = "docker-hub-remote.dr-uw2.adobeitc.com/" + dockerImage;
-}
+    dockerImage = process.env.DockerRegistry + dockerImage
+};
 
 if (port) {
     // run docker on local instance
