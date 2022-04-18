@@ -77,10 +77,10 @@ const dockerRuns = {};
 const port = new URL(baseUrl).port;
 
 let dockerCommand = null;
-let dockerImage = "cypress/included:8.3.1";
+let dockerImage = 'cypress/included:8.3.1';
 if (process.env.DockerRegistry) {
-    dockerImage = process.env.DockerRegistry + dockerImage
-};
+    dockerImage = process.env.DockerRegistry + dockerImage;
+}
 
 if (port) {
     // run docker on local instance
