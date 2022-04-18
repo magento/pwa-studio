@@ -8,7 +8,8 @@
     composes: outline-none from global;
     composes: relative from global;
     composes: rounded-sm from global;
-    min-height: 2rem;
+
+    composes: focus_outline-button from global;
 }
 
 .root_active {

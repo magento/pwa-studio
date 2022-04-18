@@ -16,6 +16,7 @@
     composes: right-5 from global;
     composes: top-0 from global;
     composes: z-dropdown from global;
+
     box-shadow: 0 0 1px rgb(0, 0, 0, 0.2);
     transition: 256ms ease-out;
     transform: scale(0);
@@ -33,5 +34,9 @@
 .kebab {
     composes: bg-white from global;
     composes: border-0 from global;
-    composes: outline-none from global;
+    composes: grid from global;
+    composes: place-items-center from global;
+
+    composes: focus_outline-button from global;
+
 }

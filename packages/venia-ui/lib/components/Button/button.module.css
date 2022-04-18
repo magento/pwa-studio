@@ -50,8 +50,8 @@
     composes: root;
 
     composes: bg-neutral-200 from global;
-    composes: border from global;
-    composes: border-neutral-400 from global;
+    composes: border-buttonWidth from global;
+    composes: border-button-action from global;
     composes: normal-case from global;
     composes: rounded-radius1 from global;
     composes: text-neutral-800 from global;
@@ -134,7 +134,7 @@
 .root_secondary {
     composes: root;
 
-    composes: border-2 from global;
+    composes: border-buttonWidth from global;
     composes: border-brand-500 from global;
     composes: normal-case from global;
     composes: text-neutral-800 from global;

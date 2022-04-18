@@ -4,6 +4,10 @@ const { getColors } = require('./lib/colors');
 const corePlugin = require('./plugins');
 
 const colors = {
+    alert: {
+        500: '219 112 122',
+        800: '195 99 80'
+    },
     brand: {
         base: '61 132 255',
         dark: '41 84 255',
@@ -16,21 +20,21 @@ const colors = {
         700: '43 43 43',
         800: '23 43 196'
     },
-    neutral: {
-      50: '255 255 255',
-      100: '250 250 250',
-      200: '245 245 245',
-      300: '232 232 232',
-      400: '214 214 214',
-      500: '184 184 184',
-      600: '143 143 143',
-      700: '102 102 102',
-      800: '61 61 61',
-      900: '41 41 41'
+    info: {
+        500: '105 148 217',
+        800: '93 109 214'
     },
-    alert: {
-      500: '219 112 122',
-      800: '195 99 80'
+    neutral: {
+        50: '255 255 255',
+        100: '250 250 250',
+        200: '245 245 245',
+        300: '232 232 232',
+        400: '214 214 214',
+        500: '184 184 184',
+        600: '143 143 143',
+        700: '102 102 102',
+        800: '61 61 61',
+        900: '41 41 41'
     }
 };
 
@@ -56,7 +60,9 @@ const extend = {
         )}`
     }),
     borderColor: theme => ({
-        button: theme('colors.gray.600'),
+        button: {
+            action: theme('colors.neutral.400')
+        },
         error: theme('colors.red.400'),
         info: theme('colors.green.600'),
         input: theme('colors.gray.600'),
@@ -84,7 +90,8 @@ const extend = {
         // radiusInput: theme('borderRadius.radius1'),
     },
     borderWidth: {
-        DEFAULT: '1px'
+        DEFAULT: '1px',
+        buttonWidth: '1.5px'
     },
     boxShadow: theme => ({
         buttonFocus: `-6px 6px ${theme('colors.brand.700')} / 0.3`,
@@ -174,6 +181,9 @@ const extend = {
     order: {
         unset: 'unset'
     },
+    outline: theme => ({
+        button: `1px solid ${theme('colors.info.500')}`
+    }),
     spacing: {
         '2xs': '0.5rem',
         xs: '1rem',
