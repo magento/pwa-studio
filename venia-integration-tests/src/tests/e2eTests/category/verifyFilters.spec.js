@@ -292,7 +292,7 @@ describe('PWA-1402: verify filter actions', () => {
         });
         assertCurrentFilter(filtersData.hasVideo.noLabel, isMobile);
         assertNotInCurrentFilter(filtersData.hasVideo.yesLabel, isMobile);
-        assertNumberOfProductsInResults(11);
+        assertNumberOfProductsInResults(10);
         assertBooleanFilterInputState(
             filtersData.hasVideo.name,
             isMobile,
@@ -369,7 +369,7 @@ describe('PWA-1402: verify filter actions', () => {
         });
 
         assertCategoryTitle(categoryAccessories.name);
-        assertNumberOfProductsInResults(11);
+        assertNumberOfProductsInResults(10);
 
         toggleFilterModal();
         assertNotInCurrentFilter(filtersData.hasVideo.yesLabel);
@@ -410,7 +410,7 @@ describe('PWA-1402: verify filter actions', () => {
         cy.wait(['@gqlGetCategoriesQuery'], {
             timeout: 60000
         });
-        assertNumberOfProductsInResults(15);
+        assertNumberOfProductsInResults(14);
 
         //Clean Up
         toggleFilterModal();
