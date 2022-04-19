@@ -18,6 +18,7 @@ import {
 } from '../../../actions/storeSwitcher';
 
 import { assertUrlSuffix, assertNoUrlSuffix } from '../../../assertions/app';
+import { assertProductIsOutOfStock } from '../../../assertions/productPage';
 import {
     assertProductInCartPage,
     assertProductImageDisplayedInCartPage
@@ -979,6 +980,10 @@ describe('shopping cart', { tags: ['@commerce', '@ci'] }, () => {
         cy.wait(['@mockProduct2RouteData']);
 
         setProductColorOption('Khaki');
+        setProductSizeOption('S');
+
+        assertProductIsOutOfStock();
+
         setProductSizeOption('M');
         addToCartFromProductPage();
 

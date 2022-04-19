@@ -108,6 +108,11 @@ export const filterListItemElement = '[data-cy="FilterList-item"]';
 export const filterDefaultCheckboxElement =
     '[data-cy="FilterDefault-checkbox"]';
 
+export const filterRadioRoot =
+    '[data-cy="RadioGroup-root"] label[class^="radio-root-"]';
+
+export const filterDefaultRadioElement = '[data-cy="FilterDefault-radio"]';
+
 export const filterSidebarHeaderTitle =
     '[data-cy="CategoryContent-root"] [data-cy="FilterSidebar-root"] [data-cy="FilterSidebar-headerTitle"]';
 

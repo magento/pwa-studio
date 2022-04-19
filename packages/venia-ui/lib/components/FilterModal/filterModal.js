@@ -27,6 +27,7 @@ const FilterModal = props => {
         filterApi,
         filterItems,
         filterNames,
+        filterFrontendInput,
         filterState,
         handleApply,
         handleClose,
@@ -43,19 +44,20 @@ const FilterModal = props => {
             Array.from(filterItems, ([group, items]) => {
                 const blockState = filterState.get(group);
                 const groupName = filterNames.get(group);
-
+                const frontendInput = filterFrontendInput.get(group);
                 return (
                     <FilterBlock
                         key={group}
                         filterApi={filterApi}
                         filterState={blockState}
+                        filterFrontendInput={frontendInput}
                         group={group}
                         items={items}
                         name={groupName}
                     />
                 );
             }),
-        [filterApi, filterItems, filterNames, filterState]
+        [filterApi, filterItems, filterNames, filterState, filterFrontendInput]
     );
 
     const filtersAriaLabel = formatMessage({
