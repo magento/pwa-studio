@@ -88,7 +88,16 @@ const completeShippingAddress = {
 
 describe(
     'PWA-1412: verify registered user checkout actions',
-    { tags: ['@commerce', '@open-source', '@ci', '@checkout', '@cart', '@authuser'] },
+    {
+        tags: [
+            '@commerce',
+            '@open-source',
+            '@ci',
+            '@checkout',
+            '@cart',
+            '@authuser'
+        ]
+    },
     () => {
         it('user should be able to place an order as a registered customer', () => {
             cy.intercept('GET', getCheckoutDetailsCall).as(

@@ -68,9 +68,9 @@ describe(
             closeAppMask();
             cy.viewport(1280, 1024);
 
-        hoverCategoryFromMegaMenu(categoryAccessories.name);
-        assertCategoryInMegaMenu(categoryBelts);
-        selectCategoryFromMegaMenu(categoryBelts);
+            hoverCategoryFromMegaMenu(categoryAccessories.name);
+            assertCategoryInMegaMenu(categoryBelts);
+            selectCategoryFromMegaMenu(categoryBelts);
 
             cy.wait(['@getCategoryDataCallQuery'], {
                 timeout: 60000

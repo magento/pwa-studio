@@ -5,7 +5,15 @@ const { getCMSPage } = graphqlMockedCallsFixtures;
 
 describe(
     'Customer Service Page',
-    { tags: ['@commerce', '@open-source', '@ci', '@customerservice', '@snapshot'] },
+    {
+        tags: [
+            '@commerce',
+            '@open-source',
+            '@ci',
+            '@customerservice',
+            '@snapshot'
+        ]
+    },
     () => {
         it('Verify content', () => {
             cy.visitHomePage();
