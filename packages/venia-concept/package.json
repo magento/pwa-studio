@@ -56,6 +56,7 @@
     "@magento/peregrine": "~12.3.0",
     "@magento/pwa-theme-venia": "~1.2.0",
     "@magento/upward-security-headers": "~1.0.7",
+    "@magento/venia-sample-eventing": "0.0.1",
     "@magento/venia-ui": "~9.3.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~6.3.7",
