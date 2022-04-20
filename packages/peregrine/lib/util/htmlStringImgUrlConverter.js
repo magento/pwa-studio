@@ -1,7 +1,8 @@
 import makeUrl from './makeUrl';
+import resolveLinkProps from './resolveLinkProps';
 
 /**
- * Modifies html string images to use makeUrl as source.
+ * Modifies html string images to use makeUrl as source and resolves links to use internal path.
  *
  * @param {string} htmlString - the html string to be updated
  * @return {string}
@@ -14,6 +15,10 @@ const htmlStringImgUrlConverter = htmlString => {
             type: 'image-wysiwyg',
             quality: 85
         });
+    }
+    for (const linkElement of temporaryElement.getElementsByTagName('a')) {
+        const linkProps = resolveLinkProps(linkElement.href);
+        linkElement.href = linkProps.to || linkProps.href;
     }
     return temporaryElement.innerHTML;
 };
