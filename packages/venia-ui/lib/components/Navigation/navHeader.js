@@ -63,9 +63,17 @@ const NavHeader = props => {
 
     const backIcon = isTopLevelMenu ? CloseIcon : ArrowLeftIcon;
 
+    const iconLabel = isTopLevelMenu ? formatMessage({
+      id: 'navHeader.iconLabelClose',
+      defaultMessage: 'Close Menu'
+    }): formatMessage({
+      id: 'navHeader.iconLabelBack',
+      defaultMessage: 'Back to previous Menu'
+    })
+
     return (
         <Fragment>
-            <Trigger key="backButton" action={handleBack}>
+            <Trigger key="backButton" action={handleBack} ariaLabel={iconLabel}>
                 <Icon src={backIcon} />
             </Trigger>
             <span key="title" className={classes.title}>

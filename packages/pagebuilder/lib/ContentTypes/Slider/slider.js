@@ -73,8 +73,17 @@ const Slider = props => {
         paddingBottom,
         paddingLeft
     };
+
+    const Dots = index => {
+        return (
+            <button aria-label={`Go to slider page ${index + 1}`}>
+                {index}
+            </button>
+        );
+    };
     const jarallaxInstances = {};
     const sliderSettings = {
+        customPaging: Dots,
         dots: showDots,
         arrows: showArrows,
         lazyLoad: 'ondemand',

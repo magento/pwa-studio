@@ -32,6 +32,10 @@ const AuthBar = props => {
             className={classes.button}
             disabled={isDisabled}
             onClick={handleShowMyAccount}
+            aria-label={formatMessage({
+                id: 'authBar.toggleMyAccountMenu',
+                defaultMessage: 'My Account Menu'
+            })}
         >
             <span className={classes.contents}>
                 <AccountChip fallbackText={fallBackText} />
@@ -46,6 +50,10 @@ const AuthBar = props => {
             className={classes.button}
             disabled={isDisabled}
             onClick={handleSignIn}
+            aria-label={formatMessage({
+                id: 'authBar.toggleSignInMenu',
+                defaultMessage: 'Account Sign In'
+            })}
         >
             <span className={classes.contents}>
                 <AccountChip fallbackText={fallBackText} />

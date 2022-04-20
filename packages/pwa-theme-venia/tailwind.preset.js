@@ -182,7 +182,7 @@ const extend = {
         unset: 'unset'
     },
     outline: theme => ({
-        button: `1px solid ${theme('colors.info.500')}`
+        button: [`2px solid ${theme('colors.info.500')}`, '1px']
     }),
     spacing: {
         '2xs': '0.5rem',
