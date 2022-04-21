@@ -24,83 +24,98 @@ const {
     assertProductIsInGallery
 } = categoryPageAssertions;
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1406: verify user search actions', () => {
-    it('user should be able search with different inputs', () => {
-        cy.intercept('GET', getProductFiltersBySearchCall).as(
-            'gqlGetProductFiltersBySearchQuery'
-        );
-        cy.intercept('GET', getProductSearchCall).as(
-            'gqlGetProductSearchQuery'
-        );
+describe(
+    'PWA-1406: verify user search actions',
+    { tags: ['@commerce', '@open-source', '@ci', '@search'] },
+    () => {
+        it('user should be able search with different inputs', () => {
+            cy.intercept('GET', getProductFiltersBySearchCall).as(
+                'gqlGetProductFiltersBySearchQuery'
+            );
+            cy.intercept('GET', getProductSearchCall).as(
+                'gqlGetProductSearchQuery'
+            );
 
-        cy.visitHomePage();
+            cy.visitHomePage();
 
-        // Test - Search by valid SKU - 1
-        triggerSearch();
-        searchFromSearchBar(searchData.validSku1);
-        // Needed to avoid intermittent call being made before cypress even starts waiting for it
-        cy.wait(1000);
-        cy.wait(
-            ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
-            {
-                timeout: 60000
-            }
-        );
+            // Test - Search by valid SKU - 1
+            triggerSearch();
+            searchFromSearchBar(searchData.validSku1);
+            // Needed to avoid intermittent call being made before cypress even starts waiting for it
+            cy.wait(1000);
+            cy.wait(
+                [
+                    '@gqlGetProductFiltersBySearchQuery',
+                    '@gqlGetProductSearchQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
 
-        assertProductIsInGallery(searchData.validProductName1);
+            assertProductIsInGallery(searchData.validProductName1);
 
-        // Test - Position sort not available in search
-        toggleProductSort();
-        assertNotAvailableSortItem(sortData.position);
+            // Test - Position sort not available in search
+            toggleProductSort();
+            assertNotAvailableSortItem(sortData.position);
 
-        assertActiveSortItem(sortData.bestMatch);
+            assertActiveSortItem(sortData.bestMatch);
 
-        // Test - Search by valid SKU - 2
-        triggerSearch();
-        searchFromSearchBar(searchData.validSku2);
+            // Test - Search by valid SKU - 2
+            triggerSearch();
+            searchFromSearchBar(searchData.validSku2);
 
-        cy.wait(
-            ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
-            {
-                timeout: 60000
-            }
-        );
+            cy.wait(
+                [
+                    '@gqlGetProductFiltersBySearchQuery',
+                    '@gqlGetProductSearchQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
 
-        assertProductIsInGallery(searchData.validProductName2);
+            assertProductIsInGallery(searchData.validProductName2);
 
-        // Test - Search by invalid SKU
-        triggerSearch();
-        searchFromSearchBar(searchData.invalidSku);
+            // Test - Search by invalid SKU
+            triggerSearch();
+            searchFromSearchBar(searchData.invalidSku);
 
-        cy.wait(
-            ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
-            {
-                timeout: 60000
-            }
-        );
+            cy.wait(
+                [
+                    '@gqlGetProductFiltersBySearchQuery',
+                    '@gqlGetProductSearchQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
 
-        assertNoProductsFound();
+            assertNoProductsFound();
 
-        // Test - Search by valid Product Name
-        triggerSearch();
-        searchFromSearchBar(searchData.validProductSearch);
+            // Test - Search by valid Product Name
+            triggerSearch();
+            searchFromSearchBar(searchData.validProductSearch);
 
-        cy.wait(
-            ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
-            {
-                timeout: 60000
-            }
-        );
+            cy.wait(
+                [
+                    '@gqlGetProductFiltersBySearchQuery',
+                    '@gqlGetProductSearchQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
 
-        assertProductIsInGallery(searchData.validProductName1);
+            assertProductIsInGallery(searchData.validProductName1);
 
-        toggleProductSort();
-        sortProducts(sortData.priceHighLow);
+            toggleProductSort();
+            sortProducts(sortData.priceHighLow);
 
-        // Test - Position sort not available in search even after changing sort
-        toggleProductSort();
-        assertActiveSortItem(sortData.priceHighLow);
-        assertNotAvailableSortItem(sortData.position);
-    });
-});
+            // Test - Position sort not available in search even after changing sort
+            toggleProductSort();
+            assertActiveSortItem(sortData.priceHighLow);
+            assertNotAvailableSortItem(sortData.position);
+        });
+    }
+);
