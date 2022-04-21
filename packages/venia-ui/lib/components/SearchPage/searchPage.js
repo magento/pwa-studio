@@ -55,7 +55,7 @@ const SearchPage = props => {
 
         if (!data && error) {
             return (
-                <div className={classes.noResult}>
+                <div aria-live='polite' className={classes.noResult}>
                     <FormattedMessage
                         id={'searchPage.noResult'}
                         defaultMessage={
@@ -72,7 +72,7 @@ const SearchPage = props => {
 
         if (data.products.items.length === 0) {
             return (
-                <div className={classes.noResult} data-cy="SearchPage-noResult">
+                <div aria-live='polite' className={classes.noResult} data-cy="SearchPage-noResult">
                     <FormattedMessage
                         id={'searchPage.noResultImportant'}
                         defaultMessage={'No results found!'}
@@ -168,8 +168,8 @@ const SearchPage = props => {
     );
 
     const itemCountHeading =
-        data && !loading ? (
-            <span className={classes.totalPages}>
+        data && !loading && (data.products.items.length > 0) ? (
+            <span aria-live='polite' className={classes.totalPages}>
                 {formatMessage(
                     {
                         id: 'searchPage.totalPages',
