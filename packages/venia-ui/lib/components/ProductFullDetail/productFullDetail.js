@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { useMemo, Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -129,22 +129,43 @@ const ProductFullDetail = props => {
         }
     }
 
-    let customAttributesDetails = [];
-    const customAttributesDetailsPageBuilder = [];
-    if (Array.isArray(customAttributes)) {
-        customAttributes.forEach(customAttribute => {
-            if (
-                customAttribute.attribute_metadata.ui_input.ui_input_type ===
-                'PAGEBUILDER'
-            ) {
-                customAttributesDetailsPageBuilder.push(customAttribute);
-            } else {
-                customAttributesDetails.push(customAttribute);
+    const customAttributesDetails = useMemo(() => {
+        const list = [];
+        const pagebuilder = [];
+        const skuAttribute = {
+            attribute_metadata: {
+                uid: 'attribute_sku',
+                used_in_components: ['PRODUCT_DETAILS_PAGE'],
+                ui_input: {
+                    ui_input_type: 'TEXT'
+                },
+                label: formatMessage({
+                    id: 'global.sku',
+                    defaultMessage: 'SKU'
+                })
+            },
+            entered_attribute_value: {
+                value: productDetails.sku
             }
-        });
-    } else {
-        customAttributesDetails = customAttributes;
-    }
+        };
+        if (Array.isArray(customAttributes)) {
+            customAttributes.forEach(customAttribute => {
+                if (
+                    customAttribute.attribute_metadata.ui_input
+                        .ui_input_type === 'PAGEBUILDER'
+                ) {
+                    pagebuilder.push(customAttribute);
+                } else {
+                    list.push(customAttribute);
+                }
+            });
+        }
+        list.unshift(skuAttribute);
+        return {
+            list: list,
+            pagebuilder: pagebuilder
+        };
+    }, [customAttributes, productDetails.sku, formatMessage]);
 
     const cartCallToActionText = !isOutOfStock ? (
         <FormattedMessage
@@ -183,6 +204,16 @@ const ProductFullDetail = props => {
 
     const shortDescription = productDetails.shortDescription ? (
         <RichContent html={productDetails.shortDescription.html} />
+    ) : null;
+
+    const pageBuilderAttributes = customAttributesDetails.pagebuilder.length ? (
+        <section className={classes.detailsPageBuilder}>
+            <CustomAttributes
+                classes={{ list: classes.detailsPageBuilderList }}
+                customAttributes={customAttributesDetails.pagebuilder}
+                showLabels={false}
+            />
+        </section>
     ) : null;
 
     return (
@@ -266,16 +297,10 @@ const ProductFullDetail = props => {
                         />
                     </span>
                     <CustomAttributes
-                        customAttributes={customAttributesDetails}
+                        customAttributes={customAttributesDetails.list}
                     />
                 </section>
-                <section className={classes.detailsPageBuilder}>
-                    <CustomAttributes
-                        classes={{ list: classes.detailsPageBuilderList }}
-                        customAttributes={customAttributesDetailsPageBuilder}
-                        showLabels={false}
-                    />
-                </section>
+                {pageBuilderAttributes}
             </Form>
         </Fragment>
     );

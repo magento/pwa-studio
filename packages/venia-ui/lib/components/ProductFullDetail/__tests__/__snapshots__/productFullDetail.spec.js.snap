@@ -151,20 +151,25 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -291,20 +296,25 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -465,20 +475,25 @@ exports[`it renders an error for an invalid cart 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -639,20 +654,25 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -814,20 +834,25 @@ Array [
         />
       </span>
       <CustomAttributes
-        customAttributes={Object {}}
-      />
-    </section>
-    <section
-      className="detailsPageBuilder"
-    >
-      <CustomAttributes
-        classes={
-          Object {
-            "list": "detailsPageBuilderList",
-          }
+        customAttributes={
+          Array [
+            Object {
+              "attribute_metadata": Object {
+                "label": "SKU",
+                "ui_input": Object {
+                  "ui_input_type": "TEXT",
+                },
+                "uid": "attribute_sku",
+                "used_in_components": Array [
+                  "PRODUCT_DETAILS_PAGE",
+                ],
+              },
+              "entered_attribute_value": Object {
+                "value": "BTTF123",
+              },
+            },
+          ]
         }
-        customAttributes={Array []}
-        showLabels={false}
       />
     </section>
   </form>,
@@ -985,20 +1010,25 @@ exports[`it renders correctly 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -1155,20 +1185,25 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -1325,20 +1360,25 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -1495,20 +1535,25 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -1669,20 +1714,25 @@ exports[`it renders form level errors 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -1852,20 +1902,25 @@ exports[`it renders message with unsupported product type 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -1992,20 +2047,25 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>
@@ -2164,20 +2224,25 @@ exports[`renders a WishlistButton with props 1`] = `
       />
     </span>
     <CustomAttributes
-      customAttributes={Object {}}
-    />
-  </section>
-  <section
-    className="detailsPageBuilder"
-  >
-    <CustomAttributes
-      classes={
-        Object {
-          "list": "detailsPageBuilderList",
-        }
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
       }
-      customAttributes={Array []}
-      showLabels={false}
     />
   </section>
 </form>

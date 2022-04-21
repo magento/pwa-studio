@@ -141,7 +141,10 @@
 }
 
 .detailsPageBuilder {
-    composes: section;
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: px-0 from global;
+    composes: py-sm from global;
     grid-column: 1 / span 2;
 }
 
