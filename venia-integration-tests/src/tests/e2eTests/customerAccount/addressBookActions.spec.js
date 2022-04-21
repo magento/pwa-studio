@@ -49,88 +49,91 @@ const {
 } = addressBookPageAssertions;
 const { assertCreateAccount } = myAccountMenuAssertions;
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1421: verify customer account address book actions', () => {
-    it('user should be able to update their address book', () => {
-        // Test - Create an account
-        cy.intercept('POST', hitGraphqlPath, req => {
-            aliasMutation(req, 'AddNewCustomerAddressToAddressBook');
-            aliasMutation(req, 'CreateAccount');
-            aliasMutation(req, 'SignInAfterCreate');
-            aliasMutation(req, 'UpdateCustomerAddressInAddressBook');
-            aliasMutation(req, 'DeleteCustomerAddressFromAddressBook');
-        });
+describe(
+    'PWA-1421: verify customer account address book actions',
+    { tags: ['@commerce', '@open-source', '@ci', '@authuser'] },
+    () => {
+        it('user should be able to update their address book', () => {
+            // Test - Create an account
+            cy.intercept('POST', hitGraphqlPath, req => {
+                aliasMutation(req, 'AddNewCustomerAddressToAddressBook');
+                aliasMutation(req, 'CreateAccount');
+                aliasMutation(req, 'SignInAfterCreate');
+                aliasMutation(req, 'UpdateCustomerAddressInAddressBook');
+                aliasMutation(req, 'DeleteCustomerAddressFromAddressBook');
+            });
 
-        cy.visitPage(homePage);
+            cy.visitPage(homePage);
 
-        cy.toggleLoginDialog();
-        cy.createAccount(
-            accountAccessFixtures.firstName,
-            lastName,
-            accountEmail,
-            accountPassword
-        );
-        // Needed to avoid intermittent call being made before cypress even starts waiting for it
-        cy.wait(1000);
-        cy.wait(
-            ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
-            {
+            cy.toggleLoginDialog();
+            cy.createAccount(
+                accountAccessFixtures.firstName,
+                lastName,
+                accountEmail,
+                accountPassword
+            );
+            // Needed to avoid intermittent call being made before cypress even starts waiting for it
+            cy.wait(1000);
+            cy.wait(
+                ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
+                {
+                    timeout: 60000
+                }
+            );
+
+            assertCreateAccount(firstName);
+
+            // Test - Add New Default Address
+            goToMyAccount(firstName, addressBookPage);
+
+            assertAddressBookHeading(addressBookPage);
+            assertAddressBookEmpty();
+            assertAddressBookAddButton();
+
+            openAddressBookAddModal();
+            assertAddressBookModalHeading(addressBookAddModalTitle);
+            addEditAddressCard({ ...addressBookData[0], isDefault: true });
+
+            cy.wait(['@gqlAddNewCustomerAddressToAddressBookMutation'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        assertCreateAccount(firstName);
+            assertAddressCardCount(1);
+            assertAddressInAddressBook({ ...addressBookData[0] });
+            assertAddressIsDefault({ ...addressBookData[0] });
 
-        // Test - Add New Default Address
-        goToMyAccount(firstName, addressBookPage);
+            // Test - Add New Address
+            openAddressBookAddModal();
+            assertAddressBookModalHeading(addressBookAddModalTitle);
+            addEditAddressCard({ ...addressBookData[1] });
 
-        assertAddressBookHeading(addressBookPage);
-        assertAddressBookEmpty();
-        assertAddressBookAddButton();
+            cy.wait(['@gqlAddNewCustomerAddressToAddressBookMutation'], {
+                timeout: 60000
+            });
 
-        openAddressBookAddModal();
-        assertAddressBookModalHeading(addressBookAddModalTitle);
-        addEditAddressCard({ ...addressBookData[0], isDefault: true });
+            assertAddressCardCount(2);
+            assertAddressInAddressBook({ ...addressBookData[1] });
 
-        cy.wait(['@gqlAddNewCustomerAddressToAddressBookMutation'], {
-            timeout: 60000
+            // Test - Edit Address
+            openAddressBookEditModal(1);
+            assertAddressBookModalHeading(addressBookEditModalTitle);
+            addEditAddressCard({ isDefault: true });
+
+            cy.wait(['@gqlUpdateCustomerAddressInAddressBookMutation'], {
+                timeout: 60000
+            });
+
+            assertAddressIsDefault({ ...addressBookData[1] });
+
+            // Test - Delete Address
+            deleteAddressCard({ ...addressBookData[0] });
+
+            cy.wait(['@gqlDeleteCustomerAddressFromAddressBookMutation'], {
+                timeout: 60000
+            });
+
+            assertAddressCardCount(1);
+            assertAddressIsDefault({ ...addressBookData[1] });
         });
-
-        assertAddressCardCount(1);
-        assertAddressInAddressBook({ ...addressBookData[0] });
-        assertAddressIsDefault({ ...addressBookData[0] });
-
-        // Test - Add New Address
-        openAddressBookAddModal();
-        assertAddressBookModalHeading(addressBookAddModalTitle);
-        addEditAddressCard({ ...addressBookData[1] });
-
-        cy.wait(['@gqlAddNewCustomerAddressToAddressBookMutation'], {
-            timeout: 60000
-        });
-
-        assertAddressCardCount(2);
-        assertAddressInAddressBook({ ...addressBookData[1] });
-
-        // Test - Edit Address
-        openAddressBookEditModal(1);
-        assertAddressBookModalHeading(addressBookEditModalTitle);
-        addEditAddressCard({ isDefault: true });
-
-        cy.wait(['@gqlUpdateCustomerAddressInAddressBookMutation'], {
-            timeout: 60000
-        });
-
-        assertAddressIsDefault({ ...addressBookData[1] });
-
-        // Test - Delete Address
-        deleteAddressCard({ ...addressBookData[0] });
-
-        cy.wait(['@gqlDeleteCustomerAddressFromAddressBookMutation'], {
-            timeout: 60000
-        });
-
-        assertAddressCardCount(1);
-        assertAddressIsDefault({ ...addressBookData[1] });
-    });
-});
+    }
+);

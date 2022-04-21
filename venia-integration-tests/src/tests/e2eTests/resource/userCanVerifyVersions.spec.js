@@ -22,16 +22,20 @@ afterEach(() => {
 });
 
 describe('verify version banner', () => {
-    it('user can see list of important package versions', () => {
-        cy.intercept('GET', clientJs).as('resourceClientJs');
+    it(
+        'user can see list of important package versions',
+        { tags: ['@commerce', '@open-source', '@ci'] },
+        () => {
+            cy.intercept('GET', clientJs).as('resourceClientJs');
 
-        cy.visit(homePage);
-        cy.wait('@resourceClientJs', {
-            timeout: 20000
-        })
-            .its('response.body')
-            .should('match', /@version pwa-studio: \d+\.\d+\.\d+/i)
-            .should('match', /@magento\/pwa-buildpack: [~^]?\d+\.\d+\.\d+/i)
-            .should('match', /@magento\/venia-ui: [~^]?\d+\.\d+\.\d+/i);
-    });
+            cy.visit(homePage);
+            cy.wait('@resourceClientJs', {
+                timeout: 20000
+            })
+                .its('response.body')
+                .should('match', /@version pwa-studio: \d+\.\d+\.\d+/i)
+                .should('match', /@magento\/pwa-buildpack: [~^]?\d+\.\d+\.\d+/i)
+                .should('match', /@magento\/venia-ui: [~^]?\d+\.\d+\.\d+/i);
+        }
+    );
 });

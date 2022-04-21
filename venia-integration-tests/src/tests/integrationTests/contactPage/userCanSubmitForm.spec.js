@@ -23,32 +23,36 @@ const {
     contactFormComment
 } = contactPageFixtures;
 
-describe('verify contact form', () => {
-    it('user can fill and submit form', () => {
-        cy.intercept('GET', getContactPageEnabledCall, {
-            fixture: 'contactPage/contactPageConfigEnabled.json'
-        }).as('gqlGetContactPageQuery');
+describe(
+    'verify contact form',
+    { tags: ['@commerce', '@open-source', '@ci'] },
+    () => {
+        it('user can fill and submit form', () => {
+            cy.intercept('GET', getContactPageEnabledCall, {
+                fixture: 'contactPage/contactPageConfigEnabled.json'
+            }).as('gqlGetContactPageQuery');
 
-        cy.intercept('POST', hitGraphqlPath, req => {
-            if (req.body.operationName.includes('contactUs')) {
-                req.reply({
-                    fixture: 'contactPage/contactFormSubmitValid.json'
-                });
-            }
-        }).as('submitContactForm');
+            cy.intercept('POST', hitGraphqlPath, req => {
+                if (req.body.operationName.includes('contactUs')) {
+                    req.reply({
+                        fixture: 'contactPage/contactFormSubmitValid.json'
+                    });
+                }
+            }).as('submitContactForm');
 
-        cy.visit(contactPageRoute);
+            cy.visit(contactPageRoute);
 
-        fillContactForm({
-            name: contactFormName,
-            email: contactFormEmail,
-            telephone: contactFormTelephone,
-            comment: contactFormComment
+            fillContactForm({
+                name: contactFormName,
+                email: contactFormEmail,
+                telephone: contactFormTelephone,
+                comment: contactFormComment
+            });
+
+            submitContactForm();
+            cy.wait(['@submitContactForm']).its('response.body');
+
+            assertSuccessToast();
         });
-
-        submitContactForm();
-        cy.wait(['@submitContactForm']).its('response.body');
-
-        assertSuccessToast();
-    });
-});
+    }
+);
