@@ -260,7 +260,6 @@ const configurableProductProps = {
     }
 };
 
-
 const outOfOrderCustomAttributeProductProps = {
     ...defaultProps,
     product: {
@@ -772,7 +771,9 @@ test('it returns text when render prop is executed', () => {
 });
 
 test('custom attribute is sorted', () => {
-    const tree = createTestInstance(<Component {...outOfOrderCustomAttributeProductProps} />);
+    const tree = createTestInstance(
+        <Component {...outOfOrderCustomAttributeProductProps} />
+    );
 
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
