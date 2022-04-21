@@ -90,216 +90,223 @@ const completeShippingAddress = {
     lastName
 };
 
-// TODO add tags MOS, AC to test to filter and run tests as needed
-describe('PWA-1413: verify guest user checkout actions', () => {
-    it('user should be able to place an order as a guest', () => {
-        cy.intercept('GET', getAppliedCouponsCall).as(
-            'gqlGetAppliedCouponsQuery'
-        );
-        cy.intercept('GET', getAppliedGiftCardsCall).as(
-            'gqlGetAppliedGiftCardsQuery'
-        );
-        cy.intercept('GET', getCheckoutDetailsCall).as(
-            'gqlGetCheckoutDetailsQuery'
-        );
-        cy.intercept('GET', getCountriesCall).as('gqlGetCountriesQuery');
-        cy.intercept('GET', getCustomerAfterCheckoutCall).as(
-            'gqlCustomerAfterCheckoutQuery'
-        );
-        cy.intercept('GET', getItemsInCartCall).as('gqlGetItemsInCartQuery');
-        cy.intercept('GET', getProductDetailForProductPageCall).as(
-            'gqlGetProductDetailForProductPageQuery'
-        );
-        cy.intercept('GET', getProductListingCall).as(
-            'gqlGetProductListingQuery'
-        );
-        cy.intercept('GET', getRegionsCall).as('gqlGetRegionsQuery');
-        cy.intercept('GET', getSelectedAndAvailableShippingMethodsCall).as(
-            'gqlGetSelectedAndAvailableShippingMethodsQuery'
-        );
-        cy.intercept('GET', getShippingMethodsCall).as(
-            'gqlGetShippingMethodsQuery'
-        );
-        cy.intercept('POST', hitGraphqlPath, req => {
-            aliasMutation(req, 'AddProductToCart');
-            aliasMutation(req, 'applyCouponToCart');
-            aliasMutation(req, 'applyGiftCardToCart');
-            aliasMutation(req, 'CreateAccountAfterCheckout');
-            aliasMutation(req, 'placeOrder');
-            aliasMutation(req, 'SetShippingAddressForEstimate');
-            aliasMutation(req, 'SetShippingMethodForEstimate');
-        });
+describe(
+    'PWA-1413: verify guest user checkout actions',
+    { tags: ['@commerce', '@ci', '@checkout', '@cart'] },
+    () => {
+        it('user should be able to place an order as a guest', () => {
+            cy.intercept('GET', getAppliedCouponsCall).as(
+                'gqlGetAppliedCouponsQuery'
+            );
+            cy.intercept('GET', getAppliedGiftCardsCall).as(
+                'gqlGetAppliedGiftCardsQuery'
+            );
+            cy.intercept('GET', getCheckoutDetailsCall).as(
+                'gqlGetCheckoutDetailsQuery'
+            );
+            cy.intercept('GET', getCountriesCall).as('gqlGetCountriesQuery');
+            cy.intercept('GET', getCustomerAfterCheckoutCall).as(
+                'gqlCustomerAfterCheckoutQuery'
+            );
+            cy.intercept('GET', getItemsInCartCall).as(
+                'gqlGetItemsInCartQuery'
+            );
+            cy.intercept('GET', getProductDetailForProductPageCall).as(
+                'gqlGetProductDetailForProductPageQuery'
+            );
+            cy.intercept('GET', getProductListingCall).as(
+                'gqlGetProductListingQuery'
+            );
+            cy.intercept('GET', getRegionsCall).as('gqlGetRegionsQuery');
+            cy.intercept('GET', getSelectedAndAvailableShippingMethodsCall).as(
+                'gqlGetSelectedAndAvailableShippingMethodsQuery'
+            );
+            cy.intercept('GET', getShippingMethodsCall).as(
+                'gqlGetShippingMethodsQuery'
+            );
+            cy.intercept('POST', hitGraphqlPath, req => {
+                aliasMutation(req, 'AddProductToCart');
+                aliasMutation(req, 'applyCouponToCart');
+                aliasMutation(req, 'applyGiftCardToCart');
+                aliasMutation(req, 'CreateAccountAfterCheckout');
+                aliasMutation(req, 'placeOrder');
+                aliasMutation(req, 'SetShippingAddressForEstimate');
+                aliasMutation(req, 'SetShippingMethodForEstimate');
+            });
 
-        // Test - Add configurable products to cart from Product Pages
-        cy.visit(productValeriaTwoLayeredTank.url);
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-            timeout: 60000
-        });
-
-        selectOptionsFromProductPage();
-        setQuantityFromProductPage(2);
-        addToCartFromProductPage();
-        cy.wait(['@gqlAddProductToCartMutation'], {
-            timeout: 60000
-        });
-
-        assertCartTriggerCount(2);
-
-        cy.visit(productIsadoraSkirt.url);
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-            timeout: 60000
-        });
-
-        selectOptionsFromProductPage();
-        setQuantityFromProductPage();
-        addToCartFromProductPage();
-        cy.wait(['@gqlAddProductToCartMutation'], {
-            timeout: 60000
-        });
-
-        assertCartTriggerCount(3);
-
-        // Test - Products are in Cart Page
-        cy.visit(cartPageRoute);
-        cy.wait(
-            [
-                '@gqlGetProductListingQuery',
-                '@gqlGetAppliedCouponsQuery',
-                '@gqlGetAppliedGiftCardsQuery',
-                '@gqlGetShippingMethodsQuery'
-            ],
-            {
+            // Test - Add configurable products to cart from Product Pages
+            cy.visit(productValeriaTwoLayeredTank.url);
+            cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        assertProductInCartPage(productValeriaTwoLayeredTank.name);
-        assertProductInCartPage(productIsadoraSkirt.name);
-
-        // Test - Estimate Shipping
-        toggleShippingMethodSection();
-        toggleShippingMethodEstimate();
-
-        cy.wait(['@gqlGetCountriesQuery', '@gqlGetRegionsQuery'], {
-            timeout: 60000
-        });
-
-        estimateShippingMethod(completeShippingAddress);
-
-        cy.wait(
-            [
-                '@gqlSetShippingAddressForEstimateMutation',
-                '@gqlSetShippingMethodForEstimateMutation'
-            ],
-            {
+            selectOptionsFromProductPage();
+            setQuantityFromProductPage(2);
+            addToCartFromProductPage();
+            cy.wait(['@gqlAddProductToCartMutation'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        selectShippingMethodFromCartPage(defaultShippingMethods.flatrate.code);
+            assertCartTriggerCount(2);
 
-        cy.wait(['@gqlSetShippingMethodForEstimateMutation'], {
-            timeout: 60000
-        });
+            cy.visit(productIsadoraSkirt.url);
+            cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
+                timeout: 60000
+            });
 
-        // Test - Add Coupon Code
-        toggleCouponCodeSection();
-        setCouponCodeFromCartPage(Cypress.env('defaultData_couponCode'));
+            selectOptionsFromProductPage();
+            setQuantityFromProductPage();
+            addToCartFromProductPage();
+            cy.wait(['@gqlAddProductToCartMutation'], {
+                timeout: 60000
+            });
 
-        cy.wait(['@gqlapplyCouponToCartMutation'], {
-            timeout: 60000
-        });
+            assertCartTriggerCount(3);
 
-        // Test - Add Gift Card
-        toggleGiftCardSection();
-        setGiftCardFromCartPage(Cypress.env('defaultData_giftCardNumber'));
+            // Test - Products are in Cart Page
+            cy.visit(cartPageRoute);
+            cy.wait(
+                [
+                    '@gqlGetProductListingQuery',
+                    '@gqlGetAppliedCouponsQuery',
+                    '@gqlGetAppliedGiftCardsQuery',
+                    '@gqlGetShippingMethodsQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
 
-        cy.wait(['@gqlapplyGiftCardToCartMutation'], {
-            timeout: 60000
-        });
+            assertProductInCartPage(productValeriaTwoLayeredTank.name);
+            assertProductInCartPage(productIsadoraSkirt.name);
 
-        // Test - Set Guest Shipping Address
-        cy.visitCheckoutPage();
+            // Test - Estimate Shipping
+            toggleShippingMethodSection();
+            toggleShippingMethodEstimate();
 
-        setGuestShippingAddress(completeShippingAddress);
+            cy.wait(['@gqlGetCountriesQuery', '@gqlGetRegionsQuery'], {
+                timeout: 60000
+            });
 
-        cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
-            timeout: 60000
-        });
+            estimateShippingMethod(completeShippingAddress);
 
-        assertAddressInShippingInformationInCheckoutPage(
-            completeShippingAddress
-        );
-        assertSelectedShippingMethodInCheckoutPage(
-            defaultShippingMethods.flatrate.label
-        );
+            cy.wait(
+                [
+                    '@gqlSetShippingAddressForEstimateMutation',
+                    '@gqlSetShippingMethodForEstimateMutation'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
 
-        // Test - Review Order
-        reviewOrder();
+            selectShippingMethodFromCartPage(
+                defaultShippingMethods.flatrate.code
+            );
 
-        cy.wait(['@gqlGetItemsInCartQuery'], {
-            timeout: 60000
-        });
+            cy.wait(['@gqlSetShippingMethodForEstimateMutation'], {
+                timeout: 60000
+            });
 
-        assertAddressInShippingInformationInCheckoutPage(
-            completeShippingAddress
-        );
-        assertAppliedCouponCodeInCheckoutPage();
-        assertAppliedGiftCardInCheckoutPage();
-        assertProductInCheckoutPage({
-            name: productValeriaTwoLayeredTank.name
-        });
-        assertProductInCheckoutPage({
-            name: productIsadoraSkirt.name
-        });
+            // Test - Add Coupon Code
+            toggleCouponCodeSection();
+            setCouponCodeFromCartPage(Cypress.env('defaultData_couponCode'));
 
-        // Test - Place Order
-        placeOrder();
+            cy.wait(['@gqlapplyCouponToCartMutation'], {
+                timeout: 60000
+            });
 
-        cy.wait(['@gqlplaceOrderMutation', '@gqlGetCheckoutDetailsQuery'], {
-            timeout: 60000
-        });
+            // Test - Add Gift Card
+            toggleGiftCardSection();
+            setGiftCardFromCartPage(Cypress.env('defaultData_giftCardNumber'));
 
-        assertAddressInShippingInformationInCheckoutPage(
-            completeShippingAddress,
-            true
-        );
-        assertSelectedShippingMethodInCheckoutPage(
-            defaultShippingMethods.flatrate.label,
-            true
-        );
-        assertProductInCheckoutPage(
-            {
+            cy.wait(['@gqlapplyGiftCardToCartMutation'], {
+                timeout: 60000
+            });
+
+            // Test - Set Guest Shipping Address
+            cy.visitCheckoutPage();
+
+            setGuestShippingAddress(completeShippingAddress);
+
+            cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
+                timeout: 60000
+            });
+
+            assertAddressInShippingInformationInCheckoutPage(
+                completeShippingAddress
+            );
+            assertSelectedShippingMethodInCheckoutPage(
+                defaultShippingMethods.flatrate.label
+            );
+
+            // Test - Review Order
+            reviewOrder();
+
+            cy.wait(['@gqlGetItemsInCartQuery'], {
+                timeout: 60000
+            });
+
+            assertAddressInShippingInformationInCheckoutPage(
+                completeShippingAddress
+            );
+            assertAppliedCouponCodeInCheckoutPage();
+            assertAppliedGiftCardInCheckoutPage();
+            assertProductInCheckoutPage({
                 name: productValeriaTwoLayeredTank.name
-            },
-            true
-        );
-        assertProductInCheckoutPage(
-            {
+            });
+            assertProductInCheckoutPage({
                 name: productIsadoraSkirt.name
-            },
-            true
-        );
+            });
 
-        // Test - Account create from Order Confirmation Page
-        createAccountFromOrderConfirmationPage({
-            password: accountPassword
-        });
+            // Test - Place Order
+            placeOrder();
 
-        cy.wait(
-            [
-                '@gqlCreateAccountAfterCheckoutMutation',
-                '@gqlCustomerAfterCheckoutQuery'
-            ],
-            {
+            cy.wait(['@gqlplaceOrderMutation', '@gqlGetCheckoutDetailsQuery'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        assertCreateAccount(firstName);
+            assertAddressInShippingInformationInCheckoutPage(
+                completeShippingAddress,
+                true
+            );
+            assertSelectedShippingMethodInCheckoutPage(
+                defaultShippingMethods.flatrate.label,
+                true
+            );
+            assertProductInCheckoutPage(
+                {
+                    name: productValeriaTwoLayeredTank.name
+                },
+                true
+            );
+            assertProductInCheckoutPage(
+                {
+                    name: productIsadoraSkirt.name
+                },
+                true
+            );
 
-        // Test - Access Account Information
-        goToMyAccount(firstName, accountInformationPage);
-        assertAccountInformationHeading(accountInformationPage);
-    });
-});
+            // Test - Account create from Order Confirmation Page
+            createAccountFromOrderConfirmationPage({
+                password: accountPassword
+            });
+
+            cy.wait(
+                [
+                    '@gqlCreateAccountAfterCheckoutMutation',
+                    '@gqlCustomerAfterCheckoutQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
+
+            assertCreateAccount(firstName);
+
+            // Test - Access Account Information
+            goToMyAccount(firstName, accountInformationPage);
+            assertAccountInformationHeading(accountInformationPage);
+        });
+    }
+);
