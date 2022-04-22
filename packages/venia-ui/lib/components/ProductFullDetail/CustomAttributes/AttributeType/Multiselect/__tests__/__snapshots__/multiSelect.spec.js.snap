@@ -15,9 +15,19 @@ Array [
   </div>,
   <div>
     <mock-RichContent
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
       html="<span>Option 1</span>"
     />
     <mock-RichContent
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
       html="<span>Option 2</span>"
     />
   </div>,

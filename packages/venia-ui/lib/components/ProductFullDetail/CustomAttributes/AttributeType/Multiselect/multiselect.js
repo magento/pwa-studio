@@ -33,7 +33,11 @@ const Multiselect = props => {
                 (option, key) => {
                     return (
                         // TODO: Get decoded wysiwyg widgets from GraphQl
-                        <RichContent key={key} html={option.label} />
+                        <RichContent
+                            classes={{ root: classes.option }}
+                            key={key}
+                            html={option.label}
+                        />
                     );
                 }
             );
@@ -79,7 +83,8 @@ Multiselect.propTypes = {
     classes: shape({
         label: string,
         content: string,
-        contentHtml: string
+        contentHtml: string,
+        option: string
     }),
     attribute_metadata: shape({
         label: string,
