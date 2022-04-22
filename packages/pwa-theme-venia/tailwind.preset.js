@@ -182,7 +182,9 @@ const extend = {
         unset: 'unset'
     },
     outline: theme => ({
-        button: [`1.5px solid ${theme('colors.brand.500')}`, '1px']
+        button: [`1.5px solid ${theme('colors.brand.500')}`, '1.5px'],
+        buttonBold: [`3px solid ${theme('colors.brand.500')}`, '1.5px'],
+        buttonNoGap: [`1.5px solid ${theme('colors.brand.500')}`, '0px']
     }),
     spacing: {
         '2xs': '0.5rem',

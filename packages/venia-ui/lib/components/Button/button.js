@@ -5,12 +5,9 @@ import { oneOf, shape, string, bool } from 'prop-types';
 import { useStyle } from '../../classify';
 import defaultClasses from './button.module.css';
 
-const RESIZEABLE_DESIGNS = ['primary', 'secondary', 'quiet'];
-
-const getRootClassName = (design, negative, size) =>
-    `root_${design}${
-        size && RESIZEABLE_DESIGNS.includes(design) ? `_${size}` : ''
-    }${negative ? '_Negative' : ''}`;
+const getRootClassName = (design, size) => {
+    return `root_${design}_${size}`;
+};
 
 /**
  * A component for buttons.
@@ -24,11 +21,11 @@ const getRootClassName = (design, negative, size) =>
  */
 const Button = props => {
     const {
+        ariaLabel,
         children,
         classes: propClasses,
         design,
         size,
-        negative,
         disabled,
         onPress,
         ...restProps
@@ -46,10 +43,11 @@ const Button = props => {
     );
 
     const classes = useStyle(defaultClasses, propClasses);
-    const rootClassName = classes[getRootClassName(design, negative, size)];
+    const rootClassName = classes[getRootClassName(design, size)];
 
     return (
         <button
+            aria-label={ariaLabel}
             ref={buttonRef}
             className={rootClassName}
             {...buttonProps}
@@ -77,10 +75,10 @@ const Button = props => {
  * normal priority.
  * @property {string} design the type of button design
  * @property {string} type the type of the Button
- * @property {bool} negative whether the button should be displayed in red for a negative action
  * @property {bool} disabled is the button disabled
  */
 Button.propTypes = {
+    ariaLabel: string.isRequired,
     classes: shape({
         content: string,
         root: string,
@@ -88,10 +86,9 @@ Button.propTypes = {
         root_lowPriority: string,
         root_normalPriority: string
     }),
-    design: oneOf(['marketing', 'action', ...RESIZEABLE_DESIGNS]).isRequired,
+    design: oneOf(['primary', 'secondary', 'tertiary']).isRequired,
     size: oneOf(['large', 'medium', 'small']),
     type: oneOf(['button', 'reset', 'submit']).isRequired,
-    negative: bool,
     disabled: bool
 };
 
@@ -99,7 +96,6 @@ Button.defaultProps = {
     design: 'secondary',
     size: 'medium',
     type: 'button',
-    negative: false,
     disabled: false
 };
 

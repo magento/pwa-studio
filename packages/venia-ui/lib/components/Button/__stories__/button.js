@@ -6,63 +6,27 @@ import { storiesOf } from '@storybook/react';
 
 const stories = storiesOf('Components/Button', module);
 
-stories.add('Action', () => {
-    return (
-        <>
-            <h2>Enabled</h2>
-            <Button design="action">Action</Button>
-            <h2>Disabled</h2>
-            <Button design="action" disabled={true}>
-                Action
-            </Button>
-        </>
-    );
-});
-
-stories.add('Marketing', () => {
-    return (
-        <>
-            <h2>Enabled</h2>
-            <Button design="marketing">Marketing</Button>
-            <h2>Disabled</h2>
-            <Button design="marketing" disabled={true}>
-                Marketing
-            </Button>
-        </>
-    );
-});
-
 stories.add('Primary', () => {
     return (
         <>
             <h2>Enabled</h2>
-            <Button design="primary" size="large">
+            <Button design="primary" size="large" ariaLabel='primary large'>
                 Primary L
             </Button>
-            <Button design="primary" size="medium">
+            <Button design="primary" size="medium" ariaLabel='primary medium'>
                 Primary
             </Button>
-            <Button design="primary" size="small">
+            <Button design="primary" size="small" ariaLabel='primary small'>
                 Primary S
             </Button>
             <h2>Disabled</h2>
-            <Button design="primary" size="large" disabled={true}>
+            <Button design="primary" size="large" disabled={true} ariaLabel='primary large disabled'>
                 Primary L
             </Button>
-            <Button design="primary" size="medium" disabled={true}>
+            <Button design="primary" size="medium" disabled={true} ariaLabel='primary medium disabled'>
                 Primary
             </Button>
-            <Button design="primary" size="small" disabled={true}>
-                Primary S
-            </Button>
-            <h2>Negative</h2>
-            <Button design="primary" size="large" negative={true}>
-                Primary L
-            </Button>
-            <Button design="primary" size="medium" negative={true}>
-                Primary
-            </Button>
-            <Button design="primary" size="small" negative={true}>
+            <Button design="primary" size="small" disabled={true} ariaLabel='primary small disabled'>
                 Primary S
             </Button>
         </>
@@ -73,71 +37,51 @@ stories.add('Secondary', () => {
     return (
         <>
             <h2>Enabled</h2>
-            <Button design="secondary" size="large">
+            <Button design="secondary" size="large" ariaLabel='secondary large'>
                 Secondary L
             </Button>
-            <Button design="secondary" size="medium">
+            <Button design="secondary" size="medium" ariaLabel='secondary medium'>
                 Secondary
             </Button>
-            <Button design="secondary" size="small">
+            <Button design="secondary" size="small" ariaLabel='secondary small'>
                 Secondary S
             </Button>
             <h2>Disabled</h2>
-            <Button design="secondary" size="large" disabled={true}>
+            <Button design="secondary" size="large" disabled={true} ariaLabel='secondary large disabled'>
                 Secondary L
             </Button>
-            <Button design="secondary" size="medium" disabled={true}>
+            <Button design="secondary" size="medium" disabled={true} ariaLabel='secondary medium disabled'>
                 Secondary
             </Button>
-            <Button design="secondary" size="small" disabled={true}>
-                Secondary S
-            </Button>
-            <h2>Negative</h2>
-            <Button design="secondary" size="large" negative={true}>
-                Secondary L
-            </Button>
-            <Button design="secondary" size="medium" negative={true}>
-                Secondary
-            </Button>
-            <Button design="secondary" size="small" negative={true}>
+            <Button design="secondary" size="small" disabled={true} ariaLabel='secondary small disabled'>
                 Secondary S
             </Button>
         </>
     );
 });
 
-stories.add('Quiet', () => {
+stories.add('Tertiary', () => {
     return (
         <>
             <h2>Enabled</h2>
-            <Button design="quiet" size="large">
-                Quiet L
+            <Button design="tertiary" size="large" ariaLabel='tertiary large'>
+                Tertiary L
             </Button>
-            <Button design="quiet" size="medium">
-                Quiet
+            <Button design="tertiary" size="medium" ariaLabel='tertiary medium'>
+                Tertiary
             </Button>
-            <Button design="quiet" size="small">
-                Quiet S
+            <Button design="tertiary" size="small" ariaLabel='tertiary small'>
+                Tertiary S
             </Button>
             <h2>Disabled</h2>
-            <Button design="quiet" size="large" disabled={true}>
-                Quiet L
+            <Button design="tertiary" size="large" disabled={true} ariaLabel='tertiary large disabled'>
+                Tertiary L
             </Button>
-            <Button design="quiet" size="medium" disabled={true}>
-                Quiet
+            <Button design="tertiary" size="medium" disabled={true} ariaLabel='tertiary medium disabled'>
+                Tertiary
             </Button>
-            <Button design="quiet" size="small" disabled={true}>
-                Quiet S
-            </Button>
-            <h2>Negative</h2>
-            <Button design="quiet" size="large" negative={true}>
-                Quiet L
-            </Button>
-            <Button design="quiet" size="medium" negative={true}>
-                Quiet
-            </Button>
-            <Button design="quiet" size="small" negative={true}>
-                Quiet S
+            <Button design="tertiary" size="small" disabled={true} ariaLabel='tertiary small disabled'>
+                Tertiary S
             </Button>
         </>
     );
