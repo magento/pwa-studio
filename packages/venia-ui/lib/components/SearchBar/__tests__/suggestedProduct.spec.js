@@ -20,6 +20,14 @@ const defaultProps = {
                 value: 3.5
             }
         }
+    },
+    price_range: {
+        maximum_price: {
+            final_price: {
+                currency: 'USD',
+                value: 3.5
+            }
+        }
     }
 };
 
