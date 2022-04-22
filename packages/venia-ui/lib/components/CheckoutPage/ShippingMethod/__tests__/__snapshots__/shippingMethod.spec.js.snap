@@ -25,6 +25,7 @@ exports[`it disables inputs when the page is updating 1`] = `
       className="root"
     >
       <label
+        aria-label=""
         className="root"
         htmlFor="shipping_method--flatrate|flatrate"
       >
@@ -146,6 +147,7 @@ exports[`it renders correctly 1`] = `
       className="root"
     >
       <label
+        aria-label=""
         className="root"
         htmlFor="shipping_method--flatrate|flatrate"
       >

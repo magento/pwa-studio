@@ -1,55 +1,57 @@
 .root {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr 1fr;
+    composes: grid from global;
+    composes: gap-xs from global;
+    composes: grid-cols-auto from global;
+
+    composes: lg_grid-cols-2 from global;
 }
 
 .image {
-    height: 100%;
-    object-fit: contain;
-    width: 100%;
+    composes: h-full from global;
+    composes: object-contain from global;
+    composes: w-full from global;
 }
 
 .detailsContainer {
-    align-content: start;
-    display: grid;
-    row-gap: 1rem;
+    composes: content-start from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
 }
 
 .name {
-    font-family: var(--venia-global-fontFamily-serif);
-    font-size: var(--venia-typography-body-XXXL-fontSize);
-    font-weight: var(--venia-global-fontWeight-bold);
+    composes: font-bold from global;
+    composes: font-serif from global;
+    composes: text-xl from global;
 }
 
 .price {
-    font-weight: var(--venia-global-fontWeight-semibold);
+    composes: font-semibold from global;
 }
 
+/* TODO @TW: cannot compose */
 .price:empty {
+    /* composes: bg-subtle from global; */
     background-color: rgb(var(--venia-global-color-gray));
     min-height: 1rem;
     width: 4rem;
 }
 
 .optionTitle {
-    border-top: 1px solid rgb(var(--venia-global-color-border));
-    font-weight: var(--venia-global-fontWeight-semibold);
-    padding: 1rem 0;
+    composes: border-t from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
 }
 
 .dialogHeaderText {
     composes: headerText from '../Dialog/dialog.module.css';
-    overflow: visible;
+
+    composes: overflow-visible from global;
 }
 
 .titleContainer {
-    line-height: 1;
-    width: fit-content;
-}
-
-@media (max-width: 960px) {
-    .root {
-        grid-template-columns: auto;
-    }
+    composes: leading-none from global;
+    composes: w-fit from global;
 }

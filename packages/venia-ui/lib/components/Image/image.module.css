@@ -6,7 +6,7 @@
 }
 
 .container {
-    position: relative;
+    composes: relative from global;
 }
 
 .image {
@@ -17,25 +17,32 @@
 }
 
 .loaded {
-    position: absolute;
-    top: 0;
-    left: 0;
+    composes: absolute from global;
+    composes: left-0 from global;
+    composes: top-0 from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
     visibility: visible;
 }
 
 .notLoaded {
     composes: loaded;
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
     visibility: hidden;
 }
 
 .placeholder {
-    background-color: rgb(var(--venia-global-color-gray));
-    position: relative;
-    top: 0;
-    left: 0;
+    composes: bg-transparent from global;
+    composes: left-0 from global;
+    composes: relative from global;
+    composes: top-0 from global;
 }
 
 .placeholder_layoutOnly {
     composes: placeholder;
-    background-color: unset;
+
+    composes: bg-transparent from global;
 }

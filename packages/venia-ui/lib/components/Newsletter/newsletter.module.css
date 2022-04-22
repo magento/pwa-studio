@@ -1,94 +1,89 @@
 .root {
-    position: relative;
-    display: block;
-    gap: 1.5rem;
-    justify-items: stretch;
+    composes: col-span-6 from global;
+    composes: gap-none from global;
+    composes: grid from global;
+    composes: items-start from global;
+    composes: max-w-[20rem] from global;
+    composes: mx-auto from global;
+    composes: relative from global;
+
+    composes: sm_col-span-3 from global;
 }
 
 .form {
-    display: grid;
-    row-gap: 0.9375rem;
-    position: relative;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: relative from global;
 }
 
+/* TODO @TW: cannot compose */
 .form input {
+    /* TODO @TW: review */
     padding-right: calc(1.875rem * var(--iconsAfter) + 5.625rem);
 }
 
+@media (max-width: 799px) {
+    /* TODO @TW: cannot compose */
+    .form input {
+        /* TODO @TW: review */
+        padding-right: calc(1.875rem * var(--iconsAfter) + 0.625rem);
+    }
+}
+
+/* TODO @TW: cannot compose */
 .form label {
     position: absolute;
-    z-index: -11111;
+    z-index: -1;
+    /* composes: z-behind from global; */
 }
 
 .buttonsContainer {
-    gap: 1.5rem;
-    grid-auto-flow: row;
-    justify-content: center;
-    margin-top: 1rem;
-    width: 100%;
-    display: none;
+    composes: gap-sm from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: justify-center from global;
+    composes: mt-xs from global;
+    composes: w-full from global;
+
+    composes: md_hidden from global;
 }
 
 .title {
-    color: rgb(var(--venia-global-color-gray-900));
-    font-size: var(--venia-typography-body-S-fontSize);
-    font-weight: 600;
-    margin-bottom: 15px;
-    display: block;
+    composes: block from global;
+    composes: font-semibold from global;
+    composes: mb-xs from global;
+    composes: text-colorDefault from global;
+    composes: text-sm from global;
 }
 
 .subscribe_link {
-    display: inline-block;
-    position: absolute;
-    right: 4px;
-    top: 0;
-    transform: translateY(7%);
-    max-height: 35px;
-    padding: 0 10px;
-    background: rgb(var(--venia-global-color-gray-50));
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: hidden from global;
+    composes: max-h-[35px] from global;
+    composes: px-3 from global;
+    composes: py-0 from global;
+    composes: right-1 from global;
+    composes: text-colorDefault from global;
+    composes: top-0 from global;
+    composes: underline from global;
     min-height: 35px;
-}
+    transform: translateY(7%);
 
-.subscribe_link span {
-    display: inline-block;
-    color: rgb(var(--venia-global-color-text));
-    text-decoration: underline;
-    text-shadow: 0px 0px 0px;
-}
-
-.subscribe_link:hover span {
-    color: rgb(var(--stroke));
+    composes: md_inline-block from global;
 }
 
 .newsletter_text {
-    margin-bottom: 20px;
+    composes: mb-sm from global;
 }
 
 .loadingContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: rgba(252, 252, 252, 0.75);
-}
-
-@media screen and (max-width: 767px) {
-    .buttonsContainer {
-        display: grid;
-    }
-
-    .subscribe_link {
-        display: none;
-    }
-
-    .root {
-        text-align: center;
-        grid-column: span 2;
-    }
-
-    .form input {
-        padding-right: calc(1.875rem * var(--iconsAfter) + 0.625rem);
-    }
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: h-full from global;
+    composes: left-0 from global;
+    composes: opacity-75 from global;
+    composes: top-0 from global;
+    composes: w-full from global;
+    composes: z-mask from global;
 }

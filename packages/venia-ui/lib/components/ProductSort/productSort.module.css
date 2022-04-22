@@ -1,76 +1,75 @@
 .root {
-    position: relative;
-    margin-left: 0.5rem;
+    composes: relative from global;
+    composes: ml-2xs from global;
 }
 
 .menu {
-    position: absolute;
-    z-index: 2;
-    top: 110%;
-    right: 0;
-    min-width: 10rem;
-    margin: 0.125rem 0 0;
-    font-size: 1rem;
-    color: black;
-    text-align: left;
-    list-style: none;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgb(var(--venia-global-color-gray-dark));
-    border-radius: 0.25rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    composes: absolute from global;
+    composes: bg-clip-padding from global;
+    composes: bg-white from global;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: list-none from global;
+    composes: mb-0 from global;
+    composes: min-w-[10rem] from global;
+    composes: mt-0.5 from global;
+    composes: mx-0 from global;
+    composes: right-0 from global;
+    composes: rounded from global;
+    composes: shadow-menu from global;
+    composes: text-colorDefault from global;
+    composes: text-left from global;
+    composes: top-[110%] from global;
+    composes: z-menu from global;
 }
 
 .menuItem {
-    border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
-}
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
 
-.menuItem:last-child {
-    border-bottom: none;
-}
+    composes: hover_bg-subtle from global;
 
-.menuItem:hover {
-    background-color: rgb(var(--venia-global-color-gray));
+    composes: last_border-b-0 from global;
 }
 
 .sortButton {
+    /* TODO @TW: review (C2). This is fragile to extend. */
     composes: root_lowPriority from '../../components/Button/button.module.css';
-    min-width: 6.25rem;
+
+    composes: min-w-[6.26rem] from global;
+
+    composes: lg_border-2 from global;
+    composes: lg_border-gray-500 from global;
+    composes: lg_font-normal from global;
+    composes: lg_normal-case from global;
+    composes: lg_rounded-md from global;
 }
 
 .desktopText {
-    display: none;
+    composes: hidden from global;
+
+    composes: lg_inline-flex from global;
 }
 
 .sortText {
-    line-height: 24px;
-    font-size: var(--venia-global-fontSize-200);
+    composes: leading-normal from global;
+    composes: text-colorDefault from global;
 }
 
 .desktopIconWrapper {
     composes: root from '../Icon/icon.module.css';
+
     transform: translateX(10px);
 }
 
 .desktopIcon {
     composes: icon from '../Icon/icon.module.css';
-    stroke: rgb(var(--venia-global-color-gray-500));
+
+    composes: stroke-gray-500 from global;
 }
 
-@media (min-width: 1024px) {
-    .sortButton {
-        border-width: 2px;
-        border-color: rgb(var(--venia-global-color-gray-500));
-        border-radius: 6px;
-        font-weight: var(--venia-global-fontWeight-normal);
-        text-transform: none;
-    }
-
-    .mobileText {
-        display: none;
-    }
-
-    .desktopText {
-        display: inline-flex;
-    }
+.mobileText {
+    composes: lg_hidden from global;
 }

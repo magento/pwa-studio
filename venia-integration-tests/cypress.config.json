@@ -22,7 +22,9 @@
     "env": {
         "defaultData_couponCode": "PWA1423",
         "defaultData_giftCardNumber": "02Y0LCHUNDRZ",
-        "updateSnapshots": false
+        "updateSnapshots": false,
+        "grepFilterSpecs": true,
+        "grepOmitFiltered": true
     },
     "retries": {
         "runMode": 2

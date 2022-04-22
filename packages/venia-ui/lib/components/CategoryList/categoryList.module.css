@@ -1,21 +1,22 @@
 /* Deprecated in PWA-12.1.0*/
 
 .root {
-    padding: 1rem;
+    composes: p-xs from global;
 }
 
 .header {
-    margin-bottom: 2rem;
-    text-align: center;
+    composes: mb-md from global;
+    composes: text-center from global;
 }
 
 .title {
-    text-transform: uppercase;
+    composes: uppercase from global;
 }
 
 .content {
-    display: grid;
-    grid-gap: 3rem 1rem;
+    composes: gap-x-lg from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: justify-center from global;
     grid-template-columns: repeat(auto-fit, 6rem);
-    justify-content: center;
 }

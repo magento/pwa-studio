@@ -20,7 +20,7 @@
           "name": "Carina Cardigan",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 78,
                 "__typename": "Money"
@@ -45,7 +45,7 @@
           "name": "Juno Sweater",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 68,
                 "__typename": "Money"
@@ -70,7 +70,7 @@
           "name": "Phoebe Cardigan",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 88,
                 "__typename": "Money"
@@ -95,7 +95,7 @@
           "name": "Rosalina Cardigan",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 98,
                 "__typename": "Money"
@@ -120,7 +120,7 @@
           "name": "Hanna Sweater",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 98,
                 "__typename": "Money"
@@ -145,7 +145,7 @@
           "name": "Sabina Hooded Cardigan",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 108,
                 "__typename": "Money"
@@ -170,7 +170,7 @@
           "name": "Brigid Boucle Cardigan",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 118,
                 "__typename": "Money"
@@ -195,7 +195,7 @@
           "name": "Roxana Cropped Sweater",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 78,
                 "__typename": "Money"
@@ -220,7 +220,7 @@
           "name": "Helena Cardigan",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 98,
                 "__typename": "Money"
@@ -245,7 +245,7 @@
           "name": "Corina Lace-Back Sweater",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 108,
                 "__typename": "Money"
@@ -270,7 +270,7 @@
           "name": "Echo Sweater",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 78,
                 "__typename": "Money"
@@ -295,7 +295,7 @@
           "name": "Lorena Cardigan",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 98,
                 "__typename": "Money"

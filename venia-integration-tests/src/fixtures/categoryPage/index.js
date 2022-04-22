@@ -1,4 +1,7 @@
-export const categoryAccessories = 'Accessories';
+export const categoryAccessories = {
+    name: 'Accessories',
+    url: 'venia-accessories.html?page=1'
+};
 
 export const categoryBelts = 'Belts';
 
@@ -41,7 +44,14 @@ export const filtersData = {
     },
     price: {
         name: 'Price',
-        defaultOption: '100-200'
+        defaultOption: '100-200',
+        otherOption: '0-100'
+    },
+    hasVideo: {
+        name: 'Has Video',
+        defaultOption: 'No',
+        yesLabel: 'Has Video:Yes',
+        noLabel: 'Has Video:No'
     }
 };
 

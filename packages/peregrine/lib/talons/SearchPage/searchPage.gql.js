@@ -48,7 +48,7 @@ export const PRODUCT_SEARCH = gql`
                 name
                 price_range {
                     maximum_price {
-                        regular_price {
+                        final_price {
                             currency
                             value
                         }

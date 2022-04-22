@@ -8,7 +8,7 @@
           "name": "Bellona Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 78,
                 "__typename": "Money"
@@ -32,7 +32,7 @@
           "name": "Rowena Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 78,
                 "__typename": "Money"
@@ -56,7 +56,7 @@
           "name": "Johanna Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 78,
                 "__typename": "Money"
@@ -80,7 +80,7 @@
           "name": "Daria Crochet Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 98,
                 "__typename": "Money"
@@ -104,7 +104,7 @@
           "name": "Agatha Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 78,
                 "__typename": "Money"
@@ -128,7 +128,7 @@
           "name": "Leona Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 88,
                 "__typename": "Money"
@@ -152,7 +152,7 @@
           "name": "Davina Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 108,
                 "__typename": "Money"
@@ -176,7 +176,7 @@
           "name": "Tatiana Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 98,
                 "__typename": "Money"
@@ -200,7 +200,7 @@
           "name": "Iona Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 88,
                 "__typename": "Money"
@@ -224,7 +224,7 @@
           "name": "Samara Skirt",
           "price_range": {
             "maximum_price": {
-              "regular_price": {
+              "final_price": {
                 "currency": "USD",
                 "value": 108,
                 "__typename": "Money"

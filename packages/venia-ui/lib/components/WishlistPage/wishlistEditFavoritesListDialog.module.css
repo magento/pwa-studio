@@ -1,11 +1,11 @@
 .root {
-    padding: 1rem;
+    composes: p-xs from global;
 }
 
 .cancelButton {
     composes: root_lowPriority from '../Button/button.module.css';
 
-    min-width: 9rem;
+    composes: min-w-[9rem] from global;
 }
 
 .confirmButton {
@@ -17,6 +17,6 @@
 }
 
 .form {
-    display: grid;
-    gap: 1.5rem;
+    composes: gap-sm from global;
+    composes: grid from global;
 }

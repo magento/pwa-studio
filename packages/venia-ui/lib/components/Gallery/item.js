@@ -112,9 +112,9 @@ const GalleryItem = props => {
             </Link>
             <div data-cy="GalleryItem-price" className={classes.price}>
                 <Price
-                    value={price_range.maximum_price.regular_price.value}
+                    value={price_range.maximum_price.final_price.value}
                     currencyCode={
-                        price_range.maximum_price.regular_price.currency
+                        price_range.maximum_price.final_price.currency
                     }
                 />
             </div>
@@ -152,7 +152,7 @@ GalleryItem.propTypes = {
         sku: string.isRequired,
         price_range: shape({
             maximum_price: shape({
-                regular_price: shape({
+                final_price: shape({
                     value: number.isRequired,
                     currency: string.isRequired
                 }).isRequired

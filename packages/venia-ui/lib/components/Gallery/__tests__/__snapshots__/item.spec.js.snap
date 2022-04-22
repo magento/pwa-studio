@@ -150,7 +150,7 @@ exports[`renders correctly with valid item data 1`] = `
           "name": "Test Product",
           "price_range": Object {
             "maximum_price": Object {
-              "regular_price": Object {
+              "final_price": Object {
                 "currency": "USD",
                 "value": 21,
               },

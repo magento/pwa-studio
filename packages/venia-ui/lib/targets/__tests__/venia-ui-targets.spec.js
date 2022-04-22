@@ -7,6 +7,7 @@ const {
 const { createTestInstance } = require('@magento/peregrine');
 const declare = require('../venia-ui-declare');
 const intercept = require('../venia-ui-intercept');
+const { DefinePlugin } = require('webpack');
 
 const thisDep = {
     name: '@magento/venia-ui',
@@ -59,7 +60,31 @@ test('uses RichContentRenderers to inject a default strategy into RichContent', 
 
     const built = await buildModuleWith('../../components/RichContent', {
         context: __dirname,
-        dependencies: ['@magento/peregrine', thisDep]
+        dependencies: ['@magento/peregrine', thisDep],
+        plugins: [
+            new DefinePlugin({
+                STORE_VIEW_CODE: '"default"',
+                AVAILABLE_STORE_VIEWS: `[
+                {
+                    base_currency_code: 'USD',
+                    code: 'default',
+                    default_display_currency_code: 'USD',
+                    id: 1,
+                    locale: 'en_US',
+                    store_name: 'Default Store View"'
+                },
+                {
+                    base_currency_code: 'EUR',
+                    code: 'french',
+                    default_display_currency_code: 'EUR',
+                    id: 2,
+                    locale: 'fr_FR',
+                    secure_base_media_url: 'https://example.com/media/abcdef/',
+                    store_name: 'French'
+                }
+            ]`
+            })
+        ]
     });
 
     const RichContent = built.run();

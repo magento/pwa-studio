@@ -1,21 +1,21 @@
 .root {
-    display: grid;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: leading-none from global;
     grid-template-areas:
         'actions'
         'items';
-    grid-template-columns: 1fr;
-    line-height: 1;
 }
 
 .items {
-    display: grid;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: mb-3 from global;
     grid-area: items;
-    grid-gap: 1rem;
     grid-template-columns: repeat(3, 1fr);
-    margin-bottom: 10px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 639px) {
     .items {
         grid-template-columns: repeat(2, 1fr);
     }
