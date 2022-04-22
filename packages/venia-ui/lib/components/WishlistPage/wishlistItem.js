@@ -8,6 +8,7 @@ import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import Image from '../Image';
 import Price from '../Price';
+import { StockStatus } from '../StockStatusMessage';
 
 import defaultClasses from './wishlistItem.module.css';
 
@@ -130,6 +131,9 @@ const WishlistItem = props => {
                 <Price currencyCode={currency} value={unitPrice} />
             </div>
             {optionElements}
+
+            <StockStatus item={product} />
+
             {addToCart}
         </div>
     );

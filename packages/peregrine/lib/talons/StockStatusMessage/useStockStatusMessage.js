@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import { OUT_OF_STOCK } from './constants';
+
 export const useStockStatusMessage = props => {
     const { cartItems } = props;
 
@@ -9,7 +11,7 @@ export const useStockStatusMessage = props => {
                 const { product } = cartItem;
                 const { stock_status: stockStatus } = product;
 
-                return stockStatus === 'OUT_OF_STOCK';
+                return stockStatus === OUT_OF_STOCK;
             });
 
             return !!isOutOfStock;

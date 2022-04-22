@@ -29,6 +29,10 @@ jest.mock('../../ProductImageCarousel', () => 'ProductImageCarousel');
 jest.mock('../../ProductOptions', () => () => 'ProductOptions');
 jest.mock('../../RichContent/richContent', () => 'RichContent');
 jest.mock('../CustomAttributes', () => 'CustomAttributes');
+jest.mock('../../StockStatusMessage', () => ({
+    __esModule: true,
+    StockStatus: props => <mock-StockStatus {...props} />
+}));
 
 jest.mock('../../../classify');
 

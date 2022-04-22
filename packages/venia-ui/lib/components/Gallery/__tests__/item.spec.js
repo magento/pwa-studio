@@ -19,6 +19,10 @@ jest.mock('../../../classify');
 jest.mock('../../Gallery/addToCartButton', () => props => (
     <mock-AddToCartButton {...props} />
 ));
+jest.mock('../../StockStatusMessage', () => ({
+    __esModule: true,
+    StockStatus: props => <mock-StockStatus {...props} />
+}));
 
 const classes = {
     image: 'a',

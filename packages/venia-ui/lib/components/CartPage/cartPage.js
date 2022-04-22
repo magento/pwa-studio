@@ -8,7 +8,7 @@ import { useToasts } from '@magento/peregrine';
 import Icon from '../Icon';
 import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import StockStatusMessage from '../StockStatusMessage';
+import { StockStatusMessage } from '../StockStatusMessage';
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';

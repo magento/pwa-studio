@@ -1,6 +1,8 @@
 import React from 'react';
 
 import createTestInstance from '../../../util/createTestInstance';
+
+import { IN_STOCK, OUT_OF_STOCK } from '../constants';
 import { useStockStatusMessage } from '../useStockStatusMessage';
 
 const Component = props => {
@@ -12,8 +14,8 @@ const Component = props => {
 test('finds out of stock product', () => {
     const props = {
         cartItems: [
-            { product: { stock_status: 'IN_STOCK' } },
-            { product: { stock_status: 'OUT_OF_STOCK' } }
+            { product: { stock_status: IN_STOCK } },
+            { product: { stock_status: OUT_OF_STOCK } }
         ]
     };
 
@@ -27,8 +29,8 @@ test('finds out of stock product', () => {
 test('does not find out of stock product', () => {
     const props = {
         cartItems: [
-            { product: { stock_status: 'IN_STOCK' } },
-            { product: { stock_status: 'IN_STOCK' } }
+            { product: { stock_status: IN_STOCK } },
+            { product: { stock_status: IN_STOCK } }
         ]
     };
 

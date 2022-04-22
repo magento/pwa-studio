@@ -19,6 +19,7 @@ export const ProductListingFragment = gql`
                     url
                 }
                 stock_status
+                only_x_left_in_stock
                 # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableProduct {
                     variants {
@@ -31,6 +32,8 @@ export const ProductListingFragment = gql`
                             small_image {
                                 url
                             }
+                            stock_status
+                            only_x_left_in_stock
                         }
                     }
                 }

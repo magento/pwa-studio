@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#StockStatus renders low in stock message if low stock status is returned 1`] = `
+<div>
+  Only a few left in stock
+</div>
+`;
+
+exports[`#StockStatus renders null if no stock status is returned 1`] = `null`;
+
+exports[`#StockStatus renders out of stock message if out of stock status is returned 1`] = `
+<div>
+  This item is currently out of stock
+</div>
+`;

@@ -16,6 +16,10 @@ jest.mock('@magento/peregrine/lib/talons/WishlistPage/useWishlistItem', () => ({
     useWishlistItem: jest.fn()
 }));
 
+jest.mock('../../StockStatusMessage', () => ({
+    __esModule: true,
+    StockStatus: props => <mock-StockStatus {...props} />
+}));
 jest.mock('../wishlistMoreActionsDialog', () => 'WishlistMoreActionsDialog');
 jest.mock(
     '../wishlistConfirmRemoveProductDialog',

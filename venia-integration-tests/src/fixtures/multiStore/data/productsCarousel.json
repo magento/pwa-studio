@@ -23,8 +23,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "bellona-skirt"
+          "url_key": "bellona-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NTk0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTkw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTg2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTgy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTkz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTg5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTg1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTgx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTk1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTkx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTg3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTgz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTk2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTky",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTg4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTg0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1131,
@@ -47,8 +195,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "rowena-skirt"
+          "url_key": "rowena-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NTc4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTc0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTcw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTY2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTc3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTcz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTY5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTY1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTc5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTc1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTcx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTY3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTgw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTc2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTcy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTY4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1130,
@@ -71,8 +367,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "johanna-skirt"
+          "url_key": "johanna-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NTYy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTU4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTU0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTUw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTYx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTU3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTUz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTQ5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTYz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTU5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTU1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTUx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTY0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTYw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTU2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTUy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1129,
@@ -95,8 +539,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "daria-crochet-skirt"
+          "url_key": "daria-crochet-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NTQ2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTQy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTM4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTM0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTQ1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTQx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTM3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTMz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTQ3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTQz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTM5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTM1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTQ4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTQ0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTQw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTM2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1128,
@@ -119,8 +711,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "agatha-skirt"
+          "url_key": "agatha-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NTMw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTI2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTIy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTE4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTI5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTI1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTIx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTE3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTMx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTI3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTIz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTE5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTMy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTI4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTI0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTIw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1127,
@@ -143,8 +883,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "leona-skirt"
+          "url_key": "leona-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NTE0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTEw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTA2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTAy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTEz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTA5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTA1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTAx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTE1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTEx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTA3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTAz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTE2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTEy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTA4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTA0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1126,
@@ -167,8 +1055,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "davina-skirt"
+          "url_key": "davina-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NDk4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDk0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDkw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDg2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDk3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDkz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDg5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDg1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDk5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDk1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDkx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDg3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NTAw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDk2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDky",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDg4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1125,
@@ -191,8 +1227,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "tatiana-skirt"
+          "url_key": "tatiana-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NDgy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDc4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDc0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDcw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDgx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDc3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDcz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDY5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDgz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDc5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDc1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDcx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDg0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDgw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDc2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDcy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1124,
@@ -215,8 +1399,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "iona-skirt"
+          "url_key": "iona-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NDY2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDYy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDU4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDU0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDY1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDYx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDU3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDUz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDY3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDYz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDU5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDU1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDY4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDY0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDYw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDU2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         },
         {
           "id": 1123,
@@ -239,8 +1571,156 @@
             "__typename": "ProductImage"
           },
           "stock_status": "IN_STOCK",
+          "only_x_left_in_stock": null,
+          "rating_summary": 0,
           "__typename": "ConfigurableProduct",
-          "url_key": "samara-skirt"
+          "url_key": "samara-skirt",
+          "variants": [
+            {
+              "product": {
+                "uid": "NDUw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQ2",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDM4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQ5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQ1",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDM3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDUx",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQ3",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQz",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDM5",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDUy",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQ4",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQ0",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "product": {
+                "uid": "NDQw",
+                "stock_status": "IN_STOCK",
+                "only_x_left_in_stock": null,
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
         }
       ],
       "total_count": 10,

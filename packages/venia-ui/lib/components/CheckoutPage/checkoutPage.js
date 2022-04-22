@@ -15,7 +15,7 @@ import Button from '../Button';
 import { StoreTitle } from '../Head';
 import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import StockStatusMessage from '../StockStatusMessage';
+import { StockStatusMessage } from '../StockStatusMessage';
 import FormError from '../FormError';
 import AddressBook from './AddressBook';
 import GuestSignIn from './GuestSignIn';

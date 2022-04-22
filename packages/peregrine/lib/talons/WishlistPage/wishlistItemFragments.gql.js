@@ -21,6 +21,7 @@ export const WishlistItemFragment = gql`
             }
             sku
             stock_status
+            only_x_left_in_stock
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ConfigurableProduct {
                 # eslint-disable-next-line @graphql-eslint/require-id-when-available
@@ -43,6 +44,14 @@ export const WishlistItemFragment = gql`
                             }
                             value
                         }
+                    }
+                }
+                variants {
+                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
+                    product {
+                        uid
+                        stock_status
+                        only_x_left_in_stock
                     }
                 }
             }

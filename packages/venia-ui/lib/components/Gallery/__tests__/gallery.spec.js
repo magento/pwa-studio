@@ -25,6 +25,7 @@ jest.mock('../../../classify');
 jest.mock('../addToCartButton', () => props => (
     <mock-AddToCartButton {...props} />
 ));
+jest.mock('../item', () => props => <mock-GalleryItem {...props} />);
 
 const classes = { root: 'foo' };
 const items = [

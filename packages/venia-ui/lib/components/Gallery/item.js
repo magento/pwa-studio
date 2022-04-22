@@ -10,6 +10,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
 import Image from '../Image';
+import { StockStatus } from '../StockStatusMessage';
 import GalleryItemShimmer from './item.shimmer';
 import defaultClasses from './item.module.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
@@ -119,6 +120,8 @@ const GalleryItem = props => {
                 />
             </div>
 
+            <StockStatus item={item} />
+
             <div className={classes.actionsContainer}>
                 {' '}
                 {addButton}
@@ -147,6 +150,7 @@ GalleryItem.propTypes = {
             url: string.isRequired
         }),
         stock_status: string.isRequired,
+        only_x_left_in_stock: number,
         __typename: string.isRequired,
         url_key: string.isRequired,
         sku: string.isRequired,
