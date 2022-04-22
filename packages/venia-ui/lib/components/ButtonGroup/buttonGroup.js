@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { arrayOf, node, shape, string } from 'prop-types';
+import { arrayOf, bool, elementType, object, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
 import Button from './button';
@@ -50,14 +50,23 @@ ButtonGroup.propTypes = {
      *
      * @typedef buttonProps
      *
-     * @property {ReactNodeLike} children component to render for the
-     * ButtonGroups's button component
+     * @property {boolean} active True if the button should be in an active state
+     * @property {string} ariaLabel Value for the button's aria-label property
+     * @property {object} classes Style class name overrides for the button
      * @property {string} key  the unique id for a button element
+     * @property {React.ReactNode} leftIcon Component that renders the left icon
+     * @property {React.ReactNode} righIcon Component that renders the right icon
+     * @property {string} text Button text
      */
     items: arrayOf(
         shape({
-            children: node.isRequired,
-            key: string.isRequired
+            active: bool,
+            ariaLabel: string.isRequired,
+            classes: object.isRequired,
+            key: string.isRequired,
+            leftIcon: elementType,
+            rightIcon: elementType,
+            text: string
         })
     ).isRequired
 };

@@ -3,4 +3,5 @@
     composes: grid-flow-col from global;
     composes: justify-start from global;
     composes: relative from global;
+    composes: -space-x-0.5 from global;
 }

@@ -60,7 +60,7 @@ const extend = {
         )}`
     }),
     borderColor: theme => ({
-        button: {
+        buttonColor: {
             action: theme('colors.neutral.400')
         },
         error: theme('colors.red.400'),
@@ -182,7 +182,7 @@ const extend = {
         unset: 'unset'
     },
     outline: theme => ({
-        button: [`2px solid ${theme('colors.info.500')}`, '1px']
+        button: [`1.5px solid ${theme('colors.brand.500')}`, '1px']
     }),
     spacing: {
         '2xs': '0.5rem',
