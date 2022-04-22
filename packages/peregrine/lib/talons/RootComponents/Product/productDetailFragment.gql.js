@@ -33,6 +33,14 @@ export const ProductDetailsFragment = gql`
                 }
             }
         }
+        price_range {
+            maximum_price {
+                final_price {
+                    currency
+                    value
+                }
+            }
+        }
         sku
         small_image {
             url
@@ -114,6 +122,14 @@ export const ProductDetailsFragment = gql`
                     price {
                         regularPrice {
                             amount {
+                                currency
+                                value
+                            }
+                        }
+                    }
+                    price_range {
+                        maximum_price {
+                            final_price {
                                 currency
                                 value
                             }
