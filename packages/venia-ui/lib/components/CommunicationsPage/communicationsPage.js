@@ -82,7 +82,11 @@ const CommunicationsPage = props => {
                     />
                 </Field>
                 <div className={classes.buttonsContainer}>
-                    <Button disabled={isDisabled} type="submit" design="primary">
+                    <Button
+                        disabled={isDisabled}
+                        type="submit"
+                        design="primary"
+                    >
                         {isDisabled
                             ? formatMessage({
                                   id: 'communicationsPage.savingText',

@@ -17,12 +17,7 @@ const LinkButton = props => {
     const { children, classes: propClasses, type, ...restProps } = props;
 
     return (
-        <Button
-            design={'tertiary'}
-            size={'small'}
-            type={type}
-            {...restProps}
-        >
+        <Button design={'tertiary'} size={'small'} type={type} {...restProps}>
             {children}
         </Button>
     );

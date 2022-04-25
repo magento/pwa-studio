@@ -161,7 +161,7 @@ export const useAddToCartDialog = props => {
                     item.product.configurable_options.length !==
                         selectedOptionsArray.length || isAddingToCart,
                 onClick: handleAddToCart,
-                priority: 'high'
+                design: 'primary'
             };
         }
     }, [handleAddToCart, isAddingToCart, item, selectedOptionsArray.length]);

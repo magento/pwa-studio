@@ -14,9 +14,9 @@ const ICON_DIMENSIONS = { width: '18px', height: '18px' };
 const ButtonStory = props => {
     const { design } = props;
 
-    const clickHandler = ()=>{
-      console.log("Click")
-    }
+    const clickHandler = () => {
+        console.log('Click');
+    };
 
     const buttons = SIZES.map(size => {
         return (

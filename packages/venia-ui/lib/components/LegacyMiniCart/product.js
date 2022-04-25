@@ -66,19 +66,19 @@ const Product = props => {
     const mask = isLoading ? <div className={classes.mask} /> : null;
 
     const addToFavoritesText = formatMessage({
-      id: "legacyMiniCart.addToFavorites",
-      defaultMessage: "Add to favorites"
-    })
+        id: 'legacyMiniCart.addToFavorites',
+        defaultMessage: 'Add to favorites'
+    });
 
     const editItemText = formatMessage({
-      id: "legacyMiniCart.editItem",
-      defaultMessage: "Edit item"
-    })
+        id: 'legacyMiniCart.editItem',
+        defaultMessage: 'Edit item'
+    });
 
     const removeItemText = formatMessage({
-      id: "legacyMiniCart.removeItem",
-      defaultMessage: "Remove item"
-    })
+        id: 'legacyMiniCart.removeItem',
+        defaultMessage: 'Remove item'
+    });
 
     return (
         <li className={classes.root}>

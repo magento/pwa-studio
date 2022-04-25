@@ -63,13 +63,15 @@ const NavHeader = props => {
 
     const backIcon = isTopLevelMenu ? CloseIcon : ArrowLeftIcon;
 
-    const iconLabel = isTopLevelMenu ? formatMessage({
-      id: 'navHeader.iconLabelClose',
-      defaultMessage: 'Close Menu'
-    }): formatMessage({
-      id: 'navHeader.iconLabelBack',
-      defaultMessage: 'Back to previous Menu'
-    })
+    const iconLabel = isTopLevelMenu
+        ? formatMessage({
+              id: 'navHeader.iconLabelClose',
+              defaultMessage: 'Close Menu'
+          })
+        : formatMessage({
+              id: 'navHeader.iconLabelBack',
+              defaultMessage: 'Back to previous Menu'
+          });
 
     return (
         <Fragment>

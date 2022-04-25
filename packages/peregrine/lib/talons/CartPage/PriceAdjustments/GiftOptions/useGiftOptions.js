@@ -301,7 +301,7 @@ export const useGiftOptions = (props = {}) => {
     const cancelGiftMessageButtonProps = {
         disabled:
             !giftMessageIsChecked || savingOptions.includes('giftMessage'),
-        design: 'quiet',
+        design: 'tertiary',
         type: 'button',
         onClick: handleToggleGiftMessageResult
     };

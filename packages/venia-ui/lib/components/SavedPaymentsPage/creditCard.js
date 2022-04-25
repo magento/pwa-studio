@@ -113,7 +113,6 @@ const CreditCard = props => {
                 }}
                 disabled={isDeletingPayment}
                 onClick={handleDeletePayment}
-                negative={true}
                 design="secondary"
                 type="button"
             >

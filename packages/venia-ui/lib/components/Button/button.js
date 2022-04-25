@@ -21,7 +21,6 @@ const getRootClassName = (design, size, iconOnly) => {
  */
 const Button = props => {
     const {
-        ariaLabel,
         children,
         classes: propClasses,
         design,
@@ -58,7 +57,6 @@ const Button = props => {
 
     return (
         <button
-            aria-label={ariaLabel}
             ref={buttonRef}
             className={rootClassName}
             {...buttonProps}
@@ -96,7 +94,6 @@ const Button = props => {
  * @property {bool} disabled is the button disabled
  */
 Button.propTypes = {
-    ariaLabel: string.isRequired,
     classes: shape({
         content: string,
         root: string,

@@ -63,10 +63,7 @@ const AddressCard = props => {
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (
-        <LinkButton
-            onClick={onDelete}
-            data-cy="addressCard-deleteButton"
-        >
+        <LinkButton onClick={onDelete} data-cy="addressCard-deleteButton">
             <Icon classes={{ icon: null }} size={16} src={TrashIcon} />
             <span className={classes.actionLabel}>
                 <FormattedMessage
@@ -83,7 +80,6 @@ const AddressCard = props => {
                 disabled={isDeletingCustomerAddress}
                 design="secondary"
                 type="button"
-                negative={true}
                 onClick={onConfirmDelete}
                 data-cy="addressCard-confirmDeleteButton"
             >
@@ -130,10 +126,7 @@ const AddressCard = props => {
                 </span>
             </div>
             <div className={classes.actionContainer}>
-                <LinkButton
-                    onClick={onEdit}
-                    data-cy="addressCard-editButton"
-                >
+                <LinkButton onClick={onEdit} data-cy="addressCard-editButton">
                     <Icon classes={{ icon: null }} size={16} src={EditIcon} />
                     <span className={classes.actionLabel}>
                         <FormattedMessage
