@@ -13,6 +13,11 @@
                 "value": 78,
                 "__typename": "Money"
               },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -33,6 +38,11 @@
           "price_range": {
             "maximum_price": {
               "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "regular_price": {
                 "currency": "USD",
                 "value": 78,
                 "__typename": "Money"
@@ -61,6 +71,11 @@
                 "value": 78,
                 "__typename": "Money"
               },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -81,6 +96,11 @@
           "price_range": {
             "maximum_price": {
               "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
                 "currency": "USD",
                 "value": 98,
                 "__typename": "Money"
@@ -109,6 +129,11 @@
                 "value": 78,
                 "__typename": "Money"
               },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -129,6 +154,11 @@
           "price_range": {
             "maximum_price": {
               "final_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
+              "regular_price": {
                 "currency": "USD",
                 "value": 88,
                 "__typename": "Money"
@@ -157,6 +187,11 @@
                 "value": 108,
                 "__typename": "Money"
               },
+              "regular_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -177,6 +212,11 @@
           "price_range": {
             "maximum_price": {
               "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
                 "currency": "USD",
                 "value": 98,
                 "__typename": "Money"
@@ -205,6 +245,11 @@
                 "value": 88,
                 "__typename": "Money"
               },
+              "regular_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -225,6 +270,11 @@
           "price_range": {
             "maximum_price": {
               "final_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "regular_price": {
                 "currency": "USD",
                 "value": 108,
                 "__typename": "Money"
