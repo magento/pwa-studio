@@ -11,8 +11,6 @@
     composes: leading-tight from global;
     composes: max-w-full from global;
     composes: pointer-events-auto from global;
-    composes: px-md from global;
-    composes: py-2xs from global;
     composes: rounded-full from global;
     composes: text-center from global;
     composes: uppercase from global;
@@ -39,6 +37,15 @@
     pointer-events: none;
 }
 
+.root_iconOnly {
+    composes: p-2xs from global;
+}
+
+.root_withText {
+    composes: px-md from global;
+    composes: py-2xs from global;
+}
+
 .root_primary {
     composes: root;
 
@@ -53,20 +60,28 @@
     composes: hover_bg-brand-600 from global;
 }
 
+.root_primary_iconOnly {
+    composes: root_primary;
+    composes: root_iconOnly;
+}
+
 .root_primary_large {
     composes: root_primary;
+    composes: root_withText;
 
     composes: text-lg from global;
 }
 
 .root_primary_medium {
     composes: root_primary;
+    composes: root_withText;
 
     composes: text-base from global;
 }
 
 .root_primary_small {
     composes: root_primary;
+    composes: root_withText;
 
     composes: text-sm from global;
 }
@@ -82,20 +97,28 @@
     composes: focus_outline-buttonNoGap from global;
 }
 
+.root_secondary_iconOnly {
+    composes: root_secondary;
+    composes: root_iconOnly;
+}
+
 .root_secondary_large {
     composes: root_secondary;
+    composes: root_withText;
 
     composes: text-lg from global;
 }
 
 .root_secondary_medium {
     composes: root_secondary;
+    composes: root_withText;
 
     composes: text-base from global;
 }
 
 .root_secondary_small {
     composes: root_secondary;
+    composes: root_withText;
 
     composes: text-sm from global;
 }
@@ -117,20 +140,28 @@
     composes: hover_text-neutral-800 from global;
 }
 
+.root_tertiary_iconOnly {
+    composes: root_tertiary;
+    composes: root_iconOnly;
+}
+
 .root_tertiary_large {
     composes: root_tertiary;
+    composes: root_withText;
 
     composes: text-lg from global;
 }
 
 .root_tertiary_medium {
     composes: root_tertiary;
+    composes: root_withText;
 
     composes: text-base from global;
 }
 
 .root_tertiary_small {
     composes: root_tertiary;
+    composes: root_withText;
 
     composes: text-sm from global;
 }

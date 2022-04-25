@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import { useButton } from 'react-aria';
-import { oneOf, shape, string, bool } from 'prop-types';
+import { oneOf, shape, string, bool, elementType } from 'prop-types';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './button.module.css';
 
-const getRootClassName = (design, size) => {
-    return `root_${design}_${size}`;
+const getRootClassName = (design, size, iconOnly) => {
+    return `root_${design}${iconOnly ? '_iconOnly' : `_${size}`}`;
 };
 
 /**
@@ -25,7 +25,10 @@ const Button = props => {
         children,
         classes: propClasses,
         design,
+        leftIcon,
+        rightIcon,
         size,
+        text,
         disabled,
         onPress,
         ...restProps
@@ -43,7 +46,16 @@ const Button = props => {
     );
 
     const classes = useStyle(defaultClasses, propClasses);
-    const rootClassName = classes[getRootClassName(design, size)];
+
+    const iconOnly = !text;
+
+    const rootClassName = classes[getRootClassName(design, size, iconOnly)];
+
+    const textContent = text ? (
+        <span className={classes.text}>{text}</span>
+    ) : (
+        ''
+    );
 
     return (
         <button
@@ -53,7 +65,11 @@ const Button = props => {
             {...buttonProps}
             {...restProps}
         >
-            <span className={classes.content}>{children}</span>
+            <span className={classes.content}>
+                {leftIcon}
+                {textContent}
+                {rightIcon}
+            </span>
         </button>
     );
 };
@@ -73,8 +89,12 @@ const Button = props => {
  * low priority.
  * @property {string} classes.root_normalPriority classes for Button if
  * normal priority.
- * @property {string} design the type of button design
- * @property {string} type the type of the Button
+ * @property {string} design the type of button design. Allowed values are: 'primary', 'secondary', 'tertiary'
+ * @property {elementType} leftIcon React component that renders the left icon
+ * @property {elementType} rightIcon React component that renders the right icon
+ * @property {string} size Button size. Allowed values are: 'large', 'medium', 'small'
+ * @property {string} text Button text
+ * @property {string} type the type of the Button. Allowed values are: 'button', 'reset', 'submit'
  * @property {bool} disabled is the button disabled
  */
 Button.propTypes = {
@@ -87,7 +107,10 @@ Button.propTypes = {
         root_normalPriority: string
     }),
     design: oneOf(['primary', 'secondary', 'tertiary']).isRequired,
+    leftIcon: elementType,
+    rightIcon: elementType,
     size: oneOf(['large', 'medium', 'small']),
+    text: string,
     type: oneOf(['button', 'reset', 'submit']).isRequired,
     disabled: bool
 };
