@@ -93,7 +93,7 @@ const Overview = props => {
                 >
                     {submitButtonText}
                 </Button>
-                <Button onClick={handleCancel} design="quiet">
+                <Button onClick={handleCancel} design="tertiary">
                     {cancelButtonText}
                 </Button>
             </div>

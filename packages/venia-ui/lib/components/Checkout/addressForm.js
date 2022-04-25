@@ -150,7 +150,7 @@ const AddressForm = props => {
                 <Button type="submit" design="primary" disabled={isSubmitting}>
                     {submitText}
                 </Button>
-                <Button onClick={handleCancel} design="quiet">
+                <Button onClick={handleCancel} design="tertiary">
                     {cancelText}
                 </Button>
             </div>

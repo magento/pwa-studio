@@ -10,12 +10,17 @@ const stories = storiesOf('Components/ButtonGroup', module);
 
 const ICON_DIMENSIONS = { width: '16px', height: '16px' };
 
+const clickHandler = () => {
+    console.log('Click');
+};
+
 stories.add('Single Text', () => {
     const items = [
         {
             key: 'Edit',
             ariaLabel: 'Edit',
-            text: 'Edit'
+            text: 'Edit',
+            onClick: clickHandler
         }
     ];
     return <ButtonGroup items={items} />;
@@ -26,7 +31,8 @@ stories.add('Single Icon', () => {
         {
             key: 'Edit',
             ariaLabel: 'Edit',
-            leftIcon: <EditIcon {...ICON_DIMENSIONS} />
+            leftIcon: <EditIcon {...ICON_DIMENSIONS} />,
+            onClick: clickHandler
         }
     ];
     return <ButtonGroup items={items} />;
@@ -38,7 +44,8 @@ stories.add('Single Text Left Icon', () => {
             key: 'Edit',
             ariaLabel: 'Edit',
             leftIcon: <EditIcon {...ICON_DIMENSIONS} />,
-            text: 'Edit'
+            text: 'Edit',
+            onClick: clickHandler
         }
     ];
     return <ButtonGroup items={items} />;
@@ -50,7 +57,8 @@ stories.add('Single Text Right Icon', () => {
             key: 'Edit',
             ariaLabel: 'Edit',
             rightIcon: <EditIcon {...ICON_DIMENSIONS} />,
-            text: 'Edit'
+            text: 'Edit',
+            onClick: clickHandler
         }
     ];
     return <ButtonGroup items={items} />;
@@ -62,17 +70,20 @@ stories.add('Multiple Text', () => {
             key: 'Edit',
             ariaLabel: 'Edit',
             active: true,
-            text: 'Edit'
+            text: 'Edit',
+            onClick: clickHandler
         },
         {
             key: 'Delete',
             ariaLabel: 'Delete',
-            text: 'Delete'
+            text: 'Delete',
+            onClick: clickHandler
         },
         {
             key: 'Menu',
             ariaLabel: 'Menu',
-            text: 'Menu'
+            text: 'Menu',
+            onClick: clickHandler
         }
     ];
     return <ButtonGroup items={items} />;
@@ -83,23 +94,27 @@ stories.add('Multiple Icon', () => {
         {
             key: 'Home',
             ariaLabel: 'Home',
-            leftIcon: <Home {...ICON_DIMENSIONS} />
+            leftIcon: <Home {...ICON_DIMENSIONS} />,
+            onClick: clickHandler
         },
         {
             key: 'Edit',
             ariaLabel: 'Edit',
             active: true,
-            leftIcon: <EditIcon {...ICON_DIMENSIONS} />
+            leftIcon: <EditIcon {...ICON_DIMENSIONS} />,
+            onClick: clickHandler
         },
         {
             key: 'Delete',
             ariaLabel: 'Delete',
-            leftIcon: <Trash2 {...ICON_DIMENSIONS} />
+            leftIcon: <Trash2 {...ICON_DIMENSIONS} />,
+            onClick: clickHandler
         },
         {
             key: 'Menu',
             ariaLabel: 'Menu',
-            leftIcon: <Menu {...ICON_DIMENSIONS} />
+            leftIcon: <Menu {...ICON_DIMENSIONS} />,
+            onClick: clickHandler
         }
     ];
     return <ButtonGroup items={items} />;
@@ -111,27 +126,31 @@ stories.add('Multiple Text Icon', () => {
             key: 'Home',
             ariaLabel: 'Home',
             text: 'Home',
-            leftIcon: <Home {...ICON_DIMENSIONS} />
+            leftIcon: <Home {...ICON_DIMENSIONS} />,
+            onClick: clickHandler
         },
         {
             key: 'Edit',
             ariaLabel: 'Edit',
             active: true,
             text: 'Edit',
-            leftIcon: <EditIcon {...ICON_DIMENSIONS} />
+            leftIcon: <EditIcon {...ICON_DIMENSIONS} />,
+            onClick: clickHandler
         },
         {
             key: 'Delete',
             ariaLabel: 'Delete',
             text: 'Delete',
-            leftIcon: <Trash2 {...ICON_DIMENSIONS} />
+            leftIcon: <Trash2 {...ICON_DIMENSIONS} />,
+            onClick: clickHandler
         },
         {
             key: 'Menu',
             ariaLabel: 'Menu',
             text: 'Menu',
             leftIcon: <Menu {...ICON_DIMENSIONS} />,
-            rightIcon: <Menu {...ICON_DIMENSIONS} />
+            rightIcon: <Menu {...ICON_DIMENSIONS} />,
+            onClick: clickHandler
         }
     ];
     return <ButtonGroup items={items} />;

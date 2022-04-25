@@ -158,7 +158,7 @@ const PaymentsFormItems = props => {
                 <Button design="primary" type="submit" disabled={isDisabled}>
                     {submitButtonText}
                 </Button>
-                <Button onClick={handleCancel} design="quiet">
+                <Button onClick={handleCancel} design="tertiary">
                     {cancelButtonText}
                 </Button>
             </div>

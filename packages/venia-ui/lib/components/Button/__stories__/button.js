@@ -14,6 +14,10 @@ const ICON_DIMENSIONS = { width: '18px', height: '18px' };
 const ButtonStory = props => {
     const { design } = props;
 
+    const clickHandler = ()=>{
+      console.log("Click")
+    }
+
     const buttons = SIZES.map(size => {
         return (
             <>
@@ -22,8 +26,8 @@ const ButtonStory = props => {
                     design={design}
                     size={size}
                     ariaLabel={`${design} ${size}`}
-                    text={`${design} ${size}`}
-                />
+                    onClick={clickHandler}
+                >{`${design} ${size}`}</Button>
                 <br />
                 <br />
             </>
@@ -38,16 +42,16 @@ const ButtonStory = props => {
                     design={design}
                     size={size}
                     ariaLabel={`${design} ${size}`}
-                    text={`${design} ${size}`}
                     disabled={true}
-                />
+                    onClick={clickHandler}
+                >{`${design} ${size}`}</Button>
                 <br />
                 <br />
             </>
         );
     });
 
-    const icon = <Edit2 {...ICON_DIMENSIONS}/>;
+    const icon = <Edit2 {...ICON_DIMENSIONS} />;
     return (
         <>
             <h2>Enabled</h2>
@@ -59,25 +63,39 @@ const ButtonStory = props => {
                 <Button
                     design={design}
                     ariaLabel={`${design} Left Icon`}
-                    text={design}
                     leftIcon={icon}
-                />
+                    onClick={clickHandler}
+                >
+                    {design}
+                </Button>
                 <br />
                 <br />
                 <Button
                     design={design}
                     ariaLabel={`${design} Left Icon`}
-                    text={design}
                     rightIcon={icon}
-                />
+                    onClick={clickHandler}
+                >
+                    {design}
+                </Button>
                 <br />
                 <br />
                 <Button
                     design={design}
                     ariaLabel={`${design} Dual Icon`}
-                    text={design}
                     leftIcon={icon}
                     rightIcon={icon}
+                    onClick={clickHandler}
+                >
+                    {design}
+                </Button>
+                <br />
+                <br />
+                <Button
+                    design={design}
+                    ariaLabel={`${design} Icon`}
+                    leftIcon={icon}
+                    onClick={clickHandler}
                 />
                 <br />
                 <br />
@@ -85,14 +103,8 @@ const ButtonStory = props => {
                     design={design}
                     ariaLabel={`${design} Icon`}
                     leftIcon={icon}
-                />
-                <br />
-                <br />
-                <Button
-                    design={design}
-                    ariaLabel={`${design} Icon`}
-                    leftIcon={icon}
                     rightIcon={icon}
+                    onClick={clickHandler}
                 />
             </div>
         </>

@@ -28,7 +28,6 @@ const Button = props => {
         leftIcon,
         rightIcon,
         size,
-        text,
         disabled,
         onPress,
         ...restProps
@@ -47,12 +46,12 @@ const Button = props => {
 
     const classes = useStyle(defaultClasses, propClasses);
 
-    const iconOnly = !text;
+    const iconOnly = !children;
 
     const rootClassName = classes[getRootClassName(design, size, iconOnly)];
 
-    const textContent = text ? (
-        <span className={classes.text}>{text}</span>
+    const textContent = children ? (
+        <span className={classes.text}>{children}</span>
     ) : (
         ''
     );
@@ -93,7 +92,6 @@ const Button = props => {
  * @property {elementType} leftIcon React component that renders the left icon
  * @property {elementType} rightIcon React component that renders the right icon
  * @property {string} size Button size. Allowed values are: 'large', 'medium', 'small'
- * @property {string} text Button text
  * @property {string} type the type of the Button. Allowed values are: 'button', 'reset', 'submit'
  * @property {bool} disabled is the button disabled
  */
@@ -110,7 +108,6 @@ Button.propTypes = {
     leftIcon: elementType,
     rightIcon: elementType,
     size: oneOf(['large', 'medium', 'small']),
-    text: string,
     type: oneOf(['button', 'reset', 'submit']).isRequired,
     disabled: bool
 };

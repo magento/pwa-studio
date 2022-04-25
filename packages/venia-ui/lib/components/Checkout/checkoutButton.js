@@ -13,10 +13,16 @@ const CheckoutButton = props => {
     const iconClasses = { root: classes.icon };
     const buttonText = 'Checkout';
 
+    const leftIcon = <Icon classes={iconClasses} src={LockIcon} size={20} />;
+
     return (
-        <Button design="primary" disabled={disabled} onClick={onClick}>
-            <Icon classes={iconClasses} src={LockIcon} size={20} />
-            <span>{buttonText}</span>
+        <Button
+            design="primary"
+            disabled={disabled}
+            onClick={onClick}
+            leftIcon={leftIcon}
+        >
+            {buttonText}
         </Button>
     );
 };

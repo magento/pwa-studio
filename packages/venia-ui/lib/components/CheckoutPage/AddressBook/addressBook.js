@@ -143,7 +143,7 @@ const AddressBook = props => {
                     <Button
                         disabled={isLoading}
                         onClick={handleCancel}
-                        design="quiet"
+                        design="tertiary"
                     >
                         <FormattedMessage
                             id={'addressBook.cancelButtonText'}

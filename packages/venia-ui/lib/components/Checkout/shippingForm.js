@@ -62,7 +62,7 @@ const ShippingForm = props => {
                 <Button design="primary" type="submit" disabled={isSubmitting}>
                     {submitButtonText}
                 </Button>
-                <Button onClick={handleCancel} design="quiet">
+                <Button onClick={handleCancel} design="tertiary">
                     {cancelButtonText}
                 </Button>
             </div>

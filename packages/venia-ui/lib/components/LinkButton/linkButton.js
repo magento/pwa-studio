@@ -18,7 +18,7 @@ const LinkButton = props => {
 
     return (
         <Button
-            design={'quiet'}
+            design={'tertiary'}
             size={'small'}
             type={type}
             {...restProps}

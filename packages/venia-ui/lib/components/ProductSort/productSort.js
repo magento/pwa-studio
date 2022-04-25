@@ -166,7 +166,7 @@ const ProductSort = props => {
             aria-busy="false"
         >
             <Button
-                design={'action'}
+                design={'tertiary'}
                 onClick={handleSortClick}
                 data-cy="ProductSort-sortButton"
             >

@@ -105,6 +105,16 @@ const MiniCart = React.forwardRef((props, ref) => {
         </Fragment>
     ) : null;
 
+    const checkoutIcon = (
+        <Icon
+            size={16}
+            src={LockIcon}
+            classes={{
+                icon: classes.checkoutIcon
+            }}
+        />
+    );
+
     const contents = isCartEmpty ? (
         <div className={classes.emptyCart}>
             <div
@@ -134,17 +144,10 @@ const MiniCart = React.forwardRef((props, ref) => {
                 <Button
                     onClick={handleProceedToCheckout}
                     design="primary"
-                    className={classes.checkoutButton}
                     disabled={loading || isCartEmpty}
                     data-cy="Minicart-checkoutButton"
+                    leftIcon={checkoutIcon}
                 >
-                    <Icon
-                        size={16}
-                        src={LockIcon}
-                        classes={{
-                            icon: classes.checkoutIcon
-                        }}
-                    />
                     <FormattedMessage
                         id={'miniCart.checkout'}
                         defaultMessage={'CHECKOUT'}
@@ -152,8 +155,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                 </Button>
                 <Button
                     onClick={handleEditCart}
-                    design="primary"
-                    className={classes.editCartButton}
+                    design="tertiary"
                     disabled={loading || isCartEmpty}
                     data-cy="Minicart-editCartButton"
                 >
