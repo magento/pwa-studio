@@ -58,7 +58,7 @@
     "@magento/upward-security-headers": "~1.0.7",
     "@magento/venia-ui": "~9.3.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
-    "@storybook/react": "~6.3.7",
+    "@storybook/react": "~6.4.9",
     "@types/node": "16",
     "apollo-cache-persist": "~0.1.1",
     "babel-core": "~7.0.0-bridge.0",
