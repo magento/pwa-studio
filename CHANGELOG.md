@@ -11,12 +11,12 @@ The main focus of PWA Studio 12.4 is the enhanced ability to query and consume c
 ### Custom product attributes
 
 -   The Venia sample data has been updated to include product attributes. — [23][]  
--   Product attributes are now available on the product detail page. — [][]  
--   Products can now be filtered by attribute value. — [][]  
+-   Product attributes are now available on the product detail page. — [3761][]  
+-   Products can now be filtered by attribute value. — [3747][]  
 
 ## Other highlights and fixes
 
--   It is now possible to build a project using an older version of PWA studio by appending the version number to the \`create\` command. — [][]  
+-   It is now possible to build a project using an older version of PWA studio by appending the version number to the \`create\` command. 
 -   PWA Studio now supports CSS breakpoints set within PageBuilder components. — [3673][]   
 -   The ProductQuantity component has been removed from the codebase as it is not used anymore. It has been replaced with the QuantityStepper component. — [3717][]  
 -   Cypress tests have been added to check for offline mode on the Home, Category, Product, and Search pages. — [3710][]  
@@ -35,8 +35,8 @@ The main focus of PWA Studio 12.4 is the enhanced ability to query and consume c
 | Story | \[Cypress] Add tests for offline mode                                                         | [3710][]  |
 | Story | Update the Sample data with Product Attributes                                                | [23][]    |
 | Story | Support new branding terms                                                                    | [3697][]  |
-| Story | Filtering Product by the attribute value                                                      | [][]      |
-| Story | View Product Attributes values on PDP - Text input, Multi-select, Boolean, Date               | [][]      |
+| Story | Filtering Product by the attribute value                                                      | [3747][]      |
+| Story | View Product Attributes values on PDP - Text input, Multi-select, Boolean, Date               | [3761][]      |
 | Bug   | \[bug]: Page builder product collection's price+currency is not updating on currency changes. | [3720][]  |
 | Bug   | upward-php latest develop not compatible with php 7.4 on cloud pro.                           | [8][]     |
 | Bug   | \[PB] Parallax video background is broken on Safari                                           | [3661][]  |
@@ -120,3 +120,5 @@ Your project may not depend on some of the packages listed in this table.
 [3666]: https://github.com/magento/pwa-studio/pull/3666
 [3740]: https://github.com/magento/pwa-studio/pull/3740
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
+[3747]: https://github.com/magento/pwa-studio/pull/3747/
+[3761]:https://github.com/magento/pwa-studio/pull/3761/
