@@ -10,6 +10,7 @@ import StoreSwitcher from '../Header/storeSwitcher';
 import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.module.css';
+import { FocusScope } from 'react-aria';
 
 const AuthModal = React.lazy(() => import('../AuthModal'));
 
@@ -52,35 +53,37 @@ const Navigation = props => {
     ) : null;
 
     return (
-        <aside className={rootClassName}>
-            <header className={classes.header}>
-                <NavHeader
-                    isTopLevel={isTopLevel}
-                    onBack={handleBack}
-                    view={view}
-                />
-            </header>
-            <div className={bodyClassName}>
-                <CategoryTree
-                    categoryId={categoryId}
-                    onNavigate={handleClose}
-                    setCategoryId={setCategoryId}
-                    updateCategories={catalogActions.updateCategories}
-                />
-            </div>
-            <div className={classes.footer}>
-                <div className={classes.switchers}>
-                    <StoreSwitcher />
-                    <CurrencySwitcher />
+        <FocusScope contain restoreFocus autoFocus>
+            <aside className={rootClassName}>
+                <header className={classes.header}>
+                    <NavHeader
+                        isTopLevel={isTopLevel}
+                        onBack={handleBack}
+                        view={view}
+                    />
+                </header>
+                <div className={bodyClassName}>
+                    <CategoryTree
+                        categoryId={categoryId}
+                        onNavigate={handleClose}
+                        setCategoryId={setCategoryId}
+                        updateCategories={catalogActions.updateCategories}
+                    />
                 </div>
-                <AuthBar
-                    disabled={hasModal}
-                    showMyAccount={showMyAccount}
-                    showSignIn={showSignIn}
-                />
-            </div>
-            <div className={modalClassName}>{authModal}</div>
-        </aside>
+                <div className={classes.footer}>
+                    <div className={classes.switchers}>
+                        <StoreSwitcher />
+                        <CurrencySwitcher />
+                    </div>
+                    <AuthBar
+                        disabled={hasModal}
+                        showMyAccount={showMyAccount}
+                        showSignIn={showSignIn}
+                    />
+                </div>
+                <div className={modalClassName}>{authModal}</div>
+            </aside>
+        </FocusScope>
     );
 };
 
