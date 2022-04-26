@@ -145,7 +145,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
-                            autoComplete="off"
+                            autoComplete="Shipping email"
                             field="email"
                             id="email"
                             data-cy="GuestForm-email"
@@ -174,6 +174,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            autoComplete="First Name"
                             field="firstname"
                             id="firstname"
                             data-cy="GuestForm-firstName"
@@ -190,6 +191,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            autoComplete="lastName"
                             field="lastname"
                             id="lastname"
                             data-cy="GuestForm-lastName"
@@ -199,6 +201,7 @@ const GuestForm = props => {
                 </div>
                 <div className={classes.country}>
                     <Country
+                        autoComplete="Country"
                         validate={isRequired}
                         data-cy="GuestForm-country"
                     />
@@ -212,6 +215,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            autoComplete="Street Address"
                             field="street[0]"
                             id="street0"
                             data-cy="GuestForm-street0"
@@ -229,6 +233,7 @@ const GuestForm = props => {
                         optional={true}
                     >
                         <TextInput
+                            autoComplete="Street Address 2"
                             field="street[1]"
                             id="street1"
                             data-cy="GuestForm-street1"
@@ -244,6 +249,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            autoComplete="City"
                             field="city"
                             id="city"
                             data-cy="GuestForm-city"
@@ -253,6 +259,7 @@ const GuestForm = props => {
                 </div>
                 <div className={classes.region}>
                     <Region
+                        autoComplete="State"
                         validate={isRequired}
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
@@ -262,6 +269,7 @@ const GuestForm = props => {
                 </div>
                 <div className={classes.postcode}>
                     <Postcode
+                        autoComplete="Post Code"
                         validate={isRequired}
                         data-cy="GuestForm-postcode"
                     />
@@ -275,6 +283,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            autoComplete="Phone Number"
                             field="telephone"
                             id="telephone"
                             data-cy="GuestForm-telephone"
