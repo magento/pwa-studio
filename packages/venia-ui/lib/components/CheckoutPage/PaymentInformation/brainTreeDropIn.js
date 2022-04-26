@@ -52,6 +52,7 @@ const BraintreeDropin = props => {
                 overrides: {
                     fields: {
                         number: {
+                            placeholder: '16-Digit Number',
                             maskInput: {
                                 // Only show last four digits on blur.
                                 showLastFour: true
