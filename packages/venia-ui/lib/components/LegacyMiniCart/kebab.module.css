@@ -35,3 +35,7 @@
     composes: border-0 from global;
     composes: outline-none from global;
 }
+
+.kebab:focus {
+    border: 1px solid rgb(115, 115, 115);
+}

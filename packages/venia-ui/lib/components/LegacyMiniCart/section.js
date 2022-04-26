@@ -38,7 +38,7 @@ const Section = props => {
         <li className={classes.menuItem} {...restProps}>
             <button
                 className={classes.button}
-                onMouseDown={onClick}
+                onClick={onClick}
                 data-cy="LegacyMiniCart-Section-button"
             >
                 <Icon classes={iconClasses} size={16} src={iconSrc} />
