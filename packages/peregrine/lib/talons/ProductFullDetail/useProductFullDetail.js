@@ -155,7 +155,7 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         0;
 
     if (!isConfigurable || !optionsSelected) {
-        value = product.price.regularPrice.amount;
+        value = product.price_range?.maximum_price?.final_price;
     } else {
         const item = findMatchingVariant({
             optionCodes,
@@ -164,8 +164,8 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         });
 
         value = item
-            ? item.product.price.regularPrice.amount
-            : product.price.regularPrice.amount;
+            ? item.product.price_range?.maximum_price?.final_price
+            : product.price_range?.maximum_price?.final_price;
     }
 
     return value;
@@ -460,6 +460,7 @@ export const useProductFullDetail = props => {
     // Normalization object for product details we need for rendering.
     const productDetails = {
         description: product.description,
+        shortDescription: product.short_description,
         name: product.name,
         price: productPrice,
         sku: product.sku

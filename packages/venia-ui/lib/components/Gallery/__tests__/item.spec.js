@@ -49,7 +49,7 @@ const validItem = {
     sku: 'sku-123',
     price_range: {
         maximum_price: {
-            regular_price: {
+            final_price: {
                 value: 21,
                 currency: 'USD'
             }

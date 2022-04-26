@@ -39,7 +39,7 @@ const items = [
         __typename: 'SimpleProduct',
         price_range: {
             maximum_price: {
-                regular_price: {
+                final_price: {
                     value: 100,
                     currency: 'USD'
                 }
@@ -59,7 +59,7 @@ const items = [
         __typename: 'SimpleProduct',
         price_range: {
             maximum_price: {
-                regular_price: {
+                final_price: {
                     value: 100,
                     currency: 'USD'
                 }

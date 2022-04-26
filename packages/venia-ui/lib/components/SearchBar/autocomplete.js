@@ -40,6 +40,14 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                         }
                     }
                 }
+                price_range {
+                    maximum_price {
+                        final_price {
+                            currency
+                            value
+                        }
+                    }
+                }
             }
             page_info {
                 total_pages
