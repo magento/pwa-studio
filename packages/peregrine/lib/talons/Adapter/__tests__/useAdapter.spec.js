@@ -56,10 +56,10 @@ const givenDefaultValues = () => {
 
     global.AVAILABLE_STORE_VIEWS = [
         {
-            code: 'default'
+            store_code: 'default'
         },
         {
-            code: 'french'
+            store_code: 'french'
         }
     ];
     global.STORE_VIEW_CODE = 'default';
