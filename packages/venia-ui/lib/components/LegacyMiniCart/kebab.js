@@ -17,6 +17,7 @@ const Kebab = props => {
     return (
         <div className={classes.root}>
             <button
+                aria-expanded={isOpen}
                 className={classes.kebab}
                 data-cy="Kebab-button"
                 onClick={handleKebabClick}
