@@ -62,7 +62,7 @@ exports[`renders a BannerShimmer component with minHeight 1`] = `
         className="button"
       >
         <button
-          className="root_normalPriority"
+          className="root_secondary_iconOnly"
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -80,7 +80,9 @@ exports[`renders a BannerShimmer component with minHeight 1`] = `
         >
           <span
             className="content"
-          />
+          >
+            
+          </span>
         </button>
       </div>
     </div>

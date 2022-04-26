@@ -87,8 +87,8 @@ Array [
             className="buttonsContainer"
           >
             <Button
+              design="primary"
               disabled={false}
-              priority="high"
               type="submit"
             >
               Send
@@ -192,8 +192,8 @@ Array [
             className="buttonsContainer"
           >
             <Button
+              design="primary"
               disabled={false}
-              priority="high"
               type="submit"
             >
               Send
@@ -286,8 +286,8 @@ Array [
             className="buttonsContainer"
           >
             <Button
+              design="primary"
               disabled={false}
-              priority="high"
               type="submit"
             >
               Send

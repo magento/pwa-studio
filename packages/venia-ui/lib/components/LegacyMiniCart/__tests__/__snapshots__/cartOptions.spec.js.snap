@@ -30,10 +30,10 @@ exports[`it renders the correct tree 1`] = `
   </div>
   <div>
     <Button
+      design="primary"
       disabled={true}
-      negative={false}
       onClick={[Function]}
-      priority="high"
+      size="medium"
       type="button"
     >
       <span>
@@ -41,10 +41,10 @@ exports[`it renders the correct tree 1`] = `
       </span>
     </Button>
     <Button
+      design="secondary"
       disabled={false}
-      negative={false}
       onClick={[Function]}
-      priority="low"
+      size="medium"
       type="button"
     >
       <span>

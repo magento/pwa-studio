@@ -97,7 +97,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={true}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -116,10 +116,14 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -227,7 +231,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -246,10 +250,14 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -391,7 +399,7 @@ exports[`it renders an error for an invalid cart 1`] = `
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -410,10 +418,14 @@ exports[`it renders an error for an invalid cart 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -555,7 +567,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -574,10 +586,14 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -720,7 +736,7 @@ Array [
       className="actions"
     >
       <button
-        className="root_highPriority"
+        className="root_primary_medium"
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -739,10 +755,14 @@ Array [
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Add to Cart"
-            id="productFullDetail.addItemToCart"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Add to Cart"
+              id="productFullDetail.addItemToCart"
+            />
+          </span>
         </span>
       </button>
       <require('../Wishlist/AddToListButton') />
@@ -881,7 +901,7 @@ exports[`it renders correctly 1`] = `
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -900,10 +920,14 @@ exports[`it renders correctly 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -1041,7 +1065,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -1060,10 +1084,14 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -1201,7 +1229,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -1220,10 +1248,14 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -1361,7 +1393,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -1380,10 +1412,14 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -1525,7 +1561,7 @@ exports[`it renders form level errors 1`] = `
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -1544,10 +1580,14 @@ exports[`it renders form level errors 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -1828,7 +1868,7 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={true}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -1847,10 +1887,14 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Out of Stock"
-          id="productFullDetail.itemOutOfStock"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Out of Stock"
+            id="productFullDetail.itemOutOfStock"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton') />
@@ -1988,7 +2032,7 @@ exports[`renders a WishlistButton with props 1`] = `
     className="actions"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -2007,10 +2051,14 @@ exports[`renders a WishlistButton with props 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
       </span>
     </button>
     <require('../Wishlist/AddToListButton')

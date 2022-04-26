@@ -156,7 +156,7 @@ exports[`it disables the submit button while loading 1`] = `
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={false}
               onClick={[MockFunction]}
               onDragStart={[Function]}
@@ -175,14 +175,18 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={true}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -201,10 +205,14 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Update"
-                  id="global.updateButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Update"
+                    id="global.updateButton"
+                  />
+                </span>
               </span>
             </button>
           </div>
@@ -365,7 +373,7 @@ exports[`it renders correctly 1`] = `
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={false}
               onClick={[MockFunction]}
               onDragStart={[Function]}
@@ -384,14 +392,18 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -410,10 +422,14 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Update"
-                  id="global.updateButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Update"
+                    id="global.updateButton"
+                  />
+                </span>
               </span>
             </button>
           </div>

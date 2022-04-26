@@ -78,7 +78,7 @@ exports[`it renders correctly 1`] = `
       className="footer"
     >
       <button
-        className="checkoutButton"
+        className="root_primary_medium"
         disabled={false}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -124,14 +124,18 @@ exports[`it renders correctly 1`] = `
               />
             </svg>
           </span>
-          <mock-FormattedMessage
-            defaultMessage="CHECKOUT"
-            id="miniCart.checkout"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="CHECKOUT"
+              id="miniCart.checkout"
+            />
+          </span>
         </span>
       </button>
       <button
-        className="editCartButton"
+        className="root_tertiary_medium"
         disabled={false}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -149,10 +153,14 @@ exports[`it renders correctly 1`] = `
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Edit Shopping Bag"
-            id="miniCart.editCartButton"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Edit Shopping Bag"
+              id="miniCart.editCartButton"
+            />
+          </span>
         </span>
       </button>
     </div>

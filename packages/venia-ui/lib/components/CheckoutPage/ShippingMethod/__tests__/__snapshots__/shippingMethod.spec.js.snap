@@ -91,7 +91,7 @@ exports[`it disables inputs when the page is updating 1`] = `
       className="formButtons"
     >
       <button
-        className="root_normalPriority"
+        className="root_secondary_medium"
         disabled={true}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -110,10 +110,14 @@ exports[`it disables inputs when the page is updating 1`] = `
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Continue to Payment Information"
-            id="shippingMethod.continueToNextStep"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Continue to Payment Information"
+              id="shippingMethod.continueToNextStep"
+            />
+          </span>
         </span>
       </button>
     </div>
@@ -212,7 +216,7 @@ exports[`it renders correctly 1`] = `
       className="formButtons"
     >
       <button
-        className="root_normalPriority"
+        className="root_secondary_medium"
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -231,10 +235,14 @@ exports[`it renders correctly 1`] = `
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Continue to Payment Information"
-            id="shippingMethod.continueToNextStep"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Continue to Payment Information"
+              id="shippingMethod.continueToNextStep"
+            />
+          </span>
         </span>
       </button>
     </div>

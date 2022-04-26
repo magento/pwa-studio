@@ -54,7 +54,7 @@ exports[`disables save if isSaveDisabled is true 1`] = `
     className="actions"
   >
     <button
-      className="root_lowPriority"
+      className="root_secondary_medium"
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -73,11 +73,15 @@ exports[`disables save if isSaveDisabled is true 1`] = `
       <span
         className="content"
       >
-        Cancel
+        <span
+          className="text"
+        >
+          Cancel
+        </span>
       </span>
     </button>
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={true}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -96,7 +100,11 @@ exports[`disables save if isSaveDisabled is true 1`] = `
       <span
         className="content"
       >
-        Save
+        <span
+          className="text"
+        >
+          Save
+        </span>
       </span>
     </button>
   </div>
@@ -157,7 +165,7 @@ exports[`renders the correct tree 1`] = `
     className="actions"
   >
     <button
-      className="root_lowPriority"
+      className="root_secondary_medium"
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -176,11 +184,15 @@ exports[`renders the correct tree 1`] = `
       <span
         className="content"
       >
-        Cancel
+        <span
+          className="text"
+        >
+          Cancel
+        </span>
       </span>
     </button>
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -199,7 +211,11 @@ exports[`renders the correct tree 1`] = `
       <span
         className="content"
       >
-        Save
+        <span
+          className="text"
+        >
+          Save
+        </span>
       </span>
     </button>
   </div>

@@ -91,7 +91,7 @@ const Dialog = props => {
                 classes={cancelButtonClasses}
                 disabled={shouldDisableAllButtons}
                 onClick={onCancel}
-                priority="secondary"
+                design="secondary"
                 type="reset"
             >
                 <FormattedMessage
@@ -103,7 +103,7 @@ const Dialog = props => {
                 data-cy="Dialog-confirmButton"
                 classes={confirmButtonClasses}
                 disabled={confirmButtonDisabled}
-                priority="primary"
+                design="primary"
                 type="submit"
             >
                 <FormattedMessage

@@ -77,7 +77,7 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
     className="checkoutButton_container"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -95,10 +95,14 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Proceed to Checkout"
-          id="priceSummary.checkoutButton"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Proceed to Checkout"
+            id="priceSummary.checkoutButton"
+          />
+        </span>
       </span>
     </button>
   </div>
@@ -275,7 +279,7 @@ exports[`renders summary with loading state if query is loading 1`] = `
     className="checkoutButton_container"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={true}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -293,10 +297,14 @@ exports[`renders summary with loading state if query is loading 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Proceed to Checkout"
-          id="priceSummary.checkoutButton"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Proceed to Checkout"
+            id="priceSummary.checkoutButton"
+          />
+        </span>
       </span>
     </button>
   </div>

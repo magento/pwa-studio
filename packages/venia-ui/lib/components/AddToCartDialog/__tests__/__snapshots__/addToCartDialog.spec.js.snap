@@ -56,7 +56,7 @@ exports[`renders dialog with content 1`] = `
         }
       />
       <button
-        className="root_normalPriority"
+        className="root_secondary_medium"
         disabled={false}
         onClick={[MockFunction buttonProps.onClick]}
         onDragStart={[Function]}
@@ -75,10 +75,14 @@ exports[`renders dialog with content 1`] = `
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Add to Cart"
-            id="addToCartDialog.addToCart"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Add to Cart"
+              id="addToCartDialog.addToCart"
+            />
+          </span>
         </span>
       </button>
     </div>

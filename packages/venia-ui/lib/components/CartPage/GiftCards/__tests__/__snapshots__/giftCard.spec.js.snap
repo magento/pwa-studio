@@ -42,10 +42,12 @@ Array [
     type="button"
   >
     <span>
-      <mock-FormattedMessage
-        defaultMessage="Remove"
-        id="giftCard.remove"
-      />
+      <span>
+        <mock-FormattedMessage
+          defaultMessage="Remove"
+          id="giftCard.remove"
+        />
+      </span>
     </span>
   </button>,
 ]
@@ -93,10 +95,12 @@ Array [
     type="button"
   >
     <span>
-      <mock-FormattedMessage
-        defaultMessage="Remove"
-        id="giftCard.remove"
-      />
+      <span>
+        <mock-FormattedMessage
+          defaultMessage="Remove"
+          id="giftCard.remove"
+        />
+      </span>
     </span>
   </button>,
 ]

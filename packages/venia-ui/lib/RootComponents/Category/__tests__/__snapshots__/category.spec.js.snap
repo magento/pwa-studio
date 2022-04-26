@@ -78,10 +78,12 @@ exports[`Category Root Component error view renders when data is not present and
         type="button"
       >
         <span>
-          <mock-FormattedMessage
-            defaultMessage="Take me home"
-            id="errorView.goHome"
-          />
+          <span>
+            <mock-FormattedMessage
+              defaultMessage="Take me home"
+              id="errorView.goHome"
+            />
+          </span>
         </span>
       </button>
     </div>
