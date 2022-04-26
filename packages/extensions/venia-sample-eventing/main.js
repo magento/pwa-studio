@@ -5,11 +5,15 @@ export default original => props => {
     const [observable, { dispatch }] = useEventingContext();
 
     useEffect(() => {
-        observable.subscribe(event => {
+        const sub = observable.subscribe(event => {
             console.log('Logging event:', event);
         });
 
         dispatch('hello world');
+
+        return () => {
+            sub.unsubscribe();
+        };
     }, [dispatch, observable]);
 
     return original(props);
