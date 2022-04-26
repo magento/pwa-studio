@@ -6,6 +6,7 @@ Object {
   "accountMenuRef": "elementRef",
   "accountMenuTriggerRef": [MockFunction],
   "handleTriggerClick": [Function],
+  "isUserSignedIn": false,
   "setAccountMenuIsOpen": [MockFunction],
 }
 `;
