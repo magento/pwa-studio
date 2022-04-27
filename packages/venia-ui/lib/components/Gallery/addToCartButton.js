@@ -45,13 +45,14 @@ const AddToCartButton = props => {
             disabled={isDisabled}
             onPress={handleAddToCart}
             design="primary"
+            size="small"
             type="button"
         >
             {AddToCartIcon}
             <span className={classes.text}>
                 <FormattedMessage
                     id="addToCartButton.addItemToCart"
-                    defaultMessage="ADD TO CART"
+                    defaultMessage="Add to Cart"
                 />
             </span>
         </Button>
@@ -67,13 +68,14 @@ const AddToCartButton = props => {
             disabled={isDisabled}
             onPress={handleAddToCart}
             design="primary"
+            size="small"
             type="button"
         >
             {OutOfStockIcon}
             <span className={classes.text}>
                 <FormattedMessage
                     id="addToCartButton.itemOutOfStock"
-                    defaultMessage="OUT OF STOCK"
+                    defaultMessage="Out of Stock"
                 />
             </span>
         </Button>
