@@ -17,6 +17,7 @@ import StoreSwitcher from './storeSwitcher';
 import CurrencySwitcher from './currencySwitcher';
 import MegaMenu from '../MegaMenu';
 import PageLoadingIndicator from '../PageLoadingIndicator';
+import { useIntl } from 'react-intl';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
@@ -51,6 +52,9 @@ const Header = props => {
         </Suspense>
     ) : null;
 
+    const { formatMessage } = useIntl();
+    const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
+
     return (
         <Fragment>
             <div className={classes.switchersContainer}>
@@ -69,6 +73,7 @@ const Header = props => {
                         isOnline={isOnline}
                     />
                     <Link
+                        aria-label={title}
                         to={resourceUrl('/')}
                         className={classes.logoContainer}
                         data-cy="Header-logoContainer"
