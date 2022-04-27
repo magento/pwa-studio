@@ -18,16 +18,17 @@ The main focus of PWA Studio 12.4 is the enhanced ability to query and consume c
 
 - It is now possible to build a project using an older version of PWA studio by appending the version number to the \`create\` command.
 - Updated the Tailwind preset file in the Venia theme package to extend the base Tailwind configuration and add Venia-specific custom values. - [3686][]
-- PWA Studio now supports CSS breakpoints set within PageBuilder components. — [3673][]   
-- The ProductQuantity component has been removed from the codebase as it is not used anymore. It has been replaced with the QuantityStepper component. — [3717][]  
-- Cypress tests have been added to check for offline mode on the Home, Category, Product, and Search pages. — [3710][]  
-- Magento Community Edition (CE) has been rebranded as "Magento Open Source" and the Enterprise Edition (EE) is now "Adobe Commerce". — [3697][]  
-- Currency is now set properly when changing the currency in a PageBuilder product collection. Previously, when changing currency from the header dropdown, prices in PageBuilder product collections were not getting updated. — [3720][]    
-- Video background with parallax enabled on Safari browser should now behave as intended. — [3661][]  
-- Restored TTL support in BrowserPersistence. — [3729][]  
-- Resolved static build failure issues for venia-sample-data-modules repository. — [21][]  
-- The \`product_url_suffix\` value is now properly passed. Previously, it would return \`null\`. — [3666][]  
-- Fixed a bug that would throw a Javascript error when clicking on a configurable product where an option has been disabled on the backend.  — [3740][]  
+- PWA Studio now supports CSS breakpoints set within PageBuilder components. — [3673][]
+- The ProductQuantity component has been removed from the codebase as it is not used anymore. It has been replaced with the QuantityStepper component. — [3717][]
+- Cypress tests have been added to check for offline mode on the Home, Category, Product, and Search pages. — [3710][]
+- Magento Community Edition (CE) has been rebranded as "Magento Open Source" and the Enterprise Edition (EE) is now "Adobe Commerce". — [3697][]
+- Currency is now set properly when changing the currency in a PageBuilder product collection. Previously, when changing currency from the header dropdown, prices in PageBuilder product collections were not getting updated. — [3720][]
+- Video background with parallax enabled on Safari browser should now behave as intended. — [3661][]
+- Restored TTL support in BrowserPersistence. — [3729][]
+- Resolved static build failure issues for venia-sample-data-modules repository. — [21][]
+- The \`product_url_suffix\` value is now properly passed. Previously, it would return \`null\`. — [3666][]
+- Fixed a bug that would throw a Javascript error when clicking on a configurable product where an option has been disabled on the backend.  — [3740][]
+- Replaced existing CSS values in UI components with equivalent Tailwind classes. - [3686][]
 
 | Type  | Description                                                                                   | GitHub PR |
 | :---- | :-------------------------------------------------------------------------------------------- | :-------- |
