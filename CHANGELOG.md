@@ -6,7 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights  
 
-The main focus of PWA Studio 12.4 is additional support for working with custom product attributes. While previously, this could be done, results were difficult to parse, with little ability for sorting and filtering. Now, custom product attributes are returned in their own object within the GraphQL response, which can be sorted and filtered.
+The main focus of PWA Studio 12.4 is additional support for working with both system attributes and custom product attributes. While previously, this could be done, results were difficult to parse, with little ability for sorting and filtering. Now, system and custom product attributes are returned in their own object within the GraphQL response, which can be sorted and filtered.
 
 ### Custom product attributes
 
