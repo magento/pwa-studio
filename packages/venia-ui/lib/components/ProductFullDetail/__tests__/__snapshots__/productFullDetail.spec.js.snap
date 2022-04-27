@@ -8,6 +8,13 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -31,13 +38,6 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -183,6 +183,13 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -206,13 +213,6 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -328,6 +328,13 @@ exports[`it renders an error for an invalid cart 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -351,13 +358,6 @@ exports[`it renders an error for an invalid cart 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -507,6 +507,13 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -530,13 +537,6 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -691,6 +691,13 @@ Array [
     onSubmit={[Function]}
   >
     <section
+      className="imageCarousel"
+    >
+      <ProductImageCarousel
+        images={Array []}
+      />
+    </section>
+    <section
       className="title"
     >
       <h1
@@ -714,13 +721,6 @@ Array [
           50
         </span>
       </p>
-    </section>
-    <section
-      className="imageCarousel"
-    >
-      <ProductImageCarousel
-        images={Array []}
-      />
     </section>
     <FormError
       classes={
@@ -867,6 +867,13 @@ exports[`it renders correctly 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -890,13 +897,6 @@ exports[`it renders correctly 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1042,6 +1042,13 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -1065,13 +1072,6 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1217,6 +1217,13 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -1240,13 +1247,6 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1392,6 +1392,13 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -1415,13 +1422,6 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1567,6 +1567,13 @@ exports[`it renders form level errors 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -1590,13 +1597,6 @@ exports[`it renders form level errors 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1746,6 +1746,13 @@ exports[`it renders message with unsupported product type 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -1769,13 +1776,6 @@ exports[`it renders message with unsupported product type 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1934,6 +1934,13 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -1957,13 +1964,6 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -2079,6 +2079,13 @@ exports[`renders a WishlistButton with props 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -2102,13 +2109,6 @@ exports[`renders a WishlistButton with props 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={

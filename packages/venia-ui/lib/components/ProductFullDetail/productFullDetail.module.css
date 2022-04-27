@@ -21,6 +21,10 @@
         grid-template-columns: minmax(0, 1.5625fr) minmax(0, 1fr);
         grid-template-rows: repeat(5, min-content) 1fr [fold];
     }
+
+    .title {
+        grid-template-columns: 1fr max-content;
+    }
 }
 
 .section {
@@ -53,7 +57,6 @@
     composes: px-sm from global;
     composes: py-xs from global;
     grid-area: title;
-    grid-template-columns: 1fr max-content;
 
     composes: lg_p-sm from global;
 }
