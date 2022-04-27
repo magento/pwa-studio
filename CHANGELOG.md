@@ -10,14 +10,15 @@ The main focus of PWA Studio 12.4 is additional support for working with both sy
 
 ### Product attributes
 
+- Products can now be sorted by the product attribute value on the product listing page. — [3761][]
 - The Venia sample data has been updated to include product attributes. — [23][] 
 - Product attribute values can now be used to search for products. — [3747][]
 
 ### Product Attributes on PDP
 
-- Products can now be sorted by the product attribute value on the PDP. — [3761][] 
-- PDP has dedicated slots for rendering product attributes values.
-- PDP supports all content layout options available with Page Builder (full-width, full-bleed, contained).
+ 
+- The product detail page has dedicated slots for rendering product attributes values.
+- The product detail page supports all content layout options available with Page Builder (full-width, full-bleed, contained).
 
 ## Other highlights and fixes
 
