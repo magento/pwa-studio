@@ -19,6 +19,7 @@ const ButtonStory = props => {
     };
 
     const buttons = SIZES.map(size => {
+        const text = `${design} ${size}`;
         return (
             <>
                 <Button
@@ -27,7 +28,9 @@ const ButtonStory = props => {
                     size={size}
                     ariaLabel={`${design} ${size}`}
                     onClick={clickHandler}
-                >{`${design} ${size}`}</Button>
+                >
+                    {text}
+                </Button>
                 <br />
                 <br />
             </>
@@ -35,6 +38,7 @@ const ButtonStory = props => {
     });
 
     const disabledButtons = SIZES.map(size => {
+        const text = `${design} ${size}`;
         return (
             <>
                 <Button
@@ -44,7 +48,9 @@ const ButtonStory = props => {
                     ariaLabel={`${design} ${size}`}
                     disabled={true}
                     onClick={clickHandler}
-                >{`${design} ${size}`}</Button>
+                >
+                    {text}
+                </Button>
                 <br />
                 <br />
             </>
@@ -52,13 +58,16 @@ const ButtonStory = props => {
     });
 
     const icon = <Edit2 {...ICON_DIMENSIONS} />;
+    const enabledText = 'Enabled';
+    const disabledText = 'Disabled';
+    const iconsText = 'Icons';
     return (
         <>
-            <h2>Enabled</h2>
+            <h2>{enabledText}</h2>
             {buttons}
-            <h2>Disabled</h2>
+            <h2>{disabledText}</h2>
             {disabledButtons}
-            <h2>Icons</h2>
+            <h2>{iconsText}</h2>
             <div>
                 <Button
                     design={design}

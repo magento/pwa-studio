@@ -48,7 +48,7 @@ exports[`should render add to cart if in stock 1`] = `
       </span>
       <span>
         <mock-FormattedMessage
-          defaultMessage="ADD TO CART"
+          defaultMessage="Add to Cart"
           id="addToCartButton.addItemToCart"
         />
       </span>
@@ -113,7 +113,7 @@ exports[`should render out of cart if not in stock 1`] = `
       </span>
       <span>
         <mock-FormattedMessage
-          defaultMessage="OUT OF STOCK"
+          defaultMessage="Out of Stock"
           id="addToCartButton.itemOutOfStock"
         />
       </span>
@@ -170,7 +170,7 @@ exports[`should render properly 1`] = `
       </span>
       <span>
         <mock-FormattedMessage
-          defaultMessage="ADD TO CART"
+          defaultMessage="Add to Cart"
           id="addToCartButton.addItemToCart"
         />
       </span>

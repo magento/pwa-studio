@@ -14,7 +14,7 @@ import Button from '../Button';
  * @returns {React.Element} A React component that displays a single link button.
  */
 const LinkButton = props => {
-    const { children, classes: propClasses, type, ...restProps } = props;
+    const { children, type, ...restProps } = props;
 
     return (
         <Button design={'tertiary'} size={'small'} type={type} {...restProps}>
