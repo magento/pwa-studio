@@ -72,7 +72,7 @@ const GalleryItem = props => {
 
     // fallback to regular price when final price is unavailable
     const priceSource =
-        price_range.maximum_price.final_price ??
+        price_range.maximum_price.final_price ||
         price_range.maximum_price.regular_price;
 
     // Hide the Rating component until it is updated with the new look and feel (PWA-2512).

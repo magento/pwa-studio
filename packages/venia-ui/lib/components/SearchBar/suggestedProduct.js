@@ -36,10 +36,10 @@ const SuggestedProduct = props => {
     // fall back to deprecated field if price range is unavailable
     const priceProps = {
         currencyCode:
-            price_range?.maximum_price?.final_price?.currency ??
+            price_range?.maximum_price?.final_price?.currency ||
             price.regularPrice.amount.currency,
         value:
-            price_range?.maximum_price?.final_price?.value ??
+            price_range?.maximum_price?.final_price?.value ||
             price.regularPrice.amount.value
     };
 
