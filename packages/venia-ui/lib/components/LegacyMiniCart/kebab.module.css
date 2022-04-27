@@ -20,11 +20,12 @@
     transition: 256ms ease-out;
     transform: scale(0);
     transform-origin: 100% 0;
+    display: none!important;
 }
 
 .dropdown_active {
     composes: dropdown;
-
+    display: block!important;
     composes: absolute from global;
     transform: scale(1);
     transition: 250ms var(--venia-global-anim-bounce);
