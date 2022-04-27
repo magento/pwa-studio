@@ -21,6 +21,12 @@ jest.mock('../../Header/currencySwitcher', () => () => 'CurrencySwitcher');
 
 jest.mock('@magento/peregrine/lib/talons/Navigation/useNavigation');
 
+jest.mock('react-aria', () => ({
+    FocusScope: jest.fn(({ children }) => {
+        return children;
+    })
+}));
+
 /*
  * Tests.
  */
