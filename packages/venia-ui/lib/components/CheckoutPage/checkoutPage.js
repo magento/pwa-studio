@@ -137,6 +137,7 @@ const CheckoutPage = props => {
             <div className={classes.empty_cart_container}>
                 <div className={classes.heading_container}>
                     <h1
+                        aria-live='polite'
                         className={classes.heading}
                         data-cy="ChekoutPage-heading"
                     >

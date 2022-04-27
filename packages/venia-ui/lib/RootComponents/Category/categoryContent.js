@@ -155,7 +155,7 @@ const CategoryContent = props => {
             <StoreTitle>{categoryName}</StoreTitle>
             <article className={classes.root} data-cy="CategoryContent-root">
                 <div className={classes.categoryHeader}>
-                    <h1 className={classes.title}>
+                    <h1 aria-live='polite' className={classes.title}>
                         <div
                             className={classes.categoryTitle}
                             data-cy="CategoryContent-categoryTitle"

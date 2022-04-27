@@ -127,6 +127,7 @@ const AccountInformationPage = props => {
                 })}
             </StoreTitle>
             <h1
+                aria-live='polite'
                 className={classes.title}
                 data-cy="AccountInformationPage-title"
             >

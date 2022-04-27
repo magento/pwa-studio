@@ -1,4 +1,5 @@
 import React from 'react';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
