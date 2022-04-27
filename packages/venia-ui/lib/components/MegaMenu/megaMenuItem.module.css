@@ -24,6 +24,11 @@
     composes: pl-2xs from global;
 }
 
+.megaMenuItem:hover > div,
+.megaMenuItem:focus-within > div {
+    display: flex;
+}
+
 /* TODO @TW: cannot compose */
 .megaMenuItem:hover .megaMenuLink,
 .megaMenuItem:focus .megaMenuLink {
