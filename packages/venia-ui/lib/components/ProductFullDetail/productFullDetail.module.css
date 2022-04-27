@@ -37,7 +37,7 @@
     composes: my-0 from global;
     composes: mx-sm from global;
     composes: px-0 from global;
-    composes: py-sm from global;
+    composes: py-xs from global;
 }
 
 .sectionTitle {
@@ -50,15 +50,13 @@
 }
 
 .title {
-    composes: gap-xs from global;
+    composes: gap-2 from global;
     composes: grid from global;
     composes: items-center from global;
     composes: leading-normal from global;
     composes: px-sm from global;
     composes: py-xs from global;
     grid-area: title;
-
-    composes: lg_p-sm from global;
 }
 
 .productName {
@@ -71,6 +69,7 @@
 
 .productPrice {
     composes: block from global;
+    composes: mb-2 from global;
 }
 
 .imageCarousel {
