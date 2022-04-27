@@ -47,6 +47,8 @@ The main focus of PWA Studio 12.4 is additional support for working with both sy
 | Bug   | Static build failures in magento-commerce/venia-sample-data-modules repo                      | [21][]    |
 | Bug   | \[bug]: product_url_suffix cloud be return as null from backend                               | [3666][]  |
 | Bug   | Disabled product throw an exception cannot read properties of undefined                       | [3740][]  |
+| Bug   | Deprecated field which could return incorrect discounted price is no longer returned          | [3760][]  |
+| Bug   | On mobile, the short description is now properly displayed below the image, rather than above.| [3808][]  |
 
 ## Documentation updates
 
@@ -126,3 +128,5 @@ Your project may not depend on some of the packages listed in this table.
 [3747]: https://github.com/magento/pwa-studio/pull/3747/
 [3761]:https://github.com/magento/pwa-studio/pull/3761/
 [3686]: https://github.com/magento/pwa-studio/pull/3686/
+[3760]: https://github.com/magento/pwa-studio/pull/3760/
+[3808]: https://github.com/magento/pwa-studio/pull/3808/
