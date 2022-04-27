@@ -8,11 +8,12 @@ _For older release notes, see_ [PWA Studio releases][].
 
 The main focus of PWA Studio 12.4 is additional support for working with both system attributes and custom product attributes. While previously, this could be done, results were difficult to parse, with little ability for sorting and filtering. Now, system and custom product attributes are returned in their own object within the GraphQL response, which can be sorted and filtered.
 
-### Custom product attributes
+### Product attributes
 
 - The Venia sample data has been updated to include product attributes. — [23][]  
-- Product attributes are now available on the product detail page. — [3761][]  
-- Products can now be filtered by attribute value. — [3747][]  
+- Products can now be sorted by the product attribute value on product detail page. — [3761][]  
+- Product attribute values can now be used to search for products. — [3747][]
+- Product detail page now has dedicated slots for rendering product attributes values.
 
 ## Other highlights and fixes
 
