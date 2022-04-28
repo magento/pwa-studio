@@ -27,7 +27,9 @@ const {
 
 describe(
     'verify Google ReCaptcha on forget password',
-    { tags: ['@integration', '@commerce', '@open-source', '@ci', '@recaptcha'] },
+    {
+        tags: ['@integration', '@commerce', '@open-source', '@ci', '@recaptcha']
+    },
     () => {
         it('user can fill and submit form with default badge position', () => {
             // Prevent default Google ReCaptcha API from loading

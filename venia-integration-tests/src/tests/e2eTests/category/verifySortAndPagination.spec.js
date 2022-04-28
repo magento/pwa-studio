@@ -27,7 +27,8 @@ const {
 describe(
     'PWA-1410: verify sort and pagination',
     {
-        tags: ['@e2e',
+        tags: [
+            '@e2e',
             '@commerce',
             '@open-source',
             '@ci',
