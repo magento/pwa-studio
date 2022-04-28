@@ -521,7 +521,7 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
       className="confirmDeleteContainer"
     >
       <button
-        className="root_secondary_medium"
+        className="root_primary_medium"
         disabled={false}
         onClick={[MockFunction onConfirmDelete]}
         onDragStart={[Function]}
@@ -551,7 +551,7 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
         </span>
       </button>
       <button
-        className="root_secondary_medium"
+        className="root_tertiary_medium"
         disabled={false}
         onClick={[MockFunction onCancelDelete]}
         onDragStart={[Function]}
@@ -700,7 +700,7 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
       className="confirmDeleteContainer"
     >
       <button
-        className="root_secondary_medium"
+        className="root_primary_medium"
         disabled={true}
         onClick={[MockFunction onConfirmDelete]}
         onDragStart={[Function]}
@@ -730,7 +730,7 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
         </span>
       </button>
       <button
-        className="root_secondary_medium"
+        className="root_tertiary_medium"
         disabled={true}
         onClick={[MockFunction onCancelDelete]}
         onDragStart={[Function]}

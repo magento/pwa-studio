@@ -3,7 +3,9 @@ import React from 'react';
 import Button from '../button';
 
 import { storiesOf } from '@storybook/react';
-import { Edit2 } from 'react-feather';
+import { Edit2, Menu } from 'react-feather';
+
+import styleOverrides from './button.overrides.module.css';
 
 const stories = storiesOf('Components/Button', module);
 
@@ -130,4 +132,31 @@ stories.add('Secondary', () => {
 
 stories.add('Tertiary', () => {
     return <ButtonStory design="tertiary" />;
+});
+
+//This story shows how you can override the look of a button by overriding the class name
+stories.add('Custom Classname', () => {
+    const icon = <Menu {...ICON_DIMENSIONS} />;
+    const text = 'Custom Design';
+    return (
+        <Button className={styleOverrides.custom} leftIcon={icon}>
+            {text}
+        </Button>
+    );
+});
+
+//This story shows how you can override the look of a button variant by providing class overrides
+stories.add('Style override', () => {
+    const classes = {
+        root_primary_large: styleOverrides['root_primary_large']
+    };
+
+    const icon = <Menu {...ICON_DIMENSIONS} />;
+
+    const text = 'Style override';
+    return (
+        <Button design="primary" size="large" leftIcon={icon} classes={classes}>
+            {text}
+        </Button>
+    );
 });

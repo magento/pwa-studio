@@ -1,0 +1,60 @@
+.root {
+    composes: border-0 from global;
+    composes: border-solid from global;
+    composes: cursor-pointer from global;
+    composes: duration-200 from global;
+    composes: ease-standard from global;
+    composes: font-bold from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: leading-tight from global;
+    composes: max-w-full from global;
+    composes: pointer-events-auto from global;
+    composes: rounded-full from global;
+    composes: text-center from global;
+    composes: uppercase from global;
+    composes: transition-colors from global;
+
+    composes: active_bg-brand-700 from global;
+    composes: active_text-neutral-200 from global;
+
+    composes: disabled_bg-neutral-300 from global;
+    composes: disabled_text-neutral-500 from global;
+    composes: disabled_border-0 from global;
+    composes: disabled_pointer-events-none from global;
+
+    composes: hover_bg-brand-600 from global;
+    composes: hover_text-neutral-200 from global;
+}
+
+.root_primary {
+    composes: root;
+
+    composes: bg-info-800 from global;
+    composes: normal-case from global;
+    composes: text-neutral-200 from global;
+
+    composes: active_bg-brand-700 from global;
+
+    composes: focus_outline-button from global;
+
+    composes: hover_bg-brand-600 from global;
+}
+
+.root_primary_large {
+    composes: root_primary;
+
+    composes: px-sm from global;
+    composes: py-xs from global;
+    composes: text-neutral-200 from global;
+}
+
+.custom {
+    composes: root;
+
+    composes: bg-info-800 from global;
+    composes: px-sm from global;
+    composes: py-xs from global;
+    composes: text-neutral-200 from global;
+}

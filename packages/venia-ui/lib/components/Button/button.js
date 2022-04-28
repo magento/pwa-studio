@@ -78,14 +78,7 @@ const Button = props => {
  *
  * @property {Object} classes An object containing the class names for the
  * Button component.
- * @property {string} classes.content classes for the button content
- * @property {string} classes.root classes for root container
- * @property {string} classes.root_highPriority classes for Button if
- * high priority.
- * @property {string} classes.root_lowPriority classes for Button if
- * low priority.
- * @property {string} classes.root_normalPriority classes for Button if
- * normal priority.
+ * @property {string} classes.content class overrides for the button content
  * @property {string} design the type of button design. Allowed values are: 'primary', 'secondary', 'tertiary'
  * @property {elementType} leftIcon React component that renders the left icon
  * @property {elementType} rightIcon React component that renders the right icon
@@ -96,10 +89,19 @@ const Button = props => {
 Button.propTypes = {
     classes: shape({
         content: string,
-        root: string,
-        root_highPriority: string,
-        root_lowPriority: string,
-        root_normalPriority: string
+        text: string,
+        root_primary_iconOnly: string,
+        root_primary_large: string,
+        root_primary_medium: string,
+        root_primary_small: string,
+        root_secondary_iconOnly: string,
+        root_secondary_large: string,
+        root_secondary_medium: string,
+        root_secondary_small: string,
+        root_tertiary_iconOnly: string,
+        root_tertiary_large: string,
+        root_tertiary_medium: string,
+        root_tertiary_small: string
     }),
     design: oneOf(['primary', 'secondary', 'tertiary']).isRequired,
     leftIcon: elementType,
