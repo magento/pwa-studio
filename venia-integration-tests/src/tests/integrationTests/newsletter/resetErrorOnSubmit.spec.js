@@ -15,7 +15,7 @@ const { hitGraphqlPath } = graphqlMockedCallsFixtures;
 
 describe(
     'verify newsletter form',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@integration', '@commerce', '@open-source', '@ci'] },
     () => {
         it('Validate validations', () => {
             cy.intercept('POST', hitGraphqlPath, req => {

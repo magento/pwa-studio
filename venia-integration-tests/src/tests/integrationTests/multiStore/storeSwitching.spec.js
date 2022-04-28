@@ -554,7 +554,7 @@ const interceptRouteDataRequests = expectedStoreCode => {
     });
 };
 
-describe('default store', { tags: ['@commerce', '@ci', '@multistore'] }, () => {
+describe('default store', { tags: ['@integration', '@commerce', '@ci', '@multistore'] }, () => {
     it('contains valid CMS Page data', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);
@@ -634,7 +634,7 @@ describe('default store', { tags: ['@commerce', '@ci', '@multistore'] }, () => {
     });
 });
 
-describe('switching to another store', { tags: ['@commerce', '@ci'] }, () => {
+describe('switching to another store', { tags: ['@integration', '@commerce', '@ci'] }, () => {
     it('contains valid CMS Page data specific to the different store', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);
@@ -802,7 +802,7 @@ describe('switching to another store', { tags: ['@commerce', '@ci'] }, () => {
     });
 });
 
-describe('shopping cart', { tags: ['@commerce', '@ci'] }, () => {
+describe('shopping cart', { tags: ['@integration', '@commerce', '@ci'] }, () => {
     it('lets users add products to cart regardless of store view', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);

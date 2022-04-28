@@ -40,7 +40,7 @@ const {
 
 describe(
     'Verify Google ReCaptcha for Account Information changes',
-    { tags: ['@commerce', '@open-source', '@ci', '@recaptcha'] },
+    { tags: ['@integration', '@commerce', '@open-source', '@ci', '@recaptcha'] },
     () => {
         it('user can edit account information with default badge position', () => {
             // Prevent default Google ReCaptcha API from loading

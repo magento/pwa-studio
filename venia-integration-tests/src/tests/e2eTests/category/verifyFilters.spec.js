@@ -45,7 +45,7 @@ const {
 
 describe(
     'PWA-1402: verify filter actions',
-    { tags: ['@commerce', '@open-source', '@ci', '@category', '@filter'] },
+    { tags: ['@e2e', '@commerce', '@open-source', '@ci', '@category', '@filter'] },
     () => {
         it('user should be able to filter results in Category and Search pages', () => {
             cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
@@ -249,7 +249,7 @@ describe(
 
             assertPaginationActivePage(1);
         });
-        it('user should be able to use radio-boolean filter results in Category and Search pages', () => {
+        it('user should be able to use radio-boolean filter results in Category and Search pages', { tags: ['@skip'] },() => {
             cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
             cy.intercept('GET', getCategoryDataCall).as(
                 'gqlGetCategoryDataQuery'
