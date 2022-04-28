@@ -2,7 +2,7 @@ import React from 'react';
 import defaultClasses from './image.module.css';
 import { arrayOf, bool, oneOf, shape, string, number } from 'prop-types';
 import { Link } from 'react-router-dom';
-import resolveLinkProps from '../../resolveLinkProps';
+import resolveLinkProps from '@magento/peregrine/lib/util/resolveLinkProps';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 

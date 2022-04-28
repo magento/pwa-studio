@@ -5,7 +5,9 @@ import defaultClasses from './text.module.css';
 import { useHistory } from 'react-router-dom';
 import handleHtmlContentClick from '../../handleHtmlContentClick';
 
-const toHTML = str => ({ __html: str });
+import htmlStringImgUrlConverter from '@magento/peregrine/lib/util/htmlStringImgUrlConverter';
+
+const toHTML = str => ({ __html: htmlStringImgUrlConverter(str) });
 
 /**
  * Page Builder Text component.
