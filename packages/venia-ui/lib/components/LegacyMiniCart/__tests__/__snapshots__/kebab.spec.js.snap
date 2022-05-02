@@ -18,7 +18,9 @@ exports[`it renders children passed to it 1`] = `
       }
     />
   </button>
-  <ul>
+  <ul
+    aria-hidden="true"
+  >
     <span />
     <p />
     <div />
@@ -44,6 +46,8 @@ exports[`it renders correctly without children 1`] = `
       }
     />
   </button>
-  <ul />
+  <ul
+    aria-hidden="true"
+  />
 </div>
 `;
