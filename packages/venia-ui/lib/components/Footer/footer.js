@@ -11,6 +11,7 @@ import { useStyle } from '../../classify';
 import defaultClasses from './footer.module.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useIntl } from 'react-intl';
 
 const Footer = props => {
     const { links } = props;
@@ -18,7 +19,7 @@ const Footer = props => {
     const talonProps = useFooter();
 
     const { copyrightText } = talonProps;
-    const { formatMessage } = FormattedMessage();
+    const { formatMessage } = useIntl();
     const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
 
     const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
@@ -108,11 +109,7 @@ const Footer = props => {
                     </li>
                 </ul>
                 <p className={classes.copyright}>{copyrightText || null}</p>
-                <Link
-                    to={resourceUrl('/')}
-                    aria-label={title}
-                    className={classes.logoContainer}
-                >
+                <Link to={resourceUrl('/')} aria-label={title} className={classes.logoContainer}>
                     <Logo classes={{ logo: classes.logo }} />
                 </Link>
             </div>
