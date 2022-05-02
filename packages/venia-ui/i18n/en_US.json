@@ -85,6 +85,7 @@
     "checkoutPage.paymentLoadingError": "There was an error loading payments.",
     "checkoutPage.paymentMethodStatus": "{selectedPaymentMethod} is not supported for editing.",
     "checkoutPage.paymentSummary": "{cardType} ending in {lastFour}",
+    "checkoutPage.cardPlaceholder": "16-Digit Number",
     "checkoutPage.placeOrder": "Place Order",
     "checkoutPage.quantity": "Qty : {quantity}",
     "checkoutPage.quickCheckout": "Quick Checkout When You Return",

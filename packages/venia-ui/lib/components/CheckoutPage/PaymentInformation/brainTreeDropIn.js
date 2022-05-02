@@ -11,7 +11,7 @@
  */
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 
 import defaultClasses from './braintreeDropin.module.css';
@@ -39,6 +39,7 @@ const BraintreeDropin = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const [isError, setIsError] = useState(false);
     const [dropinInstance, setDropinInstance] = useState();
+    const { formatMessage } = useIntl();
 
     const createDropinInstance = useCallback(async () => {
         const { default: dropIn } = await import('braintree-web-drop-in');
@@ -52,7 +53,11 @@ const BraintreeDropin = props => {
                 overrides: {
                     fields: {
                         number: {
-                            placeholder: '16-Digit Number',
+                            placeholder: formatMessage({
+                                id: 'checkoutPage.cardPlaceholder',
+                                defaultMessage:
+                                    '16-Digit Number'
+                            }),
                             maskInput: {
                                 // Only show last four digits on blur.
                                 showLastFour: true
