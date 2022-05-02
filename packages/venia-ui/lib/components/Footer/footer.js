@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Facebook, Instagram, Twitter } from 'react-feather';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
@@ -11,7 +11,6 @@ import { useStyle } from '../../classify';
 import defaultClasses from './footer.module.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
-import { useIntl } from 'react-intl';
 
 const Footer = props => {
     const { links } = props;
