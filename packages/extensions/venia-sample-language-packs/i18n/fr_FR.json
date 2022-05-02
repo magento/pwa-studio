@@ -352,6 +352,7 @@
     "shippingForm.getShippingOptions": "Obtenez les options d'expédition",
     "shippingForm.loading": "Chargement des méthodes ...",
     "shippingForm.zip": "Code postal",
+    "shippingForm.shippingEmail":"Livraison Courriel",
     "shippingInformation.cardTitle": "Informations sur l'expedition",
     "shippingInformation.editTitle": "1. Informations d'expédition",
     "shippingInformation.loading": "Récupération des informations d'expédition...",
