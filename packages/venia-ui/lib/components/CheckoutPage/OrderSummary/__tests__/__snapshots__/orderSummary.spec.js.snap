@@ -5,6 +5,7 @@ exports[`renders order summary 1`] = `
   className="root"
 >
   <h1
+    aria-live="polite"
     className="title"
   >
     <mock-FormattedMessage

@@ -113,7 +113,7 @@ const ResetPassword = props => {
                     defaultMessage: 'Reset Password'
                 })}
             </StoreTitle>
-            <h1 aria-live='polite' className={classes.header}>
+            <h1 aria-live="polite" className={classes.header}>
                 <FormattedMessage
                     id="resetPassword.header"
                     defaultMessage="Reset Password"

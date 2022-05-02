@@ -160,7 +160,9 @@ const OrderHistoryPage = props => {
         <OrderHistoryContextProvider>
             <div className={classes.root}>
                 <StoreTitle>{PAGE_TITLE}</StoreTitle>
-                <h1 aria-live='polite' className={classes.heading}>{PAGE_TITLE}</h1>
+                <h1 aria-live="polite" className={classes.heading}>
+                    {PAGE_TITLE}
+                </h1>
                 <div className={classes.filterRow}>
                     <span className={classes.pageInfo}>{pageInfoLabel}</span>
                     <Form className={classes.search} onSubmit={handleSubmit}>

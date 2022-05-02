@@ -770,6 +770,7 @@ exports[`CheckoutPage renders empty cart 1`] = `
       className="heading_container"
     >
       <h1
+        aria-live="polite"
         className="heading"
       >
         Guest Checkout

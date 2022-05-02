@@ -173,7 +173,7 @@ const ProductFullDetail = props => {
             >
                 <section className={classes.title}>
                     <h1
-                        aria-live='polite'
+                        aria-live="polite"
                         className={classes.productName}
                         data-cy="ProductFullDetail-productName"
                     >
