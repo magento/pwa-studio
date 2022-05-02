@@ -125,7 +125,11 @@ const Autocomplete = props => {
 
     return (
         <div data-cy="Autocomplete-root" className={rootClassName}>
-            <label id="search_query" data-cy="Autocomplete-message" className={classes.message}>
+            <label
+                id="search_query"
+                data-cy="Autocomplete-message"
+                className={classes.message}
+            >
                 {message}
             </label>
             <div className={classes.suggestions}>
