@@ -53,7 +53,7 @@ const Navigation = props => {
     ) : null;
 
     return (
-        <FocusScope contain restoreFocus autoFocus>
+        <FocusScope contain restoreFocus>
             <aside className={rootClassName}>
                 <header className={classes.header}>
                     <NavHeader
