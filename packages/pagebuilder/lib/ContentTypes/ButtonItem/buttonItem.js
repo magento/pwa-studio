@@ -68,9 +68,9 @@ const ButtonItem = props => {
     }
 
     const typeToPriorityMapping = {
-        primary: 'high',
-        secondary: 'normal',
-        link: 'low'
+        primary: 'primary',
+        secondary: 'secondary',
+        link: 'tertiary'
     };
 
     const handleClick = useCallback(() => {
@@ -99,7 +99,7 @@ const ButtonItem = props => {
 
     const buttonProps = {
         onClick: handleClick,
-        priority: typeToPriorityMapping[buttonType],
+        design: typeToPriorityMapping[buttonType],
         style: dynamicInnerStyles,
         type: 'button'
     };

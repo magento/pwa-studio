@@ -42,6 +42,7 @@
 }
 
 .root_withText {
+    composes: min-h-button from global;
     composes: px-md from global;
     composes: py-2xs from global;
 }

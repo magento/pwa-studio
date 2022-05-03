@@ -239,9 +239,9 @@ const Banner = props => {
     };
 
     const typeToPriorityMapping = {
-        primary: 'high',
-        secondary: 'normal',
-        link: 'low'
+        primary: 'primary',
+        secondary: 'secondary',
+        link: 'tertiary'
     };
 
     let BannerButton;
@@ -252,7 +252,7 @@ const Banner = props => {
         BannerButton = (
             <div className={buttonClass}>
                 <Button
-                    priority={typeToPriorityMapping[buttonType]}
+                    design={typeToPriorityMapping[buttonType]}
                     type="button"
                     onClick={() => {}}
                 >
