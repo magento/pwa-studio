@@ -10,11 +10,22 @@ import defaultClasses from './radio.module.css';
 /* eslint-disable jsx-a11y/label-has-for */
 
 const RadioOption = props => {
-    const { classes: propClasses, id, label, value, ...rest } = props;
+    const {
+        ariaLabel,
+        classes: propClasses,
+        id,
+        label,
+        value,
+        ...rest
+    } = props;
     const classes = useStyle(defaultClasses, propClasses);
 
     return (
-        <label className={classes.root} htmlFor={id}>
+        <label
+            className={classes.root}
+            htmlFor={id}
+            aria-label={ariaLabel ? ariaLabel : ''}
+        >
             <InformedRadio
                 {...rest}
                 className={classes.input}
@@ -34,6 +45,7 @@ const RadioOption = props => {
 export default RadioOption;
 
 RadioOption.propTypes = {
+    ariaLabel: string,
     classes: shape({
         icon: string,
         input: string,

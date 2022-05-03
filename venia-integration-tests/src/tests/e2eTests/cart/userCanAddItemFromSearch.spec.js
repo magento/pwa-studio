@@ -28,55 +28,65 @@ const {
     getStoreConfigDataForGalleryACCall
 } = graphqlMockedCallsFixtures;
 
-describe('Verify Add to cart actions from search page', () => {
-    it("User shouldn't be able to add a CustomizableProduct from search", () => {
-        cy.intercept('GET', getProductDetailForProductPageCall).as(
-            'gqlGetProductDetailForProductPageQuery'
-        );
+describe(
+    'Verify Add to cart actions from search page',
+    { tags: ['@commerce', '@open-source', '@ci', '@cart'] },
+    () => {
+        it("User shouldn't be able to add a CustomizableProduct from search", () => {
+            cy.intercept('GET', getProductDetailForProductPageCall).as(
+                'gqlGetProductDetailForProductPageQuery'
+            );
 
-        cy.intercept('GET', getProductFiltersBySearchCall).as(
-            'gqlGetProductFiltersBySearchQuery'
-        );
+            cy.intercept('GET', getProductFiltersBySearchCall).as(
+                'gqlGetProductFiltersBySearchQuery'
+            );
 
-        cy.intercept('GET', getProductSearchCall).as(
-            'gqlGetProductSearchQuery'
-        );
+            cy.intercept('GET', getProductSearchCall).as(
+                'gqlGetProductSearchQuery'
+            );
 
-        cy.intercept('GET', getStoreConfigDataForGalleryACCall).as(
-            'gqlGetStoreConfigDataForGallery'
-        );
+            cy.intercept('GET', getStoreConfigDataForGalleryACCall).as(
+                'gqlGetStoreConfigDataForGallery'
+            );
 
-        cy.visitHomePage();
+            cy.visitHomePage();
 
-        triggerSearch();
-        searchFromSearchBar(searchCarina);
-        cy.wait(
-            ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
-            {
+            triggerSearch();
+            searchFromSearchBar(searchCarina);
+            cy.wait(
+                [
+                    '@gqlGetProductFiltersBySearchQuery',
+                    '@gqlGetProductSearchQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
+
+            cy.wait(['@gqlGetStoreConfigDataForGallery'], {
                 timeout: 60000
-            }
-        );
+            });
 
-        cy.wait(['@gqlGetStoreConfigDataForGallery'], {
-            timeout: 60000
-        });
-
-        addProductToCartFromSearchPage(carinaCardigan.name);
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-            timeout: 60000
-        });
-        cy.checkUrlPath(carinaCardigan.url);
-        assertCartIsEmpty();
-        triggerSearch();
-        searchFromSearchBar('Semper');
-        cy.wait(
-            ['@gqlGetProductFiltersBySearchQuery', '@gqlGetProductSearchQuery'],
-            {
+            addProductToCartFromSearchPage(carinaCardigan.name);
+            cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
-            }
-        );
-        addProductToCartFromSearchPage(semperBangleSet.name);
+            });
+            cy.checkUrlPath(carinaCardigan.url);
+            assertCartIsEmpty();
+            triggerSearch();
+            searchFromSearchBar('Semper');
+            cy.wait(
+                [
+                    '@gqlGetProductFiltersBySearchQuery',
+                    '@gqlGetProductSearchQuery'
+                ],
+                {
+                    timeout: 60000
+                }
+            );
+            addProductToCartFromSearchPage(semperBangleSet.name);
 
-        assertCartTriggerCount(1);
-    });
-});
+            assertCartTriggerCount(1);
+        });
+    }
+);

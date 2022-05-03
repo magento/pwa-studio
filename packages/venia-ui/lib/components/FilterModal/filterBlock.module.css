@@ -17,7 +17,6 @@
 }
 
 .name {
-    composes: h-[1.5rem] from global;
     composes: leading-normal from global;
     composes: text-left from global;
 }

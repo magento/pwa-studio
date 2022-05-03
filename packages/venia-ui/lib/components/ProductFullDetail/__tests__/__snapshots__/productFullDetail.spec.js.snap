@@ -131,8 +131,8 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -146,15 +146,30 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -261,8 +276,8 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -276,15 +291,30 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -425,8 +455,8 @@ exports[`it renders an error for an invalid cart 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -440,15 +470,30 @@ exports[`it renders an error for an invalid cart 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -589,8 +634,8 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -604,15 +649,30 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -754,8 +814,8 @@ Array [
         className="descriptionTitle"
       >
         <mock-FormattedMessage
-          defaultMessage="Product Description"
-          id="productFullDetail.productDescription"
+          defaultMessage="Description"
+          id="productFullDetail.description"
         />
       </span>
       <RichContent
@@ -769,15 +829,30 @@ Array [
         className="detailsTitle"
       >
         <mock-FormattedMessage
-          defaultMessage="SKU"
-          id="global.sku"
+          defaultMessage="Details"
+          id="productFullDetail.details"
         />
       </span>
-      <strong>
-        BTTF123
-      </strong>
       <CustomAttributes
-        customAttributes={Object {}}
+        customAttributes={
+          Array [
+            Object {
+              "attribute_metadata": Object {
+                "label": "SKU",
+                "ui_input": Object {
+                  "ui_input_type": "TEXT",
+                },
+                "uid": "attribute_sku",
+                "used_in_components": Array [
+                  "PRODUCT_DETAILS_PAGE",
+                ],
+              },
+              "entered_attribute_value": Object {
+                "value": "BTTF123",
+              },
+            },
+          ]
+        }
       />
     </section>
   </form>,
@@ -915,8 +990,8 @@ exports[`it renders correctly 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -930,15 +1005,30 @@ exports[`it renders correctly 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1075,8 +1165,8 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1090,15 +1180,30 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1235,8 +1340,8 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1250,15 +1355,30 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1395,8 +1515,8 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1410,15 +1530,30 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1559,8 +1694,8 @@ exports[`it renders form level errors 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1574,15 +1709,30 @@ exports[`it renders form level errors 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1732,8 +1882,8 @@ exports[`it renders message with unsupported product type 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1747,15 +1897,30 @@ exports[`it renders message with unsupported product type 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1862,8 +2027,8 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1877,15 +2042,30 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -2024,8 +2204,8 @@ exports[`renders a WishlistButton with props 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -2039,15 +2219,30 @@ exports[`renders a WishlistButton with props 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>

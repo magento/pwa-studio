@@ -5,9 +5,18 @@
 }
 
 .content {
-    composes: inline-block from global;
+    composes: inline from global;
 }
 
 .contentHtml {
-    composes: block from global;
+    composes: inline from global;
+}
+
+.option {
+    composes: inline-block from global;
+    composes: break-words from global;
+}
+
+.option:not(:last-child)::after {
+    content: ',\00a0';
 }
