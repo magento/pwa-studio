@@ -128,7 +128,7 @@ module.exports = async env => {
         new HTMLWebpackPlugin(htmlWebpackConfig)
     ];
 
-    /* 
+    /*
     Commenting out this section until SSR is fully implemented
     */
     // const serverConfig = Object.assign({}, config, {
@@ -183,6 +183,10 @@ module.exports = async env => {
     //         maxChunks: 1
     //     })
     // );
+
+    config.resolve.alias = {
+        '@magento/venia-ui/lib': '@magento/peregrine/lib/ui'
+    };
 
     return [config];
 };

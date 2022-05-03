@@ -18,7 +18,7 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
     // The .env for running most of this project comes from venia-concept.
     // This is not resilient and will need to change if venia-concept is renamed.
     const projectConfig = await loadEnvironment(
-        path.resolve(__dirname, '../../venia-concept')
+        path.resolve(__dirname, '../../../../venia-concept')
     );
 
     if (projectConfig.error) {

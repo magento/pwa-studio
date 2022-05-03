@@ -127,15 +127,14 @@ const testReactComponents = inPackage => ({
     moduleNameMapper: {
         // Mock binary files to avoid excess RAM usage.
         '\\.(jpg|jpeg|png)$':
-            '<rootDir>/packages/venia-ui/__mocks__/fileMock.js',
+            '<rootDir>/packages/peregrine/scripts/file-mock.js',
         // CSS module classes are dynamically generated, but that makes
         // it hard to test React components using DOM classnames.
         // This mapping forces CSS Modules to return literal identies,
         // so e.g. `classes.root` is always `"root"`.
         '\\.(module.)?css$': 'identity-obj-proxy',
         '\\.svg$': 'identity-obj-proxy',
-        '@magento/venia-drivers':
-            '<rootDir>/packages/venia-ui/lib/drivers/index.js'
+        '@magento/venia-ui/lib/(.*)$': '<rootDir>/packages/peregrine/lib/ui/$1'
     },
     moduleFileExtensions: [
         'ac.js',
@@ -255,7 +254,7 @@ const jestConfig = {
             ],
             // Define global variables.
             globals,
-            // Expose jsdom to tests.
+            ...testReactComponents(inPackage),
             setupFiles: [
                 // Shim DOM properties not supported by jsdom
                 inPackage('scripts/shim.js'),
@@ -280,12 +279,6 @@ const jestConfig = {
         configureProject('venia-concept', 'Venia Storefront', inPackage =>
             testReactComponents(inPackage)
         ),
-        configureProject('venia-ui', 'Venia UI', inPackage => ({
-            ...testReactComponents(inPackage),
-            setupFiles: [
-                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
-            ]
-        })),
         configureProject(
             'extensions/venia-sample-payments-checkmo',
             'Check Money Order Payment',

@@ -16,6 +16,8 @@ const config = {
         content: [
             './node_modules/@magento/venia-ui/lib/**/*.module.css',
             '../venia-ui/lib/**/*.module.css',
+            './node_modules/@magento/peregrine/lib/ui/**/*.module.css',
+            '../peregrine/lib/ui/**/*.module.css',
             './src/**/*.module.css',
             './template.html'
         ],

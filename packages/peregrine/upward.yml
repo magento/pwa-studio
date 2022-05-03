@@ -52,7 +52,7 @@ staticFromRoot:
                     filename: request.url.pathname
                 template:
                     resolver: inline
-                    inline: './venia-static/{{ filename }}'
+                    inline: './static/{{ filename }}'
 
 contentTypeFromExtension:
     when:
@@ -177,21 +177,3 @@ veniaStatic:
     directory:
         resolver: inline
         inline: '.'
-
-# These are no-ops at runtime; nothing refers to these context values in the
-# rest of this file. They exist to declare that the files in the `./static`
-# directory are required and should be copied into the build assets by the
-# UpwardIncludePlugin. Since they are not directly mentioned elsewhere in this
-# file or any other upward.yml file in the build, the UpwardIncludePlugin would
-# fail to copy them if they were not mentioned here.
-
-# The static directory includes files which don't need to be compiled.
-# They are served by the `veniaStatic` DirectoryResolver, along with the
-# bundles and other assets, but since that resolver serves the `.` dist
-# directory, the UpwardIncludePlugin will not copy it to avoid circular
-# dependency. TODO: This is kind of confusing.
-veniaStaticIncludes:
-    resolver: directory
-    directory:
-        resolver: inline
-        inline: './venia-static'
