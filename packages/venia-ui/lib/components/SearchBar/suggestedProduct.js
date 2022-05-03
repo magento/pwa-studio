@@ -17,6 +17,7 @@ const SuggestedProduct = props => {
         small_image,
         name,
         onNavigate,
+        price,
         price_range,
         url_suffix
     } = props;
@@ -32,9 +33,14 @@ const SuggestedProduct = props => {
         url_suffix
     ]);
 
+    // fall back to deprecated field if price range is unavailable
     const priceProps = {
-        currencyCode: price_range?.maximum_price?.final_price?.currency,
-        value: price_range?.maximum_price?.final_price?.value
+        currencyCode:
+            price_range?.maximum_price?.final_price?.currency ||
+            price.regularPrice.amount.currency,
+        value:
+            price_range?.maximum_price?.final_price?.value ||
+            price.regularPrice.amount.value
     };
 
     return (
@@ -72,6 +78,14 @@ SuggestedProduct.propTypes = {
             })
         })
     }).isRequired,
+    price_range: shape({
+        maximum_price: shape({
+            final_price: shape({
+                currency: string,
+                value: number
+            })
+        })
+    }),
     classes: shape({
         root: string,
         image: string,

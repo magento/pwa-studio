@@ -224,6 +224,9 @@ const ProductFullDetail = props => {
                 data-cy="ProductFullDetail-root"
                 onSubmit={handleAddToCart}
             >
+                <section className={classes.imageCarousel}>
+                    <Carousel images={mediaGalleryEntries} />
+                </section>
                 <section className={classes.title}>
                     <h1
                         className={classes.productName}
@@ -241,9 +244,6 @@ const ProductFullDetail = props => {
                         />
                     </p>
                     {shortDescription}
-                </section>
-                <section className={classes.imageCarousel}>
-                    <Carousel images={mediaGalleryEntries} />
                 </section>
                 <FormError
                     classes={{

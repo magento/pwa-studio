@@ -292,6 +292,10 @@ export const GET_PRODUCTS_BY_URL_KEY = gql`
                             currency
                             value
                         }
+                        regular_price {
+                            currency
+                            value
+                        }
                     }
                 }
                 sku

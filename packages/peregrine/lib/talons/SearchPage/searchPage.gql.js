@@ -52,6 +52,10 @@ export const PRODUCT_SEARCH = gql`
                             currency
                             value
                         }
+                        regular_price {
+                            currency
+                            value
+                        }
                     }
                 }
                 sku
