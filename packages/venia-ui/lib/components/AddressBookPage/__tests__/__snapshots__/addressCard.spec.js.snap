@@ -521,6 +521,36 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
       className="confirmDeleteContainer"
     >
       <button
+        className="root_secondary_medium"
+        disabled={false}
+        onClick={[MockFunction onCancelDelete]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Cancel"
+              id="global.cancelButton"
+            />
+          </span>
+        </span>
+      </button>
+      <button
         className="root_primary_medium"
         disabled={false}
         onClick={[MockFunction onConfirmDelete]}
@@ -546,36 +576,6 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
             <mock-FormattedMessage
               defaultMessage="Delete"
               id="global.deleteButton"
-            />
-          </span>
-        </span>
-      </button>
-      <button
-        className="root_tertiary_medium"
-        disabled={false}
-        onClick={[MockFunction onCancelDelete]}
-        onDragStart={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchCancel={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        type="button"
-      >
-        <span
-          className="content"
-        >
-          <span
-            className="text"
-          >
-            <mock-FormattedMessage
-              defaultMessage="Cancel"
-              id="global.cancelButton"
             />
           </span>
         </span>
@@ -700,6 +700,36 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
       className="confirmDeleteContainer"
     >
       <button
+        className="root_secondary_medium"
+        disabled={true}
+        onClick={[MockFunction onCancelDelete]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Cancel"
+              id="global.cancelButton"
+            />
+          </span>
+        </span>
+      </button>
+      <button
         className="root_primary_medium"
         disabled={true}
         onClick={[MockFunction onConfirmDelete]}
@@ -725,36 +755,6 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
             <mock-FormattedMessage
               defaultMessage="Delete"
               id="global.deleteButton"
-            />
-          </span>
-        </span>
-      </button>
-      <button
-        className="root_tertiary_medium"
-        disabled={true}
-        onClick={[MockFunction onCancelDelete]}
-        onDragStart={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchCancel={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        type="button"
-      >
-        <span
-          className="content"
-        >
-          <span
-            className="text"
-          >
-            <mock-FormattedMessage
-              defaultMessage="Cancel"
-              id="global.cancelButton"
             />
           </span>
         </span>

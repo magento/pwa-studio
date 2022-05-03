@@ -128,7 +128,7 @@ exports[`it renders correctly 1`] = `
             className="text"
           >
             <mock-FormattedMessage
-              defaultMessage="CHECKOUT"
+              defaultMessage="Checkout"
               id="miniCart.checkout"
             />
           </span>
