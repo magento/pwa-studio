@@ -271,7 +271,7 @@
     "logo.title": "Venia",
     "magentoRoute.internalError": "Something went wrong. Sorry about that.",
     "magentoRoute.routeError": "Looks like the page you were hoping to find doesn't exist. Sorry about that.",
-    "miniCart.checkout": "CHECKOUT",
+    "miniCart.checkout": "Checkout",
     "miniCart.editCartButton": "Edit Shopping Cart",
     "miniCart.emptyMessage": "There are no items in your cart.",
     "miniCart.subtotal": "Subtotal: ",

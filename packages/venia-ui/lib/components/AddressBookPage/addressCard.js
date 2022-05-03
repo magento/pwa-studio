@@ -78,6 +78,17 @@ const AddressCard = props => {
         <div className={classes.confirmDeleteContainer}>
             <Button
                 disabled={isDeletingCustomerAddress}
+                design="secondary"
+                type="button"
+                onClick={onCancelDelete}
+            >
+                <FormattedMessage
+                    id={'global.cancelButton'}
+                    defaultMessage={'Cancel'}
+                />
+            </Button>
+            <Button
+                disabled={isDeletingCustomerAddress}
                 design="primary"
                 type="button"
                 onClick={onConfirmDelete}
@@ -86,17 +97,6 @@ const AddressCard = props => {
                 <FormattedMessage
                     id={'global.deleteButton'}
                     defaultMessage={'Delete'}
-                />
-            </Button>
-            <Button
-                disabled={isDeletingCustomerAddress}
-                design="tertiary"
-                type="button"
-                onClick={onCancelDelete}
-            >
-                <FormattedMessage
-                    id={'global.cancelButton'}
-                    defaultMessage={'Cancel'}
                 />
             </Button>
         </div>
