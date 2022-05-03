@@ -63,7 +63,7 @@ exports[`on hover displays button and overlay 1`] = `
           className="buttonHover"
         >
           <button
-            className="root_secondary_iconOnly"
+            className="root_primary_iconOnly"
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
@@ -77,7 +77,6 @@ exports[`on hover displays button and overlay 1`] = `
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
-            priority="high"
             type="button"
           >
             <span
@@ -156,7 +155,7 @@ exports[`on hover displays button and overlay 2`] = `
           className="buttonHover"
         >
           <button
-            className="root_secondary_iconOnly"
+            className="root_primary_iconOnly"
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
@@ -170,7 +169,6 @@ exports[`on hover displays button and overlay 2`] = `
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
-            priority="high"
             type="button"
           >
             <span
@@ -352,7 +350,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
           className="buttonHover"
         >
           <button
-            className="root_secondary_medium"
+            className="root_primary_medium"
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
@@ -366,7 +364,6 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
-            priority="high"
             type="button"
           >
             <span

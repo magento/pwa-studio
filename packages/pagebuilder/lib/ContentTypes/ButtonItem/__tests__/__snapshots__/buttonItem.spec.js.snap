@@ -64,7 +64,6 @@ exports[`renders a ButtonItem component with all properties configured 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
-    priority="normal"
     style={
       Object {
         "border": "solid",
