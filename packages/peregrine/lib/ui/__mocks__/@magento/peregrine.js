@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserPersistence } from './util/simplePersistence';
 
-const peregrine = jest.requireActual('../../../peregrine/lib');
+const peregrine = jest.requireActual('@magento/peregrine/lib');
 
 // re-exports
 const RestApi = {

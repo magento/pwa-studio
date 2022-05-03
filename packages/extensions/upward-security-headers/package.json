@@ -13,8 +13,8 @@
   "author": "Adobe Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
-    "@magento/pwa-buildpack": "~11.2.0",
     "@magento/peregrine": "~12.3.0",
+    "@magento/pwa-buildpack": "~11.2.0",
     "webpack": "~4.46.0"
   },
   "pwa-studio": {
