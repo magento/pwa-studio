@@ -38,7 +38,6 @@
     "@magento/pwa-buildpack": "~11.3.0"
   },
   "devDependencies": {
-    "@adobe/apollo-link-mutation-queue": "~1.0.2",
     "@apollo/client": "~3.5.0",
     "@babel/core": "~7.15.0",
     "@babel/plugin-proposal-class-properties": "~7.14.5",
