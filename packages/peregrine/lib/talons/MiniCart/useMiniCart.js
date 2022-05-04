@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -6,9 +6,11 @@ import { useCartContext } from '../../context/cart';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './miniCart.gql';
+import { useEventingContext } from '../../context/eventing';
 
 /**
  *
+ * @param {Boolean} props.isOpen - True if the mini cart is open
  * @param {Function} props.setIsOpen - Function to toggle the mini cart
  * @param {DocumentNode} props.operations.miniCartQuery - Query to fetch mini cart data
  * @param {DocumentNode} props.operations.removeItemMutation - Mutation to remove an item from cart
@@ -27,7 +29,9 @@ import DEFAULT_OPERATIONS from './miniCart.gql';
  *  }
  */
 export const useMiniCart = props => {
-    const { setIsOpen } = props;
+    const { isOpen, setIsOpen } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
@@ -127,6 +131,16 @@ export const useMiniCart = props => {
         () => deriveErrorMessage([removeItemError]),
         [removeItemError]
     );
+
+    useEffect(() => {
+        if (isOpen) {
+            dispatch({
+                name: 'viewMiniCart',
+                cartId: cartId,
+                products: productList
+            });
+        }
+    }, [isOpen]);
 
     return {
         closeMiniCart,
