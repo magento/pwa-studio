@@ -8,6 +8,13 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -31,13 +38,6 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -91,7 +91,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -131,8 +131,8 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -146,15 +146,30 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -167,6 +182,13 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
   onReset={[Function]}
   onSubmit={[Function]}
 >
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
   <section
     className="title"
   >
@@ -192,13 +214,6 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
       </span>
     </p>
   </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
-  </section>
   <FormError
     classes={
       Object {
@@ -221,7 +236,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -261,8 +276,8 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -276,15 +291,30 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -297,6 +327,13 @@ exports[`it renders an error for an invalid cart 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
   <section
     className="title"
   >
@@ -321,13 +358,6 @@ exports[`it renders an error for an invalid cart 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -385,7 +415,7 @@ exports[`it renders an error for an invalid cart 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -425,8 +455,8 @@ exports[`it renders an error for an invalid cart 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -440,15 +470,30 @@ exports[`it renders an error for an invalid cart 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -461,6 +506,13 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
   onReset={[Function]}
   onSubmit={[Function]}
 >
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
   <section
     className="title"
   >
@@ -485,13 +537,6 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -549,7 +594,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -589,8 +634,8 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -604,15 +649,30 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -630,6 +690,13 @@ Array [
     onReset={[Function]}
     onSubmit={[Function]}
   >
+    <section
+      className="imageCarousel"
+    >
+      <ProductImageCarousel
+        images={Array []}
+      />
+    </section>
     <section
       className="title"
     >
@@ -654,13 +721,6 @@ Array [
           50
         </span>
       </p>
-    </section>
-    <section
-      className="imageCarousel"
-    >
-      <ProductImageCarousel
-        images={Array []}
-      />
     </section>
     <FormError
       classes={
@@ -714,7 +774,7 @@ Array [
           id="global.quantity"
         />
       </span>
-      QuantityFields
+      QuantityStepper
     </section>
     <section
       className="actions"
@@ -754,8 +814,8 @@ Array [
         className="descriptionTitle"
       >
         <mock-FormattedMessage
-          defaultMessage="Product Description"
-          id="productFullDetail.productDescription"
+          defaultMessage="Description"
+          id="productFullDetail.description"
         />
       </span>
       <RichContent
@@ -769,15 +829,30 @@ Array [
         className="detailsTitle"
       >
         <mock-FormattedMessage
-          defaultMessage="SKU"
-          id="global.sku"
+          defaultMessage="Details"
+          id="productFullDetail.details"
         />
       </span>
-      <strong>
-        BTTF123
-      </strong>
       <CustomAttributes
-        customAttributes={Object {}}
+        customAttributes={
+          Array [
+            Object {
+              "attribute_metadata": Object {
+                "label": "SKU",
+                "ui_input": Object {
+                  "ui_input_type": "TEXT",
+                },
+                "uid": "attribute_sku",
+                "used_in_components": Array [
+                  "PRODUCT_DETAILS_PAGE",
+                ],
+              },
+              "entered_attribute_value": Object {
+                "value": "BTTF123",
+              },
+            },
+          ]
+        }
       />
     </section>
   </form>,
@@ -792,6 +867,13 @@ exports[`it renders correctly 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -815,13 +897,6 @@ exports[`it renders correctly 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -875,7 +950,7 @@ exports[`it renders correctly 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -915,8 +990,8 @@ exports[`it renders correctly 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -930,15 +1005,30 @@ exports[`it renders correctly 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -952,6 +1042,13 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -975,13 +1072,6 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1035,7 +1125,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1075,8 +1165,8 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1090,15 +1180,30 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1112,6 +1217,13 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -1135,13 +1247,6 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1195,7 +1300,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1235,8 +1340,8 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1250,15 +1355,30 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1272,6 +1392,13 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
   onSubmit={[Function]}
 >
   <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
     className="title"
   >
     <h1
@@ -1295,13 +1422,6 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1355,7 +1475,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1395,8 +1515,8 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1410,15 +1530,30 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1431,6 +1566,13 @@ exports[`it renders form level errors 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
   <section
     className="title"
   >
@@ -1455,13 +1597,6 @@ exports[`it renders form level errors 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1519,7 +1654,7 @@ exports[`it renders form level errors 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1559,8 +1694,8 @@ exports[`it renders form level errors 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1574,15 +1709,30 @@ exports[`it renders form level errors 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1595,6 +1745,13 @@ exports[`it renders message with unsupported product type 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
   <section
     className="title"
   >
@@ -1619,13 +1776,6 @@ exports[`it renders message with unsupported product type 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1679,7 +1829,7 @@ exports[`it renders message with unsupported product type 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1732,8 +1882,8 @@ exports[`it renders message with unsupported product type 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1747,15 +1897,30 @@ exports[`it renders message with unsupported product type 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1768,6 +1933,13 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
   <section
     className="title"
   >
@@ -1793,13 +1965,6 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
       </span>
     </p>
   </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
-  </section>
   <FormError
     classes={
       Object {
@@ -1822,7 +1987,7 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -1862,8 +2027,8 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -1877,15 +2042,30 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>
@@ -1898,6 +2078,13 @@ exports[`renders a WishlistButton with props 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
   <section
     className="title"
   >
@@ -1922,13 +2109,6 @@ exports[`renders a WishlistButton with props 1`] = `
         50
       </span>
     </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
   </section>
   <FormError
     classes={
@@ -1982,7 +2162,7 @@ exports[`renders a WishlistButton with props 1`] = `
         id="global.quantity"
       />
     </span>
-    QuantityFields
+    QuantityStepper
   </section>
   <section
     className="actions"
@@ -2024,8 +2204,8 @@ exports[`renders a WishlistButton with props 1`] = `
       className="descriptionTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
+        defaultMessage="Description"
+        id="productFullDetail.description"
       />
     </span>
     <RichContent
@@ -2039,15 +2219,30 @@ exports[`renders a WishlistButton with props 1`] = `
       className="detailsTitle"
     >
       <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
+        defaultMessage="Details"
+        id="productFullDetail.details"
       />
     </span>
-    <strong>
-      BTTF123
-    </strong>
     <CustomAttributes
-      customAttributes={Object {}}
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
     />
   </section>
 </form>

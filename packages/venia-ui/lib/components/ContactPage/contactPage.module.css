@@ -14,7 +14,7 @@
 
     /* Medium */
     composes: md_text-left from global;
-    composes: md_text-5xl from global;
+    composes: md_text-4xl from global;
 }
 
 .subtitle {

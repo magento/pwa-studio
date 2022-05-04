@@ -19,11 +19,11 @@ import DEFAULT_OPERATIONS from './productForm.gql';
  *
  * @param {Object} props
  * @param {Object} props.cartItem The cart item to configure on the form
- * @param {GraphQLAST} props.getConfigurableOptionsQuery GraphQL query to get the configurable options for a product.
+ * @param {GraphQLDocument} props.getConfigurableOptionsQuery GraphQL query to get the configurable options for a product.
  * @param {function} props.setIsCartUpdating Function for setting the updating state for the shopping cart.
  * @param {function} props.setVariantPrice Function for setting the variant price on a product.
- * @param {GraphQLAST} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
- * @param {GraphQLAST} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
+ * @param {GraphQLDocument} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
+ * @param {GraphQLDocument} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
  * @param {function} props.setActiveEditItem Function for setting the actively editing item.
  *
  * @return {ProductFormTalonProps}
@@ -150,15 +150,8 @@ export const useProductForm = props => {
     }, [storeConfigData]);
 
     useEffect(() => {
-        let variantPrice = null;
-
-        if (selectedVariant) {
-            const { product } = selectedVariant;
-            const { price } = product;
-            const { regularPrice } = price;
-            variantPrice = regularPrice.amount;
-        }
-
+        const variantPrice =
+            selectedVariant?.product?.price_range?.maximum_price?.final_price;
         setVariantPrice(variantPrice);
     }, [selectedVariant, setVariantPrice]);
 

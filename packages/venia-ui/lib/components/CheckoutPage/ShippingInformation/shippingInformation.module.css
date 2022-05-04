@@ -1,62 +1,73 @@
 .root {
-    border: 2px solid rgb(var(--venia-global-color-gray-400));
-    border-radius: 0.375rem;
-    padding: 2rem;
+    /* TODO @TW: review (B6) */
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: p-md from global;
+    composes: rounded-md from global;
 }
 
 .root_editMode {
     composes: root;
-    border: none;
-    border-radius: 0px;
-    border-bottom: 2px solid rgb(var(--venia-global-color-gray-400));
-    padding: 0;
+
+    /* TODO @TW: review (B6) */
+    composes: border-0 from global;
+    composes: border-b-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: p-0 from global;
+    composes: rounded-none from global;
 }
 
 .root_updated {
     composes: root;
+
     animation: flash var(--venia-global-anim-bounce) 640ms 2;
 }
 
 .cardHeader {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: grid-flow-col from global;
 }
 
 .cardTitle {
-    font-weight: 600;
+    composes: font-semibold from global;
 }
 
 .editButton {
-    padding: 1rem;
-    margin: -1rem;
-    color: rgb(var(--venia-brand-color-1-700));
+    composes: -m-xs from global;
+    composes: p-xs from global;
+    composes: text-brand-dark from global;
 }
 
 .editWrapper {
-    display: grid;
-    padding: 1rem 0 1.5rem;
-    row-gap: 0.5rem;
+    composes: grid from global;
+    composes: pb-sm from global;
+    composes: pt-xs from global;
+    composes: px-0 from global;
+    composes: gap-y-2xs from global;
 }
 
 .editTitle {
-    font-weight: 600;
-    text-transform: uppercase;
+    composes: font-semibold from global;
+    composes: uppercase from global;
 }
 
 .editIcon {
-    stroke: rgb(var(--venia-brand-color-1-700));
+    composes: stroke-brand-base from global;
+}
+
+.editText {
+    composes: hidden from global;
+
+    composes: lg_inline from global;
 }
 
 .loading {
     composes: root from '../../LoadingIndicator/indicator.module.css';
-    text-align: center;
-}
 
-@media (max-width: 960px) {
-    .editText {
-        display: none;
-    }
+    composes: text-center from global;
 }
 
 @keyframes flash {

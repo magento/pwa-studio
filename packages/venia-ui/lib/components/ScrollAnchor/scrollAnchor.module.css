@@ -1,4 +1,6 @@
 .anchor {
-    position: absolute;
-    top: calc(var(--venia-global-header-minHeight) * -1 - 5px);
+    composes: absolute from global;
+    top: calc(
+        var(--venia-global-header-minHeight) * -1 - 5px
+    ); /* TODO @TW: review */
 }

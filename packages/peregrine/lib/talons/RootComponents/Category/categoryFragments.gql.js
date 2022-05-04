@@ -18,6 +18,10 @@ export const ProductsFragment = gql`
             name
             price_range {
                 maximum_price {
+                    final_price {
+                        currency
+                        value
+                    }
                     regular_price {
                         currency
                         value

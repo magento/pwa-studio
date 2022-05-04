@@ -1,12 +1,16 @@
 .root {
-    padding: 1rem 0;
+    composes: px-0 from global;
+    composes: py-xs from global;
+
+    composes: lg_grid from global;
+    composes: lg_grid-flow-row from global;
+    composes: lg_items-start from global;
+    composes: lg_px-xs from global;
+    composes: lg_py-md from global;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
     .root {
-        align-items: start;
-        display: grid;
-        grid-auto-flow: row;
         grid-template-areas:
             'images title'
             'images errors'
@@ -14,75 +18,72 @@
             'images quantity'
             'images cart'
             'images .';
-        grid-template-columns: 1.5625fr 1fr;
+        grid-template-columns: minmax(0, 1.5625fr) minmax(0, 1fr);
         grid-template-rows: repeat(5, min-content) 1fr [fold];
-        padding: 2.5rem 1rem;
+    }
+
+    .title {
+        grid-template-columns: 1fr max-content;
     }
 }
 
 .section {
-    border-color: rgb(var(--venia-global-color-border));
-    border-style: solid;
-    border-width: 0 0 1px;
-    margin: 0 1.5rem;
-    padding: 1.5rem 0;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: border-t-0 from global;
+    composes: border-r-0 from global;
+    composes: border-b from global;
+    composes: border-l-0 from global;
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
 }
 
 .sectionTitle {
-    align-items: center;
-    display: flex;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
+    composes: flex from global;
+    composes: font-semibold from global;
+    composes: items-center from global;
+    composes: leading-normal from global;
+    composes: mb-sm from global;
+    composes: text-colorDefault from global;
 }
 
 .title {
-    align-items: center;
-    display: grid;
+    composes: section;
+    composes: gap-2 from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: leading-normal from global;
+    composes: px-sm from global;
+    composes: py-xs from global;
     grid-area: title;
-    grid-gap: 1rem;
-    grid-template-columns: 1fr max-content;
-    line-height: 1.5;
-    padding: 1rem 1.5rem;
-}
-
-@media (min-width: 1024px) {
-    .title {
-        padding: 1.5rem;
-    }
 }
 
 .productName {
-    font-size: 1rem;
-    font-weight: 600;
-}
+    composes: font-semibold from global;
+    composes: text-colorDefault from global;
 
-@media (min-width: 1024px) {
-    .productName {
-        font-size: 1.3125rem;
-        font-weight: 400;
-    }
+    composes: lg_font-normal from global;
+    composes: lg_text-xl from global;
 }
 
 .productPrice {
-    display: block;
+    composes: block from global;
+    composes: mb-2 from global;
 }
 
 .imageCarousel {
     grid-area: images;
     grid-column: 1 / 2;
     grid-row: 1 / fold;
-    margin: 0 auto;
-    max-width: 640px;
-}
+    composes: max-w-[640px] from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
 
-@media (min-width: 1024px) {
-    .imageCarousel {
-        margin: 0;
-        max-width: 800px;
-        padding: 1.5rem 0;
-    }
+    composes: lg_m-0 from global;
+    composes: lg_px-0 from global;
+    composes: lg_py-sm from global;
 }
 
 .options {
@@ -104,34 +105,26 @@
 }
 
 .actions {
+    composes: gap-y-sm from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
     composes: section;
-    align-items: center;
-    display: grid;
     grid-area: cart;
-    row-gap: 1.5rem;
-    justify-items: center;
-}
 
-@media (min-width: 1024px) {
-    .actions {
-        border-bottom-width: 0;
-    }
+    composes: lg_border-b-0 from global;
 }
 
 .description {
     composes: section;
     grid-column: 1 / span 1;
     grid-row: fold / span 1;
-}
 
-@media (min-width: 1024px) {
-    .description {
-        align-self: stretch;
-        border-top-width: 1px;
-        margin: 0;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
+    composes: lg_border-t from global;
+    composes: lg_m-0 from global;
+    composes: lg_pl-sm from global;
+    composes: lg_pr-sm from global;
+    composes: lg_self-stretch from global;
 }
 
 .descriptionTitle {
@@ -142,6 +135,24 @@
     composes: section;
     grid-column: 2 / span 1;
     grid-row: fold / span 1;
+
+    composes: lg_border-t from global;
+    composes: lg_m-0 from global;
+    composes: lg_pl-sm from global;
+    composes: lg_pr-sm from global;
+    composes: lg_self-stretch from global;
+}
+
+.detailsPageBuilder {
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: px-0 from global;
+    composes: py-sm from global;
+    grid-column: 1 / span 2;
+}
+
+.detailsPageBuilderList {
+    list-style: none;
 }
 
 @media (min-width: 1024px) {
@@ -159,8 +170,8 @@
 }
 
 .related {
+    composes: border-b-0 from global;
     composes: section;
-    border-bottom-width: 0;
     grid-column: 1 / span 2;
 }
 
@@ -169,20 +180,20 @@
 }
 
 .quantityRoot {
-    composes: root from '../CartPage/ProductListing/quantity.module.css';
+    composes: root from '../QuantityStepper/quantityStepper.module.css';
     grid-template-columns: auto 4rem auto;
-    justify-content: start;
+    composes: justify-start from global;
 }
 
 .unavailableContainer {
-    align-items: center;
-    background-color: rgb(var(--venia-global-color-gray));
-    color: rgb(var(--venia-global-color-gray-700));
-    column-gap: 0.5rem;
-    display: grid;
-    font-style: italic;
-    grid-auto-flow: column;
-    justify-content: start;
-    padding: 0.75rem;
-    width: 100%;
+    composes: bg-subtle from global;
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: italic from global;
+    composes: items-center from global;
+    composes: justify-start from global;
+    composes: p-3 from global;
+    composes: text-subtle from global;
+    composes: w-full from global;
 }

@@ -1,22 +1,26 @@
 .root {
-    border-radius: 0.375rem;
-    border: 2px solid rgb(var(--venia-global-color-gray-400));
-    column-gap: 1rem;
-    display: grid;
-    grid-template-columns: 1fr auto;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: gap-x-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+    composes: min-w-[20rem] from global;
+    composes: px-md from global;
+    composes: py-sm from global;
+    composes: rounded-md from global;
+    composes: relative from global;
     min-height: 10rem;
-    min-width: 20rem;
-    padding: 1.5rem 2rem;
-    position: relative;
 }
 
 .root_active {
     composes: root;
-    border-color: rgb(var(--venia-brand-color-1-600));
+
+    composes: border-brand-dark from global;
 }
 
 .title {
-    font-weight: var(--venia-global-fontWeight-semibold);
+    composes: font-semibold from global;
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
 }
@@ -38,62 +42,70 @@
 
 .deleteButton {
     composes: root from '../LinkButton/linkButton.module.css';
-    text-decoration: none;
+
+    composes: no-underline from global;
 }
 
 .deleteConfirmationContainer {
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 0.375rem;
-    display: grid;
-    gap: 2rem;
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: gap-md from global;
+    composes: grid from global;
+    composes: h-full from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: left-0 from global;
+    composes: opacity-100 from global;
+    composes: px-md from global;
+    composes: py-xs from global;
+    composes: rounded-md from global;
+    composes: top-0 from global;
+    composes: w-full from global;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    height: 100%;
-    justify-items: center;
-    opacity: 1;
-    left: 0;
-    padding: 1.25rem 2rem;
-    position: absolute;
-    top: 0;
     transform: scaleX(1);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-global-anim-in);
     transition-property: opacity, transform, visibility;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
     visibility: visible;
-    width: 100%;
 }
 
 .deleteConfirmationContainer_hidden {
     composes: deleteConfirmationContainer;
-    opacity: 0;
+
+    composes: opacity-0 from global;
     transform: scaleX(0);
     transition-delay: 0s, 192ms, 0s;
     transition-timing-function: var(--venia-global-anim-out);
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
     visibility: hidden;
 }
 
 .confirmDeleteButton {
     composes: root_normalPriorityNegative from '../Button/button.module.css';
-    background-color: white;
-    order: 1;
+
+    composes: bg-white from global;
+    composes: order-1 from global;
+    composes: order-first from global;
 }
 
 .cancelDeleteButton {
     composes: root_lowPriority from '../Button/button.module.css';
-    background-color: white;
+
+    composes: bg-white from global;
 }
 
-@media (max-width: 960px) {
-    .deleteText {
-        display: none;
-    }
+.deleteText {
+    composes: hidden from global;
+
+    composes: xs_lg_block from global;
 }
 
-@media (max-width: 425px) {
-    .confirmDeleteButton {
-        order: 0;
-    }
-
+@media (max-width: 479px) {
     .deleteConfirmationContainer {
         transform: scaleY(1);
     }

@@ -48,6 +48,9 @@ jest.mock('@apollo/client', () => {
                 },
                 {
                     name: 'foo'
+                },
+                {
+                    name: 'boolean_filter'
                 }
             ]
         }
@@ -100,6 +103,22 @@ const defaultProps = {
                     value: 'bar'
                 }
             ]
+        },
+        {
+            attribute_code: 'boolean_filter',
+            label: 'Boolean Filter',
+            options: [
+                {
+                    __typename: 'AggregationOption',
+                    label: '0',
+                    value: '0'
+                },
+                {
+                    __typename: 'AggregationOption',
+                    label: '1',
+                    value: '1'
+                }
+            ]
         }
     ],
     operations: {}
@@ -129,6 +148,7 @@ describe('#useFilterModal', () => {
             filterItems: expect.any(Object),
             filterKeys: expect.any(Object),
             filterNames: expect.any(Object),
+            filterFrontendInput: expect.any(Object),
             filterState: expect.any(Object),
             handleApply: expect.any(Function),
             handleClose: expect.any(Function),
@@ -153,6 +173,12 @@ describe('#useFilterModal', () => {
         createTestInstance(<Component />);
         const { filterNames } = log.mock.calls[0][0];
         expect(filterNames.get('foo')).toBeTruthy();
+    });
+
+    it('renders boolean filters', () => {
+        createTestInstance(<Component />);
+        const { filterNames } = log.mock.calls[0][0];
+        expect(filterNames.get('boolean_filter')).toBeTruthy();
     });
 
     it('writes filter state to history when "isApplying"', () => {

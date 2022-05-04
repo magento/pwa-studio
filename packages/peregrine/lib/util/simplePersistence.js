@@ -42,11 +42,17 @@ export default class BrowserPersistence {
         return this.storage.getItem(name);
     }
     getItem(name) {
+        const now = Date.now();
         const item = this.storage.getItem(name);
         if (!item) {
             return undefined;
         }
-        const { value } = JSON.parse(item);
+        const { value, ttl, timeStored } = JSON.parse(item);
+
+        if (ttl && now - timeStored > ttl * 1000) {
+            this.storage.removeItem(name);
+            return undefined;
+        }
 
         return JSON.parse(value);
     }

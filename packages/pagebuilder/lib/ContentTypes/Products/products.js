@@ -288,6 +288,10 @@ export const GET_PRODUCTS_BY_URL_KEY = gql`
                 name
                 price_range {
                     maximum_price {
+                        final_price {
+                            currency
+                            value
+                        }
                         regular_price {
                             currency
                             value

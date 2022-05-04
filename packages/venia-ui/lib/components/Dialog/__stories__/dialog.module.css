@@ -1,4 +1,5 @@
 .paragraph {
-    margin: 0.5em 0;
-    line-height: 1.15em;
+    composes: leading-tight from global;
+    composes: mx-0 from global;
+    composes: my-2 from global;
 }
