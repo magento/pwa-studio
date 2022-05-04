@@ -33,7 +33,12 @@ const CurrencySwitcher = props => {
 
     const currencies = availableCurrencies.map(code => {
         return (
-            <li role="option" aria-selected={currentCurrencyCode} key={code} className={classes.menuItem}>
+            <li
+                role="option"
+                aria-selected={currentCurrencyCode}
+                key={code}
+                className={classes.menuItem}
+            >
                 <SwitcherItem
                     active={code === currentCurrencyCode}
                     onClick={handleSwitchCurrency}
