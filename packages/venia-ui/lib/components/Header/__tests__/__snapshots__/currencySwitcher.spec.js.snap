@@ -32,6 +32,7 @@ exports[`does not render CurrencySwitcher when there is only one available store
       role="listbox"
     >
       <li
+        aria-selected="EUR"
         className="menuItem"
         role="option"
       >
@@ -61,6 +62,7 @@ exports[`does not render CurrencySwitcher when there is only one available store
         </button>
       </li>
       <li
+        aria-selected="EUR"
         className="menuItem"
         role="option"
       >
@@ -146,6 +148,7 @@ exports[`renders the correct tree 1`] = `
       role="listbox"
     >
       <li
+        aria-selected="EUR"
         className="menuItem"
         role="option"
       >
@@ -175,6 +178,7 @@ exports[`renders the correct tree 1`] = `
         </button>
       </li>
       <li
+        aria-selected="EUR"
         className="menuItem"
         role="option"
       >

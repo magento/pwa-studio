@@ -42,6 +42,7 @@ const StoreSwitcher = props => {
             }
             stores.push(
                 <li
+                    aria-selected={currentStoreName}
                     role="option"
                     key={code}
                     className={classes.menuItem}

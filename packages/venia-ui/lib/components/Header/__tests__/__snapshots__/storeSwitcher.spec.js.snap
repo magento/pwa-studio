@@ -25,6 +25,7 @@ exports[`does not render group name when there is only one group 1`] = `
         role="listbox"
       >
         <li
+          aria-selected="Store 2"
           className="menuItem"
           role="option"
         >
@@ -45,6 +46,7 @@ exports[`does not render group name when there is only one group 1`] = `
           </button>
         </li>
         <li
+          aria-selected="Store 2"
           className="menuItem"
           role="option"
         >
@@ -113,6 +115,7 @@ exports[`renders the correct tree 1`] = `
         role="listbox"
       >
         <li
+          aria-selected="Store 2"
           className="menuItem"
           role="option"
         >
@@ -133,6 +136,7 @@ exports[`renders the correct tree 1`] = `
           </button>
         </li>
         <li
+          aria-selected="Store 2"
           className="menuItem"
           role="option"
         >
@@ -178,6 +182,7 @@ exports[`renders the correct tree 1`] = `
         role="listbox"
       >
         <li
+          aria-selected="Store 2"
           className="menuItem"
           role="option"
         >
@@ -198,6 +203,7 @@ exports[`renders the correct tree 1`] = `
           </button>
         </li>
         <li
+          aria-selected="Store 2"
           className="menuItem"
           role="option"
         >
