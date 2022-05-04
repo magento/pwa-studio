@@ -5,6 +5,7 @@ exports[`does not render CurrencySwitcher when there is only one available store
   className="root"
 >
   <button
+    aria-expanded={false}
     aria-label="EUR"
     className="trigger"
     onClick={[MockFunction]}
@@ -27,9 +28,12 @@ exports[`does not render CurrencySwitcher when there is only one available store
   <div
     className="menu"
   >
-    <ul>
+    <ul
+      role="listbox"
+    >
       <li
         className="menuItem"
+        role="option"
       >
         <button
           className="root"
@@ -58,6 +62,7 @@ exports[`does not render CurrencySwitcher when there is only one available store
       </li>
       <li
         className="menuItem"
+        role="option"
       >
         <button
           className="root"
@@ -114,6 +119,7 @@ exports[`renders the correct tree 1`] = `
   className="root"
 >
   <button
+    aria-expanded={false}
     aria-label="EUR"
     className="trigger"
     onClick={[MockFunction]}
@@ -136,9 +142,12 @@ exports[`renders the correct tree 1`] = `
   <div
     className="menu"
   >
-    <ul>
+    <ul
+      role="listbox"
+    >
       <li
         className="menuItem"
+        role="option"
       >
         <button
           className="root"
@@ -167,6 +176,7 @@ exports[`renders the correct tree 1`] = `
       </li>
       <li
         className="menuItem"
+        role="option"
       >
         <button
           className="root"

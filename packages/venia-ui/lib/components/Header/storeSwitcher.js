@@ -42,6 +42,7 @@ const StoreSwitcher = props => {
             }
             stores.push(
                 <li
+                    role="option"
                     key={code}
                     className={classes.menuItem}
                     data-cy="StoreSwitcher-view"
@@ -59,6 +60,7 @@ const StoreSwitcher = props => {
 
         groups.push(
             <ul
+                role="listbox"
                 className={classes.groupList}
                 key={key}
                 data-cy="StoreSwitcher-group"
@@ -84,6 +86,7 @@ const StoreSwitcher = props => {
                 onClick={handleTriggerClick}
                 ref={storeMenuTriggerRef}
                 data-cy="StoreSwitcher-trigger"
+                aria-expanded={storeMenuIsOpen}
             >
                 {triggerLabel}
             </button>
