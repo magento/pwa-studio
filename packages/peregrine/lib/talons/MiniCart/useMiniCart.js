@@ -135,9 +135,11 @@ export const useMiniCart = props => {
     useEffect(() => {
         if (isOpen) {
             dispatch({
-                name: 'viewMiniCart',
-                cartId: cartId,
-                products: productList
+                type: 'MINI_CART_VIEW',
+                payload: {
+                    cartId: cartId,
+                    products: productList
+                }
             });
         }
     }, [isOpen]);
