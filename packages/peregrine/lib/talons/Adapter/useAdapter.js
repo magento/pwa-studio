@@ -17,17 +17,14 @@ const storage = new BrowserPersistence();
 const urlHasStoreCode = process.env.USE_STORE_CODE_IN_URL === 'true';
 
 export const useAdapter = props => {
-    const { configureApiBase, configureLinks, origin, store, styles } = props;
+    const { apiUrl, configureLinks, origin, store, styles } = props;
     const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
     const basename = urlHasStoreCode ? `/${storeCode}` : null;
     const [initialized, setInitialized] = useState(false);
 
     const apiBase = useMemo(
-        () =>
-            configureApiBase
-                ? configureApiBase(origin)
-                : new URL('/graphql', origin).toString(),
-        [configureApiBase, origin]
+        () => apiUrl || new URL('/graphql', origin).toString(),
+        [apiUrl, origin]
     );
 
     const apolloLink = useMemo(() => {
@@ -120,8 +117,6 @@ export const useAdapter = props => {
         client.apiBase = apiBase;
         client.persistor = persistor;
         client.clearCacheData = clearCacheData;
-
-        console.log('RETURNING client...');
 
         return client;
     }, [
