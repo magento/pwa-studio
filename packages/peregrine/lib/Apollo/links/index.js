@@ -19,7 +19,7 @@ import shrinkQuery from '@magento/peregrine/lib/util/shrinkQuery';
  * @param {*} uri
  * @param {*} options
  */
-const customFetchToShrinkQuery = (uri, options) => {
+export const customFetchToShrinkQuery = (uri, options) => {
     // TODO: add `ismorphic-fetch` or equivalent to avoid this error
     if (typeof globalThis.fetch !== 'function') {
         console.error('This environment does not define `fetch`.');
