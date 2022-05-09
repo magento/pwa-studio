@@ -11,6 +11,7 @@ import { useSort } from '../../hooks/useSort';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
 
 import DEFAULT_OPERATIONS from './searchPage.gql';
+import { useEventingContext } from '../../context/eventing';
 
 /**
  * Return props necessary to render a SearchPage component.
@@ -19,6 +20,7 @@ import DEFAULT_OPERATIONS from './searchPage.gql';
  * @param {String} props.query - graphql query used for executing search
  */
 export const useSearchPage = (props = {}) => {
+    const [, { dispatch }] = useEventingContext();
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const {
@@ -139,11 +141,17 @@ export const useSearchPage = (props = {}) => {
             return;
         }
         const filters = getFiltersFromSearch(search);
-
-        // Construct the filter arg object.
+        // Construct the filter arg object and dispatcher refinement data.
         const newFilters = {};
+        const refinementData = [];
         filters.forEach((values, key) => {
-            newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
+            const filterMapType = filterTypeMap.get(key);
+            newFilters[key] = getFilterInput(values, filterMapType);
+            refinementData.push({
+                attribute: key,
+                value: values,
+                isRange: filterMapType === 'FilterRangeTypeInput'
+            });
         });
 
         runQuery({
@@ -155,6 +163,17 @@ export const useSearchPage = (props = {}) => {
                 sort: { [sortAttribute]: sortDirection }
             }
         });
+        dispatch({
+            type: 'SEARCH_REQUEST',
+            payload: {
+                query: inputText,
+                refinements: refinementData,
+                sort: {
+                    attribute: currentSort.sortAttribute,
+                    order: currentSort.sortDirection
+                }
+            }
+        });
     }, [
         currentPage,
         filterTypeMap,
@@ -163,7 +182,9 @@ export const useSearchPage = (props = {}) => {
         pageSize,
         search,
         sortDirection,
-        sortAttribute
+        sortAttribute,
+        dispatch,
+        currentSort
     ]);
 
     // Set the total number of pages whenever the data changes.

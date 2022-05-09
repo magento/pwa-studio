@@ -4,6 +4,9 @@ import { useLazyQuery } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 import { getFiltersFromSearch } from '../../FilterModal/helpers';
 import { useSearchPage } from '../useSearchPage';
+import { getSearchParam } from '../../../hooks/useSearchParam';
+import { useEventingContext } from '../../../context/eventing';
+
 const log = jest.fn();
 const Component = props => {
     const talonProps = useSearchPage({ ...props });
@@ -29,10 +32,21 @@ jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
     useLocation: jest.fn(() => ({ pathname: '', search: '' }))
 }));
+
+jest.mock('../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 jest.mock('../../FilterModal/helpers', () => {
     return {
         ...jest.requireActual('../../FilterModal/helpers'),
         getFiltersFromSearch: jest.fn(() => new Map())
+    };
+});
+jest.mock('../../../hooks/useSearchParam', () => {
+    return {
+        ...jest.requireActual('../../../hooks/useSearchParam'),
+        getSearchParam: jest.fn(() => '')
     };
 });
 jest.mock('@magento/peregrine/lib/hooks/useScrollTopOnChange');
@@ -66,10 +80,16 @@ jest.mock('../../../hooks/useSort', () => ({
 }));
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
+
     const useQuery = jest.fn().mockReturnValue({
         data: {
             __type: {
-                inputFields: []
+                inputFields: [
+                    {
+                        name: 'category_id',
+                        type: { name: 'FilterEqualTypeInput' }
+                    }
+                ]
             },
             storeConfig: {
                 grid_per_page: 12
@@ -249,5 +269,40 @@ describe('searchCategory', () => {
             tree.update(<Component {...initialProps} />);
         });
         expect(mockSetCurrentPage).toHaveBeenCalledWith(1, true);
+    });
+
+    test('should dispatch event when search request takes effect', () => {
+        // Mock filter,sort, and query
+        const map = new Map().set('category_id', 'FilterEqualTypeInput');
+        getFiltersFromSearch.mockReturnValue(map);
+        getSearchParam.mockReturnValueOnce('Search Query Value');
+        useLazyQuery.mockReturnValueOnce([
+            mockGetSearchAvailableSortMethods,
+            { data: mockAvailableSortMethods }
+        ]);
+        mockUseSort.mockReturnValueOnce([
+            {
+                sortText: 'Sort Text',
+                sortAttribute: 'Sort Attribute',
+                sortDirection: 'DESC'
+            },
+            jest.fn()
+        ]);
+
+        // Mock dispatcher
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        createTestInstance(<Component {...initialProps} />);
+
+        expect(mockDispatch).toBeCalledTimes(1);
+
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
     });
 });
