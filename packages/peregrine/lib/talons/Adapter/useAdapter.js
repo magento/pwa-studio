@@ -32,7 +32,6 @@ export const useAdapter = props => {
 
         if (configureLinks) {
             links = configureLinks(links, apiBase);
-            console.log(links);
         }
 
         return ApolloLink.from(Array.from(links.values()));
