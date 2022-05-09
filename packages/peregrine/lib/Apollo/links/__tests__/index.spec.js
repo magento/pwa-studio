@@ -69,17 +69,6 @@ test('creates a proper http link', () => {
     });
 });
 
-/*
-    if (typeof globalThis.fetch !== 'function') {
-        console.error('This environment does not define `fetch`.');
-        return () => {};
-    }
-
-    const resource = options.method === 'GET' ? shrinkQuery(uri) : uri;
-
-    return globalThis.fetch(resource, options);
-*/
-
 describe('customFetchToShrinkQuery', () => {
     test('calls fetch', () => {
         const spy = jest
