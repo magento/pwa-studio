@@ -142,7 +142,7 @@ export const useMiniCart = props => {
                 }
             });
         }
-    }, [isOpen]);
+    }, [isOpen, cartId, productList, dispatch]);
 
     return {
         closeMiniCart,
