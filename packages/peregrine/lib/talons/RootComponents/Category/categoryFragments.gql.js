@@ -22,6 +22,10 @@ export const ProductsFragment = gql`
                         currency
                         value
                     }
+                    regular_price {
+                        currency
+                        value
+                    }
                 }
             }
             sku

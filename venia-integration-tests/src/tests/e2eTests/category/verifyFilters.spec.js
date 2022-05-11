@@ -432,7 +432,7 @@ describe(
             cy.wait(['@gqlGetCategoriesQuery'], {
                 timeout: 60000
             });
-            assertNumberOfProductsInResults(15);
+            assertNumberOfProductsInResults(18);
 
             //Clean Up
             toggleFilterModal();

@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "12.3.0",
+  "version": "12.4.0",
   "publishConfig": {
     "access": "public"
   },
@@ -35,10 +35,11 @@
     "react-slick": "~0.28.0",
     "redux-actions": "~2.6.4",
     "redux-thunk": "~2.3.0",
-    "uuid": "~8.3.2"
+    "uuid": "~8.3.2",
+    "zen-observable-ts": "^1.2.0"
   },
   "devDependencies": {
-    "@apollo/client": "~3.4.0",
+    "@apollo/client": "~3.5.0",
     "@babel/cli": "~7.2.3",
     "@babel/core": "~7.15.0",
     "@babel/plugin-proposal-class-properties": "~7.14.5",
@@ -73,7 +74,7 @@
     "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
-    "@apollo/client": "~3.4.0",
+    "@apollo/client": "~3.5.0",
     "@babel/runtime": "~7.15.3",
     "@magento/babel-preset-peregrine": "~1.2.0",
     "apollo-cache-persist": "~0.1.1",
