@@ -10,6 +10,11 @@
             --score: 95;
             --full-circle: 164;
         }
+        .lh-gauge {
+            stroke-linecap: round;
+            width: var(--size);
+            height: var(--size);
+        }
 
         .lh-gauge-base {
             opacity: 0.1;
@@ -54,9 +59,9 @@
         }
 
     </style>
-    <g class="lh-gauge__wrapper--average lh-gauge__score">
+    <g class="lh-gauge__wrapper--pass lh-gauge__score">
         <circle class="lh-gauge-base" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
         <circle class="lh-gauge-arc" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
-        <text x="16" y="38">95</text>
+        <text x="18%" y="62%">95</text>
     </g>
 </svg>
