@@ -1,3 +1,6 @@
 .root {
-    composes: root from './tileList.module.css';
+    composes: gap-x-2 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: grid-cols-swatchList from global;
 }
