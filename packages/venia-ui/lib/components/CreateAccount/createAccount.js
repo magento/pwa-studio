@@ -41,10 +41,9 @@ const CreateAccount = props => {
     const cancelButton = props.isCancelButtonHidden ? null : (
         <Button
             data-cy="CreateAccount-cancelButton"
-            className={classes.cancelButton}
             disabled={isDisabled}
             type="button"
-            priority="low"
+            design="secondary"
             onClick={handleCancel}
         >
             <FormattedMessage
@@ -56,10 +55,9 @@ const CreateAccount = props => {
 
     const submitButton = (
         <Button
-            className={classes.submitButton}
             disabled={isDisabled}
             type="submit"
-            priority="high"
+            design="primary"
             data-cy="CreateAccount-submitButton"
         >
             <FormattedMessage

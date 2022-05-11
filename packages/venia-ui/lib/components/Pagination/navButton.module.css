@@ -1,5 +1,15 @@
 .root {
-    composes: root from './tile.module.css';
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-transparent from global;
+    composes: flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: outline-none from global;
+    composes: relative from global;
+    composes: rounded-sm from global;
+
+    composes: focus_outline-button from global;
 }
 
 .icon {

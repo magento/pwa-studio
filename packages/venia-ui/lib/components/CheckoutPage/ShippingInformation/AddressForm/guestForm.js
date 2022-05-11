@@ -73,7 +73,7 @@ const GuestForm = props => {
     ) : null;
 
     const cancelButton = isUpdate ? (
-        <Button disabled={isSaving} onClick={handleCancel} priority="low">
+        <Button disabled={isSaving} onClick={handleCancel} design="tertiary">
             <FormattedMessage
                 id={'global.cancelButton'}
                 defaultMessage={'Cancel'}
@@ -92,7 +92,7 @@ const GuestForm = props => {
           });
     const submitButtonProps = {
         disabled: isSaving,
-        priority: isUpdate ? 'high' : 'normal',
+        design: isUpdate ? 'primary' : 'secondary',
         type: 'submit'
     };
 

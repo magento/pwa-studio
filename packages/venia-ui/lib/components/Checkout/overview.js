@@ -87,13 +87,13 @@ const Overview = props => {
             </div>
             <div className={classes.footer}>
                 <Button
-                    priority="high"
+                    design="primary"
                     disabled={isSubmitDisabled}
                     onClick={handleSubmit}
                 >
                     {submitButtonText}
                 </Button>
-                <Button onClick={handleCancel} priority="low">
+                <Button onClick={handleCancel} design="tertiary">
                     {cancelButtonText}
                 </Button>
             </div>

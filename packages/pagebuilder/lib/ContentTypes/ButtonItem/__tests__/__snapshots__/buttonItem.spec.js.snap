@@ -3,7 +3,7 @@
 exports[`renders a ButtonItem component 1`] = `
 <div>
   <button
-    className="root_normalPriority"
+    className="root_secondary_iconOnly"
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -38,7 +38,9 @@ exports[`renders a ButtonItem component 1`] = `
   >
     <span
       className="content"
-    />
+    >
+      
+    </span>
   </button>
 </div>
 `;
@@ -48,7 +50,7 @@ exports[`renders a ButtonItem component with all properties configured 1`] = `
   className="test-class"
 >
   <button
-    className="root_normalPriority"
+    className="root_secondary_medium"
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -85,7 +87,11 @@ exports[`renders a ButtonItem component with all properties configured 1`] = `
     <span
       className="content"
     >
-      button text
+      <span
+        className="text"
+      >
+        button text
+      </span>
     </span>
   </button>
 </div>

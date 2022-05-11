@@ -11,6 +11,8 @@
     composes: w-[0.875rem] from global;
     box-shadow: 0 0 0 1px #ffffff;
 
+    composes: focus_outline-button from global;
+
     composes: lg_border-0 from global;
     composes: lg_h-auto from global;
     composes: lg_rounded-none from global;

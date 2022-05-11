@@ -96,7 +96,7 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
     />
   </p>
   <button
-    className="root_normalPriority"
+    className="root_secondary_medium"
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -115,10 +115,14 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
     <span
       className="content"
     >
-      <mock-FormattedMessage
-        defaultMessage="I want to estimate my shipping"
-        id="shippingMethods.estimateButton"
-      />
+      <span
+        className="text"
+      >
+        <mock-FormattedMessage
+          defaultMessage="I want to estimate my shipping"
+          id="shippingMethods.estimateButton"
+        />
+      </span>
     </span>
   </button>
 </div>

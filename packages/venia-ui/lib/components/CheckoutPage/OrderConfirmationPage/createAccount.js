@@ -162,6 +162,7 @@ const CreateAccount = props => {
                 <GoogleReCaptcha {...recaptchaWidgetProps} />
                 <div className={classes.actions}>
                     <Button
+                        design="primary"
                         disabled={isDisabled}
                         type="submit"
                         className={classes.create_account_button}

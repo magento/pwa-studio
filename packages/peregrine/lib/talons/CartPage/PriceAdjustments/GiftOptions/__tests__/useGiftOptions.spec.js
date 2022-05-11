@@ -159,9 +159,9 @@ describe('#useGiftOptions', () => {
         expect(result.current).toMatchInlineSnapshot(`
             Object {
               "cancelGiftMessageButtonProps": Object {
+                "design": "tertiary",
                 "disabled": true,
                 "onClick": [Function],
-                "priority": "low",
                 "type": "button",
               },
               "cardFromProps": Object {
@@ -222,9 +222,9 @@ describe('#useGiftOptions', () => {
                 "onChange": [Function],
               },
               "saveGiftMessageButtonProps": Object {
+                "design": "secondary",
                 "disabled": true,
                 "onClick": [Function],
-                "priority": "normal",
                 "type": "button",
               },
               "savingOptions": Array [],
@@ -239,9 +239,9 @@ describe('#useGiftOptions', () => {
         expect(result.current).toMatchInlineSnapshot(`
             Object {
               "cancelGiftMessageButtonProps": Object {
+                "design": "tertiary",
                 "disabled": false,
                 "onClick": [Function],
-                "priority": "low",
                 "type": "button",
               },
               "cardFromProps": Object {
@@ -305,9 +305,9 @@ describe('#useGiftOptions', () => {
                 "onChange": [Function],
               },
               "saveGiftMessageButtonProps": Object {
+                "design": "secondary",
                 "disabled": false,
                 "onClick": [Function],
-                "priority": "normal",
                 "type": "button",
               },
               "savingOptions": Array [],

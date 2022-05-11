@@ -24,10 +24,10 @@ exports[`it renders correct with a element 1`] = `
     </p>
     <div>
       <Button
+        design="primary"
         disabled={false}
-        negative={false}
         onClick={[Function]}
-        priority="high"
+        size="medium"
         type="button"
       >
         <FormattedMessage

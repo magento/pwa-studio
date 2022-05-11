@@ -108,10 +108,12 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     type="button"
   >
     <span>
-      <mock-FormattedMessage
-        defaultMessage="Buy Again"
-        id="orderDetails.buyAgain"
-      />
+      <span>
+        <mock-FormattedMessage
+          defaultMessage="Buy Again"
+          id="orderDetails.buyAgain"
+        />
+      </span>
     </span>
   </button>
 </div>

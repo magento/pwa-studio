@@ -308,7 +308,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -326,14 +326,18 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -352,10 +356,14 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Update"
-                  id="productForm.submit"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Update"
+                    id="productForm.submit"
+                  />
+                </span>
               </span>
             </button>
           </div>
@@ -665,7 +673,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -683,14 +691,18 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -709,10 +721,14 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Update"
-                  id="productForm.submit"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Update"
+                    id="productForm.submit"
+                  />
+                </span>
               </span>
             </button>
           </div>
@@ -804,7 +820,7 @@ exports[`renders loading indicator while options are being fetched 1`] = `
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={true}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -822,14 +838,18 @@ exports[`renders loading indicator while options are being fetched 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={true}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -848,10 +868,14 @@ exports[`renders loading indicator while options are being fetched 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Update"
-                  id="productForm.submit"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Update"
+                    id="productForm.submit"
+                  />
+                </span>
               </span>
             </button>
           </div>

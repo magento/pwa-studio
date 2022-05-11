@@ -13,6 +13,7 @@ import defaultClasses from './product.module.css';
 import ProductOptions from './productOptions';
 import Section from './section';
 import { gql } from '@apollo/client';
+import { useIntl } from 'react-intl';
 
 const QUANTITY_OPERATOR = '×';
 
@@ -20,6 +21,8 @@ const PRODUCT_IMAGE_WIDTH = 80;
 
 const Product = props => {
     const { beginEditItem, currencyCode, item } = props;
+
+    const { formatMessage } = useIntl();
 
     const talonProps = useProduct({
         beginEditItem,
@@ -62,6 +65,21 @@ const Product = props => {
 
     const mask = isLoading ? <div className={classes.mask} /> : null;
 
+    const addToFavoritesText = formatMessage({
+        id: 'legacyMiniCart.addToFavorites',
+        defaultMessage: 'Add to favorites'
+    });
+
+    const editItemText = formatMessage({
+        id: 'legacyMiniCart.editItem',
+        defaultMessage: 'Edit item'
+    });
+
+    const removeItemText = formatMessage({
+        id: 'legacyMiniCart.removeItem',
+        defaultMessage: 'Remove item'
+    });
+
     return (
         <li className={classes.root}>
             {productImageComponent}
@@ -84,18 +102,18 @@ const Product = props => {
             {mask}
             <Kebab>
                 <Section
-                    text="Add to favorites"
+                    text={addToFavoritesText}
                     onClick={handleFavoriteItem}
                     icon="Heart"
                     isFilled={isFavorite}
                 />
                 <Section
-                    text="Edit item"
+                    text={editItemText}
                     onClick={handleEditItem}
                     icon="Edit2"
                 />
                 <Section
-                    text="Remove item"
+                    text={removeItemText}
                     onClick={handleRemoveItem}
                     icon="Trash"
                 />

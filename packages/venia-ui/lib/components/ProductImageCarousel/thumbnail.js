@@ -8,6 +8,7 @@ import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel
 import { useStyle } from '../../classify';
 import defaultClasses from './thumbnail.module.css';
 import Image from '../Image';
+import { useIntl } from 'react-intl';
 
 const DEFAULT_THUMBNAIL_HEIGHT = 170;
 const DEFAULT_THUMBNAIL_WIDTH = 135;
@@ -25,6 +26,8 @@ const DEFAULT_THUMBNAIL_WIDTH = 135;
  */
 const Thumbnail = props => {
     const classes = useStyle(defaultClasses, props.classes);
+
+    const { formatMessage } = useIntl();
 
     const {
         isActive,
@@ -65,15 +68,24 @@ const Thumbnail = props => {
         );
     }, [file, isDesktop, label, classes.image]);
 
+    const ariaLabel = formatMessage(
+        {
+            id: 'productImageCarousel.thumbnailAriaLabel',
+            defaultMessage: 'Show image {label}'
+        },
+        {
+            label: label ? label : itemIndex + 1
+        }
+    );
+
     return (
-        <span
+        <button
             className={isActive ? classes.rootSelected : classes.root}
             onClick={handleClick}
-            role="button"
-            aria-hidden="true"
+            aria-label={ariaLabel}
         >
             {thumbnailImage}
-        </span>
+        </button>
     );
 };
 

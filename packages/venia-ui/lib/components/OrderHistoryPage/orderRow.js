@@ -72,6 +72,20 @@ const OrderRow = props => {
 
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
 
+    const contentToggleAriaMessage = isOpen
+        ? {
+              id: 'orderRow.hideContent',
+              defaultMessage: 'Hide content for order {orderNumber}'
+          }
+        : {
+              id: 'orderRow.showContent',
+              defaultMessage: 'Show content for order {orderNumber}'
+          };
+
+    const contentToggleAriaLabel = formatMessage(contentToggleAriaMessage, {
+        orderNumber: orderNumber
+    });
+
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
 
     const collapsedImageGalleryElement = isOpen ? null : (
@@ -131,6 +145,7 @@ const OrderRow = props => {
                 className={classes.contentToggleContainer}
                 onClick={handleContentToggle}
                 type="button"
+                aria-label={contentToggleAriaLabel}
             >
                 {contentToggleIcon}
             </button>

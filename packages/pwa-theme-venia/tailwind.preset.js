@@ -4,6 +4,10 @@ const { getColors } = require('./lib/colors');
 const corePlugin = require('./plugins');
 
 const colors = {
+    alert: {
+        500: '219 112 122',
+        800: '195 99 80'
+    },
     brand: {
         base: '61 132 255',
         dark: '41 84 255',
@@ -11,10 +15,26 @@ const colors = {
         light: '194 200 255',
         100: '194 200 255',
         400: '61 132 255',
-        // 500: '51 109 255',
-        600: '41 84 255',
-        700: '31 57 255',
+        500: '69 69 69',
+        600: '56 56 56',
+        700: '43 43 43',
         800: '23 43 196'
+    },
+    info: {
+        500: '105 148 217',
+        800: '93 109 214'
+    },
+    neutral: {
+        50: '255 255 255',
+        100: '250 250 250',
+        200: '245 245 245',
+        300: '232 232 232',
+        400: '214 214 214',
+        500: '184 184 184',
+        600: '143 143 143',
+        700: '102 102 102',
+        800: '61 61 61',
+        900: '41 41 41'
     }
 };
 
@@ -40,7 +60,9 @@ const extend = {
         )}`
     }),
     borderColor: theme => ({
-        button: theme('colors.gray.600'),
+        buttonColor: {
+            action: theme('colors.neutral.400')
+        },
         error: theme('colors.red.400'),
         info: theme('colors.green.600'),
         input: theme('colors.gray.600'),
@@ -68,7 +90,8 @@ const extend = {
         // radiusInput: theme('borderRadius.radius1'),
     },
     borderWidth: {
-        DEFAULT: '1px'
+        DEFAULT: '1px',
+        buttonWidth: '1.5px'
     },
     boxShadow: theme => ({
         buttonFocus: `-6px 6px ${theme('colors.brand.700')} / 0.3`,
@@ -142,7 +165,8 @@ const extend = {
         site: '1440px'
     },
     minHeight: {
-        auto: 'auto'
+        auto: 'auto',
+        button: '40px'
     },
     minWidth: {
         auto: 'auto'
@@ -158,6 +182,11 @@ const extend = {
     order: {
         unset: 'unset'
     },
+    outline: theme => ({
+        button: [`1.5px solid ${theme('colors.brand.500')}`, '1.5px'],
+        buttonBold: [`3px solid ${theme('colors.brand.500')}`, '1.5px'],
+        buttonNoGap: [`1.5px solid ${theme('colors.brand.500')}`, '0px']
+    }),
     spacing: {
         '2xs': '0.5rem',
         xs: '1rem',
@@ -174,6 +203,9 @@ const extend = {
         subtle: theme('colors.gray.600'),
         DEFAULT: theme('colors.gray.900')
     }),
+    transitionTimingFunction: {
+        standard: 'cubic-bezier(0.4, 0, 0.2, 1)'
+    },
     width: {
         fit: 'fit-content'
     },

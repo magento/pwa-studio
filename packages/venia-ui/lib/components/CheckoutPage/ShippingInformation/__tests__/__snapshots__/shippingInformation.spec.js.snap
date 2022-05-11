@@ -36,32 +36,36 @@ exports[`renders card state with customer data 1`] = `
         className="content"
       >
         <span
-          className="root"
+          className="text"
         >
-          <svg
-            className="icon"
-            fill="none"
-            height={16}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width={16}
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            className="root"
           >
-            <path
-              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+              />
+            </svg>
+          </span>
+          <span
+            className="editText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Edit"
+              id="global.editButton"
             />
-          </svg>
-        </span>
-        <span
-          className="editText"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Edit"
-            id="global.editButton"
-          />
+          </span>
         </span>
       </span>
     </button>
@@ -108,32 +112,36 @@ exports[`renders card state with guest data 1`] = `
         className="content"
       >
         <span
-          className="root"
+          className="text"
         >
-          <svg
-            className="icon"
-            fill="none"
-            height={16}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width={16}
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            className="root"
           >
-            <path
-              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+              />
+            </svg>
+          </span>
+          <span
+            className="editText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Edit"
+              id="global.editButton"
             />
-          </svg>
-        </span>
-        <span
-          className="editText"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Edit"
-            id="global.editButton"
-          />
+          </span>
         </span>
       </span>
     </button>

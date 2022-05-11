@@ -385,7 +385,7 @@ exports[`renders an AddressForm component 1`] = `
     className="footer"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -404,11 +404,15 @@ exports[`renders an AddressForm component 1`] = `
       <span
         className="content"
       >
-        Use Address
+        <span
+          className="text"
+        >
+          Use Address
+        </span>
       </span>
     </button>
     <button
-      className="root_lowPriority"
+      className="root_tertiary_medium"
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -427,7 +431,11 @@ exports[`renders an AddressForm component 1`] = `
       <span
         className="content"
       >
-        Cancel
+        <span
+          className="text"
+        >
+          Cancel
+        </span>
       </span>
     </button>
   </div>
@@ -819,7 +827,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
     className="footer"
   >
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -838,11 +846,15 @@ exports[`renders validation block with message if address is incorrect 1`] = `
       <span
         className="content"
       >
-        Use Address
+        <span
+          className="text"
+        >
+          Use Address
+        </span>
       </span>
     </button>
     <button
-      className="root_lowPriority"
+      className="root_tertiary_medium"
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -861,7 +873,11 @@ exports[`renders validation block with message if address is incorrect 1`] = `
       <span
         className="content"
       >
-        Cancel
+        <span
+          className="text"
+        >
+          Cancel
+        </span>
       </span>
     </button>
   </div>

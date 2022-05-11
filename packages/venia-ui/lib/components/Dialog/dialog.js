@@ -67,10 +67,10 @@ const Dialog = props => {
         shouldDisableAllButtons || shouldDisableConfirmButton;
 
     const cancelButtonClasses = {
-        root_lowPriority: classes.cancelButton
+        root_secondary: classes.cancelButton
     };
     const confirmButtonClasses = {
-        root_highPriority: classes.confirmButton
+        root_primary: classes.confirmButton
     };
 
     const maybeCloseXButton = !isModal ? (
@@ -91,7 +91,7 @@ const Dialog = props => {
                 classes={cancelButtonClasses}
                 disabled={shouldDisableAllButtons}
                 onClick={onCancel}
-                priority="low"
+                design="secondary"
                 type="reset"
             >
                 <FormattedMessage
@@ -103,7 +103,7 @@ const Dialog = props => {
                 data-cy="Dialog-confirmButton"
                 classes={confirmButtonClasses}
                 disabled={confirmButtonDisabled}
-                priority="high"
+                design="primary"
                 type="submit"
             >
                 <FormattedMessage

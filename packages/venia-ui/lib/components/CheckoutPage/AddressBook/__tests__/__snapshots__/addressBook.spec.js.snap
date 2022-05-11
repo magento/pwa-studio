@@ -43,7 +43,7 @@ Array [
       className="buttonContainer"
     >
       <button
-        className="root_lowPriority"
+        className="root_tertiary_medium"
         disabled={false}
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
@@ -62,14 +62,18 @@ Array [
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Cancel"
-            id="addressBook.cancelButtonText"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Cancel"
+              id="addressBook.cancelButtonText"
+            />
+          </span>
         </span>
       </button>
       <button
-        className="root_highPriority"
+        className="root_primary_medium"
         disabled={false}
         onClick={[MockFunction handleApplyAddress]}
         onDragStart={[Function]}
@@ -88,10 +92,14 @@ Array [
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Apply"
-            id="addressBook.applyButtonText"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Apply"
+              id="addressBook.applyButtonText"
+            />
+          </span>
         </span>
       </button>
     </div>
@@ -155,49 +163,53 @@ Array [
           className="content"
         >
           <span
-            className="root"
+            className="text"
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
+            <span
+              className="root"
             >
-              <rect
-                height="18"
-                rx="2"
-                ry="2"
-                width="18"
-                x="3"
-                y="3"
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="18"
+                  rx="2"
+                  ry="2"
+                  width="18"
+                  x="3"
+                  y="3"
+                />
+                <line
+                  x1="12"
+                  x2="12"
+                  y1="8"
+                  y2="16"
+                />
+                <line
+                  x1="8"
+                  x2="16"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
+            </span>
+            <span
+              className="addText"
+            >
+              <mock-FormattedMessage
+                defaultMessage="Add New Address"
+                id="addressBook.addNewAddresstext"
               />
-              <line
-                x1="12"
-                x2="12"
-                y1="8"
-                y2="16"
-              />
-              <line
-                x1="8"
-                x2="16"
-                y1="12"
-                y2="12"
-              />
-            </svg>
-          </span>
-          <span
-            className="addText"
-          >
-            <mock-FormattedMessage
-              defaultMessage="Add New Address"
-              id="addressBook.addNewAddresstext"
-            />
+            </span>
           </span>
         </span>
       </button>
@@ -226,7 +238,7 @@ Array [
       className="buttonContainer"
     >
       <button
-        className="root_lowPriority"
+        className="root_tertiary_medium"
         disabled={true}
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
@@ -245,14 +257,18 @@ Array [
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Cancel"
-            id="addressBook.cancelButtonText"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Cancel"
+              id="addressBook.cancelButtonText"
+            />
+          </span>
         </span>
       </button>
       <button
-        className="root_highPriority"
+        className="root_primary_medium"
         disabled={true}
         onClick={[MockFunction handleApplyAddress]}
         onDragStart={[Function]}
@@ -271,10 +287,14 @@ Array [
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Apply"
-            id="addressBook.applyButtonText"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Apply"
+              id="addressBook.applyButtonText"
+            />
+          </span>
         </span>
       </button>
     </div>
@@ -302,49 +322,53 @@ Array [
           className="content"
         >
           <span
-            className="root"
+            className="text"
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
+            <span
+              className="root"
             >
-              <rect
-                height="18"
-                rx="2"
-                ry="2"
-                width="18"
-                x="3"
-                y="3"
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="18"
+                  rx="2"
+                  ry="2"
+                  width="18"
+                  x="3"
+                  y="3"
+                />
+                <line
+                  x1="12"
+                  x2="12"
+                  y1="8"
+                  y2="16"
+                />
+                <line
+                  x1="8"
+                  x2="16"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
+            </span>
+            <span
+              className="addText"
+            >
+              <mock-FormattedMessage
+                defaultMessage="Add New Address"
+                id="addressBook.addNewAddresstext"
               />
-              <line
-                x1="12"
-                x2="12"
-                y1="8"
-                y2="16"
-              />
-              <line
-                x1="8"
-                x2="16"
-                y1="12"
-                y2="12"
-              />
-            </svg>
-          </span>
-          <span
-            className="addText"
-          >
-            <mock-FormattedMessage
-              defaultMessage="Add New Address"
-              id="addressBook.addNewAddresstext"
-            />
+            </span>
           </span>
         </span>
       </button>

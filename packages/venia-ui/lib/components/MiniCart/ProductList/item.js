@@ -49,6 +49,16 @@ const Item = props => {
         handleRemoveItem
     });
 
+    const removeItemAriaLabel = formatMessage(
+        {
+            id: 'productList.removeItemAriaLabel',
+            defaultMessage: 'Remove {name}'
+        },
+        {
+            name: product.name
+        }
+    );
+
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
     const configured_variant = configuredVariant(configurable_options, product);
 
@@ -113,6 +123,7 @@ const Item = props => {
                 className={classes.deleteButton}
                 disabled={isDeleting}
                 data-cy="MiniCart-Item-deleteButton"
+                aria-label={removeItemAriaLabel}
             >
                 <Icon
                     size={16}

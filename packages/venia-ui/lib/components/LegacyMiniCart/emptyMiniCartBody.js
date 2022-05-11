@@ -23,7 +23,7 @@ const EmptyMiniCart = props => {
     return (
         <div className={classes.root}>
             <h3 className={classes.emptyTitle}>{EMPTY_TITLE}</h3>
-            <Button priority={'normal'} type={'button'} onClick={handleClick}>
+            <Button design={'secondary'} type={'button'} onClick={handleClick}>
                 {CONTINUE_SHOPPING}
             </Button>
         </div>

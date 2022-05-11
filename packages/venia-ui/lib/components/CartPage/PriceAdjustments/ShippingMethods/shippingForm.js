@@ -71,11 +71,11 @@ const ShippingForm = props => {
                 {!hasMethods ? (
                     <Button
                         classes={{
-                            root_normalPriority: classes.submit
+                            root_secondary: classes.submit
                         }}
                         data-cy="ShippingMethods-ShippingForm-submit"
                         disabled={isSetShippingLoading}
-                        priority="normal"
+                        design="secondary"
                         type="submit"
                     >
                         {shippingStatusMessage}

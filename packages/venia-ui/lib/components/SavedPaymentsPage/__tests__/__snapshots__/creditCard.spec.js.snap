@@ -26,7 +26,7 @@ exports[`renders delete confirmation 1`] = `
     className="delete"
   >
     <button
-      className="root_normalPriority"
+      className="root_tertiary_small"
       disabled={true}
       onClick={[MockFunction toggleDeleteConfirmation]}
       onDragStart={[Function]}
@@ -46,47 +46,51 @@ exports[`renders delete confirmation 1`] = `
         className="content"
       >
         <span
-          className="root"
+          className="text"
         >
-          <svg
-            className="icon"
-            fill="none"
-            height={16}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width={16}
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            className="root"
           >
-            <polyline
-              points="3 6 5 6 21 6"
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="3 6 5 6 21 6"
+              />
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              />
+              <line
+                x1="10"
+                x2="10"
+                y1="11"
+                y2="17"
+              />
+              <line
+                x1="14"
+                x2="14"
+                y1="11"
+                y2="17"
+              />
+            </svg>
+          </span>
+          <span
+            className="deleteText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Delete"
+              id="storedPayments.delete"
             />
-            <path
-              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-            />
-            <line
-              x1="10"
-              x2="10"
-              y1="11"
-              y2="17"
-            />
-            <line
-              x1="14"
-              x2="14"
-              y1="11"
-              y2="17"
-            />
-          </svg>
-        </span>
-        <span
-          className="deleteText"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Delete"
-            id="storedPayments.delete"
-          />
+          </span>
         </span>
       </span>
     </button>
@@ -95,7 +99,7 @@ exports[`renders delete confirmation 1`] = `
     className="deleteConfirmationContainer"
   >
     <button
-      className="root_normalPriorityNegative"
+      className="root_secondary_medium"
       disabled={true}
       onClick={[MockFunction handleDeletePayment]}
       onDragStart={[Function]}
@@ -114,14 +118,18 @@ exports[`renders delete confirmation 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Delete"
-          id="global.deleteButton"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Delete"
+            id="global.deleteButton"
+          />
+        </span>
       </span>
     </button>
     <button
-      className="root_lowPriority"
+      className="root_secondary_medium"
       disabled={true}
       onClick={[MockFunction toggleDeleteConfirmation]}
       onDragStart={[Function]}
@@ -140,10 +148,14 @@ exports[`renders delete confirmation 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Cancel"
-          id="global.cancelButton"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
+        </span>
       </span>
     </button>
   </div>
@@ -198,7 +210,7 @@ exports[`should render properly 1`] = `
     className="delete"
   >
     <button
-      className="root_normalPriority"
+      className="root_tertiary_small"
       disabled={false}
       onClick={[MockFunction toggleDeleteConfirmation]}
       onDragStart={[Function]}
@@ -218,47 +230,51 @@ exports[`should render properly 1`] = `
         className="content"
       >
         <span
-          className="root"
+          className="text"
         >
-          <svg
-            className="icon"
-            fill="none"
-            height={16}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width={16}
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            className="root"
           >
-            <polyline
-              points="3 6 5 6 21 6"
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="3 6 5 6 21 6"
+              />
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              />
+              <line
+                x1="10"
+                x2="10"
+                y1="11"
+                y2="17"
+              />
+              <line
+                x1="14"
+                x2="14"
+                y1="11"
+                y2="17"
+              />
+            </svg>
+          </span>
+          <span
+            className="deleteText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Delete"
+              id="storedPayments.delete"
             />
-            <path
-              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-            />
-            <line
-              x1="10"
-              x2="10"
-              y1="11"
-              y2="17"
-            />
-            <line
-              x1="14"
-              x2="14"
-              y1="11"
-              y2="17"
-            />
-          </svg>
-        </span>
-        <span
-          className="deleteText"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Delete"
-            id="storedPayments.delete"
-          />
+          </span>
         </span>
       </span>
     </button>
@@ -267,7 +283,7 @@ exports[`should render properly 1`] = `
     className="deleteConfirmationContainer_hidden"
   >
     <button
-      className="root_normalPriorityNegative"
+      className="root_secondary_medium"
       disabled={false}
       onClick={[MockFunction handleDeletePayment]}
       onDragStart={[Function]}
@@ -286,14 +302,18 @@ exports[`should render properly 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Delete"
-          id="global.deleteButton"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Delete"
+            id="global.deleteButton"
+          />
+        </span>
       </span>
     </button>
     <button
-      className="root_lowPriority"
+      className="root_secondary_medium"
       disabled={false}
       onClick={[MockFunction toggleDeleteConfirmation]}
       onDragStart={[Function]}
@@ -312,10 +332,14 @@ exports[`should render properly 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Cancel"
-          id="global.cancelButton"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
+        </span>
       </span>
     </button>
   </div>

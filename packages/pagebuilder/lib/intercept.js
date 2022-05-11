@@ -3,7 +3,7 @@ const { Targetables } = require('@magento/pwa-buildpack');
 const CustomContentTypeList = require('./ContentTypes/CustomContentTypeList');
 module.exports = targets => {
     const pagebuilder = Targetables.using(targets);
-    pagebuilder.setSpecialFeatures('esModules', 'cssModules');
+    pagebuilder.setSpecialFeatures('esModules', 'cssModules', 'i18n');
     pagebuilder.defineEnvVars('PageBuilder', [
         {
             name: 'GOOGLE_MAPS_API_KEY',

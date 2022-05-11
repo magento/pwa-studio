@@ -187,7 +187,7 @@ const GiftCards = props => {
                 }}
             >
                 <Button
-                    priority={'normal'}
+                    design={'secondary'}
                     data-cy="GiftCards-apply"
                     disabled={isApplyingCard}
                     onClick={applyGiftCard}

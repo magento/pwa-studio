@@ -13,9 +13,9 @@ const FilterModalOpenButton = props => {
 
     return (
         <Button
-            priority={'low'}
+            design={'secondary'}
             classes={{
-                root_lowPriority: classes.filterButton
+                root_secondary: classes.filterButton
             }}
             data-cy="FilterModalOpenButton-button"
             onClick={handleOpen}

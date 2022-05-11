@@ -123,7 +123,7 @@ const Newsletter = props => {
                 </LinkButton>
                 <div className={classes.buttonsContainer}>
                     <Button
-                        priority="normal"
+                        design="secondary"
                         type="submit"
                         disabled={isBusy}
                         onClick={clearErrors}

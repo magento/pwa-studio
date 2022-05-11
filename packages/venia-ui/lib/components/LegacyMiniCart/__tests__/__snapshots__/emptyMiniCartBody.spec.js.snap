@@ -6,10 +6,10 @@ exports[`renders a "no items" message 1`] = `
     There are no items in your shopping cart
   </h3>
   <Button
+    design="secondary"
     disabled={false}
-    negative={false}
     onClick={[Function]}
-    priority="normal"
+    size="medium"
     type="button"
   >
     Continue Shopping

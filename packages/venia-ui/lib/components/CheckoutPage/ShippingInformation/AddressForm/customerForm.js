@@ -89,7 +89,7 @@ const CustomerForm = props => {
     ) : null;
 
     const cancelButton = isUpdate ? (
-        <Button disabled={isSaving} onClick={handleCancel} priority="low">
+        <Button disabled={isSaving} onClick={handleCancel} design="tertiary">
             <FormattedMessage
                 id={'global.cancelButton'}
                 defaultMessage={'Cancel'}
@@ -113,7 +113,7 @@ const CustomerForm = props => {
           });
     const submitButtonProps = {
         disabled: isSaving,
-        priority: !hasDefaultShipping ? 'normal' : 'high',
+        design: !hasDefaultShipping ? 'secondary' : 'primary',
         type: 'submit'
     };
 

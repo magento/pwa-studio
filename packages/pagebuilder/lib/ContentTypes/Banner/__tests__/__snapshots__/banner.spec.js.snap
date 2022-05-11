@@ -63,7 +63,7 @@ exports[`on hover displays button and overlay 1`] = `
           className="buttonHover"
         >
           <button
-            className="root_highPriority"
+            className="root_primary_iconOnly"
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
@@ -81,7 +81,9 @@ exports[`on hover displays button and overlay 1`] = `
           >
             <span
               className="content"
-            />
+            >
+              
+            </span>
           </button>
         </div>
       </div>
@@ -153,7 +155,7 @@ exports[`on hover displays button and overlay 2`] = `
           className="buttonHover"
         >
           <button
-            className="root_highPriority"
+            className="root_primary_iconOnly"
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
@@ -171,7 +173,9 @@ exports[`on hover displays button and overlay 2`] = `
           >
             <span
               className="content"
-            />
+            >
+              
+            </span>
           </button>
         </div>
       </div>
@@ -346,7 +350,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
           className="buttonHover"
         >
           <button
-            className="root_highPriority"
+            className="root_primary_medium"
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
@@ -365,7 +369,11 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
             <span
               className="content"
             >
-              Shop Bags
+              <span
+                className="text"
+              >
+                Shop Bags
+              </span>
             </span>
           </button>
         </div>
@@ -540,7 +548,7 @@ exports[`renders an empty Banner component 1`] = `
         className="button"
       >
         <button
-          className="root_normalPriority"
+          className="root_secondary_iconOnly"
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -558,7 +566,9 @@ exports[`renders an empty Banner component 1`] = `
         >
           <span
             className="content"
-          />
+          >
+            
+          </span>
         </button>
       </div>
     </div>

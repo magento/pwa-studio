@@ -166,10 +166,7 @@ const ProductSort = props => {
             aria-busy="false"
         >
             <Button
-                priority={'low'}
-                classes={{
-                    root_lowPriority: classes.sortButton
-                }}
+                design={'tertiary'}
                 onClick={handleSortClick}
                 data-cy="ProductSort-sortButton"
             >

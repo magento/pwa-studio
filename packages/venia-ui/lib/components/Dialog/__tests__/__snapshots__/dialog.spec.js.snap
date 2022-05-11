@@ -38,7 +38,7 @@ exports[`does not render a close X button in modal mode 1`] = `
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -56,14 +56,18 @@ exports[`does not render a close X button in modal mode 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -82,10 +86,14 @@ exports[`does not render a close X button in modal mode 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Confirm"
-                  id="global.confirmButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Confirm"
+                    id="global.confirmButton"
+                  />
+                </span>
               </span>
             </button>
           </div>
@@ -169,7 +177,7 @@ exports[`renders a Dialog with disabled buttons 1`] = `
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={true}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -187,14 +195,18 @@ exports[`renders a Dialog with disabled buttons 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={true}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -213,10 +225,14 @@ exports[`renders a Dialog with disabled buttons 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Confirm"
-                  id="global.confirmButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Confirm"
+                    id="global.confirmButton"
+                  />
+                </span>
               </span>
             </button>
           </div>
@@ -376,7 +392,7 @@ exports[`renders a basic Dialog 1`] = `
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -394,14 +410,18 @@ exports[`renders a basic Dialog 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -420,10 +440,14 @@ exports[`renders a basic Dialog 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Confirm"
-                  id="global.confirmButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Confirm"
+                    id="global.confirmButton"
+                  />
+                </span>
               </span>
             </button>
           </div>
@@ -507,7 +531,7 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -525,14 +549,18 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={true}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -551,10 +579,14 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Confirm"
-                  id="global.confirmButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Confirm"
+                    id="global.confirmButton"
+                  />
+                </span>
               </span>
             </button>
           </div>
@@ -642,7 +674,7 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -660,14 +692,18 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -686,10 +722,14 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Confirm"
-                  id="global.confirmButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Confirm"
+                    id="global.confirmButton"
+                  />
+                </span>
               </span>
             </button>
           </div>
@@ -781,7 +821,7 @@ exports[`supports modifying title and button texts 1`] = `
             className="buttons"
           >
             <button
-              className="root_lowPriority"
+              className="root_secondary_medium"
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -799,14 +839,18 @@ exports[`supports modifying title and button texts 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Unit Test Cancel"
-                  id="global.cancelButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Unit Test Cancel"
+                    id="global.cancelButton"
+                  />
+                </span>
               </span>
             </button>
             <button
-              className="root_highPriority"
+              className="root_primary_medium"
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -825,10 +869,14 @@ exports[`supports modifying title and button texts 1`] = `
               <span
                 className="content"
               >
-                <mock-FormattedMessage
-                  defaultMessage="Unit Test Confirm"
-                  id="global.confirmButton"
-                />
+                <span
+                  className="text"
+                >
+                  <mock-FormattedMessage
+                    defaultMessage="Unit Test Confirm"
+                    id="global.confirmButton"
+                  />
+                </span>
               </span>
             </button>
           </div>
