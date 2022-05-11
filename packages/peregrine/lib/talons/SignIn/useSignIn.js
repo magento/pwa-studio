@@ -139,7 +139,8 @@ export const useSignIn = props => {
             getUserDetails,
             fetchUserDetails,
             getCartDetails,
-            fetchCartDetails
+            fetchCartDetails,
+            dispatch
         ]
     );
 
