@@ -144,8 +144,8 @@ const extend = {
         autoFirst: 'auto 1fr',
         autoLast: '1fr auto',
         carouselThumbnailList: 'repeat(auto-fit, 1rem)',
-        tileList: 'repeat(auto-fit, minmax(3rem, max-content))',
-        swatchList: 'repeat(auto-fit, minmax(3rem, max-content))'
+        tileList: 'repeat(auto-fit, minmax(2.5rem, max-content))',
+        swatchList: 'repeat(auto-fit, minmax(2.5rem, max-content))'
     },
     gridTemplateRows: {
         auto: 'auto',
