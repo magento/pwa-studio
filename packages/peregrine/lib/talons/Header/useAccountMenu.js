@@ -6,6 +6,7 @@ import mergeOperations from '../../util/shallowMerge';
 import { useUserContext } from '../../context/user';
 
 import DEFAULT_OPERATIONS from './accountMenu.gql';
+import { useEventingContext } from '../../context/eventing';
 
 /**
  * The useAccountMenu talon complements the AccountMenu component.
@@ -37,7 +38,12 @@ export const useAccountMenu = props => {
     const history = useHistory();
     const location = useLocation();
     const [revokeToken] = useMutation(signOutMutation);
-    const [{ isSignedIn: isUserSignedIn }, { signOut }] = useUserContext();
+    const [
+        { isSignedIn: isUserSignedIn, currentUser },
+        { signOut }
+    ] = useUserContext();
+
+    const [, { dispatch }] = useEventingContext();
 
     const handleSignOut = useCallback(async () => {
         setView('SIGNIN');
@@ -46,11 +52,17 @@ export const useAccountMenu = props => {
         // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
 
+        dispatch({
+            type: 'USER_SIGN_OUT',
+            payload: {
+                ...currentUser
+            }
+        });
         // Refresh the page as a way to say "re-initialize". An alternative
         // would be to call apolloClient.resetStore() but that would require
         // a large refactor.
         history.go(0);
-    }, [history, revokeToken, setAccountMenuIsOpen, signOut]);
+    }, [history, revokeToken, setAccountMenuIsOpen, signOut, currentUser]);
 
     const handleForgotPassword = useCallback(() => {
         setView('FORGOT_PASSWORD');
