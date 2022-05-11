@@ -54,7 +54,7 @@
         }
 
     </style>
-    <g class="lh-gauge__wrapper--average lh-gauge__score">
+    <g class="lh-gauge__wrapper--fail lh-gauge__score">
         <circle class="lh-gauge-base" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
         <circle class="lh-gauge-arc" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
         <text x="16" y="38">29</text>
