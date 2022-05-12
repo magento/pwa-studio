@@ -1,7 +1,7 @@
 .base {
     --venia-swatch-bg: rgb(var(--color-neutral-200));
     composes: root from '../clickable.module.css';
-    
+
     composes: rounded-full from global;
     composes: border-buttonWidth from global;
     composes: border-solid from global;

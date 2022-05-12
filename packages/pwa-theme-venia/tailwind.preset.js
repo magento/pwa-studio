@@ -58,7 +58,7 @@ const extend = {
     backgroundImage: theme => ({
         'gradient-radial': `radial-gradient(circle, ${theme(
             'colors.gray.100'
-        )}, white)`,
+        )}, white)`
     }),
     borderColor: theme => ({
         buttonColor: {
@@ -209,7 +209,7 @@ const extend = {
         subtle: theme('colors.gray.600'),
         DEFAULT: theme('colors.gray.900'),
         swatch: {
-            selected: theme('colors.neutral.50'),
+            selected: theme('colors.neutral.50')
         }
     }),
     transitionTimingFunction: {
