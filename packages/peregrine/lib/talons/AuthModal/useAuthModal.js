@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 import { useUserContext } from '../../context/user';
 import DEFAULT_OPERATIONS from './authModal.gql';
+import { useEventingContext } from '../../context/eventing';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -52,6 +53,8 @@ export const useAuthModal = props => {
     const [revokeToken] = useMutation(signOutMutation);
     const history = useHistory();
 
+    const [, { dispatch }] = useEventingContext();
+
     // If the user is authed, the only valid view is "MY_ACCOUNT".
     // view an also be `MENU` but in that case we don't want to act.
     useEffect(() => {
@@ -84,6 +87,11 @@ export const useAuthModal = props => {
     const handleSignOut = useCallback(async () => {
         setIsSigningOut(true);
 
+        dispatch({
+            type: 'USER_SIGN_OUT',
+            payload: currentUser
+        });
+
         // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
 
@@ -102,6 +110,8 @@ export const useAuthModal = props => {
         showCreateAccount,
         showForgotPassword,
         showMyAccount,
-        username
+        username,
+        dispatch,
+        currentUser
     };
 };
