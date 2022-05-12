@@ -171,7 +171,7 @@ Array [
       />
     </div>
     <button
-      className="root_normalPriority"
+      className="root_secondary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -190,7 +190,11 @@ Array [
       <span
         className="content"
       >
-        Get Shipping Options
+        <span
+          className="text"
+        >
+          Get Shipping Options
+        </span>
       </span>
     </button>
   </form>,
@@ -384,7 +388,7 @@ Array [
       />
     </div>
     <button
-      className="root_normalPriority"
+      className="root_secondary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -403,7 +407,11 @@ Array [
       <span
         className="content"
       >
-        Get Shipping Options
+        <span
+          className="text"
+        >
+          Get Shipping Options
+        </span>
       </span>
     </button>
   </form>,
@@ -643,7 +651,7 @@ Array [
       />
     </div>
     <button
-      className="root_normalPriority"
+      className="root_secondary_medium"
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -662,7 +670,11 @@ Array [
       <span
         className="content"
       >
-        Get Shipping Options
+        <span
+          className="text"
+        >
+          Get Shipping Options
+        </span>
       </span>
     </button>
   </form>,
@@ -1138,7 +1150,7 @@ Array [
       />
     </div>
     <button
-      className="root_normalPriority"
+      className="root_secondary_medium"
       disabled={true}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -1157,7 +1169,11 @@ Array [
       <span
         className="content"
       >
-        Loading Methods...
+        <span
+          className="text"
+        >
+          Loading Methods...
+        </span>
       </span>
     </button>
   </form>,

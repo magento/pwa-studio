@@ -43,7 +43,7 @@ const Receipt = props => {
         <Fragment>
             <hr />
             <div className={classes.textBlock}>{ctaText}</div>
-            <Button priority="high" onClick={handleCreateAccount}>
+            <Button design="primary" onClick={handleCreateAccount}>
                 {createAccountButtonText}
             </Button>
         </Fragment>

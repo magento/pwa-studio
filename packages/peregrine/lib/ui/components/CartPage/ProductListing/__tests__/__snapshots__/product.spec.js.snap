@@ -223,6 +223,7 @@ exports[`renders configurable product with options 1`] = `
       className="root"
     >
       <button
+        aria-label="Cart item options"
         className="kebab"
         onClick={[Function]}
       >
@@ -266,6 +267,7 @@ exports[`renders configurable product with options 1`] = `
           className="menuItem"
         >
           <button
+            aria-label="Edit item"
             className="button"
             onMouseDown={[MockFunction]}
           >
@@ -300,6 +302,7 @@ exports[`renders configurable product with options 1`] = `
           className="menuItem"
         >
           <button
+            aria-label="Remove from cart"
             className="button"
             onMouseDown={[MockFunction]}
           >
@@ -556,6 +559,7 @@ exports[`renders out of stock product 1`] = `
       className="root"
     >
       <button
+        aria-label="Cart item options"
         className="kebab"
         onClick={[Function]}
       >
@@ -599,6 +603,7 @@ exports[`renders out of stock product 1`] = `
           className="menuItem"
         >
           <button
+            aria-label="Remove from cart"
             className="button"
             onMouseDown={[MockFunction]}
           >
@@ -855,6 +860,7 @@ exports[`renders simple product correctly 1`] = `
       className="root"
     >
       <button
+        aria-label="Cart item options"
         className="kebab"
         onClick={[Function]}
       >
@@ -898,6 +904,7 @@ exports[`renders simple product correctly 1`] = `
           className="menuItem"
         >
           <button
+            aria-label="Remove from cart"
             className="button"
             onMouseDown={[MockFunction]}
           >

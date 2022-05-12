@@ -40,6 +40,7 @@ const Section = props => {
                 className={classes.button}
                 onMouseDown={onClick}
                 data-cy="LegacyMiniCart-Section-button"
+                aria-label={text}
             >
                 <Icon classes={iconClasses} size={16} src={iconSrc} />
                 <span className={classes.text}>{text}</span>

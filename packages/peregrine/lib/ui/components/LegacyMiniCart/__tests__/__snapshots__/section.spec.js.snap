@@ -2,7 +2,9 @@
 
 exports[`it does not render an icon when not passed one 1`] = `
 <li>
-  <button>
+  <button
+    aria-label="Unit Test Text"
+  >
     <Icon
       classes={
         Object {
@@ -20,7 +22,9 @@ exports[`it does not render an icon when not passed one 1`] = `
 
 exports[`it does not render an icon when passed an invalid one 1`] = `
 <li>
-  <button>
+  <button
+    aria-label="Unit Test Text"
+  >
     <Icon
       classes={
         Object {
@@ -38,7 +42,9 @@ exports[`it does not render an icon when passed an invalid one 1`] = `
 
 exports[`it fills the icon when isFilled is true 1`] = `
 <li>
-  <button>
+  <button
+    aria-label="Unit Test Text"
+  >
     <Icon
       classes={
         Object {
@@ -66,7 +72,9 @@ exports[`it fills the icon when isFilled is true 1`] = `
 
 exports[`it renders an icon when passed a valid one 1`] = `
 <li>
-  <button>
+  <button
+    aria-label="Unit Test Text"
+  >
     <Icon
       classes={
         Object {

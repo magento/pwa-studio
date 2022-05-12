@@ -24,7 +24,7 @@ exports[`renders a Receipt component correctly 1`] = `
       Track order status and earn rewards for your purchase by creating an account.
     </div>
     <button
-      className="root_highPriority"
+      className="root_primary_medium"
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -43,7 +43,11 @@ exports[`renders a Receipt component correctly 1`] = `
       <span
         className="content"
       >
-        Create an Account
+        <span
+          className="text"
+        >
+          Create an Account
+        </span>
       </span>
     </button>
   </div>

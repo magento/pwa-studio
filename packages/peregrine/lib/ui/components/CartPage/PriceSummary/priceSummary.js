@@ -88,7 +88,7 @@ const PriceSummary = props => {
         <div className={classes.checkoutButton_container}>
             <Button
                 disabled={isPriceUpdating}
-                priority={'high'}
+                design={'primary'}
                 onClick={handleProceedToCheckout}
                 data-cy="PriceSummary-checkoutButton"
             >

@@ -2,6 +2,7 @@
 
 exports[`renders reset trigger 1`] = `
 <button
+  aria-label="Clear order search field"
   onClick={[Function]}
   type="button"
 >

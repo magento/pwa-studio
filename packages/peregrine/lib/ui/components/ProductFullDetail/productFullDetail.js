@@ -183,7 +183,7 @@ const ProductFullDetail = props => {
         <Button
             data-cy="ProductFullDetail-addToCartButton"
             disabled={isAddToCartDisabled}
-            priority="high"
+            design="primary"
             type="submit"
         >
             {cartCallToActionText}

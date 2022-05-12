@@ -88,10 +88,9 @@ const AccountInformationPage = props => {
                     </div>
                     <div className={classes.editButtonContainer}>
                         <Button
-                            className={classes.editInformationButton}
                             disabled={false}
                             onClick={showUpdateMode}
-                            priority="normal"
+                            design="secondary"
                             data-cy="AccountInformationPage-editInformationButton"
                         >
                             <FormattedMessage

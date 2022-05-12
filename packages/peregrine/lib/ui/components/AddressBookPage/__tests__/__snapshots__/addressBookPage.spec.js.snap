@@ -78,31 +78,35 @@ exports[`renders correctly when there are existing addresses 1`] = `
       <span
         className="content"
       >
-        <Icon
-          classes={
-            Object {
-              "icon": "addIcon",
-            }
-          }
-          size={24}
-          src={
-            Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "propTypes": Object {
-                "color": [Function],
-                "size": [Function],
-              },
-              "render": [Function],
-            }
-          }
-        />
         <span
-          className="addText"
+          className="text"
         >
-          <mock-FormattedMessage
-            defaultMessage="Add an Address"
-            id="addressBookPage.addAddressText"
+          <Icon
+            classes={
+              Object {
+                "icon": "addIcon",
+              }
+            }
+            size={24}
+            src={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "color": [Function],
+                  "size": [Function],
+                },
+                "render": [Function],
+              }
+            }
           />
+          <span
+            className="addText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Add an Address"
+              id="addressBookPage.addAddressText"
+            />
+          </span>
         </span>
       </span>
     </button>
@@ -152,31 +156,35 @@ exports[`renders correctly when there are no existing addresses 1`] = `
       <span
         className="content"
       >
-        <Icon
-          classes={
-            Object {
-              "icon": "addIcon",
-            }
-          }
-          size={24}
-          src={
-            Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "propTypes": Object {
-                "color": [Function],
-                "size": [Function],
-              },
-              "render": [Function],
-            }
-          }
-        />
         <span
-          className="addText"
+          className="text"
         >
-          <mock-FormattedMessage
-            defaultMessage="Add an Address"
-            id="addressBookPage.addAddressText"
+          <Icon
+            classes={
+              Object {
+                "icon": "addIcon",
+              }
+            }
+            size={24}
+            src={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "color": [Function],
+                  "size": [Function],
+                },
+                "render": [Function],
+              }
+            }
           />
+          <span
+            className="addText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Add an Address"
+              id="addressBookPage.addAddressText"
+            />
+          </span>
         </span>
       </span>
     </button>
@@ -271,31 +279,35 @@ exports[`renders delete confirmation on address that is being deleted 1`] = `
       <span
         className="content"
       >
-        <Icon
-          classes={
-            Object {
-              "icon": "addIcon",
-            }
-          }
-          size={24}
-          src={
-            Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "propTypes": Object {
-                "color": [Function],
-                "size": [Function],
-              },
-              "render": [Function],
-            }
-          }
-        />
         <span
-          className="addText"
+          className="text"
         >
-          <mock-FormattedMessage
-            defaultMessage="Add an Address"
-            id="addressBookPage.addAddressText"
+          <Icon
+            classes={
+              Object {
+                "icon": "addIcon",
+              }
+            }
+            size={24}
+            src={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "color": [Function],
+                  "size": [Function],
+                },
+                "render": [Function],
+              }
+            }
           />
+          <span
+            className="addText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Add an Address"
+              id="addressBookPage.addAddressText"
+            />
+          </span>
         </span>
       </span>
     </button>

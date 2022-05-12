@@ -130,17 +130,20 @@ const OrderHistoryPage = props => {
         />
     ) : null;
 
+    const loadMoreText = formatMessage({
+        id: 'orderHistoryPage.loadMore',
+        defaultMessage: 'Load More'
+    });
+
     const loadMoreButton = loadMoreOrders ? (
         <Button
             classes={{ root_lowPriority: classes.loadMoreButton }}
             disabled={isBackgroundLoading || isLoadingWithoutData}
             onClick={loadMoreOrders}
-            priority="low"
+            design="secondary"
+            aria-label={loadMoreText}
         >
-            <FormattedMessage
-                id={'orderHistoryPage.loadMore'}
-                defaultMessage={'Load More'}
-            />
+            {loadMoreText}
         </Button>
     ) : null;
 
@@ -176,8 +179,9 @@ const OrderHistoryPage = props => {
                             disabled={
                                 isBackgroundLoading || isLoadingWithoutData
                             }
-                            priority={'high'}
+                            design={'primary'}
                             type="submit"
+                            aria-label={SEARCH_PLACE_HOLDER}
                         >
                             {submitIcon}
                         </Button>

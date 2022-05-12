@@ -54,13 +54,13 @@ const CreateWishlistForm = props => {
             </div>
 
             <div className={classes.actions}>
-                <Button onClick={handleCancel} priority="low" type="reset">
+                <Button onClick={handleCancel} design="secondary" type="reset">
                     {cancelButtonText}
                 </Button>
                 <Button
                     disabled={isSaveDisabled}
                     onClick={handleSave}
-                    priority="high"
+                    design="primary"
                     type="button"
                     data-cy="createWishListForm-saveButton"
                 >

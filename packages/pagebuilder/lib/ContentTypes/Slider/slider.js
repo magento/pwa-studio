@@ -14,6 +14,8 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 import { jarallax } from 'jarallax';
 
+import { useIntl } from 'react-intl';
+
 /**
  * Page Builder Slider component.
  *
@@ -27,6 +29,8 @@ import { jarallax } from 'jarallax';
  * @returns {React.Element} A React component that displays a Slider which contains slides.
  */
 const Slider = props => {
+    const { formatMessage } = useIntl();
+
     const classes = useStyle(defaultClasses, props.classes);
 
     const {
@@ -73,8 +77,21 @@ const Slider = props => {
         paddingBottom,
         paddingLeft
     };
+
+    const Dots = index => {
+        const ariaLabel = formatMessage(
+            {
+                id: 'pagebuilder.slider.dots',
+                defaultMessage: 'Go to slider page {number}'
+            },
+            { number: index + 1 }
+        );
+
+        return <button aria-label={ariaLabel}>{index}</button>;
+    };
     const jarallaxInstances = {};
     const sliderSettings = {
+        customPaging: Dots,
         dots: showDots,
         arrows: showArrows,
         lazyLoad: 'ondemand',

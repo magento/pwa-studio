@@ -36,12 +36,6 @@ const AddressCard = props => {
     } = address;
 
     const classes = useStyle(defaultClasses, propClasses);
-    const confirmDeleteButtonClasses = {
-        root_normalPriorityNegative: classes.confirmDeleteButton
-    };
-    const cancelDeleteButtonClasses = {
-        root_lowPriority: classes.cancelDeleteButton
-    };
 
     const streetRows = street.map((row, index) => {
         return (
@@ -69,11 +63,7 @@ const AddressCard = props => {
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (
-        <LinkButton
-            classes={{ root: classes.deleteButton }}
-            onClick={onDelete}
-            data-cy="addressCard-deleteButton"
-        >
+        <LinkButton onClick={onDelete} data-cy="addressCard-deleteButton">
             <Icon classes={{ icon: null }} size={16} src={TrashIcon} />
             <span className={classes.actionLabel}>
                 <FormattedMessage
@@ -87,29 +77,26 @@ const AddressCard = props => {
     const maybeConfirmingDeleteOverlay = isConfirmingDelete ? (
         <div className={classes.confirmDeleteContainer}>
             <Button
-                classes={confirmDeleteButtonClasses}
                 disabled={isDeletingCustomerAddress}
-                priority="normal"
-                type="button"
-                negative={true}
-                onClick={onConfirmDelete}
-                data-cy="addressCard-confirmDeleteButton"
-            >
-                <FormattedMessage
-                    id={'global.deleteButton'}
-                    defaultMessage={'Delete'}
-                />
-            </Button>
-            <Button
-                classes={cancelDeleteButtonClasses}
-                disabled={isDeletingCustomerAddress}
-                priority="low"
+                design="secondary"
                 type="button"
                 onClick={onCancelDelete}
             >
                 <FormattedMessage
                     id={'global.cancelButton'}
                     defaultMessage={'Cancel'}
+                />
+            </Button>
+            <Button
+                disabled={isDeletingCustomerAddress}
+                design="primary"
+                type="button"
+                onClick={onConfirmDelete}
+                data-cy="addressCard-confirmDeleteButton"
+            >
+                <FormattedMessage
+                    id={'global.deleteButton'}
+                    defaultMessage={'Delete'}
                 />
             </Button>
         </div>
@@ -139,11 +126,7 @@ const AddressCard = props => {
                 </span>
             </div>
             <div className={classes.actionContainer}>
-                <LinkButton
-                    classes={{ root: classes.editButton }}
-                    onClick={onEdit}
-                    data-cy="addressCard-editButton"
-                >
+                <LinkButton onClick={onEdit} data-cy="addressCard-editButton">
                     <Icon classes={{ icon: null }} size={16} src={EditIcon} />
                     <span className={classes.actionLabel}>
                         <FormattedMessage
@@ -184,10 +167,7 @@ AddressCard.propTypes = {
         country: string,
         defaultBadge: string,
         defaultCard: string,
-        deleteButton: string,
-        editButton: string,
         flash: string,
-        linkButton: string,
         name: string,
         root: string,
         root_updated: string,

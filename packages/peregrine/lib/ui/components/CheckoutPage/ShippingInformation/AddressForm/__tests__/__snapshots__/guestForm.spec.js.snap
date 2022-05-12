@@ -410,7 +410,7 @@ Array [
       className="buttons"
     >
       <button
-        className="root_normalPriority"
+        className="root_secondary_medium"
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -429,7 +429,11 @@ Array [
         <span
           className="content"
         >
-          Continue to Shipping Method
+          <span
+            className="text"
+          >
+            Continue to Shipping Method
+          </span>
         </span>
       </button>
     </div>
@@ -851,7 +855,7 @@ Array [
       className="buttons"
     >
       <button
-        className="root_normalPriority"
+        className="root_secondary_medium"
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -870,7 +874,11 @@ Array [
         <span
           className="content"
         >
-          Continue to Shipping Method
+          <span
+            className="text"
+          >
+            Continue to Shipping Method
+          </span>
         </span>
       </button>
     </div>
@@ -1280,7 +1288,7 @@ Array [
       className="buttons"
     >
       <button
-        className="root_lowPriority"
+        className="root_tertiary_medium"
         disabled={true}
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
@@ -1299,14 +1307,18 @@ Array [
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Cancel"
-            id="global.cancelButton"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Cancel"
+              id="global.cancelButton"
+            />
+          </span>
         </span>
       </button>
       <button
-        className="root_highPriority"
+        className="root_primary_medium"
         disabled={true}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -1325,7 +1337,11 @@ Array [
         <span
           className="content"
         >
-          Update
+          <span
+            className="text"
+          >
+            Update
+          </span>
         </span>
       </button>
     </div>
@@ -1735,7 +1751,7 @@ Array [
       className="buttons"
     >
       <button
-        className="root_lowPriority"
+        className="root_tertiary_medium"
         disabled={false}
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
@@ -1754,14 +1770,18 @@ Array [
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Cancel"
-            id="global.cancelButton"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Cancel"
+              id="global.cancelButton"
+            />
+          </span>
         </span>
       </button>
       <button
-        className="root_highPriority"
+        className="root_primary_medium"
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -1780,7 +1800,11 @@ Array [
         <span
           className="content"
         >
-          Update
+          <span
+            className="text"
+          >
+            Update
+          </span>
         </span>
       </button>
     </div>

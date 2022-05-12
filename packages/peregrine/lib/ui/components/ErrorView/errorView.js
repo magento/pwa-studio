@@ -60,7 +60,11 @@ const ErrorView = props => {
                     {message}
                 </p>
                 <div className={classes.actionsContainer}>
-                    <Button priority="high" type="button" onClick={handleClick}>
+                    <Button
+                        design="primary"
+                        type="button"
+                        onClick={handleClick}
+                    >
                         {buttonPrompt}
                     </Button>
                 </div>

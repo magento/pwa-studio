@@ -43,20 +43,6 @@
     }
 }
 
-.confirmDeleteButton {
-    composes: root_normalPriorityNegative from '../Button/button.module.css';
-
-    composes: bg-white from global;
-    composes: order-first from global;
-    composes: sm_order-1 from global;
-}
-
-.cancelDeleteButton {
-    composes: root_lowPriority from '../Button/button.module.css';
-
-    composes: bg-white from global;
-}
-
 .contentContainer {
     composes: gap-y-2xs from global;
     composes: grid from global;
@@ -88,20 +74,6 @@
 
 .telephone {
     composes: mt-2xs from global;
-}
-
-.linkButton {
-    composes: root from '../LinkButton/linkButton.module.css';
-
-    composes: no-underline from global;
-}
-
-.editButton {
-    composes: linkButton;
-}
-
-.deleteButton {
-    composes: linkButton;
 }
 
 .actionLabel {

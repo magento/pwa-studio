@@ -101,7 +101,7 @@ const ShippingMethod = props => {
                     <div className={classes.formButtons}>
                         <Button
                             data-cy="ShippingMethod-submitButton"
-                            priority="normal"
+                            design="secondary"
                             type="submit"
                             disabled={pageIsUpdating || isLoading}
                         >

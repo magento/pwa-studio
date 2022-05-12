@@ -46,10 +46,9 @@ const ForgotPasswordForm = props => {
             <GoogleReCaptcha {...recaptchaWidgetProps} />
             <div className={classes.buttonContainer}>
                 <Button
-                    className={classes.cancelButton}
                     disabled={isResettingPassword}
                     type="button"
-                    priority="low"
+                    design="secondary"
                     onClick={onCancel}
                 >
                     <FormattedMessage
@@ -58,10 +57,9 @@ const ForgotPasswordForm = props => {
                     />
                 </Button>
                 <Button
-                    className={classes.submitButton}
                     disabled={isResettingPassword}
                     type="submit"
-                    priority="high"
+                    design="primary"
                     data-cy="forgotPasswordForm-submitButton"
                 >
                     <FormattedMessage

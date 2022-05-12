@@ -69,7 +69,7 @@ exports[`it renders correctly when it has cards 1`] = `
             className="label"
           />
           <button
-            className="root_normalPriority"
+            className="root_secondary_medium"
             disabled={false}
             onClick={[MockFunction]}
             onDragStart={[Function]}
@@ -88,10 +88,14 @@ exports[`it renders correctly when it has cards 1`] = `
             <span
               className="content"
             >
-              <mock-FormattedMessage
-                defaultMessage="Apply"
-                id="giftCards.apply"
-              />
+              <span
+                className="text"
+              >
+                <mock-FormattedMessage
+                  defaultMessage="Apply"
+                  id="giftCards.apply"
+                />
+              </span>
             </span>
           </button>
         </div>
@@ -115,10 +119,14 @@ exports[`it renders correctly when it has cards 1`] = `
           <span
             className="content"
           >
-            <mock-FormattedMessage
-              defaultMessage="Check balance"
-              id="giftCards.checkBalance"
-            />
+            <span
+              className="text"
+            >
+              <mock-FormattedMessage
+                defaultMessage="Check balance"
+                id="giftCards.checkBalance"
+              />
+            </span>
           </span>
         </button>
       </div>
@@ -156,7 +164,7 @@ exports[`it renders correctly when it has cards 1`] = `
         </span>
       </div>
       <button
-        className="root_normalPriority"
+        className="root_tertiary_small"
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -175,10 +183,14 @@ exports[`it renders correctly when it has cards 1`] = `
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Remove"
-            id="giftCard.remove"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Remove"
+              id="giftCard.remove"
+            />
+          </span>
         </span>
       </button>
       <div
@@ -211,7 +223,7 @@ exports[`it renders correctly when it has cards 1`] = `
         </span>
       </div>
       <button
-        className="root_normalPriority"
+        className="root_tertiary_small"
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -230,10 +242,14 @@ exports[`it renders correctly when it has cards 1`] = `
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Remove"
-            id="giftCard.remove"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Remove"
+              id="giftCard.remove"
+            />
+          </span>
         </span>
       </button>
     </div>
@@ -310,7 +326,7 @@ exports[`it renders correctly with no cards 1`] = `
             className="label"
           />
           <button
-            className="root_normalPriority"
+            className="root_secondary_medium"
             disabled={false}
             onClick={[MockFunction]}
             onDragStart={[Function]}
@@ -329,10 +345,14 @@ exports[`it renders correctly with no cards 1`] = `
             <span
               className="content"
             >
-              <mock-FormattedMessage
-                defaultMessage="Apply"
-                id="giftCards.apply"
-              />
+              <span
+                className="text"
+              >
+                <mock-FormattedMessage
+                  defaultMessage="Apply"
+                  id="giftCards.apply"
+                />
+              </span>
             </span>
           </button>
         </div>
@@ -356,10 +376,14 @@ exports[`it renders correctly with no cards 1`] = `
           <span
             className="content"
           >
-            <mock-FormattedMessage
-              defaultMessage="Check balance"
-              id="giftCards.checkBalance"
-            />
+            <span
+              className="text"
+            >
+              <mock-FormattedMessage
+                defaultMessage="Check balance"
+                id="giftCards.checkBalance"
+              />
+            </span>
           </span>
         </button>
       </div>

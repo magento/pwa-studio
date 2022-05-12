@@ -92,7 +92,7 @@ const ResetPassword = props => {
                 <Button
                     className={classes.submitButton}
                     type="submit"
-                    priority="high"
+                    design="primary"
                     disabled={loading}
                 >
                     <FormattedMessage

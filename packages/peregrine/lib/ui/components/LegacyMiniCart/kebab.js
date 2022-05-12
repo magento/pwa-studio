@@ -7,12 +7,20 @@ import Icon from '../Icon';
 
 import defaultClasses from './kebab.module.css';
 import { useKebab } from '@magento/peregrine/lib/talons/LegacyMiniCart/useKebab';
+import { useIntl } from 'react-intl';
 
 const Kebab = props => {
     const { handleKebabClick, isOpen, kebabRef } = useKebab();
     const { children } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
+
+    const { formatMessage } = useIntl();
+
+    const ariaLabel = formatMessage({
+        id: 'legacyMiniCart.kebab',
+        defaultMessage: 'Cart item options'
+    });
 
     return (
         <div className={classes.root}>
@@ -21,6 +29,7 @@ const Kebab = props => {
                 data-cy="Kebab-button"
                 onClick={handleKebabClick}
                 ref={kebabRef}
+                aria-label={ariaLabel}
             >
                 <Icon src={MoreVerticalIcon} />
             </button>

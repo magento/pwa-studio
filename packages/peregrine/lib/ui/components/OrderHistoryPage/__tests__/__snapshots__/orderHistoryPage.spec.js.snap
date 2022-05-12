@@ -96,6 +96,7 @@ exports[`renders correctly with data 1`] = `
           className="root"
         />
         <button
+          aria-label="Search by Order Number"
           className="searchButton"
           disabled={false}
           onClick={[Function]}
@@ -116,30 +117,34 @@ exports[`renders correctly with data 1`] = `
             className="content"
           >
             <span
-              className="root"
+              className="text"
             >
-              <svg
-                className="icon"
-                fill="none"
-                height={24}
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                width={24}
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                className="root"
               >
-                <line
-                  x1="5"
-                  x2="19"
-                  y1="12"
-                  y2="12"
-                />
-                <polyline
-                  points="12 5 19 12 12 19"
-                />
-              </svg>
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={24}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                  <polyline
+                    points="12 5 19 12 12 19"
+                  />
+                </svg>
+              </span>
             </span>
           </span>
         </button>
@@ -171,7 +176,8 @@ exports[`renders correctly with data 1`] = `
       />
     </ul>
     <button
-      className="root_lowPriority"
+      aria-label="Load More"
+      className="root_secondary_medium"
       disabled={false}
       onClick={[MockFunction loadMoreOrders]}
       onDragStart={[Function]}
@@ -190,10 +196,11 @@ exports[`renders correctly with data 1`] = `
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Load More"
-          id="orderHistoryPage.loadMore"
-        />
+        <span
+          className="text"
+        >
+          Load More
+        </span>
       </span>
     </button>
   </div>
@@ -285,6 +292,7 @@ exports[`renders correctly without data 1`] = `
           className="root"
         />
         <button
+          aria-label="Search by Order Number"
           className="searchButton"
           disabled={false}
           onClick={[Function]}
@@ -305,30 +313,34 @@ exports[`renders correctly without data 1`] = `
             className="content"
           >
             <span
-              className="root"
+              className="text"
             >
-              <svg
-                className="icon"
-                fill="none"
-                height={24}
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                width={24}
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                className="root"
               >
-                <line
-                  x1="5"
-                  x2="19"
-                  y1="12"
-                  y2="12"
-                />
-                <polyline
-                  points="12 5 19 12 12 19"
-                />
-              </svg>
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={24}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                  <polyline
+                    points="12 5 19 12 12 19"
+                  />
+                </svg>
+              </span>
             </span>
           </span>
         </button>
@@ -457,6 +469,7 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
             className="after"
           >
             <button
+              aria-label="Clear order search field"
               className="root"
               onClick={[Function]}
               type="button"
@@ -497,6 +510,7 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
           className="root"
         />
         <button
+          aria-label="Search by Order Number"
           className="searchButton"
           disabled={false}
           onClick={[Function]}
@@ -517,30 +531,34 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
             className="content"
           >
             <span
-              className="root"
+              className="text"
             >
-              <svg
-                className="icon"
-                fill="none"
-                height={24}
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                width={24}
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                className="root"
               >
-                <line
-                  x1="5"
-                  x2="19"
-                  y1="12"
-                  y2="12"
-                />
-                <polyline
-                  points="12 5 19 12 12 19"
-                />
-              </svg>
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={24}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                  <polyline
+                    points="12 5 19 12 12 19"
+                  />
+                </svg>
+              </span>
             </span>
           </span>
         </button>
@@ -648,6 +666,7 @@ exports[`renders loading indicator 1`] = `
           className="root"
         />
         <button
+          aria-label="Search by Order Number"
           className="searchButton"
           disabled={true}
           onClick={[Function]}
@@ -668,30 +687,34 @@ exports[`renders loading indicator 1`] = `
             className="content"
           >
             <span
-              className="root"
+              className="text"
             >
-              <svg
-                className="icon"
-                fill="none"
-                height={24}
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                width={24}
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                className="root"
               >
-                <line
-                  x1="5"
-                  x2="19"
-                  y1="12"
-                  y2="12"
-                />
-                <polyline
-                  points="12 5 19 12 12 19"
-                />
-              </svg>
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={24}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                  <polyline
+                    points="12 5 19 12 12 19"
+                  />
+                </svg>
+              </span>
             </span>
           </span>
         </button>
@@ -858,6 +881,7 @@ exports[`renders no orders message is orders is empty 1`] = `
           className="root"
         />
         <button
+          aria-label="Search by Order Number"
           className="searchButton"
           disabled={false}
           onClick={[Function]}
@@ -878,30 +902,34 @@ exports[`renders no orders message is orders is empty 1`] = `
             className="content"
           >
             <span
-              className="root"
+              className="text"
             >
-              <svg
-                className="icon"
-                fill="none"
-                height={24}
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                width={24}
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                className="root"
               >
-                <line
-                  x1="5"
-                  x2="19"
-                  y1="12"
-                  y2="12"
-                />
-                <polyline
-                  points="12 5 19 12 12 19"
-                />
-              </svg>
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={24}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                  <polyline
+                    points="12 5 19 12 12 19"
+                  />
+                </svg>
+              </span>
             </span>
           </span>
         </button>

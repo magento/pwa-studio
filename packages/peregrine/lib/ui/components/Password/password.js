@@ -11,6 +11,7 @@ import TextInput from '../TextInput';
 import { isRequired } from '../../util/formValidators';
 
 import defaultClasses from './password.module.css';
+import { useIntl } from 'react-intl';
 
 const Password = props => {
     const {
@@ -27,11 +28,18 @@ const Password = props => {
     const { handleBlur, togglePasswordVisibility, visible } = talonProps;
     const classes = useStyle(defaultClasses, propClasses);
 
+    const { formatMessage } = useIntl();
+
+    const message = visible
+        ? { id: 'password.hide', defaultMessage: 'Hide password' }
+        : { id: 'password.show', defaultMessage: 'Show password' };
+
     const passwordButton = (
         <Button
             className={classes.passwordButton}
             onClick={togglePasswordVisibility}
             type="button"
+            aria-label={formatMessage(message)}
         >
             {visible ? <Eye /> : <EyeOff />}
         </Button>

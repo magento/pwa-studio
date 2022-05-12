@@ -180,10 +180,14 @@ exports[`CheckoutPage renders an error and disables review order button if there
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Sign In"
-            id="checkoutPage.signInButton"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Sign In"
+              id="checkoutPage.signInButton"
+            />
+          </span>
         </span>
       </button>
     </div>
@@ -246,10 +250,14 @@ exports[`CheckoutPage renders an error and disables review order button if there
       <span
         className="content"
       >
-        <mock-FormattedMessage
-          defaultMessage="Review Order"
-          id="checkoutPage.reviewOrder"
-        />
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Review Order"
+            id="checkoutPage.reviewOrder"
+          />
+        </span>
       </span>
     </button>
     <div
@@ -548,10 +556,14 @@ exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Sign In"
-            id="checkoutPage.signInButton"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Sign In"
+              id="checkoutPage.signInButton"
+            />
+          </span>
         </span>
       </button>
     </div>
@@ -691,10 +703,14 @@ exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
         <span
           className="content"
         >
-          <mock-FormattedMessage
-            defaultMessage="Sign In"
-            id="checkoutPage.signInButton"
-          />
+          <span
+            className="text"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Sign In"
+              id="checkoutPage.signInButton"
+            />
+          </span>
         </span>
       </button>
     </div>
@@ -890,10 +906,10 @@ Object {
     id="checkoutPage.reviewOrder"
   />,
   "className": "review_order_button",
+  "design": "primary",
   "disabled": true,
-  "negative": false,
   "onClick": [MockFunction handleReviewOrder],
-  "priority": "high",
+  "size": "medium",
   "type": "button",
 }
 `;

@@ -1,39 +1,31 @@
 .root {
-    composes: border-2 from global;
+    composes: border-0 from global;
     composes: border-solid from global;
     composes: cursor-pointer from global;
+    composes: duration-200 from global;
+    composes: ease-standard from global;
     composes: font-bold from global;
     composes: inline-flex from global;
     composes: items-center from global;
     composes: justify-center from global;
     composes: leading-tight from global;
     composes: max-w-full from global;
-    composes: min-w-[10rem] from global;
-    composes: outline-none from global;
     composes: pointer-events-auto from global;
-    composes: px-sm from global;
     composes: rounded-full from global;
     composes: text-center from global;
-    composes: text-sm from global;
     composes: uppercase from global;
-    padding-top: calc(0.5rem + 1px); /* TODO @TW: review */
-    padding-bottom: calc(0.5rem - 1px); /* TODO @TW: review */
-    min-height: 2.5rem;
-    transition-duration: 256ms;
-    transition-property: background-color, border-color, color;
-    transition-timing-function: var(--venia-global-anim-standard);
+    composes: transition-colors from global;
 
-    composes: disabled_bg-gray-400 from global;
-    composes: disabled_border-gray-400 from global;
-    composes: disabled_opacity-50 from global;
+    composes: active_bg-brand-700 from global;
+    composes: active_text-neutral-200 from global;
+
+    composes: disabled_bg-neutral-300 from global;
+    composes: disabled_text-neutral-500 from global;
+    composes: disabled_border-0 from global;
     composes: disabled_pointer-events-none from global;
-    composes: disabled_text-white from global;
 
-    composes: focus_shadow-inputFocus from global;
-}
-
-.root:active {
-    transition-duration: 128ms;
+    composes: hover_bg-brand-600 from global;
+    composes: hover_text-neutral-200 from global;
 }
 
 /**
@@ -45,79 +37,143 @@
     pointer-events: none;
 }
 
-.root_lowPriority {
-    composes: root;
-
-    composes: bg-transparent from global;
-    composes: border-gray-700 from global;
-    composes: text-gray-700 from global;
-
-    composes: active_border-gray-800 from global;
-    composes: active_text-gray-800 from global;
-
-    composes: hover_border-gray-800 from global;
-    composes: hover_text-gray-800 from global;
+.root_iconOnly {
+    composes: p-2xs from global;
 }
 
-.root_normalPriority {
-    composes: root;
-
-    composes: bg-transparent from global;
-    composes: border-brand-dark from global;
-    composes: text-brand-dark from global;
-
-    composes: active_border-brand-darkest from global;
-    composes: active_text-brand-darkest from global;
-
-    composes: hover_border-brand-darkest from global;
-    composes: hover_text-brand-darkest from global;
+.root_withText {
+    composes: min-h-button from global;
+    composes: px-md from global;
+    composes: py-2xs from global;
 }
 
-.root_highPriority {
+.root_primary {
     composes: root;
 
-    composes: bg-brand-dark from global;
-    composes: border-brand-dark from global;
-    composes: text-white from global;
+    composes: bg-brand-500 from global;
+    composes: normal-case from global;
+    composes: text-neutral-200 from global;
 
-    composes: active_bg-brand-darkest from global;
-    composes: active_border-brand-darkest from global;
-    composes: active_text-white from global;
+    composes: active_bg-brand-700 from global;
 
-    composes: hover_bg-brand-darkest from global;
-    composes: hover_border-brand-darkest from global;
-    composes: hover_text-white from global;
+    composes: focus_outline-button from global;
+
+    composes: hover_bg-brand-600 from global;
 }
 
-.root_lowPriorityNegative,
-.root_normalPriorityNegative {
-    composes: root;
-
-    composes: bg-transparent from global;
-    composes: border-red-600 from global;
-    composes: text-red-600 from global;
-
-    composes: active_border-red-700 from global;
-    composes: active_text-red-700 from global;
-
-    composes: hover_border-red-700 from global;
-    composes: hover_text-red-700 from global;
+.root_primary_iconOnly {
+    composes: root_primary;
+    composes: root_iconOnly;
 }
 
-.root_highPriorityNegative {
+.root_primary_large {
+    composes: root_primary;
+    composes: root_withText;
+
+    composes: max-h-12 from global;
+    composes: text-lg from global;
+}
+
+.root_primary_medium {
+    composes: root_primary;
+    composes: root_withText;
+
+    composes: max-h-11 from global;
+    composes: text-base from global;
+}
+
+.root_primary_small {
+    composes: root_primary;
+    composes: root_withText;
+
+    composes: max-h-10 from global;
+    composes: text-sm from global;
+}
+
+.root_secondary {
     composes: root;
 
-    composes: bg-red-600 from global;
-    composes: border-red-600 from global;
-    composes: text-white from global;
+    composes: border-brand-500 from global;
+    composes: border-buttonWidth from global;
+    composes: normal-case from global;
+    composes: text-neutral-800 from global;
 
-    composes: active_bg-red-700 from global;
-    composes: active_border-red-700 from global;
-    composes: active_text-white from global;
+    composes: focus_outline-buttonNoGap from global;
+}
 
-    composes: hover_bg-red-700 from global;
-    composes: hover_border-red-700 from global;
-    composes: hover_text-white from global;
+.root_secondary_iconOnly {
+    composes: root_secondary;
+    composes: root_iconOnly;
+}
+
+.root_secondary_large {
+    composes: root_secondary;
+    composes: root_withText;
+
+    composes: max-h-12 from global;
+    composes: text-lg from global;
+}
+
+.root_secondary_medium {
+    composes: root_secondary;
+    composes: root_withText;
+
+    composes: max-h-11 from global;
+    composes: text-base from global;
+}
+
+.root_secondary_small {
+    composes: root_secondary;
+    composes: root_withText;
+
+    composes: max-h-10 from global;
+    composes: text-sm from global;
+}
+
+.root_tertiary {
+    composes: root;
+
+    composes: normal-case from global;
+    composes: text-neutral-800 from global;
+
+    composes: active_bg-transparent from global;
+    composes: active_text-neutral-800 from global;
+
+    composes: disabled_bg-transparent from global;
+
+    composes: focus_outline-buttonBold from global;
+
+    composes: hover_bg-transparent from global;
+    composes: hover_text-neutral-800 from global;
+}
+
+.root_tertiary_iconOnly {
+    composes: root_tertiary;
+    composes: root_iconOnly;
+}
+
+.root_tertiary_large {
+    composes: root_tertiary;
+    composes: root_withText;
+
+    composes: max-h-12 from global;
+    composes: text-lg from global;
+}
+
+.root_tertiary_medium {
+    composes: root_tertiary;
+    composes: root_withText;
+
+    composes: max-h-11 from global;
+    composes: text-base from global;
+}
+
+.root_tertiary_small {
+    composes: root_tertiary;
+    composes: root_withText;
+
+    composes: max-h-10 from global;
+    composes: text-sm from global;
 }
 
 .content {
@@ -127,4 +183,7 @@
     composes: items-center from global;
     composes: justify-center from global;
     composes: justify-items-center from global;
+}
+
+.text {
 }
