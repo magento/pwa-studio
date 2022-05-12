@@ -3,7 +3,6 @@
 
     composes: border-buttonWidth from global;
     composes: border-solid from global;
-    composes: border-tile-base from global;
     composes: rounded-radius1 from global;
     composes: h-[2.5rem] from global;
     composes: min-w-[2.5rem] from global;
@@ -18,7 +17,8 @@
 
 .root {
     composes: base;
-
+    
+    composes: border-tile-base from global;
     composes: bg-swatch-base from global;
 }
 
@@ -26,6 +26,7 @@
     composes: base;
 
     composes: bg-swatch-selected from global;
+    composes: border-brand-500 from global;
     composes: text-swatch-selected from global;
 }
 
