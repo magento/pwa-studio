@@ -7,12 +7,7 @@
   "description": "PageBuilder extension for PWA Studio",
   "main": "lib/index.js",
   "files": [
-    "lib/*",
-    "intercept.js",
-    "upward.yml",
-    "CHANGELOG.md",
-    "LICENSE_AFL.txt",
-    "LICENSE.txt"
+    "{lib,i18n}/*"
   ],
   "scripts": {
     "build": " ",
