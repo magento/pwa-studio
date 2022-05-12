@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`handleSignOut should set view to SIGNIN and dispatch appropriate event 1`] = `
+Object {
+  "payload": Object {},
+  "type": "USER_SIGN_OUT",
+}
+`;
+
 exports[`should return correct shape 1`] = `
 Object {
   "handleAccountCreation": [Function],

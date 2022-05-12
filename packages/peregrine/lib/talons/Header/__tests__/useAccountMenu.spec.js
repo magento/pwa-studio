@@ -4,6 +4,8 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { useAccountMenu } from '../useAccountMenu';
 import createTestInstance from '../../../util/createTestInstance';
+import { act } from 'react-test-renderer';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn().mockReturnValue({
@@ -46,7 +48,12 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
     })
 }));
 
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 const defaultProps = {
+    isUserSignedIn: false,
     accountMenuIsOpen: false,
     setAccountMenuIsOpen: jest.fn()
 };
@@ -63,8 +70,9 @@ const getTalonProps = props => {
     const { talonProps } = root.findByType('i').props;
 
     const update = newProps => {
-        tree.update(<Component {...{ ...props, ...newProps }} />);
-
+        act(() => {
+            tree.update(<Component {...{ ...props, ...newProps }} />);
+        });
         return root.findByType('i').props.talonProps;
     };
 
@@ -97,6 +105,22 @@ test('handleCreateAccount should set view to CREATE_ACCOUNT', () => {
     expect(updatedTalonProps.view).toBe('CREATE_ACCOUNT');
 });
 
+test('handleCancel should set view back to SIGNIN', () => {
+    const { talonProps, update } = getTalonProps(defaultProps);
+
+    talonProps.handleCreateAccount();
+
+    const updatedTalonProps = update();
+
+    expect(updatedTalonProps.view).toBe('CREATE_ACCOUNT');
+
+    updatedTalonProps.handleCancel();
+
+    const finalProps = update();
+
+    expect(finalProps.view).toBe('SIGNIN');
+})
+
 test('should change view to ACCOUNT if user is logged in', () => {
     useUserContext.mockReturnValueOnce([
         { isSignedIn: true },
@@ -120,14 +144,28 @@ test('setAccountMenuIsOpen should be called with false on mount', () => {
     expect(setAccountMenuIsOpen).toHaveBeenCalledWith(false);
 });
 
-test('handleSignOut should set view to SIGNIN', () => {
+test('handleSignOut should set view to SIGNIN and dispatch appropriate event', async () => {
+    const mockDispatch = jest.fn();
+
+    useEventingContext.mockReturnValueOnce([
+        {},
+        {
+            dispatch: mockDispatch
+        }
+    ]);
+
     const { talonProps, update } = getTalonProps(defaultProps);
 
-    talonProps.handleSignOut();
+    await act(async () => {
+        talonProps.handleSignOut();
+    });
 
     const updatedTalonProps = update();
 
     expect(updatedTalonProps.view).toBe('SIGNIN');
+
+    expect(mockDispatch).toHaveBeenCalledTimes(1);
+    expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
 });
 
 test('handleSignOut should call setAccountMenuIsOpen with false', () => {
@@ -144,11 +182,18 @@ test('handleSignOut should call setAccountMenuIsOpen with false', () => {
 });
 
 test('handleAccoutCreation should set view to ACCOUNT', () => {
+    useUserContext.mockReturnValueOnce([
+        { isSignedIn: false },
+        { signOut: jest.fn() }
+    ]);
+
     const { talonProps, update } = getTalonProps(defaultProps);
+
+    expect(talonProps.view).not.toBe('ACCOUNT');
 
     talonProps.handleAccountCreation();
 
-    const updatedTalonProps = update();
+    const updatedProps = update();
 
-    expect(updatedTalonProps.view).toBe('ACCOUNT');
+    expect(updatedProps.view).toBe('ACCOUNT');
 });
