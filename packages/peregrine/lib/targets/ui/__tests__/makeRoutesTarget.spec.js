@@ -27,18 +27,18 @@ const mockPrependJSX = jest.fn();
 const mockInsertAfterSource = jest.fn();
 
 jest.mock(
-    '@magento/peregrine/lib/ui/defaultRoutes.json',
+    '../../../ui/defaultRoutes.json',
     () => [
         {
             name: 'Single path route',
             pattern: '/simple',
-            path: '../AccountInformationPage'
+            path: './components/AccountInformationPage'
         },
         {
             name: 'Single path route that needs authentication',
             pattern: '/authed',
             exact: true,
-            path: '../AccountInformationPage',
+            path: './components/AccountInformationPage',
             authed: true,
             redirectTo: '/'
         },
@@ -46,7 +46,7 @@ jest.mock(
             name: 'Multiple path route',
             pattern: ['/one', '/two'],
             exact: true,
-            path: '../AccountInformationPage'
+            path: './components/AccountInformationPage'
         }
     ],
     { virtual: true }

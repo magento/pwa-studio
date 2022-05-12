@@ -5,10 +5,7 @@ function makeRoutesTarget(venia) {
     );
 
     // Add our own default routes!
-    addRoutes(
-        routeList,
-        require('@magento/peregrine/lib/ui/defaultRoutes.json')
-    );
+    addRoutes(routeList, require('../../ui/defaultRoutes.json'));
 }
 
 function addRoutes(routeList, routes) {
