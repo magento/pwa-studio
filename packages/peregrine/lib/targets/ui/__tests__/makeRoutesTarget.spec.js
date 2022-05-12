@@ -9,7 +9,7 @@ const FAKE_ADDED_ROUTE = 'ADDED_ROUTE';
 const FAKE_COMPONENT = 'Component';
 
 const targets = mockTargetProvider(
-    '@magento/venia-ui',
+    '@magento/peregrine',
     (_, dep) =>
         ({
             '@magento/pwa-buildpack': {
@@ -27,7 +27,7 @@ const mockPrependJSX = jest.fn();
 const mockInsertAfterSource = jest.fn();
 
 jest.mock(
-    '../../defaultRoutes.json',
+    '@magento/peregrine/lib/ui/defaultRoutes.json',
     () => [
         {
             name: 'Single path route',

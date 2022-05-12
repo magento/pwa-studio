@@ -150,7 +150,7 @@ class TargetProvider extends Trackable {
         }
 
         if (depName === this.name) {
-            return depName;
+            return this.own;
         }
 
         if (!this._intercepted[depName]) {
