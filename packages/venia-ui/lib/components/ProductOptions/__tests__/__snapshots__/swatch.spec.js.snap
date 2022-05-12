@@ -11,28 +11,7 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
   }
   title="red"
   type="button"
->
-  <span
-    className="root"
-  >
-    <svg
-      className="icon"
-      fill="none"
-      height={24}
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width={24}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <polyline
-        points="20 6 9 17 4 12"
-      />
-    </svg>
-  </span>
-</button>
+/>
 `;
 
 exports[`appends "_selected" to className if isSelected is true 1`] = `
@@ -46,28 +25,7 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
   }
   title="red"
   type="button"
->
-  <span
-    className="root"
-  >
-    <svg
-      className="icon"
-      fill="none"
-      height={24}
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width={24}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <polyline
-        points="20 6 9 17 4 12"
-      />
-    </svg>
-  </span>
-</button>
+/>
 `;
 
 exports[`renders a Swatch correctly 1`] = `
@@ -81,61 +39,5 @@ exports[`renders a Swatch correctly 1`] = `
   }
   title="red"
   type="button"
->
-  <span
-    className="root"
-  >
-    <svg
-      className="icon"
-      fill="none"
-      height={24}
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width={24}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <polyline
-        points="20 6 9 17 4 12"
-      />
-    </svg>
-  </span>
-</button>
-`;
-
-exports[`renders an icon if isSelected is true 1`] = `
-<button
-  className="root_selected"
-  onClick={[Function]}
-  style={
-    Object {
-      "--venia-swatch-bg": "#123123",
-    }
-  }
-  title="red"
-  type="button"
->
-  <span
-    className="root"
-  >
-    <svg
-      className="icon"
-      fill="none"
-      height={24}
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width={24}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <polyline
-        points="20 6 9 17 4 12"
-      />
-    </svg>
-  </span>
-</button>
+/>
 `;
