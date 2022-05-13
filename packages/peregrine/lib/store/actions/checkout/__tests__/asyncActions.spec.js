@@ -1,4 +1,4 @@
-import { Magento2 } from '../../../../RestApi';
+import { Magento2 } from '../../../../util/RestApi';
 import {
     mockGetItem,
     mockRemoveItem,

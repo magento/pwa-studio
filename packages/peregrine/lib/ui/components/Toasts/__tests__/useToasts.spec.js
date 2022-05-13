@@ -2,7 +2,7 @@ import React from 'react';
 import { getToastId, useToasts } from '../useToasts';
 
 import { useToastContext } from '../useToastContext';
-import createTestInstance from '../../util/createTestInstance';
+import createTestInstance from '../../../../util/createTestInstance';
 
 jest.mock('../useToastContext');
 

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import withLogger from '../util/withLogger';
+import withLogger from '../../../util/withLogger';
 
 /**
  * The current state of the toast store.

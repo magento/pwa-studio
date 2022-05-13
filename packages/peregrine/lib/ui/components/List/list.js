@@ -9,8 +9,8 @@ import {
     string
 } from 'prop-types';
 
-import fromRenderProp from '../util/fromRenderProp';
-import iterable from '../validators/iterable';
+import fromRenderProp from '@magento/peregrine/lib/util/fromRenderProp';
+import iterable from '@magento/peregrine/lib/validators/iterable';
 import Items from './items';
 
 /**

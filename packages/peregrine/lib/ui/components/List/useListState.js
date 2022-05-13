@@ -1,6 +1,6 @@
 import { useMemo, useReducer, useCallback, useEffect } from 'react';
 
-import withLogger from '../util/withLogger';
+import withLogger from '@magento/peregrine/lib/util/withLogger';
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that contains

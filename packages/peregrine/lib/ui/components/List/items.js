@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo } from 'react';
 import { array, func, object, oneOf, oneOfType, string } from 'prop-types';
 
-import iterable from '../validators/iterable';
+import iterable from '@magento/peregrine/lib/validators/iterable';
 import Item from './item';
 import { useListState } from './useListState';
 

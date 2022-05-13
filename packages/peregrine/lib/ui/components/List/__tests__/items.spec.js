@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Items, Item } from '..';
-import createTestInstance from '../../util/createTestInstance';
+import { createTestInstance } from '@magento/peregrine';
 
 const getItemKey = jest.fn(({ id }) => id);
 const initialSelection = null;

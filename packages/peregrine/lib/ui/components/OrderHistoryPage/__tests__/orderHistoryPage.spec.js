@@ -1,6 +1,5 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
-import { useToasts } from '@magento/peregrine/lib/Toasts';
+import { createTestInstance, useToasts } from '@magento/peregrine';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
 import OrderHistoryPage from '../orderHistoryPage';

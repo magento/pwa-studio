@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import * as RestApi from '../RestApi';
+import * as RestApi from '../util/RestApi';
 import { useRestResponse } from './useRestResponse';
 
 const { request } = RestApi.Magento2;

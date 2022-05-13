@@ -8,7 +8,7 @@ import {
 import { shape, string } from 'prop-types';
 import { Form } from 'informed';
 
-import { useToasts } from '@magento/peregrine/lib/Toasts';
+import { useToasts } from '@magento/peregrine';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 

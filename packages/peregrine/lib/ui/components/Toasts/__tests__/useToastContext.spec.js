@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 
 import { ToastContextProvider, useToastContext } from '../useToastContext';
-import createTestInstance from '../../util/createTestInstance';
+import createTestInstance from '../../../../util/createTestInstance';
 
 jest.mock('react', () => {
     const React = jest.requireActual('react');

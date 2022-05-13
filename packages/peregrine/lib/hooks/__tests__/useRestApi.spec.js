@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 import waitForExpect from 'wait-for-expect';
 
-import * as RestApi from '../../RestApi';
+import * as RestApi from '../../util/RestApi';
 import { useRestApi } from '../useRestApi';
 import createTestInstance from '../../util/createTestInstance';
 

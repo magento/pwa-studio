@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 
 import { useListState } from '../useListState';
-import createTestInstance from '../../util/createTestInstance';
+import { createTestInstance } from '@magento/peregrine';
 
 const log = jest.fn();
 const props = {

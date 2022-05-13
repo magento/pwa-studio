@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Item } from '../index.js';
-import createTestInstance from '../../util/createTestInstance';
+import { createTestInstance } from '@magento/peregrine';
 
 const classes = { root: 'abc' };
 const hasFocus = false;

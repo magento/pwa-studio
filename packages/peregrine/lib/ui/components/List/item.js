@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { any, bool, func, number, oneOfType, shape, string } from 'prop-types';
 
-import fromRenderProp from '../util/fromRenderProp';
+import fromRenderProp from '@magento/peregrine/lib/util/fromRenderProp';
 
 /**
  * The **Item** Component is reponsible for rendering each item in list

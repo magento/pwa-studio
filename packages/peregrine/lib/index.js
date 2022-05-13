@@ -1,4 +1,4 @@
-import * as RestApi from './RestApi';
+import * as RestApi from './util/RestApi';
 import * as Util from './util';
 
 // hooks
@@ -17,19 +17,21 @@ export {
     WindowSizeContextProvider,
     useWindowSize
 } from './hooks/useWindowSize';
-export { getToastId, useToasts, ToastContextProvider } from './Toasts';
+export {
+    getToastId,
+    useToasts,
+    ToastContextProvider
+} from './ui/components/Toasts';
 
 // store
 export { enhancer, reducers } from './store';
 
 // components
-export { default as ContainerChild } from './ContainerChild';
-export { default as List, Items, Item } from './List';
-export { default as Price } from './Price';
-export { default as Router } from './Router';
+export { default as List, Items, Item } from './ui/components/List';
+export { default as Price } from './ui/components/Price';
 export {
     default as PeregrineContextProvider
-} from './PeregrineContextProvider';
+} from './ui/components/PeregrineContextProvider';
 
 // misc
 export { RestApi };
