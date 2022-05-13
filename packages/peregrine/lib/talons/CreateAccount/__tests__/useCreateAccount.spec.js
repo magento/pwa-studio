@@ -448,20 +448,22 @@ describe('handleSubmit', () => {
     });
 
     test('should dispatch create account event', async () => {
-      const mockDispatch = jest.fn();
+        const mockDispatch = jest.fn();
 
-      useEventingContext.mockReturnValueOnce([{},{
-        dispatch: mockDispatch
-      }])
+        useEventingContext.mockReturnValueOnce([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
 
         const { talonProps } = getTalonProps({
-            ...defaultProps,
+            ...defaultProps
         });
 
         await talonProps.handleSubmit(defaultFormValues);
 
         expect(mockDispatch).toHaveBeenCalledTimes(1);
         expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
-    })
-
+    });
 });

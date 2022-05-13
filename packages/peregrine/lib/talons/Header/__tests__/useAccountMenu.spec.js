@@ -119,7 +119,7 @@ test('handleCancel should set view back to SIGNIN', () => {
     const finalProps = update();
 
     expect(finalProps.view).toBe('SIGNIN');
-})
+});
 
 test('should change view to ACCOUNT if user is logged in', () => {
     useUserContext.mockReturnValueOnce([

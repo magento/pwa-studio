@@ -135,8 +135,6 @@ test('returns correct shape', () => {
 });
 
 test('handleSubmit triggers waterfall of operations and actions', async () => {
-    const mockDispatch = jest.fn();
-
     useAwaitQuery.mockReturnValueOnce(() => ({
         data: {
             customer: {

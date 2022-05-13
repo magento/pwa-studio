@@ -99,7 +99,7 @@ export const useAuthModal = props => {
         // would be to call apolloClient.resetStore() but that would require
         // a large refactor.
         history.go(0);
-    }, [history, revokeToken, signOut]);
+    }, [history, revokeToken, signOut, dispatch, currentUser]);
 
     return {
         handleCancel,
