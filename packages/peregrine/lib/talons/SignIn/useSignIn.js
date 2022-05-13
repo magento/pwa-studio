@@ -117,6 +117,7 @@ export const useSignIn = props => {
                         ...data.customer
                     }
                 });
+
                 getCartDetails({ fetchCartId, fetchCartDetails });
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
