@@ -21,7 +21,7 @@ jest.mock('../useRestResponse', () => {
 
     return { useRestResponse };
 });
-jest.mock('../../RestApi', () => ({
+jest.mock('../../util/RestApi', () => ({
     Magento2: {
         request: jest.fn(() => 'result')
     }

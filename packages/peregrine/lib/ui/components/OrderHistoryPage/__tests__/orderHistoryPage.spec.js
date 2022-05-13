@@ -1,5 +1,6 @@
 import React from 'react';
-import { createTestInstance, useToasts } from '@magento/peregrine';
+import { createTestInstance } from '@magento/peregrine';
+import { useToasts } from '@magento/peregrine/lib/ui/components/Toasts';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
 import OrderHistoryPage from '../orderHistoryPage';
@@ -36,7 +37,7 @@ jest.mock(
     })
 );
 
-jest.mock('@magento/peregrine/lib/Toasts', () => ({
+jest.mock('@magento/peregrine/lib/ui/components/Toasts', () => ({
     useToasts: jest
         .fn()
         .mockName('useToasts')

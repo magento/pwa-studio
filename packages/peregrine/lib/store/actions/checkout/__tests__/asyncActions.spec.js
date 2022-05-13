@@ -17,7 +17,7 @@ import {
     submitPaymentMethodAndBillingAddress
 } from '../asyncActions';
 
-jest.mock('../../../../RestApi');
+jest.mock('../../../../util/RestApi');
 jest.mock('../../../../util/simplePersistence');
 
 const { request } = Magento2;
