@@ -69,11 +69,12 @@ export const useCartPage = (props = {}) => {
             dispatch({
                 type: 'CART_PAGE_VIEW',
                 payload: {
-                    cart_id: cartId
+                    cart_id: cartId,
+                    products: cartItems
                 }
             });
         }
-    }, [called, cartId, loading, dispatch]);
+    }, [called, cartItems, cartId, loading, dispatch]);
 
     return {
         cartItems,
