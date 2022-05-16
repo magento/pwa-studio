@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '../../context/cart';
+import { useEventingContext } from '../../context/eventing';
 import operations from './addToCart.gql';
 
 /**
@@ -29,6 +30,8 @@ const UNSUPPORTED_PRODUCT_TYPES = [
 
 export const useAddToCartButton = props => {
     const { item, urlSuffix } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -67,6 +70,17 @@ export const useAddToCartButton = props => {
                     }
                 });
 
+                dispatch({
+                    type: 'ADD_TO_CART',
+                    payload: {
+                        cartId,
+                        product: {
+                            ...item,
+                            quantity: 1
+                        }
+                    }
+                });
+
                 setIsLoading(false);
             } else if (productType === 'ConfigurableProduct') {
                 history.push(`${item.url_key}${urlSuffix || ''}`);
@@ -76,17 +90,7 @@ export const useAddToCartButton = props => {
         } catch (error) {
             console.error(error);
         }
-    }, [
-        addToCart,
-        cartId,
-        history,
-        item.sku,
-        item.url_key,
-        productType,
-        item.uid,
-        item.name,
-        urlSuffix
-    ]);
+    }, [productType, addToCart, cartId, item, dispatch, history, urlSuffix]);
 
     return {
         handleAddToCart,

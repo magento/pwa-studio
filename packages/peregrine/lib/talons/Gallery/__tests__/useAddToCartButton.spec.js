@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useAddToCartButton } from '../useAddToCartButton';
+import { useEventingContext } from '../../../context/eventing';
 
 jest.mock('@apollo/client', () => ({
     useMutation: jest.fn().mockReturnValue([jest.fn()])
@@ -18,6 +19,10 @@ jest.mock('../../../context/cart', () => ({
 }));
 
 jest.mock('../addToCart.gql', () => ({ ADD_ITEM: 'Add Item GQL Mutation' }));
+
+jest.mock('../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const warn = jest.fn();
 const error = jest.fn();
@@ -301,5 +306,30 @@ describe('testing handleAddToCart', () => {
         await talonProps.handleAddToCart();
 
         expect(error).toHaveBeenCalledWith(errorMessage);
+    });
+
+    test('should dispatch event', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const { talonProps } = getTalonProps({
+            item: {
+                ...defaultProps.item,
+                __typename: 'SimpleProduct',
+                stock_status: 'IN_STOCK'
+            }
+        });
+
+        await talonProps.handleAddToCart();
+
+        expect(mockDispatch).toBeCalledTimes(1);
+
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
     });
 });
