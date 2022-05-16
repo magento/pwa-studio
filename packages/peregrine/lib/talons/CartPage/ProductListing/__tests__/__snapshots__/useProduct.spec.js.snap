@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`it handles cart removal should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "product": Object {
+      "errors": null,
+      "id": "ItemID",
+      "prices": Object {
+        "price": Object {
+          "currency": "USD",
+          "value": 99,
+        },
+      },
+      "product": Object {
+        "name": "unit test",
+        "sku": "unit-test-sku",
+        "small_image": Object {
+          "url": "test.webp",
+        },
+      },
+      "quantity": 7,
+      "uid": "ItemUID",
+    },
+  },
+  "type": "CART_PAGE_REMOVE_ITEM",
+}
+`;
+
 exports[`it returns an error message when the item has an error 1`] = `
 <i
   talonProps={

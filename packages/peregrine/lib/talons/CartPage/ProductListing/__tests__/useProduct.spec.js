@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useMutation, useQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useEventingContext } from '../../../../context/eventing';
 
 import { useProduct } from '../useProduct';
 
@@ -70,6 +71,10 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
 jest.mock('@magento/peregrine/lib/context/user', () => ({
     useUserContext: jest.fn().mockReturnValue([{ isSignedIn: true }])
+}));
+
+jest.mock('../../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const props = {
@@ -400,6 +405,33 @@ describe('it handles cart removal', () => {
         const { talonProps: updatedProps } = tree.root.findByType('i').props;
 
         expect(updatedProps.errorMessage).toBeTruthy();
+    });
+
+    test('should dispatch event', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        const { handleEditItem, handleRemoveFromCart } = talonProps;
+
+        await act(async () => {
+            handleEditItem();
+            await handleRemoveFromCart();
+        });
+
+        expect(mockDispatch).toBeCalledTimes(1);
+
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
     });
 });
 

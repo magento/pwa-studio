@@ -3,9 +3,9 @@ import { useIntl } from 'react-intl';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
-
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 import DEFAULT_OPERATIONS from './product.gql';
+import { useEventingContext } from '../../../context/eventing';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
@@ -37,6 +37,8 @@ export const useProduct = props => {
         setIsCartUpdating,
         wishlistConfig
     } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
@@ -138,11 +140,19 @@ export const useProduct = props => {
                     itemId: item.uid
                 }
             });
+
+            dispatch({
+                type: 'CART_PAGE_REMOVE_ITEM',
+                payload: {
+                    cartId,
+                    product: item
+                }
+            });
         } catch (err) {
             // Make sure any errors from the mutation are displayed.
             setDisplayError(true);
         }
-    }, [cartId, item.uid, removeItemFromCart]);
+    }, [cartId, dispatch, item, removeItemFromCart]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
