@@ -3,11 +3,11 @@
 # B2B Store
 ## The Frontend solution for headless Magento Commerce
 Boost your B2B customer journey and performances using a modern, high featured, open source ecommerce platform based on leaders solutions like Magento Commerce and PWA Studio (React frontend).
-[![B2BStore](https://raw.githubusercontent.com/wiki/magento/b2bstore/B2BStore_Demo_Desktop_Mobile.png)][B2BStore]
+![B2BStore](/images/B2BStore_Demo_Desktop_Mobile.png)]
 
 ## Supported platforms
 At this time we support Magento 2.4.4
-[![Magento](https://raw.githubusercontent.com/wiki/magento/b2bstore/Magento.png)][Magento]
+![Magento](/images/Magento.png)]
 
 ## Links
 - [B2BStore Web](https://www.b2bstore.io/)
