@@ -1,27 +1,50 @@
 import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/util/isSupportedProductType';
 import { useEventingContext } from '../../context/eventing';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 export const useGalleryItem = (props = {}) => {
     const [, { dispatch }] = useEventingContext();
     const { item, storeConfig } = props;
 
     const handleLinkClick = useCallback(() => {
-        const finalPrice = item.price_range?.maximum_price.final_price.value;
+        const finalPrice = item.price_range?.maximum_price?.final_price?.value;
         const regularPrice =
-            item.price_range?.maximum_price.regular_price.value;
-        const discountAmount = regularPrice - finalPrice;
+            item.price_range?.maximum_price?.regular_price?.value;
+        const discountAmount =
+            regularPrice !== null ? regularPrice - finalPrice : 0;
         dispatch({
-            type: 'PRODUCT_IMPRESSION',
+            type: 'PRODUCT_CLICK',
             payload: {
                 sku: item.sku,
                 priceTotal: finalPrice,
                 discountAmount,
                 currencyCode:
-                    item.price_range?.maximum_price.final_price.currency,
+                    item.price_range?.maximum_price?.final_price?.currency,
                 selectedOptions: null
             }
         });
+    }, [dispatch, item]);
+
+    useEffect(() => {
+        if (item) {
+            const finalPrice =
+                item.price_range?.maximum_price?.final_price?.value;
+            const regularPrice =
+                item.price_range?.maximum_price?.regular_price?.value;
+            const discountAmount =
+                regularPrice !== null ? regularPrice - finalPrice : 0;
+            dispatch({
+                type: 'PRODUCT_IMPRESSION',
+                payload: {
+                    sku: item.sku,
+                    priceTotal: finalPrice,
+                    discountAmount,
+                    currencyCode:
+                        item.price_range?.maximum_price?.final_price?.currency,
+                    selectedOptions: null
+                }
+            });
+        }
     }, [dispatch, item]);
 
     const productType = item ? item.__typename : null;

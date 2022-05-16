@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://develop.pwa-venia.com",
+    "baseUrl": "https://magento-venia-concept-yfl10.local.pwadev:8712/",
     "defaultCommandTimeout": 30000,
     "supportFile": "src/support/index.js",
     "pluginsFile": "src/plugins/index.js",

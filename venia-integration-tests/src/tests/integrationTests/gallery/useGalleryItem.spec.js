@@ -2,6 +2,7 @@ import {
     graphqlMockedCalls as graphqlMockedCallsFixtures,
     categoryPage as categoryPageFixtures
 } from '../../../fixtures';
+import EventingContextProvider from '@magento/peregrine/lib/context/eventing';
 
 const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
 
@@ -21,21 +22,28 @@ describe(
                 fixture: 'pageBuilder/products/products-carousel-5.json'
             }).as('getCMSMockData');
 
-            cy.visitHomePage();
+            cy.visit('/', {
+                onBeforeLoad(win) {
+                    win.document.addEventListener(
+                        'beacon',
+                        cy.stub().as('beacon')
+                    );
+                }
+            });
             cy.wait(['@getCMSMockData']).its('response.body');
-            cy.document().invoke(
-                'addEventListener',
-                'beacon',
-                cy.stub().as('beacon')
-            );
+            // 5 products, currently at 6 because of extra sample data module call.
+            cy.get('@beacon')
+                .should('have.callCount', 6)
+                .its('lastCall.args.0.detail.type')
+                .should('equal', 'PRODUCT_IMPRESSION');
             cy.get('.slick-slider')
                 .eq(0)
                 .scrollIntoView()
                 .get('img[loading="lazy"][alt="Silver Amor Bangle Set"]')
                 .click();
             cy.get('@beacon')
-                .should('have.been.calledOnce')
-                .its('firstCall.args.0.detail')
+                .should('have.callCount', 7)
+                .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
                         currencyCode: 'USD',
@@ -44,7 +52,7 @@ describe(
                         selectedOptions: null,
                         sku: 'VA22-SI-NA'
                     },
-                    type: 'PRODUCT_IMPRESSION'
+                    type: 'PRODUCT_CLICK'
                 });
         });
 
@@ -57,18 +65,31 @@ describe(
                 'gqlGetProductDetailForProductPageQuery'
             );
 
-            cy.visit(categorySweaters);
+            cy.visit(categorySweaters, {
+                onBeforeLoad(win) {
+                    win.document.addEventListener(
+                        'beacon',
+                        cy.stub().as('beacon')
+                    );
+                }
+            });
             cy.wait(['@gqlGetCategoriesQuery']).its('response.body');
             cy.document().invoke(
                 'addEventListener',
                 'beacon',
                 cy.stub().as('beacon')
             );
+            // 12 products, currently at 13 because of extra sample data module call.
+            cy.get('@beacon')
+                .should('have.callCount', 13)
+                .its('lastCall.args.0.detail.type')
+                .should('equal', 'PRODUCT_IMPRESSION');
             cy.get(`img[loading="lazy"][alt="${productCarinaCardigan}"]`)
                 .scrollIntoView()
                 .click();
             cy.get('@beacon')
-                .its('firstCall.args.0.detail')
+                .should('have.callCount', 14)
+                .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
                         currencyCode: 'USD',
@@ -77,7 +98,7 @@ describe(
                         selectedOptions: null,
                         sku: 'VSW01'
                     },
-                    type: 'PRODUCT_IMPRESSION'
+                    type: 'PRODUCT_CLICK'
                 });
         });
 
@@ -86,18 +107,26 @@ describe(
                 fixture: 'gallery/productSearchMockResponse.json'
             }).as('gqlGetProductSearchQuery');
 
-            cy.visit('./search.html?page=1');
+            cy.visit('./search.html?page=1', {
+                onBeforeLoad(win) {
+                    win.document.addEventListener(
+                        'beacon',
+                        cy.stub().as('beacon')
+                    );
+                }
+            });
             cy.wait(['@gqlGetProductSearchQuery']).its('response.body');
-            cy.document().invoke(
-                'addEventListener',
-                'beacon',
-                cy.stub().as('beacon')
-            );
+            // 2 products, currently at 3 because of extra sample data module call.
+            cy.get('@beacon')
+                .should('have.callCount', 3)
+                .its('lastCall.args.0.detail.type')
+                .should('equal', 'PRODUCT_IMPRESSION');
             cy.get(`img[loading="lazy"][alt="Selena Pants"]`)
                 .scrollIntoView()
                 .click();
             cy.get('@beacon')
-                .its('firstCall.args.0.detail')
+                .should('have.callCount', 4)
+                .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
                         currencyCode: 'USD',
@@ -106,7 +135,7 @@ describe(
                         selectedOptions: null,
                         sku: 'VP01'
                     },
-                    type: 'PRODUCT_IMPRESSION'
+                    type: 'PRODUCT_CLICK'
                 });
         });
     }
