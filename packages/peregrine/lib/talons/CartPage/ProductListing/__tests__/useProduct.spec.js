@@ -499,6 +499,32 @@ describe('it handles item quantity updates', () => {
 
         expect(updatedProps.errorMessage).toBeTruthy();
     });
+
+    test('should dispatch event', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        const { handleUpdateItemQuantity } = talonProps;
+
+        await act(async () => {
+            await handleUpdateItemQuantity(100);
+        });
+
+        expect(mockDispatch).toBeCalledTimes(1);
+
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
+    });
 });
 
 test('it does not set the active edit item when drawer is open', () => {

@@ -28,6 +28,34 @@ Object {
 }
 `;
 
+exports[`it handles item quantity updates should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "product": Object {
+      "errors": null,
+      "id": "ItemID",
+      "prices": Object {
+        "price": Object {
+          "currency": "USD",
+          "value": 99,
+        },
+      },
+      "product": Object {
+        "name": "unit test",
+        "sku": "unit-test-sku",
+        "small_image": Object {
+          "url": "test.webp",
+        },
+      },
+      "quantity": 100,
+      "uid": "ItemUID",
+    },
+  },
+  "type": "CART_PAGE_UPDATE_QUANTITY_ITEM",
+}
+`;
+
 exports[`it returns an error message when the item has an error 1`] = `
 <i
   talonProps={

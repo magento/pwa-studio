@@ -164,12 +164,23 @@ export const useProduct = props => {
                         quantity
                     }
                 });
+
+                dispatch({
+                    type: 'CART_PAGE_UPDATE_QUANTITY_ITEM',
+                    payload: {
+                        cartId,
+                        product: {
+                            ...item,
+                            quantity
+                        }
+                    }
+                });
             } catch (err) {
                 // Make sure any errors from the mutation are displayed.
                 setDisplayError(true);
             }
         },
-        [cartId, item.uid, updateItemQuantity]
+        [cartId, dispatch, item, updateItemQuantity]
     );
 
     useEffect(() => {
