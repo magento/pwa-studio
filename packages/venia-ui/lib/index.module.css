@@ -123,3 +123,17 @@
     cursor: default;
     touch-action: none;
 }
+
+:global(.braintree-sheet__content--form
+        .braintree-form__field-group
+        .braintree-form__field
+        .braintree-form__hosted-field
+        input.braintree-form__raw-input) {
+    color: #8f8f8f !important;
+}
+
+:global(.braintree-sheet__content--form
+        .braintree-form__field-group
+        .braintree-form__descriptor) {
+    color: #757575 !important;
+}
