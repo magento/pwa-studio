@@ -219,3 +219,22 @@ test('handleRemoveItem() should call graphql mutation', () => {
         }
     `);
 });
+
+test('handleRemoveItem() should dispatch event', async () => {
+    const mockDispatch = jest.fn();
+
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatch
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(defaultProps);
+
+    await talonProps.handleRemoveItem('p1');
+
+    expect(mockDispatch).toBeCalledTimes(1);
+
+    expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
+});

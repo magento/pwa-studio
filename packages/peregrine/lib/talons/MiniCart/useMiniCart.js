@@ -104,17 +104,29 @@ export const useMiniCart = props => {
     const handleRemoveItem = useCallback(
         async id => {
             try {
+                const [product] = productList.filter(
+                    p => (p.uid || p.id) === id
+                );
+
                 await removeItem({
                     variables: {
                         cartId,
                         itemId: id
                     }
                 });
+
+                dispatch({
+                    type: 'MINI_CART_REMOVE_ITEM',
+                    payload: {
+                        cartId,
+                        product
+                    }
+                });
             } catch (e) {
                 // Error is logged by apollo link - no need to double log.
             }
         },
-        [cartId, removeItem]
+        [removeItem, cartId, dispatch, productList]
     );
 
     const handleProceedToCheckout = useCallback(() => {
