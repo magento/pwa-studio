@@ -36,6 +36,13 @@ export const OrderConfirmationPageFragment = gql`
                 value
                 currency
             }
+            discounts {
+                amount {
+                    currency
+                    value
+                }
+                label
+            }
         }
         ...ItemsReviewFragment
     }
