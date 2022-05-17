@@ -1,4 +1,4 @@
-import MagentoGQLCacheLink from '../magentoGqlCacheLink';
+import { MagentoGQLCacheLink } from '../gqlCacheLink';
 import {
     mockGetItem,
     mockSetItem
