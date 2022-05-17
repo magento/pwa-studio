@@ -165,7 +165,9 @@ describe(
             cy.intercept('GET', getAutocompleteResultsCall, {
                 fixture: 'beacon/productSearchAutocompleteMockResponse.json'
             }).as('gqlGetAutoCompleteResultsQuery');
-
+            cy.intercept('GET', getCMSPage, {
+                fixture: 'resource/emptyCMSPage.json'
+            }).as('getCMSMockData');
             cy.visit('/', {
                 onBeforeLoad(win) {
                     win.document.addEventListener(
@@ -174,7 +176,7 @@ describe(
                     );
                 }
             });
-            cy.wait(['@gqlGetStoreConfigDataQuery']).its('response.body');
+            cy.wait(['@gqlGetStoreConfigDataQuery', '@getCMSMockData']).its('response.body');
             triggerSearch();
 
             searchFromSearchBar('foobar', false);
