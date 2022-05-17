@@ -1,5 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`addToCart should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "123",
+    "product": Object {
+      "configurable_options": Array [
+        Object {
+          "id": 1,
+          "value_id": "red-id",
+        },
+      ],
+      "product": Object {
+        "configurable_options": Array [
+          Object {
+            "attribute_id_v2": 1,
+            "values": Array [
+              Object {
+                "uid": "red-uid",
+                "value_index": "red-id",
+              },
+              Object {
+                "uid": "blue-uid",
+                "value_index": "blue-id",
+              },
+            ],
+          },
+          Object {
+            "attribute_id_v2": 2,
+            "values": Array [
+              Object {
+                "uid": "large-uid",
+                "value_index": "large-id",
+              },
+              Object {
+                "uid": "medium-uid",
+                "value_index": "medium-id",
+              },
+            ],
+          },
+        ],
+        "sku": "nice-shirt",
+      },
+      "quantity": 1,
+    },
+  },
+  "type": "ADD_TO_CART_FROM_WISH_LIST",
+}
+`;
+
 exports[`returns configurable option props 1`] = `
 Object {
   "onSelectionChange": [Function],

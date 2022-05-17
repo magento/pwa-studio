@@ -4,9 +4,14 @@ import { act, renderHook } from '@testing-library/react-hooks';
 
 import defaultOperations from '../addToCartDialog.gql';
 import { useAddToCartDialog } from '../useAddToCartDialog';
+import { useEventingContext } from '../../../context/eventing';
 
 jest.mock('../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
+}));
+
+jest.mock('../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const productMock = {
@@ -366,4 +371,60 @@ test('addToCart failures returns error', async () => {
           [Error: Oh noes! Something went wrong :(],
         ]
     `);
+});
+
+test('addToCart should dispatch event', async () => {
+    const mockDispatch = jest.fn();
+
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatch
+        }
+    ]);
+
+    const addToCartMock = {
+        request: {
+            query: defaultOperations.addProductToCartMutation,
+            variables: {
+                cartId: '123',
+                cartItem: {
+                    quantity: 1,
+                    selected_options: ['red-uid', 'medium-uid'],
+                    sku: 'nice-shirt'
+                }
+            }
+        },
+        result: {
+            data: {}
+        }
+    };
+
+    const { result } = renderHookWithProviders({
+        renderHookOptions: {
+            initialProps: { ...initialProps, item: mockItem }
+        },
+        mocks: [
+            getProductDetailMock1,
+            getProductDetailMock1,
+            getProductDetailMock2,
+            addToCartMock
+        ]
+    });
+
+    await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        result.current.configurableOptionProps.onSelectionChange(
+            '2',
+            'medium-id'
+        );
+
+        await new Promise(resolve => setTimeout(resolve, 0));
+        result.current.buttonProps.onClick();
+    });
+
+    expect(mockDispatch).toBeCalledTimes(1);
+
+    expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
 });

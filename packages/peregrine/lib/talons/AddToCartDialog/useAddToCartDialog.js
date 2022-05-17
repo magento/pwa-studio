@@ -4,10 +4,13 @@ import { useMutation, useQuery } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 import { useCartContext } from '../../context/cart';
 import defaultOperations from './addToCartDialog.gql';
+import { useEventingContext } from '../../context/eventing';
 
 export const useAddToCartDialog = props => {
     const { item, onClose } = props;
     const sku = item && item.product.sku;
+
+    const [, { dispatch }] = useEventingContext();
 
     const operations = mergeOperations(defaultOperations, props.operations);
 
@@ -119,11 +122,30 @@ export const useAddToCartDialog = props => {
                 }
             });
 
+            dispatch({
+                type: 'ADD_TO_CART_FROM_WISH_LIST',
+                payload: {
+                    cartId,
+                    product: {
+                        ...item,
+                        quantity: 1
+                    }
+                }
+            });
+
             handleOnClose();
         } catch (error) {
             console.error(error);
         }
-    }, [addProductToCart, cartId, handleOnClose, selectedOptionsArray, sku]);
+    }, [
+        addProductToCart,
+        cartId,
+        dispatch,
+        handleOnClose,
+        item,
+        selectedOptionsArray,
+        sku
+    ]);
 
     const imageProps = useMemo(() => {
         if (currentImage) {
