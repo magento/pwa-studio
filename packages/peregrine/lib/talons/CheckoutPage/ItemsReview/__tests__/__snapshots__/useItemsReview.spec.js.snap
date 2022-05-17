@@ -3,27 +3,100 @@
 exports[`returns correct shape 1`] = `
 Object {
   "configurableThumbnailSource": "parent",
-  "hasErrors": false,
-  "isLoading": true,
-  "items": Array [],
-  "setShowAllItems": [Function],
-  "showAllItems": false,
-  "totalQuantity": 0,
-}
-`;
-
-exports[`uses static data if provided 1`] = `
-Object {
-  "configurableThumbnailSource": "parent",
-  "hasErrors": false,
-  "isLoading": true,
   "items": Array [
     Object {
-      "name": "static item",
+      "__typename": "ConfigurableCartItem",
+      "configurable_options": Array [
+        Object {
+          "__typename": "SelectedConfigurableOption",
+          "configurable_product_option_uid": 179,
+          "configurable_product_option_value_uid": 18,
+          "option_label": "Fashion Color",
+          "value_label": "Peach",
+        },
+        Object {
+          "__typename": "SelectedConfigurableOption",
+          "configurable_product_option_uid": 182,
+          "configurable_product_option_value_uid": 27,
+          "option_label": "Fashion Size",
+          "value_label": "M",
+        },
+      ],
+      "id": "29568",
+      "product": Object {
+        "__typename": "ConfigurableProduct",
+        "id": 1093,
+        "name": "Jillian Top",
+        "thumbnail": Object {
+          "__typename": "ProductImage",
+          "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg",
+        },
+      },
+      "quantity": 3,
+    },
+    Object {
+      "__typename": "ConfigurableCartItem",
+      "configurable_options": Array [
+        Object {
+          "__typename": "SelectedConfigurableOption",
+          "configurable_product_option_uid": 179,
+          "configurable_product_option_value_uid": 21,
+          "option_label": "Fashion Color",
+          "value_label": "Rain",
+        },
+        Object {
+          "__typename": "SelectedConfigurableOption",
+          "configurable_product_option_uid": 182,
+          "configurable_product_option_value_uid": 29,
+          "option_label": "Fashion Size",
+          "value_label": "XS",
+        },
+      ],
+      "id": "29570",
+      "product": Object {
+        "__typename": "ConfigurableProduct",
+        "id": 1115,
+        "name": "Juno Sweater",
+        "thumbnail": Object {
+          "__typename": "ProductImage",
+          "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg",
+        },
+      },
+      "quantity": 1,
+    },
+    Object {
+      "__typename": "ConfigurableCartItem",
+      "configurable_options": Array [
+        Object {
+          "__typename": "SelectedConfigurableOption",
+          "configurable_product_option_uid": 179,
+          "configurable_product_option_value_uid": 20,
+          "option_label": "Fashion Color",
+          "value_label": "Lilac",
+        },
+        Object {
+          "__typename": "SelectedConfigurableOption",
+          "configurable_product_option_uid": 182,
+          "configurable_product_option_value_uid": 26,
+          "option_label": "Fashion Size",
+          "value_label": "L",
+        },
+      ],
+      "id": "29572",
+      "product": Object {
+        "__typename": "ConfigurableProduct",
+        "id": 1152,
+        "name": "Angelina Tank Dress",
+        "thumbnail": Object {
+          "__typename": "ProductImage",
+          "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg",
+        },
+      },
+      "quantity": 3,
     },
   ],
   "setShowAllItems": [Function],
-  "showAllItems": true,
-  "totalQuantity": 1,
+  "showAllItems": false,
+  "totalQuantity": 7,
 }
 `;

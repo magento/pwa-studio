@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`returns the correct shape 1`] = `
+exports[`for authenticated customers returns the correct shape 1`] = `
 Object {
+  "error": undefined,
   "flatData": Object {
     "city": "city",
     "country": "country",
@@ -14,8 +15,29 @@ Object {
     "street": Array [
       "street",
     ],
-    "totalItemQuantity": 1,
   },
   "isSignedIn": true,
+  "loading": false,
+}
+`;
+
+exports[`for guest returns the correct shape 1`] = `
+Object {
+  "error": undefined,
+  "flatData": Object {
+    "city": "city",
+    "country": "country",
+    "email": "email",
+    "firstname": "firstname",
+    "lastname": "lastname",
+    "postcode": "postcode",
+    "region": "region",
+    "shippingMethod": "carrier - method",
+    "street": Array [
+      "street",
+    ],
+  },
+  "isSignedIn": false,
+  "loading": undefined,
 }
 `;

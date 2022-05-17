@@ -37,9 +37,11 @@ export const GET_CHECKOUT_DETAILS = gql`
         cart(cart_id: $cartId) {
             id
             ...CheckoutPageFragment
+            ...OrderConfirmationPageFragment
         }
     }
     ${CheckoutPageFragment}
+    ${OrderConfirmationPageFragment}
 `;
 
 export const GET_CUSTOMER = gql`

@@ -25,8 +25,8 @@ import payments from './PaymentInformation/paymentMethodCollection';
 import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
-import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
+import OrderConfirmationPage from './OrderConfirmationPage';
 import GoogleReCaptcha from '../GoogleReCaptcha';
 
 import defaultClasses from './checkoutPage.module.css';
@@ -57,8 +57,8 @@ const CheckoutPage = props => {
         isGuestCheckout,
         isLoading,
         isUpdating,
-        orderDetailsData,
         orderDetailsLoading,
+        orderDetailsData,
         orderNumber,
         placeOrderLoading,
         placeOrderButtonClicked,
@@ -123,7 +123,7 @@ const CheckoutPage = props => {
               defaultMessage: 'Checkout'
           });
 
-    if (orderNumber && orderDetailsData) {
+    if (isGuestCheckout && orderDetailsData && orderNumber) {
         return (
             <OrderConfirmationPage
                 data={orderDetailsData}
@@ -261,7 +261,7 @@ const CheckoutPage = props => {
         const itemsReview =
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
                 <div className={classes.items_review_container}>
-                    <ItemsReview />
+                    <ItemsReview items={cartItems} />
                 </div>
             ) : null;
 
