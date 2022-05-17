@@ -11,6 +11,7 @@ import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/ut
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './productFullDetail.gql';
+import { useEventingContext } from '../../context/eventing';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -229,6 +230,8 @@ export const useProductFullDetail = props => {
         product
     } = props;
 
+    const [, { dispatch }] = useEventingContext();
+
     const hasDeprecatedOperationProp = !!(
         addConfigurableProductToCartMutation || addSimpleProductToCartMutation
     );
@@ -311,6 +314,11 @@ export const useProductFullDetail = props => {
 
     const customAttributes = useMemo(
         () => getCustomAttributes(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
+    const productPrice = useMemo(
+        () => getConfigPrice(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
     );
 
@@ -421,6 +429,19 @@ export const useProductFullDetail = props => {
 
                 try {
                     await addProductToCart({ variables });
+
+                    dispatch({
+                        type: 'ADD_TO_CART',
+                        payload: {
+                            cartId,
+                            sku: product.sku,
+                            name: product.name,
+                            priceTotal: productPrice.value,
+                            currencyCode: productPrice.currency,
+                            selectedOptions: variables.product.selected_options,
+                            quantity
+                        }
+                    });
                 } catch {
                     return;
                 }
@@ -431,11 +452,13 @@ export const useProductFullDetail = props => {
             addProductToCart,
             addSimpleProductToCart,
             cartId,
+            dispatch,
             hasDeprecatedOperationProp,
             isSupportedProductType,
             optionCodes,
             optionSelections,
             product,
+            productPrice,
             productType,
             selectedOptionsArray
         ]
@@ -450,11 +473,6 @@ export const useProductFullDetail = props => {
             setOptionSelections(nextOptionSelections);
         },
         [optionSelections]
-    );
-
-    const productPrice = useMemo(
-        () => getConfigPrice(product, optionCodes, optionSelections),
-        [product, optionCodes, optionSelections]
     );
 
     // Normalization object for product details we need for rendering.

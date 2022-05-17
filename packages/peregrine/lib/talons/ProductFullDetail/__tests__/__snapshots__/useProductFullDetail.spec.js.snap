@@ -70,3 +70,18 @@ Array [
   },
 ]
 `;
+
+exports[`should dispatch event on add to cart 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "ThisIsMyCart",
+    "currencyCode": undefined,
+    "name": "Strive Shoulder Pac",
+    "priceTotal": 99,
+    "quantity": 2,
+    "selectedOptions": undefined,
+    "sku": "MySimpleProductSku",
+  },
+  "type": "ADD_TO_CART",
+}
+`;
