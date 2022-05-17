@@ -135,9 +135,19 @@ export const useSearchPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
+    //Handle initial redirect to add page to query param to prevent double query and dispatch
+    const searchHasPageQueryParam = useCallback(query => {
+        const currentSearch = new URLSearchParams(query);
+        return currentSearch.has('page');
+    }, []);
+
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
-        if (!filterTypeMap.size || !pageSize) {
+        if (
+            !filterTypeMap.size ||
+            !pageSize ||
+            !searchHasPageQueryParam(search)
+        ) {
             return;
         }
         const filters = getFiltersFromSearch(search);
@@ -169,8 +179,8 @@ export const useSearchPage = (props = {}) => {
                 query: inputText,
                 refinements: refinementData,
                 sort: {
-                    attribute: currentSort.sortAttribute,
-                    order: currentSort.sortDirection
+                    attribute: sortAttribute,
+                    order: sortDirection
                 }
             }
         });
@@ -184,7 +194,7 @@ export const useSearchPage = (props = {}) => {
         sortDirection,
         sortAttribute,
         dispatch,
-        currentSort
+        searchHasPageQueryParam
     ]);
 
     // Set the total number of pages whenever the data changes.

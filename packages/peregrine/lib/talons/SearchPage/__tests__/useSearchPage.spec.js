@@ -30,7 +30,10 @@ const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
-    useLocation: jest.fn(() => ({ pathname: '', search: '' }))
+    useLocation: jest.fn(() => ({
+        pathname: '/search.html?query=test&page=1',
+        search: 'query=test&page=1'
+    }))
 }));
 
 jest.mock('../../../context/eventing', () => ({
