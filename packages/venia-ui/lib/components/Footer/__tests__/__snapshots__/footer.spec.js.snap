@@ -205,6 +205,7 @@ exports[`footer renders copyright 1`] = `
       foo
     </p>
     <a
+      aria-label="Venia"
       className="logoContainer"
       href="/"
       onClick={[Function]}
