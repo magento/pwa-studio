@@ -111,25 +111,38 @@ export const useAddToCartDialog = props => {
 
     const handleAddToCart = useCallback(async () => {
         try {
+            const quantity = 1;
+
             await addProductToCart({
                 variables: {
                     cartId,
                     cartItem: {
-                        quantity: 1,
+                        quantity,
                         selected_options: selectedOptionsArray,
                         sku
                     }
                 }
             });
 
+            const selectedOptionsLabels =
+                selectedOptionsArray?.map((value, i) => ({
+                    attribute: item.product.configurable_options[i].label,
+                    value:
+                        item.product.configurable_options[i].values.find(
+                            x => x.uid === value
+                        )?.label || null
+                })) || null;
+
             dispatch({
-                type: 'ADD_TO_CART_FROM_WISH_LIST',
+                type: 'CART_ADD_ITEM',
                 payload: {
                     cartId,
-                    product: {
-                        ...item,
-                        quantity: 1
-                    }
+                    sku: item.product.sku,
+                    name: item.product.name,
+                    priceTotal: currentPrice.value,
+                    currencyCode: currentPrice.currency,
+                    selectedOptions: selectedOptionsLabels,
+                    quantity
                 }
             });
 
@@ -140,6 +153,7 @@ export const useAddToCartDialog = props => {
     }, [
         addProductToCart,
         cartId,
+        currentPrice,
         dispatch,
         handleOnClose,
         item,

@@ -430,6 +430,15 @@ export const useProductFullDetail = props => {
                 try {
                     await addProductToCart({ variables });
 
+                    const selectedOptionsLabels =
+                        selectedOptionsArray?.map((uid, i) => ({
+                            attribute: product.configurable_options[i].label,
+                            value:
+                                product.configurable_options[i].values.findLast(
+                                    x => x.uid === uid
+                                )?.label || null
+                        })) || null;
+
                     dispatch({
                         type: 'ADD_TO_CART',
                         payload: {
@@ -438,7 +447,7 @@ export const useProductFullDetail = props => {
                             name: product.name,
                             priceTotal: productPrice.value,
                             currencyCode: productPrice.currency,
-                            selectedOptions: variables.product.selected_options,
+                            selectedOptions: selectedOptionsLabels,
                             quantity
                         }
                     });

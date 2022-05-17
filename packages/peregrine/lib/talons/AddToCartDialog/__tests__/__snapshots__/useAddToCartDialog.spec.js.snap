@@ -4,48 +4,23 @@ exports[`addToCart should dispatch event 1`] = `
 Object {
   "payload": Object {
     "cartId": "123",
-    "product": Object {
-      "configurable_options": Array [
-        Object {
-          "id": 1,
-          "value_id": "red-id",
-        },
-      ],
-      "product": Object {
-        "configurable_options": Array [
-          Object {
-            "attribute_id_v2": 1,
-            "values": Array [
-              Object {
-                "uid": "red-uid",
-                "value_index": "red-id",
-              },
-              Object {
-                "uid": "blue-uid",
-                "value_index": "blue-id",
-              },
-            ],
-          },
-          Object {
-            "attribute_id_v2": 2,
-            "values": Array [
-              Object {
-                "uid": "large-uid",
-                "value_index": "large-id",
-              },
-              Object {
-                "uid": "medium-uid",
-                "value_index": "medium-id",
-              },
-            ],
-          },
-        ],
-        "sku": "nice-shirt",
+    "currencyCode": "USD",
+    "name": "Shirt",
+    "priceTotal": 123.45,
+    "quantity": 1,
+    "selectedOptions": Array [
+      Object {
+        "attribute": "Color",
+        "value": "Red",
       },
-      "quantity": 1,
-    },
+      Object {
+        "attribute": "Size",
+        "value": "M",
+      },
+    ],
+    "sku": "nice-shirt",
   },
-  "type": "ADD_TO_CART_FROM_WISH_LIST",
+  "type": "CART_ADD_ITEM",
 }
 `;
 
@@ -55,12 +30,15 @@ Object {
   "options": Array [
     Object {
       "attribute_id_v2": 1,
+      "label": "Color",
       "values": Array [
         Object {
+          "label": "Red",
           "uid": "red-uid",
           "value_index": "red-id",
         },
         Object {
+          "label": "Blue",
           "uid": "blue-uid",
           "value_index": "blue-id",
         },
@@ -68,12 +46,15 @@ Object {
     },
     Object {
       "attribute_id_v2": 2,
+      "label": "Size",
       "values": Array [
         Object {
+          "label": "L",
           "uid": "large-uid",
           "value_index": "large-id",
         },
         Object {
+          "label": "M",
           "uid": "medium-uid",
           "value_index": "medium-id",
         },

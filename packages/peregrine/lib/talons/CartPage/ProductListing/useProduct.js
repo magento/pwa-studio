@@ -141,11 +141,24 @@ export const useProduct = props => {
                 }
             });
 
+            const selectedOptionsLabels =
+                item.configurable_options?.map(
+                    ({ option_label, value_label }) => ({
+                        attribute: option_label,
+                        value: value_label
+                    })
+                ) || null;
+
             dispatch({
-                type: 'CART_PAGE_REMOVE_ITEM',
+                type: 'CART_REMOVE_ITEM',
                 payload: {
                     cartId,
-                    product: item
+                    sku: item.product.sku,
+                    name: item.product.name,
+                    priceTotal: item.prices.price.value,
+                    currencyCode: item.prices.price.currency,
+                    selectedOptions: selectedOptionsLabels,
+                    quantity: item.quantity
                 }
             });
         } catch (err) {
@@ -165,14 +178,24 @@ export const useProduct = props => {
                     }
                 });
 
+                const selectedOptions =
+                    item.configurable_options?.map(
+                        ({ option_label, value_label }) => ({
+                            attribute: option_label,
+                            value: value_label
+                        })
+                    ) || null;
+
                 dispatch({
-                    type: 'CART_PAGE_UPDATE_QUANTITY_ITEM',
+                    type: 'CART_UPDATE_ITEM',
                     payload: {
                         cartId,
-                        product: {
-                            ...item,
-                            quantity
-                        }
+                        sku: item.product.sku,
+                        name: item.product.name,
+                        priceTotal: item.prices.price.value,
+                        currencyCode: item.prices.price.currency,
+                        selectedOptions,
+                        quantity
                     }
                 });
             } catch (err) {

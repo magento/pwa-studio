@@ -12,16 +12,13 @@ exports[`testing handleAddToCart should dispatch event 1`] = `
 Object {
   "payload": Object {
     "cartId": "1234",
-    "product": Object {
-      "__typename": "SimpleProduct",
-      "name": "Strive Shoulder Pac",
-      "quantity": 1,
-      "sku": "97ahsf9",
-      "stock_status": "IN_STOCK",
-      "uid": "NDA=",
-      "url_key": "simple_product.html",
-    },
+    "currencyCode": "USD",
+    "name": "Strive Shoulder Pac",
+    "priceTotal": 99,
+    "quantity": 1,
+    "selectedOptions": null,
+    "sku": "97ahsf9",
   },
-  "type": "ADD_TO_CART",
+  "type": "CART_ADD_ITEM",
 }
 `;

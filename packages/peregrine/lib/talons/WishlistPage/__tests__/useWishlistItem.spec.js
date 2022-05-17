@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useWishlistItem } from '../useWishlistItem';
+import { useEventingContext } from '../../../context/eventing';
 
 jest.mock('@apollo/client', () => {
     const ApolloClient = jest.requireActual('@apollo/client');
@@ -22,6 +23,10 @@ jest.mock('../../../context/cart', () => {
 
     return { useCartContext };
 });
+
+jest.mock('../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const log = jest.fn();
 const Component = props => {
@@ -44,7 +49,16 @@ const baseProps = {
                 url: 'https://example.com/media/shoggoth-shirt.jpg'
             },
             sku: 'shoggoth-shirt',
-            stock_status: 'IN_STOCK'
+            stock_status: 'IN_STOCK',
+            name: 'Product Name',
+            price_range: {
+                maximum_price: {
+                    final_price: {
+                        currency: 'USD',
+                        value: 99
+                    }
+                }
+            }
         }
     },
     onOpenAddToCartDialog: jest.fn().mockName('onOpenAddToCartDialog'),
@@ -121,6 +135,28 @@ test('handleAddToCart callback fires mutation', () => {
     });
 
     expect(mockMutate).toHaveBeenCalled();
+});
+
+test('handleAddToCart callback should dispatch event', async () => {
+    const mockDispatch = jest.fn();
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatch
+        }
+    ]);
+
+    createTestInstance(<Component {...baseProps} />);
+
+    const talonProps = log.mock.calls[0][0];
+
+    await act(async () => {
+        await talonProps.addToCartButtonProps.onClick();
+    });
+
+    expect(mockDispatch).toBeCalledTimes(1);
+
+    expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
 });
 
 test('handleRemoveProductFromWishlist callback fires mutation', () => {

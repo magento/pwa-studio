@@ -13,6 +13,7 @@ Object {
     Object {
       "configurable_options": Array [
         Object {
+          "configurable_product_option_value_uid": "uid123",
           "label": "Color",
           "value": "red",
         },
@@ -26,6 +27,7 @@ Object {
       },
       "product": Object {
         "name": "P1",
+        "sku": "sku123",
         "thumbnail": Object {
           "url": "www.venia.com/p1",
         },
@@ -43,9 +45,19 @@ exports[`handleRemoveItem() should dispatch event 1`] = `
 Object {
   "payload": Object {
     "cartId": "1234",
-    "product": undefined,
+    "currencyCode": "USD",
+    "name": "P1",
+    "priceTotal": 420,
+    "quantity": 10,
+    "selectedOptions": Array [
+      Object {
+        "attribute": undefined,
+        "value": undefined,
+      },
+    ],
+    "sku": "sku123",
   },
-  "type": "MINI_CART_REMOVE_ITEM",
+  "type": "CART_REMOVE_ITEM",
 }
 `;
 
@@ -57,6 +69,7 @@ Object {
       Object {
         "configurable_options": Array [
           Object {
+            "configurable_product_option_value_uid": "uid123",
             "label": "Color",
             "value": "red",
           },
@@ -70,6 +83,7 @@ Object {
         },
         "product": Object {
           "name": "P1",
+          "sku": "sku123",
           "thumbnail": Object {
             "url": "www.venia.com/p1",
           },
@@ -79,36 +93,5 @@ Object {
     ],
   },
   "type": "MINI_CART_VIEW",
-}
-`;
-
-exports[`handleRemoveItem() should dispatch event 1`] = `
-Object {
-  "payload": Object {
-    "cartId": "1234",
-    "product": Object {
-      "configurable_options": Array [
-        Object {
-          "label": "Color",
-          "value": "red",
-        },
-      ],
-      "id": "p1",
-      "prices": Object {
-        "price": Object {
-          "currency": "USD",
-          "value": 420,
-        },
-      },
-      "product": Object {
-        "name": "P1",
-        "thumbnail": Object {
-          "url": "www.venia.com/p1",
-        },
-      },
-      "quantity": 10,
-    },
-  },
-  "type": "MINI_CART_REMOVE_ITEM",
 }
 `;

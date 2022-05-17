@@ -60,6 +60,7 @@ beforeAll(() => {
                     {
                         product: {
                             name: 'P1',
+                            sku: 'sku123',
                             thumbnail: {
                                 url: 'www.venia.com/p1'
                             }
@@ -69,7 +70,8 @@ beforeAll(() => {
                         configurable_options: [
                             {
                                 label: 'Color',
-                                value: 'red'
+                                value: 'red',
+                                configurable_product_option_value_uid: 'uid123'
                             }
                         ],
                         prices: {

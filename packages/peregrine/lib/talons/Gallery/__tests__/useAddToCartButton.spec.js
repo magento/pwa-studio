@@ -67,7 +67,15 @@ const defaultProps = {
         sku: '97ahsf9',
         url_key: 'simple_product.html',
         uid: 'NDA=',
-        name: 'Strive Shoulder Pac'
+        name: 'Strive Shoulder Pac',
+        price_range: {
+            maximum_price: {
+                final_price: {
+                    value: 99,
+                    currency: 'USD'
+                }
+            }
+        }
     }
 };
 

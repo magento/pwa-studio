@@ -60,14 +60,16 @@ const defaultProps = {
         price: {
             regularPrice: {
                 amount: {
-                    value: 99
+                    value: 99,
+                    currency: 'USD'
                 }
             }
         },
         price_range: {
             maximum_price: {
                 final_price: {
-                    value: 99
+                    value: 99,
+                    currency: 'USD'
                 }
             }
         },

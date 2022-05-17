@@ -98,19 +98,22 @@ const getProductDetailMock2 = {
 const mockItem = {
     configurable_options: [{ id: 1, value_id: 'red-id' }],
     product: {
+        name: 'Shirt',
         configurable_options: [
             {
+                label: 'Color',
                 attribute_id_v2: 1,
                 values: [
-                    { value_index: 'red-id', uid: 'red-uid' },
-                    { value_index: 'blue-id', uid: 'blue-uid' }
+                    { value_index: 'red-id', uid: 'red-uid', label: 'Red' },
+                    { value_index: 'blue-id', uid: 'blue-uid', label: 'Blue' }
                 ]
             },
             {
+                label: 'Size',
                 attribute_id_v2: 2,
                 values: [
-                    { value_index: 'large-id', uid: 'large-uid' },
-                    { value_index: 'medium-id', uid: 'medium-uid' }
+                    { value_index: 'large-id', uid: 'large-uid', label: 'L' },
+                    { value_index: 'medium-id', uid: 'medium-uid', label: 'M' }
                 ]
             }
         ],
@@ -421,7 +424,7 @@ test('addToCart should dispatch event', async () => {
         );
 
         await new Promise(resolve => setTimeout(resolve, 0));
-        result.current.buttonProps.onClick();
+        await result.current.buttonProps.onClick();
     });
 
     expect(mockDispatch).toBeCalledTimes(1);

@@ -54,11 +54,13 @@ export const useAddToCartButton = props => {
             if (productType === 'SimpleProduct') {
                 setIsLoading(true);
 
+                const quantity = 1;
+
                 await addToCart({
                     variables: {
                         cartId,
                         cartItem: {
-                            quantity: 1,
+                            quantity,
                             entered_options: [
                                 {
                                     uid: item.uid,
@@ -71,13 +73,17 @@ export const useAddToCartButton = props => {
                 });
 
                 dispatch({
-                    type: 'ADD_TO_CART',
+                    type: 'CART_ADD_ITEM',
                     payload: {
                         cartId,
-                        product: {
-                            ...item,
-                            quantity: 1
-                        }
+                        sku: item.sku,
+                        name: item.name,
+                        priceTotal:
+                            item.price_range.maximum_price.final_price.value,
+                        currencyCode:
+                            item.price_range.maximum_price.final_price.currency,
+                        selectedOptions: null,
+                        quantity
                     }
                 });
 

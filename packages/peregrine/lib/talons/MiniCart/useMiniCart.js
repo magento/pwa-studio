@@ -104,10 +104,6 @@ export const useMiniCart = props => {
     const handleRemoveItem = useCallback(
         async id => {
             try {
-                const [product] = productList.filter(
-                    p => (p.uid || p.id) === id
-                );
-
                 await removeItem({
                     variables: {
                         cartId,
@@ -115,11 +111,28 @@ export const useMiniCart = props => {
                     }
                 });
 
+                const [product] = productList.filter(
+                    p => (p.uid || p.id) === id
+                );
+
+                const selectedOptionsLabels =
+                    product.configurable_options?.map(
+                        ({ option_label, value_label }) => ({
+                            attribute: option_label,
+                            value: value_label
+                        })
+                    ) || null;
+
                 dispatch({
-                    type: 'MINI_CART_REMOVE_ITEM',
+                    type: 'CART_REMOVE_ITEM',
                     payload: {
                         cartId,
-                        product
+                        sku: product.product.sku,
+                        name: product.product.name,
+                        priceTotal: product.prices.price.value,
+                        currencyCode: product.prices.price.currency,
+                        selectedOptions: selectedOptionsLabels,
+                        quantity: product.quantity
                     }
                 });
             } catch (e) {

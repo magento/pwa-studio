@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './wishlistItem.gql';
+import { useEventingContext } from '../../context/eventing';
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 
@@ -28,6 +29,8 @@ const mergeSupportedProductTypes = (supportedProductTypes = []) => {
  */
 export const useWishlistItem = props => {
     const { item, onOpenAddToCartDialog, wishlistId } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const {
         configurable_options: selectedConfigurableOptions = [],
@@ -162,6 +165,23 @@ export const useWishlistItem = props => {
         ) {
             try {
                 await addWishlistItemToCart();
+
+                dispatch({
+                    type: 'ADD_TO_CART',
+                    payload: {
+                        cartId,
+                        sku: item.product.sku,
+                        name: item.product.name,
+                        priceTotal:
+                            item.product.price_range.maximum_price.final_price
+                                .value,
+                        currencyCode:
+                            item.product.price_range.maximum_price.final_price
+                                .currency,
+                        selectedOptions: null,
+                        quantity: 1
+                    }
+                });
             } catch (error) {
                 console.error(error);
             }
@@ -170,7 +190,9 @@ export const useWishlistItem = props => {
         }
     }, [
         addWishlistItemToCart,
+        cartId,
         configurableOptions.length,
+        dispatch,
         item,
         onOpenAddToCartDialog,
         selectedConfigurableOptions.length
