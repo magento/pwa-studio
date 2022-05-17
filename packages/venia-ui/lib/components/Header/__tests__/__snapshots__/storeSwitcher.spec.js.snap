@@ -7,6 +7,7 @@ exports[`does not render group name when there is only one group 1`] = `
   className="root"
 >
   <button
+    aria-expanded={false}
     aria-label="Store 2"
     className="trigger"
     onClick={[MockFunction]}
@@ -21,9 +22,12 @@ exports[`does not render group name when there is only one group 1`] = `
     >
       <ul
         className="groupList"
+        role="listbox"
       >
         <li
+          aria-selected="Store 2"
           className="menuItem"
+          role="option"
         >
           <button
             className="root"
@@ -42,7 +46,9 @@ exports[`does not render group name when there is only one group 1`] = `
           </button>
         </li>
         <li
+          aria-selected="Store 2"
           className="menuItem"
+          role="option"
         >
           <button
             className="root"
@@ -91,6 +97,7 @@ exports[`renders the correct tree 1`] = `
   className="root"
 >
   <button
+    aria-expanded={false}
     aria-label="Store 2"
     className="trigger"
     onClick={[MockFunction]}
@@ -105,9 +112,12 @@ exports[`renders the correct tree 1`] = `
     >
       <ul
         className="groupList"
+        role="listbox"
       >
         <li
+          aria-selected="Store 2"
           className="menuItem"
+          role="option"
         >
           <button
             className="root"
@@ -126,7 +136,9 @@ exports[`renders the correct tree 1`] = `
           </button>
         </li>
         <li
+          aria-selected="Store 2"
           className="menuItem"
+          role="option"
         >
           <button
             className="root"
@@ -167,9 +179,12 @@ exports[`renders the correct tree 1`] = `
       </ul>
       <ul
         className="groupList"
+        role="listbox"
       >
         <li
+          aria-selected="Store 2"
           className="menuItem"
+          role="option"
         >
           <button
             className="root"
@@ -188,7 +203,9 @@ exports[`renders the correct tree 1`] = `
           </button>
         </li>
         <li
+          aria-selected="Store 2"
           className="menuItem"
+          role="option"
         >
           <button
             className="root"

@@ -5,12 +5,19 @@ import { useQuery, useMutation } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 import { useMiniCart } from '../useMiniCart';
 
+import { useEventingContext } from '../../../context/eventing';
+import { act } from 'react-test-renderer';
+
 jest.mock('@apollo/client');
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn()
 }));
 jest.mock('../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '1234' }])
+}));
+
+jest.mock('../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const Component = props => {
@@ -25,9 +32,11 @@ const getTalonProps = props => {
     const { talonProps } = root.findByType('i').props;
 
     const update = newProps => {
-        tree.update(<Component {...{ ...props, ...newProps }} />);
+        act(() => {
+            tree.update(<Component {...{ ...props, ...newProps }} />);
 
-        return root.findByType('i').props.talonProps;
+            return root.findByType('i').props.talonProps;
+        });
     };
 
     return { talonProps, tree, update };
@@ -39,7 +48,8 @@ const defaultProps = {
         getStoreConfigQuery: 'getStoreConfigQuery'
     },
     mutations: { removeItemMutation: 'removeItemMutation' },
-    setIsOpen: jest.fn()
+    setIsOpen: jest.fn(),
+    isOpen: false
 };
 
 beforeAll(() => {
@@ -143,4 +153,69 @@ test('handleEditCart should navigate to the cart page and close the mini cart di
 
     expect(setIsOpen).toHaveBeenCalledWith(false);
     expect(push).toHaveBeenCalledWith('/cart');
+});
+
+test('should dispatch event when mini cart is open', () => {
+    const mockDispatch = jest.fn();
+
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatch
+        }
+    ]);
+
+    const { update } = getTalonProps(defaultProps);
+
+    expect(mockDispatch).not.toBeCalled();
+
+    update({ isOpen: true });
+
+    expect(mockDispatch).toBeCalledTimes(1);
+
+    expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('closeMiniCart() should set open state to false when called', () => {
+    const setIsOpen = jest.fn();
+
+    const props = {
+        ...defaultProps,
+        setIsOpen
+    };
+    const { talonProps } = getTalonProps(props);
+
+    talonProps.closeMiniCart();
+
+    expect(setIsOpen).toHaveBeenCalledWith(false);
+});
+
+test('handleRemoveItem() should call graphql mutation', () => {
+    const mockRemoveItem = jest.fn();
+
+    useMutation.mockReturnValueOnce([
+        mockRemoveItem,
+        {
+            called: false,
+            loading: false,
+            error: {}
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(defaultProps);
+
+    expect(mockRemoveItem).not.toBeCalled();
+
+    talonProps.handleRemoveItem('p1');
+
+    expect(mockRemoveItem).toHaveBeenCalledTimes(1);
+
+    expect(mockRemoveItem.mock.calls[0][0]).toMatchInlineSnapshot(`
+        Object {
+          "variables": Object {
+            "cartId": "1234",
+            "itemId": "p1",
+          },
+        }
+    `);
 });
