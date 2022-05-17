@@ -6,16 +6,22 @@ import { useAdapter } from '../useAdapter';
 
 const log = jest.fn();
 
-jest.mock('@apollo/client', () => ({
-    ApolloLink: {
-        from: jest.fn(() => {})
-    },
-    createHttpLink: jest.fn(() => ({
-        fetch: jest.fn(),
-        useGETForQueries: jest.fn(),
-        uri: jest.fn()
-    }))
-}));
+jest.mock('@apollo/client', () => {
+    class ApolloLink {
+        static from = jest.fn();
+
+        constructor() {}
+    }
+
+    return {
+        ApolloLink,
+        createHttpLink: jest.fn(() => ({
+            fetch: jest.fn(),
+            useGETForQueries: jest.fn(),
+            uri: jest.fn()
+        }))
+    };
+});
 jest.mock('@apollo/client/core', () => ({
     ApolloClient: jest.fn(() => ({
         persistor: jest.fn(() => {})
@@ -26,14 +32,6 @@ jest.mock('apollo-cache-persist', () => ({
         restore: jest.fn()
     }))
 }));
-jest.mock('@magento/peregrine/lib/Apollo/magentoGqlCacheLink', () => {
-    return {
-        __esModule: true,
-        default: jest.fn().mockImplementation(() => {
-            return {};
-        })
-    };
-});
 
 let inputValues = {};
 
