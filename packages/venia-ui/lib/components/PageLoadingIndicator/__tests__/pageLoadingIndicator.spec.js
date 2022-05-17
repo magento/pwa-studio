@@ -38,8 +38,8 @@ describe('#PageLoadingIndicator does not render', () => {
     });
 });
 
-describe('#PageLoadingIndicator displays', () => {
-    test('when page is loading', async () => {
+describe('#PageLoadingIndicator displays correctly depend on the position type', () => {
+    test('when absolute is false and page is loading', async () => {
         givenPageLoading();
         let tree;
 
@@ -47,7 +47,7 @@ describe('#PageLoadingIndicator displays', () => {
             tree = create(<PageLoadingIndicator />);
         });
 
-        expect(tree.toJSON()).not.toBeNull();
+        expect(tree.toJSON()).toMatchSnapshot();
     });
 
     test('when absolute is true and page is not loading', async () => {
@@ -58,6 +58,6 @@ describe('#PageLoadingIndicator displays', () => {
             tree = create(<PageLoadingIndicator absolute />);
         });
 
-        expect(tree.toJSON()).not.toBeNull();
+        expect(tree.toJSON()).toMatchSnapshot();
     });
 });
