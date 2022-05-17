@@ -56,6 +56,7 @@ const CartTrigger = props => {
         <Fragment>
             <div className={triggerClassName} ref={miniCartTriggerRef}>
                 <button
+                    aria-expanded={miniCartIsOpen}
                     aria-label={buttonAriaLabel}
                     className={classes.trigger}
                     onClick={handleTriggerClick}
@@ -66,6 +67,7 @@ const CartTrigger = props => {
                 </button>
             </div>
             <button
+                aria-expanded={miniCartIsOpen}
                 aria-label={buttonAriaLabel}
                 className={classes.link}
                 onClick={handleLinkClick}
