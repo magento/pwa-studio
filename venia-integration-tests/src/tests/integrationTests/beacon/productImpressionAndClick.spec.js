@@ -176,7 +176,9 @@ describe(
                     );
                 }
             });
-            cy.wait(['@gqlGetStoreConfigDataQuery', '@getCMSMockData']).its('response.body');
+            cy.wait(['@gqlGetStoreConfigDataQuery']).its('response.body');
+            cy.wait(['@getCMSMockData']).its('response.body');
+
             triggerSearch();
 
             searchFromSearchBar('foobar', false);
