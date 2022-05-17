@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Facebook, Instagram, Twitter } from 'react-feather';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
@@ -18,6 +18,8 @@ const Footer = props => {
     const talonProps = useFooter();
 
     const { copyrightText } = talonProps;
+    const { formatMessage } = useIntl();
+    const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
 
     const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
         const linkElements = Array.from(linkProps, ([text, pathInfo]) => {
@@ -106,7 +108,11 @@ const Footer = props => {
                     </li>
                 </ul>
                 <p className={classes.copyright}>{copyrightText || null}</p>
-                <Link to={resourceUrl('/')} className={classes.logoContainer}>
+                <Link
+                    to={resourceUrl('/')}
+                    aria-label={title}
+                    className={classes.logoContainer}
+                >
                     <Logo classes={{ logo: classes.logo }} />
                 </Link>
             </div>
