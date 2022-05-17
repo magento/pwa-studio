@@ -26,6 +26,7 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
             items {
                 id
                 uid
+                sku
                 name
                 small_image {
                     url
@@ -43,6 +44,10 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                 price_range {
                     maximum_price {
                         final_price {
+                            currency
+                            value
+                        }
+                        regular_price {
                             currency
                             value
                         }

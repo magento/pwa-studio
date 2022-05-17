@@ -1,51 +1,45 @@
 import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/util/isSupportedProductType';
-import { useEventingContext } from '../../context/eventing';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import { useCallback, useEffect } from 'react';
 
 export const useGalleryItem = (props = {}) => {
     const [, { dispatch }] = useEventingContext();
     const { item, storeConfig } = props;
 
+    const finalPrice = item?.price_range?.maximum_price?.final_price?.value;
+    const regularPrice = item?.price_range?.maximum_price?.regular_price?.value;
+    const discountAmount =
+        regularPrice !== null ? regularPrice - finalPrice : 0;
+    const currencyCode =
+        item?.price_range?.maximum_price?.final_price?.currency;
+
     const handleLinkClick = useCallback(() => {
-        const finalPrice = item.price_range?.maximum_price?.final_price?.value;
-        const regularPrice =
-            item.price_range?.maximum_price?.regular_price?.value;
-        const discountAmount =
-            regularPrice !== null ? regularPrice - finalPrice : 0;
         dispatch({
             type: 'PRODUCT_CLICK',
             payload: {
                 sku: item.sku,
                 priceTotal: finalPrice,
                 discountAmount,
-                currencyCode:
-                    item.price_range?.maximum_price?.final_price?.currency,
+                currencyCode,
                 selectedOptions: null
             }
         });
-    }, [dispatch, item]);
+    }, [currencyCode, discountAmount, dispatch, finalPrice, item]);
 
     useEffect(() => {
         if (item) {
-            const finalPrice =
-                item.price_range?.maximum_price?.final_price?.value;
-            const regularPrice =
-                item.price_range?.maximum_price?.regular_price?.value;
-            const discountAmount =
-                regularPrice !== null ? regularPrice - finalPrice : 0;
             dispatch({
                 type: 'PRODUCT_IMPRESSION',
                 payload: {
                     sku: item.sku,
                     priceTotal: finalPrice,
                     discountAmount,
-                    currencyCode:
-                        item.price_range?.maximum_price?.final_price?.currency,
+                    currencyCode,
                     selectedOptions: null
                 }
             });
         }
-    }, [dispatch, item]);
+    }, [currencyCode, discountAmount, dispatch, finalPrice, item]);
 
     const productType = item ? item.__typename : null;
 
