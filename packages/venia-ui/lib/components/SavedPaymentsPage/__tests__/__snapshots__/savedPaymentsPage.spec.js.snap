@@ -6,6 +6,7 @@ exports[`renders correctly when there are existing saved payments 1`] = `
 >
   Title
   <h1
+    aria-live="polite"
     className="heading"
   >
     Saved Payments
@@ -37,6 +38,7 @@ exports[`renders correctly when there are no existing saved payments 1`] = `
 >
   Title
   <h1
+    aria-live="polite"
     className="heading"
   >
     Saved Payments
