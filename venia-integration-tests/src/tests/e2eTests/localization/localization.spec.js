@@ -132,7 +132,7 @@ const {
 
 describe(
     'PWA-1415: Verify Venia Localization',
-    { tags: ['@commerce', '@ci', '@localization', '@checkout'] },
+    { tags: ['@e2e', '@commerce', '@ci', '@localization', '@checkout'] },
     () => {
         it('should display Default Store View and USD currency by default', () => {
             cy.visitHomePage();
