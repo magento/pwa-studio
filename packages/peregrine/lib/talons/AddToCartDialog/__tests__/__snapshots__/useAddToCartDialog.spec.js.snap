@@ -5,6 +5,7 @@ Object {
   "payload": Object {
     "cartId": "123",
     "currencyCode": "USD",
+    "discountAmount": 0,
     "name": "Shirt",
     "priceTotal": 123.45,
     "quantity": 1,

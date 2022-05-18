@@ -83,6 +83,9 @@ const props = {
             price: {
                 value: 99,
                 currency: 'USD'
+            },
+            total_item_discount: {
+                value: 0
             }
         },
         product: {
@@ -327,6 +330,9 @@ test('it handles editing the product', () => {
             "price": Object {
               "currency": "USD",
               "value": 99,
+            },
+            "total_item_discount": Object {
+              "value": 0,
             },
           },
           "product": Object {

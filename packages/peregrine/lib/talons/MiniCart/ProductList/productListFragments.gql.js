@@ -37,6 +37,9 @@ export const ProductListFragment = gql`
                     currency
                     value
                 }
+                total_item_discount {
+                    value
+                }
             }
             quantity
             # eslint-disable-next-line @graphql-eslint/require-id-when-available

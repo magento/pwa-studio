@@ -20,6 +20,10 @@ const GET_PRODUCT_DETAIL = gql`
                             currency
                             value
                         }
+
+                        discount {
+                            amount_off
+                        }
                     }
                 }
                 ... on ConfigurableProduct {
@@ -49,6 +53,10 @@ const GET_PRODUCT_DETAIL = gql`
                                     final_price {
                                         currency
                                         value
+                                    }
+
+                                    discount {
+                                        amount_off
                                     }
                                 }
                             }

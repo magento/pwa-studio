@@ -13,6 +13,7 @@ Object {
   "payload": Object {
     "cartId": "1234",
     "currencyCode": "USD",
+    "discountAmount": 10,
     "name": "Strive Shoulder Pac",
     "priceTotal": 99,
     "quantity": 1,

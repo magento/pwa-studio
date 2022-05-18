@@ -5,13 +5,14 @@ Object {
   "payload": Object {
     "cartId": "cart123",
     "currencyCode": "USD",
+    "discountAmount": 10,
     "name": "Product Name",
     "priceTotal": 99,
     "quantity": 1,
     "selectedOptions": null,
     "sku": "shoggoth-shirt",
   },
-  "type": "ADD_TO_CART",
+  "type": "CART_ADD_ITEM",
 }
 `;
 

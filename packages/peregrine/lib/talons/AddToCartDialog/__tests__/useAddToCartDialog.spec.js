@@ -36,6 +36,9 @@ const productMock = {
             final_price: {
                 currency: 'USD',
                 value: 123.45
+            },
+            discount: {
+                amount_off: 0
             }
         }
     },
@@ -82,6 +85,9 @@ const getProductDetailMock2 = {
                                         final_price: {
                                             currency: 'EUR',
                                             value: 456.78
+                                        },
+                                        discount: {
+                                            amount_off: 0
                                         }
                                     }
                                 },

@@ -24,6 +24,9 @@ Object {
           "currency": "USD",
           "value": 420,
         },
+        "total_item_discount": Object {
+          "value": 2,
+        },
       },
       "product": Object {
         "name": "P1",
@@ -46,6 +49,7 @@ Object {
   "payload": Object {
     "cartId": "1234",
     "currencyCode": "USD",
+    "discountAmount": 2,
     "name": "P1",
     "priceTotal": 420,
     "quantity": 10,
@@ -79,6 +83,9 @@ Object {
           "price": Object {
             "currency": "USD",
             "value": 420,
+          },
+          "total_item_discount": Object {
+            "value": 2,
           },
         },
         "product": Object {

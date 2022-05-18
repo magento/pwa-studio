@@ -5,6 +5,7 @@ Object {
   "payload": Object {
     "cartId": "cart123",
     "currencyCode": "USD",
+    "discountAmount": 0,
     "name": "unit test",
     "priceTotal": 99,
     "quantity": 7,
@@ -20,6 +21,7 @@ Object {
   "payload": Object {
     "cartId": "cart123",
     "currencyCode": "USD",
+    "discountAmount": 0,
     "name": "unit test",
     "priceTotal": 99,
     "quantity": 100,

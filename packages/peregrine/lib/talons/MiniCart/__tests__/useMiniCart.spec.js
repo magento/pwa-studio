@@ -78,6 +78,9 @@ beforeAll(() => {
                             price: {
                                 value: 420,
                                 currency: 'USD'
+                            },
+                            total_item_discount: {
+                                value: 2
                             }
                         }
                     }

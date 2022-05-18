@@ -167,7 +167,7 @@ export const useWishlistItem = props => {
                 await addWishlistItemToCart();
 
                 dispatch({
-                    type: 'ADD_TO_CART',
+                    type: 'CART_ADD_ITEM',
                     payload: {
                         cartId,
                         sku: item.product.sku,
@@ -178,6 +178,9 @@ export const useWishlistItem = props => {
                         currencyCode:
                             item.product.price_range.maximum_price.final_price
                                 .currency,
+                        discountAmount:
+                            item.product.price_range.maximum_price.discount
+                                .amount_off,
                         selectedOptions: null,
                         quantity: 1
                     }

@@ -131,6 +131,8 @@ export const useMiniCart = props => {
                         name: product.product.name,
                         priceTotal: product.prices.price.value,
                         currencyCode: product.prices.price.currency,
+                        discountAmount:
+                            product.prices.total_item_discount.value,
                         selectedOptions: selectedOptionsLabels,
                         quantity: product.quantity
                     }

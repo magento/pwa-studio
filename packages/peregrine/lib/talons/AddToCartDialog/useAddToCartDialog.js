@@ -17,6 +17,7 @@ export const useAddToCartDialog = props => {
     const [userSelectedOptions, setUserSelectedOptions] = useState(new Map());
     const [currentImage, setCurrentImage] = useState();
     const [currentPrice, setCurrentPrice] = useState();
+    const [currentDiscount, setCurrentDiscount] = useState();
 
     const [{ cartId }] = useCartContext();
 
@@ -92,6 +93,11 @@ export const useAddToCartDialog = props => {
                 ? selectedVariant.price_range.maximum_price.final_price
                 : product.price_range.maximum_price.final_price;
 
+            const discount = selectedVariant
+                ? selectedVariant.price_range.maximum_price.discount
+                : product.price_range.maximum_price.discount;
+
+            setCurrentDiscount(discount);
             setCurrentPrice(finalPrice);
         }
     }, [data, selectedOptionsArray.length]);
@@ -141,6 +147,7 @@ export const useAddToCartDialog = props => {
                     name: item.product.name,
                     priceTotal: currentPrice.value,
                     currencyCode: currentPrice.currency,
+                    discountAmount: currentDiscount.amount_off,
                     selectedOptions: selectedOptionsLabels,
                     quantity
                 }
@@ -153,6 +160,7 @@ export const useAddToCartDialog = props => {
     }, [
         addProductToCart,
         cartId,
+        currentDiscount,
         currentPrice,
         dispatch,
         handleOnClose,

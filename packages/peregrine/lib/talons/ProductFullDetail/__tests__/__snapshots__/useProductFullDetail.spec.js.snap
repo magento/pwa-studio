@@ -76,12 +76,13 @@ Object {
   "payload": Object {
     "cartId": "ThisIsMyCart",
     "currencyCode": "USD",
+    "discountAmount": 10,
     "name": "Strive Shoulder Pac",
     "priceTotal": 99,
     "quantity": 2,
     "selectedOptions": Array [],
     "sku": "MySimpleProductSku",
   },
-  "type": "ADD_TO_CART",
+  "type": "CART_ADD_ITEM",
 }
 `;

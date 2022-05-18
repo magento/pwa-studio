@@ -82,6 +82,8 @@ export const useAddToCartButton = props => {
                             item.price_range.maximum_price.final_price.value,
                         currencyCode:
                             item.price_range.maximum_price.final_price.currency,
+                        discountAmount:
+                            item.price_range.maximum_price.discount.amount_off,
                         selectedOptions: null,
                         quantity
                     }

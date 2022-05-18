@@ -157,6 +157,7 @@ export const useProduct = props => {
                     name: item.product.name,
                     priceTotal: item.prices.price.value,
                     currencyCode: item.prices.price.currency,
+                    discountAmount: item.prices.total_item_discount.value,
                     selectedOptions: selectedOptionsLabels,
                     quantity: item.quantity
                 }
@@ -194,6 +195,7 @@ export const useProduct = props => {
                         name: item.product.name,
                         priceTotal: item.prices.price.value,
                         currencyCode: item.prices.price.currency,
+                        discountAmount: item.prices.total_item_discount.value,
                         selectedOptions,
                         quantity
                     }

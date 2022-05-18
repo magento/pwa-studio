@@ -156,7 +156,7 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         0;
 
     if (!isConfigurable || !optionsSelected) {
-        value = product.price_range?.maximum_price?.final_price;
+        value = product.price_range?.maximum_price;
     } else {
         const item = findMatchingVariant({
             optionCodes,
@@ -165,8 +165,8 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         });
 
         value = item
-            ? item.product.price_range?.maximum_price?.final_price
-            : product.price_range?.maximum_price?.final_price;
+            ? item.product.price_range?.maximum_price
+            : product.price_range?.maximum_price;
     }
 
     return value;
@@ -440,13 +440,14 @@ export const useProductFullDetail = props => {
                         })) || null;
 
                     dispatch({
-                        type: 'ADD_TO_CART',
+                        type: 'CART_ADD_ITEM',
                         payload: {
                             cartId,
                             sku: product.sku,
                             name: product.name,
-                            priceTotal: productPrice.value,
-                            currencyCode: productPrice.currency,
+                            priceTotal: productPrice.final_price.value,
+                            currencyCode: productPrice.final_price.currency,
+                            discountAmount: productPrice.discount.amount_off,
                             selectedOptions: selectedOptionsLabels,
                             quantity
                         }
@@ -489,7 +490,7 @@ export const useProductFullDetail = props => {
         description: product.description,
         shortDescription: product.short_description,
         name: product.name,
-        price: productPrice,
+        price: productPrice?.final_price,
         sku: product.sku
     };
 

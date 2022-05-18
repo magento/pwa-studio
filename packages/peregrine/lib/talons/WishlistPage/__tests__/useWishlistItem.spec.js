@@ -56,6 +56,9 @@ const baseProps = {
                     final_price: {
                         currency: 'USD',
                         value: 99
+                    },
+                    discount: {
+                        amount_off: 10
                     }
                 }
             }
