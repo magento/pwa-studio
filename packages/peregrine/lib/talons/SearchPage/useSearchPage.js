@@ -135,10 +135,10 @@ export const useSearchPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
-    //Handle initial redirect to add page to query param to prevent double query and dispatch
-    const searchHasPageQueryParam = useCallback(query => {
+    //Handle initial redirect to add page to query param to prevent double query and dispatch and further pagination
+    const searchOnFirstPage = useCallback(query => {
         const currentSearch = new URLSearchParams(query);
-        return currentSearch.has('page');
+        return currentSearch.has('page') && currentSearch.get('page') === "1";
     }, []);
 
     useEffect(() => {
@@ -146,7 +146,7 @@ export const useSearchPage = (props = {}) => {
         if (
             !filterTypeMap.size ||
             !pageSize ||
-            !searchHasPageQueryParam(search)
+            !searchOnFirstPage(search)
         ) {
             return;
         }
@@ -194,7 +194,7 @@ export const useSearchPage = (props = {}) => {
         sortDirection,
         sortAttribute,
         dispatch,
-        searchHasPageQueryParam
+        searchOnFirstPage
     ]);
 
     // Set the total number of pages whenever the data changes.
