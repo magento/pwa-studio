@@ -48,7 +48,7 @@ const { assertCartTriggerCount } = headerAssertions;
 
 describe(
     'PWA-1407: verify remove promotion cart action',
-    { tags: ['@commerce', '@ci', '@cart'] },
+    { tags: ['@e2e', '@commerce', '@ci', '@cart'] },
     () => {
         it('user should be able to add and remove promotions from cart', () => {
             cy.intercept('GET', getAppliedCouponsCall).as(
