@@ -13,6 +13,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -110,6 +111,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -221,6 +223,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -332,6 +335,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -451,6 +455,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -501,6 +506,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -569,6 +575,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -666,6 +673,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -716,6 +724,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div

@@ -6,6 +6,7 @@ exports[`renders form error 1`] = `
 >
   Account Information
   <h1
+    aria-live="polite"
     className="title"
   >
     <mock-FormattedMessage
