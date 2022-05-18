@@ -136,14 +136,35 @@ export const useSearchPage = (props = {}) => {
     }, [isBackgroundLoading, setPageLoading]);
 
     //Handle initial redirect to add page to query param to prevent double query and dispatch and further pagination
-    const searchOnFirstPage = useCallback(query => {
-        const currentSearch = new URLSearchParams(query);
-        return currentSearch.has('page') && currentSearch.get('page') === '1';
-    }, []);
+    const searched = useRef(false);
+    // Reset the current page back to one (1) when the search string, filters
+    // or sort criteria change.
+    useEffect(() => {
+        // We don't want to compare page value.
+        const prevSearch = new URLSearchParams(previousSearch.current);
+        const nextSearch = new URLSearchParams(search);
+        prevSearch.delete('page');
+        nextSearch.delete('page');
+
+        if (
+            prevSearch.toString() !== nextSearch.toString() ||
+            previousSort.current.sortAttribute.toString() !==
+                currentSort.sortAttribute.toString() ||
+            previousSort.current.sortDirection.toString() !==
+                currentSort.sortDirection.toString()
+        ) {
+            // The search term changed.
+            setCurrentPage(1, true);
+            // And update the ref.
+            previousSearch.current = search;
+            previousSort.current = currentSort;
+            searched.current = false;
+        }
+    }, [currentSort, search, setCurrentPage]);
 
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
-        if (!filterTypeMap.size || !pageSize || !searchOnFirstPage(search)) {
+        if (!filterTypeMap.size || !pageSize) {
             return;
         }
         const filters = getFiltersFromSearch(search);
@@ -169,17 +190,20 @@ export const useSearchPage = (props = {}) => {
                 sort: { [sortAttribute]: sortDirection }
             }
         });
-        dispatch({
-            type: 'SEARCH_REQUEST',
-            payload: {
-                query: inputText,
-                refinements: refinementData,
-                sort: {
-                    attribute: sortAttribute,
-                    order: sortDirection
+        if (!searched.current) {
+            dispatch({
+                type: 'SEARCH_REQUEST',
+                payload: {
+                    query: inputText,
+                    refinements: refinementData,
+                    sort: {
+                        attribute: sortAttribute,
+                        order: sortDirection
+                    }
                 }
-            }
-        });
+            });
+            searched.current = true;
+        }
     }, [
         currentPage,
         filterTypeMap,
@@ -189,8 +213,7 @@ export const useSearchPage = (props = {}) => {
         search,
         sortDirection,
         sortAttribute,
-        dispatch,
-        searchOnFirstPage
+        dispatch
     ]);
 
     // Set the total number of pages whenever the data changes.
@@ -205,30 +228,6 @@ export const useSearchPage = (props = {}) => {
             setTotalPages(null);
         };
     }, [data, setTotalPages]);
-
-    // Reset the current page back to one (1) when the search string, filters
-    // or sort criteria change.
-    useEffect(() => {
-        // We don't want to compare page value.
-        const prevSearch = new URLSearchParams(previousSearch.current);
-        const nextSearch = new URLSearchParams(search);
-        prevSearch.delete('page');
-        nextSearch.delete('page');
-
-        if (
-            prevSearch.toString() !== nextSearch.toString() ||
-            previousSort.current.sortAttribute.toString() !==
-                currentSort.sortAttribute.toString() ||
-            previousSort.current.sortDirection.toString() !==
-                currentSort.sortDirection.toString()
-        ) {
-            // The search term changed.
-            setCurrentPage(1, true);
-            // And update the ref.
-            previousSearch.current = search;
-            previousSort.current = currentSort;
-        }
-    }, [currentSort, search, setCurrentPage]);
 
     useEffect(() => {
         if (inputText) {
