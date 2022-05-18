@@ -138,16 +138,12 @@ export const useSearchPage = (props = {}) => {
     //Handle initial redirect to add page to query param to prevent double query and dispatch and further pagination
     const searchOnFirstPage = useCallback(query => {
         const currentSearch = new URLSearchParams(query);
-        return currentSearch.has('page') && currentSearch.get('page') === "1";
+        return currentSearch.has('page') && currentSearch.get('page') === '1';
     }, []);
 
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
-        if (
-            !filterTypeMap.size ||
-            !pageSize ||
-            !searchOnFirstPage(search)
-        ) {
+        if (!filterTypeMap.size || !pageSize || !searchOnFirstPage(search)) {
             return;
         }
         const filters = getFiltersFromSearch(search);

@@ -36,7 +36,8 @@ export const filtersData = {
     },
     color: {
         name: 'Color',
-        defaultOption: 'Latte'
+        defaultOption: 'Latte',
+        goldOption: 'Gold'
     },
     material: {
         name: 'Fashion Material',

@@ -291,10 +291,10 @@ describe(
 
             // Test - Desktop - Add and clear Has Video filter
             let isMobile = false;
-            // Add price filter to keep filter list in place
+            // Add gold color filter to keep filter list in place
             selectFilterFromList(
-                filtersData.price.name,
-                filtersData.price.otherOption,
+                filtersData.color.name,
+                filtersData.color.goldOption,
                 isMobile
             );
 
@@ -318,7 +318,7 @@ describe(
             });
             assertCurrentFilter(filtersData.hasVideo.noLabel, isMobile);
             assertNotInCurrentFilter(filtersData.hasVideo.yesLabel, isMobile);
-            assertNumberOfProductsInResults(11);
+            assertNumberOfProductsInResults(9);
             assertBooleanFilterInputState(
                 filtersData.hasVideo.name,
                 isMobile,
@@ -338,7 +338,7 @@ describe(
 
             assertCurrentFilter(filtersData.hasVideo.yesLabel, isMobile);
             assertNotInCurrentFilter(filtersData.hasVideo.noLabel, isMobile);
-            assertNumberOfProductsInResults(4);
+            assertNumberOfProductsInResults(2);
             assertBooleanFilterInputState(
                 filtersData.hasVideo.name,
                 isMobile,
@@ -373,10 +373,10 @@ describe(
             );
 
             toggleFilterModal();
-            // Add price filter to keep filter list in place
+            // Add gold color filter to keep filter list in place
             selectFilterFromList(
-                filtersData.price.name,
-                filtersData.price.otherOption,
+                filtersData.color.name,
+                filtersData.color.goldOption,
                 isMobile
             );
             assertNotInCurrentFilter(filtersData.hasVideo.yesLabel);
@@ -400,7 +400,7 @@ describe(
             });
 
             assertCategoryTitle(categoryAccessories.name);
-            assertNumberOfProductsInResults(11);
+            assertNumberOfProductsInResults(9);
 
             toggleFilterModal();
             assertNotInCurrentFilter(filtersData.hasVideo.yesLabel);
@@ -425,7 +425,7 @@ describe(
             });
 
             assertCategoryTitle(categoryAccessories.name);
-            assertNumberOfProductsInResults(4);
+            assertNumberOfProductsInResults(2);
 
             toggleFilterModal();
             clearFilter(filtersData.hasVideo.yesLabel);
@@ -441,7 +441,7 @@ describe(
             cy.wait(['@gqlGetCategoriesQuery'], {
                 timeout: 60000
             });
-            assertNumberOfProductsInResults(18);
+            assertNumberOfProductsInResults(14);
 
             //Clean Up
             toggleFilterModal();
