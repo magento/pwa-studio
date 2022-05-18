@@ -92,7 +92,7 @@ const completeShippingAddress = {
 
 describe(
     'PWA-1413: verify guest user checkout actions',
-    { tags: ['@commerce', '@ci', '@checkout', '@cart'] },
+    { tags: ['@e2e', '@commerce', '@ci', '@checkout', '@cart'] },
     () => {
         it('user should be able to place an order as a guest', () => {
             cy.intercept('GET', getAppliedCouponsCall).as(
