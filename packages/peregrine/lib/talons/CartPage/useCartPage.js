@@ -4,6 +4,7 @@ import { useLazyQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './cartPage.gql';
+import { useEventingContext } from '../../context/eventing';
 
 /**
  * This talon contains logic for a cart page component.
@@ -52,6 +53,8 @@ export const useCartPage = (props = {}) => {
         setWishlistSuccessProps(successToastProps);
     }, []);
 
+    const [, { dispatch }] = useEventingContext();
+
     useEffect(() => {
         if (!called && cartId) {
             fetchCartDetails({ variables: { cartId } });
@@ -60,6 +63,18 @@ export const useCartPage = (props = {}) => {
         // Let the cart page know it is updating while we're waiting on network data.
         setIsCartUpdating(loading);
     }, [fetchCartDetails, called, cartId, loading]);
+
+    useEffect(() => {
+        if (called && cartId && !loading) {
+            dispatch({
+                type: 'CART_PAGE_VIEW',
+                payload: {
+                    cart_id: cartId,
+                    products: cartItems
+                }
+            });
+        }
+    }, [called, cartItems, cartId, loading, dispatch]);
 
     return {
         cartItems,
