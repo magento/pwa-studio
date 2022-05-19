@@ -166,6 +166,16 @@ export const useWishlistItem = props => {
             try {
                 await addWishlistItemToCart();
 
+                const selectedOptionsLabels =
+                    selectedConfigurableOptions?.length > 0
+                        ? selectedConfigurableOptions?.map(
+                              ({ option_label, value_label }) => ({
+                                  attribute: option_label,
+                                  value: value_label
+                              })
+                          )
+                        : null;
+
                 dispatch({
                     type: 'CART_ADD_ITEM',
                     payload: {
@@ -181,7 +191,7 @@ export const useWishlistItem = props => {
                         discountAmount:
                             item.product.price_range.maximum_price.discount
                                 .amount_off,
-                        selectedOptions: null,
+                        selectedOptions: selectedOptionsLabels,
                         quantity: 1
                     }
                 });
@@ -198,7 +208,7 @@ export const useWishlistItem = props => {
         dispatch,
         item,
         onOpenAddToCartDialog,
-        selectedConfigurableOptions.length
+        selectedConfigurableOptions
     ]);
 
     const handleRemoveProductFromWishlist = useCallback(async () => {
