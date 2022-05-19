@@ -26,7 +26,7 @@ const {
 
 describe(
     'PWA-1406: verify user search actions',
-    { tags: ['@commerce', '@open-source', '@ci', '@search'] },
+    { tags: ['@e2e', '@commerce', '@open-source', '@ci', '@search'] },
     () => {
         it('user should be able search with different inputs', () => {
             cy.intercept('GET', getProductFiltersBySearchCall).as(
