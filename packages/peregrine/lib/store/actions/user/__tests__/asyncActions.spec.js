@@ -8,7 +8,7 @@ import {
     clearToken
 } from '../asyncActions';
 
-jest.mock('../../../../RestApi');
+jest.mock('../../../../util/RestApi');
 
 const dispatch = jest.fn();
 const getState = jest.fn(() => ({

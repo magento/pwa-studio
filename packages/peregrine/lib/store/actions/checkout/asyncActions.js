@@ -1,4 +1,4 @@
-import { Magento2 } from '../../../RestApi';
+import { Magento2 } from '../../../util/RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
 import { createCart, removeCart } from '../cart';
