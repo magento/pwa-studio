@@ -6,6 +6,10 @@ import { StoreTitle } from '../../../components/Head';
 import CMSPage from '../cms';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 jest.mock('../../../classify');
 
 jest.mock('../../../components/Head', () => ({

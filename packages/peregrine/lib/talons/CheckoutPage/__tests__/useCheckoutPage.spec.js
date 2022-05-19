@@ -11,6 +11,7 @@ import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
 import createTestInstance from '../../../util/createTestInstance';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import CheckoutError from '../CheckoutError';
 
 /**
@@ -58,6 +59,10 @@ jest.mock('../CheckoutError', () => {
 
     return CheckoutError;
 });
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 /**
  * Constants
@@ -698,4 +703,26 @@ test('should scroll shipping method into view when scrollShippingMethodIntoView 
     talonProps.scrollShippingMethodIntoView();
 
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
+});
+
+test('should dispatch checkout page view event', () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatchEvent
+        }
+    ]);
+
+    const cartItems = ['item1', 'item2'];
+    getCheckoutDetailsQueryResult.mockReturnValueOnce({
+        data: { cart: { cart_id: '123', items: cartItems } }
+    });
+
+    getTalonProps(defaultProps);
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
 });
