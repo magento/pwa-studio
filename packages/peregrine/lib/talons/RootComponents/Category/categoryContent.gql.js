@@ -27,6 +27,8 @@ export const GET_CATEGORY_CONTENT = gql`
                 uid
                 name
                 description
+                url_key
+                url_path
             }
         }
     }
