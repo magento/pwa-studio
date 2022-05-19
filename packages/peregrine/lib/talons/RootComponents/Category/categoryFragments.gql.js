@@ -26,6 +26,9 @@ export const ProductsFragment = gql`
                         currency
                         value
                     }
+                    discount {
+                        amount_off
+                    }
                 }
             }
             sku
