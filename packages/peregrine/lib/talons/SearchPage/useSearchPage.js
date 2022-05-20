@@ -11,6 +11,7 @@ import { useSort } from '../../hooks/useSort';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
 
 import DEFAULT_OPERATIONS from './searchPage.gql';
+import { useEventingContext } from '../../context/eventing';
 
 /**
  * Return props necessary to render a SearchPage component.
@@ -19,6 +20,7 @@ import DEFAULT_OPERATIONS from './searchPage.gql';
  * @param {String} props.query - graphql query used for executing search
  */
 export const useSearchPage = (props = {}) => {
+    const [, { dispatch }] = useEventingContext();
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const {
@@ -133,52 +135,8 @@ export const useSearchPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
-    useEffect(() => {
-        // Wait until we have the type map to fetch product data.
-        if (!filterTypeMap.size || !pageSize) {
-            return;
-        }
-        const filters = getFiltersFromSearch(search);
-
-        // Construct the filter arg object.
-        const newFilters = {};
-        filters.forEach((values, key) => {
-            newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
-        });
-
-        runQuery({
-            variables: {
-                currentPage: Number(currentPage),
-                filters: newFilters,
-                inputText,
-                pageSize: Number(pageSize),
-                sort: { [sortAttribute]: sortDirection }
-            }
-        });
-    }, [
-        currentPage,
-        filterTypeMap,
-        inputText,
-        runQuery,
-        pageSize,
-        search,
-        sortDirection,
-        sortAttribute
-    ]);
-
-    // Set the total number of pages whenever the data changes.
-    useEffect(() => {
-        const totalPagesFromData = data
-            ? data.products.page_info.total_pages
-            : null;
-
-        setTotalPages(totalPagesFromData);
-
-        return () => {
-            setTotalPages(null);
-        };
-    }, [data, setTotalPages]);
-
+    //Handle initial redirect to add page to query param to prevent double query and dispatch and further pagination
+    const searched = useRef(false);
     // Reset the current page back to one (1) when the search string, filters
     // or sort criteria change.
     useEffect(() => {
@@ -200,8 +158,76 @@ export const useSearchPage = (props = {}) => {
             // And update the ref.
             previousSearch.current = search;
             previousSort.current = currentSort;
+            searched.current = false;
         }
     }, [currentSort, search, setCurrentPage]);
+
+    useEffect(() => {
+        // Wait until we have the type map to fetch product data.
+        if (!filterTypeMap.size || !pageSize) {
+            return;
+        }
+        const filters = getFiltersFromSearch(search);
+        // Construct the filter arg object and dispatcher refinement data.
+        const newFilters = {};
+        const refinementData = [];
+        filters.forEach((values, key) => {
+            const filterMapType = filterTypeMap.get(key);
+            newFilters[key] = getFilterInput(values, filterMapType);
+            refinementData.push({
+                attribute: key,
+                value: values,
+                isRange: filterMapType === 'FilterRangeTypeInput'
+            });
+        });
+
+        runQuery({
+            variables: {
+                currentPage: Number(currentPage),
+                filters: newFilters,
+                inputText,
+                pageSize: Number(pageSize),
+                sort: { [sortAttribute]: sortDirection }
+            }
+        });
+        if (!searched.current) {
+            dispatch({
+                type: 'SEARCH_REQUEST',
+                payload: {
+                    query: inputText,
+                    refinements: refinementData,
+                    sort: {
+                        attribute: sortAttribute,
+                        order: sortDirection
+                    }
+                }
+            });
+            searched.current = true;
+        }
+    }, [
+        currentPage,
+        filterTypeMap,
+        inputText,
+        runQuery,
+        pageSize,
+        search,
+        sortDirection,
+        sortAttribute,
+        dispatch
+    ]);
+
+    // Set the total number of pages whenever the data changes.
+    useEffect(() => {
+        const totalPagesFromData = data
+            ? data.products.page_info.total_pages
+            : null;
+
+        setTotalPages(totalPagesFromData);
+
+        return () => {
+            setTotalPages(null);
+        };
+    }, [data, setTotalPages]);
 
     useEffect(() => {
         if (inputText) {

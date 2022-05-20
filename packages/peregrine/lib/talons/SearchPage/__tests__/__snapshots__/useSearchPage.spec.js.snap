@@ -36,3 +36,23 @@ Object {
   ],
 }
 `;
+
+exports[`searchCategory should dispatch event when search request takes effect 1`] = `
+Object {
+  "payload": Object {
+    "query": "Search Query Value",
+    "refinements": Array [
+      Object {
+        "attribute": "category_id",
+        "isRange": false,
+        "value": "FilterEqualTypeInput",
+      },
+    ],
+    "sort": Object {
+      "attribute": "Sort Attribute",
+      "order": "DESC",
+    },
+  },
+  "type": "SEARCH_REQUEST",
+}
+`;
