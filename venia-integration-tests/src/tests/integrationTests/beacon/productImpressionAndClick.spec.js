@@ -46,7 +46,9 @@ describe(
                 .its('callCount')
                 .should('gte', 5)
                 .then(() => {
-                    expect(impressions.length).eql(5);
+                    cy.wait(1000).then(() => {
+                        expect(impressions.length).eql(5);
+                    });
                 });
 
             cy.get('.slick-slider .slick-dots button')
@@ -57,7 +59,9 @@ describe(
                 .its('callCount')
                 .should('gte', 10)
                 .then(() => {
-                    expect(impressions.length).eql(10);
+                    cy.wait(1000).then(() => {
+                        expect(impressions.length).eql(10);
+                    });
                 });
             cy.get('.slick-slider .slick-dots button')
                 .eq(0)
@@ -66,7 +70,9 @@ describe(
                 .its('callCount')
                 .should('gte', 10)
                 .then(() => {
-                    expect(impressions.length).eql(10);
+                    cy.wait(1000).then(() => {
+                        expect(impressions.length).eql(10);
+                    });
                 });
             cy.get('.slick-slider')
                 .eq(0)
@@ -123,7 +129,9 @@ describe(
                 .its('callCount')
                 .should('gte', 3)
                 .then(() => {
-                    expect(impressions.length).eql(3);
+                    cy.wait(1000).then(() => {
+                        expect(impressions.length).eql(3);
+                    });
                 });
 
             cy.scrollTo('bottom', { duration: 1000 });
@@ -132,7 +140,9 @@ describe(
                 .its('callCount')
                 .should('gte', 12)
                 .then(() => {
-                    expect(impressions.length).eql(12);
+                    cy.wait(1000).then(() => {
+                        expect(impressions.length).eql(12);
+                    });
                 });
             cy.scrollTo('top');
             // seen all 12
