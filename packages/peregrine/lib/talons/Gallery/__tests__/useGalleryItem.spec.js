@@ -20,6 +20,9 @@ describe('returns correct shape when multiple wishlists are', () => {
             Object {
               "handleLinkClick": [Function],
               "isSupportedProductType": false,
+              "itemRef": Object {
+                "current": null,
+              },
               "wishlistButtonProps": null,
             }
         `);
@@ -40,6 +43,9 @@ describe('returns correct shape when multiple wishlists are', () => {
               "handleLinkClick": [Function],
               "isSupportedProductType": false,
               "item": "Austin FC Jersey",
+              "itemRef": Object {
+                "current": null,
+              },
               "storeConfig": Object {
                 "magento_wishlist_general_is_enabled": "1",
               },

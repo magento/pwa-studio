@@ -32,6 +32,7 @@ const GalleryItem = props => {
     const {
         handleLinkClick,
         item,
+        itemRef,
         wishlistButtonProps,
         isSupportedProductType
     } = useGalleryItem(props);
@@ -112,6 +113,7 @@ const GalleryItem = props => {
                 to={productLink}
                 className={classes.name}
                 data-cy="GalleryItem-name"
+                ref={itemRef}
             >
                 <span>{name}</span>
             </Link>

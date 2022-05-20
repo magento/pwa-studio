@@ -1,10 +1,13 @@
 import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/util/isSupportedProductType';
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import useIntersectionObserver from '@magento/peregrine/lib/hooks/useIntersectionObserver';
 
 export const useGalleryItem = (props = {}) => {
     const [, { dispatch }] = useEventingContext();
+    const intersectionObserver = useIntersectionObserver();
     const { item, storeConfig } = props;
+    const itemRef = useRef(null);
 
     const finalPrice = item?.price_range?.maximum_price?.final_price?.value;
     const regularPrice = item?.price_range?.maximum_price?.regular_price?.value;
@@ -27,19 +30,40 @@ export const useGalleryItem = (props = {}) => {
     }, [currencyCode, discountAmount, dispatch, finalPrice, item]);
 
     useEffect(() => {
-        if (item) {
-            dispatch({
-                type: 'PRODUCT_IMPRESSION',
-                payload: {
-                    sku: item.sku,
-                    priceTotal: finalPrice,
-                    discountAmount,
-                    currencyCode,
-                    selectedOptions: null
-                }
-            });
+        if (typeof intersectionObserver === 'undefined' || !item) {
+            return;
         }
-    }, [currencyCode, discountAmount, dispatch, finalPrice, item]);
+        const htmlElement = itemRef.current;
+        const onIntersection = entries => {
+            if (entries.some(entry => entry.isIntersecting)) {
+                observer.unobserve(htmlElement);
+                dispatch({
+                    type: 'PRODUCT_IMPRESSION',
+                    payload: {
+                        sku: item.sku,
+                        priceTotal: finalPrice,
+                        discountAmount,
+                        currencyCode,
+                        selectedOptions: null
+                    }
+                });
+            }
+        };
+        const observer = new intersectionObserver(onIntersection);
+        observer.observe(htmlElement);
+        return () => {
+            if (htmlElement) {
+                observer.unobserve(htmlElement);
+            }
+        };
+    }, [
+        currencyCode,
+        discountAmount,
+        dispatch,
+        finalPrice,
+        intersectionObserver,
+        item
+    ]);
 
     const productType = item ? item.__typename : null;
 
@@ -58,6 +82,7 @@ export const useGalleryItem = (props = {}) => {
 
     return {
         ...props,
+        itemRef,
         handleLinkClick,
         wishlistButtonProps,
         isSupportedProductType

@@ -4,16 +4,14 @@ import {
 } from '../../../fixtures';
 import { searchFromSearchBar, triggerSearch } from '../../../actions/header';
 
-const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
+const { categorySweaters } = categoryPageFixtures;
 
 const {
     getCMSPage,
     getCategoriesCall,
     getProductDetailForProductPageCall,
     getProductSearchCall,
-    getStoreConfigDataCall,
-    getAutocompleteResultsCall,
-    getStoreConfigDataForGalleryACCall
+    getAutocompleteResultsCall
 } = graphqlMockedCallsFixtures;
 
 describe(
@@ -21,35 +19,66 @@ describe(
     { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@beacon'] },
     () => {
         it('verify products content type', () => {
-            cy.intercept('GET', getStoreConfigDataCall, {
-                fixture: 'resource/storeConfigAC.json'
-            }).as('gqlGetStoreConfigDataQuery');
-
             cy.intercept('GET', getCMSPage, {
                 fixture: 'pageBuilder/products/products-carousel-5.json'
             }).as('getCMSMockData');
 
+            const impressions = [];
+
             cy.visit('/', {
                 onBeforeLoad(win) {
+                    win.document.addEventListener('beacon', event => {
+                        if (event.detail.type === 'PRODUCT_IMPRESSION') {
+                            impressions.push(event);
+                        }
+                    });
                     win.document.addEventListener(
                         'beacon',
                         cy.stub().as('beacon')
                     );
                 }
             });
+
             cy.wait(['@getCMSMockData']).its('response.body');
-            // 5 products, currently at 6 because of extra sample data module call.
+            cy.get('.slick-slider').scrollIntoView();
+
             cy.get('@beacon')
-                .should('have.callCount', 6)
-                .its('lastCall.args.0.detail.type')
-                .should('equal', 'PRODUCT_IMPRESSION');
-            cy.get('.slick-slider')
+                .its('callCount')
+                .should('gte', 5)
+                .then(() => {
+                    expect(impressions.length).eql(5);
+                });
+
+            cy.get('.slick-slider .slick-dots button')
+                .eq(1)
+                .click();
+
+            cy.get('@beacon')
+                .its('callCount')
+                .should('gte', 10)
+                .then(() => {
+                    expect(impressions.length).eql(10);
+                });
+            cy.get('.slick-slider .slick-dots button')
                 .eq(0)
-                .scrollIntoView()
-                .get('img[loading="lazy"][alt="Silver Amor Bangle Set"]')
                 .click();
             cy.get('@beacon')
-                .should('have.callCount', 7)
+                .its('callCount')
+                .should('gte', 10)
+                .then(() => {
+                    expect(impressions.length).eql(10);
+                });
+            cy.get('.slick-slider')
+                .eq(0)
+                .scrollIntoView();
+
+            cy.get(
+                'a[data-cy="GalleryItem-name"][href="/silver-amor-bangle-set.html"]'
+            )
+                .should('be.visible')
+                .click();
+
+            cy.get('@beacon')
                 .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
@@ -64,12 +93,6 @@ describe(
         });
 
         it('verify category page', () => {
-            cy.intercept('GET', getStoreConfigDataCall, {
-                fixture: 'resource/storeConfigAC.json'
-            }).as('gqlGetStoreConfigDataQuery');
-            cy.intercept('GET', getStoreConfigDataForGalleryACCall, {
-                fixture: 'gallery/galleryStoreConfigAC.json'
-            }).as('gqlGetStoreConfigDataForGallery');
             cy.intercept('GET', getCategoriesCall, {
                 fixture: 'categoryPage/productMockCall/productMockResponse.json'
             }).as('gqlGetCategoriesQuery');
@@ -78,30 +101,55 @@ describe(
                 'gqlGetProductDetailForProductPageQuery'
             );
 
+            const impressions = [];
+
             cy.visit(categorySweaters, {
                 onBeforeLoad(win) {
+                    win.document.addEventListener('beacon', event => {
+                        if (event.detail.type === 'PRODUCT_IMPRESSION') {
+                            impressions.push(event);
+                        }
+                    });
                     win.document.addEventListener(
                         'beacon',
                         cy.stub().as('beacon')
                     );
                 }
             });
+
             cy.wait(['@gqlGetCategoriesQuery']).its('response.body');
-            cy.document().invoke(
-                'addEventListener',
-                'beacon',
-                cy.stub().as('beacon')
-            );
-            // 12 products, currently at 13 because of extra sample data module call.
+            // 3 products immediate on screen
             cy.get('@beacon')
-                .should('have.callCount', 13)
-                .its('lastCall.args.0.detail.type')
-                .should('equal', 'PRODUCT_IMPRESSION');
-            cy.get(`img[loading="lazy"][alt="${productCarinaCardigan}"]`)
+                .its('callCount')
+                .should('gte', 3)
+                .then(() => {
+                    expect(impressions.length).eql(3);
+                });
+
+            cy.scrollTo('bottom', { duration: 1000 });
+            // seen all 12
+            cy.get('@beacon')
+                .its('callCount')
+                .should('gte', 12)
+                .then(() => {
+                    expect(impressions.length).eql(12);
+                });
+            cy.scrollTo('top');
+            // seen all 12
+            cy.get('@beacon')
+                .its('callCount')
+                .should('gte', 12)
+                .then(() => {
+                    cy.wait(1000).then(() => {
+                        expect(impressions.length).eql(12);
+                    });
+                });
+            cy.get(
+                'a[data-cy="GalleryItem-name"][href="/carina-cardigan.html"]'
+            )
                 .scrollIntoView()
                 .click();
             cy.get('@beacon')
-                .should('have.callCount', 14)
                 .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
@@ -116,35 +164,43 @@ describe(
         });
 
         it('verify search page', () => {
-            cy.intercept('GET', getStoreConfigDataCall, {
-                fixture: 'resource/storeConfigAC.json'
-            }).as('gqlGetStoreConfigDataQuery');
-            cy.intercept('GET', getStoreConfigDataForGalleryACCall, {
-                fixture: 'gallery/galleryStoreConfigAC.json'
-            }).as('gqlGetStoreConfigDataForGallery');
             cy.intercept('GET', getProductSearchCall, {
                 fixture: 'beacon/productSearchMockResponse.json'
             }).as('gqlGetProductSearchQuery');
 
+            const impressions = [];
+
             cy.visit('./search.html?page=1', {
                 onBeforeLoad(win) {
+                    win.document.addEventListener('beacon', event => {
+                        if (event.detail.type === 'PRODUCT_IMPRESSION') {
+                            impressions.push(event);
+                        }
+                    });
                     win.document.addEventListener(
                         'beacon',
                         cy.stub().as('beacon')
                     );
                 }
             });
+
             cy.wait(['@gqlGetProductSearchQuery']).its('response.body');
-            // 2 products, currently at 3 because of extra sample data module call.
+
+            // see 2 products
             cy.get('@beacon')
-                .should('have.callCount', 3)
-                .its('lastCall.args.0.detail.type')
-                .should('equal', 'PRODUCT_IMPRESSION');
-            cy.get(`img[loading="lazy"][alt="Selena Pants"]`)
+                .its('callCount')
+                .should('gte', 2)
+                .then(() => {
+                    cy.wait(1000).then(() => {
+                        expect(impressions.length).eql(2);
+                    });
+                });
+
+            cy.get('a[data-cy="GalleryItem-name"][href="/selena-pants.html"]')
                 .scrollIntoView()
                 .click();
+
             cy.get('@beacon')
-                .should('have.callCount', 4)
                 .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
@@ -159,24 +215,29 @@ describe(
         });
 
         it('verify search suggest products', () => {
-            cy.intercept('GET', getStoreConfigDataCall, {
-                fixture: 'resource/storeConfigAC.json'
-            }).as('gqlGetStoreConfigDataQuery');
             cy.intercept('GET', getAutocompleteResultsCall, {
                 fixture: 'beacon/productSearchAutocompleteMockResponse.json'
             }).as('gqlGetAutoCompleteResultsQuery');
             cy.intercept('GET', getCMSPage, {
                 fixture: 'resource/emptyCMSPage.json'
             }).as('getCMSMockData');
+
+            const impressions = [];
+
             cy.visit('/', {
                 onBeforeLoad(win) {
+                    win.document.addEventListener('beacon', event => {
+                        if (event.detail.type === 'PRODUCT_IMPRESSION') {
+                            impressions.push(event);
+                        }
+                    });
                     win.document.addEventListener(
                         'beacon',
                         cy.stub().as('beacon')
                     );
                 }
             });
-            cy.wait(['@gqlGetStoreConfigDataQuery']).its('response.body');
+
             cy.wait(['@getCMSMockData']).its('response.body');
 
             triggerSearch();
@@ -184,16 +245,21 @@ describe(
             searchFromSearchBar('foobar', false);
 
             cy.wait(['@gqlGetAutoCompleteResultsQuery']).its('response.body');
-            // 2 products, currently at 3 because of extra sample data module call.
+
+            // see 2 products
             cy.get('@beacon')
-                .should('have.callCount', 3)
-                .its('lastCall.args.0.detail.type')
-                .should('equal', 'PRODUCT_IMPRESSION');
-            cy.get(`img[loading="lazy"][alt="Selena Pants"]`)
+                .its('callCount')
+                .should('gte', 2)
+                .then(() => {
+                    cy.wait(1000).then(() => {
+                        expect(impressions.length).eql(2);
+                    });
+                });
+
+            cy.get('a[href="/selena-pants.html"]')
                 .scrollIntoView()
                 .click();
             cy.get('@beacon')
-                .should('have.callCount', 4)
                 .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
