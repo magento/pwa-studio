@@ -10,9 +10,8 @@ export const useGalleryItem = (props = {}) => {
     const itemRef = useRef(null);
 
     const finalPrice = item?.price_range?.maximum_price?.final_price?.value;
-    const regularPrice = item?.price_range?.maximum_price?.regular_price?.value;
     const discountAmount =
-        regularPrice !== null ? regularPrice - finalPrice : 0;
+        item?.price_range?.maximum_price?.discount?.amount_off;
     const currencyCode =
         item?.price_range?.maximum_price?.final_price?.currency;
 

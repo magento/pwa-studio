@@ -164,6 +164,9 @@ GalleryItem.propTypes = {
                 regular_price: shape({
                     value: number.isRequired,
                     currency: string.isRequired
+                }).isRequired,
+                discount: shape({
+                    amount_off: number.isRequired
                 }).isRequired
             }).isRequired
         }).isRequired

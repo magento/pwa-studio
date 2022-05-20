@@ -17,9 +17,7 @@ export const useSuggestedProduct = props => {
     const { price, price_range, onNavigate, url_key, url_suffix, sku } = props;
 
     const finalPrice = price_range?.maximum_price?.final_price?.value;
-    const regularPrice = price_range?.maximum_price?.regular_price?.value;
-    const discountAmount =
-        regularPrice !== null ? regularPrice - finalPrice : 0;
+    const discountAmount = price_range?.maximum_price?.discount?.amount_off;
     const currencyCode = price_range?.maximum_price?.final_price?.currency;
 
     const handleClick = useCallback(() => {

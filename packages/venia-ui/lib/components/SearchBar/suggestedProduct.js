@@ -78,6 +78,9 @@ SuggestedProduct.propTypes = {
             regular_price: shape({
                 currency: string,
                 value: number
+            }),
+            discount: shape({
+                amount_off: number
             })
         })
     }),

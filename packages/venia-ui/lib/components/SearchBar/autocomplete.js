@@ -47,9 +47,8 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                             currency
                             value
                         }
-                        regular_price {
-                            currency
-                            value
+                        discount {
+                            amount_off
                         }
                     }
                 }
