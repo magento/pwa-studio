@@ -124,8 +124,8 @@ export const useCreateAccount = props => {
                     type: 'USER_CREATE_ACCOUNT',
                     payload: {
                         email: formValues.customer.email,
-                        firstName: formValues.customer.firstName,
-                        lastName: formValues.customer.lastName,
+                        firstName: formValues.customer.firstname,
+                        lastName: formValues.customer.lastname,
                         isSubscribed: !!formValues.subscribe
                     }
                 });

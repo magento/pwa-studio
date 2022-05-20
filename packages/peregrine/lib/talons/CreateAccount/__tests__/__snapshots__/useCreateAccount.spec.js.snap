@@ -11,9 +11,9 @@ exports[`handleSubmit should dispatch create account event 1`] = `
 Object {
   "payload": Object {
     "email": "gooston@goosemail.com",
-    "firstName": undefined,
+    "firstName": "Gooseton",
     "isSubscribed": false,
-    "lastName": undefined,
+    "lastName": "Jr",
   },
   "type": "USER_CREATE_ACCOUNT",
 }

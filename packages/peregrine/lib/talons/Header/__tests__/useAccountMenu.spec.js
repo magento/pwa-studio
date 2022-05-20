@@ -156,9 +156,7 @@ test('handleSignOut should set view to SIGNIN and dispatch appropriate event', a
 
     const { talonProps, update } = getTalonProps(defaultProps);
 
-    await act(async () => {
-        talonProps.handleSignOut();
-    });
+    await talonProps.handleSignOut();
 
     const updatedTalonProps = update();
 
