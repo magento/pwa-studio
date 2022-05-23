@@ -2,7 +2,13 @@
 
 exports[`handleSignOut should set view to SIGNIN and dispatch appropriate event 1`] = `
 Object {
-  "payload": Object {},
+  "payload": Object {
+    "__typename": "Customer",
+    "email": "roni_cost@example.com",
+    "firstname": "Veronica",
+    "is_subscribed": false,
+    "lastname": "Costello",
+  },
   "type": "USER_SIGN_OUT",
 }
 `;

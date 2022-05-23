@@ -31,12 +31,19 @@ jest.mock('@apollo/client', () => {
 });
 
 jest.mock('@magento/peregrine/lib/context/user', () => ({
-    useUserContext: jest
-        .fn()
-        .mockReturnValue([
-            { isSignedIn: true },
-            { signOut: jest.fn().mockResolvedValue() }
-        ])
+    useUserContext: jest.fn().mockReturnValue([
+        {
+            isSignedIn: true,
+            currentUser: {
+                __typename: 'Customer',
+                email: 'roni_cost@example.com',
+                firstname: 'Veronica',
+                lastname: 'Costello',
+                is_subscribed: false
+            }
+        },
+        { signOut: jest.fn().mockResolvedValue() }
+    ])
 }));
 
 jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
@@ -145,14 +152,7 @@ test('setAccountMenuIsOpen should be called with false on mount', () => {
 });
 
 test('handleSignOut should set view to SIGNIN and dispatch appropriate event', async () => {
-    const mockDispatch = jest.fn();
-
-    useEventingContext.mockReturnValueOnce([
-        {},
-        {
-            dispatch: mockDispatch
-        }
-    ]);
+    const [, { dispatch: mockDispatch }] = useEventingContext();
 
     const { talonProps, update } = getTalonProps(defaultProps);
 
