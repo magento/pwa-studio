@@ -75,6 +75,7 @@ const Swatch = props => {
             onClick={handleClick}
             style={finalStyle}
             title={label}
+            aria-label={label}
             type="button"
             data-cy="Swatch-root"
         />

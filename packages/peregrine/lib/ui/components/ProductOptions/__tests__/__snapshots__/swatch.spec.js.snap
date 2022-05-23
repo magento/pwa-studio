@@ -2,6 +2,7 @@
 
 exports[`appends "_focused" to className if hasFocus is true 1`] = `
 <button
+  aria-label="red"
   className="root_focused"
   onClick={[Function]}
   style={
@@ -16,6 +17,7 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
 
 exports[`appends "_selected" to className if isSelected is true 1`] = `
 <button
+  aria-label="red"
   className="root_selected"
   onClick={[Function]}
   style={
@@ -30,6 +32,7 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
 
 exports[`renders a Swatch correctly 1`] = `
 <button
+  aria-label="red"
   className="root"
   onClick={[Function]}
   style={
