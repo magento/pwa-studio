@@ -14,10 +14,6 @@
     transition-duration: 192ms;
     transition-property: opacity, transform, visibility;
     transition-timing-function: var(--venia-global-anim-out);
-
-    /* TODO @TW: review (B6) */
-    /* composes: invisible from global; */
-
 }
 
 .root_open {
@@ -26,11 +22,7 @@
     display: block;
     transform: translate3d(0, 0, 0);
     transition-duration: 384ms;
-    transition-timing-function: var(--venia-global-anim-in);
-
-    /* TODO @TW: review (B6) */
-    /* composes: visible from global; */
-   
+    transition-timing-function: var(--venia-global-anim-in);  
 }
 
 .header {
