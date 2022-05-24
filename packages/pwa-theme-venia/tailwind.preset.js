@@ -51,7 +51,7 @@ const extend = {
         subtle: theme('colors.gray.100'),
         swatch: {
             base: theme('colors.neutral.200'),
-            selected: theme('colors.brand.500'),
+            selected: theme('colors.neutral.50'),
             variable: 'var(--venia-swatch-bg)'
         }
     }),
@@ -63,9 +63,6 @@ const extend = {
     borderColor: theme => ({
         buttonColor: {
             action: theme('colors.neutral.400')
-        },
-        tile: {
-            base: theme('colors.neutral.600')
         },
         error: theme('colors.red.400'),
         info: theme('colors.green.600'),
@@ -79,6 +76,9 @@ const extend = {
         strong: theme('colors.gray.800'),
         subtle: theme('colors.gray.300'),
         success: theme('colors.green.600'),
+        swatch: {
+            base: theme('colors.neutral.400')
+        },
         warning: theme('colors.yellow.500')
     }),
     borderRadius: {
@@ -209,7 +209,7 @@ const extend = {
         subtle: theme('colors.gray.600'),
         DEFAULT: theme('colors.gray.900'),
         swatch: {
-            selected: theme('colors.neutral.50')
+            selected: theme('colors.gray.900')
         }
     }),
     transitionTimingFunction: {

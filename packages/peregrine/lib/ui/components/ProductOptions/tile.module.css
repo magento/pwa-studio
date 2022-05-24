@@ -6,7 +6,7 @@
     composes: rounded-radius1 from global;
     composes: h-[2.5rem] from global;
     composes: min-w-[2.5rem] from global;
-    composes: px-2xs from global;
+    composes: px-4 from global;
     composes: py-0 from global;
 
     composes: active_bg-swatch-selected from global;
@@ -18,7 +18,7 @@
 .root {
     composes: base;
     
-    composes: border-tile-base from global;
+    composes: border-swatch-base from global;
     composes: bg-swatch-base from global;
 }
 
@@ -28,6 +28,7 @@
     composes: bg-swatch-selected from global;
     composes: border-brand-500 from global;
     composes: text-swatch-selected from global;
+    composes: font-semibold from global;
 }
 
 .root_focused {
