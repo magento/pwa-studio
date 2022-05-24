@@ -53,8 +53,8 @@ const Navigation = props => {
     ) : null;
 
     return (
-        <FocusScope contain restoreFocus>
-            <aside className={rootClassName}>
+        <FocusScope contain restoreFocus autoFocus>
+            <aside aria-hidden="true" className={rootClassName}>
                 <header className={classes.header}>
                     <NavHeader
                         isTopLevel={isTopLevel}
