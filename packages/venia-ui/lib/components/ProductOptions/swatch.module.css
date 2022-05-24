@@ -15,7 +15,7 @@
 .root {
     composes: base;
 
-    composes: border-buttonColor-action from global;
+    composes: border-swatch-base from global;
 }
 
 .root_selected {
