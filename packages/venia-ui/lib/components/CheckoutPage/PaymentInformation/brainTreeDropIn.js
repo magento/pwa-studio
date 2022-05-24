@@ -55,8 +55,7 @@ const BraintreeDropin = props => {
                         number: {
                             placeholder: formatMessage({
                                 id: 'checkoutPage.cardPlaceholder',
-                                defaultMessage:
-                                    '16-Digit Number'
+                                defaultMessage: '16-Digit Number'
                             }),
                             maskInput: {
                                 // Only show last four digits on blur.
