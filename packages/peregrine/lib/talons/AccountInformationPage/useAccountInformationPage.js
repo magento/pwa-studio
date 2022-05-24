@@ -145,7 +145,8 @@ export const useAccountInformationPage = props => {
             handleCancel,
             setCustomerInformation,
             generateReCaptchaData,
-            changeCustomerPassword
+            changeCustomerPassword,
+            dispatch
         ]
     );
 

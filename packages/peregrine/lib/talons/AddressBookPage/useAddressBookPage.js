@@ -6,6 +6,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import defaultOperations from './addressBookPage.gql';
+import { useEventingContext } from '../../context/eventing';
 
 /**
  *  A talon to support the functionality of the Address Book page.
@@ -35,7 +36,9 @@ export const useAddressBookPage = (props = {}) => {
             actions: { setPageLoading }
         }
     ] = useAppContext();
-    const [{ isSignedIn }] = useUserContext();
+    const [{ isSignedIn, currentUser }] = useUserContext();
+
+    const [, { dispatch }] = useEventingContext();
 
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
@@ -112,6 +115,14 @@ export const useAddressBookPage = (props = {}) => {
                 awaitRefetchQueries: true
             });
 
+            dispatch({
+                type: 'USER_ADDRESS_DELETE',
+                payload: {
+                    addressId: confirmDeleteAddressId,
+                    user: currentUser
+                }
+            });
+
             setConfirmDeleteAddressId(null);
         } catch {
             return;
@@ -119,7 +130,9 @@ export const useAddressBookPage = (props = {}) => {
     }, [
         confirmDeleteAddressId,
         deleteCustomerAddress,
-        getCustomerAddressesQuery
+        getCustomerAddressesQuery,
+        dispatch,
+        currentUser
     ]);
 
     const handleEditAddress = useCallback(address => {
@@ -139,19 +152,30 @@ export const useAddressBookPage = (props = {}) => {
         async formValues => {
             if (isDialogEditMode) {
                 try {
+                    const address = {
+                        ...formValues,
+                        // Sends value as empty if none are provided
+                        middlename: formValues.middlename || '',
+                        // Cleans up the street array when values are null or undefined
+                        street: formValues.street.filter(e => e)
+                    };
+
                     await updateCustomerAddress({
                         variables: {
                             addressId: formAddress.id,
-                            updated_address: {
-                                ...formValues,
-                                // Sends value as empty if none are provided
-                                middlename: formValues.middlename || '',
-                                // Cleans up the street array when values are null or undefined
-                                street: formValues.street.filter(e => e)
-                            }
+                            updated_address: address
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }],
                         awaitRefetchQueries: true
+                    });
+
+                    dispatch({
+                        type: 'USER_ADDRESS_EDIT',
+                        payload: {
+                            id: formAddress.id,
+                            address: address,
+                            user: currentUser
+                        }
                     });
 
                     setIsDialogOpen(false);
@@ -166,18 +190,27 @@ export const useAddressBookPage = (props = {}) => {
                 }
             } else {
                 try {
+                    const address = {
+                        ...formValues,
+                        // Sends value as empty if none are provided
+                        middlename: formValues.middlename || '',
+                        // Cleans up the street array when values are null or undefined
+                        street: formValues.street.filter(e => e)
+                    };
                     await createCustomerAddress({
                         variables: {
-                            address: {
-                                ...formValues,
-                                // Sends value as empty if none are provided
-                                middlename: formValues.middlename || '',
-                                // Cleans up the street array when values are null or undefined
-                                street: formValues.street.filter(e => e)
-                            }
+                            address
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }],
                         awaitRefetchQueries: true
+                    });
+
+                    dispatch({
+                        type: 'USER_ADDRESS_CREATE',
+                        payload: {
+                            address,
+                            user: currentUser
+                        }
                     });
 
                     setIsDialogOpen(false);
@@ -197,7 +230,8 @@ export const useAddressBookPage = (props = {}) => {
             formAddress,
             getCustomerAddressesQuery,
             isDialogEditMode,
-            updateCustomerAddress
+            updateCustomerAddress,
+            dispatch
         ]
     );
 
