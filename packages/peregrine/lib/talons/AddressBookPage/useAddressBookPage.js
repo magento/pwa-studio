@@ -231,7 +231,8 @@ export const useAddressBookPage = (props = {}) => {
             getCustomerAddressesQuery,
             isDialogEditMode,
             updateCustomerAddress,
-            dispatch
+            dispatch,
+            currentUser
         ]
     );
 

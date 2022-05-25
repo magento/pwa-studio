@@ -18,7 +18,7 @@ export const useAccountInformationPage = props => {
 
     const [isUpdateMode, setIsUpdateMode] = useState(false);
 
-    const [,{dispatch}] = useEventingContext()
+    const [, { dispatch }] = useEventingContext();
 
     // Use local state to determine whether to display errors or not.
     // Could be replaced by a "reset mutation" function from apollo client.
@@ -110,13 +110,13 @@ export const useAccountInformationPage = props => {
                     });
 
                     dispatch({
-                      type: "USER_ACCOUNT_UPDATE",
-                      payload: {
-                        email,
-                        firstName: firstname,
-                        lastName: lastname
-                      }
-                    })
+                        type: 'USER_ACCOUNT_UPDATE',
+                        payload: {
+                            email,
+                            firstName: firstname,
+                            lastName: lastname
+                        }
+                    });
                 }
                 if (password && newPassword) {
                     const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
