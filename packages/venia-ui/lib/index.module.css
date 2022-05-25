@@ -18,15 +18,13 @@
     -webkit-font-smoothing: antialiased;
 }
 
-/*
- * Lock the window's scroll position while an overlay is active.
- * Has no effect in iOS Safari.
- * https://bugs.webkit.org/show_bug.cgi?id=153852
- *
- * :global(html[data-scroll-lock='true'] body) {
- *   overflow: hidden;
- * }
- */
+:global(html[data-scroll-lock='true']),
+:global(html[data-scroll-lock='true'] body) {
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
 
 /* TODO @TW: cannot compose */
 :global(body),
@@ -124,16 +122,10 @@
     touch-action: none;
 }
 
-:global(.braintree-sheet__content--form
-        .braintree-form__field-group
-        .braintree-form__field
-        .braintree-form__hosted-field
-        input.braintree-form__raw-input) {
+:global(.braintree-sheet__content--form .braintree-form__field-group .braintree-form__field .braintree-form__hosted-field input.braintree-form__raw-input) {
     color: #8f8f8f !important;
 }
 
-:global(.braintree-sheet__content--form
-        .braintree-form__field-group
-        .braintree-form__descriptor) {
+:global(.braintree-sheet__content--form .braintree-form__field-group .braintree-form__descriptor) {
     color: #757575 !important;
 }
