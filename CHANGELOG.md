@@ -75,14 +75,13 @@ Open your `package.json` file and update the PWA Studio package dependencies to 
 The following table lists the latest versions of each package as of 12.4.0.
 
 **Note:**
-Your project may not depend on some of the packages listed in this table.
+Your project may not depend on some packages listed in this table.
 
 | Package                             | Latest version |
 |-------------------------------------|----------------|
 | `babel-preset-peregrine`            | **1.2.1**      |
 | `create-pwa`                        | **2.3.0**      |
 | `upward-security-headers`           | **1.0.8**      |
-| `venia-adobe-data-layer`            | **1.0.5**      |
 | `venia-sample-backends`             | **0.0.7**      |
 | `venia-sample-language-packs`       | **0.0.8**      |
 | `venia-sample-payments-checkmo`     | **0.0.6**      |
