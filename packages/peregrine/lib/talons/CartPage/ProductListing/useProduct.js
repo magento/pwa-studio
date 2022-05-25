@@ -188,7 +188,7 @@ export const useProduct = props => {
                     ) || null;
 
                 dispatch({
-                    type: 'CART_UPDATE_ITEM',
+                    type: quantity ? 'CART_UPDATE_ITEM' : 'CART_REMOVE_ITEM',
                     payload: {
                         cartId,
                         sku: item.product.sku,
@@ -197,7 +197,7 @@ export const useProduct = props => {
                         currencyCode: item.prices.price.currency,
                         discountAmount: item.prices.total_item_discount.value,
                         selectedOptions,
-                        quantity
+                        quantity: quantity || item.quantity
                     }
                 });
             } catch (err) {

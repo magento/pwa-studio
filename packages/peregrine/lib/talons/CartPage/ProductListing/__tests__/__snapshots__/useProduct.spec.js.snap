@@ -16,6 +16,22 @@ Object {
 }
 `;
 
+exports[`it handles item quantity updates should dispatch "remove" event when updating qty to zero 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 0,
+    "name": "unit test",
+    "priceTotal": 99,
+    "quantity": 7,
+    "selectedOptions": null,
+    "sku": "unit-test-sku",
+  },
+  "type": "CART_REMOVE_ITEM",
+}
+`;
+
 exports[`it handles item quantity updates should dispatch event 1`] = `
 Object {
   "payload": Object {
