@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
+import { useEventingContext } from '../../../context/eventing';
 
 import DEFAULT_OPERATIONS from './categoryContent.gql';
 
@@ -46,14 +47,19 @@ export const useCategoryContent = props => {
         }
     );
 
-    const { data: categoryData } = useQuery(getCategoryContentQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        skip: !categoryId,
-        variables: {
-            id: categoryId
+    const { data: categoryData, loading: categoryLoading } = useQuery(
+        getCategoryContentQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first',
+            skip: !categoryId,
+            variables: {
+                id: categoryId
+            }
         }
-    });
+    );
+
+    const [, { dispatch }] = useEventingContext();
 
     useEffect(() => {
         if (categoryId) {
@@ -94,6 +100,20 @@ export const useCategoryContent = props => {
     const availableSortMethods = sortData
         ? sortData.products.sort_fields.options
         : null;
+
+    useEffect(() => {
+        if (!categoryLoading && categoryData.categories.items.length > 0) {
+            dispatch({
+                type: 'CATEGORY_PAGE_VIEW',
+                payload: {
+                    id: categoryData.categories.items[0].uid,
+                    name: categoryData.categories.items[0].name,
+                    url_key: categoryData.categories.items[0].url_key,
+                    url_path: categoryData.categories.items[0].url_path
+                }
+            });
+        }
+    }, [categoryData, dispatch, categoryLoading]);
 
     return {
         availableSortMethods,
