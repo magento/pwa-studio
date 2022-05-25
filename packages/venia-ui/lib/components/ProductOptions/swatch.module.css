@@ -22,12 +22,9 @@
     composes: base;
 
     composes: border-brand-500 from global;
-    outline: 2px solid white;
-    outline-offset: -3.35px;
-    /* composes: outline from global;
-    composes: outline-white from global;
-    composes: outine-2 from global;
-    composes: outline-offset-[-3.45px] from global; */
+    composes: ring from global;
+    composes: ring-white from global;
+    composes: ring-inset from global;
 }
 
 .root_focused {
