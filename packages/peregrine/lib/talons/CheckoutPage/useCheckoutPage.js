@@ -5,6 +5,7 @@ import {
     useMutation,
     useQuery
 } from '@apollo/client';
+import { useEventingContext } from '../../context/eventing';
 
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
@@ -142,7 +143,7 @@ export const useCheckoutPage = (props = {}) => {
     });
 
     const cartItems = useMemo(() => {
-        return (checkoutData && checkoutData.cart.items) || [];
+        return (checkoutData && checkoutData?.cart?.items) || [];
     }, [checkoutData]);
 
     /**
@@ -240,6 +241,8 @@ export const useCheckoutPage = (props = {}) => {
         setIsPlacingOrder(true);
     }, [cartId, getOrderDetails]);
 
+    const [, { dispatch }] = useEventingContext();
+
     // Go back to checkout if shopper logs in
     useEffect(() => {
         if (isSignedIn) {
@@ -290,10 +293,58 @@ export const useCheckoutPage = (props = {}) => {
         isPlacingOrder
     ]);
 
+    useEffect(() => {
+        if (
+            checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS &&
+            cartItems.length
+        ) {
+            dispatch({
+                type: 'CHECKOUT_PAGE_VIEW',
+                payload: {
+                    cart_id: cartId,
+                    products: cartItems
+                }
+            });
+        } else if (
+            placeOrderData?.placeOrder?.order?.order_number &&
+            orderDetailsData?.cart.id === cartId
+        ) {
+            const shipping = orderDetailsData.cart.shipping_addresses.reduce(
+                (result, item) => {
+                    return [
+                        ...result,
+                        {
+                            ...item.selected_shipping_method
+                        }
+                    ];
+                },
+                []
+            );
+            dispatch({
+                type: 'ORDER_CONFIRMATION_PAGE_VIEW',
+                payload: {
+                    order_number: placeOrderData.placeOrder.order.order_number,
+                    amount: orderDetailsData.cart.prices,
+                    shipping: shipping,
+                    payment: orderDetailsData.cart.selected_payment_method,
+                    products: orderDetailsData.cart.items
+                }
+            });
+        }
+    }, [
+        cartId,
+        checkoutStep,
+        orderDetailsData,
+        cartItems,
+        isLoading,
+        dispatch,
+        placeOrderData
+    ]);
+
     return {
         activeContent,
         availablePaymentMethods: checkoutData
-            ? checkoutData.cart.available_payment_methods
+            ? checkoutData?.cart?.available_payment_methods
             : null,
         cartItems,
         checkoutStep,
@@ -302,7 +353,7 @@ export const useCheckoutPage = (props = {}) => {
         guestSignInUsername,
         handlePlaceOrder,
         hasError: !!checkoutError,
-        isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
+        isCartEmpty: !(checkoutData && checkoutData?.cart?.total_quantity),
         isGuestCheckout: !isSignedIn,
         isLoading,
         isUpdating,

@@ -296,6 +296,9 @@ export const GET_PRODUCTS_BY_URL_KEY = gql`
                             currency
                             value
                         }
+                        discount {
+                            amount_off
+                        }
                     }
                 }
                 sku
