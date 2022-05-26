@@ -5,6 +5,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useEventingContext } from '../../../context/eventing';
 
 export const displayStates = {
     DONE: 'done',
@@ -53,6 +54,7 @@ export const useShippingMethod = props => {
 
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
+    const [, { dispatch }] = useEventingContext();
 
     /*
      *  Apollo Hooks.
@@ -128,6 +130,18 @@ export const useShippingMethod = props => {
     /*
      *  Callbacks.
      */
+    const dispatchEvent = useCallback(() => {
+        dispatch({
+            type: !isUpdateMode
+                ? 'CHECKOUT_SHIPPING_METHOD_ADDED'
+                : 'CHECKOUT_SHIPPING_METHOD_UPDATED',
+            payload: {
+                cart_id: cartId,
+                selected_shipping_method: derivedSelectedShippingMethod
+            }
+        });
+    }, [dispatch, cartId, derivedSelectedShippingMethod, isUpdateMode]);
+
     const handleSubmit = useCallback(
         async value => {
             const [carrierCode, methodCode] = deserializeShippingMethod(
@@ -144,13 +158,14 @@ export const useShippingMethod = props => {
                         }
                     }
                 });
+                dispatchEvent();
             } catch {
                 return;
             }
 
             setIsUpdateMode(false);
         },
-        [cartId, setIsUpdateMode, setShippingMethodCall]
+        [cartId, setIsUpdateMode, setShippingMethodCall, dispatchEvent]
     );
 
     const handleCancelUpdate = useCallback(() => {

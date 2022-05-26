@@ -13,3 +13,41 @@ Object {
 `;
 
 exports[`returns Apollo error 1`] = `undefined`;
+
+exports[`should dispatch add/update event: added 1`] = `
+Object {
+  "payload": Object {
+    "cart_id": "cart123",
+    "selected_shipping_method": Object {
+      "amount": Object {
+        "currency": "USD",
+        "value": "99",
+      },
+      "carrier_code": "carrier code",
+      "method_code": "method code",
+      "method_title": "method title",
+      "serializedValue": "carrier code|method code",
+    },
+  },
+  "type": "CHECKOUT_SHIPPING_METHOD_ADDED",
+}
+`;
+
+exports[`should dispatch add/update event: updated 1`] = `
+Object {
+  "payload": Object {
+    "cart_id": "cart123",
+    "selected_shipping_method": Object {
+      "amount": Object {
+        "currency": "USD",
+        "value": "99",
+      },
+      "carrier_code": "carrier code",
+      "method_code": "method code",
+      "method_title": "method title",
+      "serializedValue": "carrier code|method code",
+    },
+  },
+  "type": "CHECKOUT_SHIPPING_METHOD_UPDATED",
+}
+`;

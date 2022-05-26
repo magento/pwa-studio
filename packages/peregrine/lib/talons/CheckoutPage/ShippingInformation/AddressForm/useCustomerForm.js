@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './customerForm.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useEventingContext } from '../../../../context/eventing';
 
 export const useCustomerForm = props => {
     const { afterSubmit, onCancel, onSuccess, shippingData } = props;
@@ -71,6 +72,16 @@ export const useCustomerForm = props => {
         };
     }
 
+    const [, { dispatch }] = useEventingContext();
+    const dispatchEvent = useCallback(() => {
+        dispatch({
+            type: 'CHECKOUT_SHIPPING_INFORMATION_ADDED',
+            payload: {
+                cart_id: customerData.cart_id
+            }
+        });
+    }, [customerData.cart_id, dispatch]);
+
     const handleSubmit = useCallback(
         async formValues => {
             // eslint-disable-next-line no-unused-vars
@@ -102,6 +113,7 @@ export const useCustomerForm = props => {
                             { query: getDefaultShippingQuery }
                         ]
                     });
+                    dispatchEvent();
                 }
             } catch {
                 return;
@@ -118,7 +130,8 @@ export const useCustomerForm = props => {
             getDefaultShippingQuery,
             isUpdate,
             shippingData,
-            updateCustomerAddress
+            updateCustomerAddress,
+            dispatchEvent
         ]
     );
 

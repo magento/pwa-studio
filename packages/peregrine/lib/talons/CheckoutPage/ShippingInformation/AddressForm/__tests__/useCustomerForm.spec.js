@@ -2,6 +2,7 @@ import React from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../../../util/createTestInstance';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import { useCustomerForm } from '../useCustomerForm';
 
 const mockCreateCustomerAddress = jest.fn();
@@ -37,6 +38,10 @@ jest.mock('../customerForm.gql', () => ({
     getCustomerQuery: 'getCustomerQuery',
     getCustomerAddressesQuery: 'getCustomerAddressesQuery',
     getDefaultShippingQuery: 'getCustomerAddressesQuery'
+}));
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const Component = props => {
@@ -305,4 +310,26 @@ describe('returns Apollo errors', () => {
 
         expect(talonProps.formErrors).toMatchSnapshot();
     });
+});
+
+test('should dispatch add address event when new address', async () => {
+    const mockDispatchEvent = jest.fn();
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    await talonProps.handleSubmit({
+        country: 'US',
+        email: 'fry@planet.express',
+        firstname: 'Philip',
+        region: {
+            region_id: 2
+        },
+        street: ['Street 1']
+    });
+
+    expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls).toMatchSnapshot();
 });

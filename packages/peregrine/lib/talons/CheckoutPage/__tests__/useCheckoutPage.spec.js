@@ -708,12 +708,7 @@ test('should scroll shipping method into view when scrollShippingMethodIntoView 
 test('should dispatch checkout page view event', () => {
     const mockDispatchEvent = jest.fn();
 
-    useEventingContext.mockReturnValue([
-        {},
-        {
-            dispatch: mockDispatchEvent
-        }
-    ]);
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
 
     const cartItems = ['item1', 'item2'];
     getCheckoutDetailsQueryResult.mockReturnValueOnce({
@@ -725,4 +720,94 @@ test('should dispatch checkout page view event', () => {
     expect(mockDispatchEvent).toBeCalledTimes(1);
 
     expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('should dispatch checkout review button clicked event', () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    const { talonProps, update } = getTalonProps(defaultProps);
+
+    talonProps.handleReviewOrder();
+
+    update();
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('should dispatch place order button clicked event', async () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    useLazyQuery.mockImplementation(() => {
+        return [
+            jest.fn(),
+            { data: { cart: { id: '123', total_quantity: 5 } }, loading: false }
+        ];
+    });
+
+    const { talonProps } = getTalonProps(defaultProps);
+
+    await act(async () => {
+        await talonProps.handlePlaceOrder();
+    });
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('should dispatch order confirmation page view event', async () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    placeOrderMutationResult
+        .mockReturnValueOnce([() => {}, { data: null, loading: false }])
+        .mockReturnValueOnce([
+            () => {},
+            {
+                data: { placeOrder: { order: { order_number: '001' } } },
+                loading: false
+            }
+        ]);
+
+    getOrderDetailsQueryResult
+        .mockReturnValueOnce([
+            () => {},
+            { data: null, loading: false, error: null }
+        ])
+        .mockReturnValueOnce([
+            () => {},
+            {
+                data: {
+                    cart: {
+                        id: '123',
+                        shipping_addresses: [
+                            {
+                                firstname: 'firstname',
+                                lastname: 'lastname',
+                                selected_shipping_method: {
+                                    carrier_title: 'carrier',
+                                    method_title: 'method'
+                                }
+                            }
+                        ]
+                    }
+                },
+                loading: false,
+                error: null
+            }
+        ]);
+
+    const { talonProps } = getTalonProps(defaultProps);
+
+    await act(async () => {
+        await talonProps.handlePlaceOrder();
+    });
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls).toMatchSnapshot();
 });

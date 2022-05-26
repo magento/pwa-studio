@@ -165,3 +165,16 @@ Object {
 exports[`returns Apollo errors for create customer address 1`] = `undefined`;
 
 exports[`returns Apollo errors for update customer address 1`] = `undefined`;
+
+exports[`should dispatch add address event when new address 1`] = `
+Array [
+  Array [
+    Object {
+      "payload": Object {
+        "cart_id": undefined,
+      },
+      "type": "CHECKOUT_SHIPPING_INFORMATION_ADDED",
+    },
+  ],
+]
+`;
