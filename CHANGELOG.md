@@ -13,7 +13,7 @@ The 12.5.0 release of PWA Studio focuses on 2 areas:
 
 ### Eventing
 
-We have added a new eventing framework into PWA Studio. This framework allows users to send user event data to Adobe's Edge collection service. We include a [series of events](https://developer.adobe.com/commerce/pwa-studio/integrations/analytics/event-reeference/) by default. You can extend the framework by [writing your own events](https://developer.adobe.com/commerce/pwa-studio/integrations/analytics/custom-events/) and you can also configure the framework so that 3rd party modules can subscribe to these events.
+We have added a new eventing framework into PWA Studio. This framework allows users to send user event data to Adobe's Edge collection service. The framework includes a [series of events](https://developer.adobe.com/commerce/pwa-studio/integrations/analytics/event-reeference/) by default. Developers can extend the framework by [writing your own events](https://developer.adobe.com/commerce/pwa-studio/integrations/analytics/custom-events/) and you can also configure the framework so that 3rd party modules can subscribe to these events.
 
 Included events are around:
 
