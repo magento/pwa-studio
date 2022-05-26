@@ -9,10 +9,6 @@ jest.mock('react-router-dom', () => ({
     Link: ({ children }) => children
 }));
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: () => 'a.url'
-}));
-
 jest.mock(
     '@magento/pagebuilder/lib/ContentTypes/Products/Carousel/useCarousel',
     () => ({

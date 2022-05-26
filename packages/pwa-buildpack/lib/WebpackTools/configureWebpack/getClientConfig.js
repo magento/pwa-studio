@@ -82,7 +82,8 @@ async function getClientConfig(opts) {
                         ...searchPaths,
                         path.join(moduleDir, 'RootComponents'),
                         path.join(moduleDir, 'src', 'RootComponents'),
-                        path.join(moduleDir, 'lib', 'RootComponents')
+                        path.join(moduleDir, 'lib', 'RootComponents'),
+                        path.join(moduleDir, 'lib/ui', 'RootComponents')
                     ],
                     []
                 ),

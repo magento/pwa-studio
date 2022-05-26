@@ -1,0 +1,139 @@
+@import './tokens.module.css';
+
+:global(*) {
+    /* composes: box-border from global; */
+    box-sizing: border-box;
+}
+
+/* TODO @TW: cannot compose */
+:global(html) {
+    /* composes: text-[100%] from global; */
+    font-size: 100%;
+    /* composes: text-normal from global; */
+    font-weight: 400;
+    /* composes: leading-none from global; */
+    line-height: 1;
+    /* composes: antialiased from global; */
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Lock the window's scroll position while an overlay is active.
+ * Has no effect in iOS Safari.
+ * https://bugs.webkit.org/show_bug.cgi?id=153852
+ *
+ * :global(html[data-scroll-lock='true'] body) {
+ *   overflow: hidden;
+ * }
+ */
+
+/* TODO @TW: cannot compose */
+:global(body),
+:global(button),
+:global(input),
+:global(select),
+:global(textarea) {
+    /* composes: text-gray-900 from global; */
+    /* color: rgb(var(--venia-global-color-text)); */
+    color: rgb(23 32 38);
+}
+
+:global(body) {
+    /* composes: m-0 from global; */
+    margin: 0;
+    /* composes: p-0 from global; */
+    padding: 0;
+}
+
+:global(h1),
+:global(h2),
+:global(h3),
+:global(h4),
+:global(h5),
+:global(h6) {
+    /* composes: font-base from global; */
+    font-size: 1rem;
+    /* composes: font-normal from global; */
+    font-weight: 400;
+    /* composes: m-0 from global; */
+    margin: 0;
+}
+
+:global(h1) {
+    /* composes: text-xl from global; */
+    font-size: 1.5rem;
+}
+
+:global(h2) {
+    /* composes: text-lg from global; */
+    font-size: 1.25rem;
+}
+
+:global(a) {
+    /* composes: text-current from global; */
+    color: currentColor;
+    /* composes: no-underline from global; */
+    text-decoration: none;
+}
+
+:global(p) {
+    /* composes: m-0 from global; */
+    margin: 0;
+}
+
+:global(dl),
+:global(ol),
+:global(ul) {
+    /* composes: list-none from global; */
+    list-style-type: none;
+    /* composes: m-0 from global; */
+    margin: 0;
+    /* composes: p-0 from global; */
+    padding: 0;
+}
+
+:global(dd),
+:global(dt) {
+    /* composes: m-0 from global; */
+    margin: 0;
+}
+
+/* TODO @TW: cannot compose */
+:global(button) {
+    /* composes: bg-transparent from global; */
+    background: none;
+    /* composes: border-0 from global; */
+    border: 0;
+    /* composes: cursor-pointer from global; */
+    cursor: pointer;
+    /* composes: text-[100%] from global; */
+    font-size: 100%;
+    /* composes: p-0 from global; */
+    padding: 0;
+    touch-action: manipulation;
+    /* composes: select-none from global; */
+    user-select: none;
+    /* composes: appearance-none from global; */
+    -webkit-appearance: none;
+}
+
+:global(button:disabled) {
+    /* composes: cursor-default from global; */
+    cursor: default;
+    touch-action: none;
+}
+
+:global(.braintree-sheet__content--form
+        .braintree-form__field-group
+        .braintree-form__field
+        .braintree-form__hosted-field
+        input.braintree-form__raw-input) {
+    color: #8f8f8f !important;
+}
+
+:global(.braintree-sheet__content--form
+        .braintree-form__field-group
+        .braintree-form__descriptor) {
+    color: #757575 !important;
+}

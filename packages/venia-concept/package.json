@@ -6,9 +6,6 @@
   },
   "description": "Venia PWA Concept Storefront for Magento 2",
   "main": "src/index.js",
-  "browser": {
-    "@magento/venia-drivers": "src/drivers"
-  },
   "scripts": {
     "build": "yarn run build:prod",
     "build:analyze": "yarn run clean && mkdir dist && webpack -p --profile --no-progress --env.mode production --json > dist/build-stats.json && webpack-bundle-analyzer dist/build-stats.json",
@@ -57,7 +54,6 @@
     "@magento/pwa-theme-venia": "~1.3.0",
     "@magento/upward-security-headers": "~1.0.8",
     "@magento/venia-sample-eventing": "0.0.1",
-    "@magento/venia-ui": "~9.4.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~6.3.7",
     "@types/node": "16",

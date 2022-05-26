@@ -12,8 +12,7 @@
     "packages/pwa-theme-venia",
     "packages/upward-js",
     "packages/upward-spec",
-    "packages/venia-concept",
-    "packages/venia-ui"
+    "packages/venia-concept"
   ],
   "author": "Adobe Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
@@ -35,7 +34,7 @@
     "prettier:check": "prettier --list-different '@(packages|venia-integration-tests|scripts)/**/*.@(css|graphql|js)' '*.js'",
     "stage:venia": "yarn venia start",
     "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
-    "storybook:venia": "yarn workspace @magento/venia-ui run storybook",
+    "storybook:venia": "yarn workspace @magento/peregrine run storybook",
     "test": "jest",
     "test:ci": "jest --no-cache --max-workers=3 --json --outputFile=test-results.json",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --no-coverage --runInBand --testTimeout 86400",
@@ -44,6 +43,9 @@
     "venia": "yarn workspace @magento/venia-concept",
     "watch:all": "node scripts/watch-all.js",
     "watch:venia": "yarn venia run watch"
+  },
+  "dependencies": {
+    "caniuse-lite": "~1.0.30001335"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "~7.4.4",

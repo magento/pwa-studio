@@ -1,4 +1,4 @@
-import { Magento2 } from '../../../../RestApi';
+import { Magento2 } from '../../../../util/RestApi';
 import {
     mockGetItem,
     mockRemoveItem,
@@ -17,7 +17,7 @@ import {
     submitPaymentMethodAndBillingAddress
 } from '../asyncActions';
 
-jest.mock('../../../../RestApi');
+jest.mock('../../../../util/RestApi');
 jest.mock('../../../../util/simplePersistence');
 
 const { request } = Magento2;

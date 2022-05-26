@@ -14,7 +14,6 @@
   "peerDependencies": {
     "@magento/peregrine": "~12.4.0",
     "@magento/pwa-buildpack": "~11.3.0",
-    "@magento/venia-ui": "~9.4.0",
     "react": "~17.0.1",
     "react-intl": "~5.20.0",
     "react-router-dom": "~5.2.0"

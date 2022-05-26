@@ -144,15 +144,22 @@ class TargetProvider extends Trackable {
                 }
             );
         }
+
+        if (depName === '@magento/venia-ui') {
+            depName = '@magento/peregrine';
+        }
+
         if (depName === this.name) {
             return this.own;
         }
+
         if (!this._intercepted[depName]) {
             this._intercepted[depName] = this._getExternalTargets(
                 this,
                 depName
             );
         }
+
         return this._intercepted[depName];
     }
     /**
