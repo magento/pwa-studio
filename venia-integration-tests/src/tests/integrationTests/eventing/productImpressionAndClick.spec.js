@@ -16,7 +16,7 @@ const {
 
 describe(
     'PWA-2094: Track product impressions and clicks',
-    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@beacon'] },
+    { tags: ['@commerce', '@open-source', '@ci', '@pagebuilder', '@eventing'] },
     () => {
         it('verify products content type', () => {
             cy.intercept('GET', getCMSPage, {
@@ -27,14 +27,14 @@ describe(
 
             cy.visit('/', {
                 onBeforeLoad(win) {
-                    win.document.addEventListener('beacon', event => {
+                    win.document.addEventListener('eventing', event => {
                         if (event.detail.type === 'PRODUCT_IMPRESSION') {
                             impressions.push(event);
                         }
                     });
                     win.document.addEventListener(
-                        'beacon',
-                        cy.stub().as('beacon')
+                        'eventing',
+                        cy.stub().as('eventing')
                     );
                 }
             });
@@ -42,7 +42,7 @@ describe(
             cy.wait(['@getCMSMockData']).its('response.body');
             cy.get('.slick-slider').scrollIntoView();
 
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('callCount')
                 .should('gte', 5)
                 .then(() => {
@@ -55,7 +55,7 @@ describe(
                 .eq(1)
                 .click();
 
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('callCount')
                 .should('gte', 10)
                 .then(() => {
@@ -66,7 +66,7 @@ describe(
             cy.get('.slick-slider .slick-dots button')
                 .eq(0)
                 .click();
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('callCount')
                 .should('gte', 10)
                 .then(() => {
@@ -84,7 +84,7 @@ describe(
                 .should('be.visible')
                 .click();
 
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
@@ -111,21 +111,21 @@ describe(
 
             cy.visit(categorySweaters, {
                 onBeforeLoad(win) {
-                    win.document.addEventListener('beacon', event => {
+                    win.document.addEventListener('eventing', event => {
                         if (event.detail.type === 'PRODUCT_IMPRESSION') {
                             impressions.push(event);
                         }
                     });
                     win.document.addEventListener(
-                        'beacon',
-                        cy.stub().as('beacon')
+                        'eventing',
+                        cy.stub().as('eventing')
                     );
                 }
             });
 
             cy.wait(['@gqlGetCategoriesQuery']).its('response.body');
             // 3 products immediate on screen
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('callCount')
                 .should('gte', 3)
                 .then(() => {
@@ -136,7 +136,7 @@ describe(
 
             cy.scrollTo('bottom', { duration: 1000 });
             // seen all 12
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('callCount')
                 .should('gte', 12)
                 .then(() => {
@@ -146,7 +146,7 @@ describe(
                 });
             cy.scrollTo('top');
             // seen all 12
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('callCount')
                 .should('gte', 12)
                 .then(() => {
@@ -159,7 +159,7 @@ describe(
             )
                 .scrollIntoView()
                 .click();
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
@@ -175,21 +175,21 @@ describe(
 
         it('verify search page', () => {
             cy.intercept('GET', getProductSearchCall, {
-                fixture: 'beacon/productSearchMockResponse.json'
+                fixture: 'eventing/productSearchMockResponse.json'
             }).as('gqlGetProductSearchQuery');
 
             const impressions = [];
 
             cy.visit('./search.html?page=1', {
                 onBeforeLoad(win) {
-                    win.document.addEventListener('beacon', event => {
+                    win.document.addEventListener('eventing', event => {
                         if (event.detail.type === 'PRODUCT_IMPRESSION') {
                             impressions.push(event);
                         }
                     });
                     win.document.addEventListener(
-                        'beacon',
-                        cy.stub().as('beacon')
+                        'eventing',
+                        cy.stub().as('eventing')
                     );
                 }
             });
@@ -197,7 +197,7 @@ describe(
             cy.wait(['@gqlGetProductSearchQuery']).its('response.body');
 
             // see 2 products
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('callCount')
                 .should('gte', 2)
                 .then(() => {
@@ -210,7 +210,7 @@ describe(
                 .scrollIntoView()
                 .click();
 
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
@@ -226,7 +226,7 @@ describe(
 
         it('verify search suggest products', () => {
             cy.intercept('GET', getAutocompleteResultsCall, {
-                fixture: 'beacon/productSearchAutocompleteMockResponse.json'
+                fixture: 'eventing/productSearchAutocompleteMockResponse.json'
             }).as('gqlGetAutoCompleteResultsQuery');
             cy.intercept('GET', getCMSPage, {
                 fixture: 'resource/emptyCMSPage.json'
@@ -236,14 +236,14 @@ describe(
 
             cy.visit('/', {
                 onBeforeLoad(win) {
-                    win.document.addEventListener('beacon', event => {
+                    win.document.addEventListener('eventing', event => {
                         if (event.detail.type === 'PRODUCT_IMPRESSION') {
                             impressions.push(event);
                         }
                     });
                     win.document.addEventListener(
-                        'beacon',
-                        cy.stub().as('beacon')
+                        'eventing',
+                        cy.stub().as('eventing')
                     );
                 }
             });
@@ -257,7 +257,7 @@ describe(
             cy.wait(['@gqlGetAutoCompleteResultsQuery']).its('response.body');
 
             // see 2 products
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('callCount')
                 .should('gte', 2)
                 .then(() => {
@@ -269,7 +269,7 @@ describe(
             cy.get('a[href="/selena-pants.html"]')
                 .scrollIntoView()
                 .click();
-            cy.get('@beacon')
+            cy.get('@eventing')
                 .its('lastCall.args.0.detail')
                 .should('deep.equal', {
                     payload: {
