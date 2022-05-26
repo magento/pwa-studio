@@ -5,6 +5,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useCartContext } from '../../../../context/cart';
 import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
 import DEFAULT_OPERATIONS from './productForm.gql';
+import { useEventingContext } from '../../../../context/eventing';
 
 /**
  * This talon contains logic for a product edit form.
@@ -47,6 +48,8 @@ export const useProductForm = props => {
         setVariantPrice,
         setActiveEditItem
     } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const [{ cartId }] = useCartContext();
     const [optionSelections, setOptionSelections] = useState(new Map());
@@ -116,6 +119,7 @@ export const useProductForm = props => {
 
     const configItem =
         !loading && !error && data ? data.products.items[0] : null;
+
     const configurableOptionCodes = useMemo(() => {
         const optionCodeMap = new Map();
 
@@ -158,6 +162,8 @@ export const useProductForm = props => {
     const handleSubmit = useCallback(
         async formValues => {
             try {
+                const quantity = formValues.quantity;
+
                 if (selectedVariant && optionSelections.size) {
                     await updateConfigurableOptions({
                         variables: {
@@ -165,20 +171,56 @@ export const useProductForm = props => {
                             cartItemId: cartItem.uid,
                             parentSku: cartItem.product.sku,
                             variantSku: selectedVariant.product.sku,
-                            quantity: formValues.quantity
+                            quantity: quantity
                         }
                     });
 
                     setOptionSelections(new Map());
-                } else if (formValues.quantity !== cartItem.quantity) {
+                } else if (quantity !== cartItem.quantity) {
                     await updateItemQuantity({
                         variables: {
                             cartId,
                             cartItemId: cartItem.uid,
-                            quantity: formValues.quantity
+                            quantity: quantity
                         }
                     });
                 }
+
+                const selectedOptionsLabels =
+                    // with updated variant
+                    selectedVariant?.attributes?.map(({ value_index }, i) => {
+                        const current = configItem.configurable_options[i];
+                        const attribute = current.label;
+                        const value = current.values.find(
+                            x => x.value_index === value_index
+                        )?.label;
+
+                        return { attribute, value };
+                    }) ||
+                    // with current variant (updating only quantity)
+                    cartItem.configurable_options.map(
+                        ({ option_label, value_label }) => ({
+                            attribute: option_label,
+                            value: value_label
+                        })
+                    ) ||
+                    // not applicable
+                    null;
+
+                dispatch({
+                    type: 'CART_UPDATE_ITEM',
+                    payload: {
+                        cartId,
+                        sku: cartItem.product.sku,
+                        name: cartItem.product.name,
+                        priceTotal: cartItem.prices.price.value,
+                        currencyCode: cartItem.prices.price.currency,
+                        discountAmount:
+                            cartItem.prices.total_item_discount.value,
+                        selectedOptions: selectedOptionsLabels,
+                        quantity
+                    }
+                });
             } catch {
                 return;
             }
@@ -188,6 +230,8 @@ export const useProductForm = props => {
         [
             cartId,
             cartItem,
+            configItem,
+            dispatch,
             handleClose,
             optionSelections.size,
             selectedVariant,

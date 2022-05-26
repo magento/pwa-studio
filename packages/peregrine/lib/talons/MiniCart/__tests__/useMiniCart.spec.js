@@ -60,6 +60,7 @@ beforeAll(() => {
                     {
                         product: {
                             name: 'P1',
+                            sku: 'sku123',
                             thumbnail: {
                                 url: 'www.venia.com/p1'
                             }
@@ -69,13 +70,17 @@ beforeAll(() => {
                         configurable_options: [
                             {
                                 label: 'Color',
-                                value: 'red'
+                                value: 'red',
+                                configurable_product_option_value_uid: 'uid123'
                             }
                         ],
                         prices: {
                             price: {
                                 value: 420,
                                 currency: 'USD'
+                            },
+                            total_item_discount: {
+                                value: 2
                             }
                         }
                     }
@@ -218,4 +223,23 @@ test('handleRemoveItem() should call graphql mutation', () => {
           },
         }
     `);
+});
+
+test('handleRemoveItem() should dispatch event', async () => {
+    const mockDispatch = jest.fn();
+
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatch
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(defaultProps);
+
+    await talonProps.handleRemoveItem('p1');
+
+    expect(mockDispatch).toBeCalledTimes(1);
+
+    expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
 });
