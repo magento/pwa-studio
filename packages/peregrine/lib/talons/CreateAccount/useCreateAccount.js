@@ -107,6 +107,16 @@ export const useCreateAccount = props => {
                     ...recaptchaDataForCreateAccount
                 });
 
+                dispatch({
+                    type: 'USER_CREATE_ACCOUNT',
+                    payload: {
+                        email: formValues.customer.email,
+                        firstName: formValues.customer.firstname,
+                        lastName: formValues.customer.lastname,
+                        isSubscribed: !!formValues.subscribe
+                    }
+                });
+
                 // Get reCaptchaV3 Data for signIn mutation
                 const recaptchaDataForSignIn = await generateReCaptchaData();
 
@@ -119,16 +129,6 @@ export const useCreateAccount = props => {
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
-
-                dispatch({
-                    type: 'USER_CREATE_ACCOUNT',
-                    payload: {
-                        email: formValues.customer.email,
-                        firstName: formValues.customer.firstname,
-                        lastName: formValues.customer.lastname,
-                        isSubscribed: !!formValues.subscribe
-                    }
-                });
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
