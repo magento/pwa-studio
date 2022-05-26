@@ -4,16 +4,20 @@ import { useMutation, useQuery } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 import { useCartContext } from '../../context/cart';
 import defaultOperations from './addToCartDialog.gql';
+import { useEventingContext } from '../../context/eventing';
 
 export const useAddToCartDialog = props => {
     const { item, onClose } = props;
     const sku = item && item.product.sku;
+
+    const [, { dispatch }] = useEventingContext();
 
     const operations = mergeOperations(defaultOperations, props.operations);
 
     const [userSelectedOptions, setUserSelectedOptions] = useState(new Map());
     const [currentImage, setCurrentImage] = useState();
     const [currentPrice, setCurrentPrice] = useState();
+    const [currentDiscount, setCurrentDiscount] = useState();
 
     const [{ cartId }] = useCartContext();
 
@@ -89,6 +93,11 @@ export const useAddToCartDialog = props => {
                 ? selectedVariant.price_range.maximum_price.final_price
                 : product.price_range.maximum_price.final_price;
 
+            const discount = selectedVariant
+                ? selectedVariant.price_range.maximum_price.discount
+                : product.price_range.maximum_price.discount;
+
+            setCurrentDiscount(discount);
             setCurrentPrice(finalPrice);
         }
     }, [data, selectedOptionsArray.length]);
@@ -108,14 +117,39 @@ export const useAddToCartDialog = props => {
 
     const handleAddToCart = useCallback(async () => {
         try {
+            const quantity = 1;
+
             await addProductToCart({
                 variables: {
                     cartId,
                     cartItem: {
-                        quantity: 1,
+                        quantity,
                         selected_options: selectedOptionsArray,
                         sku
                     }
+                }
+            });
+
+            const selectedOptionsLabels =
+                selectedOptionsArray?.map((value, i) => ({
+                    attribute: item.product.configurable_options[i].label,
+                    value:
+                        item.product.configurable_options[i].values.find(
+                            x => x.uid === value
+                        )?.label || null
+                })) || null;
+
+            dispatch({
+                type: 'CART_ADD_ITEM',
+                payload: {
+                    cartId,
+                    sku: item.product.sku,
+                    name: item.product.name,
+                    priceTotal: currentPrice.value,
+                    currencyCode: currentPrice.currency,
+                    discountAmount: currentDiscount.amount_off,
+                    selectedOptions: selectedOptionsLabels,
+                    quantity
                 }
             });
 
@@ -123,7 +157,17 @@ export const useAddToCartDialog = props => {
         } catch (error) {
             console.error(error);
         }
-    }, [addProductToCart, cartId, handleOnClose, selectedOptionsArray, sku]);
+    }, [
+        addProductToCart,
+        cartId,
+        currentDiscount,
+        currentPrice,
+        dispatch,
+        handleOnClose,
+        item,
+        selectedOptionsArray,
+        sku
+    ]);
 
     const imageProps = useMemo(() => {
         if (currentImage) {

@@ -5,6 +5,7 @@ exports[`renders CreateAccount component 1`] = `
   className="root"
 >
   <h1
+    aria-live="polite"
     className="header"
   >
     <mock-FormattedMessage
@@ -59,6 +60,7 @@ exports[`renders ForgotPassword component 1`] = `
   className="root"
 >
   <h1
+    aria-live="polite"
     className="header"
   >
     <mock-FormattedMessage
@@ -112,6 +114,7 @@ exports[`renders SignIn component 2`] = `
   className="root_hidden"
 >
   <h1
+    aria-live="polite"
     className="header"
   >
     <mock-FormattedMessage

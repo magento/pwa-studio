@@ -45,7 +45,16 @@ const {
 
 describe(
     'PWA-1402: verify filter actions',
-    { tags: ['@commerce', '@open-source', '@ci', '@category', '@filter'] },
+    {
+        tags: [
+            '@e2e',
+            '@commerce',
+            '@open-source',
+            '@ci',
+            '@category',
+            '@filter'
+        ]
+    },
     () => {
         it('user should be able to filter results in Category and Search pages', () => {
             cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
@@ -309,7 +318,7 @@ describe(
             });
             assertCurrentFilter(filtersData.hasVideo.noLabel, isMobile);
             assertNotInCurrentFilter(filtersData.hasVideo.yesLabel, isMobile);
-            assertNumberOfProductsInResults(11);
+            assertNumberOfProductsInResults(10);
             assertBooleanFilterInputState(
                 filtersData.hasVideo.name,
                 isMobile,
@@ -391,7 +400,7 @@ describe(
             });
 
             assertCategoryTitle(categoryAccessories.name);
-            assertNumberOfProductsInResults(11);
+            assertNumberOfProductsInResults(10);
 
             toggleFilterModal();
             assertNotInCurrentFilter(filtersData.hasVideo.yesLabel);
@@ -432,7 +441,7 @@ describe(
             cy.wait(['@gqlGetCategoriesQuery'], {
                 timeout: 60000
             });
-            assertNumberOfProductsInResults(15);
+            assertNumberOfProductsInResults(21);
 
             //Clean Up
             toggleFilterModal();

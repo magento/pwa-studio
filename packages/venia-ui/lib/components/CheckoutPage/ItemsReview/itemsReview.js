@@ -34,7 +34,7 @@ const ItemsReview = props => {
 
     const items = itemsInCart.map((item, index) => (
         <Item
-            key={item.id}
+            key={item.uid}
             {...item}
             isHidden={!showAllItems && index >= 2}
             configurableThumbnailSource={configurableThumbnailSource}
