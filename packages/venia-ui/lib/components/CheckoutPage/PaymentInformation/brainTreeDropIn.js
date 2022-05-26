@@ -68,7 +68,7 @@ const BraintreeDropin = props => {
         });
 
         return dropinInstance;
-    }, [containerId]);
+    }, [containerId, formatMessage]);
 
     useEffect(() => {
         let unmounted = false;
