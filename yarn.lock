@@ -2,13 +2,6 @@
 # yarn lockfile v1
 
 
-"@adobe/adobe-client-data-layer@~1.1.3":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@adobe/adobe-client-data-layer/-/adobe-client-data-layer-1.1.5.tgz#1bbf9b8038d52652aea8f6eb1a01721f94b14766"
-  integrity sha512-5z4MaibmcSrKIfRJx5Q0V8dBE7yrTFfyocznpSZ37LGHyjb93Bs35vKafueW/IT/6UUREXy0rEbmDsW+VNw8Gg==
-  dependencies:
-    lodash "^4.17.15"
-
 "@adobe/apollo-link-mutation-queue@~1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@adobe/apollo-link-mutation-queue/-/apollo-link-mutation-queue-1.0.2.tgz#0c589ffb970b9917ba52c38812740c613c0a40da"
@@ -6709,12 +6702,7 @@ camelspace@~1.0.0:
   dependencies:
     change-case "^3.1.0"
 
-caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001251, caniuse-lite@^1.0.30001252, caniuse-lite@^1.0.30001274, caniuse-lite@^1.0.30001280:
-  version "1.0.30001335"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001335.tgz"
-  integrity sha512-ddP1Tgm7z2iIxu6QTtbZUv6HJxSaV/PZeSrWFZtbY4JZ69tOeNhBCl3HyRQgeNZKE5AOn1kpV7fhljigy0Ty3w==
-
-caniuse-lite@~1.0.30001335:
+caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001251, caniuse-lite@^1.0.30001252, caniuse-lite@^1.0.30001274, caniuse-lite@^1.0.30001280, caniuse-lite@~1.0.30001335:
   version "1.0.30001335"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001335.tgz#899254a0b70579e5a957c32dced79f0727c61f2a"
   integrity sha512-ddP1Tgm7z2iIxu6QTtbZUv6HJxSaV/PZeSrWFZtbY4JZ69tOeNhBCl3HyRQgeNZKE5AOn1kpV7fhljigy0Ty3w==
@@ -18978,10 +18966,8 @@ watchpack@^1.7.4:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
