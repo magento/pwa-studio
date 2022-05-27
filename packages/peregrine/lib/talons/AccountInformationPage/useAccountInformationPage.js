@@ -108,15 +108,6 @@ export const useAccountInformationPage = props => {
                             }
                         }
                     });
-
-                    dispatch({
-                        type: 'USER_ACCOUNT_UPDATE',
-                        payload: {
-                            email,
-                            firstName: firstname,
-                            lastName: lastname
-                        }
-                    });
                 }
                 if (password && newPassword) {
                     const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
@@ -128,6 +119,16 @@ export const useAccountInformationPage = props => {
                         ...recaptchaDataForChangeCustomerPassword
                     });
                 }
+
+                dispatch({
+                    type: 'USER_ACCOUNT_UPDATE',
+                    payload: {
+                        email,
+                        firstName: firstname,
+                        lastName: lastname
+                    }
+                });
+
                 // After submission, close the form if there were no errors.
                 handleCancel(false);
             } catch {
