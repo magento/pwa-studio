@@ -1,59 +1,36 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
+import { Checkbox as InformedCheckbox } from 'informed';
 import { node, shape, string } from 'prop-types';
-import { Checkbox as InformedCheckbox, useFieldApi } from 'informed';
-import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
+import { Check } from 'react-feather';
+import { useCheckbox } from '@magento/peregrine/lib/talons/Checkbox/useCheckbox';
 
 import { useStyle } from '../../classify';
 import { Message } from '../Field';
-import { CheckSquare, Square } from 'react-feather';
 import defaultClasses from './checkbox.module.css';
 
-/* TODO: change lint config to use `label-has-associated-control` */
-/* eslint-disable jsx-a11y/label-has-for */
-
-const checkedIcon = <CheckSquare />;
-const uncheckedIcon = <Square />;
-
 const Checkbox = props => {
-    const {
-        ariaLabel,
-        classes: propClasses,
-        field,
-        fieldValue,
-        id,
-        label,
-        message,
-        ...rest
-    } = props;
-    const fieldApi = useFieldApi(field);
-    const fieldState = useFieldState(field);
-    const classes = useStyle(defaultClasses, propClasses);
-    const icon = fieldState.value ? checkedIcon : uncheckedIcon;
+    const talonProps = useCheckbox(props);
 
-    useEffect(() => {
-        if (fieldValue != null && fieldValue !== fieldState.value) {
-            fieldApi.setValue(fieldValue);
-        }
-    }, [fieldApi, fieldState.value, fieldValue]);
+    const {
+        classes: propClasses,
+        controlProps,
+        label,
+        labelProps,
+        message
+    } = talonProps;
+
+    const classes = useStyle(defaultClasses, propClasses);
 
     return (
         <Fragment>
-            <label
-                data-cy="Checkbox-label"
-                aria-label={ariaLabel}
-                className={classes.root}
-                htmlFor={id}
-            >
-                <InformedCheckbox
-                    {...rest}
-                    className={classes.input}
-                    field={field}
-                    id={id}
-                />
-                <span className={classes.icon}>{icon}</span>
-                <span className={classes.label}>{label}</span>
+            <label {...labelProps} className={classes.root}>
+                <InformedCheckbox {...controlProps} className={classes.input} />
+                <span className={classes.icon}>
+                    <Check size={16} />
+                </span>
+                <span className={classes.optionText}>{label}</span>
             </label>
-            <Message fieldState={fieldState}>{message}</Message>
+            <Message>{message}</Message>
         </Fragment>
     );
 };
@@ -65,8 +42,8 @@ Checkbox.propTypes = {
     classes: shape({
         icon: string,
         input: string,
-        label: string,
         message: string,
+        optionText: string,
         root: string
     }),
     field: string.isRequired,

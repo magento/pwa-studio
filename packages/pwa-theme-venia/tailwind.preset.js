@@ -63,6 +63,7 @@ const extend = {
         buttonColor: {
             action: theme('colors.neutral.400')
         },
+        checkbox: theme('colors.brand.500'),
         error: theme('colors.red.400'),
         info: theme('colors.green.600'),
         input: theme('colors.gray.600'),

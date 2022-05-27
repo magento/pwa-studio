@@ -1,68 +1,41 @@
 .root {
-    --stroke: var(--venia-global-color-gray-600);
-
-    composes: gap-3 from global;
-    composes: grid from global;
-    composes: grid-flow-col from global;
     composes: items-center from global;
-    composes: justify-items-center from global;
-    composes: leading-normal from global;
-    composes: text-colorDefault from global;
-    grid-template-areas: 'input label';
-    grid-template-columns: min-content 1fr;
+    composes: text from global;
+    composes: flex from global;
+    composes: gap-3 from global;
+    composes: relative from global;
+    composes: w-fit from global;
 }
 
 .input {
     composes: appearance-none from global;
-    composes: bg-transparent from global;
     composes: border-2 from global;
     composes: border-solid from global;
-    composes: border-transparent from global;
+    composes: border-checkbox from global;
     composes: cursor-pointer from global;
-    composes: h-[1.5rem] from global;
+    composes: h-4 from global;
     composes: rounded from global;
-    composes: w-[1.5rem] from global;
-    grid-area: input;
+    composes: w-4 from global;
+    composes: peer from global;
+    composes: transition-colors from global;
+    composes: duration-sm from global;
 
-    /* TODO @TW: review, replaces input:disabled. Check if working. */
+    /* Pseudo Selector Rules */
+    composes: active_shadow-radioActive from global;
+    composes: checked_bg-brand-500 from global;
     composes: disabled_cursor-not-allowed from global;
+    composes: focus_shadow-radioFocus from global;
 }
 
 .icon {
-    composes: h-[1.5rem] from global;
+    composes: absolute from global;
     composes: pointer-events-none from global;
-    composes: w-[1.5rem] from global;
-    grid-area: input;
+    composes: text-white from global;
 }
 
-.icon svg {
-    stroke: rgb(var(--stroke));
-}
-
-.label {
+.optionText {
     composes: cursor-pointer from global;
-    composes: justify-self-start from global;
-    composes: text-colorDefault from global;
-    grid-area: label;
-}
-
-/* When the input is disabled, update the cursor on the sibling label element. */
-/* TODO @TW: cannot compose */
-.input:disabled ~ .label {
-    cursor: default;
-}
-
-.input:checked:enabled + .icon {
-    --stroke: var(--venia-brand-color-1-700);
-}
-
-/* TODO @TW: cannot compose, needs "checked" variant enabled. Cannot combine variants. */
-.input:active:enabled,
-.input:focus:enabled {
-    /* composes: active_shadow-radioActive from global; */
-    /* composes: focus_shadow-radioFocus from global; */
-    box-shadow: -3px 3px rgb(var(--venia-brand-color-1-100));
-    outline: none;
+    composes: peer-disabled_cursor-not-allowed from global;
 }
 
 .input_shimmer {
