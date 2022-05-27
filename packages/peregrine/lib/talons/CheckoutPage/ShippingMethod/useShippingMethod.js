@@ -95,11 +95,13 @@ export const useShippingMethod = props => {
             ? data.cart.shipping_addresses[0]
             : null;
 
-    const derivedSelectedShippingMethod = derivedPrimaryShippingAddress
-        ? addSerializedProperty(
-              derivedPrimaryShippingAddress.selected_shipping_method
-          )
-        : DEFAULT_SELECTED_SHIPPING_METHOD;
+    const derivedSelectedShippingMethod = useMemo(() => {
+        return derivedPrimaryShippingAddress
+            ? addSerializedProperty(
+                  derivedPrimaryShippingAddress.selected_shipping_method
+              )
+            : DEFAULT_SELECTED_SHIPPING_METHOD;
+    }, [derivedPrimaryShippingAddress]);
 
     const derivedShippingMethods = useMemo(() => {
         if (!derivedPrimaryShippingAddress)
@@ -130,17 +132,22 @@ export const useShippingMethod = props => {
     /*
      *  Callbacks.
      */
-    const dispatchEvent = useCallback(() => {
-        dispatch({
-            type: !isUpdateMode
-                ? 'CHECKOUT_SHIPPING_METHOD_ADDED'
-                : 'CHECKOUT_SHIPPING_METHOD_UPDATED',
-            payload: {
-                cart_id: cartId,
-                selected_shipping_method: derivedSelectedShippingMethod
-            }
-        });
-    }, [dispatch, cartId, derivedSelectedShippingMethod, isUpdateMode]);
+    const dispatchEvent = useCallback(
+        shippingMethod => {
+            dispatch({
+                type: !isUpdateMode
+                    ? 'CHECKOUT_SHIPPING_METHOD_ADDED'
+                    : 'CHECKOUT_SHIPPING_METHOD_UPDATED',
+                payload: {
+                    cart_id: cartId,
+                    selected_shipping_method: {
+                        serializedValue: shippingMethod
+                    }
+                }
+            });
+        },
+        [dispatch, cartId, isUpdateMode]
+    );
 
     const handleSubmit = useCallback(
         async value => {
@@ -158,7 +165,7 @@ export const useShippingMethod = props => {
                         }
                     }
                 });
-                dispatchEvent();
+                dispatchEvent(value.shipping_method);
             } catch {
                 return;
             }
