@@ -5,8 +5,8 @@
     composes: rounded-full from global;
     composes: border-buttonWidth from global;
     composes: border-solid from global;
-    composes: h-[2.5rem] from global;
-    composes: w-[2.5rem] from global;
+    composes: h-10 from global;
+    composes: w-10 from global;
     composes: bg-swatch-variable from global;
 
     composes: hover_border-brand-500 from global;

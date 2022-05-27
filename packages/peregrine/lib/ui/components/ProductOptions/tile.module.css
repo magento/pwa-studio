@@ -17,7 +17,7 @@
 
 .root {
     composes: base;
-    
+
     composes: border-swatch-base from global;
     composes: bg-swatch-base from global;
 }
