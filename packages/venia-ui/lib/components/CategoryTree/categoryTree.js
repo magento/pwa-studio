@@ -8,7 +8,7 @@ import Leaf from './categoryLeaf';
 import defaultClasses from './categoryTree.module.css';
 
 const Tree = props => {
-    const { categoryId, onNavigate, setCategoryId, updateCategories } = props;
+    const { categoryId, onNavigate, setCategoryId, updateCategories, tabindex } = props;
 
     const talonProps = useCategoryTree({
         categoryId,
@@ -29,12 +29,14 @@ const Tree = props => {
                       category={category}
                       onNavigate={onNavigate}
                       categoryUrlSuffix={categoryUrlSuffix}
+                      tabindex={tabindex}
                   />
               ) : (
                   <Branch
                       key={id}
                       category={category}
                       setCategoryId={setCategoryId}
+                      tabindex={tabindex}
                   />
               );
           })
@@ -57,5 +59,6 @@ Tree.propTypes = {
     }),
     onNavigate: func.isRequired,
     setCategoryId: func.isRequired,
-    updateCategories: func.isRequired
+    updateCategories: func.isRequired,
+    tabindex: func.isRequired
 };

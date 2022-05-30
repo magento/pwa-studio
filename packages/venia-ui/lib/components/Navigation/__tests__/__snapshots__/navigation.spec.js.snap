@@ -2,7 +2,6 @@
 
 exports[`authModal is rendered when hasModal is true 1`] = `
 <aside
-  aria-hidden="true"
   className="root"
 >
   <header
@@ -38,7 +37,6 @@ exports[`authModal is rendered when hasModal is true 1`] = `
 
 exports[`renders correctly when closed 1`] = `
 <aside
-  aria-hidden="true"
   className="root"
 >
   <header
@@ -70,7 +68,6 @@ exports[`renders correctly when closed 1`] = `
 
 exports[`renders correctly when open 1`] = `
 <aside
-  aria-hidden="true"
   className="root_open"
 >
   <header

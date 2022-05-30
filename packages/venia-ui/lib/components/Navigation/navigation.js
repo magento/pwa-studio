@@ -36,6 +36,8 @@ const Navigation = props => {
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
+    const tabindex = isOpen ? "1" : "-1";
+
     // Lazy load the auth modal because it may not be needed.
     const authModal = hasModal ? (
         <Suspense fallback={<LoadingIndicator />}>
@@ -56,7 +58,7 @@ const Navigation = props => {
             {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
             <FocusScope contain restoreFocus autoFocus>
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-            <aside aria-hidden="true" className={rootClassName}>
+            <aside className={rootClassName}>
                 <header className={classes.header}>
                     <NavHeader
                         isTopLevel={isTopLevel}
@@ -70,6 +72,7 @@ const Navigation = props => {
                         onNavigate={handleClose}
                         setCategoryId={setCategoryId}
                         updateCategories={catalogActions.updateCategories}
+                        tabindex={tabindex}
                     />
                 </div>
                 <div className={classes.footer}>

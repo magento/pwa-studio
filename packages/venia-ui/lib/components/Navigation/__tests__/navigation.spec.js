@@ -27,6 +27,11 @@ jest.mock('react-aria', () => ({
     })
 }));
 
+jest.mock('../../Portal', () => ({
+    Portal: jest.fn(({ children }) => {
+        return children;
+    })
+}));
 /*
  * Tests.
  */
