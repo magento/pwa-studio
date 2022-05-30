@@ -36,7 +36,7 @@ const Navigation = props => {
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
-    const tabindex = isOpen ? "1" : "-1";
+    const tabindex = isOpen ? "0" : "-1";
 
     // Lazy load the auth modal because it may not be needed.
     const authModal = hasModal ? (
