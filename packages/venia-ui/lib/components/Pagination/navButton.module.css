@@ -7,7 +7,6 @@
     border-radius: 0.5rem;
 }
 
-
 .icon {
     composes: root from '../Icon/icon.module.css';
 }
