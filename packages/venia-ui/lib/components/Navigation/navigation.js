@@ -11,7 +11,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.module.css';
 import { FocusScope } from 'react-aria';
-
+import { Portal } from '../Portal';
 const AuthModal = React.lazy(() => import('../AuthModal'));
 
 const Navigation = props => {
@@ -52,7 +52,10 @@ const Navigation = props => {
     ) : null;
 
     return (
-        <FocusScope contain restoreFocus autoFocus>
+        <Portal>
+            {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+            <FocusScope contain restoreFocus autoFocus>
+                {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
             <aside aria-hidden="true" className={rootClassName}>
                 <header className={classes.header}>
                     <NavHeader
@@ -83,6 +86,7 @@ const Navigation = props => {
                 <div className={modalClassName}>{authModal}</div>
             </aside>
         </FocusScope>
+        </Portal>
     );
 };
 
