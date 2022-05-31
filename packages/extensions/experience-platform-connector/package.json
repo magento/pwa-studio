@@ -1,4 +1,3 @@
-
 {
   "name": "@magento/experience-platform-connector",
   "version": "0.0.1",
@@ -21,5 +20,10 @@
     "targets": {
       "intercept": "./intercept"
     }
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "@adobe/magento-storefront-event-collector": "~1.1.13",
+    "@adobe/magento-storefront-events-sdk": "~1.1.13"
   }
 }
