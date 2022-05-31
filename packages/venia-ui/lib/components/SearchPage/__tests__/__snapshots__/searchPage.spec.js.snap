@@ -21,6 +21,7 @@ exports[`Search Page Component error view does not render when data is present 1
           id="searchPage.searchTermEmpty"
         />
         <span
+          aria-busy="true"
           aria-live="polite"
           className="totalPages"
         >
@@ -135,6 +136,7 @@ exports[`Search Page Component filter button/modal does not render if there are 
           id="searchPage.searchTermEmpty"
         />
         <span
+          aria-busy="true"
           aria-live="polite"
           className="totalPages"
         >
@@ -213,6 +215,7 @@ exports[`Search Page Component filter button/modal renders when there are filter
           id="searchPage.searchTermEmpty"
         />
         <span
+          aria-busy="true"
           aria-live="polite"
           className="totalPages"
         >
@@ -491,6 +494,7 @@ exports[`Search Page Component search results heading renders a generic message 
           id="searchPage.searchTermEmpty"
         />
         <span
+          aria-busy="true"
           aria-live="polite"
           className="totalPages"
         >
@@ -600,6 +604,7 @@ exports[`Search Page Component search results heading renders a specific message
           }
         />
         <span
+          aria-busy="true"
           aria-live="polite"
           className="totalPages"
         >
@@ -770,6 +775,13 @@ exports[`Search Page Component sort button/container does not render if total co
           defaultMessage="Showing all results:"
           id="searchPage.searchTermEmpty"
         />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          0 items
+        </span>
       </div>
       <div
         className="headerButtons"
@@ -820,6 +832,7 @@ exports[`Search Page Component sort button/container renders when total count > 
           id="searchPage.searchTermEmpty"
         />
         <span
+          aria-busy="true"
           aria-live="polite"
           className="totalPages"
         >
@@ -921,6 +934,13 @@ exports[`Search Page Component total count renders 0 items if data.products.tota
           defaultMessage="Showing all results:"
           id="searchPage.searchTermEmpty"
         />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          0 items
+        </span>
       </div>
       <div
         className="headerButtons"
@@ -971,6 +991,7 @@ exports[`Search Page Component total count renders results from data 1`] = `
           id="searchPage.searchTermEmpty"
         />
         <span
+          aria-busy="true"
           aria-live="polite"
           className="totalPages"
         >
