@@ -9,6 +9,7 @@ import { retrieveCartId } from '../../store/actions/cart';
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
 import DEFAULT_OPERATIONS from './createAccount.gql';
+import { useEventingContext } from '../../context/eventing';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -48,6 +49,8 @@ export const useCreateAccount = props => {
         { isGettingDetails },
         { getUserDetails, setToken }
     ] = useUserContext();
+
+    const [, { dispatch }] = useEventingContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
 
@@ -102,6 +105,16 @@ export const useCreateAccount = props => {
                         is_subscribed: !!formValues.subscribe
                     },
                     ...recaptchaDataForCreateAccount
+                });
+
+                dispatch({
+                    type: 'USER_CREATE_ACCOUNT',
+                    payload: {
+                        email: formValues.customer.email,
+                        firstName: formValues.customer.firstname,
+                        lastName: formValues.customer.lastname,
+                        isSubscribed: !!formValues.subscribe
+                    }
                 });
 
                 // Get reCaptchaV3 Data for signIn mutation
@@ -169,7 +182,8 @@ export const useCreateAccount = props => {
             fetchUserDetails,
             getCartDetails,
             fetchCartDetails,
-            onSubmit
+            onSubmit,
+            dispatch
         ]
     );
 
