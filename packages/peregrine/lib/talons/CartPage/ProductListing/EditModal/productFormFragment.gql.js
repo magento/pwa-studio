@@ -43,6 +43,14 @@ export const ProductFormFragment = gql`
                             }
                         }
                     }
+                    price_range {
+                        maximum_price {
+                            final_price {
+                                currency
+                                value
+                            }
+                        }
+                    }
                     sku
                 }
             }

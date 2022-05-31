@@ -35,6 +35,12 @@ const defaultTypeConfig = {
     },
     textarea: {
         component: Textarea
+    },
+    texteditor: {
+        component: Textarea
+    },
+    pagebuilder: {
+        component: Textarea
     }
 };
 

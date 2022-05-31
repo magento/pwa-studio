@@ -27,7 +27,7 @@ const {
 
 describe(
     'Verify Add to Cart actions on category page',
-    { tags: ['@commerce', '@open-source', '@ci', '@cart'] },
+    { tags: ['@e2e', '@commerce', '@open-source', '@ci', '@cart'] },
     () => {
         it("User shouldn't be able to add a CustomizableProduct from category page", () => {
             cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');

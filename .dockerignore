@@ -1,2 +1,24 @@
+**/*.git
+.github/
+**/.gitignore
+
+CHANGELOG.md
+pwa-devdocs/
+images/
+
+*.dockerfile
+docker/
+!docker/.env*
+
+**/.editorconfig
+
+docker-compose.yml
+
+scripts/
+!scripts/monorepo-introduction.js
+
+# mounted as a volume and used with cypress image, not pwa-studio build
+venia-integration-tests/
+
 packages/**/node_modules
 packages/**/dist

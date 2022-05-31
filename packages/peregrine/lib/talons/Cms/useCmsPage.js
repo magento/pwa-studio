@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useAppContext } from '../../context/app';
+import { useEventingContext } from '../../context/eventing';
 
 import DEFAULT_OPERATIONS from './cmsPage.gql';
 
@@ -19,6 +20,7 @@ export const useCmsPage = props => {
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCMSPageQuery } = operations;
+    const [, { dispatch }] = useEventingContext();
 
     const { loading, data } = useQuery(getCMSPageQuery, {
         variables: {
@@ -50,6 +52,18 @@ export const useCmsPage = props => {
     const shouldShowLoadingIndicator = loading && !data;
 
     const cmsPage = data ? data.cmsPage : null;
+
+    useEffect(() => {
+        if (!loading && cmsPage) {
+            dispatch({
+                type: 'CMS_PAGE_VIEW',
+                payload: {
+                    url_key: cmsPage.url_key,
+                    title: cmsPage.title
+                }
+            });
+        }
+    }, [loading, cmsPage, dispatch]);
 
     return {
         cmsPage,

@@ -33,6 +33,7 @@ const MiniCart = React.forwardRef((props, ref) => {
     useScrollLock(isOpen);
 
     const talonProps = useMiniCart({
+        isOpen,
         setIsOpen,
         operations
     });

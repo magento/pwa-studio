@@ -1,110 +1,69 @@
-# PWA Studio Release 12.3.0
+# PWA Studio Release 12.4.0
 
-**NOTE:**
-_This changelog contains release notes for PWA Studio and Venia 12.3.0_
+**NOTE:**  
+_This changelog only contains release notes for PWA Studio and Venia 12.4.0_  
 _For older release notes, see_ [PWA Studio releases][].
 
-## 12.3.0 Highlights
+## Highlights  
 
-### Personalized content support
+The main focus of PWA Studio 12.4 is additional support for working with both system attributes and custom product attributes. While previously, this could be done, results were difficult to parse, with little ability for sorting and filtering. Now, system and custom product attributes are returned in their own object within the GraphQL response, which can be sorted and filtered.
 
--   Added shimmer loaders for Dynamic blocks to avoid layout shift. Shimmer loaders are only rendered if `minHeight` is specified on the Row containing the Dynamic block. This implementation gives you a choice: You can set the Row's `minHeight` to render the shimmer or remove the `minHeight` to remove the shimmer. For Dynamic blocks that rarely render, we recommend removing the `minHeight` property from the Rows containing those Dynamic blocks. — [3713][]
--   Added the new `PersonalizedContentSampleDataVenia` module that contains customer segments, dynamic blocks, and cart rule promotion sample data for personalized content. — [19][],[2][],[3670][]
--   Shopping cart promotions are now properly displayed depending on customer segment. — [3609][]
--   You can now make GraphQL queries for dynamic blocks. — [3587][],[2][]
+### Product attributes
 
-### ReCaptcha support
+- Products can now be sorted by the product attribute value on the product listing page. — [3761][]
+- The Venia sample data has been updated to include product attributes. — [23][] 
+- Product attribute values can now be used to search for products. — [3747][]
 
--   You can now use ReCaptcha V3 on the Braintree payment form and the Place Order form. — [3691][],[24][]
--   reCAPTCHA V3 validation is now available on the following customer forms:
-    - Customer Login
-    - Customer account creation
-    - Customer information change (password) — [3702][]
-    - Forgot Password form. — [3604][],[12][],[20][]
+### Product Attributes on PDP
 
-### PageBuilder content optimization
+ 
+- The product detail page has dedicated slots for rendering product attributes values.
+- The product detail page supports all content layout options available with Page Builder (full-width, full-bleed, contained).
 
--   Shimmers are now loaded when rendering a Page Builder CMS page. This helps reduce CLS and increase load speed. — [3711][]
--   Images from Page Builder content now include height and width dimensions. This helps reduce CLS when rendering the images. — [3712][]
--   Store-view specific label and localization support has been added for product attributes. — [17][]
--   PWA Studio can now retrieve image metadata from Page Builder. — [16][],[17][]
+## Other highlights and fixes
 
-### Other highlights
+- It is now possible to build a project using an older version of PWA studio by appending the version number to the \`create\` command.
+- Updated the Tailwind preset file in the Venia theme package to extend the base Tailwind configuration and add Venia-specific custom values. - [3686][]
+- PWA Studio now supports CSS breakpoints set within PageBuilder components. — [3673][]
+- The ProductQuantity component has been removed from the codebase as it is not used anymore. It has been replaced with the QuantityStepper component. — [3717][]
+- Cypress tests have been added to check for offline mode on the Home, Category, Product, and Search pages. — [3710][]
+- Magento Community Edition (CE) has been rebranded as "Magento Open Source" and the Enterprise Edition (EE) is now "Adobe Commerce". — [3697][]
+- Currency is now set properly when changing the currency in a PageBuilder product collection. Previously, when changing currency from the header dropdown, prices in PageBuilder product collections were not getting updated. — [3720][]
+- Video background with parallax enabled on Safari browser should now behave as intended. — [3661][]
+- Restored TTL support in BrowserPersistence. — [3729][]
+- Resolved static build failure issues for venia-sample-data-modules repository. — [21][]
+- The \`product_url_suffix\` value is now properly passed. Previously, it would return \`null\`. — [3666][]
+- Fixed a bug that would throw a Javascript error when clicking on a configurable product where an option has been disabled on the backend.  — [3740][]
+- Replaced existing CSS values in UI components with equivalent Tailwind classes. - [3686][]
 
--  In the Link component, `prefetchType` property has been renamed to `shouldPrefetch`. This helps to clarify that it is a boolean, rather a property that returns a type. `prefetchType` is deprecated but not removed. — [3646][]
--  Refactored the reCaptcha to ensure it is backwards compatible with 12.2.0. — [3696][]
--  The "Sign In" link has been removed from the 2nd stage of checkout. This ensures the cart configuration (guest or account holder) does not change in the middle of checkout. — [3672][]
--  Dependency packages have been updated. See https://github.com/magento/pwa-studio/pull/3611 for more details about specific package versions. — [3611][]
--  Reporting has been improved when running Cypress tests on a headless instance. — [3613][]
--  Adobe Commerce users can now set gift options on the Order level. — [3540][]
--  Long Wish List names no longer break the layout or force users to scroll in order to close modal dialogs. — [3706][]
--  Products with configurable product variants are now properly added to Wish Lists. Previously, adding a configurable product threw an error. — [3703][]
--  The virtual products extension has been removed. — [3612][]
--  To increase performance, instances of the *useMemo* type have been changed to *const* in the *productUrlSuffix* talon. — [3660][]
--  Added support that makes it easier to click-select tabs when they are displayed in a long list of Tab Items from Page Builder. — [3676][]
-
-## 12.3.0 Lighthouse scores
-
-With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 12.3.0 release of these pages on desktop and mobile devices.
-
-| | Home Page | Product Category | Product Details | Search Results |
-| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
-| **Venia Pages** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-| Desktop Performance | ![](images/score_90.svg "Desktop & Mobile") | ![](images/score_78.svg "Desktop & Mobile") | ![](images/score_73.svg "Desktop & Mobile") | ![](images/score_90.svg "Desktop & Mobile") |
-| Mobile Performance | ![](images/score_27.svg "Desktop & Mobile") | ![](images/score_27.svg "Desktop & Mobile") | ![](images/score_26.svg "Desktop & Mobile") | ![](images/score_33.svg "Desktop & Mobile") |
-| Accessibility<br/>_(same for both)_ | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") |
-| Best Practices<br/>_(same for both)_ | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") |
-| SEO<br/>_(same for both)_ | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") | ![](images/score_100.svg "Desktop & Mobile") |
-| PWA | ![Desktop](images/pwa_perfect.svg "Desktop") ![Mobile](images/pwa_imperfect.svg "Mobile") | ![](images/pwa_perfect.svg "Desktop & Mobile") | ![](images/pwa_perfect.svg "Desktop & Mobile") | ![](images/pwa_perfect.svg "Desktop & Mobile") |
-
-## Stories and bug fixes
-
-| Type  | Description                                                                                                                                       | GitHub PR                       |
-| :---- | :------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------ |
-| Story | Shimmer Loader for Dynamic Blocks                                                                                                                 | [3713][]                      |
-| Story | Query for available Dynamic Blocks                                                                                                                | [3587][], [2][]               |
-| Story | CMS Page Shimmer Loader                                                                                                                           | [3711][]                      |
-| Story | Update the Sample Data with Personalized content                                                                                                  | [19][], [2][], [3670][]       |
-| Story | reFactored reCAPTCHA                                                                                                                              | [3696][]                      |
-| Story | Add reCaptcha to the Checkout Forms                                                                                                               | [3691][], [24][]              |
-| Story | Add reCaptcha to the Account Information Forms                                                                                                    | [3702][]                      |
-| Story | Add reCaptcha to the Forgot Password  Form                                                                                                        | [3604][], [12][], [20][]      |
-| Story | Rename Link's prefetchType prop                                                                                                                   | [3646][]                      |
-| Story | Store view specific label/localization support for product attributes                                                                             | [17][]                        |
-| Story | Update Magento capability table                                                                                                                   | [3724][]                      |
-| Story | Remove Sign-In link on 2nd step of checkout                                                                                                       | [3672][]                      |
-| Story | Images to include dimensions                                                                                                                      | [3703][]                     |
-| Story | Validate Shopping Cart Promotions are displayed correctly                                                                                         | [3609][]                      |
-| Story | Configurable images are not shown in Edit Cart Item menu                                                                                          | [3695][]                      |
-| Story | Backend PageBuilder image metadata support                                                                                                        | [16][], [17][]                |
-| Story | Update packages and dependencies                                                                                                                  | [3611][]                      |
-| Story | Add cypress status reporting while running headless                                                                                               | [3613][]                      |
-| Bug   | Gift options on Order Level (Commerce only)                                                                                                       | [3540][]                      |
-| Bug   | Parent product image thumbnail has been shown in mini cart instead of product itself                                                              | [3690][]                      |
-| Bug   | Long wishlist name length breaks layout                                                                                                           | [3706][]                      |
-| Bug   | Change default sort order on Search page to 'Best Match'                                                                                          | [3698][]                      |
-| Bug   | Wishlist page error when configured variant added                                                                                                 | [3703][]                      |
-| Bug   | Fix Cypress Page Builder tests                                                                                                                    | [3715][]                      |
-| Bug   | Dynamic Blocks GraphQL returns non-qualified blocks                                                                                               | [3678][], [3][]               |
-| Bug   | Remove virtual products extension                                                                                                                 | [3612][]                      |
-| Bug   | Possible wrong usage of useMemo                                                                                                                   | [3660][]                      |
-| Bug   | PWA multiple wish lists: storefront still showing create wishlist button when reaching the max number of allowed wish lists configured in Commerce| [3668][]                      |
-| Bug   | Header - Logo dimensions overlap with main content                                                                                                | [3659][]                      |
-| Bug   | Click target for long-spanning tabs is inconsistent                                                                                               | [3676][]                      |
-| Bug   | Venia sample data personalized content not updating                                                                                               | [20][]                        |
+| Type  | Description                                                                                   | GitHub PR |
+| :---- | :-------------------------------------------------------------------------------------------- | :-------- |
+| Story | Add PageBuilder media query breakpoints support in PWA                                        | [3673][]  |
+| Story | Make QuantityStepper @api and deprecate ProductQuantity                                       | [3717][]  |
+| Story | \[Cypress] Add tests for offline mode                                                         | [3710][]  |
+| Story | Update the Sample data with Product Attributes                                                | [23][]    |
+| Story | Support new branding terms                                                                    | [3697][]  |
+| Story | Filtering Product by the attribute value                                                      | [3747][]      |
+| Story | View Product Attributes values on PDP - Text input, Multi-select, Boolean, Date               | [3761][]      |
+| Bug   | \[bug]: Page builder product collection's price+currency is not updating on currency changes. | [3720][]  |
+| Bug   | upward-php latest develop not compatible with php 7.4 on cloud pro.                           | [8][]     |
+| Bug   | \[PB] Parallax video background is broken on Safari                                           | [3661][]  |
+| Bug   | Regression fix disabled TTL support in BrowserPersistence                                     | [3729][]  |
+| Bug   | Static build failures in magento-commerce/venia-sample-data-modules repo                      | [21][]    |
+| Bug   | \[bug]: product_url_suffix cloud be return as null from backend                               | [3666][]  |
+| Bug   | Disabled product throw an exception cannot read properties of undefined                       | [3740][]  |
+| Bug   | Deprecated field which could return incorrect discounted price is no longer returned          | [3760][]  |
+| Bug   | On mobile, the short description is now properly displayed below the image, rather than above.| [3808][]  |
 
 ## Documentation updates
 
--  Added [best practices documentation](https://developer.adobe.com/pwa-studio/guides/best-practices/index.html) for Customer Segments.
-
-## Known issues
-
--  In some scenarios, applying a coupon to a guest cart will fail if a coupon has already been applied in a separate cart in the same browser.
-   For instance: As a logged-in user, apply a coupon to the cart and then log out. Then try to apply a coupon to a second, guest cart. This second coupon may raise an error. Clearing the cache solves the issue.
+- Updated the [GraphQL guide](https://devdocs.magento.com/guides/v2.4/graphql/interfaces/pwa-implementations.html) with latest changes to the magneto2-pwa module.
+- Added instructions on how to build scaffolding with a [specific version](https://developer.adobe.com/commerce/pwa-studio/guides/packages/buildpack/scaffolding/) of PWA Studio.
+- Added information about the [PWA Studio UI Kit for Adobe XD](https://developer.adobe.com/commerce/pwa-studio/guides/project/tools-libraries/)
 
 ## Upgrading from a previous version
 
-Use the steps outlined in this section to update your [scaffolded project][] from 12.2.0 to 12.3.0.
+Use the steps outlined in this section to update your [scaffolded project][] from 12.3.0 to 12.4.0.
 See [Upgrading versions][] for more information about upgrading between PWA Studio versions.
 
 [scaffolded project]: https://developer.adobe.com/commerce/pwa-studio/tutorials/
@@ -113,90 +72,65 @@ See [Upgrading versions][] for more information about upgrading between PWA Stud
 ### Update dependencies
 
 Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
-The following table lists the latest versions of each package as of 12.3.0.
+The following table lists the latest versions of each package as of 12.4.0.
 
 **Note:**
-Your project may not depend on some of the packages listed in this table.
+Your project may not depend on some packages listed in this table.
 
 | Package                             | Latest version |
 |-------------------------------------|----------------|
-| `babel-preset-peregrine`            | **1.2.0**      |
-| `create-pwa`                        | **2.2.0**      |
-| `upward-security-headers`           | **1.0.7**      |
-| `venia-adobe-data-layer`            | **1.0.4**      |
-| `venia-sample-backends`             | **0.0.6**      |
-| `venia-sample-language-packs`       | **0.0.7**      |
-| `venia-sample-payments-checkmo`     | **0.0.5**      |
-| `pagebuilder`                       | **7.2.0**      |
-| `peregrine`                         | **12.3.0**     |
-| `pwa-buildpack`                     | **11.2.0**     |
-| `pwa-theme-venia`                   | **1.2.0**      |
-| `upward-js`                         | **5.3.0**      |
-| `upward-spec`                       | **5.2.0**      |
-| `venia-concept`                     | **12.3.0**     |
-| `venia-ui`                          | **9.3.0**      |
-| `magento2-pwa`                      | **0.2.0**      |
-| `magento2-pwa-commerce`             | **0.0.1**      |
-| `magento-venia-sample-data-modules` | **0.0.2**      |
-| `magento-venia-sample-data-modules-ee`| **0.0.1**    |
-| `magento2-upward-connector`         | **2.0.0**      |
-| `upward-php`                        | **2.0.0**      |
+| `babel-preset-peregrine`            | **1.2.1**      |
+| `create-pwa`                        | **2.3.0**      |
+| `upward-security-headers`           | **1.0.8**      |
+| `venia-sample-backends`             | **0.0.7**      |
+| `venia-sample-language-packs`       | **0.0.8**      |
+| `venia-sample-payments-checkmo`     | **0.0.6**      |
+| `pagebuilder`                       | **7.3.0**      |
+| `peregrine`                         | **12.4.0**     |
+| `pwa-buildpack`                     | **11.3.0**     |
+| `pwa-theme-venia`                   | **1.3.0**      |
+| `upward-js`                         | **5.3.1**      |
+| `upward-spec`                       | **5.2.1**      |
+| `venia-concept`                     | **12.4.0**     |
+| `venia-ui`                          | **9.4.0**      |
+| `magento2-pwa`                      | **0.2.1**      |
+| `magento2-pwa-commerce`             | **0.0.2**      |
+| `magento-venia-sample-data-modules` | **0.0.3**      |
+| `magento-venia-sample-data-modules-ee`| **0.0.2**    |
+| `magento2-upward-connector`         | **2.0.1**      |
+| `upward-php`                        | **2.0.1**      |
 
-[3713]: https://github.com/magento/pwa-studio/pull/3713
-[19]: https://github.com/magento-commerce/venia-sample-data-modules/pull/19
-[35]: https://github.com/magento-commerce/pwa-tests/pull/35/files
-[2]: https://github.com/magento-commerce/venia-sample-data-modules-ee/pull/2
-[3670]: https://github.com/magento/pwa-studio/pull/3670
-[3691]: https://github.com/magento/pwa-studio/pull/3691
-[3504]: https://github.com/magento/pwa-studio/pull/3504
-[24]: https://github.com/magento-commerce/magento2-pwa/pull/24
-[3702]: https://github.com/magento/pwa-studio/pull/3702
-[3604]: https://github.com/magento/pwa-studio/pull/3604
-[12]: https://github.com/magento-commerce/magento2-pwa/pull/12
-[20]: https://github.com/magento-commerce/magento2-pwa/pull/20
-[25]: https://github.com/magento-commerce/magento2-pwa/pull/25
-[4]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/4
-[22]: https://github.com/magento-commerce/venia-sample-data-modules/pull/22
-[3576]: https://github.com/magento/pwa-studio/pull/3576
-[3616]: https://github.com/magento/pwa-studio/pull/3616
-[3]: http://github.com/magento-commerce/venia-sample-data-modules-ee/pull/3
-[3646]: https://github.com/magento/pwa-studio/pull/3646
-[17]: https://github.com/magento-commerce/magento2-pwa/pull/17
-[3724]: https://github.com/magento/pwa-studio/pull/3724
-[3696]: https://github.com/magento/pwa-studio/pull/3696
-[3672]: https://github.com/magento/pwa-studio/pull/3672
-[3712]: https://github.com/magento/pwa-studio/pull/3712
-[3609]: https://github.com/magento/pwa-studio/pull/3609
-[37]: https://github.com/magento-commerce/pwa-tests/pull/37
-[3587]: https://github.com/magento/pwa-studio/pull/3587
-[2]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/2
-[3695]: https://github.com/magento/pwa-studio/pull/3695
-[16]: https://github.com/magento-commerce/magento2-pwa/pull/16
-[17]: https://github.com/magento-commerce/venia-sample-data-modules/pull/17
-[14]: https://github.com/magento-commerce/venia-sample-data-modules/pull/14
-[11]: https://github.com/magento-commerce/magento2-pwa/pull/11
-[3559]: https://github.com/magento/pwa-studio/pull/3559
-[39]: https://github.com/magento-commerce/pwa-tests/pull/39
-[3564]: https://github.com/magento/pwa-studio/pull/3564
-[3555]: https://github.com/magento/pwa-studio/pull/3555
-[3552]: https://github.com/magento/pwa-studio/pull/3552
-[7]: https://github.com/magento-commerce/upward-php/pull/7
-[17]: https://github.com/magento-commerce/magento2-upward-connector/pull/17
-[3611]: https://github.com/magento/pwa-studio/pull/3611
-[3711]: https://github.com/magento/pwa-studio/pull/3711
-[3613]: https://github.com/magento/pwa-studio/pull/3613
-[3540]: https://github.com/magento/pwa-studio/pull/3540
-[3690]: https://github.com/magento/pwa-studio/pull/3690
-[3706]: https://github.com/magento/pwa-studio/pull/3706
-[3698]: https://github.com/magento/pwa-studio/pull/3698
-[3703]: https://github.com/magento/pwa-studio/pull/3703
-[3715]: https://github.com/magento/pwa-studio/pull/3715
-[3678]: https://github.com/magento/pwa-studio/pull/3678
-[3]: https://github.com/magento-commerce/magento2-pwa-commerce/pull/3
-[3612]: https://github.com/magento/pwa-studio/pull/3612
-[3660]: https://github.com/magento/pwa-studio/pull/3660
-[3668]: https://github.com/magento/pwa-studio/pull/3668
-[3659]: https://github.com/magento/pwa-studio/pull/3659
-[3676]: https://github.com/magento/pwa-studio/pull/3676
-[20]: https://github.com/magento-commerce/venia-sample-data-modules/pull/20
+[PWA-2558]: https://jira.corp.magento.com/browse/PWA-2558  
+[PWA-2707]: https://jira.corp.magento.com/browse/PWA-2707  
+[PWA-1471]: https://jira.corp.magento.com/browse/PWA-1471   
+[PWA-960]: https://jira.corp.magento.com/browse/PWA-960  
+[PWA-1085]: https://jira.corp.magento.com/browse/PWA-1085  
+[PWA-1665]: https://jira.corp.magento.com/browse/PWA-1665  
+[PWA-2419]: https://jira.corp.magento.com/browse/PWA-2419  
+[PWA-1689]: https://jira.corp.magento.com/browse/PWA-1689  
+[PWA-1674]: https://jira.corp.magento.com/browse/PWA-1674  
+[PWA-2528]: https://jira.corp.magento.com/browse/PWA-2528  
+[PWA-2721]: https://jira.corp.magento.com/browse/PWA-2721  
+[PWA-1961]: https://jira.corp.magento.com/browse/PWA-1961  
+[PWA-2571]: https://jira.corp.magento.com/browse/PWA-2571  
+[PWA-2593]: https://jira.corp.magento.com/browse/PWA-2593  
+[PWA-2595]: https://jira.corp.magento.com/browse/PWA-2595  
+[PWA-2524]: https://jira.corp.magento.com/browse/PWA-2524  
+[3673]: https://github.com/magento/pwa-studio/pull/3673
+[3717]: https://github.com/magento/pwa-studio/pull/3717
+[3710]: https://github.com/magento/pwa-studio/pull/3710
+[23]: https://github.com/magento-commerce/venia-sample-data-modules/pull/23
+[3697]: https://github.com/magento/pwa-studio/pull/3697
+[3720]: https://github.com/magento/pwa-studio/pull/3720
+[8]: https://github.com/magento-commerce/upward-php/pull/8
+[3661]: https://github.com/magento/pwa-studio/pull/3661
+[3729]: https://github.com/magento/pwa-studio/pull/3729
+[21]: https://github.com/magento-commerce/venia-sample-data-modules/pull/21
+[3666]: https://github.com/magento/pwa-studio/pull/3666
+[3740]: https://github.com/magento/pwa-studio/pull/3740
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
+[3747]: https://github.com/magento/pwa-studio/pull/3747/
+[3761]:https://github.com/magento/pwa-studio/pull/3761/
+[3686]: https://github.com/magento/pwa-studio/pull/3686/
+[3760]: https://github.com/magento/pwa-studio/pull/3760/
+[3808]: https://github.com/magento/pwa-studio/pull/3808/
