@@ -1,7 +1,7 @@
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useEffect, useState } from 'react';
-import { handleEvent } from './handlers';
+import { default as handleEvent } from './handleEvent';
 
 export default original => props => {
     const [{ isSignedIn }] = useUserContext();
