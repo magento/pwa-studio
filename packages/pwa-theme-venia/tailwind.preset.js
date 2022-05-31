@@ -175,7 +175,8 @@ const extend = {
         button: '40px'
     },
     minWidth: {
-        auto: 'auto'
+        auto: 'auto',
+        tile: '4rem'
     },
     // TODO @TW: review. Use the abstracted values in code.
     opacity: {

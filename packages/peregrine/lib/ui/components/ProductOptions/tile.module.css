@@ -4,8 +4,8 @@
     composes: border-buttonWidth from global;
     composes: border-solid from global;
     composes: rounded-radius1 from global;
-    composes: h-[2.5rem] from global;
-    composes: min-w-[4rem] from global;
+    composes: h-10 from global;
+    composes: min-w-tile from global;
     composes: px-4 from global;
     composes: py-0 from global;
 
