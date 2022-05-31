@@ -1,0 +1,334 @@
+{
+  "data": {
+    "products": {
+      "aggregations": [
+        {
+          "label": "Price",
+          "count": 2,
+          "attribute_code": "price",
+          "options": [
+            {
+              "label": "100-110",
+              "value": "100_110",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "150-160",
+              "value": "150_160",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Category",
+          "count": 4,
+          "attribute_code": "category_id",
+          "options": [
+            {
+              "label": "Accessories",
+              "value": "3",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Jewelry",
+              "value": "5",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Bottoms",
+              "value": "11",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Pants & Shorts",
+              "value": "12",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": null,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Color",
+          "count": 6,
+          "attribute_code": "fashion_color",
+          "options": [
+            {
+              "label": "Gold",
+              "value": "5",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Silver",
+              "value": "6",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Lilac",
+              "value": "33",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Rain",
+              "value": "34",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Mint",
+              "value": "35",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Latte",
+              "value": "37",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Material",
+          "count": 4,
+          "attribute_code": "fashion_material",
+          "options": [
+            {
+              "label": "14K Gold",
+              "value": "7",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Sterling Silver",
+              "value": "8",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Organic Cotton",
+              "value": "60",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Spandex",
+              "value": "64",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Size",
+          "count": 5,
+          "attribute_code": "fashion_size",
+          "options": [
+            {
+              "label": "XL",
+              "value": "42",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "L",
+              "value": "43",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "M",
+              "value": "44",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "S",
+              "value": "45",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "XS",
+              "value": "46",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Style",
+          "count": 2,
+          "attribute_code": "fashion_style",
+          "options": [
+            {
+              "label": "Ankle Length",
+              "value": "69",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Slim Fit",
+              "value": "75",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Has Video",
+          "count": 1,
+          "attribute_code": "has_video",
+          "options": [
+            {
+              "label": "0",
+              "value": "0",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 0,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Brand",
+          "count": 2,
+          "attribute_code": "accessory_brand",
+          "options": [
+            {
+              "label": "Venia",
+              "value": "13",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Luma",
+              "value": "14",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 1,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Gemstone Addon",
+          "count": 1,
+          "attribute_code": "accessory_gemstone_addon",
+          "options": [
+            {
+              "label": "Ruby",
+              "value": "15",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 2,
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Recyclable Material",
+          "count": 1,
+          "attribute_code": "accessory_recyclable_material",
+          "options": [
+            {
+              "label": "1",
+              "value": "1",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "position": 5,
+          "__typename": "Aggregation"
+        }
+      ],
+      "items": [
+        {
+          "id": 14,
+          "uid": "MTQ=",
+          "sku": "VA24",
+          "name": "Night Out Collection",
+          "small_image": {
+            "url": "\/media\/catalog\/product\/cache\/f701c29533831f1895fc72f700ebc5cd\/v\/a\/va24_main.jpg",
+            "__typename": "ProductImage"
+          },
+          "url_key": "night-out-collection",
+          "url_suffix": ".html",
+          "price": {
+            "regularPrice": {
+              "amount": {
+                "value": 196,
+                "currency": "USD",
+                "__typename": "Money"
+              },
+              "__typename": "Price"
+            },
+            "__typename": "ProductPrices"
+          },
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 576,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 616,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 40,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "__typename": "BundleProduct"
+        },
+        {
+          "id": 1144,
+          "uid": "MTE0NA==",
+          "sku": "VP01",
+          "name": "Selena Pants",
+          "small_image": {
+            "url": "\/media\/catalog\/product\/cache\/f701c29533831f1895fc72f700ebc5cd\/v\/p\/vp01-ll_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "url_key": "selena-pants",
+          "url_suffix": ".html",
+          "price": {
+            "regularPrice": {
+              "amount": {
+                "value": 108,
+                "currency": "USD",
+                "__typename": "Money"
+              },
+              "__typename": "Price"
+            },
+            "__typename": "ProductPrices"
+          },
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "__typename": "ConfigurableProduct"
+        }
+      ],
+      "page_info": {
+        "total_pages": 1,
+        "__typename": "SearchResultPageInfo"
+      },
+      "total_count": 2,
+      "__typename": "Products"
+    }
+  }
+}
