@@ -61,7 +61,7 @@ export const useAccountMenu = props => {
         // Refresh the page as a way to say "re-initialize". An alternative
         // would be to call apolloClient.resetStore() but that would require
         // a large refactor.
-        history.go(0);
+        //history.go(0);
     }, [
         history,
         revokeToken,

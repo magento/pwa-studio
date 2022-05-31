@@ -1,7 +1,10 @@
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useEffect, useState } from 'react';
+import { handleEvent } from './handlers';
 
 export default original => props => {
+    const [{ isSignedIn }] = useUserContext();
     const [observable] = useEventingContext();
 
     const [sdk, setSdk] = useState();
@@ -32,7 +35,7 @@ export default original => props => {
     useEffect(() => {
         if (sdk) {
             const sub = observable.subscribe(async event => {
-                // Add event handlers here
+                handleEvent(sdk, event);
             });
 
             return () => {
@@ -40,6 +43,21 @@ export default original => props => {
             };
         }
     }, [sdk, observable]);
+
+    // Sets shopper context on initial load (when shopper context is null)
+    useEffect(() => {
+        if (sdk && !sdk.context.getShopper()) {
+            if (isSignedIn) {
+                sdk.context.setShopper({
+                    shopperId: 'logged-in'
+                });
+            } else {
+                sdk.context.setShopper({
+                    shopperId: 'guest'
+                });
+            }
+        }
+    }, [sdk, isSignedIn]);
 
     return original(props);
 };
