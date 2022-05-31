@@ -90,6 +90,7 @@ describe(
                     payload: {
                         currencyCode: 'USD',
                         discountAmount: 0,
+                        name: 'Silver Amor Bangle Set',
                         priceTotal: 98,
                         selectedOptions: null,
                         sku: 'VA22-SI-NA'
@@ -133,18 +134,19 @@ describe(
                         expect(impressions.length).eql(3);
                     });
                 });
-
-            cy.scrollTo('bottom', { duration: 1000 });
-            // seen all 12
+            cy.scrollTo('bottom');
+            // Scroll fast to not activate the middle products and show the last 3 products
             cy.get('@eventing')
                 .its('callCount')
-                .should('gte', 12)
+                .should('gte', 6)
                 .then(() => {
                     cy.wait(1000).then(() => {
-                        expect(impressions.length).eql(12);
+                        expect(impressions.length).eql(6);
                     });
                 });
-            cy.scrollTo('top');
+            // Slow scroll to see the rest of the 6 products
+            cy.scrollTo('top', { duration: 5000 });
+            // seen all 12
             // seen all 12
             cy.get('@eventing')
                 .its('callCount')
@@ -165,6 +167,7 @@ describe(
                     payload: {
                         currencyCode: 'USD',
                         discountAmount: 0,
+                        name: 'Carina Cardigan',
                         priceTotal: 78,
                         selectedOptions: null,
                         sku: 'VSW01'
@@ -216,6 +219,7 @@ describe(
                     payload: {
                         currencyCode: 'USD',
                         discountAmount: 0,
+                        name: 'Selena Pants',
                         priceTotal: 108,
                         selectedOptions: null,
                         sku: 'VP01'
@@ -275,6 +279,7 @@ describe(
                     payload: {
                         currencyCode: 'USD',
                         discountAmount: 0,
+                        name: 'Selena Pants',
                         priceTotal: 108,
                         selectedOptions: null,
                         sku: 'VP01'

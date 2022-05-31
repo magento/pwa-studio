@@ -7,7 +7,6 @@ export const useGalleryItem = (props = {}) => {
     const [, { dispatch }] = useEventingContext();
     const intersectionObserver = useIntersectionObserver();
     const { item, storeConfig } = props;
-    const itemRef = useRef(null);
 
     const finalPrice = item?.price_range?.maximum_price?.final_price?.value;
     const discountAmount =
@@ -19,6 +18,7 @@ export const useGalleryItem = (props = {}) => {
         dispatch({
             type: 'PRODUCT_CLICK',
             payload: {
+                name: item.name,
                 sku: item.sku,
                 priceTotal: finalPrice,
                 discountAmount,
@@ -28,27 +28,44 @@ export const useGalleryItem = (props = {}) => {
         });
     }, [currencyCode, discountAmount, dispatch, finalPrice, item]);
 
+    const itemRef = useRef(null);
+    const contextRef = useRef({
+        dispatched: false,
+        timeOutId: null
+    });
     useEffect(() => {
-        if (typeof intersectionObserver === 'undefined' || !item) {
+        if (
+            typeof intersectionObserver === 'undefined' ||
+            !item ||
+            contextRef.current.dispatched
+        ) {
             return;
         }
         const htmlElement = itemRef.current;
         const onIntersection = entries => {
-            if (entries.some(entry => entry.isIntersecting)) {
-                observer.unobserve(htmlElement);
-                dispatch({
-                    type: 'PRODUCT_IMPRESSION',
-                    payload: {
-                        sku: item.sku,
-                        priceTotal: finalPrice,
-                        discountAmount,
-                        currencyCode,
-                        selectedOptions: null
-                    }
-                });
+            if (entries[0].isIntersecting) {
+                contextRef.current.timeOutId = setTimeout(() => {
+                    observer.unobserve(htmlElement);
+                    dispatch({
+                        type: 'PRODUCT_IMPRESSION',
+                        payload: {
+                            name: item.name,
+                            sku: item.sku,
+                            priceTotal: finalPrice,
+                            discountAmount,
+                            currencyCode,
+                            selectedOptions: null
+                        }
+                    });
+                    contextRef.current.dispatched = true;
+                }, 500);
+            } else {
+                clearTimeout(contextRef.current.timeOutId);
             }
         };
-        const observer = new intersectionObserver(onIntersection);
+        const observer = new intersectionObserver(onIntersection, {
+            threshold: 0.9
+        });
         observer.observe(htmlElement);
         return () => {
             if (htmlElement) {

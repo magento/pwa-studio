@@ -88,6 +88,7 @@ const GalleryItem = props => {
             className={classes.root}
             aria-live="polite"
             aria-busy="false"
+            ref={itemRef}
         >
             <Link
                 onClick={handleLinkClick}
@@ -113,7 +114,6 @@ const GalleryItem = props => {
                 to={productLink}
                 className={classes.name}
                 data-cy="GalleryItem-name"
-                ref={itemRef}
             >
                 <span>{name}</span>
             </Link>

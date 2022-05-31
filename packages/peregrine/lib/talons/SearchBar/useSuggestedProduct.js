@@ -14,7 +14,15 @@ import resourceUrl from '../../util/makeUrl';
  */
 export const useSuggestedProduct = props => {
     const [, { dispatch }] = useEventingContext();
-    const { price, price_range, onNavigate, url_key, url_suffix, sku } = props;
+    const {
+        name,
+        price,
+        price_range,
+        onNavigate,
+        url_key,
+        url_suffix,
+        sku
+    } = props;
 
     const finalPrice = price_range?.maximum_price?.final_price?.value;
     const discountAmount = price_range?.maximum_price?.discount?.amount_off;
@@ -24,6 +32,7 @@ export const useSuggestedProduct = props => {
         dispatch({
             type: 'PRODUCT_CLICK',
             payload: {
+                name,
                 sku,
                 priceTotal: finalPrice,
                 discountAmount,
@@ -34,13 +43,22 @@ export const useSuggestedProduct = props => {
         if (typeof onNavigate === 'function') {
             onNavigate();
         }
-    }, [currencyCode, discountAmount, dispatch, finalPrice, onNavigate, sku]);
+    }, [
+        name,
+        currencyCode,
+        discountAmount,
+        dispatch,
+        finalPrice,
+        onNavigate,
+        sku
+    ]);
 
     useEffect(() => {
         if (sku !== null) {
             dispatch({
                 type: 'PRODUCT_IMPRESSION',
                 payload: {
+                    name,
                     sku,
                     priceTotal: finalPrice,
                     discountAmount,
@@ -49,7 +67,7 @@ export const useSuggestedProduct = props => {
                 }
             });
         }
-    }, [currencyCode, discountAmount, dispatch, finalPrice, sku]);
+    }, [name, currencyCode, discountAmount, dispatch, finalPrice, sku]);
 
     // fall back to deprecated field if price range is unavailable
     const priceProps = useMemo(() => {

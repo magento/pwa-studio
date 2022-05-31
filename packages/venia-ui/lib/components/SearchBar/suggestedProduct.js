@@ -24,6 +24,7 @@ const SuggestedProduct = props => {
     } = props;
 
     const talonProps = useSuggestedProduct({
+        name,
         price,
         price_range,
         onNavigate,
