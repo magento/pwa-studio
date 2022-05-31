@@ -11,8 +11,6 @@ import {
 } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import Icon from '../Icon';
-import { Check as CheckIcon } from 'react-feather';
 
 import defaultClasses from './swatch.module.css';
 
@@ -22,7 +20,7 @@ const getClassName = (name, isSelected, hasFocus) =>
     `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}`;
 
 // Swatches _must_ have a 1x1 aspect ratio to match the UI.
-const SWATCH_WIDTH = 48;
+const SWATCH_WIDTH = 40;
 
 const Swatch = props => {
     const {
@@ -41,11 +39,6 @@ const Swatch = props => {
     const { handleClick } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
-
-    const checkStyle = useMemo(
-        () => (isSelected ? classes.checked : classes.unchecked),
-        [classes.checked, classes.unchecked, isSelected]
-    );
 
     let finalStyle = style;
 
@@ -82,11 +75,10 @@ const Swatch = props => {
             onClick={handleClick}
             style={finalStyle}
             title={label}
+            aria-label={label}
             type="button"
             data-cy="Swatch-root"
-        >
-            <Icon classes={{ root: checkStyle }} src={CheckIcon} />
-        </button>
+        />
     );
 };
 

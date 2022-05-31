@@ -48,16 +48,17 @@ const extend = {
     backgroundColor: theme => ({
         body: '#FFF',
         header: '#FFF',
-        subtle: theme('colors.gray.100')
+        subtle: theme('colors.gray.100'),
+        swatch: {
+            base: theme('colors.neutral.200'),
+            selected: theme('colors.neutral.50'),
+            variable: 'var(--venia-swatch-bg)'
+        }
     }),
     backgroundImage: theme => ({
         'gradient-radial': `radial-gradient(circle, ${theme(
             'colors.gray.100'
-        )}, white)`,
-        swatch: theme('colors.gray.100'),
-        'swatch-selected': `linear-gradient(-45deg, rgba(0, 0, 0, 0.2), transparent), ${theme(
-            'colors.gray.100'
-        )}`
+        )}, white)`
     }),
     borderColor: theme => ({
         buttonColor: {
@@ -75,11 +76,14 @@ const extend = {
         strong: theme('colors.gray.800'),
         subtle: theme('colors.gray.300'),
         success: theme('colors.green.600'),
+        swatch: {
+            base: theme('colors.neutral.400')
+        },
         warning: theme('colors.yellow.500')
     }),
     borderRadius: {
         // Primitive
-        radius1: '4px',
+        radius1: '3px',
         radius2: '8px',
         radius3: '100%'
 
@@ -139,7 +143,9 @@ const extend = {
         autoAuto: 'auto auto',
         autoFirst: 'auto 1fr',
         autoLast: '1fr auto',
-        carouselThumbnailList: 'repeat(auto-fit, 1rem)'
+        carouselThumbnailList: 'repeat(auto-fit, 1rem)',
+        tileList: 'repeat(auto-fit, minmax(2.5rem, max-content))',
+        swatchList: 'repeat(auto-fit, minmax(2.5rem, max-content))'
     },
     gridTemplateRows: {
         auto: 'auto',
@@ -169,7 +175,8 @@ const extend = {
         button: '40px'
     },
     minWidth: {
-        auto: 'auto'
+        auto: 'auto',
+        tile: '4rem'
     },
     // TODO @TW: review. Use the abstracted values in code.
     opacity: {
@@ -201,7 +208,10 @@ const extend = {
         colorDefault: theme('colors.gray.900'), // TODO @TW naming collision: TW puts "fontSize" + "color" under "text-" prefix
         error: theme('colors.red.700'),
         subtle: theme('colors.gray.600'),
-        DEFAULT: theme('colors.gray.900')
+        DEFAULT: theme('colors.gray.900'),
+        swatch: {
+            selected: theme('colors.gray.900')
+        }
     }),
     transitionTimingFunction: {
         standard: 'cubic-bezier(0.4, 0, 0.2, 1)'

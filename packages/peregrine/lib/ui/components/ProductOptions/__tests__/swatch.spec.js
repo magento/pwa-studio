@@ -58,15 +58,3 @@ test('appends "_focused" to className if hasFocus is true', () => {
 
     expect(component).toMatchSnapshot();
 });
-
-test('renders an icon if isSelected is true', () => {
-    const props = {
-        ...defaultProps,
-        isSelected: true
-    };
-
-    const component = testRenderer.create(<Swatch {...props} />);
-
-    expect(() => component.root.findByType(Icon)).not.toThrow();
-    expect(component).toMatchSnapshot();
-});
