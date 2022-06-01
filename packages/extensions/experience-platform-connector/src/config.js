@@ -2,7 +2,7 @@ import { default as addToCartHandler } from './handlers/addToCart';
 import { default as completeCheckoutHandler } from './handlers/completeCheckout';
 import { default as createAccountHandler } from './handlers/createAccount';
 import { default as editAccountHandler } from './handlers/editAccount';
-import { default as pageViewHandler } from './handlers/pageViewHandler';
+import { default as pageViewHandler } from './handlers/pageView';
 import { default as placeOrderHandler } from './handlers/placeOrder';
 import { default as productPageViewHandler } from './handlers/productPageView';
 import { default as searchRequestSentHandler } from './handlers/searchRequestSent';
