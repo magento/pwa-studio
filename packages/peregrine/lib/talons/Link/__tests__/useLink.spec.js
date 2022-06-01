@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { act, create } from 'react-test-renderer';
 import { useLazyQuery } from '@apollo/client';
-import useLink from '../useLink';
+import { useLink } from '../useLink';
 import useIntersectionObserver from '../../../hooks/useIntersectionObserver';
 
 jest.mock('react', () => {

@@ -5,7 +5,7 @@ import resourceUrl from '../../util/makeUrl';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from '../MagentoRoute/magentoRoute.gql';
 
-const useLink = (props, passedOperations = {}) => {
+export const useLink = (props, passedOperations = {}) => {
     const { innerRef: originalRef, to } = props;
     const shouldPrefetch = props.prefetchType || props.shouldPrefetch;
     const operations = shouldPrefetch
@@ -65,5 +65,3 @@ const useLink = (props, passedOperations = {}) => {
         ref: elementRef
     };
 };
-
-export default useLink;

@@ -3,7 +3,7 @@ import { useAppContext } from '../../context/app';
 
 const GROUP_LOADING_DELAY = 750;
 
-export default () => {
+export const usePageLoadingIndicator = () => {
     const [{ isPageLoading }] = useAppContext();
     const doneTimeoutRef = useRef();
     const [loadingState, setLoadingState] = useState('off');
