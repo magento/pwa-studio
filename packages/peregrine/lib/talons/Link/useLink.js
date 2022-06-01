@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import resourceUrl from '../../util/makeUrl';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from '../MagentoRoute/magentoRoute.gql';

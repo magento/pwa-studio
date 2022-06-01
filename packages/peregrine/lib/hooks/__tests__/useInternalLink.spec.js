@@ -1,5 +1,5 @@
 import { useAppContext } from '../../context/app';
-import useInternalLink, { SHIMMER_TYPE_SUFFIX } from '../useInternalLink';
+import { useInternalLink, SHIMMER_TYPE_SUFFIX } from '../useInternalLink';
 
 jest.mock('../../context/app', () => ({
     useAppContext: jest.fn()
