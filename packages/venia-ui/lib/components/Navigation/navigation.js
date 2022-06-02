@@ -36,7 +36,7 @@ const Navigation = props => {
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
-    const tabindex = isOpen ? "0" : "-1";
+    const tabindex = isOpen ? '0' : '-1';
 
     // Lazy load the auth modal because it may not be needed.
     const authModal = hasModal ? (
@@ -58,37 +58,37 @@ const Navigation = props => {
             {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
             <FocusScope contain restoreFocus autoFocus>
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-            <aside className={rootClassName}>
-                <header className={classes.header}>
-                    <NavHeader
-                        isTopLevel={isTopLevel}
-                        onBack={handleBack}
-                        view={view}
-                    />
-                </header>
-                <div className={bodyClassName}>
-                    <CategoryTree
-                        categoryId={categoryId}
-                        onNavigate={handleClose}
-                        setCategoryId={setCategoryId}
-                        updateCategories={catalogActions.updateCategories}
-                        tabindex={tabindex}
-                    />
-                </div>
-                <div className={classes.footer}>
-                    <div className={classes.switchers}>
-                        <StoreSwitcher />
-                        <CurrencySwitcher />
+                <aside className={rootClassName}>
+                    <header className={classes.header}>
+                        <NavHeader
+                            isTopLevel={isTopLevel}
+                            onBack={handleBack}
+                            view={view}
+                        />
+                    </header>
+                    <div className={bodyClassName}>
+                        <CategoryTree
+                            categoryId={categoryId}
+                            onNavigate={handleClose}
+                            setCategoryId={setCategoryId}
+                            updateCategories={catalogActions.updateCategories}
+                            tabindex={tabindex}
+                        />
                     </div>
-                    <AuthBar
-                        disabled={hasModal}
-                        showMyAccount={showMyAccount}
-                        showSignIn={showSignIn}
-                    />
-                </div>
-                <div className={modalClassName}>{authModal}</div>
-            </aside>
-        </FocusScope>
+                    <div className={classes.footer}>
+                        <div className={classes.switchers}>
+                            <StoreSwitcher />
+                            <CurrencySwitcher />
+                        </div>
+                        <AuthBar
+                            disabled={hasModal}
+                            showMyAccount={showMyAccount}
+                            showSignIn={showSignIn}
+                        />
+                    </div>
+                    <div className={modalClassName}>{authModal}</div>
+                </aside>
+            </FocusScope>
         </Portal>
     );
 };

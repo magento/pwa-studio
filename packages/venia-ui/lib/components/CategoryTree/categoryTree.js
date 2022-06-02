@@ -8,7 +8,13 @@ import Leaf from './categoryLeaf';
 import defaultClasses from './categoryTree.module.css';
 
 const Tree = props => {
-    const { categoryId, onNavigate, setCategoryId, updateCategories, tabindex } = props;
+    const {
+        categoryId,
+        onNavigate,
+        setCategoryId,
+        updateCategories,
+        tabindex
+    } = props;
 
     const talonProps = useCategoryTree({
         categoryId,
