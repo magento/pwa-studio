@@ -73,14 +73,37 @@ export const useCustomerForm = props => {
     }
 
     const [, { dispatch }] = useEventingContext();
-    const dispatchEvent = useCallback(() => {
-        dispatch({
-            type: 'CHECKOUT_SHIPPING_INFORMATION_ADDED',
-            payload: {
-                cart_id: customerData.cart_id
+    const dispatchEvent = useCallback(
+        (action, address) => {
+            if (action === 'ADD') {
+                dispatch({
+                    type: 'USER_ADDRESS_CREATE',
+                    payload: {
+                        address: address,
+                        user: customerData
+                    }
+                });
             }
-        });
-    }, [customerData.cart_id, dispatch]);
+            if (action === 'EDIT') {
+                dispatch({
+                    type: 'USER_ADDRESS_EDIT',
+                    payload: {
+                        address: address,
+                        user: customerData
+                    }
+                });
+            }
+            if (!hasDefaultShipping) {
+                dispatch({
+                    type: 'CHECKOUT_SHIPPING_INFORMATION_ADDED',
+                    payload: {
+                        cart_id: customerData.cart_id
+                    }
+                });
+            }
+        },
+        [customerData, dispatch, hasDefaultShipping]
+    );
 
     const handleSubmit = useCallback(
         async formValues => {
@@ -103,6 +126,7 @@ export const useCustomerForm = props => {
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }]
                     });
+                    dispatchEvent('EDIT', customerAddress);
                 } else {
                     await createCustomerAddress({
                         variables: {
@@ -113,7 +137,7 @@ export const useCustomerForm = props => {
                             { query: getDefaultShippingQuery }
                         ]
                     });
-                    dispatchEvent();
+                    dispatchEvent('ADD', customerAddress);
                 }
             } catch {
                 return;

@@ -312,24 +312,109 @@ describe('returns Apollo errors', () => {
     });
 });
 
-test('should dispatch add address event when new address', async () => {
-    const mockDispatchEvent = jest.fn();
-    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+describe('should dispatch event(s)', () => {
+    test('`add` and `create` when created first address', async () => {
+        const mockDispatchEvent = jest.fn();
+        useEventingContext.mockReturnValue([
+            {},
+            { dispatch: mockDispatchEvent }
+        ]);
 
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
 
-    await talonProps.handleSubmit({
-        country: 'US',
-        email: 'fry@planet.express',
-        firstname: 'Philip',
-        region: {
-            region_id: 2
-        },
-        street: ['Street 1']
+        await talonProps.handleSubmit({
+            country: 'US',
+            email: 'fry@planet.express',
+            firstname: 'Philip',
+            region: {
+                region_id: 2
+            },
+            street: ['Street 1']
+        });
+
+        expect(mockDispatchEvent).toHaveBeenCalledTimes(2);
+        expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+        expect(mockDispatchEvent.mock.calls[1][0]).toMatchSnapshot();
     });
 
-    expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
-    expect(mockDispatchEvent.mock.calls).toMatchSnapshot();
+    test('`create` when new address added to the address book', async () => {
+        const mockDispatchEvent = jest.fn();
+        useEventingContext.mockReturnValue([
+            {},
+            { dispatch: mockDispatchEvent }
+        ]);
+        useQuery.mockReturnValueOnce({
+            data: {
+                customer: {
+                    default_shipping: 5,
+                    email: 'fry@planet.express',
+                    firstname: 'Philip',
+                    lastname: 'Fry'
+                }
+            },
+            error: null,
+            loading: true
+        });
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        await talonProps.handleSubmit({
+            country: 'US',
+            email: 'fry@planet.express',
+            firstname: 'Philip',
+            region: {
+                region_id: 2
+            },
+            street: ['Street 1']
+        });
+
+        expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
+        expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('`edit` when user updates address', async () => {
+        const mockDispatchEvent = jest.fn();
+        useEventingContext.mockReturnValue([
+            {},
+            { dispatch: mockDispatchEvent }
+        ]);
+        useQuery.mockReturnValueOnce({
+            data: {
+                customer: {
+                    default_shipping: 5,
+                    email: 'fry@planet.express',
+                    firstname: 'Philip',
+                    lastname: 'Fry'
+                }
+            },
+            error: null,
+            loading: true
+        });
+
+        const tree = createTestInstance(
+            <Component
+                {...mockProps}
+                shippingData={{ ...shippingData, city: 'New York', id: 66 }}
+            />
+        );
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        await talonProps.handleSubmit({
+            country: 'US',
+            email: 'fry@planet.express',
+            firstname: 'Philip',
+            region: {
+                region_id: 2
+            },
+            street: ['Street 2']
+        });
+
+        expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
+        expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+    });
 });
