@@ -5,26 +5,22 @@
 
 .contained {
     composes: root;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    composes: w-full from global;
+    composes: mx-auto from global;
     max-width: var(--venia-global-maxWidth, 1280px);
-    width: 100%;
 }
 
 .fullBleed {
     composes: root;
+    composes: ml-half from global;
+    composes: -translate-x-2/4 from global;
     width: calc(100vw - var(--scrollBarWidth));
-    transform: translateX(-50%);
-    margin-left: 50%;
 }
 
 .videoOverlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -99;
+    composes: absolute from global;
+    composes: inset-0 from global;
+    composes: -z-99 from global;
     -webkit-transform: translate3d(0, 0, 0);
 }
 
