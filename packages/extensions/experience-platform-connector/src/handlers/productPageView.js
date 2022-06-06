@@ -32,7 +32,6 @@ const handle = (sdk, event) => {
 
     sdk.context.setProduct(productContext);
 
-    // TODO: Handler logic
     sdk.publish.productPageView();
 };
 

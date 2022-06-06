@@ -7,7 +7,8 @@ import { default as placeOrderHandler } from './handlers/placeOrder';
 import { default as productPageViewHandler } from './handlers/productPageView';
 import { default as searchRequestSentHandler } from './handlers/searchRequestSent';
 import { default as searchResponseReceivedHandler } from './handlers/searchResponseReceived';
-import { default as shoppingCartViewHandler } from './handlers/shoppingCartView';
+import { default as shoppingCartPageViewHandler } from './handlers/shoppingCartPageView';
+import { default as shoppingMiniCartViewHandler } from './handlers/shoppingMiniCartView';
 import { default as startCheckoutHandler } from './handlers/startCheckout';
 import { default as signInHandler } from './handlers/signIn';
 import { default as signOutHandler } from './handlers/signOut';
@@ -22,7 +23,8 @@ export default [
     productPageViewHandler,
     searchRequestSentHandler,
     searchResponseReceivedHandler,
-    shoppingCartViewHandler,
+    shoppingCartPageViewHandler,
+    shoppingMiniCartViewHandler,
     startCheckoutHandler,
     signInHandler,
     signOutHandler
