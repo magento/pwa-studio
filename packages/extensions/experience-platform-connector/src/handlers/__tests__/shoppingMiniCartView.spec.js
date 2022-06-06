@@ -24,7 +24,7 @@ describe('handle()', () => {
             }
         };
 
-        handler.handle(mockSdk, cartPageViewEvent);
+        handler.handle(mockSdk, miniCartViewEvent);
 
         expect(mockSdk.context.setShoppingCart).toHaveBeenCalledTimes(1);
         expect(

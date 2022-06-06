@@ -9,13 +9,13 @@ Object {
     Object {
       "configurableOptions": Array [
         Object {
-          "id": 157,
+          "id": undefined,
           "optionLabel": "Fashion Color",
           "valueId": "Y29uZmlndXJhYmxlLzE1Ny8zMQ==",
           "valueLabel": "Peach",
         },
         Object {
-          "id": 190,
+          "id": undefined,
           "optionLabel": "Fashion Size",
           "valueId": "Y29uZmlndXJhYmxlLzE5MC80Mw==",
           "valueLabel": "L",
@@ -28,10 +28,6 @@ Object {
         "price": Object {
           "__typename": "Money",
           "currency": "USD",
-          "value": 78,
-        },
-        "row_total": Object {
-          "__typename": "Money",
           "value": 78,
         },
         "total_item_discount": Object {
@@ -65,10 +61,6 @@ Object {
           "currency": "USD",
           "value": 68,
         },
-        "row_total": Object {
-          "__typename": "Money",
-          "value": 136,
-        },
         "total_item_discount": Object {
           "__typename": "Money",
           "value": 0,
@@ -92,13 +84,13 @@ Object {
     Object {
       "configurableOptions": Array [
         Object {
-          "id": 157,
+          "id": undefined,
           "optionLabel": "Fashion Color",
           "valueId": "Y29uZmlndXJhYmxlLzE1Ny8zMQ==",
           "valueLabel": "Peach",
         },
         Object {
-          "id": 190,
+          "id": undefined,
           "optionLabel": "Fashion Size",
           "valueId": "Y29uZmlndXJhYmxlLzE5MC80NA==",
           "valueLabel": "M",
@@ -112,10 +104,6 @@ Object {
           "__typename": "Money",
           "currency": "USD",
           "value": 48,
-        },
-        "row_total": Object {
-          "__typename": "Money",
-          "value": 144,
         },
         "total_item_discount": Object {
           "__typename": "Money",

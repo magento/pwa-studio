@@ -1,4 +1,5 @@
 import { default as addToCartHandler } from './handlers/addToCart';
+import { default as categoryPageViewHandler } from './handlers/categoryPageView';
 import { default as completeCheckoutHandler } from './handlers/completeCheckout';
 import { default as createAccountHandler } from './handlers/createAccount';
 import { default as editAccountHandler } from './handlers/editAccount';
@@ -15,6 +16,7 @@ import { default as signOutHandler } from './handlers/signOut';
 
 export default [
     addToCartHandler,
+    categoryPageViewHandler,
     completeCheckoutHandler,
     createAccountHandler,
     editAccountHandler,

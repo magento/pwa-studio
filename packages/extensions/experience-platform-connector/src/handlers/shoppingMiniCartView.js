@@ -5,7 +5,7 @@ const canHandle = event => event.type === 'MINI_CART_VIEW';
 const handle = (sdk, event) => {
     const { payload } = event;
 
-    const { cart_id: id, products } = payload;
+    const { cartId: id, products } = payload;
 
     const cartContext = {
         id: id,

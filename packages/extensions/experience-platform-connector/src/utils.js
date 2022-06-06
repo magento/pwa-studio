@@ -9,7 +9,8 @@
 export const getCartTotal = products => {
     return products
         ? products.reduce(
-              (previous, current) => current.prices.row_total.value + previous,
+              (previous, current) =>
+                  current.prices.price.value * current.quantity + previous,
               0
           )
         : 0;
@@ -47,7 +48,8 @@ export const getFormattedProducts = products => {
                   sku,
                   __typename: type,
                   url_key: url,
-                  small_image: image
+                  small_image: image,
+                  thumbnail
               } = product;
 
               const formattedOptions = options
@@ -67,6 +69,12 @@ export const getFormattedProducts = products => {
                     })
                   : null;
 
+              const imageUrl = image
+                  ? image.url
+                  : thumbnail
+                  ? thumbnail.url
+                  : null;
+
               return {
                   formattedPrice: '', // TODO
                   id: uid,
@@ -82,7 +90,7 @@ export const getFormattedProducts = products => {
                           currencyCode: prices.price.currency
                       },
                       canonicalUrl: url,
-                      mainImageUrl: image.url
+                      mainImageUrl: imageUrl
                   },
 
                   configurableOptions: formattedOptions,
