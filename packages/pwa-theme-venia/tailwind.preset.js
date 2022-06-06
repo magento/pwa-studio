@@ -166,7 +166,8 @@ const extend = {
     },
     minHeight: {
         auto: 'auto',
-        button: '40px'
+        button: '40px',
+        inherit: 'inherit'
     },
     minWidth: {
         auto: 'auto'
@@ -195,6 +196,7 @@ const extend = {
         lg: '3rem',
         DEFAULT: '1.5rem',
         filterSidebarWidth: '325px',
+        half: '50%',
         full: '100%'
     },
     textColor: theme => ({
