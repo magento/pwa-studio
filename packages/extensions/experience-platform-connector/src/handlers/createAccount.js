@@ -1,13 +1,21 @@
-const canHandle = event => {
-  // TODO: Return true if this module's handler can handle the event
-  return;
-}
+const canHandle = event => event.type === 'USER_CREATE_ACCOUNT';
 
 const handle = (sdk, event) => {
-  // TODO: Handler logic
-}
+    const { payload } = event;
+
+    const { firstName, lastName, email } = payload;
+
+    const accountContext = {
+        firstName: firstName,
+        lastName: lastName,
+        emailAddress: email
+    };
+
+    sdk.context.setAccount(accountContext);
+    sdk.publish.createAccount(payload);
+};
 
 export default {
-  canHandle,
-  handle
-}
+    canHandle,
+    handle
+};
