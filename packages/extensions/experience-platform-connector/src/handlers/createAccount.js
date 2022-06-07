@@ -12,7 +12,7 @@ const handle = (sdk, event) => {
     };
 
     sdk.context.setAccount(accountContext);
-    sdk.publish.createAccount(payload);
+    sdk.publish.createAccount(accountContext);
 };
 
 export default {
