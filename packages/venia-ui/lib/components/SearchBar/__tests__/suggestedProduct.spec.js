@@ -7,6 +7,9 @@ jest.mock('react-router-dom', () => ({
     Link: ({ children }) => children
 }));
 jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const defaultProps = {
     handleOnProductOpen: jest.fn(),

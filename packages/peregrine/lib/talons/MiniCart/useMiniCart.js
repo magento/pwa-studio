@@ -110,11 +110,38 @@ export const useMiniCart = props => {
                         itemId: id
                     }
                 });
+
+                const [product] = productList.filter(
+                    p => (p.uid || p.id) === id
+                );
+
+                const selectedOptionsLabels =
+                    product.configurable_options?.map(
+                        ({ option_label, value_label }) => ({
+                            attribute: option_label,
+                            value: value_label
+                        })
+                    ) || null;
+
+                dispatch({
+                    type: 'CART_REMOVE_ITEM',
+                    payload: {
+                        cartId,
+                        sku: product.product.sku,
+                        name: product.product.name,
+                        priceTotal: product.prices.price.value,
+                        currencyCode: product.prices.price.currency,
+                        discountAmount:
+                            product.prices.total_item_discount.value,
+                        selectedOptions: selectedOptionsLabels,
+                        quantity: product.quantity
+                    }
+                });
             } catch (e) {
                 // Error is logged by apollo link - no need to double log.
             }
         },
-        [cartId, removeItem]
+        [removeItem, cartId, dispatch, productList]
     );
 
     const handleProceedToCheckout = useCallback(() => {
