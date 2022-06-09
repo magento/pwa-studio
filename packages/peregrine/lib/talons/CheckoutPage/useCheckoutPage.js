@@ -305,40 +305,65 @@ export const useCheckoutPage = (props = {}) => {
                     products: cartItems
                 }
             });
-        } else if (
-            placeOrderData?.placeOrder?.order?.order_number &&
-            orderDetailsData?.cart.id === cartId
-        ) {
-            const shipping = orderDetailsData.cart.shipping_addresses.reduce(
-                (result, item) => {
-                    return [
-                        ...result,
-                        {
-                            ...item.selected_shipping_method
-                        }
-                    ];
-                },
-                []
-            );
+        } else if (reviewOrderButtonClicked) {
             dispatch({
-                type: 'ORDER_CONFIRMATION_PAGE_VIEW',
+                type: 'CHECKOUT_REVIEW_BUTTON_CLICKED',
                 payload: {
-                    order_number: placeOrderData.placeOrder.order.order_number,
-                    amount: orderDetailsData.cart.prices,
-                    shipping: shipping,
-                    payment: orderDetailsData.cart.selected_payment_method,
-                    products: orderDetailsData.cart.items
+                    cart_id: cartId
                 }
             });
+        } else if (
+            placeOrderButtonClicked &&
+            orderDetailsData &&
+            orderDetailsData.cart
+        ) {
+            const shipping =
+                orderDetailsData.cart?.shipping_addresses &&
+                orderDetailsData.cart.shipping_addresses.reduce(
+                    (result, item) => {
+                        return [
+                            ...result,
+                            {
+                                ...item.selected_shipping_method
+                            }
+                        ];
+                    },
+                    []
+                );
+            const eventPayload = {
+                cart_id: cartId,
+                amount: orderDetailsData.cart.prices,
+                shipping: shipping,
+                payment: orderDetailsData.cart.selected_payment_method,
+                products: orderDetailsData.cart.items
+            };
+            if (isPlacingOrder) {
+                dispatch({
+                    type: 'CHECKOUT_PLACE_ORDER_BUTTON_CLICKED',
+                    payload: eventPayload
+                });
+            } else if (placeOrderData && orderDetailsData?.cart.id === cartId) {
+                dispatch({
+                    type: 'ORDER_CONFIRMATION_PAGE_VIEW',
+                    payload: {
+                        order_number:
+                            placeOrderData.placeOrder.order.order_number,
+                        ...eventPayload
+                    }
+                });
+            }
         }
     }, [
+        placeOrderButtonClicked,
         cartId,
         checkoutStep,
         orderDetailsData,
         cartItems,
         isLoading,
         dispatch,
-        placeOrderData
+        placeOrderData,
+        isPlacingOrder,
+        reviewOrderButtonClicked
     ]);
 
     return {
