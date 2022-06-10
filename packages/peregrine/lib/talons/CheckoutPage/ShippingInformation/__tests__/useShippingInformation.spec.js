@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 
 import { useAppContext } from '../../../../context/app';
 import { useCartContext } from '../../../../context/cart';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import createTestInstance from '../../../../util/createTestInstance';
 
 import { useShippingInformation } from '../useShippingInformation';
@@ -75,6 +76,10 @@ jest.mock(
         setShippingAddressMutation: 'setShippingAddressMutation'
     })
 );
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const Component = props => {
     const talonProps = useShippingInformation(props);
@@ -475,4 +480,39 @@ test('does not set the default address on cart when there is not default shippin
     createTestInstance(<Component {...mockProps} />);
 
     expect(mockSetDefaultAddressOnCart).not.toHaveBeenCalled();
+});
+
+test('should dispatch update event', async () => {
+    const mockDispatchEvent = jest.fn();
+    const address = {
+        city: 'Manhattan',
+        firstname: 'Philip',
+        lastname: 'Fry',
+        street: ['3000 57th Street', 'Suite 200'],
+        telephone: '(123) 456-7890',
+        region: {
+            region_id: 12
+        }
+    };
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    mockGetShippingInformationResult
+        .mockReturnValueOnce({
+            data: { cart: { shipping_addresses: [address] } }
+        })
+        .mockReturnValueOnce({
+            data: { cart: { shipping_addresses: [address] } }
+        })
+        .mockReturnValueOnce({
+            data: { cart: { shipping_addresses: [address] } }
+        });
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+
+    act(() => {
+        tree.update(<Component {...mockProps} />);
+    });
+
+    expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls).toMatchSnapshot();
 });

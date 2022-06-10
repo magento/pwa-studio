@@ -9,6 +9,7 @@ import {
 import { useMutation, useQuery } from '@apollo/client';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 
 /*
  *  Mocks.
@@ -75,6 +76,10 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
 
     return { useUserContext };
 });
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 /*
  *  Member Variables.
@@ -441,4 +446,32 @@ test('should call onSuccess on mutation success', () => {
     onCompleted();
 
     expect(onSuccess).toHaveBeenCalled();
+});
+
+test('should dispatch add/update event', async () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    createTestInstance(<Component {...props} />);
+    let talonProps = log.mock.calls[0][0];
+
+    await act(async () => {
+        await talonProps.handleSubmit({ shipping_method: 'usps|flatrate' });
+    });
+
+    act(() => {
+        talonProps.showUpdateMode();
+    });
+    talonProps = log.mock.calls[1][0];
+
+    await act(async () => {
+        await talonProps.handleSubmit({
+            shipping_method: 'freeshipping|freeshipping'
+        });
+    });
+
+    expect(mockDispatchEvent).toHaveBeenCalledTimes(2);
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot('added');
+    expect(mockDispatchEvent.mock.calls[1][0]).toMatchSnapshot('updated');
 });

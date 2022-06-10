@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { Observable } from 'zen-observable-ts';
 
-const EVENT_NAME = 'beacon';
+const EVENT_NAME = 'eventing';
 const EventingContext = createContext();
 
 const EventingContextProvider = props => {
