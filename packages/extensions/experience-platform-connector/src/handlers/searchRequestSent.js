@@ -1,4 +1,5 @@
-const canHandle = event => event.type.in(['SEARCH_REQUEST', 'SEARCHBAR_REQUEST']);
+const canHandle = event =>
+    ['SEARCH_REQUEST', 'SEARCHBAR_REQUEST'].includes(event.type);
 
 const handle = (sdk, event) => {
     const { payload } = event;

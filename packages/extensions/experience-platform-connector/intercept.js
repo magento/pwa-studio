@@ -1,25 +1,5 @@
 module.exports = targets => {
 
-    // TODO: Remove these env variables once we are able to fetch the org and datastream id from graphql
-    const builtins = targets.of('@magento/pwa-buildpack');
-    builtins.envVarDefinitions.tap(defs => {
-        defs.sections.push({
-            name: 'Experience Platform Connector',
-            variables: [
-                {
-                    name: 'IMS_ORG_ID',
-                    type: 'str',
-                    desc: 'Value for imsOrgId context value',
-                },
-                {
-                    name: 'DATASTREAM_ID',
-                    type: 'str',
-                    desc: 'Value for datastreamId context value',
-                }
-            ]
-        });
-    });
-
     const { talons } = targets.of('@magento/peregrine');
     const { specialFeatures } = targets.of('@magento/pwa-buildpack');
 
