@@ -12,7 +12,6 @@ import { default as shoppingCartPageViewHandler } from './handlers/shoppingCartP
 import { default as shoppingMiniCartViewHandler } from './handlers/shoppingMiniCartView';
 import { default as startCheckoutHandler } from './handlers/startCheckout';
 import { default as signInHandler } from './handlers/signIn';
-import { default as signOutHandler } from './handlers/signOut';
 
 export default [
     addToCartHandler,
@@ -28,6 +27,5 @@ export default [
     shoppingCartPageViewHandler,
     shoppingMiniCartViewHandler,
     startCheckoutHandler,
-    signInHandler,
-    signOutHandler
+    signInHandler
 ];

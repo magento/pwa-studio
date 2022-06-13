@@ -1,5 +1,4 @@
 module.exports = targets => {
-
     const { talons } = targets.of('@magento/peregrine');
     const { specialFeatures } = targets.of('@magento/pwa-buildpack');
 
@@ -13,7 +12,10 @@ module.exports = targets => {
         };
     });
 
-    talons.tap(({ App }) => {
+    talons.tap(({ App, Header }) => {
         App.useApp.wrapWith('@magento/experience-platform-connector');
+        Header.useAccountMenu.wrapWith(
+            '@magento/experience-platform-connector/src/wrappers/wrapUseAccountMenu'
+        );
     });
 };
