@@ -16,7 +16,11 @@ const handle = (sdk, event) => {
     };
 
     sdk.context.setAccount(accountContext);
-    sdk.publish.signIn(payload);
+    sdk.publish.signIn({
+      personalEmail: {
+        address: email
+      }
+    });
 };
 
 export default {

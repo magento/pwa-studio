@@ -12,7 +12,11 @@ const handle = (sdk, event) => {
     };
 
     sdk.context.setAccount(accountContext);
-    sdk.publish.editAccount(accountContext);
+    sdk.publish.editAccount({
+        personalEmail: {
+            address: email
+        }
+    });
 };
 
 export default {

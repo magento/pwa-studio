@@ -12,7 +12,11 @@ const handle = (sdk, event) => {
     };
 
     sdk.context.setAccount(accountContext);
-    sdk.publish.createAccount(accountContext);
+    sdk.publish.createAccount({
+        personalEmail: {
+            address: email
+        }
+    });
 };
 
 export default {
