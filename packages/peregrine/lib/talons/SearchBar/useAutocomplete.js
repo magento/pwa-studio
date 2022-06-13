@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 import { useLazyQuery } from '@apollo/client';
 import debounce from 'lodash.debounce';
+import { useEventingContext } from '../../context/eventing';
 
 /**
  * @typedef { import("graphql").DocumentNode } DocumentNode
@@ -20,6 +21,8 @@ export const useAutocomplete = props => {
         valid,
         visible
     } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     // Prepare to run the queries.
     const [runSearch, productResult] = useLazyQuery(getAutocompleteResults, {
@@ -44,8 +47,20 @@ export const useAutocomplete = props => {
     useEffect(() => {
         if (valid && visible) {
             debouncedRunQuery(value);
+
+            if (value) {
+                dispatch({
+                    type: 'SEARCHBAR_REQUEST',
+                    payload: {
+                        value: value,
+                        currentPage: 1, // Same value used in GQL query
+                        pageSize: 3, // Same value used in GQL query
+                        refinements: []
+                    }
+                });
+            }
         }
-    }, [debouncedRunQuery, valid, value, visible]);
+    }, [debouncedRunQuery, valid, value, visible, dispatch]);
 
     const { data, error, loading } = productResult;
 
