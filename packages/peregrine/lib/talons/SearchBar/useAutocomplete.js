@@ -52,7 +52,7 @@ export const useAutocomplete = props => {
                 dispatch({
                     type: 'SEARCHBAR_REQUEST',
                     payload: {
-                        value: value,
+                        query: value,
                         currentPage: 1, // Same value used in GQL query
                         pageSize: 3, // Same value used in GQL query
                         refinements: []
