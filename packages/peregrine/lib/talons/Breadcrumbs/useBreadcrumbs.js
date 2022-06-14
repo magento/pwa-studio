@@ -57,7 +57,7 @@ export const useBreadcrumbs = props => {
 
     // When we have breadcrumb data sort and normalize it for easy rendering.
     const normalizedData = useMemo(() => {
-        if (!loading && data) {
+        if (!loading && data && data.categories.items.length) {
             const breadcrumbData = data.categories.items[0].breadcrumbs;
 
             return (
@@ -79,9 +79,14 @@ export const useBreadcrumbs = props => {
     const { setShimmerType } = useInternalLink('category');
 
     return {
-        currentCategory: (data && data.categories.items[0].name) || '',
+        currentCategory:
+            (data &&
+                data.categories.items.length &&
+                data.categories.items[0].name) ||
+            '',
         currentCategoryPath:
             (data &&
+                data.categories.items.length &&
                 `${data.categories.items[0].url_path}${categoryUrlSuffix ||
                     ''}`) ||
             '#',

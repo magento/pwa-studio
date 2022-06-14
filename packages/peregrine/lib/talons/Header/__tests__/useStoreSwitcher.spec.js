@@ -1,13 +1,15 @@
 import React from 'react';
-import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
+import { MockedProvider } from '@apollo/client/testing';
 import { useStoreSwitcher } from '../useStoreSwitcher';
 import { mockSetItem } from '../../../util/simplePersistence';
-import { useQuery } from '@apollo/client';
+import { act, renderHook } from '@testing-library/react-hooks';
+import defaultOperations from '../storeSwitcher.gql';
+import { useLocation } from 'react-router-dom';
 
 jest.mock('../../../util/simplePersistence');
 
 jest.mock('react-router-dom', () => ({
-    useLocation: jest.fn(() => ({ pathname: '' }))
+    useLocation: jest.fn(() => ({ pathname: '', search: '' }))
 }));
 
 jest.mock('@magento/peregrine', () => ({
@@ -21,16 +23,6 @@ jest.mock('@magento/peregrine', () => ({
     }
 }));
 
-jest.mock('@apollo/client', () => {
-    const ApolloClient = jest.requireActual('@apollo/client');
-    const useQuery = jest.fn();
-
-    return {
-        ...ApolloClient,
-        useQuery
-    };
-});
-
 jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
     useDropdown: jest.fn().mockReturnValue({
         elementRef: 'elementRef',
@@ -40,188 +32,174 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
     })
 }));
 
-const defaultProps = {
-    queries: {
-        getStoreConfigData: 'getStoreConfigData',
-        getRouteData: 'getRouteData',
-        getAvailableStoresData: 'getAvailableStoresData'
+const getStoreConfigDataMock = {
+    request: {
+        query: defaultOperations.getStoreConfigData
+    },
+    result: {
+        data: {
+            storeConfig: {
+                store_code: 'store2',
+                store_name: 'Store 2',
+                store_group_name: 'Group 1'
+            }
+        }
     }
 };
 
-const Component = props => {
-    const talonProps = useStoreSwitcher(props);
-
-    return <i talonProps={talonProps} />;
-};
-
-const getTalonProps = props => {
-    const tree = createTestInstance(<Component {...props} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
-    const update = newProps => {
-        tree.update(<Component {...{ ...props, ...newProps }} />);
-
-        return root.findByType('i').props.talonProps;
+const getRouteDataMocks = (() => {
+    const routes = {
+        '/': 'venia-new-home',
+        '/category/category-name.html': 'category/category-name',
+        '/product-name.html': 'localized-product-name.html',
+        '/only-store2-category.html': null,
+        '/search.html': null
     };
+    const result = [];
+    Object.entries(routes).forEach(([url, relative_url]) => {
+        result.push({
+            request: {
+                query: defaultOperations.getRouteData,
+                variables: {
+                    url: url
+                }
+            },
+            result: {
+                data: {
+                    route: relative_url ? { relative_url: relative_url } : null
+                }
+            }
+        });
+    });
+    return result;
+})();
 
-    return { talonProps, tree, update };
-};
-
-const storeConfigResponse = {
-    store_code: 'store2',
-    store_group_name: 'Group 1',
-    store_name: 'Store 2'
-};
-
-const categoryPageResponse = {
-    uid: 'Mw==',
-    type: 'CATEGORY'
-};
-
-const productPageResponse = {
-    uid: 'MTEwMw==',
-    type: 'PRODUCT',
-    __typename: 'ConfigurableProduct'
-};
-
-const availableStoresResponse = [
-    {
-        locale: 'locale1',
-        store_code: 'store1',
-        store_group_code: 'group1',
-        store_group_name: 'Group 1',
-        store_sort_order: 0,
-        store_name: 'Store 1',
-        default_display_currency_code: 'USD',
-        category_url_suffix: null,
-        product_url_suffix: null,
-        secure_base_media_url: 'https://example.com/media/'
+const getAvailableStoresDataMock = {
+    request: {
+        query: defaultOperations.getAvailableStoresData
     },
-    {
-        locale: 'locale2',
-        store_code: 'store2',
-        store_group_code: 'group1',
-        store_group_name: 'Group 1',
-        store_sort_order: 1,
-        store_name: 'Store 2',
-        default_display_currency_code: 'EUR',
-        category_url_suffix: '.html',
-        product_url_suffix: '.html',
-        secure_base_media_url: 'https://cdn.origin:9000/media/custom/'
-    },
-    {
-        locale: 'locale3',
-        store_code: 'store3',
-        store_group_code: 'group1',
-        store_group_name: 'Group 1',
-        store_sort_order: 2,
-        store_name: 'Store 3',
-        default_display_currency_code: 'EUR',
-        category_url_suffix: null,
-        product_url_suffix: '.htm',
-        secure_base_media_url: 'https://example.com/media/'
-    },
-    {
-        locale: 'locale4',
-        store_code: 'store4',
-        store_group_code: 'group2',
-        store_group_name: 'Group 2',
-        store_sort_order: 0,
-        store_name: 'Store 4',
-        default_display_currency_code: 'EUR',
-        category_url_suffix: '.htm',
-        product_url_suffix: null,
-        secure_base_media_url: 'https://example.com/media/'
-    },
-    {
-        locale: 'locale5',
-        store_code: 'store5',
-        store_group_code: 'group2',
-        store_group_name: 'Group 2',
-        store_sort_order: 1,
-        store_name: 'Store 5',
-        default_display_currency_code: 'EUR',
-        category_url_suffix: '-abc1',
-        product_url_suffix: '.htm.htm',
-        secure_base_media_url: 'https://example.com/media/'
-    },
-    {
-        locale: 'locale6',
-        store_code: 'store6',
-        store_group_code: 'group2',
-        store_group_name: 'Group 2',
-        store_sort_order: 2,
-        store_name: 'Store 6',
-        default_display_currency_code: 'EUR',
-        category_url_suffix: '.some.some',
-        product_url_suffix: '-123abc',
-        secure_base_media_url: 'https://example.com/media/'
+    result: {
+        data: {
+            availableStores: [
+                {
+                    locale: 'locale1',
+                    store_code: 'store1',
+                    store_group_code: 'group1',
+                    store_group_name: 'Group 1',
+                    store_sort_order: 0,
+                    store_name: 'Store 1',
+                    default_display_currency_code: 'USD',
+                    secure_base_media_url: 'https://example.com/media/'
+                },
+                {
+                    locale: 'locale2',
+                    store_code: 'store2',
+                    store_group_code: 'group1',
+                    store_group_name: 'Group 1',
+                    store_sort_order: 1,
+                    store_name: 'Store 2',
+                    default_display_currency_code: 'EUR',
+                    secure_base_media_url:
+                        'https://cdn.origin:9000/media/custom/'
+                },
+                {
+                    locale: 'locale3',
+                    store_code: 'store3',
+                    store_group_code: 'group1',
+                    store_group_name: 'Group 1',
+                    store_sort_order: 2,
+                    store_name: 'Store 3',
+                    default_display_currency_code: 'EUR',
+                    secure_base_media_url: 'https://example.com/media/'
+                },
+                {
+                    locale: 'locale4',
+                    store_code: 'store4',
+                    store_group_code: 'group2',
+                    store_group_name: 'Group 2',
+                    store_sort_order: 0,
+                    store_name: 'Store 4',
+                    default_display_currency_code: 'EUR',
+                    secure_base_media_url: 'https://example.com/media/'
+                },
+                {
+                    locale: 'locale5',
+                    store_code: 'store5',
+                    store_group_code: 'group2',
+                    store_group_name: 'Group 2',
+                    store_sort_order: 1,
+                    store_name: 'Store 5',
+                    default_display_currency_code: 'EUR',
+                    secure_base_media_url: 'https://example.com/media/'
+                },
+                {
+                    locale: 'locale6',
+                    store_code: 'store6',
+                    store_group_code: 'group2',
+                    store_group_name: 'Group 2',
+                    store_sort_order: 2,
+                    store_name: 'Store 6',
+                    default_display_currency_code: 'EUR',
+                    secure_base_media_url: 'https://example.com/media/'
+                }
+            ]
+        }
     }
-];
+};
+
+const renderHookWithProviders = ({
+    renderHookOptions = {},
+    mocks = [
+        getStoreConfigDataMock,
+        ...getRouteDataMocks,
+        getAvailableStoresDataMock
+    ]
+} = {}) => {
+    const wrapper = ({ children }) => (
+        <MockedProvider mocks={mocks} addTypename={false}>
+            {children}
+        </MockedProvider>
+    );
+    return renderHook(useStoreSwitcher, { wrapper, ...renderHookOptions });
+};
+
+const mockWindowLocation = {
+    assign: jest.fn()
+};
+
+let oldWindowLocation;
 
 beforeEach(() => {
-    useQuery.mockReset();
-    useQuery.mockImplementation(() => {
-        return {
-            data: {
-                storeConfig: storeConfigResponse,
-                route: categoryPageResponse,
-                availableStores: availableStoresResponse
-            },
-            error: null,
-            loading: false
-        };
-    });
+    oldWindowLocation = globalThis.location;
+    delete globalThis.location;
+    globalThis.location = mockWindowLocation;
+    mockWindowLocation.assign.mockClear();
+});
+afterEach(() => {
+    globalThis.location = oldWindowLocation;
 });
 
-test('should return correct shape', () => {
-    const { talonProps } = getTalonProps(defaultProps);
-
-    expect(talonProps).toMatchSnapshot();
-
-    expect(talonProps.currentGroupName).toEqual(
-        storeConfigResponse.store_group_name
-    );
+test('should return correct shape', async () => {
+    const { result } = renderHookWithProviders();
+    await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0));
+    });
+    expect(result.current).toMatchSnapshot();
 
     // storeGroups should be a map of the "groups", sorted in sort order.
-    expect(talonProps.storeGroups.size).toEqual(2);
-    expect(talonProps.storeGroups.get('group1').length).toEqual(3);
-    expect(talonProps.storeGroups.get('group2').length).toEqual(3);
+    expect(result.current.storeGroups.size).toEqual(2);
+    expect(result.current.storeGroups.get('group1').length).toEqual(3);
+    expect(result.current.storeGroups.get('group2').length).toEqual(3);
 });
 
 describe('event handlers', () => {
-    useQuery.mockImplementation(() => {
-        return {
-            data: {
-                storeConfig: storeConfigResponse,
-                availableStores: [
-                    {
-                        locale: 'locale1',
-                        store_code: 'store1',
-                        store_name: 'Store 1',
-                        default_display_currency_code: 'USD',
-                        secure_base_media_url: 'https://example.com/media/'
-                    },
-                    {
-                        locale: 'locale2',
-                        store_code: 'store2',
-                        store_name: 'Store 2',
-                        default_display_currency_code: 'EUR',
-                        secure_base_media_url:
-                            'https://example.com/media/abcdef'
-                    }
-                ]
-            },
-            error: null,
-            loading: false
-        };
-    });
-    const { talonProps } = getTalonProps(defaultProps);
+    const { result } = renderHookWithProviders();
 
-    test('handleSwitchStore switches store view', () => {
-        const { handleSwitchStore } = talonProps;
-        handleSwitchStore('store1');
+    test('handleSwitchStore switches store view', async () => {
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
+        });
 
         expect(mockSetItem.mock.calls).toEqual([
             ['store_view_code', 'store1'],
@@ -230,291 +208,220 @@ describe('event handlers', () => {
         ]);
     });
 
-    test('handleSwitchStore does nothing when switching to not existing store', () => {
-        const { handleSwitchStore } = talonProps;
-        handleSwitchStore('store404');
+    test('handleSwitchStore does nothing when switching to not existing store', async () => {
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store404');
+        });
 
         expect(mockSetItem).toHaveBeenCalledTimes(0);
     });
 });
 
 describe('handleSwitchStore updates url with configured store code', () => {
-    test('includes store code when option is enabled and no store code is present in URL', () => {
+    beforeEach(() => {
         process.env.USE_STORE_CODE_IN_URL = 'true';
+    });
+    afterEach(() => {
+        delete process.env.USE_STORE_CODE_IN_URL;
+    });
 
-        const originalLocation = globalThis.location;
-        delete globalThis.location;
-        globalThis.location = {
+    test('switching stores on the homepage', async () => {
+        useLocation.mockReturnValue({
             pathname: '/',
-            assign: jest.fn()
-        };
+            search: ''
+        });
+        const { result } = renderHookWithProviders();
 
-        const { talonProps } = getTalonProps(defaultProps);
-        const { handleSwitchStore } = talonProps;
-
-        handleSwitchStore('store1');
-
-        expect(globalThis.location.assign).toBeCalledWith('/store1');
-
-        process.env.USE_STORE_CODE_IN_URL = 'false';
-        globalThis.location = originalLocation;
-    });
-
-    test('replaces current store code in URL with a suffix, with new store code and empty suffix', () => {
-        process.env.USE_STORE_CODE_IN_URL = 'true';
-
-        const { talonProps } = getTalonProps(defaultProps);
-        const { handleSwitchStore } = talonProps;
-
-        const originalLocation = globalThis.location;
-        delete globalThis.location;
-        globalThis.location = {
-            pathname: '/store2/category-name.html',
-            assign: jest.fn()
-        };
-
-        handleSwitchStore('store1');
-
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/store1/category-name'
-        );
-
-        process.env.USE_STORE_CODE_IN_URL = 'false';
-        globalThis.location = originalLocation;
-    });
-
-    test('adds store code to url when not present but store code in url enabled', () => {
-        process.env.USE_STORE_CODE_IN_URL = 'true';
-
-        const { talonProps } = getTalonProps(defaultProps);
-        const { handleSwitchStore } = talonProps;
-
-        const originalLocation = globalThis.location;
-        delete globalThis.location;
-        globalThis.location = {
-            pathname: '/category/category-name.html',
-            assign: jest.fn()
-        };
-
-        handleSwitchStore('store2');
-
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/store2/category/category-name.html'
-        );
-
-        process.env.USE_STORE_CODE_IN_URL = 'false';
-        globalThis.location = originalLocation;
-    });
-
-    test('displays correct category url suffix in url, with store code in url enabled', () => {
-        process.env.USE_STORE_CODE_IN_URL = 'true';
-
-        const { talonProps } = getTalonProps(defaultProps);
-        const { handleSwitchStore } = talonProps;
-
-        const originalLocation = globalThis.location;
-        delete globalThis.location;
-        globalThis.location = {
-            pathname: '/category/category-name.html',
-            assign: jest.fn()
-        };
-
-        handleSwitchStore('store1');
-
-        // .html => null
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/store1/category/category-name'
-        );
-
-        handleSwitchStore('store4');
-
-        // null => .htm
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/store4/category/category-name.htm'
-        );
-
-        handleSwitchStore('store5');
-
-        // .htm => -abc1
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/store5/category/category-name-abc1'
-        );
-
-        handleSwitchStore('store6');
-
-        // -abc1 => .some.some
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/store6/category/category-name.some.some'
-        );
-
-        handleSwitchStore('store1');
-
-        // .some.some => null
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/store1/category/category-name'
-        );
-
-        process.env.USE_STORE_CODE_IN_URL = 'false';
-        globalThis.location = originalLocation;
-    });
-
-    test('displays correct product url suffix in url, with store code in url enabled', () => {
-        process.env.USE_STORE_CODE_IN_URL = 'true';
-        useQuery.mockImplementation(() => {
-            return {
-                data: {
-                    storeConfig: storeConfigResponse,
-                    route: productPageResponse,
-                    availableStores: availableStoresResponse
-                }
-            };
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
         });
 
-        const { talonProps } = getTalonProps(defaultProps);
-        const { handleSwitchStore } = talonProps;
+        expect(globalThis.location.assign).toBeCalledWith('/store1');
+    });
 
-        const originalLocation = globalThis.location;
-        delete globalThis.location;
-        globalThis.location = {
-            pathname: '/product.html',
-            assign: jest.fn()
-        };
+    test('switching store updates url with params', async () => {
+        useLocation.mockReturnValue({
+            pathname: '/category/category-name.html',
+            search: '?page=1'
+        });
+        const { result } = renderHookWithProviders();
 
-        handleSwitchStore('store1');
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
+        });
 
-        // .html => null
-        expect(globalThis.location.assign).toBeCalledWith('/store1/product');
-
-        handleSwitchStore('store3');
-
-        // null => .htm
         expect(globalThis.location.assign).toBeCalledWith(
-            '/store3/product.htm'
+            '/store1/category/category-name?page=1'
         );
+    });
 
-        handleSwitchStore('store6');
+    test('switching store updates url without params', async () => {
+        useLocation.mockReturnValue({
+            pathname: '/product-name.html',
+            search: ''
+        });
+        const { result } = renderHookWithProviders();
 
-        // .htm => -123abc
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
+        });
+
         expect(globalThis.location.assign).toBeCalledWith(
-            '/store6/product-123abc'
+            '/store1/localized-product-name.html'
         );
+    });
 
-        handleSwitchStore('store5');
+    test('switching store when page is not exists in the new store', async () => {
+        useLocation.mockReturnValue({
+            pathname: '/only-store2-category.html',
+            search: '?page=1'
+        });
+        const { result } = renderHookWithProviders();
 
-        // -123abc => .htm.htm
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
+        });
+
+        //When url is not available on the new store navigate to homepage
+        expect(globalThis.location.assign).toBeCalledWith('/store1');
+    });
+
+    test('switching store when pathname is internal route', async () => {
+        useLocation.mockReturnValue({
+            pathname: '/search.html',
+            search: '?query=test&page=1'
+        });
+        const { result } = renderHookWithProviders({
+            renderHookOptions: {
+                initialProps: {
+                    availableRoutes: [
+                        {
+                            exact: true,
+                            name: 'Search',
+                            path: '../../RootComponents/Search',
+                            pattern: '/search.html'
+                        }
+                    ]
+                }
+            }
+        });
+
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
+        });
+
         expect(globalThis.location.assign).toBeCalledWith(
-            '/store5/product.htm.htm'
+            '/store1/search.html?query=test&page=1'
         );
-
-        handleSwitchStore('store1');
-
-        // .some.some => null
-        expect(globalThis.location.assign).toBeCalledWith('/store1/product');
-
-        process.env.USE_STORE_CODE_IN_URL = 'false';
-        globalThis.location = originalLocation;
     });
 });
 
 describe('handleSwitchStore updates url with store code not configured', () => {
-    test('displays correct category url suffix in url, with store code in url disabled', () => {
+    beforeEach(() => {
         process.env.USE_STORE_CODE_IN_URL = 'false';
-
-        const { talonProps } = getTalonProps(defaultProps);
-        const { handleSwitchStore } = talonProps;
-
-        const originalLocation = globalThis.location;
-        delete globalThis.location;
-        globalThis.location = {
-            pathname: '/category/category-name.html',
-            assign: jest.fn()
-        };
-
-        handleSwitchStore('store1');
-
-        // .html => null
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/category/category-name'
-        );
-
-        handleSwitchStore('store4');
-
-        // null => .htm
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/category/category-name.htm'
-        );
-
-        handleSwitchStore('store5');
-
-        // .htm => -abc1
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/category/category-name-abc1'
-        );
-
-        handleSwitchStore('store6');
-
-        // -abc1 => .some.some
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/category/category-name.some.some'
-        );
-
-        handleSwitchStore('store1');
-
-        // .some.some => null
-        expect(globalThis.location.assign).toBeCalledWith(
-            '/category/category-name'
-        );
-
-        globalThis.location = originalLocation;
+    });
+    afterEach(() => {
+        delete process.env.USE_STORE_CODE_IN_URL;
     });
 
-    test('displays correct product url suffix in url, with store code in url disabled', () => {
-        process.env.USE_STORE_CODE_IN_URL = 'false';
-        useQuery.mockImplementation(() => {
-            return {
-                data: {
-                    storeConfig: storeConfigResponse,
-                    route: productPageResponse,
-                    availableStores: availableStoresResponse
-                }
-            };
+    test('switching stores on the homepage and path is empty', async () => {
+        useLocation.mockReturnValue({
+            pathname: '/',
+            search: ''
+        });
+        const { result } = renderHookWithProviders();
+
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
         });
 
-        const { talonProps } = getTalonProps(defaultProps);
-        const { handleSwitchStore } = talonProps;
+        expect(globalThis.location.assign).toBeCalledWith('/');
+    });
 
-        const originalLocation = globalThis.location;
-        delete globalThis.location;
-        globalThis.location = {
-            pathname: '/product.html',
-            assign: jest.fn()
-        };
+    test('switching store updates url with params', async () => {
+        useLocation.mockReturnValue({
+            pathname: '/category/category-name.html',
+            search: '?page=1'
+        });
+        const { result } = renderHookWithProviders();
 
-        handleSwitchStore('store1');
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
+        });
 
-        // .html => null
-        expect(globalThis.location.assign).toBeCalledWith('/product');
+        expect(globalThis.location.assign).toBeCalledWith(
+            '/category/category-name?page=1'
+        );
+    });
 
-        handleSwitchStore('store3');
+    test('switching store updates url without params', async () => {
+        useLocation.mockReturnValue({
+            pathname: '/product-name.html',
+            search: ''
+        });
+        const { result } = renderHookWithProviders();
 
-        // null => .htm
-        expect(globalThis.location.assign).toBeCalledWith('/product.htm');
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
+        });
 
-        handleSwitchStore('store6');
+        expect(globalThis.location.assign).toBeCalledWith(
+            '/localized-product-name.html'
+        );
+    });
 
-        // .htm => -123abc
-        expect(globalThis.location.assign).toBeCalledWith('/product-123abc');
+    test('switching store when page is not exists in the new store', async () => {
+        useLocation.mockReturnValue({
+            pathname: '/only-store2-category.html',
+            search: '?page=1'
+        });
+        const { result } = renderHookWithProviders();
 
-        handleSwitchStore('store5');
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
+        });
 
-        // -123abc => .htm.htm
-        expect(globalThis.location.assign).toBeCalledWith('/product.htm.htm');
+        //When url is not available on the new store navigate to homepage
+        expect(globalThis.location.assign).toBeCalledWith('/');
+    });
 
-        handleSwitchStore('store1');
+    test('switching store when pathname is internal route', async () => {
+        useLocation.mockReturnValue({
+            pathname: '/search.html',
+            search: '?query=test&page=1'
+        });
+        const { result } = renderHookWithProviders({
+            renderHookOptions: {
+                initialProps: {
+                    availableRoutes: [
+                        {
+                            exact: true,
+                            name: 'Search',
+                            path: '../../RootComponents/Search',
+                            pattern: '/search.html'
+                        }
+                    ]
+                }
+            }
+        });
 
-        // .htm.htm => null
-        expect(globalThis.location.assign).toBeCalledWith('/product');
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await result.current.handleSwitchStore('store1');
+        });
 
-        globalThis.location = originalLocation;
+        expect(globalThis.location.assign).toBeCalledWith(
+            '/search.html?query=test&page=1'
+        );
     });
 });
