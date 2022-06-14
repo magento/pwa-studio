@@ -11,6 +11,7 @@ import {
     assertBooleanFilterUnselectedInputState,
     assertNotInCurrentFilter
 } from '../../../assertions/categoryPage';
+import { assertUrlContains, assertUrlDoesNotContains } from '../../../assertions/app'
 
 const { categoryTops, categoryAccessories, filtersData } = categoryPageFixtures;
 const {
@@ -258,7 +259,7 @@ describe(
 
             assertPaginationActivePage(1);
         });
-        // Flaky test jira ticket https://jira.corp.magento.com/browse/PWA-2882
+
         it(
             'user should be able to use radio-boolean filter results in Category and Search pages',
             { tags: ['@skip'] },
@@ -327,7 +328,9 @@ describe(
                     filtersData.hasVideo.yesLabel,
                     isMobile
                 );
-                assertNumberOfProductsInResults(10);
+                assertNumberOfProductsInResults();
+                assertUrlContains(filtersData.hasVideo.defaultOption);
+                assertUrlContains(filtersData.hasVideo.urlString);
                 assertBooleanFilterInputState(
                     filtersData.hasVideo.name,
                     isMobile,
@@ -350,7 +353,9 @@ describe(
                     filtersData.hasVideo.noLabel,
                     isMobile
                 );
-                assertNumberOfProductsInResults(4);
+                assertNumberOfProductsInResults();
+                assertUrlContains(filtersData.hasVideo.optionYes);
+                assertUrlContains(filtersData.hasVideo.urlString);
                 assertBooleanFilterInputState(
                     filtersData.hasVideo.name,
                     isMobile,
@@ -363,7 +368,9 @@ describe(
                     timeout: 60000
                 });
 
-                assertNumberOfProductsInResults(24);
+                assertNumberOfProductsInResults();
+                assertUrlDoesNotContains(filtersData.hasVideo.optionYes);
+                assertUrlDoesNotContains(filtersData.hasVideo.urlString);
                 assertBooleanFilterUnselectedInputState(
                     filtersData.hasVideo.name,
                     isMobile
@@ -417,7 +424,9 @@ describe(
                 });
 
                 assertCategoryTitle(categoryAccessories.name);
-                assertNumberOfProductsInResults(10);
+                assertNumberOfProductsInResults();
+                assertUrlContains(filtersData.hasVideo.defaultOption);
+                assertUrlContains(filtersData.hasVideo.urlString);
 
                 toggleFilterModal();
                 assertNotInCurrentFilter(filtersData.hasVideo.yesLabel);
@@ -447,7 +456,9 @@ describe(
                 });
 
                 assertCategoryTitle(categoryAccessories.name);
-                assertNumberOfProductsInResults(4);
+                assertNumberOfProductsInResults();
+                assertUrlContains(filtersData.hasVideo.optionYes);
+                assertUrlContains(filtersData.hasVideo.urlString);
 
                 toggleFilterModal();
                 clearFilter(filtersData.hasVideo.yesLabel);
@@ -463,7 +474,9 @@ describe(
                 cy.wait(['@gqlGetCategoriesQuery'], {
                     timeout: 60000
                 });
-                assertNumberOfProductsInResults(20);
+                assertNumberOfProductsInResults();
+                assertUrlContains(filtersData.price.urlString);
+                assertUrlContains(filtersData.price.otherOption);
 
                 //Clean Up
                 toggleFilterModal();
@@ -474,7 +487,9 @@ describe(
                     timeout: 60000
                 });
 
-                assertNumberOfProductsInResults(24);
+                assertNumberOfProductsInResults();
+                assertUrlDoesNotContains(filtersData.price.urlString);
+                assertUrlDoesNotContains(filtersData.price.otherOption);
             }
         );
     }
