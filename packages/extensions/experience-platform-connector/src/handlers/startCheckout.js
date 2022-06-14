@@ -7,6 +7,20 @@ const handle = (sdk, event) => {
 
     const { cart_id, products } = payload;
 
+    // Send out page view event
+    const pageContext = {
+        pageType: 'Checkout',
+        pageName: 'Checkout',
+        eventType: 'visibilityHidden',
+        maxXOffset: 0,
+        maxYOffset: 0,
+        minXOffset: 0,
+        minYOffset: 0
+    };
+
+    sdk.context.setPage(pageContext);
+    sdk.publish.pageView();
+
     const cartContext = {
         id: cart_id,
         prices: {

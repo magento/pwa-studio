@@ -27,6 +27,20 @@ const handle = (sdk, event) => {
     sdk.context.setOrder(orderContext);
 
     sdk.publish.placeOrder();
+
+    // Send out page view event
+    const pageContext = {
+        pageType: 'Order Confirmation Page',
+        pageName: 'Order Confirmation',
+        eventType: 'visibilityHidden',
+        maxXOffset: 0,
+        maxYOffset: 0,
+        minXOffset: 0,
+        minYOffset: 0
+    };
+
+    sdk.context.setPage(pageContext);
+    sdk.publish.pageView();
 };
 
 export default {

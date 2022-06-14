@@ -23,7 +23,7 @@ const handle = (sdk, event) => {
                 pageSize: pageSize,
                 currentPage: currentPage,
                 filter: filter,
-                sort: [{ attribute: sort.attribute, direction: sort.order }]
+                sort: [{ attribute: sort?.attribute, direction: sort?.order }]
             }
         ]
     };
