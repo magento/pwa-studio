@@ -47,7 +47,7 @@ describe('handle()', () => {
               },
             }
         `);
-
+        // RWTODO: should below expect() be removed?
         expect(mockSdk.publish.placeOrder).toHaveBeenCalledTimes(1);
     });
 });

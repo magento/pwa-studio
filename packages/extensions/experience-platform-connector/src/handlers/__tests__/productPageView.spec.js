@@ -45,6 +45,20 @@ describe('handle()', () => {
             }
         `);
 
+        expect(mockSdk.context.setPage).toHaveBeenCalledTimes(1);
+        expect(mockSdk.context.setPage.mock.calls[0][0]).toMatchInlineSnapshot(`
+            Object {
+              "eventType": "visibilityHidden",
+              "maxXOffset": 0,
+              "maxYOffset": 0,
+              "minXOffset": 0,
+              "minYOffset": 0,
+              "pageName": "Selena Pants",
+              "pageType": "PDP",
+            }
+        `);
+
         expect(mockSdk.publish.productPageView).toHaveBeenCalledTimes(1);
+        expect(mockSdk.publish.pageView).toHaveBeenCalledTimes(1);
     });
 });

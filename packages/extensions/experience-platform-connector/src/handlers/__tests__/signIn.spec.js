@@ -63,5 +63,12 @@ describe('handle()', () => {
         `);
 
         expect(mockSdk.publish.signIn).toHaveBeenCalledTimes(1);
+        expect(mockSdk.publish.signIn.mock.calls[0][0]).toMatchInlineSnapshot(`
+            Object {
+              "personalEmail": Object {
+                "address": "doctor.strange@fake.email",
+              },
+            }
+        `);
     });
 });

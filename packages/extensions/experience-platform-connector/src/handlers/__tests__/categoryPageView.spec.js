@@ -28,10 +28,27 @@ describe('handle()', () => {
         handler.handle(mockSdk, categoryPageViewEvent);
 
         expect(mockSdk.context.setCategory).toHaveBeenCalledTimes(1);
-        expect(mockSdk.context.setCategory.mock.calls[0][0]).toMatchSnapshot();
+        expect(mockSdk.context.setCategory.mock.calls[0][0])
+            .toMatchInlineSnapshot(`
+            Object {
+              "name": "Dresses",
+              "urlKey": "venia-dresses",
+              "urlPath": "venia-dresses",
+            }
+        `);
 
         expect(mockSdk.context.setPage).toHaveBeenCalledTimes(1);
-        expect(mockSdk.context.setPage.mock.calls[0][0]).toMatchSnapshot();
+        expect(mockSdk.context.setPage.mock.calls[0][0]).toMatchInlineSnapshot(`
+            Object {
+              "eventType": "visibilityHidden",
+              "maxXOffset": 0,
+              "maxYOffset": 0,
+              "minXOffset": 0,
+              "minYOffset": 0,
+              "pageName": "Dresses",
+              "pageType": "Category",
+            }
+        `);
 
         expect(mockSdk.publish.pageView).toHaveBeenCalledTimes(1);
     });
