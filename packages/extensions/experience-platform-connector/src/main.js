@@ -12,10 +12,16 @@ export default original => props => {
 
     const {
         data: storefrontData,
-        ready: storefrontDataReady
+        ready: storefrontDataReady,
+        errors
     } = useExtensionContext();
 
     useEffect(() => {
+        if (errors) {
+            console.error('Experience Platform Connector Error', errors);
+            return;
+        }
+
         if (storefrontDataReady && storefrontData) {
             const {
                 dataServicesStorefrontInstanceContext: storefrontContext,
@@ -31,7 +37,6 @@ export default original => props => {
                 const datastreamId = connectorContext.datastream_id;
 
                 if (orgId && datastreamId) {
-
                     mse.context.setAEP({
                         imsOrgId: orgId,
                         datastreamId: datastreamId
@@ -71,7 +76,7 @@ export default original => props => {
                 }
             });
         }
-    }, [storefrontDataReady, storefrontData, setSdk]);
+    }, [storefrontDataReady, storefrontData, setSdk, errors]);
 
     useEffect(() => {
         if (sdk) {
