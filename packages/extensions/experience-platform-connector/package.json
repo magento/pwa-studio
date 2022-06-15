@@ -11,6 +11,11 @@
   },
   "repository": "github:magento/pwa-studio",
   "license": "(OSL-3.0 OR AFL-3.0)",
+  "dependencies": {
+    "@adobe/magento-storefront-event-collector": "~1.1.13",
+    "@adobe/magento-storefront-events-sdk": "~1.1.13"
+  },
+  "devDependencies": {},
   "peerDependencies": {
     "@apollo/client": "~3.6.6",
     "@magento/peregrine": "~12.3.0",
@@ -21,10 +26,5 @@
     "targets": {
       "intercept": "./intercept"
     }
-  },
-  "devDependencies": {},
-  "dependencies": {
-    "@adobe/magento-storefront-event-collector": "~1.1.13",
-    "@adobe/magento-storefront-events-sdk": "~1.1.13"
   }
 }
