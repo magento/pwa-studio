@@ -19,10 +19,12 @@ describe('handle()', () => {
     it('calls the correct sdk functions with the correct context value', () => {
         const mockSdk = {
             context: {
-                setOrder: jest.fn()
+                setOrder: jest.fn(),
+                setPage: jest.fn()
             },
             publish: {
-                placeOrder: jest.fn()
+                placeOrder: jest.fn(),
+                pageView: jest.fn()
             }
         };
 
@@ -49,6 +51,20 @@ describe('handle()', () => {
             }
         `);
 
+        expect(mockSdk.context.setPage).toHaveBeenCalledTimes(1);
+        expect(mockSdk.context.setPage.mock.calls[0][0]).toMatchInlineSnapshot(`
+            Object {
+              "eventType": "visibilityHidden",
+              "maxXOffset": 0,
+              "maxYOffset": 0,
+              "minXOffset": 0,
+              "minYOffset": 0,
+              "pageName": "Order Confirmation",
+              "pageType": "Order Confirmation Page",
+            }
+        `);
+
+        expect(mockSdk.publish.pageView).toHaveBeenCalledTimes(1);
         expect(mockSdk.publish.placeOrder).toHaveBeenCalledTimes(1);
     });
 });

@@ -1,5 +1,8 @@
 import handler from '../searchRequestSent';
-import { searchRequestEvent, searchbarRequestEvent } from './__mocks__/searchRequestSent';
+import {
+    searchRequestEvent,
+    searchbarRequestEvent
+} from './__mocks__/searchRequestSent';
 
 describe('canHandle()', () => {
     it('returns true for the correct event type', () => {
@@ -36,9 +39,7 @@ describe('handle()', () => {
         expect(mockSdk.context.setSearchInput.mock.calls[0][0])
             .toMatchInlineSnapshot(`
             Object {
-              "emailAddress": "Stephen.Strange@fake.email",
-              "firstName": "Stephen",
-              "lastName": "Strange",
+              "This test is failing": "this snapshot will need to be updated when it passes",
             }
         `);
 
@@ -61,9 +62,24 @@ describe('handle()', () => {
         expect(mockSdk.context.setSearchInput.mock.calls[0][0])
             .toMatchInlineSnapshot(`
             Object {
-              "emailAddress": "Stephen.Strange@fake.email",
-              "firstName": "Stephen",
-              "lastName": "Strange",
+              "units": Array [
+                Object {
+                  "currentPage": 1,
+                  "filter": Array [],
+                  "pageSize": 3,
+                  "phrase": "selena",
+                  "queryTypes": Array [
+                    "products",
+                  ],
+                  "searchUnitId": "productPage",
+                  "sort": Array [
+                    Object {
+                      "attribute": undefined,
+                      "direction": undefined,
+                    },
+                  ],
+                },
+              ],
             }
         `);
 

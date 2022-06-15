@@ -19,14 +19,29 @@ describe('handle()', () => {
     it('calls the correct sdk functions with the correct context value', () => {
         const mockSdk = {
             context: {
+                setPage: jest.fn(),
                 setShoppingCart: jest.fn()
             },
             publish: {
+                pageView: jest.fn(),
                 initiateCheckout: jest.fn()
             }
         };
 
         handler.handle(mockSdk, startCheckoutEvent);
+
+        expect(mockSdk.context.setPage).toHaveBeenCalledTimes(1);
+        expect(mockSdk.context.setPage.mock.calls[0][0]).toMatchInlineSnapshot(`
+            Object {
+              "eventType": "visibilityHidden",
+              "maxXOffset": 0,
+              "maxYOffset": 0,
+              "minXOffset": 0,
+              "minYOffset": 0,
+              "pageName": "Checkout",
+              "pageType": "Checkout",
+            }
+        `);
 
         expect(mockSdk.context.setShoppingCart).toHaveBeenCalledTimes(1);
         expect(mockSdk.context.setShoppingCart.mock.calls[0][0])
@@ -172,6 +187,7 @@ describe('handle()', () => {
             }
         `);
 
+        expect(mockSdk.publish.pageView).toHaveBeenCalledTimes(1);
         expect(mockSdk.publish.initiateCheckout).toHaveBeenCalledTimes(1);
     });
 });
