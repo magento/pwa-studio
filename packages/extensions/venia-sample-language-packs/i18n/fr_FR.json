@@ -48,6 +48,7 @@
     "cartPage.wishlist.ce.successMessage": "Un élément a été ajouté avec succès à votre liste de favoris.",
     "cartPage.wishlist.ee.successMessage": "Un élément a été ajouté avec succès à la liste de \"{wishlistName}\".",
     "cartTrigger.ariaLabel": "Basculer le mini-panier. Vous avez {count} articles dans votre panier.",
+    "category.notFound": "Cette catégorie est introuvable. Veuillez réessayer.",
     "categoryContent.filter": "Filtre",
     "categoryContent.itemsSortedBy": "Articles triés par ",
     "categoryContent.resultCount": "{count} Résultats",

@@ -51,6 +51,7 @@
     "cartPage.wishlist.ce.successMessage": "An item has been successfully added to your favorites list.",
     "cartPage.wishlist.ee.successMessage": "An item has been successfully added to the \"{wishlistName}\" list.",
     "cartTrigger.ariaLabel": "Toggle mini cart. You have {count} items in your cart.",
+    "category.notFound": "Looks like the category you were hoping to find doesn't exist. Sorry about that.",
     "categoryContent.filter": "Filter",
     "categoryContent.itemsSortedBy": "Items sorted by ",
     "categoryContent.resultCount": "{count} Results",

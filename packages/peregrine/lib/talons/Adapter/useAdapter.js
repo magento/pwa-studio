@@ -69,10 +69,10 @@ export const useAdapter = props => {
 
             // Clear other stores
             for (const store of AVAILABLE_STORE_VIEWS) {
-                if (store.code !== storeCode) {
+                if (store.store_code !== storeCode) {
                     // Get saved data directly from local storage
                     const existingStorePersistor = globalThis.localStorage.getItem(
-                        `${CACHE_PERSIST_PREFIX}-${store.code}`
+                        `${CACHE_PERSIST_PREFIX}-${store.store_code}`
                     );
 
                     // Make sure we have data available
@@ -92,7 +92,10 @@ export const useAdapter = props => {
 
                         storeClient.persistor = isServer
                             ? null
-                            : createCachePersistor(store.code, storeCache);
+                            : createCachePersistor(
+                                  store.store_code,
+                                  storeCache
+                              );
 
                         // Clear other store
                         if (cacheType === 'cart') {
