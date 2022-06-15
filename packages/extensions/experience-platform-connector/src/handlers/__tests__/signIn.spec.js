@@ -22,6 +22,7 @@ describe('handle()', () => {
     it('calls the correct sdk functions with the correct context value', () => {
         const mockSdk = {
             context: {
+                setAccount: jest.fn(),
                 setShopper: jest.fn()
             },
             publish: {
@@ -33,9 +34,10 @@ describe('handle()', () => {
             type: 'USER_SIGN_IN',
             payload: {
                 email: 'doctor.strange@fake.email',
-                firstname: 'Stephen',
+                // RWTODO: confirm firstname/lastname property casing
+                firstName: 'Stephen',
                 is_subscribed: false,
-                lastname: 'Strange',
+                lastName: 'Strange',
                 __typename: 'Customer'
             }
         };
@@ -50,6 +52,23 @@ describe('handle()', () => {
             }
         `);
 
+        expect(mockSdk.context.setAccount).toHaveBeenCalledTimes(1);
+        expect(mockSdk.context.setAccount.mock.calls[0][0])
+            .toMatchInlineSnapshot(`
+            Object {
+              "emailAddress": "doctor.strange@fake.email",
+              "firstName": "Stephen",
+              "lastName": "Strange",
+            }
+        `);
+
         expect(mockSdk.publish.signIn).toHaveBeenCalledTimes(1);
+        expect(mockSdk.publish.signIn.mock.calls[0][0]).toMatchInlineSnapshot(`
+            Object {
+              "personalEmail": Object {
+                "address": "doctor.strange@fake.email",
+              },
+            }
+        `);
     });
 });
