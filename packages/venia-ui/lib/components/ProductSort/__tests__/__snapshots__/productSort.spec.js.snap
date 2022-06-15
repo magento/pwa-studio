@@ -4,6 +4,7 @@ exports[`renders correctly 1`] = `
 <div
   aria-busy="false"
   aria-live="polite"
+  id="ProductSort-root"
 >
   <button
     disabled={false}

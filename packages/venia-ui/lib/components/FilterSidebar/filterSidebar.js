@@ -98,6 +98,7 @@ const FilterSidebar = props => {
 
     return (
         <aside
+            id="FilterSidebar-root"
             className={classes.root}
             ref={filterRef}
             data-cy="FilterSidebar-root"

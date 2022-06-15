@@ -173,11 +173,7 @@ const SearchPage = props => {
 
     const itemCountHeading =
         data && !loading ? (
-            <span
-                aria-live="polite"
-                aria-busy="true"
-                className={classes.totalPages}
-            >
+            <span aria-busy="true" className={classes.totalPages}>
                 {formatMessage(
                     {
                         id: 'searchPage.totalPages',
@@ -194,6 +190,30 @@ const SearchPage = props => {
         .filter(Boolean)
         .join(' - ');
 
+    let areaLiveVal = 'off';
+    const productSortRoot = document.getElementById('ProductSort-root');
+    const filterSidebarRoot = document.getElementById('FilterSidebar-root');
+
+    if (productSortRoot) {
+        productSortRoot.setAttribute('aria-hidden', 'true');
+    }
+
+    if (filterSidebarRoot) {
+        filterSidebarRoot.setAttribute('aria-hidden', 'true');
+    }
+
+    if (productsCount > 0) {
+        areaLiveVal = 'polite';
+
+        if (productSortRoot) {
+            productSortRoot.setAttribute('aria-hidden', 'false');
+        }
+
+        if (filterSidebarRoot) {
+            filterSidebarRoot.setAttribute('aria-hidden', 'false');
+        }
+    }
+
     return (
         <article className={classes.root} data-cy="SearchPage-root">
             <div className={classes.sidebar}>
@@ -203,7 +223,11 @@ const SearchPage = props => {
             </div>
             <div className={classes.searchContent}>
                 <div className={classes.heading}>
-                    <div className={classes.searchInfo}>
+                    <div
+                        aria-atomic="true"
+                        aria-live={areaLiveVal}
+                        className={classes.searchInfo}
+                    >
                         {searchResultsHeading}
                         {itemCountHeading}
                     </div>

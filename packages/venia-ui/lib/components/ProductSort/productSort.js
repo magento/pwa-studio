@@ -159,6 +159,7 @@ const ProductSort = props => {
 
     return (
         <div
+            id="ProductSort-root"
             ref={elementRef}
             className={classes.root}
             data-cy="ProductSort-root"
