@@ -47,7 +47,9 @@ describe('handle()', () => {
               },
             }
         `);
-        // RWTODO: should below expect() be removed?
-        expect(mockSdk.publish.placeOrder).toHaveBeenCalledTimes(1);
+
+        // Since we're sending this event after loading the order confirmation page,
+        // We don't need to send it here since we don't have an order number anyways.
+        expect(mockSdk.publish.placeOrder).toHaveBeenCalledTimes(0);
     });
 });

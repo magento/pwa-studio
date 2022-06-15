@@ -1,18 +1,25 @@
 export const searchRequestEvent = {
     type: 'SEARCH_REQUEST',
     payload: {
-        query: 'Search Query Value',
+        query: 'selena',
         refinements: [
             {
                 attribute: 'category_id',
-                isRange: false,
-                value: 'FilterEqualTypeInput'
+                value: new Set(['Bottoms,11']),
+                isRange: false
+            },
+            {
+                attribute: 'fashion_color',
+                value: new Set(['Rain,34', 'Mint,25']),
+                isRange: false
             }
         ],
         sort: {
-            attribute: 'Sort Attribute',
+            attribute: 'relevance',
             order: 'DESC'
-        }
+        },
+        pageSize: 12,
+        currentPage: 1
     }
 };
 

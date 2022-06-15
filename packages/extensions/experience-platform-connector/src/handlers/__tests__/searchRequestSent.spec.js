@@ -39,7 +39,38 @@ describe('handle()', () => {
         expect(mockSdk.context.setSearchInput.mock.calls[0][0])
             .toMatchInlineSnapshot(`
             Object {
-              "This test is failing": "this snapshot will need to be updated when it passes",
+              "units": Array [
+                Object {
+                  "currentPage": 1,
+                  "filter": Array [
+                    Object {
+                      "attribute": "category_id",
+                      "in": Array [
+                        "Bottoms,11",
+                      ],
+                    },
+                    Object {
+                      "attribute": "fashion_color",
+                      "in": Array [
+                        "Rain,34",
+                        "Mint,25",
+                      ],
+                    },
+                  ],
+                  "pageSize": 12,
+                  "phrase": "selena",
+                  "queryTypes": Array [
+                    "products",
+                  ],
+                  "searchUnitId": "productPage",
+                  "sort": Array [
+                    Object {
+                      "attribute": "relevance",
+                      "direction": "DESC",
+                    },
+                  ],
+                },
+              ],
             }
         `);
 
