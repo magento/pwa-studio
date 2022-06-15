@@ -13,7 +13,7 @@ export const searchRequestEvent = {
             attribute: 'Sort Attribute',
             order: 'DESC'
         }
-    },
+    }
 };
 
 export const searchbarRequestEvent = {
@@ -24,4 +24,4 @@ export const searchbarRequestEvent = {
         pageSize: 3,
         refinements: []
     }
-}
+};

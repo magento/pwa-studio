@@ -12,4 +12,4 @@ export default {
         },
         url_key: 'selena-pants'
     }
-}
+};
