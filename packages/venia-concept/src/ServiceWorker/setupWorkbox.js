@@ -5,9 +5,7 @@ export default function() {
     /**
      * Import and Instantiate workbox object.
      */
-    importScripts(
-        'https://storage.googleapis.com/workbox-cdn/releases/6.2.4/workbox-sw.js'
-    );
+    importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.2.4/workbox-sw.js');
 
     /**
      * Skip waiting for old service worker to stop.

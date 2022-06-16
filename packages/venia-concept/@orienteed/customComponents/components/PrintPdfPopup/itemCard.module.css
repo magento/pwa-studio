@@ -1,0 +1,50 @@
+.imgContainer {
+    width: 8rem;
+}
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.priceContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90px;
+    margin-top: 10px;
+}
+
+.inputPrice {
+    outline: none;
+    box-shadow: 0px 0px 5px 1px #205aff;
+    width: 50px;
+}
+
+.optionsContainer {
+    display: flex;
+    width: 210px;
+    justify-content: space-evenly;
+    margin-top: 5px;
+}
+
+@media only screen and (min-width: 992px) {
+    .container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-bottom: 100px;
+    }
+    .optionsContainer {
+        margin-top: 10px;
+    }
+}

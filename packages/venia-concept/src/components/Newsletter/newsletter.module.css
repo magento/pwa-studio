@@ -1,0 +1,102 @@
+.root {
+    position: relative;
+    display: block;
+    gap: 1.5rem;
+    justify-items: stretch;
+}
+
+.form {
+    display: grid;
+    row-gap: 0.9375rem;
+    position: relative;
+}
+
+.form input {
+    /* padding-right: calc(1.875rem * var(--iconsAfter) + 5.625rem); */
+}
+
+.form label {
+    position: absolute;
+    /* z-index: -11111; */
+}
+
+.buttonsContainer {
+    gap: 1.5rem;
+    grid-auto-flow: row;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+    display: none;
+}
+.emailField {
+    display: none;
+}
+
+.title {
+    color: var(--b2bStore-footer-color);
+    /* font-size: var(--b2bStore-footer-title-font-size); */
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: block;
+}
+
+.subscribe_link {
+    display: inline-block;
+    position: absolute;
+    right: 4px;
+    top: 0;
+    transform: translateY(7%);
+    max-height: 35px;
+    padding: 0 10px;
+    background: rgb(var(--venia-global-color-gray-50));
+    min-height: 35px;
+}
+
+.subscribe_link span {
+    display: inline-block;
+    color: rgb(var(--venia-global-color-text));
+    text-decoration: underline;
+    text-shadow: 0px 0px 0px;
+}
+
+.subscribe_link:hover span {
+    color: rgb(var(--stroke));
+}
+
+.newsletter_text {
+    color: var(--b2bStore-footer-color);
+    /* font-size: var(--b2bStore-footer-text-font-size); */
+    margin-bottom: 20px;
+}
+
+.loadingContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(252, 252, 252, 0.75);
+}
+.checkbox {
+    margin-top: 16px;
+}
+
+@media screen and (max-width: 767px) {
+    .buttonsContainer {
+        display: grid;
+    }
+
+    .subscribe_link {
+        display: none;
+    }
+
+    .root {
+        text-align: center;
+        grid-column: auto;
+    }
+
+    .form input {
+        padding-right: calc(1.875rem * var(--iconsAfter) + 0.625rem);
+    }
+}

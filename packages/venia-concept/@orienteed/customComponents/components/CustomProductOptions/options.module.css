@@ -1,0 +1,32 @@
+.optionsContainer {
+    margin-left: 18px;
+}
+.labelContainer {
+    margin-left: 10px;
+    width: auto;
+}
+.labelContainer h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    display: block;
+}
+.optionContainer {
+    padding: 1.75rem 0;
+    width: 120px;
+}
+.tilesContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+.optionContainer p {
+    border: 1px solid rgb(var(--venia-global-color-text));
+    border-radius: 2px;
+    height: 3rem;
+    min-width: 3rem;
+    padding: 0 0.5rem;
+    margin: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,48 @@
+.root {
+    background: var(--backroundImageUrl);
+    background-size: cover;
+    padding: 1rem;
+    margin-top: 5%;
+    border: 2px solid rgb(var(--venia-global-color-gray-600));
+}
+
+.content {
+    text-align: center;
+    color: rgb(var(--venia-global-color-text));
+}
+
+.header,
+.message {
+    margin-bottom: 40px;
+}
+
+.header {
+    margin-top: 2rem;
+    font-size: var(--venia-global-fontSize-1000);
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.message {
+    line-height: var(--venia-global-lineHeight-200);
+}
+
+.actionsContainer {
+    width: 40%;
+    margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+    .root {
+        background-image: var(--mobileBackgroundImageUrl);
+        /* two row grid because the "hangers" are on the top of the page */
+    }
+
+    .content {
+        align-content: start;
+    }
+
+    .message {
+        /* add a little space so the button is centered below the message */
+        padding-bottom: 1.5rem;
+    }
+}

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="root"
+>
+  <h2
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Recover Password"
+      id="formSubmissionSuccessful.recoverPasswordText"
+    />
+  </h2>
+  <p
+    className="text"
+  >
+    If there is an account associated with test@example.com you will receive an email with a link to change your password.
+  </p>
+</div>
+`;

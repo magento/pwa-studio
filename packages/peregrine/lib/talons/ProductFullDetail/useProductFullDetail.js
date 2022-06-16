@@ -78,8 +78,9 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
             optionSelections,
             variants
         });
+        const stockStatus = item?.product?.stock_status;
 
-        return item.product.stock_status === OUT_OF_STOCK_CODE;
+        return stockStatus === OUT_OF_STOCK_CODE || !stockStatus;
     }
     return stock_status === OUT_OF_STOCK_CODE;
 };
@@ -154,7 +155,7 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         0;
 
     if (!isConfigurable || !optionsSelected) {
-        value = product.price.regularPrice.amount;
+        value = product.price_range?.maximum_price?.final_price;
     } else {
         const item = findMatchingVariant({
             optionCodes,
@@ -163,11 +164,19 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         });
 
         value = item
-            ? item.product.price.regularPrice.amount
-            : product.price.regularPrice.amount;
+            ? item.product.price_range?.maximum_price?.final_price
+            : product.price_range?.maximum_price?.final_price;
     }
 
     return value;
+};
+
+const attributeLabelCompare = (attribute1, attribute2) => {
+    const label1 = attribute1['attribute_metadata']['label'].toLowerCase();
+    const label2 = attribute2['attribute_metadata']['label'].toLowerCase();
+    if (label1 < label2) return -1;
+    else if (label1 > label2) return 1;
+    else return 0;
 };
 
 const getCustomAttributes = (product, optionCodes, optionSelections) => {
@@ -184,10 +193,14 @@ const getCustomAttributes = (product, optionCodes, optionSelections) => {
             variants
         });
 
-        return item.product.custom_attributes;
+        return item && item.product
+            ? [...item.product.custom_attributes].sort(attributeLabelCompare)
+            : [];
     }
 
-    return custom_attributes;
+    return custom_attributes
+        ? [...custom_attributes].sort(attributeLabelCompare)
+        : [];
 };
 
 /**
@@ -447,6 +460,7 @@ export const useProductFullDetail = props => {
     // Normalization object for product details we need for rendering.
     const productDetails = {
         description: product.description,
+        shortDescription: product.short_description,
         name: product.name,
         price: productPrice,
         sku: product.sku

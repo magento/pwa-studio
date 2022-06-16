@@ -1,18 +1,18 @@
 .options {
-    font-size: 13px;
+    composes: leading-normal from global;
+    composes: max-h-[54px] from global;
+    composes: mt-1 from global;
+    composes: overflow-y-auto from global;
+    composes: text-sm from global;
     grid-area: options;
-    line-height: 1.5;
-    margin-top: 0.25rem;
-    max-height: 54px;
-    overflow-y: auto;
 }
 
 .optionLabel {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
+    composes: auto-cols-max from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
 }
 
 .optionValue {
-    margin-left: 0.25rem;
+    composes: ml-1 from global;
 }

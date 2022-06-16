@@ -1,0 +1,14 @@
+.products {
+    border-top: 1px solid rgb(var(--venia-global-color-border));
+    display: grid;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+}
+
+.products:empty {
+    display: none;
+}
+
+.page-wrapper .block.block-search {
+    width: 100%;
+}

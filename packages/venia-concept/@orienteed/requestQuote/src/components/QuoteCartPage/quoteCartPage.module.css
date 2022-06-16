@@ -1,0 +1,70 @@
+.root {
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.body {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 18rem;
+    /* The summary grid item spans the entire right column. */
+    grid-template-areas:
+        'addproduct summary'
+        'items summary'
+        'adjustments summary';
+}
+
+.heading_container {
+    display: grid;
+    margin-bottom: 1rem;
+    row-gap: 1rem;
+}
+
+.heading {
+    line-height: 1.25em;
+}
+
+.stockStatusMessageContainer:empty {
+    display: none;
+}
+.addProductBySku_container {
+    grid-area: addproduct;
+}
+.items_container {
+    grid-area: items;
+}
+
+.price_adjustments_container {
+    grid-area: adjustments;
+}
+
+.summary_container {
+    grid-area: summary;
+    height: 100%;
+}
+
+.summary_contents {
+    position: sticky;
+    top: 5.5rem;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .body {
+        grid-template-columns: 100%;
+        grid-template-areas:
+            'addproduct'
+            'items'
+            'adjustments'
+            'summary';
+    }
+}

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { element, func, shape, string } from 'prop-types';
-import { Heart } from 'react-feather';
+import { Star } from 'react-feather';
 import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton';
 import { useButton } from 'react-aria';
 
@@ -9,7 +9,7 @@ import Icon from '../../Icon';
 import defaultClasses from './addToListButton.module.css';
 import { useCommonToasts } from './useCommonToasts';
 
-const HeartIcon = <Icon size={20} src={Heart} />;
+const HeartIcon = <Icon size={20} src={Star} />;
 
 const AddToListButton = props => {
     const talonProps = useAddToListButton(props);

@@ -1,0 +1,56 @@
+.root {
+    align-items: center;
+    color: rgb(var(--venia-global-color-gray-900));
+    display: grid;
+    gap: 0.75rem;
+    grid-auto-flow: column;
+    grid-template-areas: 'input label';
+    grid-template-columns: min-content 1fr;
+    margin: 0;
+    justify-items: center;
+    line-height: 1.5rem;
+}
+
+.input {
+    -webkit-appearance: none;
+    background: none;
+    background-clip: content-box;
+    border: 7px solid transparent;
+    border-radius: 50%;
+    grid-area: input;
+    height: 1.5rem;
+    margin: 0;
+    width: 1.5rem;
+    z-index: 2;
+}
+
+.icon {
+    grid-area: input;
+    height: 1.5rem;
+    width: 1.5rem;
+    z-index: 1;
+}
+
+.icon svg {
+    stroke: rgb(var(--venia-global-color-gray-600));
+}
+
+.label {
+    font-size: var(--venia-typography-body-S-fontSize);
+    grid-area: label;
+    justify-self: start;
+}
+
+.input:checked {
+    background-color: var(--orienteed-primary-color-base1);
+}
+
+.input:checked + .icon svg {
+    stroke: var(--orienteed-primary-color-base1);
+}
+
+.input:active,
+.input:focus {
+    box-shadow: -3px 3px rgba(var(--orienteed-global-color-orange-op), 0.5);
+    outline: none;
+}

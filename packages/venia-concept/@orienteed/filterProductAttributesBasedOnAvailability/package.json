@@ -1,0 +1,23 @@
+{
+    "name": "@orienteed/filterProductAttributesBasedOnAvailability",
+    "version": "0.0.1",
+    "publishConfig": {
+        "access": "public"
+    },
+    "description": "Provides request quote PWA Studio.",
+    "main": "./intercept.js",
+    "scripts": {
+        "clean": " "
+    },
+    "repository": "github:magento/pwa-studio",
+    "license": "(OSL-3.0 OR AFL-3.0)",
+    "peerDependencies": {
+        "@magento/pwa-buildpack": "~9.0.0",
+        "@magento/venia-ui": "~7.0.0"
+    },
+    "pwa-studio": {
+        "targets": {
+            "intercept": "./intercept"
+        }
+    }
+}

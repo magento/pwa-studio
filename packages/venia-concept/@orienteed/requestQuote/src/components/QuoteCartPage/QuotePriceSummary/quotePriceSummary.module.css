@@ -1,0 +1,46 @@
+.root {
+}
+
+.errorText {
+    color: rgb(var(--venia-global-color-error));
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.lineItems {
+    display: grid;
+    grid-gap: 0.75rem;
+    grid-template-columns: 1fr auto;
+    line-height: 1.5rem;
+}
+
+.lineItemLabel {
+    justify-self: start;
+}
+
+.price {
+    justify-self: end;
+}
+
+.totalLabel {
+    composes: lineItemLabel;
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.totalPrice {
+    composes: price;
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.priceUpdating {
+    composes: price;
+    opacity: 0;
+}
+
+.submitQuoteCartButton_container {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 1rem;
+    min-height: 5.5rem;
+    width: 100%;
+}

@@ -1,0 +1,140 @@
+.root {
+    margin-bottom: 20px;
+}
+.blockHeading {
+    font-weight: var(--venia-global-fontWeight-bold);
+    margin-bottom: 20px;
+}
+.savedCartTable {
+    display: grid;
+    row-gap: 1rem;
+}
+.savedCartTableRow {
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    display: grid;
+    grid-template-columns: auto auto minmax(9rem, 1fr) auto minmax(9rem, 1fr) minmax(9rem, 1fr) auto;
+}
+
+.cell {
+    border-left: 2px solid rgb(var(--venia-global-color-gray));
+    padding: 1.5rem 1rem;
+    overflow: hidden;
+}
+
+.stackedCell {
+    composes: cell;
+    display: grid;
+    row-gap: 0.25rem;
+}
+
+.label {
+    font-size: var(--venia-typography-body-XS-fontSize);
+}
+
+.value {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.savedCartId,
+.savedCartDate,
+.savedCartName,
+.savedCartTotal,
+.savedCartItem,
+.savedCartDescrip {
+    composes: stackedCell;
+}
+
+.savedCartId {
+    width: 100%;
+}
+
+.cartDescrip {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.savedCartAction {
+    composes: cell;
+}
+
+.savedCartIdLabel,
+.savedCartDateLabel,
+.savedCartNameLabel,
+.savedCartTotalLabel,
+.savedCartItemLabel,
+.savedCartDescripLabel,
+.savedCartActionLabel {
+    composes: label;
+}
+
+.cartId,
+.date,
+.cartName,
+.cartTotal,
+.cartItem,
+.cartDescrip,
+.savedCartLink {
+    composes: value;
+}
+
+.content {
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
+    grid-column: 1 / -1;
+}
+
+.content_collapsed {
+    display: none;
+}
+.savedCartLink {
+    display: grid;
+}
+.savedCartLinkRestore,
+.savedCartLinkCopyLink,
+.savedCartLinkView {
+    margin-bottom: 5px;
+}
+.savedCartLinkDelete {
+    color: rgb(var(--venia-global-color-error));
+}
+
+@media (max-width: 960px) {
+    .savedCartTableRow {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cell {
+        border-left: none;
+    }
+    .savedCartAction,
+    .savedCartItem,
+    .savedCartName {
+        grid-column-end: span 2;
+        border-top: 2px solid rgb(var(--venia-global-color-gray));
+    }
+    .savedCartDescrip {
+        grid-column-end: span 2;
+    }
+    .orderItemsContainer:empty {
+        display: none;
+    }
+    .savedCartDate,
+    .savedCartId {
+        grid-column: span 1;
+    }
+    .savedCartTotal {
+        border-bottom: 2px solid rgb(var(--venia-global-color-gray));
+        border-top: 2px solid rgb(var(--venia-global-color-gray));
+        grid-row: 4;
+        grid-column-end: span 2;
+    }
+    .savedCartLink {
+        grid-auto-flow: column;
+    }
+    .savedCartLinkRestore,
+    .savedCartLinkCopyLink,
+    .savedCartLinkView {
+        margin-right: 5px;
+    }
+}

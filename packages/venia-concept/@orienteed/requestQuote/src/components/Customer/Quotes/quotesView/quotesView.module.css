@@ -1,0 +1,186 @@
+.quotesDatePrint {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 20px;
+}
+.quotesPrintCol {
+    text-align: right;
+}
+.quotesViewTableRow {
+    display: grid;
+    grid-template-columns:
+        minmax(25rem, 1fr) minmax(5rem, 1fr)
+        minmax(5rem, 1fr) minmax(5rem, 1fr) minmax(5rem, 1fr) minmax(5rem, 1fr);
+}
+
+.cell {
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray));
+    padding: 0.6rem;
+    overflow: hidden;
+}
+
+.stackedCell {
+    composes: cell;
+    display: grid;
+    row-gap: 0.25rem;
+}
+.label {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.value {
+    font-family: var(--venia-global-fontFamily-sansSerif);
+}
+.quotesPrintLink {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+.productOptions {
+    display: flex;
+    justify-content: center;
+}
+.quotesPrintLinkText {
+    margin-left: 5px;
+}
+.productName,
+.productSku,
+.productPrice,
+.productQuotePrice,
+.productDiscount,
+.productQty,
+.productSubtotal {
+    composes: cell;
+}
+.productPrice,
+.productQuotePrice,
+.productQty {
+    text-align: center;
+}
+.productDiscount {
+    text-align: right;
+}
+.productSkuTitle,
+.productSku {
+    text-align: center;
+}
+.productSubtotal {
+    text-align: right;
+}
+.productNameLabel,
+.productSkuLabel,
+.productPriceLabel,
+.productQuotePriceLabel,
+.productQtyLabel,
+.productDiscountLabel,
+.productSubtotalLabel {
+    composes: label;
+}
+
+.productNameValue,
+.productSkuValue,
+.productPriceValue,
+.productQuotePriceValue,
+.productQtyValue,
+.productDiscountValue,
+.productSubtotalValue {
+    composes: value;
+}
+.quotesViewTableFooterRow {
+    grid-template-columns: 6fr 1fr;
+}
+.tableQuoteTotal,
+.tableDiscount,
+.tableSubtotal {
+    text-align: right;
+    padding: 0.6rem;
+    overflow: hidden;
+}
+.tableQuoteTotalLabel,
+.tableQuoteTotalValue {
+    composes: label;
+}
+@media (min-width: 960px) {
+    .tableSubtotalMobileLabel,
+    .tableDiscountMobileLabel,
+    .tableQuoteTotalMobileLabel,
+    .productNameMobileLabel,
+    .productSkuMobileLabel,
+    .productPriceMobileLabel,
+    .productQuotePriceMobileLabel,
+    .productQtyMobileLabel,
+    .productDiscountMobileLabel,
+    .productSubtotalMobileLabel {
+        display: none;
+    }
+}
+@media (max-width: 960px) {
+    .hideMobile {
+        display: none;
+    }
+    .cell {
+        padding: 0.6rem 0;
+        border-bottom: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+    }
+    .quotesViewTableRow.quotesViewTableHead {
+        display: none;
+    }
+    .quotesViewTableRow {
+        display: grid;
+        grid-template-columns: 1fr;
+        border-bottom: 2px solid rgb(var(--venia-global-color-gray));
+        padding: 0.5rem 0;
+    }
+    .productSku,
+    .productPrice,
+    .productQuotePrice,
+    .productQty {
+        text-align: left;
+    }
+    .productSubtotal {
+        text-align: left;
+    }
+    .quotesViewTableFooterRow {
+        grid-template-columns: auto;
+    }
+    .tableQuoteTotal,
+    .tableDiscount,
+    .tableSubtotal {
+        text-align: left;
+    }
+    .tableDiscountDesk,
+    .tableSubtotalDesk,
+    .tableQuoteTotalDesk {
+        display: none;
+    }
+    .tableSubtotalMobileLabel,
+    .tableDiscountMobileLabel,
+    .tableQuoteTotalMobileLabel,
+    .productNameMobileLabel,
+    .productSkuMobileLabel,
+    .productPriceMobileLabel,
+    .productQuotePriceMobileLabel,
+    .productQtyMobileLabel,
+    .productDiscountMobileLabel,
+    .productSubtotalMobileLabel {
+        composes: label;
+        min-width: 125px;
+        display: inline-block;
+        padding-right: 10px;
+    }
+    .quotesDatePrint {
+        grid-template-columns: auto;
+        grid-auto-flow: row;
+    }
+    .quotesPrintLink {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .tableQuoteTotal,
+    .tableDiscount,
+    .tableSubtotal {
+        padding: 0.6rem 0;
+    }
+}

@@ -37,7 +37,7 @@ const Submenu = props => {
 
     const subMenuClassname = isSubMenuActive
         ? classes.submenu_active
-        : classes.submenu;
+        : classes.submenu_inactive;
 
     const subMenus = items.map((category, index) => {
         const keyboardProps =

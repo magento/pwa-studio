@@ -1,0 +1,21 @@
+.root {
+    display: grid;
+    justify-content: center;
+    padding: 2.5rem 0;
+    text-align: center;
+    grid-template-columns: minmax(auto, 512px);
+    row-gap: 2rem;
+}
+
+.header {
+    font-family: var(--b2bStore-font-family-Lato);
+    font-weight: bold;
+}
+
+@media (min-width: 961px) {
+    .contentContainer {
+        padding-bottom: 2rem;
+        border: 2px solid rgb(var(--venia-global-color-border));
+        border-radius: 0.375rem;
+    }
+}

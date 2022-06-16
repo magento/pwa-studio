@@ -1,0 +1,52 @@
+.root {
+    display: grid;
+    gap: 0.9375rem;
+    justify-items: stretch;
+    padding: 1rem 1.5rem;
+}
+
+.message {
+    background-color: rgb(var(--venia-global-color-gray));
+    border-radius: 4px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 1rem;
+}
+
+.message:empty {
+    display: none;
+}
+
+.actions {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    justify-content: center;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.cancelButton {
+    composes: root_lowPriority from '../Button/button.module.css';
+    border-color: var(--b2bStore-fieldInput-border-color-button);
+    color: var(--b2bStore-font-normal-color);
+}
+
+.submitButton {
+    composes: root_highPriority from '../Button/button.module.css';
+    grid-column-start: 2;
+}
+
+.subscribe {
+    margin-left: -0.375rem;
+}
+
+@media (max-width: 960px) {
+    .actions {
+        grid-auto-flow: row;
+    }
+
+    .submitButton {
+        grid-column-start: auto;
+    }
+}

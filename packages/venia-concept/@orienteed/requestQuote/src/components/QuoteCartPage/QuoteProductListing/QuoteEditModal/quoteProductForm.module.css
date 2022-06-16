@@ -1,0 +1,60 @@
+.contents {
+    padding: 1rem;
+    position: relative;
+}
+
+.optionRoot {
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+    padding: 1rem 0;
+}
+
+.quantityLabel {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+}
+
+.quantityRoot {
+    --stroke: var(--venia-global-color-gray-600);
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 4rem 1fr;
+    grid-column-gap: 0.5rem;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: auto 4rem auto;
+    justify-content: start;
+    padding: 0 1rem;
+}
+
+.loading {
+    align-content: center;
+    align-items: center;
+    display: grid;
+    gap: 3rem;
+    height: calc(100% - 6rem);
+    justify-content: center;
+    justify-items: center;
+    margin: 3rem 0;
+    width: 100%;
+    height: unset;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.dataError {
+    color: rgb(var(--venia-global-color-error));
+    display: inline-block;
+    padding-top: 1rem;
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.errorContainer {
+    padding-top: 1rem;
+}

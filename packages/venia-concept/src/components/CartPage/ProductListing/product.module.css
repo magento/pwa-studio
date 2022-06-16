@@ -1,0 +1,140 @@
+.root {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.item {
+    align-items: start;
+    display: grid;
+    grid-gap: 0.5rem 1rem;
+    grid-template-areas: 'image details kebab';
+    grid-template-columns: 100px 1fr min-content;
+}
+
+.item_disabled {
+    composes: item;
+    opacity: 0.5;
+}
+
+.errorText {
+    color: rgb(var(--venia-global-color-error));
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.errorText:empty {
+    display: none;
+}
+
+.imageContainer {
+    grid-area: image;
+}
+
+.imageRoot {
+    height: 100%;
+}
+
+.image {
+    background-color: rgb(var(--venia-global-color-gray));
+    border: solid 1px rgb(var(--venia-global-color-border));
+    border-radius: 2px;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.details {
+    display: grid;
+    gap: 0.5rem;
+    grid-area: details;
+    grid-template-areas:
+        'name name'
+        'options quantity'
+        'price quantity'
+        'stock quantity';
+    grid-template-columns: 2fr 1fr;
+    line-height: 1.5;
+}
+
+.name {
+    grid-area: name;
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.price {
+    grid-area: price;
+    font-size: var(--venia-typography-body-S-fontSize);
+}
+
+.quantity {
+    align-items: start;
+    display: grid;
+    grid-area: quantity;
+    justify-items: center;
+}
+
+.kebab {
+    grid-area: kebab;
+    position: relative;
+}
+
+.sectionText {
+    padding: 0.25rem 0.5rem;
+    font-size: var(--venia-typography-body-S-fontSize);
+    pointer-events: none;
+}
+
+.options {
+    grid-area: options;
+    font-size: var(--venia-typography-body-S-fontSize);
+    display: grid;
+    grid-gap: 0.125rem;
+}
+
+.optionLabel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+}
+
+.stockStatusMessage {
+    color: rgb(var(--venia-global-color-error));
+    font-size: var(--venia-global-fontSize-100);
+    font-weight: var(--venia-global-fontWeight-semibold);
+    grid-area: stock;
+}
+
+.stockStatusMessage:empty {
+    display: none;
+}
+
+.addToListButton {
+    --stroke: var(--orienteed-global-color-orange);
+    align-content: center;
+    column-gap: 1.125rem;
+    display: inline-flex;
+    font-size: var(--venia-typography-body-S-fontSize);
+    padding: 0.875rem 0.625rem;
+    width: 100%;
+}
+
+.addToListButton_selected {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .details {
+        grid-template: none;
+    }
+
+    .name,
+    .options,
+    .price,
+    .stockStatusMessage,
+    .quantity {
+        grid-area: auto;
+    }
+
+    .quantity {
+        justify-items: start;
+    }
+}

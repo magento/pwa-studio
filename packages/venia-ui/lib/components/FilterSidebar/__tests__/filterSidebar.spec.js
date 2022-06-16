@@ -61,13 +61,19 @@ jest.mock('@magento/peregrine/lib/talons/FilterSidebar', () => ({
     useFilterSidebar: jest.fn(({ filters }) => {
         const names = new Map();
         const itemsByGroup = new Map();
+        const filterFrontendInput = new Map();
 
         for (const filter of filters) {
-            const { options, label: name, attribute_code: group } = filter;
+            const {
+                options,
+                label: name,
+                attribute_code: group,
+                frontend_input
+            } = filter;
             const items = [];
             // add filter name
             names.set(group, name);
-
+            filterFrontendInput.set(group, frontend_input);
             // add items
             for (const { label, value } of options) {
                 items.push({ title: label, value });
@@ -79,6 +85,7 @@ jest.mock('@magento/peregrine/lib/talons/FilterSidebar', () => ({
             filterApi: null,
             filterItems: itemsByGroup,
             filterNames: names,
+            filterFrontendInput,
             filterState: mockFilterState,
             handleApply: mockHandleApply,
             handleReset: jest.fn()

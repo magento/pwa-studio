@@ -1,20 +1,9 @@
 import { registerRoute } from 'workbox-routing';
 import { ExpirationPlugin } from 'workbox-expiration';
-import {
-    CacheFirst,
-    StaleWhileRevalidate,
-    NetworkFirst
-} from 'workbox-strategies';
+import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
 
-import {
-    findSameOrLargerImage,
-    createImageCacheHandler
-} from '../Utilities/imageCacheHandler';
-import {
-    THIRTY_DAYS,
-    MAX_NUM_OF_IMAGES_TO_CACHE,
-    IMAGES_CACHE_NAME
-} from '../defaults';
+import { findSameOrLargerImage, createImageCacheHandler } from '../Utilities/imageCacheHandler';
+import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE, IMAGES_CACHE_NAME } from '../defaults';
 import registerRoutes from '../registerRoutes';
 
 jest.mock('workbox-expiration', () => {
@@ -57,9 +46,7 @@ test('There should be a route for robots.txt, favicon.ico and manifest.json with
     registerRoutes();
 
     const [registrationCall] = registerRoute.mock.calls.filter(
-        call =>
-            call[0].toString() ===
-            new RegExp('(robots.txt|favicon.ico|manifest.json)').toString()
+        call => call[0].toString() === new RegExp('(robots.txt|favicon.ico|manifest.json)').toString()
     );
 
     expect(registrationCall[1]).toBeInstanceOf(StaleWhileRevalidate);
@@ -142,9 +129,7 @@ test('There should be a route for all image types with CacheFirst strategy', () 
     registerRoutes();
 
     const [registrationCall] = registerRoute.mock.calls.filter(
-        call =>
-            call[0].toString() ===
-            new RegExp(/\.(?:png|gif|jpg|jpeg|svg)$/).toString()
+        call => call[0].toString() === new RegExp(/\.(?:png|gif|jpg|jpeg|svg)$/).toString()
     );
 
     expect(registrationCall[1]).toBeInstanceOf(CacheFirst);
@@ -162,9 +147,7 @@ test('There should be a route for all image types with CacheFirst strategy', () 
             ignoreVary: true
         }
     });
-    expect(expirationPluginCallArgs.maxEntries).toBe(
-        MAX_NUM_OF_IMAGES_TO_CACHE
-    );
+    expect(expirationPluginCallArgs.maxEntries).toBe(MAX_NUM_OF_IMAGES_TO_CACHE);
     expect(expirationPluginCallArgs.maxAgeSeconds).toBe(THIRTY_DAYS);
 
     registerRoute.mockClear();

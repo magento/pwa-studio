@@ -1,0 +1,54 @@
+
+.configrableImg {
+    display: initial;
+}
+
+.tooltip {
+    /* position: relative; */
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #000;
+    color: #fff;
+    text-align: left;
+    padding: 5px 20px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.tooltip .tooltiptext::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:focus .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 450px) {
+    .tooltip .tooltiptext {
+        margin: 0 1rem;
+        font-size: 12px;
+        width: auto;
+        left: 0;
+        right: 0;
+    }
+}

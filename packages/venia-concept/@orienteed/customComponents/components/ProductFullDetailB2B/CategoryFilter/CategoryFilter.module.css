@@ -1,0 +1,76 @@
+.root {
+    position: relative;
+    margin-left: 0.5rem;
+}
+
+.menu {
+    position: absolute;
+    z-index: 2;
+    top: 110%;
+    left: 0;
+    min-width: 10rem;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: black;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgb(var(--venia-global-color-gray-dark));
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.menuItem {
+    border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
+}
+
+.menuItem:last-child {
+    border-bottom: none;
+}
+
+.menuItem:hover {
+    background-color: rgb(var(--venia-global-color-gray));
+}
+
+.sortButton {
+    composes: root_lowPriority from '@magento/venia-concept/src/components/Button/button.module.css';
+    min-width: 6.25rem;
+}
+
+.desktopText {
+    display: none;
+}
+
+.sortText {
+    line-height: 24px;
+    font-size: var(--venia-global-fontSize-200);
+}
+
+.desktopIconWrapper {
+    composes: root from '@magento/venia-ui/lib/components/Icon/icon.module.css';
+    transform: translateX(10px);
+}
+
+.desktopIcon {
+    composes: icon from '@magento/venia-ui/lib/components/Icon/icon.module.css';
+    stroke: rgb(var(--venia-global-color-gray-500));
+}
+
+@media (min-width: 1024px) {
+    .sortButton {
+        border-width: 2px;
+        border-color: rgb(var(--venia-global-color-gray-500));
+        border-radius: 6px;
+        font-weight: var(--venia-global-fontWeight-normal);
+        text-transform: none;
+    }
+
+    .mobileText {
+        display: none;
+    }
+
+    .desktopText {
+        display: inline-flex;
+    }
+}

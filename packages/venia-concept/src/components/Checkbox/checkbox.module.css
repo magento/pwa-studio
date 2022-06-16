@@ -1,0 +1,60 @@
+.root {
+    --stroke: rgb(var(--venia-global-color-gray-600));
+    align-items: center;
+    color: rgb(var(--venia-global-color-gray-900));
+    display: grid;
+    gap: calc(0.875rem - 5px);
+    grid-auto-flow: column;
+    grid-template-areas: 'input label';
+    grid-template-columns: min-content 1fr;
+    justify-items: center;
+    line-height: 1.5rem;
+}
+
+.input {
+    -webkit-appearance: none;
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    grid-area: input;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.icon {
+    grid-area: input;
+    height: 1.5rem;
+    pointer-events: none;
+    width: 1.5rem;
+}
+
+.icon svg {
+    stroke: var(--orienteed-primary-color-base1);
+}
+
+.label {
+    cursor: pointer;
+    font-size: var(--b2bStore-footer-text-font-size);
+    grid-area: label;
+    justify-self: start;
+}
+
+.input:disabled {
+    cursor: default;
+}
+
+/* When the input is disabled, update the cursor on the sibling label element. */
+.input:disabled ~ .label {
+    cursor: default;
+}
+
+.input:checked:enabled + .icon {
+    --stroke: var(--orienteed-primary-color-base1);
+}
+
+.input:active:enabled,
+.input:focus:enabled {
+    box-shadow: -3px 3px rgba(var(--orienteed-global-color-gray-op), 0.5);
+    outline: none;
+}

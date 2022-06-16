@@ -11,6 +11,6 @@
 }
 
 .inactive {
-    position: fixed;
-    visibility: hidden;
+    composes: fixed from global;
+    composes: invisible from global;
 }

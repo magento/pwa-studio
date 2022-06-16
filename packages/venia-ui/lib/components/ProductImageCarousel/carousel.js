@@ -107,7 +107,7 @@ const ProductImageCarousel = props => {
         <div className={classes.root}>
             <div className={classes.carouselContainer}>
                 <AriaButton
-                    className={classes.previousButton}
+                    className={classes.previousButtonDesktop}
                     onPress={handlePrevious}
                     aria-label={previousButton}
                     type="button"

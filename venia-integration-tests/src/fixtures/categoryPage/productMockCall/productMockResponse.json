@@ -20,6 +20,11 @@
           "name": "Carina Cardigan",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 78,
@@ -45,6 +50,11 @@
           "name": "Juno Sweater",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 68,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 68,
@@ -70,6 +80,11 @@
           "name": "Phoebe Cardigan",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 88,
@@ -95,6 +110,11 @@
           "name": "Rosalina Cardigan",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 98,
@@ -120,6 +140,11 @@
           "name": "Hanna Sweater",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 98,
@@ -145,6 +170,11 @@
           "name": "Sabina Hooded Cardigan",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 108,
@@ -170,6 +200,11 @@
           "name": "Brigid Boucle Cardigan",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 118,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 118,
@@ -195,6 +230,11 @@
           "name": "Roxana Cropped Sweater",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 78,
@@ -220,6 +260,11 @@
           "name": "Helena Cardigan",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 98,
@@ -245,6 +290,11 @@
           "name": "Corina Lace-Back Sweater",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 108,
@@ -270,6 +320,11 @@
           "name": "Echo Sweater",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 78,
@@ -295,6 +350,11 @@
           "name": "Lorena Cardigan",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 98,

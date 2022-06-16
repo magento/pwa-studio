@@ -1,0 +1,30 @@
+.root {
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+    display: grid;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.imageContainer {
+    justify-self: center;
+}
+
+.image {
+    padding: 0 2rem;
+}
+
+.productName {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.stockRow {
+    display: flex;
+    font-weight: 300;
+    font-size: 0.875rem;
+    justify-content: space-between;
+}
+
+.price {
+    font-weight: 600;
+}

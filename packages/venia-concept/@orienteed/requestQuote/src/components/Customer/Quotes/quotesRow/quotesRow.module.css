@@ -1,0 +1,113 @@
+.quotesTableRow {
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.cell {
+    border-left: 2px solid rgb(var(--venia-global-color-gray));
+    padding: 1.5rem 1rem;
+    overflow: hidden;
+}
+
+.stackedCell {
+    composes: cell;
+    display: grid;
+    row-gap: 0.25rem;
+}
+
+.label {
+    font-size: var(--venia-typography-body-XS-fontSize);
+}
+
+.value {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.quotesId,
+.quotesSubmitDate,
+.quotesExpiredDate,
+.quotesTotal,
+.quotesStatus {
+    composes: stackedCell;
+}
+
+.quotesAction {
+    composes: cell;
+}
+
+.quotesIdLabel,
+.quotesSubmitDateLabel,
+.quotesExpiredDateLabel,
+.quotesTotalLabel,
+.quotesStatusLabel {
+    composes: label;
+}
+
+.quotesIdValue,
+.quotesSubmitDateValue,
+.quotesExpiredDateValue,
+.quotesTotalValue,
+.quotesStatusValue,
+.quotesLink {
+    composes: value;
+}
+
+.content {
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
+    grid-column: 1 / -1;
+    padding: 1.5rem;
+}
+
+.content_collapsed {
+    display: none;
+}
+.quotesLink {
+    display: grid;
+}
+.quotesLinkView,
+.quotesLinkAddtocart,
+.quotesLinkDuplicate,
+.quotesLinkCancel {
+    margin-bottom: 5px;
+}
+.quotesLinkDelete {
+    color: rgb(var(--venia-global-color-error));
+}
+
+@media (max-width: 960px) {
+    .quotesTableRow {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cell {
+        border-left: none;
+    }
+    .quotesAction,
+    .quotesId {
+        grid-column-end: span 2;
+        border-top: 2px solid rgb(var(--venia-global-color-gray));
+    }
+    .quotesTotal,
+    .quotesStatus,
+    .quotesSubmitDate,
+    .quotesExpiredDate {
+        grid-column: span 1;
+        border-top: 2px solid rgb(var(--venia-global-color-gray));
+    }
+    .quotesLink {
+        grid-auto-flow: column;
+    }
+    .quotesLinkView,
+    .quotesLinkAddtocart,
+    .quotesLinkDuplicate,
+    .quotesLinkCancel {
+        margin-right: 5px;
+    }
+}
+@media (max-width: 480px) {
+    .quotesLink {
+        grid-auto-flow: row;
+    }
+}

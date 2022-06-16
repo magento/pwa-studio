@@ -1,0 +1,23 @@
+.root {
+    composes: root from '../../../../venia-ui/lib/components/clickable.module.css';
+    transition-property: color;
+    transition-duration: 224ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    height: 3rem;
+    width: 3rem;
+}
+
+.label {
+    display: none;
+}
+
+@media (min-width: 641px) {
+    .root {
+        width: auto;
+    }
+
+    .label {
+        display: initial;
+        margin-inline-start: 0.25rem;
+    }
+}

@@ -51,9 +51,7 @@ export const registerMessageHandler = (type, handler) => {
  */
 export const unRegisterMessageHandler = (type, handler) => {
     if (handlers[type]) {
-        handlers[type] = handlers[type].filter(
-            handlerfn => handler !== handlerfn
-        );
+        handlers[type] = handlers[type].filter(handlerfn => handler !== handlerfn);
     }
 };
 
@@ -118,9 +116,7 @@ export const sendMessageToClient = (client, type, payload) =>
         if (client && client.postMessage) {
             client.postMessage({ type, payload }, [channel.port2]);
         } else {
-            reject(
-                `Unable to send message to ${client ? client.type : 'client'}`
-            );
+            reject(`Unable to send message to ${client ? client.type : 'client'}`);
             channel.port1.close();
         }
     });
@@ -142,8 +138,6 @@ export const sendMessageToClient = (client, type, payload) =>
 
 export const sendMessageToWindow = (type, payload) =>
     clients.matchAll().then(clients => {
-        const [windowClient] = clients.filter(
-            client => client.type === 'window'
-        );
+        const [windowClient] = clients.filter(client => client.type === 'window');
         return sendMessageToClient(windowClient, type, payload);
     });

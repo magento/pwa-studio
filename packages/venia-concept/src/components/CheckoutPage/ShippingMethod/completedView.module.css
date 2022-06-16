@@ -1,0 +1,50 @@
+.root {
+    height: 100%;
+}
+
+.contents {
+    display: grid;
+    grid-template-rows: auto auto;
+    margin-top: 1.125rem;
+    row-gap: 0.5rem;
+    text-align: left;
+}
+
+.editButton {
+    color: var(--orienteed-primary-color-base1);
+    padding: 1rem;
+    margin: -1rem;
+}
+
+.editIcon {
+    stroke: var(--orienteed-primary-color-base1);
+}
+
+.error {
+    align-self: center;
+    color: rgb(var(--venia-global-color-error));
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.free {
+    text-transform: uppercase;
+}
+
+.heading {
+    font-weight: 600;
+}
+
+.titleContainer {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+}
+
+/*
+ *  Mobile-specific styles.
+ */
+@media (max-width: 960px) {
+    .editButtonText {
+        display: none;
+    }
+}

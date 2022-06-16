@@ -1,3 +1,1 @@
-export {
-    registerImagePreFetchHandler as default
-} from './Utilities/imageCacheHandler';
+export { registerImagePreFetchHandler as default } from './Utilities/imageCacheHandler';

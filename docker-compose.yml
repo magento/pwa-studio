@@ -4,40 +4,18 @@ services:
   # the reverse proxy connects the SSL/TLS certs created on the local file system into the nginx container
   # this allows the pwa container to be accessible over HTTPS
   # it also proxies requests to the configured domain running at the configured port for the pwa container
-  nginx-proxy:
-    image: jwilder/nginx-proxy:alpine
-    ports:
-      - "${DEV_SERVER_PORT}:443"
-    volumes:
-      - ./docker/certs:/etc/nginx/certs
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    restart: unless-stopped
-    depends_on:
-      - pwa
   pwa:
-    hostname: ${DEV_SERVER_HOST}
     # build pwa using the Dockerfile from the PWD
-    build:
-      context: .
-      dockerfile: dev.dockerfile
+    image: node:14.18.1
+    
+    tty: true
     # list of directories and files on the host system to volume mount into the container
     # changes made to files in the container and on the host file system are mapped to one another
     # this enables hot reloading from the container to detect changes made on the host file system
     volumes:
-      - ./packages/peregrine/scripts:/usr/src/app/packages/peregrine/scripts:rw
-      - ./packages/peregrine/lib:/usr/src/app/packages/peregrine/lib:rw
-      - ./packages/pwa-buildpack/lib:/usr/src/app/packages/pwa-buildpack/lib:rw
-      - ./packages/pwa-buildpack/bin:/usr/src/app/packages/pwa-buildpack/bin:rw
-      - ./packages/upward-js/lib:/usr/src/app/packages/upward-js/lib:rw
-      - ./packages/venia-concept/src:/usr/src/app/packages/venia-concept/src:rw
-      - ./packages/venia-concept/static:/usr/src/app/packages/venia-concept/static:rw
-      - ./packages/venia-ui/.storybook:/usr/src/app/packages/venia-ui/.storybook:rw
-      - ./packages/venia-ui/lib:/usr/src/app/packages/venia-ui/lib:rw
-    environment:
-      # environment variables consumed by the nginx-proxy service
-      VIRTUAL_HOST: ${DEV_SERVER_HOST}
-      VIRTUAL_PORT: ${DEV_SERVER_PORT}
-    env_file:
-      - ${ENVFILEPATH}
-    expose:
-      - ${DEV_SERVER_PORT}
+      - ./:/app
+      
+    ports:
+      - 10000:10000
+    extra_hosts:
+      b2b-admin.orienteed.lan: 10.0.7.30

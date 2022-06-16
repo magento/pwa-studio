@@ -1,0 +1,39 @@
+.searchField input:focus {
+    border: 1px solid rgb(var(--venia-global-color-gray-600));
+    border-bottom: none;
+}
+.input {
+    composes: input from '@magento/venia-concept/src/components/Field/field.module.css';
+}
+
+.input_error {
+    composes: input from '@magento/venia-concept/src/components/Field/field.module.css';
+    border-color: rgb(var(--venia-global-color-red-400));
+}
+
+.input_shimmer {
+    composes: input_base from '@magento/venia-concept/src/components/Field/field.module.css';
+}
+.inputSearch,
+.inputSearching {
+    composes: input from '@magento/venia-concept/src/components/Field/field.module.css';
+    background: #ffffff;
+    border: 1px solid #eaecee;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.inputSearch:disabled {
+    color: rgb(var(--venia-global-color-gray-darker));
+}
+.inputSearch:focus,
+.inputSearching:focus {
+    box-shadow: none;
+}
+.input_error {
+    composes: input from '@magento/venia-concept/src/components/Field/field.module.css';
+    border-color: rgb(var(--venia-global-color-red-400));
+}
+.inputSearching:focus {
+    border: 1px solid rgb(var(--venia-global-color-gray-600));
+}

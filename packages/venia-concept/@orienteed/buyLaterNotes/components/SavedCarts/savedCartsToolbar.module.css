@@ -1,0 +1,16 @@
+.root {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.limiterOptions {
+    margin: 0 10px;
+    padding: 5px;
+}
+.limiter {
+    text-align: right;
+}
+.savedCartsPagination {
+    grid-column-end: span 2;
+    margin-top: 10px;
+}

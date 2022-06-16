@@ -1,0 +1,50 @@
+.summaryContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.infoContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+    margin-bottom: 15px;
+}
+.priceContainer {
+    width: 50px;
+    text-align: right;
+}
+
+.valuesContainer {
+    display: flex;
+    width: 150px;
+    justify-content: space-between;
+}
+
+.containerTitles {
+    width: 150px;
+    text-align: left;
+}
+
+.currencyTitles {
+    width: 50px;
+}
+.inner {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+.summaryItem {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.inputPrice {
+    outline: none;
+    box-shadow: 0px 0px 5px 1px #205aff;
+    width: 55px;
+}

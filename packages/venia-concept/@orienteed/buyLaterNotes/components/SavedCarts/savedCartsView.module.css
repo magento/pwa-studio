@@ -1,0 +1,252 @@
+/* .root{
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
+    grid-column: 1 / -1;
+    padding: 1.5rem;
+} */
+.savedCartName {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.savedCartDescription {
+}
+
+.savedCartViewDate {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.headerContainer {
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(var(--venia-global-color-gray-400));
+    border-bottom: 1px solid rgb(var(--venia-global-color-gray-400));
+}
+
+.tableContent {
+    padding: 1.5rem;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+
+.headerDescription {
+    padding: 4rem;
+    text-align: center;
+    text-align: center;
+}
+
+.tilteDescription {
+    margin-bottom: 1rem;
+}
+
+.savedCartViewActions {
+}
+.restoreAction {
+}
+.savedCartViewTableRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 20px 0px;
+}
+
+.savedCartLinkDelete {
+    color: rgb(var(--venia-global-color-error));
+}
+
+.productPriceContainer {
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    padding: 1rem;
+    border-radius: 0.375rem;
+    width: 100%;
+    margin: auto;
+    position: relative;
+    top: -15%;
+}
+
+.footer {
+    display: grid;
+    align-items: center;
+    text-align: center;
+}
+
+.actionContainer {
+    display: grid;
+    margin-top: 4rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+.actionContainer button {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.itemsTitle {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.productPriceContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.productPriceTitle {
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.cell {
+}
+
+.stackedCell {
+}
+.label {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.value {
+    font-family: var(--venia-global-fontFamily-sansSerif);
+}
+
+.productName,
+.productSku,
+.productImage,
+.productPrice,
+.productQty,
+.productSubtotal {
+    height: 100%;
+}
+
+.productName {
+    position: relative;
+    top: 30%;
+}
+
+.productSku,
+.productPrice,
+.productQty {
+}
+.productSubtotal {
+}
+.productNameLabel,
+.productSkuLabel,
+.productImageLabel,
+.productPriceLabel,
+.productQtyLabel,
+.productSubtotalLabel {
+}
+
+.productNameValue,
+.productSkuValue,
+.productImageValue,
+.productPriceValue,
+.productQtyValue,
+.productSubtotalValue {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.productImageValue img {
+    width: 40%;
+}
+
+.savedCartViewTableFooter {
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    width: fit-content;
+    padding: 1rem;
+    grid-gap: 1rem;
+    border-radius: 0.375rem;
+    grid-template-columns: 1fr 1fr;
+}
+
+.productInfoContainer {
+}
+
+.tableSubtotal {
+}
+
+.tableSubtotalValue {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+@media (min-width: 960px) {
+    .tableSubtotalMobileLabel,
+    .productSkuMobileLabel,
+    .productImageMobileLabel,
+    .productPriceMobileLabel,
+    .productQtyMobileLabel,
+    .productSubtotalMobileLabel,
+    .productNameMobileLabel {
+        display: none;
+    }
+}
+
+@media (max-width: 960px) {
+    .hideMobile {
+        display: none;
+    }
+
+    .savedCartViewTableFooter {
+        margin: 0 auto;
+    }
+
+    .tableSubtotalValue {
+        margin-left: 10px;
+    }
+    .savedCartViewTableRow {
+        grid-template-columns: 1fr;
+    }
+
+    .productPriceContainer {
+        margin-top: 80px;
+    }
+
+    .productImageValue img {
+        margin-left: 30%;
+    }
+
+    .productNameValue {
+        display: block;
+        text-align: center;
+    }
+
+    .cell {
+    }
+    .savedCartViewTableRow.savedCartViewTableHead {
+    }
+    .productSku,
+    .productPrice,
+    .productQty {
+    }
+    .productSubtotal {
+    }
+    .savedCartViewTableFooter {
+    }
+    .tableSubtotal {
+    }
+    .tableSubtotalDesk {
+        display: none;
+    }
+    .tableSubtotalMobileLabel,
+    .productSkuMobileLabel,
+    .productImageMobileLabel,
+    .productPriceMobileLabel,
+    .productQtyMobileLabel,
+    .productSubtotalMobileLabel,
+    .productNameMobileLabel {
+    }
+}
+
+@media (max-width: 560px) {
+    .header {
+        grid-template-columns: 1fr;
+    }
+
+    .savedCartViewDate {
+        margin-top: 1rem;
+    }
+}

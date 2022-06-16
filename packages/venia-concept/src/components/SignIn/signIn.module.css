@@ -1,0 +1,65 @@
+.root {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: stretch;
+    padding: 1rem 1.5rem;
+    max-width: 600px;
+    margin: 50px auto 0;
+}
+
+.forgotPassword {
+    display: block;
+    text-decoration: underline;
+    color: rgb(var(--venia-global-color-error));
+    font-size: 0.8rem;
+}
+
+.form {
+    display: grid;
+    row-gap: 0.9375rem;
+}
+
+.modal {
+    visibility: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(var(--venia-global-color-gray));
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.modal_active {
+    visibility: visible;
+    composes: modal;
+    opacity: 0.9;
+}
+
+.buttonsContainer {
+    display: grid;
+    gap: 1.5rem;
+    grid-auto-flow: row;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.forgotPasswordButtonContainer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    justify-self: start;
+    text-align: center;
+}
+
+.forgotPasswordButton {
+    composes: root from '../LinkButton/linkButton.module.css';
+
+    padding: 0;
+}
+
+.title {
+    font-size: var(--venia-global-fontSize-400);
+    padding-top: 0.5rem;
+    text-transform: capitalize;
+}

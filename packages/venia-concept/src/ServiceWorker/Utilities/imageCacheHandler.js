@@ -4,11 +4,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { MESSAGE_TYPES } from '@magento/peregrine/lib/util/swUtils';
 
 import { isFastNetwork } from './networkUtils';
-import {
-    THIRTY_DAYS,
-    IMAGES_CACHE_NAME,
-    MAX_NUM_OF_IMAGES_TO_CACHE
-} from '../defaults';
+import { THIRTY_DAYS, IMAGES_CACHE_NAME, MAX_NUM_OF_IMAGES_TO_CACHE } from '../defaults';
 import { registerMessageHandler } from './messageHandler';
 
 const imageRegex = new RegExp(/\.(?:png|jpg|jpeg)$/);
@@ -25,8 +21,7 @@ const isImage = url => imageRegex.test(url.pathname);
  *
  * @returns {boolean}
  */
-export const isResizedImage = ({ url }) =>
-    isImage(url) && !isNaN(getWidth(url));
+export const isResizedImage = ({ url }) => isImage(url) && !isNaN(getWidth(url));
 
 /**
  * This function tries to find same or a larger image
@@ -93,9 +88,7 @@ export const findSameOrLargerImage = async url => {
     if (best.candidate) {
         const bestCachedResponse = await cache.match(best.candidate);
         console.log(
-            `ServiceWorker responding to GET ${
-                url.pathname
-            } at ${requestedWidth}w with cached version ${
+            `ServiceWorker responding to GET ${url.pathname} at ${requestedWidth}w with cached version ${
                 best.difference
             }px larger: ${bestCachedResponse.url}`
         );
@@ -135,9 +128,7 @@ const handleImagePreFetchRequest = (payload, event) => {
     } else {
         event.ports[0].postMessage({
             status: 'error',
-            message: `Slow Network detected. Not pre-fetching images. ${
-                payload.urls
-            }`
+            message: `Slow Network detected. Not pre-fetching images. ${payload.urls}`
         });
         return null;
     }
@@ -152,10 +143,7 @@ const handleImagePreFetchRequest = (payload, event) => {
  * 1. PREFETCH_IMAGES
  */
 export const registerImagePreFetchHandler = () => {
-    registerMessageHandler(
-        MESSAGE_TYPES.PREFETCH_IMAGES,
-        handleImagePreFetchRequest
-    );
+    registerMessageHandler(MESSAGE_TYPES.PREFETCH_IMAGES, handleImagePreFetchRequest);
 };
 
 /**

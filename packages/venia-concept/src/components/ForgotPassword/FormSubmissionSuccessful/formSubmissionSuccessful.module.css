@@ -1,0 +1,15 @@
+.root {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.text {
+    font-size: 0.875rem;
+    font-weight: 300;
+    line-height: 1.25rem;
+}
+
+.title {
+    padding-top: 0.5rem;
+    text-transform: capitalize;
+}

@@ -18,6 +18,7 @@ import {
 } from '../../../actions/storeSwitcher';
 
 import { assertUrlSuffix, assertNoUrlSuffix } from '../../../assertions/app';
+import { assertProductIsOutOfStock } from '../../../assertions/productPage';
 import {
     assertProductInCartPage,
     assertProductImageDisplayedInCartPage
@@ -553,7 +554,7 @@ const interceptRouteDataRequests = expectedStoreCode => {
     });
 };
 
-describe('default store', () => {
+describe('default store', { tags: ['@commerce', '@ci', '@multistore'] }, () => {
     it('contains valid CMS Page data', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);
@@ -633,7 +634,7 @@ describe('default store', () => {
     });
 });
 
-describe('switching to another store', () => {
+describe('switching to another store', { tags: ['@commerce', '@ci'] }, () => {
     it('contains valid CMS Page data specific to the different store', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);
@@ -801,7 +802,7 @@ describe('switching to another store', () => {
     });
 });
 
-describe('shopping cart', () => {
+describe('shopping cart', { tags: ['@commerce', '@ci'] }, () => {
     it('lets users add products to cart regardless of store view', () => {
         interceptStoreRequests(defaultStore.defaultView.storeCode);
         interceptRouteDataRequests(defaultStore.defaultView.storeCode);
@@ -979,6 +980,10 @@ describe('shopping cart', () => {
         cy.wait(['@mockProduct2RouteData']);
 
         setProductColorOption('Khaki');
+        setProductSizeOption('S');
+
+        assertProductIsOutOfStock();
+
         setProductSizeOption('M');
         addToCartFromProductPage();
 

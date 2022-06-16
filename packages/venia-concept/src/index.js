@@ -6,14 +6,13 @@ import app from '@magento/peregrine/lib/store/actions/app';
 import Adapter from '@magento/venia-ui/lib/components/Adapter';
 import { registerSW } from './registerSW';
 import './index.css';
+import './css/index.module.css';
 
 // server rendering differs from browser rendering
 const isServer = !globalThis.document;
 
 // TODO: on the server, the http request should provide the origin
-const origin = isServer
-    ? process.env.MAGENTO_BACKEND_URL
-    : globalThis.location.origin;
+const origin = isServer ? process.env.MAGENTO_BACKEND_URL : globalThis.location.origin;
 
 // on the server, components add styles to this set and we render them in bulk
 const styles = new Set();

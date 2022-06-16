@@ -23,9 +23,7 @@ afterEach(() => {
 
 describe('Testing registerMessageHandler', () => {
     test('registerMessageHandler should return function', () => {
-        expect(registerMessageHandler(messageType, handler)).toBeInstanceOf(
-            Function
-        );
+        expect(registerMessageHandler(messageType, handler)).toBeInstanceOf(Function);
     });
 
     test('registerMessageHandler should add a message handler for a given type in the handlers object', () => {
@@ -38,10 +36,7 @@ describe('Testing registerMessageHandler', () => {
     });
 
     test('registerMessageHandler should return function which when called should un-register handler', () => {
-        const unregisterHelloWorld = registerMessageHandler(
-            messageType,
-            handler
-        );
+        const unregisterHelloWorld = registerMessageHandler(messageType, handler);
 
         unregisterHelloWorld();
 
@@ -49,10 +44,7 @@ describe('Testing registerMessageHandler', () => {
     });
 
     test("registerMessageHandler's return function should only unregister the function it registered", () => {
-        const unregisterHelloWorld = registerMessageHandler(
-            messageType,
-            handler
-        );
+        const unregisterHelloWorld = registerMessageHandler(messageType, handler);
 
         const anotherHandler = () => {};
 
@@ -160,21 +152,17 @@ describe('Testing sendMessageToClient', () => {
     });
 
     test('sendMessageToClient should return a Promise', () => {
-        expect(
-            sendMessageToClient({ postMessage: () => {} }, messageType, {})
-        ).toBeInstanceOf(Promise);
+        expect(sendMessageToClient({ postMessage: () => {} }, messageType, {})).toBeInstanceOf(Promise);
     });
 
     test('sendMessageToClient should reject if the client does not have postMessage function defined', async () => {
-        await expect(
-            sendMessageToClient({ type: 'worker' }, messageType, {})
-        ).rejects.toBe('Unable to send message to worker');
+        await expect(sendMessageToClient({ type: 'worker' }, messageType, {})).rejects.toBe(
+            'Unable to send message to worker'
+        );
     });
 
     test('sendMessageToClient should reject if the client is not defined', async () => {
-        await expect(sendMessageToClient(null, messageType, {})).rejects.toBe(
-            'Unable to send message to client'
-        );
+        await expect(sendMessageToClient(null, messageType, {})).rejects.toBe('Unable to send message to client');
     });
 
     test('sendMessageToClient should call the postMessage function on client with type, payload and a port to reply back', () => {
@@ -189,10 +177,7 @@ describe('Testing sendMessageToClient', () => {
 
         sendMessageToClient(client, messageType, payload);
 
-        expect(postMessage).toHaveBeenCalledWith(
-            { type: messageType, payload },
-            [port2]
-        );
+        expect(postMessage).toHaveBeenCalledWith({ type: messageType, payload }, [port2]);
     });
 
     test('sendMessageToClient should register onmessage handler on port1 of the channel to listen for replies from client', async () => {
@@ -302,9 +287,7 @@ describe('Testing sendMessageToWindow', () => {
                 ])
         };
 
-        await expect(sendMessageToWindow(messageType, {})).rejects.toBe(
-            'Unable to send message to window'
-        );
+        await expect(sendMessageToWindow(messageType, {})).rejects.toBe('Unable to send message to window');
     });
 
     test('sendMessageToWindow should call the postMessage function on window with type, payload and a port to reply back', () => {
@@ -319,10 +302,7 @@ describe('Testing sendMessageToWindow', () => {
 
         return new Promise(resolve => {
             setTimeout(() => {
-                expect(windowPostMessage).toHaveBeenCalledWith(
-                    { type: messageType, payload },
-                    [port2]
-                );
+                expect(windowPostMessage).toHaveBeenCalledWith({ type: messageType, payload }, [port2]);
                 resolve();
             }, 0);
         });

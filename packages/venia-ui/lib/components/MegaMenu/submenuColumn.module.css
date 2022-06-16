@@ -1,26 +1,28 @@
 .submenuColumn {
-    max-width: 235px;
-    padding: 20px;
+    composes: max-w-[235px] from global;
+    composes: p-5 from global;
 }
 
 .heading {
-    font-weight: 600;
+    composes: font-semibold from global;
 }
 
 .link {
-    white-space: nowrap;
+    composes: whitespace-nowrap from global;
+
+    composes: focus_underline from global;
+
+    composes: hover_underline from global;
 }
 
-.link:hover,
-.link:focus,
 .linkActive {
-    text-decoration: underline;
+    composes: underline from global;
 }
 
 .submenuChild {
-    margin-top: 21px;
+    composes: mt-5 from global;
 }
 
 .submenuChildItem {
-    margin-bottom: 12px;
+    composes: mb-3 from global;
 }

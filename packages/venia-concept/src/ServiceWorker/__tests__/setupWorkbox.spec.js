@@ -26,9 +26,7 @@ test('importScripts should be called to fetch workbox-sw.js file', () => {
 
     setupWorkbox();
 
-    expect(importScripts).toHaveBeenCalledWith(
-        expect.stringContaining('workbox-sw.js')
-    );
+    expect(importScripts).toHaveBeenCalledWith(expect.stringContaining('workbox-sw.js'));
 });
 
 test('skipWaiting should be called on workbox.core object', () => {

@@ -1,32 +1,26 @@
 .root {
-    display: grid;
-    padding: 2.5rem 3rem;
-    row-gap: 2rem;
+    composes: grid from global;
+    composes: gap-y-md from global;
+    composes: px-sm from global;
+    composes: py-md from global;
+
+    composes: lg_px-lg from global;
 }
 
 .title {
-    justify-self: center;
-    font-family: var(--venia-global-fontFamily-serif);
-    font-weight: var(--venia-global-fontWeight-bold);
+    composes: font-bold from global;
+    composes: font-serif from global;
+    composes: justify-self-center from global;
 }
 
 .form {
-    display: grid;
-    row-gap: 2rem;
+    composes: grid from global;
+    composes: gap-y-md from global;
 }
 
 .buttonsContainer {
-    display: flex;
-    justify-content: flex-start;
-}
+    composes: flex from global;
+    composes: justify-center from global;
 
-@media (max-width: 960px) {
-    .root {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
-
-    .buttonsContainer {
-        justify-content: center;
-    }
+    composes: lg_justify-start from global;
 }

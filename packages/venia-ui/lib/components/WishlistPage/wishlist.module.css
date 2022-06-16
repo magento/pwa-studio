@@ -1,79 +1,84 @@
 .root {
-    border: 2px solid rgb(var(--venia-global-color-gray-400));
-    border-radius: 0.375rem;
-    display: grid;
-    padding: 2rem;
-    row-gap: 2rem;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: gap-y-md from global;
+    composes: grid from global;
+    composes: p-sm from global;
+    composes: rounded-md from global;
+
+    composes: md_p-md from global;
 }
 
 .header {
-    align-items: center;
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: space-between;
+    composes: gap-y-0 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-between from global;
+
+    composes: md_gap-y-2xs from global;
+}
+
+@media (max-width: 799px) {
+    .header {
+        grid-template-rows: 1fr 1fr;
+    }
 }
 
 .nameContainer {
-    align-items: center;
-    gap: 0.5rem 1rem;
-    display: grid;
-    grid-auto-flow: column;
+    composes: gap-x-2xs from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: items-center from global;
+
+    composes: md_grid-flow-col from global;
 }
 
 .emptyListText {
-    text-align: center;
-    padding: 2rem 0;
+    composes: py-md from global;
+    composes: text-center from global;
 }
 
 .name {
-    font-weight: var(--venia-global-fontWeight-semibold);
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    composes: font-semibold from global;
+    composes: overflow-hidden from global;
+    composes: whitespace-nowrap from global;
+    composes: text-ellipsis from global;
 }
 
 .buttonsContainer {
-    align-items: center;
-    column-gap: 1rem;
-    display: grid;
-    grid-auto-flow: column;
+    composes: gap-x-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-self-end from global;
+
+    composes: md_justify-self-start from global;
 }
 
 .content_hidden {
-    display: none;
+    composes: hidden from global;
 }
 
 .visibilityToggle_hidden {
-    display: none;
+    composes: hidden from global;
 }
 
 .loadMore {
     composes: root_lowPriority from '../Button/button.module.css';
-    margin: 2rem auto;
-    display: block;
-    min-width: 20rem;
+
+    composes: block from global;
+    composes: min-w-[20rem] from global;
+    composes: mx-auto from global;
+    composes: my-md from global;
 }
 
-@media (max-width: 768px) {
-    .root {
-        padding: 1.5rem;
-    }
+.itemsCountContainer {
+    composes: col-end-span2 from global;
+    composes: justify-self-center from global;
 
-    .header {
-        grid-template-rows: 1fr 1fr;
-        row-gap: 0.5rem;
-    }
-
-    .nameContainer {
-        grid-auto-flow: row;
-    }
-
-    .buttonsContainer {
-        justify-self: end;
-    }
-
-    .itemsCountContainer {
-        grid-column-end: span 2;
-        justify-self: center;
-    }
+    composes: md_col-end-auto from global;
+    composes: md_justify-self-start from global;
 }

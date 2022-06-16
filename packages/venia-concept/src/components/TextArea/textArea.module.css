@@ -1,0 +1,16 @@
+.input {
+    composes: input from '../Field/field.module.css';
+    height: auto;
+    max-width: 100%;
+    min-width: 100%;
+    padding: 12px 15px;
+}
+
+.input_shimmer {
+    composes: input_base from '../Field/field.module.css';
+    height: auto;
+    min-height: 6.75rem;
+    max-width: 100%;
+    min-width: 100%;
+    padding: 12px 15px;
+}

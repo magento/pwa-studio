@@ -1,0 +1,33 @@
+.reOrderRow {
+}
+
+.reOrderBtn {
+    color: rgb(var(--venia-global-color-text));
+    border-color: var(--orienteed-primary-color-base1);
+    width: 100%;
+}
+
+.reOrderDiv {
+}
+
+@media (min-width: 960px) {
+    .reOrderRow {
+        grid-template-columns: minmax(7rem, 10rem) 10rem minmax(9rem, 10rem) 25rem 12rem 12rem 40px;
+    }
+}
+@media only screen and (min-width: 961px) and (max-width: 1300px) {
+    .reOrderRow {
+        grid-template-columns: 1fr 1fr 1fr 2px;
+    }
+}
+@media (max-width: 960px) {
+    .orderReOrderContainer {
+        grid-column: 1 span;
+        grid-row: unset;
+        padding: 1.5rem;
+    }
+    .orderReStatusContainer {
+        grid-column-end: span 2;
+        padding: 1.5rem;
+    }
+}

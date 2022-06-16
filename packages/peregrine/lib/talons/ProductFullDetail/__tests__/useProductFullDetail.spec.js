@@ -260,6 +260,82 @@ const configurableProductProps = {
     }
 };
 
+const outOfOrderCustomAttributeProductProps = {
+    ...defaultProps,
+    product: {
+        ...defaultProps.product,
+        custom_attributes: [
+            {
+                entered_attribute_value: {
+                    value: 'Custom Attribute 3'
+                },
+                attribute_metadata: {
+                    uid: 'attribute-uid-3',
+                    code: 'attribute_code_3',
+                    label: 'Attribute Label 3',
+                    attribute_labels: [
+                        {
+                            store_code: 'default',
+                            label: 'Default Label 3'
+                        }
+                    ],
+                    entity_type: 'PRODUCT',
+                    ui_input: {
+                        ui_input_type: 'TEXT',
+                        is_html_allowed: true
+                    },
+                    used_in_components: []
+                }
+            },
+            {
+                // Leave values un-capitalized as testing it doesn't sort by capitalization.
+                entered_attribute_value: {
+                    value: 'custom attribute 2'
+                },
+                attribute_metadata: {
+                    uid: 'attribute-uid-2',
+                    code: 'attribute_code_2',
+                    label: 'attribute label 2',
+                    attribute_labels: [
+                        {
+                            store_code: 'default',
+                            label: 'default label 2'
+                        }
+                    ],
+                    entity_type: 'PRODUCT',
+                    ui_input: {
+                        ui_input_type: 'TEXT',
+                        is_html_allowed: true
+                    },
+                    used_in_components: []
+                }
+            },
+            {
+                entered_attribute_value: {
+                    value: 'Custom Attribute 1'
+                },
+                attribute_metadata: {
+                    uid: 'attribute-uid-1',
+                    code: 'attribute_code_1',
+                    label: 'Attribute Label 1',
+                    attribute_labels: [
+                        {
+                            store_code: 'default',
+                            label: 'Default Label 1'
+                        }
+                    ],
+                    entity_type: 'PRODUCT',
+                    ui_input: {
+                        ui_input_type: 'TEXT',
+                        is_html_allowed: true
+                    },
+                    used_in_components: []
+                }
+            }
+        ]
+    }
+};
+
 const configurableOutOfStockProductProps = {
     ...defaultProps,
     product: {
@@ -341,6 +417,22 @@ describe('shouldShowConfigurableProductOutOfStockButton', () => {
         const { root } = tree;
         act(() => {
             root.findByType('i').props.talonProps.handleSelectionChange('1', 3);
+        });
+
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.isOutOfStock).toBeTruthy();
+        expect(talonProps.isAddToCartDisabled).toBeTruthy();
+    });
+
+    test('is true (and should not error) if product is in stock and a disabled option is selected', () => {
+        const tree = createTestInstance(
+            <Component {...configurableProductProps} />
+        );
+
+        const { root } = tree;
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange('1', 4);
         });
 
         const { talonProps } = root.findByType('i').props;
@@ -676,4 +768,15 @@ test('it returns text when render prop is executed', () => {
     expect(
         talonProps.wishlistButtonProps.buttonText(false)
     ).toMatchInlineSnapshot(`"Add to Favorites"`);
+});
+
+test('custom attribute is sorted', () => {
+    const tree = createTestInstance(
+        <Component {...outOfOrderCustomAttributeProductProps} />
+    );
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.customAttributes).toMatchSnapshot();
 });

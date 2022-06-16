@@ -1,23 +1,27 @@
 .billing_address_fields_root {
-    display: grid;
-    gap: 0.9375rem 1.5rem;
-    padding: 1rem 0rem;
+    composes: gap-x-xs from global;
+    composes: gap-y-sm from global;
+    composes: grid from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
 }
 
 .billing_address_fields_root_hidden {
-    overflow: hidden;
-    visibility: hidden;
-    height: 0;
-    opacity: 0;
+    composes: h-0 from global;
+    composes: invisible from global;
+    composes: opacity-0 from global;
+    composes: overflow-hidden from global;
 }
 
 .formErrorContainer {
-    padding-top: 1.5rem;
+    composes: pt-sm from global;
 }
 
 .first_name,
 .last_name {
-    grid-column-end: span 1;
+    composes: col-end-span2 from global;
+
+    composes: lg_col-end-span1 from global;
 }
 
 .country,
@@ -28,23 +32,5 @@
 .region,
 .postal_code,
 .phone_number {
-    grid-column-end: span 2;
-}
-
-/*
- * Mobile-specific styles.
- */
-
-@media (max-width: 960px) {
-    .first_name,
-    .last_name,
-    .city,
-    .region,
-    .postal_code,
-    .phone_number,
-    .street1,
-    .street2,
-    .address_check {
-        grid-column-end: span 2;
-    }
+    composes: col-end-span2 from global;
 }

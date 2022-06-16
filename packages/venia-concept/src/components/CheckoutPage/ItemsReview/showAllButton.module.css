@@ -1,0 +1,29 @@
+.root {
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: px-0 from global;
+    composes: py-3 from global;
+    composes: w-full from global;
+}
+
+.content {
+    composes: gap-1.5 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+}
+
+.text {
+    composes: font-semibold from global;
+    color: var(--orienteed-primary-color-base1);
+    /* composes: text-brand-dark from global; */
+    composes: text-sm from global;
+}
+
+.arrowDown {
+    composes: root from '@magento/venia-ui/lib/components/Icon/icon.module.css';
+
+    --stroke: var(--orienteed-primary-color-base1);
+}

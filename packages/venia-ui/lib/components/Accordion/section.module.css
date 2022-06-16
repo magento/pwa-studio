@@ -1,42 +1,50 @@
 .root {
-    border-bottom: 2px solid rgb(var(--venia-global-color-gray-400));
+    composes: border-b-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
 }
 
+/* TODO @TW: cannot compose */
 .root:last-of-type {
+    /* composes: border-b-0 from global; */
     border-bottom-width: 0;
 }
 
 .contents_container {
-    padding: 0 1.5rem 1.5rem;
+    composes: pb-sm from global;
+    composes: pt-0 from global;
+    composes: px-sm from global;
 }
 
+/* TODO @TW: cannot compose */
 .contents_container:empty {
     display: none;
 }
 
 .contents_container_closed {
     composes: contents_container;
-    display: none;
+    composes: hidden from global;
 }
 
 .title {
-    font-size: var(--venia-global-fontSize-300);
+    composes: text-lg from global;
 }
 
 .title_container {
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    margin: 0;
+    composes: block from global;
+    composes: cursor-pointer from global;
+    composes: w-full from global;
+    composes: m-0 from global;
 }
 
 .title_wrapper {
-    align-items: center;
-    display: grid;
-    gap: 1.5rem;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr;
-    height: 4.5rem;
-    justify-items: start;
-    padding: 0 1.5rem;
+    composes: gap-sm from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: grid-flow-col from global;
+    composes: h-[4.5rem] from global;
+    composes: items-center from global;
+    composes: justify-items-start from global;
+    composes: px-sm from global;
+    composes: py-0 from global;
 }

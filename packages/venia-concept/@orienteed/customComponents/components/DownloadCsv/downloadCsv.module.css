@@ -1,0 +1,13 @@
+.selectStyles {
+    border-width: 2px;
+    border-color: rgb(var(--venia-global-color-gray-500));
+    border-radius: 6px;
+    font-weight: var(--venia-global-fontWeight-normal);
+    text-transform: none;
+}
+.buttonContainer {
+    display: flex;
+}
+.sortContainer {
+    display: flex;
+}

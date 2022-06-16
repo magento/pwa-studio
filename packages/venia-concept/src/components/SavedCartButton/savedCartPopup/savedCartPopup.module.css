@@ -1,0 +1,37 @@
+.saveCartname label {
+    justify-content: normal;
+}
+.saveCartname .cartNameUniqueLabel {
+    font-style: italic;
+    font-size: 80%;
+    padding-left: 5px;
+    font-weight: normal;
+}
+.saveCartDescriptionNote {
+    font-style: italic;
+    font-size: 80%;
+    margin-top: 1rem;
+}
+
+.saveCartname_error label {
+    justify-content: normal;
+}
+.saveCartname_error .cartNameUniqueLabel {
+    font-style: italic;
+    font-size: 80%;
+    padding-left: 5px;
+    font-weight: normal;
+}
+
+.saveCartname_error input {
+    border-color: rgb(var(--venia-global-color-red-400));
+}
+
+.saveCartname_error input:focus {
+    border-color: rgb(var(--venia-global-color-gray-600));
+}
+
+.saveCartname_error p {
+    color: rgb(var(--venia-global-color-error));
+    font-weight: var(--venia-global-fontWeight-semibold);
+}

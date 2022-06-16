@@ -1,0 +1,24 @@
+{
+    "name": "@orienteed/pagebuilder",
+    "version": "0.0.1",
+    "publishConfig": {
+        "access": "public"
+    },
+    "description": "Extends page builder modules.",
+    "main": "./intercept.js",
+    "scripts": {
+        "clean": " "
+    },
+    "repository": "github:magento/pwa-studio",
+    "license": "(OSL-3.0 OR AFL-3.0)",
+    "peerDependencies": {
+        "@magento/pwa-buildpack": "~11.2.0",
+        "@magento/venia-ui": "~9.3.0",
+        "@magento/pagebuilder": "~7.2.0"
+    },
+    "pwa-studio": {
+        "targets": {
+            "intercept": "./intercept"
+        }
+    }
+}

@@ -1,160 +1,140 @@
 .root {
-    border-top: 2px solid rgb(var(--venia-global-color-gray-100));
-    color: rgb(var(--venia-global-color-gray-700));
-    display: grid;
-    font-size: var(--venia-typography-body-S-fontSize);
-    grid-template-areas:
-        'links'
-        'brand';
-    grid-template-columns: 100%;
-    line-height: var(--venia-global-lineHeight-300);
-    margin: 0 auto;
-    max-width: var(--venia-global-maxWidth);
-    min-height: 15rem;
-    padding-top: 4rem;
-    row-gap: 4rem;
-    width: 100%;
-}
-
-@media (max-width: 960px) {
-    .root {
-        grid-template-areas: 'links' 'brand';
-        max-width: 960px;
-    }
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-light from global;
+    composes: gap-y-16 from global;
+    composes: grid from global;
+    composes: leading-normal from global;
+    composes: max-w-site from global;
+    composes: min-h-[15rem] from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: pt-16 from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
+    composes: w-full from global;
 }
 
 .links {
-    display: grid;
-    gap: 2rem;
-    grid-area: links;
-    grid-auto-columns: 18rem;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(3, 1.5fr) 3fr;
-    padding: 0 2rem;
-}
+    composes: gap-x-md from global;
+    composes: gap-y-lg from global;
+    composes: grid from global;
+    composes: grid-cols-6 from global;
+    composes: grid-flow-row-dense from global;
+    composes: px-xs from global;
 
-@media (max-width: 960px) {
-    .links {
-        grid-auto-flow: row;
-        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-    }
+    composes: xs_px-md from global;
+    composes: lg_gap-x-sm from global;
+    composes: lg_gap-y-md from global;
+    composes: lg_grid-cols-12 from global;
 }
 
 .linkGroup {
-    align-content: start;
-    display: grid;
-    gap: 1em;
+    composes: col-span-3 from global;
+    composes: content-start from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+
+    composes: xs_col-span-2 from global;
 }
 
-.linkItem:first-child {
-    color: rgb(var(--venia-global-color-gray-900));
-    font-weight: 600;
+.linkItem {
+    composes: first_text-colorDefault from global;
+    composes: first_font-semibold from global;
 }
 
 .callout {
-    font-size: var(--venia-typography-body-S-fontSize);
-    justify-self: center;
-    line-height: var(--venia-global-lineHeight-300);
-    max-width: 20rem;
-    min-width: 20rem;
-}
+    composes: col-span-3 from global;
+    composes: leading-normal from global;
+    composes: max-w-[20rem] from global;
+    composes: text-sm from global;
 
-@media (max-width: 960px) {
-    .callout {
-        justify-self: start;
-    }
+    composes: xs_col-span-6 from global;
+    composes: xs_mx-auto from global;
+    composes: sm_col-span-3 from global;
 }
 
 .calloutHeading {
-    color: rgb(var(--venia-global-color-gray-900));
-    font-size: var(--venia-typography-body-S-fontSize);
-    font-weight: 600;
+    composes: font-semibold from global;
+    composes: text-colorDefault from global;
+    composes: text-sm from global;
 }
 
 .calloutBody {
-    margin: 1rem 0;
+    composes: mx-0 from global;
+    composes: my-xs from global;
 }
 
 .socialLinks {
-    display: grid;
-    gap: 1rem;
-    grid-auto-flow: column;
-    justify-content: start;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-start from global;
 }
 
 .branding {
-    align-items: center;
-    border-top: 2px solid rgb(var(--venia-global-color-gray-100));
-    display: grid;
-    grid-area: brand;
-    grid-auto-flow: column;
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-light from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-auto from global;
+    composes: grid-flow-row from global;
+    composes: h-auto from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: pb-16 from global;
+    composes: pt-md from global;
+    composes: px-md from global;
+    composes: text-center from global;
+    composes: w-full from global;
     grid-template-areas: 'a b c';
-    grid-template-columns: minmax(200px, 1fr) auto minmax(200px, 1fr);
-    height: 4rem;
-    justify-self: center;
-    padding: 0 1.5rem;
-    width: 100%;
+
+    composes: lg_gap-0 from global;
+    composes: lg_grid-flow-col from global;
+    composes: lg_h-[4rem] from global;
+    composes: lg_justify-self-center from global;
+    composes: lg_px-sm from global;
+    composes: lg_py-0 from global;
+    composes: lg_text-left from global;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
     .branding {
-        gap: 1rem;
-        grid-auto-flow: row;
         grid-template-areas: 'c' 'b' 'a';
-        grid-template-columns: auto;
-        height: auto;
-        justify-items: center;
-        padding: 2.5rem 2rem 4rem;
-        text-align: center;
+    }
+}
+
+@media (min-width: 960px) {
+    .branding {
+        grid-template-columns: minmax(200px, 1fr) auto minmax(200px, 1fr);
     }
 }
 
 .legal {
-    align-items: center;
-    display: grid;
-    gap: 1rem;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-center from global;
     grid-area: c;
-    grid-auto-flow: column;
-    justify-content: end;
-}
 
-@media (max-width: 960px) {
-    .legal {
-        justify-content: center;
-    }
+    composes: lg_justify-end from global;
 }
 
 .copyright {
     grid-area: b;
-    text-align: center;
+    composes: text-center from global;
 }
 
 .logoContainer {
     grid-area: a;
+    composes: mt-10 from global;
+
+    composes: lg_mt-0 from global;
 }
 
 .logo {
     height: var(--height);
     width: var(--width);
-}
-
-@media (max-width: 960px) {
-    .logoContainer {
-        margin-top: 2.5rem;
-    }
-}
-@media screen and (min-width: 768px) and (max-width: 991px) {
-    .callout {
-        min-width: 10rem;
-    }
-}
-@media screen and (max-width: 767px) {
-    .links {
-        padding: 0 1rem;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem 10px;
-    }
-    .callout {
-        min-width: 100%;
-    }
 }

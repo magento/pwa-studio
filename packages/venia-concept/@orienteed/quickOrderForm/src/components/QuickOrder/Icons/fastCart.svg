@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	
+		.st1{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:3;}
+	.st2{fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{fill:none;}
+</style>
+<line class="st0" x1="6" y1="17" x2="16" y2="17"/>
+<line class="st0" x1="3" y1="14" x2="13" y2="14"/>
+<path class="st0" d="M29,8l-2,11L9.4,21.8C8.6,21.9,8,22.6,8,23.4v0C8,24.3,8.7,25,9.6,25H27"/>
+<path class="st0" d="M5,4L5,4c2.3,0,3.8,2.4,2.8,4.5L7,10"/>
+<line class="st0" x1="3" y1="4" x2="5" y2="4"/>
+<line class="st0" x1="7" y1="10" x2="28" y2="10"/>
+<circle class="st0" cx="11" cy="27" r="2"/>
+<circle class="st0" cx="24" cy="27" r="2"/>
+<rect x="-504" class="st3" width="536" height="680"/>
+</svg>

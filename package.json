@@ -1,115 +1,134 @@
 {
-  "name": "@magento/pwa-studio",
-  "version": "12.3.0",
-  "private": true,
-  "workspaces": [
-    "packages/babel-preset-peregrine",
-    "packages/create-pwa",
-    "packages/extensions/*",
-    "packages/pagebuilder",
-    "packages/peregrine",
-    "packages/pwa-buildpack",
-    "packages/pwa-theme-venia",
-    "packages/upward-js",
-    "packages/upward-spec",
-    "packages/venia-concept",
-    "packages/venia-ui"
-  ],
-  "author": "Adobe Commerce",
-  "license": "SEE LICENSE IN LICENSE.txt",
-  "homepage": "https://github.com/magento/pwa-studio",
-  "bugs": {
-    "url": "https://github.com/magento/pwa-studio/issues"
-  },
-  "scripts": {
-    "build": "yarn venia run build",
-    "build:dev": "yarn venia run build:dev",
-    "clean:all": "yarn workspaces run -s clean && rimraf ./node_modules",
-    "clean:dist": "yarn workspaces run clean",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "danger": "danger-ci",
-    "lint": "eslint '@(packages|venia-integration-tests|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
-    "postbuild": "rimraf \"./packages/*/dist/{,**/}__*__\"",
-    "prepare": "node scripts/monorepo-introduction.js",
-    "prettier": "prettier --loglevel warn --write '@(packages|venia-integration-tests|scripts)/**/*.@(css|graphql|js)' '*.js'",
-    "prettier:check": "prettier --list-different '@(packages|venia-integration-tests|scripts)/**/*.@(css|graphql|js)' '*.js'",
-    "stage:venia": "yarn venia start",
-    "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
-    "storybook:venia": "yarn workspace @magento/venia-ui run storybook",
-    "test": "jest",
-    "test:ci": "jest --no-cache --max-workers=3 --json --outputFile=test-results.json",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --no-coverage --runInBand --testTimeout 86400",
-    "test:dev": "jest --watch",
-    "validate-queries": "graphql validate --keepClientFields --noStrictFragments",
-    "venia": "yarn workspace @magento/venia-concept",
-    "watch:all": "node scripts/watch-all.js",
-    "watch:venia": "yarn venia run watch"
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-runtime": "~7.4.4",
-    "@graphql-cli/validate": "~2.1.0",
-    "@graphql-eslint/eslint-plugin": "~3.0.1",
-    "@magento/eslint-config": "~1.5.0",
-    "@types/jest": "~26.0.24",
-    "autoprefixer": "~10.3.3",
-    "babel-eslint": "~10.1.0",
-    "babel-plugin-dynamic-import-node": "~2.3.3",
-    "babel-plugin-graphql-tag": "~2.0.0",
-    "caller-id": "~0.1.0",
-    "chalk": "~2.4.2",
-    "chokidar": "~3.5.2",
-    "coveralls": "~3.1.1",
-    "danger": "^10.7.1",
-    "dotenv": "~6.2.0",
-    "eslint": "~7.32.0",
-    "eslint-config-prettier": "~6.0.0",
-    "eslint-plugin-babel": "~5.3.0",
-    "eslint-plugin-jsx-a11y": "~6.4.1",
-    "eslint-plugin-node": "~8.0.1",
-    "eslint-plugin-package-json": "~0.1.4",
-    "eslint-plugin-react": "~7.21.5",
-    "eslint-plugin-react-hooks": "~4.2.0",
-    "execa": "~1.0.0",
-    "figures": "~2.0.0",
-    "first-run": "~2.0.0",
-    "graphql": "~15.5.0",
-    "graphql-cli": "~4.1.0",
-    "graphql-config": "~3.4.1",
-    "graphql-tag": "~2.12.4",
-    "identity-obj-proxy": "~3.0.0",
-    "jest": "~26.6.3",
-    "jest-fetch-mock": "~2.1.1",
-    "jest-junit": "~13.0.0",
-    "jest-transform-graphql": "~2.1.0",
-    "lodash.debounce": "~4.0.8",
-    "prettier": "~1.16.4",
-    "rimraf": "~2.6.3",
-    "tailwindcss": "~2.2.7"
-  },
-  "optionalDependencies": {
-    "bundlesize": "~0.18.1",
-    "sharp": "~0.29.0"
-  },
-  "resolutions": {
-    "https-proxy-agent": "~2.2.3",
-    "@graphql-tools/prisma-loader": "6.3.0"
-  },
-  "engines": {
-    "node": ">=14.x",
-    "yarn": ">=1.12.0"
-  },
-  "bundlesize": [
-    {
-      "path": "./packages/venia-concept/dist/{client,vendors,sw}?(.)*.js",
-      "maxSize": "250 kB"
+    "name": "@magento/pwa-studio",
+    "version": "12.4.0",
+    "private": true,
+    "workspaces": [
+        "packages/babel-preset-peregrine",
+        "packages/create-pwa",
+        "packages/extensions/*",
+        "packages/pagebuilder",
+        "packages/peregrine",
+        "packages/pwa-buildpack",
+        "packages/pwa-theme-venia",
+        "packages/upward-js",
+        "packages/upward-spec",
+        "packages/venia-concept",
+        "packages/venia-ui"
+    ],
+    "author": "Adobe Commerce",
+    "license": "SEE LICENSE IN LICENSE.txt",
+    "homepage": "https://github.com/magento/pwa-studio",
+    "bugs": {
+        "url": "https://github.com/magento/pwa-studio/issues"
     },
-    {
-      "path": "./packages/venia-concept/dist/RootCmp_*.js",
-      "maxSize": "250 kB"
+    "scripts": {
+        "build": "yarn venia run build",
+        "build:dev": "yarn venia run build:dev",
+        "clean:all": "yarn workspaces run -s clean && rimraf ./node_modules",
+        "clean:dist": "yarn workspaces run clean",
+        "coveralls": "cat ./coverage/lcov.info | coveralls",
+        "danger": "danger-ci",
+        "lint": "eslint '@(packages|venia-integration-tests|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
+        "postbuild": "rimraf \"./packages/*/dist/{,**/}__*__\"",
+        "prepare": "node scripts/monorepo-introduction.js",
+        "prettier": "prettier --loglevel warn --write '@(packages|venia-integration-tests|scripts)/**/*.@(css|graphql|js)' '*.js'",
+        "prettier:check": "prettier --list-different '@(packages|venia-integration-tests|scripts)/**/*.@(css|graphql|js)' '*.js'",
+        "stage:venia": "yarn venia start",
+        "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
+        "storybook:venia": "yarn workspace @magento/venia-ui run storybook",
+        "test": "jest",
+        "test:ci": "jest --no-cache --max-workers=3 --json --outputFile=test-results.json",
+        "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --no-coverage --runInBand --testTimeout 86400",
+        "test:dev": "jest --watch",
+        "validate-queries": "graphql validate --keepClientFields --noStrictFragments",
+        "venia": "yarn workspace @magento/venia-concept",
+        "watch:all": "node scripts/watch-all.js",
+        "watch:venia": "yarn venia run watch"
     },
-    {
-      "path": "./packages/venia-concept/dist/+([0-9]).*.js",
-      "maxSize": "100 kB"
+    "dependencies": {
+        "axios": "~0.26.1",
+        "babel-plugin-require-context-hook": "^1.0.0",
+        "papaparse": "~5.3.2",
+        "react-csv": "^2.2.2",
+        "react-drag-drop-files": "^2.3.4",
+        "react-dropzone": "^12.0.4",
+        "react-icons": "^4.3.1",
+        "react-to-print": "^2.14.4",
+        "reactjs-popup": "^2.0.5"
+    },
+    "devDependencies": {
+        "@babel/plugin-transform-runtime": "~7.4.4",
+        "@graphql-cli/validate": "~2.1.0",
+        "@graphql-eslint/eslint-plugin": "~3.0.1",
+        "@magento/eslint-config": "~1.5.0",
+        "@types/jest": "~26.0.24",
+        "autoprefixer": "~10.3.3",
+        "babel-eslint": "~10.1.0",
+        "babel-plugin-dynamic-import-node": "~2.3.3",
+        "babel-plugin-graphql-tag": "~2.0.0",
+        "caller-id": "~0.1.0",
+        "chalk": "~2.4.2",
+        "chokidar": "~3.5.2",
+        "coveralls": "~3.1.1",
+        "danger": "^10.7.1",
+        "dotenv": "~6.2.0",
+        "eslint": "~7.32.0",
+        "eslint-config-prettier": "~6.0.0",
+        "eslint-plugin-babel": "~5.3.0",
+        "eslint-plugin-jsx-a11y": "~6.4.1",
+        "eslint-plugin-node": "~8.0.1",
+        "eslint-plugin-package-json": "~0.1.4",
+        "eslint-plugin-react": "~7.21.5",
+        "eslint-plugin-react-hooks": "~4.2.0",
+        "execa": "~1.0.0",
+        "figures": "~2.0.0",
+        "first-run": "~2.0.0",
+        "graphql": "~15.5.0",
+        "graphql-cli": "~4.1.0",
+        "graphql-config": "~3.4.1",
+        "graphql-tag": "~2.12.4",
+        "identity-obj-proxy": "~3.0.0",
+        "jest": "~26.6.3",
+        "jest-fetch-mock": "~2.1.1",
+        "jest-junit": "~13.0.0",
+        "jest-transform-graphql": "~2.1.0",
+        "lodash.debounce": "~4.0.8",
+        "prettier": "~1.16.4",
+        "rimraf": "~2.6.3",
+        "tailwindcss": "~2.2.7"
+    },
+    "optionalDependencies": {
+        "bundlesize": "~0.18.1",
+        "sharp": "~0.29.0"
+    },
+    "resolutions": {
+        "https-proxy-agent": "~2.2.3",
+        "@graphql-tools/prisma-loader": "6.3.0"
+    },
+    "engines": {
+        "node": ">=14.x",
+        "yarn": ">=1.12.0"
+    },
+    "bundlesize": [
+        {
+            "path": "./packages/venia-concept/dist/{client,vendors,sw}?(.)*.js",
+            "maxSize": "250 kB"
+        },
+        {
+            "path": "./packages/venia-concept/dist/RootCmp_*.js",
+            "maxSize": "250 kB"
+        },
+        {
+            "path": "./packages/venia-concept/dist/+([0-9]).*.js",
+            "maxSize": "100 kB"
+        }
+    ],
+    "module": "src/index.js",
+    "es2015": "src/index.js",
+    "esnext": "src/index.js",
+    "pwa-studio": {
+        "targets": {
+            "intercept": "./local-intercept.js"
+        }
     }
-  ]
 }

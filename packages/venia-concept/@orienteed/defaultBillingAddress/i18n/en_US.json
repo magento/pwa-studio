@@ -1,0 +1,6 @@
+{
+    "checkoutPage.billingAddressDefault": "Your default billing address will be used for this order",
+    "addressCard.defaultShippingText": "Default shipping address",
+    "addressCard.defaultBillingText": "Default billing address",
+    "addressCard.defaultBothText": "Default"
+}

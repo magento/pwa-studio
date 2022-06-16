@@ -1,0 +1,69 @@
+.root {
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    line-height: 1.3em;
+}
+.heading_container {
+    display: grid;
+    margin-bottom: 1rem;
+    row-gap: 1rem;
+}
+.heading {
+    line-height: 1.3em;
+}
+.actions {
+    margin-top: 20px;
+}
+.continueShoppingBtn {
+    --stroke: var(--orienteed-primary-color-base2);
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    line-height: 1;
+    pointer-events: auto;
+    text-align: center;
+    background: none;
+    border-color: rgb(var(--stroke));
+    border-radius: 10rem;
+    border-style: solid;
+    border-width: 2px;
+    font-size: var(--venia-global-fontSize-100);
+    font-weight: var(--venia-global-fontWeight-bold);
+    line-height: 1.25rem;
+    max-width: 100%;
+    min-width: 10rem;
+    min-height: 2.5rem;
+    outline: none;
+    padding: calc(0.5rem + 1px) 1.5rem calc(0.5rem - 1px);
+    text-transform: uppercase;
+    transition-duration: 256ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: var(--venia-global-anim-standard);
+    background-color: rgb(var(--stroke));
+    color: rgb(var(--venia-global-color-gray-50));
+}
+.continueShoppingBtn:hover {
+    --stroke: var(--orienteed-primary-color-base1);
+}
+
+.continueShoppingBtn:focus {
+    box-shadow: -6px 6px rgb(var(--venia-brand-color-1-100));
+}
+
+.continueShoppingBtn:active {
+    transition-duration: 128ms;
+    --stroke: var(--orienteed-primary-color-base1);
+}
+.continueShoppingBtn:disabled,
+.continueShoppingBtn:hover:disabled {
+    pointer-events: none;
+    --stroke: var(--venia-global-color-gray-400);
+}
+@media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}

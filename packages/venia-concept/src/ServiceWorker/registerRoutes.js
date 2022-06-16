@@ -1,20 +1,8 @@
 import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
-import {
-    CacheFirst,
-    StaleWhileRevalidate,
-    NetworkFirst
-} from 'workbox-strategies';
-import {
-    isResizedImage,
-    findSameOrLargerImage,
-    createImageCacheHandler
-} from './Utilities/imageCacheHandler';
-import {
-    THIRTY_DAYS,
-    MAX_NUM_OF_IMAGES_TO_CACHE,
-    IMAGES_CACHE_NAME
-} from './defaults';
+import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
+import { isResizedImage, findSameOrLargerImage, createImageCacheHandler } from './Utilities/imageCacheHandler';
+import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE, IMAGES_CACHE_NAME } from './defaults';
 
 /**
  * registerRoutes function contains all the routes that need to
@@ -25,10 +13,7 @@ import {
 export default function() {
     const imageCacheHandler = createImageCacheHandler();
 
-    registerRoute(
-        new RegExp('(robots.txt|favicon.ico|manifest.json)'),
-        new StaleWhileRevalidate()
-    );
+    registerRoute(new RegExp('(robots.txt|favicon.ico|manifest.json)'), new StaleWhileRevalidate());
 
     /**
      * Route that checks for resized images in cache.
@@ -36,9 +21,7 @@ export default function() {
     registerRoute(isResizedImage, ({ url, request, event }) => {
         const sameOrLargerImagePromise = findSameOrLargerImage(url, request);
         event.waitUntil(sameOrLargerImagePromise);
-        return sameOrLargerImagePromise.then(
-            response => response || imageCacheHandler.handle({ request, event })
-        );
+        return sameOrLargerImagePromise.then(response => response || imageCacheHandler.handle({ request, event }));
     });
 
     /**
@@ -78,9 +61,7 @@ export default function() {
      * to the cache if available.
      */
     registerRoute(
-        ({ url, request }) =>
-            url.origin === self.location.origin &&
-            request.destination === 'document',
+        ({ url, request }) => url.origin === self.location.origin && request.destination === 'document',
         new NetworkFirst()
     );
 }

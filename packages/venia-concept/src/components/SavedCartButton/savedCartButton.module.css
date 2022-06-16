@@ -1,0 +1,7 @@
+.root {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+}

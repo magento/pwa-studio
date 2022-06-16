@@ -1,0 +1,17 @@
+.root {
+    composes: root from '@magento/venia-ui/lib/components/clickable.module.css';
+    font-weight: var(--venia-global-fontWeight-semibold);
+    line-height: 1.25rem;
+    max-width: 100%;
+    background-color: var(--orienteed-primary-color-base1);
+    color: white;
+    text-decoration: none;
+    height: 48px;
+    border-radius: 30px;
+    font-size: 16px;
+    margin-top: 14px;
+}
+
+.root:hover {
+    color: var(--orienteed-primary-color-base3);
+}

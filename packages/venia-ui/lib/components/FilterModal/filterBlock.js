@@ -16,6 +16,7 @@ const FilterBlock = props => {
     const {
         filterApi,
         filterState,
+        filterFrontendInput,
         group,
         items,
         name,
@@ -68,6 +69,8 @@ const FilterBlock = props => {
             <FilterList
                 filterApi={filterApi}
                 filterState={filterState}
+                name={name}
+                filterFrontendInput={filterFrontendInput}
                 group={group}
                 items={items}
                 onApply={onApply}
@@ -112,6 +115,7 @@ FilterBlock.propTypes = {
         root: string,
         trigger: string
     }),
+    filterFrontendInput: string,
     filterApi: shape({}).isRequired,
     filterState: setValidator,
     group: string.isRequired,

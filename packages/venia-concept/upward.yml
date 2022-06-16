@@ -1,3 +1,182 @@
+# This is a top-level object used to set values for the root `status`,
+# `headers`, and `body` properties.
+# It is the first branch in an abstract decision tree, which ultimately
+# resolves to an object that contains values for its own 'status', 'headers',
+# and 'body' properties.
+# This object uses a ConditionalResolver to determine the object value based
+# on the URL pattern in the request object.
+veniaResponse:
+    resolver: conditional
+    when:
+        # Requests to graphql/rest endpoints, the media library, and cache are
+        # handled by the top-level 'veniaProxy' object, which is a ProxyResolver
+        # that passes the request through to the backing Magento server.
+        - matches: request.url.pathname
+          pattern: '^/(graphql|rest|media)(/|$)'
+          use: veniaProxy
+        - matches: request.url.pathname
+          pattern: '^/(robots\.txt|favicon\.ico|manifest\.json)'
+          use: staticFromRoot
+        - matches: fileExtension
+          pattern: '(js|json|png|jpg|gif|svg|ico|css|txt)'
+          use: veniaStatic
+    default: veniaAppShell
+
+# A FileResolver for serving certain files directly from document root,
+# even though they are published to the `static` folder in build assets.
+staticFromRoot:
+    inline:
+        status: 200
+        headers:
+            resolver: inline
+            inline:
+                content-type: contentTypeFromExtension
+                cache-control:
+                    when:
+                        - matches: env.NODE_ENV
+                          pattern: 'production'
+                          use:
+                              inline: public, max-age=604800
+                    default:
+                        inline: no-cache, no-store, must-revalidate
+        body:
+            resolver: file
+            parse:
+                inline: text
+            encoding:
+                inline: binary
+            file:
+                resolver: template
+                engine: mustache
+                provide:
+                    filename: request.url.pathname
+                template:
+                    resolver: inline
+                    inline: './custom-static/{{ filename }}'
+
+contentTypeFromExtension:
+    when:
+        - matches: fileExtension
+          pattern: '^ico$'
+          use:
+              inline: image/x-icon
+        - matches: fileExtension
+          pattern: '^txt$'
+          use:
+              inline: text/plain
+        - matches: fileExtension
+          pattern: '^json$'
+          use:
+              inline: application/json
+    default:
+        inline: text/html
+
+# Contains the file extension--the part after the dot--of the URL path.
+fileExtension:
+    resolver: conditional
+    when:
+        - matches: request.url.pathname
+          pattern: '\.(.*)$'
+          use: $match.$1
+    default:
+        inline: ''
+
+# A ProxyResolver object that passes a request to the backend Magento
+# server defined in the MAGENTO_BACKEND_URL environment variable.
+# An UPWARD server infers this object as a ProxyResolver due to the presence
+# of the 'target' property.
+veniaProxy:
+    resolver: proxy
+    target: env.MAGENTO_BACKEND_URL
+    # A local Magento install may have SSH configured and untrusted,
+    # which is not a major concern for this one origin, especially if
+    # containerized. Clients which require trust may proxy through UPWARD.
+    ignoreSSLErrors:
+        when:
+            - matches: env.NODE_ENV
+              pattern: 'production'
+              use:
+                  inline: false
+        default:
+            inline: true
+
+# Page type data for initial render
+veniaPageType:
+    resolver: inline
+    inline:
+        data:
+            resolver: computed
+            type:
+                resolver: inline
+                inline: pageType
+            additional:
+                - type: product
+                  fetch: '__typename,id'
+                - type: cms_page
+                  fetch: 'identifier'
+                - type: category
+                  fetch: 'uid'
+
+# Nonce for page type inline script
+veniaPageTypeNonce:
+    resolver: inline
+    inline:
+        nonce:
+            resolver: computed
+            type:
+                resolver: inline
+                inline: pageTypeNonce
+
+# Webpack chunks to preload on page based on page type
+veniaWebpackChunks:
+    resolver: inline
+    inline:
+        scripts:
+            resolver: computed
+            type:
+                resolver: inline
+                inline: webpackChunks
+
+# The veniaAppShell object resolves to a response that returns server-side
+# rendered HTML containing the PWA application shell.
+# For SEO purposes, the appropriate meta tags in the HTML head element are also
+# set based on information about the resource.
+# This object uses properties in the top-level 'veniaResponse' object to return
+# the appropriate response values.
+veniaAppShell:
+    resolver: inline
+    inline:
+        status:
+            resolver: inline
+            inline: 200
+        headers:
+            resolver: inline
+            inline:
+                content-type:
+                    inline: text/html
+                cache-control:
+                    inline: s-maxage=60
+        body:
+            resolver: template
+            engine: mustache
+            provide:
+                pageType: veniaPageType.data
+                pageTypeNonce: veniaPageTypeNonce.nonce
+                webpackChunks: veniaWebpackChunks.scripts
+            template:
+                resolver: file
+                file:
+                    resolver: inline
+                    inline: './index.html'
+
+# The veniaStatic object is a DirectoryResolver that allows access to the files
+# inside the project's compiled './dist' directory.
+veniaStatic:
+    resolver: directory
+    directory:
+        resolver: inline
+        inline: '.'
+
 # This is the UPWARD specification file for the Venia storefront.
 # It is used by an UPWARD server implementation, such as upward-js and
 # upward-php, to describe how the server responds to requests.
@@ -17,3 +196,70 @@
 status: veniaResponse.status
 headers: veniaResponse.headers
 body: veniaResponse.body
+
+veniaSecurityHeaders:
+    resolver: inline
+    inline:
+        content-security-policy:
+            resolver: template
+            engine: mustache
+            provide:
+                backend: env.MAGENTO_BACKEND_URL
+                pageTypeNonce: veniaPageTypeNonce.nonce
+            template:
+                resolver: conditional
+                when:
+                    - matches: env.NODE_ENV
+                      pattern: development
+                      use:
+                          inline: ''
+                    - matches: env.SCRIPT_NAME
+                      pattern: '.*\.php$'
+                      use:
+                          inline: "
+                              script-src http: https: {{ backend }}{{#pageTypeNonce}} 'nonce-{{ pageTypeNonce }}'{{/pageTypeNonce}};
+                              style-src 'self' blob: https: 'unsafe-inline' {{ backend }};
+                              img-src data: http: https:;
+                              object-src 'none';
+                              base-uri 'none';
+                              child-src 'self';
+                              font-src 'self' fonts.gstatic.com;
+                              frame-src assets.braintreegateway.com *.google.com *.youtube.com *.youtu.be *.vimeo.com demo-moodle.orienteed.com
+                              "
+                default:
+                    inline: "
+                        script-src http: https: {{ backend }};
+                        style-src 'self' blob: https: 'unsafe-inline' {{ backend }};
+                        img-src data: http: https:;
+                        object-src 'none';
+                        base-uri 'none';
+                        child-src 'self';
+                        font-src 'self' fonts.gstatic.com;
+                        frame-src assets.braintreegateway.com *.google.com *.youtube.com *.youtu.be *.vimeo.com demo-moodle.orienteed.com
+                        "
+        strict-transport-security:
+            inline: max-age=31536000
+        x-content-type-options:
+            inline: nosniff
+        x-frame-options:
+            inline: SAMEORIGIN
+        x-xss-protection:
+            inline: '1; mode=block'
+
+# These are no-ops at runtime; nothing refers to these context values in the
+# rest of this file. They exist to declare that the files in the `./static`
+# directory are required and should be copied into the build assets by the
+# UpwardIncludePlugin. Since they are not directly mentioned elsewhere in this
+# file or any other upward.yml file in the build, the UpwardIncludePlugin would
+# fail to copy them if they were not mentioned here.
+
+# The static directory includes files which don't need to be compiled.
+# They are served by the `veniaStatic` DirectoryResolver, along with the
+# bundles and other assets, but since that resolver serves the `.` dist
+# directory, the UpwardIncludePlugin will not copy it to avoid circular
+# dependency. TODO: This is kind of confusing.
+veniaStaticIncludes:
+    resolver: directory
+    directory:
+        resolver: inline
+        inline: './custom-static'

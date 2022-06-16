@@ -1,0 +1,9 @@
+.productPrice {
+    display: block;
+}
+
+.productOldPrice {
+    display: block;
+    text-decoration: line-through;
+    color: '#666666';
+}

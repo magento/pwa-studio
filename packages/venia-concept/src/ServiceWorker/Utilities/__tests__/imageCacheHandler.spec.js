@@ -53,9 +53,7 @@ describe('Testing isResizedImage', () => {
         'https://develop.pwa-venia.com/media/catalog/product/cache/6ff2031bbe5bd4726a5a91896c8bef9e/v/d/vd07-pe_main_2.png?auto=webp&format=pjpg&width=640&height=800';
 
     test('isResizedImage should return boolean', () => {
-        expect(typeof isResizedImage({ url: new URL(validImage) })).toBe(
-            'boolean'
-        );
+        expect(typeof isResizedImage({ url: new URL(validImage) })).toBe('boolean');
     });
 
     test('isResizedImage should return true if the url provided is a valid catalog image url', () => {
@@ -142,9 +140,7 @@ describe('Testing findSameOrLargerImage', () => {
 
         mockMatchFn.mockReturnValue(Promise.resolve({ url: expectedUrl }));
 
-        const returnedResponse = await findSameOrLargerImage(
-            new URL(expectedUrl)
-        );
+        const returnedResponse = await findSameOrLargerImage(new URL(expectedUrl));
 
         expect(returnedResponse.url).toBe(expectedUrl);
     });
@@ -177,9 +173,7 @@ describe('Testing findSameOrLargerImage', () => {
 
         mockMatchFn.mockReturnValue(Promise.resolve({ url: expectedUrl }));
 
-        const returnedResponse = await findSameOrLargerImage(
-            new URL(requestedUrl)
-        );
+        const returnedResponse = await findSameOrLargerImage(new URL(requestedUrl));
 
         expect(returnedResponse.url).toBe(expectedUrl);
     });
@@ -188,9 +182,7 @@ describe('Testing findSameOrLargerImage', () => {
         const requestedUrl =
             'https://develop.pwa-venia.com/media/catalog/v/s/vsk12-la_main_3.jpg?auto=webp&format=pjpg&width=2400&height=3000';
 
-        const returnedResponse = await findSameOrLargerImage(
-            new URL(requestedUrl)
-        );
+        const returnedResponse = await findSameOrLargerImage(new URL(requestedUrl));
 
         expect(returnedResponse).toBe(undefined);
     });
@@ -215,10 +207,7 @@ describe('Testing createImageCacheHandler', () => {
 
     test('createImageCacheHandler should use the cacheable response plugin for statuses 0 and 200', () => {
         createImageCacheHandler();
-        expect(CacheableResponsePlugin.mock.calls[0][0].statuses).toEqual([
-            0,
-            200
-        ]);
+        expect(CacheableResponsePlugin.mock.calls[0][0].statuses).toEqual([0, 200]);
     });
 });
 
@@ -277,9 +266,7 @@ describe('Testing registerImagePreFetchHandler', () => {
 
         expect(mockPostmessage).toHaveBeenCalledWith({
             status: 'error',
-            message: `Slow Network detected. Not pre-fetching images. ${
-                payload.urls
-            }`
+            message: `Slow Network detected. Not pre-fetching images. ${payload.urls}`
         });
 
         expect(returnValue).toBeNull();

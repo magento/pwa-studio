@@ -1,47 +1,51 @@
 .root {
-    position: relative;
+    composes: relative from global;
 }
 
 .heading {
-    background-color: white;
-    font-size: 0.875rem;
-    font-weight: 600;
-    grid-column-end: span 2;
-    line-height: 1rem;
-    padding: 1.5rem 0 1.25rem;
-    text-align: center;
-    text-transform: uppercase;
-    top: 0;
-    z-index: 1;
+    composes: bg-white from global;
+    composes: col-end-span2 from global;
+    composes: font-semibold from global;
+    composes: leading-none from global;
+    composes: pb-xs from global;
+    composes: pt-sm from global;
+    composes: px-0 from global;
+    composes: text-center from global;
+    composes: text-sm from global;
+    composes: top-0 from global;
+    composes: uppercase from global;
+    composes: z-foreground from global;
 }
 
 .body {
-    align-content: start;
+    composes: bg-white from global;
+    composes: content-start from global;
+    composes: grid from global;
+    composes: gap-2xs from global;
+    composes: h-[7rem] from global;
+    composes: left-0 from global;
+    composes: overflow-auto from global;
+    composes: pb-2xs from global;
+    composes: px-sm from global;
+    composes: pt-0 from global;
+    composes: absolute from global;
+    composes: right-0 from global;
     animation-duration: 224ms;
     animation-iteration-count: 1;
     animation-name: enter;
-    background-color: white;
-    bottom: 7rem;
     box-shadow: 0 -1px rgb(var(--venia-global-color-border));
-    display: grid;
-    grid-gap: 0.5rem;
-    left: 0;
-    max-height: calc(100vh - 8.5rem);
-    overflow: auto;
-    padding: 0 1.5rem 0.5rem;
-    position: absolute;
-    right: 0;
+    max-height: calc(100vh - 8.5rem); /* TODO @TW: review */
 }
 
 .footer {
-    align-items: center;
-    background-color: white;
-    display: grid;
-    height: 7rem;
-    row-gap: 0.25rem;
-    justify-items: center;
-    align-content: center;
-    position: relative;
+    composes: bg-white from global;
+    composes: content-center from global;
+    composes: gap-y-1 from global;
+    composes: grid from global;
+    composes: h-[7rem] from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: relative from global;
 }
 
 @keyframes enter {
