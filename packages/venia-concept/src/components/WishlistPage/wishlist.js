@@ -40,6 +40,9 @@ const Wishlist = props => {
         content: () => componentRef.current
     });
 
+    const [removeProductFromWishlistError, setRemoveProductFromWishlistError] = useState(null);
+
+    const wishlistId = id;
     const talonProps = useWishlist({ id, itemsCount, isCollapsed });
     const { handleContentToggle, isOpen, items, isLoading, isFetchingMore, handleLoadMore } = talonProps;
 
@@ -211,22 +214,20 @@ const Wishlist = props => {
         <div className={classes.root} data-cy="Wishlist-root">
             <div className={classes.header}>
                 <div className={classes.itemsCountContainer}>{itemsCountMessage}</div>
-                {/* <button
+                <button
                     className={classes.deleteItem}
                     data-cy="wishlistItem-deleteItem"
+                    onClick={handleRemoveAllProductsFromWishlist}
                 >
                     <img src={orangeThrashCan} alt="orangeThrashCan" />
 
                     <span>
-                        <FormattedMessage
-                            id={'wishlist.removeAll'}
-                            defaultMessage={'Remove all'}
-                        />
+                        <FormattedMessage id={'wishlist.removeAll'} defaultMessage={'Remove all'} />
                     </span>
-                </button> */}
+                </button>
                 {/* {buttonsContainer} */}
             </div>
-            {/* {printAddAllToCartShareSection} */}
+            {printAddAllToCartShareSection}
             <div className={contentClass}>{contentMessageElement}</div>
         </div>
     );
