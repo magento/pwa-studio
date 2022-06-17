@@ -1,5 +1,13 @@
 {
     "Account": "Account",
+    "buyLaterNotesPage.emptyDataMessage": "You don't have any cart yet.",
+    "quotesPage.emptyDataMessage": "You don't have any offer yet.",
+    "quotesToolbar.quotesShowingText": "Showing {currentPage} of {totalPage}",
+    "quotesToolbar.quotesShowText": "Showing",
+    "quotesToolbar.quotesPerpageText": "per page",
+    "savedCartsToolbar.cartShowingText": "Showing {currentPage} of {totalPage}",
+    "savedCartsToolbar.cartShowText": "Showing",
+    "savedCartsToolbar.cartPerPageText": "per page",
     "AddProductByCsv.orderUsingCSV": "Order by CSV",
     "Customer Service": "Customer Service",
     "Email Signup": "Email Signup",

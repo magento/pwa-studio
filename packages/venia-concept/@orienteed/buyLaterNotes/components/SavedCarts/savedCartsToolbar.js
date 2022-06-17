@@ -13,8 +13,12 @@ const savedCartsToolbar = props => {
     const savedCartsToolbarPageInfo = (
         <div className={classes.pageInfo}>
             <FormattedMessage
-                id={'savedCartsToolbar.cartDeleteText'}
+                id={'savedCartsToolbar.cartShowingText'}
                 defaultMessage={'Showing ' + currentPage + ' of ' + totalPage}
+                values={{
+                    currentPage: currentPage,
+                    totalPage: totalPage
+                }}
             />
         </div>
     );
@@ -22,7 +26,7 @@ const savedCartsToolbar = props => {
     const savedCartsToolbarLimiter = (
         <div className={classes.limiter}>
             <span className={classes.limiterLabel}>
-                <FormattedMessage id={'savedCartsToolbar.cartDeleteText'} defaultMessage={'Show'} />
+                <FormattedMessage id={'savedCartsToolbar.cartShowText'} defaultMessage={'Show'} />
             </span>
             <select id="limiter" className={classes.limiterOptions} onChange={handlePageSize}>
                 <option value="5">{'5'}</option>
@@ -30,7 +34,7 @@ const savedCartsToolbar = props => {
                 <option value="50">{'50'}</option>
             </select>
             <span className={classes.limiterText}>
-                <FormattedMessage id={'savedCartsToolbar.cartDeleteText'} defaultMessage={'per page'} />
+                <FormattedMessage id={'savedCartsToolbar.cartPerPageText'} defaultMessage={'per page'} />
             </span>
         </div>
     );

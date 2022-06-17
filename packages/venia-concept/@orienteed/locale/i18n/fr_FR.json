@@ -1,5 +1,13 @@
 {
     "Account": "Compte",
+    "buyLaterNotesPage.emptyDataMessage": "Vous n'avez pas encore de chariot.",
+    "quotesPage.emptyDataMessage": "Vous n'avez pas encore d'offre.",
+    "quotesToolbar.quotesShowingText": "Afficher {currentPage} sur {totalPage}",
+    "quotesToolbar.quotesShowText": "Affichage",
+    "quotesToolbar.quotesPerpageText": "par page",
+    "savedCartsToolbar.cartShowingText": "Afficher {currentPage} sur {totalPage}",
+    "savedCartsToolbar.cartShowText": "Affichage",
+    "savedCartsToolbar.cartPerPageText": "par page",
     "AddProductByCsv.orderUsingCSV": "Commander par CSV",
     "Customer Service": "Service Clients",
     "Email Signup": "Inscription par courriel",

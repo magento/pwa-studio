@@ -1,5 +1,13 @@
 {
     "Account": "Conta",
+    "buyLaterNotesPage.emptyDataMessage": "Ainda não tem nenhum carrinho.",
+    "quotesPage.emptyDataMessage": "Ainda não tem nenhuma oferta.",
+    "quotesToolbar.quotesShowingText": "Exibindo {currentPage} de {totalPage}",
+    "quotesToolbar.quotesShowText": "Mostrando",
+    "quotesToolbar.quotesPerpageText": "por página",
+    "savedCartsToolbar.cartShowingText": "Exibindo {currentPage} de {totalPage}",
+    "savedCartsToolbar.cartShowText": "Mostrando",
+    "savedCartsToolbar.cartPerPageText": "por página",
     "AddProductByCsv.orderUsingCSV": "Pedido por CSV",
     "Customer Service": "Atendimento ao Cliente",
     "Email Signup": "Entrar com Email",
