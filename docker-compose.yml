@@ -17,5 +17,3 @@ services:
       
     ports:
       - 10000:10000
-    extra_hosts:
-      b2b-admin.orienteed.lan: 10.0.7.30
