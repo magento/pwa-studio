@@ -78,7 +78,7 @@ const GalleryItem = props => {
     } = item;
 
     const { url: smallImageURL } = small_image;
-
+    console.log('item', item);
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
 
     const simpleProductLink = `/simple-product?sku=${item.sku}`;
@@ -191,7 +191,7 @@ const GalleryItem = props => {
             </>
         );
     };
-
+    console.log('productLink', productLink);
     const shareClick = () => {
         navigator.clipboard.writeText(window.origin + productLink);
         addToast({

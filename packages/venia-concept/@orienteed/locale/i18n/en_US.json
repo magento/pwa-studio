@@ -599,7 +599,7 @@
     "quickOrder.DownloadYourSampleFile": "Download your sample file",
     "quickOrder.GetQuote": "Get Quote",
     "quickOrder.HereYouCanUploadOwnFile": "Here you can upload own file XLS, XLSX or CSV and products to cart.",
-    "quickOrder.Items":"Items",
+    "quickOrder.Items": "Items",
     "quickOrder.Price": "Price",
     "quickOrder.Qty": "Qty",
     "quickOrder.SearchProduct": "Enter SKU or name of product",
@@ -771,5 +771,10 @@
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} other {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
+    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
+    "productFullDetailB2B.copiedText": "Copied",
+    "wishlist.removeAll": "Remove all",
+    "wishlist.printPage": "Print page",
+    "wishlistItem.addAllToCart": "Add all to Cart",
+    "wishlist.copiedUrl": "The page URL was copied to the clipboard"
 }

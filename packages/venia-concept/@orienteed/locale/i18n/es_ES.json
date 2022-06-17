@@ -599,7 +599,7 @@
     "quickOrder.DownloadYourSampleFile": "Descargue su archivo de muestra",
     "quickOrder.GetQuote": "Obtenga un presupuesto",
     "quickOrder.HereYouCanUploadOwnFile": "Aquí puede subir su propio archivo XLS, XLSX o CSV y los productos al carrito.",
-    "quickOrder.Items":"Artículos",
+    "quickOrder.Items": "Artículos",
     "quickOrder.Price": "Precio",
     "quickOrder.Qty": "Cantidad",
     "quickOrder.SearchProduct": "Introduzca la referencia o el nombre del producto",
@@ -771,5 +771,10 @@
     "wishlistPage.disabledMessage": "Lo sentimos, esta funcionalidad ha sido deshabilitada",
     "wishlistPage.fetchErrorMessage": "Algo ha salido mal. Por favor refresca la página e inténtalo de nuevo.",
     "wishlistPage.headingText": "Listas de favoritos",
-    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento"
+    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento",
+    "productFullDetailB2B.copiedText": "Copiado",
+    "wishlist.removeAll": "Borrar todo",
+    "wishlist.printPage": "Imprimir página",
+    "wishlistItem.addAllToCart": "Añadir todo al carrito",
+    "wishlist.copiedUrl": "La URL de la página se copió en el portapapeles."
 }

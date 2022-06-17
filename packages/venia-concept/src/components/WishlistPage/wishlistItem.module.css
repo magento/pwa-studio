@@ -12,6 +12,7 @@
 .name {
     font-size: var(--venia-typography-detail-XL-fontSize);
     font-weight: var(--venia-global-fontWeight-semibold);
+    width: 200px;
 }
 
 .detail {
@@ -64,6 +65,11 @@
     display: flex;
     align-items: flex-start;
     min-height: 53px;
+    justify-content: space-between;
+    width: 300px;
+}
+.shareAndCanContainer {
+    display: flex;
 }
 
 .moreActions {
@@ -106,5 +112,38 @@
 
     .lineMobile {
         display: block;
+    }
+}
+
+.discount {
+    position: absolute;
+    background-color: #999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    /* left: 8%; */
+    height: 32px;
+    width: 52px;
+    /* right: 82.72%; */
+    font-size: 14px;
+}
+
+.discount span {
+    font-style: normal;
+    font-weight: 600;
+    color: #fff;
+}
+.optionContainer {
+    height: 50px;
+}
+
+@media print {
+    .shareAndCanContainer {
+        display: none;
+    }
+
+    .addToCart {
+        display: none;
     }
 }
