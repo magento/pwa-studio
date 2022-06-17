@@ -13,7 +13,7 @@ const storeSecureBaseMediaUrl = {};
 
 // Fallback to global secure_base_media_url set at build time
 AVAILABLE_STORE_VIEWS.forEach(store => {
-    storeSecureBaseMediaUrl[store.code] = store.secure_base_media_url;
+    storeSecureBaseMediaUrl[store.store_code] = store.secure_base_media_url;
 });
 
 let mediaBackend =

@@ -200,6 +200,8 @@ export const useCategory = props => {
     }, [currentSort, previousSearch, search, setCurrentPage]);
 
     const categoryData = categoryLoading && !data ? null : data;
+    const categoryNotFound =
+        !categoryLoading && data && data.categories.items.length === 0;
     const metaDescription =
         data &&
         data.categories.items[0] &&
@@ -222,6 +224,7 @@ export const useCategory = props => {
         metaDescription,
         pageControl,
         sortProps,
-        pageSize
+        pageSize,
+        categoryNotFound
     };
 };

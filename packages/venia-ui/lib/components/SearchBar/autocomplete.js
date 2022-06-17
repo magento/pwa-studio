@@ -26,6 +26,7 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
             items {
                 id
                 uid
+                sku
                 name
                 small_image {
                     url
@@ -45,6 +46,9 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                         final_price {
                             currency
                             value
+                        }
+                        discount {
+                            amount_off
                         }
                     }
                 }

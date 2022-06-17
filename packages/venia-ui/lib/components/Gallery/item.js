@@ -32,6 +32,7 @@ const GalleryItem = props => {
     const {
         handleLinkClick,
         item,
+        itemRef,
         wishlistButtonProps,
         isSupportedProductType
     } = useGalleryItem(props);
@@ -87,6 +88,7 @@ const GalleryItem = props => {
             className={classes.root}
             aria-live="polite"
             aria-busy="false"
+            ref={itemRef}
         >
             <Link
                 onClick={handleLinkClick}
@@ -162,6 +164,9 @@ GalleryItem.propTypes = {
                 regular_price: shape({
                     value: number.isRequired,
                     currency: string.isRequired
+                }).isRequired,
+                discount: shape({
+                    amount_off: number.isRequired
                 }).isRequired
             }).isRequired
         }).isRequired

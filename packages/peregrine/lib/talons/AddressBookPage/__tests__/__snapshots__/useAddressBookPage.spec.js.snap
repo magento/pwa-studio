@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handleConfirmDeleteAddress() fires delete mutation and dispatches event 1`] = `
+Object {
+  "awaitRefetchQueries": true,
+  "refetchQueries": Array [
+    Object {
+      "query": "getCustomerAddressesQuery",
+    },
+  ],
+  "variables": Object {
+    "addressId": "addressId-1",
+  },
+}
+`;
+
+exports[`handleConfirmDeleteAddress() fires delete mutation and dispatches event 2`] = `
+Object {
+  "payload": Object {
+    "addressId": "addressId-1",
+    "user": Object {
+      "__typename": "Customer",
+      "email": "PhilipFry@futurama.email",
+      "firstname": "Philip",
+      "is_subscribed": false,
+      "lastname": "Fry",
+    },
+  },
+  "type": "USER_ADDRESS_DELETE",
+}
+`;
+
+exports[`return correct shape for an updated address with undefined middlename and null street2 values, fire update mutation, and dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "address": Object {
+      "city": "New-New York",
+      "firstname": "Philip",
+      "lastname": "Fry",
+      "middlename": "",
+      "region": Object {
+        "region_id": 2,
+      },
+      "street": Array [
+        "Street 1",
+      ],
+      "telephone": "123-456-7890",
+    },
+    "id": "a",
+    "user": Object {
+      "__typename": "Customer",
+      "email": "PhilipFry@futurama.email",
+      "firstname": "Philip",
+      "is_subscribed": false,
+      "lastname": "Fry",
+    },
+  },
+  "type": "USER_ADDRESS_EDIT",
+}
+`;
+
+exports[`return correct shape for new address with undefined middlename and null street2 values, fire create mutation, and dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "address": Object {
+      "city": "New-New York",
+      "firstname": "Philip",
+      "lastname": "Fry",
+      "middlename": "",
+      "region": Object {
+        "region_id": 2,
+      },
+      "street": Array [
+        "Street 1",
+      ],
+      "telephone": "123-456-7890",
+    },
+    "user": Object {
+      "__typename": "Customer",
+      "email": "PhilipFry@futurama.email",
+      "firstname": "Philip",
+      "is_subscribed": false,
+      "lastname": "Fry",
+    },
+  },
+  "type": "USER_ADDRESS_CREATE",
+}
+`;

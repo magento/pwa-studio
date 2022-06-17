@@ -56,6 +56,9 @@ export const PRODUCT_SEARCH = gql`
                             currency
                             value
                         }
+                        discount {
+                            amount_off
+                        }
                     }
                 }
                 sku

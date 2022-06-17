@@ -30,6 +30,10 @@
                 "value": 78,
                 "__typename": "Money"
               },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -58,6 +62,10 @@
               "regular_price": {
                 "currency": "USD",
                 "value": 68,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
                 "__typename": "Money"
               },
               "__typename": "ProductPrice"
@@ -90,6 +98,10 @@
                 "value": 88,
                 "__typename": "Money"
               },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -118,6 +130,10 @@
               "regular_price": {
                 "currency": "USD",
                 "value": 98,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
                 "__typename": "Money"
               },
               "__typename": "ProductPrice"
@@ -150,6 +166,10 @@
                 "value": 98,
                 "__typename": "Money"
               },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -178,6 +198,10 @@
               "regular_price": {
                 "currency": "USD",
                 "value": 108,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
                 "__typename": "Money"
               },
               "__typename": "ProductPrice"
@@ -210,6 +234,10 @@
                 "value": 118,
                 "__typename": "Money"
               },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -238,6 +266,10 @@
               "regular_price": {
                 "currency": "USD",
                 "value": 78,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
                 "__typename": "Money"
               },
               "__typename": "ProductPrice"
@@ -270,6 +302,10 @@
                 "value": 98,
                 "__typename": "Money"
               },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -298,6 +334,10 @@
               "regular_price": {
                 "currency": "USD",
                 "value": 108,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
                 "__typename": "Money"
               },
               "__typename": "ProductPrice"
@@ -330,6 +370,10 @@
                 "value": 78,
                 "__typename": "Money"
               },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
               "__typename": "ProductPrice"
             },
             "__typename": "PriceRange"
@@ -358,6 +402,10 @@
               "regular_price": {
                 "currency": "USD",
                 "value": 98,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
                 "__typename": "Money"
               },
               "__typename": "ProductPrice"

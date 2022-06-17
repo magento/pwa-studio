@@ -1,6 +1,8 @@
 import React from 'react';
 
 import createTestInstance from '../../../../util/createTestInstance';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
+
 import { useEditModal } from '../useEditModal';
 
 import { useQuery } from '@apollo/client';
@@ -23,6 +25,10 @@ jest.mock('../../../../context/cart', () => ({
 
 jest.mock('../editModal.gql.js', () => ({
     getSelectedPaymentMethodQuery: 'getSelectedPaymentMethodQuery'
+}));
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const Component = props => {
@@ -144,4 +150,20 @@ test('Should return null selectedPaymentMethod when fetched data does not return
     });
 
     expect(talonProps.selectedPaymentMethod).toBeFalsy();
+});
+
+test('Should dispatch event when handlePaymentSuccess is called', async () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    const { talonProps } = getTalonProps({
+        onClose: () => {}
+    });
+    const { handlePaymentSuccess } = talonProps;
+
+    handlePaymentSuccess();
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
 });
