@@ -49,6 +49,7 @@
         "@orienteed/payWithBankTransfer": "link:./@orienteed/payWithBankTransfer",
         "@orienteed/reorder": "link:./@orienteed/reorder",
         "@orienteed/requestQuote": "link:./@orienteed/requestQuote",
+        "@orienteed/csr": "link:./@orienteed/csr",
         "use-copy": "0.0.2"
     },
     "devDependencies": {
