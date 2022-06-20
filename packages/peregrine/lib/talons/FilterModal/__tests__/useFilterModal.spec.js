@@ -8,7 +8,7 @@ import { useFilterModal } from '../useFilterModal';
 jest.mock('../helpers', () => ({
     getStateFromSearch: jest.fn(() => ({})),
     getSearchFromState: jest.fn(() => 'searchFromState'),
-    sortFiltersArray: jest.fn(props => props),
+    sortFiltersArray: jest.fn((props) => props),
     stripHtml: jest.fn(() => 'strippedHtml')
 }));
 
@@ -47,6 +47,9 @@ jest.mock('@apollo/client', () => {
                     name: 'category_id'
                 },
                 {
+                    name: 'category_uid'
+                },
+                {
                     name: 'foo'
                 },
                 {
@@ -83,6 +86,20 @@ const defaultProps = {
         {
             attribute_code: 'category_id',
             label: 'Category',
+            options: [
+                {
+                    label: 'Bottoms',
+                    value: '28'
+                },
+                {
+                    label: 'Tops',
+                    value: '19'
+                }
+            ]
+        },
+        {
+            attribute_code: 'category_uid',
+            label: 'Category 2',
             options: [
                 {
                     label: 'Bottoms',
@@ -167,12 +184,15 @@ describe('#useFilterModal', () => {
         createTestInstance(<Component />);
         const { filterNames } = log.mock.calls[0][0];
         expect(filterNames.get('category_id')).toBeTruthy();
+        expect(filterNames.get('category_uid')).toBeTruthy();
     });
 
     it('only renders filters that are valid and enabled', () => {
         createTestInstance(<Component />);
         const { filterNames } = log.mock.calls[0][0];
         expect(filterNames.get('foo')).toBeTruthy();
+        expect(filterNames.get('category_id')).toBeFalsy();
+        expect(filterNames.get('category_uid')).toBeFalsy();
     });
 
     it('renders boolean filters', () => {

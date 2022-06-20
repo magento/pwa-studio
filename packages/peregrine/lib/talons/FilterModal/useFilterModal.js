@@ -27,7 +27,7 @@ const DRAWER_NAME = 'filter';
  *   isOpen: boolean
  * }}
  */
-export const useFilterModal = props => {
+export const useFilterModal = (props) => {
     const { filters } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -55,6 +55,7 @@ export const useFilterModal = props => {
         // Disable category filtering when not on a search page.
         if (pathname !== '/search.html') {
             disabled.add('category_id');
+            disabled.add('category_uid');
         }
 
         return disabled;
@@ -82,7 +83,7 @@ export const useFilterModal = props => {
         return nextFilters;
     }, [DISABLED_FILTERS, attributeCodes, introspectionData]);
 
-    const isBooleanFilter = options => {
+    const isBooleanFilter = (options) => {
         const optionsString = JSON.stringify(options);
         return (
             options.length <= 2 &&
@@ -197,7 +198,7 @@ export const useFilterModal = props => {
     }, [filterApi, setIsApplying]);
 
     const handleKeyDownActions = useCallback(
-        event => {
+        (event) => {
             // do not handle keyboard actions when the modal is closed
             if (!isOpen) {
                 return;
