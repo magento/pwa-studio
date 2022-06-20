@@ -45,7 +45,6 @@ import {
     assertProductInList,
     assertProductImageDisplayed
 } from '../../../assertions/miniCart';
-import { assertErrorInPage } from '../../../assertions/notFoundPage';
 import { assertImageUrlContainsBaseUrl } from '../../../assertions/pageBuilder';
 
 import {
@@ -326,11 +325,47 @@ const interceptStoreRequests = expectedStoreCode => {
 
     // Requests for data about the homepage route
     cy.intercept('GET', getRouteDataCall, req => {
-        expect(req.headers.store).to.equal(expectedStoreCode);
-        req.reply({
-            fixture: `${DATA_DIRECTORY}/homeRoute.json`
-        });
-    }).as('getMockHomeRoute');
+        const { headers, query } = req;
+        const url = JSON.parse(query.variables).url;
+
+        expect(headers.store).to.equal(expectedStoreCode);
+
+        switch (url) {
+            case '/':
+                req.alias = 'mockHomeRouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/homeRoute.json`
+                });
+                break;
+            // Switching from default store to second store
+            case defaultStore.accessoriesPathname:
+                req.alias = 'mockAccessoriesRouteData';
+                req.reply({
+                    //fixture: `${DATA_DIRECTORY}/default/accessoriesRoute.json`
+                    fixture: `${DATA_DIRECTORY}/storeB/accessoriesRoute.json`
+                });
+                break;
+            // Switching from second store to default store
+            case secondStore.accessoriesPathname:
+                req.alias = 'getMockAccessoriesRouteData';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/default/accessoriesRoute.json`
+                });
+                break;
+            case subcategoryAPathname:
+                req.alias = 'mockSubcategoryARouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/subcategoryARoute.json`
+                });
+                break;
+            case subcategoryBPathname:
+                req.alias = 'mockSubcategoryBRouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/subcategoryBRoute.json`
+                });
+                break;
+        }
+    });
 
     // Requests for currency data
     cy.intercept('GET', getCurrencyDataCall, req => {
@@ -971,8 +1006,6 @@ describe(
                 '@getMockProductFilter',
                 '@getMockFilterInputs'
             ]);
-
-            assertErrorInPage();
 
             // Go to first category
             interceptCategoryPagesRequests(

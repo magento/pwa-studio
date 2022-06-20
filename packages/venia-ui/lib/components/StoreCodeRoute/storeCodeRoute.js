@@ -17,9 +17,9 @@ const StoreCodeRoute = () => {
     const storeSecureBaseMediaUrl = useMemo(() => ({}), []);
 
     AVAILABLE_STORE_VIEWS.forEach(store => {
-        storeCodes.push(store.code);
-        storeCurrencies[store.code] = store.default_display_currency_code;
-        storeSecureBaseMediaUrl[store.code] = store.secure_base_media_url;
+        storeCodes.push(store.store_code);
+        storeCurrencies[store.store_code] = store.default_display_currency_code;
+        storeSecureBaseMediaUrl[store.store_code] = store.secure_base_media_url;
     });
 
     // Sort by length (longest first) to avoid false hits ie "en" matching just
