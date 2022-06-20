@@ -77,7 +77,7 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
  * filter[category_id]=Bottoms,28&filter[category_id]=Pants & Shorts,19
  * @param {String} initialValue a search string, as in from location.search
  */
-export const getFiltersFromSearch = (initialValue) => {
+export const getFiltersFromSearch = initialValue => {
     // preserve all existing params
     const params = new URLSearchParams(initialValue);
     const uniqueKeys = new Set(params.keys());
@@ -108,7 +108,7 @@ export const getFiltersFromSearch = (initialValue) => {
  * Sort filters array
  * @param {Array} initialArray an array containing filters data
  */
-export const sortFiltersArray = (initialArray) => {
+export const sortFiltersArray = initialArray => {
     return initialArray.sort((a, b) => {
         // Place Category filter first
         if (
@@ -139,17 +139,17 @@ export const sortFiltersArray = (initialArray) => {
     });
 };
 
-export const stripHtml = (html) => html.replace(/(<([^>]+)>)/gi, '');
+export const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
 /** GetFilterInput helpers below. */
-const getValueFromFilterString = (keyValueString) =>
+const getValueFromFilterString = keyValueString =>
     keyValueString.split(DELIMITER)[1];
 
 /**
  * Converts a set of values to a range filter
  * @param {Set} values
  */
-const toRangeFilter = (values) => {
+const toRangeFilter = values => {
     // Range should always only be a single string. In the event we received
     // multiple, just return the first.
     const rangeString = getValueFromFilterString(Array.from(values)[0]);
@@ -173,7 +173,7 @@ const toRangeFilter = (values) => {
  * Converts a set of values into an equals filter
  * @param {Set} values
  */
-const toEqualFilter = (values) => {
+const toEqualFilter = values => {
     if (values.size > 1) {
         return {
             in: Array.from(values).map(getValueFromFilterString)
@@ -189,7 +189,7 @@ const toEqualFilter = (values) => {
  * Converts a set of values into a match filter
  * @param {Set} values
  */
-const toMatchFilter = (values) => {
+const toMatchFilter = values => {
     return { match: getValueFromFilterString(Array.from(values)[0]) };
 };
 

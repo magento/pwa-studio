@@ -17,7 +17,7 @@ import DEFAULT_OPERATIONS from '../FilterModal/filterModal.gql';
 
 const DRAWER_NAME = 'filter';
 
-export const useFilterSidebar = (props) => {
+export const useFilterSidebar = props => {
     const { filters } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -73,7 +73,7 @@ export const useFilterSidebar = (props) => {
         return nextFilters;
     }, [DISABLED_FILTERS, attributeCodes, introspectionData]);
 
-    const isBooleanFilter = (options) => {
+    const isBooleanFilter = options => {
         const optionsString = JSON.stringify(options);
         return (
             options.length <= 2 &&
@@ -187,7 +187,7 @@ export const useFilterSidebar = (props) => {
     }, [filterApi, setIsApplying]);
 
     const handleKeyDownActions = useCallback(
-        (event) => {
+        event => {
             // do not handle keyboard actions when the modal is closed
             if (!isOpen) {
                 return;

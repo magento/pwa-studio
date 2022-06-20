@@ -8,7 +8,7 @@ import { useFilterSidebar } from '../useFilterSidebar';
 jest.mock('../../FilterModal/helpers', () => ({
     getStateFromSearch: jest.fn(() => ({})),
     getSearchFromState: jest.fn(() => 'searchFromState'),
-    sortFiltersArray: jest.fn((props) => props),
+    sortFiltersArray: jest.fn(props => props),
     stripHtml: jest.fn(() => 'strippedHtml')
 }));
 
