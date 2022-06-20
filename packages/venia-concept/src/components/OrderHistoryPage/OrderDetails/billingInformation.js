@@ -18,7 +18,7 @@ const BillingInformation = props => {
         >
             <div className={classes.heading}>
                 <FormattedMessage
-                    id="orderDetails.totalPrice"
+                    id="orderDetails.TotalPrice"
                     defaultMessage="Total price"
                 />
             </div>
