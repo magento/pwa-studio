@@ -1,0 +1,110 @@
+.root {
+    composes: border-0 from global;
+    composes: gap-xs from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+    composes: rounded-none from global;
+}
+
+.heading {
+    composes: font-bold from global;
+    composes: pb-2xs from global;
+    font-size: 24px;
+}
+
+.subTotal {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.discount {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.tax {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+}
+
+.shipping {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+}
+
+.total {
+    composes: font-bold from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+    color: #e8aa00;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.detailsContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.supploerText {
+    color: #000;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.itemsText {
+    font-weight: 400;
+    font-size: 14px;
+    color: #0c0c0c;
+}
+
+.detailsContainer > div {
+    display: inline-grid;
+}
+
+.priceDetails div {
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+}
+
+.priceNet {
+    width: 80px;
+}
+
+.grossText {
+    color: #e8aa00;
+}
+
+.actionsWrapper {
+    padding: 12px;
+    margin-top: 20px;
+}
+
+.actionsWrapper {
+    padding: 12px;
+    display: grid;
+    gap: 1rem;
+}
+
+.shoppngBtn {
+    background: #ffffff;
+    border: 2px solid #e8aa00;
+    border-radius: 30px;
+    height: 40px;
+    color: #e8aa00 !important;
+}

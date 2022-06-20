@@ -1,0 +1,49 @@
+.root {
+    composes: grid from global;
+    composes: gap-y-1.5 from global;
+    gap: 1rem;
+}
+
+.methodDetails {
+    background-color: #fff;
+    gap: 1rem;
+    display: grid;
+    padding:24px;
+    font-weight: 700;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.heading {
+    composes: font-bold from global;
+    composes: pb-1.5 from global;
+    display: inline-flex;
+    justify-content: start;
+    font-size: 24px;
+}
+
+.heading span {
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    background-color: #e8aa00;
+    border-radius: 50%;
+    padding: 0 0.3rem;
+    margin-right: 0.3rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+/* TODO @TW: cannot compose */
+.method:empty {
+    display: none;
+}
+
+.tracking {
+    composes: grid from global;
+    composes: gap-y-1.5 from global;
+}
