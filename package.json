@@ -94,7 +94,7 @@
     "sharp": "~0.29.0"
   },
   "resolutions": {
-    "@apollo/client": "~3.5.0",
+    "@apollo/client": "~3.6.0",
     "@graphql-tools/prisma-loader": "6.3.0",
     "https-proxy-agent": "~2.2.3",
     "zen-observable-ts": "^1.2.0"
