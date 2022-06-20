@@ -56,18 +56,24 @@ const Item = props => {
                     </Link>
                 </td>
                 <td>{mappedOptions[0]}</td>
-                <td>{quantity_ordered} items</td>
+                <td>
+                    {quantity_ordered +' '}
+                    <FormattedMessage
+                        id="orderDetails.items"
+                        defaultMessage="items"
+                    />
+                </td>
                 <td>
                     <Price
                         value={product_sale_price.value}
                         currencyCode={product_sale_price.currency}
-                    />{' '}
+                    />
                 </td>
                 <td className={classes.grossPrice}>
                     <Price
                         value={product_sale_price.value}
                         currencyCode={product_sale_price.currency}
-                    />{' '}
+                    />
                 </td>
             </tr>
         </>

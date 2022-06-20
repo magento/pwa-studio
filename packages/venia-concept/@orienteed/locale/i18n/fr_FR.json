@@ -771,5 +771,18 @@
     "wishlistPage.disabledMessage": "Désolé, cette fonctionnalité a été désactivée.",
     "wishlistPage.fetchErrorMessage": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "wishlistPage.headingText": "Listes de favoris",
-    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement."
+    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement.",
+
+    "orderRow.orderNumber": "Numéro de commande",
+    "orderRow.orderIncidences": "Incidences de la commande",
+    "orderDetails.TotalPrice": "Prix total ",
+    "orderDetails.SafetlyPayment": "Paiement sécurisé",
+    "orderDetails.items": "articles",
+    "orderItems.Lp": "Non",
+    "orderItems.productName": "Nom du produit",
+    "orderItems.color": "Couleur",
+    "orderItems.quantity": "Quantité",
+    "orderItems.net": "Prix (net)",
+    "orderItems.gross": "Prix (brut)",
+    "orderItems.ListOfProducts": "Liste des produits"
 }

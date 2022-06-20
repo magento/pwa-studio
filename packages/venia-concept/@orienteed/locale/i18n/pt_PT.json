@@ -599,7 +599,7 @@
     "quickOrder.DownloadYourSampleFile": "Descarregue o seu ficheiro de amostra",
     "quickOrder.GetQuote": "Obter Citação",
     "quickOrder.HereYouCanUploadOwnFile": "Aqui pode carregar o seu próprio ficheiro XLS, XLSX ou CSV e produtos para o carrinho.",
-    "quickOrder.Items":"Artigos",
+    "quickOrder.Items": "Artigos",
     "quickOrder.Price": "Preço",
     "quickOrder.Qty": "Qtd.",
     "quickOrder.SearchProduct": "Introduzir SKU ou nome do produto",
@@ -771,5 +771,18 @@
     "wishlistPage.disabledMessage": "Desculpa, esta funcionalidade foi desativada",
     "wishlistPage.fetchErrorMessage": "Algo correu mal. Por favor atualize a pagina e tente de novo",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} outro {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "A lista de desejos não esta disponivel de momento"
+    "wishlistPage.wishlistDisabledMessage": "A lista de desejos não esta disponivel de momento",
+
+    "orderRow.orderNumber": "Número de encomenda",
+    "orderRow.orderIncidences": "Incidências de encomendas",
+    "orderDetails.TotalPrice": "Preço total ",
+    "orderDetails.SafetlyPayment": "Safetly payment",
+    "orderDetails.items": "items",
+    "orderItems.Lp": "Não",
+    "orderItems.productName": "Nome do produto",
+    "orderItems.color": "Cor",
+    "orderItems.quantity": "Quantidade",
+    "orderItems.net": "Preço(líquido)",
+    "orderItems.gross": "Preço(bruto)",
+    "orderItems.ListOfProducts": "Lista de produtos"
 }

@@ -65,15 +65,6 @@ const ShippingInformation = props => {
                 />
             </div>
             {shippingContentElement}
-            {/* <Link to="/address-book">
-                <span className={classes.addAddress}>
-                    <img src={AddIcon} alt="add address" />
-                    <FormattedMessage
-                        id="orderDetails.addShippingInformation"
-                        defaultMessage="Add new shipping address"
-                    />
-                </span>
-            </Link> */}
         </div>
     );
 };

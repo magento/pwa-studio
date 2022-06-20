@@ -20,7 +20,6 @@ const Items = props => {
             {...imagesData[item.product_sku]}
         />
     ));
-    console.log(items, 'ColorColorColor');
     return (
         <div className={classes.root} data-cy="OrderDetails-Items-root">
             <h3 className={classes.heading}>
@@ -31,20 +30,51 @@ const Items = props => {
                 &nbsp;({items?.length})
             </h3>
             <div className={classes.tableContainer}>
-
-            <table className={classes.productsTable}>
-                <thead>
-                    <tr className={classes.headerRow}>
-                        <th>Lp.</th>
-                        <th className={classes.productName}>Product Name</th>
-                        <th>Color</th>
-                        <th>Quantity</th>
-                        <th>Price(net)</th>
-                        <th>Price(gross)</th>
-                    </tr>
-                </thead>
-                <tbody>{itemsComponent}</tbody>
-            </table>
+                <table className={classes.productsTable}>
+                    <thead>
+                        <tr className={classes.headerRow}>
+                            <th>
+                                {' '}
+                                <FormattedMessage
+                                    id="orderItems.Lp"
+                                    defaultMessage="Lp."
+                                />
+                            </th>
+                            <th className={classes.productName}>
+                                <FormattedMessage
+                                    id="orderItems.productName"
+                                    defaultMessage="Product Name"
+                                />
+                            </th>
+                            <th>
+                                <FormattedMessage
+                                    id="orderItems.color"
+                                    defaultMessage="Color"
+                                />
+                            </th>
+                            <th>
+                                <FormattedMessage
+                                    id="orderItems.quantity"
+                                    defaultMessage="Quantity"
+                                />
+                            </th>
+                            <th>
+                                <FormattedMessage
+                                    id="orderItems.net"
+                                    defaultMessage="Price(net)"
+                                />
+                            </th>
+                            <th>
+                                {' '}
+                                <FormattedMessage
+                                    id="orderItems.gross"
+                                    defaultMessage="Price(gross)"
+                                />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>{itemsComponent}</tbody>
+                </table>
             </div>
         </div>
     );

@@ -126,8 +126,8 @@ const OrderRow = props => {
             >
                 <span className={classes.orderNumberLabel}>
                     <FormattedMessage
-                        id={'orderRow.orderNumberText'}
-                        defaultMessage={'Order'}
+                        id={'orderRow.orderNumber'}
+                        defaultMessage={'Order number'}
                     />
                 </span>
                 <span className={classes.orderNumber}>{orderNumber}</span>
@@ -181,8 +181,11 @@ const OrderRow = props => {
                     id={'orderIncidence' + orderNumber}
                     className={classes.orderInsurancesButton}
                 >
-                    <img src={IncidencesIcon} alt="IncidencesIcon" /> Order
-                    Incidences
+                    <img src={IncidencesIcon} alt="IncidencesIcon" />
+                    <FormattedMessage
+                        id={'orderRow.orderIncidences'}
+                        defaultMessage={'Order Incidences'}
+                    />
                 </button>
             </div>
             <button

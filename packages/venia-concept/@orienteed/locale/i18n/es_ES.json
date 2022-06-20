@@ -771,5 +771,18 @@
     "wishlistPage.disabledMessage": "Lo sentimos, esta funcionalidad ha sido deshabilitada",
     "wishlistPage.fetchErrorMessage": "Algo ha salido mal. Por favor refresca la página e inténtalo de nuevo.",
     "wishlistPage.headingText": "Listas de favoritos",
-    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento"
+    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento",
+
+    "orderRow.orderNumber": "Número de pedido",
+    "orderRow.orderIncidences": "Ordenar Incidencias",
+    "orderDetails.TotalPrice": "Precio total:",
+    "orderDetails.SafetlyPayment": "Pago seguro",
+    "orderDetails.items": "artículos",
+    "orderItems.Lp": "Nu",
+    "orderItems.productName": "Nombre del producto",
+    "orderItems.color": "Color",
+    "orderItems.quantity": "Cantidad",
+    "orderItems.net": "Precio (neto)",
+    "orderItems.gross": "Precio (bruto)",
+    "orderItems.ListOfProducts": "Lista de productos"
 }

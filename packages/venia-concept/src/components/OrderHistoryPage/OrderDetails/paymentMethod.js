@@ -6,7 +6,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './paymentMethod.module.css';
 import Price from '@magento/venia-ui/lib/components/Price';
-import PaymentIcon from './Icons/payment.svg'
+import PaymentIcon from './Icons/payment.svg';
 const PaymentMethod = props => {
     const { data, total, classes: propsClasses } = props;
     const classes = useStyle(defaultClasses, propsClasses);
@@ -16,7 +16,6 @@ const PaymentMethod = props => {
      * we are picking the first method in the array.
      */
     const [{ name }] = data;
-    console.log(props, 'PaymentMethodPaymentMethod');
 
     return (
         <div className={classes.root} data-cy="OrderDetails-PaymentMethod-root">
@@ -30,7 +29,11 @@ const PaymentMethod = props => {
                 <div>
                     {name}
                     <span>
-                        Total price:&nbsp;
+                        <FormattedMessage
+                            id="orderDetails.TotalPrice"
+                            defaultMessage="Total price:"
+                        />
+                        &nbsp;
                         <Price
                             value={total?.grand_total.value}
                             currencyCode={total?.grand_total.currency}
@@ -39,8 +42,12 @@ const PaymentMethod = props => {
                 </div>
                 <div>
                     <span className={classes.boxInfo}>
-                        <img src={PaymentIcon} alt='PaymentIcon'/>
-                        Safetly payment</span>
+                        <img src={PaymentIcon} alt="PaymentIcon" />
+                        <FormattedMessage
+                            id="orderDetails.SafetlyPayment"
+                            defaultMessage="Safetly payment"
+                        />
+                    </span>
                 </div>
             </div>
         </div>
