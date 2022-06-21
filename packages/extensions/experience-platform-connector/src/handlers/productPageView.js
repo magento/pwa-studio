@@ -21,8 +21,8 @@ const handle = (sdk, event) => {
 
     const productContext = {
         productId: id,
-        name: name,
-        sku: sku,
+        name,
+        sku,
         pricing: {
             currencyCode: currency_code,
             maximalPrice: price_range.maximum_price.final_price

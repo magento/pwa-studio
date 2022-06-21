@@ -6,8 +6,8 @@ const handle = (sdk, event) => {
     const { email, firstName, lastName } = payload;
 
     const accountContext = {
-        firstName: firstName,
-        lastName: lastName,
+        firstName,
+        lastName,
         emailAddress: email
     };
 

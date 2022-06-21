@@ -8,7 +8,7 @@ const handle = (sdk, event) => {
     const { cart_id: id, products } = payload;
 
     const cartContext = {
-        id: id,
+        id,
         prices: {
             subtotalExcludingTax: {
                 value: getCartTotal(products),

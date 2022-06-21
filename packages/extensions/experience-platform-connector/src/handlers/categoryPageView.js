@@ -6,7 +6,7 @@ const handle = (sdk, event) => {
     const { name, url_key, url_path } = payload;
 
     const categoryContext = {
-        name: name,
+        name,
         urlKey: url_key,
         urlPath: url_path
     };

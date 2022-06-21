@@ -76,7 +76,7 @@ export const getFormattedProducts = products => {
                   : null;
 
               return {
-                  formattedPrice: '', // TODO
+                  formattedPrice: '',
                   id: uid,
                   prices: prices,
                   product: {

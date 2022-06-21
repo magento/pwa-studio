@@ -34,9 +34,9 @@ describe('handle()', () => {
             type: 'USER_SIGN_IN',
             payload: {
                 email: 'doctor.strange@fake.email',
-                firstName: 'Stephen',
+                firstname: 'Stephen',
                 is_subscribed: false,
-                lastName: 'Strange',
+                lastname: 'Strange',
                 __typename: 'Customer'
             }
         };

@@ -7,19 +7,19 @@ const handle = (sdk, event) => {
         shopperId: 'logged-in'
     });
 
-    const { firstName, lastName, email } = payload;
+    const { firstname, lastname, email } = payload;
 
     const accountContext = {
-        firstName: firstName,
-        lastName: lastName,
+        firstName: firstname,
+        lastName: lastname,
         emailAddress: email
     };
 
     sdk.context.setAccount(accountContext);
     sdk.publish.signIn({
-      personalEmail: {
-        address: email
-      }
+        personalEmail: {
+            address: email
+        }
     });
 };
 

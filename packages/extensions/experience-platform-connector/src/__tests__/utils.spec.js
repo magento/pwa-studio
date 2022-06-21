@@ -47,6 +47,6 @@ describe('getFormattedProducts()', () => {
     });
 
     it('returns null when given a null value', () => {
-      expect(getFormattedProducts()).toBeNull();
-    })
+        expect(getFormattedProducts()).toBeNull();
+    });
 });
