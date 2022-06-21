@@ -65,6 +65,7 @@ export const useAutocomplete = props => {
     const { data, error, loading } = productResult;
 
     // Handle results.
+    const categories = data && data.products?.aggregations[1]?.options;
     const products = data && data.products;
     const filters = data && data.products.aggregations;
     const hasResult = products && products.items;
@@ -88,6 +89,7 @@ export const useAutocomplete = props => {
     }
 
     return {
+        categories,
         displayResult,
         filters,
         messageType,
