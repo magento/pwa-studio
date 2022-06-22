@@ -65,7 +65,7 @@ const SuggestedProduct = props => {
                     width={IMAGE_WIDTH}
                 />
             </Link>
-            <span className={classes.name}>{name}</span>
+            <span className={classes.name}>{suggested_Product.__typename === 'SimpleProduct'?name.slice(0,10)+'...' :name}</span>
             {suggested_Product.__typename === 'SimpleProduct' ? (
                 <Button
                     className={classes.addButton}
