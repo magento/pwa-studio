@@ -12,6 +12,8 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 import { useHistory } from 'react-router-dom';
 import { ArrowRight } from 'react-feather';
 
+import { FormattedMessage } from 'react-intl';
+
 /**
  * Renders a Gallery of items. If items is an array of nulls Gallery will render
  * a placeholder item for each.
@@ -34,7 +36,12 @@ const Gallery = props => {
     const recommendedProducts = (
         <>
             <div className={classes.recommendedWrapper}>
-                <span>Recommended products</span>
+                <span>
+                    <FormattedMessage
+                        id={'gellary.recommendedProducts'}
+                        defaultMessage={'Recommended products'}
+                    />
+                </span>
             </div>
         </>
     );

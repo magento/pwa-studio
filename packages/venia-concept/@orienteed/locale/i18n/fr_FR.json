@@ -771,5 +771,16 @@
     "wishlistPage.disabledMessage": "Désolé, cette fonctionnalité a été désactivée.",
     "wishlistPage.fetchErrorMessage": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "wishlistPage.headingText": "Listes de favoris",
-    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement."
+    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement.",
+
+    "accountMenu.learningLink":"Apprendre",
+    "productFullDetailB2B.fromPrice":"De",
+    "productFullDetailB2B.indexName":"Nom",
+    "productFullDetailB2B.indexQuantity":"Quantité",
+    "productFullDetailB2B.indexUnitPrice":"Prix / Unité",
+    "productFullDetailB2B.totalPrice": "Prix total",
+    "gellary.recommendedProducts":"Produits recommandés",
+    "galleryItem.yourPrice":"Votre prix :",
+    "galleryItem.outStock":"En rupture de stock",
+    "galleryItem.inStock":"En stock"
 }

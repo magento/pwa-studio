@@ -180,12 +180,18 @@ const GalleryItem = props => {
                 {status === 'IN_STOCK' ? (
                     <span className={classes.inStock}>
                         <img src={InStockIcon} alt="in stock" />
-                        In stock
+                        <FormattedMessage
+                            id={'galleryItem.inStock'}
+                            defaultMessage={'In stock'}
+                        />
                     </span>
                 ) : (
                     <span className={classes.outStock}>
                         <img src={OutStockIcon} alt="out stock" />
-                        Out of stock
+                        <FormattedMessage
+                            id={'galleryItem.outStock'}
+                            defaultMessage={'Out of stock'}
+                        />
                     </span>
                 )}
             </>
@@ -362,7 +368,13 @@ const GalleryItem = props => {
                     </div>
                 )}
                 <div className={classes.productPrice}>
-                    <span>Your price: &nbsp;</span>
+                    <span>
+                        <FormattedMessage
+                            id={'galleryItem.yourPrice'}
+                            defaultMessage={'Your price:'}
+                        />{' '}
+                        &nbsp;
+                    </span>
                     {priceRender}
                 </div>
                 {/* <Price
