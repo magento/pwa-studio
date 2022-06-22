@@ -34,7 +34,6 @@ describe('handle()', () => {
             type: 'USER_SIGN_IN',
             payload: {
                 email: 'doctor.strange@fake.email',
-                // RWTODO: confirm firstname/lastname property casing
                 firstName: 'Stephen',
                 is_subscribed: false,
                 lastName: 'Strange',

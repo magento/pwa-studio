@@ -1,7 +1,6 @@
 export default {
     type: 'ORDER_CONFIRMATION_PAGE_VIEW',
     payload: {
-        // RWTODO confirm amount property
         amount: {
             grand_total: {
                 value: 40
@@ -10,7 +9,6 @@ export default {
         cart_id: '123',
         order_number: '001',
         payment: {
-            // RWTODO confirm amount property
             title: 'Visa'
         },
         products: [
@@ -149,7 +147,6 @@ export default {
             {
                 carrier_title: 'carrier',
                 method_title: 'method',
-                // RWTODO ocnfirm amount property
                 amount: {
                     value: 13
                 }
