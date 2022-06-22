@@ -11,6 +11,10 @@ import { IntlProvider } from 'react-intl';
 jest.mock('../../../classify');
 jest.mock('../suggestions', () => () => null);
 
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 const cache = new InMemoryCache({
     typePolicies
 });
