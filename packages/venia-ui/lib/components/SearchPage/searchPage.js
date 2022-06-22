@@ -175,7 +175,6 @@ const SearchPage = props => {
         data && !loading ? (
             <span
                 aria-live="polite"
-                aria-busy="true"
                 className={classes.totalPages}
             >
                 {formatMessage(
