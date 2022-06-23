@@ -155,5 +155,9 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/WishlistPage/wishlist.module.css`]: './src/components/WishlistPage/wishlist.module.css',
     [`@magento/venia-ui/lib/components/WishlistPage/wishlistItems.module.css`]: './src/components/WishlistPage/wishlistItems.module.css',
     [`@magento/peregrine/lib/talons/WishlistPage/useWishlistItem.js`]: './src/talons/WishlistPage/useWishlistItem.js',
-    [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/showAllButton.module.css`]: './src/components/CheckoutPage/ItemsReview/showAllButton.module.css'
+    [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/showAllButton.module.css`]: './src/components/CheckoutPage/ItemsReview/showAllButton.module.css',
+
+    // New overwrite
+    [`@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js`]: './src/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js',
+
 };

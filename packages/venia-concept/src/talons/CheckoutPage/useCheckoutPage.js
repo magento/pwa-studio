@@ -18,7 +18,6 @@ import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCapt
 
 import ReactGA from 'react-ga';
 
-
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
     SHIPPING_METHOD: 2,
@@ -184,8 +183,8 @@ export const useCheckoutPage = (props = {}) => {
         ReactGA.event({
             category: 'Checkout page',
             action: 'Review order clicked',
-            label: `Checkout page- Review order clicked`,
-          })
+            label: `Checkout page- Review order clicked`
+        });
         setReviewOrderButtonClicked(true);
     }, []);
 
@@ -246,11 +245,11 @@ export const useCheckoutPage = (props = {}) => {
         });
         setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
-            ReactGA.event({
-                category: 'Checkout page',
-                action: 'Place order clicked',
-                label: `Checkout page- Place order clicked`,
-            })
+        ReactGA.event({
+            category: 'Checkout page',
+            action: 'Place order clicked',
+            label: `Checkout page- Place order clicked`
+        });
     }, [cartId, getOrderDetails]);
 
     // Go back to checkout if shopper logs in
@@ -265,12 +264,25 @@ export const useCheckoutPage = (props = {}) => {
             try {
                 const reCaptchaData = await generateReCaptchaData();
 
-                await placeOrder({
+                const { data } = await placeOrder({
                     variables: {
                         cartId
                     },
                     ...reCaptchaData
                 });
+                
+                const orderId = data.placeOrder.order.order_number;
+                const { cart } = orderDetailsData;
+                cart?.items.map((product=>{
+                    ReactGA.plugin.execute('ecommerce', 'addTransaction', {
+                        id: orderId,
+                        revenue: product.prices.price.value,
+                        quantity:product.quantity,
+                        name:product.product.name
+                      });
+                      ReactGA.plugin.execute('ecommerce', 'send');
+                }))
+
                 // Cleanup stale cart and customer info.
                 await removeCart();
                 await apolloClient.clearCacheData(apolloClient, 'cart');
