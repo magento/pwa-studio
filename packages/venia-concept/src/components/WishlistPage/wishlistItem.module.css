@@ -12,7 +12,7 @@
 .name {
     font-size: var(--venia-typography-detail-XL-fontSize);
     font-weight: var(--venia-global-fontWeight-semibold);
-    width: 200px;
+    width: 250px;
 }
 
 .detail {
