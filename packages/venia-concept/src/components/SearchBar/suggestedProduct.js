@@ -25,8 +25,15 @@ const IMAGE_WIDTH = 60;
 const SuggestedProduct = props => {
     const suggested_Product = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const { url_key, small_image, name, onNavigate, price, url_suffix } = props;
-
+    const {
+        url_key,
+        small_image,
+        name,
+        onNavigate,
+        price,
+        url_suffix,
+        sku
+    } = props;
     const handleClick = useCallback(() => {
         if (typeof onNavigate === 'function') {
             onNavigate();
@@ -65,7 +72,11 @@ const SuggestedProduct = props => {
                     width={IMAGE_WIDTH}
                 />
             </Link>
-            <span className={classes.name}>{suggested_Product.__typename === 'SimpleProduct'?name.slice(0,10)+'...' :name}</span>
+            <span className={classes.name}>
+                {suggested_Product.__typename === 'SimpleProduct'
+                    ? name.slice(0, 15) + '...'
+                    : name + '-' + sku.slice(0, 5) + '...'}
+            </span>
             {suggested_Product.__typename === 'SimpleProduct' ? (
                 <Button
                     className={classes.addButton}
