@@ -82,7 +82,6 @@ export const getDefaultBillingAddress = customerAddressesData => {
 export default original => {
     return function useBillingAddress(props, ...restArgs) {
         const { shouldSubmit, onBillingAddressChangedError, onBillingAddressChangedSuccess } = props;
-
         const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
         const {
@@ -243,7 +242,7 @@ export default original => {
                     lastName,
                     country,
                     street1,
-                    street2,
+                    street2 :street2 || '',
                     city,
                     region,
                     postcode,
