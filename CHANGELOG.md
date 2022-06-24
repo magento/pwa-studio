@@ -13,9 +13,18 @@ The 12.5.0 release of PWA Studio focuses on 2 areas:
 
 ### Eventing
 
-We have added a new eventing framework into PWA Studio. This framework allows users to send user event data to Adobe's Edge collection service. The framework includes a [series of events](https://developer.adobe.com/commerce/pwa-studio/integrations/analytics/event-reeference/) by default. Developers can extend the framework by [writing your own events](https://developer.adobe.com/commerce/pwa-studio/integrations/analytics/custom-events/) and you can also configure the framework so that 3rd party modules can subscribe to these events.
+The main feature introduced in PWA Studio 12.5 is the [eventing framework](https://developer.adobe.com/commerce/pwa-studio/guides/general-concepts/eventing/).
 
-Included events are around:
+This framework lets developers write code that subscribes to event data published by the application.
+This data can be sent to different analytics services, such as the Adobe Experience Platform.
+
+The framework also provides an [API](https://developer.adobe.com/commerce/pwa-studio/api/events/) that lets extension developers send out events in their own components.
+A [sample extension](https://github.com/magento/pwa-studio/tree/develop/packages/extensions/venia-sample-eventing) is included in this release to serve as a starting point or tutorial for developers.
+
+This release also include the [Experience Platform Connector](https://developer.adobe.com/commerce/pwa-studio/integrations/adobe-commerce/aep/), a PWA Studio extension that can be installed into a storefront project.
+This extension leverages the eventing framework to collect and send data to the Adobe Experience Platform.
+
+The core events published by the framework include:
 
 - Cart operations
 - Mini cart views
@@ -26,7 +35,7 @@ Included events are around:
 
 ### Accessibility
 
-We have made numerous improvements around accessibility in Venia. Most of these changes are around ensuring proper text and button contrast and ensuring that screen readers are getting proper information from Venia.
+We have made numerous improvements around accessibility in the Venia template project. Most of these changes are around ensuring proper text and button contrast and ensuring that screen readers are getting proper information from the application.
 
 ## Other highlights and fixes
 
