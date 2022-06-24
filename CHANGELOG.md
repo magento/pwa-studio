@@ -45,7 +45,28 @@ We have made numerous improvements around accessibility in Venia. Most of these 
 
 ## 12.5.0 Lighthouse scores
 
-XXXX Need to add
+With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 12.5.0 release of these pages on desktop and mobile devices.
+
+### Desktop scores
+|  | Home Page | Product Category | Product Details | Search Results |
+| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
+| **Desktop** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
+| Performance | ![](images/score_90.svg) | ![](images/score_78.svg) | ![](images/score_73.svg) | ![](images/score_90.svg) |
+| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| PWA | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
+
+### Mobile scores
+
+|  | &nbsp;&nbsp;Home Page&nbsp;&nbsp; | Product Category | Product Details | Search Results |
+| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
+| **Mobile** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
+| Performance | ![](images/score_27.svg) | ![](images/score_27.svg) | ![](images/score_26.svg) | ![](images/score_33.svg) |
+| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
+| PWA | ![](images/pwa_imperfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
 
 
 | Type  | Description                                                                               | GitHub PR |
@@ -60,6 +81,7 @@ XXXX Need to add
 | Story | \[Issue] AC-2490::Contrast insufficient - product image selected state indicat…           | [3857][]  |
 | Story | \[Issue] AC-2496::Contrast insufficient - light grey text (Checkout - Payment)            | [3857][]  |
 | Story | \[Group 2]\[Issue] AC-2786::Shopping bag button does not programmatically communicate st… | [3858][]  |
+| Story | Experience Platform Connector extension                                                   | [3885][]  |
 | Story | \[Issue] Make Apollo links customizable                                                   | [3842][]  |
 | Story | Track Page Views                                                                          | [3856][]  |
 | Story | Track Search Requests                                                                     | [3844][]  |
@@ -92,26 +114,27 @@ Your project may not depend on some of the packages listed in this table.
 | Package                             | Latest version |
 |-------------------------------------|----------------|
 | `babel-preset-peregrine`            | **1.2.1**      |
-| `create-pwa`                        | **2.3.0**      |
-| `upward-security-headers`           | **1.0.8**      |
-| `venia-adobe-data-layer`            | **1.0.5**      |
-| `venia-sample-backends`             | **0.0.7**      |
+| `create-pwa`                        | **2.3.1**      |
+| `experience-platform-connector`     | **1.0.0**      |
+| `upward-security-headers`           | **1.0.9**      |
+| `venia-sample-backends`             | **0.0.8**      |
+| `venia-sample-eventing`             | **0.0.1**      |
 | `venia-sample-language-packs`       | **0.0.8**      |
-| `venia-sample-payments-checkmo`     | **0.0.6**      |
-| `pagebuilder`                       | **7.3.0**      |
-| `peregrine`                         | **12.4.0**     |
-| `pwa-buildpack`                     | **11.3.0**     |
-| `pwa-theme-venia`                   | **1.3.0**      |
-| `upward-js`                         | **5.3.1**      |
+| `venia-sample-payments-checkmo`     | **0.0.7**      |
+| `pagebuilder`                       | **7.4.0**      |
+| `peregrine`                         | **12.5.0**     |
+| `pwa-buildpack`                     | **11.4.0**     |
+| `pwa-theme-venia`                   | **1.4.0**      |
+| `upward-js`                         | **5.4.0**      |
 | `upward-spec`                       | **5.2.1**      |
-| `venia-concept`                     | **12.4.0**     |
-| `venia-ui`                          | **9.4.0**      |
-| `magento2-pwa`                      | **0.2.1**      |
+| `venia-concept`                     | **12.5.0**     |
+| `venia-ui`                          | **9.5.0**      |
+| `magento2-pwa`                      | **0.2.2**      |
 | `magento2-pwa-commerce`             | **0.0.2**      |
 | `magento-venia-sample-data-modules` | **0.0.3**      |
 | `magento-venia-sample-data-modules-ee`| **0.0.2**    |
 | `magento2-upward-connector`         | **2.0.1**      |
-| `upward-php`                        | **2.0.1**      |
+| `upward-php`                        | **2.0.1**      |s
 
 [3843]: https://github.com/magento/pwa-studio/pull/3843
 [3855]: https://github.com/magento/pwa-studio/pull/3855
@@ -130,5 +153,6 @@ Your project may not depend on some of the packages listed in this table.
 [3859]: https://github.com/magento/pwa-studio/pull/3859
 [3858]: https://github.com/magento/pwa-studio/pull/3858
 [3850]: https://github.com/magento/pwa-studio/pull/3850
+[3885]: https://github.com/magento/pwa-studio/pull/3885
 
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
