@@ -1,5 +1,11 @@
 {
   "data": {
-    "route": null
+    "route": {
+      "relative_url": "venia-accessories",
+      "redirect_code": 0,
+      "type": "CATEGORY",
+      "uid": "Mw==",
+      "__typename": "CategoryTree"
+    }
   }
 }
