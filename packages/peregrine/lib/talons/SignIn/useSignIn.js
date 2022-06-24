@@ -9,6 +9,7 @@ import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
 
 import DEFAULT_OPERATIONS from './signIn.gql';
+import { useEventingContext } from '../../context/eventing';
 
 export const useSignIn = props => {
     const {
@@ -38,6 +39,8 @@ export const useSignIn = props => {
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
     ] = useUserContext();
+
+    const [, { dispatch }] = useEventingContext();
 
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
@@ -101,7 +104,20 @@ export const useSignIn = props => {
                 });
 
                 // Ensure old stores are updated with any new data.
-                getUserDetails({ fetchUserDetails });
+
+                await getUserDetails({ fetchUserDetails });
+
+                const { data } = await fetchUserDetails({
+                    fetchPolicy: 'cache-only'
+                });
+
+                dispatch({
+                    type: 'USER_SIGN_IN',
+                    payload: {
+                        ...data.customer
+                    }
+                });
+
                 getCartDetails({ fetchCartId, fetchCartDetails });
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
@@ -124,7 +140,8 @@ export const useSignIn = props => {
             getUserDetails,
             fetchUserDetails,
             getCartDetails,
-            fetchCartDetails
+            fetchCartDetails,
+            dispatch
         ]
     );
 

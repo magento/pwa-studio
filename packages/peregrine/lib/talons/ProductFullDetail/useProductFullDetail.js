@@ -11,6 +11,7 @@ import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/ut
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './productFullDetail.gql';
+import { useEventingContext } from '../../context/eventing';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -155,7 +156,7 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         0;
 
     if (!isConfigurable || !optionsSelected) {
-        value = product.price_range?.maximum_price?.final_price;
+        value = product.price_range?.maximum_price;
     } else {
         const item = findMatchingVariant({
             optionCodes,
@@ -164,8 +165,8 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         });
 
         value = item
-            ? item.product.price_range?.maximum_price?.final_price
-            : product.price_range?.maximum_price?.final_price;
+            ? item.product.price_range?.maximum_price
+            : product.price_range?.maximum_price;
     }
 
     return value;
@@ -228,6 +229,8 @@ export const useProductFullDetail = props => {
         addSimpleProductToCartMutation,
         product
     } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const hasDeprecatedOperationProp = !!(
         addConfigurableProductToCartMutation || addSimpleProductToCartMutation
@@ -311,6 +314,11 @@ export const useProductFullDetail = props => {
 
     const customAttributes = useMemo(
         () => getCustomAttributes(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
+    const productPrice = useMemo(
+        () => getConfigPrice(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
     );
 
@@ -421,6 +429,29 @@ export const useProductFullDetail = props => {
 
                 try {
                     await addProductToCart({ variables });
+
+                    const selectedOptionsLabels =
+                        selectedOptionsArray?.map((uid, i) => ({
+                            attribute: product.configurable_options[i].label,
+                            value:
+                                product.configurable_options[i].values.findLast(
+                                    x => x.uid === uid
+                                )?.label || null
+                        })) || null;
+
+                    dispatch({
+                        type: 'CART_ADD_ITEM',
+                        payload: {
+                            cartId,
+                            sku: product.sku,
+                            name: product.name,
+                            priceTotal: productPrice.final_price.value,
+                            currencyCode: productPrice.final_price.currency,
+                            discountAmount: productPrice.discount.amount_off,
+                            selectedOptions: selectedOptionsLabels,
+                            quantity
+                        }
+                    });
                 } catch {
                     return;
                 }
@@ -431,11 +462,13 @@ export const useProductFullDetail = props => {
             addProductToCart,
             addSimpleProductToCart,
             cartId,
+            dispatch,
             hasDeprecatedOperationProp,
             isSupportedProductType,
             optionCodes,
             optionSelections,
             product,
+            productPrice,
             productType,
             selectedOptionsArray
         ]
@@ -452,17 +485,12 @@ export const useProductFullDetail = props => {
         [optionSelections]
     );
 
-    const productPrice = useMemo(
-        () => getConfigPrice(product, optionCodes, optionSelections),
-        [product, optionCodes, optionSelections]
-    );
-
     // Normalization object for product details we need for rendering.
     const productDetails = {
         description: product.description,
         shortDescription: product.short_description,
         name: product.name,
-        price: productPrice,
+        price: productPrice?.final_price,
         sku: product.sku
     };
 

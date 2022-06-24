@@ -9,6 +9,7 @@ import { useAwaitQuery } from '../../../../hooks/useAwaitQuery';
 
 import { useCreateAccount } from '../useCreateAccount';
 import defaultOperations from '../createAccount.gql';
+import { useEventingContext } from '../../../../context/eventing';
 
 const createAccountVariables = {
     email: 'bender@planet.express',
@@ -140,6 +141,10 @@ const initialProps = {
     onSubmit: handleSubmit
 };
 
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 const renderHookWithProviders = ({
     renderHookOptions = { initialProps },
     mocks = [
@@ -188,7 +193,9 @@ describe('handle submit event', () => {
         subscribe: false
     };
 
-    it('creates an account, signs in, and generates a new cart', async () => {
+    it('creates an account, dispatches event, signs in, and generates a new cart', async () => {
+        const [, { dispatch }] = useEventingContext();
+
         const { result } = renderHookWithProviders();
 
         await act(async () => {
@@ -206,6 +213,9 @@ describe('handle submit event', () => {
 
         expect(handleSubmit).toHaveBeenCalledTimes(1);
         expect(result.current.isDisabled).toBeTruthy();
+
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch.mock.calls[0][0]).toMatchSnapshot();
     });
 
     it('does not call the submit callback if it is not defined', async () => {

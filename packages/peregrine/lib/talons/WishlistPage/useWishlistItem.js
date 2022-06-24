@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './wishlistItem.gql';
+import { useEventingContext } from '../../context/eventing';
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 
@@ -28,6 +29,8 @@ const mergeSupportedProductTypes = (supportedProductTypes = []) => {
  */
 export const useWishlistItem = props => {
     const { item, onOpenAddToCartDialog, wishlistId } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const {
         configurable_options: selectedConfigurableOptions = [],
@@ -162,6 +165,36 @@ export const useWishlistItem = props => {
         ) {
             try {
                 await addWishlistItemToCart();
+
+                const selectedOptionsLabels =
+                    selectedConfigurableOptions?.length > 0
+                        ? selectedConfigurableOptions?.map(
+                              ({ option_label, value_label }) => ({
+                                  attribute: option_label,
+                                  value: value_label
+                              })
+                          )
+                        : null;
+
+                dispatch({
+                    type: 'CART_ADD_ITEM',
+                    payload: {
+                        cartId,
+                        sku: item.product.sku,
+                        name: item.product.name,
+                        priceTotal:
+                            item.product.price_range.maximum_price.final_price
+                                .value,
+                        currencyCode:
+                            item.product.price_range.maximum_price.final_price
+                                .currency,
+                        discountAmount:
+                            item.product.price_range.maximum_price.discount
+                                .amount_off,
+                        selectedOptions: selectedOptionsLabels,
+                        quantity: 1
+                    }
+                });
             } catch (error) {
                 console.error(error);
             }
@@ -170,10 +203,12 @@ export const useWishlistItem = props => {
         }
     }, [
         addWishlistItemToCart,
+        cartId,
         configurableOptions.length,
+        dispatch,
         item,
         onOpenAddToCartDialog,
-        selectedConfigurableOptions.length
+        selectedConfigurableOptions
     ]);
 
     const handleRemoveProductFromWishlist = useCallback(async () => {

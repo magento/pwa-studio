@@ -122,7 +122,7 @@ Open your `package.json` file and update the PWA Studio package dependencies to 
 The following table lists the latest versions of each package as of 12.5.0.
 
 **Note:**
-Your project may not depend on some of the packages listed in this table.
+Your project may not depend on some packages listed in this table.
 
 | Package                             | Latest version |
 |-------------------------------------|----------------|
