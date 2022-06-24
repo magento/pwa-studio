@@ -102,7 +102,11 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 
 ## Documentation updates
 
-- Added documentation for the [analytics](https://developer.adobe.com/commerce/pwa-studio/integrations/analytics/) work.
+- [eventing overview](https://developer.adobe.com/commerce/pwa-studio/guides/general-concepts/eventing/)
+- [Event API](https://developer.adobe.com/commerce/pwa-studio/api/events/)
+- [Custom Events](https://developer-stage.adobe.com/commerce/pwa-studio/tutorials/events/custom-events/)
+- [Subscribing to events](https://developer.adobe.com/commerce/pwa-studio/tutorials/events/subscribe-events/)
+- [Adobe Experience Platform](https://developer-stage.adobe.com/commerce/pwa-studio/integrations/adobe-commerce/aep/)
 
 ## Upgrading from a previous version
 
