@@ -1,6 +1,6 @@
 {
-    "name": "Venia",
-    "short_name": "Venia",
+    "name": "B2BStore",
+    "short_name": "B2BStore",
     "start_url": "/",
     "theme_color": "#1F39FF",
     "display": "standalone",
@@ -8,7 +8,7 @@
     "description": "Shop the look",
     "icons": [
         {
-            "src": "/custom-static/icons/logo.png",
+            "src": "/custom-static/icons/logo1.png",
             "sizes": "144x144",
             "type": "image/png"
         }
