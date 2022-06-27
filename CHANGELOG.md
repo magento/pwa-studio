@@ -81,8 +81,9 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 
 | Type  | Description                                                                               | GitHub PR |
 | :---- | :---------------------------------------------------------------------------------------- | :-------- |
+| Story | Eventing Framework                                                                        | [3773][]  |
 | Story | Track Mini Cart Views                                                                     | [3843][]  |
-| Story | 5 Track Checkout                                                                          | [][]      |
+| Story | 5 Track Checkout                                                                          | [3870][]  |
 | Story | Track user account actions                                                                | [3855][]  |
 | Story | \[Issue] AC-2785::Custom dropdown controls lack appropriate name and state inf…           | [3857][]  |
 | Story | \[Group 2]\[Issue] AC-2482::Screen readers not informed when new page view loads. (patte… | [3858][]  |
@@ -97,6 +98,7 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 | Story | Track Search Requests                                                                     | [3844][]  |
 | Story | Track Cart operations                                                                     | [3860][]  |
 | Story | Deprecate / Remove the Venia Adobe Data Layer extension                                   | [3863][]  |
+| Story | Reduce docker build context size                                                          | [3845][]  |
 | Story | Track product impressions and clicks                                                      | [3859][]  |
 | Bug   | \[Group 2]\[Issue] BUG#AC-2499::When focusing on 'Venia' image while using screen reader… | [3858][]  |
 | Bug   | \[bug]: Mega menu collapses when trying to select sub-category on 12.4                    | [3850][]  |
@@ -168,5 +170,8 @@ Your project may not depend on some packages listed in this table.
 [3858]: https://github.com/magento/pwa-studio/pull/3858
 [3850]: https://github.com/magento/pwa-studio/pull/3850
 [3885]: https://github.com/magento/pwa-studio/pull/3885
+[3773]: https://github.com/magento/pwa-studio/pull/3773
+[3845]: https://github.com/magento/pwa-studio/pull/3845
+[3870]: https://github.com/magento/pwa-studio/pull/3870
 
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
