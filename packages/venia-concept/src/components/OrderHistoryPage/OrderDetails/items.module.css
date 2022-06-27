@@ -6,7 +6,7 @@
 
 .heading {
     composes: font-bold from global;
-    composes: pb-3 from global;
+    padding-bottom: 23px;
     font-size: 24px;
 }
 
@@ -19,6 +19,11 @@
 .productsTable {
     background: #ffffff;
     padding: 5px 3px 0px 8px;
+}
+
+.headerRow th {
+    font-weight: 400;
+    font-size: 14px;
 }
 
 .headerRow th {
@@ -47,9 +52,20 @@
     text-align: start !important;
     padding-left: 1rem;
     width: 25%;
+    min-width: 200px;
 }
 
-.tableContainer{
+.tableContainer {
     overflow-x: scroll;
-    max-width: 78vw;
+}
+
+@media (max-width: 650px) {
+    .tableContainer {
+        overflow-x: scroll;
+        max-width: 78vw;
+    }
+
+    .headerRow th {
+        padding: 4px 1rem 0;
+    }
 }

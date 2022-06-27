@@ -7,7 +7,7 @@
     composes: font-bold from global;
     composes: pb-1.5 from global;
     justify-content: start;
-    font-size: 24px;
+    font-size: 27px;
 }
 
 .heading span {

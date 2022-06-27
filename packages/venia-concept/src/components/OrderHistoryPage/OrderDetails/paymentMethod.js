@@ -45,7 +45,7 @@ const PaymentMethod = props => {
                         <img src={PaymentIcon} alt="PaymentIcon" />
                         <FormattedMessage
                             id="orderDetails.SafetlyPayment"
-                            defaultMessage="Safetly payment"
+                            defaultMessage="Safety payment"
                         />
                     </span>
                 </div>

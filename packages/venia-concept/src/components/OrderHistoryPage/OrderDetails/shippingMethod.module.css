@@ -9,16 +9,20 @@
     gap: 1rem;
     display: grid;
     padding:24px;
-    font-weight: 700;
+    padding: 16px;
+    font-weight: 400;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
+.methodValue{
+    font-weight: 500;
+}
 
 .heading {
     composes: font-bold from global;
     composes: pb-1.5 from global;
-    font-size: 24px;
+    font-size: 27px;
 }
 
 .heading span {
@@ -43,4 +47,8 @@
 .tracking {
     composes: grid from global;
     composes: gap-y-1.5 from global;
+}
+
+.methodValue{
+
 }

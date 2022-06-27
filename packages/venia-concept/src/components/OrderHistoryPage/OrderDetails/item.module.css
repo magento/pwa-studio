@@ -67,6 +67,8 @@
 .nameProduct {
     display: flex;
     align-items: center;
+    font-weight: 700;
+    font-size: 16px;
 }
 
 .tableRow {
@@ -77,7 +79,8 @@
 
 .tableRow td {
     text-align: center;
-    font-weight: 700;
+    font-weight: 400;
+    font-size: 16px;
 }
 
 .tableRow td a {
@@ -87,6 +90,6 @@
 
 .grossPrice {
     color: var(--orienteed-global-color-orange);
-    font-weight: 600;
-    font-size: 24px;
+    font-weight: 600 !important;
+    font-size: 24px !important;
 }

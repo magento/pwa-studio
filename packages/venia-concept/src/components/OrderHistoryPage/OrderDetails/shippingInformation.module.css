@@ -8,12 +8,12 @@
     composes: pb-1.5 from global;
     /* display: inline-flex; */
     justify-content: start;
-    font-size: 24px;
+    font-size: 27px;
 }
 
 .heading span {
-    font-weight: 400;
-    font-size: 14px;
+    font-weight: 500;
+    font-size: 16px;
     align-items: center;
     text-align: center;
     color: #fff;
@@ -67,8 +67,8 @@
 
 .contentWrapper {
     background-color: #fff;
-    padding: 24px;
-    font-weight: 700;
+    padding: 16px;
+    font-weight: 500;
     border-radius: 8px;
     font-size: 14px;
     display: grid;

@@ -8,7 +8,7 @@
     composes: pb-1.5 from global;
     grid-row: 1 / span 1;
     justify-content: start;
-    font-size: 24px;
+    font-size: 27px;
 }
 
 .heading span {
@@ -33,12 +33,17 @@
     gap: 1rem;
     display: grid;
     padding: 24px;
-    font-weight: 700;
+    font-weight: 400;
+    font-size: 16px;
     border-radius: 8px;
-    font-size: 14px;
+}
+
+.payment_type div {
+    display: contents;
 }
 
 .boxInfo {
+    font-size: 14px;
     display: flex;
     gap: 0.5rem;
 }
