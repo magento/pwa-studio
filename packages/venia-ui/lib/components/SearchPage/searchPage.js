@@ -206,11 +206,15 @@ const SearchPage = props => {
         areaLiveVal = 'polite';
 
         if (productSortRoot) {
-            productSortRoot.setAttribute('aria-hidden', 'false');
+            setTimeout(function() {
+                productSortRoot.setAttribute('aria-hidden', 'false');
+            }, 15000);
         }
 
         if (filterSidebarRoot) {
-            filterSidebarRoot.setAttribute('aria-hidden', 'false');
+            setTimeout(function() {
+                filterSidebarRoot.setAttribute('aria-hidden', 'false');
+            }, 15000);
         }
     }
 
