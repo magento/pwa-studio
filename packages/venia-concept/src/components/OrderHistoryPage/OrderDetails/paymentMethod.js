@@ -31,8 +31,8 @@ const PaymentMethod = props => {
                     <span>
                         <FormattedMessage
                             id="orderDetails.TotalPrice"
-                            defaultMessage="Total price:"
-                        />
+                            defaultMessage="Total price"
+                        />:
                         &nbsp;
                         <Price
                             value={total?.grand_total.value}

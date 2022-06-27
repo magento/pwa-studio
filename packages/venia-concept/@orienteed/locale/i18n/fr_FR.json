@@ -503,7 +503,7 @@
     "orderDetails.subtotal": "Sous-total",
     "orderDetails.tax": "Impôt",
     "orderDetails.total": "Total",
-    "orderDetails.TotalPrice": "Prix total ",
+    "orderDetails.TotalPrice": "Prix total",
     "orderDetails.trackingInformation": "<strong>Suivi:</strong> {number}",
     "orderDetails.waitingOnTracking": "En attente d'informations de suivi",
     "orderHistoryPage.emptyDataMessage": "Vous n'avez pas encore de commandes.",
