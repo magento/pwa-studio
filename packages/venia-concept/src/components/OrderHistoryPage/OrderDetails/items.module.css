@@ -19,6 +19,7 @@
 .productsTable {
     background: #ffffff;
     padding: 5px 3px 0px 8px;
+    width: 100%;
 }
 
 .headerRow th {
