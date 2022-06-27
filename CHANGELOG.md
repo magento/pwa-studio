@@ -57,10 +57,11 @@ We have made numerous improvements around accessibility in the Venia template pr
 With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 12.5.0 release of these pages on desktop and mobile devices.
 
 ### Desktop scores
+
 |  | Home Page | Product Category | Product Details | Search Results |
 | ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
 | **Desktop** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-| Performance | ![](images/score_90.svg) | ![](images/score_78.svg) | ![](images/score_73.svg) | ![](images/score_90.svg) |
+| Performance | ![](images/score_89.svg) | ![](images/score_88.svg) | ![](images/score_61.svg) | ![](images/score_84.svg) |
 | Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
 | Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
 | SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
@@ -71,11 +72,11 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 |  | &nbsp;&nbsp;Home Page&nbsp;&nbsp; | Product Category | Product Details | Search Results |
 | ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
 | **Mobile** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-| Performance | ![](images/score_27.svg) | ![](images/score_27.svg) | ![](images/score_26.svg) | ![](images/score_33.svg) |
+| Performance | ![](images/score_21.svg) | ![](images/score_32.svg) | ![](images/score_34.svg) | ![](images/score_31.svg) |
 | Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
 | Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
 | SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| PWA | ![](images/pwa_imperfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
+| PWA | ![](images/pwa_imperfect.svg) | ![](images/pwa_imperfect.svg) | ![](images/pwa_imperfect.svg) | ![](images/pwa_imperfect.svg) |
 
 
 | Type  | Description                                                                               | GitHub PR |
@@ -147,7 +148,7 @@ Your project may not depend on some packages listed in this table.
 | `magento-venia-sample-data-modules` | **0.0.3**      |
 | `magento-venia-sample-data-modules-ee`| **0.0.2**    |
 | `magento2-upward-connector`         | **2.0.1**      |
-| `upward-php`                        | **2.0.1**      |s
+| `upward-php`                        | **2.0.1**      |
 
 [3843]: https://github.com/magento/pwa-studio/pull/3843
 [3855]: https://github.com/magento/pwa-studio/pull/3855
