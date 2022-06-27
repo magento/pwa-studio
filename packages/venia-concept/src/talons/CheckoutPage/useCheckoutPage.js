@@ -270,18 +270,18 @@ export const useCheckoutPage = (props = {}) => {
                     },
                     ...reCaptchaData
                 });
-                
+
                 const orderId = data.placeOrder.order.order_number;
                 const { cart } = orderDetailsData;
-                cart?.items.map((product=>{
+                cart?.items.map(product => {
                     ReactGA.plugin.execute('ecommerce', 'addTransaction', {
                         id: orderId,
                         revenue: product.prices.price.value,
-                        quantity:product.quantity,
-                        name:product.product.name
-                      });
-                      ReactGA.plugin.execute('ecommerce', 'send');
-                }))
+                        quantity: String(product.quantity),
+                        name: product.product.name
+                    });
+                    ReactGA.plugin.execute('ecommerce', 'send');
+                });
 
                 // Cleanup stale cart and customer info.
                 await removeCart();
