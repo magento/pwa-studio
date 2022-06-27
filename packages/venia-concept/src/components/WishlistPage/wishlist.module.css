@@ -95,7 +95,7 @@
     composes: justify-self-end from global;
 }
 .deleteItem span {
-    margin-left: 5px;
+    margin-left: 8px;
 }
 .printAddAllToCartShareContainer span {
     margin-left: 5px;
@@ -124,5 +124,6 @@
 .addAllToCart {
     composes: root_highPriority from '@magento/venia-concept/src/components/Button/button.module.css';
 }
-.shareIcon {
+.printAddAllToCartShareContainer {
+    margin-bottom: 30px;
 }

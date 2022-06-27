@@ -72,3 +72,11 @@
 .titles {
     text-align: center;
 }
+
+@media print {
+    .root {
+        grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+        /* column-gap: 2rem; */
+        margin-left: 30px;
+    }
+}
