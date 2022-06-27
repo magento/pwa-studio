@@ -175,5 +175,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/item.js`]: './src/components/OrderHistoryPage/OrderDetails/item.js',
     [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/item.module.css`]: './src/components/OrderHistoryPage/OrderDetails/item.module.css',
     [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/orderTotal.js`]: './src/components/OrderHistoryPage/OrderDetails/orderTotal.js',
-    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/orderTotal.module.css`]: './src/components/OrderHistoryPage/OrderDetails/orderTotal.module.css'
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/orderTotal.module.css`]: './src/components/OrderHistoryPage/OrderDetails/orderTotal.module.css',
+    //
+    [`@magento/venia-ui/lib/components/ProductImageCarousel/thumbnail.module.css`]: './src/components/ProductImageCarousel/thumbnail.module.css'
 };
