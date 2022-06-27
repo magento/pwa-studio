@@ -54,7 +54,8 @@ const SuggestedProduct = props => {
     });
 
     const { handleAddToCart } = talonProps;
-
+    const namewithSku = name + '-' + sku;
+    console.log(namewithSku, 'namewithSku', sku, suggested_Product.__typenam);
     return (
         <div className={classes.root}>
             <Link
@@ -73,9 +74,9 @@ const SuggestedProduct = props => {
                 />
             </Link>
             <span className={classes.name}>
-                {suggested_Product.__typename === 'SimpleProduct'
-                    ? name.slice(0, 15) + '...'
-                    : name + '-' + sku.slice(0, 5) + '...'}
+                {namewithSku.length > 15
+                    ? namewithSku.slice(0, 15) + '...'
+                    : namewithSku}
             </span>
             {suggested_Product.__typename === 'SimpleProduct' ? (
                 <Button
