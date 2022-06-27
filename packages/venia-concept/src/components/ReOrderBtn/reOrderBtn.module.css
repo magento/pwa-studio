@@ -4,15 +4,56 @@
 .reOrderBtn {
     color: rgb(var(--venia-global-color-text));
     border-color: var(--orienteed-primary-color-base1);
-    width: 100%;
 }
 
 .reOrderDiv {
 }
 
+.imageWrapper {
+    padding:  5px;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.imageWrapper img {
+    width: 80px;
+    height: auto;
+}
+
+.imageWrapper div {
+    height: 84px;
+}
+
+.orderNumberContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.sideBorder {
+    border-right: 1px solid #cecccc;
+    margin: 2rem 1rem;
+}
+.orderNumberContainer div button {
+    color: #e8aa00;
+}
+
+.reOrderRow {
+    min-height: 142px;
+}
+
+.orderStatusContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
 @media (min-width: 960px) {
     .reOrderRow {
-        grid-template-columns: minmax(7rem, 10rem) 10rem minmax(9rem, 10rem) 25rem 12rem 12rem 40px;
+        grid-template-columns: 0.5fr repeat(5, 0.7fr) 40px;
     }
 }
 @media only screen and (min-width: 961px) and (max-width: 1300px) {

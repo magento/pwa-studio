@@ -4,6 +4,7 @@ import defaultClasses from './reOrderBtn.module.css';
 import buttonClasses from '@magento/venia-ui/lib/components/Button/button.module.css';
 import useReOrderItems from '@orienteed/reorder/hooks/useReOrderItems';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
+import { FormattedMessage } from 'react-intl';
 
 const ReOrder = props => {
     const { orderNumber } = props;
@@ -24,7 +25,10 @@ const ReOrder = props => {
                 id={orderNumber}
                 className={[classes.reOrderBtn, classes.root].join(' ')}
             >
-                {'ReOrder'}
+                <FormattedMessage
+                    id={'orderRow.ReOrder'}
+                    defaultMessage={'ReOrder'}
+                />
             </button>
         </div>
     );

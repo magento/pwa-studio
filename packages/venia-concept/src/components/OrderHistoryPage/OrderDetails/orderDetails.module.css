@@ -1,0 +1,71 @@
+.root {
+    composes: gap-sm from global;
+    composes: grid from global;
+
+    composes: lg_gap-md from global;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.orderTotalContainer {
+    composes: m-0 from global;
+    composes: max-w-none from global;
+    composes: min-w-none from global;
+
+    composes: lg_m-auto from global;
+    composes: lg_max-w-[25rem] from global;
+    composes: lg_min-w-[22rem] from global;
+    width: 100%;
+}
+
+.printButton {
+    grid-row: 4 / span 1;
+    grid-column: 3 / span 2;
+
+    composes: items-center from global;
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoFirst from global;
+    composes: grid-flow-col from global;
+    composes: invisible from global; /* Hide until PWA-978 is completed */
+    composes: m-auto from global;
+    composes: w-fit from global;
+}
+
+.printLabel {
+    composes: underline from global;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 959px) {
+    .printButton {
+        grid-row: 7 / span 1;
+        grid-column: 1 / span 1;
+    }
+}
+
+.itemsWrapper {
+    margin-top: 21px;
+    display: grid;
+    grid-template-columns: auto;
+}
+
+@media (max-width: 800px) {
+    .itemsWrapper {
+        grid-template-columns: auto;
+    }
+}
+
+@media (max-width: 650px) {
+    .root {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 430px) {
+    .root {
+        grid-template-columns:1fr
+    }
+}
