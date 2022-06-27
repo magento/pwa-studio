@@ -199,7 +199,9 @@ export const useSearchPage = (props = {}) => {
                     sort: {
                         attribute: sortAttribute,
                         order: sortDirection
-                    }
+                    },
+                    pageSize: Number(pageSize),
+                    currentPage: Number(currentPage)
                 }
             });
             searched.current = true;

@@ -63,6 +63,10 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
     return { useAwaitQuery };
 });
 
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 const props = {
     setDefaultUsername: jest.fn(),
     showCreateAccount: jest.fn(),

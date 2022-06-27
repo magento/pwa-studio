@@ -3,6 +3,9 @@ import { createTestInstance } from '@magento/peregrine';
 
 import Gallery from '../gallery';
 
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 jest.mock('react-router-dom', () => ({
     Link: ({ children }) => children
 }));

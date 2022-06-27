@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useMutation, useQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useEventingContext } from '../../../../context/eventing';
 
 import { useProduct } from '../useProduct';
 
@@ -72,12 +73,19 @@ jest.mock('@magento/peregrine/lib/context/user', () => ({
     useUserContext: jest.fn().mockReturnValue([{ isSignedIn: true }])
 }));
 
+jest.mock('../../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 const props = {
     item: {
         prices: {
             price: {
                 value: 99,
                 currency: 'USD'
+            },
+            total_item_discount: {
+                value: 0
             }
         },
         product: {
@@ -323,6 +331,9 @@ test('it handles editing the product', () => {
               "currency": "USD",
               "value": 99,
             },
+            "total_item_discount": Object {
+              "value": 0,
+            },
           },
           "product": Object {
             "name": "unit test",
@@ -401,6 +412,33 @@ describe('it handles cart removal', () => {
 
         expect(updatedProps.errorMessage).toBeTruthy();
     });
+
+    test('should dispatch event', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        const { handleEditItem, handleRemoveFromCart } = talonProps;
+
+        await act(async () => {
+            handleEditItem();
+            await handleRemoveFromCart();
+        });
+
+        expect(mockDispatch).toBeCalledTimes(1);
+
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
+    });
 });
 
 describe('it handles item quantity updates', () => {
@@ -466,6 +504,58 @@ describe('it handles item quantity updates', () => {
         const { talonProps: updatedProps } = tree.root.findByType('i').props;
 
         expect(updatedProps.errorMessage).toBeTruthy();
+    });
+
+    test('should dispatch event', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        const { handleUpdateItemQuantity } = talonProps;
+
+        await act(async () => {
+            await handleUpdateItemQuantity(100);
+        });
+
+        expect(mockDispatch).toBeCalledTimes(1);
+
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('should dispatch "remove" event when updating qty to zero', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        const { handleUpdateItemQuantity } = talonProps;
+
+        await act(async () => {
+            await handleUpdateItemQuantity(0);
+        });
+
+        expect(mockDispatch).toBeCalledTimes(1);
+
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
     });
 });
 
