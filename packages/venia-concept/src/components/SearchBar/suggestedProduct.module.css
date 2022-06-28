@@ -2,7 +2,7 @@
     align-items: center;
     display: grid;
     gap: 1rem;
-    grid-template-columns: 60px 1fr 1fr 1fr;
+    grid-template-columns: 50px 1fr 1fr 1fr 0.7fr;
 }
 
 .image {
@@ -55,5 +55,28 @@
 @media only screen and (max-width: 680px) {
     .root {
         grid-template-columns: 40px 1fr 40px 1fr;
+    }
+}
+
+@media (max-width: 450px) {
+    .root {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .sku {
+        grid-row-start: 2;
+        grid-column-start: 1;
+    }
+
+    .addButtonMobile {
+        grid-row-start: 2;
+        grid-column-start: 2;
+    }
+
+    .price {
+        grid-row-start: 2;
+        grid-column-start: 3;
     }
 }

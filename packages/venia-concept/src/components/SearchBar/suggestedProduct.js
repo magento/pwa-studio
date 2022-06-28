@@ -54,8 +54,6 @@ const SuggestedProduct = props => {
     });
 
     const { handleAddToCart } = talonProps;
-    const namewithSku = name + '-' + sku;
-    console.log(namewithSku, 'namewithSku', sku, suggested_Product.__typenam);
     return (
         <div className={classes.root}>
             <Link
@@ -73,10 +71,9 @@ const SuggestedProduct = props => {
                     width={IMAGE_WIDTH}
                 />
             </Link>
-            <span className={classes.name}>
-                {namewithSku.length > 15
-                    ? namewithSku.slice(0, 15) + '...'
-                    : namewithSku}
+            <span className={classes.name}>{name}</span>
+            <span className={classes.sku}>
+                {sku.length > 9 ? sku.slice(0, 9) + '...' : sku}
             </span>
             {suggested_Product.__typename === 'SimpleProduct' ? (
                 <Button
@@ -101,7 +98,7 @@ const SuggestedProduct = props => {
                 </Button>
             ) : null}
 
-            <span className={classes.price}>
+            <span className={suggested_Product.__typename === 'SimpleProduct'&&classes.price}>
                 <Price
                     currencyCode={
                         price.minimalPrice.amount.currency != null
