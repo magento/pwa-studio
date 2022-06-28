@@ -98,7 +98,12 @@ const SuggestedProduct = props => {
                 </Button>
             ) : null}
 
-            <span className={suggested_Product.__typename === 'SimpleProduct'&&classes.price}>
+            <span
+                className={
+                    suggested_Product.__typename === 'SimpleProduct' &&
+                    classes.price
+                }
+            >
                 <Price
                     currencyCode={
                         price.minimalPrice.amount.currency != null
