@@ -20,6 +20,9 @@ import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
 
 import { FormattedMessage } from 'react-intl';
 
+import useCopy from 'use-copy';
+import copyToClipboard from './Icons/copyToClipboard.png';
+
 const IMAGE_WIDTH = 60;
 
 const SuggestedProduct = props => {
@@ -34,6 +37,17 @@ const SuggestedProduct = props => {
         url_suffix,
         sku
     } = props;
+
+    const [copied, copy, setCopied] = useCopy(sku);
+
+    const copyText = () => {
+        copy();
+
+        setTimeout(() => {
+            setCopied(false);
+        }, 1000);
+    };
+
     const handleClick = useCallback(() => {
         if (typeof onNavigate === 'function') {
             onNavigate();
@@ -73,7 +87,25 @@ const SuggestedProduct = props => {
             </Link>
             <span className={classes.name}>{name}</span>
             <span className={classes.sku}>
-                {sku.length > 9 ? sku.slice(0, 9) + '...' : sku}
+                {copied ? (
+                    <span className={classes.copiedText}>
+                        <FormattedMessage
+                            id={'productFullDetailB2B.copiedText'}
+                            defaultMessage={'Copied'}
+                        />
+                    </span>
+                ) : (
+                    <div className={classes.productSkuContainer}>
+                        <a onClick={copyText}>
+                            {sku.length > 6 ? '...' + sku.substring(sku.length - 6) : sku}
+                        </a>
+                        <img
+                            src={copyToClipboard}
+                            alt="copyToClipboard"
+                            onClick={copyText}
+                        />
+                    </div>
+                )}
             </span>
             {suggested_Product.__typename === 'SimpleProduct' ? (
                 <Button
@@ -97,10 +129,9 @@ const SuggestedProduct = props => {
                     <Icon src={ShoppingCartIcon} />
                 </Button>
             ) : null}
-
+            {suggested_Product.__typename !== 'SimpleProduct' && <div className={classes.hideMobile}/>}
             <span
                 className={
-                    suggested_Product.__typename === 'SimpleProduct' &&
                     classes.price
                 }
             >
