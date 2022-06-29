@@ -184,14 +184,6 @@ const ContentDialog = props => {
     const selectView = (
         <div className={classes.viewContainer}>
             <img
-                src={view === 'list' ? listSelected : list}
-                className={classes.viewButton}
-                onClick={() => {
-                    setView('list');
-                }}
-                alt="Change to list view"
-            />
-            <img
                 src={view === 'grid' ? gridSelected : grid}
                 className={classes.viewButton}
                 onClick={() => {
@@ -199,6 +191,40 @@ const ContentDialog = props => {
                 }}
                 alt="Change to grid view"
             />
+            <img
+                src={view === 'list' ? listSelected : list}
+                className={classes.viewButton}
+                onClick={() => {
+                    setView('list');
+                }}
+                alt="Change to list view"
+            />
+        </div>
+    );
+
+    const actionsDesktopContainer = (
+        <div className={classes.actionsDesktopContainer}>
+            <div className={classes.actionsDesktopRow}>
+                {createTicketButton}
+                {searchBar}
+            </div>
+            <div className={classes.actionsDesktopRow}>
+                {legendDesktop}
+                {selectView}
+            </div>
+        </div>
+    );
+
+    const actionsMobileContainer = (
+        <div className={classes.actionsMobileContainer}>
+            <div className={classes.actionsMobileFirstRow}>
+                {createTicketButton}
+                {legendMobile}
+            </div>
+            <div className={classes.actionsMobileSecondRow}>
+                {searchBar}
+                {selectView}
+            </div>
         </div>
     );
 
@@ -212,7 +238,8 @@ const ContentDialog = props => {
                     <LoadingIndicator />
                 ) : ticketCount !== 0 ? (
                     <>
-                        <div className={classes.actionsContainer} />
+                        {actionsDesktopContainer}
+                        {actionsMobileContainer}
                         <div className={view === 'list' ? classes.ticketsContainerList : classes.ticketsContainerGrid}>
                             {Object.values(tickets).map(ticket => {
                                 return (

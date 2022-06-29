@@ -44,14 +44,15 @@
     grid-auto-flow: column;
     width: 100%;
     max-width: 22rem;
+    height: 44px;
 }
 
 .searchButton {
     composes: root_highPriority from '@magento/venia-concept/src/components/Button/button.module.css';
-
-    width: 5rem;
-    height: 2rem;
     min-width: 5rem;
+    width: 5rem;
+    height: 44px;
+
 }
 
 .submitIcon {
@@ -106,6 +107,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    overflow: auto;
 }
 
 .ticketsContainerGrid {
@@ -125,16 +127,6 @@
     width: fit-content;
     text-transform: uppercase;
 }
-
-@media (max-width: 600px) {
-    .pageTitle {
-        display: none;
-    }
-    /* .actionsContainer {
-        flex-direction: column;
-        align-items: center;
-    } */
-}
 /***** end Tickets Page *****/
 
 /****** Legend ******/
@@ -145,7 +137,11 @@
 }
 
 .legendMobileContainer {
-    visibility: hidden;
+    min-width: 25px;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translate(0px, -50%);
 }
 
 .legendItem {
@@ -162,20 +158,9 @@
 }
 
 .legendMobileIcon {
-    position: absolute;
     width: 25px;
 }
 
-@media (max-width: 600px) {
-    .legendDesktopContainer {
-        display: none;
-        visibility: hidden;
-    }
-
-    .legendMobileContainer {
-        visibility: visible;
-    }
-}
 /***** end Legend  *****/
 
 /***** SelectView *****/
@@ -187,26 +172,61 @@
 }
 
 .viewButton {
-    width: 50px;
+    min-width: 44px;
+    width: 44px;
 }
 /***** end SelectView *****/
 
-
-/* .actionsContainer {
+/***** actionsHeader *****/
+.actionsDesktopContainer {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 10px;
-
-    position: absolute;
 }
 
-.legendViewContainer {
+.actionsDesktopRow {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.actionsMobileContainer {
+    display: none;
+    flex-direction: column;
     gap: 10px;
-    align-items: center;
-} */
+}
+
+.actionsMobileFirstRow {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.actionsMobileSecondRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 30px;
+    justify-content: space-between;
+}
+/***** end actionsHeader *****/
+
+@media (max-width: 630px) {
+    .pageTitle {
+        display: none;
+    }
+    .actionsDesktopContainer {
+        display: none;
+    }
+
+    .actionsMobileContainer {
+        display: flex;
+    }
+
+    .searchButton {
+        min-width: 40px;
+        width: 40px;
+    }
+}
