@@ -27,6 +27,7 @@ const OrderRow = props => {
         status,
         total
     } = order;
+
     const { grand_total: grandTotal } = total;
     const { currency, value: orderTotal } = grandTotal;
 

@@ -46,7 +46,7 @@
     "addressBook.headerText": "Modifier les informations de livraison",
     "addressBookPage.addAddressText": "Ajouter une adresse",
     "addressBookPage.addDialogTitle": "Nouvelle adresse",
-    "addressBookPage.addressBookText": "Carnet d'adresses",
+    "addressBookPage.addressBookText": "Information d'entreprise",
     "addressBookPage.editDialogTitle": "Modifier l'adresse",
     "addressBookPage.makeDefaultAddress": "Faites-en mon adresse par défaut",
     "addressBookPage.telephone": "Téléphone {telephone}",
@@ -443,7 +443,7 @@
     "global.editButton": "Éditer",
     "global.email": "Courriel",
     "global.emailPlaceholder": "abc@xyz.com",
-    "global.firstName": "Prénom",
+    "global.companyName": "Nom de l'entreprise",
     "global.free": "Gratuit",
     "global.home": "Accueil",
     "global.lastName": "Nom de famille",
@@ -599,7 +599,7 @@
     "quickOrder.DownloadYourSampleFile": "Téléchargez votre fichier d'échantillons",
     "quickOrder.GetQuote": "Obtenir un devis",
     "quickOrder.HereYouCanUploadOwnFile": "Ici vous pouvez télécharger votre propre fichier XLS, XLSX ou CSV et les produits au panier.",
-    "quickOrder.Items":"Articles",
+    "quickOrder.Items": "Articles",
     "quickOrder.Price": "Prix",
     "quickOrder.Qty": "Quantité",
     "quickOrder.SearchProduct": "Entrez le SKU ou le nom du produit",
@@ -771,5 +771,6 @@
     "wishlistPage.disabledMessage": "Désolé, cette fonctionnalité a été désactivée.",
     "wishlistPage.fetchErrorMessage": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "wishlistPage.headingText": "Listes de favoris",
-    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement."
+    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement.",
+    "global.vatNumber": "Numéro de TVA"
 }

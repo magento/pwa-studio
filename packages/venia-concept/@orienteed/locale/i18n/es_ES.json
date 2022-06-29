@@ -46,7 +46,7 @@
     "addressBook.headerText": "Editar la información de envío",
     "addressBookPage.addAddressText": "Añadir una nueva dirección",
     "addressBookPage.addDialogTitle": "Nueva dirección",
-    "addressBookPage.addressBookText": "Listado de direcciones",
+    "addressBookPage.addressBookText": "Información de la compañía",
     "addressBookPage.editDialogTitle": "Editar dirección",
     "addressBookPage.makeDefaultAddress": "Seleccionar como dirección de envío por defecto",
     "addressBookPage.telephone": "Teléfono",
@@ -443,7 +443,7 @@
     "global.editButton": "Editar",
     "global.email": "Correo electrónico",
     "global.emailPlaceholder": "abc@xyz.com",
-    "global.firstName": "Nombre",
+    "global.companyName": "Nombre de la empresa",
     "global.free": "Gratis",
     "global.home": "Página principal",
     "global.lastName": "Segundo apellido",
@@ -599,7 +599,7 @@
     "quickOrder.DownloadYourSampleFile": "Descargue su archivo de muestra",
     "quickOrder.GetQuote": "Obtenga un presupuesto",
     "quickOrder.HereYouCanUploadOwnFile": "Aquí puede subir su propio archivo XLS, XLSX o CSV y los productos al carrito.",
-    "quickOrder.Items":"Artículos",
+    "quickOrder.Items": "Artículos",
     "quickOrder.Price": "Precio",
     "quickOrder.Qty": "Cantidad",
     "quickOrder.SearchProduct": "Introduzca la referencia o el nombre del producto",
@@ -771,5 +771,6 @@
     "wishlistPage.disabledMessage": "Lo sentimos, esta funcionalidad ha sido deshabilitada",
     "wishlistPage.fetchErrorMessage": "Algo ha salido mal. Por favor refresca la página e inténtalo de nuevo.",
     "wishlistPage.headingText": "Listas de favoritos",
-    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento"
+    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento",
+    "global.vatNumber": "Número VAT"
 }

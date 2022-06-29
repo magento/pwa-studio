@@ -95,7 +95,10 @@ const CustomerOrdersFragment = gql`
 `;
 
 export const GET_CUSTOMER_ORDERS = gql`
-    query GetCustomerOrders($filter: CustomerOrdersFilterInput, $pageSize: Int!) {
+    query GetCustomerOrders(
+        $filter: CustomerOrdersFilterInput
+        $pageSize: Int!
+    ) {
         customer {
             id
             orders(filter: $filter, pageSize: $pageSize) {

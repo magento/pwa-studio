@@ -158,5 +158,8 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/showAllButton.module.css`]: './src/components/CheckoutPage/ItemsReview/showAllButton.module.css',
 
     //new overwrite
-    [`@magento/peregrine/lib/talons/AddressBookPage/addressBookFragments.gql.js`]: './src/talons/AddresBookPage/addressBookFragments.gql.js'
+    [`@magento/peregrine/lib/talons/AddressBookPage/addressBookFragments.gql.js`]: './src/talons/AddresBookPage/addressBookFragments.gql.js',
+    [`@magento/venia-ui/lib/components/AddressBookPage/addressBookPage.js`]: './src/components/AddressBookPage/addressBookPage.js',
+    [`@magento/venia-ui/lib/components/AddressBookPage/addEditDialog.js`]: './src/components/AddressBookPage/addEditDialog.js',
+    [`@magento/venia-ui/lib/components/AddressBookPage/addEditDialog.module.css`]: './src/components/AddressBookPage/addEditDialog.module.css'
 };

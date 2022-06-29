@@ -137,6 +137,7 @@ export const useAddressBookPage = (props = {}) => {
 
     const handleConfirmDialog = useCallback(
         async formValues => {
+            console.log('form', formValues);
             if (isDialogEditMode) {
                 try {
                     await updateCustomerAddress({

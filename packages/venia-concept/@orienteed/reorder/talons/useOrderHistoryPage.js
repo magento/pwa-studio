@@ -28,7 +28,11 @@ export const useOrderHistoryPage = (props = {}) => {
     const [pageSize, setPageSize] = useState(PAGE_SIZE);
     const [searchText, setSearchText] = useState('');
 
-    const { data: orderData, error: getOrderError, loading: orderLoading } = useQuery(getCustomerOrdersQuery, {
+    const {
+        data: orderData,
+        error: getOrderError,
+        loading: orderLoading
+    } = useQuery(getCustomerOrdersQuery, {
         fetchPolicy: 'cache-and-network',
         variables: {
             filter: {
@@ -44,6 +48,8 @@ export const useOrderHistoryPage = (props = {}) => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
+    console.log('ordersData', orderData);
+    console.log('storeConfigData', storeConfigData);
 
     const orders = orderData ? orderData.customer.orders.items : [];
 
@@ -63,7 +69,10 @@ export const useOrderHistoryPage = (props = {}) => {
         return null;
     }, [orderData, pageSize]);
 
-    const derivedErrorMessage = useMemo(() => deriveErrorMessage([getOrderError]), [getOrderError]);
+    const derivedErrorMessage = useMemo(
+        () => deriveErrorMessage([getOrderError]),
+        [getOrderError]
+    );
 
     const handleReset = useCallback(() => {
         setSearchText('');

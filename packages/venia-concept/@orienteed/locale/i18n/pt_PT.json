@@ -46,7 +46,7 @@
     "addressBook.headerText": "Modificar informações de envio",
     "addressBookPage.addAddressText": "Adicionar nova morada",
     "addressBookPage.addDialogTitle": "Nova morada",
-    "addressBookPage.addressBookText": "Lista de moradas",
+    "addressBookPage.addressBookText": "Informação da companhia",
     "addressBookPage.editDialogTitle": "Editar morada",
     "addressBookPage.makeDefaultAddress": "Tornar morada predefinida",
     "addressBookPage.telephone": "Telefone",
@@ -443,7 +443,7 @@
     "global.editButton": "Editar",
     "global.email": "Email",
     "global.emailPlaceholder": "abc@xyz.com",
-    "global.firstName": "Nome",
+    "global.companyName": "Nome da empresa",
     "global.free": "Gratis",
     "global.home": "Casa",
     "global.lastName": "Apelido",
@@ -599,7 +599,7 @@
     "quickOrder.DownloadYourSampleFile": "Descarregue o seu ficheiro de amostra",
     "quickOrder.GetQuote": "Obter Citação",
     "quickOrder.HereYouCanUploadOwnFile": "Aqui pode carregar o seu próprio ficheiro XLS, XLSX ou CSV e produtos para o carrinho.",
-    "quickOrder.Items":"Artigos",
+    "quickOrder.Items": "Artigos",
     "quickOrder.Price": "Preço",
     "quickOrder.Qty": "Qtd.",
     "quickOrder.SearchProduct": "Introduzir SKU ou nome do produto",
@@ -771,5 +771,6 @@
     "wishlistPage.disabledMessage": "Desculpa, esta funcionalidade foi desativada",
     "wishlistPage.fetchErrorMessage": "Algo correu mal. Por favor atualize a pagina e tente de novo",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} outro {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "A lista de desejos não esta disponivel de momento"
+    "wishlistPage.wishlistDisabledMessage": "A lista de desejos não esta disponivel de momento",
+    "global.vatNumber": "Número de IVA"
 }
