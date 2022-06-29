@@ -1,10 +1,10 @@
 import axios from 'axios';
-const csrUrl = process.env.CSR_URL;
-const csrToken = process.env.CSR_ADMIN_API_KEY;
-console.log({ csrUrl, csrToken });
 
 const createCustomer = async (firstName, lastName, email) => {
-    const data = {
+    const csrUrl = process.env.CSR_URL;
+    const csrToken = process.env.CSR_ADMIN_API_KEY;
+
+    const body = {
         firstname: firstName,
         lastname: lastName,
         email: email,
@@ -12,10 +12,16 @@ const createCustomer = async (firstName, lastName, email) => {
         organization: 'B2BStore',
         roles: ['Customer']
     };
+
+    const headers = {
+        Authorization: `Token token=${csrToken}`,
+        'Content-Type': 'application/json'
+    };
+
     return await axios
-        .post(`https://demo-moodle.orienteed.com/webservice/rest/server.php`, null, { params: data })
-        .then(courseResponse => {
-            return courseResponse.data;
+        .post(`${csrUrl}api/v1/users?expand=true`, body, { headers: headers })
+        .then(reply => {
+            return reply;
         })
         .catch(error => console.error(error));
 };

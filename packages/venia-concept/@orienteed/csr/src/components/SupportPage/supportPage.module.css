@@ -1,3 +1,212 @@
+/***** Breadcrumbs *****/
 .root {
-    color:red
+    --whitespace-start: 1rem;
+    --whitespace-end: 10px;
+
+    composes: h-auto from global;
+    /* padding-left: var(--whitespace-start); */
+    padding-top: var(--whitespace-start);
+    padding-bottom: var(--whitespace-end); /* Allow space for focus ring */
+    margin-bottom: calc(-1 * var(--whitespace-end)); /* Prevent focus ring space affecting the rest of the UI */
+    font-size: 0.875rem;
+
+    /* Permanent height to prevent pop-in. */
+    height: calc(0.875rem + var(--whitespace-start) + var(--whitespace-end));
+
+    /* Show ellipses when overflowing. */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
+.text {
+    padding: 0.25rem;
+}
+
+.divider {
+    composes: text;
+}
+
+.link {
+    composes: text;
+    text-decoration: underline;
+}
+
+.currentPage {
+    composes: text;
+}
+/***** end Breadcrumbs *****/
+
+/***** Search bar *****/
+.search {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    width: 100%;
+    max-width: 22rem;
+}
+
+.searchButton {
+    composes: root_highPriority from '@magento/venia-concept/src/components/Button/button.module.css';
+
+    width: 5rem;
+    height: 2rem;
+    min-width: 5rem;
+}
+
+.submitIcon {
+    color: white;
+}
+/***** end Search bar *****/
+
+/***** Buttons *****/
+.primaryButton {
+    composes: root_highPriority from '@magento/venia-concept/src/components/Button/button.module.css';
+    width: 280px;
+}
+
+.primaryButtonInv {
+    composes: root_highPriorityInv from '@magento/venia-concept/src/components/Button/button.module.css';
+    width: 280px;
+}
+/***** end Buttons *****/
+
+/***** Advices *****/
+.emptyTicketsAdviceContainer {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.emptyTicketsAdviceText {
+    text-align: center;
+}
+
+.noCoursesImage {
+    width: 100px;
+}
+/***** end Advices *****/
+
+/***** Tickets page *****/
+.container {
+    display: grid;
+    padding: 0 1rem 2rem 1rem;
+    row-gap: 2rem;
+}
+
+.bodyContainer {
+    display: grid;
+    row-gap: 2rem;
+}
+
+.ticketsContainerList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ticketsContainerGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+}
+
+.pageTitle {
+    justify-self: center;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.createTicketButton {
+    composes: primaryButton;
+    width: fit-content;
+    text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+    .pageTitle {
+        display: none;
+    }
+    /* .actionsContainer {
+        flex-direction: column;
+        align-items: center;
+    } */
+}
+/***** end Tickets Page *****/
+
+/****** Legend ******/
+.legendDesktopContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.legendMobileContainer {
+    visibility: hidden;
+}
+
+.legendItem {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    min-width: 150px;
+    justify-content: center;
+}
+
+.legendDesktopIcon {
+    width: 50px;
+}
+
+.legendMobileIcon {
+    position: absolute;
+    width: 25px;
+}
+
+@media (max-width: 600px) {
+    .legendDesktopContainer {
+        display: none;
+        visibility: hidden;
+    }
+
+    .legendMobileContainer {
+        visibility: visible;
+    }
+}
+/***** end Legend  *****/
+
+/***** SelectView *****/
+.viewContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.viewButton {
+    width: 50px;
+}
+/***** end SelectView *****/
+
+
+/* .actionsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+
+    position: absolute;
+}
+
+.legendViewContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+} */
