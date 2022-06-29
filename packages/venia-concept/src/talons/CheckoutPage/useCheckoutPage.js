@@ -273,12 +273,7 @@ export const useCheckoutPage = (props = {}) => {
 
                 const orderId = data.placeOrder.order.order_number;
                 const { cart } = orderDetailsData;
-                // ReactGA.plugin.execute('ecommerce', 'addTransaction', {
-                //     id: orderId,
-                //     revenue: cart.prices.price.value,
-                //     quantity: String(cart.quantity)
-                // });
-                // ReactGA.plugin.execute('ecommerce', 'send');
+
                 cart?.items.map(product => {
                     ReactGA.plugin.execute('ecommerce', 'addItem', {
                         id: orderId,
@@ -288,7 +283,13 @@ export const useCheckoutPage = (props = {}) => {
                         price: product.prices.price.value,
                         quantity: String(product.quantity)
                     });
+                    ReactGA.plugin.execute('ecommerce', 'addTransaction', {
+                        id: orderId,
+                        revenue: cart.prices.price.value,
+                        quantity: String(cart.quantity)
+                    });
                     ReactGA.plugin.execute('ecommerce', 'send');
+                    ReactGA.plugin.execute('ecommerce', 'clear');
                 });
 
                 // Cleanup stale cart and customer info.
