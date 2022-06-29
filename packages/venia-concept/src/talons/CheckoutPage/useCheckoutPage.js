@@ -273,7 +273,7 @@ export const useCheckoutPage = (props = {}) => {
 
                 const orderId = data.placeOrder.order.order_number;
                 const { cart } = orderDetailsData;
-                // ReactGA.plugin.execute('ecommerce', 'addItem', {
+                // ReactGA.plugin.execute('ecommerce', 'addTransaction', {
                 //     id: orderId,
                 //     revenue: cart.prices.price.value,
                 //     quantity: String(cart.quantity)
