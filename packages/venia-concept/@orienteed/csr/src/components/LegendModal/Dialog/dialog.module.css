@@ -95,9 +95,11 @@
  */
 
 .header {
-    composes: border-b from global;
+    /* Border */
+    /* composes: border-b from global;
     composes: border-solid from global;
-    composes: border-subtle from global;
+    composes: border-subtle from global; */
+
     composes: h-[3.5rem] from global;
     composes: pl-4 from global;
     composes: pr-3 from global;
@@ -109,6 +111,10 @@
     composes: grid-cols-autoLast from global;
     composes: grid-flow-col from global;
     composes: items-center from global;
+
+    /* Custom */
+    padding: 20px;
+    padding-bottom: 0px;
 }
 
 .headerText {
@@ -118,6 +124,13 @@
     composes: overflow-hidden from global;
     composes: text-subtle from global;
     composes: whitespace-nowrap from global;
+
+    /* Custom */
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 36px;
+    color: #0c0c0c;
 }
 
 .headerButton {
@@ -139,6 +152,9 @@
 
 .contents {
     composes: p-xs from global;
+
+    /* Custom */
+    padding: 20px;
 }
 
 .buttons {
