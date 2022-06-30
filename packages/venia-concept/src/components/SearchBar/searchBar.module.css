@@ -47,6 +47,12 @@
     composes: z-menu from global;
 }
 
+.containerSearchbar {
+    composes: pb-xs from global;
+    composes: relative from global;
+    width: 100%;
+}
+
 @media (max-width: 1100px) and (min-width: 960px) {
     .container {
         transform: translateX(-9%);
