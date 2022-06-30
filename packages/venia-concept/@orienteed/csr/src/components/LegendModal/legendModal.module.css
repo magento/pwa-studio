@@ -1,8 +1,8 @@
-
 .legendModalContainer {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .legend {
@@ -11,8 +11,9 @@
     flex-direction: row;
     flex-wrap: nowrap;
     min-width: 150px;
+    gap: 10px;
 }
 
 .legendIcon {
-    width: 50px;
+    width: 25px;
 }

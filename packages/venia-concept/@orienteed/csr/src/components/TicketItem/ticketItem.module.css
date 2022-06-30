@@ -1,10 +1,63 @@
 .ticketListContainer {
     display: grid;
-    grid-template-columns: repeat(2, 1fr) repeat(2, 1.5fr) 2.5fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr repeat(2, 1.5fr) 2.5fr 1fr 1fr;
     background-color: #f6f8fb;
     border-radius: 5px;
     align-items: center;
     overflow-x: auto;
+}
+
+.ticketGridContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f8fb;
+    border-radius: 5px;
+    width: 100%;
+    padding: 16px;
+}
+
+.ticketGridHeaderContainer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+}
+
+.ticketMainHeaderContainer {
+    composes: ticketGridContainer;
+    padding: 0px;
+}
+
+.ticketGridBodyContainer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid #cecccc;
+    min-height: 75px;
+}
+
+.ticketGridItem {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 5px;
+    padding: 8px 0px;
+}
+
+.ticketMainHeaderContainer > .ticketGridItem + .ticketGridItem {
+    border-top: 1px solid #cecccc;
+}
+
+.ticketGridItem .fieldTitle::after {
+    content: ':';
+}
+
+.ticketGridSummaryItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .ticketListItem {
@@ -14,12 +67,16 @@
     height: 80px;
     justify-content: center;
     padding: 0 20px;
-    min-width: max-content;
 }
 
 .ticketImage {
-    min-width: 120px;
-    margin: 10px 0;
+    min-width: 45px;
+    margin: 30px 20px;
+}
+
+.ticketImageGrid {
+    min-width: 45px;
+    margin: 30px;
     margin-left: 20px;
 }
 
@@ -35,8 +92,19 @@
     color: #0c0c0c;
 }
 
+.fieldValueGrid {
+    font-weight: 600;
+    font-size: 14px;
+    color: #0c0c0c;
+}
+
 .fieldState {
     composes: fieldValue;
+    text-transform: capitalize;
+}
+
+.fieldStateGrid {
+    composes: fieldValueGrid;
     text-transform: capitalize;
 }
 
@@ -47,6 +115,11 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.fieldSummaryGrid {
+    composes: fieldSummary;
+    font-size: 14px;
 }
 
 /***** NotificationButton *****/
@@ -75,3 +148,14 @@
     text-align: center;
 }
 /***** end NotificationButton *****/
+
+@media (max-width: 630px) {
+    .ticketListItem {
+        padding: 0 10px;
+        width: max-content;
+    }
+
+    .messageContainer {
+        padding: 0 10px;
+    }
+}

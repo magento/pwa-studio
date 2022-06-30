@@ -86,7 +86,7 @@ const TicketItem = props => {
                 <p className={classes.fieldTitle}>{creationDateText}</p>
                 <p className={classes.fieldValue}>{isoDateToRelative(ticket.created_at)}</p>
             </div>
-            {ticket.state_id === 4 ? (
+            {states[ticket.state_id] === 'closed' ? (
                 <div className={classes.ticketListItem}>
                     <p className={classes.fieldTitle}>{closedDateText}</p>
                     <p className={classes.fieldValue}>{isoDateToRelative(ticket.close_at)}</p>
@@ -112,7 +112,48 @@ const TicketItem = props => {
         </div>
     );
 
-    const ticketItemGrid = <p>In progress...</p>;
+    const ticketItemGrid = (
+        <div className={classes.ticketGridContainer}>
+            <div className={classes.ticketGridHeaderContainer}>
+                <img src={showType(ticket.group_id)} className={classes.ticketImageGrid} alt="Ticket logo" />
+                <div className={classes.ticketMainHeaderContainer}>
+                    <div className={classes.ticketGridItem}>
+                        <p className={classes.fieldTitle}>{ticketNumberText}</p>
+                        <p className={classes.fieldValueGrid}>{ticket.number}</p>
+                    </div>
+                    <div className={classes.ticketGridItem}>
+                        <p className={classes.fieldTitle}>{creationDateText}</p>
+                        <p className={classes.fieldValueGrid}>{isoDateToRelative(ticket.created_at)}</p>
+                    </div>
+                    {states[ticket.state_id] === 'closed' ? (
+                        <div className={classes.ticketGridItem}>
+                            <p className={classes.fieldTitle}>{closedDateText}</p>
+                            <p className={classes.fieldValueGrid}>{isoDateToRelative(ticket.close_at)}</p>
+                        </div>
+                    ) : (
+                        <div className={classes.ticketGridItem}>
+                            <p className={classes.fieldTitle}>{lastUpdateDateText}</p>
+                            <p className={classes.fieldValueGrid}>{isoDateToRelative(ticket.updated_at)}</p>
+                        </div>
+                    )}
+                    <div className={classes.ticketGridItem}>
+                        <p className={classes.fieldTitle}>{stateText}</p>
+                        <p className={classes.fieldStateGrid}>{states[ticket.state_id]}</p>
+                    </div>
+                </div>
+            </div>
+            <div className={classes.ticketGridBodyContainer}>
+                <div className={classes.ticketGridSummaryItem}>
+                    <p className={classes.fieldTitle}>{summaryText}</p>
+                    <p className={classes.fieldSummaryGrid}>{ticket.title}</p>
+                </div>
+                <div className={classes.messageContainer}>
+                    <img src={messageIcon} className={classes.messageIcon} alt="Message icon" />
+                    <span className={classes.messageText}>{ticket.article_count}</span>
+                </div>
+            </div>
+        </div>
+    );
 
     return view === 'list' ? ticketItemList : ticketItemGrid;
 };
