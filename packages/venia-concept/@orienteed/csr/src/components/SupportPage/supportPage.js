@@ -29,6 +29,7 @@ import orderIcon from './Icons/orderIcon.svg';
 import supportIcon from './Icons/supportIcon.svg';
 import { Search as SearchIcon, ArrowRight as SubmitIcon } from 'react-feather';
 import noCoursesImage from '@magento/venia-concept/@orienteed/lms/src/components/CoursesCatalog/Icons/noCourses.svg';
+import CreateTicketModal from '../CreateTicketModal/createTicketModal';
 
 const DELIMITER = '/';
 
@@ -43,9 +44,11 @@ const ContentDialog = props => {
         openTicketModal,
         searchText,
         setLegendModal,
+        setTicketModal,
         setView,
         states,
         ticketCount,
+        ticketModal,
         tickets,
         view
     } = talonProps;
@@ -262,6 +265,15 @@ const ContentDialog = props => {
                 isOpen={legendModal}
                 onConfirm={() => {
                     setLegendModal(false);
+                }}
+            />
+            <CreateTicketModal
+                isOpen={ticketModal}
+                onConfirm={() => {
+                    console.log('hola');
+                }}
+                onCancel={() => {
+                    setTicketModal(false);
                 }}
             />
         </div>

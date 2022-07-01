@@ -12,8 +12,7 @@
     composes: w-full from global;
     composes: z-dialog from global;
     transform: translate3d(-50%, 0, 0);
-    transition: opacity 192ms var(--venia-global-anim-out),
-        visibility 192ms var(--venia-global-anim-out), left 0s 192ms;
+    transition: opacity 192ms var(--venia-global-anim-out), visibility 192ms var(--venia-global-anim-out), left 0s 192ms;
 
     /* TODO @TW: review (B6) */
     /* composes: invisible from global; */
@@ -35,8 +34,7 @@
     visibility: visible;
 
     /* It animates to being open. */
-    transition: opacity 224ms var(--venia-global-anim-in),
-        visibility 224ms var(--venia-global-anim-in), left 0s;
+    transition: opacity 224ms var(--venia-global-anim-in), visibility 224ms var(--venia-global-anim-in), left 0s;
 }
 
 /* The form fills the entire aside. */
@@ -90,6 +88,10 @@
 
     composes: lg_max-h-modal from global;
     composes: lg_max-w-full from global;
+
+    /* Custom */
+    background-color: #f6f8fb;
+    width: 55vw;
 }
 
 /*
@@ -97,9 +99,11 @@
  */
 
 .header {
-    composes: border-b from global;
+    /* Border */
+    /* composes: border-b from global;
     composes: border-solid from global;
-    composes: border-subtle from global;
+    composes: border-subtle from global; */
+
     composes: h-[3.5rem] from global;
     composes: pl-4 from global;
     composes: pr-3 from global;
@@ -111,6 +115,13 @@
     composes: grid-cols-autoLast from global;
     composes: grid-flow-col from global;
     composes: items-center from global;
+
+    /* Custom */
+    margin: 0px 55px;
+    margin-top: 65px;
+    margin-bottom: 20px;
+    height: auto;
+    padding: 0;
 }
 
 .headerText {
@@ -120,6 +131,13 @@
     composes: overflow-hidden from global;
     composes: text-subtle from global;
     composes: whitespace-nowrap from global;
+
+    /* Custom */
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 36px;
+    color: #0c0c0c;
 }
 
 .headerButton {
@@ -141,6 +159,9 @@
 
 .contents {
     composes: p-xs from global;
+
+    /* Custom */
+    padding: 0px 55px;
 }
 
 .buttons {
@@ -154,7 +175,7 @@
 }
 
 .confirmButton {
-    composes: root_highPriority from '../Button/button.module.css';
+    composes: root_highPriority from '@magento/venia-concept/src/components/Button/button.module.css';
 
     /* On mobile the confirm button should be first (on top). */
     composes: order-first from global;
@@ -163,7 +184,7 @@
 }
 
 .cancelButton {
-    composes: root_lowPriority from '../Button/button.module.css';
+    composes: root_highPriorityInv from '@magento/venia-concept/src/components/Button/button.module.css';
 }
 
 /*
@@ -177,6 +198,7 @@
     .root {
         /* The Dialog starts off-screen on the right. */
         transform: translate3d(100%, 0, 0);
+        /* transform: translate3d(0, 100%, 0); */
         /* For mobile, add position to the transitions. */
         transition-property: opacity, transform, visibility;
     }
@@ -184,5 +206,23 @@
     .root_open {
         /* The Dialog animates (slides) onto the screen. */
         transform: translate3d(0, 0, 0);
+    }
+
+    .dialog {
+        /* Custom */
+        /* max-width: none;
+        width: 100vw;
+        min-height: fit-content;
+        height: fit-content;
+        margin-top: auto; */
+    }
+
+    .header {
+        padding: 20px;
+        padding-bottom: 0px;
+    }
+
+    .contents {
+        padding: 0px 20px;
     }
 }

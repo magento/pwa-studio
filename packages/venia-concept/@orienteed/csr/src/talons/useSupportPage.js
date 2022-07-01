@@ -10,6 +10,7 @@ export const useSupportPage = () => {
     // States
     const [groups, setGroups] = useState();
     const [legendModal, setLegendModal] = useState(false);
+    const [ticketModal, setTicketModal] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [states, setStates] = useState();
     const [ticketCount, setTicketCount] = useState();
@@ -34,7 +35,7 @@ export const useSupportPage = () => {
     }, [isSignedIn]);
 
     const openTicketModal = () => {
-        console.log('hola');
+        setTicketModal(true);
     };
 
     const handleReset = useCallback(() => {
@@ -53,10 +54,12 @@ export const useSupportPage = () => {
         openTicketModal,
         searchText,
         setLegendModal,
+        setTicketModal,
         setView,
         states,
         ticketCount,
+        ticketModal,
         tickets,
-        view
+        view,
     };
 };
