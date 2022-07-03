@@ -50,7 +50,24 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                         }
                     }
                 }
+                custom_attributes {
+                    entered_attribute_value {
+                        value
+                    }
+                    attribute_metadata {
+                        __typename
+                        label
+                    }
+                    selected_attribute_options {
+                        __typename
+                        attribute_option {
+                            label
+                            is_default
+                        }
+                    }
+                }
             }
+
             page_info {
                 total_pages
             }
