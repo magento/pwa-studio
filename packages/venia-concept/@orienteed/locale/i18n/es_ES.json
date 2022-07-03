@@ -617,6 +617,7 @@
     "quantity.input": "Cantidad de artículos",
     "quickOrder.AddedToCartSuccessfully": "Añadido a la cesta con éxito",
     "quickOrder.AddToCart": "Añadir a la cesta",
+    "quickOrder.addToQuote": "Añadido al presupuesto con éxito",
     "quickOrder.CreateOrder": "Crear orden",
     "quickOrder.DownloadYourSampleFile": "Descargue su archivo de muestra",
     "quickOrder.GetQuote": "Obtenga un presupuesto",
