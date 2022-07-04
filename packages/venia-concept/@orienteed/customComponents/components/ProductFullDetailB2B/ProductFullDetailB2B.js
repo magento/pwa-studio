@@ -102,6 +102,7 @@ const ProductFullDetailB2B = props => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
+
     useEffect(() => {
         if (product.categories) {
             const categoryId = product.categories[0].uid;
@@ -286,7 +287,7 @@ const ProductFullDetailB2B = props => {
                         {filterOptions}
                         {indexTable}
                         {productsTable}
-                        <Pagination class="savedCartsPager" pageControl={pageControl} />
+                        <Pagination class="productsTable" pageControl={pageControl} />
                     </div>
                 </section>
                 <section className={classes.hide}>{availableOptions}</section>
