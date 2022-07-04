@@ -1,4 +1,4 @@
-import React, { Fragment, useState, Suspense, useEffect } from 'react';
+import React, { Fragment, useState, Suspense, useEffect, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'informed';
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -12,13 +12,12 @@ import defaultClasses from './ProductFullDetailB2B.module.css';
 import CmsBlock from '@magento/venia-ui/lib/components/CmsBlock/block';
 import { useCmsBlock } from '@magento/venia-concept/src/talons/useCmsBlocks.js';
 
-const WishlistButton = React.lazy(() =>
-    import('@magento/venia-ui/lib/components/Wishlist/AddToListButton')
-);
+const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
 
 import gql from 'graphql-tag';
 import { useLazyQuery } from '@apollo/client';
 import Breadcrumbs from '@magento/venia-ui/lib/components/Breadcrumbs';
+import Pagination from '@magento/venia-ui/lib/components/Pagination';
 
 const ProductFullDetailB2B = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -26,13 +25,9 @@ const ProductFullDetailB2B = props => {
         cmsBlockIdentifiers: ['warranties-block', 'recommended-product-block']
     });
 
-    const warrantiesBlock = cmsBlocks.find(
-        item => item.identifier === 'warranties-block'
-    )?.content;
+    const warrantiesBlock = cmsBlocks.find(item => item.identifier === 'warranties-block')?.content;
 
-    const recommendedProductBlock = cmsBlocks.find(
-        item => item.identifier === 'recommended-product-block'
-    )?.content;
+    const recommendedProductBlock = cmsBlocks.find(item => item.identifier === 'recommended-product-block')?.content;
 
     const {
         addConfigurableProductToCart,
@@ -49,11 +44,58 @@ const ProductFullDetailB2B = props => {
 
     const [selectedFilter, setSelectedFilter] = useState([]);
     const [selectedFilterCategory, setSelectedFilterCategory] = useState([]);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    const getCategoriesValuesIdByVariant = variant => {
+        return variant.attributes.map(attribute => {
+            return attribute.value_index;
+        });
+    };
+
+    const selectedVariants = variants => {
+        let items = [];
+        variants.map(variant => {
+            const categoriesIds = getCategoriesValuesIdByVariant(variant);
+            let isContained;
+            if (selectedFilterCategory.length) {
+                isContained = selectedFilterCategory?.map(filterArr =>
+                    categoriesIds?.some(id => (filterArr.length ? filterArr?.map(ele => ele.id).includes(id) : id))
+                );
+            }
+            if (selectedFilterCategory.length === 0 || isContained.every(e => e === true)) {
+                return items.push(variant);
+            } else {
+                return null;
+            }
+        });
+        return items;
+    };
+
+    const totalPage = useMemo(() => Math.ceil(selectedVariants(product.variants).length / 10), [
+        product,
+        selectedFilterCategory
+    ]);
+
+    const paginateItems = useMemo(() => {
+        const { variants } = product;
+        let items = selectedVariants(variants);
+        let startIndex = (currentPage - 1) * pageSize;
+        let endIndex = currentPage * pageSize;
+        if (currentPage > totalPage) setCurrentPage(totalPage);
+        return items.slice(startIndex, endIndex);
+    }, [product, currentPage, selectedFilter, totalPage]);
+
+    const pageControl = {
+        currentPage: currentPage,
+        setPage: val => setCurrentPage(val),
+        totalPages: totalPage
+    };
     const getCategoriesValuesNameByVariant = variant => {
         return variant.attributes.map((attribute, i) => {
-            return product.configurable_options[i].values.find(
-                value => value.value_index == attribute.value_index
-            ).label;
+            return product.configurable_options[i].values.find(value => value.value_index == attribute.value_index)
+                .label;
         });
     };
     const [getFilters, { data: filterData }] = useLazyQuery(GET_CATEGORY, {
@@ -72,11 +114,6 @@ const ProductFullDetailB2B = props => {
             });
         }
     }, [product, getFilters]);
-    const getCategoriesValuesIdByVariant = variant => {
-        return variant.attributes.map(attribute => {
-            return attribute.value_index;
-        });
-    };
 
     const getCategoriesName = () => {
         return product.configurable_options.map(category => {
@@ -103,14 +140,10 @@ const ProductFullDetailB2B = props => {
 
     const handleRemoveItem = (tempItemInfo, index) => {
         let newSelectedFilter = [...selectedFilterCategory];
-        newSelectedFilter[index] = newSelectedFilter[index].filter(
-            ({ id }) => id !== tempItemInfo.item.value
-        );
+        newSelectedFilter[index] = newSelectedFilter[index].filter(({ id }) => id !== tempItemInfo.item.value);
         setSelectedFilterCategory(newSelectedFilter);
         let tempFilterList = selectedFilter;
-        tempFilterList = tempFilterList.filter(
-            filter => filter.id != tempItemInfo.item.value
-        );
+        tempFilterList = tempFilterList.filter(filter => filter.id != tempItemInfo.item.value);
         setSelectedFilter(tempFilterList);
     };
 
@@ -122,9 +155,7 @@ const ProductFullDetailB2B = props => {
                         {filterCat?.map(fil => (
                             <CurrentFilter
                                 item={{ title: fil.text, value: fil.id }}
-                                removeItem={tempItemInfo =>
-                                    handleRemoveItem(tempItemInfo, index)
-                                }
+                                removeItem={tempItemInfo => handleRemoveItem(tempItemInfo, index)}
                             />
                         ))}
                     </>
@@ -133,11 +164,11 @@ const ProductFullDetailB2B = props => {
         </div>
     );
 
-    const selectFilterClick = (filterList, index,filter) => {
+    const selectFilterClick = (filterList, index, filter) => {
         let newSelected = [...selectedFilterCategory];
         newSelected[index] = newSelected[index] || [];
         const keys = filter.map(filter => filter.id);
-        newSelected[index] = [...filterList.filter(({id})=>keys.includes(id))];
+        newSelected[index] = [...filterList.filter(({ id }) => keys.includes(id))];
         setSelectedFilterCategory(newSelected);
         setSelectedFilter(filterList);
     };
@@ -151,7 +182,7 @@ const ProductFullDetailB2B = props => {
                             filterName={filterName}
                             availableCategoryItems={filter}
                             selectedFilter={selectedFilter}
-                            setSelectedFilter={e => selectFilterClick(e, index,filter)}
+                            setSelectedFilter={e => selectFilterClick(e, index, filter)}
                         />
                     </div>
                 );
@@ -163,81 +194,45 @@ const ProductFullDetailB2B = props => {
         <div className={classes.productItemContainer}>
             <p key="imageIndex" className={classes.indexFixed} />
             <p key="nameIndex" className={classes.indexMobileName}>
-                <FormattedMessage
-                    id={'productFullDetailB2B.indexName'}
-                    defaultMessage={'Name'}
-                />
+                <FormattedMessage id={'productFullDetailB2B.indexName'} defaultMessage={'Name'} />
             </p>
             <p key="skuIndex" className={classes.indexMobileSku}>
                 SKU
             </p>
             <div className={classes.categoriesItemList}>
                 {getCategoriesName().map(category => {
-                    return (
-                        <p className={classes.indexFixedCategory}>{category}</p>
-                    );
+                    return <p className={classes.indexFixedCategory}>{category}</p>;
                 })}
             </div>
             <p key="quantityIndex" className={classes.indexFixed}>
-                <FormattedMessage
-                    id={'productFullDetailB2B.indexQuantity'}
-                    defaultMessage={'Quantity'}
-                />
+                <FormattedMessage id={'productFullDetailB2B.indexQuantity'} defaultMessage={'Quantity'} />
             </p>
             <p className={classes.titles} key="priceIndex">
-                <FormattedMessage
-                    id={'productFullDetailB2B.indexUnitPrice'}
-                    defaultMessage={'Price / Unit'}
-                />
+                <FormattedMessage id={'productFullDetailB2B.indexUnitPrice'} defaultMessage={'Price / Unit'} />
             </p>
             <p className={classes.titles} key="totalPriceIndex">
-                <FormattedMessage
-                    id={'productFullDetailB2B.totalPrice'}
-                    defaultMessage={'Total Price'}
-                />
+                <FormattedMessage id={'productFullDetailB2B.totalPrice'} defaultMessage={'Total Price'} />
             </p>
         </div>
     );
 
     const productsTable = (
         <div className={classes.productsTableContainer}>
-            {product.variants.map(variant => {
-                const categoriesValuesName = getCategoriesValuesNameByVariant(
-                    variant
-                );
+            {paginateItems?.map(variant => {
+                const categoriesValuesName = getCategoriesValuesNameByVariant(variant);
                 const categoriesName = getCategoriesName();
-                const categoriesIds = getCategoriesValuesIdByVariant(variant);
-                let isContained;
-                if (selectedFilterCategory.length) {
-                    isContained = selectedFilterCategory?.map(filterArr =>
-                        categoriesIds?.some(id =>
-                            filterArr.length
-                                ? filterArr?.map(ele => ele.id).includes(id)
-                                : id
-                        )
-                    );
-                }
-                // Show all if there isnt any categorie selected
-                // Show only the products that agree with all the filters option
-                if (
-                    selectedFilterCategory.length === 0 ||
-                    isContained.every(e => e === true)
-                ) {
-                    return (
-                        <ProductItem
-                            product={product}
-                            variant={variant}
-                            categoriesValuesName={categoriesValuesName}
-                            categoriesName={categoriesName}
-                            addConfigurableProductToCart={
-                                addConfigurableProductToCart
-                            }
-                            cartId={cartId}
-                            errors={errors}
-                            isAddConfigurableLoading={isAddConfigurableLoading}
-                        />
-                    );
-                }
+                return (
+                    <ProductItem
+                        product={product}
+                        variant={variant}
+                        categoriesValuesName={categoriesValuesName}
+                        categoriesName={categoriesName}
+                        addConfigurableProductToCart={addConfigurableProductToCart}
+                        cartId={cartId}
+                        errors={errors}
+                        isAddConfigurableLoading={isAddConfigurableLoading}
+                    />
+                );
             })}
         </div>
     );
@@ -251,20 +246,13 @@ const ProductFullDetailB2B = props => {
             />
             <Form className={classes.root}>
                 <section className={classes.title}>
-                    <h1 className={classes.productName}>
-                        {productDetails.name}
-                    </h1>
+                    <h1 className={classes.productName}>{productDetails.name}</h1>
                     <article className={classes.innerPrice}>
                         <h2 className={classes.fromPrice}>
-                            <FormattedMessage
-                                id={'productFullDetailB2B.fromPrice'}
-                                defaultMessage={'From '}
-                            />
+                            <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
                         </h2>
 
-                        <span className={classes.priceNumber}>
-                            {priceRender}
-                        </span>
+                        <span className={classes.priceNumber}>{priceRender}</span>
                     </article>
                 </section>
                 <section className={classes.imageCarouselContainer}>
@@ -298,6 +286,7 @@ const ProductFullDetailB2B = props => {
                         {filterOptions}
                         {indexTable}
                         {productsTable}
+                        <Pagination class="savedCartsPager" pageControl={pageControl} />
                     </div>
                 </section>
                 <section className={classes.hide}>{availableOptions}</section>
@@ -312,9 +301,7 @@ const ProductFullDetailB2B = props => {
 export default ProductFullDetailB2B;
 
 export const GET_CATEGORY = gql`
-    query getProductFiltersByCategory(
-        $categoryIdFilter: FilterEqualTypeInput!
-    ) {
+    query getProductFiltersByCategory($categoryIdFilter: FilterEqualTypeInput!) {
         products(filter: { category_uid: $categoryIdFilter }, pageSize: 50) {
             items {
                 id
