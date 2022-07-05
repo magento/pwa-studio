@@ -1,7 +1,7 @@
-import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import { Magento2 } from '@magento/peregrine/lib/RestApi';
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
-const getGroups = async () => {
+const doCsrLogin = async () => {
     const storage = new BrowserPersistence();
     const bearerToken = storage.getItem('signin_token');
     const { request } = Magento2;
@@ -11,12 +11,17 @@ const getGroups = async () => {
         'Content-Type': 'application/json'
     };
 
-    const reply = await request('/api/v1/groups', {
-        method: 'GET',
-        headers: JSON.stringify(headers)
+    const data = {};
+
+    const reply = await request('/api/v1/login', {
+        method: 'POST',
+        headers: JSON.stringify(headers),
+        body: JSON.stringify(data)
     });
+
+    console.log(reply.message);
 
     return reply;
 };
 
-export default getGroups;
+export default doCsrLogin;

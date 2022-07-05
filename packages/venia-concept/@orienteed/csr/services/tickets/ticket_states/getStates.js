@@ -1,22 +1,22 @@
-import axios from 'axios';
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { Magento2 } from '@magento/peregrine/lib/RestApi';
 
 const getStates = async () => {
-    const csrUrl = process.env.CSR_URL;
-    const csrToken = process.env.CSR_ADMIN_API_KEY;
+    const storage = new BrowserPersistence();
+    const bearerToken = storage.getItem('signin_token');
+    const { request } = Magento2;
 
     const headers = {
-        Authorization: `Token token=${csrToken}`,
+        Authorization: `Bearer ${bearerToken}`,
         'Content-Type': 'application/json'
     };
 
-    return await axios
-        .get(`${csrUrl}api/v1/ticket_states/`, {
-            headers: headers
-        })
-        .then(reply => {
-            return reply.data;
-        })
-        .catch(error => console.error(error));
+    const reply = await request('/api/v1/ticket_states', {
+        method: 'GET',
+        headers: JSON.stringify(headers)
+    });
+
+    return reply;
 };
 
 export default getStates;
