@@ -91,7 +91,7 @@
 
     /* Custom */
     background-color: #f6f8fb;
-    width: 55vw;
+    width: clamp(900px, 70vw, 1200px);
 }
 
 /*
@@ -210,16 +210,12 @@
 
     .dialog {
         /* Custom */
-        /* max-width: none;
-        width: 100vw;
-        min-height: fit-content;
-        height: fit-content;
-        margin-top: auto; */
+        width: clamp(300px, 90vw, 900px);
+        max-width: 100%;
     }
 
     .header {
-        padding: 20px;
-        padding-bottom: 0px;
+        margin: 20px;
     }
 
     .contents {

@@ -237,7 +237,7 @@ const ContentDialog = props => {
             <div className={classes.bodyContainer}>
                 <h1 className={classes.pageTitle}>{supportTitle}</h1>
 
-                {ticketCount === undefined || tickets === undefined ? (
+                {ticketCount === undefined || tickets === undefined || groups === undefined || states === undefined ? (
                     <LoadingIndicator />
                 ) : ticketCount !== 0 ? (
                     <>

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import Dialog from './Dialog/dialog';
 import Dropzone from '@magento/venia-concept/@orienteed/customComponents/components/PrintPdfPopup/Dropzone';
+import Select from '@magento/venia-ui/lib/components/Select';
 import TextArea from '@magento/venia-ui/lib/components/TextArea';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
-import { useStyle } from '@magento/venia-ui/lib/classify';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './createTicketModal.module.css';
 
@@ -15,13 +16,20 @@ const CreateTicketModal = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
+    const supportIssueText = formatMessage({ id: 'csr.supportIssue', defaultMessage: 'Support issue' });
+    const orderIssueText = formatMessage({ id: 'csr.orderIssue', defaultMessage: 'Order issue' });
+    const enhancementText = formatMessage({ id: 'csr.enhancement', defaultMessage: 'Enhancement' });
     const newTicketText = formatMessage({ id: 'csr.newTicket', defaultMessage: 'New ticket' });
     const ticketTypeText = formatMessage({ id: 'csr.ticketType', defaultMessage: 'Ticket type' });
+    const selectTicketTypeText = formatMessage({ id: 'csr.selectTicketType', defaultMessage: 'Select ticket type' });
     const titleText = formatMessage({ id: 'csr.title', defaultMessage: 'Title' });
     const descriptionText = formatMessage({ id: 'csr.description', defaultMessage: 'Description' });
     const attachFilesText = formatMessage({ id: 'csr.attachFiles', defaultMessage: 'Attach files (max. 6 files)' });
     const dragFileText = formatMessage({ id: 'csr.dragFile', defaultMessage: 'Drag a file here' });
-    const titlePlaceholder = formatMessage({ id: 'csr.titlePlaceholder', defaultMessage: 'Enter a title for your ticket' });
+    const titlePlaceholder = formatMessage({
+        id: 'csr.titlePlaceholder',
+        defaultMessage: 'Enter a title for your ticket'
+    });
     const orderIssuePlaceholder = formatMessage({
         id: 'csr.orderIssuePlaceholder',
         defaultMessage:
@@ -37,9 +45,38 @@ const CreateTicketModal = props => {
         defaultMessage: 'Do you have any idea to improve B2BStore? Tell us, we are open to improve.'
     });
 
+    const [ticketType, setTicketType] = useState('support');
+    const onChangeTicketType = e => {
+        setTicketType(e.target.value);
+    };
+
+    const options = [
+        { value: 'support', label: supportIssueText },
+        { value: 'order', label: orderIssueText },
+        { value: 'enhancement', label: enhancementText }
+    ];
+
+    const showPlaceholder = () => {
+        switch (ticketType) {
+            case 'support':
+                return supportIssuePlaceholder;
+            case 'order':
+                return orderIssuePlaceholder;
+            case 'enhancement':
+                return enhacementPlaceholder;
+            default:
+                return '';
+        }
+    };
+
+    const onChangeOrder = e => {
+        console.log(e);
+    };
+
     // titulo - 100 caracteres
     // descripcion - 10k caracteres limit hided
 
+    const selectOrderText = formatMessage({ id: 'csr.selectOrder', defaultMessage: 'Select order' });
     return (
         <Dialog
             cancelText={'Cancel'}
@@ -54,8 +91,21 @@ const CreateTicketModal = props => {
             <div className={classes.root}>
                 <div className={classes.row}>
                     <p>{ticketTypeText}</p>
-                    <TextInput field="Ticket type" validate={isRequired} />
+                    <Select
+                        initialValue={selectTicketTypeText}
+                        field={'ticketType'}
+                        items={options}
+                        onChange={onChangeTicketType}
+                    />
                 </div>
+                {ticketType === 'order' && (
+                    <Select
+                        initialValue={selectOrderText}
+                        field={'orderNumber'}
+                        items={[]}
+                        onChange={onChangeOrder}
+                    />
+                )}
                 <div className={classes.row}>
                     <p>{titleText}</p>
                     <TextInput field="Ticket title" validate={isRequired} placeholder={titlePlaceholder} />
@@ -66,7 +116,7 @@ const CreateTicketModal = props => {
                         id="description"
                         field="description"
                         validate={isRequired}
-                        placeholder={supportIssuePlaceholder}
+                        placeholder={showPlaceholder()}
                     />
                 </div>
                 <div className={classes.row}>

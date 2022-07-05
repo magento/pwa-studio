@@ -29,7 +29,7 @@ export const useSupportPage = () => {
             });
             getTickets().then(res => {
                 setTicketCount(res.tickets_count);
-                setTickets(res.assets.Ticket);
+                setTickets(res.tickets.length !== 0 ? res.assets.Ticket : res.tickets);
             });
         }
     }, [isSignedIn]);
@@ -60,6 +60,6 @@ export const useSupportPage = () => {
         ticketCount,
         ticketModal,
         tickets,
-        view,
+        view
     };
 };

@@ -36,6 +36,11 @@ const TicketItem = props => {
         }
     };
 
+    const isoDateToLocaleDate = isoDate => {
+        const date = new Date(isoDate);
+        return date.toLocaleDateString();
+    }
+
     const isoDateToRelative = isoDate => {
         const date = new Date(isoDate);
         const now = new Date();
@@ -84,7 +89,7 @@ const TicketItem = props => {
 
             <div className={classes.ticketListItem}>
                 <p className={classes.fieldTitle}>{creationDateText}</p>
-                <p className={classes.fieldValue}>{isoDateToRelative(ticket.created_at)}</p>
+                <p className={classes.fieldValue}>{isoDateToLocaleDate(ticket.created_at)}</p>
             </div>
             {states[ticket.state_id] === 'closed' ? (
                 <div className={classes.ticketListItem}>
