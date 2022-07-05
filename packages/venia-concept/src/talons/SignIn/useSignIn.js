@@ -12,6 +12,7 @@ import { retrieveCartId } from '@magento/peregrine/lib/store/actions/cart';
 
 import DEFAULT_OPERATIONS from './signIn.gql.js';
 import registerUserAndSaveData from '@orienteed/lms/services/registerUserAndSaveData';
+import doCsrLogin from '@orienteed/csr/services/auth/login.js';
 
 export const useSignIn = props => {
     const { getCartDetailsQuery, setDefaultUsername, showCreateAccount, showForgotPassword } = props;
@@ -69,7 +70,7 @@ export const useSignIn = props => {
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
 
-                // Moodle logic
+                // LMS logic
                 const moodleTokenResponse = await fetchMoodleToken();
                 const moodleIdResponse = await fetchMoodleId();
 
@@ -80,6 +81,9 @@ export const useSignIn = props => {
                           moodleIdResponse.data.customer.moodle_id
                       )
                     : registerUserAndSaveData(email, password, setMoodleTokenAndId, saveMoodleTokenAndId);
+
+                // CSR logic
+                doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await clearCartDataFromCache(apolloClient);
@@ -115,21 +119,22 @@ export const useSignIn = props => {
             }
         },
         [
-            cartId,
             apolloClient,
-            removeCart,
-            signIn,
-            setToken,
+            cartId,
             createCart,
+            fetchCartDetails,
             fetchCartId,
-            mergeCarts,
-            getUserDetails,
+            fetchMoodleId,
+            fetchMoodleToken,
             fetchUserDetails,
             getCartDetails,
-            fetchCartDetails,
-            fetchMoodleToken,
+            getUserDetails,
+            history,
+            mergeCarts,
+            removeCart,
             setMoodleTokenAndId,
-            history
+            setToken,
+            signIn
         ]
     );
 
