@@ -48,14 +48,7 @@ const AddEditDialog = props => {
         id: 'global.companyName',
         defaultMessage: 'Company name'
     });
-    // const middleNameLabel = formatMessage({
-    //     id: 'global.middleName',
-    //     defaultMessage: 'Middle Name'
-    // });
-    const lastNameLabel = formatMessage({
-        id: 'global.lastName',
-        defaultMessage: 'Last Name'
-    });
+
     const street1Label = formatMessage({
         id: 'global.streetAddress',
         defaultMessage: 'Street Address'
@@ -102,24 +95,7 @@ const AddEditDialog = props => {
                         />
                     </Field>
                 </div>
-                {/* <div className={classes.middlename}>
-                    <Field
-                        id="middlename"
-                        label={middleNameLabel}
-                        optional={true}
-                    >
-                        <TextInput field="middlename" data-cy="middlename" />
-                    </Field>
-                </div> */}
-                <div className={classes.lastname}>
-                    <Field id="lastname" label={lastNameLabel}>
-                        <TextInput
-                            field="lastname"
-                            // validate={isRequired}
-                            data-cy="lastname"
-                        />
-                    </Field>
-                </div>
+
                 <div className={classes.country}>
                     <Country
                         field={'country_code'}
