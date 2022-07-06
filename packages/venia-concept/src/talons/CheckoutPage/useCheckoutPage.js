@@ -265,13 +265,10 @@ export const useCheckoutPage = (props = {}) => {
                 const reCaptchaData = await generateReCaptchaData();
                 const { cart } = orderDetailsData;
                 console.log(
-                    cart.prices.grand_total.value,
+                    cart?.quantity,
                     cart.shipping_addresses[0].selected_shipping_method.amount
                         .value,
-                    cart.prices.applied_taxes.reduce(
-                        (acc, tax) => acc + tax.amount.value,
-                        0
-                    ),
+                    cart.prices.subtotal_excluding_tax.value,
                     'cart.prices.price.value',
                     cart
                 );
@@ -286,8 +283,8 @@ export const useCheckoutPage = (props = {}) => {
 
                 ReactGA.plugin.execute('ecommerce', 'addTransaction', {
                     id: orderId,
-                    revenue: cart.prices.grand_total.value,
-                    quantity: String(cart.quantity),
+                    revenue: cart.prices.subtotal_excluding_tax.value,
+                    quantity: String(cart.total_quantity),
                     shipping:
                         cart.shipping_addresses[0].selected_shipping_method
                             .amount.value,
