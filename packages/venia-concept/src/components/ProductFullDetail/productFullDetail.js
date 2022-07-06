@@ -32,7 +32,7 @@ const ERROR_FIELD_TO_MESSAGE_MAPPING = {
 };
 
 const ProductFullDetail = props => {
-    const isB2B = false;
+    const isB2B = true;
 
     const { product } = props;
     const [quantity, setQuantity] = useState(1);
@@ -218,7 +218,6 @@ const ProductFullDetail = props => {
             </p>
         </div>
     );
-    // console.log(isB2B,'isB2B');
     return isB2B ? (
         <ProductFullDetailB2B
             addConfigurableProductToCart={addConfigurableProductToCart}
