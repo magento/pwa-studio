@@ -21,7 +21,7 @@ const Options = props => {
     //CUSTOM FUNCTION
     useEffect(() => {
         handleSelectionChange(ATTRIBUTE_ID, VALUE_INDEX);
-    }, []);
+    }, [options]);
 
     // Render a list of options passing in any pre-selected values.
     return options.map(option => (
