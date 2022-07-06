@@ -14,21 +14,12 @@ import SimpleProductB2C from './simpleProductB2C';
 const SimpleProduct = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const [quantity, setQuantity] = useState(1);
-    const B2B = true;
 
     const talonProps = useSimpleProduct({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         productQuantity: quantity
     });
-    const {
-        wishlistButtonProps,
-        errorMessage,
-        cartId,
-        handleAddToCart,
-        fetchedData,
-        loading,
-        error
-    } = talonProps;
+    const { wishlistButtonProps, errorMessage, cartId, handleAddToCart, fetchedData, loading, error } = talonProps;
 
     if (loading) {
         return <FullPageLoadingIndicator />;
@@ -40,32 +31,22 @@ const SimpleProduct = props => {
     const simpleProductData = fetchedData.products.items[0];
     const simpleProductAggregation = fetchedData.products.aggregations;
     const simpleProductAggregationFiltered = simpleProductAggregation.filter(
-        product =>
-            product.label !== 'Category' &&
-            product.label !== 'Price' &&
-            product.label !== 'Material estructura'
+        product => product.label !== 'Category' && product.label !== 'Price' && product.label !== 'Material estructura'
     );
 
     const handleQuantityChange = tempQuantity => {
         setQuantity(tempQuantity);
     };
 
-    const wishlistButton = wishlistButtonProps ? (
-        <WishlistGalleryButton {...wishlistButtonProps} />
-    ) : null;
+    const wishlistButton = wishlistButtonProps ? <WishlistGalleryButton {...wishlistButtonProps} /> : null;
 
     const priceRender =
-        simpleProductData.price.regularPrice.amount.value ===
-        simpleProductData.price.minimalPrice.amount.value ? (
+        simpleProductData.price.regularPrice.amount.value === simpleProductData.price.minimalPrice.amount.value ? (
             <section>
                 <article className={classes.productPrice}>
                     <Price
-                        currencyCode={
-                            simpleProductData.price.regularPrice.amount.currency
-                        }
-                        value={
-                            simpleProductData.price.regularPrice.amount.value
-                        }
+                        currencyCode={simpleProductData.price.regularPrice.amount.currency}
+                        value={simpleProductData.price.regularPrice.amount.value}
                     />
                 </article>
             </section>
@@ -73,22 +54,14 @@ const SimpleProduct = props => {
             <section>
                 <article className={classes.productOldPrice}>
                     <Price
-                        currencyCode={
-                            simpleProductData.price.regularPrice.amount.currency
-                        }
-                        value={
-                            simpleProductData.price.regularPrice.amount.value
-                        }
+                        currencyCode={simpleProductData.price.regularPrice.amount.currency}
+                        value={simpleProductData.price.regularPrice.amount.value}
                     />
                 </article>
                 <article className={classes.productPrice}>
                     <Price
-                        currencyCode={
-                            simpleProductData.price.minimalPrice.amount.currency
-                        }
-                        value={
-                            simpleProductData.price.minimalPrice.amount.value
-                        }
+                        currencyCode={simpleProductData.price.minimalPrice.amount.currency}
+                        value={simpleProductData.price.minimalPrice.amount.value}
                     />
                 </article>
             </section>
@@ -116,9 +89,7 @@ const SimpleProduct = props => {
             ]);
         }
 
-        if (
-            errorMessage.includes('Variable "$cartId" got invalid value null')
-        ) {
+        if (errorMessage.includes('Variable "$cartId" got invalid value null')) {
             errors.set('form', [
                 new Error(
                     formatMessage({
@@ -135,8 +106,7 @@ const SimpleProduct = props => {
                 new Error(
                     formatMessage({
                         id: 'productFullDetail.errorUnknown',
-                        defaultMessage:
-                            'Could not add item to cart. Please check required options and try again.'
+                        defaultMessage: 'Could not add item to cart. Please check required options and try again.'
                     })
                 )
             ]);
@@ -144,18 +114,12 @@ const SimpleProduct = props => {
     }
 
     const tempTotalPrice =
-        simpleProductData.price.regularPrice.amount.value ===
-        simpleProductData.price.minimalPrice.amount.value ? (
+        simpleProductData.price.regularPrice.amount.value === simpleProductData.price.minimalPrice.amount.value ? (
             <section>
                 <article className={classes.productPrice}>
                     <Price
-                        currencyCode={
-                            simpleProductData.price.regularPrice.amount.currency
-                        }
-                        value={
-                            simpleProductData.price.regularPrice.amount.value *
-                            quantity
-                        }
+                        currencyCode={simpleProductData.price.regularPrice.amount.currency}
+                        value={simpleProductData.price.regularPrice.amount.value * quantity}
                     />
                 </article>
             </section>
@@ -163,24 +127,14 @@ const SimpleProduct = props => {
             <section>
                 <article className={classes.productOldPrice}>
                     <Price
-                        currencyCode={
-                            simpleProductData.price.regularPrice.amount.currency
-                        }
-                        value={
-                            simpleProductData.price.regularPrice.amount.value *
-                            quantity
-                        }
+                        currencyCode={simpleProductData.price.regularPrice.amount.currency}
+                        value={simpleProductData.price.regularPrice.amount.value * quantity}
                     />
                 </article>
                 <article className={classes.productPrice}>
                     <Price
-                        currencyCode={
-                            simpleProductData.price.minimalPrice.amount.currency
-                        }
-                        value={
-                            simpleProductData.price.minimalPrice.amount.value *
-                            quantity
-                        }
+                        currencyCode={simpleProductData.price.minimalPrice.amount.currency}
+                        value={simpleProductData.price.minimalPrice.amount.value * quantity}
                     />
                 </article>
             </section>
@@ -194,36 +148,24 @@ const SimpleProduct = props => {
             </li>
             <li className={classes.categoriesItemList}>
                 {simpleProductAggregationFiltered.map(category => (
-                    <p
-                        key={category.label}
-                        className={classes.indexFixedCategory}
-                    >
+                    <p key={category.label} className={classes.indexFixedCategory}>
                         {category.label}
                     </p>
                 ))}
             </li>
             <li key="quantityIndex" className={classes.indexFixed}>
-                <FormattedMessage
-                    id={'productFullDetailB2B.indexQuantity'}
-                    defaultMessage={'Quantity'}
-                />
+                <FormattedMessage id={'productFullDetailB2B.indexQuantity'} defaultMessage={'Quantity'} />
             </li>
             <li className={classes.titles} key="priceIndex">
-                <FormattedMessage
-                    id={'productFullDetailB2B.indexUnitPrice'}
-                    defaultMessage={'Price / Unit'}
-                />
+                <FormattedMessage id={'productFullDetailB2B.indexUnitPrice'} defaultMessage={'Price / Unit'} />
             </li>
             <li className={classes.titles} key="totalPriceIndex">
-                <FormattedMessage
-                    id={'productFullDetailB2B.totalPrice'}
-                    defaultMessage={'Total Price'}
-                />
+                <FormattedMessage id={'productFullDetailB2B.totalPrice'} defaultMessage={'Total Price'} />
             </li>
         </ul>
     );
 
-    return B2B ? (
+    return process.env.IS_B2B === 'true' ? (
         <SimpleProductB2B
             handleQuantityChange={handleQuantityChange}
             indexTable={indexTable}

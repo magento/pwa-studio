@@ -9,7 +9,7 @@ const getUserCourses = async (userMoodleToken, userMoodleId) => {
     };
 
     return await axios
-        .get(`https://demo-moodle.orienteed.com/webservice/rest/server.php`, {
+        .get(`${process.env.LMS_URL}/webservice/rest/server.php`, {
             params: params
         })
         .then(coursesResponse => {

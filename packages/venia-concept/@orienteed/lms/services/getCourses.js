@@ -3,12 +3,12 @@ import axios from 'axios';
 const getCourses = async () => {
     const params = {
         moodlewsrestformat: 'json',
-        wstoken: 'af547e6e35fca251a48ff4bedb7f1298',
+        wstoken: process.env.LMS_API_KEY,
         wsfunction: 'core_course_get_courses_by_field'
     };
 
     return await axios
-        .get(`https://demo-moodle.orienteed.com/webservice/rest/server.php`, {
+        .get(`${process.env.LMS_URL}/webservice/rest/server.php`, {
             params: params
         })
         .then(coursesResponse => {
