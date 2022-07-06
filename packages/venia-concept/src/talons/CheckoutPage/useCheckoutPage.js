@@ -266,7 +266,14 @@ export const useCheckoutPage = (props = {}) => {
                 const { cart } = orderDetailsData;
                 console.log(
                     cart.prices.grand_total.value,
-                    'cart.prices.price.value',cart
+                    cart.shipping_addresses[0].selected_shipping_method.amount
+                        .value,
+                    cart.prices.applied_taxes.reduce(
+                        (acc, tax) => acc + tax.amount.value,
+                        0
+                    ),
+                    'cart.prices.price.value',
+                    cart
                 );
                 const { data } = await placeOrder({
                     variables: {
@@ -280,7 +287,14 @@ export const useCheckoutPage = (props = {}) => {
                 ReactGA.plugin.execute('ecommerce', 'addTransaction', {
                     id: orderId,
                     revenue: cart.prices.grand_total.value,
-                    quantity: String(cart.quantity)
+                    quantity: String(cart.quantity),
+                    shipping:
+                        cart.shipping_addresses[0].selected_shipping_method
+                            .amount.value,
+                    tax: cart.prices.applied_taxes.reduce(
+                        (acc, tax) => acc + tax.amount.value,
+                        0
+                    )
                 });
                 cart?.items.map(product => {
                     ReactGA.plugin.execute('ecommerce', 'addItem', {

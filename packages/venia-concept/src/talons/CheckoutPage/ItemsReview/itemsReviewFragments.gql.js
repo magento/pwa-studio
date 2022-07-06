@@ -4,7 +4,26 @@ export const ItemsReviewFragment = gql`
     fragment ItemsReviewFragment on Cart {
         id
         total_quantity
+        shipping_addresses {
+            street
+            selected_shipping_method {
+                amount {
+                    value
+                    currency
+                }
+            }
+        }
         prices {
+            applied_taxes {
+                amount {
+                    currency
+                    value
+                }
+            }
+            subtotal_excluding_tax {
+                currency
+                value
+            }
             grand_total {
                 value
                 currency
