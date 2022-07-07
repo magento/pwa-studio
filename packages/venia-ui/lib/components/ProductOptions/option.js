@@ -34,7 +34,8 @@ const Option = props => {
         label,
         onSelectionChange,
         selectedValue,
-        values
+        values,
+        sku
     } = props;
 
     const talonProps = useOption({
@@ -42,7 +43,8 @@ const Option = props => {
         label,
         onSelectionChange,
         selectedValue,
-        values
+        values,
+        sku
     });
 
     const {
@@ -50,7 +52,6 @@ const Option = props => {
         initialSelection,
         selectedValueDescription
     } = talonProps;
-
     const ValueList = useMemo(() => getListComponent(attribute_code, values), [
         attribute_code,
         values

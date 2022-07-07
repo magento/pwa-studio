@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Info } from 'react-feather';
@@ -15,9 +15,7 @@ import ProductFullDetailB2B from '@orienteed/customComponents/components/Product
 import ProductFullDetailB2C from '@orienteed/customComponents/components/ProductFullDetailB2C';
 import defaultClasses from '@magento/venia-ui/lib/components/ProductFullDetail/productFullDetail.module.css';
 
-const Options = React.lazy(() =>
-    import('@magento/venia-ui/lib/components/ProductOptions')
-);
+const Options = React.lazy(() => import('@magento/venia-ui/lib/components/ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error
 // string but it may contain contextual info such as product id. We can use
@@ -56,7 +54,8 @@ const ProductFullDetail = props => {
         addConfigurableProductToCart,
         isAddConfigurableLoading,
         cartId,
-        customAttributes
+        customAttributes,
+        setOptionSelections
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -79,9 +78,7 @@ const ProductFullDetail = props => {
             <div>
                 <p className={classes.productPrice}>
                     <Price
-                        currencyCode={
-                            productDetails.price.regularPrice.amount.currency
-                        }
+                        currencyCode={productDetails.price.regularPrice.amount.currency}
                         value={productDetails.price.regularPrice.amount.value}
                     />
                 </p>
@@ -90,17 +87,13 @@ const ProductFullDetail = props => {
             <div>
                 <p className={classes.productOldPrice}>
                     <Price
-                        currencyCode={
-                            productDetails.price.regularPrice.amount.currency
-                        }
+                        currencyCode={productDetails.price.regularPrice.amount.currency}
                         value={productDetails.price.regularPrice.amount.value}
                     />
                 </p>
                 <p className={classes.productPrice}>
                     <Price
-                        currencyCode={
-                            productDetails.price.minimalPrice.amount.currency
-                        }
+                        currencyCode={productDetails.price.minimalPrice.amount.currency}
                         value={productDetails.price.minimalPrice.amount.value}
                     />
                 </p>
@@ -112,15 +105,13 @@ const ProductFullDetail = props => {
             <Options
                 onSelectionChange={handleSelectionChange}
                 options={product.configurable_options}
+                sku={product.sku}
             />
         </Suspense>
     ) : null;
 
     const breadcrumbs = breadcrumbCategoryId ? (
-        <Breadcrumbs
-            categoryId={breadcrumbCategoryId}
-            currentProduct={productDetails.name}
-        />
+        <Breadcrumbs categoryId={breadcrumbCategoryId} currentProduct={productDetails.name} setOptionSelections={setOptionSelections} />
     ) : null;
 
     // Fill a map with field/section -> error.
@@ -149,9 +140,7 @@ const ProductFullDetail = props => {
         }
 
         // Handle cases where a cart wasn't created properly.
-        if (
-            errorMessage.includes('Variable "$cartId" got invalid value null')
-        ) {
+        if (errorMessage.includes('Variable "$cartId" got invalid value null')) {
             errors.set('form', [
                 new Error(
                     formatMessage({
@@ -169,8 +158,7 @@ const ProductFullDetail = props => {
                 new Error(
                     formatMessage({
                         id: 'productFullDetail.errorUnknown',
-                        defaultMessage:
-                            'Could not add item to cart. Please check required options and try again.'
+                        defaultMessage: 'Could not add item to cart. Please check required options and try again.'
                     })
                 )
             ]);
@@ -182,13 +170,8 @@ const ProductFullDetail = props => {
             <div>
                 <p className={classes.productPrice}>
                     <Price
-                        currencyCode={
-                            productDetails.price.regularPrice.amount.currency
-                        }
-                        value={
-                            productDetails.price.regularPrice.amount.value *
-                            quantity
-                        }
+                        currencyCode={productDetails.price.regularPrice.amount.currency}
+                        value={productDetails.price.regularPrice.amount.value * quantity}
                     />
                 </p>
             </div>
@@ -196,24 +179,14 @@ const ProductFullDetail = props => {
             <div>
                 <p className={classes.productOldPrice}>
                     <Price
-                        currencyCode={
-                            productDetails.price.regularPrice.amount.currency
-                        }
-                        value={
-                            productDetails.price.regularPrice.amount.value *
-                            quantity
-                        }
+                        currencyCode={productDetails.price.regularPrice.amount.currency}
+                        value={productDetails.price.regularPrice.amount.value * quantity}
                     />
                 </p>
                 <p className={classes.productPrice}>
                     <Price
-                        currencyCode={
-                            productDetails.price.minimalPrice.amount.currency
-                        }
-                        value={
-                            productDetails.price.minimalPrice.amount.value *
-                            quantity
-                        }
+                        currencyCode={productDetails.price.minimalPrice.amount.currency}
+                        value={productDetails.price.minimalPrice.amount.value * quantity}
                     />
                 </p>
             </div>
@@ -224,24 +197,14 @@ const ProductFullDetail = props => {
     };
 
     const cartCallToActionText = !isOutOfStock ? (
-        <FormattedMessage
-            id="productFullDetail.addItemToCart"
-            defaultMessage="Add to Cart"
-        />
+        <FormattedMessage id="productFullDetail.addItemToCart" defaultMessage="Add to Cart" />
     ) : (
-        <FormattedMessage
-            id="productFullDetail.itemOutOfStock"
-            defaultMessage="Out of Stock"
-        />
+        <FormattedMessage id="productFullDetail.itemOutOfStock" defaultMessage="Out of Stock" />
     );
 
     const cartActionContent = isSupportedProductType ? (
         <div className={isAddToCartDisabled ? classes.disabledButton : null}>
-            <Button
-                disabled={isAddToCartDisabled}
-                priority="high"
-                type="submit"
-            >
+            <Button disabled={isAddToCartDisabled} priority="high" type="submit">
                 {cartCallToActionText}
             </Button>
         </div>
@@ -251,14 +214,11 @@ const ProductFullDetail = props => {
             <p>
                 <FormattedMessage
                     id={'productFullDetail.unavailableProduct'}
-                    defaultMessage={
-                        'This product is currently unavailable for purchase.'
-                    }
+                    defaultMessage={'This product is currently unavailable for purchase.'}
                 />
             </p>
         </div>
     );
-
     return isB2B ? (
         <ProductFullDetailB2B
             addConfigurableProductToCart={addConfigurableProductToCart}
