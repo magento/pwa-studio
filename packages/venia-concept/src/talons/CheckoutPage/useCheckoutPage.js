@@ -265,10 +265,10 @@ export const useCheckoutPage = (props = {}) => {
                 const reCaptchaData = await generateReCaptchaData();
                 const { cart } = orderDetailsData;
                 console.log(
-                    cart?.quantity,
-                    cart.shipping_addresses[0].selected_shipping_method.amount
-                        .value,
-                    cart.prices.subtotal_excluding_tax.value,
+                    cart.prices.applied_taxes.reduce(
+                        (acc, tax) => acc + tax.amount.value,
+                        0
+                    ),
                     'cart.prices.price.value',
                     cart
                 );
