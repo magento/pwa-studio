@@ -105,6 +105,7 @@ const ProductFullDetail = props => {
             <Options
                 onSelectionChange={handleSelectionChange}
                 options={product.configurable_options}
+                sku={product.sku}
             />
         </Suspense>
     ) : null;

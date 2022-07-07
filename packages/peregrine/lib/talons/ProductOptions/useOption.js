@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 /**
  * Talon for Option.
@@ -9,7 +9,7 @@ import { useCallback, useMemo, useState } from 'react';
  * @param {array} props.values an array containing possible values
  */
 export const useOption = props => {
-    const { attribute_id, onSelectionChange, selectedValue, values } = props;
+        const { attribute_id, onSelectionChange, selectedValue, values ,sku} = props;
     const [selection, setSelection] = useState(null);
     const initialSelection = useMemo(() => {
         let initialSelection = {};
@@ -19,8 +19,12 @@ export const useOption = props => {
                 values.find(value => value.default_label === searchValue) || {};
         }
         return initialSelection;
-    }, [selectedValue, selection, values]);
+    }, [selectedValue, selection, values ,sku]);
 
+    useEffect(() => {
+        setSelection(null)
+    }, [sku])
+    
     const valuesMap = useMemo(() => {
         return new Map(
             values.map(value => [value.value_index, value.store_label])

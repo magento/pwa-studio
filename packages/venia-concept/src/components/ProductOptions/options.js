@@ -5,7 +5,7 @@ import Option from '@magento/venia-ui/lib/components/ProductOptions/option';
 import { useOptions } from '@magento/peregrine/lib/talons/ProductOptions/useOptions';
 
 const Options = props => {
-    const { classes, onSelectionChange, options, selectedValues = [] } = props;
+    const { classes, onSelectionChange, options, selectedValues = [] ,sku} = props;
 
     const talonProps = useOptions({
         onSelectionChange,
@@ -21,8 +21,8 @@ const Options = props => {
     //CUSTOM FUNCTION
     useEffect(() => {
         handleSelectionChange(ATTRIBUTE_ID, VALUE_INDEX);
-    }, [options]);
-
+    }, [sku]);
+    
     // Render a list of options passing in any pre-selected values.
     return options.map(option => (
         <Option
@@ -31,6 +31,7 @@ const Options = props => {
             key={option.attribute_id}
             onSelectionChange={handleSelectionChange}
             selectedValue={selectedValueMap.get(option.label)}
+            sku={sku}
         />
     ));
 };
