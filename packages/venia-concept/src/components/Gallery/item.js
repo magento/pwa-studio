@@ -171,7 +171,7 @@ const GalleryItem = props => {
             </>
         );
     };
-    console.log('productLink', productLink);
+    
     const shareClick = () => {
         navigator.clipboard.writeText(window.origin + productLink);
         addToast({
