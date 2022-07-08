@@ -27,6 +27,7 @@ export const GET_IMAGE_BY_SKU = gql`
     query getImageBySku($sku: String) {
         products(search: $sku, filter: { sku: { eq: $sku } }) {
             items {
+                uid
                 image {
                     url
                 }

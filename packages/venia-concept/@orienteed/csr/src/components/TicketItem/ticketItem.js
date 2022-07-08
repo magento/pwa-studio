@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
@@ -37,46 +37,15 @@ const TicketItem = props => {
     };
 
     const isoDateToLocaleDate = isoDate => {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const date = new Date(isoDate);
-        return date.toLocaleDateString();
-    }
-
-    const isoDateToRelative = isoDate => {
-        const date = new Date(isoDate);
-        const now = new Date();
-        const diff = (now.getTime() - date.getTime()) / 1000;
-        const dayDiff = Math.floor(diff / 86400);
-        if (dayDiff < 1) {
-            return <FormattedMessage id="csr.today" defaultMessage="Today" />;
-        } else if (dayDiff < 2) {
-            return <FormattedMessage id="csr.yesterday" defaultMessage="Yesterday" />;
-        } else if (dayDiff < 7) {
-            return <FormattedMessage id={'csr.daysAgo'} defaultMessage={'{day} days ago'} values={{ day: dayDiff }} />;
-        } else if (dayDiff < 31) {
-            return (
-                <FormattedMessage
-                    id={'csr.weeksAgo'}
-                    defaultMessage={'{week} weeks ago'}
-                    values={{ week: Math.ceil(dayDiff / 7) }}
-                />
-            );
-        } else if (dayDiff < 365) {
-            return (
-                <FormattedMessage
-                    id={'csr.monthsAgo'}
-                    defaultMessage={'{month} months ago'}
-                    values={{ month: Math.ceil(dayDiff / 30) }}
-                />
-            );
-        } else {
-            return (
-                <FormattedMessage
-                    id={'csr.yearsAgo'}
-                    defaultMessage={'{year} years ago'}
-                    values={{ year: Math.ceil(dayDiff / 365) }}
-                />
-            );
-        }
+        const day = date
+            .getDay()
+            .toString()
+            .padStart(2, '0');
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+        return `${day} ${month} ${year}`;
     };
 
     const ticketItemList = (
@@ -94,12 +63,12 @@ const TicketItem = props => {
             {states[ticket.state_id] === 'closed' ? (
                 <div className={classes.ticketListItem}>
                     <p className={classes.fieldTitle}>{closedDateText}</p>
-                    <p className={classes.fieldValue}>{isoDateToRelative(ticket.close_at)}</p>
+                    <p className={classes.fieldValue}>{isoDateToLocaleDate(ticket.close_at)}</p>
                 </div>
             ) : (
                 <div className={classes.ticketListItem}>
                     <p className={classes.fieldTitle}>{lastUpdateDateText}</p>
-                    <p className={classes.fieldValue}>{isoDateToRelative(ticket.updated_at)}</p>
+                    <p className={classes.fieldValue}>{isoDateToLocaleDate(ticket.updated_at)}</p>
                 </div>
             )}
             <div className={classes.ticketListItem}>
@@ -128,17 +97,17 @@ const TicketItem = props => {
                     </div>
                     <div className={classes.ticketGridItem}>
                         <p className={classes.fieldTitle}>{creationDateText}</p>
-                        <p className={classes.fieldValueGrid}>{isoDateToRelative(ticket.created_at)}</p>
+                        <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.created_at)}</p>
                     </div>
                     {states[ticket.state_id] === 'closed' ? (
                         <div className={classes.ticketGridItem}>
                             <p className={classes.fieldTitle}>{closedDateText}</p>
-                            <p className={classes.fieldValueGrid}>{isoDateToRelative(ticket.close_at)}</p>
+                            <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.close_at)}</p>
                         </div>
                     ) : (
                         <div className={classes.ticketGridItem}>
                             <p className={classes.fieldTitle}>{lastUpdateDateText}</p>
-                            <p className={classes.fieldValueGrid}>{isoDateToRelative(ticket.updated_at)}</p>
+                            <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.updated_at)}</p>
                         </div>
                     )}
                     <div className={classes.ticketGridItem}>

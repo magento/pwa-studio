@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 
 import Dialog from './Dialog/dialog';
@@ -9,12 +9,22 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
+import { useCreateModalTicket } from '../../talons/useCreateModalTicket';
+
 import defaultClasses from './createTicketModal.module.css';
 
 const CreateTicketModal = props => {
     const { isOpen, onConfirm, onCancel } = props;
     const classes = useStyle(defaultClasses, props.classes);
+
     const { formatMessage } = useIntl();
+    const {
+        customerOrdersItems,
+        customerOrdersSelect,
+        getCustomerOrders,
+        setCustomerOrdersItems,
+        setCustomerOrdersSelect
+    } = useCreateModalTicket();
 
     const supportIssueText = formatMessage({ id: 'csr.supportIssue', defaultMessage: 'Support issue' });
     const orderIssueText = formatMessage({ id: 'csr.orderIssue', defaultMessage: 'Order issue' });
@@ -44,13 +54,27 @@ const CreateTicketModal = props => {
         id: 'csr.enhacementPlaceholder',
         defaultMessage: 'Do you have any idea to improve B2BStore? Tell us, we are open to improve.'
     });
+    const selectOrderText = formatMessage({ id: 'csr.selectOrder', defaultMessage: 'Select order' });
+    // titulo - 100 caracteres
+    // descripcion - 10k caracteres limit hided
 
+    // Methodssssssss
     const [ticketType, setTicketType] = useState('support');
+    const [orderSelected, setOrderSelected] = useState('');
     const onChangeTicketType = e => {
         setTicketType(e.target.value);
     };
 
-    const options = [
+    useEffect(() => {
+        getCustomerOrders().then(res => {
+            if (res) {
+                setCustomerOrdersItems(res[0]);
+                setCustomerOrdersSelect(res[1]);
+            }
+        });
+    }, [getCustomerOrders, setCustomerOrdersItems, setCustomerOrdersSelect]);
+
+    const ticketOptions = [
         { value: 'support', label: supportIssueText },
         { value: 'order', label: orderIssueText },
         { value: 'enhancement', label: enhancementText }
@@ -69,14 +93,22 @@ const CreateTicketModal = props => {
         }
     };
 
-    const onChangeOrder = e => {
-        console.log(e);
+    const showOrderDetails = () => {
+        if (orderSelected === 0) return;
+        const orderItem = customerOrdersItems.find(item => item.number === orderSelected);
+
+        return (
+            <>
+                <p>{orderItem.number}</p>
+                <p>{orderItem.order_date}</p>
+            </>
+        );
     };
 
-    // titulo - 100 caracteres
-    // descripcion - 10k caracteres limit hided
+    const onChangeOrder = e => {
+        setOrderSelected(e.target.value);
+    };
 
-    const selectOrderText = formatMessage({ id: 'csr.selectOrder', defaultMessage: 'Select order' });
     return (
         <Dialog
             cancelText={'Cancel'}
@@ -94,7 +126,7 @@ const CreateTicketModal = props => {
                     <Select
                         initialValue={selectTicketTypeText}
                         field={'ticketType'}
-                        items={options}
+                        items={ticketOptions}
                         onChange={onChangeTicketType}
                     />
                 </div>
@@ -102,10 +134,11 @@ const CreateTicketModal = props => {
                     <Select
                         initialValue={selectOrderText}
                         field={'orderNumber'}
-                        items={[]}
+                        items={customerOrdersSelect}
                         onChange={onChangeOrder}
                     />
                 )}
+                {orderSelected !== '' && showOrderDetails()}
                 <div className={classes.row}>
                     <p>{titleText}</p>
                     <TextInput field="Ticket title" validate={isRequired} placeholder={titlePlaceholder} />
