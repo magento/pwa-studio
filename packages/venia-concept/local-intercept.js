@@ -43,12 +43,8 @@ module.exports = targets => {
     const talonsTarget = peregrineTargets.talons;
     talonsTarget.tap(talonWrapperConfig => {
         //talonWrapperConfig.Header.useStoreSwitcher.wrapWith(require.resolve('./src/hooks/useStoreSwitcher'))
-        talonWrapperConfig.Header.useAccountTrigger.wrapWith(
-            require.resolve('./src/talons/useAccountTrigger')
-        );
-        talonWrapperConfig.ForgotPassword.useForgotPassword.wrapWith(
-            require.resolve('./src/talons/useForgotPassword')
-        );
+        talonWrapperConfig.Header.useAccountTrigger.wrapWith(require.resolve('./src/talons/useAccountTrigger'));
+        talonWrapperConfig.ForgotPassword.useForgotPassword.wrapWith(require.resolve('./src/talons/useForgotPassword'));
         //talonWrapperConfig.SignIn.useSignIn.wrapWith(require.resolve('./src/talons/useSignIn'))
         // talonWrapperConfig.RootComponents.Product.useProduct.wrapWith(require.resolve('./src/talons/RootComponents/Product/useProduct'))
         // talonWrapperConfig.RootComponents.Category.useCategory.wrapWith(require.resolve('./src/talons/RootComponents/Category/useCategory'))
@@ -82,18 +78,13 @@ module.exports = targets => {
         paths.forEach(myPath => {
             const relativePath = myPath
                 .replace('.targetables', '')
-                .replace(
-                    `src/components`,
-                    `${magentoPath}/venia-ui/lib/components`
-                );
+                .replace(`src/components`, `${magentoPath}/venia-ui/lib/components`);
             const absolutePath = path.resolve(relativePath);
 
             fs.stat(absolutePath, (err, stat) => {
                 if (!err && stat && stat.isFile()) {
                     // Retrieve the react component from our cache (so we can use it more than once if necessary)
-                    const component = getReactComponent(
-                        relativePath.replace('node_modules/', '')
-                    );
+                    const component = getReactComponent(relativePath.replace('node_modules/', ''));
 
                     /**
                      * Load the targetables file for the component and execute the interceptComponent function
@@ -166,10 +157,57 @@ module.exports = targets => {
             return componentsCache[modulePath];
         }
 
-        return (componentsCache[modulePath] = targetables.reactComponent(
-            modulePath
-        ));
+        return (componentsCache[modulePath] = targetables.reactComponent(modulePath));
     }
+
+    /**********************************************
+     * Buildpack envVarDefinitions *
+     ***********************************************/
+    const buildpackTargets = targets.of('@magento/pwa-buildpack');
+
+    buildpackTargets.envVarDefinitions.tap(defs => {
+        defs.sections.push(
+            {
+                name: 'CSR Project',
+                variables: [
+                    {
+                        name: 'CSR_URL',
+                        type: 'str',
+                        desc: 'Specify the URL where the Help Desk is.',
+                        default: ''
+                    }
+                ]
+            },
+            {
+                name: 'LMS Project',
+                variables: [
+                    {
+                        name: 'LMS_URL',
+                        type: 'str',
+                        desc: 'Specify the URL where the LMS is.',
+                        default: ''
+                    },
+                    {
+                        name: 'LMS_API_KEY',
+                        type: 'str',
+                        desc: 'Specify the API token for creating accounts, enroll users, ...',
+                        default: ''
+                    }
+                ]
+            },
+            {
+                name: 'B2BStore variables',
+                variables: [
+                    {
+                        name: 'IS_B2B',
+                        type: 'bool',
+                        desc: 'Specify the view for the Product Detail Page (PDP).',
+                        default: true
+                    }
+                ]
+            }
+        );
+    });
 
     /**********************************************
      * Component Overrides *

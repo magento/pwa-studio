@@ -3,7 +3,7 @@ import axios from 'axios';
 const markAsDone = async (userId, courseModuleId) => {
     const data = {
         moodlewsrestformat: 'json',
-        wstoken: 'af547e6e35fca251a48ff4bedb7f1298',
+        wstoken: process.env.LMS_API_KEY,
         wsfunction: 'core_completion_override_activity_completion_status',
         cmid: courseModuleId,
         newstate: 1,
@@ -11,7 +11,7 @@ const markAsDone = async (userId, courseModuleId) => {
     };
 
     return await axios
-        .post(`https://demo-moodle.orienteed.com/webservice/rest/server.php`, null, { params: data })
+        .post(`${process.env.LMS_URL}/webservice/rest/server.php`, null, { params: data })
         .then(courseResponse => {
             return courseResponse.data;
         })

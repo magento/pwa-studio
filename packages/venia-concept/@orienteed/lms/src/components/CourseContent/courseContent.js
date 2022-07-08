@@ -123,7 +123,7 @@ const CourseContent = props => {
                                         className={classes.courseImage}
                                         src={`${
                                             courseDetails.overviewfiles[0].fileurl
-                                        }?token=af547e6e35fca251a48ff4bedb7f1298`}
+                                        }?token=${process.env.LMS_API_KEY}`}
                                         alt="Course logo"
                                     />
                                 ) : (

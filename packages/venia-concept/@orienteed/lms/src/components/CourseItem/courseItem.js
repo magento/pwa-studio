@@ -67,7 +67,7 @@ const CourseItem = props => {
         data.overviewfiles.length !== 0 ? (
             <img
                 className={classes.courseImage}
-                src={`${data.overviewfiles[0].fileurl}?token=af547e6e35fca251a48ff4bedb7f1298`}
+                src={`${data.overviewfiles[0].fileurl}?token=${process.env.LMS_API_KEY}`}
                 alt="Course logo"
             />
         ) : (

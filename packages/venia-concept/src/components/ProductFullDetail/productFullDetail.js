@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Info } from 'react-feather';
@@ -32,8 +32,6 @@ const ERROR_FIELD_TO_MESSAGE_MAPPING = {
 };
 
 const ProductFullDetail = props => {
-    const isB2B = true;
-
     const { product } = props;
     const [quantity, setQuantity] = useState(1);
 
@@ -111,7 +109,11 @@ const ProductFullDetail = props => {
     ) : null;
 
     const breadcrumbs = breadcrumbCategoryId ? (
-        <Breadcrumbs categoryId={breadcrumbCategoryId} currentProduct={productDetails.name} setOptionSelections={setOptionSelections} />
+        <Breadcrumbs
+            categoryId={breadcrumbCategoryId}
+            currentProduct={productDetails.name}
+            setOptionSelections={setOptionSelections}
+        />
     ) : null;
 
     // Fill a map with field/section -> error.
@@ -219,7 +221,8 @@ const ProductFullDetail = props => {
             </p>
         </div>
     );
-    return isB2B ? (
+
+    return process.env.IS_B2B === 'true' ? (
         <ProductFullDetailB2B
             addConfigurableProductToCart={addConfigurableProductToCart}
             availableOptions={options}
