@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { GET_CUSTOMER_ORDERS, GET_IMAGE_BY_SKU } from '../graphql/createTicketModal.gql';
 
-export const useCreateModalTicket = () => {
+export const useCreateTicketModal = () => {
     const fetchCustomerOrders = useAwaitQuery(GET_CUSTOMER_ORDERS);
     const fetchProductImage = useAwaitQuery(GET_IMAGE_BY_SKU);
     const { formatMessage } = useIntl();

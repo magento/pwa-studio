@@ -9,7 +9,7 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
-import { useCreateModalTicket } from '../../talons/useCreateModalTicket';
+import { useCreateModalTicket } from '../../talons/useCreateTicketModal';
 
 import defaultClasses from './createTicketModal.module.css';
 

@@ -59,7 +59,7 @@ const ContentDialog = props => {
     const createTicketText = formatMessage({ id: 'csr.createTicket', defaultMessage: 'Create a ticket' });
     const searchPlaceholder = formatMessage({
         id: 'csr.search',
-        defaultMessage: 'Search by ticket summary'
+        defaultMessage: 'Search ticket'
     });
     const supportIssueText = formatMessage({ id: 'csr.supportIssue', defaultMessage: 'Support issue' });
     const orderIssueText = formatMessage({ id: 'csr.orderIssue', defaultMessage: 'Order issue' });

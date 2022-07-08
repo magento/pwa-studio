@@ -37,7 +37,21 @@ const TicketItem = props => {
     };
 
     const isoDateToLocaleDate = isoDate => {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const months = [
+            formatMessage({ id: 'csr.january', defaultMessage: 'Jan' }),
+            formatMessage({ id: 'csr.february', defaultMessage: 'Feb' }),
+            formatMessage({ id: 'csr.march', defaultMessage: 'Mar' }),
+            formatMessage({ id: 'csr.april', defaultMessage: 'Apr' }),
+            formatMessage({ id: 'csr.may', defaultMessage: 'May' }),
+            formatMessage({ id: 'csr.juny', defaultMessage: 'Jun' }),
+            formatMessage({ id: 'csr.july', defaultMessage: 'Jul' }),
+            formatMessage({ id: 'csr.august', defaultMessage: 'Aug' }),
+            formatMessage({ id: 'csr.september', defaultMessage: 'Sep' }),
+            formatMessage({ id: 'csr.october', defaultMessage: 'Oct' }),
+            formatMessage({ id: 'csr.november', defaultMessage: 'Nov' }),
+            formatMessage({ id: 'csr.december', defaultMessage: 'Dec' })
+        ];
+
         const date = new Date(isoDate);
         const day = date
             .getDay()
