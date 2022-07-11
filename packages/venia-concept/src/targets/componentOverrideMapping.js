@@ -185,5 +185,7 @@ module.exports = componentOverrideMapping = {
 
     //new overwrite
     [`@magento/venia-ui/lib/components/Pagination/tile.module.css`]: './src/components/Pagination/tile.module.css',
+    // New overwrite
+    [`@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js`]: './src/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js',
 
 };
