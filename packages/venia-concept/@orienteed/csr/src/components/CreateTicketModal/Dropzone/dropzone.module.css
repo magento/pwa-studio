@@ -1,0 +1,59 @@
+.dropzoneContainerEmpty {
+    align-items: center;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 3px dashed var(--orienteed-global-color-orange);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-height: 100px;
+    padding: 15px;
+    gap: 10px;
+}
+
+.dropzoneContainerFull {
+    align-items: center;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 3px dashed var(--orienteed-global-color-orange);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    min-height: 100px;
+    padding: 15px;
+    gap: 10px;
+}
+
+.dropzonePlaceholder {
+    color: var(--orienteed-global-color-orange);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+/* Files */
+.dropzoneItem {
+    background: #f6f8fb;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: nowrap;
+    height: 45px;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 16px;
+}
+
+.dropzoneItemName {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+    color: #e8ab00;
+}
+
+.dropzoneItemSize {
+    composes: dropzoneItemName;
+    color: #807a7a;
+}
+
+/* end Files */

@@ -11,7 +11,7 @@ const getTickets = async () => {
         'Content-Type': 'application/json'
     };
 
-    const reply = await request('/api/v1/tickets/search?expand=true&page=1&per_page=8&query=a&limit=10', {
+    const reply = await request('/api/v1/tickets/search?expand=true&page=1&per_page=8&limit=10', {
         method: 'GET',
         headers: JSON.stringify(headers)
     });

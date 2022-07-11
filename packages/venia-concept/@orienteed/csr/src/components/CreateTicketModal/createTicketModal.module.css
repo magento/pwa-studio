@@ -1,0 +1,92 @@
+/***** Order item view *****/
+.orderItemContainer {
+    display: flex;
+    flex-direction: row;
+    gap: clamp(10px, 1.5vw, 50px);
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.orderItemDataContainer {
+    composes: orderItemContainer;
+    flex-wrap: nowrap;
+}
+
+.orderItemImage {
+    width: auto;
+    max-height: 120px;
+}
+
+.orderItemFieldContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderItemFieldTitle {
+    font-weight: 300;
+    font-size: 14px;
+    color: #0c0c0c;
+}
+
+.orderItemFieldValue {
+    font-weight: 600;
+    font-size: 20px;
+    color: #0c0c0c;
+}
+
+@media (max-width: 750px) {
+    .orderItemContainer {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .orderItemDataContainer {
+        flex-direction: column;
+        align-items: flex-start;
+        width: fit-content;
+        gap: 0px;
+    }
+
+    .orderItemFieldTitle::after {
+        content: ':';
+    }
+
+    .orderItemFieldValue {
+        font-size: 16px;
+    }
+
+    .orderItemFieldContainer {
+        flex-direction: row;
+        gap: 10px;
+        align-items: baseline;
+    }
+}
+
+/***** end Order item view *****/
+
+/* Dialog */
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.row {
+    composes: root;
+    gap: 10px;
+}
+
+.select:focus {
+    box-shadow: none !important;
+}
+
+/* end Dialog */
+
+.acceptedFiles {
+    color: var(--orienteed-global-color-orange);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+}

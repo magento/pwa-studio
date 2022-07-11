@@ -181,10 +181,13 @@
     composes: order-first from global;
 
     composes: lg_order-unset from global;
+
+    width: 160px;
 }
 
 .cancelButton {
     composes: root_highPriorityInv from '@magento/venia-concept/src/components/Button/button.module.css';
+    width: 160px;
 }
 
 /*
@@ -220,5 +223,11 @@
 
     .contents {
         padding: 0px 20px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 }

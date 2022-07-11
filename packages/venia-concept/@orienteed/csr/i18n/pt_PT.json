@@ -7,7 +7,7 @@
     "csr.creationDate": "Data de criação",
     "csr.customerOrderSelect": "Número do pedido {orderNumber} ({orderData}) - {orderStatus} - {orderTotal}",
     "csr.december": "Dez",
-    "csr.description": "Descrição",
+    "csr.description": "Descrição (máx. 10000 caracteres)",
     "csr.dragFile": "Arraste um arquivo aqui",
     "csr.emptyTicketsAdvice": "Ops... Parece que você ainda não abriu nenhum ticket",
     "csr.emptyTicketsSearchAdvice": "Ops... Parece que nenhum ticket foi encontrado relacionado a '{searchText}'",
@@ -28,8 +28,6 @@
     "csr.orderIssue": "Problema de pedido",
     "csr.orderIssuePlaceholder": "Descreva seu problema e quais produtos estão relacionados.\nNa B2BStore, nossa prioridade é o cliente.",
     "csr.search": "Pesquisar por resumo do ticket",
-    "csr.selectOrder": "Selecionar pedido",
-    "csr.selectTicketType": "Selecione o tipo de ingresso",
     "csr.september": "Set",
     "csr.state": "Estado",
     "csr.summary": "Resumo",
@@ -38,6 +36,6 @@
     "csr.supportTitle": "Página de suporte",
     "csr.ticketNumber": "Número do bilhete",
     "csr.ticketType": "Tipo de bilhete",
-    "csr.title": "Título",
+    "csr.title": "Título (máx. 100 caracteres)",
     "csr.titlePlaceholder": "Insira um título para o seu bilhete"
 }

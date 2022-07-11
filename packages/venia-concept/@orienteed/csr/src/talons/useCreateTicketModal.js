@@ -14,6 +14,28 @@ export const useCreateTicketModal = () => {
     const [customerOrdersSelect, setCustomerOrdersSelect] = useState([]);
 
     // Methods
+    const isoDateToLocaleDate = date => {
+        const months = [
+            formatMessage({ id: 'csr.january', defaultMessage: 'Jan' }),
+            formatMessage({ id: 'csr.february', defaultMessage: 'Feb' }),
+            formatMessage({ id: 'csr.march', defaultMessage: 'Mar' }),
+            formatMessage({ id: 'csr.april', defaultMessage: 'Apr' }),
+            formatMessage({ id: 'csr.may', defaultMessage: 'May' }),
+            formatMessage({ id: 'csr.juny', defaultMessage: 'Jun' }),
+            formatMessage({ id: 'csr.july', defaultMessage: 'Jul' }),
+            formatMessage({ id: 'csr.august', defaultMessage: 'Aug' }),
+            formatMessage({ id: 'csr.september', defaultMessage: 'Sep' }),
+            formatMessage({ id: 'csr.october', defaultMessage: 'Oct' }),
+            formatMessage({ id: 'csr.november', defaultMessage: 'Nov' }),
+            formatMessage({ id: 'csr.december', defaultMessage: 'Dec' })
+        ];
+        const [year, month, day] = date.split(' ')[0].split('-');
+
+        // const newDay = day.toString().padStart(2, '0');
+        const newMonth = months[month - 1];
+        return `${day} ${newMonth} ${year}`;
+    };
+
     const getCustomerOrders = useCallback(async () => {
         try {
             const { data } = await fetchCustomerOrders();
@@ -29,7 +51,7 @@ export const useCreateTicketModal = () => {
 
                     return {
                         number: order.number,
-                        order_date: order.order_date,
+                        order_date: isoDateToLocaleDate(order.order_date),
                         status: order.status,
                         total: `${order.total.grand_total.value} ${
                             order.total.grand_total.currency === 'EUR' ? '€' : '$'
@@ -74,7 +96,7 @@ export const useCreateTicketModal = () => {
         } catch (error) {
             console.error(error);
         }
-    }, [fetchCustomerOrders, fetchProductImage, formatMessage]);
+    }, [fetchCustomerOrders, fetchProductImage, formatMessage]); //eslint-disable-line
 
     return {
         customerOrdersItems,

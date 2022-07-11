@@ -7,7 +7,7 @@
     "csr.creationDate": "Creation date",
     "csr.customerOrderSelect": "Order number {orderNumber} ({orderData}) - {orderStatus} - {orderTotal}",
     "csr.december": "Dec",
-    "csr.description": "Description",
+    "csr.description": "Description (max. 10000 characters)",
     "csr.dragFile": "Drag a file here",
     "csr.emptyTicketsAdvice": "Oops... Looks like you haven't opened any tickets yet",
     "csr.emptyTicketsSearchAdvice": "Oops... It seems that no tickets were found related to '{searchText}'",
@@ -28,8 +28,6 @@
     "csr.orderIssue": "Order issue",
     "csr.orderIssuePlaceholder": "Describe your problem and what products are related.\nAt B2BStore, our priority is the customer.",
     "csr.search": "Search ticket",
-    "csr.selectOrder": "Select order",
-    "csr.selectTicketType": "Select ticket type",
     "csr.september": "Sep",
     "csr.state": "State",
     "csr.summary": "Summary",
@@ -38,6 +36,6 @@
     "csr.supportTitle": "Support page",
     "csr.ticketNumber": "Ticket number",
     "csr.ticketType": "Ticket type",
-    "csr.title": "Title",
+    "csr.title": "Title (max. 100 characters)",
     "csr.titlePlaceholder": "Enter a title for your ticket"
 }

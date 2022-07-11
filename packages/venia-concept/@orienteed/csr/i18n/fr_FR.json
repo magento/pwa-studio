@@ -7,7 +7,7 @@
     "csr.creationDate": "Date de création",
     "csr.customerOrderSelect": "Numéro de commande {orderNumber} ({orderData}) - {orderStatus} - {orderTotal}",
     "csr.december": "Déc",
-    "csr.description": "La description",
+    "csr.description": "La description (max. 10000 caractères)",
     "csr.dragFile": "Faites glisser un fichier ici",
     "csr.emptyTicketsAdvice": "Oups... Il semble que vous n'ayez pas encore ouvert de tickets",
     "csr.emptyTicketsSearchAdvice": "Oups... Il semble qu'aucun ticket lié à '{searchText}' n'ait été trouvé",
@@ -28,8 +28,6 @@
     "csr.orderIssue": "Problème de commande",
     "csr.orderIssuePlaceholder": "Décrivez votre problème et quels produits sont liés.\nChez B2BStore, notre priorité est le client.",
     "csr.search": "Rechercher par résumé du billet",
-    "csr.selectOrder": "Sélectionner la commande",
-    "csr.selectTicketType": "Sélectionnez le type de billet",
     "csr.september": "Sep",
     "csr.state": "État",
     "csr.summary": "Sommaire",
@@ -38,6 +36,6 @@
     "csr.supportTitle": "Page d'assistance",
     "csr.ticketNumber": "Numéro de billet",
     "csr.ticketType": "Type de billet",
-    "csr.title": "Titre",
+    "csr.title": "Titre (max. 100 caractères)",
     "csr.titlePlaceholder": "Entrez un titre pour votre billet"
 }

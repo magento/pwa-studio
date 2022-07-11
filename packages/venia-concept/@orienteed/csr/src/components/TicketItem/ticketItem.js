@@ -57,7 +57,7 @@ const TicketItem = props => {
             .getDay()
             .toString()
             .padStart(2, '0');
-        const month = months[date.getMonth()];
+        const month = months[date.getMonth() - 1];
         const year = date.getFullYear();
         return `${day} ${month} ${year}`;
     };
