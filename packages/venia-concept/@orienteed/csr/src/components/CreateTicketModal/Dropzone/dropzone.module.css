@@ -12,13 +12,11 @@
 }
 
 .dropzoneContainerFull {
-    align-items: center;
     background: #ffffff;
     border-radius: 8px;
     border: 3px dashed var(--orienteed-global-color-orange);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    justify-content: center;
     min-height: 100px;
     padding: 15px;
     gap: 10px;
@@ -31,6 +29,12 @@
     line-height: 16px;
 }
 
+@media (max-width: 600px) {
+    .dropzoneContainerFull {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Files */
 .dropzoneItem {
     background: #f6f8fb;
@@ -39,16 +43,22 @@
     gap: 5px;
     flex-wrap: nowrap;
     height: 45px;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    padding-left: 16px;
+    padding: 16px;
 }
 
 .dropzoneItemName {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 16px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
     color: #e8ab00;
+    display: -webkit-box;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    overflow: hidden;
+    padding-right: 10px;
+    text-overflow: ellipsis;
 }
 
 .dropzoneItemSize {
@@ -56,4 +66,12 @@
     color: #807a7a;
 }
 
+.dropzoneItemCloseButton {
+    width: 14px;
+}
+
+.dropzoneItemDataContainer {
+    display: flex;
+    gap: 10px;
+}
 /* end Files */
