@@ -8,6 +8,7 @@ import {
 } from '@orienteed/requestQuote/src/query/requestQuote.gql';
 import { AFTER_UPDATE_MY_REQUEST_QUOTE } from '@orienteed/requestQuote/src/talons/useQuoteCartTrigger';
 import { setQuoteId } from '@orienteed/requestQuote/src/store';
+
 export const useAddToQuote = () => {
     const [, { addToast }] = useToasts();
     const [addSimpleProductToCart] = useMutation(ADD_SIMPLE_PRODUCT_TO_MP_QUOTE);
@@ -35,6 +36,14 @@ export const useAddToQuote = () => {
         } = await addSimpleProductToCart({
             variables
         });
+        console.log(quote);
+        await setQuoteId(quote.entity_id);
+        await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_REQUEST_QUOTE, { detail: quote }));
+        addToast({
+            type: 'success',
+            message: <FormattedMessage id="quickOrder.addToQuote" defaultMessage="Added to quote successfully" />,
+            timeout: 5000
+        });
     });
     const handleAddCofigItemBySku = useCallback(async items => {
         const variables = {
@@ -58,7 +67,7 @@ export const useAddToQuote = () => {
         } = await addConfigProductToCart({
             variables
         });
-        console.log(quote,'quotequote');
+        console.log(quote, 'quotequote');
         await setQuoteId(quote.entity_id);
         await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_REQUEST_QUOTE, { detail: quote }));
         addToast({

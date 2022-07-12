@@ -27,7 +27,7 @@ const AddQuickOrder = props => {
     const [products, setProducts] = useState(JSON.parse(JSON.stringify(iniArray)));
     const [csvData, setCsvData] = useState([]);
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { handleAddCofigItemBySku } = useAddToQuote();
+    const { handleAddCofigItemBySku ,handleAddItemBySku} = useAddToQuote();
 
     const { formatMessage } = useIntl();
     const warningMsg = formatMessage({
@@ -111,7 +111,7 @@ const AddQuickOrder = props => {
     const addQuoteClick = () => {
         // displayMessage('warning', warningMsg);
         console.log(products, 'products');
-        handleAddCofigItemBySku(products.filter(ele => ele.sku));
+        handleAddItemBySku(products.filter(ele => ele.sku));
         // products.map(ele => ele?.sku && handleAddCofigItemBySku(ele.sku, ele.quantity));
     };
     const downloadCsv = () => {
