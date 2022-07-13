@@ -620,6 +620,7 @@
     "quickOrder.addToQuote": "Added to quote successfully",
     "quickOrder.CreateOrder": "Create Order",
     "quickOrder.DownloadYourSampleFile": "Download your sample file",
+    "quickOrder.emptyItems":"No items found",
     "quickOrder.GetQuote": "Get Quote",
     "quickOrder.HereYouCanUploadOwnFile": "Here you can upload own file XLS, XLSX or CSV and products to cart.",
     "quickOrder.Items": "Items",

@@ -620,6 +620,7 @@
     "quickOrder.addToQuote": "Ajouté au devis avec succès",
     "quickOrder.CreateOrder": "Créer une commande",
     "quickOrder.DownloadYourSampleFile": "Téléchargez votre fichier d'échantillons",
+    "quickOrder.emptyItems":"Aucun élément trouvé",
     "quickOrder.GetQuote": "Obtenir un devis",
     "quickOrder.HereYouCanUploadOwnFile": "Ici vous pouvez télécharger votre propre fichier XLS, XLSX ou CSV et les produits au panier.",
     "quickOrder.Items": "Articles",

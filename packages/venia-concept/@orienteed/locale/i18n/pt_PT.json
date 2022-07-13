@@ -620,6 +620,7 @@
     "quickOrder.addToQuote": "Adicionado para citar com sucesso",
     "quickOrder.CreateOrder": "Criar ordem",
     "quickOrder.DownloadYourSampleFile": "Descarregue o seu ficheiro de amostra",
+    "quickOrder.emptyItems":"Nenhum artigo encontrado items found",
     "quickOrder.GetQuote": "Obter Citação",
     "quickOrder.HereYouCanUploadOwnFile": "Aqui pode carregar o seu próprio ficheiro XLS, XLSX ou CSV e produtos para o carrinho.",
     "quickOrder.Items": "Artigos",
