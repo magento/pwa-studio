@@ -57,7 +57,9 @@ export const useAddToQuote = () => {
                         data: {
                             sku: ele.sku,
                             quantity: ele.quantity || 1
-                        }
+                        },
+                        parent_sku:ele.orParentSku
+
                     };
                 })
             }
@@ -71,7 +73,9 @@ export const useAddToQuote = () => {
         } = await addConfigProductToCart({
             variables
         });
-        console.log(quote, 'quotequote');
+        const {
+            data: { mpQuoteSubmit }
+        } = await submitCurrentQuote();
         await setQuoteId(quote.entity_id);
         await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_REQUEST_QUOTE, { detail: quote }));
         addToast({

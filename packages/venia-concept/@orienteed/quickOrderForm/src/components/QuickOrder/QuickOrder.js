@@ -110,7 +110,7 @@ const AddQuickOrder = props => {
     };
     const addQuoteClick = () => {
         if (products.filter(ele => ele.sku).length > 0) {
-            handleAddItemBySku(products.filter(ele => ele.sku));
+            handleAddCofigItemBySku(products.filter(ele => ele.sku));
         } else {
             return addToast({
                 type: 'warning',
