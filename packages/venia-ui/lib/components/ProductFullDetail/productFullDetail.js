@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { useMemo, Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -54,6 +54,7 @@ const ProductFullDetail = props => {
         customAttributes,
         wishlistButtonProps
     } = talonProps;
+
     const { formatMessage } = useIntl();
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -128,6 +129,44 @@ const ProductFullDetail = props => {
         }
     }
 
+    const customAttributesDetails = useMemo(() => {
+        const list = [];
+        const pagebuilder = [];
+        const skuAttribute = {
+            attribute_metadata: {
+                uid: 'attribute_sku',
+                used_in_components: ['PRODUCT_DETAILS_PAGE'],
+                ui_input: {
+                    ui_input_type: 'TEXT'
+                },
+                label: formatMessage({
+                    id: 'global.sku',
+                    defaultMessage: 'SKU'
+                })
+            },
+            entered_attribute_value: {
+                value: productDetails.sku
+            }
+        };
+        if (Array.isArray(customAttributes)) {
+            customAttributes.forEach(customAttribute => {
+                if (
+                    customAttribute.attribute_metadata.ui_input
+                        .ui_input_type === 'PAGEBUILDER'
+                ) {
+                    pagebuilder.push(customAttribute);
+                } else {
+                    list.push(customAttribute);
+                }
+            });
+        }
+        list.unshift(skuAttribute);
+        return {
+            list: list,
+            pagebuilder: pagebuilder
+        };
+    }, [customAttributes, productDetails.sku, formatMessage]);
+
     const cartCallToActionText = !isOutOfStock ? (
         <FormattedMessage
             id="productFullDetail.addItemToCart"
@@ -163,6 +202,20 @@ const ProductFullDetail = props => {
         </div>
     );
 
+    const shortDescription = productDetails.shortDescription ? (
+        <RichContent html={productDetails.shortDescription.html} />
+    ) : null;
+
+    const pageBuilderAttributes = customAttributesDetails.pagebuilder.length ? (
+        <section className={classes.detailsPageBuilder}>
+            <CustomAttributes
+                classes={{ list: classes.detailsPageBuilderList }}
+                customAttributes={customAttributesDetails.pagebuilder}
+                showLabels={false}
+            />
+        </section>
+    ) : null;
+
     return (
         <Fragment>
             {breadcrumbs}
@@ -171,8 +224,12 @@ const ProductFullDetail = props => {
                 data-cy="ProductFullDetail-root"
                 onSubmit={handleAddToCart}
             >
+                <section className={classes.imageCarousel}>
+                    <Carousel images={mediaGalleryEntries} />
+                </section>
                 <section className={classes.title}>
                     <h1
+                        aria-live="polite"
                         className={classes.productName}
                         data-cy="ProductFullDetail-productName"
                     >
@@ -187,9 +244,7 @@ const ProductFullDetail = props => {
                             value={productDetails.price.value}
                         />
                     </p>
-                </section>
-                <section className={classes.imageCarousel}>
-                    <Carousel images={mediaGalleryEntries} />
+                    {shortDescription}
                 </section>
                 <FormError
                     classes={{
@@ -226,22 +281,27 @@ const ProductFullDetail = props => {
                         className={classes.descriptionTitle}
                     >
                         <FormattedMessage
-                            id={'productFullDetail.productDescription'}
-                            defaultMessage={'Product Description'}
+                            id={'productFullDetail.description'}
+                            defaultMessage={'Description'}
                         />
                     </span>
                     <RichContent html={productDetails.description} />
                 </section>
                 <section className={classes.details}>
-                    <span className={classes.detailsTitle}>
+                    <span
+                        data-cy="ProductFullDetail-detailsTitle"
+                        className={classes.detailsTitle}
+                    >
                         <FormattedMessage
-                            id={'global.sku'}
-                            defaultMessage={'SKU'}
+                            id={'productFullDetail.details'}
+                            defaultMessage={'Details'}
                         />
                     </span>
-                    <strong>{productDetails.sku}</strong>
-                    <CustomAttributes customAttributes={customAttributes} />
+                    <CustomAttributes
+                        customAttributes={customAttributesDetails.list}
+                    />
                 </section>
+                {pageBuilderAttributes}
             </Form>
         </Fragment>
     );
@@ -253,6 +313,8 @@ ProductFullDetail.propTypes = {
         description: string,
         descriptionTitle: string,
         details: string,
+        detailsPageBuilder: string,
+        detailsPageBuilderList: string,
         detailsTitle: string,
         imageCarousel: string,
         options: string,
@@ -260,6 +322,7 @@ ProductFullDetail.propTypes = {
         productPrice: string,
         quantity: string,
         quantityTitle: string,
+        quantityRoot: string,
         root: string,
         title: string,
         unavailableContainer: string
@@ -286,7 +349,11 @@ ProductFullDetail.propTypes = {
                 file: string.isRequired
             })
         ),
-        description: string
+        description: string,
+        short_description: shape({
+            html: string,
+            __typename: string
+        })
     }).isRequired
 };
 

@@ -4,6 +4,7 @@ import DEFAULT_OPERATIONS from './guestForm.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '../../../../context/cart';
+import { useEventingContext } from '../../../../context/eventing';
 
 export const useGuestForm = props => {
     const {
@@ -45,6 +46,18 @@ export const useGuestForm = props => {
     // Simple heuristic to indicate form was submitted prior to this render
     const isUpdate = !!shippingData.city;
 
+    const [, { dispatch }] = useEventingContext();
+    const dispatchEvent = useCallback(() => {
+        if (!isUpdate) {
+            dispatch({
+                type: 'CHECKOUT_SHIPPING_INFORMATION_ADDED',
+                payload: {
+                    cart_id: cartId
+                }
+            });
+        }
+    }, [isUpdate, cartId, dispatch]);
+
     const handleSubmit = useCallback(
         async formValues => {
             const { country, email, region, ...address } = formValues;
@@ -63,6 +76,7 @@ export const useGuestForm = props => {
                         }
                     }
                 });
+                dispatchEvent();
             } catch {
                 return;
             }
@@ -71,7 +85,7 @@ export const useGuestForm = props => {
                 afterSubmit();
             }
         },
-        [afterSubmit, cartId, setGuestShipping]
+        [afterSubmit, cartId, setGuestShipping, dispatchEvent]
     );
 
     const handleCancel = useCallback(() => {

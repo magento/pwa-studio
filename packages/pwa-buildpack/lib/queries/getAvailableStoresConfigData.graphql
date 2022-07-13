@@ -1,6 +1,6 @@
 query availableStoresConfigData {
     availableStores {
-        code
+        store_code
         id
         secure_base_media_url
         store_name

@@ -2,6 +2,7 @@ import React from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../../../util/createTestInstance';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import { useCustomerForm } from '../useCustomerForm';
 
 const mockCreateCustomerAddress = jest.fn();
@@ -37,6 +38,10 @@ jest.mock('../customerForm.gql', () => ({
     getCustomerQuery: 'getCustomerQuery',
     getCustomerAddressesQuery: 'getCustomerAddressesQuery',
     getDefaultShippingQuery: 'getCustomerAddressesQuery'
+}));
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const Component = props => {
@@ -304,5 +309,112 @@ describe('returns Apollo errors', () => {
         const { talonProps } = root.findByType('i').props;
 
         expect(talonProps.formErrors).toMatchSnapshot();
+    });
+});
+
+describe('should dispatch event(s)', () => {
+    test('`add` and `create` when created first address', async () => {
+        const mockDispatchEvent = jest.fn();
+        useEventingContext.mockReturnValue([
+            {},
+            { dispatch: mockDispatchEvent }
+        ]);
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        await talonProps.handleSubmit({
+            country: 'US',
+            email: 'fry@planet.express',
+            firstname: 'Philip',
+            region: {
+                region_id: 2
+            },
+            street: ['Street 1']
+        });
+
+        expect(mockDispatchEvent).toHaveBeenCalledTimes(2);
+        expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+        expect(mockDispatchEvent.mock.calls[1][0]).toMatchSnapshot();
+    });
+
+    test('`create` when new address added to the address book', async () => {
+        const mockDispatchEvent = jest.fn();
+        useEventingContext.mockReturnValue([
+            {},
+            { dispatch: mockDispatchEvent }
+        ]);
+        useQuery.mockReturnValueOnce({
+            data: {
+                customer: {
+                    default_shipping: 5,
+                    email: 'fry@planet.express',
+                    firstname: 'Philip',
+                    lastname: 'Fry'
+                }
+            },
+            error: null,
+            loading: true
+        });
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        await talonProps.handleSubmit({
+            country: 'US',
+            email: 'fry@planet.express',
+            firstname: 'Philip',
+            region: {
+                region_id: 2
+            },
+            street: ['Street 1']
+        });
+
+        expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
+        expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('`edit` when user updates address', async () => {
+        const mockDispatchEvent = jest.fn();
+        useEventingContext.mockReturnValue([
+            {},
+            { dispatch: mockDispatchEvent }
+        ]);
+        useQuery.mockReturnValueOnce({
+            data: {
+                customer: {
+                    default_shipping: 5,
+                    email: 'fry@planet.express',
+                    firstname: 'Philip',
+                    lastname: 'Fry'
+                }
+            },
+            error: null,
+            loading: true
+        });
+
+        const tree = createTestInstance(
+            <Component
+                {...mockProps}
+                shippingData={{ ...shippingData, city: 'New York', id: 66 }}
+            />
+        );
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        await talonProps.handleSubmit({
+            country: 'US',
+            email: 'fry@planet.express',
+            firstname: 'Philip',
+            region: {
+                region_id: 2
+            },
+            street: ['Street 2']
+        });
+
+        expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
+        expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
     });
 });

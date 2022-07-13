@@ -55,7 +55,9 @@ const SavedPaymentsPage = props => {
     return (
         <div className={classes.root}>
             <StoreTitle>{title}</StoreTitle>
-            <h1 className={classes.heading}>{title}</h1>
+            <h1 aria-live="polite" className={classes.heading}>
+                {title}
+            </h1>
             <div className={classes.content}>{savedPaymentElements}</div>
             <div className={classes.noPayments}>{noSavedPayments}</div>
         </div>

@@ -51,7 +51,7 @@ const { assertCreateAccount } = myAccountMenuAssertions;
 
 describe(
     'PWA-1421: verify customer account address book actions',
-    { tags: ['@commerce', '@open-source', '@ci', '@authuser'] },
+    { tags: ['@e2e', '@commerce', '@open-source', '@ci', '@authuser'] },
     () => {
         it('user should be able to update their address book', () => {
             // Test - Create an account

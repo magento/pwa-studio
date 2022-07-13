@@ -32,6 +32,7 @@ const GalleryItem = props => {
     const {
         handleLinkClick,
         item,
+        itemRef,
         wishlistButtonProps,
         isSupportedProductType
     } = useGalleryItem(props);
@@ -70,6 +71,11 @@ const GalleryItem = props => {
         </div>
     );
 
+    // fallback to regular price when final price is unavailable
+    const priceSource =
+        price_range.maximum_price.final_price ||
+        price_range.maximum_price.regular_price;
+
     // Hide the Rating component until it is updated with the new look and feel (PWA-2512).
     const ratingAverage = null;
     // const ratingAverage = rating_summary ? (
@@ -82,6 +88,7 @@ const GalleryItem = props => {
             className={classes.root}
             aria-live="polite"
             aria-busy="false"
+            ref={itemRef}
         >
             <Link
                 onClick={handleLinkClick}
@@ -112,10 +119,8 @@ const GalleryItem = props => {
             </Link>
             <div data-cy="GalleryItem-price" className={classes.price}>
                 <Price
-                    value={price_range.maximum_price.regular_price.value}
-                    currencyCode={
-                        price_range.maximum_price.regular_price.currency
-                    }
+                    value={priceSource.value}
+                    currencyCode={priceSource.currency}
                 />
             </div>
 
@@ -152,9 +157,16 @@ GalleryItem.propTypes = {
         sku: string.isRequired,
         price_range: shape({
             maximum_price: shape({
+                final_price: shape({
+                    value: number.isRequired,
+                    currency: string.isRequired
+                }),
                 regular_price: shape({
                     value: number.isRequired,
                     currency: string.isRequired
+                }).isRequired,
+                discount: shape({
+                    amount_off: number.isRequired
                 }).isRequired
             }).isRequired
         }).isRequired

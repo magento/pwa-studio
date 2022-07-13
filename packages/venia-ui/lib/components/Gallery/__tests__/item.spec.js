@@ -4,6 +4,9 @@ import { createTestInstance } from '@magento/peregrine';
 
 import Item from '../item';
 
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
     return {
         useImage: () => ({
@@ -49,7 +52,7 @@ const validItem = {
     sku: 'sku-123',
     price_range: {
         maximum_price: {
-            regular_price: {
+            final_price: {
                 value: 21,
                 currency: 'USD'
             }

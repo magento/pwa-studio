@@ -10,6 +10,7 @@ export const ProductListFragment = gql`
             product {
                 uid
                 name
+                sku
                 url_key
                 thumbnail {
                     url
@@ -34,6 +35,9 @@ export const ProductListFragment = gql`
             prices {
                 price {
                     currency
+                    value
+                }
+                total_item_discount {
                     value
                 }
             }
