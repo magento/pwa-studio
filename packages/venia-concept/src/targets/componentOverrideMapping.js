@@ -182,4 +182,8 @@ module.exports = componentOverrideMapping = {
     //new overwrite
     [`@magento/venia-ui/lib/components/SearchBar/searchBar.module.css`]: './src/components/SearchBar/searchBar.module.css',
     [`@magento/venia-ui/lib/components/SearchBar/suggestedProduct.module.css`]: './src/components/SearchBar/suggestedProduct.module.css',
+
+    //new overwrite
+    [`@magento/venia-ui/lib/components/ToastContainer/toastContainer.module.css`]: './src/components/ToastContainer/toastContainer.module.css',
+
 };
