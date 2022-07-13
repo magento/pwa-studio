@@ -27,7 +27,7 @@ const AddQuickOrder = props => {
     const [products, setProducts] = useState(JSON.parse(JSON.stringify(iniArray)));
     const [csvData, setCsvData] = useState([]);
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { handleAddCofigItemBySku ,handleAddItemBySku} = useAddToQuote();
+    const { handleAddCofigItemBySku, handleAddItemBySku } = useAddToQuote();
 
     const { formatMessage } = useIntl();
     const warningMsg = formatMessage({
@@ -109,10 +109,15 @@ const AddQuickOrder = props => {
         handleAddProductsToCart(dataValidated);
     };
     const addQuoteClick = () => {
-        // displayMessage('warning', warningMsg);
-        console.log(products, 'products');
-        handleAddItemBySku(products.filter(ele => ele.sku));
-        // products.map(ele => ele?.sku && handleAddCofigItemBySku(ele.sku, ele.quantity));
+        if (products.filter(ele => ele.sku).length > 0) {
+            handleAddItemBySku(products.filter(ele => ele.sku));
+        } else {
+            return addToast({
+                type: 'warning',
+                message: <FormattedMessage id="quickOrder.emptyItems" defaultMessage="No items found" />,
+                timeout: 5000
+            });
+        } 
     };
     const downloadCsv = () => {
         const newArr = [...products];
