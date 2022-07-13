@@ -111,10 +111,16 @@ export const getFiltersFromSearch = initialValue => {
 export const sortFiltersArray = initialArray => {
     return initialArray.sort((a, b) => {
         // Place Category filter first
-        if (a['attribute_code'] === 'category_id') {
+        if (
+            a['attribute_code'] === 'category_id' ||
+            a['attribute_code'] === 'category_uid'
+        ) {
             return -1;
         }
-        if (b['attribute_code'] === 'category_id') {
+        if (
+            b['attribute_code'] === 'category_id' ||
+            b['attribute_code'] === 'category_uid'
+        ) {
             return 1;
         }
 

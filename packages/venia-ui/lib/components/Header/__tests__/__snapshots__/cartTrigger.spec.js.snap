@@ -4,6 +4,7 @@ exports[`Cart counter displays 99+ when items quantity is more than 99 1`] = `
 Array [
   <div>
     <button
+      aria-expanded={false}
       aria-label="Toggle mini cart. You have 100 items in your cart."
       onClick={[Function]}
     >
@@ -39,6 +40,7 @@ Array [
     </button>
   </div>,
   <button
+    aria-expanded={false}
     aria-label="Toggle mini cart. You have 100 items in your cart."
     onClick={[Function]}
   >
@@ -83,6 +85,7 @@ exports[`Cart icon svg has fill and correct value when cart contains items 1`] =
 Array [
   <div>
     <button
+      aria-expanded={false}
       aria-label="Toggle mini cart. You have 10 items in your cart."
       onClick={[Function]}
     >
@@ -118,6 +121,7 @@ Array [
     </button>
   </div>,
   <button
+    aria-expanded={false}
     aria-label="Toggle mini cart. You have 10 items in your cart."
     onClick={[Function]}
   >
@@ -164,6 +168,7 @@ exports[`No counter when cart is empty 1`] = `
 Array [
   <div>
     <button
+      aria-expanded={false}
       aria-label="Toggle mini cart. You have 0 items in your cart."
       onClick={[Function]}
     >
@@ -196,6 +201,7 @@ Array [
     </button>
   </div>,
   <button
+    aria-expanded={false}
     aria-label="Toggle mini cart. You have 0 items in your cart."
     onClick={[Function]}
   >

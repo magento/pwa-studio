@@ -40,6 +40,12 @@ export const ProductListingFragment = gql`
                     currency
                     value
                 }
+                row_total {
+                    value
+                }
+                total_item_discount {
+                    value
+                }
             }
             quantity
             errors {

@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`handleAddToCart callback should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 10,
+    "name": "Product Name",
+    "priceTotal": 99,
+    "quantity": 1,
+    "selectedOptions": null,
+    "sku": "shoggoth-shirt",
+  },
+  "type": "CART_ADD_ITEM",
+}
+`;
+
 exports[`it returns the correct shape 1`] = `
 Object {
   "addToCartButtonProps": Object {

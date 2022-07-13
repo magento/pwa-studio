@@ -18,7 +18,7 @@ beforeEach(() => {
     global.AVAILABLE_STORE_VIEWS = [
         {
             base_currency_code: 'USD',
-            code: 'default',
+            store_code: 'default',
             default_display_currency_code: 'USD',
             id: 1,
             locale: 'en_US',
@@ -27,7 +27,7 @@ beforeEach(() => {
         },
         {
             base_currency_code: 'EUR',
-            code: 'french',
+            store_code: 'french',
             default_display_currency_code: 'EUR',
             id: 2,
             locale: 'fr_FR',

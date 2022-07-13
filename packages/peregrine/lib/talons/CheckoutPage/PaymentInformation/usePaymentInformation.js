@@ -5,6 +5,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '../../../context/cart';
 import CheckoutError from '../CheckoutError';
+import { useEventingContext } from '../../../context/eventing';
 import { CHECKOUT_STEP } from '../useCheckoutPage';
 
 /**
@@ -44,6 +45,7 @@ export const usePaymentInformation = props => {
     const [isEditModalActive, setIsEditModalActive] = useState(false);
     const [{ cartId }] = useCartContext();
     const client = useApolloClient();
+    const [, { dispatch }] = useEventingContext();
 
     /**
      * Helper Functions
@@ -243,6 +245,18 @@ export const usePaymentInformation = props => {
             handleExpiredPaymentError();
         }
     }, [checkoutError, handleExpiredPaymentError]);
+
+    useEffect(() => {
+        if (doneEditing) {
+            dispatch({
+                type: 'CHECKOUT_BILLING_INFORMATION_ADDED',
+                payload: {
+                    cart_id: cartId,
+                    selected_payment_method: selectedPaymentMethod
+                }
+            });
+        }
+    }, [cartId, selectedPaymentMethod, doneEditing, dispatch]);
 
     return {
         doneEditing,

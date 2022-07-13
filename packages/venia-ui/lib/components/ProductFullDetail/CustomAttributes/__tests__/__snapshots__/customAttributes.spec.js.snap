@@ -2,9 +2,6 @@
 
 exports[`#CustomAttributes renders with custom attributes visible on front only 1`] = `
 <div>
-  <p>
-    Details
-  </p>
   <ul>
     <li>
       <mock-AttributeType

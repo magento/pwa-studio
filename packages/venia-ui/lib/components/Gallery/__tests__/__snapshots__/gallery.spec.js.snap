@@ -87,7 +87,7 @@ exports[`renders if \`items\` is an array of objects 1`] = `
               "name": "Test Product 1",
               "price_range": Object {
                 "maximum_price": Object {
-                  "regular_price": Object {
+                  "final_price": Object {
                     "currency": "USD",
                     "value": 100,
                   },
@@ -183,7 +183,7 @@ exports[`renders if \`items\` is an array of objects 1`] = `
               "name": "Test Product 2",
               "price_range": Object {
                 "maximum_price": Object {
-                  "regular_price": Object {
+                  "final_price": Object {
                     "currency": "USD",
                     "value": 100,
                   },

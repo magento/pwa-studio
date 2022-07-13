@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "11.2.0",
+  "version": "11.4.0",
   "publishConfig": {
     "access": "public"
   },
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "~0.1.7",
-    "@magento/upward-js": "~5.3.0",
+    "@magento/upward-js": "~5.3.2",
     "@pmmmwh/react-refresh-webpack-plugin": "~0.4.3",
     "@yarnpkg/lockfile": "~1.1.0",
     "apicache": "~1.4.0",

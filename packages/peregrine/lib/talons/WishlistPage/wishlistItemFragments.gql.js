@@ -17,6 +17,9 @@ export const WishlistItemFragment = gql`
                         currency
                         value
                     }
+                    discount {
+                        amount_off
+                    }
                 }
             }
             sku
