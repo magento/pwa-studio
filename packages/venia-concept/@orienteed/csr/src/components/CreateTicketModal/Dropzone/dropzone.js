@@ -1,28 +1,24 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable react/jsx-no-literals */
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDropzone } from 'react-dropzone';
 
-import { useCommonToasts } from '@magento/venia-ui/lib/components/Wishlist/AddToListButton/useCommonToasts';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './dropzone.module.css';
 
 import plusIcon from './Icons/plus.svg';
 import closeIcon from './Icons/close.svg';
+
 const MAX_FILE_SIZE = 10000000;
+const MAX_FILES_ACCEPTED = 6;
 
 const Dropzone = props => {
-    const { filesUploaded, setFilesUploaded } = props;
-
+    const { filesUploaded, setFilesUploaded, setDropzoneError } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const { formatMessage } = useIntl();
-    const [errorFound, setErrorFound] = useState(null);
-
-    const dragFileText = formatMessage({ id: 'csr.dragFile', defaultMessage: 'Drag a file here' });
-
     const acceptedFilesTypes = [
         'application/gzip',
         'application/pdf',
@@ -43,25 +39,30 @@ const Dropzone = props => {
         'video/mpeg'
     ];
 
-    const errorFilesToastProps = useEffect(() => {
-        if (errorFound !== null) {
+    const { formatMessage } = useIntl();
+    const [errorFound, setErrorFound] = useState(null);
+    const dragFileText = formatMessage({ id: 'csr.dragFile', defaultMessage: 'Drag a file here' });
+
+    useEffect(() => {
+        if (errorFound !== null && errorFound !== '') {
             let customMessage;
-            if (errorFound[0].code === 'file_too_large') {
+            if (errorFound[0].code === 'file-too-large') {
                 customMessage = formatMessage({
                     id: 'csr.fileExceedsMaxSize',
                     defaultMessage: 'File exceeds maximum size of 10MB'
                 });
-            } else if (errorFound[0].code === 'file_too_many') {
+                setDropzoneError(customMessage);
+            } else if (errorFound[0].code === 'too-many-files') {
                 customMessage = formatMessage({
                     id: 'csr.maxFilesReached',
                     defaultMessage: 'Maximum number of files reached'
                 });
-            } else if (errorFound[0].code === 'file_invalid_type') {
+            } else if (errorFound[0].code === 'file-invalid-type') {
                 customMessage = formatMessage({
                     id: 'csr.fileTypeNotSupported',
                     defaultMessage: 'File type not supported'
                 });
-            } else if (errorFound[0].code === 'file_invalid_extension') {
+            } else if (errorFound[0].code === 'file-invalid-extension') {
                 customMessage = formatMessage({
                     id: 'csr.fileExtensionNotSupported',
                     defaultMessage: 'File extension not supported'
@@ -72,62 +73,58 @@ const Dropzone = props => {
                     defaultMessage: 'Something went wrong with the file you tried to upload.'
                 });
             }
-
-            return {
-                type: 'error',
-                message: customMessage,
-                timeout: 5000
-            };
+            setDropzoneError(customMessage);
         }
-
-        return null;
-    }, [errorFound, formatMessage]);
-
-    useCommonToasts({ errorFilesToastProps });
+    }, [formatMessage, setDropzoneError, errorFound]);
 
     const onDrop = useCallback(
-        (acceptedFiles, rejectedFiles) => {
+        (attachedFiles, rejectedFiles) => {
+            setDropzoneError('');
+
             if (rejectedFiles.length > 0) {
-                console.log(rejectedFiles);
                 setErrorFound(rejectedFiles[0].errors);
-                setErrorFound(null);
             }
 
-            if (acceptedFiles.length > 0) {
-                acceptedFiles.forEach(file => {
+            if (attachedFiles.length > 0) {
+                attachedFiles.map(file => {
                     const reader = new FileReader();
-                    setFilesUploaded(prevFilesUploaded => [
-                        ...prevFilesUploaded,
-                        {
-                            name: file.name,
-                            size: file.size,
-                            mimeType: file.type,
-                            content: reader.readAsDataURL(file)
-                        }
-                    ]);
+                    reader.readAsDataURL(file);
+                    reader.onload = e => {
+                        setFilesUploaded(prevFilesUploaded => [
+                            ...prevFilesUploaded,
+                            {
+                                name: file.name,
+                                size: file.size,
+                                mimeType: file.type,
+                                content: e.target.result.split(',')[1]
+                            }
+                        ]);
+                    };
                 });
             }
         },
 
-        [setFilesUploaded]
+        [setFilesUploaded, setDropzoneError]
     );
+
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        maxFiles: MAX_FILES_ACCEPTED,
+        maxSize: MAX_FILE_SIZE,
+        multiple: true,
+        accept: acceptedFilesTypes
+    });
 
     const deleteUploadedFile = file => {
         setFilesUploaded(prevAcceptedFiles => prevAcceptedFiles.filter(f => f.name !== file.name));
     };
 
-    const { getRootProps, getInputProps } = useDropzone({
-        onDrop: onDrop,
-        maxFiles: 6,
-        maxSize: MAX_FILE_SIZE,
-        multiple: false,
-        accept: acceptedFilesTypes
-    });
-
     return (
         <section
             className={filesUploaded.length === 0 ? classes.dropzoneContainerEmpty : classes.dropzoneContainerFull}
-            {...getRootProps()}
+            {...getRootProps({
+                onClick: event => filesUploaded.length >= 6 && event.stopPropagation()
+            })}
         >
             <input {...getInputProps()} />
             {filesUploaded.length === 0 ? (
@@ -146,7 +143,7 @@ const Dropzone = props => {
                     >
                         <p className={classes.dropzoneItemName}>{file.name}</p>
                         <div className={classes.dropzoneItemDataContainer}>
-                            <p className={classes.dropzoneItemSize}>({Math.ceil(file.size / 1000)}KB)</p>
+                            <p className={classes.dropzoneItemSize}>{Math.ceil(file.size / 1000)} KB</p>
                             <img
                                 className={classes.dropzoneItemCloseButton}
                                 src={closeIcon}

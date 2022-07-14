@@ -63,7 +63,7 @@ export const useCreateTicketModal = () => {
 
             let customerOrdersSelect = [
                 {
-                    value: '',
+                    value: customerOrdersItems.length !== 0 ? 'notSelected' : 'notFound',
                     label:
                         customerOrdersItems.length !== 0
                             ? formatMessage({ id: 'csr.selectOrder', defaultMessage: 'Select order' })

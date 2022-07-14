@@ -12,6 +12,7 @@
 .orderItemDataContainer {
     composes: orderItemContainer;
     flex-wrap: nowrap;
+    height: 100px;
 }
 
 .orderItemImage {
@@ -22,6 +23,7 @@
 .orderItemFieldContainer {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .orderItemFieldTitle {
@@ -37,10 +39,11 @@
 }
 
 @media (min-width: 800px) {
-.orderItemDataContainer > .orderItemFieldContainer + .orderItemFieldContainer {
-    border-left: 1px solid #cecccc;
-    padding: 0 20px
-}
+    .orderItemDataContainer > .orderItemFieldContainer + .orderItemFieldContainer {
+        border-left: 1px solid #cecccc;
+        padding-left: 20px;
+        height: 100%;
+    }
 }
 
 @media (max-width: 800px) {
@@ -54,6 +57,7 @@
         align-items: flex-start;
         width: fit-content;
         gap: 0px;
+        height: auto;
     }
 
     .orderItemFieldTitle::after {
@@ -73,7 +77,7 @@
 
 /***** end Order item view *****/
 
-/* Dialog */
+/***** Dialog *****/
 .root {
     display: flex;
     flex-direction: column;
@@ -89,11 +93,20 @@
     box-shadow: none !important;
 }
 
-/* end Dialog */
+/***** end Dialog *****/
 
+/***** Dropzone *****/
 .acceptedFiles {
     color: var(--orienteed-global-color-orange);
     font-size: 14px;
     font-weight: 500;
     line-height: 16px;
 }
+
+.errorMessage {
+    color: rgb(var(--venia-global-color-error));
+    font-size: 0.875rem;
+    font-weight: var(--venia-global-fontWeight-semibold);
+    line-height: 1rem;
+}
+/***** end Dropzone *****/

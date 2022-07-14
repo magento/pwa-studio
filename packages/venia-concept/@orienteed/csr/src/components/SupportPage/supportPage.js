@@ -269,9 +269,6 @@ const ContentDialog = props => {
             />
             <CreateTicketModal
                 isOpen={ticketModal}
-                onConfirm={() => {
-                    console.log('hola');
-                }}
                 onCancel={() => {
                     setTicketModal(false);
                 }}
