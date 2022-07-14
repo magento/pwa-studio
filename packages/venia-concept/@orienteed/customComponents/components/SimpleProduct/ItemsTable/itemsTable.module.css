@@ -68,6 +68,7 @@
 .totalPriceContainer {
     display: flex;
     margin-bottom: 5px;
+    width: 100%;
 }
 .totalWrapper {
     margin-left: 10px;
@@ -183,6 +184,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
 }
 
 .productItemBodyOperations {
@@ -191,7 +193,7 @@
     flex-wrap: wrap;
     align-content: center;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
 }
 
@@ -199,9 +201,7 @@
     margin: 10px 0px;
 }
 
-.productItemBodyInformation
-    > .productItemBodyInformationRow
-    + .productItemBodyInformationRow {
+.productItemBodyInformation > .productItemBodyInformationRow + .productItemBodyInformationRow {
     border-top: 1px solid rgb(var(--venia-global-color-border));
 }
 
@@ -230,8 +230,6 @@
 
 .actionsContainer {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
     align-content: center;
     align-items: center;
     justify-content: space-evenly;
@@ -248,4 +246,8 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-around;
+}
+
+.totalPriceContainer div {
+    width: max-content;
 }
