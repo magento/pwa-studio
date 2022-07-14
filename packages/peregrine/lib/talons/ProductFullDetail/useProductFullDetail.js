@@ -12,10 +12,13 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './productFullDetail.gql';
 import { useEventingContext } from '../../context/eventing';
+import { findAllMatchingVariants } from '@magento/peregrine/lib/util/findAllMatchingVariants';
+import { getOutOfStockIndexes } from '@magento/peregrine/lib/util/getOutOfStockIndexes';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
 const OUT_OF_STOCK_CODE = 'OUT_OF_STOCK';
+const IN_STOCK_CODE = 'IN_STOCK';
 
 const deriveOptionCodesFromProduct = product => {
     // If this is a simple product it has no option codes.
@@ -84,6 +87,111 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
         return stockStatus === OUT_OF_STOCK_CODE || !stockStatus;
     }
     return stock_status === OUT_OF_STOCK_CODE;
+};
+const getIsAllOutOfStock = product => {
+    const { stock_status, variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+
+    if (isConfigurable) {
+        const inStockItem = variants.find(item => {
+            return item.product.stock_status === IN_STOCK_CODE;
+        });
+        return !inStockItem;
+    }
+
+    return stock_status === OUT_OF_STOCK_CODE;
+};
+
+const getOutOfStockVariants = (
+    product,
+    optionCodes,
+    singleOptionSelection,
+    optionSelections
+) => {
+    const { variants } = product;
+
+    const isConfigurable = isProductConfigurable(product);
+    const singeOptionSelected =
+        singleOptionSelection && singleOptionSelection.size === 1;
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        1;
+    const outOfStockIndexes = [];
+
+    function getCombinations(arr, k, prefix = []) {
+        if (k == 0) return [prefix];
+        return arr.flatMap((v, i) =>
+            getCombinations(arr.slice(i + 1), k - 1, [...prefix, v])
+        );
+    }
+    if (isConfigurable) {
+        const numberOfVariations = variants[0].attributes.length;
+        const selectedIndexes = Array.from(optionSelections.values()).flat();
+
+        // If only one pair of variations, display out of stock variations before option selection
+        if (numberOfVariations === 1) {
+            let outOfStockOptions = variants.filter(
+                variant => variant.product.stock_status === OUT_OF_STOCK_CODE
+            );
+
+            let outOfStockIndex = outOfStockOptions.map(option =>
+                option.attributes.map(attribute => attribute.value_index)
+            );
+            return outOfStockIndex;
+        } else {
+            if (singeOptionSelected) {
+                const items = findAllMatchingVariants({
+                    optionCodes,
+                    singleOptionSelection,
+                    variants
+                });
+                const outOfStockItemsIndexes = getOutOfStockIndexes(items);
+
+                // For all the out of stock options associated with current selection, display out of stock swatches
+                // when the number of matching indexes of selected indexes and out of stock indexes are not smaller than the total groups of swatches minus 1
+                for (const indexes of outOfStockItemsIndexes) {
+                    const sameIndexes = indexes.filter(num =>
+                        selectedIndexes.includes(num)
+                    );
+                    const differentIndexes = indexes.filter(
+                        num => !selectedIndexes.includes(num)
+                    );
+                    if (sameIndexes.length >= optionCodes.size - 1) {
+                        outOfStockIndexes.push(differentIndexes);
+                    }
+                }
+                // Display all possible out of stock swatches with current selections, when all groups of swatches are selected
+                if (optionsSelected && !selectedIndexes.includes(undefined)) {
+                    const selectedIndexesCombinations = getCombinations(
+                        selectedIndexes,
+                        selectedIndexes.length - 1
+                    );
+                    // Find out of stock items and indexes for each combination
+                    let oosIndexes = [];
+                    for (const option of selectedIndexesCombinations) {
+                        // Map the option indexes to their optionCodes
+                        const curOption = new Map(
+                            [...optionSelections].filter(([key, val]) =>
+                                option.includes(val)
+                            )
+                        );
+                        const curItems = findAllMatchingVariants({
+                            optionCodes: optionCodes,
+                            singleOptionSelection: curOption,
+                            variants: variants
+                        });
+                        const outOfStockIndex = getOutOfStockIndexes(curItems)
+                            .flat()
+                            .filter(idx => !selectedIndexes.includes(idx));
+                        oosIndexes.push(outOfStockIndex);
+                    }
+                    return oosIndexes;
+                }
+                return outOfStockIndexes;
+            }
+        }
+    }
+    return [];
 };
 
 const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
@@ -291,6 +399,8 @@ export const useProductFullDetail = props => {
         derivedOptionSelections
     );
 
+    const [singleOptionSelection, setSingleOptionSelection] = useState();
+
     const derivedOptionCodes = useMemo(
         () => deriveOptionCodesFromProduct(product),
         [product]
@@ -305,6 +415,21 @@ export const useProductFullDetail = props => {
     const isOutOfStock = useMemo(
         () => getIsOutOfStock(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
+    );
+
+    const isALLOutOfStock = useMemo(() => getIsAllOutOfStock(product), [
+        product
+    ]);
+
+    const isVariantsOutOfStock = useMemo(
+        () =>
+            getOutOfStockVariants(
+                product,
+                optionCodes,
+                singleOptionSelection,
+                optionSelections
+            ),
+        [product, optionCodes, singleOptionSelection, optionSelections]
     );
 
     const mediaGalleryEntries = useMemo(
@@ -481,8 +606,12 @@ export const useProductFullDetail = props => {
             const nextOptionSelections = new Map([...optionSelections]);
             nextOptionSelections.set(optionId, selection);
             setOptionSelections(nextOptionSelections);
+            // Create a new Map to keep track of sinlge optionSelection
+            const nextSingleOptionSelection = new Map();
+            nextSingleOptionSelection.set(optionId, selection);
+            setSingleOptionSelection(nextSingleOptionSelection);
         },
-        [optionSelections]
+        [optionSelections, singleOptionSelection]
     );
 
     // Normalization object for product details we need for rendering.
@@ -542,6 +671,8 @@ export const useProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isOutOfStock,
+        isALLOutOfStock,
+        isVariantsOutOfStock,
         isAddToCartDisabled:
             isOutOfStock ||
             isMissingOptions ||

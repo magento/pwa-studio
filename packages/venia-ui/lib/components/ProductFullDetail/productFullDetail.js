@@ -47,6 +47,8 @@ const ProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isOutOfStock,
+        isALLOutOfStock,
+        isVariantsOutOfStock,
         isAddToCartDisabled,
         isSupportedProductType,
         mediaGalleryEntries,
@@ -64,6 +66,8 @@ const ProductFullDetail = props => {
             <Options
                 onSelectionChange={handleSelectionChange}
                 options={product.configurable_options}
+                isALLOutOfStock={isALLOutOfStock}
+                isVariantsOutOfStock={isVariantsOutOfStock}
             />
         </Suspense>
     ) : null;
@@ -167,7 +171,7 @@ const ProductFullDetail = props => {
         };
     }, [customAttributes, productDetails.sku, formatMessage]);
 
-    const cartCallToActionText = !isOutOfStock ? (
+    const cartCallToActionText = !isALLOutOfStock ? (
         <FormattedMessage
             id="productFullDetail.addItemToCart"
             defaultMessage="Add to Cart"
@@ -180,14 +184,25 @@ const ProductFullDetail = props => {
     );
 
     const cartActionContent = isSupportedProductType ? (
-        <Button
-            data-cy="ProductFullDetail-addToCartButton"
-            disabled={isAddToCartDisabled}
-            priority="high"
-            type="submit"
-        >
-            {cartCallToActionText}
-        </Button>
+        <Fragment>
+            <section className={classes.outOfStockProduct}>
+                {isALLOutOfStock && (
+                    <FormattedMessage
+                        data-cy="ProductFullDetail-outOfStockProduct"
+                        id={'productFullDetail.outOfStockProduct'}
+                        defaultMessage={'This item is currently out of stock.'}
+                    />
+                )}
+            </section>
+            <Button
+                data-cy="ProductFullDetail-addToCartButton"
+                disabled={isAddToCartDisabled}
+                priority="high"
+                type="submit"
+            >
+                {cartCallToActionText}
+            </Button>
+        </Fragment>
     ) : (
         <div className={classes.unavailableContainer}>
             <Info />

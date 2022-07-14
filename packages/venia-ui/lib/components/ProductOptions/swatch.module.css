@@ -36,3 +36,18 @@
     composes: checked;
     opacity: 0;
 }
+
+.root_outOfStock,
+.root_selected_outOfStock {
+    composes: root;
+    opacity: 0.4;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+}
+.root_outOfStock:after,
+.root_selected_outOfStock:after {
+    content: '';
+    position: absolute;
+    border-top: 2px solid rgb(var(--venia-global-color-gray-400));
+    width: 62px;
+    transform: rotate(-45deg);
+}
