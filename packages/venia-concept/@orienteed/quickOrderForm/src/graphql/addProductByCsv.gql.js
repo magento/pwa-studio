@@ -40,6 +40,7 @@ export const GET_PRODUCTS_BY_SKU = gql`
         products(search: $sku) {
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
+                orParentSku
                 id
                 uid
                 name
