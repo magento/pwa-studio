@@ -280,7 +280,7 @@ header .productName {
 
     .productsTableContainer {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        /* grid-template-columns: repeat(2, 1fr); */
         gap: 10px;
         margin: 30px;
     }
@@ -293,7 +293,7 @@ header .productName {
 
     .productsTableContainer {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        /* grid-template-columns: repeat(1, 1fr); */
         gap: 10px;
     }
 }
@@ -306,7 +306,7 @@ header .productName {
 
     .productsTableContainer {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        /* grid-template-columns: repeat(2, 1fr); */
         gap: 10px;
     }
 }
@@ -318,7 +318,7 @@ header .productName {
 
     .productsTableContainer {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        /* grid-template-columns: repeat(1, 1fr); */
         gap: 10px;
     }
 }
@@ -327,4 +327,15 @@ header .productName {
     display: block;
     text-decoration: line-through;
     color: '#666666';
+}
+
+@media (min-width: 960px) and (max-width: 1024px) {
+    .imageCarouselContainer {
+        width: 500px;
+        height: 500px;
+    }
+
+    .title {
+        margin-top: 0;
+    }
 }
