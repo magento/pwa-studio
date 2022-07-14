@@ -27,7 +27,7 @@ const AddQuickOrder = props => {
     const [products, setProducts] = useState(JSON.parse(JSON.stringify(iniArray)));
     const [csvData, setCsvData] = useState([]);
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { handleAddCofigItemBySku, handleAddItemBySku } = useAddToQuote();
+    const { handleAddCofigItemBySku, handleAddItemBySku, isLoading: isLoadingAddQuote } = useAddToQuote();
 
     const { formatMessage } = useIntl();
     const warningMsg = formatMessage({
@@ -117,7 +117,7 @@ const AddQuickOrder = props => {
                 message: <FormattedMessage id="quickOrder.emptyItems" defaultMessage="No items found" />,
                 timeout: 5000
             });
-        } 
+        }
     };
     const downloadCsv = () => {
         const newArr = [...products];
@@ -290,7 +290,7 @@ const AddQuickOrder = props => {
                                 </Button>
                             </div>
                             <div>
-                                <Button type="button" priority="high" onClick={addQuoteClick}>
+                                <Button disabled={isLoadingAddQuote} type="button" priority="high" onClick={addQuoteClick}>
                                     <FormattedMessage id="quickOrder.GetQuote" defaultMessage="Get Quote" />
                                 </Button>
                             </div>
