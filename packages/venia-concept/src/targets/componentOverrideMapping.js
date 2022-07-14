@@ -178,7 +178,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/orderTotal.module.css`]: './src/components/OrderHistoryPage/OrderDetails/orderTotal.module.css',
     //
     [`@magento/venia-ui/lib/components/ProductImageCarousel/thumbnail.module.css`]: './src/components/ProductImageCarousel/thumbnail.module.css',
-   
+
     //new overwrite
     [`@magento/venia-ui/lib/components/SearchBar/searchBar.module.css`]: './src/components/SearchBar/searchBar.module.css',
     [`@magento/venia-ui/lib/components/SearchBar/suggestedProduct.module.css`]: './src/components/SearchBar/suggestedProduct.module.css',
@@ -187,5 +187,6 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/Pagination/tile.module.css`]: './src/components/Pagination/tile.module.css',
     // New overwrite
     [`@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js`]: './src/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js',
-
+    // New overwrite
+    [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethods.module.css`]: './src/components/CheckoutPage/PaymentInformation/paymentMethods.module.css'
 };
