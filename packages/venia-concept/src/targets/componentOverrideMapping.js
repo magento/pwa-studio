@@ -178,7 +178,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/orderTotal.module.css`]: './src/components/OrderHistoryPage/OrderDetails/orderTotal.module.css',
     //
     [`@magento/venia-ui/lib/components/ProductImageCarousel/thumbnail.module.css`]: './src/components/ProductImageCarousel/thumbnail.module.css',
-   
+
     //new overwrite
     [`@magento/venia-ui/lib/components/SearchBar/searchBar.module.css`]: './src/components/SearchBar/searchBar.module.css',
     [`@magento/venia-ui/lib/components/SearchBar/suggestedProduct.module.css`]: './src/components/SearchBar/suggestedProduct.module.css',
@@ -188,4 +188,7 @@ module.exports = componentOverrideMapping = {
     // New overwrite
     [`@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js`]: './src/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js',
 
+    //New OverWrite
+    [`@magento/venia-ui/lib/components/LegacyMiniCart/productOptions.module.css`]: './src/components/LegacyMiniCart/productOptions.module.css',
+    [`@magento/venia-ui/lib/components/LegacyMiniCart/productOptions.js`]: './src/components/LegacyMiniCart/productOptions.js'
 };
