@@ -74,7 +74,7 @@ const givenEmptyProps = () => {
 
 const givenValidProps = () => {
     props = {
-        prefetchType: true,
+        shouldPrefetch: true,
         innerRef: { current: 'foo' },
         to: '/bar.html'
     };
@@ -84,7 +84,7 @@ const givenFalsePrefetch = () => {
     givenValidProps();
     props = {
         ...props,
-        prefetchType: false
+        shouldPrefetch: false
     };
 };
 
@@ -173,7 +173,7 @@ describe('#useLink does not run query when', () => {
         expect(mockRunQuery).not.toHaveBeenCalled();
     });
 
-    test('should prefetch is false', async () => {
+    test('prefetch flag is false', async () => {
         givenFalsePrefetch();
 
         await act(() => {

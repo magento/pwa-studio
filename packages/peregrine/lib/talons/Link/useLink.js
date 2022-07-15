@@ -8,9 +8,7 @@ import DEFAULT_OPERATIONS from '../MagentoRoute/magentoRoute.gql';
 const useLink = (props, passedOperations = {}) => {
     const { innerRef: originalRef, to } = props;
     const shouldPrefetch = props.prefetchType || props.shouldPrefetch;
-    const operations = shouldPrefetch
-        ? mergeOperations(DEFAULT_OPERATIONS, passedOperations)
-        : {};
+    const operations = mergeOperations(DEFAULT_OPERATIONS, passedOperations);
 
     const intersectionObserver = useIntersectionObserver();
     const { resolveUrlQuery } = operations;
