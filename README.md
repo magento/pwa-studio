@@ -56,6 +56,12 @@ This repository includes the following packages:
 
 If you have an issue that cannot be resolved, please [create an issue][].
 
+### PWA Studio UI Kit for Adobe XD
+
+Adobe XD makes handoff between designers and engineers more efficient through easy-to-use collaboration tools. The [PWA Studio UI Kit][] contains a collection of templates and components compatible with Adobe Commerce.
+
+![UI Kit](https://raw.githubusercontent.com/wiki/magento/pwa-studio/images/xd-ui-kit.png)
+
 ### Join the conversation
 
 If you have any project questions, concerns, or contribution ideas, join our [#pwa slack channel][]!
@@ -124,3 +130,4 @@ We would like to recognize the following community members for their efforts on 
 [venia]: https://venia.magento.com/
 [public calendar]: https://opensource.magento.com/community-calendar
 [add that calendar]: https://calendar.google.com/calendar/ical/sn3me3pduhd92hhk9s7frkn57o%40group.calendar.google.com/public/basic.ics
+[PWA Studio UI Kit]: https://developer.adobe.com/commerce-xd-kits/

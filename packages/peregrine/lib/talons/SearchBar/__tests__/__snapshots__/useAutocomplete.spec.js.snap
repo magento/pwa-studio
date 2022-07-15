@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dispatches an event when valid and visible are true and there is text value 1`] = `
+Object {
+  "payload": Object {
+    "currentPage": 1,
+    "pageSize": 3,
+    "query": "MOCK_VALUE",
+    "refinements": Array [],
+  },
+  "type": "SEARCHBAR_REQUEST",
+}
+`;

@@ -1,0 +1,15 @@
+{
+    "data": {
+        "cmsPage": {
+            "url_key": "home",
+            "content": "",
+            "content_heading": "",
+            "title": "Empty CMS Page",
+            "page_layout": "cms-full-width",
+            "meta_title": "",
+            "meta_keywords": "",
+            "meta_description": "",
+            "__typename": "CmsPage"
+        }
+    }
+}

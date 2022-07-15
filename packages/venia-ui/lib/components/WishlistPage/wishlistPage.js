@@ -81,7 +81,11 @@ const WishlistPage = props => {
 
     return (
         <div className={classes.root} data-cy="Wishlist-root">
-            <h1 className={classes.heading} data-cy="WishlistPage-heading">
+            <h1
+                aria-live="polite"
+                className={classes.heading}
+                data-cy="WishlistPage-heading"
+            >
                 <FormattedMessage
                     values={{ count: wishlists.length }}
                     id={'wishlistPage.headingText'}
