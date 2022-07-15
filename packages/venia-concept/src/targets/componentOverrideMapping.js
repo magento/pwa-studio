@@ -188,5 +188,9 @@ module.exports = componentOverrideMapping = {
     // New overwrite
     [`@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js`]: './src/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js',
     // New overwrite
-    [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethods.module.css`]: './src/components/CheckoutPage/PaymentInformation/paymentMethods.module.css'
+    [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethods.module.css`]: './src/components/CheckoutPage/PaymentInformation/paymentMethods.module.css',
+
+    // New overwrite
+    [`@magento/venia-ui/lib/components/ToastContainer/toastContainer.module.css`]: './src/components/ToastContainer/toastContainer.module.css',
+
 };

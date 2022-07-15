@@ -92,6 +92,7 @@ export const ADD_SIMPLE_PRODUCT_TO_MP_QUOTE = gql`
                     }
                     product {
                         name
+                        uid
                         url_key
                         url_suffix
                         thumbnail {
@@ -139,6 +140,7 @@ export const ADD_CONFIG_PRODUCT_TO_MP_QUOTE = gql`
                     }
                     product {
                         name
+                        uid
                         url_key
                         url_suffix
                         thumbnail {

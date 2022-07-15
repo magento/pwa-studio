@@ -13,6 +13,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import { useToasts } from '@magento/peregrine';
 import { useAddProductsByCSV } from '../../talons/useAddProductsByCSV';
+import { useAddToQuote } from '../../talons/useAddToQuote';
 
 import defaultClasses from './QuickOrder.module.css';
 import fastCart from './Icons/fastCart.svg';
@@ -23,11 +24,11 @@ const AddQuickOrder = props => {
     const [, { addToast }] = useToasts();
     const { push } = useHistory();
     const [isOpen, setIsOpen] = useState(false);
-    const [products, setProducts] = useState(
-        JSON.parse(JSON.stringify(iniArray))
-    );
+    const [products, setProducts] = useState(JSON.parse(JSON.stringify(iniArray)));
     const [csvData, setCsvData] = useState([]);
     const classes = mergeClasses(defaultClasses, props.classes);
+    const { handleAddCofigItemBySku, handleAddItemBySku, isLoading: isLoadingAddQuote } = useAddToQuote();
+
     const { formatMessage } = useIntl();
     const warningMsg = formatMessage({
         id: 'quickOrder.somethingWentWrongTryAgainLater',
@@ -108,8 +109,15 @@ const AddQuickOrder = props => {
         handleAddProductsToCart(dataValidated);
     };
     const addQuoteClick = () => {
-        displayMessage('warning', warningMsg);
-        //TODO => we are still wating to migrate this feature from the template to b2bstore
+        if (products.filter(ele => ele.sku).length > 0) {
+            handleAddCofigItemBySku(products.filter(ele => ele.sku));
+        } else {
+            return addToast({
+                type: 'warning',
+                message: <FormattedMessage id="quickOrder.emptyItems" defaultMessage="No items found" />,
+                timeout: 5000
+            });
+        }
     };
     const downloadCsv = () => {
         const newArr = [...products];
@@ -135,38 +143,24 @@ const AddQuickOrder = props => {
         setProducts([...products, {}]);
     };
     const removeProduct = key => {
-        const newProducts = JSON.parse(JSON.stringify(products)).filter(
-            (ele, index) => index !== key
-        );
+        const newProducts = JSON.parse(JSON.stringify(products)).filter((ele, index) => index !== key);
         setProducts([...newProducts]);
     };
     const quantitySelector = (item, id) => (
         <div className={classes.inputQtyQuick}>
-            <QuantityStepper
-                min={1}
-                value={item.quantity}
-                onChange={e => onChangeQty(e, id)}
-            />
+            <QuantityStepper min={1} value={item.quantity} onChange={e => onChangeQty(e, id)} />
         </div>
     );
     return (
         <>
             <div className={classes.btnOrderContainer}>
-                <Button
-                    priority="high"
-                    className={`${classes.orderIcon} ${classes.gridBtn}`}
-                    onClick={onOrderClick}
-                >
+                <Button priority="high" className={`${classes.orderIcon} ${classes.gridBtn}`} onClick={onOrderClick}>
                     <img src={fastCart} alt="Cart icon" />
                 </Button>
             </div>
             <div className={classes.quickOrderDialog}>
                 <Dialog
-                    title=
-                  {  <FormattedMessage
-                    id="quickOrder.quickOrderForm"
-                    defaultMessage="Quick Order Form"
-                />}
+                    title={<FormattedMessage id="quickOrder.quickOrderForm" defaultMessage="Quick Order Form" />}
                     shouldHideCancelButton={true}
                     isOpen={isOpen}
                     shouldShowButtons={false}
@@ -179,154 +173,74 @@ const AddQuickOrder = props => {
                                 <div className={classes.labalWrapper}>
                                     <div>
                                         <span>
-                                            <FormattedMessage
-                                                id="quickOrder.Items"
-                                                defaultMessage="Items"
-                                            />
+                                            <FormattedMessage id="quickOrder.Items" defaultMessage="Items" />
                                         </span>
                                     </div>
                                     <div>
                                         <span className={classes.mobileHidden}>
-                                            <FormattedMessage
-                                                id="quickOrder.Qty"
-                                                defaultMessage="Qty"
-                                            />
+                                            <FormattedMessage id="quickOrder.Qty" defaultMessage="Qty" />
                                         </span>
                                     </div>
 
                                     <div>
                                         <span className={classes.mobileHidden}>
-                                            <FormattedMessage
-                                                id="quickOrder.Price"
-                                                defaultMessage="Price"
-                                            />
+                                            <FormattedMessage id="quickOrder.Price" defaultMessage="Price" />
                                         </span>
                                     </div>
                                 </div>
                                 <div className={classes.m_1}>
                                     {products &&
                                         products.map((item, key) => (
-                                            <div
-                                                key={key}
-                                                className={classes.labalWrapper}
-                                            >
-                                                <div
-                                                    className={
-                                                        classes.searchBar
-                                                    }
-                                                >
+                                            <div key={key} className={classes.labalWrapper}>
+                                                <div className={classes.searchBar}>
                                                     <SearchBar
                                                         isOpen={true}
-                                                        handleSearchClick={product =>
-                                                            handleSearchClick(
-                                                                product,
-                                                                key
-                                                            )
-                                                        }
-                                                        setSearchText={e =>
-                                                            handleChangeText(
-                                                                e,
-                                                                key
-                                                            )
-                                                        }
+                                                        handleSearchClick={product => handleSearchClick(product, key)}
+                                                        setSearchText={e => handleChangeText(e, key)}
                                                         searchText={item.name}
                                                         quickOrder={true}
-                                                        placeholder={formatMessage(
-                                                            {
-                                                                id:
-                                                                    'quickOrder.SearchProduct',
-                                                                defaultMessage:
-                                                                    'Enter SKU or name of product'
-                                                            }
-                                                        )}
+                                                        placeholder={formatMessage({
+                                                            id: 'quickOrder.SearchProduct',
+                                                            defaultMessage: 'Enter SKU or name of product'
+                                                        })}
                                                         value={item.name}
                                                     />
                                                 </div>
                                                 {quantitySelector(item, key)}
-                                                <div
-                                                    className={
-                                                        classes.priceWrapper
-                                                    }
-                                                >
+                                                <div className={classes.priceWrapper}>
                                                     {item.price ? (
-                                                        <span
-                                                            className={
-                                                                classes.priceText
-                                                            }
-                                                        >
+                                                        <span className={classes.priceText}>
                                                             {' '}
-                                                            {item.price
-                                                                .regularPrice
-                                                                .amount
-                                                                .currency ===
-                                                            'USD'
+                                                            {item.price.regularPrice.amount.currency === 'USD'
                                                                 ? '$'
                                                                 : '€'}
                                                             {(
-                                                                item.price
-                                                                    .regularPrice
-                                                                    .amount
-                                                                    .value *
-                                                                item.quantity
+                                                                item.price.regularPrice.amount.value * item.quantity
                                                             ).toFixed(2)}
                                                         </span>
                                                     ) : (
-                                                        <span
-                                                            className={
-                                                                classes.spanUnAailable
-                                                            }
-                                                        >
+                                                        <span className={classes.spanUnAailable}>
                                                             {' '}
                                                             <FormattedMessage
-                                                                id={
-                                                                    'quickOrder.Unavailable'
-                                                                }
-                                                                defaultMessage={
-                                                                    'Unavailable'
-                                                                }
+                                                                id={'quickOrder.Unavailable'}
+                                                                defaultMessage={'Unavailable'}
                                                             />
                                                         </span>
                                                     )}
                                                 </div>
                                                 {key === products.length - 1 ? (
-                                                    <div
-                                                        className={
-                                                            classes.addbtn
-                                                        }
-                                                    >
-                                                        <Button
-                                                            className={
-                                                                classes.downloadBtn
-                                                            }
-                                                            onClick={addProduct}
-                                                        >
-                                                            <Icon
-                                                                src={PlusCircle}
-                                                                alt="download-icon"
-                                                            />
+                                                    <div className={classes.addbtn}>
+                                                        <Button className={classes.downloadBtn} onClick={addProduct}>
+                                                            <Icon src={PlusCircle} alt="download-icon" />
                                                         </Button>
                                                     </div>
                                                 ) : (
-                                                    <div
-                                                        className={
-                                                            classes.addbtn
-                                                        }
-                                                    >
+                                                    <div className={classes.addbtn}>
                                                         <Button
-                                                            onClick={() =>
-                                                                removeProduct(
-                                                                    key
-                                                                )
-                                                            }
-                                                            className={`${
-                                                                classes.downloadBtn
-                                                            } ${
-                                                                classes.removeIcon
-                                                            }`}
+                                                            onClick={() => removeProduct(key)}
+                                                            className={`${classes.downloadBtn} ${classes.removeIcon}`}
                                                         >
-                                                            <Icon
-                                                                src={XCircle}
-                                                            />
+                                                            <Icon src={XCircle} />
                                                         </Button>
                                                     </div>
                                                 )}
@@ -349,11 +263,7 @@ const AddQuickOrder = props => {
                                         />
                                     </p>
                                     <div>
-                                        <Button
-                                            type="button"
-                                            priority="high"
-                                            onClick={handleCSVFile}
-                                        >
+                                        <Button type="button" priority="high" onClick={handleCSVFile}>
                                             <FormattedMessage
                                                 id="quickOrder.UploadYourFile"
                                                 defaultMessage="Upload your file"
@@ -362,10 +272,7 @@ const AddQuickOrder = props => {
                                     </div>
                                     <CSVLink data={csvData}>
                                         <Button className={classes.downloadBtn}>
-                                            <Icon
-                                                src={Download}
-                                                alt="download-icon"
-                                            />
+                                            <Icon src={Download} alt="download-icon" />
                                             <FormattedMessage
                                                 id="quickOrder.DownloadYourSampleFile"
                                                 defaultMessage="Download your sample file"
@@ -377,44 +284,19 @@ const AddQuickOrder = props => {
                         </div>
                         <div className={classes.btnContainer}>
                             <div>
-                                <Button
-                                    type="button"
-                                    priority="high"
-                                    onClick={addToCartClick}
-                                >
-                                    <FormattedMessage
-                                        id="quickOrder.AddToCart"
-                                        defaultMessage="Add to cart"
-                                    />
-                                    <Icon
-                                        className={classes.addCartIcon}
-                                        src={ArrowDown}
-                                        alt="arrowDown-icon"
-                                    />
+                                <Button type="button" priority="high" onClick={addToCartClick}>
+                                    <FormattedMessage id="quickOrder.AddToCart" defaultMessage="Add to cart" />
+                                    <Icon className={classes.addCartIcon} src={ArrowDown} alt="arrowDown-icon" />
                                 </Button>
                             </div>
                             <div>
-                                <Button
-                                    type="button"
-                                    priority="high"
-                                    onClick={addQuoteClick}
-                                >
-                                    <FormattedMessage
-                                        id="quickOrder.GetQuote"
-                                        defaultMessage="Get Quote"
-                                    />
+                                <Button disabled={isLoadingAddQuote} type="button" priority="high" onClick={addQuoteClick}>
+                                    <FormattedMessage id="quickOrder.GetQuote" defaultMessage="Get Quote" />
                                 </Button>
                             </div>
                             <div>
-                                <Button
-                                    type="button"
-                                    priority="high"
-                                    onClick={createOrderClick}
-                                >
-                                    <FormattedMessage
-                                        id="quickOrder.CreateOrder"
-                                        defaultMessage="Create Order"
-                                    />
+                                <Button type="button" priority="high" onClick={createOrderClick}>
+                                    <FormattedMessage id="quickOrder.CreateOrder" defaultMessage="Create Order" />
                                 </Button>
                             </div>
                         </div>
