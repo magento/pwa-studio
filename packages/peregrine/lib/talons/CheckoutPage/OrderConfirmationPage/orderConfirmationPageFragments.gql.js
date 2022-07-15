@@ -43,6 +43,12 @@ export const OrderConfirmationPageFragment = gql`
                 }
                 label
             }
+            applied_taxes {
+                amount {
+                    currency
+                    value
+                }
+            }
         }
         ...ItemsReviewFragment
     }
