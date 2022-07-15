@@ -17,10 +17,15 @@
     composes: ml-1 from global;
 }
 
-@media (max-width:500px){
-    .mobileView{
+@media (max-width: 500px) {
+    .mobileView {
         grid-auto-columns: revert !important;
         align-items: center;
+    }
+}
 
+@media (max-width: 384px) {
+    .optionLabel {
+        grid-auto-flow: initial;
     }
 }
