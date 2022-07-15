@@ -5,6 +5,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useEventingContext } from '../../../context/eventing';
 
 export const displayStates = {
     DONE: 'done',
@@ -53,6 +54,7 @@ export const useShippingMethod = props => {
 
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
+    const [, { dispatch }] = useEventingContext();
 
     /*
      *  Apollo Hooks.
@@ -93,11 +95,13 @@ export const useShippingMethod = props => {
             ? data.cart.shipping_addresses[0]
             : null;
 
-    const derivedSelectedShippingMethod = derivedPrimaryShippingAddress
-        ? addSerializedProperty(
-              derivedPrimaryShippingAddress.selected_shipping_method
-          )
-        : DEFAULT_SELECTED_SHIPPING_METHOD;
+    const derivedSelectedShippingMethod = useMemo(() => {
+        return derivedPrimaryShippingAddress
+            ? addSerializedProperty(
+                  derivedPrimaryShippingAddress.selected_shipping_method
+              )
+            : DEFAULT_SELECTED_SHIPPING_METHOD;
+    }, [derivedPrimaryShippingAddress]);
 
     const derivedShippingMethods = useMemo(() => {
         if (!derivedPrimaryShippingAddress)
@@ -128,6 +132,23 @@ export const useShippingMethod = props => {
     /*
      *  Callbacks.
      */
+    const dispatchEvent = useCallback(
+        shippingMethod => {
+            dispatch({
+                type: !isUpdateMode
+                    ? 'CHECKOUT_SHIPPING_METHOD_ADDED'
+                    : 'CHECKOUT_SHIPPING_METHOD_UPDATED',
+                payload: {
+                    cart_id: cartId,
+                    selected_shipping_method: {
+                        serializedValue: shippingMethod
+                    }
+                }
+            });
+        },
+        [dispatch, cartId, isUpdateMode]
+    );
+
     const handleSubmit = useCallback(
         async value => {
             const [carrierCode, methodCode] = deserializeShippingMethod(
@@ -144,13 +165,14 @@ export const useShippingMethod = props => {
                         }
                     }
                 });
+                dispatchEvent(value.shipping_method);
             } catch {
                 return;
             }
 
             setIsUpdateMode(false);
         },
-        [cartId, setIsUpdateMode, setShippingMethodCall]
+        [cartId, setIsUpdateMode, setShippingMethodCall, dispatchEvent]
     );
 
     const handleCancelUpdate = useCallback(() => {

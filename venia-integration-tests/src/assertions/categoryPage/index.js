@@ -210,8 +210,8 @@ export const assertNumberOfProductsListed = number => {
  *
  * @param {Number} number number of products
  */
-export const assertNumberOfProductsInResults = number => {
-    cy.get(categoryContentInfo).contains(number);
+export const assertNumberOfProductsInResults = () => {
+    cy.get(categoryContentInfo).contains(/([0-9]+) Results/);
 };
 
 export const assertRatingSummary = productName => {

@@ -16,6 +16,7 @@ Object {
       },
     },
   },
+  "categoryNotFound": false,
   "error": null,
   "loading": false,
   "metaDescription": "Category meta-description",

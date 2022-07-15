@@ -315,7 +315,14 @@ const jestConfig = {
         ),
         configureProject('pwa-theme-venia', 'Venia Theme', () => ({
             testEnvironment: 'node'
-        }))
+        })),
+        configureProject(
+            'extensions/experience-platform-connector',
+            'Experience platform connector',
+            () => ({
+                testEnvironment: 'node'
+            })
+        )
     ],
     // Include files with zero tests in overall coverage analysis by specifying
     // coverage paths manually.

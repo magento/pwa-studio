@@ -5,6 +5,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 import { useProductFullDetail } from '../useProductFullDetail';
 import { useUserContext } from '../../../context/user';
+import { useEventingContext } from '../../../context/eventing';
 
 jest.mock('@apollo/client', () => ({
     gql: jest.fn(),
@@ -41,6 +42,10 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 const Component = props => {
     const talonProps = useProductFullDetail(props);
     return <i talonProps={talonProps} />;
@@ -55,7 +60,19 @@ const defaultProps = {
         price: {
             regularPrice: {
                 amount: {
-                    value: 99
+                    value: 99,
+                    currency: 'USD'
+                }
+            }
+        },
+        price_range: {
+            maximum_price: {
+                final_price: {
+                    value: 99,
+                    currency: 'USD'
+                },
+                discount: {
+                    amount_off: 10
                 }
             }
         },
@@ -779,4 +796,30 @@ test('custom attribute is sorted', () => {
     const { talonProps } = root.findByType('i').props;
 
     expect(talonProps.customAttributes).toMatchSnapshot();
+});
+
+test('should dispatch event on add to cart', async () => {
+    const mockDispatch = jest.fn();
+
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatch
+        }
+    ]);
+
+    const tree = createTestInstance(
+        <Component product={defaultProps.product} />
+    );
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    const { handleAddToCart } = talonProps;
+
+    await handleAddToCart({ quantity: 2 });
+
+    expect(mockDispatch).toBeCalledTimes(1);
+
+    expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
 });

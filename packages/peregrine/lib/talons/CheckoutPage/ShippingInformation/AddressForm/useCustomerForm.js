@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './customerForm.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useEventingContext } from '../../../../context/eventing';
 
 export const useCustomerForm = props => {
     const { afterSubmit, onCancel, onSuccess, shippingData } = props;
@@ -71,6 +72,39 @@ export const useCustomerForm = props => {
         };
     }
 
+    const [, { dispatch }] = useEventingContext();
+    const dispatchEvent = useCallback(
+        (action, address) => {
+            if (action === 'ADD') {
+                dispatch({
+                    type: 'USER_ADDRESS_CREATE',
+                    payload: {
+                        address: address,
+                        user: customerData
+                    }
+                });
+            }
+            if (action === 'EDIT') {
+                dispatch({
+                    type: 'USER_ADDRESS_EDIT',
+                    payload: {
+                        address: address,
+                        user: customerData
+                    }
+                });
+            }
+            if (!hasDefaultShipping) {
+                dispatch({
+                    type: 'CHECKOUT_SHIPPING_INFORMATION_ADDED',
+                    payload: {
+                        cart_id: customerData.cart_id
+                    }
+                });
+            }
+        },
+        [customerData, dispatch, hasDefaultShipping]
+    );
+
     const handleSubmit = useCallback(
         async formValues => {
             // eslint-disable-next-line no-unused-vars
@@ -92,6 +126,7 @@ export const useCustomerForm = props => {
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }]
                     });
+                    dispatchEvent('EDIT', customerAddress);
                 } else {
                     await createCustomerAddress({
                         variables: {
@@ -102,6 +137,7 @@ export const useCustomerForm = props => {
                             { query: getDefaultShippingQuery }
                         ]
                     });
+                    dispatchEvent('ADD', customerAddress);
                 }
             } catch {
                 return;
@@ -118,7 +154,8 @@ export const useCustomerForm = props => {
             getDefaultShippingQuery,
             isUpdate,
             shippingData,
-            updateCustomerAddress
+            updateCustomerAddress,
+            dispatchEvent
         ]
     );
 

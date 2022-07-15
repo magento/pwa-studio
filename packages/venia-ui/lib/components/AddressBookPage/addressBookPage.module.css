@@ -43,3 +43,6 @@
 
     composes: hover_border-brand-dark from global;
 }
+.addButton:focus {
+    box-shadow: -6px 6px rgb(var(--venia-global-color-blue-100));
+}
