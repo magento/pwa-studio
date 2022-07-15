@@ -96,7 +96,10 @@
     .root {
         grid-template-columns: 1fr 1fr;
     }
-
+    .orderTotal,
+    .orderTotalLabel {
+        margin-left: 1rem;
+    }
     .cell {
         border-left: none;
         padding: 0.5rem;
