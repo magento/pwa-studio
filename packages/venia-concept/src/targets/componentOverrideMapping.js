@@ -193,4 +193,7 @@ module.exports = componentOverrideMapping = {
     // New overwrite
     [`@magento/venia-ui/lib/components/ToastContainer/toastContainer.module.css`]: './src/components/ToastContainer/toastContainer.module.css',
 
+    //New OverWrite
+    [`@magento/venia-ui/lib/components/LegacyMiniCart/productOptions.module.css`]: './src/components/LegacyMiniCart/productOptions.module.css',
+    [`@magento/venia-ui/lib/components/LegacyMiniCart/productOptions.js`]: './src/components/LegacyMiniCart/productOptions.js'
 };
