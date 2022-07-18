@@ -109,7 +109,7 @@ const ContentDialog = props => {
                     ) : (
                         <FormattedMessage
                             id={'csr.emptyTicketsSearchAdvice'}
-                            defaultMessage={'Oops... It seems that no tickets were found related to {searchText}'}
+                            defaultMessage={"'Oops... It seems that no tickets were found related to ''{searchText}''"}
                             values={{ searchText }}
                         />
                     )}
@@ -296,7 +296,11 @@ const ContentDialog = props => {
                         </div>
                     </>
                 ) : (
-                    emptyTicketsMessage
+                    <>
+                        {actionsDesktopContainer}
+                        {actionsMobileContainer}
+                        {emptyTicketsMessage}
+                    </>
                 )}
             </div>
             <LegendModal

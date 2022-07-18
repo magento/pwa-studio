@@ -10,7 +10,7 @@
     "csr.description": "Descripción (máx. 10000 caracteres)",
     "csr.dragFile": "Arrastra un archivo aquí",
     "csr.emptyTicketsAdvice": "Ups... Parece que aún no has abierto ningún ticket",
-    "csr.emptyTicketsSearchAdvice": "Ups... Parece que no se encontraron tickets relacionados con '{searchText}'",
+    "csr.emptyTicketsSearchAdvice": "Ups... Parece que no se encontraron tickets relacionados con ''{searchText}''",
     "csr.enhacementPlaceholder": "¿Tienes alguna idea para mejorar B2BStore? Cuéntanos, estamos abiertos a mejorar.",
     "csr.enhancement": "Mejoras",
     "csr.february": "Feb",

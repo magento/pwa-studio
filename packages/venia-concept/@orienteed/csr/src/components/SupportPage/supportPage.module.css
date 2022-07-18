@@ -79,6 +79,7 @@
     flex-direction: column;
     gap: 20px;
     justify-content: center;
+    margin-top: 40px;
 }
 
 .emptyTicketsAdviceText {
@@ -265,6 +266,5 @@
 .toastCloseIcon {
     height: 15px;
 }
-
 
 /***** end toast notification *****/
