@@ -15,13 +15,9 @@ const SimpleProductB2B = props => {
         cmsBlockIdentifiers: ['warranties-block', 'recommended-product-block']
     });
 
-    const warrantiesBlock = cmsBlocks.find(
-        item => item.identifier === 'warranties-block'
-    )?.content;
+    const warrantiesBlock = cmsBlocks.find(item => item.identifier === 'warranties-block')?.content;
 
-    const recommendedProductBlock = cmsBlocks.find(
-        item => item.identifier === 'recommended-product-block'
-    )?.content;
+    const recommendedProductBlock = cmsBlocks.find(item => item.identifier === 'recommended-product-block')?.content;
 
     const classes = useStyle(defaultClasses, props.classes);
     const {
@@ -39,33 +35,21 @@ const SimpleProductB2B = props => {
 
     return (
         <main>
-            <Breadcrumbs
-                categoryId={simpleProductData.categories[0].uid}
-                currentProduct={simpleProductData.name}
-            />
+            <Breadcrumbs categoryId={simpleProductData.categories[0].uid} currentProduct={simpleProductData.name} />
             <Form className={classes.root}>
                 <section className={classes.imageCarouselContainer}>
                     <div className={classes.imageCarousel}>
-                        <Carousel
-                            images={simpleProductData.media_gallery_entries}
-                        />
+                        <Carousel images={simpleProductData.media_gallery_entries} carouselWidth={960} />
                     </div>
                 </section>
                 <section className={classes.title}>
-                    <h1 className={classes.productName}>
-                        {simpleProductData.name}
-                    </h1>
+                    <h1 className={classes.productName}>{simpleProductData.name}</h1>
                     <article className={classes.innerPrice}>
                         <h2 className={classes.fromPrice}>
-                            <FormattedMessage
-                                id={'productFullDetailB2B.fromPrice'}
-                                defaultMessage={'From '}
-                            />
+                            <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
                         </h2>
 
-                        <span className={classes.priceNumber}>
-                            {priceRender}
-                        </span>
+                        <span className={classes.priceNumber}>{priceRender}</span>
                     </article>
                 </section>
                 <section className={classes.description}>

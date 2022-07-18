@@ -228,7 +228,7 @@
     text-decoration-line: line-through;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 959px) {
     .imageCarousel,
     .imageCarousel div div div {
         width: 100%;
