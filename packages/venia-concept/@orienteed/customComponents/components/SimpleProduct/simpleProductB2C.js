@@ -26,36 +26,20 @@ const SimpleProductB2C = props => {
 
     const cartCallToActionText =
         simpleProductData.stock_status === 'IN_STOCK' ? (
-            <FormattedMessage
-                id="productFullDetail.addItemToCart"
-                defaultMessage="Add to Cart"
-            />
+            <FormattedMessage id="productFullDetail.addItemToCart" defaultMessage="Add to Cart" />
         ) : (
-            <FormattedMessage
-                id="productFullDetail.itemOutOfStock"
-                defaultMessage="Out of Stock"
-            />
+            <FormattedMessage id="productFullDetail.itemOutOfStock" defaultMessage="Out of Stock" />
         );
     return (
         <Fragment>
-            <Breadcrumbs
-                categoryId={simpleProductData.categories[0].uid}
-                currentProduct={simpleProductData.name}
-            />
+            <Breadcrumbs categoryId={simpleProductData.categories[0].uid} currentProduct={simpleProductData.name} />
             <Form className={classes.root} onSubmit={handleAddToCart}>
                 <section className={classes.title}>
-                    <h1 className={classes.productName}>
-                        {simpleProductData.name}
-                    </h1>
+                    <h1 className={classes.productName}>{simpleProductData.name}</h1>
                 </section>
-                <article className={classes.priceContainer}>
-                    {' '}
-                    {priceRender}
-                </article>
+                <article className={classes.priceContainer}> {priceRender}</article>
                 <section className={classes.imageCarousel}>
-                    <Carousel
-                        images={simpleProductData.media_gallery_entries}
-                    />
+                    <Carousel images={simpleProductData.media_gallery_entries} carouselWidth={960} />
                 </section>
 
                 <FormError
@@ -65,18 +49,11 @@ const SimpleProductB2C = props => {
                     errors={errors.get('form') || []}
                 />
 
-                <Options
-                    simpleProductAggregationFiltered={
-                        simpleProductAggregationFiltered
-                    }
-                />
+                <Options simpleProductAggregationFiltered={simpleProductAggregationFiltered} />
 
                 <section className={classes.quantity}>
                     <span className={classes.quantityTitle}>
-                        <FormattedMessage
-                            id={'global.quantity'}
-                            defaultMessage={'Quantity'}
-                        />
+                        <FormattedMessage id={'global.quantity'} defaultMessage={'Quantity'} />
                     </span>
                     <article className={classes.quantityTotalPrice}>
                         <QuantityStepper
@@ -85,9 +62,7 @@ const SimpleProductB2C = props => {
                             min={1}
                             onChange={handleQuantityChange}
                         />
-                        <article className={classes.totalPrice}>
-                            {tempTotalPrice}
-                        </article>
+                        <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
                 </section>
                 <section className={classes.actions}>
@@ -109,10 +84,7 @@ const SimpleProductB2C = props => {
                 </section>
                 <section className={classes.details}>
                     <span className={classes.detailsTitle}>
-                        <FormattedMessage
-                            id={'global.sku'}
-                            defaultMessage={'SKU'}
-                        />
+                        <FormattedMessage id={'global.sku'} defaultMessage={'SKU'} />
                     </span>
                     <strong>{simpleProductData.sku}</strong>
                 </section>

@@ -118,9 +118,9 @@ const ProductFullDetailB2C = props => {
                     {' '}
                     {priceRender}
                 </article>
-                <section className={classes.imageCarousel}>
+                <div className={classes.imageCarousel}>
                     {hasOptionsOfTheSelection ? (
-                        <Carousel images={mediaGalleryEntries} />
+                        <Carousel images={mediaGalleryEntries}  carouselWidth={960} />
                     ) : (
                         <div className={classes.noImageContainer}>
                             <img
@@ -130,7 +130,7 @@ const ProductFullDetailB2C = props => {
                             />
                         </div>
                     )}
-                </section>
+                </div>
                 {!hasOptionsOfTheSelection ? (
                     <div className={classes.errorOptionCombination}>
                         <FormattedMessage

@@ -32,7 +32,7 @@ const IMAGE_WIDTH = 640;
  * @returns {React.Element}
  */
 const ProductImageCarousel = props => {
-    const { images } = props;
+    const { images , carouselWidth } = props;
 
     const { formatMessage } = useIntl();
     const talonProps = useProductImageCarousel({
@@ -63,6 +63,7 @@ const ProductImageCarousel = props => {
                     itemIndex={index}
                     isActive={activeItemIndex === index}
                     onClickHandler={handleThumbnailClick}
+                    carouselWidth={carouselWidth}
                 />
             ) : null;
         });
@@ -116,7 +117,7 @@ const ProductImageCarousel = props => {
             <div className={classes.carouselContainer}>
                 <AriaButton
                     className={classes.previousButton}
-                    onPress={activeItemIndex === 0 ? null : handlePrevious}
+                    onPress={handlePrevious}
                     aria-label={previousButton}
                     type="button"
                 >
@@ -130,11 +131,7 @@ const ProductImageCarousel = props => {
                 {image}
                 <AriaButton
                     className={classes.nextButton}
-                    onPress={
-                        activeItemIndex >= sortedImages.length - 1
-                            ? null
-                            : handleNext
-                    }
+                    onPress={handleNext}
                     aria-label={nextButton}
                     type="button"
                 >

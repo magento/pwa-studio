@@ -6,16 +6,17 @@
     grid-template-areas:
         'main'
         'thumbs';
+        gap: .3rem;
 }
 
-@media (min-width: 1022px) {
+@media (min-width: 960px) {
     .root {
         grid-template-areas: 'thumbs main';
         /* These values are mirrored in JS for image sizes. Keep them in sync. */
         grid-template-columns: 17fr 80fr;
     }
 }
-@media (max-width: 1022px) {
+@media (max-width: 959px) {
     .previousButtonDesktop,
     .nextButtonDesktop {
         display: none;
