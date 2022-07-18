@@ -152,6 +152,7 @@ exports[`renders form when shouldShowNewPassword is false 1`] = `
       >
         <label
           className="label"
+          htmlFor="Password"
         >
           Password
         </label>
@@ -420,6 +421,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
       >
         <label
           className="label"
+          htmlFor="Password"
         >
           Current Password
         </label>
@@ -510,6 +512,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
       >
         <label
           className="label"
+          htmlFor="Password"
         >
           New Password
         </label>
