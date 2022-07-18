@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 
 import Dialog from './Dialog/dialog';
@@ -12,25 +12,37 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import { useCreateTicketModal } from '../../talons/useCreateTicketModal';
 
-import createTicket from '../../../services/tickets/createTicket';
-
 import defaultClasses from './createTicketModal.module.css';
 
 const CreateTicketModal = props => {
     const { isOpen, setTicketModal, setTickets, setErrorToast, setSuccessToast } = props;
     const classes = useStyle(defaultClasses, props.classes);
-
     const { formatMessage } = useIntl();
+    const talonProps = useCreateTicketModal({ setTicketModal, setTickets, setErrorToast, setSuccessToast });
+
     const {
+        closeModal,
+        createTicketStatus,
         customerOrdersItems,
         customerOrdersSelect,
-        getCustomerOrders,
-        setCustomerOrdersItems,
-        setCustomerOrdersSelect
-    } = useCreateTicketModal();
+        dropzoneError,
+        filesUploaded,
+        onConfirm,
+        orderError,
+        orderSelected,
+        setDropzoneError,
+        setFilesUploaded,
+        setOrderError,
+        setOrderSelected,
+        setTicketDescription,
+        setTicketTitle,
+        setTicketType,
+        showPlaceholder,
+        ticketType
+    } = talonProps;
 
+    // Translations
     const attachFilesText = formatMessage({ id: 'csr.attachFiles', defaultMessage: 'Attach files (max. 6 files)' });
-    const attachedFilesText = formatMessage({ id: 'csr.attachedFile', defaultMessage: 'Attached file/s...' });
     const enhancementText = formatMessage({ id: 'csr.enhancement', defaultMessage: 'Enhancement' });
     const newTicketText = formatMessage({ id: 'csr.newTicket', defaultMessage: 'New ticket' });
     const orderDateText = formatMessage({ id: 'csr.orderDate', defaultMessage: 'Order date' });
@@ -46,57 +58,14 @@ const CreateTicketModal = props => {
         id: 'csr.description',
         defaultMessage: 'Description  (max. 10000 characters)'
     });
-    const enhacementPlaceholder = formatMessage({
-        id: 'csr.enhacementPlaceholder',
-        defaultMessage: 'Do you have any idea to improve B2BStore? Tell us, we are open to improve.'
-    });
-    const orderIssuePlaceholder = formatMessage({
-        id: 'csr.orderIssuePlaceholder',
-        defaultMessage:
-            'Describe your problem and what products are related.\nAt B2BStore, our priority is the customer.'
-    });
-    const orderNotFoundText = formatMessage({
-        id: 'csr.orderNotFound',
-        defaultMessage: 'No orders found, please change ticket type'
-    });
-    const orderNotSelectedText = formatMessage({
-        id: 'csr.orderNotSelected',
-        defaultMessage: 'Any order has been selected, please select one and try again'
-    });
-    const supportIssuePlaceholder = formatMessage({
-        id: 'csr.supportIssuePlaceholder',
-        defaultMessage:
-            'Describe the problem you have found and we will fix it as soon as possible. If you consider it, you can attach screenshots of the problem.\nThanks for improving B2BStore!'
-    });
     const titlePlaceholder = formatMessage({
         id: 'csr.titlePlaceholder',
         defaultMessage: 'Enter a title for your ticket'
     });
 
-    // Methodssssssss
-    const [createTicketStatus, setCreateTicketStatus] = useState('');
-    const [dropzoneError, setDropzoneError] = useState('');
-    const [filesUploaded, setFilesUploaded] = useState([]);
-    const [orderError, setOrderError] = useState('');
-    const [orderSelected, setOrderSelected] = useState('');
-    const [ticketDescription, setTicketDescription] = useState('');
-    const [ticketTitle, setTicketTitle] = useState('');
-    const [ticketType, setTicketType] = useState('Support issue');
-
-    useEffect(() => {
-        getCustomerOrders().then(res => {
-            if (res) {
-                setCustomerOrdersItems(res[0]);
-                setCustomerOrdersSelect(res[1]);
-            }
-        });
-    }, [getCustomerOrders, setCustomerOrdersItems, setCustomerOrdersSelect]);
-
-    useEffect(() => {
-        if (customerOrdersSelect && customerOrdersSelect.length !== 0) {
-            setOrderSelected(customerOrdersSelect[0].value);
-        }
-    }, [customerOrdersSelect]);
+    // Variables
+    const acceptedFilesTypes =
+        '*.jpg, *.jpeg, *.png, *.gif, *.mp3, *.wav, *.ogg, *.aac, *.mp4, *.avi, *.mpeg, *.pdf, *.txt, *.csv, *.zip, *.rar, *.gzip, *.tar.gz';
 
     const ticketOptions = [
         { value: 'Support issue', label: supportIssueText },
@@ -104,19 +73,7 @@ const CreateTicketModal = props => {
         { value: 'Enhancement', label: enhancementText }
     ];
 
-    const showPlaceholder = () => {
-        switch (ticketType) {
-            case 'Support issue':
-                return supportIssuePlaceholder;
-            case 'Order issue':
-                return orderIssuePlaceholder;
-            case 'Enhancement':
-                return enhacementPlaceholder;
-            default:
-                return '';
-        }
-    };
-
+    // Methods
     const showOrderDetails = () => {
         if (orderSelected === '') return;
         const orderItem = customerOrdersItems.find(item => item.number === orderSelected);
@@ -144,72 +101,6 @@ const CreateTicketModal = props => {
                 </div>
             </div>
         );
-    };
-
-    const closeModal = () => {
-        setTicketType('Support issue');
-        customerOrdersItems.length !== 0 ? setOrderSelected('notSelected') : setOrderSelected('notFound');
-        setOrderError('');
-        setDropzoneError('');
-        setFilesUploaded([]);
-        setTicketTitle('');
-        setTicketDescription('');
-        setCreateTicketStatus('');
-        setTicketModal(false);
-    };
-
-    useEffect(() => {
-        if (createTicketStatus === 'success') {
-            setTicketType('Support issue');
-            customerOrdersItems.length !== 0 ? setOrderSelected('notSelected') : setOrderSelected('notFound');
-            setOrderError('');
-            setDropzoneError('');
-            setFilesUploaded([]);
-            setTicketTitle('');
-            setTicketDescription('');
-            setCreateTicketStatus('');
-            setTicketModal(false);
-        } else if (createTicketStatus === 'error') {
-            setTicketType('Support issue');
-            customerOrdersItems.length !== 0 ? setOrderSelected('notSelected') : setOrderSelected('notFound');
-            setOrderError('');
-            setDropzoneError('');
-            setFilesUploaded([]);
-            setTicketTitle('');
-            setTicketDescription('');
-            setCreateTicketStatus('');
-            setTicketModal(false);
-        }
-    }, [createTicketStatus, setTicketModal, customerOrdersItems]);
-
-    const acceptedFilesTypes =
-        '*.jpg, *.jpeg, *.png, *.gif, *.mp3, *.wav, *.ogg, *.aac, *.mp4, *.avi, *.mpeg, *.pdf, *.txt, *.csv, *.zip, *.rar, *.gzip, *.tar.gz';
-
-    const onConfirm = () => {
-        if (ticketType === 'Order issue' && orderSelected === 'notFound') {
-            setOrderError(orderNotFoundText);
-        } else if (ticketType === 'Order issue' && orderSelected === 'notSelected') {
-            setOrderError(orderNotSelectedText);
-        } else {
-            setCreateTicketStatus('loading');
-            createTicket(
-                ticketType,
-                ticketTitle,
-                ticketDescription,
-                filesUploaded,
-                customerOrdersItems.find(item => item.number === orderSelected),
-                attachedFilesText
-            ).then(res => {
-                if (res !== false) {
-                    setCreateTicketStatus('success');
-                    setTickets(prevTickets => [...prevTickets, res]);
-                    setSuccessToast(true);
-                } else {
-                    setCreateTicketStatus('error');
-                    setErrorToast(true);
-                }
-            });
-        }
     };
 
     return (

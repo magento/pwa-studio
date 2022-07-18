@@ -1,17 +1,53 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { useIntl } from 'react-intl';
 
+import createTicket from '../../services/tickets/createTicket';
+
 import { GET_CUSTOMER_ORDERS, GET_IMAGE_BY_SKU } from '../graphql/createTicketModal.gql';
 
-export const useCreateTicketModal = () => {
+export const useCreateTicketModal = props => {
+    const { setTicketModal, setTickets, setErrorToast, setSuccessToast } = props;
     const fetchCustomerOrders = useAwaitQuery(GET_CUSTOMER_ORDERS);
     const fetchProductImage = useAwaitQuery(GET_IMAGE_BY_SKU);
     const { formatMessage } = useIntl();
 
+    // Translations
+    const attachedFilesText = formatMessage({ id: 'csr.attachedFile', defaultMessage: 'Attached file/s...' });
+    const enhacementPlaceholder = formatMessage({
+        id: 'csr.enhacementPlaceholder',
+        defaultMessage: 'Do you have any idea to improve B2BStore? Tell us, we are open to improve.'
+    });
+    const orderIssuePlaceholder = formatMessage({
+        id: 'csr.orderIssuePlaceholder',
+        defaultMessage:
+            'Describe your problem and what products are related.\nAt B2BStore, our priority is the customer.'
+    });
+    const orderNotFoundText = formatMessage({
+        id: 'csr.orderNotFound',
+        defaultMessage: 'No orders found, please change ticket type'
+    });
+    const orderNotSelectedText = formatMessage({
+        id: 'csr.orderNotSelected',
+        defaultMessage: 'Any order has been selected, please select one and try again'
+    });
+    const supportIssuePlaceholder = formatMessage({
+        id: 'csr.supportIssuePlaceholder',
+        defaultMessage:
+            'Describe the problem you have found and we will fix it as soon as possible. If you consider it, you can attach screenshots of the problem.\nThanks for improving B2BStore!'
+    });
+
     // States
+    const [createTicketStatus, setCreateTicketStatus] = useState('');
     const [customerOrdersItems, setCustomerOrdersItems] = useState([]);
     const [customerOrdersSelect, setCustomerOrdersSelect] = useState([]);
+    const [dropzoneError, setDropzoneError] = useState('');
+    const [filesUploaded, setFilesUploaded] = useState([]);
+    const [orderError, setOrderError] = useState('');
+    const [orderSelected, setOrderSelected] = useState('');
+    const [ticketDescription, setTicketDescription] = useState('');
+    const [ticketTitle, setTicketTitle] = useState('');
+    const [ticketType, setTicketType] = useState('Support issue');
 
     // Methods
     const isoDateToLocaleDate = date => {
@@ -30,9 +66,8 @@ export const useCreateTicketModal = () => {
             formatMessage({ id: 'csr.december', defaultMessage: 'Dec' })
         ];
         const [year, month, day] = date.split(' ')[0].split('-');
-
-        // const newDay = day.toString().padStart(2, '0');
         const newMonth = months[month - 1];
+
         return `${day} ${newMonth} ${year}`;
     };
 
@@ -98,11 +133,116 @@ export const useCreateTicketModal = () => {
         }
     }, [fetchCustomerOrders, fetchProductImage, formatMessage]); //eslint-disable-line
 
+    const closeModal = () => {
+        setTicketType('Support issue');
+        customerOrdersItems.length !== 0 ? setOrderSelected('notSelected') : setOrderSelected('notFound');
+        setOrderError('');
+        setDropzoneError('');
+        setFilesUploaded([]);
+        setTicketTitle('');
+        setTicketDescription('');
+        setCreateTicketStatus('');
+        setTicketModal(false);
+    };
+
+    const showPlaceholder = () => {
+        switch (ticketType) {
+            case 'Support issue':
+                return supportIssuePlaceholder;
+            case 'Order issue':
+                return orderIssuePlaceholder;
+            case 'Enhancement':
+                return enhacementPlaceholder;
+            default:
+                return '';
+        }
+    };
+
+    const onConfirm = () => {
+        if (ticketType === 'Order issue' && orderSelected === 'notFound') {
+            setOrderError(orderNotFoundText);
+        } else if (ticketType === 'Order issue' && orderSelected === 'notSelected') {
+            setOrderError(orderNotSelectedText);
+        } else {
+            setCreateTicketStatus('loading');
+            createTicket(
+                ticketType,
+                ticketTitle,
+                ticketDescription,
+                filesUploaded,
+                customerOrdersItems.find(item => item.number === orderSelected),
+                attachedFilesText
+            ).then(res => {
+                if (res !== false) {
+                    setCreateTicketStatus('success');
+                    setTickets(prevTickets => [res, ...prevTickets]);
+                    setSuccessToast(true);
+                } else {
+                    setCreateTicketStatus('error');
+                    setErrorToast(true);
+                }
+            });
+        }
+    };
+
+    // Effects
+    useEffect(() => {
+        if (createTicketStatus === 'success') {
+            setTicketType('Support issue');
+            customerOrdersItems.length !== 0 ? setOrderSelected('notSelected') : setOrderSelected('notFound');
+            setOrderError('');
+            setDropzoneError('');
+            setFilesUploaded([]);
+            setTicketTitle('');
+            setTicketDescription('');
+            setCreateTicketStatus('');
+            setTicketModal(false);
+        } else if (createTicketStatus === 'error') {
+            setTicketType('Support issue');
+            customerOrdersItems.length !== 0 ? setOrderSelected('notSelected') : setOrderSelected('notFound');
+            setOrderError('');
+            setDropzoneError('');
+            setFilesUploaded([]);
+            setTicketTitle('');
+            setTicketDescription('');
+            setCreateTicketStatus('');
+            setTicketModal(false);
+        }
+    }, [createTicketStatus, customerOrdersItems, setTicketModal]);
+
+    useEffect(() => {
+        if (customerOrdersSelect && customerOrdersSelect.length !== 0) {
+            setOrderSelected(customerOrdersSelect[0].value);
+        }
+    }, [customerOrdersSelect, setOrderSelected]);
+
+    useEffect(() => {
+        getCustomerOrders().then(res => {
+            if (res) {
+                setCustomerOrdersItems(res[0]);
+                setCustomerOrdersSelect(res[1]);
+            }
+        });
+    }, [getCustomerOrders, setCustomerOrdersItems, setCustomerOrdersSelect]);
+
     return {
+        closeModal,
+        createTicketStatus,
         customerOrdersItems,
         customerOrdersSelect,
-        getCustomerOrders,
-        setCustomerOrdersItems,
-        setCustomerOrdersSelect
+        dropzoneError,
+        filesUploaded,
+        onConfirm,
+        orderError,
+        orderSelected,
+        setDropzoneError,
+        setFilesUploaded,
+        setOrderError,
+        setOrderSelected,
+        setTicketDescription,
+        setTicketTitle,
+        setTicketType,
+        showPlaceholder,
+        ticketType
     };
 };
