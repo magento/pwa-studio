@@ -31,7 +31,7 @@ export const useSupportPage = () => {
             });
             getTickets().then(res => {
                 setTicketCount(res.tickets_count);
-                setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket) : res.tickets);
+                setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket).reverse() : res.tickets);
             });
         }
     }, [isSignedIn]);
@@ -45,7 +45,7 @@ export const useSupportPage = () => {
         if (isSignedIn) {
             getTickets().then(res => {
                 setTicketCount(res.tickets_count);
-                setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket) : res.tickets);
+                setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket).reverse() : res.tickets);
             });
         }
     }, [isSignedIn]);
@@ -56,7 +56,7 @@ export const useSupportPage = () => {
             if (isSignedIn) {
                 getTickets(search).then(res => {
                     setTicketCount(res.tickets_count);
-                    setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket) : res.tickets);
+                    setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket).reverse() : res.tickets);
                 });
             }
         },

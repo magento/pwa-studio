@@ -12,7 +12,7 @@ const getTickets = async (search = '') => {
     };
 
     const reply = await request(
-        `/api/v1/tickets/search?expand=true&page=1&per_page=8&limit=10${search !== '' ? `&search=${search}` : ''}`,
+        `/api/v1/tickets/search?expand=true&page=1&per_page=8&limit=10&order_by=desc&sort_by=created_at${search !== '' ? `&search=${search}` : ''}`,
         {
             method: 'GET',
             headers: JSON.stringify(headers)
