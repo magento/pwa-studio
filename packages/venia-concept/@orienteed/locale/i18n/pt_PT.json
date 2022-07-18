@@ -287,6 +287,8 @@
     "createAccountNonCustomer.postalCode": "Código Postal",
     "createAccountNonCustomer.province": "Província",
     "createAccountNonCustomer.sent": "Enviar email",
+    "orderIncidences.sent": "Enviar incidencia",
+    "orderIncidences.success": "Incidência enviada",
     "createAccountNonCustomer.success": "Email Enviado.",
     "createAccountNonCustomer.title": "Criar uma Conta (Sem Cliente)",
     "createAccountPage.header": "Crie a sua conta aqui",

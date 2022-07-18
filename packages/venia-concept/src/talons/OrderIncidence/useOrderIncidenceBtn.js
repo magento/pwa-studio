@@ -54,7 +54,6 @@ export const useOrderIncidenceBtn = props => {
         form => {
             try {
                 const params = createParams(form, files, orderNumber);
-                console.log('params', params);
                 sendOrderIncidencesEmailCall({
                     variables: {
                         input: params
