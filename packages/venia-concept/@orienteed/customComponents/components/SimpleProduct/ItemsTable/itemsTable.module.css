@@ -190,11 +190,11 @@
 .productItemBodyOperations {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     align-content: center;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+
 }
 
 .productItemBodyInformation {
