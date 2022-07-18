@@ -258,7 +258,7 @@ const ProductFullDetailB2B = props => {
                 </section>
                 <section className={classes.imageCarouselContainer}>
                     <div className={classes.imageCarousel}>
-                        <Carousel images={mediaGalleryEntries} />
+                    <Carousel images={mediaGalleryEntries} carouselWidth={960} />
                     </div>
                 </section>
 
