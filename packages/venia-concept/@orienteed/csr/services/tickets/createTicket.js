@@ -11,69 +11,39 @@ const createTicket = async (ticketType, title, description, files, order, attach
         'Content-Type': 'application/json'
     };
 
+    const ticketBodyText =
+        ticketType === 'Order issue'
+            ? `${description}\n\nOrder details:\n- Order number: ${order?.number}\n- Date: ${
+                  order.order_date
+              }\n- Status: ${order?.status}\n- Price: ${order?.total}`
+            : description;
+
     const ticketBody = {
         title: title,
         group: ticketType,
-        customer: 'amino@orienteed.com',
         article: {
             subject: title,
-            body: description,
-            type: 'note',
-            internal: false
+            body: ticketBodyText,
+            type: 'chat',
+            attachments: files.map(file => {
+                return { filename: file.name, data: file.content, mime_type: file.mimeType };
+            })
         }
     };
 
-    const orderBody = id => {
-        return {
-            ticket_id: id,
-            body: `Order details:\n- Order number: ${order.number}\n- Date: ${order.order_date}\n- Status: ${
-                order.status
-            }\n- Price: ${order.total}`,
-            content_type: 'text/plain',
-            type: 'note',
-            internal: false,
-            attachments: []
-        };
-    };
-
-    const attachmentsBody = id => {
-        return {
-            ticket_id: id,
-            body: attachedFilesText,
-            content_type: 'text/plain',
-            type: 'note',
-            internal: false,
-            attachments: files.map(file => {
-                return { filename: file.name, data: file.content, 'mime-type': file.mimeType };
-            })
-        };
-    };
-
-    console.log({ ticketType, title, description, files, order });
-
-    const reply = await request('/api/v1/tickets', {
+    const reply = await request('/api/v1/tickets/', {
         method: 'POST',
         headers: JSON.stringify(headers),
         body: JSON.stringify(ticketBody)
     });
 
-    if (ticketType === 'Order issue') {
-        await request('/api/v1/ticket_articles', {
-            method: 'POST',
-            headers: JSON.stringify(headers),
-            body: JSON.stringify(orderBody(reply.id))
-        });
-    }
+    console.log({ reply });
 
-    if (files.length !== 0) {
-        await request('/api/v1/ticket_articles', {
-            method: 'POST',
-            headers: JSON.stringify(headers),
-            body: JSON.stringify(attachmentsBody(reply.id))
-        });
+    if (reply) {
+        return reply;
+    } else {
+        return false;
     }
-
-    return reply;
 };
 
 export default createTicket;

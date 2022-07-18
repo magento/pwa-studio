@@ -126,7 +126,9 @@ const Dropzone = props => {
                 onClick: event => filesUploaded.length >= 6 && event.stopPropagation()
             })}
         >
-            <input {...getInputProps()} />
+            <input {...getInputProps({
+                
+            })} />
             {filesUploaded.length === 0 ? (
                 <>
                     <img src={plusIcon} alt="Add" />

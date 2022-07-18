@@ -8,12 +8,14 @@ import getStates from '../../services/tickets/ticket_states/getStates';
 
 export const useSupportPage = () => {
     // States
+    const [errorToast, setErrorToast] = useState(false);
     const [groups, setGroups] = useState();
     const [legendModal, setLegendModal] = useState(false);
-    const [ticketModal, setTicketModal] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [states, setStates] = useState();
+    const [successToast, setSuccessToast] = useState(false);
     const [ticketCount, setTicketCount] = useState();
+    const [ticketModal, setTicketModal] = useState(false);
     const [tickets, setTickets] = useState();
     const [view, setView] = useState('list');
     const [{ isSignedIn }] = useUserContext();
@@ -29,7 +31,7 @@ export const useSupportPage = () => {
             });
             getTickets().then(res => {
                 setTicketCount(res.tickets_count);
-                setTickets(res.tickets.length !== 0 ? res.assets.Ticket : res.tickets);
+                setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket) : res.tickets);
             });
         }
     }, [isSignedIn]);
@@ -40,23 +42,57 @@ export const useSupportPage = () => {
 
     const handleReset = useCallback(() => {
         setSearchText('');
-    }, []);
+        if (isSignedIn) {
+            getTickets().then(res => {
+                setTicketCount(res.tickets_count);
+                setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket) : res.tickets);
+            });
+        }
+    }, [isSignedIn]);
 
-    const handleSubmit = useCallback(({ search }) => {
-        setSearchText(search);
-    }, []);
+    const handleSubmit = useCallback(
+        ({ search }) => {
+            setSearchText(search);
+            if (isSignedIn) {
+                getTickets(search).then(res => {
+                    setTicketCount(res.tickets_count);
+                    setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket) : res.tickets);
+                });
+            }
+        },
+        [isSignedIn]
+    );
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setSuccessToast(false);
+        }, 5000);
+        return () => clearTimeout(timeout);
+    }, [successToast]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setErrorToast(false);
+        }, 5000);
+        return () => clearTimeout(timeout);
+    }, [errorToast]);
 
     return {
+        errorToast,
         groups,
         handleReset,
         handleSubmit,
         legendModal,
         openTicketModal,
         searchText,
+        setErrorToast,
         setLegendModal,
+        setSuccessToast,
         setTicketModal,
+        setTickets,
         setView,
         states,
+        successToast,
         ticketCount,
         ticketModal,
         tickets,

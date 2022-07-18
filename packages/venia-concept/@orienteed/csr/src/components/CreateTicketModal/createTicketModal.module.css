@@ -110,3 +110,26 @@
     line-height: 1rem;
 }
 /***** end Dropzone *****/
+
+/***** Loading *****/
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingIndicator {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    height: calc(100% - 6rem);
+    justify-content: center;
+    justify-items: center;
+    margin: 3rem 0px;
+    width: 100%;
+    min-height: 300px;
+}
+/***** end Loading *****/

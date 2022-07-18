@@ -18,7 +18,8 @@ const doCsrLogin = async () => {
         headers: JSON.stringify(headers),
         body: JSON.stringify(data)
     });
-
+    
+    // TODO_B2B: Remove it 
     console.log(reply.message);
 
     return reply;
