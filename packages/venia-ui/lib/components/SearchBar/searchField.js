@@ -20,6 +20,7 @@ const SearchField = props => {
 
     return (
         <TextInput
+            id="search_query"
             after={resetButton}
             before={searchIcon}
             field="search_query"
