@@ -116,7 +116,7 @@ const ProductImageCarousel = props => {
             <div className={classes.carouselContainer}>
                 <AriaButton
                     className={classes.previousButton}
-                    onPress={handlePrevious}
+                    onPress={activeItemIndex === 0 ? null : handlePrevious}
                     aria-label={previousButton}
                     type="button"
                 >
@@ -130,7 +130,11 @@ const ProductImageCarousel = props => {
                 {image}
                 <AriaButton
                     className={classes.nextButton}
-                    onPress={handleNext}
+                    onPress={
+                        activeItemIndex >= sortedImages.length - 1
+                            ? null
+                            : handleNext
+                    }
                     aria-label={nextButton}
                     type="button"
                 >
