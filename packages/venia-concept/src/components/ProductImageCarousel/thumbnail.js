@@ -30,6 +30,7 @@ const Thumbnail = props => {
         isActive,
         item: { file, label },
         onClickHandler,
+        carouselWidth,
         itemIndex
     } = props;
 
@@ -37,11 +38,10 @@ const Thumbnail = props => {
         onClickHandler,
         itemIndex
     });
-
     const { handleClick } = talonProps;
 
     const windowSize = useWindowSize();
-    const isDesktop = windowSize.innerWidth >= 1023;
+    const isDesktop = windowSize.innerWidth >= carouselWidth || 1023;
     const thumbnailImage = useMemo(() => {
         if (!isDesktop) {
             return null;
@@ -55,11 +55,7 @@ const Thumbnail = props => {
                 width={DEFAULT_THUMBNAIL_WIDTH}
             />
         ) : (
-            <Image
-                alt={label}
-                classes={{ image: classes.image }}
-                src={transparentPlaceholder}
-            />
+            <Image alt={label} classes={{ image: classes.image }} src={transparentPlaceholder} />
         );
     }, [file, isDesktop, label, classes.image]);
 

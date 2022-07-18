@@ -32,7 +32,7 @@ const IMAGE_WIDTH = 640;
  * @returns {React.Element}
  */
 const ProductImageCarousel = props => {
-    const { images } = props;
+    const { images , carouselWidth } = props;
 
     const { formatMessage } = useIntl();
     const talonProps = useProductImageCarousel({
@@ -63,6 +63,7 @@ const ProductImageCarousel = props => {
                     itemIndex={index}
                     isActive={activeItemIndex === index}
                     onClickHandler={handleThumbnailClick}
+                    carouselWidth={carouselWidth}
                 />
             ) : null;
         });
