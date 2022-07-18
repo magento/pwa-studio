@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery, useMutation, useApolloClient } from '@apollo/client';
 
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import { usePaymentInformation } from '../usePaymentInformation';
 import createTestInstance from '../../../../util/createTestInstance';
 import { CHECKOUT_STEP } from '../../useCheckoutPage';
@@ -68,6 +69,10 @@ jest.mock('../../CheckoutError', () => {
 
     return CheckoutError;
 });
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const onSave = jest.fn();
 const resetShouldSubmit = jest.fn();
@@ -330,4 +335,19 @@ test('should handle no payment information data returned', () => {
     expect(resetShouldSubmit).toHaveBeenCalled();
     expect(setCheckoutStep).toHaveBeenCalledWith(CHECKOUT_STEP.PAYMENT);
     expect(talonProps.doneEditing).toBeFalsy();
+});
+
+test('should dispatch add payment information event', async () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    const { talonProps, update } = getTalonProps({ ...defaultTalonProps });
+
+    talonProps.handlePaymentSuccess();
+
+    update({});
+
+    expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
 });

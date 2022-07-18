@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './editModal.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useEventingContext } from '../../../context/eventing';
 
 import { useCartContext } from '../../../context/cart';
 
@@ -35,6 +36,7 @@ export const useEditModal = props => {
     const [isLoading, setIsLoading] = useState(true);
     const [updateButtonClicked, setUpdateButtonClicked] = useState(false);
     const [{ cartId }] = useCartContext();
+    const [, { dispatch }] = useEventingContext();
 
     /**
      * Queries
@@ -67,7 +69,14 @@ export const useEditModal = props => {
 
     const handlePaymentSuccess = useCallback(() => {
         onClose();
-    }, [onClose]);
+        dispatch({
+            type: 'CHECKOUT_BILLING_INFORMATION_UPDATED',
+            payload: {
+                cart_id: cartId,
+                selected_payment_method: selectedPaymentMethod
+            }
+        });
+    }, [onClose, dispatch, cartId, selectedPaymentMethod]);
 
     const handlePaymentError = useCallback(() => {
         setUpdateButtonClicked(false);

@@ -4,9 +4,14 @@ import { act, renderHook } from '@testing-library/react-hooks';
 
 import defaultOperations from '../addToCartDialog.gql';
 import { useAddToCartDialog } from '../useAddToCartDialog';
+import { useEventingContext } from '../../../context/eventing';
 
 jest.mock('../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
+}));
+
+jest.mock('../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const productMock = {
@@ -31,6 +36,9 @@ const productMock = {
             final_price: {
                 currency: 'USD',
                 value: 123.45
+            },
+            discount: {
+                amount_off: 0
             }
         }
     },
@@ -77,6 +85,9 @@ const getProductDetailMock2 = {
                                         final_price: {
                                             currency: 'EUR',
                                             value: 456.78
+                                        },
+                                        discount: {
+                                            amount_off: 0
                                         }
                                     }
                                 },
@@ -93,19 +104,22 @@ const getProductDetailMock2 = {
 const mockItem = {
     configurable_options: [{ id: 1, value_id: 'red-id' }],
     product: {
+        name: 'Shirt',
         configurable_options: [
             {
+                label: 'Color',
                 attribute_id_v2: 1,
                 values: [
-                    { value_index: 'red-id', uid: 'red-uid' },
-                    { value_index: 'blue-id', uid: 'blue-uid' }
+                    { value_index: 'red-id', uid: 'red-uid', label: 'Red' },
+                    { value_index: 'blue-id', uid: 'blue-uid', label: 'Blue' }
                 ]
             },
             {
+                label: 'Size',
                 attribute_id_v2: 2,
                 values: [
-                    { value_index: 'large-id', uid: 'large-uid' },
-                    { value_index: 'medium-id', uid: 'medium-uid' }
+                    { value_index: 'large-id', uid: 'large-uid', label: 'L' },
+                    { value_index: 'medium-id', uid: 'medium-uid', label: 'M' }
                 ]
             }
         ],
@@ -366,4 +380,60 @@ test('addToCart failures returns error', async () => {
           [Error: Oh noes! Something went wrong :(],
         ]
     `);
+});
+
+test('addToCart should dispatch event', async () => {
+    const mockDispatch = jest.fn();
+
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatch
+        }
+    ]);
+
+    const addToCartMock = {
+        request: {
+            query: defaultOperations.addProductToCartMutation,
+            variables: {
+                cartId: '123',
+                cartItem: {
+                    quantity: 1,
+                    selected_options: ['red-uid', 'medium-uid'],
+                    sku: 'nice-shirt'
+                }
+            }
+        },
+        result: {
+            data: {}
+        }
+    };
+
+    const { result } = renderHookWithProviders({
+        renderHookOptions: {
+            initialProps: { ...initialProps, item: mockItem }
+        },
+        mocks: [
+            getProductDetailMock1,
+            getProductDetailMock1,
+            getProductDetailMock2,
+            addToCartMock
+        ]
+    });
+
+    await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        result.current.configurableOptionProps.onSelectionChange(
+            '2',
+            'medium-id'
+        );
+
+        await new Promise(resolve => setTimeout(resolve, 0));
+        await result.current.buttonProps.onClick();
+    });
+
+    expect(mockDispatch).toBeCalledTimes(1);
+
+    expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
 });

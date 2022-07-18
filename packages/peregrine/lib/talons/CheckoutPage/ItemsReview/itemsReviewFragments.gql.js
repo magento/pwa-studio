@@ -10,24 +10,22 @@ export const ItemsReviewFragment = gql`
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             product {
                 uid
+                sku
                 name
                 thumbnail {
                     url
                 }
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
-                ... on ConfigurableProduct {
-                    variants {
-                        attributes {
-                            uid
-                        }
-                        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-                        product {
-                            uid
-                            thumbnail {
-                                url
-                            }
-                        }
-                    }
+            }
+            prices {
+                price {
+                    currency
+                    value
+                }
+                row_total {
+                    value
+                }
+                total_item_discount {
+                    value
                 }
             }
             quantity

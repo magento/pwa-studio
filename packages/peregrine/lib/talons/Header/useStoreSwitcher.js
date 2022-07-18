@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './storeSwitcher.gql';
@@ -13,11 +14,8 @@ const mapAvailableOptions = (config, stores) => {
 
     return stores.reduce((map, store) => {
         const {
-            category_url_suffix,
-            store_code: code,
             default_display_currency_code: currency,
             locale,
-            product_url_suffix,
             secure_base_media_url,
             store_code: storeCode,
             store_group_code: storeGroupCode,
@@ -26,14 +24,11 @@ const mapAvailableOptions = (config, stores) => {
             store_sort_order: sortOrder
         } = store;
 
-        const isCurrent = code === configCode;
+        const isCurrent = storeCode === configCode;
         const option = {
-            category_url_suffix,
-            code,
             currency,
             isCurrent,
             locale,
-            product_url_suffix,
             secure_base_media_url,
             sortOrder,
             storeCode,
@@ -42,14 +37,15 @@ const mapAvailableOptions = (config, stores) => {
             storeName
         };
 
-        return map.set(code, option);
+        return map.set(storeCode, option);
     }, new Map());
 };
 
 /**
  * The useStoreSwitcher talon complements the StoreSwitcher component.
  *
- * @param {*} props.getStoreConfig the store switcher data getStoreConfig
+ * @param {Array<Object>} [props.availableRoutes] - Hardcoded app routes.
+ * @param {Object} [props.operations] - GraphQL operations to be run by the hook.
  *
  * @returns {Map}    talonProps.availableStores - Details about the available store views.
  * @returns {String}    talonProps.currentStoreName - Name of the current store view.
@@ -62,12 +58,21 @@ const mapAvailableOptions = (config, stores) => {
 
 export const useStoreSwitcher = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { availableRoutes = [] } = props;
+    const internalRoutes = useMemo(() => {
+        return availableRoutes.map(path => {
+            if (path.exact) {
+                return path.pattern;
+            }
+        });
+    }, [availableRoutes]);
+
     const {
         getStoreConfigData,
         getRouteData,
         getAvailableStoresData
     } = operations;
-    const { pathname } = useLocation();
+    const { pathname, search: searchParams } = useLocation();
     const {
         elementRef: storeMenuRef,
         expanded: storeMenuIsOpen,
@@ -80,10 +85,7 @@ export const useStoreSwitcher = (props = {}) => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const { data: routeData } = useQuery(getRouteData, {
-        fetchPolicy: 'cache-first',
-        variables: { url: pathname }
-    });
+    const fetchRouteData = useAwaitQuery(getRouteData);
 
     const { data: availableStoresData } = useQuery(getAvailableStoresData, {
         fetchPolicy: 'cache-and-network',
@@ -101,18 +103,6 @@ export const useStoreSwitcher = (props = {}) => {
             return storeConfigData.storeConfig.store_group_name;
         }
     }, [storeConfigData]);
-
-    const currentStoreCode = useMemo(() => {
-        if (storeConfigData) {
-            return storeConfigData.storeConfig.store_code;
-        }
-    }, [storeConfigData]);
-
-    const pageType = useMemo(() => {
-        if (routeData && routeData.route) {
-            return routeData.route.type;
-        }
-    }, [routeData]);
 
     // availableStores => mapped options or empty map if undefined.
     const availableStores = useMemo(() => {
@@ -146,50 +136,34 @@ export const useStoreSwitcher = (props = {}) => {
         return groups;
     }, [availableStores]);
 
-    // Get pathname with suffix based on page type
     const getPathname = useCallback(
-        storeCode => {
-            // Use globalThis.location.pathname to get the path with the store view code
-            // pathname from useLocation() does not include the store view code
-            const pathname = globalThis.location.pathname;
-
-            if (pageType === 'CATEGORY') {
-                const currentSuffix =
-                    availableStores.get(currentStoreCode).category_url_suffix ||
-                    '';
-                const newSuffix =
-                    availableStores.get(storeCode).category_url_suffix || '';
-
-                return currentSuffix
-                    ? pathname.replace(currentSuffix, newSuffix)
-                    : `${pathname}${newSuffix}`;
+        async storeCode => {
+            if (pathname === '' || pathname === '/') return '';
+            let newPath = '';
+            if (internalRoutes.includes(pathname)) {
+                newPath = pathname;
+            } else {
+                const { data: routeData } = await fetchRouteData({
+                    fetchPolicy: 'no-cache',
+                    variables: {
+                        url: pathname
+                    },
+                    context: { headers: { store: storeCode } }
+                });
+                if (routeData.route) {
+                    newPath = routeData.route.relative_url;
+                }
             }
-            if (pageType === 'PRODUCT') {
-                const currentSuffix =
-                    availableStores.get(currentStoreCode).product_url_suffix ||
-                    '';
-                const newSuffix =
-                    availableStores.get(storeCode).product_url_suffix || '';
-
-                return currentSuffix
-                    ? pathname.replace(currentSuffix, newSuffix)
-                    : `${pathname}${newSuffix}`;
-            }
-
-            // search.html ...etc
-            return pathname;
+            return newPath.startsWith('/') ? newPath.substr(1) : newPath;
         },
-        [availableStores, currentStoreCode, pageType]
+        [pathname, fetchRouteData, internalRoutes]
     );
 
     const handleSwitchStore = useCallback(
         // Change store view code and currency to be used in Apollo link request headers
-        storeCode => {
+        async storeCode => {
             // Do nothing when store view is not present in available stores
             if (!availableStores.has(storeCode)) return;
-
-            const pathName = getPathname(storeCode);
-            const params = globalThis.location.search || '';
 
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
@@ -200,43 +174,16 @@ export const useStoreSwitcher = (props = {}) => {
                 'store_view_secure_base_media_url',
                 availableStores.get(storeCode).secure_base_media_url
             );
+            const pathName = await getPathname(storeCode);
+            const newPath = pathName ? `/${pathName}${searchParams}` : '';
 
-            // Handle updating the URL if the store code should be present.
-            // In this block we use `globalThis.location.assign` to work around the
-            // static React Router basename, which is changed on initialization.
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
-                // Check to see if we're on a page outside of the homepage
-                if (pathName !== '' && pathName !== '/') {
-                    const [, pathStoreCode] = pathName.split('/');
-
-                    // If the current store code is in the url, replace it with
-                    // the new one.
-                    if (
-                        availableStores.has(pathStoreCode) &&
-                        availableStores.get(pathStoreCode).isCurrent
-                    ) {
-                        const newPath = `${pathName.replace(
-                            `/${pathStoreCode}`,
-                            `/${storeCode}`
-                        )}${params}`;
-
-                        globalThis.location.assign(newPath);
-                    } else {
-                        // Otherwise include it and reload.
-                        const newPath = `/${storeCode}${pathName}${params}`;
-
-                        globalThis.location.assign(newPath);
-                    }
-                } else {
-                    globalThis.location.assign(`/${storeCode}`);
-                }
+                globalThis.location.assign(`/${storeCode}${newPath || ''}`);
             } else {
-                // Refresh the page to re-trigger the queries once code/currency
-                // are saved in local storage.
-                globalThis.location.assign(`${pathName}${params}`);
+                globalThis.location.assign(`${newPath || '/'}`);
             }
         },
-        [availableStores, getPathname]
+        [availableStores, getPathname, searchParams]
     );
 
     const handleTriggerClick = useCallback(() => {

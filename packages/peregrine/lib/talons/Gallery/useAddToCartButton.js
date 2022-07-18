@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '../../context/cart';
+import { useEventingContext } from '../../context/eventing';
 import operations from './addToCart.gql';
 
 /**
@@ -30,6 +31,8 @@ const UNSUPPORTED_PRODUCT_TYPES = [
 export const useAddToCartButton = props => {
     const { item, urlSuffix } = props;
 
+    const [, { dispatch }] = useEventingContext();
+
     const [isLoading, setIsLoading] = useState(false);
 
     const isInStock = item.stock_status === 'IN_STOCK';
@@ -51,11 +54,13 @@ export const useAddToCartButton = props => {
             if (productType === 'SimpleProduct') {
                 setIsLoading(true);
 
+                const quantity = 1;
+
                 await addToCart({
                     variables: {
                         cartId,
                         cartItem: {
-                            quantity: 1,
+                            quantity,
                             entered_options: [
                                 {
                                     uid: item.uid,
@@ -64,6 +69,23 @@ export const useAddToCartButton = props => {
                             ],
                             sku: item.sku
                         }
+                    }
+                });
+
+                dispatch({
+                    type: 'CART_ADD_ITEM',
+                    payload: {
+                        cartId,
+                        sku: item.sku,
+                        name: item.name,
+                        priceTotal:
+                            item.price_range.maximum_price.final_price.value,
+                        currencyCode:
+                            item.price_range.maximum_price.final_price.currency,
+                        discountAmount:
+                            item.price_range.maximum_price.discount.amount_off,
+                        selectedOptions: null,
+                        quantity
                     }
                 });
 
@@ -76,17 +98,7 @@ export const useAddToCartButton = props => {
         } catch (error) {
             console.error(error);
         }
-    }, [
-        addToCart,
-        cartId,
-        history,
-        item.sku,
-        item.url_key,
-        productType,
-        item.uid,
-        item.name,
-        urlSuffix
-    ]);
+    }, [productType, addToCart, cartId, item, dispatch, history, urlSuffix]);
 
     return {
         handleAddToCart,

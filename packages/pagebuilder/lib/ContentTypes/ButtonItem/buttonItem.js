@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button/button';
 
-import resolveLinkProps from '../../resolveLinkProps';
+import resolveLinkProps from '@magento/peregrine/lib/util/resolveLinkProps';
 import defaultClasses from './buttonItem.module.css';
 
 /**

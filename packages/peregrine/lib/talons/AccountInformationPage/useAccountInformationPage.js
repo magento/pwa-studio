@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useUserContext } from '../../context/user';
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
+import { useEventingContext } from '../../context/eventing';
 
 export const useAccountInformationPage = props => {
     const {
@@ -16,6 +17,8 @@ export const useAccountInformationPage = props => {
     const [shouldShowNewPassword, setShouldShowNewPassword] = useState(false);
 
     const [isUpdateMode, setIsUpdateMode] = useState(false);
+
+    const [, { dispatch }] = useEventingContext();
 
     // Use local state to determine whether to display errors or not.
     // Could be replaced by a "reset mutation" function from apollo client.
@@ -116,6 +119,16 @@ export const useAccountInformationPage = props => {
                         ...recaptchaDataForChangeCustomerPassword
                     });
                 }
+
+                dispatch({
+                    type: 'USER_ACCOUNT_UPDATE',
+                    payload: {
+                        email,
+                        firstName: firstname,
+                        lastName: lastname
+                    }
+                });
+
                 // After submission, close the form if there were no errors.
                 handleCancel(false);
             } catch {
@@ -133,7 +146,8 @@ export const useAccountInformationPage = props => {
             handleCancel,
             setCustomerInformation,
             generateReCaptchaData,
-            changeCustomerPassword
+            changeCustomerPassword,
+            dispatch
         ]
     );
 

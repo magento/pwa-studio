@@ -8,6 +8,7 @@ import {
 } from '../__fixtures__/configurableProduct';
 import { configurableThumbnailSourceResponse } from '../__fixtures__/configurableThumbnailSource';
 import { useProductForm } from '../useProductForm';
+import { useEventingContext } from '../../../../../context/eventing';
 
 jest.mock('@apollo/client', () => ({
     useMutation: jest
@@ -46,6 +47,10 @@ jest.mock('../../../../../context/cart', () => {
 
     return { useCartContext };
 });
+
+jest.mock('../../../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const Component = props => {
     const talonProps = useProductForm(props);
@@ -190,6 +195,27 @@ describe('form submission', () => {
         expect(updateConfigurableOptions).not.toHaveBeenCalled();
     });
 
+    test('should dispatch event when only quantity changes', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+        const { handleSubmit } = talonProps;
+
+        await handleSubmit({ quantity: 10 });
+
+        expect(mockDispatch).toBeCalledTimes(1);
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
+    });
+
     test('calls configurable item mutation when options change', async () => {
         // since this test renders twice, we need to double up the mocked returns
 
@@ -212,6 +238,35 @@ describe('form submission', () => {
 
         expect(updateItemQuantity).not.toHaveBeenCalled();
         expect(updateConfigurableOptions.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('should dispatch event when options changes', async () => {
+        // since this test renders twice, we need to double up the mocked returns
+        setupMockedReturns();
+
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+        const { handleOptionSelection } = talonProps;
+
+        handleOptionSelection('123', 2);
+
+        const { talonProps: newTalonProps } = root.findByType('i').props;
+        const { handleSubmit } = newTalonProps;
+
+        await handleSubmit({ quantity: 5 });
+
+        expect(mockDispatch).toBeCalledTimes(1);
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
     });
 
     test('does not call configurable item mutation when final options selection matches backend value', async () => {
