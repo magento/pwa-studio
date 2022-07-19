@@ -41,7 +41,6 @@ const ProductFullDetailB2B = props => {
         productDetails,
         wishlistButtonProps
     } = props;
-    // console.log(mediaGalleryEntries, 'mediaGalleryEntries', props);
     const [selectedFilter, setSelectedFilter] = useState([]);
     const [selectedFilterCategory, setSelectedFilterCategory] = useState([]);
 
@@ -59,21 +58,22 @@ const ProductFullDetailB2B = props => {
         variants.map(variant => {
             const categoriesIds = getCategoriesValuesIdByVariant(variant);
             let isContained;
-            if (selectedFilterCategory.length) {
+            if (selectedFilterCategory?.length) {
                 isContained = selectedFilterCategory?.map(filterArr =>
-                    categoriesIds?.some(id => (filterArr.length ? filterArr?.map(ele => ele.id).includes(id) : id))
+                    categoriesIds?.some(id => (filterArr?.length ? filterArr?.map(ele => ele.id).includes(id) : id))
                 );
             }
-            if (selectedFilterCategory.length === 0 || isContained.every(e => e === true)) {
+            if (selectedFilterCategory?.length === 0 || isContained.every(e => e === true)) {
                 return items.push(variant);
             } else {
                 return null;
             }
         });
+       
         return items;
     };
 
-    const totalPage = useMemo(() => Math.ceil(selectedVariants(product.variants).length / 10), [
+    const totalPage = useMemo(() => Math.ceil(selectedVariants(product.variants)?.length / 10)||2, [
         product,
         selectedFilterCategory
     ]);
@@ -84,9 +84,8 @@ const ProductFullDetailB2B = props => {
         let startIndex = (currentPage - 1) * pageSize;
         let endIndex = currentPage * pageSize;
         if (currentPage > totalPage) setCurrentPage(totalPage);
-        return items.slice(startIndex, endIndex);
-    }, [product, currentPage, selectedFilter, totalPage]);
-
+        return items?.slice(startIndex, endIndex);
+    }, [product, currentPage, selectedFilter, totalPage ,selectedFilterCategory]);
     const pageControl = {
         currentPage: currentPage,
         setPage: val => setCurrentPage(val),
