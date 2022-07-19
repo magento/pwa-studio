@@ -7,7 +7,7 @@ import createTicket from '../../services/tickets/createTicket';
 import { GET_CUSTOMER_ORDERS, GET_IMAGE_BY_SKU } from '../graphql/createTicketModal.gql';
 
 export const useCreateTicketModal = props => {
-    const { setTicketModal, setTickets, setErrorToast, setSuccessToast } = props;
+    const { setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast } = props;
     const fetchCustomerOrders = useAwaitQuery(GET_CUSTOMER_ORDERS);
     const fetchProductImage = useAwaitQuery(GET_IMAGE_BY_SKU);
     const { formatMessage } = useIntl();
@@ -176,6 +176,7 @@ export const useCreateTicketModal = props => {
                 if (res !== false) {
                     setCreateTicketStatus('success');
                     setTickets(prevTickets => [res, ...prevTickets]);
+                    setTicketCount(prevTicketCount => prevTicketCount + 1);
                     setSuccessToast(true);
                 } else {
                     setCreateTicketStatus('error');

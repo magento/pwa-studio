@@ -15,10 +15,16 @@ import { useCreateTicketModal } from '../../talons/useCreateTicketModal';
 import defaultClasses from './createTicketModal.module.css';
 
 const CreateTicketModal = props => {
-    const { isOpen, setTicketModal, setTickets, setErrorToast, setSuccessToast } = props;
+    const { isOpen, setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
-    const talonProps = useCreateTicketModal({ setTicketModal, setTickets, setErrorToast, setSuccessToast });
+    const talonProps = useCreateTicketModal({
+        setErrorToast,
+        setSuccessToast,
+        setTicketCount,
+        setTicketModal,
+        setTickets
+    });
 
     const {
         closeModal,

@@ -47,6 +47,7 @@ const ContentDialog = props => {
         setErrorToast,
         setLegendModal,
         setSuccessToast,
+        setTicketCount,
         setTicketModal,
         setTickets,
         setView,
@@ -314,6 +315,7 @@ const ContentDialog = props => {
                 setErrorToast={setErrorToast}
                 setSuccessToast={setSuccessToast}
                 setTicketModal={setTicketModal}
+                setTicketCount={setTicketCount}
                 setTickets={setTickets}
             />
             {successToast && successToastContainer}

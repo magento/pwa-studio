@@ -88,6 +88,7 @@ export const useSupportPage = () => {
         setErrorToast,
         setLegendModal,
         setSuccessToast,
+        setTicketCount,
         setTicketModal,
         setTickets,
         setView,
