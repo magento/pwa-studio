@@ -46,7 +46,7 @@ const OrderIncidences = props => {
 
     const formMsg = successMsg ? (
         <div className={classes.formSuccess}>
-            <FormattedMessage id={'createAccountBeCustomer.success'} defaultMessage={'Email send.'} />
+            <FormattedMessage id={'orderIncidences.success'} defaultMessage={'Incidence sent.'} />
         </div>
     ) : (
         <FormError
@@ -138,7 +138,7 @@ const OrderIncidences = props => {
                 </div>
                 <div className={classes.submitIncidence}>
                     <Button priority="normal" type="submit" disabled={isDisabledBtn} onClick={handleSendEmail}>
-                        <FormattedMessage id={'orderIncidences.sent'} defaultMessage={'Sent email'} />
+                        <FormattedMessage id={'orderIncidences.sent'} defaultMessage={'Send email'} />
                     </Button>
                 </div>
             </Form>

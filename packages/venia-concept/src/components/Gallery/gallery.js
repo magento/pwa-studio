@@ -12,6 +12,8 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 import { useHistory } from 'react-router-dom';
 import { ArrowRight } from 'react-feather';
 
+import { FormattedMessage } from 'react-intl';
+
 /**
  * Renders a Gallery of items. If items is an array of nulls Gallery will render
  * a placeholder item for each.
@@ -34,7 +36,9 @@ const Gallery = props => {
     const recommendedProducts = (
         <>
             <div className={classes.recommendedWrapper}>
-                <span>Recommended products</span>
+                <span>
+                    <FormattedMessage id={'gellary.recommendedProducts'} defaultMessage={'Recommended products'} />
+                </span>
             </div>
         </>
     );
@@ -47,19 +51,15 @@ const Gallery = props => {
                 return (
                     <GalleryItem
                         pageBuilder={pageBuilder}
-                        urlKeys={
-                            location.search.length
-                                ? {
-                                      items: items.map(ele => ({
-                                          url_key: ele.url_key,
-                                          url_suffix: ele.url_suffix,
-                                          name: ele.name,
-                                          __typename: ele.__typename,
-                                          sku: ele.sku
-                                      }))
-                                  }
-                                : null
-                        }
+                        urlKeys={{
+                            items: items.map(ele => ({
+                                url_key: ele.url_key,
+                                url_suffix: ele.url_suffix,
+                                name: ele.name,
+                                __typename: ele.__typename,
+                                sku: ele.sku
+                            }))
+                        }}
                         key={item.id}
                         item={item}
                         storeConfig={storeConfig}
@@ -71,12 +71,7 @@ const Gallery = props => {
     );
 
     return (
-        <div
-            data-cy="Gallery-root"
-            className={classes.root}
-            aria-live="polite"
-            aria-busy="false"
-        >
+        <div data-cy="Gallery-root" className={classes.root} aria-live="polite" aria-busy="false">
             {isHomePage && recommendedProducts}
             <div className={classes.items}>{galleryItems}</div>
         </div>

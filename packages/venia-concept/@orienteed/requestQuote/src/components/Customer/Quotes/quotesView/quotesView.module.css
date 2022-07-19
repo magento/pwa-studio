@@ -121,8 +121,15 @@
     .cell {
         padding: 0.6rem 0;
         border-bottom: 0;
-        display: grid;
+        /* display: grid; */
         grid-template-columns: auto 1fr;
+    }
+    .productDiscount {
+        text-align: initial;
+    }
+    .productOptions {
+        display: flex;
+        justify-content: right;
     }
     .quotesViewTableRow.quotesViewTableHead {
         display: none;

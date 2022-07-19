@@ -62,7 +62,7 @@ export const useOrderIncidence = props => {
                     const foundVariant = product.variants.find(variant => {
                         return variant.product.sku === item.product_sku;
                     });
-                    mappedImagesData[item.product_sku] = foundVariant.product;
+                    mappedImagesData[item.product_sku] = foundVariant ? foundVariant.product : product;
                 } else {
                     mappedImagesData[item.product_sku] = product;
                 }

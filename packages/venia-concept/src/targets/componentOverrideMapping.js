@@ -155,5 +155,45 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/WishlistPage/wishlist.module.css`]: './src/components/WishlistPage/wishlist.module.css',
     [`@magento/venia-ui/lib/components/WishlistPage/wishlistItems.module.css`]: './src/components/WishlistPage/wishlistItems.module.css',
     [`@magento/peregrine/lib/talons/WishlistPage/useWishlistItem.js`]: './src/talons/WishlistPage/useWishlistItem.js',
-    [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/showAllButton.module.css`]: './src/components/CheckoutPage/ItemsReview/showAllButton.module.css'
+    [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/showAllButton.module.css`]: './src/components/CheckoutPage/ItemsReview/showAllButton.module.css',
+
+    //new overwrite
+    [`@magento/peregrine/lib/store/enhancers/middleware.js`]: './src/enhancers/middleware.js',
+    //new overwrite
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/orderDetails.js`]: './src/components/OrderHistoryPage/OrderDetails/orderDetails.js',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/orderDetails.module.css`]: './src/components/OrderHistoryPage/OrderDetails/orderDetails.module.css',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/shippingInformation.js`]: './src/components/OrderHistoryPage/OrderDetails/shippingInformation.js',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/shippingInformation.module.css`]: './src/components/OrderHistoryPage/OrderDetails/shippingInformation.module.css',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/shippingMethod.js`]: './src/components/OrderHistoryPage/OrderDetails/shippingMethod.js',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/shippingMethod.module.css`]: './src/components/OrderHistoryPage/OrderDetails/shippingMethod.module.css',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/billingInformation.js`]: './src/components/OrderHistoryPage/OrderDetails/billingInformation.js',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/billingInformation.module.css`]: './src/components/OrderHistoryPage/OrderDetails/billingInformation.module.css',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/paymentMethod.js`]: './src/components/OrderHistoryPage/OrderDetails/paymentMethod.js',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/paymentMethod.module.css`]: './src/components/OrderHistoryPage/OrderDetails/paymentMethod.module.css',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/items.js`]: './src/components/OrderHistoryPage/OrderDetails/items.js',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/items.module.css`]: './src/components/OrderHistoryPage/OrderDetails/items.module.css',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/item.js`]: './src/components/OrderHistoryPage/OrderDetails/item.js',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/item.module.css`]: './src/components/OrderHistoryPage/OrderDetails/item.module.css',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/orderTotal.js`]: './src/components/OrderHistoryPage/OrderDetails/orderTotal.js',
+    [`@magento/venia-ui/lib/components/OrderHistoryPage/OrderDetails/orderTotal.module.css`]: './src/components/OrderHistoryPage/OrderDetails/orderTotal.module.css',
+    //
+    [`@magento/venia-ui/lib/components/ProductImageCarousel/thumbnail.module.css`]: './src/components/ProductImageCarousel/thumbnail.module.css',
+
+    //new overwrite
+    [`@magento/venia-ui/lib/components/SearchBar/searchBar.module.css`]: './src/components/SearchBar/searchBar.module.css',
+    [`@magento/venia-ui/lib/components/SearchBar/suggestedProduct.module.css`]: './src/components/SearchBar/suggestedProduct.module.css',
+
+    //new overwrite
+    [`@magento/venia-ui/lib/components/Pagination/tile.module.css`]: './src/components/Pagination/tile.module.css',
+    // New overwrite
+    [`@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js`]: './src/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js',
+    // New overwrite
+    [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethods.module.css`]: './src/components/CheckoutPage/PaymentInformation/paymentMethods.module.css',
+
+    // New overwrite
+    [`@magento/venia-ui/lib/components/ToastContainer/toastContainer.module.css`]: './src/components/ToastContainer/toastContainer.module.css',
+
+    //New OverWrite
+    [`@magento/venia-ui/lib/components/LegacyMiniCart/productOptions.module.css`]: './src/components/LegacyMiniCart/productOptions.module.css',
+    [`@magento/venia-ui/lib/components/LegacyMiniCart/productOptions.js`]: './src/components/LegacyMiniCart/productOptions.js'
 };

@@ -37,17 +37,10 @@ const IMAGE_WIDTH = 300;
 const IMAGE_HEIGHT = 375;
 
 // Gallery switches from two columns to three at 640px.
-const IMAGE_WIDTHS = new Map()
-    .set(640, IMAGE_WIDTH)
-    .set(UNCONSTRAINED_SIZE_KEY, 840);
+const IMAGE_WIDTHS = new Map().set(640, IMAGE_WIDTH).set(UNCONSTRAINED_SIZE_KEY, 840);
 
 const GalleryItem = props => {
-    const {
-        handleLinkClick,
-        item,
-        wishlistButtonProps,
-        isSupportedProductType
-    } = useGalleryItem(props);
+    const { handleLinkClick, item, wishlistButtonProps, isSupportedProductType } = useGalleryItem(props);
     const { storeConfig, filterState, pageBuilder } = props;
     const { configurable_options, stock_status } = props.item;
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
@@ -90,40 +83,24 @@ const GalleryItem = props => {
             amount: { value: regularPriceValue }
         }
     } = price;
-    const discount = Math.round(
-        100 -
-            (price.minimalPrice?.amount.value /
-                price.regularPrice?.amount.value) *
-                100
-    );
+    const discount = Math.round(100 - (price.minimalPrice?.amount.value / price.regularPrice?.amount.value) * 100);
     const priceRender =
         minimalPriceValue === regularPriceValue ? (
             <div className={`${classes.price} ${classes.regularPrice}`}>
-                <Price
-                    value={price.regularPrice.amount.value}
-                    currencyCode={price.regularPrice.amount.currency}
-                />
+                <Price value={price.regularPrice.amount.value} currencyCode={price.regularPrice.amount.currency} />
             </div>
         ) : (
             <div className={classes.priceWrapper}>
                 <div className={classes.oldPrice}>
-                    <Price
-                        value={price.regularPrice.amount.value}
-                        currencyCode={price.regularPrice.amount.currency}
-                    />
+                    <Price value={price.regularPrice.amount.value} currencyCode={price.regularPrice.amount.currency} />
                 </div>
                 <div className={`${classes.price} ${classes.newPrice}`}>
-                    <Price
-                        value={minimalPriceValue}
-                        currencyCode={minimalPriceCurrency}
-                    />
+                    <Price value={minimalPriceValue} currencyCode={minimalPriceCurrency} />
                 </div>
             </div>
         );
 
-    const wishlistButton = wishlistButtonProps ? (
-        <WishlistGalleryButton {...wishlistButtonProps} />
-    ) : null;
+    const wishlistButton = wishlistButtonProps ? <WishlistGalleryButton {...wishlistButtonProps} /> : null;
 
     const addButton = isSupportedProductType ? (
         <AddToCartbutton
@@ -159,10 +136,7 @@ const GalleryItem = props => {
     const configurableOptions = configurable_options?.map((ele, key) => {
         const values = ele.values.map(({ default_label }) => default_label);
         return (
-            <div
-                className={classes.configurableWrapper}
-                key={key + 'configurable_options'}
-            >
+            <div className={classes.configurableWrapper} key={key + 'configurable_options'}>
                 <span className={classes.configrableLabel}>{ele.label} </span>{' '}
                 <ToolTip>
                     <ul className={classes.list}>
@@ -180,18 +154,24 @@ const GalleryItem = props => {
                 {status === 'IN_STOCK' ? (
                     <span className={classes.inStock}>
                         <img src={InStockIcon} alt="in stock" />
-                        In stock
+                        <FormattedMessage
+                            id={'galleryItem.inStock'}
+                            defaultMessage={'In stock'}
+                        />
                     </span>
                 ) : (
                     <span className={classes.outStock}>
                         <img src={OutStockIcon} alt="out stock" />
-                        Out of stock
+                        <FormattedMessage
+                            id={'galleryItem.outStock'}
+                            defaultMessage={'Out of stock'}
+                        />
                     </span>
                 )}
             </>
         );
     };
-
+    
     const shareClick = () => {
         navigator.clipboard.writeText(window.origin + productLink);
         addToast({
@@ -206,9 +186,7 @@ const GalleryItem = props => {
 
     const getCategoriesValuesNameByVariant = variant => {
         return variant.attributes.map((attribute, i) => {
-            return item.configurable_options[i].values.find(
-                value => value.value_index == attribute.value_index
-            ).label;
+            return item.configurable_options[i].values.find(value => value.value_index == attribute.value_index).label;
         });
     };
 
@@ -229,19 +207,11 @@ const GalleryItem = props => {
         const newVariants = [];
         if (filterKeys && filterValues?.length) {
             variants?.map(element => {
-                const valueAttributes = element?.attributes?.map(
-                    ({ value_index }) => value_index
-                );
+                const valueAttributes = element?.attributes?.map(({ value_index }) => value_index);
                 const filter = filterValuesArray?.map(valArray =>
-                    valArray.map(value =>
-                        valueAttributes?.includes(parseInt(value))
-                    )
+                    valArray.map(value => valueAttributes?.includes(parseInt(value)))
                 );
-                if (
-                    filter
-                        .map(filArray => filArray?.includes(true))
-                        .every(ele => ele === true)
-                )
+                if (filter.map(filArray => filArray?.includes(true)).every(ele => ele === true))
                     newVariants.push(element);
             });
             variants = newVariants;
@@ -259,29 +229,19 @@ const GalleryItem = props => {
         }));
     };
     const customAttributes = () =>
-        custom_attributes
-            ?.slice(0, 3)
-            .map(({ attribute_metadata, selected_attribute_options }) => {
-                let labelValue =
-                    selected_attribute_options.attribute_option[0].label;
-                labelValue.length > 15
-                    ? (labelValue = labelValue.slice(0, 15) + '...')
-                    : labelValue;
-                return (
-                    <div className={classes.customAttributes}>
-                        <span>{attribute_metadata.label}:</span>
-                        <span>{labelValue}</span>
-                    </div>
-                );
-            });
+        custom_attributes?.slice(0, 3).map(({ attribute_metadata, selected_attribute_options }) => {
+            let labelValue = selected_attribute_options.attribute_option[0].label;
+            labelValue.length > 15 ? (labelValue = labelValue.slice(0, 15) + '...') : labelValue;
+            return (
+                <div className={classes.customAttributes}>
+                    <span>{attribute_metadata.label}:</span>
+                    <span>{labelValue}</span>
+                </div>
+            );
+        });
 
     return (
-        <div
-            data-cy="GalleryItem-root"
-            className={classes.root}
-            aria-live="polite"
-            aria-busy="false"
-        >
+        <div data-cy="GalleryItem-root" className={classes.root} aria-live="polite" aria-busy="false">
             <div className={classes.images}>
                 {item.__typename === 'ConfigurableProduct' ? (
                     <Link
@@ -340,10 +300,7 @@ const GalleryItem = props => {
             <Link
                 onClick={handleLinkClick}
                 to={{
-                    pathname:
-                        item.__typename === 'ConfigurableProduct'
-                            ? productLink
-                            : simpleProductLink,
+                    pathname: item.__typename === 'ConfigurableProduct' ? productLink : simpleProductLink,
                     state: {
                         prevPath: location.pathname,
                         urlKeys: props.urlKeys
@@ -362,7 +319,13 @@ const GalleryItem = props => {
                     </div>
                 )}
                 <div className={classes.productPrice}>
-                    <span>Your price: &nbsp;</span>
+                    <span>
+                        <FormattedMessage
+                            id={'galleryItem.yourPrice'}
+                            defaultMessage={'Your price:'}
+                        />{' '}
+                        &nbsp;
+                    </span>
                     {priceRender}
                 </div>
                 {/* <Price
@@ -375,20 +338,13 @@ const GalleryItem = props => {
                     {location.search && item?.variants && (
                         <>
                             <div className={classes.qtyField}>
-                                <QuantityStepper
-                                    value={quantity}
-                                    onChange={e => onChangeQty(e)}
-                                    min={1}
-                                />
+                                <QuantityStepper value={quantity} onChange={e => onChangeQty(e)} min={1} />
                             </div>
                             <div className={classes.productsSelect}>
                                 <Select
                                     initialValue={'Item'}
                                     field={`veriants ${item.sku}`}
-                                    items={[
-                                        { value: 'Item' },
-                                        ...getProductsInstance()
-                                    ]}
+                                    items={[{ value: 'Item' }, ...getProductsInstance()]}
                                     onChange={onChangeVariant}
                                 />
                             </div>
@@ -396,10 +352,7 @@ const GalleryItem = props => {
                     )}
                 </div>
             )}
-            <div
-                className={`${classes.actionsContainer} ${isHomePage &&
-                    classes.homeActionContainer}`}
-            >
+            <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}`}>
                 {addButton}
                 {/* {!isHomePage && wishlistButton} */}
             </div>

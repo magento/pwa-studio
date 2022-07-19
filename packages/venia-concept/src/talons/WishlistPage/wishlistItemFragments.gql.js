@@ -36,6 +36,8 @@ export const WishlistItemFragment = gql`
             }
             sku
             stock_status
+            url_key
+            url_suffix
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ConfigurableProduct {
                 # eslint-disable-next-line @graphql-eslint/require-id-when-available

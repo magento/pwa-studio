@@ -12,6 +12,7 @@ import { retrieveCartId } from '@magento/peregrine/lib/store/actions/cart';
 
 import DEFAULT_OPERATIONS from './signIn.gql.js';
 import registerUserAndSaveData from '@orienteed/lms/services/registerUserAndSaveData';
+import getTokenAndSave from '@orienteed/lms/services/getTokenAndSave.js';
 
 export const useSignIn = props => {
     const { getCartDetailsQuery, setDefaultUsername, showCreateAccount, showForgotPassword } = props;
@@ -39,11 +40,6 @@ export const useSignIn = props => {
         fetchPolicy: 'no-cache'
     });
 
-    const saveMoodleTokenAndId = (moodleToken, moodleId) => {
-        localStorage.setItem('LMS_INTEGRATION_moodle_token', moodleToken);
-        localStorage.setItem('LMS_INTEGRATION_moodle_id', moodleId);
-    };
-
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
     const [setMoodleTokenAndId] = useMutation(setMoodleTokenAndIdMutation);
@@ -69,17 +65,18 @@ export const useSignIn = props => {
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
 
-                // Moodle logic
+                // LMS logic
                 const moodleTokenResponse = await fetchMoodleToken();
                 const moodleIdResponse = await fetchMoodleId();
 
-                moodleTokenResponse.data.customer.moodle_token !== null &&
-                moodleIdResponse.data.customer.moodle_id !== null
-                    ? saveMoodleTokenAndId(
-                          moodleTokenResponse.data.customer.moodle_token,
-                          moodleIdResponse.data.customer.moodle_id
-                      )
-                    : registerUserAndSaveData(email, password, setMoodleTokenAndId, saveMoodleTokenAndId);
+                if (
+                    moodleTokenResponse.data.customer.moodle_token !== null &&
+                    moodleIdResponse.data.customer.moodle_id !== null
+                ) {
+                    getTokenAndSave(email, password, moodleIdResponse.data.customer.moodle_id, setMoodleTokenAndId);
+                } else {
+                    registerUserAndSaveData(email, password, setMoodleTokenAndId);
+                }
 
                 // Clear all cart/customer data from cache and redux.
                 await clearCartDataFromCache(apolloClient);
@@ -115,21 +112,22 @@ export const useSignIn = props => {
             }
         },
         [
-            cartId,
             apolloClient,
-            removeCart,
-            signIn,
-            setToken,
+            cartId,
             createCart,
+            fetchCartDetails,
             fetchCartId,
-            mergeCarts,
-            getUserDetails,
+            fetchMoodleId,
+            fetchMoodleToken,
             fetchUserDetails,
             getCartDetails,
-            fetchCartDetails,
-            fetchMoodleToken,
+            getUserDetails,
+            history,
+            mergeCarts,
+            removeCart,
             setMoodleTokenAndId,
-            history
+            setToken,
+            signIn
         ]
     );
 

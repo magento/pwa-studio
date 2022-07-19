@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
 import { useQuery, useApolloClient, useMutation, useLazyQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -7,6 +7,12 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './billingAddress.gql';
 
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { FormattedMessage } from 'react-intl';
+import { useToasts } from '@magento/peregrine';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+
+const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 /**
  * Maps address response data from GET_BILLING_ADDRESS and GET_SHIPPING_ADDRESS
  * queries to input names in the billing address form.
@@ -82,8 +88,8 @@ export const getDefaultBillingAddress = customerAddressesData => {
 export default original => {
     return function useBillingAddress(props, ...restArgs) {
         const { shouldSubmit, onBillingAddressChangedError, onBillingAddressChangedSuccess } = props;
-
         const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+        const [, { addToast }] = useToasts();
 
         const {
             getBillingAddressQuery,
@@ -128,7 +134,6 @@ export default original => {
                 loading: billingAddressMutationLoading
             }
         ] = useMutation(setBillingAddressMutation);
-
         const [
             updateDefaultBillingAddress,
             {
@@ -203,7 +208,9 @@ export default original => {
                     ...shippingAddress,
                     sameAsShipping: true
                 }
-            });
+            })
+                .then(res => console.log(res, 'useMutation'))
+                .catch(err => console.log(err, 'useMutationerr'));
         }, [updateBillingAddress, shippingAddressData, cartId]);
 
         const setDefaultBillingAddress = useCallback(() => {
@@ -243,14 +250,25 @@ export default original => {
                     lastName,
                     country,
                     street1,
-                    street2,
+                    street2: street2 || '',
                     city,
                     region,
                     postcode,
                     phoneNumber,
                     sameAsShipping: false
                 }
-            });
+            })
+                .then(res => console.log(res, 'useMutation22'))
+                .catch(err =>
+                    addToast({
+                        type: 'error',
+                        icon: errorIcon,
+                        message: (
+                            <FormattedMessage id={'billingAddress.somethingWentWrongTryAnotherState'} defaultMessage={'Something went wrong, try another state'} />
+                        ),
+                        timeout: 6000
+                    })
+                );
         }, [formState.values, updateBillingAddress, cartId]);
 
         /**

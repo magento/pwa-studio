@@ -1,6 +1,10 @@
 import React, { useMemo, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
-import { Search as SearchIcon, AlertCircle as AlertCircleIcon, ArrowRight as SubmitIcon } from 'react-feather';
+import {
+    Search as SearchIcon,
+    AlertCircle as AlertCircleIcon,
+    ArrowRight as SubmitIcon
+} from 'react-feather';
 import { shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -45,7 +49,8 @@ const OrderHistoryPage = props => {
         orders,
         pageInfo,
         searchText,
-        storeConfigData
+        storeConfigData,
+        address
     } = talonProps;
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
@@ -61,7 +66,14 @@ const OrderHistoryPage = props => {
 
     const orderRows = useMemo(() => {
         return orders.map(order => {
-            return <OrderRow key={order.id} order={order} config={storeConfigData} />;
+            return (
+                <OrderRow
+                    address={address}
+                    key={order.id}
+                    order={order}
+                    config={storeConfigData}
+                />
+            );
         });
     }, [orders]);
 
@@ -102,7 +114,9 @@ const OrderHistoryPage = props => {
         searchText
     ]);
 
-    const resetButtonElement = searchText ? <ResetButton onReset={handleReset} /> : null;
+    const resetButtonElement = searchText ? (
+        <ResetButton onReset={handleReset} />
+    ) : null;
 
     const submitIcon = (
         <Icon
@@ -129,7 +143,10 @@ const OrderHistoryPage = props => {
             onClick={loadMoreOrders}
             priority="low"
         >
-            <FormattedMessage id={'orderHistoryPage.loadMore'} defaultMessage={'Load More'} />
+            <FormattedMessage
+                id={'orderHistoryPage.loadMore'}
+                defaultMessage={'Load More'}
+            />
         </Button>
     ) : null;
 
@@ -152,8 +169,13 @@ const OrderHistoryPage = props => {
                     <StoreTitle>{PAGE_TITLE}</StoreTitle>
                     <h1 className={classes.heading}>{PAGE_TITLE}</h1>
                     <div className={classes.filterRow}>
-                        <span className={classes.pageInfo}>{pageInfoLabel}</span>
-                        <Form className={classes.search} onSubmit={handleSubmit}>
+                        <span className={classes.pageInfo}>
+                            {pageInfoLabel}
+                        </span>
+                        <Form
+                            className={classes.search}
+                            onSubmit={handleSubmit}
+                        >
                             <TextInput
                                 after={resetButtonElement}
                                 before={searchIcon}
@@ -163,7 +185,9 @@ const OrderHistoryPage = props => {
                             />
                             <Button
                                 className={classes.searchButton}
-                                disabled={isBackgroundLoading || isLoadingWithoutData}
+                                disabled={
+                                    isBackgroundLoading || isLoadingWithoutData
+                                }
                                 priority={'high'}
                                 type="submit"
                             >

@@ -25,6 +25,14 @@ const CustomerOrdersFragment = gql`
                     currency
                     value
                 }
+                discounts {
+                    amount {
+                        currency
+                        value
+                    }
+                    label
+                    __typename
+                }
                 product_sku
                 product_url_key
                 selected_options {
@@ -95,7 +103,10 @@ const CustomerOrdersFragment = gql`
 `;
 
 export const GET_CUSTOMER_ORDERS = gql`
-    query GetCustomerOrders($filter: CustomerOrdersFilterInput, $pageSize: Int!) {
+    query GetCustomerOrders(
+        $filter: CustomerOrdersFilterInput
+        $pageSize: Int!
+    ) {
         customer {
             id
             orders(filter: $filter, pageSize: $pageSize) {

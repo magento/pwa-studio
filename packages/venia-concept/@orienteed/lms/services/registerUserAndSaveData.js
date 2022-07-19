@@ -3,10 +3,10 @@ import getToken from './getToken';
 import getUserId from './getUserId';
 import { v4 as uuidv4 } from 'uuid';
 
-const registerUserAndSaveData = async (email, password, setMoodleTokenAndId, saveMoodleTokenAndId) => {
+const registerUserAndSaveData = async (email, password, setMoodleTokenAndId) => {
     const params = {
         moodlewsrestformat: 'json',
-        wstoken: 'af547e6e35fca251a48ff4bedb7f1298',
+        wstoken: process.env.LMS_API_KEY,
         wsfunction: 'core_user_create_users',
         'users[0][username]': email.toLowerCase(),
         'users[0][firstname]': 'Magento',
@@ -15,8 +15,13 @@ const registerUserAndSaveData = async (email, password, setMoodleTokenAndId, sav
         'users[0][password]': password
     };
 
+    const saveMoodleTokenAndId = (token, id) => {
+        localStorage.setItem('LMS_INTEGRATION_moodle_token', token);
+        localStorage.setItem('LMS_INTEGRATION_moodle_id', id);
+    };
+
     return await axios
-        .get(`https://demo-moodle.orienteed.com/webservice/rest/server.php`, {
+        .get(`${process.env.LMS_URL}/webservice/rest/server.php`, {
             params: params
         })
         .then(res => {

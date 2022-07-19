@@ -18,7 +18,6 @@ import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCapt
 
 import ReactGA from 'react-ga';
 
-
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
     SHIPPING_METHOD: 2,
@@ -184,8 +183,8 @@ export const useCheckoutPage = (props = {}) => {
         ReactGA.event({
             category: 'Checkout page',
             action: 'Review order clicked',
-            label: `Checkout page- Review order clicked`,
-          })
+            label: `Checkout page- Review order clicked`
+        });
         setReviewOrderButtonClicked(true);
     }, []);
 
@@ -246,11 +245,11 @@ export const useCheckoutPage = (props = {}) => {
         });
         setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
-            ReactGA.event({
-                category: 'Checkout page',
-                action: 'Place order clicked',
-                label: `Checkout page- Place order clicked`,
-            })
+        ReactGA.event({
+            category: 'Checkout page',
+            action: 'Place order clicked',
+            label: `Checkout page- Place order clicked`
+        });
     }, [cartId, getOrderDetails]);
 
     // Go back to checkout if shopper logs in
@@ -264,13 +263,42 @@ export const useCheckoutPage = (props = {}) => {
         async function placeOrderAndCleanup() {
             try {
                 const reCaptchaData = await generateReCaptchaData();
-
-                await placeOrder({
+                const { cart } = orderDetailsData;
+                const { data } = await placeOrder({
                     variables: {
                         cartId
                     },
                     ...reCaptchaData
                 });
+
+                const orderId = data.placeOrder.order.order_number;
+
+                ReactGA.plugin.execute('ecommerce', 'addTransaction', {
+                    id: orderId,
+                    revenue: cart.prices.subtotal_excluding_tax.value,
+                    quantity: String(cart.total_quantity),
+                    shipping:
+                        cart.shipping_addresses[0].selected_shipping_method
+                            .amount.value,
+                    tax: cart.prices.applied_taxes.reduce(
+                        (acc, tax) => acc + tax.amount.value,
+                        0
+                    )
+                });
+                cart?.items.map(product => {
+                    ReactGA.plugin.execute('ecommerce', 'addItem', {
+                        id: orderId,
+                        name: product.product.name,
+                        sku: product.product.sku,
+                        category: product.product.categories[0].name,
+                        price: product.prices.price.value,
+                        quantity: String(product.quantity)
+                    });
+                });
+
+                ReactGA.plugin.execute('ecommerce', 'send');
+                ReactGA.plugin.execute('ecommerce', 'clear');
+
                 // Cleanup stale cart and customer info.
                 await removeCart();
                 await apolloClient.clearCacheData(apolloClient, 'cart');

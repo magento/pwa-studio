@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -24,10 +24,7 @@ const deriveOptionCodesFromProduct = product => {
 
     // Initialize optionCodes based on the options of the product.
     const initialOptionCodes = new Map();
-    for (const {
-        attribute_id,
-        attribute_code
-    } of product.configurable_options) {
+    for (const { attribute_id, attribute_code } of product.configurable_options) {
         initialOptionCodes.set(attribute_id, attribute_code);
     }
 
@@ -58,18 +55,12 @@ const getIsMissingOptions = (product, optionSelections) => {
     // option selections than the product has options.
     const { configurable_options } = product;
     const numProductOptions = configurable_options.length;
-    const numProductSelections = Array.from(optionSelections.values()).filter(
-        value => !!value
-    ).length;
+    const numProductSelections = Array.from(optionSelections.values()).filter(value => !!value).length;
 
     return numProductSelections < numProductOptions;
 };
 
-const getHasOptionsOfTheSelection = (
-    product,
-    optionCodes,
-    optionSelections
-) => {
+const getHasOptionsOfTheSelection = (product, optionCodes, optionSelections) => {
     const { variants } = product;
     const item = findMatchingVariant({
         optionCodes,
@@ -87,9 +78,7 @@ const getHasOptionsOfTheSelection = (
 const getIsOutOfStock = (product, optionCodes, optionSelections) => {
     const { stock_status, variants } = product;
     const isConfigurable = isProductConfigurable(product);
-    const optionsSelected =
-        Array.from(optionSelections.values()).filter(value => !!value).length >
-        0;
+    const optionsSelected = Array.from(optionSelections.values()).filter(value => !!value).length > 0;
 
     if (isConfigurable && optionsSelected) {
         const item = findMatchingVariant({
@@ -105,17 +94,13 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
     return stock_status === OUT_OF_STOCK_CODE;
 };
 
-const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
+const getMediaGalleryEntries = (product, optionCodes, optionSelections, derivedOptionSelections) => {
     let value = [];
-
     const { media_gallery_entries, variants } = product;
     const isConfigurable = isProductConfigurable(product);
-
+    const newOptions = deriveOptionCodesFromProduct(product);
     // Selections are initialized to "code => undefined". Once we select a value, like color, the selections change. This filters out unselected options.
-    const optionsSelected =
-        Array.from(optionSelections.values()).filter(value => !!value).length >
-        0;
-
+    const optionsSelected = Array.from(optionSelections.values()).filter(value => !!value).length > 0;
     if (!isConfigurable || !optionsSelected) {
         value = media_gallery_entries;
     } else {
@@ -124,14 +109,12 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
         // include variants such as size. If Magento is configured to display
         // an image for a size attribute, it will render that image.
         const item = findMatchingVariant({
-            optionCodes,
+            optionCodes: newOptions,
             optionSelections,
             variants
         });
 
-        value = item
-            ? [...item.product.media_gallery_entries, ...media_gallery_entries]
-            : media_gallery_entries;
+        value = item ? [...item.product.media_gallery_entries, ...media_gallery_entries] : media_gallery_entries;
     }
 
     return value;
@@ -148,16 +131,12 @@ const getBreadcrumbCategoryId = categories => {
     const breadcrumbSet = new Set();
     categories.forEach(({ breadcrumbs }) => {
         // breadcrumbs can be `null`...
-        (breadcrumbs || []).forEach(({ category_id }) =>
-            breadcrumbSet.add(category_id)
-        );
+        (breadcrumbs || []).forEach(({ category_id }) => breadcrumbSet.add(category_id));
     });
 
     // Until we can get the single canonical breadcrumb path to a product we
     // will just return the first category id of the potential leaf categories.
-    const leafCategory = categories?.find(
-        category => !breadcrumbSet.has(category.uid)
-    );
+    const leafCategory = categories?.find(category => !breadcrumbSet.has(category.uid));
 
     // If we couldn't find a leaf category then just use the first category
     // in the list for this product.
@@ -170,9 +149,7 @@ const getConfigPriceRegular = (product, optionCodes, optionSelections) => {
     const { variants } = product;
     const isConfigurable = isProductConfigurable(product);
 
-    const optionsSelected =
-        Array.from(optionSelections.values()).filter(value => !!value).length >
-        0;
+    const optionsSelected = Array.from(optionSelections.values()).filter(value => !!value).length > 0;
 
     if (!isConfigurable || !optionsSelected) {
         value = product.price.regularPrice.amount;
@@ -183,9 +160,7 @@ const getConfigPriceRegular = (product, optionCodes, optionSelections) => {
             variants
         });
 
-        value = item
-            ? item.product.price.regularPrice.amount
-            : product.price.regularPrice.amount;
+        value = item ? item.product.price.regularPrice.amount : product.price.regularPrice.amount;
     }
 
     return value;
@@ -197,9 +172,7 @@ const getConfigPriceMinimal = (product, optionCodes, optionSelections) => {
     const { variants } = product;
     const isConfigurable = isProductConfigurable(product);
 
-    const optionsSelected =
-        Array.from(optionSelections.values()).filter(value => !!value).length >
-        0;
+    const optionsSelected = Array.from(optionSelections.values()).filter(value => !!value).length > 0;
 
     if (!isConfigurable || !optionsSelected) {
         value = product.price.minimalPrice.amount;
@@ -210,9 +183,7 @@ const getConfigPriceMinimal = (product, optionCodes, optionSelections) => {
             variants
         });
 
-        value = item
-            ? item.product.price.minimalPrice.amount
-            : product.price.minimalPrice.amount;
+        value = item ? item.product.price.minimalPrice.amount : product.price.minimalPrice.amount;
     }
 
     return value;
@@ -238,15 +209,8 @@ const getConfigPriceMinimal = (product, optionCodes, optionSelections) => {
  * }}
  */
 export const useProductFullDetail = props => {
-    const {
-        addConfigurableProductToCartMutation,
-        addSimpleProductToCartMutation,
-        product
-    } = props;
-
-    const hasDeprecatedOperationProp = !!(
-        addConfigurableProductToCartMutation || addSimpleProductToCartMutation
-    );
+    const { addConfigurableProductToCartMutation, addSimpleProductToCartMutation, product } = props;
+    const hasDeprecatedOperationProp = !!(addConfigurableProductToCartMutation || addSimpleProductToCartMutation);
 
     const operations = mergeOperations(defaultOperations, props.operations);
 
@@ -258,75 +222,53 @@ export const useProductFullDetail = props => {
     const [{ isSignedIn }] = useUserContext();
     const { formatMessage } = useIntl();
 
-    const { data: storeConfigData } = useQuery(
-        operations.getWishlistConfigQuery,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const { data: storeConfigData } = useQuery(operations.getWishlistConfigQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     const [
         addConfigurableProductToCart,
-        {
-            error: errorAddingConfigurableProduct,
-            loading: isAddConfigurableLoading
-        }
-    ] = useMutation(
-        addConfigurableProductToCartMutation ||
-            operations.addConfigurableProductToCartMutation
+        { error: errorAddingConfigurableProduct, loading: isAddConfigurableLoading }
+    ] = useMutation(addConfigurableProductToCartMutation || operations.addConfigurableProductToCartMutation);
+
+    const [addSimpleProductToCart, { error: errorAddingSimpleProduct, loading: isAddSimpleLoading }] = useMutation(
+        addSimpleProductToCartMutation || operations.addSimpleProductToCartMutation
     );
 
-    const [
-        addSimpleProductToCart,
-        { error: errorAddingSimpleProduct, loading: isAddSimpleLoading }
-    ] = useMutation(
-        addSimpleProductToCartMutation ||
-            operations.addSimpleProductToCartMutation
+    const [addProductToCart, { error: errorAddingProductToCart, loading: isAddProductLoading }] = useMutation(
+        operations.addProductToCartMutation
     );
 
-    const [
-        addProductToCart,
-        { error: errorAddingProductToCart, loading: isAddProductLoading }
-    ] = useMutation(operations.addProductToCartMutation);
+    const breadcrumbCategoryId = useMemo(() => getBreadcrumbCategoryId(product.categories), [product.categories]);
 
-    const breadcrumbCategoryId = useMemo(
-        () => getBreadcrumbCategoryId(product.categories),
-        [product.categories]
-    );
+    const derivedOptionSelections = deriveOptionSelectionsFromProduct(product);
 
-    const derivedOptionSelections = useMemo(
-        () => deriveOptionSelectionsFromProduct(product),
-        [product]
-    );
+    const [optionSelections, setOptionSelections] = useState(derivedOptionSelections);
 
-    const [optionSelections, setOptionSelections] = useState(
-        derivedOptionSelections
-    );
-
-    const derivedOptionCodes = useMemo(
-        () => deriveOptionCodesFromProduct(product),
-        [product]
-    );
-    const [optionCodes] = useState(derivedOptionCodes);
-
-    const isMissingOptions = useMemo(
-        () => getIsMissingOptions(product, optionSelections),
-        [product, optionSelections]
-    );
+    const derivedOptionCodes = useMemo(() => deriveOptionCodesFromProduct(product), [product]);
+    const [optionCodes, setOptionCode] = useState(derivedOptionCodes);
+    useEffect(() => {
+        setOptionCode(derivedOptionCodes);
+    }, [derivedOptionCodes]);
+    // const { name } = product;
+    // useEffect(() => {
+    //     setOptionSelections(derivedOptionSelections);
+    // }, [name]);
+    const isMissingOptions = useMemo(() => getIsMissingOptions(product, optionSelections), [product, optionSelections]);
 
     const hasOptionsOfTheSelection = useMemo(
-        () =>
-            getHasOptionsOfTheSelection(product, optionCodes, optionSelections),
+        () => getHasOptionsOfTheSelection(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
     );
 
-    const isOutOfStock = useMemo(
-        () => getIsOutOfStock(product, optionCodes, optionSelections),
-        [product, optionCodes, optionSelections]
-    );
+    const isOutOfStock = useMemo(() => getIsOutOfStock(product, optionCodes, optionSelections), [
+        product,
+        optionCodes,
+        optionSelections
+    ]);
 
     const mediaGalleryEntries = useMemo(
-        () => getMediaGalleryEntries(product, optionCodes, optionSelections),
+        () => getMediaGalleryEntries(product, optionCodes, optionSelections, derivedOptionSelections),
         [product, optionCodes, optionSelections]
     );
 
@@ -352,9 +294,7 @@ export const useProductFullDetail = props => {
         optionSelections.forEach((value, key) => {
             const values = attributeIdToValuesMap.get(key);
 
-            const selectedValue = values?.find(
-                item => item.value_index === value
-            );
+            const selectedValue = values?.find(item => item.value_index === value);
 
             if (selectedValue) {
                 selectedOptions.push(selectedValue.uid);
@@ -494,27 +434,41 @@ export const useProductFullDetail = props => {
             productType
         ]
     );
+    let optionSelectionsKeys = Array.from(optionSelections.keys());
+    let derivedOptionSelectionsKey = Array.from(derivedOptionSelections.keys());
+    let iskeysEqual = derivedOptionSelectionsKey.every(ele => optionSelectionsKeys.includes(ele));
+    
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
+            let optionSelectionsKeys1 = Array.from(optionSelections.keys());
+            let derivedOptionSelectionsKeys1 = Array.from(derivedOptionSelections.keys());
+
+            if (!derivedOptionSelectionsKeys1.every(ele => optionSelectionsKeys1.includes(ele))) {
+                const newOptionSelections = new Map([...derivedOptionSelections]);
+                newOptionSelections.set(optionId, selection);
+                return setOptionSelections(newOptionSelections);
+            }
             // We must create a new Map here so that React knows that the value
             // of optionSelections has changed.
             const nextOptionSelections = new Map([...optionSelections]);
             nextOptionSelections.set(optionId, selection);
             setOptionSelections(nextOptionSelections);
         },
-        [optionSelections]
+        [optionSelections, iskeysEqual]
     );
 
-    const productPriceRegular = useMemo(
-        () => getConfigPriceRegular(product, optionCodes, optionSelections),
-        [product, optionCodes, optionSelections]
-    );
+    const productPriceRegular = useMemo(() => getConfigPriceRegular(product, optionCodes, optionSelections), [
+        product,
+        optionCodes,
+        optionSelections
+    ]);
 
-    const productPriceMinimal = useMemo(
-        () => getConfigPriceMinimal(product, optionCodes, optionSelections),
-        [product, optionCodes, optionSelections]
-    );
+    const productPriceMinimal = useMemo(() => getConfigPriceMinimal(product, optionCodes, optionSelections), [
+        product,
+        optionCodes,
+        optionSelections
+    ]);
 
     // Normalization object for product details we need for rendering.
     const productDetails = {
@@ -532,17 +486,8 @@ export const useProductFullDetail = props => {
     };
 
     const derivedErrorMessage = useMemo(
-        () =>
-            deriveErrorMessage([
-                errorAddingSimpleProduct,
-                errorAddingConfigurableProduct,
-                errorAddingProductToCart
-            ]),
-        [
-            errorAddingConfigurableProduct,
-            errorAddingProductToCart,
-            errorAddingSimpleProduct
-        ]
+        () => deriveErrorMessage([errorAddingSimpleProduct, errorAddingConfigurableProduct, errorAddingProductToCart]),
+        [errorAddingConfigurableProduct, errorAddingProductToCart, errorAddingSimpleProduct]
     );
 
     const wishlistItemOptions = useMemo(() => {
@@ -589,15 +534,14 @@ export const useProductFullDetail = props => {
         isSupportedProductType,
         mediaGalleryEntries,
         shouldShowWishlistButton:
-            isSignedIn &&
-            storeConfigData &&
-            !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
+            isSignedIn && storeConfigData && !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
         productDetails,
         wishlistButtonProps,
         wishlistItemOptions,
         hasOptionsOfTheSelection,
         addConfigurableProductToCart,
         isAddConfigurableLoading,
-        cartId
+        cartId,
+        derivedOptionSelectionsKey
     };
 };

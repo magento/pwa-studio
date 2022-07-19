@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getCourseContent = async (id, token = 'af547e6e35fca251a48ff4bedb7f1298') => {
+const getCourseContent = async (id, token = process.env.LMS_API_KEY) => {
     const data = {
         moodlewsrestformat: 'json',
         wstoken: token,
@@ -9,7 +9,7 @@ const getCourseContent = async (id, token = 'af547e6e35fca251a48ff4bedb7f1298') 
     };
 
     return await axios
-        .post(`https://demo-moodle.orienteed.com/webservice/rest/server.php`, null, { params: data })
+        .post(`${process.env.LMS_URL}/webservice/rest/server.php`, null, { params: data })
         .then(courseResponse => {
             return courseResponse.data;
         })

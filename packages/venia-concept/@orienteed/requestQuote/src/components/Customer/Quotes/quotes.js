@@ -61,7 +61,7 @@ const Quotes = props => {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
-                        id={'buyLaterNotesPage.emptyDataMessage'}
+                        id={'quotesPage.emptyDataMessage'}
                         defaultMessage={"You don't have any quote yet."}
                     />
                 </h3>

@@ -15,7 +15,11 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 
 import { useHistory } from 'react-router-dom';
 import ReactGA from 'react-ga';
+
+
 ReactGA.initialize('UA-158777378-4');
+ReactGA.plugin.require('ecommerce');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 import { AlertCircle as AlertCircleIcon, CloudOff as CloudOffIcon, Wifi as WifiIcon } from 'react-feather';
 
