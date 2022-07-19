@@ -22,6 +22,10 @@ const TicketItem = props => {
     const lastUpdateDateText = formatMessage({ id: 'csr.lastUpdateDate', defaultMessage: 'Last update date' });
     const summaryText = formatMessage({ id: 'csr.summary', defaultMessage: 'Summary' });
     const stateText = formatMessage({ id: 'csr.state', defaultMessage: 'State' });
+    const stateValueText = formatMessage({
+        id: `csr.${states[ticket.state_id]}`,
+        defaultMessage: states[ticket.state_id]
+    });
 
     const showType = groupId => {
         switch (groups[groupId]) {
@@ -91,7 +95,7 @@ const TicketItem = props => {
             </div>
             <div className={classes.ticketListItem}>
                 <p className={classes.fieldTitle}>{stateText}</p>
-                <p className={classes.fieldState}>{states[ticket.state_id]}</p>
+                <p className={classes.fieldState}>{stateValueText}</p>
             </div>
             <div className={classes.messageContainer}>
                 <img src={messageIcon} className={classes.messageIcon} alt="Message icon" />
