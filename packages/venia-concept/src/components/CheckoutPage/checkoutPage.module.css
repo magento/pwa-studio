@@ -125,6 +125,10 @@
     margin: auto;
 }
 
+.errorNoProductText {
+    color: red;
+}
+
 /*
  * Mobile-specific styles.
  */

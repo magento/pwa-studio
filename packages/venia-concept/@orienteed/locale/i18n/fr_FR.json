@@ -614,7 +614,7 @@
     "quickOrder.addToQuote": "Ajouté au devis avec succès",
     "quickOrder.CreateOrder": "Créer une commande",
     "quickOrder.DownloadYourSampleFile": "Téléchargez votre fichier d'échantillons",
-    "quickOrder.emptyItems":"Aucun élément trouvé",
+    "quickOrder.emptyItems": "Aucun élément trouvé",
     "quickOrder.GetQuote": "Obtenir un devis",
     "quickOrder.HereYouCanUploadOwnFile": "Ici vous pouvez télécharger votre propre fichier XLS, XLSX ou CSV et les produits au panier.",
     "quickOrder.Items": "Articles",
@@ -799,5 +799,6 @@
     "wishlistPage.disabledMessage": "Désolé, cette fonctionnalité a été désactivée.",
     "wishlistPage.fetchErrorMessage": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "wishlistPage.headingText": "Listes de favoris",
-    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement."
+    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement.",
+    "checkoutPage.noProductText": "Certains produits ne sont pas disponibles"
 }

@@ -12,7 +12,7 @@ const ShippingMethod = props => {
     const classes = useStyle(defaultClasses, propsClasses);
     let trackingElement;
     const method = shippingMethod.split('-');
-    console.log(method, 'method');
+
     if (shipments.length) {
         trackingElement = shipments.map(shipment => {
             const { tracking: trackingCollection } = shipment;
@@ -37,30 +37,21 @@ const ShippingMethod = props => {
         });
     } else {
         trackingElement = (
-            <FormattedMessage
-                id="orderDetails.waitingOnTracking"
-                defaultMessage="Waiting for tracking information"
-            />
+            <FormattedMessage id="orderDetails.waitingOnTracking" defaultMessage="Waiting for tracking information" />
         );
     }
 
     return (
-        <div
-            className={classes.root}
-            data-cy="OrderDetails-ShippingMethod-root"
-        >
+        <div className={classes.root} data-cy="OrderDetails-ShippingMethod-root">
             <div className={classes.heading}>
-                <FormattedMessage
-                    id="orderDetails.shippingMethodLabel"
-                    defaultMessage="Shipping Method"
-                />
+                <FormattedMessage id="orderDetails.shippingMethodLabel" defaultMessage="Shipping Method" />
             </div>
             <div className={classes.methodDetails}>
                 <div className={classes.method}>
-                    <span>{method[0].slice(0,method[0].length-1)}:</span>
+                    <span>{method[0].slice(0, method[0].length - 1)}:</span>
                     <span className={classes.methodValue}>{method[1]}</span>
                     {/* {shippingMethod} */}
-                    </div>
+                </div>
                 <div className={classes.tracking}>{trackingElement}</div>
             </div>
         </div>

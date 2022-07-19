@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
-import {
-    useApolloClient,
-    useLazyQuery,
-    useMutation,
-    useQuery
-} from '@apollo/client';
+import { useApolloClient, useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -17,6 +12,7 @@ import CheckoutError from '@magento/peregrine/lib/talons/CheckoutPage/CheckoutEr
 import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha';
 
 import ReactGA from 'react-ga';
+import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -68,6 +64,7 @@ export const CHECKOUT_STEP = {
  */
 export const useCheckoutPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { setNoProduct } = useNoReorderProductContext();
 
     const {
         createCartMutation,
@@ -82,56 +79,39 @@ export const useCheckoutPage = (props = {}) => {
         formAction: 'placeOrder'
     });
 
-    const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
-        false
-    );
+    const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(false);
 
     const shippingInformationRef = useRef();
     const shippingMethodRef = useRef();
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
-    const [placeOrderButtonClicked, setPlaceOrderButtonClicked] = useState(
-        false
-    );
+    const [placeOrderButtonClicked, setPlaceOrderButtonClicked] = useState(false);
     const [activeContent, setActiveContent] = useState('checkout');
-    const [checkoutStep, setCheckoutStep] = useState(
-        CHECKOUT_STEP.SHIPPING_ADDRESS
-    );
+    const [checkoutStep, setCheckoutStep] = useState(CHECKOUT_STEP.SHIPPING_ADDRESS);
     const [guestSignInUsername, setGuestSignInUsername] = useState('');
 
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
-    const [
-        placeOrder,
-        {
-            data: placeOrderData,
-            error: placeOrderError,
-            loading: placeOrderLoading
-        }
-    ] = useMutation(placeOrderMutation);
-
-    const [
-        getOrderDetails,
-        { data: orderDetailsData, loading: orderDetailsLoading }
-    ] = useLazyQuery(getOrderDetailsQuery, {
-        // We use this query to fetch details _just_ before submission, so we
-        // want to make sure it is fresh. We also don't want to cache this data
-        // because it may contain PII.
-        fetchPolicy: 'no-cache'
-    });
-
-    const { data: customerData, loading: customerLoading } = useQuery(
-        getCustomerQuery,
-        { skip: !isSignedIn }
+    const [placeOrder, { data: placeOrderData, error: placeOrderError, loading: placeOrderLoading }] = useMutation(
+        placeOrderMutation
     );
 
-    const {
-        data: checkoutData,
-        networkStatus: checkoutQueryNetworkStatus
-    } = useQuery(getCheckoutDetailsQuery, {
+    const [getOrderDetails, { data: orderDetailsData, loading: orderDetailsLoading }] = useLazyQuery(
+        getOrderDetailsQuery,
+        {
+            // We use this query to fetch details _just_ before submission, so we
+            // want to make sure it is fresh. We also don't want to cache this data
+            // because it may contain PII.
+            fetchPolicy: 'no-cache'
+        }
+    );
+
+    const { data: customerData, loading: customerLoading } = useQuery(getCustomerQuery, { skip: !isSignedIn });
+
+    const { data: checkoutData, networkStatus: checkoutQueryNetworkStatus } = useQuery(getCheckoutDetailsQuery, {
         /**
          * Skip fetching checkout details if the `cartId`
          * is a falsy value.
@@ -153,9 +133,7 @@ export const useCheckoutPage = (props = {}) => {
      * https://www.apollographql.com/docs/react/data/queries/#inspecting-loading-states
      */
     const isLoading = useMemo(() => {
-        const checkoutQueryInFlight = checkoutQueryNetworkStatus
-            ? checkoutQueryNetworkStatus < 7
-            : true;
+        const checkoutQueryInFlight = checkoutQueryNetworkStatus ? checkoutQueryNetworkStatus < 7 : true;
 
         return checkoutQueryInFlight || customerLoading;
     }, [checkoutQueryNetworkStatus, customerLoading]);
@@ -163,14 +141,10 @@ export const useCheckoutPage = (props = {}) => {
     const customer = customerData && customerData.customer;
 
     const toggleAddressBookContent = useCallback(() => {
-        setActiveContent(currentlyActive =>
-            currentlyActive === 'checkout' ? 'addressBook' : 'checkout'
-        );
+        setActiveContent(currentlyActive => (currentlyActive === 'checkout' ? 'addressBook' : 'checkout'));
     }, []);
     const toggleSignInContent = useCallback(() => {
-        setActiveContent(currentlyActive =>
-            currentlyActive === 'checkout' ? 'signIn' : 'checkout'
-        );
+        setActiveContent(currentlyActive => (currentlyActive === 'checkout' ? 'signIn' : 'checkout'));
     }, []);
 
     const checkoutError = useMemo(() => {
@@ -245,6 +219,7 @@ export const useCheckoutPage = (props = {}) => {
         });
         setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
+        setNoProduct(false);
         ReactGA.event({
             category: 'Checkout page',
             action: 'Place order clicked',
@@ -277,13 +252,8 @@ export const useCheckoutPage = (props = {}) => {
                     id: orderId,
                     revenue: cart.prices.subtotal_excluding_tax.value,
                     quantity: String(cart.total_quantity),
-                    shipping:
-                        cart.shipping_addresses[0].selected_shipping_method
-                            .amount.value,
-                    tax: cart.prices.applied_taxes.reduce(
-                        (acc, tax) => acc + tax.amount.value,
-                        0
-                    )
+                    shipping: cart.shipping_addresses[0].selected_shipping_method.amount.value,
+                    tax: cart.prices.applied_taxes.reduce((acc, tax) => acc + tax.amount.value, 0)
                 });
                 cart?.items.map(product => {
                     ReactGA.plugin.execute('ecommerce', 'addItem', {
@@ -307,10 +277,7 @@ export const useCheckoutPage = (props = {}) => {
                     fetchCartId
                 });
             } catch (err) {
-                console.error(
-                    'An error occurred during when placing the order',
-                    err
-                );
+                console.error('An error occurred during when placing the order', err);
                 setPlaceOrderButtonClicked(false);
             }
         }
@@ -333,9 +300,7 @@ export const useCheckoutPage = (props = {}) => {
 
     return {
         activeContent,
-        availablePaymentMethods: checkoutData
-            ? checkoutData.cart.available_payment_methods
-            : null,
+        availablePaymentMethods: checkoutData ? checkoutData.cart.available_payment_methods : null,
         cartItems,
         checkoutStep,
         customer,
@@ -349,9 +314,7 @@ export const useCheckoutPage = (props = {}) => {
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,
-        orderNumber:
-            (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
-            null,
+        orderNumber: (placeOrderData && placeOrderData.placeOrder.order.order_number) || null,
         placeOrderLoading,
         placeOrderButtonClicked,
         setCheckoutStep,

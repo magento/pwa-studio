@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
 const storage = new BrowserPersistence();
 
@@ -16,24 +18,57 @@ const RE_ORDER_ITEMS = gql`
     }
 `;
 
-const useReOrderItems = () => {
+const useReOrderItems = ({ order, config, addConfigurableProductToCartMutation }) => {
     const history = useHistory();
-
+    const { setNoProduct } = useNoReorderProductContext();
     const [isLoading, setIsLoading] = useState(false);
+    const [{ cartId }] = useCartContext();
+
+    const [addConfigurableProductToCart] = useMutation(
+        addConfigurableProductToCartMutation || operations.addConfigurableProductToCartMutation
+    );
+
+    const handleAddToCart = useCallback(
+        async product => {
+            const variables = {
+                cartId,
+                parentSku: product.product_name,
+                quantity: product.quantity_ordered,
+                sku: product.product_sku
+            };
+
+            try {
+                await addConfigurableProductToCart({
+                    variables
+                });
+            } catch (error) {
+                if (error) return setNoProduct(true);
+            }
+        },
+        [addConfigurableProductToCart, cartId, setNoProduct]
+    );
 
     // Reorder Data
     const [reOrderItems, { data, loading }] = useMutation(RE_ORDER_ITEMS);
 
     const handleReOrderClick = async orderNumber => {
         if (loading) return null;
-        await reOrderItems({
-            variables: {
-                orderNumber: orderNumber
+        if (order.store_id == config?.storeConfig?.id) {
+            await reOrderItems({
+                variables: {
+                    orderNumber: orderNumber
+                }
+            });
+            if (data) storage.setItem('cartId', data.reorderItems.cart.id);
+            history.push('/checkout');
+            location.reload();
+        } else {
+            for (let i = 0; i < order.items.length; i++) {
+                handleAddToCart(order.items[i]);
             }
-        });
-        if (data) storage.setItem('cartId', data.reorderItems.cart.id);
-        history.push('/checkout');
-        location.reload();
+
+            history.push('/checkout');
+        }
     };
 
     return {
