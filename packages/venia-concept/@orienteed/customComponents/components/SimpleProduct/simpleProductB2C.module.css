@@ -2,7 +2,7 @@
     padding: 1rem 0;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .root {
         align-items: start;
         display: grid;
@@ -47,7 +47,7 @@
     padding: 1rem 1.5rem;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .title {
         padding: 1.5rem;
     }
@@ -63,7 +63,7 @@
     margin-bottom: 25px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .productName {
         font-size: 1.3125rem;
         font-weight: 400;
@@ -88,7 +88,7 @@
     max-width: 640px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .imageCarousel {
         margin: 0;
         max-width: 800px;
@@ -131,7 +131,7 @@
     justify-items: center;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .actions {
         border-bottom-width: 0;
     }
@@ -143,7 +143,7 @@
     grid-row: fold / span 1;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .description {
         align-self: stretch;
         border-top-width: 1px;
@@ -163,7 +163,7 @@
     grid-row: fold / span 1;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .details {
         align-self: stretch;
         border-top-width: 1px;
@@ -235,4 +235,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 959px) {
+    .imageCarousel div {
+        height: 500px;
+    }
+
+    .imageCarousel div div  {
+        height: 450px;
+    }
+
+    .imageCarousel div div div img {
+        height: 450px;
+    }
+
+    .title{
+        margin-top: 30px;
+    }
 }

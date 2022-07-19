@@ -2,7 +2,7 @@
     padding: 1rem 0;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
     .root {
         align-items: start;
         display: grid;
@@ -87,7 +87,7 @@
     max-width: 640px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
     .imageCarousel {
         margin: 0;
         max-width: 800px;
@@ -226,4 +226,20 @@
 
 .productOldPrice {
     text-decoration-line: line-through;
+}
+
+@media (max-width: 959px) {
+    .imageCarousel,
+    .imageCarousel div div div {
+        width: 100%;
+        height: 550px;
+    }
+}
+
+@media (max-width: 580px) {
+    .imageCarousel,
+    .imageCarousel div div div {
+        width: 100%;
+        height: 450px;
+    }
 }

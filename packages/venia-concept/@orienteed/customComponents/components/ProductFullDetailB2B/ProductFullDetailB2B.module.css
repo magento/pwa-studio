@@ -2,7 +2,7 @@
     padding: 1rem 0;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
     .root {
         align-items: start;
         display: grid;
@@ -77,7 +77,7 @@
     margin: 0 auto; */
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
     .imageCarousel {
         /* max-width: 50%;
         margin: 0 auto; */
@@ -98,7 +98,7 @@
     grid-area: description;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
     .description {
         align-self: stretch;
         border-top-width: 1px;
@@ -139,7 +139,7 @@
     padding-bottom: 2.5rem;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
     .b2cContent {
         align-self: stretch;
         border-top-width: 1px;
@@ -172,7 +172,7 @@
     width: 50%;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 960px) {
     .imageCarouselItem {
         width: 100%;
     }
@@ -181,7 +181,7 @@
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
     .imageCarouselItem {
         width: 100%;
     }
@@ -279,7 +279,7 @@
 }
 
 /* Tablet and mobile */
-@media (max-width: 980px) {
+@media (max-width: 960px) {
     .productItemContainer {
         display: none;
     }
@@ -310,6 +310,21 @@
 }
 
 .imageCarousel > div > div > div img {
-    width: 500px;
+    width: 100%;
     height: 500px;
+}
+
+
+@media (max-width: 580px) {
+    .imageCarousel div {
+        height: 450px;
+    }
+
+    .imageCarousel div div  {
+        height: 400px;
+    }
+
+    .imageCarousel div div div img {
+        height: 400px;
+    }
 }

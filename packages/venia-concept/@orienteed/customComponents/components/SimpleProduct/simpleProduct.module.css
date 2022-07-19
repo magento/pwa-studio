@@ -7,7 +7,7 @@
     justify-content: start;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .root {
         border-bottom: 1px solid #e5e5e5;
         align-items: start;
@@ -58,7 +58,7 @@
 .innerPrice .priceNumber {
     margin-left: 10px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 959px) {
     .title {
         padding: 1.5rem;
     }
@@ -69,7 +69,7 @@ header .productName {
     font-weight: 600;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .productName {
         font-size: 1.3125rem;
         font-weight: 700;
@@ -82,7 +82,8 @@ header .productName {
     grid-area: images;
     grid-column: 1 / 2;
     grid-row: 1 / fold;
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    height: 450px;
 }
 
 .imageCarousel {
@@ -90,7 +91,7 @@ header .productName {
     margin: 0 auto;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 960) {
     .imageCarousel {
         /* max-width: 50%; */
         margin: 0 auto;
@@ -111,7 +112,7 @@ header .productName {
     grid-area: description;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .description {
         align-self: stretch;
         border-top-width: 1px;
@@ -149,7 +150,7 @@ header .productName {
     padding-bottom: 2.5rem;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 959px) {
     .b2cContent {
         align-self: stretch;
         border-top-width: 1px;
@@ -174,7 +175,7 @@ header .productName {
     width: 50%;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 959px) {
     .imageCarouselItem {
         width: 100%;
     }
@@ -280,7 +281,7 @@ header .productName {
 
     .productsTableContainer {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        /* grid-template-columns: repeat(2, 1fr); */
         gap: 10px;
         margin: 30px;
     }
@@ -293,7 +294,7 @@ header .productName {
 
     .productsTableContainer {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        /* grid-template-columns: repeat(1, 1fr); */
         gap: 10px;
     }
 }
@@ -306,7 +307,7 @@ header .productName {
 
     .productsTableContainer {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        /* grid-template-columns: repeat(2, 1fr); */
         gap: 10px;
     }
 }
@@ -318,7 +319,7 @@ header .productName {
 
     .productsTableContainer {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        /* grid-template-columns: repeat(1, 1fr); */
         gap: 10px;
     }
 }
@@ -327,4 +328,40 @@ header .productName {
     display: block;
     text-decoration: line-through;
     color: '#666666';
+}
+
+@media (max-width: 580px) {
+    .imageCarousel div {
+        height: 450px;
+    }
+
+    .imageCarousel div div  {
+        height: 400px;
+    }
+
+    .imageCarousel div div div img {
+        height: 400px;
+    }
+
+    .title{
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 959px) {
+    .imageCarousel div {
+        height: 500px;
+    }
+
+    .imageCarousel div div  {
+        height: 450px;
+    }
+
+    .imageCarousel div div div img {
+        height: 450px;
+    }
+
+    .title{
+        margin-top: 30px;
+    }
 }
