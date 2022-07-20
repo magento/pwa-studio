@@ -7,7 +7,7 @@ import createTicket from '../../services/tickets/createTicket';
 import { GET_CUSTOMER_ORDERS, GET_IMAGE_BY_SKU } from '../graphql/createTicketModal.gql';
 
 export const useCreateTicketModal = props => {
-    const { setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast } = props;
+    const { setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast, setNumPage} = props;
     const fetchCustomerOrders = useAwaitQuery(GET_CUSTOMER_ORDERS);
     const fetchProductImage = useAwaitQuery(GET_IMAGE_BY_SKU);
     const { formatMessage } = useIntl();
@@ -158,6 +158,10 @@ export const useCreateTicketModal = props => {
         }
     };
 
+    const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
     const onConfirm = () => {
         if (ticketType === 'Order issue' && orderSelected === 'notFound') {
             setOrderError(orderNotFoundText);
@@ -174,10 +178,15 @@ export const useCreateTicketModal = props => {
                 attachedFilesText
             ).then(res => {
                 if (res !== false) {
-                    setCreateTicketStatus('success');
-                    setTickets(prevTickets => [res, ...prevTickets]);
-                    setTicketCount(prevTicketCount => prevTicketCount + 1);
-                    setSuccessToast(true);
+                    // setTickets(prevTickets => [res, ...prevTickets]);
+                    // setTicketCount(prevTicketCount => prevTicketCount + 1);
+                    setTicketCount(0);
+                    setTickets([]);                   
+                    sleep(4000).then(() => {
+                        setCreateTicketStatus('success');
+                        setNumPage([1]);
+                        setSuccessToast(true);
+                    });
                 } else {
                     setCreateTicketStatus('error');
                     setErrorToast(true);

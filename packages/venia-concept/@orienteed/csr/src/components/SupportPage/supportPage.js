@@ -39,6 +39,7 @@ const ContentDialog = props => {
     const {
         errorToast,
         groups,
+        handleLoadMore,
         handleReset,
         handleSubmit,
         legendModal,
@@ -46,6 +47,7 @@ const ContentDialog = props => {
         searchText,
         setErrorToast,
         setLegendModal,
+        setNumPage,
         setSuccessToast,
         setTicketCount,
         setTicketModal,
@@ -270,6 +272,22 @@ const ContentDialog = props => {
         </div>
     );
 
+    console.log({ tickets, ticketCount });
+
+    const loadMoreButton = (
+        <Button
+            className={classes.loadMoreButton}
+            disabled={tickets === undefined || ticketCount % 8 != 0}
+            onClick={() => {
+                handleLoadMore();
+
+                console.log('load more');
+            }}
+        >
+            <FormattedMessage id={'csr.loadMore'} defaultMessage={'Load more'} />
+        </Button>
+    );
+
     return (
         <div className={classes.container}>
             {breadcrumbs}
@@ -295,6 +313,7 @@ const ContentDialog = props => {
                                 );
                             })}
                         </div>
+                        {loadMoreButton}
                     </>
                 ) : (
                     <>
@@ -317,6 +336,7 @@ const ContentDialog = props => {
                 setTicketModal={setTicketModal}
                 setTicketCount={setTicketCount}
                 setTickets={setTickets}
+                setNumPage={setNumPage}
             />
             {successToast && successToastContainer}
             {errorToast && errorToastContainer}

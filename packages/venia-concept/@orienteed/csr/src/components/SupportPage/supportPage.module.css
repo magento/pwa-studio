@@ -69,6 +69,13 @@
     composes: root_highPriorityInv from '@magento/venia-concept/src/components/Button/button.module.css';
     width: 280px;
 }
+
+.loadMoreButton{
+    composes: primaryButton;
+    width: fit-content;
+    text-transform: uppercase;
+    margin: 0 auto
+}
 /***** end Buttons *****/
 
 /***** Advices *****/
