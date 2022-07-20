@@ -1,0 +1,15 @@
+{
+  "name": "@gomage/plugin-braintree-three-d-secure",
+  "version": "1.0.3",
+  "description": "GoMage Braintree 3D Secure",
+  "main": "./index.js",
+  "author": "GoMage",
+  "pwa-studio": {
+    "targets": {
+      "intercept": "./intercept.js"
+    }
+  },
+  "dependencies": {
+    "braintree-web-drop-in": "~1.33.1"
+  }
+}
