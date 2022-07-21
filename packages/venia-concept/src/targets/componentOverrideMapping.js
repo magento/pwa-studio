@@ -196,7 +196,11 @@ module.exports = componentOverrideMapping = {
     //New OverWrite
     [`@magento/venia-ui/lib/components/LegacyMiniCart/productOptions.module.css`]: './src/components/LegacyMiniCart/productOptions.module.css',
     [`@magento/venia-ui/lib/components/LegacyMiniCart/productOptions.js`]: './src/components/LegacyMiniCart/productOptions.js',
-    
+
     //New overwrite
-    [`@magento/venia-ui/lib/components/ProductImageCarousel/thumbnail.js`]: './src/components/ProductImageCarousel/thumbnail.js'
+    [`@magento/venia-ui/lib/components/ProductImageCarousel/thumbnail.js`]: './src/components/ProductImageCarousel/thumbnail.js',
+    [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/itemsReview.module.css`]: './src/components/CheckoutPage/ItemsReview/itemsReview.module.css',
+
+    // New overwrite
+    [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/item.module.css`]: './src/components/CheckoutPage/ItemsReview/item.module.css'
 };
