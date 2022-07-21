@@ -75,7 +75,7 @@
     "checkoutPage.editPaymentInformation": "Modifier les informations de paiement",
     "checkoutPage.editShippingInfo": "Modifier les informations d'expédition",
     "checkoutPage.editShippingMethod": "Modifier la méthode d'expédition",
-    "checkoutPage.emptyMessage": "Il n'y a aucun article dans votre panier.",
+    "checkoutPage.emptyMessage": "Il n'y a pas d'articles disponibles à la caisse.",
     "checkoutPage.errorLoadingPayment": "Une erreur s'est produite lors du chargement des options de paiement. Veuillez réessayer plus tard.",
     "checkoutPage.errorSubmit": "Oups! Une erreur s'est produite lors de la soumission. Veuillez réessayer.",
     "checkoutPage.fetchingItemsInYourOrder": "Récupération des articles de votre commande",

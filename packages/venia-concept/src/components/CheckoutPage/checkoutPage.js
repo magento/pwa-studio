@@ -135,7 +135,7 @@ const CheckoutPage = props => {
                 <h3>
                     <FormattedMessage
                         id={'checkoutPage.emptyMessage'}
-                        defaultMessage={'There are no items in your cart.'}
+                        defaultMessage={'There are no items available to checkout.'}
                     />
                 </h3>
             </div>
@@ -290,6 +290,10 @@ const CheckoutPage = props => {
         const noProductText = formatMessage({
             id: 'checkoutPage.noProductText',
             defaultMessage: 'Some products are not available'
+        });
+        const noProductToAddText = formatMessage({
+            id: 'checkoutPage.noProductText',
+            defaultMessage: 'The products you tried to add are not available'
         });
 
         const checkoutContentClass =

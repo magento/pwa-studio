@@ -75,7 +75,7 @@
     "checkoutPage.editPaymentInformation": "Editar la información de pago",
     "checkoutPage.editShippingInfo": "Editar la información de envío",
     "checkoutPage.editShippingMethod": "Editar el método de envío",
-    "checkoutPage.emptyMessage": "No hay artículos en tu carrito.",
+    "checkoutPage.emptyMessage": "No hay artículos disponibles para comprar.",
     "checkoutPage.errorLoadingPayment": "Ha habido un error cargando los métodos de pago. Inténtalo de nuevo más tarde.",
     "checkoutPage.errorSubmit": "¡Ups! Ha ocurrido un error mientras enviábamos la información. Por favor, inténtalo de nuevo.",
     "checkoutPage.fetchingItemsInYourOrder": "Recuperando los artículos de tu carrito.",

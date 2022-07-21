@@ -75,7 +75,7 @@
     "checkoutPage.editPaymentInformation": "Edit Payment Information",
     "checkoutPage.editShippingInfo": "Edit Shipping Information",
     "checkoutPage.editShippingMethod": "Edit Shipping Method",
-    "checkoutPage.emptyMessage": "There are no items in your cart.",
+    "checkoutPage.emptyMessage": "There are no items available to checkout.",
     "checkoutPage.errorLoadingPayment": "There was an error loading payment options. Please try again later.",
     "checkoutPage.errorSubmit": "Oops! An error occurred while submitting. Please try again.",
     "checkoutPage.fetchingItemsInYourOrder": "Fetching Items in your Order",
