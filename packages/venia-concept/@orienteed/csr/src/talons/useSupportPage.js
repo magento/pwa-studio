@@ -13,14 +13,15 @@ export const useSupportPage = () => {
     const [errorToast, setErrorToast] = useState(false);
     const [groups, setGroups] = useState();
     const [legendModal, setLegendModal] = useState(false);
-    const [numPage, setNumPage] = useState(1);
+    const [numPage, setNumPage] = useState([1]);
+    const [multipleTickets, setMultipleTickets] = useState(false);
     const [searchText, setSearchText] = useState('');
+    const [orderBy, setOrderBy] = useState('desc');
     const [states, setStates] = useState();
     const [successToast, setSuccessToast] = useState(false);
     const [ticketCount, setTicketCount] = useState(0);
     const [ticketModal, setTicketModal] = useState(false);
     const [tickets, setTickets] = useState([]);
-    const [view, setView] = useState('list');
 
     // Effects
     useEffect(() => {
@@ -36,21 +37,43 @@ export const useSupportPage = () => {
 
     useEffect(() => {
         if (isSignedIn) {
-            getTickets(numPage).then(res => {
-                setTicketCount(prevTicketCount => prevTicketCount + res.tickets_count);
-                setTickets(prevTickets =>
-                    prevTickets.concat(
-                        res.tickets.length !== 0 ? Object.values(res.assets.Ticket).reverse() : res.tickets
-                    )
+            getTickets(orderBy, numPage, '').then(res => {
+                const newTickets =
+                    res.tickets.length !== 0
+                        ? orderBy === 'desc'
+                            ? Object.values(res.assets.Ticket).reverse()
+                            : Object.values(res.assets.Ticket)
+                        : res.tickets;
+
+                setTicketCount(prevTicketCount =>
+                    multipleTickets ? prevTicketCount + res.tickets_count : res.tickets_count
                 );
+                setTickets(prevTickets => {
+                    if (multipleTickets) {
+                        return [
+                            ...prevTickets,
+                            ...newTickets.filter(ticket => !prevTickets.some(prevTicket => prevTicket.id === ticket.id))
+                        ];
+                    } else {
+                        return newTickets;
+                    }
+                });
             });
-            
         }
-    }, [isSignedIn, numPage]);
+    }, [isSignedIn, numPage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    console.log({ numPage });
 
     // Methods
+    const changeOrderBy = () => {
+        setMultipleTickets(false);
+        setOrderBy(prevOrderBy => (prevOrderBy === 'asc' ? 'desc' : 'asc'));
+        setNumPage([1]);
+    };
+
     const handleLoadMore = () => {
-        setNumPage(prevNumPage => prevNumPage + 1);
+        setMultipleTickets(true);
+        setNumPage(prevNumPage => [prevNumPage[0] + 1]);
     };
 
     const openTicketModal = () => {
@@ -60,24 +83,36 @@ export const useSupportPage = () => {
     const handleReset = useCallback(() => {
         setSearchText('');
         if (isSignedIn) {
-            getTickets().then(res => {
+            getTickets(orderBy, 1, '').then(res => {
                 setTicketCount(res.tickets_count);
-                setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket).reverse() : res.tickets);
+                setTickets(
+                    res.tickets.length !== 0
+                        ? orderBy === 'desc'
+                            ? Object.values(res.assets.Ticket).reverse()
+                            : Object.values(res.assets.Ticket)
+                        : res.tickets
+                );
             });
         }
-    }, [isSignedIn]);
+    }, [isSignedIn, orderBy]);
 
     const handleSubmit = useCallback(
         ({ search }) => {
             setSearchText(search);
             if (isSignedIn) {
-                getTickets(1, search).then(res => {
+                getTickets(orderBy, 1, search).then(res => {
                     setTicketCount(res.tickets_count);
-                    setTickets(res.tickets.length !== 0 ? Object.values(res.assets.Ticket).reverse() : res.tickets);
+                    setTickets(
+                        res.tickets.length !== 0
+                            ? orderBy === 'desc'
+                                ? Object.values(res.assets.Ticket).reverse()
+                                : Object.values(res.assets.Ticket)
+                            : res.tickets
+                    );
                 });
             }
         },
-        [isSignedIn]
+        [isSignedIn, orderBy]
     );
 
     useEffect(() => {
@@ -95,27 +130,27 @@ export const useSupportPage = () => {
     }, [errorToast]);
 
     return {
+        changeOrderBy,
         errorToast,
         groups,
         handleLoadMore,
         handleReset,
         handleSubmit,
         legendModal,
+        numPage,
         openTicketModal,
+        orderBy,
         searchText,
         setErrorToast,
         setLegendModal,
-        setNumPage,
         setSuccessToast,
         setTicketCount,
         setTicketModal,
         setTickets,
-        setView,
         states,
         successToast,
         ticketCount,
         ticketModal,
-        tickets,
-        view
+        tickets
     };
 };

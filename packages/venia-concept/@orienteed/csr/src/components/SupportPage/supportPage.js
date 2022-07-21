@@ -21,11 +21,8 @@ import defaultClasses from './supportPage.module.css';
 
 import closeIcon from '../CreateTicketModal/Dropzone/Icons/close.svg';
 import enhancementIcon from './Icons/enhancementIcon.svg';
-import grid from './Icons/grid.svg';
-import gridSelected from './Icons/gridSelected.svg';
 import infoIcon from './Icons/infoIcon.svg';
-import list from './Icons/list.svg';
-import listSelected from './Icons/listSelected.svg';
+import orderByIcon from './Icons/orderByIcon.svg';
 import noCoursesImage from '@magento/venia-concept/@orienteed/lms/src/components/CoursesCatalog/Icons/noCourses.svg';
 import orderIcon from './Icons/orderIcon.svg';
 import supportIcon from './Icons/supportIcon.svg';
@@ -37,28 +34,28 @@ const ContentDialog = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useSupportPage();
     const {
+        changeOrderBy,
         errorToast,
         groups,
         handleLoadMore,
         handleReset,
         handleSubmit,
         legendModal,
+        numPage,
         openTicketModal,
+        orderBy,
         searchText,
         setErrorToast,
         setLegendModal,
-        setNumPage,
         setSuccessToast,
         setTicketCount,
         setTicketModal,
         setTickets,
-        setView,
         states,
         successToast,
         ticketCount,
         ticketModal,
-        tickets,
-        view
+        tickets
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -193,27 +190,6 @@ const ContentDialog = props => {
         </div>
     );
 
-    const selectView = (
-        <div className={classes.viewContainer}>
-            <img
-                src={view === 'grid' ? gridSelected : grid}
-                className={classes.viewButton}
-                onClick={() => {
-                    setView('grid');
-                }}
-                alt="Change to grid view"
-            />
-            <img
-                src={view === 'list' ? listSelected : list}
-                className={classes.viewButton}
-                onClick={() => {
-                    setView('list');
-                }}
-                alt="Change to list view"
-            />
-        </div>
-    );
-
     const actionsDesktopContainer = (
         <div className={classes.actionsDesktopContainer}>
             <div className={classes.actionsDesktopRow}>
@@ -222,7 +198,7 @@ const ContentDialog = props => {
             </div>
             <div className={classes.actionsDesktopRow}>
                 {legendDesktop}
-                {selectView}
+                <img onClick={changeOrderBy} src={orderByIcon} className={classes.orderByIcon} alt="OrderBy icon" />
             </div>
         </div>
     );
@@ -235,7 +211,7 @@ const ContentDialog = props => {
             </div>
             <div className={classes.actionsMobileSecondRow}>
                 {searchBar}
-                {selectView}
+                <img onClick={changeOrderBy} src={orderByIcon} className={classes.orderByIcon} alt="OrderBy icon" />
             </div>
         </div>
     );
@@ -272,17 +248,13 @@ const ContentDialog = props => {
         </div>
     );
 
-    console.log({ tickets, ticketCount });
+    console.log({ ticketCount });
 
     const loadMoreButton = (
         <Button
             className={classes.loadMoreButton}
-            disabled={tickets === undefined || ticketCount % 8 != 0}
-            onClick={() => {
-                handleLoadMore();
-
-                console.log('load more');
-            }}
+            disabled={tickets === undefined || ticketCount < numPage[0] * 8}
+            onClick={() => handleLoadMore()}
         >
             <FormattedMessage id={'csr.loadMore'} defaultMessage={'Load more'} />
         </Button>
@@ -300,17 +272,9 @@ const ContentDialog = props => {
                     <>
                         {actionsDesktopContainer}
                         {actionsMobileContainer}
-                        <div className={view === 'list' ? classes.ticketsContainerList : classes.ticketsContainerGrid}>
+                        <div className={classes.ticketsContainer}>
                             {tickets.map(ticket => {
-                                return (
-                                    <TicketItem
-                                        groups={groups}
-                                        key={ticket.id}
-                                        states={states}
-                                        ticket={ticket}
-                                        view={view}
-                                    />
-                                );
+                                return <TicketItem groups={groups} key={ticket.id} states={states} ticket={ticket} />;
                             })}
                         </div>
                         {loadMoreButton}
@@ -331,12 +295,12 @@ const ContentDialog = props => {
             />
             <CreateTicketModal
                 isOpen={ticketModal}
+                orderBy={orderBy}
                 setErrorToast={setErrorToast}
                 setSuccessToast={setSuccessToast}
-                setTicketModal={setTicketModal}
                 setTicketCount={setTicketCount}
+                setTicketModal={setTicketModal}
                 setTickets={setTickets}
-                setNumPage={setNumPage}
             />
             {successToast && successToastContainer}
             {errorToast && errorToastContainer}

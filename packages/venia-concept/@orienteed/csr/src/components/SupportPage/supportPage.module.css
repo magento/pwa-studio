@@ -70,11 +70,17 @@
     width: 280px;
 }
 
-.loadMoreButton{
+.createTicketButton {
     composes: primaryButton;
     width: fit-content;
     text-transform: uppercase;
-    margin: 0 auto
+}
+
+.loadMoreButton {
+    composes: primaryButton;
+    width: fit-content;
+    text-transform: uppercase;
+    margin: 0 auto;
 }
 /***** end Buttons *****/
 
@@ -110,29 +116,17 @@
     row-gap: 2rem;
 }
 
-.ticketsContainerList {
+.ticketsContainer {
     display: flex;
     flex-direction: column;
     gap: 12px;
     overflow: auto;
 }
 
-.ticketsContainerGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 10px;
-}
-
 .pageTitle {
     justify-self: center;
     font-weight: bold;
     font-size: 25px;
-}
-
-.createTicketButton {
-    composes: primaryButton;
-    width: fit-content;
-    text-transform: uppercase;
 }
 /***** end Tickets Page *****/
 
@@ -170,21 +164,12 @@
     width: 25px;
 }
 
+.orderByIcon {
+    cursor: pointer;
+    width: 25px;
+}
+
 /***** end Legend  *****/
-
-/***** SelectView *****/
-.viewContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 10px;
-}
-
-.viewButton {
-    min-width: 44px;
-    width: 44px;
-}
-/***** end SelectView *****/
 
 /***** actionsHeader *****/
 .actionsDesktopContainer {
@@ -220,6 +205,13 @@
     gap: 30px;
     justify-content: space-between;
 }
+
+@media (max-width: 350px) {
+    .actionsMobileSecondRow {
+        gap: 15px;
+    }
+}
+
 /***** end actionsHeader *****/
 
 @media (max-width: 630px) {

@@ -12,7 +12,7 @@ import messageIcon from './Icons/messageIcon.svg';
 
 const TicketItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { groups, states, ticket, view } = props;
+    const { groups, states, ticket } = props;
     const { formatMessage } = useIntl();
 
     // Texts
@@ -147,7 +147,12 @@ const TicketItem = props => {
         </div>
     );
 
-    return view === 'list' ? ticketItemList : ticketItemGrid;
+    return (
+        <>
+            {ticketItemList}
+            {ticketItemGrid}
+        </>
+    );
 };
 
 export default TicketItem;

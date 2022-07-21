@@ -14,17 +14,19 @@ import { useCreateTicketModal } from '../../talons/useCreateTicketModal';
 
 import defaultClasses from './createTicketModal.module.css';
 
+import notFoundImage from './Icons/notFound.svg';
+
 const CreateTicketModal = props => {
-    const { isOpen, setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast, setNumPage } = props;
+    const { orderBy, isOpen, setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
     const talonProps = useCreateTicketModal({
+        orderBy,
         setErrorToast,
         setSuccessToast,
         setTicketCount,
         setTicketModal,
-        setTickets,
-        setNumPage
+        setTickets
     });
 
     const {
@@ -87,7 +89,11 @@ const CreateTicketModal = props => {
 
         return (
             <div className={classes.orderItemContainer}>
-                <img src={orderItem.image_url} className={classes.orderItemImage} alt="Order product" />
+                <img
+                    src={orderItem.image_url || notFoundImage}
+                    className={classes.orderItemImage}
+                    alt="Order product"
+                />
                 <div className={classes.orderItemDataContainer}>
                     <div className={classes.orderItemFieldContainer}>
                         <p className={classes.orderItemFieldTitle}>{orderNumberText}</p>

@@ -8,12 +8,8 @@
 }
 
 .ticketGridContainer {
-    display: flex;
-    flex-direction: column;
-    background-color: #f6f8fb;
-    border-radius: 5px;
-    width: 100%;
-    padding: 16px;
+    display: none;
+    visibility: hidden;
 }
 
 .ticketGridHeaderContainer {
@@ -64,9 +60,10 @@
     border-right: 1px solid #cecccc;
     display: flex;
     flex-direction: column;
-    height: 80px;
+    min-height: 80px;
     justify-content: center;
     padding: 0 20px;
+    margin: 10px 0;
 }
 
 .ticketImage {
@@ -150,10 +147,10 @@
 }
 /***** end NotificationButton *****/
 
-@media (max-width: 630px) {
+@media (max-width: 959px) {
     .ticketListItem {
         padding: 0 10px;
-        width: max-content;
+        margin: 10px 0;
     }
 
     .messageContainer {
@@ -167,5 +164,34 @@
     .ticketImage {
         min-width: 40px;
         margin: 25px 15px;
+    }
+}
+
+@media (max-width: 700px) {
+    .ticketListContainer {
+        display: none;
+        visibility: hidden;
+    }
+
+    .ticketGridContainer {
+        visibility: visible;
+        display: flex;
+        flex-direction: column;
+        background-color: #f6f8fb;
+        border-radius: 5px;
+        width: 100%;
+        padding: 16px;
+    }
+
+    .ticketMainHeaderContainer {
+        padding: 0px;
+    }
+}
+
+@media (max-width: 350px) {
+    .ticketImageGrid {
+        min-width: 45px;
+        margin: 15px;
+        margin-left: 5px;
     }
 }
