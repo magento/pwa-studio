@@ -3,14 +3,16 @@ import { shape, string, bool, func } from 'prop-types';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { useCustomerCreditSystem } from '@orienteed/customerCreditSystem/src/talons/useCustomerCreditSystem';
 import { FormattedMessage } from 'react-intl';
-import Button from '@magento/venia-ui/lib/components/Button';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './customerCreditSystem.module.css';
 import BillingAddress from '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress';
+import { usePrintPdfContext } from '@orienteed/customComponents/components/PrintPdfProvider/printPdfProvider';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 const CustomerCreditSystem = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { onPaymentSuccess, onPaymentError, resetShouldSubmit, shouldSubmit } = props;
+    const { priceSummary } = usePrintPdfContext();
 
     const talonProps = useCustomerCreditSystem({
         onPaymentSuccess,
@@ -18,9 +20,6 @@ const CustomerCreditSystem = props => {
         resetShouldSubmit,
         shouldSubmit
     });
-
-    console.log('shouldSubmit CustomerCreditSystem');
-    console.log(shouldSubmit);
 
     const { loading } = talonProps;
 
@@ -41,13 +40,7 @@ const CustomerCreditSystem = props => {
     const {
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess,
-        checkoutData: {
-            grand_total,
-            grand_total_formatted,
-            leftincredit,
-            remainingcreditformatted,
-            remainingcreditcurrentcurrency
-        }
+        checkoutData: { grand_total, leftincredit, remainingcreditformatted, remainingcreditcurrentcurrency }
     } = talonProps;
 
     if (parseFloat(remainingcreditcurrentcurrency) < grand_total) {
@@ -88,7 +81,9 @@ const CustomerCreditSystem = props => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{grand_total_formatted}</td>
+                        <td>
+                            <Price value={priceSummary.total.value} currencyCode={priceSummary.total.currency} />
+                        </td>
                         <td>{remainingcreditformatted}</td>
                         <td>{leftincredit}</td>
                     </tr>

@@ -18,9 +18,6 @@ export const useCustomerCreditSystem = props => {
 
     const { setPaymentMethodOnCartMutation } = operations;
 
-    console.log('operations');
-    console.log(operations);
-
     const [{ cartId }] = useCartContext();
 
     const { onPaymentSuccess, resetShouldSubmit, shouldSubmit, onPaymentError } = props;
