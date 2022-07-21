@@ -132,7 +132,7 @@ const CheckoutPage = props => {
                         {heading}
                     </h1>
                 </div>
-                <h3>
+                <h3 className={classes.errorNoProductText}>
                     <FormattedMessage
                         id={'checkoutPage.emptyMessage'}
                         defaultMessage={'There are no items available to checkout.'}

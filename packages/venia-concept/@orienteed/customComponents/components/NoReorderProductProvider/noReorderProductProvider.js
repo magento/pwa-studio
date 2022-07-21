@@ -4,12 +4,15 @@ const NoReorderProductContext = React.createContext();
 
 export const NoReorderProductProvider = ({ children }) => {
     const [noProduct, setNoProduct] = useState(false);
+    const [loadingProduct, setLoadingProduct] = useState(false);
 
     return (
         <NoReorderProductContext.Provider
             value={{
                 noProduct,
-                setNoProduct
+                setNoProduct,
+                loadingProduct,
+                setLoadingProduct
             }}
         >
             {children}

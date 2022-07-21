@@ -20,7 +20,7 @@ const RE_ORDER_ITEMS = gql`
 
 const useReOrderItems = ({ order, config, addConfigurableProductToCartMutation }) => {
     const history = useHistory();
-    const { setNoProduct, setNoAvailableProduct } = useNoReorderProductContext();
+    const { setNoProduct, loadingProduct, setLoadingProduct } = useNoReorderProductContext();
     const [isLoading, setIsLoading] = useState(false);
     const [{ cartId }] = useCartContext();
 
@@ -52,10 +52,12 @@ const useReOrderItems = ({ order, config, addConfigurableProductToCartMutation }
     const [reOrderItems, { data, loading }] = useMutation(RE_ORDER_ITEMS);
 
     const handleReOrderClick = async () => {
-        console.log('order', order);
         for (let i = 0; i < order.items.length; i++) {
             await handleAddToCart(order.items[i]);
+            setLoadingProduct(true);
+            window.scroll({ top: 0, left: 0 });
         }
+        setLoadingProduct(false);
         history.push('/checkout');
         // location.reload();
     };
