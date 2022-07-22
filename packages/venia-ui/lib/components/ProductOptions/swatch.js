@@ -18,9 +18,15 @@ import defaultClasses from './swatch.module.css';
 
 import { useSwatch } from '@magento/peregrine/lib/talons/ProductOptions/useSwatch';
 
-const getClassName = (name, isSelected, hasFocus, isOptionOutOfStock) =>
+const getClassName = (
+    name,
+    isSelected,
+    hasFocus,
+    isOptionOutOfStock,
+    isEverythingOutOfStock
+) =>
     `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}${
-        isOptionOutOfStock ? '_outOfStock' : ''
+        isEverythingOutOfStock || isOptionOutOfStock ? '_outOfStock' : ''
     }`;
 
 // Swatches _must_ have a 1x1 aspect ratio to match the UI.
@@ -33,7 +39,7 @@ const Swatch = props => {
         item: { label, value_index, swatch_data },
         onClick,
         style,
-        isALLOutOfStock,
+        isEverythingOutOfStock,
         isOptionOutOfStock
     } = props;
 
@@ -79,7 +85,16 @@ const Swatch = props => {
     }
 
     const className =
-        classes[getClassName('root', isSelected, hasFocus, isOptionOutOfStock)];
+        classes[
+            getClassName(
+                'root',
+                isSelected,
+                hasFocus,
+                isOptionOutOfStock,
+                isEverythingOutOfStock
+            )
+        ];
+
     return (
         <button
             className={className}
@@ -88,7 +103,7 @@ const Swatch = props => {
             title={label}
             type="button"
             data-cy="Swatch-root"
-            disabled={isALLOutOfStock || isOptionOutOfStock}
+            disabled={isEverythingOutOfStock || isOptionOutOfStock}
         >
             {!isOptionOutOfStock && (
                 <Icon classes={{ root: checkStyle }} src={CheckIcon} />

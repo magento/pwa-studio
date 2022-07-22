@@ -10,13 +10,14 @@ const Options = props => {
         onSelectionChange,
         options,
         selectedValues = [],
-        isALLOutOfStock,
-        isVariantsOutOfStock
+        isEverythingOutOfStock,
+        outOfStockVariants
     } = props;
 
     const talonProps = useOptions({
         onSelectionChange,
-        selectedValues
+        selectedValues,
+        options
     });
 
     const { handleSelectionChange, selectedValueMap } = talonProps;
@@ -29,8 +30,8 @@ const Options = props => {
             key={option.attribute_id}
             onSelectionChange={handleSelectionChange}
             selectedValue={selectedValueMap.get(option.label)}
-            isALLOutOfStock={isALLOutOfStock}
-            isVariantsOutOfStock={isVariantsOutOfStock}
+            isEverythingOutOfStock={isEverythingOutOfStock}
+            outOfStockVariants={outOfStockVariants}
         />
     ));
 };

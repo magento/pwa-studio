@@ -14,6 +14,7 @@ import defaultOperations from './productFullDetail.gql';
 import { useEventingContext } from '../../context/eventing';
 import { findAllMatchingVariants } from '@magento/peregrine/lib/util/findAllMatchingVariants';
 import { getOutOfStockIndexes } from '@magento/peregrine/lib/util/getOutOfStockIndexes';
+import { createProductVariants } from '@magento/peregrine/lib/util/createProductVariants';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -106,10 +107,9 @@ const getOutOfStockVariants = (
     product,
     optionCodes,
     singleOptionSelection,
-    optionSelections
+    optionSelections,
+    isOutOfStockProductDisplayed
 ) => {
-    const { variants } = product;
-
     const isConfigurable = isProductConfigurable(product);
     const singeOptionSelected =
         singleOptionSelection && singleOptionSelection.size === 1;
@@ -118,13 +118,25 @@ const getOutOfStockVariants = (
         1;
     const outOfStockIndexes = [];
 
-    function getCombinations(arr, k, prefix = []) {
+    // Find the combination of k elements in the array.
+    // For example: array is [1,2,3]. k=2.
+    // The results are [[1,2],[1,3],[2,3]]
+    function getCombinations(array, k, prefix = []) {
         if (k == 0) return [prefix];
-        return arr.flatMap((v, i) =>
-            getCombinations(arr.slice(i + 1), k - 1, [...prefix, v])
+        return array.flatMap((value, index) =>
+            getCombinations(array.slice(index + 1), k - 1, [...prefix, value])
         );
     }
     if (isConfigurable) {
+        let variants = product.variants;
+        let variantsIfOutOfStockProductsNotDisplayed = createProductVariants(
+            product
+        );
+        //If out of stock products is set to not displayed, use the variants created
+        variants = isOutOfStockProductDisplayed
+            ? variants
+            : variantsIfOutOfStockProductsNotDisplayed;
+
         const numberOfVariations = variants[0].attributes.length;
         const selectedIndexes = Array.from(optionSelections.values()).flat();
 
@@ -417,19 +429,39 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
-    const isALLOutOfStock = useMemo(() => getIsAllOutOfStock(product), [
+    // Check if display out of stock products option is selected in the Admin Dashboard
+    const isOutOfStockProductDisplayed = useMemo(() => {
+        let totalVariants = 1;
+        const isConfigurable = isProductConfigurable(product);
+        if (product.configurable_options && isConfigurable) {
+            for (const option of product.configurable_options) {
+                const length = option.values.length;
+                totalVariants = totalVariants * length;
+            }
+            return product.variants.length === totalVariants;
+        }
+    }, [product]);
+
+    const isEverythingOutOfStock = useMemo(() => getIsAllOutOfStock(product), [
         product
     ]);
 
-    const isVariantsOutOfStock = useMemo(
+    const outOfStockVariants = useMemo(
         () =>
             getOutOfStockVariants(
                 product,
                 optionCodes,
                 singleOptionSelection,
-                optionSelections
+                optionSelections,
+                isOutOfStockProductDisplayed
             ),
-        [product, optionCodes, singleOptionSelection, optionSelections]
+        [
+            product,
+            optionCodes,
+            singleOptionSelection,
+            optionSelections,
+            isOutOfStockProductDisplayed
+        ]
     );
 
     const mediaGalleryEntries = useMemo(
@@ -606,7 +638,7 @@ export const useProductFullDetail = props => {
             const nextOptionSelections = new Map([...optionSelections]);
             nextOptionSelections.set(optionId, selection);
             setOptionSelections(nextOptionSelections);
-            // Create a new Map to keep track of sinlge optionSelection
+            // Create a new Map to keep track of single selections with key as String
             const nextSingleOptionSelection = new Map();
             nextSingleOptionSelection.set(optionId, selection);
             setSingleOptionSelection(nextSingleOptionSelection);
@@ -671,8 +703,8 @@ export const useProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isOutOfStock,
-        isALLOutOfStock,
-        isVariantsOutOfStock,
+        isEverythingOutOfStock,
+        outOfStockVariants,
         isAddToCartDisabled:
             isOutOfStock ||
             isMissingOptions ||

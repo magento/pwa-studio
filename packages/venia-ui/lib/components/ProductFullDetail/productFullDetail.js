@@ -47,8 +47,8 @@ const ProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isOutOfStock,
-        isALLOutOfStock,
-        isVariantsOutOfStock,
+        isEverythingOutOfStock,
+        outOfStockVariants,
         isAddToCartDisabled,
         isSupportedProductType,
         mediaGalleryEntries,
@@ -66,8 +66,8 @@ const ProductFullDetail = props => {
             <Options
                 onSelectionChange={handleSelectionChange}
                 options={product.configurable_options}
-                isALLOutOfStock={isALLOutOfStock}
-                isVariantsOutOfStock={isVariantsOutOfStock}
+                isEverythingOutOfStock={isEverythingOutOfStock}
+                outOfStockVariants={outOfStockVariants}
             />
         </Suspense>
     ) : null;
@@ -171,22 +171,23 @@ const ProductFullDetail = props => {
         };
     }, [customAttributes, productDetails.sku, formatMessage]);
 
-    const cartCallToActionText = !isALLOutOfStock ? (
-        <FormattedMessage
-            id="productFullDetail.addItemToCart"
-            defaultMessage="Add to Cart"
-        />
-    ) : (
-        <FormattedMessage
-            id="productFullDetail.itemOutOfStock"
-            defaultMessage="Out of Stock"
-        />
-    );
+    const cartCallToActionText =
+        !isEverythingOutOfStock && !isOutOfStock ? (
+            <FormattedMessage
+                id="productFullDetail.addItemToCart"
+                defaultMessage="Add to Cart"
+            />
+        ) : (
+            <FormattedMessage
+                id="productFullDetail.itemOutOfStock"
+                defaultMessage="Out of Stock"
+            />
+        );
 
     const cartActionContent = isSupportedProductType ? (
         <Fragment>
             <section className={classes.outOfStockProduct}>
-                {isALLOutOfStock && (
+                {isEverythingOutOfStock && (
                     <FormattedMessage
                         data-cy="ProductFullDetail-outOfStockProduct"
                         id={'productFullDetail.outOfStockProduct'}

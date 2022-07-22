@@ -11,8 +11,8 @@ const SwatchList = props => {
         selectedValue = {},
         items,
         onSelectionChange,
-        isALLOutOfStock,
-        isVariantsOutOfStock
+        isEverythingOutOfStock,
+        outOfStockVariants
     } = props;
     let isOptionOutOfStock;
     const classes = useStyle(defaultClasses, props.classes);
@@ -21,9 +21,9 @@ const SwatchList = props => {
             items.map(item => {
                 const isSelected = item.label === selectedValue.label;
 
-                if (isVariantsOutOfStock && isVariantsOutOfStock.length > 0) {
-                    const flatOosArray = isVariantsOutOfStock.flat();
-                    isOptionOutOfStock = flatOosArray.includes(
+                if (outOfStockVariants && outOfStockVariants.length > 0) {
+                    const flatOutOfStockArray = outOfStockVariants.flat();
+                    isOptionOutOfStock = flatOutOfStockArray.includes(
                         item.value_index
                     );
                 }
@@ -33,7 +33,7 @@ const SwatchList = props => {
                         isSelected={isSelected}
                         item={item}
                         onClick={onSelectionChange}
-                        isALLOutOfStock={isALLOutOfStock}
+                        isEverythingOutOfStock={isEverythingOutOfStock}
                         isOptionOutOfStock={isOptionOutOfStock}
                     />
                 );
@@ -43,7 +43,7 @@ const SwatchList = props => {
             selectedValue.label,
             items,
             onSelectionChange,
-            isALLOutOfStock,
+            isEverythingOutOfStock,
             isOptionOutOfStock
         ]
     );

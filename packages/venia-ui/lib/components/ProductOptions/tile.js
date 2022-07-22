@@ -5,9 +5,15 @@ import { useStyle } from '../../classify';
 import defaultClasses from './tile.module.css';
 import { useTile } from '@magento/peregrine/lib/talons/ProductOptions/useTile';
 
-const getClassName = (name, isSelected, hasFocus, isOptionOutOfStock) =>
+const getClassName = (
+    name,
+    isSelected,
+    hasFocus,
+    isOptionOutOfStock,
+    isEverythingOutOfStock
+) =>
     `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}${
-        isOptionOutOfStock ? '_outOfStock' : ''
+        isEverythingOutOfStock || isOptionOutOfStock ? '_outOfStock' : ''
     }`;
 
 const Tile = props => {
@@ -16,7 +22,7 @@ const Tile = props => {
         isSelected,
         item: { label, value_index },
         onClick,
-        isALLOutOfStock,
+        isEverythingOutOfStock,
         isOptionOutOfStock
     } = props;
 
@@ -28,7 +34,15 @@ const Tile = props => {
     const { handleClick } = talonProps;
     const classes = useStyle(defaultClasses, props.classes);
     const className =
-        classes[getClassName('root', isSelected, hasFocus, isOptionOutOfStock)];
+        classes[
+            getClassName(
+                'root',
+                isSelected,
+                hasFocus,
+                isOptionOutOfStock,
+                isEverythingOutOfStock
+            )
+        ];
 
     return (
         <button
@@ -37,7 +51,7 @@ const Tile = props => {
             title={label}
             type="button"
             data-cy="Tile-button"
-            disabled={isALLOutOfStock || isOptionOutOfStock}
+            disabled={isEverythingOutOfStock || isOptionOutOfStock}
         >
             <span>{label}</span>
         </button>

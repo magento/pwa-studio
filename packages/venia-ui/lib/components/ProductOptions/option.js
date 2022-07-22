@@ -35,8 +35,8 @@ const Option = props => {
         onSelectionChange,
         selectedValue,
         values,
-        isALLOutOfStock,
-        isVariantsOutOfStock
+        isEverythingOutOfStock,
+        outOfStockVariants
     } = props;
 
     const talonProps = useOption({
@@ -68,8 +68,8 @@ const Option = props => {
                 selectedValue={initialSelection}
                 items={values}
                 onSelectionChange={handleSelectionChange}
-                isALLOutOfStock={isALLOutOfStock}
-                isVariantsOutOfStock={isVariantsOutOfStock}
+                isEverythingOutOfStock={isEverythingOutOfStock}
+                outOfStockVariants={outOfStockVariants}
             />
             <dl className={classes.selection}>
                 <dt
