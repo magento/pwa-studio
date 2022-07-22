@@ -153,6 +153,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
     >
       <label
         className="label"
+        htmlFor="Password"
       >
         Password
       </label>
@@ -475,6 +476,7 @@ exports[`CreateAccount renders errors 1`] = `
     >
       <label
         className="label"
+        htmlFor="Password"
       >
         Password
       </label>
