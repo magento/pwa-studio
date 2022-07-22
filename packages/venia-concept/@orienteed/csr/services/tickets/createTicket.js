@@ -37,8 +37,6 @@ const createTicket = async (ticketType, title, description, files, order, attach
         body: JSON.stringify(ticketBody)
     });
 
-    console.log({ reply });
-
     if (reply) {
         return reply;
     } else {

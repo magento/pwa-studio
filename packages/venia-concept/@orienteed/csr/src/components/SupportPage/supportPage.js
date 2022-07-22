@@ -29,6 +29,7 @@ import supportIcon from './Icons/supportIcon.svg';
 import { Search as SearchIcon, ArrowRight as SubmitIcon } from 'react-feather';
 
 const DELIMITER = '/';
+const PAGE_SIZE = 8;
 
 const ContentDialog = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -248,12 +249,10 @@ const ContentDialog = props => {
         </div>
     );
 
-    console.log({ ticketCount });
-
     const loadMoreButton = (
         <Button
             className={classes.loadMoreButton}
-            disabled={tickets === undefined || ticketCount < numPage[0] * 8}
+            disabled={tickets === undefined || ticketCount < numPage[0] * PAGE_SIZE}
             onClick={() => handleLoadMore()}
         >
             <FormattedMessage id={'csr.loadMore'} defaultMessage={'Load more'} />

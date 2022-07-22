@@ -62,7 +62,19 @@ export const useSupportPage = () => {
         }
     }, [isSignedIn, numPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    console.log({ numPage });
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setSuccessToast(false);
+        }, 5000);
+        return () => clearTimeout(timeout);
+    }, [successToast]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setErrorToast(false);
+        }, 5000);
+        return () => clearTimeout(timeout);
+    }, [errorToast]);
 
     // Methods
     const changeOrderBy = () => {
@@ -114,20 +126,6 @@ export const useSupportPage = () => {
         },
         [isSignedIn, orderBy]
     );
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setSuccessToast(false);
-        }, 5000);
-        return () => clearTimeout(timeout);
-    }, [successToast]);
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setErrorToast(false);
-        }, 5000);
-        return () => clearTimeout(timeout);
-    }, [errorToast]);
 
     return {
         changeOrderBy,

@@ -1,7 +1,7 @@
-import { Magento2 } from '@magento/peregrine/lib/RestApi';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { Magento2 } from '@magento/peregrine/lib/RestApi';
 
-const doCsrLogin = async () => {
+const getTicketComments = async ticketID => {
     const storage = new BrowserPersistence();
     const bearerToken = storage.getItem('signin_token');
     const { request } = Magento2;
@@ -11,15 +11,12 @@ const doCsrLogin = async () => {
         'Content-Type': 'application/json'
     };
 
-    const data = {};
-
-    const reply = await request('/api/v1/login', {
-        method: 'POST',
-        headers: JSON.stringify(headers),
-        body: JSON.stringify(data)
+    const reply = await request(`/api/v1/ticket_articles/by_ticket/${ticketID}`, {
+        method: 'GET',
+        headers: JSON.stringify(headers)
     });
 
     return reply;
 };
 
-export default doCsrLogin;
+export default getTicketComments;

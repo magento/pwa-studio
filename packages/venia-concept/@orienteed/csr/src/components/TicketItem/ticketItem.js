@@ -1,5 +1,9 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
+
+import Chat from '../Chat';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
@@ -9,11 +13,13 @@ import supportIcon from '@magento/venia-concept/@orienteed/csr/src/components/Su
 import enhancementIcon from '@magento/venia-concept/@orienteed/csr/src/components/SupportPage/Icons/enhancementIcon.svg';
 import orderIcon from '@magento/venia-concept/@orienteed/csr/src/components/SupportPage/Icons/orderIcon.svg';
 import messageIcon from './Icons/messageIcon.svg';
+import closeIcon from './Icons/closeIcon.svg';
 
 const TicketItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { groups, states, ticket } = props;
     const { formatMessage } = useIntl();
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     // Texts
     const ticketNumberText = formatMessage({ id: 'csr.ticketNumber', defaultMessage: 'Ticket number' });
@@ -66,84 +72,100 @@ const TicketItem = props => {
         return `${day} ${month} ${year}`;
     };
 
-    const ticketItemList = (
-        <div className={classes.ticketListContainer}>
-            <img src={showType(ticket.group_id)} className={classes.ticketImage} alt="Ticket logo" />
-            <div className={classes.ticketListItem}>
-                <p className={classes.fieldTitle}>{ticketNumberText}</p>
-                <p className={classes.fieldValue}>{ticket.number}</p>
-            </div>
+    const chatView = <Chat ticketId={ticket.id} />;
 
-            <div className={classes.ticketListItem}>
-                <p className={classes.fieldTitle}>{creationDateText}</p>
-                <p className={classes.fieldValue}>{isoDateToLocaleDate(ticket.created_at)}</p>
-            </div>
-            {states[ticket.state_id] === 'closed' ? (
+    const ticketItemList = (
+        <div className={classes.ticketAndChatListContainer}>
+            <div className={classes.ticketListContainer}>
+                <img src={showType(ticket.group_id)} className={classes.ticketImage} alt="Ticket logo" />
                 <div className={classes.ticketListItem}>
-                    <p className={classes.fieldTitle}>{closedDateText}</p>
-                    <p className={classes.fieldValue}>{isoDateToLocaleDate(ticket.close_at)}</p>
+                    <p className={classes.fieldTitle}>{ticketNumberText}</p>
+                    <p className={classes.fieldValue}>{ticket.number}</p>
                 </div>
-            ) : (
+
                 <div className={classes.ticketListItem}>
-                    <p className={classes.fieldTitle}>{lastUpdateDateText}</p>
-                    <p className={classes.fieldValue}>{isoDateToLocaleDate(ticket.updated_at)}</p>
+                    <p className={classes.fieldTitle}>{creationDateText}</p>
+                    <p className={classes.fieldValue}>{isoDateToLocaleDate(ticket.created_at)}</p>
                 </div>
-            )}
-            <div className={classes.ticketListItem}>
-                <p className={classes.fieldTitle}>{summaryText}</p>
-                <p className={classes.fieldSummary}>{ticket.title}</p>
+                {states[ticket.state_id] === 'closed' ? (
+                    <div className={classes.ticketListItem}>
+                        <p className={classes.fieldTitle}>{closedDateText}</p>
+                        <p className={classes.fieldValue}>{isoDateToLocaleDate(ticket.close_at)}</p>
+                    </div>
+                ) : (
+                    <div className={classes.ticketListItem}>
+                        <p className={classes.fieldTitle}>{lastUpdateDateText}</p>
+                        <p className={classes.fieldValue}>{isoDateToLocaleDate(ticket.updated_at)}</p>
+                    </div>
+                )}
+                <div className={classes.ticketListItem}>
+                    <p className={classes.fieldTitle}>{summaryText}</p>
+                    <p className={classes.fieldSummary}>{ticket.title}</p>
+                </div>
+                <div className={classes.ticketListItem}>
+                    <p className={classes.fieldTitle}>{stateText}</p>
+                    <p className={classes.fieldState}>{stateValueText}</p>
+                </div>
+                <div onClick={() => setIsChatOpen(prevState => !prevState)} className={classes.messageContainer}>
+                    <img
+                        src={isChatOpen ? closeIcon : messageIcon}
+                        className={isChatOpen ? classes.closeIcon : classes.messageIcon}
+                        alt="Message icon"
+                    />
+                    {!isChatOpen && <span className={classes.messageText}>{ticket.article_count}</span>}
+                </div>
             </div>
-            <div className={classes.ticketListItem}>
-                <p className={classes.fieldTitle}>{stateText}</p>
-                <p className={classes.fieldState}>{stateValueText}</p>
-            </div>
-            <div className={classes.messageContainer}>
-                <img src={messageIcon} className={classes.messageIcon} alt="Message icon" />
-                <span className={classes.messageText}>{ticket.article_count}</span>
-            </div>
+            {isChatOpen && chatView}
         </div>
     );
 
     const ticketItemGrid = (
-        <div className={classes.ticketGridContainer}>
-            <div className={classes.ticketGridHeaderContainer}>
-                <img src={showType(ticket.group_id)} className={classes.ticketImageGrid} alt="Ticket logo" />
-                <div className={classes.ticketMainHeaderContainer}>
-                    <div className={classes.ticketGridItem}>
-                        <p className={classes.fieldTitle}>{ticketNumberText}</p>
-                        <p className={classes.fieldValueGrid}>{ticket.number}</p>
-                    </div>
-                    <div className={classes.ticketGridItem}>
-                        <p className={classes.fieldTitle}>{creationDateText}</p>
-                        <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.created_at)}</p>
-                    </div>
-                    {states[ticket.state_id] === 'closed' ? (
+        <div className={classes.ticketAndChatGridContainer}>
+            <div className={classes.ticketGridContainer}>
+                <div className={classes.ticketGridHeaderContainer}>
+                    <img src={showType(ticket.group_id)} className={classes.ticketImageGrid} alt="Ticket logo" />
+                    <div className={classes.ticketMainHeaderContainer}>
                         <div className={classes.ticketGridItem}>
-                            <p className={classes.fieldTitle}>{closedDateText}</p>
-                            <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.close_at)}</p>
+                            <p className={classes.fieldTitle}>{ticketNumberText}</p>
+                            <p className={classes.fieldValueGrid}>{ticket.number}</p>
                         </div>
-                    ) : (
                         <div className={classes.ticketGridItem}>
-                            <p className={classes.fieldTitle}>{lastUpdateDateText}</p>
-                            <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.updated_at)}</p>
+                            <p className={classes.fieldTitle}>{creationDateText}</p>
+                            <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.created_at)}</p>
                         </div>
-                    )}
-                    <div className={classes.ticketGridItem}>
-                        <p className={classes.fieldTitle}>{stateText}</p>
-                        <p className={classes.fieldStateGrid}>{states[ticket.state_id]}</p>
+                        {states[ticket.state_id] === 'closed' ? (
+                            <div className={classes.ticketGridItem}>
+                                <p className={classes.fieldTitle}>{closedDateText}</p>
+                                <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.close_at)}</p>
+                            </div>
+                        ) : (
+                            <div className={classes.ticketGridItem}>
+                                <p className={classes.fieldTitle}>{lastUpdateDateText}</p>
+                                <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.updated_at)}</p>
+                            </div>
+                        )}
+                        <div className={classes.ticketGridItem}>
+                            <p className={classes.fieldTitle}>{stateText}</p>
+                            <p className={classes.fieldStateGrid}>{states[ticket.state_id]}</p>
+                        </div>
+                    </div>
+                </div>
+                <div className={classes.ticketGridBodyContainer}>
+                    <div className={classes.ticketGridSummaryItem}>
+                        <p className={classes.fieldTitle}>{summaryText}</p>
+                        <p className={classes.fieldSummaryGrid}>{ticket.title}</p>
+                    </div>
+                    <div onClick={() => setIsChatOpen(prevState => !prevState)} className={classes.messageContainer}>
+                        <img
+                            src={isChatOpen ? closeIcon : messageIcon}
+                            className={isChatOpen ? classes.closeIcon : classes.messageIcon}
+                            alt="Message icon"
+                        />
+                        {!isChatOpen && <span className={classes.messageText}>{ticket.article_count}</span>}
                     </div>
                 </div>
             </div>
-            <div className={classes.ticketGridBodyContainer}>
-                <div className={classes.ticketGridSummaryItem}>
-                    <p className={classes.fieldTitle}>{summaryText}</p>
-                    <p className={classes.fieldSummaryGrid}>{ticket.title}</p>
-                </div>
-                <div className={classes.messageContainer}>
-                    <img src={messageIcon} className={classes.messageIcon} alt="Message icon" />
-                    <span className={classes.messageText}>{ticket.article_count}</span>
-                </div>
-            </div>
+            {isChatOpen && chatView}
         </div>
     );
 

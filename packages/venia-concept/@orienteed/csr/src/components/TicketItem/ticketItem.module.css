@@ -1,3 +1,8 @@
+.ticketAndChatListContainer {
+    display: flex;
+    flex-direction: column;
+}
+
 .ticketListContainer {
     display: grid;
     grid-template-columns: 0.5fr 1fr repeat(2, 1.5fr) 2.5fr 1fr 1fr;
@@ -7,9 +12,18 @@
     overflow-x: auto;
 }
 
-.ticketGridContainer {
+.ticketAndChatGridContainer {
     display: none;
     visibility: hidden;
+}
+
+.ticketGridContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f8fb;
+    border-radius: 5px;
+    width: 100%;
+    padding: 16px;
 }
 
 .ticketGridHeaderContainer {
@@ -126,10 +140,15 @@
     margin: 0 auto;
     padding: 0 20px;
     width: fit-content;
+    cursor: pointer;
 }
 
 .messageIcon {
     min-width: 35px;
+}
+
+.closeIcon {
+    min-width: 20px;
 }
 
 .messageText {
@@ -168,19 +187,15 @@
 }
 
 @media (max-width: 700px) {
-    .ticketListContainer {
+    .ticketAndChatListContainer {
         display: none;
         visibility: hidden;
     }
 
-    .ticketGridContainer {
-        visibility: visible;
+    .ticketAndChatGridContainer {
         display: flex;
         flex-direction: column;
-        background-color: #f6f8fb;
-        border-radius: 5px;
-        width: 100%;
-        padding: 16px;
+        visibility: visible;
     }
 
     .ticketMainHeaderContainer {
