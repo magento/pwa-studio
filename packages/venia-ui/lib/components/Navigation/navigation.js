@@ -56,7 +56,7 @@ const Navigation = props => {
     return (
         <Portal>
             {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
-            <FocusScope contain restoreFocus autoFocus>
+            <FocusScope contain={isOpen} restoreFocus autoFocus>
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
                 <aside className={rootClassName}>
                     <header className={classes.header}>
