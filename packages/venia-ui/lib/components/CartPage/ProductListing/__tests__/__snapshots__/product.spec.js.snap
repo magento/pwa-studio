@@ -260,6 +260,7 @@ exports[`renders configurable product with options 1`] = `
         </span>
       </button>
       <ul
+        aria-hidden="true"
         className="dropdown"
       >
         <li
@@ -593,6 +594,7 @@ exports[`renders out of stock product 1`] = `
         </span>
       </button>
       <ul
+        aria-hidden="true"
         className="dropdown"
       >
         <li
@@ -892,6 +894,7 @@ exports[`renders simple product correctly 1`] = `
         </span>
       </button>
       <ul
+        aria-hidden="true"
         className="dropdown"
       >
         <li

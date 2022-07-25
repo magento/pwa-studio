@@ -79,7 +79,7 @@ describe(
                 .scrollIntoView();
 
             cy.get(
-                'a[data-cy="GalleryItem-name"][href="/silver-amor-bangle-set.html"]'
+                'a[data-cy="GalleryItem-name"][href$="/silver-amor-bangle-set.html"]'
             )
                 .should('be.visible')
                 .click();
@@ -157,7 +157,7 @@ describe(
                     });
                 });
             cy.get(
-                'a[data-cy="GalleryItem-name"][href="/carina-cardigan.html"]'
+                'a[data-cy="GalleryItem-name"][href$="/carina-cardigan.html"]'
             )
                 .scrollIntoView()
                 .click();
@@ -209,7 +209,7 @@ describe(
                     });
                 });
 
-            cy.get('a[data-cy="GalleryItem-name"][href="/selena-pants.html"]')
+            cy.get('a[data-cy="GalleryItem-name"][href$="/selena-pants.html"]')
                 .scrollIntoView()
                 .click();
 
@@ -270,7 +270,7 @@ describe(
                     });
                 });
 
-            cy.get('a[href="/selena-pants.html"]')
+            cy.get('a[href$="/selena-pants.html"]')
                 .scrollIntoView()
                 .click();
             cy.get('@eventing')
