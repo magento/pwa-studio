@@ -63,8 +63,7 @@ const Navigation = props => {
                         <NavHeader
                             isTopLevel={isTopLevel}
                             onBack={handleBack}
-                            view={view}
-                        />
+                            view={view} />
                     </header>
                     <div className={bodyClassName}>
                         <CategoryTree
