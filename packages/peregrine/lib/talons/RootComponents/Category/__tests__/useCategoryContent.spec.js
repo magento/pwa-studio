@@ -3,6 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 
 import { useCategoryContent } from '../useCategoryContent';
 import { useLazyQuery, useQuery } from '@apollo/client';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 
 global.STORE_NAME = 'Venia';
 
@@ -78,7 +79,10 @@ const mockCategoryData = {
     categories: {
         items: [
             {
+                uid: 'UID',
                 name: 'Jewelry',
+                url_key: 'jewelry',
+                url_path: 'accessories/jewelry',
                 description: 'Jewelry category'
             }
         ]
@@ -87,6 +91,10 @@ const mockCategoryData = {
 
 const mockGetSortMethods = jest.fn();
 const mockGetFilters = jest.fn();
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const Component = props => {
     const talonprops = useCategoryContent(props);
@@ -152,5 +160,28 @@ describe('useCategoryContent tests', () => {
         const talonProps = rendered.root.findByType('i').props;
 
         expect(talonProps).toMatchSnapshot();
+    });
+
+    it('should dispatch page view event', () => {
+        const mockDispatchEvent = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatchEvent
+            }
+        ]);
+
+        useLazyQuery
+            .mockReturnValueOnce([
+                mockGetFilters,
+                mockProductFiltersByCategoryData
+            ])
+            .mockReturnValueOnce([mockGetSortMethods, mockSortData]);
+        createTestInstance(<Component {...mockProps} />);
+
+        expect(mockDispatchEvent).toBeCalledTimes(1);
+
+        expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
     });
 });

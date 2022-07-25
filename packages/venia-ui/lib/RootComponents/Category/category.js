@@ -8,9 +8,16 @@ import defaultClasses from './category.module.css';
 import { Meta } from '../../components/Head';
 import { GET_PAGE_SIZE } from './category.gql';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
+import { useIntl } from 'react-intl';
+
+const MESSAGES = new Map().set(
+    'NOT_FOUND',
+    "Looks like the category you were hoping to find doesn't exist. Sorry about that."
+);
 
 const Category = props => {
     const { uid } = props;
+    const { formatMessage } = useIntl();
 
     const talonProps = useCategory({
         id: uid,
@@ -26,7 +33,8 @@ const Category = props => {
         categoryData,
         pageControl,
         sortProps,
-        pageSize
+        pageSize,
+        categoryNotFound
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -39,6 +47,16 @@ const Category = props => {
 
             return <ErrorView />;
         }
+    }
+    if (categoryNotFound) {
+        return (
+            <ErrorView
+                message={formatMessage({
+                    id: 'category.notFound',
+                    defaultMessage: MESSAGES.get('NOT_FOUND')
+                })}
+            />
+        );
     }
 
     return (

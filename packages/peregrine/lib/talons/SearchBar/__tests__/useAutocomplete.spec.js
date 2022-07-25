@@ -3,7 +3,7 @@ import { Form, Text } from 'informed';
 import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import { runQuery, useLazyQuery } from '@apollo/client';
-import { useAutocomplete } from '../../../talons/SearchBar';
+import { useAutocomplete } from '../useAutocomplete';
 import createTestInstance from '../../../util/createTestInstance';
 
 jest.mock('informed', () => ({

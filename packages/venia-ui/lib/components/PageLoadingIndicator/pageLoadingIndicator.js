@@ -14,7 +14,9 @@ const PageLoadingIndicator = props => {
     }
 
     return (
-        <div className={absolute ? classes.root_absolute : classes.root}>
+        <div
+            className={absolute ? classes.root_absolute : classes.root_relative}
+        >
             <div className={classes[`indicator_${loadingState}`]} />
         </div>
     );
@@ -27,7 +29,9 @@ PageLoadingIndicator.defaultProps = {
 
 PageLoadingIndicator.propTypes = {
     classes: shape({
-        root: string
+        root: string,
+        root_absolute: string,
+        root_relative: string
     }),
     absolute: bool
 };

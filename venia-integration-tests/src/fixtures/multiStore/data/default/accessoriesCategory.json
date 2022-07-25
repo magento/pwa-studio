@@ -24,6 +24,11 @@
           "name": "Silver Sol Earrings",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 48,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 48,
@@ -49,6 +54,11 @@
           "name": "Augusta Necklace",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 98,
@@ -74,6 +84,11 @@
           "name": "Carmina Necklace",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 98,

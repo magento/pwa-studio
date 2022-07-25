@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "9.3.0",
+  "version": "9.4.0",
   "publishConfig": {
     "access": "public"
   },
@@ -51,7 +51,7 @@
     "uuid": "~8.3.2"
   },
   "devDependencies": {
-    "@apollo/client": "~3.4.0",
+    "@apollo/client": "~3.5.0",
     "@babel/cli": "~7.2.3",
     "@babel/core": "~7.15.0",
     "@babel/plugin-proposal-class-properties": "~7.14.5",
@@ -78,10 +78,10 @@
     "redux": "~4.0.1"
   },
   "peerDependencies": {
-    "@apollo/client": "~3.4.0",
-    "@magento/babel-preset-peregrine": "~1.2.0",
-    "@magento/peregrine": "~12.3.0",
-    "@magento/pwa-buildpack": "~11.2.0",
+    "@apollo/client": "~3.5.0",
+    "@magento/babel-preset-peregrine": "~1.2.1",
+    "@magento/peregrine": "~12.4.0",
+    "@magento/pwa-buildpack": "~11.3.0",
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.16.0",
     "graphql": "~15.5.0",

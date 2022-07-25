@@ -93,7 +93,11 @@ const AddressBookPage = props => {
     return (
         <div className={classes.root}>
             <StoreTitle>{PAGE_TITLE}</StoreTitle>
-            <h1 className={classes.heading} data-cy="AddressBookPage-heading">
+            <h1
+                aria-live="polite"
+                className={classes.heading}
+                data-cy="AddressBookPage-heading"
+            >
                 {PAGE_TITLE}
             </h1>
             <div className={classes.content} data-cy="AddressBookPage-content">
