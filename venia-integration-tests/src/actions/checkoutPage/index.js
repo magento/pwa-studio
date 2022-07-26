@@ -1,5 +1,4 @@
 import * as fields from '../../fields/checkoutPage';
-import {checkoutPageCreditCardCardFrameholderName, checkoutPageCreditCardNameFrame} from "../../fields/checkoutPage";
 
 export const toggleLoginDialog = () => {
     cy.get(fields.checkoutPageSignInButton).click();
