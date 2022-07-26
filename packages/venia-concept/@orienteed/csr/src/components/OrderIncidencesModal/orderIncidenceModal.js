@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 
 import Dialog from './Dialog/dialog';
 import Dropzone from './Dropzone/dropzone';
+import notFoundImage from './Dropzone/Icons/notFoundImage.svg';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import Select from '@magento/venia-ui/lib/components/Select';
 import TextArea from '@magento/venia-ui/lib/components/TextArea';
@@ -10,56 +11,52 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
-import { useCreateTicketModal } from '../../talons/useCreateTicketModal';
+import { useOrderIncidencesModal } from '../../talons/useOrderIncidencesModal';
 
-import defaultClasses from './createTicketModal.module.css';
+import defaultClasses from './orderIncidenceModal.module.css';
 
-import notFoundImage from './Icons/notFound.svg';
-
-const CreateTicketModal = props => {
-    const { orderBy, isOpen, setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast } = props;
+const OrderIncidencesModal = props => {
+    const {
+        isOpen,
+        setTicketModal,
+        orderNumber,
+        orderDate,
+        orderStatus,
+        orderTotal,
+        imagesData,
+        setSuccessToast,
+        setErrorToast
+    } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
-    const talonProps = useCreateTicketModal({
-        orderBy,
-        setErrorToast,
-        setSuccessToast,
-        setTicketCount,
+    const talonProps = useOrderIncidencesModal({
         setTicketModal,
-        setTickets
+        setSuccessToast,
+        setErrorToast
     });
 
     const {
         closeModal,
         createTicketStatus,
-        customerOrdersItems,
-        customerOrdersSelect,
         dropzoneError,
         filesUploaded,
         onConfirm,
-        orderError,
-        orderSelected,
         setDropzoneError,
         setFilesUploaded,
-        setOrderError,
-        setOrderSelected,
+        setOrderData,
         setTicketDescription,
         setTicketTitle,
-        setTicketType,
-        showPlaceholder,
-        ticketType
+        showPlaceholder
     } = talonProps;
 
     // Translations
     const attachFilesText = formatMessage({ id: 'csr.attachFiles', defaultMessage: 'Attach files (max. 6 files)' });
-    const enhancementText = formatMessage({ id: 'csr.enhancement', defaultMessage: 'Enhancement' });
     const newTicketText = formatMessage({ id: 'csr.newTicket', defaultMessage: 'New ticket' });
     const orderDateText = formatMessage({ id: 'csr.orderDate', defaultMessage: 'Order date' });
     const orderIssueText = formatMessage({ id: 'csr.orderIssue', defaultMessage: 'Order issue' });
     const orderNumberText = formatMessage({ id: 'csr.orderNumber', defaultMessage: 'Order number' });
     const sendingTicketText = formatMessage({ id: 'csr.sendingTicket', defaultMessage: 'Sending ticket...' });
     const statusText = formatMessage({ id: 'csr.status', defaultMessage: 'Status' });
-    const supportIssueText = formatMessage({ id: 'csr.supportIssue', defaultMessage: 'Support issue' });
     const ticketTypeText = formatMessage({ id: 'csr.ticketType', defaultMessage: 'Ticket type' });
     const titleText = formatMessage({ id: 'csr.title', defaultMessage: 'Title (max. 100 characters)' });
     const totalPriceText = formatMessage({ id: 'csr.totalPrice', defaultMessage: 'Total price' });
@@ -76,41 +73,41 @@ const CreateTicketModal = props => {
     const acceptedFilesTypes =
         '*.jpg, *.jpeg, *.png, *.gif, *.mp3, *.wav, *.ogg, *.aac, *.mp4, *.avi, *.mpeg, *.pdf, *.txt, *.csv, *.zip, *.rar, *.gzip, *.tar.gz';
 
-    const ticketOptions = [
-        { value: 'Support issue', label: supportIssueText },
-        { value: 'Order issue', label: orderIssueText },
-        { value: 'Enhancement', label: enhancementText }
-    ];
+    const ticketOptions = [{ value: 'Order issue', label: orderIssueText }];
+
+    const orderData = {
+        image_url: Object.values(imagesData)[0]?.thumbnail?.url,
+        number: orderNumber,
+        order_date: orderDate,
+        status: orderStatus,
+        total: `${orderTotal.props.value} ${orderTotal.props.currencyCode === 'EUR' ? '€' : '$'}`
+    };
 
     // Methods
     const showOrderDetails = () => {
-        if (orderSelected === '') return;
-        const orderItem = customerOrdersItems.find(item => item.number === orderSelected);
-        console.log(orderItem.total);
-
         return (
             <div className={classes.orderItemContainer}>
                 <img
-                    src={orderItem.image_url || notFoundImage}
+                    src={Object.values(imagesData)[0]?.thumbnail?.url || notFoundImage}
                     className={classes.orderItemImage}
                     alt="Order product"
                 />
                 <div className={classes.orderItemDataContainer}>
                     <div className={classes.orderItemFieldContainer}>
                         <p className={classes.orderItemFieldTitle}>{orderNumberText}</p>
-                        <p className={classes.orderItemFieldValue}>{orderItem.number}</p>
+                        <p className={classes.orderItemFieldValue}>{orderNumber}</p>
                     </div>
                     <div className={classes.orderItemFieldContainer}>
                         <p className={classes.orderItemFieldTitle}>{orderDateText}</p>
-                        <p className={classes.orderItemFieldValue}>{orderItem.order_date}</p>
+                        <p className={classes.orderItemFieldValue}>{orderDate}</p>
                     </div>
                     <div className={classes.orderItemFieldContainer}>
                         <p className={classes.orderItemFieldTitle}>{statusText}</p>
-                        <p className={classes.orderItemFieldValue}>{orderItem.status}</p>
+                        <p className={classes.orderItemFieldValue}>{orderStatus}</p>
                     </div>
                     <div className={classes.orderItemFieldContainer}>
                         <p className={classes.orderItemFieldTitle}>{totalPriceText}</p>
-                        <p className={classes.orderItemFieldValue}>{orderItem.total}</p>
+                        <p className={classes.orderItemFieldValue}>{orderTotal}</p>
                     </div>
                 </div>
             </div>
@@ -136,31 +133,13 @@ const CreateTicketModal = props => {
                     <div className={classes.row}>
                         <p>{ticketTypeText}</p>
                         <Select
-                            initialValue={'Support issue'}
+                            initialValue={'Order issue'}
                             field={'ticketType'}
                             items={ticketOptions}
-                            onChange={e => {
-                                setTicketType(e.target.value);
-                                setOrderError('');
-                            }}
+                            disabled={true}
                         />
                     </div>
-                    {ticketType === 'Order issue' && (
-                        <div className={classes.row}>
-                            <Select
-                                field={'orderNumber'}
-                                items={customerOrdersSelect}
-                                onChange={e => {
-                                    setOrderSelected(e.target.value);
-                                    setOrderError('');
-                                }}
-                            />
-                            {(orderSelected === 'notFound' || orderSelected === 'notSelected') && orderError !== '' && (
-                                <p className={classes.errorMessage}>{orderError}</p>
-                            )}
-                            {orderSelected !== 'notFound' && orderSelected !== 'notSelected' && showOrderDetails()}
-                        </div>
-                    )}
+                    <div className={classes.row}>{showOrderDetails()}</div>
                     <div className={classes.row}>
                         <p>{titleText}</p>
                         <TextInput
@@ -168,7 +147,10 @@ const CreateTicketModal = props => {
                             validate={isRequired}
                             placeholder={titlePlaceholder}
                             maxLength={100}
-                            onChange={e => setTicketTitle(e.target.value)}
+                            onChange={e => {
+                                setTicketTitle(e.target.value);
+                                setOrderData(orderData);
+                            }}
                         />
                     </div>
                     <div className={classes.row}>
@@ -177,7 +159,7 @@ const CreateTicketModal = props => {
                             id="description"
                             field="description"
                             validate={isRequired}
-                            placeholder={showPlaceholder()}
+                            placeholder={showPlaceholder}
                             maxLength={10000}
                             onChange={e => setTicketDescription(e.target.value)}
                         />
@@ -198,4 +180,4 @@ const CreateTicketModal = props => {
     );
 };
 
-export default CreateTicketModal;
+export default OrderIncidencesModal;

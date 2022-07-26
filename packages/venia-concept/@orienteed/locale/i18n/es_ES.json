@@ -516,6 +516,7 @@
     "orderProgressBar.processingText": "Procesando",
     "orderProgressBar.readyToShipText": "Listo para enviar",
     "orderProgressBar.shippedText": "Enviado",
+    "orderRow.openIncident": "Abrir incidencia",
     "orderRow.deliveredText": "Entregado",
     "orderRow.orderDateText": "Fecha de pedido",
     "orderRow.orderNumberText": "Pedido #",

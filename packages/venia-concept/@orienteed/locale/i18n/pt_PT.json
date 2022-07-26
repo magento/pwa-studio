@@ -517,6 +517,7 @@
     "orderProgressBar.readyToShipText": "Pronto a enviar",
     "orderProgressBar.shippedText": "Enviado",
     "orderRow.deliveredText": "Entregue",
+    "orderRow.openIncident": "incidente aberto",
     "orderRow.orderDateText": "Data de encomenda",
     "orderRow.orderNumberText": "Encomenda #",
     "orderRow.orderTotalText": "Total da encomenda",
