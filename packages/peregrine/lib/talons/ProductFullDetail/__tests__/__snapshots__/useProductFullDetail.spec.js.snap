@@ -86,3 +86,13 @@ Object {
   "type": "CART_ADD_ITEM",
 }
 `;
+
+exports[`shouldShowOutOfStockOptionsForConfigurableProductWithOneGroupOfOption returns value_index of out of stock options 1`] = `
+Array [
+  Array [
+    92,
+  ],
+]
+`;
+
+exports[`shouldShowOutOfStockOptionsForConfigurableProductWithTwoGroupOfOption returns empty array if no option selected 1`] = `Array []`;
