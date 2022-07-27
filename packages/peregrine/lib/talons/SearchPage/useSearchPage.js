@@ -172,7 +172,7 @@ export const useSearchPage = (props = {}) => {
         const newFilters = {};
         const refinementData = [];
         filters.forEach((values, key) => {
-            key = (key == 'category_uid') ? 'category_id' : key;
+            key = key == 'category_uid' ? 'category_id' : key;
             const filterMapType = filterTypeMap.get(key);
             newFilters[key] = getFilterInput(values, filterMapType);
             refinementData.push({
