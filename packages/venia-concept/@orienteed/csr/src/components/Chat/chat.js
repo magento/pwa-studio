@@ -1,25 +1,33 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
+import { Form } from 'informed';
 
 import Button from '@magento/venia-ui/lib/components/Button';
+import Icon from '@magento/venia-ui/lib/components/Icon';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
+import Trigger from '@magento/venia-ui/lib/components/Trigger';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import { useChat } from '../../talons/useChat';
 
 import defaultClasses from './chat.module.css';
 
-import optionsIcon from './Icons/optionsIcon.svg';
-import doubleCkeckRead from './Icons/doubleCheckRead.svg';
 import doubleCheckUnread from './Icons/doubleCheckUnread.svg';
+import doubleCkeckRead from './Icons/doubleCheckRead.svg';
+import optionsIcon from './Icons/optionsIcon.svg';
+import sendCommentIcon from './Icons/sendCommentIcon.svg';
+import { Paperclip as AttachmentIcon, Smile as EmojiPickerIcon } from 'react-feather';
+import Attachment from './Attachment/attachment';
 
 const Chat = props => {
     const { ticketId } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const { ticketComments } = useChat({ ticketId });
+    const { ticketComments, lastCustomerTicketsId, lastMessageRef, attachments, sendCommentAndAttachments } = useChat({
+        ticketId
+    });
     const { formatMessage } = useIntl();
 
     // Texts
@@ -27,7 +35,16 @@ const Chat = props => {
     const agentText = formatMessage({ id: 'csr.agent', defaultMessage: 'Agent B2BStore' });
     const noCommentsText = formatMessage({ id: 'csr.noComments', defaultMessage: 'No comments yet' });
     const fetchingCommentsText = formatMessage({ id: 'csr.fetchingComments', defaultMessage: 'Fetching comments' });
+    const sharedFilesText = formatMessage({ id: 'csr.sharedFiles', defaultMessage: 'Shared files' });
+    const typeYourMessageText = formatMessage({ id: 'csr.typeYourMessage', defaultMessage: 'Type your message' });
+
     // Icons
+    const emojiPickerIcon = <Icon src={EmojiPickerIcon} size={25} />;
+    const attachmentIcon = <Icon classes={{ icon: classes.attachmentIcon }} src={AttachmentIcon} size={25} />;
+
+    const emojiPicker = <Trigger action={() => console.log('In progress...')}>{emojiPickerIcon}</Trigger>;
+    const attachmentButton = <Trigger action={() => console.log('In progress...')}>{attachmentIcon}</Trigger>;
+    const [comment, setComment] = useState('');
 
     // Methods
     const isoDateToChat = isoDate => {
@@ -65,6 +82,82 @@ const Chat = props => {
         return `${day} ${month} ${year} - ${hours}:${minutes}`;
     };
 
+    const getCommentTextStyled = (text, type, isCustomer) => {
+        const commentClass = isCustomer ? classes.chatBodyCommentCustomerText : classes.chatBodyCommentAgentText;
+        switch (type) {
+            case 'text/html':
+                return <p className={commentClass} dangerouslySetInnerHTML={{ __html: text }} />;
+            case 'text/plain':
+                return <p className={commentClass}>{text}</p>;
+            default:
+                return <p className={commentClass}>{text}</p>;
+        }
+    };
+
+    const showAttachmentsInline = attachmentFiles => {
+        return (
+            <div className={classes.attachmentsInlineContainer}>
+                {attachmentFiles.map(attachment => {
+                    return (
+                        <Attachment
+                            filename={attachment.filename}
+                            size={attachment.size}
+                            date={attachment.created_at}
+                            mimetype={attachment.preferences['Content-Type'] || attachment.preferences['Mime-Type']}
+                            isInline={true}
+                        />
+                    );
+                })}
+            </div>
+        );
+    };
+
+    const attachmentsBody = attachmentFiles => {
+        return (
+            <div className={classes.attachmentsBodyContainer}>
+                {attachmentFiles.map(attachment => {
+                    return (
+                        <Attachment
+                            filename={attachment.filename}
+                            size={attachment.size}
+                            date={attachment.created_at}
+                            mimetype={attachment.preferences['Content-Type'] || attachment.preferences['Mime-Type']}
+                            isInline={false}
+                        />
+                    );
+                })}
+            </div>
+        );
+    };
+
+    const showCommentMetadata = (isCustomer, creationDate, commentId) => {
+        return (
+            <div className={classes.commentMetadataContainer}>
+                <p
+                    className={
+                        isCustomer ? classes.chatBodyCommentTimeCustomerText : classes.chatBodyCommentTimeAgentText
+                    }
+                >
+                    {isoDateToChat(creationDate)}
+                </p>
+                {isCustomer && (
+                    <img
+                        src={lastCustomerTicketsId.includes(commentId) ? doubleCheckUnread : doubleCkeckRead}
+                        className={classes.doubleCheckIcon}
+                        alt="Double check icon"
+                    />
+                )}
+            </div>
+        );
+    };
+
+    const handleSubmit = () => {
+        sendCommentAndAttachments(comment);
+        document.getElementById('chatTextForm').reset();
+        setComment('');
+        document.getElementById('chatTextInput').focus();
+    };
+
     // Components
     const chatHeader = (
         <div className={classes.chatHeaderContainer}>
@@ -78,67 +171,68 @@ const Chat = props => {
         </div>
     );
 
-    const getCommentTextStyled = (text, type, isCustomer) => {
-        const commentClass = isCustomer ? classes.chatBodyCommentCustomerText : classes.chatBodyCommentAgentText;
-        switch (type) {
-            case 'text/html':
-                return <p className={commentClass} dangerouslySetInnerHTML={{ __html: text }} />;
-            case 'text/plain':
-                return <p className={commentClass}>{text}</p>;
-            default:
-                return <p className={commentClass}>{text}</p>;
-        }
-    };
-
     const chatBody =
         ticketComments !== undefined &&
+        lastCustomerTicketsId !== undefined &&
         (ticketComments?.length === 0 ? (
             <p>{noCommentsText}</p>
         ) : (
             ticketComments.map(comment => {
                 const isCustomer = comment.sender === 'Customer';
                 return (
-                    <div className={isCustomer ? classes.chatBodyCustomerContainer : classes.chatBodyAgentContainer}>
-                        <div
-                            key={comment.id}
-                            className={isCustomer ? classes.chatBodyCustomerComment : classes.chatBodyAgentComment}
-                        >
+                    <div
+                        key={comment.id}
+                        className={isCustomer ? classes.chatBodyCustomerContainer : classes.chatBodyAgentContainer}
+                    >
+                        <div className={isCustomer ? classes.chatBodyCustomerComment : classes.chatBodyAgentComment}>
                             {getCommentTextStyled(comment.body, comment.content_type, isCustomer)}
                         </div>
-                        <div className={classes.commentMetadataContainer}>
-                            <p
-                                className={
-                                    isCustomer
-                                        ? classes.chatBodyCommentTimeCustomerText
-                                        : classes.chatBodyCommentTimeAgentText
-                                }
-                            >
-                                {isoDateToChat(comment.created_at)}
-                            </p>
-                            {isCustomer && (
-                                <img
-                                    src={doubleCkeckRead}
-                                    className={classes.doubleCheckIcon}
-                                    alt="Double check icon"
-                                />
-                            )}
-                        </div>
+                        {comment.attachments.length > 0 && showAttachmentsInline(comment.attachments)}
+                        {showCommentMetadata(isCustomer, comment.created_at, comment.id)}
                     </div>
                 );
             })
         ));
-
-    console.log(ticketComments);
 
     return (
         <div className={classes.container}>
             {ticketComments === undefined ? (
                 <LoadingIndicator children={fetchingCommentsText} classes={{ root: classes.loadingIndicator }} />
             ) : (
-                <>
-                    {chatHeader}
-                    <div className={classes.chatContainer}>{chatBody}</div>
-                </>
+                <div className={classes.chatAndFilesContainer}>
+                    <div className={classes.chatAndInputContainer}>
+                        {chatHeader}
+                        <div className={classes.chatContainer}>
+                            {chatBody}
+                            <span ref={lastMessageRef} />
+                        </div>
+                        <Form id="chatTextForm" className={classes.chatInputContainer} onSubmit={handleSubmit}>
+                            <TextInput
+                                id="chatTextInput"
+                                field="comment"
+                                placeholder={typeYourMessageText}
+                                maxLength={10000}
+                                before={emojiPicker}
+                                after={attachmentButton}
+                                value={comment}
+                                onChange={e => setComment(e.target.value.replace(/\s+/g, ' ').trim())}
+                                classes={{ input: classes.chatInput }}
+                            />
+                            <Button
+                                className={classes.sendCommentButton}
+                                disabled={comment === ''}
+                                priority={'high'}
+                                type="submit"
+                            >
+                                <img src={sendCommentIcon} alt="send" className={classes.sendCommentIcon} />
+                            </Button>
+                        </Form>
+                    </div>
+                    <div className={classes.chatFilesContainer}>
+                        <p className={classes.chatFilesTitle}>{sharedFilesText}</p>
+                        {attachmentsBody(attachments)}
+                    </div>
+                </div>
             )}
         </div>
     );

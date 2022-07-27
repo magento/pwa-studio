@@ -15,7 +15,7 @@ const createTicket = async (ticketType, title, description, files, order, attach
         ticketType === 'Order issue'
             ? `${description}\n\nOrder details:\n- Order number: ${order?.number}\n- Date: ${
                   order.order_date
-              }\n- Status: ${order?.status}\n- Price: ${order?.total}`
+              }\n- Status: ${order?.status}\n- Price: ${order?.total}\n\n${attachedFilesText}`
             : description;
 
     const ticketBody = {

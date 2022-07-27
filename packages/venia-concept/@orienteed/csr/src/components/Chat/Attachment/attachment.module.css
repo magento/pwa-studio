@@ -1,0 +1,47 @@
+.containerBody {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 30px;
+}
+
+.containerInline {
+    composes: containerBody;
+    border: 1px solid #cecccc;
+    border-radius: 15px;
+    padding: 10px;
+    width: 225px;
+}
+
+.fileNameAndSizeBody {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.fileNameAndSizeInline {
+    display: flex;
+    flex-direction: column;
+}
+
+.filenameText {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #e8ab00;
+}
+
+.sizeText {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #807a7a;
+}
+
+.dateText {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #807a7a;
+}

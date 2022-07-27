@@ -86,7 +86,6 @@ const CreateTicketModal = props => {
     const showOrderDetails = () => {
         if (orderSelected === '') return;
         const orderItem = customerOrdersItems.find(item => item.number === orderSelected);
-        console.log(orderItem.total);
 
         return (
             <div className={classes.orderItemContainer}>
