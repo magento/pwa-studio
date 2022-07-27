@@ -396,7 +396,7 @@ export const useProductFullDetail = props => {
         optionSelections.forEach((value, key) => {
             const values = attributeIdToValuesMap.get(key);
 
-            const selectedValue = values.find(
+            const selectedValue = values?.find(
                 item => item.value_index === value
             );
 
