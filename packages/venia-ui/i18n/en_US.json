@@ -360,6 +360,7 @@
     "productFullDetail.productDescription": "Product Description",
     "productFullDetail.details": "Details",
     "productFullDetail.unavailableProduct": "This product is currently unavailable for purchase.",
+    "productFullDetail.outOfStockProduct": "This item is currently out of stock.",
     "productImageCarousel.previousButtonAriaLabel": "Previous Image",
     "productImageCarousel.nextButtonAriaLabel": "Next Image",
     "productList.each": " ea.",

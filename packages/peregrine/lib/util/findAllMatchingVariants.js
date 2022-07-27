@@ -1,5 +1,6 @@
 /**
- * TODO Document
+ * Find all the products/variants contains current option selections
+ * @return {Array} variants
  */
 export const findAllMatchingVariants = ({
     variants,
@@ -13,7 +14,6 @@ export const findAllMatchingVariants = ({
         );
         for (const [id, value] of singleOptionSelection) {
             const code = optionCodes.get(id);
-            //if (!value) return false;
 
             const matchesStandardAttribute = product[code] === value;
 
@@ -28,7 +28,7 @@ export const findAllMatchingVariants = ({
         }
 
         // otherwise, every option selection matched
-        // and this is the correct variant
+        // and these are the correct variants
         return true;
     });
 };

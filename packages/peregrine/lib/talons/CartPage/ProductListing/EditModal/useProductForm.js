@@ -9,6 +9,7 @@ import { useEventingContext } from '../../../../context/eventing';
 import { findAllMatchingVariants } from '../../../../util/findAllMatchingVariants';
 import { getOutOfStockIndexes } from '../../../../util/getOutOfStockIndexes';
 import { createProductVariants } from '../../../../util/createProductVariants';
+import { getCombinations } from '../../../../util/getCombinations';
 
 /**
  * This talon contains logic for a product edit form.
@@ -53,15 +54,6 @@ const getOutOfStockVariants = (
     configItem,
     isOutOfStockProductDisplayed
 ) => {
-    // Find the combination of k elements in the array.
-    // For example: array is [1,2,3]. k=2.
-    // The results are [[1,2],[1,3],[2,3]]
-    function getCombinations(array, k, prefix = []) {
-        if (k == 0) return [prefix];
-        return array.flatMap((value, index) =>
-            getCombinations(array.slice(index + 1), k - 1, [...prefix, value])
-        );
-    }
     if (configItem && product) {
         let variants = product.variants;
         let variantsIfOutOfStockProductsNotDisplayed = createProductVariants(
