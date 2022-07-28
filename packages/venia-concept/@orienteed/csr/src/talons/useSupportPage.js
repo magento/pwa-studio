@@ -22,6 +22,7 @@ export const useSupportPage = () => {
     const [ticketCount, setTicketCount] = useState(0);
     const [ticketModal, setTicketModal] = useState(false);
     const [tickets, setTickets] = useState([]);
+    const [sortBy, setSortBy] = useState('created_at');
 
     // Effects
     useEffect(() => {
@@ -37,7 +38,7 @@ export const useSupportPage = () => {
 
     useEffect(() => {
         if (isSignedIn) {
-            getTickets(orderBy, numPage, '').then(res => {
+            getTickets(orderBy, numPage, '', sortBy).then(res => {
                 const newTickets =
                     res.tickets.length !== 0
                         ? orderBy === 'desc'
@@ -141,10 +142,15 @@ export const useSupportPage = () => {
         searchText,
         setErrorToast,
         setLegendModal,
+        setMultipleTickets,
         setSuccessToast,
         setTicketCount,
         setTicketModal,
         setTickets,
+        setSortBy,
+        setNumPage,
+        setOrderBy,
+        sortBy,
         states,
         successToast,
         ticketCount,

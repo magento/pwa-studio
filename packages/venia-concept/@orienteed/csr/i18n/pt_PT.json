@@ -58,5 +58,9 @@
     "csr.ticketType": "Tipo de bilhete",
     "csr.title": "Título (máx. 100 caracteres)",
     "csr.titlePlaceholder": "Insira um título para o seu bilhete",
-    "csr.totalPrice": "Preço total"
+    "csr.totalPrice": "Preço total",
+    "sortItem.createdAsc": "Criação: O mais antigo",
+    "sortItem.createdDesc": "Criação: Mais recentes",
+    "sortItem.updateAsc": "Actualizado: O mais antigo",
+    "sortItem.updateDesc": "Actualizado: Mais recentes"
 }

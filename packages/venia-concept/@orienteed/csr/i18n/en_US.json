@@ -58,5 +58,9 @@
     "csr.ticketType": "Ticket type",
     "csr.title": "Title (max. 100 characters)",
     "csr.titlePlaceholder": "Enter a title for your ticket",
-    "csr.totalPrice": "Total price"
+    "csr.totalPrice": "Total price",
+    "sortItem.createdAsc": "Creation: Oldest",
+    "sortItem.createdDesc": "Creation: Most recent",
+    "sortItem.updateAsc": "Updated: Oldest",
+    "sortItem.updateDesc": "Updated: Most recent"
 }

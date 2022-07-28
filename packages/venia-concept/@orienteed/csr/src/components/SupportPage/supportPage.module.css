@@ -169,6 +169,13 @@
     width: 25px;
 }
 
+.shortByContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
 /***** end Legend  *****/
 
 /***** actionsHeader *****/
@@ -204,6 +211,14 @@
     flex-wrap: nowrap;
     gap: 30px;
     justify-content: space-between;
+}
+
+.actionsMobileThirdRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 30px;
+    justify-content: center;
 }
 
 @media (max-width: 350px) {

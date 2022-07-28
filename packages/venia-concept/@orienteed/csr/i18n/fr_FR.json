@@ -58,5 +58,9 @@
     "csr.ticketType": "Type de billet",
     "csr.title": "Titre (max. 100 caractères)",
     "csr.titlePlaceholder": "Entrez un titre pour votre billet",
-    "csr.totalPrice": "Prix total"
+    "csr.totalPrice": "Prix total",
+    "sortItem.createdAsc": "Création: La plus ancienne",
+    "sortItem.createdDesc": "Création: La plus récente",
+    "sortItem.updateAsc": "Mise à jour : La plus ancienne",
+    "sortItem.updateDesc": "Mise à jour : La plus récent"
 }

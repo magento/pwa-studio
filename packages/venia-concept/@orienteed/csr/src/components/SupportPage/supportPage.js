@@ -12,6 +12,7 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 import LegendModal from '../LegendModal/legendModal';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import ResetButton from '@magento/venia-ui/lib/components/OrderHistoryPage/resetButton';
+import Select from '@magento/venia-ui/lib/components/Select';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import TicketItem from '../TicketItem/ticketItem';
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -27,6 +28,8 @@ import noCoursesImage from '@magento/venia-concept/@orienteed/lms/src/components
 import orderIcon from './Icons/orderIcon.svg';
 import supportIcon from './Icons/supportIcon.svg';
 import { Search as SearchIcon, ArrowRight as SubmitIcon } from 'react-feather';
+import ProductSort from '../ProductSort/productSort';
+import { useSortTicket } from '../../talons/useSortTicket.js';
 
 const DELIMITER = '/';
 const PAGE_SIZE = 8;
@@ -48,6 +51,7 @@ const ContentDialog = props => {
         searchText,
         setErrorToast,
         setLegendModal,
+        setMultipleTickets,
         setSuccessToast,
         setTicketCount,
         setTicketModal,
@@ -56,7 +60,10 @@ const ContentDialog = props => {
         successToast,
         ticketCount,
         ticketModal,
-        tickets
+        tickets,
+        setNumPage,
+        setOrderBy,
+        setSortBy
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -71,6 +78,8 @@ const ContentDialog = props => {
     const orderIssueText = formatMessage({ id: 'csr.orderIssue', defaultMessage: 'Order issue' });
     const enhancementText = formatMessage({ id: 'csr.enhancement', defaultMessage: 'Enhancement' });
     const loadingIndicatorText = formatMessage({ id: 'loadingIndicator.message', defaultMessage: 'Fetching Data...' });
+
+    const sortProps1 = useSortTicket();
 
     // Icons
     const searchIcon = <Icon src={SearchIcon} size={24} />;
@@ -199,7 +208,15 @@ const ContentDialog = props => {
             </div>
             <div className={classes.actionsDesktopRow}>
                 {legendDesktop}
-                <img onClick={changeOrderBy} src={orderByIcon} className={classes.orderByIcon} alt="OrderBy icon" />
+                <div className={classes.shortByContainer}>
+                    <ProductSort
+                        sortProps={sortProps1}
+                        setMultipleTickets={setMultipleTickets}
+                        setOrderBy={setOrderBy}
+                        setNumPage={setNumPage}
+                        setSortBy={setSortBy}
+                    />
+                </div>
             </div>
         </div>
     );
@@ -212,7 +229,7 @@ const ContentDialog = props => {
             </div>
             <div className={classes.actionsMobileSecondRow}>
                 {searchBar}
-                <img onClick={changeOrderBy} src={orderByIcon} className={classes.orderByIcon} alt="OrderBy icon" />
+                <ProductSort sortProps={sortProps1} />
             </div>
         </div>
     );
