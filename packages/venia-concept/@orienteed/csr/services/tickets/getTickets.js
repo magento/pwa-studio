@@ -12,7 +12,7 @@ const getTickets = async (orderBy = 'desc', numPage = 1, search = '', sortBy = '
     };
 
     const reply = await request(
-        `/api/v1/tickets/search?expand=true&page=${numPage}&per_page=8&limit=10&order_by=${orderBy}&sort_by=${sortBy}${
+        `/csr/api/v1/tickets/search?expand=true&page=${numPage}&per_page=8&limit=10&order_by=${orderBy}&sort_by=${sortBy}${
             search !== '' ? `&search=${search}` : ''
         }`,
         {

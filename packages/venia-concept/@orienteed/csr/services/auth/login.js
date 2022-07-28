@@ -13,7 +13,7 @@ const doCsrLogin = async () => {
 
     const data = {};
 
-    const reply = await request('/api/v1/login', {
+    const reply = await request('/csr/api/v1/login', {
         method: 'POST',
         headers: JSON.stringify(headers),
         body: JSON.stringify(data)

@@ -24,14 +24,13 @@ const createTicket = async (ticketType, title, description, files, order, attach
         article: {
             subject: title,
             body: ticketBodyText,
-            type: 'chat',
             attachments: files.map(file => {
                 return { filename: file.name, data: file.content || '', mime_type: file.mimeType };
             })
         }
     };
 
-    const reply = await request('/api/v1/tickets/', {
+    const reply = await request('/csr/api/v1/tickets/', {
         method: 'POST',
         headers: JSON.stringify(headers),
         body: JSON.stringify(ticketBody)

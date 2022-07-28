@@ -11,7 +11,7 @@ const getStates = async () => {
         'Content-Type': 'application/json'
     };
 
-    const reply = await request('/api/v1/ticket_states', {
+    const reply = await request('/csr/api/v1/ticket_states', {
         method: 'GET',
         headers: JSON.stringify(headers)
     });

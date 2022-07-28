@@ -11,7 +11,7 @@ const getTicketComments = async ticketID => {
         'Content-Type': 'application/json'
     };
 
-    const reply = await request(`/api/v1/ticket_articles/by_ticket/${ticketID}`, {
+    const reply = await request(`/csr/api/v1/ticket_articles/by_ticket/${ticketID}`, {
         method: 'GET',
         headers: JSON.stringify(headers)
     });

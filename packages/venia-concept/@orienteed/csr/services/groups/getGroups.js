@@ -11,7 +11,7 @@ const getGroups = async () => {
         'Content-Type': 'application/json'
     };
 
-    const reply = await request('/api/v1/groups', {
+    const reply = await request('/csr/api/v1/groups', {
         method: 'GET',
         headers: JSON.stringify(headers)
     });
