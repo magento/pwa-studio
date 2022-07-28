@@ -26,7 +26,7 @@ const createTicket = async (ticketType, title, description, files, order, attach
             body: ticketBodyText,
             type: 'chat',
             attachments: files.map(file => {
-                return { filename: file.name, data: file.content, mime_type: file.mimeType };
+                return { filename: file.name, data: file.content || '', mime_type: file.mimeType };
             })
         }
     };
