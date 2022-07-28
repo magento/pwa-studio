@@ -18,9 +18,12 @@ export const useChat = props => {
     const lastMessageRef = useRef(null);
 
     // States
-    const [ticketComments, setTicketComments] = useState();
-    const [lastCustomerTicketsId, setLastCustomerTicketId] = useState();
     const [attachments, setAttachments] = useState([]);
+    const [comment, setComment] = useState('');
+    const [dropzoneError, setDropzoneError] = useState('');
+    const [filesUploaded, setFilesUploaded] = useState([]);
+    const [lastCustomerTicketsId, setLastCustomerTicketId] = useState();
+    const [ticketComments, setTicketComments] = useState();
 
     // Effects
     useMemo(() => {
@@ -76,12 +79,32 @@ export const useChat = props => {
     };
 
     const sendCommentAndAttachments = comment => {
-        sendComment(ticketId, comment, [], attachedFilesText).then(res => {
+        sendComment(ticketId, comment, filesUploaded, attachedFilesText).then(res => {
             setTicketComments(prevTicketsComments => [...prevTicketsComments, res]);
             setLastCustomerTicketId(prevLastCustomerTicketId => [...prevLastCustomerTicketId, res.id]);
-            setAttachments(prevAttachments => [...prevAttachments, res.attachments]);
+            res.attachments.length > 0 &&
+                setAttachments(prevAttachments => {
+                    const newAttachments = [...prevAttachments];
+                    res.attachments.forEach(attachment => {
+                        newAttachments.push({ ...attachment, created_at: res.created_at });
+                    });
+                    return newAttachments;
+                });
+            setFilesUploaded([]);
         });
     };
 
-    return { ticketComments, lastCustomerTicketsId, attachments, lastMessageRef, sendCommentAndAttachments };
+    return {
+        attachments,
+        comment,
+        dropzoneError,
+        filesUploaded,
+        lastCustomerTicketsId,
+        lastMessageRef,
+        sendCommentAndAttachments,
+        setComment,
+        setDropzoneError,
+        setFilesUploaded,
+        ticketComments
+    };
 };

@@ -1,16 +1,13 @@
 .containerBody {
+    align-items: center;
+    border-bottom: 1px solid #cecccc;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 30px;
-}
-
-.containerInline {
-    composes: containerBody;
-    border: 1px solid #cecccc;
-    border-radius: 15px;
-    padding: 10px;
-    width: 225px;
+    gap: 20px;
+    height: 80px;
+    padding: 15px;
+    margin-right: 15px;
 }
 
 .fileNameAndSizeBody {
@@ -20,23 +17,26 @@
     gap: 10px;
 }
 
-.fileNameAndSizeInline {
-    display: flex;
-    flex-direction: column;
-}
-
 .filenameText {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
     color: #e8ab00;
+    display: -webkit-box;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    overflow: hidden;
+    /* padding-right: 10px; */
+    text-overflow: ellipsis;
 }
 
 .sizeText {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 16px;
     color: #807a7a;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    width: max-content;
+    max-width: 75px;
 }
 
 .dateText {
@@ -44,4 +44,10 @@
     font-size: 14px;
     line-height: 24px;
     color: #807a7a;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

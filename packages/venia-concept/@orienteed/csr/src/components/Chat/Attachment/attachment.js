@@ -15,13 +15,9 @@ import videoIcon from './Icons/video.svg';
 import zipIcon from './Icons/zip.svg';
 
 const Attachment = props => {
-    const { filename, size, date, mimetype, isInline } = props;
+    const { filename, size, date, mimetype } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
-
-    // Texts
-
-    // Icons
 
     // Methods
     const isoDateToChat = isoDate => {
@@ -91,14 +87,14 @@ const Attachment = props => {
     };
 
     return (
-        <div className={isInline ? classes.containerInline : classes.containerBody}>
+        <div className={classes.containerBody}>
             <img src={getIconByMimeType(mimetype)} alt={filename} />
             <div className={classes.info}>
-                <div className={isInline ? classes.filenameAndSizeInline : classes.filenameAndSizeBody}>
+                <div className={classes.fileNameAndSizeBody}>
                     <p className={classes.filenameText}>{filename}</p>
                     <p className={classes.sizeText}>{`(${Math.ceil(size / 1000)} KB)`}</p>
                 </div>
-                {!isInline && <p className={classes.dateText}>{isoDateToChat(date)}</p>}
+                <p className={classes.dateText}>{isoDateToChat(date)}</p>
             </div>
         </div>
     );
