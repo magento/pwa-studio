@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 import { Form } from 'informed';
 
+import Attachment from './Attachment/attachment';
 import Button from '@magento/venia-ui/lib/components/Button';
+import Dropzone from './Dropzone/dropzone';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
@@ -19,13 +21,25 @@ import doubleCheckUnread from './Icons/doubleCheckUnread.svg';
 import doubleCkeckRead from './Icons/doubleCheckRead.svg';
 import optionsIcon from './Icons/optionsIcon.svg';
 import sendCommentIcon from './Icons/sendCommentIcon.svg';
-import { Paperclip as AttachmentIcon, Smile as EmojiPickerIcon } from 'react-feather';
-import Attachment from './Attachment/attachment';
+import closeIcon from './Icons/close.svg';
+import { Smile as EmojiPickerIcon } from 'react-feather';
 
 const Chat = props => {
     const { ticketId } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const { ticketComments, lastCustomerTicketsId, lastMessageRef, attachments, sendCommentAndAttachments } = useChat({
+    const {
+        attachments,
+        comment,
+        dropzoneError,
+        filesUploaded,
+        lastCustomerTicketsId,
+        lastMessageRef,
+        sendCommentAndAttachments,
+        setComment,
+        setDropzoneError,
+        setFilesUploaded,
+        ticketComments
+    } = useChat({
         ticketId
     });
     const { formatMessage } = useIntl();
@@ -40,11 +54,7 @@ const Chat = props => {
 
     // Icons
     const emojiPickerIcon = <Icon src={EmojiPickerIcon} size={25} />;
-    const attachmentIcon = <Icon classes={{ icon: classes.attachmentIcon }} src={AttachmentIcon} size={25} />;
-
     const emojiPicker = <Trigger action={() => console.log('In progress...')}>{emojiPickerIcon}</Trigger>;
-    const attachmentButton = <Trigger action={() => console.log('In progress...')}>{attachmentIcon}</Trigger>;
-    const [comment, setComment] = useState('');
 
     // Methods
     const isoDateToChat = isoDate => {
@@ -94,25 +104,30 @@ const Chat = props => {
         }
     };
 
-    const showAttachmentsInline = attachmentFiles => {
-        return (
-            <div className={classes.attachmentsInlineContainer}>
-                {attachmentFiles.map(attachment => {
-                    return (
-                        <Attachment
-                            filename={attachment.filename}
-                            size={attachment.size}
-                            date={attachment.created_at}
-                            mimetype={attachment.preferences['Content-Type'] || attachment.preferences['Mime-Type']}
-                            isInline={true}
+    const showAttachmentsInline = (attachmentFiles, isChat = false) => {
+        return attachmentFiles.map(file => (
+            <div
+                className={isChat ? classes.dropzoneItemChat : classes.dropzoneItem}
+                key={isChat ? file.filename : file.name}
+            >
+                <p className={classes.dropzoneItemName}>{isChat ? file.filename : file.name}</p>
+                <div className={classes.dropzoneItemDataContainer}>
+                    <p className={classes.dropzoneItemSize}>{Math.ceil(file.size / 1000)} KB</p>
+                    {!isChat && (
+                        <img
+                            className={classes.dropzoneItemCloseButton}
+                            src={closeIcon}
+                            alt="Close icon"
+                            onClick={() => deleteUploadedFile(file)}
                         />
-                    );
-                })}
+                    )}
+                </div>
             </div>
-        );
+        ));
     };
 
-    const attachmentsBody = attachmentFiles => {
+    const showAttachmentsBody = attachmentFiles => {
+        console.log(attachmentFiles);
         return (
             <div className={classes.attachmentsBodyContainer}>
                 {attachmentFiles.map(attachment => {
@@ -122,7 +137,6 @@ const Chat = props => {
                             size={attachment.size}
                             date={attachment.created_at}
                             mimetype={attachment.preferences['Content-Type'] || attachment.preferences['Mime-Type']}
-                            isInline={false}
                         />
                     );
                 })}
@@ -158,6 +172,10 @@ const Chat = props => {
         document.getElementById('chatTextInput').focus();
     };
 
+    const deleteUploadedFile = file => {
+        setFilesUploaded(prevAcceptedFiles => prevAcceptedFiles.filter(f => f.name !== file.name));
+    };
+
     // Components
     const chatHeader = (
         <div className={classes.chatHeaderContainer}>
@@ -187,12 +205,34 @@ const Chat = props => {
                         <div className={isCustomer ? classes.chatBodyCustomerComment : classes.chatBodyAgentComment}>
                             {getCommentTextStyled(comment.body, comment.content_type, isCustomer)}
                         </div>
-                        {comment.attachments.length > 0 && showAttachmentsInline(comment.attachments)}
+                        {comment.attachments.length > 0 && (
+                            <div
+                                className={
+                                    isCustomer
+                                        ? classes.attachmentsInlineCustomerContainer
+                                        : classes.attachmentsInlineContainer
+                                }
+                            >
+                                {showAttachmentsInline(comment.attachments, true)}
+                            </div>
+                        )}
                         {showCommentMetadata(isCustomer, comment.created_at, comment.id)}
                     </div>
                 );
             })
         ));
+
+    const attachmentButton = (
+        <Trigger>
+            {
+                <Dropzone
+                    filesUploaded={filesUploaded}
+                    setFilesUploaded={setFilesUploaded}
+                    setDropzoneError={setDropzoneError}
+                />
+            }
+        </Trigger>
+    );
 
     return (
         <div className={classes.container}>
@@ -227,10 +267,22 @@ const Chat = props => {
                                 <img src={sendCommentIcon} alt="send" className={classes.sendCommentIcon} />
                             </Button>
                         </Form>
+                        {filesUploaded.length > 0 && (
+                            <div className={classes.filesUploadedContainer}>{showAttachmentsInline(filesUploaded)}</div>
+                        )}
+                        {dropzoneError !== '' && <p className={classes.errorMessage}>{dropzoneError}</p>}
+                        {filesUploaded.length >= 6 && (
+                            <p className={classes.errorMessage}>
+                                {formatMessage({
+                                    id: 'csr.maxFilesReached',
+                                    defaultMessage: 'Maximum number of files reached'
+                                })}
+                            </p>
+                        )}
                     </div>
                     <div className={classes.chatFilesContainer}>
                         <p className={classes.chatFilesTitle}>{sharedFilesText}</p>
-                        {attachmentsBody(attachments)}
+                        {showAttachmentsBody(attachments)}
                     </div>
                 </div>
             )}

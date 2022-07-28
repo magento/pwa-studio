@@ -33,7 +33,7 @@
     min-height: 300px;
 }
 
-/* ChatHeader */
+/***** ChatHeader *****/
 .chatHeaderContainer {
     display: flex;
     flex-direction: row;
@@ -58,9 +58,9 @@
 .chatHeaderOptions {
     padding: 0 20px;
 }
-/* end ChatHeader */
+/***** end ChatHeader *****/
 
-/* ChatBody */
+/***** ChatBody *****/
 .chatContainer {
     display: flex;
     flex-direction: column;
@@ -132,27 +132,39 @@
     composes: chatBodyCommentTimeCustomerText;
     text-align: left;
 }
-/* end ChatBody */
+/***** end ChatBody *****/
 
-/* attachmentsInline */
+/***** attachmentsInline *****/
 .attachmentsInlineContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    gap: 10px;
 }
 
-.attachmentItemContainer {
+.attachmentsInlineCustomerContainer {
+    composes: attachmentsInlineContainer;
+    justify-content: flex-end;
 }
-/* end attachmentsInline */
 
-/* attachmentsBody */
+.attachmentsBodyContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+/***** end attachmentsInline *****/
+
+/***** attachmentsBody *****/
 .attachmentsBodyContainer {
     max-height: 566px;
     overflow-y: auto;
 }
-/* end attachmentsBody */
+/***** end attachmentsBody *****/
 
-/* chatInput */
+/***** chatInput *****/
 .chatInputContainer {
     display: flex;
     flex-direction: row;
@@ -175,7 +187,7 @@
     padding: calc(0.375rem - 1px) 0;
     width: 100%;
 
-    /* Font */
+    /***** Font *****/
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
@@ -195,9 +207,9 @@
     stroke: var(--stroke, rgb(var(--venia-global-color-text)));
     stroke-width: 1px;
 }
-/* end chatInput */
+/***** end chatInput *****/
 
-/* chatFiles */
+/***** chatFiles *****/
 .chatFilesContainer {
     display: flex;
     flex-direction: column;
@@ -213,4 +225,87 @@
     color: #0c0c0c;
 }
 
-/* end chatFiles */
+/***** end chatFiles *****/
+
+/***** Dropzone *****/
+.acceptedFiles {
+    color: var(--orienteed-global-color-orange);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    margin-top: -10px;
+}
+
+.errorMessage {
+    color: rgb(var(--venia-global-color-error));
+    font-size: 0.875rem;
+    font-weight: var(--venia-global-fontWeight-semibold);
+    line-height: 1rem;
+    margin-top: -10px;
+}
+/***** end Dropzone *****/
+
+/***** Files *****/
+.filesUploadedContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    padding-right: 10px;
+    margin-top: -10px;
+}
+
+.dropzoneItem {
+    border: 1px solid var(--orienteed-global-color-orange);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: nowrap;
+    height: 45px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.dropzoneItemChat {
+    composes: dropzoneItem;
+    width: 220px;
+}
+
+.dropzoneItemName {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: #e8ab00;
+    display: -webkit-box;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    overflow: hidden;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+}
+
+.dropzoneItemSize {
+    color: #807a7a;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    width: max-content;
+    max-width: 65px;
+}
+
+.dropzoneItemCloseButton {
+    width: 14px;
+}
+
+.dropzoneItemDataContainer {
+    display: flex;
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+    .filesUploadedContainer {
+        grid-template-columns: 1fr;
+    }
+}
+/***** end Files *****/
