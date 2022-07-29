@@ -56,6 +56,7 @@
     "@magento/peregrine": "~12.5.0",
     "@magento/pwa-theme-venia": "~1.3.0",
     "@magento/upward-security-headers": "~1.0.9",
+    "@gomage/plugin-braintree-three-d-secure": "~1.0.3",
     "@magento/venia-ui": "~9.5.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~6.3.7",
@@ -144,6 +145,10 @@
   "pwa-studio": {
     "targets": {
       "intercept": "./local-intercept.js"
-    }
+    },
+    "trusted-vendors": [
+      "@gomage"
+    ]
   }
+
 }
