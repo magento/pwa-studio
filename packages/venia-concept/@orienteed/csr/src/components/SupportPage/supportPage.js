@@ -49,6 +49,9 @@ const ContentDialog = props => {
         setErrorToast,
         setLegendModal,
         setMultipleTickets,
+        setNumPage,
+        setOrderBy,
+        setSortBy,
         setSuccessToast,
         setTicketCount,
         setTicketModal,
@@ -57,10 +60,7 @@ const ContentDialog = props => {
         successToast,
         ticketCount,
         ticketModal,
-        tickets,
-        setNumPage,
-        setOrderBy,
-        setSortBy
+        tickets
     } = talonProps;
     const { formatMessage } = useIntl();
 

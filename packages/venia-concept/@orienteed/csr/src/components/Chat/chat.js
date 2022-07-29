@@ -110,7 +110,9 @@ const Chat = props => {
                 className={isChat ? classes.dropzoneItemChat : classes.dropzoneItem}
                 key={isChat ? file.filename : file.name}
             >
-                <p className={classes.dropzoneItemName}>{isChat ? file.filename : file.name}</p>
+                <span className={classes.dropzoneItemName} title={isChat ? file.filename : file.name}>
+                    {isChat ? file.filename : file.name}
+                </span>
                 <div className={classes.dropzoneItemDataContainer}>
                     <p className={classes.dropzoneItemSize}>{Math.ceil(file.size / 1000)} KB</p>
                     {!isChat && (
@@ -127,7 +129,6 @@ const Chat = props => {
     };
 
     const showAttachmentsBody = attachmentFiles => {
-        console.log(attachmentFiles);
         return (
             <div className={classes.attachmentsBodyContainer}>
                 {attachmentFiles.map(attachment => {
@@ -137,6 +138,9 @@ const Chat = props => {
                             size={attachment.size}
                             date={attachment.created_at}
                             mimetype={attachment.preferences['Content-Type'] || attachment.preferences['Mime-Type']}
+                            ticketId={ticketId}
+                            articleId={attachment.article_id}
+                            fileId={attachment.id}
                         />
                     );
                 })}
@@ -242,7 +246,7 @@ const Chat = props => {
                 <div className={classes.chatAndFilesContainer}>
                     <div className={classes.chatAndInputContainer}>
                         {chatHeader}
-                        <div className={classes.chatContainer}>
+                        <div id="chatContainer" className={classes.chatContainer}>
                             {chatBody}
                             <span ref={lastMessageRef} />
                         </div>

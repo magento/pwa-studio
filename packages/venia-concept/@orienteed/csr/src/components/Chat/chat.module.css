@@ -151,9 +151,8 @@
 
 .attachmentsBodyContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 100%;
-    gap: 20px;
 }
 /***** end attachmentsInline *****/
 

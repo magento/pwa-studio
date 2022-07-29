@@ -39,9 +39,16 @@ export const useChat = props => {
     }, [isSignedIn, ticketId]);
 
     useEffect(() => {
+        var objDiv = document.getElementById('chatContainer');
+        if (objDiv) {
+            objDiv.scrollTop = objDiv.scrollHeight;
+        }
+
         setTimeout(() => {
-            scrollToBottom();
-        }, 1000);
+            if (objDiv) {
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }
+        }, 500);
     }, [ticketComments]);
 
     // Methods
@@ -62,20 +69,16 @@ export const useChat = props => {
 
     const getAttachments = comments => {
         const attachments = [];
-
+        
         comments.forEach(comment => {
             if (comment.attachments.length > 0) {
                 comment.attachments.forEach(attachment => {
-                    attachments.push({ ...attachment, created_at: comment.created_at });
+                    attachments.push({ ...attachment, created_at: comment.created_at, article_id: comment.id });
                 });
             }
         });
 
         return attachments.flat();
-    };
-
-    const scrollToBottom = () => {
-        lastMessageRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
     };
 
     const sendCommentAndAttachments = comment => {
