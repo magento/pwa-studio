@@ -1,4 +1,4 @@
-export const useProductSort = props => {   
+export const useTicketSort = props => {   
 
     const { setMultipleTickets, setOrderBy, setNumPage, setSortBy } = props;
 

@@ -12,7 +12,6 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 import LegendModal from '../LegendModal/legendModal';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import ResetButton from '@magento/venia-ui/lib/components/OrderHistoryPage/resetButton';
-import Select from '@magento/venia-ui/lib/components/Select';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import TicketItem from '../TicketItem/ticketItem';
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -23,12 +22,11 @@ import defaultClasses from './supportPage.module.css';
 import closeIcon from '../CreateTicketModal/Dropzone/Icons/close.svg';
 import enhancementIcon from './Icons/enhancementIcon.svg';
 import infoIcon from './Icons/infoIcon.svg';
-import orderByIcon from './Icons/orderByIcon.svg';
 import noCoursesImage from '@magento/venia-concept/@orienteed/lms/src/components/CoursesCatalog/Icons/noCourses.svg';
 import orderIcon from './Icons/orderIcon.svg';
 import supportIcon from './Icons/supportIcon.svg';
 import { Search as SearchIcon, ArrowRight as SubmitIcon } from 'react-feather';
-import ProductSort from '../ProductSort/productSort';
+import TicketSort from '../TicketSort/ticketSort';
 import { useSortTicket } from '../../talons/useSortTicket.js';
 
 const DELIMITER = '/';
@@ -38,7 +36,6 @@ const ContentDialog = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useSupportPage();
     const {
-        changeOrderBy,
         errorToast,
         groups,
         handleLoadMore,
@@ -208,15 +205,13 @@ const ContentDialog = props => {
             </div>
             <div className={classes.actionsDesktopRow}>
                 {legendDesktop}
-                <div className={classes.shortByContainer}>
-                    <ProductSort
-                        sortProps={sortProps1}
-                        setMultipleTickets={setMultipleTickets}
-                        setOrderBy={setOrderBy}
-                        setNumPage={setNumPage}
-                        setSortBy={setSortBy}
-                    />
-                </div>
+                <TicketSort
+                    sortProps={sortProps1}
+                    setMultipleTickets={setMultipleTickets}
+                    setOrderBy={setOrderBy}
+                    setNumPage={setNumPage}
+                    setSortBy={setSortBy}
+                />
             </div>
         </div>
     );
@@ -229,7 +224,13 @@ const ContentDialog = props => {
             </div>
             <div className={classes.actionsMobileSecondRow}>
                 {searchBar}
-                <ProductSort sortProps={sortProps1} />
+                <TicketSort
+                    sortProps={sortProps1}
+                    setMultipleTickets={setMultipleTickets}
+                    setOrderBy={setOrderBy}
+                    setNumPage={setNumPage}
+                    setSortBy={setSortBy}
+                />
             </div>
         </div>
     );

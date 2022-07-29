@@ -75,7 +75,7 @@ export const useChat = props => {
     };
 
     const scrollToBottom = () => {
-        lastMessageRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        lastMessageRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
     };
 
     const sendCommentAndAttachments = comment => {

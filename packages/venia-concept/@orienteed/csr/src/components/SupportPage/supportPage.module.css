@@ -164,18 +164,6 @@
     width: 25px;
 }
 
-.orderByIcon {
-    cursor: pointer;
-    width: 25px;
-}
-
-.shortByContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
 /***** end Legend  *****/
 
 /***** actionsHeader *****/

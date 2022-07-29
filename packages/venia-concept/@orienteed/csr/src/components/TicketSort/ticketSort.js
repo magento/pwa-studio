@@ -6,18 +6,18 @@ import orderByIcon from './Icons/orderByIcon.svg';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import SortItem from './sortItem';
-import defaultClasses from './productSort.module.css';
+import defaultClasses from './ticketSort.module.css';
 
-import { useProductSort } from '../../talons/useProductSort';
+import { useTicketSort } from '../../talons/useTicketSort';
 
-const ProductSort = props => {
+const TicketSort = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { sortProps, setMultipleTickets, setOrderBy, setNumPage, setSortBy } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
     const { formatMessage } = useIntl();
 
-    const talonProps = useProductSort({ setMultipleTickets, setOrderBy, setNumPage, setSortBy });
+    const talonProps = useTicketSort({ setMultipleTickets, setOrderBy, setNumPage, setSortBy });
     const { orderByFunction } = talonProps;
     
     // click event for menu items
@@ -126,7 +126,7 @@ const ProductSort = props => {
     );
 };
 
-ProductSort.propTypes = {
+TicketSort.propTypes = {
     classes: shape({
         menuItem: string,
         menu: string,
@@ -141,4 +141,4 @@ ProductSort.propTypes = {
     )
 };
 
-export default ProductSort;
+export default TicketSort;
