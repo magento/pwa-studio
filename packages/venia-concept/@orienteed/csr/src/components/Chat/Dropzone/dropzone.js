@@ -25,7 +25,7 @@ const Dropzone = props => {
         'application/tar.gz',
         'application/zip',
         'audio/aac',
-        'audio/mp3',
+        'audio/mpeg',
         'audio/ogg',
         'audio/wav',
         'image/gif',
@@ -120,7 +120,7 @@ const Dropzone = props => {
             })}
         >
             <input {...getInputProps({})} />
-            <img src={attachFilesIcon} alt="Attach" />
+            <img src={attachFilesIcon} className={classes.attachFilesIcon} alt="Attach" />
         </section>
     );
 };
