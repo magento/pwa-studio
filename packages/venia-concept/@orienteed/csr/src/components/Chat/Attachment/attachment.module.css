@@ -8,6 +8,7 @@
     height: 80px;
     padding: 15px;
     margin-right: 15px;
+    cursor: pointer;
 }
 
 .fileNameAndSizeBody {

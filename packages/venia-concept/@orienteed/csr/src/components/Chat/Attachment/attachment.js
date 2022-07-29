@@ -1,7 +1,12 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/jsx-no-literals */
 import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
+
+import getTicketAttachment from '../../../../services/tickets/ticket_attachment/getTicketAttachment';
 
 import defaultClasses from './attachment.module.css';
 
@@ -15,9 +20,19 @@ import videoIcon from './Icons/video.svg';
 import zipIcon from './Icons/zip.svg';
 
 const Attachment = props => {
-    const { filename, size, date, mimetype } = props;
+    const { fileId, filename, size, date, mimetype, articleId, ticketId } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
+
+    const getContent = async () => {
+        getTicketAttachment(ticketId, articleId, fileId).then(response => {
+            const url = URL.createObjectURL(response);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+        });
+    };
 
     // Methods
     const isoDateToChat = isoDate => {
@@ -58,7 +73,7 @@ const Attachment = props => {
     const getIconByMimeType = mimetype => {
         switch (mimetype) {
             case 'audio/aac':
-            case 'audio/mp3':
+            case 'audio/mpeg':
             case 'audio/ogg':
             case 'audio/wav':
                 return audioIcon;
@@ -87,7 +102,7 @@ const Attachment = props => {
     };
 
     return (
-        <div className={classes.containerBody}>
+        <div onClick={getContent} className={classes.containerBody}>
             <img src={getIconByMimeType(mimetype)} alt={filename} />
             <div className={classes.info}>
                 <div className={classes.fileNameAndSizeBody}>
