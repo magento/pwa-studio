@@ -5,32 +5,28 @@ import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { Link } from 'react-router-dom';
 
 import { useWindowSize, useToasts } from '@magento/peregrine';
-import {
-    CHECKOUT_STEP,
-    useCheckoutPage
-} from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
+import { CHECKOUT_STEP, useCheckoutPage } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
+import { useStyle } from '@magento/venia-ui/lib/classify';
+import Button from '@magento/venia-ui/lib/components/Button';
+import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
+import StockStatusMessage from '@magento/venia-ui/lib/components/StockStatusMessage';
+import FormError from '@magento/venia-ui/lib/components/FormError';
+import AddressBook from '@magento/venia-ui/lib/components/CheckoutPage/AddressBook';
+import GuestSignIn from '@magento/venia-ui/lib/components/CheckoutPage/GuestSignIn';
+import OrderSummary from '@magento/venia-ui/lib/components/CheckoutPage/OrderSummary';
+import PaymentInformation from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation';
+import payments from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection';
+import PriceAdjustments from '@magento/venia-ui/lib/components/CheckoutPage/PriceAdjustments';
+import ShippingMethod from '@magento/venia-ui/lib/components/CheckoutPage/ShippingMethod';
+import ShippingInformation from '@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation';
+import OrderConfirmationPage from '@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage';
+import ItemsReview from '@magento/venia-ui/lib/components/CheckoutPage/ItemsReview';
+import GoogleReCaptcha from '@magento/venia-ui/lib/components/GoogleReCaptcha';
 
-import { useStyle } from '../../classify';
-import Button from '../Button';
-import { StoreTitle } from '../Head';
-import Icon from '../Icon';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import StockStatusMessage from '../StockStatusMessage';
-import FormError from '../FormError';
-import AddressBook from './AddressBook';
-import GuestSignIn from './GuestSignIn';
-import OrderSummary from './OrderSummary';
-import PaymentInformation from './PaymentInformation';
-import payments from './PaymentInformation/paymentMethodCollection';
-import PriceAdjustments from './PriceAdjustments';
-import ShippingMethod from './ShippingMethod';
-import ShippingInformation from './ShippingInformation';
-import OrderConfirmationPage from './OrderConfirmationPage';
-import ItemsReview from './ItemsReview';
-import GoogleReCaptcha from '../GoogleReCaptcha';
-
-import defaultClasses from './checkoutPage.module.css';
-import ScrollAnchor from '../ScrollAnchor/scrollAnchor';
+import defaultClasses from '@magento/venia-ui/lib/components/CheckoutPage/checkoutPage.module.css';
+import ScrollAnchor from '@magento/venia-ui/lib/components/ScrollAnchor/scrollAnchor';
 import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
@@ -41,7 +37,6 @@ const CheckoutPage = props => {
     const talonProps = useCheckoutPage();
     const { noProduct } = useNoReorderProductContext();
 
-    console.log('noProduct', noProduct);
     const {
         /**
          * Enum, one of:
@@ -92,8 +87,7 @@ const CheckoutPage = props => {
                     ? error.message
                     : formatMessage({
                           id: 'checkoutPage.errorSubmit',
-                          defaultMessage:
-                              'Oops! An error occurred while submitting. Please try again.'
+                          defaultMessage: 'Oops! An error occurred while submitting. Please try again.'
                       });
             addToast({
                 type: 'error',
@@ -127,43 +121,31 @@ const CheckoutPage = props => {
           });
 
     if (orderNumber && orderDetailsData) {
-        return (
-            <OrderConfirmationPage
-                data={orderDetailsData}
-                orderNumber={orderNumber}
-            />
-        );
+        return <OrderConfirmationPage data={orderDetailsData} orderNumber={orderNumber} />;
     } else if (isLoading) {
         return fullPageLoadingIndicator;
     } else if (isCartEmpty) {
         checkoutContent = (
             <div className={classes.empty_cart_container}>
                 <div className={classes.heading_container}>
-                    <h1
-                        className={classes.heading}
-                        data-cy="ChekoutPage-heading"
-                    >
+                    <h1 className={classes.heading} data-cy="ChekoutPage-heading">
                         {heading}
                     </h1>
                 </div>
-                <h3>
+                <h3 className={classes.errorNoProductText}>
                     <FormattedMessage
                         id={'checkoutPage.emptyMessage'}
-                        defaultMessage={'There are no items in your cart.'}
+                        defaultMessage={'There are no items available to checkout.'}
                     />
                 </h3>
             </div>
         );
     } else {
-        const signInContainerVisible =
-            isGuestCheckout && checkoutStep !== CHECKOUT_STEP.REVIEW;
+        const signInContainerVisible = isGuestCheckout && checkoutStep !== CHECKOUT_STEP.REVIEW;
         const signInContainerElement = signInContainerVisible ? (
             <div className={classes.signInContainer}>
                 <span className={classes.signInLabel}>
-                    <FormattedMessage
-                        id={'checkoutPage.signInLabel'}
-                        defaultMessage={'Sign in for Express Checkout'}
-                    />
+                    <FormattedMessage id={'checkoutPage.signInLabel'} defaultMessage={'Sign in for Express Checkout'} />
                 </span>
                 <Button
                     className={classes.signInButton}
@@ -171,10 +153,7 @@ const CheckoutPage = props => {
                     onClick={toggleSignInContent}
                     priority="normal"
                 >
-                    <FormattedMessage
-                        id={'checkoutPage.signInButton'}
-                        defaultMessage={'Sign In'}
-                    />
+                    <FormattedMessage id={'checkoutPage.signInButton'} defaultMessage={'Sign In'} />
                 </Button>
             </div>
         ) : null;
@@ -189,10 +168,7 @@ const CheckoutPage = props => {
                 />
             ) : (
                 <h3 className={classes.shipping_method_heading}>
-                    <FormattedMessage
-                        id={'checkoutPage.shippingMethodStep'}
-                        defaultMessage={'2. Shipping Method'}
-                    />
+                    <FormattedMessage id={'checkoutPage.shippingMethodStep'} defaultMessage={'2. Shipping Method'} />
                 </h3>
             );
 
@@ -248,16 +224,9 @@ const CheckoutPage = props => {
                     priority="high"
                     className={classes.review_order_button}
                     data-cy="CheckoutPage-reviewOrderButton"
-                    disabled={
-                        reviewOrderButtonClicked ||
-                        isUpdating ||
-                        !isPaymentAvailable
-                    }
+                    disabled={reviewOrderButtonClicked || isUpdating || !isPaymentAvailable}
                 >
-                    <FormattedMessage
-                        id={'checkoutPage.reviewOrder'}
-                        defaultMessage={'Review Order'}
-                    />
+                    <FormattedMessage id={'checkoutPage.reviewOrder'} defaultMessage={'Review Order'} />
                 </Button>
             ) : null;
 
@@ -275,35 +244,21 @@ const CheckoutPage = props => {
                     priority="high"
                     className={classes.place_order_button}
                     data-cy="CheckoutPage-placeOrderButton"
-                    disabled={
-                        isUpdating ||
-                        placeOrderLoading ||
-                        orderDetailsLoading ||
-                        placeOrderButtonClicked
-                    }
+                    disabled={isUpdating || placeOrderLoading || orderDetailsLoading || placeOrderButtonClicked}
                 >
-                    <FormattedMessage
-                        id={'checkoutPage.placeOrder'}
-                        defaultMessage={'Place Order'}
-                    />
+                    <FormattedMessage id={'checkoutPage.placeOrder'} defaultMessage={'Place Order'} />
                 </Button>
             ) : null;
 
         // If we're on mobile we should only render price summary in/after review.
-        const shouldRenderPriceSummary = !(
-            isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
-        );
+        const shouldRenderPriceSummary = !(isMobile && checkoutStep < CHECKOUT_STEP.REVIEW);
 
         const orderSummary = shouldRenderPriceSummary ? (
             <div
                 className={
                     classes.summaryContainer +
-                    (signInContainerVisible
-                        ? ' ' + classes.signInContainerVisible
-                        : '') +
-                    (recaptchaWidgetProps.shouldRender
-                        ? ' ' + classes.reCaptchaMargin
-                        : '')
+                    (signInContainerVisible ? ' ' + classes.signInContainerVisible : '') +
+                    (recaptchaWidgetProps.shouldRender ? ' ' + classes.reCaptchaMargin : '')
                 }
             >
                 <OrderSummary isUpdating={isUpdating} />
@@ -332,10 +287,17 @@ const CheckoutPage = props => {
             );
         }
 
+        const noProductText = formatMessage({
+            id: 'checkoutPage.noProductText',
+            defaultMessage: 'Some products are not available'
+        });
+        const noProductToAddText = formatMessage({
+            id: 'checkoutPage.noProductText',
+            defaultMessage: 'The products you tried to add are not available'
+        });
+
         const checkoutContentClass =
-            activeContent === 'checkout'
-                ? classes.checkoutContent
-                : classes.checkoutContent_hidden;
+            activeContent === 'checkout' ? classes.checkoutContent : classes.checkoutContent_hidden;
 
         const stockStatusMessageElement = (
             <Fragment>
@@ -346,10 +308,7 @@ const CheckoutPage = props => {
                     }
                 />
                 <Link className={classes.cartLink} to={'/cart'}>
-                    <FormattedMessage
-                        id={'checkoutPage.returnToCart'}
-                        defaultMessage={'Return to Cart'}
-                    />
+                    <FormattedMessage id={'checkoutPage.returnToCart'} defaultMessage={'Return to Cart'} />
                 </Link>
             </Fragment>
         );
@@ -362,19 +321,11 @@ const CheckoutPage = props => {
                         }}
                         errors={formErrors}
                     />
-                    <StockStatusMessage
-                        cartItems={cartItems}
-                        message={stockStatusMessageElement}
-                    />
-                    <h1
-                        className={classes.heading}
-                        data-cy="ChekoutPage-headerText"
-                    >
+                    <StockStatusMessage cartItems={cartItems} message={stockStatusMessageElement} />
+                    <h1 className={classes.heading} data-cy="ChekoutPage-headerText">
                         {headerText}
                     </h1>
-                    <h2>
-                        {noProduct ? 'Some products are not available' : null}
-                    </h2>
+                    <h2 className={classes.errorNoProductText}>{noProduct ? noProductText : null}</h2>
                 </div>
                 {signInContainerElement}
                 <div className={classes.shipping_information_container}>
@@ -389,13 +340,9 @@ const CheckoutPage = props => {
                     </ScrollAnchor>
                 </div>
                 <div className={classes.shipping_method_container}>
-                    <ScrollAnchor ref={shippingMethodRef}>
-                        {shippingMethodSection}
-                    </ScrollAnchor>
+                    <ScrollAnchor ref={shippingMethodRef}>{shippingMethodSection}</ScrollAnchor>
                 </div>
-                <div className={classes.payment_information_container}>
-                    {paymentInformationSection}
-                </div>
+                <div className={classes.payment_information_container}>{paymentInformationSection}</div>
                 {priceAdjustmentsSection}
                 {reviewOrderButton}
                 {itemsReview}

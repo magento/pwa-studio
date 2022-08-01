@@ -22,6 +22,7 @@ export const CHECKOUT_STEP = {
     PAYMENT: 3,
     REVIEW: 4
 };
+import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
 /**
  *
@@ -66,6 +67,7 @@ export const CHECKOUT_STEP = {
  */
 export const useCheckoutPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { setNoProduct } = useNoReorderProductContext();
 
     const {
         createCartMutation,
@@ -238,7 +240,8 @@ export const useCheckoutPage = (props = {}) => {
         });
         setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
-    }, [cartId, getOrderDetails]);
+        setNoProduct(false);
+    }, [cartId, getOrderDetails, setNoProduct]);
 
     // Go back to checkout if shopper logs in
     useEffect(() => {

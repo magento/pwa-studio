@@ -75,7 +75,7 @@
     "checkoutPage.editPaymentInformation": "Edit Payment Information",
     "checkoutPage.editShippingInfo": "Edit Shipping Information",
     "checkoutPage.editShippingMethod": "Edit Shipping Method",
-    "checkoutPage.emptyMessage": "There are no items in your cart.",
+    "checkoutPage.emptyMessage": "There are no items available to checkout.",
     "checkoutPage.errorLoadingPayment": "There was an error loading payment options. Please try again later.",
     "checkoutPage.errorSubmit": "Oops! An error occurred while submitting. Please try again.",
     "checkoutPage.fetchingItemsInYourOrder": "Fetching Items in your Order",
@@ -616,7 +616,7 @@
     "quickOrder.addToQuote": "Added to quote successfully",
     "quickOrder.CreateOrder": "Create Order",
     "quickOrder.DownloadYourSampleFile": "Download your sample file",
-    "quickOrder.emptyItems":"No items found",
+    "quickOrder.emptyItems": "No items found",
     "quickOrder.GetQuote": "Get Quote",
     "quickOrder.HereYouCanUploadOwnFile": "Here you can upload own file XLS, XLSX or CSV and products to cart.",
     "quickOrder.Items": "Items",
@@ -801,5 +801,6 @@
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} other {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
+    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
+    "checkoutPage.noProductText": "Some products are not available"
 }

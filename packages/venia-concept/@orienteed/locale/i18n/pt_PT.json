@@ -75,7 +75,7 @@
     "checkoutPage.editPaymentInformation": "Editar informações de pagamento",
     "checkoutPage.editShippingInfo": "Editar informações de envio",
     "checkoutPage.editShippingMethod": "Editar metodo de envio",
-    "checkoutPage.emptyMessage": "Não tem itens no seu carrinho.",
+    "checkoutPage.emptyMessage": "Não há itens disponíveis para checkout.",
     "checkoutPage.errorLoadingPayment": "Ocorreu um erro a carregar as opões de pagamento. Tente novamente mais tarde",
     "checkoutPage.errorSubmit": "Ups! Ocorreu um erro a submeter. Tente novamente",
     "checkoutPage.fetchingItemsInYourOrder": "A consultar os itens na sua encomenda",
@@ -616,7 +616,7 @@
     "quickOrder.addToQuote": "Adicionado para citar com sucesso",
     "quickOrder.CreateOrder": "Criar ordem",
     "quickOrder.DownloadYourSampleFile": "Descarregue o seu ficheiro de amostra",
-    "quickOrder.emptyItems":"Nenhum artigo encontrado items found",
+    "quickOrder.emptyItems": "Nenhum artigo encontrado items found",
     "quickOrder.GetQuote": "Obter Citação",
     "quickOrder.HereYouCanUploadOwnFile": "Aqui pode carregar o seu próprio ficheiro XLS, XLSX ou CSV e produtos para o carrinho.",
     "quickOrder.Items": "Artigos",
@@ -801,5 +801,6 @@
     "wishlistPage.disabledMessage": "Desculpa, esta funcionalidade foi desativada",
     "wishlistPage.fetchErrorMessage": "Algo correu mal. Por favor atualize a pagina e tente de novo",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} outro {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "A lista de desejos não esta disponivel de momento"
+    "wishlistPage.wishlistDisabledMessage": "A lista de desejos não esta disponivel de momento",
+    "checkoutPage.noProductText": "Alguns produtos não estão disponíveis"
 }
