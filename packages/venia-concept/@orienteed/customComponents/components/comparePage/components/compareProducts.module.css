@@ -1,0 +1,48 @@
+.root {
+    display: grid;
+    padding: 2rem 3rem;
+    row-gap: 2rem;
+}
+
+.heading {
+    justify-self: center;
+    font-family: var(--venia-global-fontFamily-serif);
+    font-weight: var(--venia-global-fontWeight-bold);
+    font-size: 16px;
+}
+
+.productsWrapper {
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    display: grid;
+    padding: 2rem 0;
+    row-gap: 2rem;
+}
+
+.header {
+    align-items: center;
+    display: grid;
+    grid-auto-flow: column;
+    margin: 0 2rem;
+}
+
+.name {
+    font-weight: var(--venia-global-fontWeight-semibold);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 650px) {
+    .root {
+        padding: 1rem 0.5rem;
+    }
+
+    .header {
+        grid-auto-flow: row;
+    }
+
+    .name {
+        font-size: 14px;
+    }
+}
