@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, useHistory } from 'react-router-dom';
 
 import AccountTrigger from '@magento/venia-ui/lib/components/Header/accountTrigger';
 import CartTrigger from '@magento/venia-ui/lib/components/Header/cartTrigger';
@@ -36,6 +36,7 @@ const Header = props => {
         searchTriggerRef
     } = useHeader();
 
+    const { location } = useHistory();
     const { productsCount } = useCompareProduct();
 
     const [{ isSignedIn: isUserSignedIn }, {}] = useUserContext();
@@ -79,7 +80,7 @@ const Header = props => {
                         <SearchTrigger onClick={handleSearchTriggerClick} ref={searchTriggerRef} />
                         <AccountTrigger />
                         <CartTrigger />
-                        {isUserSignedIn && (
+                        {isUserSignedIn && !location.pathname.includes('compare_products') && (
                             <Link className={classes.compareLink} to="/compare_products">
                                 <span className={classes.productsCount}>{productsCount}</span>
                                 <img src={CompareIcon} alt=" compare Icon" />

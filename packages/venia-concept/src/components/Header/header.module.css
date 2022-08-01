@@ -202,9 +202,10 @@
 
 }
 .productsCount{
+    height: 1.3rem;
     position: absolute;
-    bottom: 25%;
-    left: 65%;
+    bottom: 38%;
+    left: 48%;
     border-radius: 100px;
     font-weight: 600;
     box-sizing: border-box;
