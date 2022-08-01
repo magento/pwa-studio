@@ -403,6 +403,7 @@
     "shippingForm.getShippingOptions": "Get Shipping Options",
     "shippingForm.loading": "Loading Methods...",
     "shippingForm.zip": "ZIP",
+    "shippingForm.shippingEmail":"Shipping Email",
     "shippingInformation.cardTitle": "Shipping Information",
     "shippingInformation.editTitle": "1. Shipping Information",
     "shippingInformation.loading": "Fetching Shipping Information...",
