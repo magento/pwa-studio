@@ -19,11 +19,12 @@ import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
+import useCompareProduct from '@orienteed/customComponents/components/comparePage/talons/useCompareProduct';
+import CompareIcon from './icons/compare.svg';
+
 import defaultClasses from '@magento/venia-ui/lib/components/Header/header.module.css';
 
-const SearchBar = React.lazy(() =>
-    import('@magento/venia-ui/lib/components/SearchBar')
-);
+const SearchBar = React.lazy(() => import('@magento/venia-ui/lib/components/SearchBar'));
 
 const Header = props => {
     const {
@@ -34,6 +35,8 @@ const Header = props => {
         searchRef,
         searchTriggerRef
     } = useHeader();
+
+    const { productsCount } = useCompareProduct();
 
     const [{ isSignedIn: isUserSignedIn }, {}] = useUserContext();
     const classes = useStyle(defaultClasses, props.classes);
@@ -67,24 +70,21 @@ const Header = props => {
                     <div className={classes.primaryActions}>
                         <NavigationTrigger />
                     </div>
-                    <OnlineIndicator
-                        hasBeenOffline={hasBeenOffline}
-                        isOnline={isOnline}
-                    />
-                    <Link
-                        to={resourceUrl('/')}
-                        className={classes.logoContainer}
-                    >
+                    <OnlineIndicator hasBeenOffline={hasBeenOffline} isOnline={isOnline} />
+                    <Link to={resourceUrl('/')} className={classes.logoContainer}>
                         <Logo classes={{ logo: classes.logo }} />
                     </Link>
                     {isUserSignedIn && <MegaMenu />}
                     <div className={classes.secondaryActions}>
-                        <SearchTrigger
-                            onClick={handleSearchTriggerClick}
-                            ref={searchTriggerRef}
-                        />
+                        <SearchTrigger onClick={handleSearchTriggerClick} ref={searchTriggerRef} />
                         <AccountTrigger />
                         <CartTrigger />
+                        {isUserSignedIn && (
+                            <Link className={classes.compareLink} to="/compare_products">
+                                <span className={classes.productsCount}>{productsCount}</span>
+                                <img src={CompareIcon} alt=" compare Icon" />
+                            </Link>
+                        )}
                         {isUserSignedIn && <QuickOrder />}
                     </div>
                 </div>
