@@ -197,7 +197,6 @@
     composes: text-subtle from global;
     composes: w-full from global;
 }
-.outOfStockProduct {
-    composes: mt-xs from global;
-    composes: text-red-600 from global;
+.actButton {
+    composes: mt-sm from global;
 }

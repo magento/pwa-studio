@@ -172,7 +172,7 @@ const ProductFullDetail = props => {
     }, [customAttributes, productDetails.sku, formatMessage]);
 
     const cartCallToActionText =
-        !isEverythingOutOfStock && !isOutOfStock ? (
+        !isEverythingOutOfStock || !isOutOfStock ? (
             <FormattedMessage
                 id="productFullDetail.addItemToCart"
                 defaultMessage="Add to Cart"
@@ -183,27 +183,24 @@ const ProductFullDetail = props => {
                 defaultMessage="Out of Stock"
             />
         );
-
+    // Error message for screen reader
+    const outOfStockErrorMessage = 'This item is currently out of stock';
     const cartActionContent = isSupportedProductType ? (
-        <Fragment>
-            <section className={classes.outOfStockProduct}>
-                {isEverythingOutOfStock && (
-                    <FormattedMessage
-                        data-cy="ProductFullDetail-outOfStockProduct"
-                        id={'productFullDetail.outOfStockProduct'}
-                        defaultMessage={'This item is currently out of stock.'}
-                    />
-                )}
-            </section>
+        <section className={classes.actButton}>
             <Button
                 data-cy="ProductFullDetail-addToCartButton"
                 disabled={isAddToCartDisabled}
+                aria-disabled={isAddToCartDisabled}
+                aria-label={
+                    isEverythingOutOfStock ? outOfStockErrorMessage : ''
+                }
+                role="alert"
                 priority="high"
                 type="submit"
             >
                 {cartCallToActionText}
             </Button>
-        </Fragment>
+        </section>
     ) : (
         <div className={classes.unavailableContainer}>
             <Info />
