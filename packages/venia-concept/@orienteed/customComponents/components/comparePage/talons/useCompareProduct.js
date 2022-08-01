@@ -36,6 +36,14 @@ const useCompareProduct = () => {
             }
         });
         setIsAction(!isAction)
+        addToast({
+            type: 'success',
+            message: formatMessage({
+                id: 'compareProducts.deletecompareProducts',
+                defaultMessage: 'The product was deleted from compare products list'
+            }),
+            timeout: 7000
+        });
     };
 
     const productsItems = useMemo(() => {
@@ -56,7 +64,7 @@ const useCompareProduct = () => {
         addToast({
             type: 'success',
             message: formatMessage({
-                id: 'item.addTOcompare',
+                id: 'compareProducts.addTocompare',
                 defaultMessage: 'The product was added to compare products'
             }),
             timeout: 7000
