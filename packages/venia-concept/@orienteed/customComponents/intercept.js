@@ -14,14 +14,12 @@ module.exports = targets => {
             {
                 name: 'CreateAccountNonCustomer',
                 pattern: '/create-account-non-customer',
-                path:
-                    '@orienteed/customComponents/components/CreateAccountNonCustomer'
+                path: '@orienteed/customComponents/components/CreateAccountNonCustomer'
             },
             {
                 name: 'CreateAccountBeCustomer',
                 pattern: '/create-account-be-customer',
-                path:
-                    '@orienteed/customComponents/components/CreateAccountBeCustomer'
+                path: '@orienteed/customComponents/components/CreateAccountBeCustomer'
             },
             {
                 name: 'OrderIncidences',
@@ -32,6 +30,11 @@ module.exports = targets => {
                 name: 'SimpleProduct',
                 pattern: '/simple-product',
                 path: '@orienteed/customComponents/components/SimpleProduct'
+            },
+            {
+                name: 'compare product',
+                pattern: '/compare_products',
+                path: '@orienteed/customComponents/components/comparePage/components'
             }
         );
         return routes;
