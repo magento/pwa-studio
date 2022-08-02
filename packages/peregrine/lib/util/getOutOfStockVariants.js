@@ -20,9 +20,6 @@ export const getOutOfStockVariants = (
     const isConfigurable = isProductConfigurable(product);
     const singeOptionSelected =
         singleOptionSelection && singleOptionSelection.size === 1;
-    const optionsSelected =
-        Array.from(optionSelections.values()).filter(value => !!value).length >
-        1;
     const outOfStockIndexes = [];
 
     if (isConfigurable) {
@@ -36,7 +33,6 @@ export const getOutOfStockVariants = (
             : variantsIfOutOfStockProductsNotDisplayed;
 
         const numberOfVariations = variants[0].attributes.length;
-        const selectedIndexes = Array.from(optionSelections.values()).flat();
 
         // If only one pair of variations, display out of stock variations before option selection
         if (numberOfVariations === 1) {
@@ -50,6 +46,14 @@ export const getOutOfStockVariants = (
             return outOfStockIndex;
         } else {
             if (singeOptionSelected) {
+                const optionsSelected =
+                    Array.from(optionSelections.values()).filter(
+                        value => !!value
+                    ).length > 1;
+                const selectedIndexes = Array.from(
+                    optionSelections.values()
+                ).flat();
+
                 const items = findAllMatchingVariants({
                     optionCodes,
                     singleOptionSelection,

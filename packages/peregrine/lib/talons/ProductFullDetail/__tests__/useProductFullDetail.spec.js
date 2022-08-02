@@ -7,6 +7,8 @@ import { useProductFullDetail } from '../useProductFullDetail';
 import { useUserContext } from '../../../context/user';
 import { useEventingContext } from '../../../context/eventing';
 
+import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
+
 jest.mock('@apollo/client', () => ({
     gql: jest.fn(),
     useMutation: jest.fn().mockImplementation(() => [
@@ -44,6 +46,10 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
 jest.mock('../../../context/eventing', () => ({
     useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
+jest.mock('@magento/peregrine/lib/util/getOutOfStockVariants', () => ({
+    getOutOfStockVariants: jest.fn().mockReturnValue([])
 }));
 
 const Component = props => {
@@ -361,144 +367,7 @@ const configurableOutOfStockProductProps = {
     }
 };
 
-const configurableProductWithOneGroupOfOptionProps = {
-    ...defaultProps,
-    product: {
-        ...defaultProps.product,
-        __typename: 'ConfigurableProduct',
-        stock_status: 'IN_STOCK',
-        media_gallery_entries: [],
-        price: {
-            regularPrice: {
-                amount: {
-                    value: 88
-                }
-            }
-        },
-        configurable_options: [
-            {
-                attribute_code: 'color',
-                attribute_id: '93',
-                id: 1,
-                label: 'Color',
-                values: [
-                    {
-                        __typename: 'ConfigurableProductOptionsValues',
-                        uid: '20',
-                        default_label: 'red',
-                        label: 'red',
-                        store_label: 'red',
-                        use_default_value: true,
-                        value_index: 92,
-                        swatch_data: null,
-                        media_gallery_entries: []
-                    },
-                    {
-                        __typename: 'ConfigurableProductOptionsValues',
-                        uid: '30',
-                        default_label: 'green',
-                        label: 'green',
-                        store_label: 'green',
-                        use_default_value: true,
-                        value_index: 93,
-                        swatch_data: null,
-                        media_gallery_entries: []
-                    },
-                    {
-                        __typename: 'ConfigurableProductOptionsValues',
-                        uid: '40',
-                        default_label: 'blue',
-                        label: 'blue',
-                        store_label: 'blue',
-                        use_default_value: true,
-                        value_index: 94,
-                        swatch_data: null,
-                        media_gallery_entries: []
-                    }
-                ]
-            }
-        ],
-        variants: [
-            {
-                attributes: [
-                    {
-                        code: 'color',
-                        value_index: 92,
-                        __typename: 'ConfigurableAttributeOption'
-                    }
-                ],
-                product: {
-                    __typename: 'SimpleProduct',
-                    sku: 'configurableProductPropsConfig1',
-                    stock_status: 'OUT_OF_STOCK',
-                    id: 2,
-                    media_gallery_entries: [],
-                    price: {
-                        regularPrice: {
-                            amount: {
-                                value: 88
-                            }
-                        }
-                    },
-                    custom_attributes: []
-                },
-                __typename: 'ConfigurableVariant'
-            },
-            {
-                attributes: [
-                    {
-                        code: 'color',
-                        value_index: 93,
-                        __typename: 'ConfigurableAttributeOption'
-                    }
-                ],
-                product: {
-                    __typename: 'SimpleProduct',
-                    sku: 'configurableProductPropsConfig2',
-                    stock_status: 'IN_STOCK',
-                    id: 3,
-                    media_gallery_entries: [],
-                    price: {
-                        regularPrice: {
-                            amount: {
-                                value: 88
-                            }
-                        }
-                    },
-                    custom_attributes: []
-                },
-                __typename: 'ConfigurableVariant'
-            },
-            {
-                attributes: [
-                    {
-                        code: 'color',
-                        value_index: 94,
-                        __typename: 'ConfigurableAttributeOption'
-                    }
-                ],
-                product: {
-                    __typename: 'SimpleProduct',
-                    sku: 'configurableProductPropsConfig2',
-                    stock_status: 'IN_STOCK',
-                    id: 4,
-                    media_gallery_entries: [],
-                    price: {
-                        regularPrice: {
-                            amount: {
-                                value: 88
-                            }
-                        }
-                    },
-                    custom_attributes: []
-                },
-                __typename: 'ConfigurableVariant'
-            }
-        ]
-    }
-};
-
-const configurableProductWithOTwoGroupOfOptionProps = {
+const configurableProductWithTwoOptionGroupProps = {
     ...defaultProps,
     product: {
         ...defaultProps.product,
@@ -818,7 +687,6 @@ describe('shouldShowConfigurableProductOutOfStockButton', () => {
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
 
-        expect(talonProps.isEverythingOutOfStock).toBeTruthy();
         expect(talonProps.isOutOfStock).toBeTruthy();
         expect(talonProps.isAddToCartDisabled).toBeTruthy();
     });
@@ -1237,52 +1105,88 @@ test('should dispatch event on add to cart', async () => {
     expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
 });
 
-describe('shouldShowOutOfStockOptionsForConfigurableProductWithOneGroupOfOption', () => {
-    test('returns value_index of out of stock options', () => {
+describe('with configurable product options', () => {
+    test('calls getOutOfStockVariants() with empty selections on initial render', () => {
+        createTestInstance(
+            <Component {...configurableProductWithTwoOptionGroupProps} />
+        );
+
+        expect(getOutOfStockVariants).toHaveBeenCalledTimes(1);
+        // singleOptionSelection
+        expect(getOutOfStockVariants.mock.calls[0][2]).toMatchInlineSnapshot(
+            `undefined`
+        );
+        // optionSelections
+        expect(getOutOfStockVariants.mock.calls[0][3]).toMatchInlineSnapshot(`
+            Map {
+              "179" => undefined,
+              "190" => undefined,
+            }
+        `);
+    });
+    test('calls getOutOfStockVariants() with the correct selection values when handleSelectionChange() is called', () => {
         const tree = createTestInstance(
-            <Component {...configurableProductWithOneGroupOfOptionProps} />
+            <Component {...configurableProductWithTwoOptionGroupProps} />
         );
 
         const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
 
-        expect(talonProps.outOfStockVariants).toMatchSnapshot();
+        // Select a fashion color
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange(
+                '179',
+                14
+            );
+        });
+        expect(getOutOfStockVariants).toHaveBeenCalledTimes(2);
+        // singleOptionSelection
+        expect(getOutOfStockVariants.mock.calls[1][2]).toMatchInlineSnapshot(`
+            Map {
+              "179" => 14,
+            }
+        `);
+        // optionSelections
+        expect(getOutOfStockVariants.mock.calls[1][3]).toMatchInlineSnapshot(`
+            Map {
+              "179" => 14,
+              "190" => undefined,
+            }
+        `);
+
+        // Select a fashion size
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange(
+                '190',
+                45
+            );
+        });
+        expect(getOutOfStockVariants).toHaveBeenCalledTimes(3);
+        // singleOptionSelection
+        expect(getOutOfStockVariants.mock.calls[2][2]).toMatchInlineSnapshot(`
+            Map {
+              "190" => 45,
+            }
+        `);
+        // optionSelections
+        expect(getOutOfStockVariants.mock.calls[2][3]).toMatchInlineSnapshot(`
+            Map {
+              "179" => 14,
+              "190" => 45,
+            }
+        `);
     });
 });
 
-describe('shouldShowOutOfStockOptionsForConfigurableProductWithTwoGroupOfOption', () => {
-    test('returns empty array if no option selected', () => {
+describe('when everything is out of stock', () => {
+    test('sets the everythingIsOutOfStock value correctly', () => {
         const tree = createTestInstance(
-            <Component {...configurableProductWithOTwoGroupOfOptionProps} />
+            <Component {...configurableOutOfStockProductProps} />
         );
 
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
 
-        expect(talonProps.outOfStockVariants).toMatchSnapshot();
-    });
-    test('returns out of stock value_index for the 2nd swatch group if only single option is selected in the 1st group', () => {
-        const tree = createTestInstance(
-            <Component {...configurableProductWithOTwoGroupOfOptionProps} />
-        );
-
-        const { root } = tree;
-
-        act(() => {
-            root.findByType('i').props.talonProps.handleSelectionChange(
-                ('179', 14)
-            );
-        });
-
-        const { talonProps } = root.findByType('i').props;
-
-        expect(talonProps.outOfStockVariants).toMatchInlineSnapshot(`Array [
-            Array [
-                44,
-              ],
-              Array [
-                46,
-              ]
-        ]`);
+        expect(talonProps.isEverythingOutOfStock).toBeTruthy();
+        expect(talonProps.isAddToCartDisabled).toBeTruthy();
     });
 });
