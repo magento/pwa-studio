@@ -82,7 +82,7 @@ const Header = props => {
                         <CartTrigger />
                         {isUserSignedIn && !location.pathname.includes('compare_products') && (
                             <Link className={classes.compareLink} to="/compare_products">
-                                {productsCount && <span className={classes.productsCount}>{productsCount}</span>}
+                                {productsCount > 0 && <span className={classes.productsCount}>{productsCount}</span>}
                                 <img src={CompareIcon} alt=" compare Icon" />
                             </Link>
                         )}

@@ -36,7 +36,7 @@ const ProductsTable = ({ productsItems, deleteProduct }) => {
                         ))}
                     </tr>
                     {productsItems.length > 0 &&
-                        [0].attributes.map(attribute => {
+                        productsItems[0].attributes?.map(attribute => {
                             let attributeProducts = productsItems.map(({ attributes }) =>
                                 attributes.find(({ code }) => code === attribute.code)
                             );
