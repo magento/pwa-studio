@@ -38,7 +38,7 @@ const ProductCard = ({ item, deleteProduct }) => {
                 </button>
             </div>
             <div className={classes.priceContainer} data-cy="compareProducts-priceContainer">
-                <FormattedMessage id={'compareProducts.aslowAs'} defaultMessage="As low as" />
+                <FormattedMessage id={'compareProducts.aslowAs'} defaultMessage="As low as" /> &nbsp;   
                 <Price
                     currencyCode={minimum_price?.regular_price.currency}
                     value={minimum_price?.regular_price.value}

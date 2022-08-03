@@ -33,86 +33,45 @@ const ProductsTable = ({ productsItems, deleteProduct }) => {
                             </td>
                         ))}
                     </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <th className={classes.cell}>
-                            <span>
-                                <FormattedMessage
-                                    id={'compareProducts.fashionMaterial'}
-                                    defaultMessage="Fashion Material"
-                                />
-                            </span>
-                        </th>
-                        {productsItems?.map(product => (
-                            <td key={product.sku + 'tbody3'} className={classes.cell}>
-                                <span>{product.attributes.find(({ code }) => code === 'fashion_material').value}</span>
-                            </td>
-                        ))}
-                    </tr>
-                    <tr>
-                        <th className={classes.cell}>
-                            <span>
-                                <FormattedMessage id={'compareProducts.fashionStyle'} defaultMessage="Fashion Style" />
-                            </span>
-                        </th>
-                        {productsItems?.map(product => (
-                            <td key={product.sku + 'tbody3'} className={classes.cell}>
-                                <span>{product.attributes.find(({ code }) => code === 'fashion_style').value}</span>
-                            </td>
-                        ))}
-                    </tr>
-                    <tr>
-                        <th className={classes.cell}>
-                            <span>
-                                <FormattedMessage id={'compareProducts.fashionColor'} defaultMessage="Fashion Color" />
-                            </span>
-                        </th>
-                        {productsItems?.map(product => (
-                            <td key={product.sku + 'tbody3'} className={classes.cell}>
-                                <span>{product.attributes.find(({ code }) => code === 'fashion_color').value}</span>
-                            </td>
-                        ))}
-                    </tr>
-                    <tr>
-                        <th scope="row" className={classes.cell}>
-                            <span>
-                                <FormattedMessage id={'compareProducts.SKU'} defaultMessage="SKU" />
-                            </span>
-                        </th>
-                        {productsItems?.map(({ product }) => (
-                            <td key={product.sku + 'tbody2'} className={classes.cell}>
-                                <span>{product.sku}</span>
-                            </td>
-                        ))}
-                    </tr>
-
-                    <tr>
-                        <th className={classes.cell}>
-                            <span>
-                                <FormattedMessage id={'compareProducts.Description'} defaultMessage="Description" />
-                            </span>
-                        </th>
-                        {productsItems?.map(({ product }) => (
-                            <td key={product.sku + 'tbody3'} className={classes.cell}>
-                                <span className={classes.description}>
-                                    <RichText content={product.description?.html} />
-                                </span>
-                            </td>
-                        ))}
-                    </tr>
-                    <tr>
-                        <th className={classes.cell}>
-                            <span>
-                                <FormattedMessage id={'compareProducts.hasVideo'} defaultMessage="Has Video" />
-                            </span>
-                        </th>
-                        {productsItems?.map(product => (
-                            <td key={product.sku + 'tbody3'} className={classes.cell}>
-                                <span>{product.attributes.find(({ code }) => code === 'has_video').value}</span>
-                            </td>
-                        ))}
-                    </tr>
+                    {productsItems[0].attributes.map(attribute => {
+                        let attributeProducts = productsItems.map(({ attributes }) =>
+                            attributes.find(({ code }) => code === attribute.code)
+                        );
+                        let inValidValues = attributeProducts.every(({ value }) => value === 'N/A');
+                        if (!inValidValues) {
+                            return (
+                                <tr>
+                                    <th className={classes.cell}>
+                                        <span>
+                                            {attribute.code
+                                                .split('_')
+                                                .join(' ')
+                                                .replace(/(^[a-z])/i, (str, firstLetter) => firstLetter.toUpperCase())}
+                                        </span>
+                                    </th>
+                                    {productsItems?.map(product => (
+                                        <td key={product.uid + 'tbody3'} className={classes.cell}>
+                                            <span>
+                                                {attribute.code === 'description' ? (
+                                                    <span className={classes.description}>
+                                                        <RichText
+                                                            content={
+                                                                product.attributes.find(
+                                                                    ({ code }) => code === attribute.code
+                                                                ).value
+                                                            }
+                                                        />
+                                                    </span>
+                                                ) : (
+                                                    product.attributes.find(({ code }) => code === attribute.code).value
+                                                )}
+                                            </span>
+                                        </td>
+                                    ))}
+                                </tr>
+                            );
+                        }
+                    })}
                 </tbody>
             </table>
         </div>
