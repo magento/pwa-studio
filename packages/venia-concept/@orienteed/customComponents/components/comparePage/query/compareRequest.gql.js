@@ -19,10 +19,6 @@ export const GET_COMPARE_LIST_CUSTOMER = gql`
                         small_image {
                             url
                         }
-                        has_video
-                        fashion_material
-                        fashion_color
-                        fashion_style
                         url_suffix
                         uid
                         price_range {
