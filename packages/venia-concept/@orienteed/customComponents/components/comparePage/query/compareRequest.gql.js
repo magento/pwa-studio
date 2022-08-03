@@ -43,7 +43,6 @@ export const GET_COMPARE_LIST_CUSTOMER = gql`
                             html
                         }
                         sku
-                        has_video
                         __typename
                     }
                 }
@@ -89,7 +88,6 @@ export const GET_COMPARE_LIST = gql`
                         html
                     }
                     sku
-                    has_video
                     __typename
                 }
             }
