@@ -7,7 +7,7 @@ export const findAllMatchingVariants = ({
     optionCodes,
     singleOptionSelection
 }) => {
-    return variants.filter(({ attributes, product }) => {
+    return variants?.filter(({ attributes, product }) => {
         const customAttributes = (attributes || []).reduce(
             (map, { code, value_index }) => new Map(map).set(code, value_index),
             new Map()

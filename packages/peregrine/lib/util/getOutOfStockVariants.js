@@ -99,7 +99,7 @@ export const getOutOfStockVariants = (
                             variants: variants
                         });
                         const outOfStockIndex = getOutOfStockIndexes(curItems)
-                            .flat()
+                            ?.flat()
                             .filter(idx => !selectedIndexes.includes(idx));
                         oosIndexes.push(outOfStockIndex);
                     }

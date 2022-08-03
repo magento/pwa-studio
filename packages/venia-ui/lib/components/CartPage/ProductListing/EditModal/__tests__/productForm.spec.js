@@ -43,6 +43,7 @@ const mockTalonProps = {
     errors: new Map(),
     handleOptionSelection: jest.fn(),
     handleSubmit: jest.fn(),
+    outOfStockVariants: [],
     isDialogOpen: true,
     isLoading: false,
     setFormApi: jest.fn()

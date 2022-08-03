@@ -89,7 +89,7 @@ const getOutOfStockVariants = (
                 });
 
                 const outOfStockIndex = getOutOfStockIndexes(curItems)
-                    .flat()
+                    ?.flat()
                     .filter(idx => !selectedIndexes.includes(idx));
 
                 oosIndexes.push(outOfStockIndex);
