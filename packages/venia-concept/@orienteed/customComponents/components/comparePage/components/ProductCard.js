@@ -14,14 +14,28 @@ import defaultClasses from './ProductCard.module.css';
 const ProductCard = ({ item, deleteProduct }) => {
     const { name, price_range } = item.product;
     const { minimum_price } = price_range;
+    const { final_price, regular_price } = minimum_price;
     const classes = useStyle(defaultClasses);
     const imageProps = {
         alt: name,
         src: item.product.small_image.url,
         width: 400
     };
-
+    const price =
+        final_price.value === regular_price.value ? (
+            <Price currencyCode={minimum_price?.regular_price.currency} value={minimum_price?.regular_price.value} />
+        ) : (
+            <div className={classes.priceWrapper}>
+                <div className={classes.oldPrice}>
+                    <Price value={regular_price.value} currencyCode={regular_price.currency} />
+                </div>
+                <div className={`${classes.price} ${classes.newPrice}`}>
+                    <Price value={final_price.value} currencyCode={final_price.currency} />
+                </div>
+            </div>
+        );
     const addToCart = <AddToCartbutton item={item.product} urlSuffix={item.product.url_suffix} />;
+
     return (
         <div className={classes.root} data-cy="compareProducts-root">
             <Image {...imageProps} />
@@ -38,11 +52,7 @@ const ProductCard = ({ item, deleteProduct }) => {
                 </button>
             </div>
             <div className={classes.priceContainer} data-cy="compareProducts-priceContainer">
-                <FormattedMessage id={'compareProducts.aslowAs'} defaultMessage="As low as" /> &nbsp;   
-                <Price
-                    currencyCode={minimum_price?.regular_price.currency}
-                    value={minimum_price?.regular_price.value}
-                />
+                {price}
             </div>
             <div className={classes.actionsContainer}>
                 {addToCart}

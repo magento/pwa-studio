@@ -30,6 +30,8 @@
 
 .priceContainer {
     font-size: var(--venia-typography-detail-XL-fontSize);
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .image {
@@ -86,3 +88,29 @@
     justify-content: space-between;
     gap: 0.2rem;
 }
+
+.priceWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.oldPrice {
+    font-size: 0.875rem;
+    line-height: 1rem;
+    min-height: 1rem;
+    text-decoration: line-through;
+    color: '#666666';
+}
+
+.name,
+.price {
+    font-size: var(--venia-typography-detail-XL-fontSize);
+    min-height: 2rem;
+}
+
+.newPrice {
+    display: flex;
+    align-items: center;
+}
+ 
