@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_COMPARE_LIST_CUSTOMER = gql`
-    query getCustomerCompareList {
+   # Write your query or mutation here
+ query getCustomerCompareList {
         customer {
             compare_list {
                 item_count
@@ -27,6 +28,10 @@ export const GET_COMPARE_LIST_CUSTOMER = gql`
                                 final_price {
                                     value
                                 }
+                              regular_price{
+                                currency
+                                value
+                              }
                             }
                             minimum_price {
                                 regular_price {
