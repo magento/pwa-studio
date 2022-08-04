@@ -43,7 +43,7 @@ const ProductsTable = ({ productsItems, deleteProduct }) => {
                             let inValidValues = attributeProducts.every(({ value }) => value === 'N/A');
                             if (!inValidValues) {
                                 return (
-                                    <tr>
+                                    <tr key={attribute.code}>
                                         <th className={classes.cell}>
                                             <span>
                                                 {attribute.code
