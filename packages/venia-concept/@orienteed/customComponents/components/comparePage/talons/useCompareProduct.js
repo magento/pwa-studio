@@ -77,7 +77,7 @@ const useCompareProduct = () => {
         productsItems: productsItems,
         addProductsToCompare,
         deleteProduct,
-        productsCount:data?.customer.compare_list.item_count,
+        productsCount:data?.customer.compare_list.item_count||0,
         isLoading
     };
 };
