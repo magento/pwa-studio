@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-eventing",
-  "version": "0.0.2-alpha.1",
+  "version": "0.0.2-beta.1",
   "publishConfig": {
     "access": "public"
   },
@@ -12,7 +12,7 @@
   "repository": "github:magento/pwa-studio",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
-    "@magento/peregrine": "12.5.1-alpha.1",
+    "@magento/peregrine": "12.5.1-beta.1",
     "@magento/pwa-buildpack": "~11.4.0",
     "react": "~17.0.1"
   },
