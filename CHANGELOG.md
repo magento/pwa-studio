@@ -1,4 +1,4 @@
-# PWA Studio Release  12.5.0
+# PWA Studio Release   12.5.0
 
 **NOTE:**
 _This changelog only contains release notes for PWA Studio and Venia 12.5.0_.
