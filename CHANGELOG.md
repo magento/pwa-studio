@@ -19,6 +19,7 @@ The 12.6.0 release of PWA Studio focuses on accessibility improvements and bug f
 -   Accessibility Improvements: Keyboard focus no longer lands on hidden elements in Kebab menu — [3800][]   
 -   Fixed a bug in mobile view where the Edit and Remove options in the kebab menu for a cart item on the cart page is non functional. - [3925][]
 -   Fixed a console error when accessing different filters. - [30][]
+-   Removed duplicate logic from the QuoteGraphQlPwa module - [29][]
 
 ## 12.6.0 Lighthouse scores
 
@@ -97,5 +98,6 @@ Your project may not depend on some packages listed in this table.
 [3800]: https://github.com/magento/pwa-studio/pull/3800
 [30]: https://github.com/magento-commerce/magento2-pwa/pull/30
 [3925]: https://github.com/magento/pwa-studio/pull/3925
+[29]: https://github.com/magento-commerce/magento2-pwa/pull/29
 
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
