@@ -17,21 +17,8 @@ The 12.6.0 release of PWA Studio focuses on accessibility improvements and bug f
 -   Bug Fix - Braintree payment form Customer Name field values now appear normal. — [3912][]  
 -   Bug Fix: Braintree npm package braintree-web-drop-in updated to latest version to fix csp related console errors. — [3912][]  
 -   Accessibility Improvements: Keyboard focus no longer lands on hidden elements in Kebab menu — [3800][]   
--   Fixed a bug in mobile view where the Edit and Remove options in the kebab menu for a cart item on the cart page is non functional.  
-
-
-| Type  | Description                                                                      | GitHub PR |
-| :---- | :------------------------------------------------------------------------------- | :-------- |
-| Story | \[Issue] AC-2792::Common inputs lack autocomplete attributes (pattern)           | [3785][]  |
-| Story | \[Issue] AC-2480::Flyout panels do not trap focus while open                     | [3805][]  |
-| Story | \[Issue] AC-2484::Contrast insufficient - carousel navigation buttons (Landing…  | [3787][]  |
-| Story | \[Issue] AC-2788::Form fields have visual labels that are not programmatically…  | [3786][]  |
-| Story | Remove QuoteGraphQlPwa module after its code merged into core                    | [29][]    |
-| Bug   | Intermittent console error causing cypress tests to fail                         | [3911][]  |
-| Bug   | Braintree card Customer Name field values looking like ghost/placeholder text    | [3912][]  |
-| Bug   | \[Issue] BUG#AC_2495::Items within actions menu receive keyboard focus when no…  | [3800][]  |
-| Bug   | Console error on accessing different filters, venia page also shows error toast. | [30][]    |
-| Bug   | \[Bug] fix kebab menu items on cart page in mobile view                          | [3925][]  |
+-   Fixed a bug in mobile view where the Edit and Remove options in the kebab menu for a cart item on the cart page is non functional. - [3925][]
+-   Fixed a console error when accessing different filters. - [30][]
 
 ## 12.6.0 Lighthouse scores
 
