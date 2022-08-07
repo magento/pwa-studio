@@ -80,9 +80,9 @@ const Header = props => {
                         <SearchTrigger onClick={handleSearchTriggerClick} ref={searchTriggerRef} />
                         <AccountTrigger />
                         <CartTrigger />
-                        {isUserSignedIn && !location.pathname.includes('compare_products') && (
+                        {isUserSignedIn && !location.pathname.includes('compare_products') && productsCount > 0 && (
                             <Link className={classes.compareLink} to="/compare_products">
-                                {productsCount > 0 && <span className={classes.productsCount}>{productsCount}</span>}
+                                <span className={classes.productsCount}>{productsCount}</span>
                                 <img src={CompareIcon} alt=" compare Icon" />
                             </Link>
                         )}
