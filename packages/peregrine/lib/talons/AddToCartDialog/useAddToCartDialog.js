@@ -10,7 +10,7 @@ import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStock
 
 export const useAddToCartDialog = props => {
     const { item, onClose } = props;
-    const sku = item && item.product.sku;
+    const sku = item && item.product?.sku;
 
     const [, { dispatch }] = useEventingContext();
 
@@ -30,7 +30,7 @@ export const useAddToCartDialog = props => {
     const optionCodes = useMemo(() => {
         const optionCodeMap = new Map();
         if (item) {
-            item.product.configurable_options.forEach(option => {
+            item.product?.configurable_options.forEach(option => {
                 optionCodeMap.set(option.attribute_id, option.attribute_code);
             });
         }
@@ -43,7 +43,7 @@ export const useAddToCartDialog = props => {
             let totalVariants = 1;
             const { product } = item;
             const isConfigurable = isProductConfigurable(product);
-            if (product.configurable_options && isConfigurable) {
+            if (product?.configurable_options && isConfigurable) {
                 for (const option of product.configurable_options) {
                     const length = option.values.length;
                     totalVariants = totalVariants * length;
@@ -90,14 +90,14 @@ export const useAddToCartDialog = props => {
 
             const selectedOptions = [];
             mergedOptionsMap.forEach((selectedValueId, attributeId) => {
-                const configurableOption = item.product.configurable_options.find(
+                const configurableOption = item.product?.configurable_options.find(
                     option => option.attribute_id_v2 === attributeId
                 );
-                const configurableOptionValue = configurableOption.values.find(
+                const configurableOptionValue = configurableOption?.values.find(
                     optionValue => optionValue.value_index === selectedValueId
                 );
 
-                selectedOptions.push(configurableOptionValue.uid);
+                selectedOptions.push(configurableOptionValue?.uid);
             });
 
             return selectedOptions;
@@ -257,7 +257,7 @@ export const useAddToCartDialog = props => {
         if (item) {
             return {
                 onSelectionChange: handleOptionSelection,
-                options: item.product.configurable_options,
+                options: item.product?.configurable_options,
                 selectedValues: item.configurable_options
             };
         }
@@ -267,7 +267,7 @@ export const useAddToCartDialog = props => {
         if (item) {
             return {
                 disabled:
-                    item.product.configurable_options.length !==
+                    item.product?.configurable_options.length !==
                         selectedOptionsArray.length || isAddingToCart,
                 onClick: handleAddToCart,
                 priority: 'high'

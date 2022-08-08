@@ -47,7 +47,7 @@ function deriveOptionSelectionsFromProduct(cartItem) {
         return initialOptionSelections;
     }
 }
-const getOutOfStockVariants = (
+export const getOutOfStockVariants = (
     product,
     configurableOptionCodes,
     multipleOptionSelections,
@@ -190,7 +190,7 @@ export const useProductForm = props => {
                 option => option.id == optionId
             );
 
-            if (initialSelection.value_id === selection) {
+            if (initialSelection?.value_id === selection) {
                 nextOptionSelections.delete(optionId);
             } else {
                 nextOptionSelections.set(optionId, selection);
