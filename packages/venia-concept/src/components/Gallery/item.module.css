@@ -50,11 +50,11 @@
 }
 
 .actionsContainer {
-    column-gap: 1rem;
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: 1.9fr .2fr;
     padding-left: 0.5rem;
 }
+
 
 .actionsContainer:empty {
     display: none;
@@ -262,4 +262,13 @@
 
 .customAttributes {
     margin-bottom: 0.5rem;
+}
+
+.compareIcon {
+    width: 20px;
+    align-items: center;
+}
+
+.compareIcon img {
+    width: 20px;
 }

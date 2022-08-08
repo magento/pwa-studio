@@ -194,3 +194,55 @@
         padding-left: 0;
     }
 }
+
+.compareLink {
+    margin-right: 0.4rem;
+    width: 18px;
+    position: relative;
+
+}
+.productsCount{
+    height: 1.3rem;
+    position: absolute;
+    bottom: 38%;
+    left: 48%;
+    border-radius: 100px;
+    font-weight: 600;
+    box-sizing: border-box;
+    padding: 0 0.35rem;
+    background-color: var(--orienteed-primary-color-base1);
+    border-radius: 100px;
+    color: rgb(var(--venia-global-color-background));
+}
+
+
+@media (max-width: 650px) {
+    .secondaryActions > button {
+        width: 1rem;
+    }
+
+    .secondaryActions > button > span > svg {
+        width: 18px;
+    }
+
+    .cartTrigger button {
+        min-width: 0;
+        margin: 0 0.4rem;
+    }
+
+    .cartTrigger button span {
+        left: 0.4rem;
+        line-height: 1.05rem;
+        min-width: 1.15rem;
+        font-size: 0.5125rem;
+    }
+
+    .cartTrigger button span svg {
+        width: 18px;
+    }
+
+    .compareLink {
+        margin-right: 0.4rem;
+    }
+}
+

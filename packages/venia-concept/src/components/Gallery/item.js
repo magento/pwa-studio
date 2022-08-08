@@ -31,6 +31,10 @@ import Select from './SelectField/select';
 
 import { useHistory } from 'react-router-dom';
 
+import Button from '@magento/venia-ui/lib/components/Button';
+import CompareIcon from './Icons/compare.svg';
+import useCompareProduct from '@orienteed/customComponents/components/comparePage/talons/useCompareProduct';
+
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
 const IMAGE_WIDTH = 300;
@@ -53,6 +57,9 @@ const GalleryItem = props => {
     const isHomePage = location.pathname === '/';
     const [quantity, setQuantity] = useState(1);
     const [selectedVeriant, setSelectedVeriant] = useState();
+
+    const compareProps = useCompareProduct();
+    const { addProductsToCompare } = compareProps;
 
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;
@@ -154,24 +161,18 @@ const GalleryItem = props => {
                 {status === 'IN_STOCK' ? (
                     <span className={classes.inStock}>
                         <img src={InStockIcon} alt="in stock" />
-                        <FormattedMessage
-                            id={'galleryItem.inStock'}
-                            defaultMessage={'In stock'}
-                        />
+                        <FormattedMessage id={'galleryItem.inStock'} defaultMessage={'In stock'} />
                     </span>
                 ) : (
                     <span className={classes.outStock}>
                         <img src={OutStockIcon} alt="out stock" />
-                        <FormattedMessage
-                            id={'galleryItem.outStock'}
-                            defaultMessage={'Out of stock'}
-                        />
+                        <FormattedMessage id={'galleryItem.outStock'} defaultMessage={'Out of stock'} />
                     </span>
                 )}
             </>
         );
     };
-    
+
     const shareClick = () => {
         navigator.clipboard.writeText(window.origin + productLink);
         addToast({
@@ -239,6 +240,10 @@ const GalleryItem = props => {
                 </div>
             );
         });
+
+    const addToCompare = () => {
+        addProductsToCompare(item);
+    };
 
     return (
         <div data-cy="GalleryItem-root" className={classes.root} aria-live="polite" aria-busy="false">
@@ -320,11 +325,7 @@ const GalleryItem = props => {
                 )}
                 <div className={classes.productPrice}>
                     <span>
-                        <FormattedMessage
-                            id={'galleryItem.yourPrice'}
-                            defaultMessage={'Your price:'}
-                        />{' '}
-                        &nbsp;
+                        <FormattedMessage id={'galleryItem.yourPrice'} defaultMessage={'Your price:'} /> &nbsp;
                     </span>
                     {priceRender}
                 </div>
@@ -354,6 +355,9 @@ const GalleryItem = props => {
             )}
             <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}`}>
                 {addButton}
+                <button className={classes.compareIcon} onClick={addToCompare}>
+                    <img src={CompareIcon} alt="compare icon" />
+                </button>
                 {/* {!isHomePage && wishlistButton} */}
             </div>
         </div>
