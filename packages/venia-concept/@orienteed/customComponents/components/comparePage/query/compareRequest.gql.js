@@ -21,6 +21,9 @@ export const GET_COMPARE_LIST_CUSTOMER = gql`
                             url
                         }
                         url_suffix
+                        stock_status
+                        url_key
+                        __typename
                         uid
                         price_range {
                             __typename
