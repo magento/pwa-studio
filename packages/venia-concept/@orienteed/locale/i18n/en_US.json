@@ -22,7 +22,7 @@
     "accountInformationPage.editAccount": "Edit Account Information",
     "accountInformationPage.errorTryAgain": "Something went wrong. Please refresh and try again.",
     "accountInformationPage.titleAccount": "Account Information",
-    "accountMenu.accountInfoLink": "Account Information",
+    "accountMenu.accountInfoLink": "Company Info",
     "accountMenu.addressBookLink": "Address Book",
     "accountMenu.buyLaterNotes": "Saved carts",
     "accountMenu.communicationsLink": "Communications",
@@ -46,7 +46,7 @@
     "addressBook.headerText": "Change Shipping Information",
     "addressBookPage.addAddressText": "Add an Address",
     "addressBookPage.addDialogTitle": "New Address",
-    "addressBookPage.addressBookText": "Company info",
+    "addressBookPage.addressBookText": "Address Book",
     "addressBookPage.editDialogTitle": "Edit Address",
     "addressBookPage.makeDefaultAddress": "Make this my default address",
     "addressBookPage.telephone": "Phone {telephone}",
@@ -772,5 +772,6 @@
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} other {Favorites Lists}}",
     "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
-    "global.vatNumber": "VAT Number"
+    "global.vatNumber": "VAT Number",
+    "global.companyName&Name": "Company/Name"
 }

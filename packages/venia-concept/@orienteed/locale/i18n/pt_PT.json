@@ -22,7 +22,7 @@
     "accountInformationPage.editAccount": "Modificar informações de conta",
     "accountInformationPage.errorTryAgain": "Algo correu mal. Por favor atualize a pagina e tente de novo",
     "accountInformationPage.titleAccount": "Informação de conta",
-    "accountMenu.accountInfoLink": "Informação de conta",
+    "accountMenu.accountInfoLink": "Informação da companhia",
     "accountMenu.addressBookLink": "Lista de moradas",
     "accountMenu.buyLaterNotes": "Carrinhos salvos",
     "accountMenu.communicationsLink": "Comunicações",
@@ -46,7 +46,7 @@
     "addressBook.headerText": "Modificar informações de envio",
     "addressBookPage.addAddressText": "Adicionar nova morada",
     "addressBookPage.addDialogTitle": "Nova morada",
-    "addressBookPage.addressBookText": "Informação da companhia",
+    "addressBookPage.addressBookText": "Livro de endereços",
     "addressBookPage.editDialogTitle": "Editar morada",
     "addressBookPage.makeDefaultAddress": "Tornar morada predefinida",
     "addressBookPage.telephone": "Telefone",
@@ -772,5 +772,6 @@
     "wishlistPage.fetchErrorMessage": "Algo correu mal. Por favor atualize a pagina e tente de novo",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} outro {Favorites Lists}}",
     "wishlistPage.wishlistDisabledMessage": "A lista de desejos não esta disponivel de momento",
-    "global.vatNumber": "Número de IVA"
+    "global.vatNumber": "Número de IVA",
+    "global.companyName&Name": "Companhia/Nome"
 }
