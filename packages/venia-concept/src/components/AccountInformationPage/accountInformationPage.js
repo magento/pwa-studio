@@ -33,7 +33,7 @@ const AccountInformationPage = props => {
         formErrors2,
         handleChangePassword,
         handleSubmit,
-        initialValues,
+        initialValues2,
         isDisabled,
         isUpdateMode,
         loadDataError,
@@ -122,13 +122,14 @@ const AccountInformationPage = props => {
             />
         </Message>
     ) : null;
-    const { customer } = initialValues;
+
     let pageContent = null;
-    if (!initialValues && isLoading && !customer) {
+    if (!initialValues2 && isLoading) {
         return fullPageLoadingIndicator;
     } else {
-        const customerName = `${customer?.firstname}`;
-        const customerTaxVatId = `${customer?.taxvat}`;
+        const { customer } = initialValues2;
+        const customerName = `${customer.firstname}`;
+        const customerTaxVatId = `${customer.taxvat}`;
         const passwordValue = '***********';
 
         pageContent = (

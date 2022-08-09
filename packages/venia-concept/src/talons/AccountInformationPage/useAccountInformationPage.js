@@ -268,7 +268,7 @@ export const useAccountInformationPage = props => {
         formAction: 'editCustomer'
     });
 
-    const initialValues = useMemo(() => {
+    const initialValues2 = useMemo(() => {
         if (accountInformationData) {
             return { customer: accountInformationData.customer };
         }
@@ -301,9 +301,9 @@ export const useAccountInformationPage = props => {
                 newPassword = newPassword ? newPassword.trim() : newPassword;
 
                 if (
-                    initialValues.customer.email !== email ||
-                    initialValues.customer.firstname !== firstname ||
-                    initialValues.customer.taxvat !== taxvat
+                    initialValues2.customer.email !== email ||
+                    initialValues2.customer.firstname !== firstname ||
+                    initialValues2.customer.taxvat !== taxvat
                 ) {
                     await setCustomerInformation({
                         variables: {
@@ -341,7 +341,7 @@ export const useAccountInformationPage = props => {
             }
         },
         [
-            initialValues,
+            initialValues2,
             handleCancel,
             setCustomerInformation,
             generateReCaptchaData,
@@ -360,7 +360,7 @@ export const useAccountInformationPage = props => {
         formErrors2: errors,
         handleSubmit,
         handleChangePassword,
-        initialValues,
+        initialValues2,
         isDisabled:
             isUpdatingCustomerInformation ||
             isChangingCustomerPassword ||
