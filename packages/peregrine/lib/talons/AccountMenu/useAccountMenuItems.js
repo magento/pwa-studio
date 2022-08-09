@@ -32,7 +32,7 @@ export const useAccountMenuItems = props => {
             url: '/wishlist'
         },
         {
-            name: 'Company Info',
+            name: 'Address Book',
             id: 'addressBookPage.addressBookText',
             url: '/address-book'
         },

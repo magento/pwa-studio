@@ -161,5 +161,17 @@ module.exports = componentOverrideMapping = {
     [`@magento/peregrine/lib/talons/AddressBookPage/addressBookFragments.gql.js`]: './src/talons/AddresBookPage/addressBookFragments.gql.js',
     [`@magento/venia-ui/lib/components/AddressBookPage/addressBookPage.js`]: './src/components/AddressBookPage/addressBookPage.js',
     [`@magento/venia-ui/lib/components/AddressBookPage/addEditDialog.js`]: './src/components/AddressBookPage/addEditDialog.js',
-    [`@magento/venia-ui/lib/components/AddressBookPage/addEditDialog.module.css`]: './src/components/AddressBookPage/addEditDialog.module.css'
+    [`@magento/venia-ui/lib/components/AddressBookPage/addEditDialog.module.css`]: './src/components/AddressBookPage/addEditDialog.module.css',
+
+    //new overwrite
+    [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPage.js`]: './src/components/AccountInformationPage/accountInformationPage.js',
+
+    //new overwrite
+    [`@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage`]: './src/talons/AccountInformationPage/useAccountInformationPage.js',
+    //new overwrite
+    [`@magento/venia-ui/lib/components/AccountInformationPage/editForm.js`]: './src/components/AccountInformationPage/editForm.js',
+    //new overwrite
+    [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPageFragment.gql.js`]: './src/components/AccountInformationPage/accountInformationPageFragment.gql.js',
+    //new overwrite
+    [`@magento/venia-ui/lib/components/AccountInformationPage/editForm.module.css`]: './src/components/AccountInformationPage/editForm.module.css'
 };

@@ -30,6 +30,8 @@ module.exports = targets => {
     const peregrineTargets = targets.of('@magento/peregrine');
     const talonsTarget = peregrineTargets.talons;
     talonsTarget.tap(talonWrapperConfig => {
-        talonWrapperConfig.AccountMenu.useAccountMenuItems.wrapWith('@orienteed/lms/src/talons/useAccountMenuItems.js');
+        talonWrapperConfig.AccountMenu.useAccountMenuItems.wrapWith(
+            '@orienteed/lms/src/talons/useAccountMenuItems.js'
+        );
     });
 };

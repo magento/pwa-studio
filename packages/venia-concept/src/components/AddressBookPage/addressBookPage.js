@@ -37,7 +37,7 @@ const AddressBookPage = props => {
 
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
-    console.log('customerAddresses', customerAddresses);
+
     const PAGE_TITLE = formatMessage({
         id: 'addressBookPage.addressBookText',
         defaultMessage: 'Company info'
@@ -61,19 +61,25 @@ const AddressBookPage = props => {
                 const isConfirmingDelete =
                     confirmDeleteAddressId === addressEntry.id;
 
-                return (
-                    <AddressCard
-                        address={addressEntry}
-                        countryName={countryName}
-                        isConfirmingDelete={isConfirmingDelete}
-                        isDeletingCustomerAddress={isDeletingCustomerAddress}
-                        key={addressEntry.id}
-                        onCancelDelete={handleCancelDeleteAddress}
-                        onConfirmDelete={handleConfirmDeleteAddress}
-                        onDelete={boundDelete}
-                        onEdit={boundEdit}
-                    />
-                );
+                if (addressEntry.default_billing === true) {
+                    return null;
+                } else {
+                    return (
+                        <AddressCard
+                            address={addressEntry}
+                            countryName={countryName}
+                            isConfirmingDelete={isConfirmingDelete}
+                            isDeletingCustomerAddress={
+                                isDeletingCustomerAddress
+                            }
+                            key={addressEntry.id}
+                            onCancelDelete={handleCancelDeleteAddress}
+                            onConfirmDelete={handleConfirmDeleteAddress}
+                            onDelete={boundDelete}
+                            onEdit={boundEdit}
+                        />
+                    );
+                }
             });
     }, [
         confirmDeleteAddressId,

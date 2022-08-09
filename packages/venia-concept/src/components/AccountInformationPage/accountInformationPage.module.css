@@ -1,6 +1,6 @@
 .root {
     display: grid;
-    padding: 2.5rem 3rem;
+    padding: 2.5rem 2rem;
     row-gap: 2rem;
 }
 
@@ -11,17 +11,21 @@
 }
 
 .accountDetails {
-    display: grid;
+    display: flex;
+    justify-content: space-evenly;
+    /* display: grid;
     row-gap: 2rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr; */
 }
 
 .lineItemsContainer {
-    grid-column: 1 / span 1;
+    display: flex;
+    flex-direction: column;
+    /* grid-column: 1 / span 1;
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr 1fr;
-    line-height: 1.5rem;
+    line-height: 1.5rem; */
 }
 
 .lineItemLabel {
@@ -34,21 +38,63 @@
     composes: lineItemLabel;
 }
 
-.nameValue,
-.emailValue,
-.passwordValue {
-}
-
 .editButtonContainer {
-    grid-column: 1 / span 1;
-    text-align: center;
+    width: auto;
+    /* grid-column: 1 / span 1;
+    text-align: center; */
 }
 
 .editInformationButton {
     composes: root_normalPriority from '@magento/venia-concept/src/components/Button/button.module.css';
+    margin-top: 1rem;
+}
+.titleContainer {
+    display: flex;
+    margin-top: 1rem;
 }
 
-@media (min-width: 961px) {
+.title {
+    margin-right: 1rem;
+}
+
+.addButton {
+    height: 12rem;
+    width: 15rem;
+    border: 2px dashed rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: border-color 0ms var(--venia-global-anim-standard);
+    color: rgb(var(--venia-global-color-text));
+}
+
+.addButton:focus {
+    outline: none;
+    box-shadow: -6px 6px rgb(var(--venia-global-color-blue-700) / 0.3);
+}
+
+.addButton:hover {
+    border-color: var(--orienteed-primary-color-base1);
+    color: var(--orienteed-primary-color-base1);
+}
+
+@media (max-width: 961px) {
+    .accountDetails {
+        display: flex;
+        flex-direction: column;
+    }
+    .lineItemsContainerOuter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .addButtonContainer {
+        margin-top: 5rem;
+        text-align: center;
+    }
+}
+
+/* @media (min-width: 961px) {
     .nameLabel,
     .emailLabel,
     .passwordLabel {
@@ -65,4 +111,4 @@
         grid-template-columns: 1fr;
         grid-gap: 0.75rem;
     }
-}
+} */

@@ -1,7 +1,7 @@
 export default original => {
     return function useAccountMenuItems(props, ...restArgs) {
         // Run the original, wrapped function
-        let { ...defaultReturnData } = original(props, ...restArgs);
+        const { ...defaultReturnData } = original(props, ...restArgs);
 
         // let LMS_MODULE = {
         //     name: 'Learning',
