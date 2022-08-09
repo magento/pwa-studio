@@ -124,7 +124,7 @@ const AccountInformationPage = props => {
     ) : null;
     const { customer } = initialValues;
     let pageContent = null;
-    if (!initialValues && isLoading && customer) {
+    if (!initialValues && isLoading && !customer) {
         return fullPageLoadingIndicator;
     } else {
         const customerName = `${customer?.firstname}`;
