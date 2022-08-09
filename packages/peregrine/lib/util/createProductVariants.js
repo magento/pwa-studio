@@ -35,7 +35,6 @@ export const createProductVariants = product => {
         let len = allPossibleItems.length;
         let foundMatch;
         let currentValueIndex = [];
-        //let attmp = [];
         for (let i = 0; i < len; i++) {
             currentValueIndex = allPossibleItems[i];
             for (let option of variantsValueIndexes) {

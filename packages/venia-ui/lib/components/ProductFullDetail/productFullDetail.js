@@ -184,7 +184,6 @@ const ProductFullDetail = props => {
             />
         );
     // Error message for screen reader
-    const outOfStockErrorMessage = 'This item is currently out of stock';
     const cartActionContent = isSupportedProductType ? (
         <section className={classes.actButton}>
             <Button
@@ -192,7 +191,13 @@ const ProductFullDetail = props => {
                 disabled={isAddToCartDisabled}
                 aria-disabled={isAddToCartDisabled}
                 aria-label={
-                    isEverythingOutOfStock ? outOfStockErrorMessage : ''
+                    isEverythingOutOfStock
+                        ? formatMessage({
+                              id: 'productFullDetail.outOfStockProduct',
+                              defaultMessage:
+                                  'This item is currently out of stock'
+                          })
+                        : ''
                 }
                 role="alert"
                 priority="high"
