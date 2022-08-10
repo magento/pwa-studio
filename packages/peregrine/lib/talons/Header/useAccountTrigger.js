@@ -25,7 +25,7 @@ export const useAccountTrigger = () => {
         setAccountMenuIsOpen(isOpen => !isOpen);
     }, [setAccountMenuIsOpen]);
 
-    const [{ isSignedIn: isUserSignedIn }] = useUserContext(); 
+    const [{ isSignedIn: isUserSignedIn }] = useUserContext();
 
     return {
         accountMenuIsOpen,
