@@ -58,7 +58,7 @@ exports[`Search Page Component error view does not render when data is present 1
     </section>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -102,7 +102,7 @@ exports[`Search Page Component error view renders when data is not present and n
     </div>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -173,7 +173,7 @@ exports[`Search Page Component filter button/modal does not render if there are 
     </section>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -267,7 +267,7 @@ exports[`Search Page Component filter button/modal renders when there are filter
     />
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -336,7 +336,7 @@ exports[`Search Page Component loading indicator does not render when data is pr
     </section>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -406,7 +406,7 @@ exports[`Search Page Component loading indicator renders when data is not presen
     />
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -460,7 +460,7 @@ exports[`Search Page Component search results does not render if data returned h
     </div>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -563,7 +563,7 @@ exports[`Search Page Component search results heading renders a generic message 
     </section>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term false
   </Title>
   <Meta
     content="Search Result for term false"
@@ -673,8 +673,7 @@ exports[`Search Page Component search results heading renders a specific message
     </section>
   </div>
   <Title>
-    Search Results for term 
-    Search Term
+    Search Result for term Search Term
   </Title>
   <Meta
     content="Search Result for term Search Term"
@@ -743,7 +742,7 @@ exports[`Search Page Component search results renders if data has items 1`] = `
     </section>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -799,7 +798,7 @@ exports[`Search Page Component sort button/container does not render if total co
     </div>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -902,7 +901,7 @@ exports[`Search Page Component sort button/container renders when total count > 
     </section>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -958,7 +957,7 @@ exports[`Search Page Component total count renders 0 items if data.products.tota
     </div>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
@@ -1061,7 +1060,7 @@ exports[`Search Page Component total count renders results from data 1`] = `
     </section>
   </div>
   <Title>
-    Search Results for term 
+    Search Result for term undefined
   </Title>
   <Meta
     content="Search Result for term undefined"
