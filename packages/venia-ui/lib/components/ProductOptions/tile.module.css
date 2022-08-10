@@ -30,9 +30,11 @@
 .root_outOfStock,
 .root_selected_outOfStock {
     composes: root;
-    background: #f5f5f5;
-    opacity: 0.55;
-    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    composes: bg-disabledTile from global;
+    composes: opacity-50 from global;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-gray-400 from global;
     composes: text-gray-600 from global;
 }
 .root_outOfStock:after,

@@ -40,8 +40,10 @@
 .root_outOfStock,
 .root_selected_outOfStock {
     composes: root;
-    opacity: 0.4;
-    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    composes: opacity-40 from global;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-gray-400 from global;
 }
 .root_outOfStock:after,
 .root_selected_outOfStock:after {
