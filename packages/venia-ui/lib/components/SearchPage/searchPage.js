@@ -217,7 +217,7 @@ const SearchPage = props => {
                 {content}
                 <Suspense fallback={null}>{maybeFilterModal}</Suspense>
             </div>
-            <Title>Search Results for term {searchTerm}</Title>
+            <Title>{metaTitle}</Title>
             <Meta name="title" content={metaTitle} />
             <Meta name="description" content={metaLabel} />
         </article>
