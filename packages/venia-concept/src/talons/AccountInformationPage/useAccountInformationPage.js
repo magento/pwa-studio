@@ -4,35 +4,43 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha/useGoogleReCaptcha';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-
-import defaultOperations from '@magento/peregrine/lib/talons/AddressBookPage/addressBookPage.gql.js';
 
 export const useAccountInformationPage = props => {
-    const operations = mergeOperations(defaultOperations, props.operations);
     const {
-        createCustomerAddressMutation,
-        deleteCustomerAddressMutation,
-        getCustomerAddressesQuery,
-        updateCustomerAddressMutation
-    } = operations;
+        mutations: {
+            setCustomerInformationMutation,
+            changeCustomerPasswordMutation,
+            createCustomerAddressMutation,
+            deleteCustomerAddressMutation,
+            updateCustomerAddressMutation
+        },
+        queries: { getCustomerInformationQuery, getCustomerAddressesQuery }
+    } = props;
 
+    const [{ isSignedIn }] = useUserContext();
+    const [shouldShowNewPassword, setShouldShowNewPassword] = useState(false);
     const [
         ,
         {
             actions: { setPageLoading }
         }
     ] = useAppContext();
-    const [{ isSignedIn }] = useUserContext();
-    const [displayError, setDisplayError] = useState(false);
 
-    const {
-        mutations: {
-            setCustomerInformationMutation,
-            changeCustomerPasswordMutation
-        },
-        queries: { getCustomerInformationQuery }
-    } = props;
+    const { data: accountInformationData, error: loadDataError } = useQuery(
+        getCustomerInformationQuery,
+        {
+            skip: !isSignedIn,
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
+    );
+
+    const [isUpdateMode, setIsUpdateMode] = useState(false);
+
+    // Use local state to determine whether to display errors or not.
+    // Could be replaced by a "reset mutation" function from apollo client.
+    // https://github.com/apollographql/apollo-feature-requests/issues/170
+    const [displayError, setDisplayError] = useState(false);
 
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
@@ -43,11 +51,42 @@ export const useAccountInformationPage = props => {
     );
 
     const [
+        setCustomerInformation,
+        {
+            error: customerInformationUpdateError,
+            loading: isUpdatingCustomerInformation
+        }
+    ] = useMutation(setCustomerInformationMutation);
+
+    const [
+        changeCustomerPassword,
+        {
+            error: customerPasswordChangeError,
+            loading: isChangingCustomerPassword
+        }
+    ] = useMutation(changeCustomerPasswordMutation);
+
+    const [
         deleteCustomerAddress,
         { loading: isDeletingCustomerAddress }
     ] = useMutation(deleteCustomerAddressMutation);
 
     const [confirmDeleteAddressId, setConfirmDeleteAddressId] = useState();
+
+    const {
+        generateReCaptchaData,
+        recaptchaLoading,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_EDIT',
+        formAction: 'editCustomer'
+    });
+
+    const initialValues = useMemo(() => {
+        if (accountInformationData) {
+            return { customer: accountInformationData.customer };
+        }
+    }, [accountInformationData]);
 
     const isRefetching = !!customerAddressesData && loading;
     const customerAddresses =
@@ -75,6 +114,24 @@ export const useAccountInformationPage = props => {
     const [isDialogEditMode, setIsDialogEditMode] = useState(false);
     const [formAddress, setFormAddress] = useState({});
 
+    const handleChangePassword = useCallback(() => {
+        setShouldShowNewPassword(true);
+    }, [setShouldShowNewPassword]);
+
+    const handleCancel = useCallback(() => {
+        setIsUpdateMode(false);
+        setShouldShowNewPassword(false);
+    }, [setIsUpdateMode]);
+
+    const showUpdateMode = useCallback(() => {
+        setIsUpdateMode(true);
+
+        // If there were errors from removing/updating info, hide them
+        // when we open the modal.
+        setDisplayError(false);
+    }, [setIsUpdateMode]);
+
+    // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
         setPageLoading(isRefetching);
     }, [isRefetching, setPageLoading]);
@@ -95,6 +152,17 @@ export const useAccountInformationPage = props => {
     const handleCancelDeleteAddress = useCallback(() => {
         setConfirmDeleteAddressId(null);
     }, []);
+    const handleEditAddress = useCallback(address => {
+        // Hide all previous errors when we open the dialog.
+        setDisplayError(false);
+
+        setIsDialogEditMode(true);
+        setFormAddress(address);
+        setIsDialogOpen(true);
+    }, []);
+    const handleCancelDialog = useCallback(() => {
+        setIsDialogOpen(false);
+    }, []);
 
     const handleConfirmDeleteAddress = useCallback(async () => {
         try {
@@ -114,18 +182,63 @@ export const useAccountInformationPage = props => {
         getCustomerAddressesQuery
     ]);
 
-    const handleEditAddress = useCallback(address => {
-        // Hide all previous errors when we open the dialog.
-        setDisplayError(false);
+    const handleSubmit = useCallback(
+        async ({ email, firstname, lastname, password, newPassword }) => {
+            try {
+                email = email.trim();
+                firstname = firstname.trim();
+                lastname = lastname.trim();
+                password = password.trim();
+                newPassword = newPassword ? newPassword.trim() : newPassword;
 
-        setIsDialogEditMode(true);
-        setFormAddress(address);
-        setIsDialogOpen(true);
-    }, []);
+                if (
+                    initialValues.customer.email !== email ||
+                    initialValues.customer.firstname !== firstname ||
+                    initialValues.customer.lastname !== lastname
+                ) {
+                    await setCustomerInformation({
+                        variables: {
+                            customerInput: {
+                                email,
+                                firstname,
+                                lastname,
+                                // You must send password because it is required
+                                // when changing email.
+                                password
+                            }
+                        }
+                    });
+                }
+                if (password && newPassword) {
+                    const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
+                    await changeCustomerPassword({
+                        variables: {
+                            currentPassword: password,
+                            newPassword: newPassword
+                        },
+                        ...recaptchaDataForChangeCustomerPassword
+                    });
+                }
+                // After submission, close the form if there were no errors.
+                handleCancel(false);
+            } catch {
+                // Make sure any errors from the mutation are displayed.
+                setDisplayError(true);
 
-    const handleCancelDialog = useCallback(() => {
-        setIsDialogOpen(false);
-    }, []);
+                // we have an onError link that logs errors, and FormError
+                // already renders this error, so just return to avoid
+                // triggering the success callback
+                return;
+            }
+        },
+        [
+            initialValues,
+            handleCancel,
+            setCustomerInformation,
+            generateReCaptchaData,
+            changeCustomerPassword
+        ]
+    );
 
     const handleConfirmDialog = useCallback(
         async formValues => {
@@ -195,7 +308,7 @@ export const useAccountInformationPage = props => {
         ]
     );
 
-    const formErrors = useMemo(() => {
+    const formErrorsCustomerAddress = useMemo(() => {
         if (displayError) {
             return new Map([
                 ['createCustomerAddressMutation', createCustomerAddressError],
@@ -225,142 +338,16 @@ export const useAccountInformationPage = props => {
         initialValues: formAddress
     };
 
-    // const [{ isSignedIn }] = useUserContext();
-    const [shouldShowNewPassword, setShouldShowNewPassword] = useState(false);
-
-    const [isUpdateMode, setIsUpdateMode] = useState(false);
-
-    // Use local state to determine whether to display errors or not.
-    // Could be replaced by a "reset mutation" function from apollo client.
-    // https://github.com/apollographql/apollo-feature-requests/issues/170
-
-    const { data: accountInformationData, error: loadDataError } = useQuery(
-        getCustomerInformationQuery,
-        {
-            skip: !isSignedIn,
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
-        }
-    );
-
-    const [
-        setCustomerInformation,
-        {
-            error: customerInformationUpdateError,
-            loading: isUpdatingCustomerInformation
-        }
-    ] = useMutation(setCustomerInformationMutation);
-
-    const [
-        changeCustomerPassword,
-        {
-            error: customerPasswordChangeError,
-            loading: isChangingCustomerPassword
-        }
-    ] = useMutation(changeCustomerPasswordMutation);
-
-    const {
-        generateReCaptchaData,
-        recaptchaLoading,
-        recaptchaWidgetProps
-    } = useGoogleReCaptcha({
-        currentForm: 'CUSTOMER_EDIT',
-        formAction: 'editCustomer'
-    });
-
-    const initialValues2 = useMemo(() => {
-        if (accountInformationData) {
-            return { customer: accountInformationData.customer };
-        }
-    }, [accountInformationData]);
-
-    const handleChangePassword = useCallback(() => {
-        setShouldShowNewPassword(true);
-    }, [setShouldShowNewPassword]);
-
-    const handleCancel = useCallback(() => {
-        setIsUpdateMode(false);
-        setShouldShowNewPassword(false);
-    }, [setIsUpdateMode]);
-
-    const showUpdateMode = useCallback(() => {
-        setIsUpdateMode(true);
-
-        // If there were errors from removing/updating info, hide them
-        // when we open the modal.
-        setDisplayError(false);
-    }, [setIsUpdateMode]);
-
-    const handleSubmit = useCallback(
-        async ({ email, firstname, taxvat, password, newPassword }) => {
-            try {
-                taxvat = taxvat.trim();
-                email = email.trim();
-                firstname = firstname.trim();
-                password = password.trim();
-                newPassword = newPassword ? newPassword.trim() : newPassword;
-
-                if (
-                    initialValues2.customer.email !== email ||
-                    initialValues2.customer.firstname !== firstname ||
-                    initialValues2.customer.taxvat !== taxvat
-                ) {
-                    await setCustomerInformation({
-                        variables: {
-                            customerInput: {
-                                email,
-                                firstname,
-                                taxvat,
-                                // You must send password because it is required
-                                // when changing email.
-                                password
-                            }
-                        }
-                    });
-                }
-                if (password && newPassword) {
-                    const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
-                    await changeCustomerPassword({
-                        variables: {
-                            currentPassword: password,
-                            newPassword: newPassword
-                        },
-                        ...recaptchaDataForChangeCustomerPassword
-                    });
-                }
-                // After submission, close the form if there were no errors.
-                handleCancel(false);
-            } catch {
-                // Make sure any errors from the mutation are displayed.
-                setDisplayError(true);
-
-                // we have an onError link that logs errors, and FormError
-                // already renders this error, so just return to avoid
-                // triggering the success callback
-                return;
-            }
-        },
-        [
-            initialValues2,
-            handleCancel,
-            setCustomerInformation,
-            generateReCaptchaData,
-            changeCustomerPassword
-        ]
-    );
-
     const errors = displayError
         ? [customerInformationUpdateError, customerPasswordChangeError]
         : [];
 
-    //FOR THE COMPANY PROFILE PAGE
-
     return {
         handleCancel,
-        formErrors2: errors,
+        formErrors: errors,
         handleSubmit,
         handleChangePassword,
-        initialValues2,
+        initialValues,
         isDisabled:
             isUpdatingCustomerInformation ||
             isChangingCustomerPassword ||
@@ -373,7 +360,7 @@ export const useAccountInformationPage = props => {
         confirmDeleteAddressId,
         countryDisplayNameMap,
         customerAddresses,
-        formErrors,
+        formErrorsCustomerAddress,
         formProps,
         handleAddAddress,
         handleCancelDeleteAddress,

@@ -173,5 +173,7 @@ module.exports = componentOverrideMapping = {
     //new overwrite
     [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPageFragment.gql.js`]: './src/components/AccountInformationPage/accountInformationPageFragment.gql.js',
     //new overwrite
-    [`@magento/venia-ui/lib/components/AccountInformationPage/editForm.module.css`]: './src/components/AccountInformationPage/editForm.module.css'
+    [`@magento/venia-ui/lib/components/AccountInformationPage/editForm.module.css`]: './src/components/AccountInformationPage/editForm.module.css',
+    //new overwrite
+    [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPage.gql.js`]: './src/components/AccountInformationPage/accountInformationPage.gql.js'
 };

@@ -30,10 +30,10 @@ const AccountInformationPage = props => {
 
     const {
         handleCancel,
-        formErrors2,
+        formErrorsCustomerAddress,
         handleChangePassword,
         handleSubmit,
-        initialValues2,
+        initialValues,
         isDisabled,
         isUpdateMode,
         loadDataError,
@@ -124,10 +124,10 @@ const AccountInformationPage = props => {
     ) : null;
 
     let pageContent = null;
-    if (!initialValues2 && isLoading) {
+    if (!initialValues) {
         return fullPageLoadingIndicator;
     } else {
-        const { customer } = initialValues2;
+        const { customer } = initialValues;
         const customerName = `${customer.firstname}`;
         const customerTaxVatId = `${customer.taxvat}`;
         const passwordValue = '***********';
@@ -241,7 +241,7 @@ const AccountInformationPage = props => {
                         )}
                     </section>
                     <AddEditDialogCompanyInfo
-                        formErrors={formErrors}
+                        formErrors={formErrorsCustomerAddress}
                         formProps={formProps}
                         isBusy={isDialogBusy}
                         isEditMode={isDialogEditMode}
@@ -252,7 +252,7 @@ const AccountInformationPage = props => {
                 </div>
                 <Suspense fallback={null}>
                     <EditModal
-                        formErrors={formErrors2}
+                        formErrors={formErrors}
                         initialValues={customer}
                         isDisabled={isDisabled}
                         isOpen={isUpdateMode}
@@ -266,9 +266,15 @@ const AccountInformationPage = props => {
             </Fragment>
         );
     }
-
     return (
         <div className={classes.root}>
+            <StoreTitle>
+                {formatMessage({
+                    id: 'accountInformationPage.titleAccount',
+                    defaultMessage: 'Account Information'
+                })}
+            </StoreTitle>
+
             {errorMessage ? errorMessage : pageContent}
         </div>
     );
