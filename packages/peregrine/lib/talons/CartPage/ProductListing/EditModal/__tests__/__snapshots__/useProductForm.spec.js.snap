@@ -201,9 +201,6 @@ Object {
   "isDialogOpen": true,
   "isLoading": false,
   "isSaving": false,
-  "outOfStockVariants": Array [
-    undefined,
-    undefined,
-  ],
+  "outOfStockVariants": Array [],
 }
 `;

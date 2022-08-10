@@ -6,10 +6,7 @@ import { useCartContext } from '../../../../context/cart';
 import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
 import DEFAULT_OPERATIONS from './productForm.gql';
 import { useEventingContext } from '../../../../context/eventing';
-import { findAllMatchingVariants } from '../../../../util/findAllMatchingVariants';
-import { getOutOfStockIndexes } from '../../../../util/getOutOfStockIndexes';
-import { createProductVariants } from '../../../../util/createProductVariants';
-import { getCombinations } from '../../../../util/getCombinations';
+import { getOutOfStockVariantsWithInitialSelection } from '../../../../util/getOutOfStockVariantsWithInitialSelection';
 
 /**
  * This talon contains logic for a product edit form.
@@ -47,58 +44,7 @@ function deriveOptionSelectionsFromProduct(cartItem) {
         return initialOptionSelections;
     }
 }
-export const getOutOfStockVariants = (
-    product,
-    configurableOptionCodes,
-    multipleOptionSelections,
-    configItem,
-    isOutOfStockProductDisplayed
-) => {
-    if (configItem && product) {
-        let variants = product.variants;
-        let variantsIfOutOfStockProductsNotDisplayed = createProductVariants(
-            configItem
-        );
-        //If out of stock products is set to not displayed, use the variants created
-        variants = isOutOfStockProductDisplayed
-            ? variants
-            : variantsIfOutOfStockProductsNotDisplayed;
-        if (
-            multipleOptionSelections &&
-            multipleOptionSelections.size === configurableOptionCodes.size
-        ) {
-            const selectedIndexes = Array.from(
-                multipleOptionSelections.values()
-            ).flat();
 
-            const selectedIndexesCombinations = getCombinations(
-                selectedIndexes,
-                selectedIndexes.length - 1
-            );
-            let oosIndexes = [];
-            for (const option of selectedIndexesCombinations) {
-                const curOption = new Map(
-                    [...multipleOptionSelections].filter(([key, val]) =>
-                        option.includes(val)
-                    )
-                );
-                const curItems = findAllMatchingVariants({
-                    optionCodes: configurableOptionCodes,
-                    singleOptionSelection: curOption,
-                    variants: variants
-                });
-
-                const outOfStockIndex = getOutOfStockIndexes(curItems)
-                    ?.flat()
-                    .filter(idx => !selectedIndexes.includes(idx));
-
-                oosIndexes.push(outOfStockIndex);
-            }
-            return oosIndexes;
-        }
-        return [];
-    }
-};
 export const useProductForm = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
@@ -257,7 +203,7 @@ export const useProductForm = props => {
     const outOfStockVariants = useMemo(() => {
         if (cartItem && configItem) {
             const product = cartItem.product;
-            return getOutOfStockVariants(
+            return getOutOfStockVariantsWithInitialSelection(
                 product,
                 configurableOptionCodes,
                 multipleOptionSelections,
