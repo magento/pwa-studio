@@ -39,6 +39,7 @@ const SearchPage = props => {
 
     const { formatMessage } = useIntl();
     const [currentSort] = sortProps;
+    const metaTitle = `Search Result for term ${searchTerm}`;
     const content = useMemo(() => {
         if (!data && loading) {
             return (
@@ -216,8 +217,8 @@ const SearchPage = props => {
                 {content}
                 <Suspense fallback={null}>{maybeFilterModal}</Suspense>
             </div>
-            <Title>{metaLabel}</Title>
-            <Meta name="title" content={metaLabel} />
+            <Title>Search Results for term {searchTerm}</Title>
+            <Meta name="title" content={metaTitle} />
             <Meta name="description" content={metaLabel} />
         </article>
     );
