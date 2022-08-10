@@ -6,6 +6,7 @@ import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccou
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import AccountChip from '../AccountChip';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import defaultClasses from './accountTrigger.module.css';
 
@@ -25,21 +26,24 @@ const AccountTrigger = props => {
         accountMenuRef,
         accountMenuTriggerRef,
         setAccountMenuIsOpen,
-        handleTriggerClick
+        handleTriggerClick,
+        isUserSignedIn
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = accountMenuIsOpen ? classes.root_open : classes.root;
     const { formatMessage } = useIntl();
 
+    const ariaLabelMyMenu = formatMessage({ id: 'accountTrigger.ariaLabelMyMenu', 
+                    defaultMessage: 'Toggle My Account Menu'})
+    const ariaLabelSignIn = formatMessage({ id: 'accountTrigger.ariaLabelSignIn', 
+                    defaultMessage: 'Sign In'})
+    const ariaLabel = isUserSignedIn ? ariaLabelMyMenu : ariaLabelSignIn;
     return (
         <Fragment>
             <div className={rootClassName} ref={accountMenuTriggerRef}>
-                <button
-                    aria-label={formatMessage({
-                        id: 'accountTrigger.ariaLabel',
-                        defaultMessage: 'Toggle My Account Menu'
-                    })}
+                <button 
+                    aria-label={ariaLabel}
                     className={classes.trigger}
                     onClick={handleTriggerClick}
                     data-cy="AccountTrigger-trigger"
