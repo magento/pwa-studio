@@ -183,25 +183,25 @@ export const useAccountInformationPage = props => {
     ]);
 
     const handleSubmit = useCallback(
-        async ({ email, firstname, lastname, password, newPassword }) => {
+        async ({ email, firstname, taxvat, password, newPassword }) => {
             try {
+                taxvat = taxvat.trim();
                 email = email.trim();
                 firstname = firstname.trim();
-                lastname = lastname.trim();
                 password = password.trim();
                 newPassword = newPassword ? newPassword.trim() : newPassword;
 
                 if (
                     initialValues.customer.email !== email ||
                     initialValues.customer.firstname !== firstname ||
-                    initialValues.customer.lastname !== lastname
+                    initialValues.customer.taxvat !== taxvat
                 ) {
                     await setCustomerInformation({
                         variables: {
                             customerInput: {
                                 email,
                                 firstname,
-                                lastname,
+                                taxvat,
                                 // You must send password because it is required
                                 // when changing email.
                                 password
@@ -239,7 +239,6 @@ export const useAccountInformationPage = props => {
             changeCustomerPassword
         ]
     );
-
     const handleConfirmDialog = useCallback(
         async formValues => {
             if (isDialogEditMode) {
