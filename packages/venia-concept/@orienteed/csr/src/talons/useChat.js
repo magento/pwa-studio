@@ -69,7 +69,7 @@ export const useChat = props => {
 
     const getAttachments = comments => {
         const attachments = [];
-        
+
         comments.forEach(comment => {
             if (comment.attachments.length > 0) {
                 comment.attachments.forEach(attachment => {
@@ -82,18 +82,19 @@ export const useChat = props => {
     };
 
     const sendCommentAndAttachments = comment => {
-        sendComment(ticketId, comment, filesUploaded, attachedFilesText).then(res => {
+        const tempFilesUploaded = filesUploaded;
+        setFilesUploaded([]);
+        sendComment(ticketId, comment, tempFilesUploaded, attachedFilesText).then(res => {
             setTicketComments(prevTicketsComments => [...prevTicketsComments, res]);
             setLastCustomerTicketId(prevLastCustomerTicketId => [...prevLastCustomerTicketId, res.id]);
             res.attachments.length > 0 &&
                 setAttachments(prevAttachments => {
                     const newAttachments = [...prevAttachments];
                     res.attachments.forEach(attachment => {
-                        newAttachments.push({ ...attachment, created_at: res.created_at });
+                        newAttachments.push({ ...attachment, article_id: res.id, created_at: res.created_at });
                     });
                     return newAttachments;
                 });
-            setFilesUploaded([]);
         });
     };
 

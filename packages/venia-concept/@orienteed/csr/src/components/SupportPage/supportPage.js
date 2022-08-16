@@ -9,7 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Button from '@magento/venia-ui/lib/components/Button';
 import CreateTicketModal from '../CreateTicketModal/createTicketModal';
 import Icon from '@magento/venia-ui/lib/components/Icon';
-import LegendModal from '../LegendModal/legendModal';
+import LegendModal from './LegendModal/legendModal';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import ResetButton from '@magento/venia-ui/lib/components/OrderHistoryPage/resetButton';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';

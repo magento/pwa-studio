@@ -26,7 +26,7 @@ const Dropzone = props => {
         'application/tar.gz',
         'application/zip',
         'audio/aac',
-        'audio/mp3',
+        'audio/mpeg',
         'audio/ogg',
         'audio/wav',
         'image/gif',
@@ -126,9 +126,7 @@ const Dropzone = props => {
                 onClick: event => filesUploaded.length >= 6 && event.stopPropagation()
             })}
         >
-            <input {...getInputProps({
-                
-            })} />
+            <input {...getInputProps({})} />
             {filesUploaded.length === 0 ? (
                 <>
                     <img src={plusIcon} alt="Add" />

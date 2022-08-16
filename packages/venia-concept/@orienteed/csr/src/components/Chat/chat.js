@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import { Form } from 'informed';
 
 import Attachment from './Attachment/attachment';
+import AttachmentModal from './AttachmentModal/attachmentModal';
 import Button from '@magento/venia-ui/lib/components/Button';
 import Dropzone from './Dropzone/dropzone';
 import Icon from '@magento/venia-ui/lib/components/Icon';
@@ -55,6 +56,8 @@ const Chat = props => {
     // Icons
     const emojiPickerIcon = <Icon src={EmojiPickerIcon} size={25} />;
     const emojiPicker = <Trigger action={() => console.log('In progress...')}>{emojiPickerIcon}</Trigger>;
+
+    const [attachmentModal, setAttachmentModal] = React.useState(false);
 
     // Methods
     const isoDateToChat = isoDate => {
@@ -187,9 +190,9 @@ const Chat = props => {
                 <p className={classes.chatHeaderTitle}>{chatWithText}</p>
                 <p className={classes.chatHeaderAgent}>{agentText}</p>
             </div>
-            <div className={classes.chatHeaderOptions}>
+            <button onClick={() => setAttachmentModal(true)} className={classes.chatHeaderOptions}>
                 <img src={optionsIcon} alt="options" className={classes.chatHeaderOptionsIcon} />
-            </div>
+            </button>
         </div>
     );
 
@@ -288,6 +291,13 @@ const Chat = props => {
                         <p className={classes.chatFilesTitle}>{sharedFilesText}</p>
                         {showAttachmentsBody(attachments)}
                     </div>
+                    <AttachmentModal
+                        isOpen={attachmentModal}
+                        onConfirm={() => {
+                            setAttachmentModal(false);
+                        }}
+                        showAttachmentsBody={showAttachmentsBody(attachments)}
+                    />
                 </div>
             )}
         </div>
