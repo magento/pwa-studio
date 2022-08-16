@@ -117,7 +117,7 @@ const Chat = props => {
                     {isChat ? file.filename : file.name}
                 </span>
                 <div className={classes.dropzoneItemDataContainer}>
-                    <p className={classes.dropzoneItemSize}>{Math.ceil(file.size / 1000)} KB</p> {/* eslint-disable-line */}
+                    <p className={classes.dropzoneItemSize}>{Math.ceil(file.size / 1000)} KB</p>
                     {!isChat && (
                         <img
                             className={classes.dropzoneItemCloseButton}
@@ -137,6 +137,7 @@ const Chat = props => {
                 {attachmentFiles.map(attachment => {
                     return (
                         <Attachment
+                            key={attachment.id}
                             filename={attachment.filename}
                             size={attachment.size}
                             date={attachment.created_at}
@@ -230,7 +231,7 @@ const Chat = props => {
         ));
 
     const attachmentButton = (
-        <Trigger>
+        <Trigger action={() => {}}>
             {
                 <Dropzone
                     filesUploaded={filesUploaded}

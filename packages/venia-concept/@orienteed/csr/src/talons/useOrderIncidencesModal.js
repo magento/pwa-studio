@@ -14,6 +14,12 @@ export const useOrderIncidencesModal = props => {
         defaultMessage:
             'Describe your problem and what products are related.\nAt B2BStore, our priority is the customer.'
     });
+    const orderDetailsText = formatMessage({ id: 'csr.orderDetails', defaultMessage: 'Order details'})
+    const orderNumberText = formatMessage({ id: 'csr.orderNumber', defaultMessage: 'Order number' });
+    const orderDateText = formatMessage({ id: 'csr.orderDate', defaultMessage: 'Order date' });
+    const statusText = formatMessage({ id: 'csr.status', defaultMessage: 'Status' });
+    const totalPriceText = formatMessage({ id: 'csr.totalPrice', defaultMessage: 'Total price' });
+    const orderDetailTexts = [orderDetailsText, orderNumberText, orderDateText, statusText, totalPriceText]
 
     // States
     const [createTicketStatus, setCreateTicketStatus] = useState('');
@@ -42,7 +48,7 @@ export const useOrderIncidencesModal = props => {
 
     const onConfirm = () => {
         setCreateTicketStatus('loading');
-        createTicket(ticketType, ticketTitle, ticketDescription, filesUploaded, orderData, attachedFilesText).then(
+        createTicket(ticketType, ticketTitle, ticketDescription, filesUploaded, orderData, attachedFilesText, orderDetailTexts).then(
             res => {
                 if (res !== false) {
                     setSuccessToast(true);

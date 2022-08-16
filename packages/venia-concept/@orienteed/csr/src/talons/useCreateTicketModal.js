@@ -29,13 +29,19 @@ export const useCreateTicketModal = props => {
     });
     const orderNotSelectedText = formatMessage({
         id: 'csr.orderNotSelected',
-        defaultMessage: 'Any order has been selected, please select one and try again'
+        defaultMessage: 'No order has been selected, please select one and try again'
     });
     const supportIssuePlaceholder = formatMessage({
         id: 'csr.supportIssuePlaceholder',
         defaultMessage:
             'Describe the problem you have found and we will fix it as soon as possible. If you consider it, you can attach screenshots of the problem.\nThanks for improving B2BStore!'
     });
+    const orderDetailsText = formatMessage({ id: 'csr.orderDetails', defaultMessage: 'Order details' });
+    const orderNumberText = formatMessage({ id: 'csr.orderNumber', defaultMessage: 'Order number' });
+    const orderDateText = formatMessage({ id: 'csr.orderDate', defaultMessage: 'Order date' });
+    const statusText = formatMessage({ id: 'csr.status', defaultMessage: 'Status' });
+    const totalPriceText = formatMessage({ id: 'csr.totalPrice', defaultMessage: 'Total price' });
+    const orderDetailTexts = [orderDetailsText, orderNumberText, orderDateText, statusText, totalPriceText];
 
     // States
     const [createTicketStatus, setCreateTicketStatus] = useState('');
@@ -171,7 +177,8 @@ export const useCreateTicketModal = props => {
                 ticketDescription,
                 filesUploaded,
                 customerOrdersItems.find(item => item.number === orderSelected),
-                attachedFilesText
+                attachedFilesText,
+                orderDetailTexts
             ).then(res => {
                 if (res !== false) {
                     setCreateTicketStatus('success');

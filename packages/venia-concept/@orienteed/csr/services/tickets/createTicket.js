@@ -1,13 +1,14 @@
 import { Magento2 } from '@magento/peregrine/lib/RestApi';
 
-const createTicket = async (ticketType, title, description, files, order, attachedFilesText) => {
+const createTicket = async (ticketType, title, description, files, order, attachedFilesText, orderDetailsTexts) => {
     const { request } = Magento2;
+    const [orderDetailsText, orderNumberText, orderDateText, statusText, totalPriceText] = orderDetailsTexts;
 
     const ticketBodyText =
         ticketType === 'Order issue'
-            ? `${description}\n\nOrder details:\n- Order number: ${order?.number}\n- Date: ${
+            ? `${description}\n\n${orderDetailsText}:\n- ${orderNumberText}: ${order?.number}\n- ${orderDateText}: ${
                   order.order_date
-              }\n- Status: ${order?.status}\n- Price: ${order?.total}\n\n${attachedFilesText}`
+              }\n- ${statusText}: ${order?.status}\n- ${totalPriceText}: ${order?.total}\n\n${attachedFilesText}`
             : description;
 
     const ticketBody = {
