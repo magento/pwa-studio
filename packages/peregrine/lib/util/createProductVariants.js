@@ -21,23 +21,23 @@ export const createProductVariants = product => {
                 array.flatMap(cur => current.map(n => [cur, n].flat()))
             );
 
-        let configurableOptionsValueIndexes = product.configurable_options.map(
+        const configurableOptionsValueIndexes = product.configurable_options.map(
             option => option.values.map(value => value.value_index)
         );
         // Get all possible variants for current options
-        let allPossibleItems = cartesian(...configurableOptionsValueIndexes);
+        const allPossibleItems = cartesian(...configurableOptionsValueIndexes);
 
-        let variantsValueIndexes = variants.map(variant =>
+        const variantsValueIndexes = variants.map(variant =>
             variant.attributes.map(attribute => attribute.value_index)
         );
 
-        let newVariantsArray = [];
-        let len = allPossibleItems.length;
+        const newVariantsArray = [];
+        const len = allPossibleItems.length;
         let foundMatch;
         let currentValueIndex = [];
         for (let i = 0; i < len; i++) {
             currentValueIndex = allPossibleItems[i];
-            for (let option of variantsValueIndexes) {
+            for (const option of variantsValueIndexes) {
                 // If found the same item option in the current variants array, meaning the item is in stock
                 // If not found a match, meaning the item is out of stock, which is why it's not in the current variants array
                 // with the not to display out of stock products selected in Admin dashboard
@@ -52,11 +52,11 @@ export const createProductVariants = product => {
                 }
             }
 
-            let newAttributes = [];
+            const newAttributes = [];
             // If there are more than 1 group of swatches
             if (currentValueIndex.length && currentValueIndex.length > 1) {
-                for (let index of Array.from(currentValueIndex)) {
-                    let code = product.configurable_options.find(option =>
+                for (const index of Array.from(currentValueIndex)) {
+                    const code = product.configurable_options.find(option =>
                         option.values.find(value => value.value_index === index)
                     );
                     newAttributes.push({
@@ -66,7 +66,7 @@ export const createProductVariants = product => {
                 }
                 // If there's only one group of swatches
             } else {
-                let code = product.configurable_options.find(option =>
+                const code = product.configurable_options.find(option =>
                     option.values.find(
                         value => value.value_index === currentValueIndex
                     )

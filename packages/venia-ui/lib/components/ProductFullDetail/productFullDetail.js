@@ -199,7 +199,6 @@ const ProductFullDetail = props => {
                           })
                         : ''
                 }
-                role="alert"
                 priority="high"
                 type="submit"
             >

@@ -277,13 +277,13 @@ const configurableProductWithTwoOptionGroupProps = {
     }
 };
 
-let configurableOptionCodes = new Map();
+const configurableOptionCodes = new Map();
 configurableOptionCodes.set('179', 'fashion_color');
 configurableOptionCodes.set('190', 'fashion_size');
-let multipleOptionSelections = new Map();
+const multipleOptionSelections = new Map();
 multipleOptionSelections.set('179', 14);
 multipleOptionSelections.set('190', 43);
-let isOutOfStockProductDisplayed = true;
+const isOutOfStockProductDisplayed = true;
 
 test('returns correct shape with fetched options', () => {
     useQuery

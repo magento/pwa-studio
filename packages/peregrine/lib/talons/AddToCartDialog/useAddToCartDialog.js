@@ -177,7 +177,7 @@ export const useAddToCartDialog = props => {
             nextMultipleOptionSelections.set(optionId, value);
             setMultipleOptionSelections(nextMultipleOptionSelections);
         },
-        [singleOptionSelection, multipleOptionSelections]
+        [multipleOptionSelections]
     );
 
     const handleAddToCart = useCallback(async () => {

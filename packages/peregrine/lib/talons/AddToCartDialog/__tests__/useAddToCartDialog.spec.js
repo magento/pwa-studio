@@ -681,12 +681,6 @@ describe('with configurable product options', () => {
             }
         });
 
-        const tree = createTestInstance(
-            <renderHookWithProviders
-                {...configurableProductWithTwoOptionGroupProps}
-            />
-        );
-
         // Select a fashion color
         act(() => {
             result.current.configurableOptionProps.onSelectionChange('179', 14);

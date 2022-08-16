@@ -24,7 +24,7 @@ export const getOutOfStockVariants = (
 
     if (isConfigurable) {
         let variants = product.variants;
-        let variantsIfOutOfStockProductsNotDisplayed = createProductVariants(
+        const variantsIfOutOfStockProductsNotDisplayed = createProductVariants(
             product
         );
         //If out of stock products is set to not displayed, use the variants created
@@ -36,11 +36,11 @@ export const getOutOfStockVariants = (
 
         // If only one pair of variations, display out of stock variations before option selection
         if (numberOfVariations === 1) {
-            let outOfStockOptions = variants.filter(
+            const outOfStockOptions = variants.filter(
                 variant => variant.product.stock_status === OUT_OF_STOCK_CODE
             );
 
-            let outOfStockIndex = outOfStockOptions.map(option =>
+            const outOfStockIndex = outOfStockOptions.map(option =>
                 option.attributes.map(attribute => attribute.value_index)
             );
             return outOfStockIndex;
@@ -85,12 +85,14 @@ export const getOutOfStockVariants = (
                         selectedIndexes.length - 1
                     );
                     // Find out of stock items and indexes for each combination
-                    let oosIndexes = [];
+                    const oosIndexes = [];
                     for (const option of selectedIndexesCombinations) {
                         // Map the option indexes to their optionCodes
                         const curOption = new Map(
-                            [...optionSelections].filter(([key, val]) =>
-                                option.includes(val)
+                            [...optionSelections].filter(
+                                ([key, val]) => (
+                                    option.includes(key), option.includes(val)
+                                )
                             )
                         );
                         const curItems = findAllMatchingVariants({

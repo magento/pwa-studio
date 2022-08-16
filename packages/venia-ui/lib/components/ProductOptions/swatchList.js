@@ -14,13 +14,13 @@ const SwatchList = props => {
         isEverythingOutOfStock,
         outOfStockVariants
     } = props;
-    let isOptionOutOfStock;
+
     const classes = useStyle(defaultClasses, props.classes);
     const swatches = useMemo(
         () =>
             items.map(item => {
                 const isSelected = item.label === selectedValue.label;
-
+                let isOptionOutOfStock;
                 if (outOfStockVariants && outOfStockVariants.length > 0) {
                     const flatOutOfStockArray = outOfStockVariants.flat();
                     isOptionOutOfStock = flatOutOfStockArray.includes(
@@ -44,7 +44,7 @@ const SwatchList = props => {
             items,
             onSelectionChange,
             isEverythingOutOfStock,
-            isOptionOutOfStock
+            outOfStockVariants
         ]
     );
 

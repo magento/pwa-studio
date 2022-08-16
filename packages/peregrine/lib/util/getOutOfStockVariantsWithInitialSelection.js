@@ -16,7 +16,7 @@ export const getOutOfStockVariantsWithInitialSelection = (
 ) => {
     if (configItem && product) {
         let variants = product.variants;
-        let variantsIfOutOfStockProductsNotDisplayed = createProductVariants(
+        const variantsIfOutOfStockProductsNotDisplayed = createProductVariants(
             configItem
         );
         //If out of stock products is set to not displayed, use the variants created
@@ -35,11 +35,13 @@ export const getOutOfStockVariantsWithInitialSelection = (
                 selectedIndexes,
                 selectedIndexes.length - 1
             );
-            let oosIndexes = [];
+            const oosIndexes = [];
             for (const option of selectedIndexesCombinations) {
                 const curOption = new Map(
-                    [...multipleOptionSelections].filter(([key, val]) =>
-                        option.includes(val)
+                    [...multipleOptionSelections].filter(
+                        ([key, val]) => (
+                            option.includes(key), option.includes(val)
+                        )
                     )
                 );
                 const curItems = findAllMatchingVariants({

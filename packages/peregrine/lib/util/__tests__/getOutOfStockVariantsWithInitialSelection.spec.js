@@ -1427,7 +1427,7 @@ describe('with configurable Product With One Option Group', () => {
     });
 });
 
-let multipleOptionSelectionsWithTwoOptionGroup = new Map();
+const multipleOptionSelectionsWithTwoOptionGroup = new Map();
 multipleOptionSelectionsWithTwoOptionGroup.set('179', 14);
 multipleOptionSelectionsWithTwoOptionGroup.set('190', 43);
 
@@ -1499,7 +1499,7 @@ describe('with configurable Product With Two Option Group', () => {
     });
 });
 
-let multipleOptionSelectionsWithThreeOptionGroup = new Map();
+const multipleOptionSelectionsWithThreeOptionGroup = new Map();
 multipleOptionSelectionsWithThreeOptionGroup.set('93', 92);
 multipleOptionSelectionsWithThreeOptionGroup.set('179', 14);
 multipleOptionSelectionsWithThreeOptionGroup.set('190', 43);
@@ -1590,7 +1590,7 @@ describe('with configurable Product With Three Option Group', () => {
     });
 });
 
-let multipleOptionSelectionsWithFourOptionGroup = new Map();
+const multipleOptionSelectionsWithFourOptionGroup = new Map();
 multipleOptionSelectionsWithFourOptionGroup.set('93', 92);
 multipleOptionSelectionsWithFourOptionGroup.set('179', 14);
 multipleOptionSelectionsWithFourOptionGroup.set('185', 23);
@@ -1707,7 +1707,7 @@ describe('with configurable Product With Four Option Group', () => {
     });
 });
 
-let multipleOptionSelectionsWithFiveOptionGroup = new Map();
+const multipleOptionSelectionsWithFiveOptionGroup = new Map();
 multipleOptionSelectionsWithFiveOptionGroup.set('190', 49);
 multipleOptionSelectionsWithFiveOptionGroup.set('189', 29);
 multipleOptionSelectionsWithFiveOptionGroup.set('185', 23);

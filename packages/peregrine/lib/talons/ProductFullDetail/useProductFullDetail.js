@@ -538,7 +538,7 @@ export const useProductFullDetail = props => {
             nextSingleOptionSelection.set(optionId, selection);
             setSingleOptionSelection(nextSingleOptionSelection);
         },
-        [optionSelections, singleOptionSelection]
+        [optionSelections]
     );
 
     // Normalization object for product details we need for rendering.

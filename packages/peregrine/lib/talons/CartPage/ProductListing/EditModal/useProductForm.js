@@ -80,7 +80,7 @@ export const useProductForm = props => {
         if (cartItem) {
             setMultipleOptionSelections(derivedOptionSelections);
         }
-    }, [derivedOptionSelections]);
+    }, [derivedOptionSelections, cartItem]);
 
     const handleClose = useCallback(() => {
         setMultipleOptionSelections(new Map());

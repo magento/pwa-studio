@@ -85,7 +85,8 @@ const AddToCartDialog = props => {
         configurableOptionProps,
         imageComponent,
         item,
-        priceComponent
+        priceComponent,
+        outOfStockVariants
     ]);
 
     const titleElement = isFetchingProductDetail ? (
