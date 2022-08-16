@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 
 import Dialog from './Dialog/dialog';
 import Dropzone from '../CreateTicketModal/Dropzone/dropzone';
-import notFoundImage from './Dropzone/Icons/notFoundImage.svg';
+import notFoundImage from '../CreateTicketModal/Icons/notFound.svg';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import Select from '@magento/venia-ui/lib/components/Select';
 import TextArea from '@magento/venia-ui/lib/components/TextArea';

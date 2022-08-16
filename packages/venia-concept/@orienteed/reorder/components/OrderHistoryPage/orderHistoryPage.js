@@ -4,7 +4,7 @@ import { Search as SearchIcon, AlertCircle as AlertCircleIcon, ArrowRight as Sub
 import { shape, string } from 'prop-types';
 import { Form } from 'informed';
 
-import closeIcon from '@orienteed/csr/src/components/OrderIncidencesModal/Dropzone/Icons/close.svg';
+import closeIcon from '@orienteed/csr/src/components/CreateTicketModal/Dropzone/Icons/close.svg';
 import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage.js';
