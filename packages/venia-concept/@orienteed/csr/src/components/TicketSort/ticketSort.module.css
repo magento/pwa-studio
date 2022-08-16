@@ -26,7 +26,6 @@
 
 .menuItem {
     composes: hover_bg-subtle from global;
-
 }
 
 .orderByIcon {

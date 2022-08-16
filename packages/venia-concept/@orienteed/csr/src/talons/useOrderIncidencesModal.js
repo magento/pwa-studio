@@ -24,8 +24,7 @@ export const useOrderIncidencesModal = props => {
     const [ticketTitle, setTicketTitle] = useState('');
     const [orderData, setOrderData] = useState('');
 
-    const ticketType = "Order issue";
-
+    const ticketType = 'Order issue';
 
     // Methods
     const closeModal = () => {
@@ -39,27 +38,21 @@ export const useOrderIncidencesModal = props => {
         setTicketModal(false);
     };
 
-    const showPlaceholder =  orderIssuePlaceholder;
+    const showPlaceholder = orderIssuePlaceholder;
 
     const onConfirm = () => {
         setCreateTicketStatus('loading');
-        createTicket(
-            ticketType,
-            ticketTitle,
-            ticketDescription,
-            filesUploaded,
-            orderData,
-            attachedFilesText
-        ).then(res => {
-            if (res !== false) {                
-                setSuccessToast(true);
-                setCreateTicketStatus('success');
-
-            } else {
-                setCreateTicketStatus('error');
-                setErrorToast(true);
+        createTicket(ticketType, ticketTitle, ticketDescription, filesUploaded, orderData, attachedFilesText).then(
+            res => {
+                if (res !== false) {
+                    setSuccessToast(true);
+                    setCreateTicketStatus('success');
+                } else {
+                    setCreateTicketStatus('error');
+                    setErrorToast(true);
+                }
             }
-        });
+        );
     };
 
     // Effects
@@ -83,7 +76,6 @@ export const useOrderIncidencesModal = props => {
         }
     }, [createTicketStatus, setTicketModal]);
 
-
     return {
         closeModal,
         createTicketStatus,
@@ -97,6 +89,6 @@ export const useOrderIncidencesModal = props => {
         setOrderError,
         setTicketDescription,
         setTicketTitle,
-        showPlaceholder,
+        showPlaceholder
     };
 };

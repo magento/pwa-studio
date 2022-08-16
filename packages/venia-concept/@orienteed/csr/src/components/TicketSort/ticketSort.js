@@ -19,7 +19,7 @@ const TicketSort = props => {
 
     const talonProps = useTicketSort({ setMultipleTickets, setOrderBy, setNumPage, setSortBy });
     const { orderByFunction } = talonProps;
-    
+
     // click event for menu items
     const handleItemClick = useCallback(
         sortId => {

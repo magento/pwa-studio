@@ -88,10 +88,7 @@ const Dialog = props => {
                 priority="low"
                 type="reset"
             >
-                <FormattedMessage
-                    id={cancelTranslationId}
-                    defaultMessage={cancelText}
-                />
+                <FormattedMessage id={cancelTranslationId} defaultMessage={cancelText} />
             </Button>
             <Button
                 data-cy="Dialog-confirmButton"
