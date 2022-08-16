@@ -29,6 +29,7 @@ const Chat = props => {
     const { ticketId } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const {
+        attachmentModal,
         attachments,
         comment,
         dropzoneError,
@@ -36,6 +37,7 @@ const Chat = props => {
         lastCustomerTicketsId,
         lastMessageRef,
         sendCommentAndAttachments,
+        setAttachmentModal,
         setComment,
         setDropzoneError,
         setFilesUploaded,
@@ -56,8 +58,6 @@ const Chat = props => {
     // Icons
     const emojiPickerIcon = <Icon src={EmojiPickerIcon} size={25} />;
     const emojiPicker = <Trigger action={() => console.log('In progress...')}>{emojiPickerIcon}</Trigger>;
-
-    const [attachmentModal, setAttachmentModal] = React.useState(false);
 
     // Methods
     const isoDateToChat = isoDate => {
@@ -117,7 +117,7 @@ const Chat = props => {
                     {isChat ? file.filename : file.name}
                 </span>
                 <div className={classes.dropzoneItemDataContainer}>
-                    <p className={classes.dropzoneItemSize}>{Math.ceil(file.size / 1000)} KB</p>
+                    <p className={classes.dropzoneItemSize}>{Math.ceil(file.size / 1000)} KB</p> {/* eslint-disable-line */}
                     {!isChat && (
                         <img
                             className={classes.dropzoneItemCloseButton}

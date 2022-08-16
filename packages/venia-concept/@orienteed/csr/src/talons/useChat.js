@@ -18,6 +18,7 @@ export const useChat = props => {
     const lastMessageRef = useRef(null);
 
     // States
+    const [attachmentModal, setAttachmentModal] = useState(false);
     const [attachments, setAttachments] = useState([]);
     const [comment, setComment] = useState('');
     const [dropzoneError, setDropzoneError] = useState('');
@@ -99,6 +100,7 @@ export const useChat = props => {
     };
 
     return {
+        attachmentModal,
         attachments,
         comment,
         dropzoneError,
@@ -106,6 +108,7 @@ export const useChat = props => {
         lastCustomerTicketsId,
         lastMessageRef,
         sendCommentAndAttachments,
+        setAttachmentModal,
         setComment,
         setDropzoneError,
         setFilesUploaded,
