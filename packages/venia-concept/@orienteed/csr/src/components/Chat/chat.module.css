@@ -104,6 +104,7 @@
     font-weight: 400;
     line-height: 24px;
     padding: 15px;
+    white-space: pre-line;
 }
 
 .chatBodyCommentAgentText {
@@ -112,6 +113,7 @@
     font-weight: 400;
     line-height: 24px;
     padding: 15px;
+    white-space: pre-line;
 }
 
 .commentMetadataContainer {
