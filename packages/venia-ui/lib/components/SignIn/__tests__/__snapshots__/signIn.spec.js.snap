@@ -37,6 +37,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
     >
       <label
         className="label"
+        htmlFor="email"
       >
         Email address
       </label>
@@ -78,6 +79,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
     >
       <label
         className="label"
+        htmlFor="Password"
       >
         Password
       </label>
@@ -96,7 +98,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
           <input
             autoComplete="current-password"
             className="input"
-            id="password"
+            id="Password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -163,6 +165,7 @@ exports[`renders correctly 1`] = `
     >
       <label
         className="label"
+        htmlFor="email"
       >
         Email address
       </label>
@@ -204,6 +207,7 @@ exports[`renders correctly 1`] = `
     >
       <label
         className="label"
+        htmlFor="Password"
       >
         Password
       </label>
@@ -222,7 +226,7 @@ exports[`renders correctly 1`] = `
           <input
             autoComplete="current-password"
             className="input"
-            id="password"
+            id="Password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -289,6 +293,7 @@ exports[`renders prefilled form with initial values 1`] = `
     >
       <label
         className="label"
+        htmlFor="email"
       >
         Email address
       </label>
@@ -330,6 +335,7 @@ exports[`renders prefilled form with initial values 1`] = `
     >
       <label
         className="label"
+        htmlFor="Password"
       >
         Password
       </label>
@@ -348,7 +354,7 @@ exports[`renders prefilled form with initial values 1`] = `
           <input
             autoComplete="current-password"
             className="input"
-            id="password"
+            id="Password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
