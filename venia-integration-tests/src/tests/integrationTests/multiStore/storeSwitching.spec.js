@@ -18,7 +18,10 @@ import {
 } from '../../../actions/storeSwitcher';
 
 import { assertUrlSuffix, assertNoUrlSuffix } from '../../../assertions/app';
-import { assertProductIsOutOfStock } from '../../../assertions/productPage';
+import {
+    assertProductIsOutOfStock,
+    assertSizeSwatchDisable
+} from '../../../assertions/productPage';
 import {
     assertProductInCartPage,
     assertProductImageDisplayedInCartPage
@@ -1039,9 +1042,8 @@ describe(
             cy.wait(['@mockProduct2RouteData']);
 
             setProductColorOption('Khaki');
-            setProductSizeOption('S');
 
-            assertProductIsOutOfStock();
+            assertSizeSwatchDisable('S');
 
             setProductSizeOption('M');
             addToCartFromProductPage();
