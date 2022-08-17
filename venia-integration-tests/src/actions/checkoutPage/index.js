@@ -238,7 +238,8 @@ export const editCreditCardInformation = ({
     expiration,
     cvv
 }) => {
-    cy.get(fields.checkoutPageCreditCardCardholderName)
+    cy.getIframeBody(fields.checkoutPageCreditCardNameFrame)
+        .find(fields.checkoutPageCreditCardCardFrameholderName)
         .clear()
         .type(name);
 

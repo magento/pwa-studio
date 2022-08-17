@@ -36,7 +36,7 @@ Array [
             className="input"
           >
             <input
-              autoComplete="off"
+              autoComplete="Shipping Email"
               className="input"
               id="email"
               name="email"
@@ -91,6 +91,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="First Name"
               className="input"
               id="firstname"
               name="firstname"
@@ -136,6 +137,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Last Name"
               className="input"
               id="lastname"
               name="lastname"
@@ -160,6 +162,7 @@ Array [
       className="country"
     >
       <Country
+        autoComplete="Country"
         validate={[Function]}
       />
     </div>
@@ -188,6 +191,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Street Address"
               className="input"
               id="street0"
               name="street[0]"
@@ -241,6 +245,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Street Address 2"
               className="input"
               id="street1"
               name="street[1]"
@@ -286,6 +291,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="City"
               className="input"
               id="city"
               name="city"
@@ -310,6 +316,7 @@ Array [
       className="region"
     >
       <Region
+        autoComplete="State"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -341,6 +348,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="ZIP / Postal Code"
               className="input"
               id="root"
               name="postcode"
@@ -386,6 +394,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Phone Number"
               className="input"
               id="telephone"
               name="telephone"
@@ -477,7 +486,7 @@ Array [
             className="input"
           >
             <input
-              autoComplete="off"
+              autoComplete="Shipping Email"
               className="input"
               id="email"
               name="email"
@@ -532,6 +541,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="First Name"
               className="input"
               id="firstname"
               name="firstname"
@@ -577,6 +587,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Last Name"
               className="input"
               id="lastname"
               name="lastname"
@@ -601,6 +612,7 @@ Array [
       className="country"
     >
       <Country
+        autoComplete="Country"
         validate={[Function]}
       />
     </div>
@@ -629,6 +641,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Street Address"
               className="input"
               id="street0"
               name="street[0]"
@@ -682,6 +695,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Street Address 2"
               className="input"
               id="street1"
               name="street[1]"
@@ -727,6 +741,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="City"
               className="input"
               id="city"
               name="city"
@@ -751,6 +766,7 @@ Array [
       className="region"
     >
       <Region
+        autoComplete="State"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -782,6 +798,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="ZIP / Postal Code"
               className="input"
               id="root"
               name="postcode"
@@ -827,6 +844,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Phone Number"
               className="input"
               id="telephone"
               name="telephone"
@@ -914,7 +932,7 @@ Array [
             className="input"
           >
             <input
-              autoComplete="off"
+              autoComplete="Shipping Email"
               className="input"
               id="email"
               name="email"
@@ -961,6 +979,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="First Name"
               className="input"
               id="firstname"
               name="firstname"
@@ -1006,6 +1025,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Last Name"
               className="input"
               id="lastname"
               name="lastname"
@@ -1030,6 +1050,7 @@ Array [
       className="country"
     >
       <Country
+        autoComplete="Country"
         validate={[Function]}
       />
     </div>
@@ -1058,6 +1079,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Street Address"
               className="input"
               id="street0"
               name="street[0]"
@@ -1111,6 +1133,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Street Address 2"
               className="input"
               id="street1"
               name="street[1]"
@@ -1156,6 +1179,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="City"
               className="input"
               id="city"
               name="city"
@@ -1180,6 +1204,7 @@ Array [
       className="region"
     >
       <Region
+        autoComplete="State"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -1211,6 +1236,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="ZIP / Postal Code"
               className="input"
               id="root"
               name="postcode"
@@ -1256,6 +1282,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Phone Number"
               className="input"
               id="telephone"
               name="telephone"
@@ -1369,7 +1396,7 @@ Array [
             className="input"
           >
             <input
-              autoComplete="off"
+              autoComplete="Shipping Email"
               className="input"
               id="email"
               name="email"
@@ -1416,6 +1443,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="First Name"
               className="input"
               id="firstname"
               name="firstname"
@@ -1461,6 +1489,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Last Name"
               className="input"
               id="lastname"
               name="lastname"
@@ -1485,6 +1514,7 @@ Array [
       className="country"
     >
       <Country
+        autoComplete="Country"
         validate={[Function]}
       />
     </div>
@@ -1513,6 +1543,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Street Address"
               className="input"
               id="street0"
               name="street[0]"
@@ -1566,6 +1597,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Street Address 2"
               className="input"
               id="street1"
               name="street[1]"
@@ -1611,6 +1643,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="City"
               className="input"
               id="city"
               name="city"
@@ -1635,6 +1668,7 @@ Array [
       className="region"
     >
       <Region
+        autoComplete="State"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -1666,6 +1700,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="ZIP / Postal Code"
               className="input"
               id="root"
               name="postcode"
@@ -1711,6 +1746,7 @@ Array [
             className="input"
           >
             <input
+              autoComplete="Phone Number"
               className="input"
               id="telephone"
               name="telephone"

@@ -64,12 +64,14 @@ const SignIn = props => {
                 initialValues={initialValues && initialValues}
             >
                 <Field
+                    id="email"
                     label={formatMessage({
                         id: 'signIn.emailAddressText',
                         defaultMessage: 'Email address'
                     })}
                 >
                     <TextInput
+                        id="email"
                         data-cy="SignIn-email"
                         autoComplete="email"
                         field="email"
@@ -80,6 +82,7 @@ const SignIn = props => {
                 <Password
                     data-cy="SignIn-password"
                     fieldName="password"
+                    id="Password"
                     label={formatMessage({
                         id: 'signIn.passwordText',
                         defaultMessage: 'Password'

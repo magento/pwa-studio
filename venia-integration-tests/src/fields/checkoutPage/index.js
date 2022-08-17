@@ -74,8 +74,11 @@ export const checkoutPageShippingGuestForm = '[data-cy="GuestForm-root"]';
 export const checkoutPageShippingCard =
     '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="Card-root"]';
 
-export const checkoutPageCreditCardCardholderName =
-    '[data-cy="CreditCard-root"] [id*="braintree__card-view-input__cardholder-name"]';
+export const checkoutPageCreditCardNameFrame =
+    '[data-cy="CreditCard-root"] [id*="braintree-hosted-field-cardholderName"]';
+
+export const checkoutPageCreditCardCardFrameholderName =
+    '[id*="cardholder-name"]';
 
 export const checkoutPageCreditCardCardFrame =
     '[data-cy="CreditCard-root"] [id*="braintree-hosted-field-number"]';
