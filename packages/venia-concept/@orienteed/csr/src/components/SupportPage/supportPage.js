@@ -64,7 +64,7 @@ const ContentDialog = props => {
         successToast,
         ticketCount,
         ticketModal,
-        tickets,
+        tickets
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -218,7 +218,11 @@ const ContentDialog = props => {
                         setNumPage={setNumPage}
                         setSortBy={setSortBy}
                     />
-                    <TicketFilter filterProps={filterProps} setFilterByType={setFilterByType} setFilterByStatus={setFilterByStatus}/>
+                    <TicketFilter
+                        filterProps={filterProps}
+                        setFilterByType={setFilterByType}
+                        setFilterByStatus={setFilterByStatus}
+                    />
                 </div>
             </div>
         </div>
@@ -232,12 +236,18 @@ const ContentDialog = props => {
             </div>
             <div className={classes.actionsMobileSecondRow}>
                 {searchBar}
+
                 <TicketSort
                     sortProps={sortProps}
                     setMultipleTickets={setMultipleTickets}
                     setOrderBy={setOrderBy}
                     setNumPage={setNumPage}
                     setSortBy={setSortBy}
+                />
+                <TicketFilter
+                    filterProps={filterProps}
+                    setFilterByType={setFilterByType}
+                    setFilterByStatus={setFilterByStatus}
                 />
             </div>
         </div>

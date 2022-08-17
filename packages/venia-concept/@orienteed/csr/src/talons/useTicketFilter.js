@@ -7,16 +7,7 @@ export const useTicketFilter = props => {
     const [activeFilterByStatus, setActiveFilterByStatus] = useState([]);
 
 
-    const filterByFunction = (filterId) =>{
-
-        console.log('use ticket filter', filterId);
-
-        // if (filterId.attribute === 'type') {  
-        //     setFilterByType(filterId);
-        // } else {
-        //     setFilterByStatus(filterId);
-        // }
-        
+    const filterByFunction = (filterId) =>{        
         if (filterId.attribute === 'type') {  
             if (activeFilterByType.includes(filterId.groupId) == false) {
                 setFilterByType([...activeFilterByType, filterId.groupId]);
