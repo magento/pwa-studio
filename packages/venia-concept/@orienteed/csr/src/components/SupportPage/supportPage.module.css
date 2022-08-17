@@ -180,6 +180,13 @@
     justify-content: space-between;
 }
 
+.SortFilterContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
 .actionsMobileContainer {
     display: none;
     flex-direction: column;

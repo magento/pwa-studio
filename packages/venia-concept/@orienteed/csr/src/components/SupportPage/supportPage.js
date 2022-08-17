@@ -28,6 +28,8 @@ import supportIcon from './Icons/supportIcon.svg';
 import { Search as SearchIcon, ArrowRight as SubmitIcon } from 'react-feather';
 import TicketSort from '../TicketSort/ticketSort';
 import { useSortTicket } from '../../talons/useSortTicket.js';
+import TicketFilter from '../TicketFilter/ticketFilter';
+import { useFilterTicket } from '../../talons/useFilterTicket.js';
 
 const DELIMITER = '/';
 const PAGE_SIZE = 8;
@@ -47,6 +49,8 @@ const ContentDialog = props => {
         orderBy,
         searchText,
         setErrorToast,
+        setFilterByStatus,
+        setFilterByType,
         setLegendModal,
         setMultipleTickets,
         setNumPage,
@@ -60,7 +64,7 @@ const ContentDialog = props => {
         successToast,
         ticketCount,
         ticketModal,
-        tickets
+        tickets,
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -76,7 +80,8 @@ const ContentDialog = props => {
     const enhancementText = formatMessage({ id: 'csr.enhancement', defaultMessage: 'Enhancement' });
     const loadingIndicatorText = formatMessage({ id: 'loadingIndicator.message', defaultMessage: 'Fetching Data...' });
 
-    const sortProps1 = useSortTicket();
+    const sortProps = useSortTicket();
+    const filterProps = useFilterTicket();
 
     // Icons
     const searchIcon = <Icon src={SearchIcon} size={24} />;
@@ -205,13 +210,16 @@ const ContentDialog = props => {
             </div>
             <div className={classes.actionsDesktopRow}>
                 {legendDesktop}
-                <TicketSort
-                    sortProps={sortProps1}
-                    setMultipleTickets={setMultipleTickets}
-                    setOrderBy={setOrderBy}
-                    setNumPage={setNumPage}
-                    setSortBy={setSortBy}
-                />
+                <div className={classes.SortFilterContainer}>
+                    <TicketSort
+                        sortProps={sortProps}
+                        setMultipleTickets={setMultipleTickets}
+                        setOrderBy={setOrderBy}
+                        setNumPage={setNumPage}
+                        setSortBy={setSortBy}
+                    />
+                    <TicketFilter filterProps={filterProps} setFilterByType={setFilterByType} setFilterByStatus={setFilterByStatus}/>
+                </div>
             </div>
         </div>
     );
@@ -225,7 +233,7 @@ const ContentDialog = props => {
             <div className={classes.actionsMobileSecondRow}>
                 {searchBar}
                 <TicketSort
-                    sortProps={sortProps1}
+                    sortProps={sortProps}
                     setMultipleTickets={setMultipleTickets}
                     setOrderBy={setOrderBy}
                     setNumPage={setNumPage}
@@ -294,7 +302,7 @@ const ContentDialog = props => {
                                 return <TicketItem groups={groups} key={ticket.id} states={states} ticket={ticket} />;
                             })}
                         </div>
-                        {loadMoreButton}
+                        {tickets.length !== 0 && loadMoreButton}
                     </>
                 ) : (
                     <>
