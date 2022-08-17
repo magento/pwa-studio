@@ -100,34 +100,37 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={true}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={true}
+        aria-label=""
+        className="root_highPriority"
+        disabled={true}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -249,34 +252,37 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={false}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -434,34 +440,37 @@ exports[`it renders an error for an invalid cart 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={false}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -619,34 +628,37 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={false}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -805,34 +817,37 @@ Array [
       className="actions"
     >
       <section
-        className="outOfStockProduct"
-      />
-      <button
-        className="root_highPriority"
-        disabled={false}
-        onClick={[Function]}
-        onDragStart={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchCancel={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        type="submit"
+        className="actButton"
       >
-        <span
-          className="content"
+        <button
+          aria-disabled={false}
+          aria-label=""
+          className="root_highPriority"
+          disabled={false}
+          onClick={[Function]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="submit"
         >
-          <mock-FormattedMessage
-            defaultMessage="Add to Cart"
-            id="productFullDetail.addItemToCart"
-          />
-        </span>
-      </button>
+          <span
+            className="content"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Add to Cart"
+              id="productFullDetail.addItemToCart"
+            />
+          </span>
+        </button>
+      </section>
       <require('../Wishlist/AddToListButton') />
     </section>
     <section
@@ -987,34 +1002,37 @@ exports[`it renders correctly 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={false}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -1168,34 +1186,37 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={false}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -1349,34 +1370,37 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={false}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -1530,34 +1554,37 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={false}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -1715,34 +1742,37 @@ exports[`it renders form level errors 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={false}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -1896,39 +1926,37 @@ exports[`it renders message with everything out of stock 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
+      className="actButton"
     >
-      <mock-FormattedMessage
-        defaultMessage="This item is currently out of stock."
-        id="productFullDetail.outOfStockProduct"
-      />
-    </section>
-    <button
-      className="root_highPriority"
-      disabled={true}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
-    >
-      <span
-        className="content"
+      <button
+        aria-disabled={true}
+        aria-label="This item is currently out of stock"
+        className="root_highPriority"
+        disabled={true}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Out of Stock"
-          id="productFullDetail.itemOutOfStock"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -2241,34 +2269,37 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={true}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={true}
+        aria-label=""
+        className="root_highPriority"
+        disabled={true}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Out of Stock"
-          id="productFullDetail.itemOutOfStock"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton') />
   </section>
   <section
@@ -2422,34 +2453,37 @@ exports[`renders a WishlistButton with props 1`] = `
     className="actions"
   >
     <section
-      className="outOfStockProduct"
-    />
-    <button
-      className="root_highPriority"
-      disabled={false}
-      onClick={[Function]}
-      onDragStart={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchCancel={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      type="submit"
+      className="actButton"
     >
-      <span
-        className="content"
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
       >
-        <mock-FormattedMessage
-          defaultMessage="Add to Cart"
-          id="productFullDetail.addItemToCart"
-        />
-      </span>
-    </button>
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
     <require('../Wishlist/AddToListButton')
       foo="bar"
     />
