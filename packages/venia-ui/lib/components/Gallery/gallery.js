@@ -37,11 +37,7 @@ const Gallery = props => {
     );
 
     return (
-        <div
-            data-cy="Gallery-root"
-            className={classes.root}
-            aria-busy="false"
-        >
+        <div data-cy="Gallery-root" className={classes.root} aria-busy="false">
             <div className={classes.items}>{galleryItems}</div>
         </div>
     );
