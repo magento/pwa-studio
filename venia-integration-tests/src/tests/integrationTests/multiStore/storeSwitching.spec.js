@@ -18,10 +18,7 @@ import {
 } from '../../../actions/storeSwitcher';
 
 import { assertUrlSuffix, assertNoUrlSuffix } from '../../../assertions/app';
-import {
-    assertProductIsOutOfStock,
-    assertSizeSwatchDisable
-} from '../../../assertions/productPage';
+import { assertSizeSwatchDisable } from '../../../assertions/productPage';
 import {
     assertProductInCartPage,
     assertProductImageDisplayedInCartPage
