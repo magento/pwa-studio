@@ -40,7 +40,6 @@ const Gallery = props => {
         <div
             data-cy="Gallery-root"
             className={classes.root}
-            aria-live="polite"
             aria-busy="false"
         >
             <div className={classes.items}>{galleryItems}</div>
