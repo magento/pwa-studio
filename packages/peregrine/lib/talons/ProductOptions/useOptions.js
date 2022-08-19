@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 export const useOptions = props => {
-    const { onSelectionChange, selectedValues } = props;
+    const { onSelectionChange, selectedValues, options } = props;
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
             if (onSelectionChange) {
@@ -12,10 +12,14 @@ export const useOptions = props => {
     );
 
     const selectedValueMap = new Map();
-    for (const { option_label, value_label } of selectedValues) {
+
+    // Map the option with correct option_label
+    for (const { id, value_label } of selectedValues) {
+        const option_label = options.find(
+            option => option.attribute_id === String(id)
+        ).label;
         selectedValueMap.set(option_label, value_label);
     }
-
     return {
         handleSelectionChange,
         selectedValueMap
