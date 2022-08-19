@@ -19,6 +19,7 @@ import { useChat } from '../../talons/useChat';
 
 import defaultClasses from './chat.module.css';
 
+import emptyAttachmentsIcon from '@magento/venia-concept/@orienteed/lms/src/components/CoursesCatalog/Icons/noCourses.svg';
 import doubleCheckUnread from './Icons/doubleCheckUnread.svg';
 import doubleCkeckRead from './Icons/doubleCheckRead.svg';
 import optionsIcon from './Icons/optionsIcon.svg';
@@ -70,6 +71,7 @@ const Chat = props => {
     const symbolsText = formatMessage({ id: 'csr.symbols', defaultMessage: 'Symbols' });
     const travelPlacesText = formatMessage({ id: 'csr.travel_places', defaultMessage: 'Travel & Places' });
     const typeYourMessageText = formatMessage({ id: 'csr.typeYourMessage', defaultMessage: 'Type your message' });
+    const emptyAttachmentsText = formatMessage({ id: 'csr.emptyAttachments', defaultMessage: 'No attachments yet' });
 
     // Methods
     const isoDateToChat = isoDate => {
@@ -160,6 +162,15 @@ const Chat = props => {
                         />
                     );
                 })}
+            </div>
+        );
+    };
+
+    const showEmptyAttachmentsMessage = () => {
+        return (
+            <div className={classes.emptyAttachmentsContainer}>
+                <img className={classes.emptyAttachmentsIcon} src={emptyAttachmentsIcon} alt="Empty attachments icon" />
+                <p className={classes.emptyAttachmentsText}>{emptyAttachmentsText}</p>
             </div>
         );
     };
@@ -343,14 +354,20 @@ const Chat = props => {
                     </div>
                     <div className={classes.chatFilesContainer}>
                         <p className={classes.chatFilesTitle}>{sharedFilesText}</p>
-                        {showAttachmentsBody(attachments)}
+                        {attachments !== undefined && attachments.length > 0
+                            ? showAttachmentsBody(attachments)
+                            : showEmptyAttachmentsMessage()}
                     </div>
                     <AttachmentModal
                         isOpen={attachmentModal}
                         onConfirm={() => {
                             setAttachmentModal(false);
                         }}
-                        showAttachmentsBody={showAttachmentsBody(attachments)}
+                        showAttachmentsBody={
+                            attachments !== undefined && attachments.length > 0
+                                ? showAttachmentsBody(attachments)
+                                : showEmptyAttachmentsMessage()
+                        }
                     />
                 </div>
             )}

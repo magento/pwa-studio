@@ -22,7 +22,7 @@ import defaultClasses from './supportPage.module.css';
 import closeIcon from '../CreateTicketModal/Dropzone/Icons/close.svg';
 import enhancementIcon from './Icons/enhancementIcon.svg';
 import infoIcon from './Icons/infoIcon.svg';
-import noCoursesImage from '@magento/venia-concept/@orienteed/lms/src/components/CoursesCatalog/Icons/noCourses.svg';
+import emptyTicketsIcon from '@magento/venia-concept/@orienteed/lms/src/components/CoursesCatalog/Icons/noCourses.svg';
 import orderIcon from './Icons/orderIcon.svg';
 import supportIcon from './Icons/supportIcon.svg';
 import { Search as SearchIcon, ArrowRight as SubmitIcon } from 'react-feather';
@@ -110,7 +110,7 @@ const ContentDialog = props => {
 
     const emptyTicketsMessage = (
         <div className={classes.emptyTicketsAdviceContainer}>
-            <img src={noCoursesImage} className={classes.noCoursesImage} alt="No courses icon" />
+            <img src={emptyTicketsIcon} className={classes.emptyTicketsAdviceImage} alt="Empty tickets icon" />
             <div>
                 <p className={classes.emptyTicketsAdviceText}>
                     {searchText === '' ? (

@@ -15,6 +15,7 @@
     "csr.december": "Dez",
     "csr.description": "Descrição (máx. 10000 caracteres)",
     "csr.dragFile": "Arraste um arquivo aqui",
+    "csr.emptyAttachments": "Nenhum anexo ainda",
     "csr.emptyTicketsAdvice": "Ops... Parece que você ainda não abriu nenhum ticket",
     "csr.emptyTicketsSearchAdvice": "Ops... Parece que nenhum ticket foi encontrado relacionado a ''{searchText}''",
     "csr.enhacementPlaceholder": "Você tem alguma ideia para melhorar a B2BStore? Diga-nos, estamos abertos para melhorar.",

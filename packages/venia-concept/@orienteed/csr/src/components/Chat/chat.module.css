@@ -321,6 +321,26 @@
 }
 /***** end emojiPicker *****/
 
+/***** emptyAttachments *****/
+.emptyAttachmentsContainer {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+.emptyAttachmentsIcon {
+    width: 100px;
+}
+.emptyAttachmentsText {
+    text-align: center;
+    width: 100%;
+    margin-right: 22px;
+}
+/***** end emptyAttachments *****/
+
 @media (max-width: 700px) {
     .chatFilesContainer {
         display: none;
