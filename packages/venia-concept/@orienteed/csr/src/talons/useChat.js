@@ -23,6 +23,7 @@ export const useChat = props => {
     const [comment, setComment] = useState('');
     const [dropzoneError, setDropzoneError] = useState('');
     const [filesUploaded, setFilesUploaded] = useState([]);
+    const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
     const [lastCustomerTicketsId, setLastCustomerTicketId] = useState();
     const [ticketComments, setTicketComments] = useState();
 
@@ -53,6 +54,17 @@ export const useChat = props => {
     }, [ticketComments]);
 
     // Methods
+    const handleOutsideClick = event => {
+        if (isEmojiPickerOpen && !event.path.includes(document.getElementById('emojiPicker'))) {
+            setIsEmojiPickerOpen(false);
+        }
+    };
+    document.addEventListener('mousedown', handleOutsideClick, false);
+
+    const onEmojiClick = (event, emojiObject) => {
+        setComment(prevComment => prevComment + emojiObject.emoji);
+    };
+
     const getLastCustomerTicketId = comments => {
         let agentTicketFound = false;
         const lastCustomerTicketId = [];
@@ -83,9 +95,10 @@ export const useChat = props => {
     };
 
     const sendCommentAndAttachments = comment => {
+        const formattedComment = comment.replace(/\s+/g, ' ').trim(); // Remove extra spaces and trim
         const tempFilesUploaded = filesUploaded;
         setFilesUploaded([]);
-        sendComment(ticketId, comment, tempFilesUploaded, attachedFilesText).then(res => {
+        sendComment(ticketId, formattedComment, tempFilesUploaded, attachedFilesText).then(res => {
             setTicketComments(prevTicketsComments => [...prevTicketsComments, res]);
             setLastCustomerTicketId(prevLastCustomerTicketId => [...prevLastCustomerTicketId, res.id]);
             res.attachments.length > 0 &&
@@ -105,13 +118,16 @@ export const useChat = props => {
         comment,
         dropzoneError,
         filesUploaded,
+        isEmojiPickerOpen,
         lastCustomerTicketsId,
         lastMessageRef,
+        onEmojiClick,
         sendCommentAndAttachments,
         setAttachmentModal,
         setComment,
         setDropzoneError,
         setFilesUploaded,
+        setIsEmojiPickerOpen,
         ticketComments
     };
 };

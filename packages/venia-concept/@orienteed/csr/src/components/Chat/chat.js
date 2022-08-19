@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-literals */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
@@ -25,6 +26,8 @@ import sendCommentIcon from './Icons/sendCommentIcon.svg';
 import closeIcon from './Icons/close.svg';
 import { Smile as EmojiPickerIcon } from 'react-feather';
 
+import Picker from 'emoji-picker-react';
+
 const Chat = props => {
     const { ticketId } = props;
     const classes = useStyle(defaultClasses, props.classes);
@@ -34,13 +37,16 @@ const Chat = props => {
         comment,
         dropzoneError,
         filesUploaded,
+        isEmojiPickerOpen,
         lastCustomerTicketsId,
         lastMessageRef,
+        onEmojiClick,
         sendCommentAndAttachments,
         setAttachmentModal,
         setComment,
         setDropzoneError,
         setFilesUploaded,
+        setIsEmojiPickerOpen,
         ticketComments
     } = useChat({
         ticketId
@@ -48,16 +54,22 @@ const Chat = props => {
     const { formatMessage } = useIntl();
 
     // Texts
-    const chatWithText = formatMessage({ id: 'csr.chatWith', defaultMessage: 'Chat with' });
+    const activitiesText = formatMessage({ id: 'csr.activities', defaultMessage: 'Activities' });
     const agentText = formatMessage({ id: 'csr.agent', defaultMessage: 'Agent B2BStore' });
-    const noCommentsText = formatMessage({ id: 'csr.noComments', defaultMessage: 'No comments yet' });
+    const animalsNatureText = formatMessage({ id: 'csr.animals_nature', defaultMessage: 'Animals & Nature' });
+    const chatWithText = formatMessage({ id: 'csr.chatWith', defaultMessage: 'Chat with' });
     const fetchingCommentsText = formatMessage({ id: 'csr.fetchingComments', defaultMessage: 'Fetching comments' });
+    const flagsText = formatMessage({ id: 'csr.flags', defaultMessage: 'Flags' });
+    const foodDrinkText = formatMessage({ id: 'csr.food_drink', defaultMessage: 'Food & Drink' });
+    const noCommentsText = formatMessage({ id: 'csr.noComments', defaultMessage: 'No comments yet' });
+    const objectsText = formatMessage({ id: 'csr.objects', defaultMessage: 'Objects' });
+    const recentlyUsedText = formatMessage({ id: 'csr.recently_used', defaultMessage: 'Recently Used' });
+    const searchEmojiText = formatMessage({ id: 'searchTrigger.search', defaultMessage: 'Search' });
     const sharedFilesText = formatMessage({ id: 'csr.sharedFiles', defaultMessage: 'Shared files' });
+    const smileysPeopleText = formatMessage({ id: 'csr.smileys_people', defaultMessage: 'Smileys & People' });
+    const symbolsText = formatMessage({ id: 'csr.symbols', defaultMessage: 'Symbols' });
+    const travelPlacesText = formatMessage({ id: 'csr.travel_places', defaultMessage: 'Travel & Places' });
     const typeYourMessageText = formatMessage({ id: 'csr.typeYourMessage', defaultMessage: 'Type your message' });
-
-    // Icons
-    const emojiPickerIcon = <Icon src={EmojiPickerIcon} size={25} />;
-    const emojiPicker = <Trigger action={() => console.log('In progress...')}>{emojiPickerIcon}</Trigger>;
 
     // Methods
     const isoDateToChat = isoDate => {
@@ -230,6 +242,16 @@ const Chat = props => {
             })
         ));
 
+    const emojiPickerButton = (
+        <Trigger action={() => setIsEmojiPickerOpen(prevState => !prevState)}>
+            {isEmojiPickerOpen ? (
+                <img className={classes.emojiPickerIcon} src={closeIcon} alt="Close icon" />
+            ) : (
+                <Icon src={EmojiPickerIcon} size={25} />
+            )}
+        </Trigger>
+    );
+
     const attachmentButton = (
         <Trigger action={() => {}}>
             {
@@ -254,27 +276,58 @@ const Chat = props => {
                             {chatBody}
                             <span ref={lastMessageRef} />
                         </div>
-                        <Form id="chatTextForm" className={classes.chatInputContainer} onSubmit={handleSubmit}>
-                            <TextInput
-                                id="chatTextInput"
-                                field="comment"
-                                placeholder={typeYourMessageText}
-                                maxLength={10000}
-                                before={emojiPicker}
-                                after={attachmentButton}
-                                value={comment}
-                                onChange={e => setComment(e.target.value.replace(/\s+/g, ' ').trim())}
-                                classes={{ input: classes.chatInput }}
-                            />
-                            <Button
-                                className={classes.sendCommentButton}
-                                disabled={comment === ''}
-                                priority={'high'}
-                                type="submit"
-                            >
-                                <img src={sendCommentIcon} alt="send" className={classes.sendCommentIcon} />
-                            </Button>
-                        </Form>
+                        <div className={classes.chatEmojiContainer}>
+                            <Form id="chatTextForm" className={classes.chatInputContainer} onSubmit={handleSubmit}>
+                                <TextInput
+                                    id="chatTextInput"
+                                    field="comment"
+                                    placeholder={typeYourMessageText}
+                                    maxLength={10000}
+                                    before={emojiPickerButton}
+                                    after={attachmentButton}
+                                    value={comment}
+                                    onChange={e => {
+                                        setComment(e.target.value);
+                                    }}
+                                    classes={{ input: classes.chatInput }}
+                                    supportEmoji={true}
+                                    autoComplete="off"
+                                />
+                                <Button
+                                    className={classes.sendCommentButton}
+                                    disabled={comment === ''}
+                                    priority={'high'}
+                                    type="submit"
+                                >
+                                    <img src={sendCommentIcon} alt="send" className={classes.sendCommentIcon} />
+                                </Button>
+                            </Form>
+                            <div id="emojiPicker">
+                                <Picker
+                                    id="emojiPicker"
+                                    onEmojiClick={onEmojiClick}
+                                    pickerStyle={{
+                                        visibility: `${isEmojiPickerOpen ? 'visible' : 'hidden'}`,
+                                        position: 'absolute',
+                                        transform: 'translate(0%, -117%)',
+                                        width: 'clamp(240px, 25vw, 280px)'
+                                    }}
+                                    native={true}
+                                    searchPlaceholder={searchEmojiText}
+                                    groupNames={{
+                                        smileys_people: smileysPeopleText,
+                                        animals_nature: animalsNatureText,
+                                        food_drink: foodDrinkText,
+                                        travel_places: travelPlacesText,
+                                        activities: activitiesText,
+                                        objects: objectsText,
+                                        symbols: symbolsText,
+                                        flags: flagsText,
+                                        recently_used: recentlyUsedText
+                                    }}
+                                />
+                            </div>
+                        </div>
                         {filesUploaded.length > 0 && (
                             <div className={classes.filesUploadedContainer}>{showAttachmentsInline(filesUploaded)}</div>
                         )}
