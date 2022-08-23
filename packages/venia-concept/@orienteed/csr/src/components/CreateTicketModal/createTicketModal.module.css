@@ -108,6 +108,7 @@
     font-size: 0.875rem;
     font-weight: var(--venia-global-fontWeight-semibold);
     line-height: 1rem;
+    white-space: pre-line;
 }
 /***** end Dropzone *****/
 
