@@ -158,5 +158,6 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/showAllButton.module.css`]: './src/components/CheckoutPage/ItemsReview/showAllButton.module.css',
 
     //New CSR override
-    [`@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage.js`]: './src/talons/AccountInformationPage/useAccountInformationPage.js'
+    [`@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage.js`]: './src/talons/AccountInformationPage/useAccountInformationPage.js',
+    [`@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems.js`]: './src/talons/AccountMenu/useAccountMenuItems.js',
 };

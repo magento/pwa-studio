@@ -1,11 +1,11 @@
 import { Magento2 } from '@magento/peregrine/lib/RestApi';
 
-const doCsrLogin = async () => {
+const doCsrLogout = async () => {
     const { request } = Magento2;
 
     const data = {};
 
-    const reply = await request('/csr/api/v1/auth/login', {
+    const reply = await request('/csr/api/v1/auth/logout', {
         method: 'POST',
         body: JSON.stringify(data),
         credentials: 'include'
@@ -14,4 +14,4 @@ const doCsrLogin = async () => {
     return reply;
 };
 
-export default doCsrLogin;
+export default doCsrLogout;
