@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 import React, { useMemo, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { arrayOf, shape, string } from 'prop-types';
@@ -39,18 +42,6 @@ const TicketSort = props => {
         // should be not render item in collapsed mode.
         if (!expanded) {
             return null;
-        }
-
-        if (Object.keys(currentSort).length === 0) {
-            setSort({
-                sortId: 'sortItem.createdDesc',
-                sortText: formatMessage({
-                    id: 'sortItem.createdDesc',
-                    defaultMessage: 'Creation: Most recent'
-                }),
-                sortAttribute: 'created_at',
-                sortDirection: 'desc'
-            });
         }
 
         const defaultSortMethods = [
@@ -111,7 +102,7 @@ const TicketSort = props => {
                 </div>
             </div>
         );
-    }, [classes.menu, classes.menuItem, classes.root, expanded, formatMessage, handleItemClick, currentSort, setSort]);
+    }, [classes.menu, classes.menuItem, classes.root, expanded, formatMessage, handleItemClick, currentSort]);
 
     // expand or collapse on click
     const handleSortClick = () => {
