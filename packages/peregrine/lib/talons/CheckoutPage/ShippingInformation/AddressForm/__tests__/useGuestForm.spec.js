@@ -1,8 +1,8 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 import { useLazyQuery, useMutation } from '@apollo/client';
-
 import createTestInstance from '../../../../../util/createTestInstance';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import { useGuestForm } from '../useGuestForm';
 
 jest.mock('@apollo/client', () => ({
@@ -29,6 +29,10 @@ jest.mock('../../../../../context/cart', () => {
 
 jest.mock('../guestForm.gql', () => ({
     setGuestShippingMutation: 'setGuestShippingMutation'
+}));
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const Component = props => {
@@ -294,4 +298,36 @@ test('handleToastAction fires up defined toast callback action', () => {
     expect(setGuestSignInUsername).toHaveBeenCalledWith('test@mail.com');
     expect(toggleSignInContent).toHaveBeenCalled();
     expect(removeToast).toHaveBeenCalled();
+});
+
+test('should dispatch add address event when new address', async () => {
+    const setShippingInformation = jest.fn();
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    useMutation.mockReturnValueOnce([
+        setShippingInformation,
+        { called: true, loading: true }
+    ]);
+
+    const emptyData = {
+        city: null,
+        country: {
+            code: null
+        }
+    };
+    const tree = createTestInstance(
+        <Component
+            afterSubmit={jest.fn()}
+            mutations={{}}
+            shippingData={emptyData}
+        />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    await talonProps.handleSubmit({ ...shippingData, country: 'US' });
+
+    expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls).toMatchSnapshot();
 });

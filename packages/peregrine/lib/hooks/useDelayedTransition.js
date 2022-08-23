@@ -44,7 +44,7 @@ export const useDelayedTransition = () => {
 
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
                 const storeCodes = AVAILABLE_STORE_VIEWS.map(
-                    store => `\/?${store.code}`
+                    store => `\/?${store.store_code}`
                 ).join('|');
                 const regex = new RegExp(`^${storeCodes}`);
                 currentPath = currentPath.replace(regex, '');

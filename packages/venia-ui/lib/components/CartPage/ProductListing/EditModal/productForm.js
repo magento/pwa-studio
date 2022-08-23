@@ -31,6 +31,7 @@ const ProductForm = props => {
         errors,
         handleOptionSelection,
         handleSubmit,
+        outOfStockVariants,
         isLoading,
         isSaving,
         isDialogOpen,
@@ -103,6 +104,7 @@ const ProductForm = props => {
                     onSelectionChange={handleOptionSelection}
                     options={configItem.configurable_options}
                     selectedValues={cartItem.configurable_options}
+                    outOfStockVariants={outOfStockVariants}
                 />
                 <h3 className={classes.quantityLabel}>
                     <FormattedMessage
