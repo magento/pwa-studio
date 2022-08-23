@@ -20,12 +20,4 @@ module.exports = targets => {
         );
         return routes;
     });
-
-    const peregrineTargets = targets.of('@magento/peregrine');
-    const talonsTarget = peregrineTargets.talons;
-    talonsTarget.tap(talonWrapperConfig => {
-        talonWrapperConfig.AccountMenu.useAccountMenuItems.wrapWith(
-            '@orienteed/buyLaterNotes/talons/useAccountMenuItems'
-        );
-    });
 };

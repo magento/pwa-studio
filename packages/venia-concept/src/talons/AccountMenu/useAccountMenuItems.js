@@ -18,20 +18,9 @@ export const useAccountMenuItems = props => {
 
     const MENU_ITEMS = [
         {
-            name: 'Order History',
-            id: 'accountMenu.orderHistoryLink',
-            url: '/order-history'
-        },
-        // Hide links until features are completed
-        // {
-        //     name: 'Store Credit & Gift Cards',
-        //     id: 'accountMenu.storeCreditLink',
-        //     url: ''
-        // },
-        {
-            name: 'Favorites Lists',
-            id: 'accountMenu.favoritesListsLink',
-            url: '/wishlist'
+            name: 'Account Information',
+            id: 'accountMenu.accountInfoLink',
+            url: '/account-information'
         },
         {
             name: 'Address Book',
@@ -39,20 +28,51 @@ export const useAccountMenuItems = props => {
             url: '/address-book'
         },
         {
-            name: 'Saved Payments',
-            id: 'accountMenu.savedPaymentsLink',
-            url: '/saved-payments'
+            name: 'Buy Later Notes',
+            id: 'accountMenu.buyLaterNotes',
+            url: '/mpsavecart'
         },
         {
-            name: 'Communications',
-            id: 'accountMenu.communicationsLink',
-            url: '/communications'
+            name: 'Order History',
+            id: 'accountMenu.orderHistoryLink',
+            url: '/order-history'
         },
         {
-            name: 'Account Information',
-            id: 'accountMenu.accountInfoLink',
-            url: '/account-information'
+            name: 'My Quotes',
+            id: 'accountMenu.myQuotes',
+            url: '/mprequestforquote/customer/quotes'
+        },
+        {
+            name: 'Favorites Lists',
+            id: 'accountMenu.favoritesListsLink',
+            url: '/wishlist'
+        },
+        {
+            name: 'Support',
+            id: 'accountMenu.supportLink',
+            url: '/support'
+        },
+        {
+            name: 'Learning',
+            id: 'accountMenu.learningLink',
+            url: '/learning'
         }
+        // Hide links until features are completed
+        // {
+        //     name: 'Store Credit & Gift Cards',
+        //     id: 'accountMenu.storeCreditLink',
+        //     url: ''
+        // },
+        // {
+        //     name: 'Saved Payments',
+        //     id: 'accountMenu.savedPaymentsLink',
+        //     url: '/saved-payments'
+        // },
+        // {
+        //     name: 'Communications',
+        //     id: 'accountMenu.communicationsLink',
+        //     url: '/communications'
+        // },
     ];
 
     return {

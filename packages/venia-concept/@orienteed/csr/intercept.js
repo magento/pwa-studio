@@ -18,11 +18,4 @@ module.exports = targets => {
         });
         return routes;
     });
-
-    // Override useAccountMenuItems talon
-    const peregrineTargets = targets.of('@magento/peregrine');
-    const talonsTarget = peregrineTargets.talons;
-    talonsTarget.tap(talonWrapperConfig => {
-        talonWrapperConfig.AccountMenu.useAccountMenuItems.wrapWith('@orienteed/csr/src/talons/useAccountMenuItems.js');
-    });
 };
