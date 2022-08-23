@@ -64,7 +64,9 @@ const ContentDialog = props => {
         successToast,
         ticketCount,
         ticketModal,
-        tickets
+        tickets,
+        filterByStatus,
+        filterByType
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -108,24 +110,39 @@ const ContentDialog = props => {
         </nav>
     );
 
+    const getEmptyTicketsMessage = () => {
+        if (searchText === '' && (filterByStatus.length === 0 && filterByType.length === 0)) {
+            return (
+                <FormattedMessage
+                    id={'csr.emptyTicketsAdvice'}
+                    defaultMessage={"Oops... Looks like you haven't opened any tickets yet"}
+                />
+            );
+        }
+        if (searchText === '' && (filterByType.length !== 0 || filterByStatus.length !== 0)) {
+            return (
+                <FormattedMessage
+                    id={'csr.emptyTicketsFilterAdvice'}
+                    defaultMessage={"'Oops... It seems that no tickets were found related to your filters"}
+                />
+            );
+        }
+        if (searchText !== '' && (filterByStatus.length === 0 && filterByType.length === 0)) {
+            return (
+                <FormattedMessage
+                    id={'csr.emptyTicketsSearchAdvice'}
+                    defaultMessage={"'Oops... It seems that no tickets were found related to ''{searchText}''"}
+                    values={{ searchText }}
+                />
+            );
+        }
+    };
+
     const emptyTicketsMessage = (
         <div className={classes.emptyTicketsAdviceContainer}>
             <img src={emptyTicketsIcon} className={classes.emptyTicketsAdviceImage} alt="Empty tickets icon" />
             <div>
-                <p className={classes.emptyTicketsAdviceText}>
-                    {searchText === '' ? (
-                        <FormattedMessage
-                            id={'csr.emptyTicketsAdvice'}
-                            defaultMessage={"Oops... Looks like you haven't opened any tickets yet"}
-                        />
-                    ) : (
-                        <FormattedMessage
-                            id={'csr.emptyTicketsSearchAdvice'}
-                            defaultMessage={"'Oops... It seems that no tickets were found related to ''{searchText}''"}
-                            values={{ searchText }}
-                        />
-                    )}
-                </p>
+                <p className={classes.emptyTicketsAdviceText}>{getEmptyTicketsMessage()}</p>
             </div>
             <Button
                 className={classes.primaryButton}
@@ -211,17 +228,19 @@ const ContentDialog = props => {
             <div className={classes.actionsDesktopRow}>
                 {legendDesktop}
                 <div className={classes.SortFilterContainer}>
+                    <TicketFilter
+                        filterProps={filterProps}
+                        setFilterByType={setFilterByType}
+                        setFilterByStatus={setFilterByStatus}
+                        setNumPage={setNumPage}
+                        setMultipleTickets={setMultipleTickets}
+                    />
                     <TicketSort
                         sortProps={sortProps}
                         setMultipleTickets={setMultipleTickets}
                         setOrderBy={setOrderBy}
                         setNumPage={setNumPage}
                         setSortBy={setSortBy}
-                    />
-                    <TicketFilter
-                        filterProps={filterProps}
-                        setFilterByType={setFilterByType}
-                        setFilterByStatus={setFilterByStatus}
                     />
                 </div>
             </div>
@@ -236,18 +255,17 @@ const ContentDialog = props => {
             </div>
             <div className={classes.actionsMobileSecondRow}>
                 {searchBar}
-
+                <TicketFilter
+                    filterProps={filterProps}
+                    setFilterByType={setFilterByType}
+                    setFilterByStatus={setFilterByStatus}
+                />
                 <TicketSort
                     sortProps={sortProps}
                     setMultipleTickets={setMultipleTickets}
                     setOrderBy={setOrderBy}
                     setNumPage={setNumPage}
                     setSortBy={setSortBy}
-                />
-                <TicketFilter
-                    filterProps={filterProps}
-                    setFilterByType={setFilterByType}
-                    setFilterByStatus={setFilterByStatus}
                 />
             </div>
         </div>
@@ -303,7 +321,7 @@ const ContentDialog = props => {
 
                 {ticketCount === undefined || tickets === undefined || groups === undefined || states === undefined ? (
                     <LoadingIndicator children={loadingIndicatorText} />
-                ) : ticketCount !== 0 ? (
+                ) : tickets.length !== 0 ? (
                     <>
                         {actionsDesktopContainer}
                         {actionsMobileContainer}

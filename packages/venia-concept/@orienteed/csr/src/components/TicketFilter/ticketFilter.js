@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 import React, { useMemo, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { arrayOf, shape, string } from 'prop-types';
@@ -12,13 +15,13 @@ import { useTicketFilter } from '../../talons/useTicketFilter';
 
 const TicketFilter = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { filterProps, setFilterByType, setFilterByStatus } = props;
+    const { filterProps, setFilterByType, setFilterByStatus, setNumPage, setMultipleTickets } = props;
     const [currentFilter, setFilter] = filterProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
     const { formatMessage } = useIntl();
 
-    const talonProps = useTicketFilter({ setFilterByType, setFilterByStatus });
-    const { filterByFunction, activeFilterByType, setActiveFilterByType, activeFilterByStatus, setActiveFilterByStatus } = talonProps;
+    const talonProps = useTicketFilter({ setFilterByType, setFilterByStatus, setNumPage, setMultipleTickets });
+    const { filterByFunction, activeFilterByType, setActiveFilterByType, activeFilterByStatus, setActiveFilterByStatus, states, groups } = talonProps;
 
     // click event for menu items
     const handleItemClick = useCallback(
@@ -59,58 +62,33 @@ const TicketFilter = props => {
             return null;
         }
 
-        const defaultfilterMethods = [
-            {
-                id: 'filterItem.typeSupportIssue',
+        const filterTypeItems = Object.keys(groups).map(key => {
+            return {
+                id: "filterItem.type" + groups[key].replace(/ /g, ''),
                 text: formatMessage({
-                    id: 'filterItem.typeSupportIssue',
-                    defaultMessage: 'Type: Support issue'
+                    id: 'csr.ticketType' + groups[key].replace(/ /g, '').charAt(0).toUpperCase() + groups[key].replace(/ /g, '').slice(1),
+                    defaultMessage: 'Type: ' + groups[key]
                 }),
                 attribute: 'type',
-                filterValue: 'Support Issue',
-                groupId: 3
-            },
-            {
-                id: 'filterItem.typeOrderIssue',
+                filterValue: groups[key],
+                groupId: key,
+            };
+        })
+
+        const filterStatusItems = Object.keys(states).map(key => {
+            return {
+                id: "filterItem.status" + states[key].replace(/ /g, ''),
                 text: formatMessage({
-                    id: 'filterItem.typeOrderIssue',
-                    defaultMessage: 'Type: Order issue'
-                }),
-                attribute: 'type',
-                filterValue: 'Order Issue',
-                groupId: 2
-            },
-            {
-                id: 'filterItem.typeEnhancement',
-                text: formatMessage({
-                    id: 'filterItem.typeEnhancement',
-                    defaultMessage: 'Type: Enhancement'
-                }),
-                attribute: 'type',
-                filterValue: 'Enhancement',
-                groupId: 1
-            },
-            {
-                id: 'filterItem.statusOpen',
-                text: formatMessage({
-                    id: 'filterItem.statusOpen',
-                    defaultMessage: 'Status: Open'
+                    id: 'csr.ticketStatus' + states[key].replace(/ /g, '').charAt(0).toUpperCase() + states[key].replace(/ /g, '').slice(1),
+                    defaultMessage: 'Status: ' + states[key]
                 }),
                 attribute: 'status',
-                filterValue: 'New',
-                groupId: 1
-            },
-            {
-                id: 'filterItem.statusClosed',
-                text: formatMessage({
-                    id: 'filterItem.statusClosed',
-                    defaultMessage: 'Status: Closed'
-                }),
-                attribute: 'status',
-                filterValue: 'Closed',
-                groupId: 4
-            }
-        ];
+                filterValue: states[key],
+                groupId: parseInt(key),
+            };
+        })
+
+        const defaultfilterMethods = [...filterTypeItems, ...filterStatusItems];
 
         const itemElements = Array.from(defaultfilterMethods, filterItem => {
             const { attribute, filterValue, groupId } = filterItem;
@@ -139,7 +117,7 @@ const TicketFilter = props => {
                 </div>
             </div>
         );
-    }, [expanded, formatMessage, classes.root, classes.menu, classes.menuItem, handleItemClick, activeFilterByType, activeFilterByStatus]);
+    }, [expanded, groups, states, classes.root, classes.menu, classes.menuItem, formatMessage, handleItemClick, activeFilterByType, activeFilterByStatus]);
 
     // expand or collapse on click
     const handleFilterClick = () => {

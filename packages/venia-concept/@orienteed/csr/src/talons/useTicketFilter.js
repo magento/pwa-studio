@@ -1,10 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export const useTicketFilter = props => {   
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
-    const { setFilterByStatus, setFilterByType } = props;
+import getStates from '../../services/tickets/ticket_states/getStates';
+import getGroups from '../../services/groups/getGroups';
+
+export const useTicketFilter = props => {  
+    const [{ isSignedIn }] = useUserContext(); 
+
+    const { setFilterByStatus, setFilterByType, setNumPage, setMultipleTickets } = props;
     const [activeFilterByType, setActiveFilterByType] = useState([]);
     const [activeFilterByStatus, setActiveFilterByStatus] = useState([]);
+    const [states, setStates] = useState();
+    const [groups, setGroups] = useState();
+
+    useEffect(() => {
+        if (isSignedIn) {
+            getStates().then(res => {
+                setStates(res);
+            });
+            getGroups().then(res => {
+                setGroups(res);
+            });
+        }
+    }, [isSignedIn]);
 
 
     const filterByFunction = (filterId) =>{        
@@ -23,14 +42,17 @@ export const useTicketFilter = props => {
                 setFilterByStatus(activeFilterByStatus.filter(item => item !== filterId.groupId));
             }
         }
-        
+        setMultipleTickets(false);
+        setNumPage([1]);
     }
 
     return {
-        filterByFunction,
-        activeFilterByType,
-        setActiveFilterByType,
         activeFilterByStatus,
+        activeFilterByType,
+        filterByFunction,
+        groups,
         setActiveFilterByStatus,
+        setActiveFilterByType,
+        states
     };
 };

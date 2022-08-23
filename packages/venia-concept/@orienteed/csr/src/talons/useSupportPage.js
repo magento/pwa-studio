@@ -40,14 +40,14 @@ export const useSupportPage = () => {
 
     useEffect(() => {
         if (isSignedIn) {
-            getTickets(orderBy, numPage, '', sortBy).then(res => {
+            const filters = {'status': filterByStatus, 'type': filterByType};
+            getTickets(orderBy, numPage, '', sortBy, filters).then(res => {
                 const newTickets =
                     res.tickets.length !== 0
                         ? orderBy === 'desc'
                             ? Object.values(res.assets.Ticket).reverse()
                             : Object.values(res.assets.Ticket)
                         : res.tickets;
-
                 setTicketCount(prevTicketCount =>
                     multipleTickets ? prevTicketCount + res.tickets_count : res.tickets_count
                 );
@@ -61,12 +61,6 @@ export const useSupportPage = () => {
                         return newTickets;
                     }
                 });
-                if (filterByStatus.length > 0) {
-                    setTickets(tickets.filter(ticket => filterByStatus.includes(ticket.state_id)));
-                }
-                if (filterByType.length > 0) {
-                    setTickets(tickets.filter(ticket => filterByType.includes(ticket.group_id)));
-                }
             });
         }
     }, [isSignedIn, numPage, filterByStatus, filterByType]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -140,6 +134,8 @@ export const useSupportPage = () => {
     return {
         changeOrderBy,
         errorToast,
+        filterByStatus,
+        filterByType,
         groups,
         handleLoadMore,
         handleReset,
