@@ -120,6 +120,19 @@
     text-transform: capitalize;
 }
 
+.fieldChangeState {
+    font-weight: 600;
+    font-size: 14px;
+    color: #E8AA00;
+    text-align: left;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-break: anywhere;
+}
+
 .fieldSummary {
     composes: fieldValue;
     text-overflow: ellipsis;

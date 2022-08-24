@@ -15,9 +15,18 @@ import orderIcon from '@magento/venia-concept/@orienteed/csr/src/components/Supp
 import messageIcon from './Icons/messageIcon.svg';
 import closeIcon from './Icons/closeIcon.svg';
 
+import { useTicketItem } from '../../talons/useTicketItem.js';
+
 const TicketItem = props => {
+
     const classes = useStyle(defaultClasses, props.classes);
-    const { groups, states, ticket, openedChat, setOpenedChat } = props;
+    const { groups, states, ticket, setTickets, openedChat, setOpenedChat } = props;
+
+    const talonProps = useTicketItem({setTickets});
+    const {
+        changeTicketState
+    } = talonProps;
+
     const { formatMessage } = useIntl();
 
     // create a ref for ticket-desktop and ticket-mobile
@@ -41,10 +50,12 @@ const TicketItem = props => {
     const lastUpdateDateText = formatMessage({ id: 'csr.lastUpdateDate', defaultMessage: 'Last update date' });
     const summaryText = formatMessage({ id: 'csr.summary', defaultMessage: 'Summary' });
     const stateText = formatMessage({ id: 'csr.state', defaultMessage: 'State' });
-    const stateValueText = formatMessage({
+    let stateValueText = formatMessage({
         id: `csr.${states[ticket.state_id]}`,
         defaultMessage: states[ticket.state_id]
     });
+    const closeTicketsText = formatMessage({ id: 'csr.closeTicket', defaultMessage: 'Close ticket' });
+    const reopenTicketsText = formatMessage({ id: 'csr.reopenTicket', defaultMessage: 'Reopen ticket' });
 
     const showType = groupId => {
         switch (groups[groupId]) {
@@ -118,6 +129,11 @@ const TicketItem = props => {
                 <div className={classes.ticketListItem}>
                     <p className={classes.fieldTitle}>{stateText}</p>
                     <p className={classes.fieldState}>{stateValueText}</p>
+                    <button 
+                        className={classes.fieldChangeState}
+                        onClick={() => changeTicketState(ticket.id, states[ticket.state_id] === 'closed' ? 'open' : 'closed')}
+                    >{states[ticket.state_id] === 'closed' ? reopenTicketsText : closeTicketsText}
+                    </button>
                 </div>
                 <div
                     onClick={() =>
