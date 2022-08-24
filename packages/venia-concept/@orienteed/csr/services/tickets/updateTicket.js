@@ -7,14 +7,11 @@ const updateTicket = async (ticketId, state) => {
         state: state
     };
 
-    const reply = await request(
-        `/csr/api/v1/tickets/${ticketId}`,
-        {
-            method: 'PUT',
-            body: JSON.stringify(ticketBody),
-            credentials: 'include'
-        }
-    );
+    const reply = await request(`/csr/api/v1/tickets/${ticketId}`, {
+        method: 'PUT',
+        body: JSON.stringify(ticketBody),
+        credentials: 'include'
+    });
 
     return reply;
 };

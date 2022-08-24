@@ -163,6 +163,6 @@ export const useSupportPage = () => {
         successToast,
         ticketCount,
         ticketModal,
-        tickets,
+        tickets
     };
 };

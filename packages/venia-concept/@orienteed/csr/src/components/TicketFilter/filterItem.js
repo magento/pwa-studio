@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { Square, CheckSquare } from 'react-feather'; 
-import{ bool, func, shape, string } from 'prop-types';
+import { Square, CheckSquare } from 'react-feather';
+import { bool, func, shape, string } from 'prop-types';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';

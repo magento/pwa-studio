@@ -5,8 +5,8 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import getStates from '../../services/tickets/ticket_states/getStates';
 import getGroups from '../../services/groups/getGroups';
 
-export const useTicketFilter = props => {  
-    const [{ isSignedIn }] = useUserContext(); 
+export const useTicketFilter = props => {
+    const [{ isSignedIn }] = useUserContext();
 
     const { setFilterByStatus, setFilterByType, setNumPage, setMultipleTickets } = props;
     const [activeFilterByType, setActiveFilterByType] = useState([]);
@@ -25,26 +25,23 @@ export const useTicketFilter = props => {
         }
     }, [isSignedIn]);
 
-
-    const filterByFunction = (filterId) =>{        
-        if (filterId.attribute === 'type') {  
+    const filterByFunction = filterId => {
+        if (filterId.attribute === 'type') {
             if (activeFilterByType.includes(filterId.groupId) == false) {
                 setFilterByType([...activeFilterByType, filterId.groupId]);
-            }
-            else {
+            } else {
                 setFilterByType(activeFilterByType.filter(item => item !== filterId.groupId));
             }
         } else {
             if (activeFilterByStatus.includes(filterId.groupId) == false) {
                 setFilterByStatus([...activeFilterByStatus, filterId.groupId]);
-            }
-            else {
+            } else {
                 setFilterByStatus(activeFilterByStatus.filter(item => item !== filterId.groupId));
             }
         }
         setMultipleTickets(false);
         setNumPage([1]);
-    }
+    };
 
     return {
         activeFilterByStatus,

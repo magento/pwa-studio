@@ -21,7 +21,15 @@ const TicketFilter = props => {
     const { formatMessage } = useIntl();
 
     const talonProps = useTicketFilter({ setFilterByType, setFilterByStatus, setNumPage, setMultipleTickets });
-    const { filterByFunction, activeFilterByType, setActiveFilterByType, activeFilterByStatus, setActiveFilterByStatus, states, groups } = talonProps;
+    const {
+        filterByFunction,
+        activeFilterByType,
+        setActiveFilterByType,
+        activeFilterByStatus,
+        setActiveFilterByStatus,
+        states,
+        groups
+    } = talonProps;
 
     // click event for menu items
     const handleItemClick = useCallback(
@@ -31,21 +39,19 @@ const TicketFilter = props => {
                 filterId: filterId.id,
                 filterAttribute: filterId.attribute,
                 filterValue: filterId.filterValue,
-                filterGroupId: filterId.groupId,
+                filterGroupId: filterId.groupId
             });
 
-            if (filterId.attribute === 'type') {  
+            if (filterId.attribute === 'type') {
                 if (activeFilterByType.includes(filterId.groupId) == false) {
                     setActiveFilterByType([...activeFilterByType, filterId.groupId]);
-                }
-                else {
+                } else {
                     setActiveFilterByType(activeFilterByType.filter(item => item !== filterId.groupId));
                 }
             } else {
                 if (activeFilterByStatus.includes(filterId.groupId) == false) {
                     setActiveFilterByStatus([...activeFilterByStatus, filterId.groupId]);
-                }
-                else {
+                } else {
                     setActiveFilterByStatus(activeFilterByStatus.filter(item => item !== filterId.groupId));
                 }
             }
@@ -53,7 +59,15 @@ const TicketFilter = props => {
             setExpanded(false);
             filterByFunction(filterId);
         },
-        [setFilter, setExpanded, filterByFunction, activeFilterByStatus, activeFilterByType, setActiveFilterByType, setActiveFilterByStatus]
+        [
+            setFilter,
+            setExpanded,
+            filterByFunction,
+            activeFilterByStatus,
+            activeFilterByType,
+            setActiveFilterByType,
+            setActiveFilterByStatus
+        ]
     );
 
     const filterElements = useMemo(() => {
@@ -64,41 +78,52 @@ const TicketFilter = props => {
 
         const filterTypeItems = Object.keys(groups).map(key => {
             return {
-                id: "filterItem.type" + groups[key].replace(/ /g, ''),
+                id: 'filterItem.type' + groups[key].replace(/ /g, ''),
                 text: formatMessage({
-                    id: 'csr.ticketType' + groups[key].replace(/ /g, '').charAt(0).toUpperCase() + groups[key].replace(/ /g, '').slice(1),
+                    id:
+                        'csr.ticketType' +
+                        groups[key]
+                            .replace(/ /g, '')
+                            .charAt(0)
+                            .toUpperCase() +
+                        groups[key].replace(/ /g, '').slice(1),
                     defaultMessage: 'Type: ' + groups[key]
                 }),
                 attribute: 'type',
                 filterValue: groups[key],
-                groupId: key,
+                groupId: key
             };
-        })
+        });
 
         const filterStatusItems = Object.keys(states).map(key => {
             return {
-                id: "filterItem.status" + states[key].replace(/ /g, ''),
+                id: 'filterItem.status' + states[key].replace(/ /g, ''),
                 text: formatMessage({
-                    id: 'csr.ticketStatus' + states[key].replace(/ /g, '').charAt(0).toUpperCase() + states[key].replace(/ /g, '').slice(1),
+                    id:
+                        'csr.ticketStatus' +
+                        states[key]
+                            .replace(/ /g, '')
+                            .charAt(0)
+                            .toUpperCase() +
+                        states[key].replace(/ /g, '').slice(1),
                     defaultMessage: 'Status: ' + states[key]
                 }),
                 attribute: 'status',
                 filterValue: states[key],
-                groupId: parseInt(key),
+                groupId: parseInt(key)
             };
-        })
+        });
 
         const defaultfilterMethods = [...filterTypeItems, ...filterStatusItems];
 
         const itemElements = Array.from(defaultfilterMethods, filterItem => {
             const { attribute, filterValue, groupId } = filterItem;
-            
+
             var isActive = false;
-            
+
             if (attribute === 'type') {
                 isActive = activeFilterByType.includes(groupId);
-            }
-            else {
+            } else {
                 isActive = activeFilterByStatus.includes(groupId);
             }
 
@@ -117,7 +142,18 @@ const TicketFilter = props => {
                 </div>
             </div>
         );
-    }, [expanded, groups, states, classes.root, classes.menu, classes.menuItem, formatMessage, handleItemClick, activeFilterByType, activeFilterByStatus]);
+    }, [
+        expanded,
+        groups,
+        states,
+        classes.root,
+        classes.menu,
+        classes.menuItem,
+        formatMessage,
+        handleItemClick,
+        activeFilterByType,
+        activeFilterByStatus
+    ]);
 
     // expand or collapse on click
     const handleFilterClick = () => {

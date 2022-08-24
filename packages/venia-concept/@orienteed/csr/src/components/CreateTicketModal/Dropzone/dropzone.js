@@ -54,7 +54,6 @@ const Dropzone = props => {
                         id: 'csr.fileExceedsMaxSize',
                         defaultMessage: 'File exceeds maximum size of 10MB'
                     });
-                    // setDropzoneError(customMessage);
                 } else if (rejectedFile.errors[0].code === 'too-many-files') {
                     customMessage = formatMessage({
                         id: 'csr.maxFilesReached',

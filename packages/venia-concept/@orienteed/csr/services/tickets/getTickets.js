@@ -1,6 +1,12 @@
 import { Magento2 } from '@magento/peregrine/lib/RestApi';
 
-const getTickets = async (orderBy = 'desc', numPage = 1, search = '', sortBy = 'created_at', filters={'status': [], 'type': []}) => {
+const getTickets = async (
+    orderBy = 'desc',
+    numPage = 1,
+    search = '',
+    sortBy = 'created_at',
+    filters = { status: [], type: [] }
+) => {
     const { request } = Magento2;
 
     const reply = await request(
