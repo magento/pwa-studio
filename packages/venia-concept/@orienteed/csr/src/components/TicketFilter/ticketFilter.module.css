@@ -21,7 +21,8 @@
     composes: text-colorDefault from global;
     composes: text-left from global;
     composes: top-[110%] from global;
-    composes: z-menu from global;
+    /* composes: z-menu from global; */
+    z-index: 9;
 }
 
 .menuItem {

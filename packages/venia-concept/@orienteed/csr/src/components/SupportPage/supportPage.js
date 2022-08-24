@@ -259,6 +259,8 @@ const ContentDialog = props => {
                     filterProps={filterProps}
                     setFilterByType={setFilterByType}
                     setFilterByStatus={setFilterByStatus}
+                    setNumPage={setNumPage}
+                    setMultipleTickets={setMultipleTickets}
                 />
                 <TicketSort
                     sortProps={sortProps}
