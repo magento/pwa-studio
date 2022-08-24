@@ -44,49 +44,41 @@ const Dropzone = props => {
         if (errorFound !== null && errorFound !== []) {
             let customMessage = '';
             let errorMessage = '';
-            console.log("errorFound", errorFound);
             for (let index = 0; index < errorFound.length; index++) {
                 const rejectedFile = errorFound[index];
-                console.log("rejectedFile", rejectedFile);
                 if (rejectedFile.errors[0].code === 'file-too-large') {
-                    customMessage =
-                        formatMessage({
-                            id: 'csr.fileExceedsMaxSize',
-                            defaultMessage: 'File exceeds maximum size of 10MB'
-                        });
+                    customMessage = formatMessage({
+                        id: 'csr.fileExceedsMaxSize',
+                        defaultMessage: 'File exceeds maximum size of 10MB'
+                    });
                     // setDropzoneError(customMessage);
                 } else if (rejectedFile.errors[0].code === 'too-many-files') {
-                    customMessage =
-                        formatMessage({
-                            id: 'csr.maxFilesReached',
-                            defaultMessage: 'Maximum number of files reached'
-                        });
+                    customMessage = formatMessage({
+                        id: 'csr.maxFilesReached',
+                        defaultMessage: 'Maximum number of files reached'
+                    });
                 } else if (rejectedFile.errors[0].code === 'file-invalid-type') {
-                    customMessage =
-                        formatMessage({
-                            id: 'csr.fileTypeNotSupported',
-                            defaultMessage: 'File type not supported'
-                        });
+                    customMessage = formatMessage({
+                        id: 'csr.fileTypeNotSupported',
+                        defaultMessage: 'File type not supported'
+                    });
                 } else if (rejectedFile.errors[0].code === 'file-invalid-extension') {
-                    customMessage =
-                        formatMessage({
-                            id: 'csr.fileExtensionNotSupported',
-                            defaultMessage: 'File extension not supported'
-                        });
+                    customMessage = formatMessage({
+                        id: 'csr.fileExtensionNotSupported',
+                        defaultMessage: 'File extension not supported'
+                    });
                 } else {
-                    customMessage =
-                        formatMessage({
-                            id: 'csr.somethingWrong',
-                            defaultMessage: 'Something went wrong with the file you tried to upload.'
-                        });
+                    customMessage = formatMessage({
+                        id: 'csr.somethingWrong',
+                        defaultMessage: 'Something went wrong with the file you tried to upload.'
+                    });
                 }
 
-                errorMessage = errorMessage + rejectedFile.file.name + ": " + customMessage
+                errorMessage = errorMessage + rejectedFile.file.name + ': ' + customMessage;
 
                 if (index < errorFound.length - 1) {
                     errorMessage = errorMessage + '\n';
                 }
-                console.log(errorMessage);
                 setDropzoneError(errorMessage);
             }
         }
