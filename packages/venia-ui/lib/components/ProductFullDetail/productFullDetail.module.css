@@ -197,3 +197,6 @@
     composes: text-subtle from global;
     composes: w-full from global;
 }
+.actButton {
+    composes: mt-sm from global;
+}

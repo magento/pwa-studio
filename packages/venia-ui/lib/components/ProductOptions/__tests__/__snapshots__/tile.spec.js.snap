@@ -13,6 +13,34 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
 </button>
 `;
 
+exports[`appends "_outOfStock" to className if isEverythingOutOfStock is true 1`] = `
+<button
+  className="root_outOfStock"
+  disabled={true}
+  onClick={[Function]}
+  title="red"
+  type="button"
+>
+  <span>
+    red
+  </span>
+</button>
+`;
+
+exports[`appends "_outOfStock" to className if isOptionOutOfStock is true 1`] = `
+<button
+  className="root_outOfStock"
+  disabled={true}
+  onClick={[Function]}
+  title="red"
+  type="button"
+>
+  <span>
+    red
+  </span>
+</button>
+`;
+
 exports[`appends "_selected" to className if isSelected is true 1`] = `
 <button
   className="root_selected"
