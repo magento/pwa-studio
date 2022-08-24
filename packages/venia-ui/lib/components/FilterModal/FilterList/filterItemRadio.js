@@ -43,6 +43,7 @@ const FilterItemRadio = props => {
             id={`item-${group}-${value}`}
             label={title}
             value={value}
+            aria-label={title}
             onChange={handleOnchange}
             data-cy="FilterDefault-radio"
             ariaLabel={ariaLabel}
