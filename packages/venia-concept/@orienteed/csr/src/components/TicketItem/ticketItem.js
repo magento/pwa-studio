@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 
 import Chat from '../Chat';
@@ -17,9 +17,22 @@ import closeIcon from './Icons/closeIcon.svg';
 
 const TicketItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { groups, states, ticket } = props;
+    const { groups, states, ticket, openedChat, setOpenedChat } = props;
     const { formatMessage } = useIntl();
-    const [isChatOpen, setIsChatOpen] = useState(false);
+
+    // create a ref for ticket-desktop and ticket-mobile
+    const ticketDesktopRef = React.createRef();
+    const ticketMobileRef = React.createRef();
+
+    useEffect(() => {
+        if (openedChat[0] === ticket.number) {
+            setTimeout(() => {
+                window.innerWidth > 700
+                    ? ticketDesktopRef?.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+                    : ticketMobileRef?.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+            }, 1000);
+        }
+    }, [openedChat]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Texts
     const ticketNumberText = formatMessage({ id: 'csr.ticketNumber', defaultMessage: 'Ticket number' });
@@ -75,7 +88,7 @@ const TicketItem = props => {
     const chatView = <Chat ticketId={ticket.id} />;
 
     const ticketItemList = (
-        <div className={classes.ticketAndChatListContainer}>
+        <div ref={ticketDesktopRef} className={classes.ticketAndChatListContainer}>
             <div className={classes.ticketListContainer}>
                 <img src={showType(ticket.group_id)} className={classes.ticketImage} alt="Ticket logo" />
                 <div className={classes.ticketListItem}>
@@ -106,21 +119,28 @@ const TicketItem = props => {
                     <p className={classes.fieldTitle}>{stateText}</p>
                     <p className={classes.fieldState}>{stateValueText}</p>
                 </div>
-                <div onClick={() => setIsChatOpen(prevState => !prevState)} className={classes.messageContainer}>
+                <div
+                    onClick={() =>
+                        setOpenedChat(prevState => (prevState[0] === ticket.number ? [-1] : [ticket.number]))
+                    }
+                    className={classes.messageContainer}
+                >
                     <img
-                        src={isChatOpen ? closeIcon : messageIcon}
-                        className={isChatOpen ? classes.closeIcon : classes.messageIcon}
+                        src={openedChat[0] === ticket.number ? closeIcon : messageIcon}
+                        className={openedChat[0] === ticket.number ? classes.closeIcon : classes.messageIcon}
                         alt="Message icon"
                     />
-                    {!isChatOpen && <span className={classes.messageText}>{ticket.article_count}</span>}
+                    {openedChat[0] !== ticket.number && (
+                        <span className={classes.messageText}>{ticket.article_count}</span>
+                    )}
                 </div>
             </div>
-            {isChatOpen && chatView}
+            {openedChat[0] === ticket.number && chatView}
         </div>
     );
 
     const ticketItemGrid = (
-        <div className={classes.ticketAndChatGridContainer}>
+        <div ref={ticketMobileRef} className={classes.ticketAndChatGridContainer}>
             <div className={classes.ticketGridContainer}>
                 <div className={classes.ticketGridHeaderContainer}>
                     <img src={showType(ticket.group_id)} className={classes.ticketImageGrid} alt="Ticket logo" />
@@ -155,17 +175,24 @@ const TicketItem = props => {
                         <p className={classes.fieldTitle}>{summaryText}</p>
                         <p className={classes.fieldSummaryGrid}>{ticket.title}</p>
                     </div>
-                    <div onClick={() => setIsChatOpen(prevState => !prevState)} className={classes.messageContainer}>
+                    <div
+                        onClick={() =>
+                            setOpenedChat(prevState => (prevState[0] === ticket.number ? [-1] : [ticket.number]))
+                        }
+                        className={classes.messageContainer}
+                    >
                         <img
-                            src={isChatOpen ? closeIcon : messageIcon}
-                            className={isChatOpen ? classes.closeIcon : classes.messageIcon}
+                            src={openedChat[0] === ticket.number ? closeIcon : messageIcon}
+                            className={openedChat[0] === ticket.number ? classes.closeIcon : classes.messageIcon}
                             alt="Message icon"
                         />
-                        {!isChatOpen && <span className={classes.messageText}>{ticket.article_count}</span>}
+                        {openedChat[0] !== ticket.number && (
+                            <span className={classes.messageText}>{ticket.article_count}</span>
+                        )}
                     </div>
                 </div>
             </div>
-            {isChatOpen && chatView}
+            {openedChat[0] === ticket.number && chatView}
         </div>
     );
 

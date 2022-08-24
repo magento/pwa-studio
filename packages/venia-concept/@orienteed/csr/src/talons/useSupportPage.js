@@ -25,8 +25,8 @@ export const useSupportPage = () => {
     const [sortBy, setSortBy] = useState('created_at');
     const [filterByStatus, setFilterByStatus] = useState([]);
     const [filterByType, setFilterByType] = useState([]);
+    const [openedChat, setOpenedChat] = useState([-1]);
 
-    // Effects
     useEffect(() => {
         if (isSignedIn) {
             getGroups().then(res => {
@@ -40,7 +40,7 @@ export const useSupportPage = () => {
 
     useEffect(() => {
         if (isSignedIn) {
-            const filters = {'status': filterByStatus, 'type': filterByType};
+            const filters = { status: filterByStatus, type: filterByType };
             getTickets(orderBy, numPage, '', sortBy, filters).then(res => {
                 const newTickets =
                     res.tickets.length !== 0
@@ -64,7 +64,6 @@ export const useSupportPage = () => {
             });
         }
     }, [isSignedIn, numPage, filterByStatus, filterByType]); // eslint-disable-line react-hooks/exhaustive-deps
-
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -143,6 +142,7 @@ export const useSupportPage = () => {
         legendModal,
         numPage,
         openTicketModal,
+        openedChat,
         orderBy,
         searchText,
         setErrorToast,
@@ -151,6 +151,7 @@ export const useSupportPage = () => {
         setLegendModal,
         setMultipleTickets,
         setNumPage,
+        setOpenedChat,
         setOrderBy,
         setSortBy,
         setSuccessToast,
@@ -162,6 +163,6 @@ export const useSupportPage = () => {
         successToast,
         ticketCount,
         ticketModal,
-        tickets
+        tickets,
     };
 };

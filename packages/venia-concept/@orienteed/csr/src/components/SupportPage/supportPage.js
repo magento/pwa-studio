@@ -39,6 +39,8 @@ const ContentDialog = props => {
     const talonProps = useSupportPage();
     const {
         errorToast,
+        filterByStatus,
+        filterByType,
         groups,
         handleLoadMore,
         handleReset,
@@ -46,6 +48,7 @@ const ContentDialog = props => {
         legendModal,
         numPage,
         openTicketModal,
+        openedChat,
         orderBy,
         searchText,
         setErrorToast,
@@ -54,6 +57,7 @@ const ContentDialog = props => {
         setLegendModal,
         setMultipleTickets,
         setNumPage,
+        setOpenedChat,
         setOrderBy,
         setSortBy,
         setSuccessToast,
@@ -64,9 +68,7 @@ const ContentDialog = props => {
         successToast,
         ticketCount,
         ticketModal,
-        tickets,
-        filterByStatus,
-        filterByType
+        tickets
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -329,7 +331,16 @@ const ContentDialog = props => {
                         {actionsMobileContainer}
                         <div className={classes.ticketsContainer}>
                             {tickets.map(ticket => {
-                                return <TicketItem groups={groups} key={ticket.id} states={states} ticket={ticket} />;
+                                return (
+                                    <TicketItem
+                                        groups={groups}
+                                        key={ticket.id}
+                                        openedChat={openedChat}
+                                        setOpenedChat={setOpenedChat}
+                                        states={states}
+                                        ticket={ticket}
+                                    />
+                                );
                             })}
                         </div>
                         {tickets.length !== 0 && loadMoreButton}
