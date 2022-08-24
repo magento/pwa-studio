@@ -339,6 +339,7 @@ const ContentDialog = props => {
                                         setOpenedChat={setOpenedChat}
                                         states={states}
                                         ticket={ticket}
+                                        setTickets={setTickets}
                                     />
                                 );
                             })}

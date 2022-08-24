@@ -56,6 +56,13 @@
     padding: 8px 0px;
 }
 
+.ticketGridItemState {
+    composes: ticketGridItem;
+    padding: 0;
+    gap: 15px;
+    justify-content: space-between;
+}
+
 .ticketMainHeaderContainer > .ticketGridItem + .ticketGridItem {
     border-top: 1px solid #cecccc;
 }
@@ -123,12 +130,16 @@
 .fieldChangeState {
     font-weight: 600;
     font-size: 14px;
-    color: #E8AA00;
+    color: #e8aa00;
     text-align: left;
+    height: 24px;
+    cursor: pointer;
+
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     display: -webkit-box;
     overflow: hidden;
+    padding-right: 10px;
     text-overflow: ellipsis;
     line-break: anywhere;
 }

@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 
 import Chat from '../Chat';
@@ -16,46 +17,37 @@ import messageIcon from './Icons/messageIcon.svg';
 import closeIcon from './Icons/closeIcon.svg';
 
 import { useTicketItem } from '../../talons/useTicketItem.js';
+import ConfirmationModal from './ConfirmationModal/confirmationModal';
 
 const TicketItem = props => {
-
-    const classes = useStyle(defaultClasses, props.classes);
     const { groups, states, ticket, setTickets, openedChat, setOpenedChat } = props;
-
-    const talonProps = useTicketItem({setTickets});
-    const {
-        changeTicketState
-    } = talonProps;
-
+    const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
-    // create a ref for ticket-desktop and ticket-mobile
-    const ticketDesktopRef = React.createRef();
-    const ticketMobileRef = React.createRef();
-
-    useEffect(() => {
-        if (openedChat[0] === ticket.number) {
-            setTimeout(() => {
-                window.innerWidth > 700
-                    ? ticketDesktopRef?.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
-                    : ticketMobileRef?.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
-            }, 1000);
-        }
-    }, [openedChat]); // eslint-disable-line react-hooks/exhaustive-deps
+    const talonProps = useTicketItem({ setTickets, openedChat, ticket });
+    const {
+        changeTicketState,
+        isConfirmationModalOpen,
+        setIsConfirmationModalOpen,
+        ticketDesktopRef,
+        ticketMobileRef
+    } = talonProps;
 
     // Texts
-    const ticketNumberText = formatMessage({ id: 'csr.ticketNumber', defaultMessage: 'Ticket number' });
-    const creationDateText = formatMessage({ id: 'csr.creationDate', defaultMessage: 'Creation date' });
+    const closeText = formatMessage({ id: 'csr.close', defaultMessage: 'close' });
+    const closeTicketsText = formatMessage({ id: 'csr.closeTicket', defaultMessage: 'Close ticket' });
     const closedDateText = formatMessage({ id: 'csr.closedDate', defaultMessage: 'Closed date' });
+    const creationDateText = formatMessage({ id: 'csr.creationDate', defaultMessage: 'Creation date' });
     const lastUpdateDateText = formatMessage({ id: 'csr.lastUpdateDate', defaultMessage: 'Last update date' });
-    const summaryText = formatMessage({ id: 'csr.summary', defaultMessage: 'Summary' });
+    const reopenText = formatMessage({ id: 'csr.reopen', defaultMessage: 'reopen' });
+    const reopenTicketsText = formatMessage({ id: 'csr.reopenTicket', defaultMessage: 'Reopen ticket' });
     const stateText = formatMessage({ id: 'csr.state', defaultMessage: 'State' });
-    let stateValueText = formatMessage({
+    const summaryText = formatMessage({ id: 'csr.summary', defaultMessage: 'Summary' });
+    const ticketNumberText = formatMessage({ id: 'csr.ticketNumber', defaultMessage: 'Ticket number' });
+    const stateValueText = formatMessage({
         id: `csr.${states[ticket.state_id]}`,
         defaultMessage: states[ticket.state_id]
     });
-    const closeTicketsText = formatMessage({ id: 'csr.closeTicket', defaultMessage: 'Close ticket' });
-    const reopenTicketsText = formatMessage({ id: 'csr.reopenTicket', defaultMessage: 'Reopen ticket' });
 
     const showType = groupId => {
         switch (groups[groupId]) {
@@ -129,11 +121,9 @@ const TicketItem = props => {
                 <div className={classes.ticketListItem}>
                     <p className={classes.fieldTitle}>{stateText}</p>
                     <p className={classes.fieldState}>{stateValueText}</p>
-                    <button 
-                        className={classes.fieldChangeState}
-                        onClick={() => changeTicketState(ticket.id, states[ticket.state_id] === 'closed' ? 'open' : 'closed')}
-                    >{states[ticket.state_id] === 'closed' ? reopenTicketsText : closeTicketsText}
-                    </button>
+                    <p className={classes.fieldChangeState} onClick={() => setIsConfirmationModalOpen(true)}>
+                        {states[ticket.state_id] === 'closed' ? reopenTicketsText : closeTicketsText}
+                    </p>
                 </div>
                 <div
                     onClick={() =>
@@ -180,9 +170,14 @@ const TicketItem = props => {
                                 <p className={classes.fieldValueGrid}>{isoDateToLocaleDate(ticket.updated_at)}</p>
                             </div>
                         )}
-                        <div className={classes.ticketGridItem}>
-                            <p className={classes.fieldTitle}>{stateText}</p>
-                            <p className={classes.fieldStateGrid}>{states[ticket.state_id]}</p>
+                        <div className={classes.ticketGridItemState}>
+                            <div className={classes.ticketGridItem}>
+                                <p className={classes.fieldTitle}>{stateText}</p>
+                                <p className={classes.fieldStateGrid}>{states[ticket.state_id]}</p>
+                            </div>
+                            <p className={classes.fieldChangeState} onClick={() => setIsConfirmationModalOpen(true)}>
+                                {states[ticket.state_id] === 'closed' ? reopenTicketsText : closeTicketsText}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -209,6 +204,13 @@ const TicketItem = props => {
                 </div>
             </div>
             {openedChat[0] === ticket.number && chatView}
+            <ConfirmationModal
+                isOpen={isConfirmationModalOpen}
+                onCancel={() => setIsConfirmationModalOpen(false)}
+                onConfirm={() => changeTicketState(ticket.id, states[ticket.state_id] === 'closed' ? 'open' : 'closed')}
+                nextState={states[ticket.state_id] === 'closed' ? reopenText : closeText}
+                ticketNumber={ticket.number}
+            />
         </div>
     );
 
