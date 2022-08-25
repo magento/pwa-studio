@@ -1,0 +1,31 @@
+{
+  "data": {
+    "storeConfig": {
+      "store_code": "default",
+      "enable_multiple_wishlists": "1",
+      "maximum_number_of_wishlists": "5",
+      "__typename": "StoreConfig"
+    },
+    "customer": {
+      "id": null,
+      "wishlists": [
+        {
+          "id": "102",
+          "name": "Wish List",
+          "__typename": "Wishlist"
+        },
+        {
+          "id": "103",
+          "name": "Test List1",
+          "__typename": "Wishlist"
+        },
+        {
+          "id": "104",
+          "name": "Test List2",
+          "__typename": "Wishlist"
+        }
+      ],
+      "__typename": "Customer"
+    }
+  }
+}

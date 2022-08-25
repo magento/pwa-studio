@@ -1,5 +1,6 @@
 ---
 title: UPWARD
+adobeio: /guides/packages/upward/
 ---
 
 **UPWARD** is an acronym for Unified Progressive Web App Response Definition.
@@ -21,9 +22,9 @@ The main purpose of an UPWARD server is to do the following:
 An UPWARD server sits between a PWA and its resources, such as Magento.
 It acts as the backend service for a PWA frontend that is able to proxy requests to connected services or serve static files.
 
-![UPWARD server diagram]({{site.baseurl}}{% link technologies/upward/images/upward-server-diagram.png %})
+![UPWARD server diagram]({% link technologies/upward/images/upward-server-diagram.png %})
 
-See [RATIONALE.md][] in the `upward-spec` package for a more detailed explanation of the need for an UPWARD server. 
+See [RATIONALE.md][] in the `upward-spec` package for a more detailed explanation of the need for an UPWARD server.
 ### UPWARD definition file
 
 An UPWARD server uses a definition file to determine the appropriate process or service for a request from an application shell.
@@ -85,9 +86,9 @@ This supports the need for content that a PWA can [cache and reuse when offline]
 [HTTPS]: https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https
 [edge servers]: https://en.wikipedia.org/wiki/Content_delivery_network
 [idempotent]: https://developer.mozilla.org/en-US/docs/Glossary/Idempotent
-[RATIONALE.md]: https://github.com/magento/pwa-studio/blob/master/packages/upward-spec/RATIONALE.md
-[`upward.yml`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/upward.yml
-[upward-js]: https://github.com/magento/pwa-studio/tree/master/packages/upward-js
+[RATIONALE.md]: https://github.com/magento/pwa-studio/blob/main/packages/upward-spec/RATIONALE.md
+[`upward.yml`]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/upward.yml
+[upward-js]: https://github.com/magento/pwa-studio/tree/main/packages/upward-js
 [cache and reuse when offline]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
 
-[Reference Implementation]: {{ site.baseurl }}{% link technologies/upward/reference-implementation/index.md %}
+[Reference Implementation]: {% link technologies/upward/reference-implementation/index.md %}

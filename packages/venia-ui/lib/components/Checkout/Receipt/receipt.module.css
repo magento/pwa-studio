@@ -1,0 +1,45 @@
+.root {
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: bottom-0 from global;
+    composes: grid from global;
+    composes: grid-rows-autoLast from global;
+    composes: h-screen from global;
+    composes: left-0 from global;
+    composes: pt-lg from global;
+    composes: right-0 from global;
+}
+
+.body {
+    composes: pb-xs from global;
+    composes: pt-sm from global;
+    composes: px-xs from global;
+}
+
+.footer {
+    composes: flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: mx-sm from global;
+    composes: my-0 from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+}
+
+.textBlock {
+    composes: leading-relaxed from global;
+    composes: mx-0 from global;
+    composes: my-sm from global;
+    composes: text-sm from global;
+}
+
+.orderId {
+    composes: text-brand-base from global;
+    composes: underline from global;
+}
+
+.header {
+    composes: font-light from global;
+    composes: leading-tight from global;
+    composes: text-lg from global;
+}

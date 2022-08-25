@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a ButtonItem component 1`] = `
+<div>
+  <button
+    className="root_normalPriority"
+    disabled={false}
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    style={
+      Object {
+        "border": undefined,
+        "borderColor": undefined,
+        "borderRadius": undefined,
+        "borderWidth": undefined,
+        "marginBottom": undefined,
+        "marginLeft": undefined,
+        "marginRight": undefined,
+        "marginTop": undefined,
+        "paddingBottom": undefined,
+        "paddingLeft": undefined,
+        "paddingRight": undefined,
+        "paddingTop": undefined,
+        "textAlign": undefined,
+      }
+    }
+    type="button"
+  >
+    <span
+      className="content"
+    />
+  </button>
+</div>
+`;
+
+exports[`renders a ButtonItem component with all properties configured 1`] = `
+<div
+  className="test-class"
+>
+  <button
+    className="root_normalPriority"
+    disabled={false}
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    style={
+      Object {
+        "border": "solid",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderRadius": "10px",
+        "borderWidth": "1px",
+        "justifyContent": "flex-start",
+        "marginBottom": "10px",
+        "marginLeft": "10px",
+        "marginRight": "10px",
+        "marginTop": "10px",
+        "paddingBottom": "10px",
+        "paddingLeft": "10px",
+        "paddingRight": "10px",
+        "paddingTop": "10px",
+        "textAlign": "left",
+      }
+    }
+    type="button"
+  >
+    <span
+      className="content"
+    >
+      button text
+    </span>
+  </button>
+</div>
+`;

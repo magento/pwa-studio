@@ -1,0 +1,21 @@
+.root {
+    composes: hidden from global;
+    composes: items-center from global;
+    composes: h-lg from global;
+
+    composes: sm_grid from global;
+}
+
+.root_open {
+    composes: root;
+
+    composes: shadow-headerTrigger from global;
+}
+
+.trigger {
+    composes: root from '../clickable.module.css';
+
+    composes: h-[3rem] from global;
+    composes: min-w-[6rem] from global;
+    composes: z-foreground from global;
+}

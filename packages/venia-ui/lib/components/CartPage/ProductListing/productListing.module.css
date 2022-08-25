@@ -1,0 +1,11 @@
+.root {
+    composes: gap-x-md from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+}
+
+.errorText {
+    composes: leading-normal from global;
+    composes: mb-xs from global;
+    composes: text-error from global;
+}

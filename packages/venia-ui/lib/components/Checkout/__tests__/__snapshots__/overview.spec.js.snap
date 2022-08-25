@@ -69,6 +69,7 @@ Array [
     </button>
     <button
       className="root"
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -114,11 +115,21 @@ Array [
         <span
           className="summary"
         >
-          <div />
-          <br />
+          <span>
+            $
+          </span>
           <span>
             0
-             Items
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
+          <br />
+          <span>
+            0 Items
           </span>
         </span>
         <span
@@ -131,26 +142,49 @@ Array [
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Back to Cart
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
         className="content"
       >
         Confirm Order
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
       </span>
     </button>
   </div>,
@@ -226,6 +260,7 @@ Array [
     </button>
     <button
       className="root"
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -271,11 +306,21 @@ Array [
         <span
           className="summary"
         >
-          <div />
-          <br />
+          <span>
+            $
+          </span>
           <span>
             0
-             Items
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
+          <br />
+          <span>
+            0 Items
           </span>
         </span>
         <span
@@ -288,20 +333,20 @@ Array [
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Back to Cart
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -310,161 +355,27 @@ Array [
         Confirm Order
       </span>
     </button>
-  </div>,
-]
-`;
-
-exports[`renders "0" for Price if subtotal is falsy 1`] = `
-Array [
-  <div
-    className="body"
-  >
     <button
-      className="root"
+      className="root_lowPriority"
+      disabled={false}
       onClick={[Function]}
-    >
-      <span
-        className="content"
-      >
-        <span
-          className="label"
-        >
-          <span>
-            Ship To
-          </span>
-        </span>
-        <span
-          className="summary"
-        >
-          <ShippingAddressSummary
-            classes={
-              Object {
-                "body": "body",
-                "footer": "footer",
-              }
-            }
-          />
-        </span>
-        <span
-          className="icon"
-        />
-      </span>
-    </button>
-    <button
-      className="root"
-      onClick={[Function]}
-    >
-      <span
-        className="content"
-      >
-        <span
-          className="label"
-        >
-          <span>
-            Pay With
-          </span>
-        </span>
-        <span
-          className="summary"
-        >
-          <PaymentMethodSummary
-            classes={
-              Object {
-                "body": "body",
-                "footer": "footer",
-              }
-            }
-          />
-        </span>
-        <span
-          className="icon"
-        />
-      </span>
-    </button>
-    <button
-      className="root"
-      onClick={[Function]}
-    >
-      <span
-        className="content"
-      >
-        <span
-          className="label"
-        >
-          <span>
-            Use
-          </span>
-        </span>
-        <span
-          className="summary"
-        >
-          <shippingMethodSummary
-            classes={
-              Object {
-                "body": "body",
-                "footer": "footer",
-              }
-            }
-          />
-        </span>
-        <span
-          className="icon"
-        />
-      </span>
-    </button>
-    <button
-      className="root"
-    >
-      <span
-        className="content"
-      >
-        <span
-          className="label"
-        >
-          <span>
-            TOTAL
-          </span>
-        </span>
-        <span
-          className="summary"
-        >
-          <div />
-          <br />
-          <span>
-            0
-             Items
-          </span>
-        </span>
-        <span
-          className="icon"
-        />
-      </span>
-    </button>
-  </div>,
-  <div
-    className="footer"
-  >
-    <button
-      className="root_normalPriority"
-      onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
         className="content"
       >
         Back to Cart
-      </span>
-    </button>
-    <button
-      className="root_highPriority"
-      disabled={true}
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Confirm Order
       </span>
     </button>
   </div>,
@@ -540,6 +451,7 @@ Array [
     </button>
     <button
       className="root"
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -585,11 +497,21 @@ Array [
         <span
           className="summary"
         >
-          <div />
-          <br />
+          <span>
+            $
+          </span>
           <span>
             0
-             Items
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
+          <br />
+          <span>
+            0 Items
           </span>
         </span>
         <span
@@ -602,26 +524,49 @@ Array [
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Back to Cart
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
         className="content"
       >
         Confirm Order
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
       </span>
     </button>
   </div>,

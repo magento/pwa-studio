@@ -18,13 +18,7 @@ class UpwardDevServerPlugin {
             env
         );
         this.upwardPath = upwardPath;
-        // Compose `after` and `before` functions if something else has defined
-        // them.
-        const oldBefore = devServer.before;
-        devServer.before = (app, ...rest) => {
-            app.use(upward.bestPractices());
-            if (oldBefore) oldBefore(app, ...rest);
-        };
+        // Compose `after` function if something else has defined it.
         const oldAfter = devServer.after;
         devServer.after = (app, ...rest) => {
             if (oldAfter) oldAfter(app, ...rest);

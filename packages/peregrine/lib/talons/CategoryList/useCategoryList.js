@@ -1,5 +1,10 @@
-import { useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+/* Deprecated in PWA-12.1.0*/
+
+import { useQuery } from '@apollo/client';
+
+import mergeOperations from '../../util/shallowMerge';
+
+import DEFAULT_OPERATIONS from './categoryList.gql';
 
 /**
  * Returns props necessary to render a CategoryList component.
@@ -10,19 +15,33 @@ import { useLazyQuery } from '@apollo/react-hooks';
  * @return {{ childCategories: array, error: object }}
  */
 export const useCategoryList = props => {
-    const { query, id } = props;
+    const { id } = props;
 
-    const [runQuery, queryResponse] = useLazyQuery(query);
-    const { loading, error, data } = queryResponse;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCategoryListQuery, getStoreConfigQuery } = operations;
 
-    // Run the query immediately and every time id changes.
-    useEffect(() => {
-        runQuery({ variables: { id } });
-    }, [id, runQuery]);
+    const { loading, error, data } = useQuery(getCategoryListQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !id,
+        variables: {
+            id
+        }
+    });
+
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
+
+    const storeConfig = storeConfigData ? storeConfigData.storeConfig : null;
 
     return {
         childCategories:
-            (data && data.category && data.category.children) || null,
+            (data &&
+                data.categories.items[0] &&
+                data.categories.items[0].children) ||
+            null,
+        storeConfig,
         error,
         loading
     };

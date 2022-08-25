@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#CmsDynamicBlock AC renders DynamicBlock when data with type catalogrule 1`] = `
+<mock-DynamicBlock
+  content={
+    Object {
+      "html": "<div>Item 1</div>",
+    }
+  }
+  index={0}
+  uid="itemUid1"
+/>
+`;
+
+exports[`#CmsDynamicBlock AC renders DynamicBlock when data with type fixed 1`] = `
+<mock-DynamicBlock
+  content={
+    Object {
+      "html": "<div>Item 1</div>",
+    }
+  }
+  index={0}
+  uid="itemUid1"
+/>
+`;
+
+exports[`#CmsDynamicBlock AC renders DynamicBlock when data with type salesrule 1`] = `
+<mock-DynamicBlock
+  content={
+    Object {
+      "html": "<div>Item 1</div>",
+    }
+  }
+  index={0}
+  uid="itemUid1"
+/>
+`;
+
+exports[`#CmsDynamicBlock AC renders DynamicBlock when data with unknown type 1`] = `
+<mock-DynamicBlock
+  content={
+    Object {
+      "html": "<div>Item 1</div>",
+    }
+  }
+  index={0}
+  uid="itemUid1"
+/>
+`;
+
+exports[`#CmsDynamicBlock AC renders ErrorView when error 1`] = `
+<mock-ErrorView
+  message="Error"
+/>
+`;
+
+exports[`#CmsDynamicBlock AC renders null when items are empty 1`] = `null`;
+
+exports[`#CmsDynamicBlock AC renders null when loading 1`] = `null`;
+
+exports[`#CmsDynamicBlock AC renders null when no data 1`] = `null`;

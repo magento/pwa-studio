@@ -1,0 +1,26 @@
+.root {
+    composes: grid from global;
+    composes: gap-y-md from global;
+    composes: px-sm from global;
+    composes: py-md from global;
+
+    composes: lg_px-lg from global;
+}
+
+.title {
+    composes: font-bold from global;
+    composes: font-serif from global;
+    composes: justify-self-center from global;
+}
+
+.form {
+    composes: grid from global;
+    composes: gap-y-md from global;
+}
+
+.buttonsContainer {
+    composes: flex from global;
+    composes: justify-center from global;
+
+    composes: lg_justify-start from global;
+}

@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`provides an object with the correct shape 1`] = `
+Object {
+  "AppliedGiftCard": Object {
+    "keyFields": Array [
+      "code",
+    ],
+  },
+  "AvailablePaymentMethod": Object {
+    "keyFields": Array [
+      "code",
+    ],
+  },
+  "AvailableShippingMethod": Object {
+    "keyFields": Array [
+      "carrier_code",
+      "method_code",
+    ],
+  },
+  "Breadcrumb": Object {
+    "keyFields": Array [
+      "category_uid",
+    ],
+  },
+  "BundleProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
+  "BundleWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "Cart": Object {
+    "fields": Object {
+      "applied_gift_cards": Object {
+        "merge": [Function],
+      },
+      "available_payment_methods": Object {
+        "merge": [Function],
+      },
+      "items": Object {
+        "merge": [Function],
+      },
+      "prices": Object {
+        "merge": true,
+      },
+      "shipping_addresses": Object {
+        "merge": [Function],
+      },
+    },
+    "keyFields": [Function],
+  },
+  "CartItemInterface": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
+  "CategoryTree": Object {
+    "fields": Object {
+      "children": Object {
+        "merge": [Function],
+      },
+    },
+    "keyFields": Array [
+      "uid",
+    ],
+  },
+  "ConfigurableProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
+  "ConfigurableProductOptions": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
+  "ConfigurableWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "Currency": Object {
+    "merge": true,
+  },
+  "Customer": Object {
+    "fields": Object {
+      "addresses": Object {
+        "merge": [Function],
+        "read": [Function],
+      },
+      "orders": Object {
+        "items": Object {
+          "merge": true,
+        },
+        "keyArgs": Array [
+          "filter",
+        ],
+      },
+    },
+    "keyFields": [Function],
+    "merge": true,
+  },
+  "CustomerAddress": Object {
+    "fields": Object {
+      "street": Object {
+        "merge": [Function],
+      },
+    },
+  },
+  "CustomerPaymentTokens": Object {
+    "fields": Object {
+      "items": Object {
+        "merge": [Function],
+      },
+    },
+    "keyFields": [Function],
+  },
+  "DownloadableWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "GiftCardWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "GroupedProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
+  "GroupedProductWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "ProductImage": Object {
+    "keyFields": Array [
+      "url",
+    ],
+  },
+  "Query": Object {
+    "fields": Object {
+      "cart": Object {
+        "keyArgs": [Function],
+      },
+      "customer": Object {
+        "keyArgs": [Function],
+      },
+      "customerCart": Object {
+        "keyArgs": [Function],
+      },
+      "customerWishlistProducts": Object {
+        "read": [Function],
+      },
+    },
+  },
+  "SelectedConfigurableOption": Object {
+    "keyFields": [Function],
+  },
+  "SelectedPaymentMethod": Object {
+    "keyFields": Array [
+      "code",
+    ],
+  },
+  "ShippingCartAddress": Object {
+    "fields": Object {
+      "available_shipping_methods": Object {
+        "merge": [Function],
+      },
+      "country": Object {
+        "merge": true,
+      },
+      "region": Object {
+        "merge": true,
+      },
+      "selected_shipping_method": Object {
+        "merge": true,
+      },
+    },
+    "keyFields": Array [
+      "street",
+    ],
+  },
+  "SimpleProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
+  "SimpleWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "StoreConfig": Object {
+    "keyFields": Array [
+      "store_code",
+    ],
+  },
+  "VirtualProduct": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
+  "VirtualWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "Wishlist": Object {
+    "fields": Object {
+      "items_v2": Object {
+        "keyArgs": false,
+        "merge": false,
+      },
+    },
+    "keyFields": [Function],
+  },
+  "WishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "WishlistItems": Object {
+    "fields": Object {
+      "items": Object {
+        "merge": [Function],
+      },
+    },
+  },
+}
+`;

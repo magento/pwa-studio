@@ -1,5 +1,6 @@
 ---
 title: create-custom-origin
+adobeio: /api/buildpack/cli/create-custom-origin/
 ---
 
 The `create-custom-origin` is a [`buildpack`][] CLI subcommand which creates a unique local hostname and trusted SSL certificate for your project.
@@ -70,6 +71,6 @@ This string is based on the filesystem location.
 
 This naturally separates domains when running multiple project folders on one developer machine.
 
-[`buildpack`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/index.md %}
+[`buildpack`]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
 
 [devcert]: https://github.com/davewasmer/devcert

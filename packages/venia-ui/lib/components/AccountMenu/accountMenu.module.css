@@ -1,0 +1,73 @@
+.root {
+    composes: absolute from global;
+    composes: h-0 from global;
+    composes: left-[-100vw] from global;
+    composes: max-w-[100vw] from global;
+    composes: opacity-0 from global;
+    composes: overflow-visible from global;
+    composes: top-full from global;
+    composes: z-menu from global;
+    transition: opacity 192ms var(--venia-global-anim-out),
+        visibility 192ms var(--venia-global-anim-out),
+        /* Adding delay to move container off the screen after previous transitions happened */
+            left 0s 192ms;
+    width: calc(100vw - 2rem); /* TODO @TW: cannot compose */
+    transform: translate3d(-50%, 0, 0);
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
+}
+
+.root_open {
+    composes: root;
+
+    composes: left-1/2 from global;
+    composes: opacity-100 from global;
+    transition: opacity 224ms var(--venia-global-anim-in),
+        visibility 224ms var(--venia-global-anim-in), left 0s;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
+}
+
+.contents {
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: grid from global;
+    composes: right-0 from global;
+    composes: rounded-sm from global;
+    composes: shadow-menu from global;
+    composes: top-0 from global;
+    composes: w-[27.5rem] from global;
+    min-height: 10rem;
+    transform: translate3d(0, -8px, 0);
+    transition-duration: 192ms;
+    transition-property: transform;
+    transition-timing-function: var(--venia-global-anim-out);
+}
+
+.contents_open {
+    composes: contents;
+
+    transform: translate3d(0, 4px, 0);
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
+}
+
+.createAccount {
+    composes: grid from global;
+    composes: gap-xs from global;
+    composes: justify-items-stretch from global;
+    composes: px-sm from global;
+    composes: py-xs from global;
+}
+
+.forgotPassword {
+    composes: p-md from global;
+}
+
+.loading {
+    composes: p-md from global;
+}

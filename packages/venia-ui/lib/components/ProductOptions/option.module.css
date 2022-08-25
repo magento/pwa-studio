@@ -1,0 +1,28 @@
+.root {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: mx-sm from global;
+    composes: my-0 from global;
+    composes: px-0 from global;
+    composes: py-sm from global;
+}
+
+.title {
+    composes: block from global;
+    composes: font-semibold from global;
+    composes: leading-normal from global;
+    composes: mb-sm from global;
+    composes: text-colorDefault from global;
+}
+
+.selection {
+    composes: flex from global;
+    composes: leading-normal from global;
+    composes: mt-xs from global;
+    composes: text-colorDefault from global;
+}
+
+.selectionLabel {
+    composes: mr-xs from global;
+}

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Boolean renders boolean when data is provided 1`] = `
+Array [
+  <div>
+    Boolean Label
+  </div>,
+  <div>
+    Yes
+  </div>,
+]
+`;
+
+exports[`#Boolean renders empty when no data is provided 1`] = `null`;
+
+exports[`#Boolean renders label only when data is missing 1`] = `
+<div>
+  Boolean Label
+</div>
+`;

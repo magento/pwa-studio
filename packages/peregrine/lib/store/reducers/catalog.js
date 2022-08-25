@@ -1,7 +1,6 @@
 import { handleActions } from 'redux-actions';
 
 import actions from '../actions/catalog';
-import { getFilterParams } from '../../util/getFilterParamsFromUrl';
 
 export const name = 'catalog';
 
@@ -17,17 +16,15 @@ const fromPairs = pairs => {
 
 const initialState = {
     categories: {},
-    chosenFilterOptions: getFilterParams(),
     currentPage: 1,
     pageSize: 6,
-    prevPageTotal: null,
-    rootCategoryId: 2
+    prevPageTotal: null
 };
 
 const reducerMap = {
     [actions.updateCategories]: (state, { payload }) => {
-        const { id } = payload;
-        const currentCategory = state.categories[id] || {};
+        const { uid } = payload;
+        const currentCategory = state.categories[uid] || {};
 
         // if category has already been fetched, do nothing
         if (currentCategory.children) {
@@ -35,10 +32,10 @@ const reducerMap = {
         }
 
         // sort children by `position`
-        const children = payload.children.sort((a, b) => {
+        const children = [...payload.children].sort((a, b) => {
             if (a.position > b.position) {
                 return 1;
-            } else if (a.position === b.position && a.id > b.id) {
+            } else if (a.position === b.position && a.uid > b.uid) {
                 return 1;
             } else {
                 return -1;
@@ -51,10 +48,10 @@ const reducerMap = {
 
         // merge children and add them to the Map, keyed by `id`
         for (const child of children) {
-            childMap.set(child.id, {
+            childMap.set(child.uid, {
                 ...child,
-                ...(state.categories[child.id] || {}),
-                parentId: id
+                ...(state.categories[child.uid] || {}),
+                parentId: uid
             });
         }
 
@@ -64,19 +61,13 @@ const reducerMap = {
             categories: {
                 ...state.categories,
                 ...fromPairs(childMap),
-                [id]: {
+                [uid]: {
                     ...currentCategory,
                     ...payload,
                     children: [...childMap.keys()],
                     children_count: childMap.size
                 }
             }
-        };
-    },
-    [actions.setRootCategory]: (state, { payload }) => {
-        return {
-            ...state,
-            rootCategoryId: payload
         };
     },
     [actions.setCurrentPage.receive]: (state, { payload, error }) => {
@@ -97,41 +88,6 @@ const reducerMap = {
         return {
             ...state,
             prevPageTotal: payload
-        };
-    },
-    [actions.filterOption.setToApplied]: state => {
-        return {
-            ...state,
-            chosenFilterOptions: getFilterParams()
-        };
-    },
-    [actions.filterOption.update]: (
-        state,
-        { payload: { newState, group } }
-    ) => {
-        if (newState.length === 0 && group) {
-            const { chosenFilterOptions } = state;
-            delete chosenFilterOptions[group];
-
-            return {
-                ...state,
-                chosenFilterOptions: {
-                    ...chosenFilterOptions
-                }
-            };
-        }
-        return {
-            ...state,
-            chosenFilterOptions: {
-                ...state.chosenFilterOptions,
-                [group]: newState
-            }
-        };
-    },
-    [actions.filterOption.clear]: state => {
-        return {
-            ...state,
-            chosenFilterOptions: {}
         };
     }
 };

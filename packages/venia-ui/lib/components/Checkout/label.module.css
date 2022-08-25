@@ -1,0 +1,8 @@
+.root {
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: leading-none from global;
+    composes: p-0.5 from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
+}

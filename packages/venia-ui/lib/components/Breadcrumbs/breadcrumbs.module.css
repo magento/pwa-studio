@@ -1,0 +1,31 @@
+.root {
+    /* Permanent height to prevent pop-in. */
+    composes: h-[2.5rem] from global;
+    composes: mt-xs from global;
+    composes: ml-xs from global;
+    /* Show ellipses when overflowing. */
+    composes: overflow-hidden from global;
+    composes: overflow-ellipsis from global;
+    composes: pt-[0.625rem] from global;
+    composes: pb-[1rem] from global;
+    composes: text-sm from global;
+    composes: whitespace-nowrap from global;
+    composes: -mb-[1rem] from global;
+}
+
+.text {
+    composes: p-1 from global;
+}
+
+.divider {
+    composes: text;
+}
+
+.link {
+    composes: text;
+    composes: underline from global;
+}
+
+.currentCategory {
+    composes: text;
+}

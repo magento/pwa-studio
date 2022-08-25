@@ -1,0 +1,50 @@
+.root {
+}
+
+.body {
+    composes: body from './flow.module.css';
+
+    composes: gap-0 from global;
+    composes: p-0 from global;
+}
+
+.footer {
+    composes: footer from './flow.module.css';
+}
+
+.informationPrompt {
+    composes: capitalize from global;
+    composes: text-error from global;
+}
+
+.disabledPrompt {
+    composes: informationPrompt;
+
+    composes: text-subtle from global;
+}
+
+.paymentDisplayPrimary {
+    composes: capitalize from global;
+}
+
+.paymentDisplaySecondary {
+    /* The ::first-letter pseudo element below only works on block elements */
+    composes: block from global;
+    composes: lowercase from global;
+}
+
+/* TODO @TW: cannot compose */
+.paymentDisplaySecondary::first-letter {
+    composes: uppercase from global;
+}
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}

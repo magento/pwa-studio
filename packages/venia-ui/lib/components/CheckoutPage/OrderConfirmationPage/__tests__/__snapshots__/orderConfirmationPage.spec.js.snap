@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
+<div>
+  Title
+  <div>
+    <h2>
+      <mock-FormattedMessage
+        defaultMessage="Thank you for your order!"
+        id="checkoutPage.thankYou"
+      />
+    </h2>
+    <div>
+      <mock-FormattedMessage
+        defaultMessage="Order Number: {orderNumber}"
+        id="checkoutPage.orderNumber"
+        values={
+          Object {
+            "orderNumber": 123,
+          }
+        }
+      />
+    </div>
+    <div>
+      <mock-FormattedMessage
+        defaultMessage="Shipping Information"
+        id="global.shippingInformation"
+      />
+    </div>
+    <div>
+      <span>
+        badvirus@covid.com
+      </span>
+      <span>
+        Stuck Indoors
+      </span>
+      <span>
+        123 Stir Crazy Dr.
+      </span>
+      <span>
+        Austin, TX 91111 US
+      </span>
+    </div>
+    <div>
+      <mock-FormattedMessage
+        defaultMessage="Shipping Method"
+        id="global.shippingMethod"
+      />
+    </div>
+    <div>
+      Flat Rate - Fixed
+    </div>
+    <div>
+      <ItemsReview />
+    </div>
+    <div>
+      <mock-FormattedMessage
+        defaultMessage="You will also receive an email with the details and we will let you know when your order has shipped."
+        id="checkoutPage.additionalText"
+      />
+    </div>
+  </div>
+  <div>
+    <CreateAccount
+      email="badvirus@covid.com"
+      firstname="Stuck"
+      lastname="Indoors"
+    />
+  </div>
+</div>
+`;

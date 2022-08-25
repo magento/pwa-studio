@@ -1,76 +1,240 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Cart icon svg has fill and correct value when cart contains items 1`] = `
-<button
-  aria-label="Toggle mini cart. You have 10 items in your cart."
-  className="a"
-  onClick={[Function]}
->
-  <span>
-    <svg
-      fill="rgb(var(--venia-text))"
-      height="24"
-      stroke="rgb(var(--venia-text))"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
+exports[`Cart counter displays 99+ when items quantity is more than 99 1`] = `
+Array [
+  <div>
+    <button
+      aria-expanded={false}
+      aria-label="Toggle mini cart. You have 100 items in your cart."
+      onClick={[Function]}
     >
-      <circle
-        cx="9"
-        cy="21"
-        r="1"
-      />
-      <circle
-        cx="20"
-        cy="21"
-        r="1"
-      />
-      <path
-        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
-      />
-    </svg>
-  </span>
-  <span>
-    10
-  </span>
-</button>
+      <span>
+        <svg
+          fill="none"
+          height={24}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+          />
+          <line
+            x1="3"
+            x2="21"
+            y1="6"
+            y2="6"
+          />
+          <path
+            d="M16 10a4 4 0 0 1-8 0"
+          />
+        </svg>
+      </span>
+      <span>
+        99+
+      </span>
+    </button>
+  </div>,
+  <button
+    aria-expanded={false}
+    aria-label="Toggle mini cart. You have 100 items in your cart."
+    onClick={[Function]}
+  >
+    <span>
+      <svg
+        fill="none"
+        height={24}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={24}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+        />
+        <line
+          x1="3"
+          x2="21"
+          y1="6"
+          y2="6"
+        />
+        <path
+          d="M16 10a4 4 0 0 1-8 0"
+        />
+      </svg>
+    </span>
+    <span>
+      99+
+    </span>
+  </button>,
+  <require('../MiniCart')
+    isOpen={false}
+    setIsOpen={[Function]}
+  />,
+]
 `;
 
-exports[`Cart icon svg has no fill when cart is empty 1`] = `
-<button
-  aria-label="Toggle mini cart. You have 0 items in your cart."
-  className="a"
-  onClick={[Function]}
->
-  <span>
-    <svg
-      fill="none"
-      height="24"
-      stroke="rgb(var(--venia-text))"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
+exports[`Cart icon svg has fill and correct value when cart contains items 1`] = `
+Array [
+  <div>
+    <button
+      aria-expanded={false}
+      aria-label="Toggle mini cart. You have 10 items in your cart."
+      onClick={[Function]}
     >
-      <circle
-        cx="9"
-        cy="21"
-        r="1"
-      />
-      <circle
-        cx="20"
-        cy="21"
-        r="1"
-      />
-      <path
-        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
-      />
-    </svg>
-  </span>
-</button>
+      <span>
+        <svg
+          fill="none"
+          height={24}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+          />
+          <line
+            x1="3"
+            x2="21"
+            y1="6"
+            y2="6"
+          />
+          <path
+            d="M16 10a4 4 0 0 1-8 0"
+          />
+        </svg>
+      </span>
+      <span>
+        10
+      </span>
+    </button>
+  </div>,
+  <button
+    aria-expanded={false}
+    aria-label="Toggle mini cart. You have 10 items in your cart."
+    onClick={[Function]}
+  >
+    <span>
+      <svg
+        fill="none"
+        height={24}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={24}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+        />
+        <line
+          x1="3"
+          x2="21"
+          y1="6"
+          y2="6"
+        />
+        <path
+          d="M16 10a4 4 0 0 1-8 0"
+        />
+      </svg>
+    </span>
+    <span>
+      10
+    </span>
+  </button>,
+  <require('../MiniCart')
+    isOpen={false}
+    setIsOpen={[Function]}
+  />,
+]
+`;
+
+exports[`Cart trigger should not be rendered on the checkout page 1`] = `null`;
+
+exports[`No counter when cart is empty 1`] = `
+Array [
+  <div>
+    <button
+      aria-expanded={false}
+      aria-label="Toggle mini cart. You have 0 items in your cart."
+      onClick={[Function]}
+    >
+      <span>
+        <svg
+          fill="none"
+          height={24}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+          />
+          <line
+            x1="3"
+            x2="21"
+            y1="6"
+            y2="6"
+          />
+          <path
+            d="M16 10a4 4 0 0 1-8 0"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>,
+  <button
+    aria-expanded={false}
+    aria-label="Toggle mini cart. You have 0 items in your cart."
+    onClick={[Function]}
+  >
+    <span>
+      <svg
+        fill="none"
+        height={24}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={24}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+        />
+        <line
+          x1="3"
+          x2="21"
+          y1="6"
+          y2="6"
+        />
+        <path
+          d="M16 10a4 4 0 0 1-8 0"
+        />
+      </svg>
+    </span>
+  </button>,
+  <require('../MiniCart')
+    isOpen={false}
+    setIsOpen={[Function]}
+  />,
+]
 `;

@@ -1,0 +1,341 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when closed 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <Dialog
+    cancelText="Cancel"
+    cancelTranslationId="global.cancelButton"
+    classes={
+      Object {
+        "cancelButton": "cancelButton",
+        "confirmButton": "confirmButton",
+      }
+    }
+    confirmText="Save"
+    confirmTranslationId="global.save"
+    isModal={true}
+    isOpen={false}
+    onCancel={[MockFunction onCancel]}
+    onConfirm={[MockFunction onConfirm]}
+    shouldDisableAllButtons={false}
+    title="Edit Favorites List"
+  >
+    <div
+      className="root"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "errorMessage",
+          }
+        }
+        errors={Map {}}
+      />
+      <div
+        className="form"
+      >
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+          >
+            List Name
+          </label>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
+              className="input"
+            >
+              <input
+                className="input"
+                id="name"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                value=""
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
+            />
+          </span>
+          <p
+            className="root"
+          />
+        </div>
+      </div>
+    </div>
+  </Dialog>
+</form>
+`;
+
+exports[`renders correctly when edit is in progress 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <Dialog
+    cancelText="Cancel"
+    cancelTranslationId="global.cancelButton"
+    classes={
+      Object {
+        "cancelButton": "cancelButton",
+        "confirmButton": "confirmButton",
+      }
+    }
+    confirmText="Save"
+    confirmTranslationId="global.save"
+    isModal={true}
+    isOpen={false}
+    onCancel={[MockFunction onCancel]}
+    onConfirm={[MockFunction onConfirm]}
+    shouldDisableAllButtons={true}
+    title="Edit Favorites List"
+  >
+    <div
+      className="root"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "errorMessage",
+          }
+        }
+        errors={Map {}}
+      />
+      <div
+        className="form"
+      >
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+          >
+            List Name
+          </label>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
+              className="input"
+            >
+              <input
+                className="input"
+                id="name"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                value=""
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
+            />
+          </span>
+          <p
+            className="root"
+          />
+        </div>
+      </div>
+    </div>
+  </Dialog>
+</form>
+`;
+
+exports[`renders correctly when opened 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <Dialog
+    cancelText="Cancel"
+    cancelTranslationId="global.cancelButton"
+    classes={
+      Object {
+        "cancelButton": "cancelButton",
+        "confirmButton": "confirmButton",
+      }
+    }
+    confirmText="Save"
+    confirmTranslationId="global.save"
+    isModal={true}
+    isOpen={true}
+    onCancel={[MockFunction onCancel]}
+    onConfirm={[MockFunction onConfirm]}
+    shouldDisableAllButtons={false}
+    title="Edit Favorites List"
+  >
+    <div
+      className="root"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "errorMessage",
+          }
+        }
+        errors={Map {}}
+      />
+      <div
+        className="form"
+      >
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+          >
+            List Name
+          </label>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
+              className="input"
+            >
+              <input
+                className="input"
+                id="name"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                value=""
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
+            />
+          </span>
+          <p
+            className="root"
+          />
+        </div>
+      </div>
+    </div>
+  </Dialog>
+</form>
+`;
+
+exports[`renders correctly with error 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <Dialog
+    cancelText="Cancel"
+    cancelTranslationId="global.cancelButton"
+    classes={
+      Object {
+        "cancelButton": "cancelButton",
+        "confirmButton": "confirmButton",
+      }
+    }
+    confirmText="Save"
+    confirmTranslationId="global.save"
+    isModal={true}
+    isOpen={false}
+    onCancel={[MockFunction onCancel]}
+    onConfirm={[MockFunction onConfirm]}
+    shouldDisableAllButtons={false}
+    title="Edit Favorites List"
+  >
+    <div
+      className="root"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "errorMessage",
+          }
+        }
+        errors={
+          Map {
+            "updateWishlistMutation" => "Unit Test Error 1",
+          }
+        }
+      />
+      <div
+        className="form"
+      >
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+          >
+            List Name
+          </label>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
+              className="input"
+            >
+              <input
+                className="input"
+                id="name"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                value=""
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
+            />
+          </span>
+          <p
+            className="root"
+          />
+        </div>
+      </div>
+    </div>
+  </Dialog>
+</form>
+`;

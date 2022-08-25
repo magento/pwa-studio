@@ -1,0 +1,6 @@
+.root {
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: rounded-md from global;
+}

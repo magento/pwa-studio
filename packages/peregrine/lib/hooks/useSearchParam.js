@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-export const getSearchParam = (parameter = '', location = window.location) => {
+export const getSearchParam = (parameter = '', location = {}) => {
     const params = new URLSearchParams(location.search);
 
     return params.get(parameter) || '';
@@ -13,13 +14,13 @@ export const getSearchParam = (parameter = '', location = window.location) => {
  *
  * @kind function
  *
- * @param {Object} props An object containing the location, parameter, and setter function.
- * @param {String} props.location The URL location to search in
+ * @param {Object} props An object containing the parameter and setter function.
  * @param {String} props.parameter The parameter to search for
  * @param {Function} props.setValue A setter function that is passed the parameter value found in the URL
  */
 export const useSearchParam = props => {
-    const { location, parameter, setValue } = props;
+    const location = useLocation();
+    const { parameter, setValue } = props;
     const value = getSearchParam(parameter, location);
 
     useEffect(() => {

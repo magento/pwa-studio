@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import {
     arrayOf,
     func,
@@ -9,11 +10,12 @@ import {
     string
 } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import getOptionType from './getOptionType';
 import SwatchList from './swatchList';
 import TileList from './tileList';
-import defaultClasses from './option.css';
+import defaultClasses from './option.module.css';
+import { useOption } from '@magento/peregrine/lib/talons/ProductOptions/useOption';
 
 const getItemKey = ({ value_index }) => value_index;
 
@@ -32,61 +34,54 @@ const Option = props => {
         label,
         onSelectionChange,
         selectedValue,
-        values
+        values,
+        isEverythingOutOfStock,
+        outOfStockVariants
     } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const [selection, setSelection] = useState(null);
 
-    const initialSelection = useMemo(() => {
-        let selection = {};
-        if (selectedValue) {
-            selection =
-                values.find(value => value.default_label === selectedValue) ||
-                {};
-        }
-        return selection;
-    }, [selectedValue, values]);
+    const talonProps = useOption({
+        attribute_id,
+        label,
+        onSelectionChange,
+        selectedValue,
+        values
+    });
+
+    const {
+        handleSelectionChange,
+        initialSelection,
+        selectedValueDescription
+    } = talonProps;
 
     const ValueList = useMemo(() => getListComponent(attribute_code, values), [
         attribute_code,
         values
     ]);
 
-    const valuesMap = useMemo(() => {
-        return new Map(
-            values.map(value => [value.value_index, value.store_label])
-        );
-    }, [values]);
-
-    const selectedValueLabel = `Selected ${label}:`;
-    const selectedValueDescription = selection || 'None';
-
-    const handleSelectionChange = useCallback(
-        selection => {
-            const [selectedValue] = Array.from(selection);
-
-            setSelection(valuesMap.get(selectedValue));
-
-            if (onSelectionChange) {
-                onSelectionChange(attribute_id, selection);
-            }
-        },
-        [attribute_id, onSelectionChange, valuesMap]
-    );
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <div className={classes.root}>
-            <h3 className={classes.title}>
-                <span>{label}</span>
-            </h3>
+        <div className={classes.root} data-cy="ProductOptions-Option-root">
+            <span className={classes.title}>{label}</span>
             <ValueList
                 getItemKey={getItemKey}
-                initialSelection={initialSelection}
+                selectedValue={initialSelection}
                 items={values}
                 onSelectionChange={handleSelectionChange}
+                isEverythingOutOfStock={isEverythingOutOfStock}
+                outOfStockVariants={outOfStockVariants}
             />
             <dl className={classes.selection}>
-                <dt className={classes.selectionLabel}>{selectedValueLabel}</dt>
+                <dt
+                    data-cy="ProductOptions-Option-selectedLabel"
+                    className={classes.selectionLabel}
+                >
+                    <FormattedMessage
+                        id="productOptions.selectedLabel"
+                        defaultMessage="Selected {label}:"
+                        values={{ label }}
+                    />
+                </dt>
                 <dd>{selectedValueDescription}</dd>
             </dl>
         </div>

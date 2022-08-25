@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
+import { useMutation } from '@apollo/client';
+
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
-import isObjectEmpty from '../../util/isObjectEmpty';
+import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
 const isCheckoutReady = checkout => {
     const {
@@ -25,6 +27,8 @@ const isCheckoutReady = checkout => {
 };
 
 export const useFlow = props => {
+    const { createCartMutation, onSubmitError, setStep } = props;
+    const [fetchCartId] = useMutation(createCartMutation);
     const [cartState] = useCartContext();
     const [
         checkoutState,
@@ -33,11 +37,9 @@ export const useFlow = props => {
             cancelCheckout,
             submitOrder,
             submitPaymentMethodAndBillingAddress,
-            submitShippingAddress,
             submitShippingMethod
         }
     ] = useCheckoutContext();
-    const { onSubmitError, setStep } = props;
 
     const handleBeginCheckout = useCallback(async () => {
         await beginCheckout();
@@ -51,12 +53,14 @@ export const useFlow = props => {
 
     const handleSubmitOrder = useCallback(async () => {
         try {
-            await submitOrder();
+            await submitOrder({
+                fetchCartId
+            });
             setStep('receipt');
         } catch (e) {
             onSubmitError(e);
         }
-    }, [onSubmitError, setStep, submitOrder]);
+    }, [fetchCartId, onSubmitError, setStep, submitOrder]);
 
     const handleCloseReceipt = useCallback(() => {
         setStep('cart');
@@ -68,7 +72,6 @@ export const useFlow = props => {
         checkoutState,
         isReady: isCheckoutReady(checkoutState),
         submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
         submitShippingMethod,
         handleBeginCheckout,
         handleCancelCheckout,

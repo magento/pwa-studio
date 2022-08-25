@@ -1,0 +1,16 @@
+.root {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: h-[3.5rem] from global;
+    composes: text-left from global;
+    composes: w-full from global;
+}
+
+.lineItemName {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 600px;
+}

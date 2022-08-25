@@ -1,0 +1,35 @@
+{
+  "name": "pwa-integration-tests",
+  "version": "0.0.1",
+  "description": "Venia Integration Automation Tests",
+  "scripts": {
+    "clearCache:mac": "rm -rf ~/Library/Application\\ Support/Cypress/cy/*",
+    "danger": "danger-ci",
+    "posttest:headless": "./report-results.js",
+    "test": "cypress open --browser chrome --config-file cypress.config.json",
+    "test:ci": "./run-tests.js -t 4",
+    "test:ci:functional": "FunctionalTests=true ./run-tests.js -t 6",
+    "test:ci:snapshot": "SanpshotTests=true ./run-tests.js -t 4",
+    "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
+    "test:devTest": "jest",
+    "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
+    "test:headless": "./run-tests.js",
+    "test:run": "cypress run --browser chrome --config-file cypress.config.json"
+  },
+  "author": "Adobe Commerce",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "~9.4.0",
+    "cypress-grep": "~2.13.1",
+    "cypress-image-snapshot": "~4.0.1",
+    "danger": "^10.7.1",
+    "franc-min": "~6.0.0",
+    "glob": "~7.2.0",
+    "jest": "~27.4.7",
+    "jimp": "~0.16.1",
+    "mochawesome": "~7.0.0",
+    "mochawesome-merge": "~4.2.0",
+    "yargs": "~17.3.0"
+  }
+}

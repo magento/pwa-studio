@@ -1,11 +1,15 @@
+/* Deprecated in PWA-12.1.0*/
+
 import React from 'react';
-import { string, number, shape } from 'prop-types';
-import { mergeClasses } from '../../classify';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import defaultClasses from './categoryList.css';
-import CategoryTile from './categoryTile';
-import categoryListQuery from '../../queries/getCategoryList.graphql';
+import { useIntl } from 'react-intl';
+import { string, shape } from 'prop-types';
 import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
+
+import { useStyle } from '../../classify';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
+import defaultClasses from './categoryList.module.css';
+import CategoryTile from './categoryTile';
 
 // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
 const mapCategory = categoryItem => {
@@ -29,14 +33,10 @@ const mapCategory = categoryItem => {
 
 const CategoryList = props => {
     const { id, title } = props;
-    const talonProps = useCategoryList({
-        query: categoryListQuery,
-        id
-    });
-
-    const { childCategories, error, loading } = talonProps;
-
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const talonProps = useCategoryList({ id });
+    const { childCategories, storeConfig, error, loading } = talonProps;
+    const { formatMessage } = useIntl();
+    const classes = useStyle(defaultClasses, props.classes);
 
     const header = title ? (
         <div className={classes.header}>
@@ -47,28 +47,42 @@ const CategoryList = props => {
     ) : null;
 
     let child;
-    if (error) {
-        child = (
-            <div className={classes.fetchError}>
-                Data Fetch Error: <pre>{error.message}</pre>
-            </div>
-        );
-    }
-    if (loading || !childCategories) {
-        child = fullPageLoadingIndicator;
-    } else if (childCategories.length === 0) {
-        child = (
-            <div className={classes.noResults}>No child categories found.</div>
-        );
+
+    if (!childCategories) {
+        if (error) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(error);
+            }
+
+            return <ErrorView />;
+        } else if (loading) {
+            child = fullPageLoadingIndicator;
+        }
     } else {
-        child = (
-            <div className={classes.content}>
-                {childCategories.map(item => (
-                    <CategoryTile item={mapCategory(item)} key={item.url_key} />
-                ))}
-            </div>
-        );
+        if (childCategories.length) {
+            child = (
+                <div className={classes.content}>
+                    {childCategories.map(item => (
+                        <CategoryTile
+                            item={mapCategory(item)}
+                            key={item.url_key}
+                            storeConfig={storeConfig}
+                        />
+                    ))}
+                </div>
+            );
+        } else {
+            return (
+                <ErrorView
+                    message={formatMessage({
+                        id: 'categoryList.noResults',
+                        defaultMessage: 'No child categories found.'
+                    })}
+                />
+            );
+        }
     }
+
     return (
         <div className={classes.root}>
             {header}
@@ -78,11 +92,12 @@ const CategoryList = props => {
 };
 
 CategoryList.propTypes = {
-    id: number,
+    id: string.isRequired,
     title: string,
     classes: shape({
         root: string,
         header: string,
+        title: string,
         content: string
     })
 };

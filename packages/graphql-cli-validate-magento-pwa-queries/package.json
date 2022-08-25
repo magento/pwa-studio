@@ -1,13 +1,13 @@
 {
   "name": "graphql-cli-validate-magento-pwa-queries",
-  "version": "1.1.0",
+  "version": "1.4.0",
   "publishConfig": {
     "access": "public"
   },
   "description": "graphql-cli plugin for validating all queries in a Magento 2 PWA project",
   "main": "index.js",
   "scripts": {
-    "build": "cp ../../magento-compatibility.js ./lib/",
+    "build": "mkdir -p ./lib/ && cp ../../magento-compatibility.js ./lib/",
     "clean": "rimraf ./lib/magento-compatibility.js ./node_modules",
     "prepare": "yarn run -s build",
     "test": "jest"
@@ -28,6 +28,7 @@
     "semver": "~5.6.0"
   },
   "devDependencies": {
+    "glob": "~7.1.6",
     "graphql-cli": "^3",
     "rimraf": "~2.6.3"
   },

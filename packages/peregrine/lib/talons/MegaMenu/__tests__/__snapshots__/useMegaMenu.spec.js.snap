@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should add eventListner for keydown, mouseout, mousedown 1`] = `
+Array [
+  Array [
+    [Window],
+    "keydown",
+    [Function],
+  ],
+]
+`;
+
+exports[`Should render proper shape 1`] = `
+Object {
+  "activeCategoryId": "OA==",
+  "categoryUrlSuffix": ".html",
+  "disableFocus": false,
+  "handleClickOutside": [Function],
+  "handleNavigate": [MockFunction onNavigate],
+  "handleSubMenuFocus": [Function],
+  "megaMenuData": Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "include_in_menu": 1,
+            "isActive": false,
+            "name": "Blouses & Shirts",
+            "path": Array [
+              "OA==",
+              "OQ==",
+            ],
+            "position": 1,
+            "uid": "OQ==",
+            "url_path": "venia-tops/venia-blouses",
+          },
+          Object {
+            "children": Array [],
+            "include_in_menu": 1,
+            "isActive": false,
+            "name": "Sweaters",
+            "path": Array [
+              "OA==",
+              "MTA=",
+            ],
+            "position": 2,
+            "uid": "MTA=",
+            "url_path": "venia-tops/venia-sweaters",
+          },
+        ],
+        "include_in_menu": 1,
+        "isActive": true,
+        "name": "Tops",
+        "path": Array [
+          "OA==",
+        ],
+        "position": 3,
+        "uid": "OA==",
+        "url_path": "venia-tops",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "include_in_menu": 1,
+            "isActive": false,
+            "name": "Jewelry",
+            "path": Array [
+              "MTE=",
+              "NQ==",
+            ],
+            "position": 2,
+            "uid": "NQ==",
+            "url_path": "venia-accessories/venia-jewelry",
+          },
+          Object {
+            "children": Array [],
+            "include_in_menu": 1,
+            "isActive": false,
+            "name": "Belts",
+            "path": Array [
+              "MTE=",
+              "NA==",
+            ],
+            "position": 10,
+            "uid": "NA==",
+            "url_path": "venia-accessories/venia-belts",
+          },
+        ],
+        "include_in_menu": 1,
+        "isActive": false,
+        "name": "Accessories",
+        "path": Array [
+          "MTE=",
+        ],
+        "position": 4,
+        "uid": "MTE=",
+        "url_path": "venia-accessories",
+      },
+    ],
+    "isActive": false,
+    "name": "Default Category",
+    "uid": "Mg==",
+  },
+  "subMenuState": false,
+}
+`;
+
+exports[`handleSubMenuFocus should setSubMenuState to true 1`] = `undefined`;

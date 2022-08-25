@@ -1,60 +1,57 @@
-import React, { useCallback, useMemo } from 'react';
+import React from 'react';
 import { func, number, shape, string } from 'prop-types';
-import { Price } from '@magento/peregrine';
-import { mergeClasses } from '../../classify';
-import { Link, resourceUrl } from '@magento/venia-drivers';
+import { Link } from 'react-router-dom';
+import Price from '@magento/venia-ui/lib/components/Price';
+import { useStyle } from '../../classify';
 
-import { generateSrcset } from '../../util/images';
-import defaultClasses from './suggestedProduct.css';
+import Image from '../Image';
+import defaultClasses from './suggestedProduct.module.css';
+import { useSuggestedProduct } from '@magento/peregrine/lib/talons/SearchBar';
 
-const PRODUCT_URL_SUFFIX = '.html';
-const width = 60;
+const IMAGE_WIDTH = 60;
 
 const SuggestedProduct = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const { url_key, small_image, name, onNavigate, price } = props;
+    const classes = useStyle(defaultClasses, props.classes);
+    const {
+        url_key,
+        small_image,
+        name,
+        onNavigate,
+        price,
+        price_range,
+        url_suffix,
+        sku
+    } = props;
 
-    const handleClick = useCallback(() => {
-        if (typeof onNavigate === 'function') {
-            onNavigate();
-        }
-    }, [onNavigate]);
+    const talonProps = useSuggestedProduct({
+        name,
+        price,
+        price_range,
+        onNavigate,
+        url_key,
+        url_suffix,
+        sku
+    });
 
-    const uri = useMemo(() => resourceUrl(`/${url_key}${PRODUCT_URL_SUFFIX}`), [
-        url_key
-    ]);
-
-    const imageSrcset = useMemo(
-        () => generateSrcset(small_image, 'image-product'),
-        [small_image]
-    );
-
-    const imageSource = useMemo(
-        () =>
-            resourceUrl(small_image, {
-                type: 'image-product',
-                width
-            }),
-        [small_image]
-    );
+    const { priceProps, handleClick, uri } = talonProps;
 
     return (
-        <Link className={classes.root} to={uri} onClick={handleClick}>
-            <span className={classes.image}>
-                <img
-                    alt={name}
-                    className={classes.thumbnail}
-                    src={imageSource}
-                    srcSet={imageSrcset}
-                    sizes={`${width}px`}
-                />
-            </span>
+        <Link
+            className={classes.root}
+            to={uri}
+            onClick={handleClick}
+            data-cy="SuggestedProduct-root"
+        >
+            <Image
+                alt={name}
+                classes={{ image: classes.thumbnail, root: classes.image }}
+                resource={small_image}
+                width={IMAGE_WIDTH}
+                data-cy="SuggestedProduct-image"
+            />
             <span className={classes.name}>{name}</span>
-            <span className={classes.price}>
-                <Price
-                    currencyCode={price.regularPrice.amount.currency}
-                    value={price.regularPrice.amount.value}
-                />
+            <span data-cy="SuggestedProduct-price" className={classes.price}>
+                <Price {...priceProps} />
             </span>
         </Link>
     );
@@ -73,6 +70,21 @@ SuggestedProduct.propTypes = {
             })
         })
     }).isRequired,
+    price_range: shape({
+        maximum_price: shape({
+            final_price: shape({
+                currency: string,
+                value: number
+            }),
+            regular_price: shape({
+                currency: string,
+                value: number
+            }),
+            discount: shape({
+                amount_off: number
+            })
+        })
+    }),
     classes: shape({
         root: string,
         image: string,

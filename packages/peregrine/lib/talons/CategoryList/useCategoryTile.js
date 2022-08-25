@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+/* Deprecated in PWA-12.1.0*/
 
-// TODO: get categoryUrlSuffix from graphql storeOptions when it is ready
-const categoryUrlSuffix = '.html';
+import { useMemo } from 'react';
+import useInternalLink from '../../hooks/useInternalLink';
+
 const previewImageSize = 480;
 
 /**
@@ -10,10 +11,12 @@ const previewImageSize = 480;
  * @returns {Object} props necessary to render a category tile
  * @returns {Object} .image - an object containing url, type and width for the category image
  * @returns {Object} .item - an object containing name and url for the category tile
+ * @returns {Function} .handleClick - callback to fire on link click
  */
 export const useCategoryTile = props => {
-    const { item } = props;
+    const { item, storeConfig } = props;
     const { image, productImagePreview } = item;
+    const { category_url_suffix } = storeConfig;
 
     const imageObj = useMemo(() => {
         const previewProduct = productImagePreview.items[0];
@@ -41,13 +44,16 @@ export const useCategoryTile = props => {
     const itemObject = useMemo(
         () => ({
             name: item.name,
-            url: `/${item.url_key}${categoryUrlSuffix}`
+            url: `/${item.url_key}${category_url_suffix || ''}`
         }),
-        [item]
+        [item, category_url_suffix]
     );
+
+    const { setShimmerType } = useInternalLink('category');
 
     return {
         image: imageObj,
-        item: itemObject
+        item: itemObject,
+        handleClick: setShimmerType
     };
 };

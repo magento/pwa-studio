@@ -1,10 +1,11 @@
 import React from 'react';
 import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
+import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEditableForm';
+
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
 import ShippingForm from './shippingForm';
-import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEditableForm';
 
 /**
  * The EditableForm component renders the actual edit forms for the sections
@@ -12,13 +13,11 @@ import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEdita
  */
 const EditableForm = props => {
     const {
-        checkout: { countries },
+        countries,
         editing,
         isSubmitting,
         setEditing,
-        shippingAddressError,
         submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
         submitShippingMethod
     } = props;
 
@@ -28,22 +27,18 @@ const EditableForm = props => {
         handleSubmitPaymentsForm,
         handleSubmitShippingForm
     } = useEditableForm({
+        countries,
         setEditing,
         submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
         submitShippingMethod
     });
 
     switch (editing) {
         case 'address': {
-            const { shippingAddress } = props;
-
             return (
                 <AddressForm
                     onCancel={handleCancel}
                     countries={countries}
-                    error={shippingAddressError}
-                    initialValues={shippingAddress}
                     isSubmitting={isSubmitting}
                     onSubmit={handleSubmitAddressForm}
                 />
@@ -86,9 +81,7 @@ EditableForm.propTypes = {
     isSubmitting: bool,
     setEditing: func.isRequired,
     shippingAddress: object,
-    shippingAddressError: string,
     shippingMethod: string,
-    submitShippingAddress: func.isRequired,
     submitShippingMethod: func.isRequired,
     submitPaymentMethodAndBillingAddress: func.isRequired,
     checkout: shape({

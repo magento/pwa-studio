@@ -1,0 +1,97 @@
+.root {
+    composes: grid from global;
+    composes: gap-md from global;
+}
+
+.errorText {
+    composes: leading-normal from global;
+    composes: text-error from global;
+}
+
+.balance {
+    composes: grid from global;
+    composes: italic from global;
+    composes: items-start from global;
+    composes: pt-1.5 from global;
+    composes: text-sm from global;
+    grid-template-columns: max-content 1fr;
+}
+
+.card {
+    composes: gap-sm from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: items-start from global;
+    grid-template-areas:
+        'card_entry'
+        'check_balance_button'
+        'apply_button';
+
+    composes: lg_grid-cols-autoLast from global;
+}
+
+@media (min-width: 960px) {
+    .card {
+        grid-template-areas:
+            'card_entry apply_button'
+            'check_balance_button check_balance_button';
+    }
+}
+
+.card_input_container {
+}
+
+/* TODO @TW: cannot compose */
+.card_input_container_error input {
+    /* composes: border-error from global; */
+    border-color: rgb(var(--venia-global-color-red-400));
+}
+
+/* TODO @TW: cannot compose */
+.card_input_container_error input:focus {
+    /* composes: border-gray-600 from global; */
+    border-color: rgb(var(--venia-global-color-gray-600));
+}
+
+/* TODO @TW: cannot compose */
+.card_input_container_error p {
+    /* composes: text-error from global; */
+    color: rgb(var(--venia-global-color-error));
+    /* composes: font-semibold from global; */
+    font-weight: 600;
+}
+
+.cards_container {
+    composes: gap-sm from global;
+    composes: grid from global;
+    composes: items-baseline from global;
+    composes: justify-start from global;
+    grid-template-columns: max-content auto;
+}
+
+.check_balance_button {
+    composes: root from '../../LinkButton/linkButton.module.css';
+
+    composes: justify-self-center from global;
+    grid-area: check_balance_button;
+
+    composes: lg_justify-self-start from global;
+}
+
+.entry {
+    grid-area: card_entry;
+}
+
+.price {
+}
+
+.entryForm {
+}
+
+.applyLabel {
+    composes: label from '../../Field/field.module.css';
+
+    composes: hidden from global;
+
+    composes: lg_block from global;
+}

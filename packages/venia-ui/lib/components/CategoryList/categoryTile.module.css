@@ -1,0 +1,32 @@
+/* Deprecated in PWA-12.1.0*/
+
+.root {
+    composes: block from global;
+    composes: leading-none from global;
+    composes: text-center from global;
+    composes: w-[6rem] from global;
+}
+
+.imageContainer {
+    composes: mb-4 from global;
+    composes: ml-2 from global;
+    composes: mr-2 from global;
+    composes: mt-0 from global;
+}
+
+.image {
+    composes: block from global;
+    composes: h-[5rem] from global;
+    composes: object-cover from global;
+    composes: object-center from global;
+    composes: rounded-full from global;
+    box-shadow: 0 0 0 1px rgb(var(--venia-global-color-border));
+}
+
+.image_empty {
+    composes: image;
+}
+
+.name {
+    composes: block from global;
+}

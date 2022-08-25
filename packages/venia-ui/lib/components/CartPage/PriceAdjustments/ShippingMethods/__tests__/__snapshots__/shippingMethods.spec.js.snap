@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders address form and methods with address set 1`] = `
+<div
+  className="root"
+>
+  <p
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order."
+      id="shippingMethods.message"
+    />
+  </p>
+  <ShippingForm
+    hasMethods={2}
+    selectedShippingFields={
+      Object {
+        "country": "US",
+        "region": "TX",
+        "zip": "78701",
+      }
+    }
+  />
+  <h3
+    className="prompt"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Shipping Methods"
+      id="shippingMethods.prompt"
+    />
+  </h3>
+  <form
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <ShippingRadios
+      selectedShippingMethod="usps|priority"
+      shippingMethods={
+        Array [
+          Object {
+            "amount": Object {
+              "value": 0,
+            },
+            "method_title": "Free",
+          },
+          Object {
+            "amount": Object {
+              "value": 100,
+            },
+            "method_title": "Expensive",
+          },
+        ]
+      }
+    />
+  </form>
+</div>
+`;
+
+exports[`renders address form when confirm link clicked 1`] = `
+<div
+  className="root"
+>
+  <p
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order."
+      id="shippingMethods.message"
+    />
+  </p>
+  <ShippingForm
+    hasMethods={0}
+    selectedShippingFields={
+      Object {
+        "country": "US",
+        "region": "",
+        "zip": "",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`renders description and confirm link w/o shipping address set 1`] = `
+<div
+  className="root"
+>
+  <p
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order."
+      id="shippingMethods.message"
+    />
+  </p>
+  <button
+    className="root_normalPriority"
+    disabled={false}
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <span
+      className="content"
+    >
+      <mock-FormattedMessage
+        defaultMessage="I want to estimate my shipping"
+        id="shippingMethods.estimateButton"
+      />
+    </span>
+  </button>
+</div>
+`;

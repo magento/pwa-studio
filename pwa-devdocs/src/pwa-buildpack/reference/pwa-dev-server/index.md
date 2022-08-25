@@ -1,5 +1,6 @@
 ---
 title: PWADevServer
+adobeio: /api/buildpack/webpack/dev-server/
 ---
 
 A utility for configuring a development OS and a `webpack-dev-server` for PWA development.
@@ -80,4 +81,3 @@ Browse to the `/graphiql` path on your PWADevServer to use this feature.
 [`exactDomain: string`]: #exactdomain
 [GraphQL Playground feature]: #graphql-playground-feature
 [GraphQL Playground]: https://github.com/prisma/graphql-playground
-[`LocalProjectLocation`]: {{ site.baseurl }}{%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation

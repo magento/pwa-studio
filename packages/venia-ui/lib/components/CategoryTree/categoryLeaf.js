@@ -1,28 +1,43 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
+import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import { useCategoryLeaf } from '@magento/peregrine/lib/talons/CategoryTree';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
-import { mergeClasses } from '../../classify';
-import { Link, resourceUrl } from '../../drivers';
-import defaultClasses from './categoryLeaf.css';
-
-const suffix = '.html';
+import { useStyle } from '../../classify';
+import defaultClasses from './categoryLeaf.module.css';
 
 const Leaf = props => {
-    const { category, onNavigate } = props;
-    const { name, url_path } = category;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const { category, onNavigate, categoryUrlSuffix, tabindex } = props;
+    const { name, url_path, children } = category;
+    const classes = useStyle(defaultClasses, props.classes);
     const { handleClick } = useCategoryLeaf({ onNavigate });
-    const destination = resourceUrl(`/${url_path}${suffix}`);
+    const destination = resourceUrl(`/${url_path}${categoryUrlSuffix || ''}`);
+
+    const leafLabel =
+        children && children.length ? (
+            <FormattedMessage
+                id={'categoryLeaf.allLabel'}
+                defaultMessage={'All {name}'}
+                values={{
+                    name: name
+                }}
+            />
+        ) : (
+            name
+        );
 
     return (
         <li className={classes.root}>
             <Link
                 className={classes.target}
+                data-cy="CategoryTree-Leaf-target"
                 to={destination}
                 onClick={handleClick}
+                tabIndex={tabindex}
             >
-                <span className={classes.text}>{name}</span>
+                <span className={classes.text}>{leafLabel}</span>
             </Link>
         </li>
     );
@@ -40,5 +55,7 @@ Leaf.propTypes = {
         target: string,
         text: string
     }),
-    onNavigate: func.isRequired
+    onNavigate: func.isRequired,
+    tabindex: func.isRequired,
+    categoryUrlSuffix: string
 };

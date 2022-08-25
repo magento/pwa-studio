@@ -1,0 +1,12 @@
+.formErrors {
+}
+
+.listname {
+}
+
+.actions {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: pt-md from global;
+}

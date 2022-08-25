@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render tab item with all props configured 1`] = `
+<div
+  className="test-class "
+  style={
+    Object {
+      "backgroundAttachment": "fixed",
+      "backgroundColor": "red",
+      "backgroundImage": "url(desktop.jpg)",
+      "backgroundPosition": "center center",
+      "backgroundRepeat": true,
+      "backgroundSize": "contain",
+      "border": "solid",
+      "borderColor": "red",
+      "borderRadius": "15px",
+      "borderWidth": "10px",
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "center",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "minHeight": "200px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "right",
+      "verticalAlignment": "middle",
+    }
+  }
+/>
+`;
+
+exports[`render tab item with mobile image displayed 1`] = `
+<div
+  className=" "
+  style={
+    Object {
+      "backgroundAttachment": undefined,
+      "backgroundColor": undefined,
+      "backgroundImage": "url(mobile.jpg)",
+      "backgroundPosition": undefined,
+      "backgroundRepeat": "repeat",
+      "backgroundSize": undefined,
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+      "verticalAlignment": undefined,
+    }
+  }
+/>
+`;
+
+exports[`render tab item with no props 1`] = `
+<div
+  className=" "
+  style={
+    Object {
+      "backgroundColor": undefined,
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+      "verticalAlignment": undefined,
+    }
+  }
+/>
+`;

@@ -1,0 +1,24 @@
+.wrapper {
+    composes: grid-flow-col from global;
+    composes: h-[2.25rem] from global;
+    composes: inline-grid from global;
+    grid-template-areas: 'input icon';
+    grid-template-columns: auto 2.25rem;
+}
+
+.input,
+.input_error {
+    composes: input from '../Field/field.module.css';
+    grid-area: input-start / input-start / input-end / icon-end;
+    padding-right: calc(2.25rem - 1px); /* TODO @TW: review */
+
+    composes: disabled_text-subtle from global;
+}
+
+.input {
+    composes: disabled_pointer-events-none from global;
+}
+
+.input_error {
+    composes: border-error from global;
+}

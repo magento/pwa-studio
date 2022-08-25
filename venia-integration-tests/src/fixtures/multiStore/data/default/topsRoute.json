@@ -1,0 +1,11 @@
+{
+  "data": {
+    "route": {
+      "relative_url": "venia-tops.html",
+      "redirect_code": 0,
+      "type": "CATEGORY",
+      "uid": "OA==",
+      "__typename": "CategoryTree"
+    }
+  }
+}

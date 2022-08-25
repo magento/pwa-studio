@@ -1,0 +1,148 @@
+.root {
+    composes: gap-y-2xs from global;
+    composes: grid from global;
+}
+
+.item {
+    composes: gap-x-2xs from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: items-start from global;
+    grid-template-areas: 'image details kebab';
+    grid-template-columns: 100px 1fr min-content;
+}
+
+.item_disabled {
+    composes: item;
+    composes: opacity-50 from global;
+}
+
+.errorText {
+    composes: leading-normal from global;
+    composes: text-error from global;
+}
+
+/* TODO @TW: cannot compose */
+.errorText:empty {
+    display: none;
+}
+
+.imageContainer {
+    grid-area: image;
+}
+
+.imageRoot {
+    composes: h-full from global;
+}
+
+.image {
+    composes: bg-subtle from global;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: h-full from global;
+    composes: object-contain from global;
+    composes: object-center from global;
+    composes: rounded-sm from global;
+}
+
+.details {
+    composes: gap-2xs from global;
+    composes: leading-normal from global;
+
+    composes: sm_grid from global;
+}
+
+@media (min-width: 640px) {
+    .details {
+        grid-area: details;
+        grid-template-areas:
+            'name name'
+            'options quantity'
+            'price quantity'
+            'stock quantity';
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+.name {
+    composes: font-semibold from global;
+    grid-area: name;
+}
+
+.price {
+    composes: text-sm from global;
+    grid-area: price;
+}
+
+.quantity {
+    composes: grid from global;
+    composes: items-start from global;
+    composes: justify-items-start from global;
+    grid-area: quantity;
+
+    composes: sm_justify-items-center from global;
+}
+
+.kebab {
+    composes: relative from global;
+    grid-area: kebab;
+}
+
+.sectionText {
+    composes: pointer-events-none from global;
+    composes: px-2xs from global;
+    composes: py-1 from global;
+    composes: text-sm from global;
+}
+
+.options {
+    composes: gap-0.5 from global;
+    composes: grid from global;
+    composes: text-sm from global;
+    grid-area: options;
+}
+
+.optionLabel {
+    composes: auto-cols-max from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+}
+
+.stockStatusMessage {
+    composes: font-semibold from global;
+    composes: text-error from global;
+    composes: text-sm from global;
+    grid-area: stock;
+}
+
+/* TODO @TW: cannot compose */
+.stockStatusMessage:empty {
+    display: none;
+}
+
+.addToListButton {
+    --stroke: rgb(var(--venia-global-color-teal));
+
+    composes: content-center from global;
+    composes: gap-x-xs from global;
+    composes: inline-flex from global;
+    composes: px-2.5 from global;
+    composes: py-3.5 from global;
+    composes: text-sm from global;
+    composes: w-full from global;
+}
+
+.addToListButton_selected {
+    composes: hidden from global;
+}
+
+@media (max-width: 639px) {
+    .name,
+    .options,
+    .price,
+    .stockStatusMessage,
+    .quantity {
+        grid-area: auto;
+    }
+}

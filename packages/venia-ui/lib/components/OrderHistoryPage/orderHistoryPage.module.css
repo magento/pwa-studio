@@ -1,0 +1,70 @@
+.root {
+    composes: grid from global;
+    composes: gap-y-md from global;
+    composes: px-sm from global;
+    composes: py-md from global;
+
+    composes: lg_px-lg from global;
+}
+
+.heading {
+    composes: font-bold from global;
+    composes: font-serif from global;
+    composes: justify-self-center from global;
+    composes: capitalize from global;
+}
+
+.emptyHistoryMessage {
+    composes: text-center from global;
+}
+
+.orderHistoryTable {
+    composes: grid from global;
+    composes: gap-y-xs from global;
+}
+
+.filterRow {
+    composes: flex from global;
+    composes: flex-col from global;
+    composes: gap-y-xs from global;
+    composes: items-start from global;
+    composes: justify-between from global;
+
+    composes: lg_flex-row from global;
+    composes: lg_gap-y-0 from global;
+    composes: lg_items-center from global;
+}
+
+.pageInfo {
+    composes: text-sm from global;
+}
+
+.search {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-self-center from global;
+    composes: w-full from global;
+
+    composes: lg_gap-xs from global;
+    composes: lg_justify-self-left from global;
+    composes: lg_w-[22rem] from global;
+}
+
+.searchButton {
+    composes: root_highPriority from '../Button/button.module.css';
+
+    composes: h-[2rem] from global;
+    composes: min-w-[5rem] from global;
+    composes: w-[5rem] from global;
+}
+
+.submitIcon {
+    composes: text-white from global;
+}
+
+.loadMoreButton {
+    composes: root_lowPriority from '../Button/button.module.css';
+
+    composes: justify-self-center from global;
+}

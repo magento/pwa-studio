@@ -1,0 +1,14 @@
+.root {
+    composes: bg-white from global;
+    composes: border-t from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: gap-1 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-center from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+    composes: text-center from global;
+    grid-auto-columns: minmax(2rem, auto);
+}

@@ -44,9 +44,12 @@ const container = document.getElementById('root');
 app.component = App;
 app.mount(container);
 
-if ('serviceWorker' in navigator) {
+const { navigator } = globalThis;
+const { serviceWorker } = navigator || {};
+
+if (serviceWorker) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker
+        serviceWorker
             .register(process.env.SERVICE_WORKER_FILE_NAME);
     });
 }
@@ -74,7 +77,7 @@ npm start
 
 If you experience problems with the project setup, see [Troubleshooting].
 
-[previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
-[Peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
-[Project setup tutorial]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/index.md %}
-[Troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
+[previous topic]: {% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
+[Peregrine]: {% link peregrine/index.md %}
+[Project setup tutorial]: {% link pwa-buildpack/project-setup/index.md %}
+[Troubleshooting]: {% link pwa-buildpack/troubleshooting/index.md %}

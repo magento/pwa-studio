@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HookInterceptorSet for hooks target API stores a queue of transform requests for hook files 1`] = `
+Array [
+  "frosting(useAwaitQuery)",
+  "wd-40(useCarousel)",
+  "curtains(useDropdown)",
+  "fanfare(useEventListener)",
+  "knickknacks(usePagination)",
+  "unsettery(useResetForm)",
+  "en passant(useRestApi)",
+  "indolence(useRestResponse)",
+  "physics(useScrollIntoView)",
+  "crisis(useScrollLock)",
+  "mutability(useScrollTopOnChange)",
+  "optimism(useSearchParam)",
+  "intent(useSort)",
+  "disbelief(useWindowSize)",
+]
+`;
+
+exports[`HookInterceptorSet for talons target API stores a queue of transform requests for talon files 1`] = `
+Array [
+  "metal(useAccordion)",
+  "dust(useAccountChip)",
+  "drapes(useAccountMenuItems)",
+  "bunting(useApp)",
+  "lace(useAuthBar)",
+  "muslin(useAuthModal)",
+  "egg(useBreadcrumbs)",
+  "envelope(useGiftCard)",
+  "ribbons(useGiftCards)",
+  "silk(useCartPage)",
+]
+`;

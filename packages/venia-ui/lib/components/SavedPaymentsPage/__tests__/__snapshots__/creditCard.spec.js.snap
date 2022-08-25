@@ -1,0 +1,323 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders delete confirmation 1`] = `
+<div
+  className="root_active"
+>
+  <div
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Credit Card"
+      id="storedPayments.creditCard"
+    />
+  </div>
+  <div
+    className="number"
+  >
+    **** 1234    Visa
+  </div>
+  <div
+    className="expiry_date"
+  >
+    Dec. 12
+  </div>
+  <div
+    className="delete"
+  >
+    <button
+      className="root_normalPriority"
+      disabled={true}
+      onClick={[MockFunction toggleDeleteConfirmation]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="3 6 5 6 21 6"
+            />
+            <path
+              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+            />
+            <line
+              x1="10"
+              x2="10"
+              y1="11"
+              y2="17"
+            />
+            <line
+              x1="14"
+              x2="14"
+              y1="11"
+              y2="17"
+            />
+          </svg>
+        </span>
+        <span
+          className="deleteText"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Delete"
+            id="storedPayments.delete"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+  <div
+    className="deleteConfirmationContainer"
+  >
+    <button
+      className="root_normalPriorityNegative"
+      disabled={true}
+      onClick={[MockFunction handleDeletePayment]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Delete"
+          id="global.deleteButton"
+        />
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      disabled={true}
+      onClick={[MockFunction toggleDeleteConfirmation]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Cancel"
+          id="global.cancelButton"
+        />
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`should pop a toast on error 1`] = `
+Object {
+  "dismissable": true,
+  "icon": <Icon
+    size={20}
+    src={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "color": [Function],
+          "size": [Function],
+        },
+        "render": [Function],
+      }
+    }
+  />,
+  "message": "Something went wrong deleting this payment method. Please refresh and try again.",
+  "timeout": 7000,
+  "type": "error",
+}
+`;
+
+exports[`should render properly 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Credit Card"
+      id="storedPayments.creditCard"
+    />
+  </div>
+  <div
+    className="number"
+  >
+    **** 1234    Visa
+  </div>
+  <div
+    className="expiry_date"
+  >
+    Dec. 12
+  </div>
+  <div
+    className="delete"
+  >
+    <button
+      className="root_normalPriority"
+      disabled={false}
+      onClick={[MockFunction toggleDeleteConfirmation]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="3 6 5 6 21 6"
+            />
+            <path
+              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+            />
+            <line
+              x1="10"
+              x2="10"
+              y1="11"
+              y2="17"
+            />
+            <line
+              x1="14"
+              x2="14"
+              y1="11"
+              y2="17"
+            />
+          </svg>
+        </span>
+        <span
+          className="deleteText"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Delete"
+            id="storedPayments.delete"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+  <div
+    className="deleteConfirmationContainer_hidden"
+  >
+    <button
+      className="root_normalPriorityNegative"
+      disabled={false}
+      onClick={[MockFunction handleDeletePayment]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Delete"
+          id="global.deleteButton"
+        />
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[MockFunction toggleDeleteConfirmation]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Cancel"
+          id="global.cancelButton"
+        />
+      </span>
+    </button>
+  </div>
+</div>
+`;

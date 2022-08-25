@@ -1,0 +1,16 @@
+.root {
+    composes: gap-x-1 from global;
+    composes: grid from global;
+    composes: h-full from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: px-1 from global;
+    composes: py-0 from global;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.remainderCount {
+    composes: justify-self-center from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
+}

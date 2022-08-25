@@ -1,0 +1,12 @@
+.root {
+    composes: gap-y-2xs from global;
+    composes: grid from global;
+    composes: pt-xs from global;
+    composes: text-colorDefault from global;
+}
+
+.address {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: pt-xs from global;
+}

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an Error message 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="errorMessage"
+  >
+    Unit Test Error Message
+  </span>
+</div>
+`;

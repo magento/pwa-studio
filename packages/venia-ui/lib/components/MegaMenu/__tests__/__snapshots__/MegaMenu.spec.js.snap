@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#MegaMenu renders empty div if not in viewport 1`] = `
+<nav
+  className="megaMenu"
+  role="navigation"
+/>
+`;
+
+exports[`#MegaMenu renders menu if in viewport 1`] = `
+<nav
+  className="megaMenu"
+  role="navigation"
+>
+  <div
+    className="megaMenuItem"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onTouchStart={[Function]}
+  >
+    <a
+      aria-label="Category: Women. 1 sub-categories"
+      className="megaMenuLink"
+      href="/women.html"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      Women
+      <span
+        className="arrowDown"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={16}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 12 15 18 9"
+          />
+        </svg>
+      </span>
+    </a>
+    <div
+      className="submenu_inactive"
+    >
+      <div
+        className="submenuItems"
+        style={
+          Object {
+            "minWidth": 20,
+          }
+        }
+      >
+        <div
+          className="submenuColumn"
+        >
+          <a
+            className="link"
+            href="/bottoms.html"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            <span
+              className="heading"
+            >
+              Bottoms
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="megaMenuItem"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onTouchStart={[Function]}
+  >
+    <a
+      className="megaMenuLink"
+      href="/men.html"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      Men
+    </a>
+  </div>
+  <div
+    className="megaMenuItem"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onTouchStart={[Function]}
+  >
+    <a
+      className="megaMenuLink"
+      href="/gear.html"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      Gear
+    </a>
+  </div>
+</nav>
+`;

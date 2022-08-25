@@ -46,8 +46,8 @@ test('appends the given options to the payload object', () => {
         ...samplePayload
     };
     const optionSelections = new Map();
-    optionSelections.set('1', 1);
-    optionSelections.set('2', 2);
+    optionSelections.set(1, 1);
+    optionSelections.set(2, 2);
 
     expect(Array.isArray(payload.options)).toBe(false);
     appendOptionsToPayload(payload, optionSelections);
@@ -57,15 +57,15 @@ test('appends the given options to the payload object', () => {
 test('appends the given options using pre-cached option codes', () => {
     const optionCodes = new Map();
     for (const option of sampleItem.configurable_options) {
-        optionCodes.set(option.attribute_id, option.attribute_code);
+        optionCodes.set(Number(option.attribute_id), option.attribute_code);
     }
     const payload = {
         item: sampleItem,
         ...samplePayload
     };
     const optionSelections = new Map();
-    optionSelections.set('1', 1);
-    optionSelections.set('2', 2);
+    optionSelections.set(1, 1);
+    optionSelections.set(2, 2);
 
     expect(Array.isArray(payload.options)).toBe(false);
     appendOptionsToPayload(payload, optionSelections, optionCodes);
@@ -79,8 +79,8 @@ test('unavailable item selection returns the original payload', () => {
     };
     const unchangedPayload = { ...payload };
     const optionSelections = new Map();
-    optionSelections.set('1', 2);
-    optionSelections.set('2', 1);
+    optionSelections.set(1, 2);
+    optionSelections.set(2, 1);
 
     expect(Array.isArray(payload.options)).toBe(false);
     appendOptionsToPayload(payload, optionSelections);

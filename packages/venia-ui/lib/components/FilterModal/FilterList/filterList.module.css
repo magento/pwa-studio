@@ -1,0 +1,18 @@
+.items {
+    composes: gap-3 from global;
+    composes: grid from global;
+    composes: -ml-1.5 from global;
+    composes: pb-md from global;
+    grid-template-columns: 100%;
+}
+
+.showMoreLessItem {
+    composes: pl-1 from global;
+}
+
+.showMoreLessButton {
+    composes: text-sm from global;
+    composes: underline from global;
+
+    composes: hover_no-underline from global;
+}

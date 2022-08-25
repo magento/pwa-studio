@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Image component 1`] = `
+<figure
+  className="root"
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <picture>
+    
+    <img
+      className="img"
+      loading="lazy"
+      src="test-image.png"
+      srcSet="test-image.png 1x"
+      style={
+        Object {
+          "border": undefined,
+          "borderColor": undefined,
+          "borderRadius": undefined,
+          "borderWidth": undefined,
+        }
+      }
+    />
+  </picture>
+  
+</figure>
+`;
+
+exports[`renders a Image component with all props configured 1`] = `
+<figure
+  className="root test-class"
+  style={
+    Object {
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "right",
+    }
+  }
+>
+  <a
+    href="http://www.adobe.com/"
+    target="_blank"
+  >
+    <picture>
+      <source
+        media="(max-width: 48rem)"
+        srcSet="mobile-image.png"
+      />
+      <img
+        alt="Alt Text"
+        className="img"
+        loading="lazy"
+        src="desktop-image.png"
+        srcSet="desktop-image.png 1x"
+        style={
+          Object {
+            "border": "solid",
+            "borderColor": "red",
+            "borderRadius": "15px",
+            "borderWidth": "10px",
+          }
+        }
+        title="Title Text"
+      />
+    </picture>
+    <figcaption>
+      Example Caption
+    </figcaption>
+  </a>
+</figure>
+`;
+
+exports[`renders a Image component with only mobile image 1`] = `
+<figure
+  className="root"
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <picture>
+    <source
+      media="(max-width: 48rem)"
+      srcSet="mobile-image.png"
+    />
+    <img
+      className="img mobileOnly"
+      loading="lazy"
+      src=""
+      srcSet=" 1x"
+      style={
+        Object {
+          "border": undefined,
+          "borderColor": undefined,
+          "borderRadius": undefined,
+          "borderWidth": undefined,
+        }
+      }
+    />
+  </picture>
+  
+</figure>
+`;
+
+exports[`renders a Image component with openInNewTab set to false 1`] = `
+<figure
+  className="root"
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <a
+    href="http://www.adobe.com/"
+  >
+    <picture>
+      
+      <img
+        className="img"
+        loading="lazy"
+        src="desktop-image.png"
+        srcSet="desktop-image.png 1x"
+        style={
+          Object {
+            "border": undefined,
+            "borderColor": undefined,
+            "borderRadius": undefined,
+            "borderWidth": undefined,
+          }
+        }
+      />
+    </picture>
+    
+  </a>
+</figure>
+`;
+
+exports[`renders an empty Image component 1`] = `null`;

@@ -1,0 +1,2540 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it disables the add to cart button when the talon indicates 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={true}
+        aria-label=""
+        className="root_highPriority"
+        disabled={true}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it does not render options if the product is not a ConfigurableProduct 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  />
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it renders an error for an invalid cart 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={
+      Array [
+        [Error: There was a problem with your cart. Please refresh the page and try adding the item once more.],
+      ]
+    }
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it renders an error for an invalid user token when adding to cart 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={
+      Array [
+        [Error: There was a problem with your cart. Please sign in again and try adding the item once more.],
+      ]
+    }
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it renders breadcrumbs if there is a breadcrumb category id 1`] = `
+Array [
+  <Breadcrumbs
+    categoryId={25}
+    currentProduct="Flux Capacitor"
+  />,
+  <form
+    className="root"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <section
+      className="imageCarousel"
+    >
+      <ProductImageCarousel
+        images={Array []}
+      />
+    </section>
+    <section
+      className="title"
+    >
+      <h1
+        aria-live="polite"
+        className="productName"
+      >
+        Flux Capacitor
+      </h1>
+      <p
+        className="productPrice"
+      >
+        <span>
+          $
+        </span>
+        <span>
+          3
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          50
+        </span>
+      </p>
+    </section>
+    <FormError
+      classes={
+        Object {
+          "root": "formErrors",
+        }
+      }
+      errors={Array []}
+    />
+    <section
+      className="options"
+    >
+      <require('../ProductOptions')
+        isEverythingOutOfStock={false}
+        onSelectionChange={[MockFunction]}
+        options={
+          Array [
+            Object {
+              "attribute_code": "configurable_option",
+              "attribute_id": "1",
+              "id": 1,
+              "label": "Configurable Option",
+              "values": Array [
+                Object {
+                  "default_label": "Option 1",
+                  "label": "Option 1",
+                  "store_label": "Option 1",
+                  "use_default_value": true,
+                  "value_index": 1,
+                },
+                Object {
+                  "default_label": "Option 2",
+                  "label": "Option 2",
+                  "store_label": "Option 2",
+                  "use_default_value": true,
+                  "value_index": 2,
+                },
+              ],
+            },
+          ]
+        }
+        outOfStockVariants={Array []}
+      />
+    </section>
+    <section
+      className="quantity"
+    >
+      <span
+        className="quantityTitle"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Quantity"
+          id="global.quantity"
+        />
+      </span>
+      QuantityStepper
+    </section>
+    <section
+      className="actions"
+    >
+      <section
+        className="actButton"
+      >
+        <button
+          aria-disabled={false}
+          aria-label=""
+          className="root_highPriority"
+          disabled={false}
+          onClick={[Function]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="submit"
+        >
+          <span
+            className="content"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Add to Cart"
+              id="productFullDetail.addItemToCart"
+            />
+          </span>
+        </button>
+      </section>
+      <require('../Wishlist/AddToListButton') />
+    </section>
+    <section
+      className="description"
+    >
+      <span
+        className="descriptionTitle"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Description"
+          id="productFullDetail.description"
+        />
+      </span>
+      <RichContent
+        html="Powers the Delorean"
+      />
+    </section>
+    <section
+      className="details"
+    >
+      <span
+        className="detailsTitle"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Details"
+          id="productFullDetail.details"
+        />
+      </span>
+      <CustomAttributes
+        customAttributes={
+          Array [
+            Object {
+              "attribute_metadata": Object {
+                "label": "SKU",
+                "ui_input": Object {
+                  "ui_input_type": "TEXT",
+                },
+                "uid": "attribute_sku",
+                "used_in_components": Array [
+                  "PRODUCT_DETAILS_PAGE",
+                ],
+              },
+              "entered_attribute_value": Object {
+                "value": "BTTF123",
+              },
+            },
+          ]
+        }
+      />
+    </section>
+  </form>,
+]
+`;
+
+exports[`it renders correctly 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it renders field level errors for quantity - message 1 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it renders field level errors for quantity - message 2 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it renders field level errors for quantity - message 3 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it renders form level errors 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={
+      Array [
+        [Error: Could not add item to cart. Please check required options and try again.],
+      ]
+    }
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it renders message with everything out of stock 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={true}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={true}
+        aria-label="This item is currently out of stock"
+        className="root_highPriority"
+        disabled={true}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`it renders message with unsupported product type 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <div
+      className="unavailableContainer"
+    >
+      <svg
+        fill="none"
+        height={24}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={24}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+        />
+        <line
+          x1="12"
+          x2="12"
+          y1="16"
+          y2="12"
+        />
+        <line
+          x1="12"
+          x2="12.01"
+          y1="8"
+          y2="8"
+        />
+      </svg>
+      <p>
+        <mock-FormattedMessage
+          defaultMessage="This product is currently unavailable for purchase."
+          id="productFullDetail.unavailableProduct"
+        />
+      </p>
+    </div>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  />
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={true}
+        aria-label=""
+        className="root_highPriority"
+        disabled={true}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;
+
+exports[`renders a WishlistButton with props 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <section
+    className="title"
+  >
+    <h1
+      aria-live="polite"
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      isEverythingOutOfStock={false}
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+      outOfStockVariants={Array []}
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <span
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </span>
+    QuantityStepper
+  </section>
+  <section
+    className="actions"
+  >
+    <section
+      className="actButton"
+    >
+      <button
+        aria-disabled={false}
+        aria-label=""
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="productFullDetail.addItemToCart"
+          />
+        </span>
+      </button>
+    </section>
+    <require('../Wishlist/AddToListButton')
+      foo="bar"
+    />
+  </section>
+  <section
+    className="description"
+  >
+    <span
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Description"
+        id="productFullDetail.description"
+      />
+    </span>
+    <RichContent
+      html="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <span
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Details"
+        id="productFullDetail.details"
+      />
+    </span>
+    <CustomAttributes
+      customAttributes={
+        Array [
+          Object {
+            "attribute_metadata": Object {
+              "label": "SKU",
+              "ui_input": Object {
+                "ui_input_type": "TEXT",
+              },
+              "uid": "attribute_sku",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+            "entered_attribute_value": Object {
+              "value": "BTTF123",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</form>
+`;

@@ -1,0 +1,27 @@
+.root {
+    font-size: 0;
+}
+
+.inner {
+    display: inline-block;
+    width: 100%;
+}
+
+.wrapper {
+    overflow: hidden;
+    transform: translateZ(0px);
+}
+
+.container {
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+}
+
+.video {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}

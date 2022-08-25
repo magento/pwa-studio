@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "closeMiniCart": [Function],
+  "configurableThumbnailSource": "parent",
+  "errorMessage": "Hey I am a mutation error, Hey I am another mutation error",
+  "handleEditCart": [Function],
+  "handleProceedToCheckout": [Function],
+  "handleRemoveItem": [Function],
+  "loading": false,
+  "productList": Array [
+    Object {
+      "configurable_options": Array [
+        Object {
+          "configurable_product_option_value_uid": "uid123",
+          "label": "Color",
+          "value": "red",
+        },
+      ],
+      "id": "p1",
+      "prices": Object {
+        "price": Object {
+          "currency": "USD",
+          "value": 420,
+        },
+        "total_item_discount": Object {
+          "value": 2,
+        },
+      },
+      "product": Object {
+        "name": "P1",
+        "sku": "sku123",
+        "thumbnail": Object {
+          "url": "www.venia.com/p1",
+        },
+      },
+      "quantity": 10,
+    },
+  ],
+  "storeUrlSuffix": ".html",
+  "subTotal": 4200,
+  "totalQuantity": 10,
+}
+`;
+
+exports[`handleRemoveItem() should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "1234",
+    "currencyCode": "USD",
+    "discountAmount": 2,
+    "name": "P1",
+    "priceTotal": 420,
+    "quantity": 10,
+    "selectedOptions": Array [
+      Object {
+        "attribute": undefined,
+        "value": undefined,
+      },
+    ],
+    "sku": "sku123",
+  },
+  "type": "CART_REMOVE_ITEM",
+}
+`;
+
+exports[`should dispatch event when mini cart is open 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "1234",
+    "products": Array [
+      Object {
+        "configurable_options": Array [
+          Object {
+            "configurable_product_option_value_uid": "uid123",
+            "label": "Color",
+            "value": "red",
+          },
+        ],
+        "id": "p1",
+        "prices": Object {
+          "price": Object {
+            "currency": "USD",
+            "value": 420,
+          },
+          "total_item_discount": Object {
+            "value": 2,
+          },
+        },
+        "product": Object {
+          "name": "P1",
+          "sku": "sku123",
+          "thumbnail": Object {
+            "url": "www.venia.com/p1",
+          },
+        },
+        "quantity": 10,
+      },
+    ],
+  },
+  "type": "MINI_CART_VIEW",
+}
+`;

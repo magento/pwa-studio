@@ -1,0 +1,25 @@
+.root {
+    composes: px-4 from global;
+}
+
+.heading {
+    composes: mb-2 from global;
+    composes: mt-4 from global;
+    composes: text-center from global;
+    composes: text-3xl from global;
+
+    /* Medium */
+    composes: md_mb-10 from global;
+    composes: md_text-4xl from global;
+}
+
+.root_empty,
+.root_1column,
+.root_2columnsLeft,
+.root_2columnsRight,
+.root_3columns,
+.root_cmsFullWidth,
+.root_categoryFullWidth,
+.root_productFullWidth {
+    composes: root;
+}

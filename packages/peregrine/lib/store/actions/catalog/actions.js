@@ -11,11 +11,6 @@ const actionMap = {
     SET_PREV_PAGE_TOTAL: {
         REQUEST: null,
         RECEIVE: null
-    },
-    FILTER_OPTION: {
-        SET_TO_APPLIED: null,
-        UPDATE: null,
-        CLEAR: null
     }
 };
 

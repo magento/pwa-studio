@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`does not render CurrencySwitcher when there is only one available store 1`] = `
+<div
+  className="root"
+>
+  <button
+    aria-expanded={false}
+    aria-label="EUR"
+    className="trigger"
+    onClick={[MockFunction]}
+  >
+    <span
+      className="label"
+    >
+      <i
+        classes={
+          Object {
+            "currency": "symbol",
+          }
+        }
+        currencyCode="EUR"
+        currencyDisplay="narrowSymbol"
+      />
+      EUR
+    </span>
+  </button>
+  <div
+    className="menu"
+  >
+    <ul
+      role="listbox"
+    >
+      <li
+        aria-selected="EUR"
+        className="menuItem"
+        role="option"
+      >
+        <button
+          className="root"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="text"
+            >
+              <i
+                classes={
+                  Object {
+                    "currency": "symbol",
+                  }
+                }
+                currencyCode="USD"
+                currencyDisplay="narrowSymbol"
+              />
+              USD
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        aria-selected="EUR"
+        className="menuItem"
+        role="option"
+      >
+        <button
+          className="root"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="text"
+            >
+              <i
+                classes={
+                  Object {
+                    "currency": "symbol",
+                  }
+                }
+                currencyCode="EUR"
+                currencyDisplay="narrowSymbol"
+              />
+              EUR
+            </span>
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={20}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={20}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polyline
+                  points="20 6 9 17 4 12"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`renders the correct tree 1`] = `
+<div
+  className="root"
+>
+  <button
+    aria-expanded={false}
+    aria-label="EUR"
+    className="trigger"
+    onClick={[MockFunction]}
+  >
+    <span
+      className="label"
+    >
+      <i
+        classes={
+          Object {
+            "currency": "symbol",
+          }
+        }
+        currencyCode="EUR"
+        currencyDisplay="narrowSymbol"
+      />
+      EUR
+    </span>
+  </button>
+  <div
+    className="menu"
+  >
+    <ul
+      role="listbox"
+    >
+      <li
+        aria-selected="EUR"
+        className="menuItem"
+        role="option"
+      >
+        <button
+          className="root"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="text"
+            >
+              <i
+                classes={
+                  Object {
+                    "currency": "symbol",
+                  }
+                }
+                currencyCode="USD"
+                currencyDisplay="narrowSymbol"
+              />
+              USD
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        aria-selected="EUR"
+        className="menuItem"
+        role="option"
+      >
+        <button
+          className="root"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="text"
+            >
+              <i
+                classes={
+                  Object {
+                    "currency": "symbol",
+                  }
+                }
+                currencyCode="EUR"
+                currencyDisplay="narrowSymbol"
+              />
+              EUR
+            </span>
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={20}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={20}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polyline
+                  points="20 6 9 17 4 12"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

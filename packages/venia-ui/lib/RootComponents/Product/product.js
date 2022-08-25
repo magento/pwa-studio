@@ -1,10 +1,13 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { Title } from '../../components/Head';
-import ErrorView from '../../components/ErrorView';
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import ProductFullDetail from '../../components/ProductFullDetail';
-import getUrlKey from '../../util/getUrlKey';
+import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { string } from 'prop-types';
+import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product/useProduct';
+
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
+import { StoreTitle, Meta } from '@magento/venia-ui/lib/components/Head';
+import ProductFullDetail from '@magento/venia-ui/lib/components/ProductFullDetail';
+import mapProduct from '@magento/venia-ui/lib/util/mapProduct';
+import ProductShimmer from './product.shimmer';
 
 /*
  * As of this writing, there is no single Product query type in the M2.3 schema.
@@ -13,50 +16,42 @@ import getUrlKey from '../../util/getUrlKey';
  * https://github.com/magento/graphql-ce/issues/86
  * TODO: Replace with a single product query when possible.
  */
-import GET_PRODUCT_DETAIL from '../../queries/getProductDetail.graphql';
 
-const Product = () => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
-    const { loading, error, data } = useQuery(GET_PRODUCT_DETAIL, {
-        variables: {
-            onServer: false,
-            urlKey: getUrlKey()
-        }
+const Product = props => {
+    const { __typename: productType } = props;
+    const talonProps = useProduct({
+        mapProduct
     });
 
-    // Memoize the result from the query to avoid unnecessary rerenders.
-    const product = useMemo(() => {
-        if (!data) {
-            return;
-        }
-        const product = data.productDetail.items[0];
-        // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to
-        // maintain backwards compatibility
-        const { description } = product;
-        return {
-            ...product,
-            description:
-                typeof description === 'object' ? description.html : description
-        };
-    }, [data]);
+    const { error, loading, product } = talonProps;
 
-    if (loading) return fullPageLoadingIndicator;
-    if (error) return <div>Data Fetch Error</div>;
-
+    if (loading && !product)
+        return <ProductShimmer productType={productType} />;
+    if (error && !product) return <ErrorView />;
     if (!product) {
-        return <ErrorView outOfStock={true} />;
+        return (
+            <h1>
+                <FormattedMessage
+                    id={'product.outOfStockTryAgain'}
+                    defaultMessage={
+                        'This Product is currently out of stock. Please try again later.'
+                    }
+                />
+            </h1>
+        );
     }
 
-    // Note: STORE_NAME is injected by Webpack at build time.
     return (
         <Fragment>
-            <Title>{`${product.name} - ${STORE_NAME}`}</Title>
+            <StoreTitle>{product.name}</StoreTitle>
+            <Meta name="description" content={product.meta_description} />
             <ProductFullDetail product={product} />
         </Fragment>
     );
+};
+
+Product.propTypes = {
+    __typename: string.isRequired
 };
 
 export default Product;

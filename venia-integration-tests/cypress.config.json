@@ -1,0 +1,32 @@
+{
+    "baseUrl": "https://develop.pwa-venia.com",
+    "defaultCommandTimeout": 30000,
+    "supportFile": "src/support/index.js",
+    "pluginsFile": "src/plugins/index.js",
+    "fixturesFolder": "src/fixtures",
+    "integrationFolder": "src/tests",
+    "screenshotsFolder": "src/snapshots",
+    "video": false,
+    "pageLoadTimeout": 30000,
+    "requestTimeout": 60000,
+    "testFiles": "**/*.spec.js",
+    "viewportHeight": 900,
+    "viewportWidth": 1440,
+    "scrollBehavior": "nearest",
+    "trashAssetsBeforeRuns": false,
+    "chromeWebSecurity": false,
+    "ignoreTestFiles": [
+        "**/__snapshots__/*",
+        "**/__image_snapshots__/*"
+    ],
+    "env": {
+        "defaultData_couponCode": "PWA1423",
+        "defaultData_giftCardNumber": "02Y0LCHUNDRZ",
+        "updateSnapshots": false,
+        "grepFilterSpecs": true,
+        "grepOmitFiltered": true
+    },
+    "retries": {
+        "runMode": 2
+    }
+}

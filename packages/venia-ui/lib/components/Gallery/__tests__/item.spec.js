@@ -1,8 +1,27 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Link, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
+import { createTestInstance } from '@magento/peregrine';
 
 import Item from '../item';
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
+    return {
+        useImage: () => ({
+            handleError: jest.fn(),
+            handleImageLoad: jest.fn(),
+            hasError: false,
+            isLoaded: true,
+            resourceWidth: 100
+        })
+    };
+});
+jest.mock('../../../classify');
+jest.mock('../../Gallery/addToCartButton', () => props => (
+    <mock-AddToCartButton {...props} />
+));
 
 const classes = {
     image: 'a',
@@ -22,15 +41,29 @@ const classes = {
 const validItem = {
     id: 1,
     name: 'Test Product',
-    small_image: '/foo/bar/pic.png',
+    small_image: {
+        url: '/foo/bar/pic.png'
+    },
+    stock_status: 'IN_STOCK',
+    type_id: 'simple',
+    __typename: 'SimpleProduct',
     url_key: 'strive-shoulder-pack',
-    price: {
-        regularPrice: {
-            amount: {
+    url_suffix: '.html',
+    sku: 'sku-123',
+    price_range: {
+        maximum_price: {
+            final_price: {
                 value: 21,
                 currency: 'USD'
             }
         }
+    }
+};
+
+const defaultProps = {
+    classes,
+    storeConfig: {
+        product_url_suffix: '.html'
     }
 };
 
@@ -39,49 +72,19 @@ const validItem = {
  * `item` is `null` or `undefined`
  */
 test('renders a placeholder item while awaiting item', () => {
-    const wrapper = shallow(<Item classes={classes} />).dive();
-    const child = wrapper.find('ItemPlaceholder');
-    const props = { classes };
-
-    expect(child).toHaveLength(1);
-    expect(child.props()).toMatchObject(props);
-});
-
-test('passes classnames to the placeholder item', () => {
-    const wrapper = shallow(<Item classes={classes} />)
-        .dive()
-        .dive();
-
-    expect(wrapper.hasClass(classes.root_pending));
-});
-
-test('renders Link elements for navigating to a PDP', () => {
-    const wrapper = shallow(
-        <MemoryRouter>
-            <Item classes={classes} item={validItem} />
-        </MemoryRouter>
-    );
-
-    expect(
-        wrapper
-            .childAt(0)
-            .dive()
-            .dive()
-            .findWhere(
-                node =>
-                    node.type() === Link &&
-                    node.prop('to') === `/${validItem.url_key}.html`
-            )
-    ).toHaveLength(2);
+    const wrapper = createTestInstance(<Item {...defaultProps} />);
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
 /**
  * STATE 1: ready
  * `item` is a valid data object
  */
-test('renders only the real image', () => {
-    const wrapper = shallow(<Item classes={classes} item={validItem} />).dive();
-    const image = wrapper.find({ className: classes.image });
-
-    expect(image).toHaveLength(1);
+test('renders correctly with valid item data', () => {
+    const wrapper = createTestInstance(
+        <MemoryRouter>
+            <Item item={validItem} {...defaultProps} />
+        </MemoryRouter>
+    );
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });

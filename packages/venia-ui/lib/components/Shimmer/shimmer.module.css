@@ -1,0 +1,87 @@
+.root {
+    composes: bg-gray-100 from global;
+    composes: inline-block from global;
+    composes: overflow-hidden from global;
+    composes: pointer-events-none from global;
+    composes: relative from global;
+}
+
+/* TODO @TW: cannot compose */
+.root::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(
+        --venia-global-maxWidth
+    ); /* TODO @TW: review. this should use TW theme value "maxWidth.site" */
+    height: 100%;
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--venia-global-color-gray-50) / 0%) 0%,
+        rgb(var(--venia-global-color-gray-50)) 40%,
+        rgb(var(--venia-global-color-gray-50) / 0%) 80%,
+        rgb(var(--venia-global-color-gray-50) / 0%) 100%
+    );
+    /* composes: bg-no-repeat from global; */
+    background-repeat: none;
+    background-size: var(--venia-global-maxWidth) 100%;
+    -webkit-animation-name: shimmerAnimation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-fill-mode: forwards;
+    will-change: transform;
+}
+
+.root_rectangle {
+    composes: root;
+
+    min-height: 1rem;
+}
+
+.root_button {
+    composes: root from '../Button/button.module.css';
+    composes: root;
+
+    composes: border-0 from global;
+}
+
+.root_checkbox {
+    composes: input_shimmer from '../Checkbox/checkbox.module.css';
+    composes: root;
+
+    composes: border-0 from global;
+}
+
+.root_radio {
+    composes: input_shimmer from '../RadioGroup/radio.module.css';
+    composes: root;
+
+    composes: border-0 from global;
+}
+
+.root_textArea {
+    composes: input_shimmer from '../TextArea/textArea.module.css';
+    composes: root;
+
+    min-height: 6.75rem;
+    composes: border-0 from global;
+}
+
+.root_textInput {
+    composes: input_shimmer from '../TextInput/textInput.module.css';
+    composes: root;
+
+    composes: border-0 from global;
+}
+
+@-webkit-keyframes shimmerAnimation {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

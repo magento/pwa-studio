@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a BannerShimmer component with minHeight 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+    }
+  }
+>
+  <div
+    className="wrapper"
+    style={
+      Object {
+        "backgroundColor": undefined,
+        "border": undefined,
+        "borderColor": undefined,
+        "borderRadius": undefined,
+        "borderWidth": undefined,
+        "textAlign": undefined,
+      }
+    }
+  >
+    <div
+      className="posterOverlay"
+      style={
+        Object {
+          "backgroundColor": undefined,
+          "minHeight": "400px",
+          "paddingBottom": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+        }
+      }
+    >
+      <div
+        className="content"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": undefined,
+          }
+        }
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="presentation"
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+      />
+      <div
+        className="button"
+      >
+        <button
+          className="root_normalPriority"
+          disabled={false}
+          onClick={[Function]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="button"
+        >
+          <span
+            className="content"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders an empty BannerShimmer component 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root_rectangle"
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+    }
+  }
+>
+  <div
+    className="wrapper"
+    style={
+      Object {
+        "border": undefined,
+        "borderWidth": undefined,
+        "minHeight": undefined,
+        "paddingBottom": undefined,
+        "paddingLeft": undefined,
+        "paddingRight": undefined,
+        "paddingTop": undefined,
+      }
+    }
+  >
+    <div
+      className="overlay"
+    >
+      <div
+        className="content"
+      />
+    </div>
+  </div>
+</div>
+`;

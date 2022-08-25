@@ -1,0 +1,11 @@
+{
+  "data": {
+    "createCustomer": {
+      "customer": {
+        "email": "foo@test.com",
+        "__typename": "Customer"
+      },
+      "__typename": "CustomerOutput"
+    }
+  }
+}

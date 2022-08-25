@@ -1,0 +1,11 @@
+# Get store configuration.
+query {
+    storeConfig {
+        store_code
+        code
+        locale
+        secure_base_media_url
+        store_name
+        newsletter_enabled
+    }
+}

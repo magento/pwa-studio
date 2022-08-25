@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders accumulated tax value 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Estimated Tax
+  </span>,
+  <span
+    className="price"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      2
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;
+
+exports[`renders nothing if tax data is empty 1`] = `null`;
+
+exports[`renders tax summary line item correctly 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Estimated Tax
+  </span>,
+  <span
+    className="price"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      10
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;
+
+exports[`renders tax summary line item correctly if tax value is "0" 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Estimated Tax
+  </span>,
+  <span
+    className="price"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      0
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;

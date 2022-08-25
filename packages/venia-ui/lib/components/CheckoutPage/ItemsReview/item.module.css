@@ -1,0 +1,60 @@
+.root {
+    composes: gap-x-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoFirst from global;
+    composes: overflow-hidden from global;
+
+    grid-template-rows: auto auto 1fr;
+    transition-delay: 64ms;
+    transition-duration: 384ms;
+    transition-property: opacity, visbility;
+    transition-timing-function: var(--venia-global-anim-standard);
+}
+
+.root_visible {
+    composes: root;
+
+    composes: h-auto from global;
+    composes: mt-sm from global;
+    composes: opacity-100 from global;
+    composes: visible from global;
+}
+
+.root_hidden {
+    composes: root;
+
+    composes: h-0 from global;
+    composes: invisible from global;
+    composes: mt-0 from global;
+    composes: opacity-0 from global;
+}
+
+.thumbnail {
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 3;
+}
+
+.name {
+    composes: font-semibold from global;
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.quantity {
+    composes: mt-xs from global;
+    composes: text-sm from global;
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 1;
+}
+
+.options {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: mt-xs from global;
+    composes: text-sm from global;
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}

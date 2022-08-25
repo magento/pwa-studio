@@ -79,12 +79,17 @@ test('`sendRequest` sends a request and receives a response', async () => {
 });
 
 test('state and api are properly memoized', async () => {
+    const firstInstanceChild = 'abc';
+    const secondInstanceChild = 'def';
+
     const instance = createTestInstance(
-        <TestComponent key="foo">{'abc'}</TestComponent>
+        <TestComponent key="foo">{firstInstanceChild}</TestComponent>
     );
 
     act(() => {
-        instance.update(<TestComponent key="foo">{'def'}</TestComponent>);
+        instance.update(
+            <TestComponent key="foo">{secondInstanceChild}</TestComponent>
+        );
     });
 
     const firstCall = log.mock.calls[0];

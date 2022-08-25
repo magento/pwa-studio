@@ -1,0 +1,77 @@
+.root {
+    composes: content-start from global;
+    composes: grid from global;
+    composes: gap-y-2xs from global;
+}
+
+.images {
+    composes: grid from global;
+    grid-template-areas: 'main';
+    position: relative;
+}
+
+.imageContainer {
+    grid-area: main;
+}
+
+.image {
+    composes: block from global;
+    composes: h-full from global;
+    composes: object-contain from global;
+    composes: w-full from global;
+    transition: opacity 512ms ease-out;
+}
+
+.imageLoaded {
+    composes: loaded from '../Image/image.module.css';
+
+    composes: opacity-100 from global;
+}
+
+.imageNotLoaded {
+    composes: notLoaded from '../Image/image.module.css';
+
+    composes: opacity-0 from global;
+}
+
+.imagePlaceholder {
+    composes: image;
+
+    composes: bg-subtle from global;
+}
+
+.actionsContainer {
+    composes: gap-x-xs from global;
+    composes: grid from global;
+    composes: pl-2xs from global;
+    grid-template-columns: auto auto;
+}
+
+/* TODO @TW: cannot compose */
+.actionsContainer:empty {
+    display: none;
+}
+
+.name {
+    composes: font-semibold from global;
+}
+
+.name,
+.price {
+    composes: text-colorDefault from global;
+    min-height: 1rem;
+}
+
+.unavailableContainer {
+    composes: bg-subtle from global;
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: italic from global;
+    composes: items-center from global;
+    composes: justify-start from global;
+    composes: p-3 from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
+    composes: w-full from global;
+}

@@ -1,5 +1,6 @@
 ---
 title: ToastContainer
+adobeio: /api/venia/components/general/ToastContainer/
 ---
 
 <!--
@@ -39,4 +40,4 @@ export default Toaster;
 
 See also: [ToastContextProvider][]
 
-[toastcontextprovider]: {{site.baseurl}}{%link peregrine/reference/toasts/useToastContext/index.md %}
+[toastcontextprovider]: {%link peregrine/reference/toasts/useToastContext/index.md %}

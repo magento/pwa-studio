@@ -1,52 +1,76 @@
-import React, { Component, Fragment } from 'react';
-import { arrayOf, node, shape, string } from 'prop-types';
-import { BasicRadioGroup, asField } from 'informed';
-import { compose } from 'redux';
+import React, { Fragment } from 'react';
+import { arrayOf, number, node, oneOfType, shape, string } from 'prop-types';
+import { RadioGroup as InformedRadioGroup } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
-import classify from '../../classify';
+import { useStyle } from '../../classify';
 import { Message } from '../Field';
 import Radio from './radio';
-import defaultClasses from './radioGroup.css';
+import defaultClasses from './radioGroup.module.css';
 
-export class RadioGroup extends Component {
-    static propTypes = {
-        classes: shape({
-            message: string,
-            root: string
-        }),
-        fieldState: shape({
-            value: string
-        }),
-        items: arrayOf(
-            shape({
-                label: string,
-                value: string
-            })
-        ),
-        message: node
-    };
+const RadioGroup = props => {
+    const {
+        children,
+        classes: propClasses,
+        disabled,
+        field,
+        id,
+        items,
+        message,
+        ...rest
+    } = props;
+    const fieldState = useFieldState(field);
+    const classes = useStyle(defaultClasses, propClasses);
 
-    render() {
-        const { classes, fieldState, items, message, ...rest } = this.props;
-
-        const options = items.map(({ label, value }) => (
-            <Radio key={value} label={label} value={value} />
+    const options =
+        children ||
+        items.map(({ value, ...item }) => (
+            <Radio
+                data-cy=""
+                key={value}
+                disabled={disabled}
+                {...item}
+                classes={{
+                    label: classes.radioLabel,
+                    root: classes.radioContainer
+                }}
+                id={`${field}--${value}`}
+                value={value}
+            />
         ));
 
-        return (
-            <Fragment>
-                <div className={classes.root}>
-                    <BasicRadioGroup {...rest} fieldState={fieldState}>
-                        {options}
-                    </BasicRadioGroup>
-                </div>
-                <Message fieldState={fieldState}>{message}</Message>
-            </Fragment>
-        );
-    }
-}
+    return (
+        <Fragment>
+            <div data-cy="RadioGroup-root" className={classes.root}>
+                <InformedRadioGroup {...rest} field={field} id={id}>
+                    {options}
+                </InformedRadioGroup>
+            </div>
+            <Message className={classes.message} fieldState={fieldState}>
+                {message}
+            </Message>
+        </Fragment>
+    );
+};
 
-export default compose(
-    classify(defaultClasses),
-    asField
-)(RadioGroup);
+export default RadioGroup;
+
+RadioGroup.propTypes = {
+    children: node,
+    classes: shape({
+        message: string,
+        radioContainer: string,
+        radioLabel: string,
+        root: string
+    }),
+    field: string.isRequired,
+    id: string,
+    items: arrayOf(
+        shape({
+            key: oneOfType([number, string]),
+            label: node,
+            value: oneOfType([number, string])
+        })
+    ),
+    message: node
+};

@@ -1,0 +1,22 @@
+.root {
+    composes: p-xs from global;
+}
+
+.cancelButton {
+    composes: root_lowPriority from '../Button/button.module.css';
+
+    composes: min-w-[9rem] from global;
+}
+
+.confirmButton {
+    composes: confirmButton from '../Dialog/dialog.module.css';
+}
+
+.errorMessage {
+    composes: errorMessage from './wishlistConfirmRemoveProductDialog.module.css';
+}
+
+.form {
+    composes: gap-sm from global;
+    composes: grid from global;
+}

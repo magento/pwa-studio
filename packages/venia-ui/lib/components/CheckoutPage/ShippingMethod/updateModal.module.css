@@ -1,0 +1,3 @@
+.errorContainer {
+    composes: pb-xs from global;
+}

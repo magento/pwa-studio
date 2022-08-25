@@ -1,0 +1,10 @@
+.radioContents {
+    composes: grid from global;
+    composes: grid-cols-autoFirst from global;
+    composes: gap-2xs from global;
+}
+
+.radioRoot {
+    composes: gap-2xs from global;
+    composes: grid from global;
+}

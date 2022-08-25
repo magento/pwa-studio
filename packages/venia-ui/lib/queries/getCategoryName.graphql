@@ -1,5 +1,0 @@
-query getCategoryName($id: Int!) {
-    category(id: $id) {
-        name
-    }
-}

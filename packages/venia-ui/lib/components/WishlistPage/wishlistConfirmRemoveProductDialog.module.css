@@ -1,0 +1,20 @@
+.root {
+    composes: p-xs from global;
+}
+
+.confirmButton {
+    composes: confirmButton from '../Dialog/dialog.module.css';
+    composes: root_highPriorityNegative from '../Button/button.module.css';
+}
+
+.errorMessage {
+    composes: font-semibold from global;
+    composes: leading-normal from global;
+    composes: pb-xs from global;
+    composes: text-error from global;
+    composes: text-sm from global;
+}
+
+.prompt {
+    composes: font-semibold from global;
+}

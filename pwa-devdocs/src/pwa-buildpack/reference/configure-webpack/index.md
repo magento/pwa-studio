@@ -1,5 +1,6 @@
 ---
 title: configureWebpack
+adobeio: /api/buildpack/webpack/configure/
 ---
 
 ## `configureWebpack(options)`
@@ -93,12 +94,8 @@ module.exports = async env => {
     const config = await configureWebpack({
         context: __dirname,
         vendor: [
-            '@apollo/react-hooks',
-            'apollo-cache-inmemory',
+            '@apollo/client',
             'apollo-cache-persist',
-            'apollo-client',
-            'apollo-link-context',
-            'apollo-link-http',
             'informed',
             'react',
             'react-dom',

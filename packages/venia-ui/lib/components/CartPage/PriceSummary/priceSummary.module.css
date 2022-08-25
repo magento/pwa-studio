@@ -1,0 +1,48 @@
+.root {
+}
+
+.errorText {
+    composes: leading-normal from global;
+    composes: text-error from global;
+}
+
+.lineItems {
+    composes: gap-3 from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+    composes: leading-normal from global;
+}
+
+.lineItemLabel {
+    composes: justify-self-start from global;
+    composes: my-2 from global;
+}
+
+.price {
+    composes: justify-self-end from global;
+    composes: self-center from global;
+}
+
+.totalLabel {
+    composes: lineItemLabel;
+    composes: font-semibold from global;
+}
+
+.totalPrice {
+    composes: price;
+    composes: font-semibold from global;
+}
+
+.priceUpdating {
+    composes: price;
+    composes: opacity-0 from global;
+}
+
+.checkoutButton_container {
+    composes: items-center from global;
+    composes: inline-flex from global;
+    composes: justify-center from global;
+    composes: mt-xs from global;
+    composes: w-full from global;
+    min-height: 5.5rem;
+}

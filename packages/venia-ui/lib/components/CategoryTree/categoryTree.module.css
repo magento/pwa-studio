@@ -1,0 +1,16 @@
+.root {
+}
+
+.tree {
+}
+
+.leaf {
+}
+
+.branch {
+}
+
+.inactive {
+    composes: fixed from global;
+    composes: invisible from global;
+}

@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-spec",
-  "version": "3.0.0",
+  "version": "5.2.1",
   "publishConfig": {
     "access": "public"
   },
@@ -19,26 +19,24 @@
     "specification",
     "upward"
   ],
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/upward-spec#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/upward-spec#readme",
   "dependencies": {
-    "apollo-server": "~2.6.3",
     "chalk": "~2.4.2",
-    "csv-parse": "~4.3.3",
-    "graphql": "~14.3.1",
-    "graphql-tag": "~2.10.1",
+    "csv-parse": "~4.4.6",
+    "graphql": "~15.5.0",
     "js-yaml": "~3.13.1",
-    "node-fetch": "~2.3.0",
+    "node-fetch": "~2.6.1",
     "tap-diff": "~0.1.1",
     "tap-xunit": "~2.3.0",
     "tape": "~4.10.1"
   },
   "engines": {
-    "node": ">=10.x",
+    "node": ">=14.x",
     "yarn": ">=1.12.0"
   }
 }

@@ -1,0 +1,78 @@
+.root {
+    composes: hidden from global;
+}
+
+/* prettier-ignore */
+.root_active {
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: items-center from global;
+    composes: justify-between from global;
+
+    composes: lg_grid-cols-autoAuto from global;
+}
+
+.headerText {
+    composes: flex from global;
+    composes: items-center from global;
+    composes: leading-tight from global;
+    composes: min-h-[3.5rem] from global;
+    composes: row-start-1 from global;
+    composes: text-subtle from global;
+}
+
+.buttonContainer {
+    composes: gap-x-xs from global;
+    composes: grid from global;
+    composes: grid-cols-2 from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: min-h-[3.5rem] from global;
+    composes: row-start-3 from global;
+
+    composes: xs_grid-cols-auto from global;
+    composes: lg_justify-end from global;
+    composes: lg_row-start-1 from global;
+}
+
+@media (max-width: 479px) {
+    /* TODO @TW: cannot compose */
+    .buttonContainer button {
+        min-width: 8rem;
+    }
+}
+
+.content {
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: border-t-0 from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: gap-xs from global;
+    composes: pt-0 from global;
+    composes: row-start-2 from global;
+    grid-auto-rows: minmax(6rem, max-content);
+
+    composes: lg_border-top-1 from global;
+    composes: lg_col-span-2 from global;
+    composes: lg_grid-cols-3 from global;
+    composes: lg_pt-md from global;
+}
+
+.addButton {
+    composes: border-2 from global;
+    composes: border-dashed from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: rounded-md from global;
+    composes: text-brand-dark from global;
+    composes: text-sm from global;
+    transition: border-color 384ms var(--venia-global-anim-standard);
+
+    composes: focus_outline-none from global;
+    composes: focus_shadow-buttonFocus from global;
+
+    composes: hover_border-brand-dark from global;
+}

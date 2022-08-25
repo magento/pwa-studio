@@ -1,10 +1,13 @@
 import { useCallback, useMemo } from 'react';
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
+import { useMutation } from '@apollo/client';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 /**
  * Returns values used to render an AddressForm component.
+ *
  * @param {Object} props
  * @param {Object[]} props.fields an array of fields to reduce over for initial values
- * @param {Object} props.initialValues Object containing some initial values from state
  * @param {function} props.onCancel cancel callback
  * @param {function} props.onSubmit submit callback
  * @returns {{
@@ -14,15 +17,38 @@ import { useCallback, useMemo } from 'react';
  * }}
  */
 export const useAddressForm = props => {
-    const { fields, initialValues, onCancel, onSubmit } = props;
+    const {
+        countries,
+        fields,
+        onCancel,
+        onSubmit,
+        setGuestEmailMutation,
+        setShippingAddressOnCartMutation
+    } = props;
+
+    const [
+        { shippingAddress, shippingAddressError },
+        { submitShippingAddress }
+    ] = useCheckoutContext();
+
+    const [{ isSignedIn }] = useUserContext();
+
+    const [setGuestEmail] = useMutation(setGuestEmailMutation, {
+        // For security, never cache this mutation or the mutation results.
+        fetchPolicy: 'no-cache'
+    });
+
+    const [setShippingAddressOnCart] = useMutation(
+        setShippingAddressOnCartMutation
+    );
 
     const values = useMemo(
         () =>
             fields.reduce((acc, key) => {
-                acc[key] = initialValues[key];
+                acc[key] = shippingAddress[key];
                 return acc;
             }, {}),
-        [fields, initialValues]
+        [fields, shippingAddress]
     );
 
     const handleCancel = useCallback(() => {
@@ -30,15 +56,33 @@ export const useAddressForm = props => {
     }, [onCancel]);
 
     const handleSubmit = useCallback(
-        addressFormValues => {
-            onSubmit(addressFormValues);
+        async addressFormValues => {
+            try {
+                await submitShippingAddress({
+                    formValues: addressFormValues,
+                    countries,
+                    setGuestEmail,
+                    setShippingAddressOnCart
+                });
+                onSubmit();
+            } catch (error) {
+                console.error(error);
+            }
         },
-        [onSubmit]
+        [
+            countries,
+            onSubmit,
+            setGuestEmail,
+            setShippingAddressOnCart,
+            submitShippingAddress
+        ]
     );
 
     return {
+        error: shippingAddressError,
         handleCancel,
         handleSubmit,
+        isSignedIn,
         initialValues: values
     };
 };

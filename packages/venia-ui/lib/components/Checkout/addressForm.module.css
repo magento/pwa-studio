@@ -1,0 +1,53 @@
+.root {
+}
+
+.heading {
+    composes: heading from './flow.module.css';
+}
+
+.body {
+    composes: body from './flow.module.css';
+}
+
+.footer {
+    composes: footer from './flow.module.css';
+}
+
+/* fields */
+.textInput {
+    composes: bg-white from global;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-input from global;
+    composes: flex-textInput from global;
+    composes: h-[2.25rem] from global;
+    composes: inline-flex from global;
+    composes: rounded-sm from global;
+    composes: text-colorDefault from global;
+    composes: text-sm from global;
+    composes: w-full from global;
+    padding: calc(0.375rem - 1px) calc(0.625rem - 1px); /* TODO @TW: review */
+
+    composes: focus_border-strong from global;
+    composes: focus_outline-none from global;
+}
+
+.city,
+.firstname,
+.lastname,
+.postcode,
+.region_code,
+.telephone {
+    composes: col-end-span1 from global;
+}
+
+.email,
+.street0 {
+    composes: col-end-span2 from global;
+}
+
+.validationMessage {
+    composes: col-end-span2 from global;
+    composes: leading-normal from global;
+    composes: text-error from global;
+}

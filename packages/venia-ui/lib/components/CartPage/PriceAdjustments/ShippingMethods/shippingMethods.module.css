@@ -1,0 +1,33 @@
+.root {
+    composes: gap-xs from global;
+    composes: grid from global;
+}
+
+.message {
+    composes: leading-normal from global;
+    composes: text-sm from global;
+}
+
+.prompt {
+    composes: font-semibold from global;
+}
+
+.shipping_methods {
+    grid-area: methods;
+}
+
+.shipping_methods_hidden {
+    composes: shipping_methods;
+    composes: hidden from global;
+}
+
+.mask {
+    composes: opacity-50 from global;
+    composes: pointer-events-none from global;
+}
+
+.estimateButton {
+    composes: root_normalPriority from '../../../Button/button.module.css';
+
+    composes: justify-self-start from global;
+}

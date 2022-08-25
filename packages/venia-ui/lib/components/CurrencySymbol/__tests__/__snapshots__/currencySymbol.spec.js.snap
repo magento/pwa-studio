@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Allows custom classname 1`] = `
+<span
+  className="curr"
+>
+  $
+</span>
+`;
+
+exports[`Renders a EUR symbol 1`] = `
+<span>
+  €
+</span>
+`;
+
+exports[`Renders a USD symbol 1`] = `
+<span>
+  $
+</span>
+`;

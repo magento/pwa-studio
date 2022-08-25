@@ -1,22 +1,24 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+
 import { getSearchParam } from './useSearchParam';
 
 /**
- * Sets a query parameter in history. Attempt to use React Router if provided
- * otherwise fallback to builtins.
+ * Sets a query parameter in history.
  *
  * @private
  */
-const setQueryParam = ({ location, history, parameter, value }) => {
+const setQueryParam = ({ history, location, parameter, replace, value }) => {
     const { search } = location;
     const queryParams = new URLSearchParams(search);
-    queryParams.set(parameter, value);
 
-    if (history.push) {
-        history.push({ search: queryParams.toString() });
+    queryParams.set(parameter, value);
+    const destination = { search: queryParams.toString() };
+
+    if (replace) {
+        history.replace(destination);
     } else {
-        // Use the native pushState. See https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState()_method
-        history.pushState('', '', `?${queryParams.toString()}`);
+        history.push(destination);
     }
 };
 
@@ -33,50 +35,45 @@ const defaultInitialPage = 1;
  *
  * @param {Object} config An object containing configuration values
  *
- * @param {Object} config.location=window.location The location object, such as window.location or from react router
- * @param {Object} config.history=window.history The history object, such as window.history or from react router
  * @param {String} config.namespace='' The namespace to append to config.parameter in the query. For example: ?namespace_parameter=value
  * @param {String} config.parameter='page' The name of the query parameter to use for page
  * @param {Number} config.initialPage The initial current page value
- * @param {Number} config.intialTotalPages=1 The total pages expected to be usable by this hook
+ * @param {Number} config.initialTotalPages=1 The total pages expected to be usable by this hook
  *
  * @return {Object[]} An array with two entries containing the following content: [ {@link PaginationState}, {@link API} ]
  */
-export const usePagination = ({
-    location = window.location,
-    history = window.history,
-    namespace = '',
-    parameter = 'page',
-    initialPage,
-    initialTotalPages = 1
-} = {}) => {
-    const searchParam = namespace ? `${namespace}_${parameter}` : parameter;
-    if (!initialPage) {
-        // We need to synchronously fetch the initial page value from the query
-        // param otherwise we would initialize this value twice.
-        initialPage = parseInt(
-            getSearchParam(searchParam, location) || defaultInitialPage
-        );
-    }
+export const usePagination = (props = {}) => {
+    const { namespace = '', parameter = 'page', initialTotalPages = 1 } = props;
 
-    const [currentPage, setCurrentPage] = useState(initialPage);
+    const history = useHistory();
+    const location = useLocation();
     const [totalPages, setTotalPages] = useState(initialTotalPages);
 
-    const setPage = useCallback(
-        page => {
+    const searchParam = namespace ? `${namespace}_${parameter}` : parameter;
+    const initialPage = props.initialPage || defaultInitialPage;
+    const currentPage = parseInt(getSearchParam(searchParam, location));
+
+    // use the location to hold state
+    const setCurrentPage = useCallback(
+        (page, replace = false) => {
             // Update the query parameter.
             setQueryParam({
-                location,
                 history,
+                location,
                 parameter: searchParam,
+                replace,
                 value: page
             });
-
-            // Update the state object.
-            setCurrentPage(page);
         },
         [history, location, searchParam]
     );
+
+    // ensure the location contains a page number
+    useEffect(() => {
+        if (!currentPage) {
+            setCurrentPage(initialPage, true);
+        }
+    }, [currentPage, initialPage, setCurrentPage]);
 
     /**
      * The current pagination state
@@ -88,7 +85,10 @@ export const usePagination = ({
      * @property {Number} currentPage The current page number
      * @property {Number} totalPages The total number of pages
      */
-    const paginationState = { currentPage, totalPages };
+    const paginationState = {
+        currentPage: currentPage || initialPage,
+        totalPages
+    };
 
     /**
      * The API object used for modifying the PaginationState.
@@ -113,10 +113,10 @@ export const usePagination = ({
      */
     const api = useMemo(
         () => ({
-            setCurrentPage: setPage,
+            setCurrentPage,
             setTotalPages
         }),
-        [setPage, setTotalPages]
+        [setCurrentPage, setTotalPages]
     );
 
     return [paginationState, api];

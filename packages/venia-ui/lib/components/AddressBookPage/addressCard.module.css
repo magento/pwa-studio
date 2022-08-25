@@ -1,0 +1,123 @@
+.root {
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: content-start from global;
+    composes: grid from global;
+    composes: p-xs from global;
+    composes: relative from global;
+    composes: rounded-md from global;
+    grid-template-columns: 1fr max-content;
+
+    composes: sm_px-md from global;
+    composes: sm_px-5 from global;
+}
+
+.root_updated {
+    composes: root;
+
+    animation: flash var(--venia-global-anim-bounce) 640ms 2;
+}
+
+.confirmDeleteContainer {
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: gap-md from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: h-full from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: left-0 from global;
+    composes: p-xs from global;
+    composes: top-0 from global;
+    composes: w-full from global;
+
+    composes: sm_px-md from global;
+    composes: sm_py-5 from global;
+}
+
+@media (min-width: 640px) {
+    .confirmDeleteContainer {
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+}
+
+.confirmDeleteButton {
+    composes: root_normalPriorityNegative from '../Button/button.module.css';
+
+    composes: bg-white from global;
+    composes: order-first from global;
+    composes: sm_order-1 from global;
+}
+
+.cancelDeleteButton {
+    composes: root_lowPriority from '../Button/button.module.css';
+
+    composes: bg-white from global;
+}
+
+.contentContainer {
+    composes: gap-y-2xs from global;
+    composes: grid from global;
+}
+
+.actionContainer {
+    composes: content-start from global;
+    composes: gap-y-2xs from global;
+    composes: grid from global;
+    composes: justify-items-start from global;
+}
+
+.defaultBadge {
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: mb-2xs from global;
+    composes: px-sm from global;
+    composes: py-1.5 from global;
+    composes: rounded-md from global;
+    composes: text-xs from global;
+    composes: w-max from global;
+}
+
+.name {
+    composes: font-semibold from global;
+}
+
+.telephone {
+    composes: mt-2xs from global;
+}
+
+.linkButton {
+    composes: root from '../LinkButton/linkButton.module.css';
+
+    composes: no-underline from global;
+}
+
+.editButton {
+    composes: linkButton;
+}
+
+.deleteButton {
+    composes: linkButton;
+}
+
+.actionLabel {
+    composes: hidden from global;
+
+    composes: xs_inline from global;
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

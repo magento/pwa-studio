@@ -1,0 +1,19 @@
+.root {
+    composes: m-xs from global;
+}
+
+/* TODO @TW: cannot compose */
+.content h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* TODO @TW: cannot compose */
+.content img {
+    display: block;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+}

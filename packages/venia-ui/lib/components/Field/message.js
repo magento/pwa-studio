@@ -1,30 +1,49 @@
-import React, { Component } from 'react';
-import { node, shape, string } from 'prop-types';
+import React from 'react';
+import { useIntl } from 'react-intl';
+import { node, number, oneOfType, shape, string } from 'prop-types';
 
-import classify from '../../classify';
-import defaultClasses from './message.css';
+import defaultClasses from './message.module.css';
+import { useStyle } from '../../classify';
 
-export class Message extends Component {
-    static propTypes = {
-        children: node,
-        classes: shape({
-            root: string,
-            root_error: string
-        }),
-        fieldState: shape({
-            asyncError: string,
-            error: string
-        })
-    };
+const Message = props => {
+    const { children, classes: propClasses, fieldState } = props;
+    const { formatMessage } = useIntl();
+    const { error } = fieldState;
 
-    render() {
-        const { children, classes, fieldState } = this.props;
-        const { asyncError, error } = fieldState;
-        const errorMessage = error || asyncError;
-        const className = errorMessage ? classes.root_error : classes.root;
+    const classes = useStyle(defaultClasses, propClasses);
+    const className = error ? classes.root_error : classes.root;
+    let translatedErrorMessage;
 
-        return <p className={className}>{errorMessage || children}</p>;
+    if (error) {
+        translatedErrorMessage = formatMessage(
+            {
+                id: error.id,
+                defaultMessage: error.defaultMessage
+            },
+            { value: error.value }
+        );
     }
-}
 
-export default classify(defaultClasses)(Message);
+    return <p className={className}>{translatedErrorMessage || children}</p>;
+};
+
+export default Message;
+
+Message.defaultProps = {
+    fieldState: {}
+};
+
+Message.propTypes = {
+    children: node,
+    classes: shape({
+        root: string,
+        root_error: string
+    }),
+    fieldState: shape({
+        error: shape({
+            id: string,
+            defaultMessage: string,
+            value: oneOfType([number, string])
+        })
+    })
+};

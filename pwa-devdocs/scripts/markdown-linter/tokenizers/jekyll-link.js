@@ -30,7 +30,7 @@ function jekyllLinkDefinition() {
  */
 function tokenizer(eat, value, silent) {
     // This regex checks to see if a value looks like a markdown link definition
-    // Example: [link definition]: {{site.baseurl}}{% link /some/topic/index.md %}
+    // Example: [link definition]: {% link /some/topic/index.md %}
     const match = /^\[([^\]]+)\]:\s?(.*)/.exec(value);
 
     if (match) {

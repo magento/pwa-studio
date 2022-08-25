@@ -1,0 +1,6 @@
+node_modules
+.DS_Store
+.idea
+/src/snapshots/snapshotTests/**/**/__diff_output__/
+cypress/results/*
+cypress-test-results.json

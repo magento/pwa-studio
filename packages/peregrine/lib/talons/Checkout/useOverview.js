@@ -38,10 +38,8 @@ export const useOverview = props => {
         submitOrder();
     }, [submitOrder]);
 
-    const currencyCode =
-        (cart && cart.totals && cart.totals.quote_currency_code) || 'USD';
-    const numItems = (cart && cart.details && cart.details.items_qty) || 0;
-    const subtotal = (cart && cart.totals && cart.totals.subtotal) || 0;
+    const { derivedDetails } = cart;
+    const { currencyCode, numItems, subtotal } = derivedDetails;
 
     return {
         currencyCode,

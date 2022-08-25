@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an empty div if there was an error fetching breadcrumbs 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+/>
+`;
+
+exports[`renders breadcrumbs for a category view 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+>
+  <mock-FormattedMessage
+    defaultMessage="Home"
+    id="global.home"
+  />
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  <span
+    className="currentCategory"
+  >
+    ACME Category
+  </span>
+</div>
+`;
+
+exports[`renders breadcrumbs for a product view 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+>
+  <mock-FormattedMessage
+    defaultMessage="Home"
+    id="global.home"
+  />
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  ACME Category
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  <span
+    className="text"
+  >
+    ACME Product
+  </span>
+</div>
+`;
+
+exports[`renders breadcrumbs for intermediate links 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+>
+  <mock-FormattedMessage
+    defaultMessage="Home"
+    id="global.home"
+  />
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  Intermediate Category
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  <span
+    className="currentCategory"
+  >
+    ACME Category
+  </span>
+</div>
+`;
+
+exports[`renders the breadcrumb shimmer if breadcrumbs are loading 1`] = `null`;

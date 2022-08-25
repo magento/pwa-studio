@@ -1,0 +1,51 @@
+/* Styles for "add" view. */
+.entryForm,
+.entryFormError {
+    composes: gap-x-sm from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+}
+
+/* on mobile... */
+@media (max-width: 959px) {
+    .entryForm,
+    .entryFormError {
+        /* switch to rows. */
+        grid-template-columns: unset;
+        grid-template-rows: 1fr 1fr;
+    }
+}
+
+/* TODO @TW: cannot compose */
+.entryFormError input {
+    /* composes: border-error from global; */
+    border-color: rgb(var(--venia-global-color-red-400));
+}
+
+/* TODO @TW: cannot compose */
+.entryFormError input:focus {
+    /* composes: border-gray-600 from global; */
+    border-color: rgb(var(--venia-global-color-gray-600));
+}
+
+/* TODO @TW: cannot compose */
+.entryFormError p {
+    /* composes: text-error from global; */
+    color: rgb(var(--venia-global-color-error));
+    /* composes: font-semibold from global; */
+    font-weight: 600;
+}
+
+.errorContainer {
+    composes: leading-normal from global;
+    /* Duplicate the left/right/bottom padding on the accordion section */
+    composes: pt-sm from global;
+    composes: text-error from global;
+}
+
+/* Styles for "removal" view. */
+.removeButton {
+    composes: root from '../../../LinkButton/linkButton.module.css';
+
+    composes: ml-xs from global;
+}

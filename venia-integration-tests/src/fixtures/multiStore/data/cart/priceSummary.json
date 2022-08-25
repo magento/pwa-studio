@@ -1,0 +1,55 @@
+{
+  "data": {
+    "cart": {
+      "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+      "items": [
+        {
+          "uid": "MTI5MDUw",
+          "quantity": 1,
+          "__typename": "SimpleCartItem"
+        },
+        {
+          "uid": "MTI5MDU2",
+          "quantity": 1,
+          "__typename": "SimpleCartItem"
+        },
+        {
+          "uid": "NDEzNg==",
+          "quantity": 1,
+          "__typename": "ConfigurableCartItem"
+        },
+        {
+          "uid": "NTQxMw==",
+          "quantity": 1,
+          "__typename": "ConfigurableCartItem"
+        }
+      ],
+      "shipping_addresses": [],
+      "__typename": "Cart",
+      "prices": {
+        "applied_taxes": [],
+        "__typename": "CartPrices",
+        "discounts": null,
+        "grand_total": {
+          "currency": "USD",
+          "value": 312,
+          "__typename": "Money"
+        },
+        "subtotal_excluding_tax": {
+          "currency": "USD",
+          "value": 312,
+          "__typename": "Money"
+        },
+        "gift_options": {
+          "printed_card": {
+            "value": 0,
+            "currency": "USD",
+            "__typename": "Money"
+          },
+          "__typename": "GiftOptionsPrices"
+        }
+      },
+      "applied_gift_cards": []
+    }
+  }
+}

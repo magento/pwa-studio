@@ -1,0 +1,11 @@
+{
+    "data": {
+        "createWishlist": {
+            "wishlist": {
+                "id": "104",
+                "__typename": "Wishlist"
+            },
+            "__typename": "CreateWishlistOutput"
+        }
+    }
+}

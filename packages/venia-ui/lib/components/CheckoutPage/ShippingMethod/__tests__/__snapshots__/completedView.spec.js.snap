@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders an error when selectedShippingMethod is missing 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="container"
+  >
+    <span
+      className="titleContainer"
+    >
+      <h5
+        className="heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Shipping Method"
+          id="completedView.shippingMethod"
+        />
+      </h5>
+      <button
+        className="editButton"
+        disabled={false}
+        onClick={false}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+              />
+            </svg>
+          </span>
+          <span
+            className="editButtonText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Edit"
+              id="global.editButton"
+            />
+          </span>
+        </span>
+      </button>
+    </span>
+    <span
+      className="error"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Error loading selected shipping method. Please select again."
+        id="completedView.errorLoading"
+      />
+    </span>
+  </div>
+</div>
+`;
+
+exports[`it renders correctly 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="container"
+  >
+    <span
+      className="titleContainer"
+    >
+      <h5
+        className="heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Shipping Method"
+          id="completedView.shippingMethod"
+        />
+      </h5>
+      <button
+        className="editButton"
+        disabled={false}
+        onClick={false}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+              />
+            </svg>
+          </span>
+          <span
+            className="editButtonText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Edit"
+              id="global.editButton"
+            />
+          </span>
+        </span>
+      </button>
+    </span>
+    <div
+      className="contents"
+    >
+      <span>
+        Flat Rate
+      </span>
+      <div>
+        <span>
+          $
+        </span>
+        <span>
+          99
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,30 @@
+{
+    "templateVersion": "0.1",
+    "product": {
+        "name": "PWA Studio",
+        "description": "A collection of tools that lets developers build complex Progressive Web Applications on top of Magento 2 stores."
+    },
+    "contacts": {
+        "team": {
+            "name": "The Untitled Geese",
+            "DL": "Grp-Untitled-Geese",
+            "slackChannel": "pwa"
+        }
+    },
+    "ticketTracker": {
+        "functionalJiraQueue": {
+            "projectKey": "PWA",
+            "component": ""
+        },
+        "securityJiraQueue": {
+            "projectKey": "MAGREQ",
+            "component": "PWA"
+        }
+    },
+    "staticScan": {
+        "enable": true,
+        "frequency": "quarterly",
+        "customName": "PWA Studio Static Scan",
+        "branchesToScan": ["main", "develop"]
+    }
+}

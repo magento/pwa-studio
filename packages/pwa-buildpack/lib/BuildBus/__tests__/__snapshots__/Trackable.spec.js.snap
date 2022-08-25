@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errors if tracking enabled but this trackable was not identified 1`] = `"Trackable must be initialized with tracker.attach"`;
+
+exports[`errors if tracking enabled but this trackable was not identified 2`] = `"Trackable must be initialized with tracker.attach"`;

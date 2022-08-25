@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should throw error if there are validation errors reported by interceptors 1`] = `
+"Environment has 2 validation errors: 
+ (1) Danger,
+ (2) Another error"
+`;

@@ -18,7 +18,7 @@ veniaResponse:
           pattern: '^/(robots\.txt|favicon\.ico|manifest\.json)'
           use: staticFromRoot
         - matches: fileExtension
-          pattern: '(js|json|png|svg|ico|css|txt)'
+          pattern: '(js|json|png|jpg|gif|svg|ico|css|txt)'
           use: veniaStatic
     default: veniaAppShell
 
@@ -31,10 +31,20 @@ staticFromRoot:
             resolver: inline
             inline:
                 content-type: contentTypeFromExtension
+                cache-control:
+                    when:
+                        - matches: env.NODE_ENV
+                          pattern: 'production'
+                          use:
+                            inline: public, max-age=604800
+                    default:
+                        inline: no-cache, no-store, must-revalidate
         body:
             resolver: file
             parse:
               inline: text
+            encoding:
+              inline: binary
             file:
                 resolver: template
                 engine: mustache
@@ -79,16 +89,59 @@ veniaProxy:
     resolver: proxy
     target: env.MAGENTO_BACKEND_URL
     # A local Magento install may have SSH configured and untrusted,
-    # which is not a major concern, especially if containerized.
+    # which is not a major concern for this one origin, especially if
+    # containerized. Clients which require trust may proxy through UPWARD.
     ignoreSSLErrors:
-        resolver: inline
+      when:
+          - matches: env.NODE_ENV
+            pattern: 'production'
+            use:
+              inline: false
+      default:
         inline: true
+
+# Page type data for initial render
+veniaPageType:
+  resolver: inline
+  inline:
+    data:
+      resolver: computed
+      type:
+        resolver: inline
+        inline: pageType
+      additional:
+        - type: product
+          fetch: '__typename,id'
+        - type: cms_page
+          fetch: 'identifier'
+        - type: category
+          fetch: 'uid'
+
+# Nonce for page type inline script
+veniaPageTypeNonce:
+  resolver: inline
+  inline:
+    nonce:
+      resolver: computed
+      type:
+        resolver: inline
+        inline: pageTypeNonce
+
+# Webpack chunks to preload on page based on page type
+veniaWebpackChunks:
+  resolver: inline
+  inline:
+    scripts:
+      resolver: computed
+      type:
+        resolver: inline
+        inline: webpackChunks
 
 # The veniaAppShell object resolves to a response that returns server-side
 # rendered HTML containing the PWA application shell.
 # For SEO purposes, the appropriate meta tags in the HTML head element are also
 # set based on information about the resource.
-# This object uses properties in the top-level 'veniaResource' object to return
+# This object uses properties in the top-level 'veniaResponse' object to return
 # the appropriate response values.
 veniaAppShell:
     resolver: inline
@@ -101,11 +154,21 @@ veniaAppShell:
             inline:
                 content-type:
                     inline: text/html
+                cache-control:
+                    inline: s-maxage=60
         body:
+          resolver: template
+          engine: mustache
+          provide:
+            pageType: veniaPageType.data
+            pageTypeNonce: veniaPageTypeNonce.nonce
+            webpackChunks: veniaWebpackChunks.scripts
+          template:
             resolver: file
             file:
-                resolver: inline
-                inline: './index.html'
+              resolver: inline
+              inline: './index.html'
+
 
 # The veniaStatic object is a DirectoryResolver that allows access to the files
 # inside the project's compiled './dist' directory.
@@ -116,19 +179,11 @@ veniaStatic:
         inline: '.'
 
 # These are no-ops at runtime; nothing refers to these context values in the
-# rest of this file. They exist to declare that the files in the `./templates`
-# and `./static` directories are required and should be copied into the build
-# assets by the UpwardIncludePlugin. Since they are not directly mentioned
-# elsewhere in this file or any other upward.yml file in the build, the
-# UpwardIncludePlugin would fail to copy them if they were not mentioned here.
-
-# The templates directory includes partials which are only required by other
-# templates, and the UpwardIncludePlugin cannot parse templates to see them.
-veniaTemplateIncludes:
-    resolver: directory
-    directory:
-        resolver: inline
-        inline: './templates'
+# rest of this file. They exist to declare that the files in the `./static`
+# directory are required and should be copied into the build assets by the
+# UpwardIncludePlugin. Since they are not directly mentioned elsewhere in this
+# file or any other upward.yml file in the build, the UpwardIncludePlugin would
+# fail to copy them if they were not mentioned here.
 
 # The static directory includes files which don't need to be compiled.
 # They are served by the `veniaStatic` DirectoryResolver, along with the

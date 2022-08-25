@@ -1,9 +1,10 @@
 ---
 title: Item
+adobeio: /api/peregrine/components-and-utilities/Item/
 ---
 
 
-The `Item` component takes a data object and renders it using a [render prop] or wraps it in an HTML element. 
+The `Item` component takes a data object and renders it using a [render prop] or wraps it in an HTML element.
 
 This component is used as a direct child of the [`Items`] fragment.
 
@@ -33,5 +34,5 @@ import Item from '@magento/peregrine';
 ```
 
 [render prop]: https://reactjs.org/docs/render-props.html
-[`Items`]: {{ site.baseurl }}{% link peregrine/reference/items/index.md %}
-[`List`]: {{ site.baseurl }}{% link peregrine/reference/list/index.md %}
+[`Items`]: {% link peregrine/reference/items/index.md %}
+[`List`]: {% link peregrine/reference/list/index.md %}

@@ -57,6 +57,10 @@ See [UPWARD_MAGENTO.md](UPWARD_MAGENTO.md) for context on how UPWARD fills a nee
       - [UrlResolver Example](#urlresolver-example)
       - [UrlResolver Configuration Options](#urlresolver-configuration-options)
       - [UrlResolver Notes](#urlresolver-notes)
+    - [ComputedResolver](#computedresolver)
+      - [ComputedResolver Example](#computedresolver-example)
+      - [ComputedResolver Configuration Options](#computedresolver-configuration-options)
+      - [ComputedResolver Notes](#computedresolver-notes)
   - [Reducing boilerplate](#reducing-boilerplate)
     - [Default parameters](#default-parameters)
     - [Builtin constants](#builtin-constants)
@@ -79,7 +83,7 @@ This repository is a test suite for UPWARD compliance, testing several scenarios
 2. Use `npx` to run `upward-spec` on your shell script
 
     ```sh
-    npx upward-spec ./test_upward_server.sh
+    npx @magento/upward-spec ./test_upward_server.sh
     ```
 
 3. The shell script will run for each test suite with the environment variable `UPWARD_YAML` set to the path of a fixture YAML file for configuring a server instance. The script should launch a server (on a local port or a remote port, but resolvable to the local system) and print its host to standard out, staying in the foreground.
@@ -162,7 +166,7 @@ A spec-compliant UPWARD server should be configurable with a runtime parameter: 
 
 ## Responding to requests
 
-**An UPWARD definition file is an instruction manual for building an HTTP response.** It links values together in a global namespace hereafter called the **context**. Each request handling cycle begins with with a new context object, with the incoming `Request` assigned to the context value `request`, and current environment variables assigned to the context value `env`. Root properties of the definition file represent other named values in the context, which Resolvers populate. Resolvers can use other context properties as input, and they can also use other Resolvers directly; in this way, the definition itself can be considered an abstract decision tree, from which code could be statically generated.
+**An UPWARD definition file is an instruction manual for building an HTTP response.** It links values together in a global namespace hereafter called the **context**. Each request handling cycle begins with a new context object, with the incoming `Request` assigned to the context value `request`, and current environment variables assigned to the context value `env`. Root properties of the definition file represent other named values in the context, which Resolvers populate. Resolvers can use other context properties as input, and they can also use other Resolvers directly; in this way, the definition itself can be considered an abstract decision tree, from which code could be statically generated.
 
 ### Execution scheduling and ordering
 
@@ -505,6 +509,7 @@ A Resolver is an object which describes how a value is obtained. There are five 
 - `ProxyResolver` delegates request/response handling to a proxy
 - `DirectoryResolver` delegates request/response handling to a static file directory
 - `UrlResolver` builds a URL from strings and other URLs
+- `ComputedResolver` resolves to a PHP class to get data
 
 Each Resolver takes different configuration parameters. Like a context lookup string, a resolver represents an operation which will execute and then deliver its results upward in the tree, until all dependencies of the top-level `status`, `headers`, and `body` definitions are resolved.
 
@@ -782,7 +787,7 @@ The resulting template eval context might look like this:
 ```
 
 *Lists may only inject "base" context properties.* The above `articleResult` could not be `articleResult.data.article` when using the list format.
- 
+
 The other, more powerful option for the `provide` argument is to provide a `mapping`, as a simple object. A mapping must resolve to a plain object of string keys and context values. It might appear as:
 
 ```yaml
@@ -801,7 +806,7 @@ This would give the template a single root property "article", thus flatting out
 
 #### Template Engines
 
-The `engine` property must resolve to a string labeling a supported template engine. The only required template engine is Mustache, and its label must be `mustache`. An UPWARD server may support additional template engines. For instance, an UPWARD server may support [ReactJS server-side rendering][react dom server]. 
+The `engine` property must resolve to a string labeling a supported template engine. The only required template engine is Mustache, and its label must be `mustache`. An UPWARD server may support additional template engines. For instance, an UPWARD server may support [ReactJS server-side rendering][react dom server].
 
 ##### Example React DOM Server support
 
@@ -1063,7 +1068,7 @@ https://admin.host:8081/api/rest/v1/adminToken?refreshToken=a1b2c3&role=owner
   baseUrl: https://fleet.local/ships/hood/
   pathname: /admiral
   ```
-  
+
   evaluates to `https://fleet.local/admiral`.
 
   - If a `pathname` has no leading slash, and the pathname of the `baseUrl` has a _trailing_ slash, then the `pathname` must _append_ to the last segment of the `baseUrl` path.
@@ -1072,19 +1077,50 @@ https://admin.host:8081/api/rest/v1/adminToken?refreshToken=a1b2c3&role=owner
   baseUrl: https://fleet.local/ships/hood/
   pathname: captain/name
   ```
-  
+
   evaluates to `https://fleet.local/ships/hood/captain/name`.
-    
+
   - If a `pathname` has no leading slash, and the pathname of the `baseUrl` has no trailing slash, then a `pathname` must _replace_ the last segment of the `baseUrl` path.
 
   ```yaml
   baseUrl: https://fleet.local/ships/hood
   pathname: yamato/
   ```
-  
+
   evaluates to `https://fleet.local/ships/yamato/`
 
 - If both `search` and `query` are present, the parameters must be merged, giving preference to `query` where there are conflicts. _"Array" query parameters are not defined by this specification, since their behavior is inconsistent across platforms._
+
+### ComputedResolver
+
+The ComputedResolver is used for the UPWARD PHP implementation to inline key page data in the initial page response without needing to make external or
+round trip calls. This essentially provides a way to add more resolvers than are available in this spec. **It can be noted that this resolver breaks spec
+and its JS implementation is only to avoid crashing during build.**
+
+#### ComputedResolver Example
+
+```yaml
+someDataPoint:
+  resolver: computed
+  type:
+    resolver: inline
+    inline: typeKey
+```
+
+The ComputedResolver's resolved value can vary depending on the class used. The typeKey maps to a PHP class, who takes responsibility for returning a value.
+
+#### ComputedResolver Configuration Options
+
+| Property   | Type                        | Default  | Description                                                                                                                                                                                         |
+| ---------- | --------------------------- | -------- | -----------------------------------------------------------------------------------------------------------|
+| `type`     | `Resolved<string>`          |          | _Required_. This value is used to map to a PHP class that will return a value.                             |
+| `<other>`  | `Resolved<any>`             |          | Since this is essentially a way to add more resolvers, any data defined in the yaml is passed to the class |
+
+#### ComputedResolver Notes
+In its PHP implementation, the definition and resolver is passed to the class, so any information the class needs can be passed in this manner. The type is mapped
+to a PHP class through the di.xml and the class has access to any Magento dependency injection it needs.
+The JS implementation is only present to not break when the resolver type is defined.
+
 
 ## Reducing boilerplate
 

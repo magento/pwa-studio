@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders steps 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="step"
+  />
+  <span
+    className="step"
+  />
+  <span
+    className="step"
+  />
+  <span
+    className="step"
+  />
+</div>
+`;

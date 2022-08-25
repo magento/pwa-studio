@@ -3,6 +3,7 @@ const plugins = [
      * See:
      * https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
      * https://babeljs.io/docs/en/babel-plugin-proposal-object-rest-spread
+     * https://babeljs.io/docs/en/babel-plugin-proposal-optional-chaining
      * https://babeljs.io/docs/en/next/babel-plugin-syntax-dynamic-import.html
      * https://babeljs.io/docs/en/next/babel-plugin-syntax-jsx.html
      * https://babeljs.io/docs/en/babel-plugin-transform-react-jsx
@@ -10,6 +11,7 @@ const plugins = [
      */
     ['@babel/plugin-proposal-class-properties'],
     ['@babel/plugin-proposal-object-rest-spread'],
+    ['@babel/plugin-proposal-optional-chaining'],
     ['@babel/plugin-syntax-dynamic-import'],
     ['@babel/plugin-syntax-jsx'],
     ['@babel/plugin-transform-react-jsx'],
@@ -33,9 +35,22 @@ const config = (api, opts = {}) => {
         opts.targets
     );
 
+    const babelKeepAttributes =
+        process.env.BABEL_KEEP_ATTRIBUTES &&
+        process.env.BABEL_KEEP_ATTRIBUTES === 'true';
+
+    const removeAttributesPlugin = babelKeepAttributes
+        ? []
+        : [
+              [
+                  'babel-plugin-react-remove-properties',
+                  { properties: ['data-cy'] }
+              ]
+          ];
+
     const envConfigs = {
         development: {
-            plugins,
+            plugins: [...plugins, 'react-refresh/babel'],
             presets: [
                 ['@babel/preset-env', { modules: false, targets: targets.dev }]
             ]
@@ -43,6 +58,7 @@ const config = (api, opts = {}) => {
         production: {
             plugins: [
                 ...plugins,
+                ...removeAttributesPlugin,
                 [
                     // Some supported browsers will not support generators.
                     '@babel/plugin-transform-runtime',
@@ -58,7 +74,11 @@ const config = (api, opts = {}) => {
         test: {
             // Since the test environment runs in Node, dynamic import is not
             // natively supported.
-            plugins: [...plugins, ['babel-plugin-dynamic-import-node']],
+            plugins: [
+                ...plugins,
+                ...removeAttributesPlugin,
+                ['babel-plugin-dynamic-import-node']
+            ],
             presets: [
                 [
                     '@babel/preset-env',

@@ -1,0 +1,1074 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search Page Component error view does not render when data is present 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing all results:"
+          id="searchPage.searchTermEmpty"
+        />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          0 items
+        </span>
+      </div>
+      <div
+        className="headerButtons"
+      />
+    </div>
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Array [
+            Object {},
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    >
+      <Pagination
+        pageControl={
+          Object {
+            "currentPage": 1,
+            "setPage": [MockFunction],
+            "totalPages": 6,
+          }
+        }
+      />
+    </section>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component error view renders when data is not present and not loading 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      />
+      <div
+        className="headerButtons"
+      />
+    </div>
+    <div
+      aria-live="polite"
+      className="noResult"
+    >
+      <mock-FormattedMessage
+        defaultMessage="No results found. The search term may be missing or invalid."
+        id="searchPage.noResult"
+      />
+    </div>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component filter button/modal does not render if there are no filters 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing all results:"
+          id="searchPage.searchTermEmpty"
+        />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          0 items
+        </span>
+      </div>
+      <div
+        className="headerButtons"
+      />
+    </div>
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Array [
+            Object {},
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    >
+      <Pagination
+        pageControl={
+          Object {
+            "currentPage": 1,
+            "setPage": [MockFunction],
+            "totalPages": 6,
+          }
+        }
+      />
+    </section>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component filter button/modal renders when there are filters 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  >
+    <require('../FilterSidebar')
+      filters={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </div>
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing all results:"
+          id="searchPage.searchTermEmpty"
+        />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          0 items
+        </span>
+      </div>
+      <div
+        className="headerButtons"
+      >
+        <FilterModalOpenButton
+          filters={
+            Array [
+              Object {},
+            ]
+          }
+        />
+      </div>
+    </div>
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Array [
+            Object {},
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    >
+      <Pagination
+        pageControl={
+          Object {
+            "currentPage": 1,
+            "setPage": [MockFunction],
+            "totalPages": 6,
+          }
+        }
+      />
+    </section>
+    <require('../FilterModal')
+      filters={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component loading indicator does not render when data is present 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <Shimmer
+          width={5}
+        />
+        <Shimmer
+          width={5}
+        />
+      </div>
+      <div
+        className="headerButtons"
+      >
+        <ProductSortShimmer />
+      </div>
+      <SortedByContainerShimmer />
+    </div>
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Array [
+            Object {},
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    >
+      <Pagination
+        pageControl={
+          Object {
+            "currentPage": 1,
+            "setPage": [MockFunction],
+            "totalPages": 6,
+          }
+        }
+      />
+    </section>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component loading indicator renders when data is not present 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <Shimmer
+          width={5}
+        />
+        <Shimmer
+          width={5}
+        />
+      </div>
+      <div
+        className="headerButtons"
+      >
+        <ProductSortShimmer />
+      </div>
+      <SortedByContainerShimmer />
+    </div>
+    <section
+      className="gallery"
+    >
+      <GalleryShimmer
+        items={
+          Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    />
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component search results does not render if data returned has empty array 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <Shimmer
+          width={5}
+        />
+        <Shimmer
+          width={5}
+        />
+      </div>
+      <div
+        className="headerButtons"
+      >
+        <ProductSortShimmer />
+      </div>
+      <SortedByContainerShimmer />
+    </div>
+    <div
+      aria-live="polite"
+      className="noResult"
+    >
+      <mock-FormattedMessage
+        defaultMessage="No results found!"
+        id="searchPage.noResultImportant"
+      />
+    </div>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component search results heading renders a generic message if no search term 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing all results:"
+          id="searchPage.searchTermEmpty"
+        />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          1 items
+        </span>
+      </div>
+      <div
+        className="headerButtons"
+      >
+        <ProductSort
+          availableSortMethods={
+            Array [
+              Object {
+                "attribute": "position",
+                "id": "sortItem.positionAsc",
+                "sortDirection": "ASC",
+                "text": "Position Asc",
+              },
+            ]
+          }
+          sortProps={
+            Array [
+              Object {
+                "sortAttribute": "relevance",
+                "sortDirection": "DESC",
+                "sortText": "Best Match",
+              },
+              [MockFunction],
+            ]
+          }
+        />
+      </div>
+      <SortedByContainer
+        currentSort={
+          Object {
+            "sortAttribute": "relevance",
+            "sortDirection": "DESC",
+            "sortText": "Best Match",
+          }
+        }
+      />
+    </div>
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Array [
+            Object {},
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    >
+      <Pagination
+        pageControl={
+          Object {
+            "currentPage": 1,
+            "setPage": [MockFunction],
+            "totalPages": 6,
+          }
+        }
+      />
+    </section>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component search results heading renders a specific message if search term 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing results for <highlight>{term}</highlight>{category, select, null {} other { in <highlight>{category}</highlight>}}:"
+          id="searchPage.searchTerm"
+          values={
+            Object {
+              "category": "Search Category",
+              "highlight": [Function],
+              "term": "Search Term",
+            }
+          }
+        />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          1 items
+        </span>
+      </div>
+      <div
+        className="headerButtons"
+      >
+        <ProductSort
+          availableSortMethods={
+            Array [
+              Object {
+                "attribute": "position",
+                "id": "sortItem.positionAsc",
+                "sortDirection": "ASC",
+                "text": "Position Asc",
+              },
+            ]
+          }
+          sortProps={
+            Array [
+              Object {
+                "sortAttribute": "relevance",
+                "sortDirection": "DESC",
+                "sortText": "Best Match",
+              },
+              [MockFunction],
+            ]
+          }
+        />
+      </div>
+      <SortedByContainer
+        currentSort={
+          Object {
+            "sortAttribute": "relevance",
+            "sortDirection": "DESC",
+            "sortText": "Best Match",
+          }
+        }
+      />
+    </div>
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Array [
+            Object {},
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    >
+      <Pagination
+        pageControl={
+          Object {
+            "currentPage": 1,
+            "setPage": [MockFunction],
+            "totalPages": 6,
+          }
+        }
+      />
+    </section>
+  </div>
+  <Title>
+    Search Term - Venia Search
+  </Title>
+  <Meta
+    content="Search Term - Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Search Term - Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component search results renders if data has items 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <Shimmer
+          width={5}
+        />
+        <Shimmer
+          width={5}
+        />
+      </div>
+      <div
+        className="headerButtons"
+      >
+        <ProductSortShimmer />
+      </div>
+      <SortedByContainerShimmer />
+    </div>
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Array [
+            Object {},
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    >
+      <Pagination
+        pageControl={
+          Object {
+            "currentPage": 1,
+            "setPage": [MockFunction],
+            "totalPages": 6,
+          }
+        }
+      />
+    </section>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component sort button/container does not render if total count is 0 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing all results:"
+          id="searchPage.searchTermEmpty"
+        />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          0 items
+        </span>
+      </div>
+      <div
+        className="headerButtons"
+      />
+    </div>
+    <div
+      aria-live="polite"
+      className="noResult"
+    >
+      <mock-FormattedMessage
+        defaultMessage="No results found!"
+        id="searchPage.noResultImportant"
+      />
+    </div>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component sort button/container renders when total count > 0 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing all results:"
+          id="searchPage.searchTermEmpty"
+        />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          1 items
+        </span>
+      </div>
+      <div
+        className="headerButtons"
+      >
+        <ProductSort
+          availableSortMethods={
+            Array [
+              Object {
+                "attribute": "position",
+                "id": "sortItem.positionAsc",
+                "sortDirection": "ASC",
+                "text": "Position Asc",
+              },
+            ]
+          }
+          sortProps={
+            Array [
+              Object {
+                "sortAttribute": "relevance",
+                "sortDirection": "DESC",
+                "sortText": "Best Match",
+              },
+              [MockFunction],
+            ]
+          }
+        />
+      </div>
+      <SortedByContainer
+        currentSort={
+          Object {
+            "sortAttribute": "relevance",
+            "sortDirection": "DESC",
+            "sortText": "Best Match",
+          }
+        }
+      />
+    </div>
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Array [
+            Object {},
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    >
+      <Pagination
+        pageControl={
+          Object {
+            "currentPage": 1,
+            "setPage": [MockFunction],
+            "totalPages": 6,
+          }
+        }
+      />
+    </section>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component total count renders 0 items if data.products.total_count is falsy 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing all results:"
+          id="searchPage.searchTermEmpty"
+        />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          0 items
+        </span>
+      </div>
+      <div
+        className="headerButtons"
+      />
+    </div>
+    <div
+      aria-live="polite"
+      className="noResult"
+    >
+      <mock-FormattedMessage
+        defaultMessage="No results found!"
+        id="searchPage.noResultImportant"
+      />
+    </div>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;
+
+exports[`Search Page Component total count renders results from data 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="sidebar"
+  />
+  <div
+    className="searchContent"
+  >
+    <div
+      className="heading"
+    >
+      <div
+        className="searchInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing all results:"
+          id="searchPage.searchTermEmpty"
+        />
+        <span
+          aria-busy="true"
+          aria-live="polite"
+          className="totalPages"
+        >
+          1 items
+        </span>
+      </div>
+      <div
+        className="headerButtons"
+      >
+        <ProductSort
+          availableSortMethods={
+            Array [
+              Object {
+                "attribute": "position",
+                "id": "sortItem.positionAsc",
+                "sortDirection": "ASC",
+                "text": "Position Asc",
+              },
+            ]
+          }
+          sortProps={
+            Array [
+              Object {
+                "sortAttribute": "relevance",
+                "sortDirection": "DESC",
+                "sortText": "Best Match",
+              },
+              [MockFunction],
+            ]
+          }
+        />
+      </div>
+      <SortedByContainer
+        currentSort={
+          Object {
+            "sortAttribute": "relevance",
+            "sortDirection": "DESC",
+            "sortText": "Best Match",
+          }
+        }
+      />
+    </div>
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Array [
+            Object {},
+          ]
+        }
+      />
+    </section>
+    <section
+      className="pagination"
+    >
+      <Pagination
+        pageControl={
+          Object {
+            "currentPage": 1,
+            "setPage": [MockFunction],
+            "totalPages": 6,
+          }
+        }
+      />
+    </section>
+  </div>
+  <Title>
+    Venia Search
+  </Title>
+  <Meta
+    content="Venia Search"
+    name="title"
+  />
+  <Meta
+    content="Venia Search"
+    name="description"
+  />
+</article>
+`;

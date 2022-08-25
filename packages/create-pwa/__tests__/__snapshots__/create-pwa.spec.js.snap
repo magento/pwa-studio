@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing questions should have right shape 1`] = `
+Array [
+  Object {
+    "message": "Project root directory (will be created if it does not exist)",
+    "name": "directory",
+    "validate": [Function],
+  },
+  Object {
+    "default": [Function],
+    "message": "Short name of the project to put in the package.json \\"name\\" field",
+    "name": "name",
+    "validate": [Function],
+  },
+  Object {
+    "default": [Function],
+    "message": "Name of the author to put in the package.json \\"author\\" field",
+    "name": "author",
+  },
+  Object {
+    "default": "@magento/venia-concept",
+    "message": [Function],
+    "name": "template",
+  },
+  Object {
+    "choices": Array [
+      Object {
+        "name": "Magento 2.3.3 with Venia sample data installed",
+        "short": "2.3.3-venia-cloud",
+        "value": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/",
+      },
+      Object {
+        "name": "Other (I will provide my own backing Magento instance)",
+        "short": "Other",
+        "value": false,
+      },
+    ],
+    "message": "Magento instance to use as a backend (will be added to \`.env\` file)",
+    "name": "backendUrl",
+    "type": "list",
+  },
+  Object {
+    "default": "https://magento2.localhost",
+    "message": "URL of a Magento instance to use as a backend (will be added to \`.env\` file)",
+    "name": "customBackendUrl",
+    "when": [Function],
+  },
+  Object {
+    "choices": Array [
+      "AC",
+      "EE",
+      "MOS",
+      "CE",
+    ],
+    "default": "AC",
+    "message": "Edition of the magento store (Adobe Commerce or Magento Open Source)",
+    "name": "backendEdition",
+    "type": "list",
+  },
+  Object {
+    "default": "sandbox_8yrzsvtm_s2bg8fs563crhqzk",
+    "message": "Braintree API token to use to communicate with your Braintree instance (will be added to \`.env\` file)",
+    "name": "braintreeToken",
+  },
+  Object {
+    "choices": Array [
+      "yarn",
+      "npm",
+    ],
+    "default": "yarn",
+    "message": "NPM package management client to use",
+    "name": "npmClient",
+    "type": "list",
+  },
+  Object {
+    "default": true,
+    "message": [Function],
+    "name": "install",
+    "type": "confirm",
+  },
+]
+`;
+
+exports[`should log details 1`] = `
+Array [
+  Array [
+    "[92m@magento/create-pwa v1.3.1[39m",
+  ],
+  Array [
+    "[37mCreating a [97mPWA Studio[37m project[39m",
+  ],
+  Array [
+    "
+Running command:
+
+[97mbuildpack create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --backend-edition \\"AC\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install[39m
+[97m[39m
+[97m[39m",
+  ],
+]
+`;
+
+exports[`should log error if project creation failed 1`] = `
+Array [
+  Array [
+    "App creation cancelled.",
+  ],
+]
+`;

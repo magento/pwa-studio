@@ -1,6 +1,0 @@
-.root {
-    display: inline-grid;
-    grid-auto-flow: column;
-    justify-content: start;
-    position: relative;
-}

@@ -1,0 +1,46 @@
+{
+    "data": {
+        "customer": {
+            "id": null,
+            "wishlists": [
+                {
+                    "id": "102",
+                    "items_v2": {
+                        "items": [],
+                        "page_info": {
+                            "current_page": 1,
+                            "total_pages": 1,
+                            "__typename": "SearchResultPageInfo"
+                        },
+                        "__typename": "WishlistItems"
+                    },
+                    "__typename": "Wishlist"
+                },
+                {
+                    "id": "103",
+                    "items_v2": {
+                        "items": [
+                            {
+                                "id": "67",
+                                "product": {
+                                    "id": 1120,
+                                    "sku": "VSW01",
+                                    "__typename": "ConfigurableProduct"
+                                },
+                                "__typename": "ConfigurableWishlistItem"
+                            }
+                        ],
+                        "page_info": {
+                            "current_page": 1,
+                            "total_pages": 1,
+                            "__typename": "SearchResultPageInfo"
+                        },
+                        "__typename": "WishlistItems"
+                    },
+                    "__typename": "Wishlist"
+                }
+            ],
+            "__typename": "Customer"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+.radioRoot {
+    composes: gap-2xs from global;
+    composes: grid from global;
+}
+
+.radioLabel {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: grid-cols-[100%] from global;
+    composes: justify-start from global;
+
+    composes: sm_grid-cols-autoAuto from global;
+}
+
+.radioMessage {
+    composes: hidden from global;
+}
+
+.error {
+    composes: leading-normal from global;
+    composes: text-error from global;
+}

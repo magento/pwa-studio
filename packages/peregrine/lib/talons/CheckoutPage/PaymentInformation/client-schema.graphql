@@ -1,0 +1,4 @@
+# Additional client field needed for storing payment nonce returned by processors
+extend type Cart {
+    paymentNonce: String
+}

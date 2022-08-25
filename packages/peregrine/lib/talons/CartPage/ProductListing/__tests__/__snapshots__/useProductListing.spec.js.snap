@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the proper shape 1`] = `
+Object {
+  "activeEditItem": null,
+  "error": null,
+  "isLoading": false,
+  "items": Array [
+    Object {
+      "id": "14",
+      "product": Object {
+        "name": "Strive Shoulder Pack",
+        "sku": "24-MB04",
+      },
+      "quantity": 2,
+    },
+    Object {
+      "id": "17",
+      "product": Object {
+        "name": "Savvy Shoulder Tote",
+        "sku": "24-WB05",
+      },
+      "quantity": 1,
+    },
+  ],
+  "setActiveEditItem": [Function],
+  "wishlistConfig": Object {
+    "wishlistEnabled": true,
+  },
+}
+`;

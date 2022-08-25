@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns proper shape 1`] = `
+Object {
+  "handleAddToCart": [Function],
+  "isDisabled": false,
+  "isInStock": true,
+}
+`;
+
+exports[`testing handleAddToCart should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "1234",
+    "currencyCode": "USD",
+    "discountAmount": 10,
+    "name": "Strive Shoulder Pac",
+    "priceTotal": 99,
+    "quantity": 1,
+    "selectedOptions": null,
+    "sku": "97ahsf9",
+  },
+  "type": "CART_ADD_ITEM",
+}
+`;

@@ -1,0 +1,140 @@
+.root {
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-light from global;
+    composes: gap-y-16 from global;
+    composes: grid from global;
+    composes: leading-normal from global;
+    composes: max-w-site from global;
+    composes: min-h-[15rem] from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: pt-16 from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
+    composes: w-full from global;
+}
+
+.links {
+    composes: gap-x-md from global;
+    composes: gap-y-lg from global;
+    composes: grid from global;
+    composes: grid-cols-6 from global;
+    composes: grid-flow-row-dense from global;
+    composes: px-xs from global;
+
+    composes: xs_px-md from global;
+    composes: lg_gap-x-sm from global;
+    composes: lg_gap-y-md from global;
+    composes: lg_grid-cols-12 from global;
+}
+
+.linkGroup {
+    composes: col-span-3 from global;
+    composes: content-start from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+
+    composes: xs_col-span-2 from global;
+}
+
+.linkItem {
+    composes: first_text-colorDefault from global;
+    composes: first_font-semibold from global;
+}
+
+.callout {
+    composes: col-span-3 from global;
+    composes: leading-normal from global;
+    composes: max-w-[20rem] from global;
+    composes: text-sm from global;
+
+    composes: xs_col-span-6 from global;
+    composes: xs_mx-auto from global;
+    composes: sm_col-span-3 from global;
+}
+
+.calloutHeading {
+    composes: font-semibold from global;
+    composes: text-colorDefault from global;
+    composes: text-sm from global;
+}
+
+.calloutBody {
+    composes: mx-0 from global;
+    composes: my-xs from global;
+}
+
+.socialLinks {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-start from global;
+}
+
+.branding {
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-light from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-auto from global;
+    composes: grid-flow-row from global;
+    composes: h-auto from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: pb-16 from global;
+    composes: pt-md from global;
+    composes: px-md from global;
+    composes: text-center from global;
+    composes: w-full from global;
+    grid-template-areas: 'a b c';
+
+    composes: lg_gap-0 from global;
+    composes: lg_grid-flow-col from global;
+    composes: lg_h-[4rem] from global;
+    composes: lg_justify-self-center from global;
+    composes: lg_px-sm from global;
+    composes: lg_py-0 from global;
+    composes: lg_text-left from global;
+}
+
+@media (max-width: 959px) {
+    .branding {
+        grid-template-areas: 'c' 'b' 'a';
+    }
+}
+
+@media (min-width: 960px) {
+    .branding {
+        grid-template-columns: minmax(200px, 1fr) auto minmax(200px, 1fr);
+    }
+}
+
+.legal {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    grid-area: c;
+
+    composes: lg_justify-end from global;
+}
+
+.copyright {
+    grid-area: b;
+    composes: text-center from global;
+}
+
+.logoContainer {
+    grid-area: a;
+    composes: mt-10 from global;
+
+    composes: lg_mt-0 from global;
+}
+
+.logo {
+    height: var(--height);
+    width: var(--width);
+}

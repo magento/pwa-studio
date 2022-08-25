@@ -1,0 +1,64 @@
+.root {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: p-md from global;
+}
+
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.module.css';
+
+    composes: text-center from global;
+}
+
+.heading_container {
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: grid-flow-col from global;
+}
+
+.edit_button {
+    composes: p-xs from global;
+    composes: -m-xs from global;
+    composes: text-brand-dark from global;
+}
+
+.heading {
+    composes: font-semibold from global;
+}
+
+.address_summary_container {
+    composes: grid from global;
+    composes: gap-y-2xs from global;
+}
+
+.first_name,
+.last_name,
+.street1,
+.street2,
+.city,
+.state,
+.postalCode,
+.country {
+    composes: pr-1 from global;
+}
+
+.edit_icon {
+    composes: stroke-brand-base from global;
+}
+
+.edit_text {
+    composes: hidden from global;
+
+    composes: lg_inline from global;
+}
+
+.card_details_container {
+    composes: grid from global;
+    composes: gap-2xs from global;
+}
+
+.payment_type {
+}
+
+.payment_details {
+}

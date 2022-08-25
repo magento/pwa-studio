@@ -1,0 +1,188 @@
+/* The root aside element takes up the whole screen. */
+/* It is hidden by default. */
+/* It animates to being closed, and then moves off screen. */
+/* It sits over all background content. */
+.root {
+    composes: fixed from global;
+    composes: h-full from global;
+    composes: left-[-100vw] from global;
+    composes: opacity-0 from global;
+    composes: right-0 from global;
+    composes: top-0 from global;
+    composes: w-full from global;
+    composes: z-dialog from global;
+    transform: translate3d(-50%, 0, 0);
+    transition: opacity 192ms var(--venia-global-anim-out),
+        visibility 192ms var(--venia-global-anim-out), left 0s 192ms;
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
+
+    composes: lg_right-auto from global;
+}
+
+.root_open {
+    composes: root;
+
+    composes: left-auto from global;
+    composes: opacity-100 from global;
+
+    composes: lg_left-1/2 from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
+
+    /* It animates to being open. */
+    transition: opacity 224ms var(--venia-global-anim-in),
+        visibility 224ms var(--venia-global-anim-in), left 0s;
+}
+
+/* The form fills the entire aside. */
+/* Its contents are centered horizontally and vertically. */
+.form {
+    composes: content-stretch from global;
+    composes: grid from global;
+    composes: h-full from global;
+    composes: justify-end from global;
+    composes: w-full from global;
+
+    composes: lg_content-center from global;
+    composes: lg_justify-center from global;
+}
+
+.mask {
+    /* The mask takes up the entire screen. */
+    composes: absolute from global;
+    composes: h-full from global;
+    composes: left-0 from global;
+    composes: top-0 from global;
+    composes: w-full from global;
+
+    /* The mask is a semi-transparent grey. */
+    composes: bg-gray-600 from global;
+    composes: opacity-50 from global;
+}
+
+/* The dialog is the only item in the form grid. */
+/* Nothing is allowed to overflow container itself. */
+/* Container is itself a grid container for its children. */
+/* Container can be the target of pointer events. */
+/* It sits on top of the mask. */
+.dialog {
+    /* It sets maximum sizes so its body can handle overflow. */
+    composes: h-full from global;
+    composes: max-h-full from global;
+    /* Minimum keeps a 16:9 aspect ratio and is 40rem x 22.5rem.  */
+    composes: min-h-[360px] from global;
+    composes: w-[640px] from global;
+
+    composes: bg-white from global;
+    composes: grid from global;
+    composes: grid-rows-autoFirst from global;
+    composes: max-w-modal from global;
+    composes: overflow-hidden from global;
+    composes: pointer-events-auto from global;
+    composes: rounded-md from global;
+    composes: shadow-dialog from global;
+    composes: z-dialog from global;
+
+    composes: lg_max-h-modal from global;
+    composes: lg_max-w-full from global;
+}
+
+/*
+ *  Dialog Header styles.
+ */
+
+.header {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: h-[3.5rem] from global;
+    composes: pl-4 from global;
+    composes: pr-3 from global;
+    composes: py-0 from global;
+
+    /* The Header is itself a grid container for its children. */
+    composes: gap-x-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+}
+
+.headerText {
+    composes: capitalize from global;
+    composes: leading-tight from global;
+    composes: overflow-ellipsis from global;
+    composes: overflow-hidden from global;
+    composes: text-subtle from global;
+    composes: whitespace-nowrap from global;
+}
+
+.headerButton {
+    /* Horizontally align the close button to the right. */
+    composes: justify-self-end from global;
+}
+
+/*
+ *  Dialog Body styles.
+ */
+
+.body {
+    composes: overflow-auto from global;
+
+    /* The Body is itself a grid container for its children. */
+    composes: grid from global;
+    composes: grid-rows-autoLast from global;
+}
+
+.contents {
+    composes: p-xs from global;
+}
+
+.buttons {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: justify-center from global;
+    composes: p-md from global;
+
+    composes: lg_grid-flow-col from global;
+}
+
+.confirmButton {
+    composes: root_highPriority from '../Button/button.module.css';
+
+    /* On mobile the confirm button should be first (on top). */
+    composes: order-first from global;
+
+    composes: lg_order-unset from global;
+}
+
+.cancelButton {
+    composes: root_lowPriority from '../Button/button.module.css';
+}
+
+/*
+ * Mobile-specific styles.
+ *
+ * Instead of being a full-page modal,
+ * dialogs slide out from the right.
+ */
+
+@media (max-width: 959px) {
+    .root {
+        /* The Dialog starts off-screen on the right. */
+        transform: translate3d(100%, 0, 0);
+        /* For mobile, add position to the transitions. */
+        transition-property: opacity, transform, visibility;
+    }
+
+    .root_open {
+        /* The Dialog animates (slides) onto the screen. */
+        transform: translate3d(0, 0, 0);
+    }
+}

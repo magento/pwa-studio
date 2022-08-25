@@ -1,0 +1,9 @@
+.root {
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    composes: gap-x-xs from global;
+    composes: gap-y-md from global;
+    composes: grid from global;
+
+    composes: xs_gap-x-md from global;
+    composes: xs_gap-y-md from global;
+}

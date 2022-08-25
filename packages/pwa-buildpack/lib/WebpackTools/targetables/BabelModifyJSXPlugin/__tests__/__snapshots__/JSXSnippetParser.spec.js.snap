@@ -1,0 +1,259 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parses JSXAttributes provided as an array of source code 1`] = `
+Array [
+  Node {
+    "end": 25,
+    "loc": SourceLocation {
+      "end": Position {
+        "column": 25,
+        "line": 1,
+      },
+      "filename": undefined,
+      "identifierName": undefined,
+      "start": Position {
+        "column": 3,
+        "line": 1,
+      },
+    },
+    "name": Node {
+      "end": 12,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 12,
+          "line": 1,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 3,
+          "line": 1,
+        },
+      },
+      "name": "className",
+      "start": 3,
+      "type": "JSXIdentifier",
+    },
+    "start": 3,
+    "type": "JSXAttribute",
+    "value": Node {
+      "end": 25,
+      "extra": Object {
+        "raw": "\\"Dinosauria\\"",
+        "rawValue": "Dinosauria",
+      },
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 25,
+          "line": 1,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 13,
+          "line": 1,
+        },
+      },
+      "start": 13,
+      "type": "StringLiteral",
+      "value": "Dinosauria",
+    },
+  },
+  Node {
+    "end": 43,
+    "loc": SourceLocation {
+      "end": Position {
+        "column": 43,
+        "line": 1,
+      },
+      "filename": undefined,
+      "identifierName": undefined,
+      "start": Position {
+        "column": 26,
+        "line": 1,
+      },
+    },
+    "name": Node {
+      "end": 32,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 32,
+          "line": 1,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 26,
+          "line": 1,
+        },
+      },
+      "name": "phylum",
+      "start": 26,
+      "type": "JSXIdentifier",
+    },
+    "start": 26,
+    "type": "JSXAttribute",
+    "value": Node {
+      "end": 43,
+      "expression": Node {
+        "end": 42,
+        "loc": SourceLocation {
+          "end": Position {
+            "column": 42,
+            "line": 1,
+          },
+          "filename": undefined,
+          "identifierName": "Chordata",
+          "start": Position {
+            "column": 34,
+            "line": 1,
+          },
+        },
+        "name": "Chordata",
+        "start": 34,
+        "type": "Identifier",
+      },
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 43,
+          "line": 1,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 33,
+          "line": 1,
+        },
+      },
+      "start": 33,
+      "type": "JSXExpressionContainer",
+    },
+  },
+  Node {
+    "end": 76,
+    "loc": SourceLocation {
+      "end": Position {
+        "column": 76,
+        "line": 1,
+      },
+      "filename": undefined,
+      "identifierName": undefined,
+      "start": Position {
+        "column": 44,
+        "line": 1,
+      },
+    },
+    "name": Node {
+      "end": 50,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 50,
+          "line": 1,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 44,
+          "line": 1,
+        },
+      },
+      "name": "family",
+      "start": 44,
+      "type": "JSXIdentifier",
+    },
+    "start": 44,
+    "type": "JSXAttribute",
+    "value": Node {
+      "children": Array [],
+      "closingElement": null,
+      "end": 76,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 76,
+          "line": 1,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 51,
+          "line": 1,
+        },
+      },
+      "openingElement": Node {
+        "attributes": Array [],
+        "end": 76,
+        "loc": SourceLocation {
+          "end": Position {
+            "column": 76,
+            "line": 1,
+          },
+          "filename": undefined,
+          "identifierName": undefined,
+          "start": Position {
+            "column": 51,
+            "line": 1,
+          },
+        },
+        "name": Node {
+          "end": 74,
+          "loc": SourceLocation {
+            "end": Position {
+              "column": 74,
+              "line": 1,
+            },
+            "filename": undefined,
+            "identifierName": undefined,
+            "start": Position {
+              "column": 52,
+              "line": 1,
+            },
+          },
+          "object": Node {
+            "end": 61,
+            "loc": SourceLocation {
+              "end": Position {
+                "column": 61,
+                "line": 1,
+              },
+              "filename": undefined,
+              "identifierName": undefined,
+              "start": Position {
+                "column": 52,
+                "line": 1,
+              },
+            },
+            "name": "Theropoda",
+            "start": 52,
+            "type": "JSXIdentifier",
+          },
+          "property": Node {
+            "end": 74,
+            "loc": SourceLocation {
+              "end": Position {
+                "column": 74,
+                "line": 1,
+              },
+              "filename": undefined,
+              "identifierName": undefined,
+              "start": Position {
+                "column": 62,
+                "line": 1,
+              },
+            },
+            "name": "Allosauridae",
+            "start": 62,
+            "type": "JSXIdentifier",
+          },
+          "start": 52,
+          "type": "JSXMemberExpression",
+        },
+        "selfClosing": true,
+        "start": 51,
+        "type": "JSXOpeningElement",
+      },
+      "start": 51,
+      "type": "JSXElement",
+    },
+  },
+]
+`;

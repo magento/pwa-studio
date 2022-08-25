@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it handles cart removal should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 0,
+    "name": "unit test",
+    "priceTotal": 99,
+    "quantity": 7,
+    "selectedOptions": null,
+    "sku": "unit-test-sku",
+  },
+  "type": "CART_REMOVE_ITEM",
+}
+`;
+
+exports[`it handles item quantity updates should dispatch "remove" event when updating qty to zero 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 0,
+    "name": "unit test",
+    "priceTotal": 99,
+    "quantity": 7,
+    "selectedOptions": null,
+    "sku": "unit-test-sku",
+  },
+  "type": "CART_REMOVE_ITEM",
+}
+`;
+
+exports[`it handles item quantity updates should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 0,
+    "name": "unit test",
+    "priceTotal": 99,
+    "quantity": 100,
+    "selectedOptions": null,
+    "sku": "unit-test-sku",
+  },
+  "type": "CART_UPDATE_ITEM",
+}
+`;
+
+exports[`it returns an error message when the item has an error 1`] = `
+<i
+  talonProps={
+    Object {
+      "addToWishlistProps": Object {
+        "afterAdd": [Function],
+        "buttonText": [Function],
+        "item": Object {
+          "quantity": 7,
+          "selected_options": Array [],
+          "sku": "unit-test-sku",
+        },
+        "storeConfig": Object {
+          "wishlistEnabled": true,
+        },
+      },
+      "errorMessage": "Some error message",
+      "handleEditItem": [Function],
+      "handleRemoveFromCart": [Function],
+      "handleUpdateItemQuantity": [Function],
+      "isEditable": false,
+      "isProductUpdating": false,
+      "product": Object {
+        "currency": "USD",
+        "image": "test.webp",
+        "name": "unit test",
+        "options": Array [],
+        "quantity": 7,
+        "stockStatus": undefined,
+        "unitPrice": 99,
+        "urlKey": undefined,
+        "urlSuffix": undefined,
+      },
+    }
+  }
+/>
+`;
+
+exports[`it returns the proper shape 1`] = `
+<i
+  talonProps={
+    Object {
+      "addToWishlistProps": Object {
+        "afterAdd": [Function],
+        "buttonText": [Function],
+        "item": Object {
+          "quantity": 7,
+          "selected_options": Array [],
+          "sku": "unit-test-sku",
+        },
+        "storeConfig": Object {
+          "wishlistEnabled": true,
+        },
+      },
+      "errorMessage": "",
+      "handleEditItem": [Function],
+      "handleRemoveFromCart": [Function],
+      "handleUpdateItemQuantity": [Function],
+      "isEditable": false,
+      "isProductUpdating": false,
+      "product": Object {
+        "currency": "USD",
+        "image": "test.webp",
+        "name": "unit test",
+        "options": Array [],
+        "quantity": 7,
+        "stockStatus": undefined,
+        "unitPrice": 99,
+        "urlKey": undefined,
+        "urlSuffix": undefined,
+      },
+    }
+  }
+/>
+`;
+
+exports[`it returns the proper shape when use variant image is configured 1`] = `
+<i
+  talonProps={
+    Object {
+      "addToWishlistProps": Object {
+        "afterAdd": [Function],
+        "buttonText": [Function],
+        "item": Object {
+          "quantity": 7,
+          "selected_options": Array [
+            "Y29uZmlndXJhYmxlLzIyLzI=",
+          ],
+          "sku": "unit-test-sku",
+        },
+        "storeConfig": Object {
+          "wishlistEnabled": true,
+        },
+      },
+      "errorMessage": "",
+      "handleEditItem": [Function],
+      "handleRemoveFromCart": [Function],
+      "handleUpdateItemQuantity": [Function],
+      "isEditable": true,
+      "isProductUpdating": false,
+      "product": Object {
+        "currency": "USD",
+        "image": "variant1.webp",
+        "name": "unit test",
+        "options": Array [
+          Object {
+            "configurable_product_option_uid": 22,
+            "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzIyLzI=",
+            "option_label": "Color",
+            "value_label": "red",
+          },
+        ],
+        "quantity": 7,
+        "stockStatus": undefined,
+        "unitPrice": 99,
+        "urlKey": undefined,
+        "urlSuffix": undefined,
+      },
+    }
+  }
+/>
+`;

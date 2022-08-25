@@ -1,0 +1,6 @@
+.root {
+    composes: inline-grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-start from global;
+    composes: relative from global;
+}

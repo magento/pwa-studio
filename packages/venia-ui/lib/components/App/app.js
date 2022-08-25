@@ -1,18 +1,19 @@
 import React, { useCallback } from 'react';
+import { useIntl } from 'react-intl';
 import { array, func, shape, string } from 'prop-types';
 
-import { HeadProvider, Title } from '../Head';
+import { useToasts } from '@magento/peregrine';
+import useDelayedTransition from '@magento/peregrine/lib/hooks/useDelayedTransition';
+import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
+
+import globalCSS from '../../index.module.css';
+import { HeadProvider, StoreTitle } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
-import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
-import renderRoutes from './renderRoutes';
-
+import Routes from '../Routes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
-
-import { getToastId, useToasts } from '@magento/peregrine';
-import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import {
     AlertCircle as AlertCircleIcon,
@@ -24,30 +25,41 @@ const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
-const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
-
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
+    const { formatMessage } = useIntl();
+    const [, { addToast }] = useToasts();
+    useDelayedTransition();
 
-    const [{ toasts }, { addToast }] = useToasts();
+    const ERROR_MESSAGE = formatMessage({
+        id: 'app.errorUnexpected',
+        defaultMessage: 'Sorry! An unexpected error occurred.'
+    });
 
     const handleIsOffline = useCallback(() => {
         addToast({
             type: 'error',
             icon: OfflineIcon,
-            message: 'You are offline. Some features may be unavailable.',
+            message: formatMessage({
+                id: 'app.errorOffline',
+                defaultMessage:
+                    'You are offline. Some features may be unavailable.'
+            }),
             timeout: 3000
         });
-    }, [addToast]);
+    }, [addToast, formatMessage]);
 
     const handleIsOnline = useCallback(() => {
         addToast({
             type: 'info',
             icon: OnlineIcon,
-            message: 'You are online.',
+            message: formatMessage({
+                id: 'app.infoOnline',
+                defaultMessage: 'You are online.'
+            }),
             timeout: 3000
         });
-    }, [addToast]);
+    }, [addToast, formatMessage]);
 
     const handleError = useCallback(
         (error, id, loc, handleDismissError) => {
@@ -61,15 +73,10 @@ const App = props => {
                 timeout: 15000,
                 type: 'error'
             };
-            // Only add a toast for new errors. Without this condition we would
-            // re-add toasts when one error is removed even if there were two
-            // added at the same time.
-            const errorToastId = getToastId(errorToastProps);
-            if (!toasts.get(errorToastId)) {
-                addToast(errorToastProps);
-            }
+
+            addToast(errorToastProps);
         },
-        [addToast, toasts]
+        [ERROR_MESSAGE, addToast]
     );
 
     const talonProps = useApp({
@@ -86,7 +93,7 @@ const App = props => {
     if (renderError) {
         return (
             <HeadProvider>
-                <Title>{`Home Page - ${STORE_NAME}`}</Title>
+                <StoreTitle />
                 <Main isMasked={true} />
                 <Mask isActive={true} />
                 <ToastContainer />
@@ -96,11 +103,16 @@ const App = props => {
 
     return (
         <HeadProvider>
-            <Title>{`Home Page - ${STORE_NAME}`}</Title>
-            <Main isMasked={hasOverlay}>{renderRoutes()}</Main>
-            <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
+            <StoreTitle />
+            <Main isMasked={hasOverlay}>
+                <Routes />
+            </Main>
+            <Mask
+                isActive={hasOverlay}
+                dismiss={handleCloseDrawer}
+                data-cy="App-Mask-button"
+            />
             <Navigation />
-            <MiniCart />
             <ToastContainer />
         </HeadProvider>
     );
@@ -113,5 +125,7 @@ App.propTypes = {
     }),
     unhandledErrors: array
 };
+
+App.globalCSS = globalCSS;
 
 export default App;

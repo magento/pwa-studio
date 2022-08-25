@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "mailingAddress": "A test address",
+  "onBillingAddressChangedError": [Function],
+  "onBillingAddressChangedSuccess": [Function],
+  "payableTo": "Venia Inc. Test",
+}
+`;

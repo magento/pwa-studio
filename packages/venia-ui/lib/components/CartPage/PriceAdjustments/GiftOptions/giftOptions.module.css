@@ -1,0 +1,61 @@
+.root {
+}
+
+.option {
+    composes: grid from global;
+    composes: px-0 from global;
+    composes: py-2 from global;
+    grid-template-columns: auto min-content;
+}
+
+.giftMessageResultContainer,
+.giftMessageFields {
+    composes: pb-4 from global;
+    composes: pl-8 from global;
+}
+
+.giftMessageResultContainer {
+    composes: gap-8 from global;
+    composes: items-start from global;
+
+    /* Small */
+    composes: sm_flex from global;
+    composes: sm_gap-12 from global;
+}
+
+.giftMessageResult p {
+    padding: 0.25rem 0;
+}
+
+.editGiftMessageButton {
+    composes: root from '../../../LinkButton/linkButton.module.css';
+    composes: mt-4 from global;
+
+    /* Small */
+    composes: sm_mt-2 from global;
+}
+
+.giftMessageActions {
+    composes: gap-4 from global;
+    composes: grid from global;
+    composes: mt-4 from global;
+
+    /* Small */
+    composes: sm_flex from global;
+}
+
+.savingContainer {
+    composes: flex from global;
+    composes: items-center from global;
+    composes: pl-4 from global;
+    composes: text-gray-500 from global;
+}
+
+.savingSpinner {
+    composes: root from '../../../LoadingIndicator/spinner.module.css';
+    composes: ml-2 from global;
+}
+
+.hidden {
+    composes: hidden from global;
+}

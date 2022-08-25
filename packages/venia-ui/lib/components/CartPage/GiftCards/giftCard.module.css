@@ -1,0 +1,11 @@
+.card_info {
+    composes: grid from global;
+    composes: gap-y-2xs from global;
+}
+
+.balance {
+    composes: text-sm from global;
+}
+
+.code {
+}

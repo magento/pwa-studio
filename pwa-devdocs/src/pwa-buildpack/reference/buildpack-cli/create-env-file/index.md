@@ -1,5 +1,6 @@
 ---
 title: create-env-file
+adobeio: /api/buildpack/cli/create-environment-file/
 ---
 
 Whether its a new storefront project or a fresh PWA Studio repository clone, PWA Studio requires a `.env` file to set up the environment for your site.
@@ -76,6 +77,6 @@ The return value is the string value of a `.env` file.
 
 Parse this value using the `dotenv` API or write it out to the filesystem.
 
-[`buildpack`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/index.md %}
+[`buildpack`]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
 
 [`envvardefinitions.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json

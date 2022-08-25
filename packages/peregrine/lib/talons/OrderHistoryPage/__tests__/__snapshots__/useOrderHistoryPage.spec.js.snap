@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it returns the proper shape while loading without data 1`] = `
+Object {
+  "errorMessage": null,
+  "handleReset": [Function],
+  "handleSubmit": [Function],
+  "isBackgroundLoading": false,
+  "isLoadingWithoutData": true,
+  "loadMoreOrders": null,
+  "orders": Array [],
+  "pageInfo": null,
+  "searchText": "",
+}
+`;
+
+exports[`it returns the proper shape with data 1`] = `
+Object {
+  "errorMessage": null,
+  "handleReset": [Function],
+  "handleSubmit": [Function],
+  "isBackgroundLoading": false,
+  "isLoadingWithoutData": false,
+  "loadMoreOrders": [Function],
+  "orders": Array [
+    "order1",
+    "order2",
+  ],
+  "pageInfo": Object {
+    "current": 4,
+    "total": 4,
+  },
+  "searchText": "",
+}
+`;

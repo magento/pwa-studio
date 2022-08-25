@@ -1,0 +1,10 @@
+.root {
+    composes: root from './productSort.module.css';
+}
+
+.sortButtonShimmer {
+    composes: root_button from '../Shimmer/shimmer.module.css';
+    composes: sortButton from './productSort.module.css';
+
+    composes: lg_min-w-[12rem] from global;
+}

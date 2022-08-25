@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="root"
+  >
+    <button
+      className="createButton"
+      onClick={[MockFunction handleShowModal]}
+      type="button"
+    >
+      <div
+        className="labelContainer"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              ry="2"
+              width="18"
+              x="3"
+              y="3"
+            />
+            <line
+              x1="12"
+              x2="12"
+              y1="8"
+              y2="16"
+            />
+            <line
+              x1="8"
+              x2="16"
+              y1="12"
+              y2="12"
+            />
+          </svg>
+        </span>
+        <span>
+          <mock-FormattedMessage
+            defaultMessage="Create a list"
+            id="createWishlist.handleCreateListText"
+          />
+        </span>
+      </div>
+    </button>
+    <div
+      cancelText="Cancel"
+      classes={
+        Object {
+          "body": "body",
+          "buttons": "buttons",
+          "cancelButton": "cancelButton",
+          "confirmButton": "confirmButton",
+          "contents": "contents",
+        }
+      }
+      componentName="Dialog"
+      confirmText="Save"
+      formProps={
+        Object {
+          "initialValues": Object {
+            "visibility": "PRIVATE",
+          },
+        }
+      }
+      isModal={true}
+      isOpen={false}
+      onCancel={[MockFunction handleHideModal]}
+      onConfirm={[MockFunction handleCreateList]}
+      shouldUnmountOnHide={true}
+      title="New Favorites List"
+    >
+      <div
+        className="form"
+      >
+        <div
+          className="root"
+        >
+          <span
+            className="errorMessage"
+          >
+            Form Error
+          </span>
+        </div>
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+          >
+            List Name
+          </label>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
+              className="input"
+            >
+              <input
+                className="input"
+                id="name"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                value=""
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
+            />
+          </span>
+          <p
+            className="root"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;

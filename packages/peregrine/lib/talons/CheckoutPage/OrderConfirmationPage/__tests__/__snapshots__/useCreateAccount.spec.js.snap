@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handle submit event creates an account, dispatches event, signs in, and generates a new cart 1`] = `
+Object {
+  "payload": Object {
+    "email": "bender@planet.express",
+    "firstName": "Bender",
+    "isSubscribed": false,
+    "lastName": "Rodriguez",
+  },
+  "type": "USER_CREATE_ACCOUNT",
+}
+`;
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "errors": Map {
+    "createAccountQuery" => undefined,
+    "signInMutation" => undefined,
+  },
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "philipfry@fake.email",
+      "firstname": "Philip",
+      "lastname": "Fry",
+    },
+  },
+  "isDisabled": false,
+  "recaptchaWidgetProps": Object {},
+}
+`;
+
+exports[`returns the correct shape with no initial values 1`] = `
+Object {
+  "errors": Map {
+    "createAccountQuery" => undefined,
+    "signInMutation" => undefined,
+  },
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": undefined,
+      "firstname": undefined,
+      "lastname": undefined,
+    },
+  },
+  "isDisabled": false,
+  "recaptchaWidgetProps": Object {},
+}
+`;

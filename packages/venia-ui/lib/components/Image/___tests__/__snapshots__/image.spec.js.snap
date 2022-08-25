@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an image correctly when given resource 1`] = `
+<div
+  className="root container"
+>
+  <img
+    alt="Unit Test Image"
+    className="image placeholder_layoutOnly"
+    loading="eager"
+    src="placeholder.jpg"
+    width={100}
+  />
+  <img
+    alt="Unit Test Image"
+    className="image loaded"
+    loading="lazy"
+    onError={[MockFunction]}
+    onLoad={[MockFunction]}
+    sizes="100px"
+    src="/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=100&fit=cover"
+    srcSet="/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+/media/catalog/product/timeless.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
+    width={100}
+  />
+</div>
+`;
+
+exports[`renders an image correctly when given src 1`] = `
+<div
+  className="root container"
+>
+  <img
+    alt="Unit Test Image"
+    className="image placeholder_layoutOnly"
+    loading="eager"
+    src="placeholder.jpg"
+  />
+  <img
+    alt="Unit Test Image"
+    className="image loaded"
+    loading="lazy"
+    onError={[MockFunction]}
+    onLoad={[MockFunction]}
+    src="image_src.jpg"
+  />
+</div>
+`;

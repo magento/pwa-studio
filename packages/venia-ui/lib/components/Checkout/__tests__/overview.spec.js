@@ -17,11 +17,13 @@ const mockSubmitOrder = jest.fn();
 const defaultProps = {
     cancelCheckout: mockCancelCheckout,
     cart: {
-        details: {},
         cartId: '123',
-        totals: {
-            subtotal: 3.5
-        }
+        derivedDetails: {
+            currencyCode: 'USD',
+            numItems: 0,
+            subtotal: 0
+        },
+        details: {}
     },
     classes: {
         body: 'body',
@@ -40,19 +42,6 @@ beforeEach(() => {
 
 test('renders an Overview component', () => {
     const component = createTestInstance(<Overview {...defaultProps} />);
-
-    expect(component.toJSON()).toMatchSnapshot();
-});
-
-test('renders "0" for Price if subtotal is falsy', () => {
-    const props = {
-        ...defaultProps,
-        cart: {
-            totals: {},
-            details: {}
-        }
-    };
-    const component = createTestInstance(<Overview {...props} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });

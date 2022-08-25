@@ -1,0 +1,18 @@
+.root {
+    composes: items-center from global;
+    composes: flex from global;
+    composes: flex-col from global;
+    composes: justify-center from global;
+    composes: p-xs from global;
+    composes: text-center from global;
+}
+
+.emptyTitle {
+    composes: leading-tight from global;
+    composes: mb-sm from global;
+    composes: text-xl from global;
+}
+
+.continue {
+    composes: root from '../Button/button.module.css';
+}

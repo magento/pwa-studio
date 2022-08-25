@@ -1,0 +1,309 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    <div
+      componentName="Shipping Information Information"
+      data={
+        Object {
+          "city": "Austin",
+          "country_code": "US",
+          "firstname": "Gooseton",
+          "lastname": "Jr",
+          "postcode": "78759",
+          "region_id": "TX",
+          "street": "Goose Dr",
+          "telephone": "9123456789",
+        }
+      }
+    />
+  </div>
+  <div>
+    <div
+      componentName="Shipping Method"
+      data={
+        Object {
+          "shipments": Array [
+            Object {
+              "id": "1",
+              "tracking": Array [
+                Object {
+                  "carrier": "Fedex",
+                  "number": "FEDEX5885541235452125",
+                },
+              ],
+            },
+          ],
+          "shippingMethod": "Free",
+        }
+      }
+    />
+  </div>
+  <div>
+    <div
+      componentName="Billing Information"
+      data={
+        Object {
+          "city": "Austin",
+          "country_code": "US",
+          "firstname": "Gooseton",
+          "lastname": "Jr",
+          "postcode": "78759",
+          "region_id": "TX",
+          "street": "Goose Dr",
+          "telephone": "9123456789",
+        }
+      }
+    />
+  </div>
+  <div>
+    <div
+      componentName="Payment Method"
+      data={
+        Array [
+          Object {
+            "additional_data": Array [
+              Object {
+                "name": "card_type",
+                "value": "Visa",
+              },
+              Object {
+                "name": "last_four",
+                "value": "1234",
+              },
+            ],
+            "name": "Braintree",
+            "type": "Credit Card",
+          },
+        ]
+      }
+    />
+  </div>
+  <div>
+    <div
+      componentName="Items"
+      data={
+        Object {
+          "imagesData": Array [
+            Object {
+              "id": 1094,
+              "sku": "VA03",
+              "thumbnail": Object {
+                "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+              },
+              "url_key": "valeria-two-layer-tank",
+              "url_suffix": ".html",
+            },
+            Object {
+              "id": 1103,
+              "sku": "VP08",
+              "thumbnail": Object {
+                "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+              },
+              "url_key": "chloe-silk-shell",
+              "url_suffix": ".html",
+            },
+            Object {
+              "id": 1108,
+              "sku": "VSW09",
+              "thumbnail": Object {
+                "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+              },
+              "url_key": "helena-cardigan",
+              "url_suffix": ".html",
+            },
+          ],
+          "items": Array [
+            Object {
+              "id": "3",
+              "product_name": "Product 3",
+              "product_sale_price": "$100.00",
+              "product_sku": "VA03",
+              "quantity_ordered": 1,
+              "selected_options": Array [
+                Object {
+                  "label": "Color",
+                  "value": "Blue",
+                },
+              ],
+            },
+            Object {
+              "id": "4",
+              "product_name": "Product 4",
+              "product_sale_price": "$100.00",
+              "product_sku": "VP08",
+              "quantity_ordered": 1,
+              "selected_options": Array [
+                Object {
+                  "label": "Color",
+                  "value": "Black",
+                },
+              ],
+            },
+            Object {
+              "id": "5",
+              "product_name": "Product 5",
+              "product_sale_price": "$100.00",
+              "product_sku": "VSW09",
+              "quantity_ordered": 1,
+              "selected_options": Array [
+                Object {
+                  "label": "Color",
+                  "value": "Orange",
+                },
+              ],
+            },
+          ],
+        }
+      }
+    />
+  </div>
+  <div>
+    <div
+      componentName="Order Total"
+      data={
+        Object {
+          "discounts": Array [
+            Object {
+              "amount": Object {
+                "currency": "USD",
+                "value": 123,
+              },
+            },
+          ],
+          "grand_total": Object {
+            "currency": "USD",
+            "value": 1434,
+          },
+          "subtotal": Object {
+            "currency": "USD",
+            "value": 1234,
+          },
+          "total_shipping": Object {
+            "currency": "USD",
+            "value": 12,
+          },
+          "total_tax": Object {
+            "currency": "USD",
+            "value": 34,
+          },
+        }
+      }
+    />
+  </div>
+  <button
+    disabled={false}
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <span>
+      <span>
+        <svg
+          fill="none"
+          height={24}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 6 2 18 2 18 9"
+          />
+          <path
+            d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+          />
+          <rect
+            height="8"
+            width="12"
+            x="6"
+            y="14"
+          />
+        </svg>
+      </span>
+      <span>
+        <mock-FormattedMessage
+          defaultMessage="Print Receipt"
+          id="orderDetails.printLabel"
+        />
+      </span>
+    </span>
+  </button>
+</div>
+`;
+
+exports[`should render with reduced order information 1`] = `
+<div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <button
+    disabled={false}
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <span>
+      <span>
+        <svg
+          fill="none"
+          height={24}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 6 2 18 2 18 9"
+          />
+          <path
+            d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+          />
+          <rect
+            height="8"
+            width="12"
+            x="6"
+            y="14"
+          />
+        </svg>
+      </span>
+      <span>
+        <mock-FormattedMessage
+          defaultMessage="Print Receipt"
+          id="orderDetails.printLabel"
+        />
+      </span>
+    </span>
+  </button>
+</div>
+`;

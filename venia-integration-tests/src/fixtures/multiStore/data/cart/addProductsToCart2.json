@@ -1,0 +1,82 @@
+{
+  "data": {
+    "addProductsToCart": {
+      "cart": {
+        "id": "ud8gdDGLVlrX7f93SohMjvyfssCBIqdN",
+        "total_quantity": 2,
+        "prices": {
+          "subtotal_excluding_tax": {
+            "currency": "USD",
+            "value": 176,
+            "__typename": "Money"
+          },
+          "__typename": "CartPrices"
+        },
+        "items": [
+          {
+            "uid": "MTI5MDUw",
+            "product": {
+              "uid": "NA==",
+              "name": "Augusta Necklace",
+              "sku": "VA14-SI-NA",
+              "url_key": "augusta-necklace",
+              "thumbnail": {
+                "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
+                "__typename": "ProductImage"
+              },
+              "small_image": {
+                "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va14-ts_main.jpg",
+                "__typename": "ProductImage"
+              },
+              "stock_status": "IN_STOCK",
+              "__typename": "SimpleProduct"
+            },
+            "prices": {
+              "price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "__typename": "CartItemPrices"
+            },
+            "quantity": 1,
+            "errors": null,
+            "__typename": "SimpleCartItem"
+          },
+          {
+            "uid": "MTI5MDU2",
+            "product": {
+              "uid": "Mw==",
+              "name": "Carmina Necklace",
+              "sku": "VA13-GO-NA",
+              "url_key": "carmina-necklace",
+              "thumbnail": {
+                "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va13-sg_main.jpg",
+                "__typename": "ProductImage"
+              },
+              "small_image": {
+                "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/d3ba9f7bcd3b0724e976dc5144b29c7d\/v\/a\/va13-sg_main.jpg",
+                "__typename": "ProductImage"
+              },
+              "stock_status": "IN_STOCK",
+              "__typename": "SimpleProduct"
+            },
+            "prices": {
+              "price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "CartItemPrices"
+            },
+            "quantity": 1,
+            "errors": null,
+            "__typename": "SimpleCartItem"
+          }
+        ],
+        "__typename": "Cart"
+      },
+      "__typename": "AddProductsToCartOutput"
+    }
+  }
+}

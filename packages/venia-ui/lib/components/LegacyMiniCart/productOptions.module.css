@@ -1,0 +1,18 @@
+.options {
+    composes: leading-normal from global;
+    composes: max-h-[54px] from global;
+    composes: mt-1 from global;
+    composes: overflow-y-auto from global;
+    composes: text-sm from global;
+    grid-area: options;
+}
+
+.optionLabel {
+    composes: auto-cols-max from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+}
+
+.optionValue {
+    composes: ml-1 from global;
+}

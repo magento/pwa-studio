@@ -12,10 +12,14 @@ module.exports.builder = {
     }
 };
 
-module.exports.handler = function buildpackCli({ directory, coreDevMode }) {
-    const { error, envFilePresent } = require('../Utilities/loadEnvironment')(
-        directory
-    );
+module.exports.handler = async function buildpackCli(
+    { directory, coreDevMode },
+    proc = process
+) {
+    const {
+        error,
+        envFilePresent
+    } = await require('../Utilities/loadEnvironment')(directory);
     if (!envFilePresent) {
         if (coreDevMode) {
             prettyLogger.warn(`Creating new .env file using example values`);
@@ -26,15 +30,15 @@ module.exports.handler = function buildpackCli({ directory, coreDevMode }) {
             return;
         } else {
             prettyLogger.warn(
-                `No .env file in ${directory}. Autogenerate a .env file by running the command 'npx @magento/pwa-buildpack create-env.file .' in ${directory}.`
+                `No .env file in ${directory}. Autogenerate a .env file by running the command 'buildpack create-env-file ${directory}'.`
             );
         }
     }
     if (error) {
-        // signal to the outer CLI manager that it can quietly exit 1 instead of
-        // printing a large stack trace
-        const handledError = new Error(error);
-        handledError.expected = true;
-        throw handledError;
+        // yargs doesn't propagate async errors to its global fail command
+        // so we inject process for testability and call exit on it directly
+        // https://github.com/yargs/yargs/issues/1102
+        // eslint-disable-next-line no-process-exit
+        proc.exit(1);
     }
 };

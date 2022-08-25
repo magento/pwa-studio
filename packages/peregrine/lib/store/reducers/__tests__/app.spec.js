@@ -49,17 +49,6 @@ describe('toggleSearch', () => {
     });
 });
 
-test('executeSearch sets the query to the action payload', () => {
-    const action = {
-        payload: 'unit test',
-        type: 'APP/EXECUTE_SEARCH'
-    };
-
-    const result = reducer(state, action);
-
-    expect(result).toHaveProperty('query', 'unit test');
-});
-
 test('setOnline sets the isOnline flag to true', () => {
     const action = {
         type: 'APP/SET_ONLINE'

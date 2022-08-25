@@ -36,3 +36,24 @@ test('constants are always present', async () => {
     await expect(context.get('text/plain')).resolves.toBe('text/plain');
     await expect(context.get('208')).resolves.toBe('208');
 });
+
+test('user-agent is a valid header', async () => {
+    const context = new Context({
+        request: {
+            'user-agent':
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+        }
+    });
+    await expect(context.get('request.user-agent')).resolves.toBe(
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+    );
+});
+
+test('support array brackets', async () => {
+    const context = new Context({
+        request: {
+            '[0]': 'test-string'
+        }
+    });
+    await expect(context.get('request.[0]')).resolves.toBe('test-string');
+});

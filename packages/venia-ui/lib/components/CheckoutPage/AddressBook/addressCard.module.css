@@ -1,0 +1,94 @@
+.root {
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: content-start from global;
+    composes: cursor-pointer from global;
+    composes: gap-y-2xs from global;
+    composes: grid from global;
+    composes: outline-none from global;
+    composes: px-5 from global;
+    composes: py-xs from global;
+    composes: relative from global;
+    composes: rounded-md from global;
+    composes: shadow-none from global;
+    composes: text-colorDefault from global;
+    transition: border-color 384ms var(--venia-global-anim-in);
+
+    composes: focus_shadow-buttonFocus from global;
+
+    composes: hover_border-brand-dark from global;
+
+    composes: lg_px-md from global;
+    composes: lg_py-xs from global;
+}
+
+.root_selected {
+    composes: root;
+
+    composes: border-brand-dark from global;
+    composes: cursor-default from global;
+}
+
+.root_updated {
+    composes: root_selected;
+    animation: flash var(--venia-global-anim-bounce) 640ms 2;
+}
+
+.defaultCard {
+    grid-area: 1 / 1;
+}
+
+.editButton {
+    composes: absolute from global;
+    composes: p-xs from global;
+    composes: right-0 from global;
+    composes: top-0 from global;
+
+    composes: lg_right-1.5 from global;
+    composes: lg_top-1.5 from global;
+}
+
+.editButton:hover {
+    --fill: rgb(var(--venia-brand-color-1-700));
+}
+
+.editIcon {
+    composes: stroke-brand-base from global;
+    fill: var(--fill, white);
+    transition: fill 384ms var(--venia-global-anim-standard);
+}
+
+.defaultBadge {
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: mb-1 from global;
+    composes: px-sm from global;
+    composes: py-1.5 from global;
+    composes: rounded-md from global;
+    composes: text-xs from global;
+    composes: w-max from global;
+}
+
+.name {
+    composes: font-semibold from global;
+}
+
+.address {
+    composes: gap-2xs from global;
+    composes: grid from global;
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

@@ -83,8 +83,6 @@ When the shopper clicks on the **Checkout** button, the `beginCheckout()` functi
    This component contains clickable _Section_ components that contain an overview of the shipping address, payment method, and shipping method forms.
 1. `getShippingMethods()` - Creates a POST request to `guest-carts/<cartId>/estimate-shipping-methods` to get a list of available shipping methods based on a given address.
    If an address has not been provided, the ability to choose a shipping method is disabled.
-1. `getCountries()` - Creates a GET request to the `directory/countries` REST endpoint to get a list of countries and regions from the backing store.
-   The `submitShippingAddress()` and `submitBillingAddress()` functions use this list to validate the country for a given address.
 
 #### Braintree integration
 
@@ -125,7 +123,6 @@ After a form is saved, each of the submit functions dispatches an action that re
 | [src/actions/checkout/asyncActions.js][]  | Contains asynchronous functions for checkout-related actions such as `beginCheckout()` and the order form submit methods. |
 | [src/reducers/checkout.js][]              | Reducer functions for checkout-related actions.                                                                            |
 | [src/actions/cart/asyncActions.js][]      | Contains the definition for the `getShippingMethods()` function.                                                           |
-| [src/actions/directory/asyncActions.js][] | Contains the definition for the `getCountries()` function.                                                                 |
 | [src/components/Checkout/flow.js][]       | _Flow_ component that determines the content of the shopping cart drawer.                                                  |
 | [src/components/Checkout/form.js][]       | _Form_ component which shows the checkout forms or a summary of the checkout information provided by the shopper           |
 
@@ -169,9 +166,9 @@ This screen shows the recently stored order ID number and buttons to **Continue 
 | ---------------------------------------------- | ----------------------------------------------------------- |
 | [src/components/Checkout/Receipt/receipt.js][] | _Receipt_ component which displays the order submit summary |
 
-[product component]: {{site.data.vars.repo}}/tree/master/packages/venia-concept/src/RootComponents/Product/Product.js
-[cart module]: {{site.data.vars.repot}}/tree/master/packages/venia-concept/src/actions/cart.js
-[Braintree integration]: {{site.baseurl}}{%link venia-pwa-concept/features/braintree/index.md %}
+[product component]: {{site.data.vars.repo}}/tree/main/packages/venia-concept/src/RootComponents/Product/Product.js
+[cart module]: {{site.data.vars.repot}}/tree/main/packages/venia-concept/src/actions/cart.js
+[Braintree integration]: {%link venia-pwa-concept/features/braintree/index.md %}
 
 [rest api documentation]: https://devdocs.magento.com/redoc/2.3/
 [action creator]: https://redux.js.org/basics/actions#action-creators
@@ -180,15 +177,15 @@ This screen shows the recently stored order ID number and buttons to **Continue 
 [`guest-carts/<cartid>`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartId
 [`guest-carts/<cartid>/totals`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdtotals
 [`guest-carts/<cartid>/estimate-shipping-methods`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdestimate-shipping-methods
-[src/actions/cart/asyncactions.js]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/actions/cart/asyncActions.js
-[src/actions/app/asyncactions.js]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/actions/app/asyncActions.js
-[src/actions/checkout/asyncactions.js]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/actions/checkout/asyncActions.js
-[src/components/checkout/flow.js]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/components/Checkout/flow.js
-[src/actions/directory/asyncactions.js]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/actions/directory/asyncActions.js
+[src/actions/cart/asyncactions.js]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/actions/cart/asyncActions.js
+[src/actions/app/asyncactions.js]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/actions/app/asyncActions.js
+[src/actions/checkout/asyncactions.js]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/actions/checkout/asyncActions.js
+[src/components/checkout/flow.js]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/components/Checkout/flow.js
+[src/actions/directory/asyncactions.js]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/actions/directory/asyncActions.js
 [`guest-carts/<cartid>/estimate-shipping-methods`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdestimate-shipping-methods
 [`directory/countries`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/directorycountries
-[src/components/checkout/form.js]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/components/Checkout/form.js
+[src/components/checkout/form.js]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/components/Checkout/form.js
 [`guest-carts/<cartid>/shipping-information`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdshipping-information
-[src/reducers/checkout.js]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/reducers/checkout.js
+[src/reducers/checkout.js]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/reducers/checkout.js
 [`guest-carts/<cartid>/payment-information`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdpayment-information
-[src/components/checkout/receipt/receipt.js]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/components/Checkout/Receipt/receipt.js
+[src/components/checkout/receipt/receipt.js]: https://github.com/magento/pwa-studio/blob/main/packages/venia-concept/src/components/Checkout/Receipt/receipt.js

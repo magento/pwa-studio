@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders product details with base price and in stock 1`] = `
+<div
+  className="root"
+>
+  <Image
+    alt="Simple Product"
+    classes={
+      Object {
+        "image": "image",
+        "root": "imageContainer",
+      }
+    }
+    resource="https://test.cdn/image.jpg"
+    width={240}
+  />
+  <span
+    className="productName"
+  >
+    Simple Product
+  </span>
+  <div
+    className="stockRow"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="SKU # {sku}"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
+    </span>
+    <span>
+      In stock
+    </span>
+  </div>
+  <div
+    className="price"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      123
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      45
+    </span>
+  </div>
+</div>
+`;
+
+exports[`renders product details with configured variant image 1`] = `
+<div
+  className="root"
+>
+  <Image
+    alt="Configurable Product"
+    classes={
+      Object {
+        "image": "image",
+        "root": "imageContainer",
+      }
+    }
+    resource="https://test.cdn/image_variant.jpg"
+    width={240}
+  />
+  <span
+    className="productName"
+  >
+    Configurable Product
+  </span>
+  <div
+    className="stockRow"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="SKU # {sku}"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
+    </span>
+    <span>
+      In stock
+    </span>
+  </div>
+  <div
+    className="price"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      123
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      45
+    </span>
+  </div>
+</div>
+`;
+
+exports[`renders product details with unknown stock value 1`] = `
+<div
+  className="root"
+>
+  <Image
+    alt="Simple Product"
+    classes={
+      Object {
+        "image": "image",
+        "root": "imageContainer",
+      }
+    }
+    resource="https://test.cdn/image.jpg"
+    width={240}
+  />
+  <span
+    className="productName"
+  >
+    Simple Product
+  </span>
+  <div
+    className="stockRow"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="SKU # {sku}"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
+    </span>
+    <span>
+      Unknown
+    </span>
+  </div>
+  <div
+    className="price"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      123
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      45
+    </span>
+  </div>
+</div>
+`;
+
+exports[`renders product details with variant price and out of stock 1`] = `
+<div
+  className="root"
+>
+  <Image
+    alt="Simple Product"
+    classes={
+      Object {
+        "image": "image",
+        "root": "imageContainer",
+      }
+    }
+    resource="https://test.cdn/image.jpg"
+    width={240}
+  />
+  <span
+    className="productName"
+  >
+    Simple Product
+  </span>
+  <div
+    className="stockRow"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="SKU # {sku}"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
+    </span>
+    <span>
+      Out of stock
+    </span>
+  </div>
+  <div
+    className="price"
+  >
+    <span>
+      €
+    </span>
+    <span>
+      456
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      78
+    </span>
+  </div>
+</div>
+`;

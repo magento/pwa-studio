@@ -1,0 +1,4 @@
+.root {
+    composes: gap-sm from global;
+    composes: grid from global;
+}

@@ -1,0 +1,19 @@
+.root {
+    composes: leading-tight from global;
+    composes: px-2xs from global;
+    composes: py-0 from global;
+    composes: text-sm from global;
+}
+
+/* TODO @TW: cannot compose */
+.root p {
+    margin: 0 0 1rem;
+}
+
+/* TODO @TW: cannot compose */
+.root ul {
+    /* composes: list-disc from global; */
+    list-style-type: disc;
+    margin: 0 0 1rem;
+    padding-left: 2.5rem;
+}

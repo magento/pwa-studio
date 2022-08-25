@@ -1,0 +1,567 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`on hover displays button and overlay 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+    }
+  }
+>
+  <a
+    className="link"
+    href="https://www.adobe.com"
+    onDragStart={[Function]}
+  >
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "backgroundColor": undefined,
+          "border": undefined,
+          "borderColor": undefined,
+          "borderRadius": undefined,
+          "borderWidth": undefined,
+          "minHeight": undefined,
+          "paddingBottom": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+          "textAlign": undefined,
+        }
+      }
+    >
+      <div
+        className="collageLeftOverlay"
+        style={
+          Object {
+            "backgroundColor": "rgb(0,0,0,0.5)",
+          }
+        }
+      >
+        <div
+          className="content"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
+            }
+          }
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
+          style={Object {}}
+        />
+        <div
+          className="buttonHover"
+        >
+          <button
+            className="root_highPriority"
+            disabled={false}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+`;
+
+exports[`on hover displays button and overlay 2`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+    }
+  }
+>
+  <a
+    className="link"
+    href="https://www.adobe.com"
+    onDragStart={[Function]}
+  >
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "backgroundColor": undefined,
+          "border": undefined,
+          "borderColor": undefined,
+          "borderRadius": undefined,
+          "borderWidth": undefined,
+          "minHeight": undefined,
+          "paddingBottom": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+          "textAlign": undefined,
+        }
+      }
+    >
+      <div
+        className="collageLeftOverlayHover"
+        style={
+          Object {
+            "backgroundColor": "rgb(0,0,0,0.5)",
+          }
+        }
+      >
+        <div
+          className="content"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
+            }
+          }
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
+          style={Object {}}
+        />
+        <div
+          className="buttonHover"
+        >
+          <button
+            className="root_highPriority"
+            disabled={false}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+`;
+
+exports[`renders a configured collage-left Banner component 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "marginBottom": "1px",
+      "marginLeft": "2px",
+      "marginRight": "3px",
+      "marginTop": "4px",
+    }
+  }
+>
+  <a
+    className="link"
+    href="gear/bags.html"
+    onDragStart={[Function]}
+  >
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "backgroundAttachment": "scroll",
+          "backgroundColor": "blue",
+          "backgroundImage": "url(null)",
+          "backgroundPosition": "center center",
+          "backgroundRepeat": "no-repeat",
+          "backgroundSize": "cover",
+          "border": "solid",
+          "borderColor": "rgb(0,0,0)",
+          "borderRadius": "15px",
+          "borderWidth": "1px",
+          "minHeight": "300px",
+          "paddingBottom": "40px",
+          "paddingLeft": "40px",
+          "paddingRight": "40px",
+          "paddingTop": "40px",
+          "textAlign": "right",
+        }
+      }
+    >
+      <div
+        className="collageLeftOverlay"
+        style={
+          Object {
+            "backgroundColor": "rgb(0,0,0,0.5)",
+          }
+        }
+      >
+        <div
+          className="content"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
+            }
+          }
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
+          style={Object {}}
+        />
+        <div
+          className="buttonHover"
+        >
+          <button
+            className="root_highPriority"
+            disabled={false}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            >
+              Shop Bags
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+`;
+
+exports[`renders a configured collage-left Banner component on mobile 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "marginBottom": "1px",
+      "marginLeft": "2px",
+      "marginRight": "3px",
+      "marginTop": "4px",
+    }
+  }
+>
+  <a
+    className="link"
+    href="https://www.adobe.com"
+    onDragStart={[Function]}
+    target="_blank"
+  >
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "backgroundAttachment": "scroll",
+          "backgroundColor": "blue",
+          "backgroundImage": "url(null)",
+          "backgroundPosition": "center center",
+          "backgroundRepeat": "no-repeat",
+          "backgroundSize": "cover",
+          "border": "solid",
+          "borderColor": "rgb(0,0,0)",
+          "borderRadius": "15px",
+          "borderWidth": "1px",
+          "minHeight": "300px",
+          "paddingBottom": "40px",
+          "paddingLeft": "40px",
+          "paddingRight": "40px",
+          "paddingTop": "40px",
+          "textAlign": "right",
+        }
+      }
+    >
+      <div
+        className="collageLeftOverlay"
+        style={
+          Object {
+            "backgroundColor": null,
+          }
+        }
+      >
+        <div
+          className="content"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
+            }
+          }
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
+          style={Object {}}
+        />
+        <div
+          className="buttonHover"
+        >
+          <button
+            className="root_highPriority"
+            disabled={false}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            >
+              Shop Bags
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+`;
+
+exports[`renders a configured poster Banner component 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "marginBottom": "1px",
+      "marginLeft": "2px",
+      "marginRight": "3px",
+      "marginTop": "4px",
+    }
+  }
+>
+  <a
+    className="link"
+    href="gear/bags.html"
+    onDragStart={[Function]}
+    target="_blank"
+  >
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "backgroundAttachment": "scroll",
+          "backgroundColor": "blue",
+          "backgroundImage": "url(null)",
+          "backgroundPosition": "center center",
+          "backgroundRepeat": "repeat",
+          "backgroundSize": "cover",
+          "border": "solid",
+          "borderColor": "rgb(0,0,0)",
+          "borderRadius": "15px",
+          "borderWidth": "1px",
+          "minHeight": "300px",
+          "textAlign": "right",
+        }
+      }
+    >
+      <div
+        className="posterOverlayHover"
+        style={
+          Object {
+            "backgroundColor": "rgb(0,0,0,0.5)",
+            "minHeight": "300px",
+            "paddingBottom": "40px",
+            "paddingLeft": "40px",
+            "paddingRight": "40px",
+            "paddingTop": "40px",
+          }
+        }
+      >
+        <div
+          className="content"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
+            }
+          }
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        />
+        <div
+          className="button"
+        >
+          <button
+            className="root_highPriority"
+            disabled={false}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            >
+              Shop Bags
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+`;
+
+exports[`renders an empty Banner component 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className="root"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+    }
+  }
+>
+  <div
+    className="wrapper"
+    style={
+      Object {
+        "backgroundColor": undefined,
+        "border": undefined,
+        "borderColor": undefined,
+        "borderRadius": undefined,
+        "borderWidth": undefined,
+        "textAlign": undefined,
+      }
+    }
+  >
+    <div
+      className="posterOverlay"
+      style={
+        Object {
+          "backgroundColor": undefined,
+          "minHeight": undefined,
+          "paddingBottom": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+        }
+      }
+    >
+      <div
+        className="content"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": undefined,
+          }
+        }
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="presentation"
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+      />
+      <div
+        className="button"
+      >
+        <button
+          className="root_normalPriority"
+          disabled={false}
+          onClick={[Function]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="button"
+        >
+          <span
+            className="content"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

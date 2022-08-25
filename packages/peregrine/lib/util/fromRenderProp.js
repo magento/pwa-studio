@@ -3,9 +3,9 @@ import React from 'react';
 // memoization cache
 const cache = new Map();
 
-export const filterProps = (props = {}, blacklist = []) =>
+export const filterProps = (props = {}, exclusions = []) =>
     Object.entries(props).reduce((r, [k, v]) => {
-        if (!blacklist.includes(k)) {
+        if (!exclusions.includes(k)) {
             r[k] = v;
         }
         return r;

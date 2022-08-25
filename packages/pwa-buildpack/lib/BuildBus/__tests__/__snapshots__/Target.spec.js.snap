@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`throws when external consumer invokes a call method 1`] = `"externalPackage ran targets.of(\\"undefined\\").mockTargetName.call(). Only undefined can invoke its own targets. externalPackage can only intercept them."`;
+
+exports[`throws when external consumer invokes a call method 2`] = `"externalPackage ran targets.of(\\"undefined\\").mockTargetName.callAsync(). Only undefined can invoke its own targets. externalPackage can only intercept them."`;
+
+exports[`throws when external consumer invokes a call method 3`] = `"externalPackage ran targets.of(\\"undefined\\").mockTargetName.promise(). Only undefined can invoke its own targets. externalPackage can only intercept them."`;

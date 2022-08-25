@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Category Root Component error view does not render when data is present 1`] = `
+Array [
+  "Meta",
+  <CategoryContent
+    categoryId="Mg=="
+    classes={Object {}}
+    data={
+      Object {
+        "products": Object {
+          "page_info": Object {
+            "total_pages": 6,
+          },
+        },
+      }
+    }
+    isLoading={false}
+    pageControl={
+      Object {
+        "currentPage": 1,
+        "setPage": [MockFunction],
+        "totalPages": 6,
+      }
+    }
+    pageSize={12}
+    sortProps={
+      Array [
+        Object {
+          "sortAttribute": "relevance",
+          "sortDirection": "DESC",
+          "sortText": "Best Match",
+        },
+        [MockFunction],
+      ]
+    }
+  />,
+]
+`;
+
+exports[`Category Root Component error view renders when data is not present and not loading 1`] = `
+<div
+  style={
+    Object {
+      "--backroundImageUrl": "url(\\"test-file-stub\\")",
+      "--mobileBackgroundImageUrl": "url(\\"test-file-stub\\")",
+    }
+  }
+>
+  <div>
+    <p>
+      <mock-FormattedMessage
+        defaultMessage="Oops!"
+        id="errorView.header"
+      />
+    </p>
+    <p>
+      <mock-FormattedMessage
+        defaultMessage="Looks like something went wrong. Sorry about that."
+        id="errorView.message"
+      />
+    </p>
+    <div>
+      <button
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span>
+          <mock-FormattedMessage
+            defaultMessage="Take me home"
+            id="errorView.goHome"
+          />
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Category Root Component renders the correct tree 1`] = `
+Array [
+  "Meta",
+  <CategoryContent
+    categoryId="Mg=="
+    classes={Object {}}
+    data={
+      Object {
+        "products": Object {
+          "page_info": Object {
+            "total_pages": 6,
+          },
+        },
+      }
+    }
+    isLoading={false}
+    pageControl={
+      Object {
+        "currentPage": 1,
+        "setPage": [MockFunction],
+        "totalPages": 6,
+      }
+    }
+    pageSize={12}
+    sortProps={
+      Array [
+        Object {
+          "sortAttribute": "relevance",
+          "sortDirection": "DESC",
+          "sortText": "Best Match",
+        },
+        [MockFunction],
+      ]
+    }
+  />,
+]
+`;

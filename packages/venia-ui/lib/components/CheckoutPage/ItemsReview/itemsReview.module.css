@@ -1,0 +1,20 @@
+.items_review_container {
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: rounded-md from global;
+    min-height: 2rem;
+}
+
+.items_container {
+    composes: grid from global;
+    composes: px-md from global;
+    composes: py-sm from global;
+}
+
+.total_quantity {
+}
+
+.total_quantity_amount {
+    composes: font-semibold from global;
+}

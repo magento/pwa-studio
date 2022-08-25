@@ -1,0 +1,102 @@
+.root {
+    composes: gap-sm from global;
+    composes: grid from global;
+
+    composes: lg_gap-md from global;
+}
+
+.shippingInformationContainer {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+}
+
+.shippingMethodContainer {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+}
+
+.billingInformationContainer {
+    grid-row: 1 / span 1;
+    grid-column: 3 / span 1;
+}
+
+.paymentMethodContainer {
+    grid-row: 1 / span 1;
+    grid-column: 4 / span 1;
+}
+
+.itemsContainer {
+    grid-row: 2 / span 4;
+    grid-column: 1 / span 2;
+}
+
+.orderTotalContainer {
+    grid-row: 2 / span 2;
+    grid-column: 3 / span 2;
+    composes: m-0 from global;
+    composes: max-w-none from global;
+    composes: min-w-none from global;
+
+    composes: lg_m-auto from global;
+    composes: lg_max-w-[25rem] from global;
+    composes: lg_min-w-[22rem] from global;
+}
+
+.printButton {
+    grid-row: 4 / span 1;
+    grid-column: 3 / span 2;
+
+    composes: items-center from global;
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoFirst from global;
+    composes: grid-flow-col from global;
+    composes: invisible from global; /* Hide until PWA-978 is completed */
+    composes: m-auto from global;
+    composes: w-fit from global;
+}
+
+.printLabel {
+    composes: underline from global;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 959px) {
+    .shippingInformationContainer {
+        grid-row: 1 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .shippingMethodContainer {
+        grid-row: 2 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .billingInformationContainer {
+        grid-row: 3 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .paymentMethodContainer {
+        grid-row: 4 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .itemsContainer {
+        grid-row: 5 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .orderTotalContainer {
+        grid-row: 6 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .printButton {
+        grid-row: 7 / span 1;
+        grid-column: 1 / span 1;
+    }
+}

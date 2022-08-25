@@ -1,0 +1,22 @@
+.label {
+    composes: font-bold from global;
+    composes: inline-block from global;
+    composes: mr-2 from global;
+}
+
+.content {
+    composes: inline from global;
+}
+
+.contentHtml {
+    composes: inline from global;
+}
+
+.option {
+    composes: inline-block from global;
+    composes: break-words from global;
+}
+
+.option:not(:last-child)::after {
+    content: ',\00a0';
+}

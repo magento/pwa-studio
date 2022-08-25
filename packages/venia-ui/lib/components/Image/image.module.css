@@ -1,0 +1,48 @@
+.root {
+    /*
+     * For customization, we provide an empty root.
+     * These styles will be applied to the image container.
+     */
+}
+
+.container {
+    composes: relative from global;
+}
+
+.image {
+    /*
+     * For customization, we provide an empty image class.
+     * These styles will be applied directly to the image itself.
+     */
+}
+
+.loaded {
+    composes: absolute from global;
+    composes: left-0 from global;
+    composes: top-0 from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
+}
+
+.notLoaded {
+    composes: loaded;
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
+}
+
+.placeholder {
+    composes: bg-transparent from global;
+    composes: left-0 from global;
+    composes: relative from global;
+    composes: top-0 from global;
+}
+
+.placeholder_layoutOnly {
+    composes: placeholder;
+
+    composes: bg-transparent from global;
+}

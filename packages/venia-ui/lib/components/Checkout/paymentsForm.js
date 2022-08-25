@@ -2,8 +2,8 @@ import React from 'react';
 import { Form } from 'informed';
 import { array, bool, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
-import defaultClasses from './paymentsForm.css';
+import { useStyle } from '../../classify';
+import defaultClasses from './paymentsForm.module.css';
 import PaymentsFormItems from './paymentsFormItems';
 import { usePaymentsForm } from '@magento/peregrine/lib/talons/Checkout/usePaymentsForm';
 
@@ -18,10 +18,10 @@ const PaymentsForm = props => {
         isSubmitting,
         setIsSubmitting
     } = usePaymentsForm({
-        initialValues: props.initialValues
+        initialValues: props.initialValues || {}
     });
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const formChildrenProps = {
         ...props,
         classes,

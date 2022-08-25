@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`event handlers fire callbacks handleEditAddress 1`] = `
+Object {
+  "country": Object {
+    "code": "US",
+  },
+  "email": "fry@planet.express",
+  "firstname": "Philip",
+  "id": 66,
+  "region": Object {
+    "region_id": 22,
+  },
+}
+`;
+
+exports[`returns correct shape 1`] = `
+Object {
+  "handleClick": [Function],
+  "handleEditAddress": [Function],
+  "handleKeyPress": [Function],
+  "hasUpdate": false,
+}
+`;

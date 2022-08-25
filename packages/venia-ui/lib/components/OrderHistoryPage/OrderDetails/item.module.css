@@ -1,0 +1,35 @@
+.root {
+    composes: grid from global;
+    composes: grid-cols-autoFirst from global;
+    composes: grid-rows-autoFirst from global;
+    composes: gap-y-2 from global;
+    composes: gap-x-4 from global;
+
+    composes: lg_gap-y-1.5 from global;
+}
+
+@media (min-width: 960px) {
+    .root {
+        grid-template-columns: auto repeat(3, 1fr) auto;
+        grid-template-rows: repeat(5, auto);
+    }
+}
+
+.thumbnailContainer {
+    grid-row: 1 / -1;
+}
+
+.nameContainer {
+    composes: font-bold from global;
+    grid-column: 2 / -1;
+}
+
+.buyAgainButton {
+    composes: col-auto from global;
+    composes: invisible from global; /* Hide until PWA-979 is completed */
+    composes: justify-self-start from global;
+    composes: self-start from global;
+    composes: underline from global;
+
+    composes: lg_col-end-[-1] from global;
+}

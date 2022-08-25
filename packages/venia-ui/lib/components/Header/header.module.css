@@ -1,0 +1,173 @@
+.root {
+    composes: auto-cols-fr from global;
+    composes: bg-header from global;
+    composes: border-b from global;
+    composes: border-subtle from global;
+    composes: grid from global;
+    composes: h-auto from global;
+    composes: justify-center from global;
+    composes: px-4 from global;
+    composes: top-0 from global;
+    composes: sticky from global;
+    composes: w-full from global;
+    composes: z-header from global;
+
+    composes: lg_px-8 from global;
+}
+
+.switchers {
+    composes: auto-cols-max from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-end from global;
+    composes: max-w-site from global;
+    composes: mx-auto from global;
+    composes: relative from global;
+    composes: w-full from global;
+    composes: z-menu from global;
+}
+
+.switchersContainer {
+    composes: bg-gray-100 from global;
+    composes: hidden from global;
+    composes: px-8 from global;
+    composes: w-full from global;
+}
+
+/* Large screen styles */
+.switchersContainer {
+    composes: sm_block from global;
+}
+
+.open {
+    composes: root;
+}
+
+.closed {
+    composes: root;
+}
+
+.toolbar {
+    composes: border-0 from global;
+    composes: content-center from global;
+    composes: gap-x-4 from global;
+    composes: grid from global;
+    composes: grid-cols-3 from global;
+    composes: grid-rows-header from global;
+    composes: h-14 from global;
+    composes: items-center from global;
+    composes: justify-self-center from global;
+    composes: max-w-site from global;
+    composes: w-full from global;
+    composes: z-header from global;
+
+    composes: lg_h-20 from global;
+    composes: lg_gap-x-8 from global;
+    composes: lg_grid-cols-12 from global;
+}
+
+.logo {
+    height: var(--height);
+    width: var(--width);
+}
+
+.primaryActions {
+    composes: col-start-1 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-self-start from global;
+    composes: row-start-1 from global;
+    composes: self-center from global;
+}
+
+.logoContainer {
+    composes: col-start-2 from global;
+    composes: justify-self-center from global;
+
+    composes: lg_col-end-3 from global;
+    composes: lg_col-start-1 from global;
+    composes: lg_justify-self-start from global;
+    composes: lg_mr-8 from global;
+    composes: lg_row-start-1 from global;
+}
+
+.secondaryActions {
+    composes: col-start-3 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-items-end from global;
+    composes: justify-self-end from global;
+    composes: w-max from global;
+
+    composes: lg_col-end-13 from global;
+    composes: lg_col-start-10 from global;
+    composes: lg_gap-x-4 from global;
+}
+
+.searchFallback {
+    composes: flex from global;
+    composes: justify-center from global;
+    composes: mb-2 from global;
+    composes: px-4 from global;
+}
+
+.input {
+    composes: input from '../TextInput/textInput.module.css';
+
+    composes: max-w-sm from global;
+}
+
+.loader,
+.loaderBefore,
+.loaderAfter {
+    --dot-size: 2em;
+    --dot-font-size: 6px;
+    --dot-shadow-offset: calc(-1 * var(--dot-size) + var(--dot-font-size));
+
+    composes: rounded-full from global;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    animation: pulse 1.8s infinite ease-in-out;
+    animation-fill-mode: both;
+}
+
+.loader {
+    composes: mb-0 from global;
+    composes: mx-auto from global;
+    composes: relative from global;
+    composes: text-subtle from global;
+    font-size: var(--dot-font-size);
+    margin-top: var(--dot-shadow-offset);
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+}
+
+.loaderBefore,
+.loaderAfter {
+    composes: absolute from global;
+    composes: top-0 from global;
+    content: '';
+}
+
+.loaderBefore {
+    composes: left-[-3.5em] from global;
+    composes: text-gray-100 from global;
+    animation-delay: -0.32s;
+}
+
+.loaderAfter {
+    composes: left-[3.5em] from global;
+    composes: text-gray-600 from global;
+}
+
+@keyframes pulse {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 var(--dot-size) 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 var(--dot-size) 0 0;
+    }
+}

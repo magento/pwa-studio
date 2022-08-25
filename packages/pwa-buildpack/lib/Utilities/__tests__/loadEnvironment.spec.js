@@ -1,18 +1,203 @@
 jest.doMock('dotenv');
-jest.doMock('word-wrap', () => x => x);
-let definitions;
-jest.doMock('../../../envVarDefinitions.json', () => definitions);
+
 const debug = jest.fn().mockName('debug');
 jest.doMock('debug', () => () => debug);
 jest.spyOn(console, 'error').mockImplementation(() => {});
 jest.spyOn(console, 'warn').mockImplementation(() => {});
 
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+
+const daysAgo = days => {
+    const today = new Date();
+    return new Date(today - days * ONE_DAY_MS).getTime();
+};
+
 const dotenv = require('dotenv');
+
+jest.doMock('pertain');
+const pertain = require('pertain');
+
 const envalid = require('envalid');
 jest.spyOn(envalid, 'cleanEnv');
 
-beforeEach(() => {
-    definitions = {
+jest.doMock('../getEnvVarDefinitions');
+const getEnvVarDefinitions = require('../getEnvVarDefinitions');
+getEnvVarDefinitions.mockReturnValue({
+    sections: [
+        {
+            variables: [
+                {
+                    type: 'bool',
+                    name: 'MUST_BE_BOOLEAN_DUDE'
+                }
+            ]
+        }
+    ],
+    changes: [
+        {
+            type: 'renamed',
+            name: 'MUST_BE_BOOLEAN',
+            update: 'MUST_BE_BOOLEAN_DUDE',
+            reason: 'informality'
+        }
+    ]
+});
+
+jest.doMock('../runEnvValidators');
+const validateEnv = require('../runEnvValidators');
+validateEnv.mockResolvedValue(true);
+
+jest.mock('../../../package.json', () => {
+    const packageJson = jest.requireActual('../../../package.json');
+
+    return {
+        ...packageJson,
+        version: '123.45-test.1'
+    };
+});
+
+afterEach(jest.clearAllMocks);
+
+const stripAnsi = require('strip-ansi');
+
+const CompatEnvAdapter = require('../CompatEnvAdapter');
+
+let oldReleaseName;
+beforeAll(() => {
+    oldReleaseName = CompatEnvAdapter.RELEASE_NAME;
+    CompatEnvAdapter.RELEASE_NAME = 'Buildpack vX.X.X-snapshot-testing';
+});
+afterAll(() => {
+    CompatEnvAdapter.RELEASE_NAME = oldReleaseName;
+});
+
+const loadEnvironment = require('../loadEnvironment');
+
+test('throws on load if variable defs are invalid', async () => {
+    getEnvVarDefinitions.mockReturnValueOnce({
+        sections: [
+            {
+                name: 'inscrutable',
+                variables: [
+                    {
+                        type: 'ineffable'
+                    }
+                ]
+            }
+        ],
+        changes: []
+    });
+
+    await expect(loadEnvironment('./')).rejects.toThrowErrorMatchingSnapshot();
+});
+
+test('parses dotenv file if argument is path string', async () => {
+    dotenv.config.mockReturnValueOnce({
+        parsed: 'DOTENV PARSED'
+    });
+    const { envFilePresent } = await loadEnvironment('/path/to/dir');
+    expect(envFilePresent).toBe(true);
+    expect(dotenv.config).toHaveBeenCalledWith({ path: '/path/to/dir/.env' });
+});
+
+test('warns on deprecated api use', async () => {
+    await loadEnvironment({
+        MUST_BE_BOOLEAN_DUDE: false
+    });
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringContaining('deprecated')
+    );
+});
+
+test('does not warn if deprecated API is okay', async () => {
+    await loadEnvironment(
+        {
+            MUST_BE_BOOLEAN_DUDE: false
+        },
+        null,
+        {
+            sections: [
+                {
+                    name: 'testing',
+                    variables: [
+                        {
+                            name: 'MUST_BE_BOOLEAN_DUDE',
+                            type: 'bool',
+                            desc: 'what it says on the tin'
+                        }
+                    ]
+                }
+            ],
+            changes: []
+        }
+    );
+    expect(console.warn).not.toHaveBeenCalledWith(
+        expect.stringContaining('deprecated')
+    );
+});
+
+test('debug logs environment in human readable way', async () => {
+    debug.enabled = true;
+    await loadEnvironment({
+        MUST_BE_BOOLEAN_DUDE: false
+    });
+    expect(debug).toHaveBeenCalledWith(
+        expect.stringMatching(/known env/),
+        expect.stringMatching(/MUST_BE_BOOLEAN_DUDE.*false/)
+    );
+    debug.enabled = true;
+});
+
+test('sets envFilePresent to false if .env is missing', async () => {
+    const enoent = new Error('ENOENT');
+    enoent.code = 'ENOENT';
+    dotenv.config.mockReturnValueOnce({
+        error: enoent
+    });
+    const { envFilePresent } = await loadEnvironment('/path/to/dir');
+    expect(envFilePresent).toBe(false);
+});
+
+test('warns but continues if .env has errors', async () => {
+    dotenv.config.mockReturnValueOnce({
+        error: new Error('blagh')
+    });
+    await loadEnvironment('/path/to/dir');
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringMatching(/could not.*parse/i),
+        expect.any(Error)
+    );
+});
+
+test('emits errors on type mismatch', async () => {
+    const { error } = await loadEnvironment({
+        MUST_BE_BOOLEAN_DUDE: 'but it aint'
+    });
+    expect(error.message).toMatch(/MUST_BE_BOOLEAN/);
+    expect(console.error).toHaveBeenCalledWith(
+        expect.stringContaining('MUST_BE_BOOLEAN_DUDE')
+    );
+});
+
+test('throws anything unexpected from validation', async () => {
+    envalid.cleanEnv.mockImplementationOnce(() => {
+        throw new Error('invalid in a way i cannot even describe');
+    });
+
+    try {
+        await loadEnvironment({});
+    } catch (e) {
+        expect(e.message).toBe('invalid in a way i cannot even describe');
+    }
+});
+
+test('emits log messages on a custom logger', async () => {
+    const mockLog = {
+        warn: jest.fn().mockName('mockLog.warn'),
+        error: jest.fn().mockName('mockLog.error')
+    };
+
+    getEnvVarDefinitions.mockReturnValueOnce({
         sections: [
             {
                 variables: [
@@ -23,171 +208,25 @@ beforeEach(() => {
                 ]
             }
         ],
-        changes: [
-            {
-                type: 'renamed',
-                name: 'MUST_BE_BOOLEAN',
-                update: 'MUST_BE_BOOLEAN_DUDE',
-                reason: 'informality'
-            }
-        ]
-    };
-});
-
-afterEach(jest.clearAllMocks);
-
-afterAll(jest.resetModules);
-
-test('throws on load if variable defs are invalid', () => {
-    definitions = {
-        sections: [
-            {
-                name: 'inscrutable',
-                variables: [
-                    {
-                        type: 'ineffable'
-                    }
-                ]
-            }
-        ]
-    };
-    jest.isolateModules(() => {
-        expect(() => require('../loadEnvironment')).toThrow(
-            'Bad environment variable definition'
-        );
+        changes: []
     });
-});
-
-test('parses dotenv file if argument is path string', () => {
-    dotenv.config.mockReturnValueOnce({
-        parsed: 'DOTENV PARSED'
-    });
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
-    const { envFilePresent } = loadEnvironment('/path/to/dir');
-    expect(envFilePresent).toBe(true);
-    expect(dotenv.config).toHaveBeenCalledWith({ path: '/path/to/dir/.env' });
-});
-
-test('debug logs environment in human readable way', () => {
-    debug.enabled = true;
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
-    loadEnvironment({
-        MUST_BE_BOOLEAN_DUDE: false
-    });
-    expect(debug).toHaveBeenCalledWith(
-        expect.stringMatching(/known env/),
-        expect.stringMatching(/MUST_BE_BOOLEAN_DUDE.*false/)
+    await loadEnvironment(
+        {
+            MUST_BE_BOOLEAN_DUDE: 'twelve'
+        },
+        mockLog
     );
-    debug.enabled = true;
-});
-
-test('sets envFilePresent to false if .env is missing', () => {
-    const enoent = new Error('ENOENT');
-    enoent.code = 'ENOENT';
-    dotenv.config.mockReturnValueOnce({
-        error: enoent
-    });
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
-    const { envFilePresent } = loadEnvironment('/path/to/dir');
-    expect(envFilePresent).toBe(false);
-});
-
-test('warns but continues if .env has errors', () => {
-    dotenv.config.mockReturnValueOnce({
-        error: new Error('blagh')
-    });
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
-    loadEnvironment('/path/to/dir');
-    expect(console.warn).toHaveBeenCalledWith(
-        expect.stringMatching(/could not.*parse/i),
-        expect.any(Error)
-    );
-});
-
-test('emits errors on type mismatch', () => {
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
-    const { error } = loadEnvironment({
-        MUST_BE_BOOLEAN_DUDE: 'but it aint'
-    });
-    expect(error.message).toMatch(/MUST_BE_BOOLEAN/);
-    expect(console.error).toHaveBeenCalledWith(
+    expect(mockLog.error).toHaveBeenCalledWith(
         expect.stringContaining('MUST_BE_BOOLEAN_DUDE')
     );
 });
 
-test('throws anything unexpected from validation', () => {
-    envalid.cleanEnv.mockImplementationOnce(() => {
-        throw new Error('invalid in a way i cannot even describe');
-    });
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
-    expect(() => loadEnvironment({})).toThrow('cannot even');
-});
-
-test('emits log messages on a custom logger', () => {
-    const mockLog = {
-        warn: jest.fn().mockName('mockLog.warn'),
-        error: jest.fn().mockName('mockLog.error')
-    };
-
-    definitions = {
-        sections: [
-            {
-                variables: [
-                    {
-                        type: 'bool',
-                        name: 'MUST_BE_BOOLEAN_DUDE'
-                    }
-                ]
-            }
-        ]
-    };
-    jest.isolateModules(() => {
-        require('../loadEnvironment')(
-            {
-                MUST_BE_BOOLEAN_DUDE: 'twelve'
-            },
-            mockLog
-        );
-        expect(mockLog.error).toHaveBeenCalledWith(
-            expect.stringContaining('MUST_BE_BOOLEAN_DUDE')
-        );
-    });
-});
-
-test('logs all types of change', () => {
-    definitions = {
+test('logs all types of change', async () => {
+    const defs = {
         sections: [
             {
                 name: 'everything deprecated!',
                 variables: [
-                    {
-                        type: 'str',
-                        name: 'HAS_DEFAULT_CHANGE',
-                        default: 'new default'
-                    },
-                    {
-                        type: 'str',
-                        name: 'HAS_EXAMPLE_CHANGE',
-                        example: 'new example'
-                    },
                     {
                         type: 'str',
                         name: 'HAS_BEEN_REMOVED'
@@ -206,34 +245,43 @@ test('logs all types of change', () => {
                         type: 'str',
                         name: 'LIVE_DIE_REPEAT',
                         desc: 'was renamed but unused'
+                    },
+                    {
+                        type: 'str',
+                        name: 'REMOVED_LONG_AGO',
+                        desc:
+                            'was removed longer ago than the max 180 days for warning'
+                    },
+                    {
+                        type: 'str',
+                        name: 'EXPIRES_QUICKLY',
+                        desc:
+                            'was removed but the change was set to warn for only 5 days'
+                    },
+                    {
+                        type: 'str',
+                        name: 'SILENTLY_FAIL',
+                        desc:
+                            'predates the max warn interval, should act expired'
                     }
                 ]
             }
         ],
         changes: [
             {
-                type: 'defaultChanged',
-                name: 'HAS_DEFAULT_CHANGE',
-                original: 'old default',
-                reason: 'whimsy'
-            },
-            {
-                type: 'defaultChanged',
-                name: 'HAS_ANOTHER_DEFAULT_CHANGE',
-                original: 'old other default',
-                reason: 'delight',
-                update: 'new other default'
-            },
-            {
-                type: 'exampleChanged',
-                name: 'HAS_EXAMPLE_CHANGE',
-                original: 'old example',
-                reason: 'capriciousness'
+                type: 'renamed',
+                name: 'HAKEEM_OLAJUWON',
+                original: 'HAKEEM_OLAJUWON',
+                update: 'AKEEM_OLAJUWON',
+                reason: 'spelling correction',
+                supportLegacy: true,
+                dateChanged: daysAgo(0)
             },
             {
                 type: 'removed',
                 name: 'HAS_BEEN_REMOVED',
-                reason: 'creative destruction'
+                reason: 'creative destruction',
+                dateChanged: daysAgo(5)
             },
             {
                 type: 'renamed',
@@ -241,7 +289,21 @@ test('logs all types of change', () => {
                 original: 'RON_ARTEST',
                 update: 'METTA_WORLD_PEACE',
                 reason: 'inspiration',
-                supportLegacy: true
+                supportLegacy: true,
+                dateChanged: daysAgo(90)
+            },
+            {
+                type: 'removed',
+                name: 'EXPIRES_QUICKLY',
+                reason: 'only warns for a few days',
+                dateChanged: daysAgo(10),
+                warnForDays: 5
+            },
+            {
+                type: 'removed',
+                name: 'REMOVED_LONG_AGO',
+                reason: 'cruel time',
+                dateChanged: '1/1/1970'
             },
             {
                 type: 'renamed',
@@ -249,15 +311,8 @@ test('logs all types of change', () => {
                 original: 'LEW_ALCINDOR',
                 update: 'KAREEM_ABDUL_JABBAR',
                 reason: 'faith',
-                supportLegacy: false
-            },
-            {
-                type: 'renamed',
-                name: 'HAKEEM_OLAJUWON',
-                original: 'HAKEEM_OLAJUWON',
-                update: 'AKEEM_OLAJUWON',
-                reason: 'spelling correction',
-                supportLegacy: true
+                supportLegacy: false,
+                dateChanged: daysAgo(50)
             },
             {
                 type: 'renamed',
@@ -265,90 +320,88 @@ test('logs all types of change', () => {
                 original: 'EDGE_OF_TOMORROW',
                 update: 'LIVE_DIE_REPEAT',
                 reason: 'testing',
-                supportLegacy: true
+                supportLegacy: true,
+                dateChanged: daysAgo(0)
+            },
+            {
+                type: 'removed',
+                name: 'SILENTLY_FAIL',
+                reason: 'an old envVarDefinitions file with no dateChanged'
+            },
+            {
+                type: 'unknown',
+                name: 'LEW_ALCINDOR',
+                reason:
+                    'unknown changes should silently fail, since they are tested before deploy',
+                dateChanged: daysAgo(1)
             }
         ]
     };
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
+    await loadEnvironment(
+        {
+            HAS_BEEN_REMOVED: 'motivation',
+            RON_ARTEST: 'hi',
+            LEW_ALCINDOR: 'hi',
+            HAKEEM_OLAJUWON: 'hi',
+            AKEEM_OLAJUWON: 'hi',
+            LIVE_DIE_REPEAT: 'already using updated name',
+            EXPIRES_QUICKLY: 'should never appear',
+            SILENTLY_FAIL: 'should never appear either'
+        },
+        null,
+        defs
+    );
+    const consoleMessages = [];
+    console.warn.mock.calls.forEach(args => {
+        consoleMessages.push(args.map(stripAnsi));
     });
-    loadEnvironment({
-        HAS_DEFAULT_CHANGE: 'old default',
-        HAS_EXAMPLE_CHANGE: 'old example',
-        HAS_BEEN_REMOVED: 'motivation',
-        RON_ARTEST: 'hi',
-        LEW_ALCINDOR: 'hi',
-        HAKEEM_OLAJUWON: 'hi',
-        AKEEM_OLAJUWON: 'hi',
-        LIVE_DIE_REPEAT: 'already using updated name'
-    });
-    expect(console.warn).toHaveBeenCalledTimes(6);
-    // Short test strings to support line breaks from word wrapping
-    expect(console.warn.mock.calls[0][0]).toMatch('Old value: old default');
-    expect(console.warn.mock.calls[0][0]).toMatch('New value: new default');
-    expect(console.warn.mock.calls[1][0]).toMatch('Old value: old example');
-    expect(console.warn.mock.calls[1][0]).toMatch('New value: new example');
-    expect(console.warn.mock.calls[2][0]).toMatch('removed');
-    expect(console.warn.mock.calls[2][0]).toMatch('ignored');
-    expect(console.warn.mock.calls[3][0]).toMatch('new');
-    expect(console.warn.mock.calls[3][0]).toMatch('METTA');
-    expect(console.warn.mock.calls[3][0]).toMatch('continue');
-    expect(console.warn.mock.calls[4][0]).toMatch('KAREEM');
-    expect(console.warn.mock.calls[4][0]).toMatch('functional');
+    expect(consoleMessages).toMatchSnapshot();
 });
 
-test('throws if change defs are invalid', () => {
-    definitions = {
+test('ignores invalid change defs', async () => {
+    getEnvVarDefinitions.mockReturnValueOnce({
         sections: [],
         changes: [
             {
-                type: 'unwanted'
+                type: 'unwanted',
+                name: 'OH_NOES'
             }
         ]
-    };
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
     });
-    expect(() => loadEnvironment({})).toThrow('unknown change type');
+    expect(() => loadEnvironment({ OH_NOES: 'foo' })).not.toThrow();
 });
 
-test('returns configuration object', () => {
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        definitions = {
-            sections: [
-                {
-                    name: 'trappings',
-                    variables: [
-                        {
-                            type: 'str',
-                            name: 'TRAPPING_MONK'
-                        },
-                        {
-                            type: 'str',
-                            name: 'TRAPPING_ELF'
-                        }
-                    ]
-                },
-                {
-                    name: 'gewgaws',
-                    variables: [
-                        {
-                            type: 'str',
-                            name: 'GEWGAW_PALADIN'
-                        },
-                        {
-                            type: 'str',
-                            name: 'GEWGAW_ROGUE'
-                        }
-                    ]
-                }
-            ],
-            changes: []
-        };
-        loadEnvironment = require('../loadEnvironment');
+test('returns configuration object', async () => {
+    getEnvVarDefinitions.mockReturnValueOnce({
+        sections: [
+            {
+                name: 'trappings',
+                variables: [
+                    {
+                        type: 'str',
+                        name: 'TRAPPING_MONK'
+                    },
+                    {
+                        type: 'str',
+                        name: 'TRAPPING_ELF'
+                    }
+                ]
+            },
+            {
+                name: 'gewgaws',
+                variables: [
+                    {
+                        type: 'str',
+                        name: 'GEWGAW_PALADIN'
+                    },
+                    {
+                        type: 'str',
+                        name: 'GEWGAW_ROGUE'
+                    }
+                ]
+            }
+        ],
+        changes: []
     });
     const party = {
         TRAPPING_MONK: 'level 1',
@@ -356,7 +409,7 @@ test('returns configuration object', () => {
         GEWGAW_PALADIN: 'level 3',
         GEWGAW_ROGUE: 'level 4'
     };
-    const config = loadEnvironment({ ...party, NODE_ENV: 'test' });
+    const config = await loadEnvironment({ ...party, NODE_ENV: 'test' });
     expect(config).toMatchObject({
         isProd: false,
         isProduction: false,
@@ -387,4 +440,47 @@ test('returns configuration object', () => {
         gewgawRogue: 'level 4'
     });
     expect(all).not.toHaveProperty('mustang');
+});
+
+test('augments with interceptors of envVarDefinitions target', async () => {
+    getEnvVarDefinitions.mockReset();
+    getEnvVarDefinitions.mockImplementationOnce(context =>
+        jest.requireActual('../getEnvVarDefinitions')(context)
+    );
+    pertain.mockReturnValueOnce([
+        {
+            name: '@magento/pwa-buildpack',
+            path: './declare-base',
+            subject: 'pwa-studio.targets.declare'
+        }
+    ]);
+    pertain.mockReturnValueOnce([
+        {
+            name: '@magento/fake-test',
+            path: './fake-intercept',
+            subject: 'pwa-studio.targets.intercept'
+        }
+    ]);
+
+    jest.doMock(
+        '../../BuildBus/fake-intercept',
+        () => targets =>
+            targets.of('@magento/pwa-buildpack').envVarDefinitions.tap(defs =>
+                defs.sections.push({
+                    name: 'whatsits',
+                    variables: [
+                        {
+                            type: 'num',
+                            name: 'SIGNAL_INTENSITY',
+                            desc: 'what is that infernal noise'
+                        }
+                    ]
+                })
+            ),
+        { virtual: true }
+    );
+    await loadEnvironment('./other/context');
+    expect(console.error).toHaveBeenCalledWith(
+        expect.stringContaining('SIGNAL_INTENSITY')
+    );
 });

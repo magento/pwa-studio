@@ -1,118 +1,128 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classify from '../../classify';
-import FilterList from './FilterList';
-import Icon from '../Icon';
-import { filterModes, filterRenderOptions, filterLayouts } from './constants';
+import React from 'react';
+import { arrayOf, shape, string, func, bool } from 'prop-types';
+import { useIntl } from 'react-intl';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
-import defaultClasses from './filterBlock.css';
+import { Form } from 'informed';
 
-class FilterBlock extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            layout: PropTypes.string,
-            layoutGrid: PropTypes.string,
-            optionHeader: PropTypes.string,
-            optionToggleButton: PropTypes.string,
-            optionName: PropTypes.string,
-            optionNameExpanded: PropTypes.string,
-            closeWrapper: PropTypes.string,
-            filterList: PropTypes.string,
-            filterListExpanded: PropTypes.string
-        }),
-        item: PropTypes.shape({
-            name: PropTypes.string,
-            filter_items: PropTypes.array,
-            request_var: PropTypes.string
-        })
-    };
+import { useFilterBlock } from '@magento/peregrine/lib/talons/FilterModal';
+import setValidator from '@magento/peregrine/lib/validators/set';
 
-    state = {
-        isExpanded: false
-    };
+import { useStyle } from '../../classify';
+import Icon from '../Icon';
+import FilterList from './FilterList';
+import defaultClasses from './filterBlock.module.css';
 
-    optionToggle = () => {
-        const { isExpanded } = this.state;
-        this.setState({ isExpanded: !isExpanded });
-    };
+const FilterBlock = props => {
+    const {
+        filterApi,
+        filterState,
+        filterFrontendInput,
+        group,
+        items,
+        name,
+        onApply,
+        initialOpen
+    } = props;
 
-    getControlBlock = isExpanded => {
-        const { classes, item } = this.props;
-        const iconSrc = isExpanded ? ArrowUp : ArrowDown;
-        const nameClass = isExpanded
-            ? classes.optionNameExpanded
-            : classes.optionName;
+    const { formatMessage } = useIntl();
+    const talonProps = useFilterBlock({
+        filterState,
+        items,
+        initialOpen
+    });
+    const { handleClick, isExpanded } = talonProps;
+    const iconSrc = isExpanded ? ArrowUp : ArrowDown;
+    const classes = useStyle(defaultClasses, props.classes);
 
-        return (
-            <div className={classes.optionHeader}>
-                <button
-                    onClick={this.optionToggle}
-                    className={classes.optionToggleButton}
-                >
-                    <span className={nameClass}>{item.name}</span>
-                    <span className={classes.closeWrapper}>
-                        <Icon src={iconSrc} />
-                    </span>
-                </button>
-            </div>
-        );
-    };
-
-    getLayout = options => {
-        const { layout } = options ? options : {};
-        const { classes } = this.props;
-        switch (layout) {
-            case filterLayouts.grid:
-                return classes.layoutGrid;
-            default:
-                return classes.layout;
+    const itemAriaLabel = formatMessage(
+        {
+            id: 'filterModal.item.ariaLabel',
+            defaultMessage: 'Filter products by "{itemName}"'
+        },
+        {
+            itemName: name
         }
-    };
+    );
 
-    getRenderOptions = value =>
-        filterRenderOptions[`${value}`] ||
-        filterRenderOptions[filterModes.default];
+    const toggleItemOptionsAriaLabel = isExpanded
+        ? formatMessage(
+              {
+                  id: 'filterModal.item.hideOptions',
+                  defaultMessage: 'Hide "{itemName}" filter item options.'
+              },
+              {
+                  itemName: name
+              }
+          )
+        : formatMessage(
+              {
+                  id: 'filterModal.item.showOptions',
+                  defaultMessage: 'Show "{itemName}" filter item options.'
+              },
+              {
+                  itemName: name
+              }
+          );
 
-    render() {
-        const {
-            classes,
-            item: { filter_items, request_var, name }
-        } = this.props;
+    const list = isExpanded ? (
+        <Form className={classes.list}>
+            <FilterList
+                filterApi={filterApi}
+                filterState={filterState}
+                name={name}
+                filterFrontendInput={filterFrontendInput}
+                group={group}
+                items={items}
+                onApply={onApply}
+            />
+        </Form>
+    ) : null;
 
-        const { isExpanded } = this.state;
+    return (
+        <li
+            className={classes.root}
+            aria-label={itemAriaLabel}
+            data-cy="FilterBlock-root"
+        >
+            <button
+                className={classes.trigger}
+                onClick={handleClick}
+                data-cy="FilterBlock-triggerButton"
+                type="button"
+                aria-expanded={isExpanded}
+                aria-label={toggleItemOptionsAriaLabel}
+            >
+                <span className={classes.header}>
+                    <span className={classes.name}>{name}</span>
+                    <Icon src={iconSrc} />
+                </span>
+            </button>
+            {list}
+        </li>
+    );
+};
 
-        const { mode, options } = this.getRenderOptions(request_var);
+FilterBlock.defaultProps = {
+    onApply: null,
+    initialOpen: false
+};
 
-        const listClassName = isExpanded
-            ? classes.filterListExpanded
-            : classes.filterList;
+FilterBlock.propTypes = {
+    classes: shape({
+        header: string,
+        list: string,
+        name: string,
+        root: string,
+        trigger: string
+    }),
+    filterFrontendInput: string,
+    filterApi: shape({}).isRequired,
+    filterState: setValidator,
+    group: string.isRequired,
+    items: arrayOf(shape({})),
+    name: string.isRequired,
+    onApply: func,
+    initialOpen: bool
+};
 
-        const controlBlock = this.getControlBlock(isExpanded);
-
-        const filterLayoutClass = this.getLayout(options);
-
-        const isSwatch = filterModes[mode] === filterModes.swatch;
-
-        const filterProps = {
-            isSwatch,
-            options,
-            name,
-            mode,
-            id: request_var,
-            items: filter_items,
-            layoutClass: filterLayoutClass
-        };
-
-        return (
-            <li className={classes.root}>
-                {controlBlock}
-                <div className={listClassName}>
-                    <FilterList {...filterProps} />
-                </div>
-            </li>
-        );
-    }
-}
-
-export default classify(defaultClasses)(FilterBlock);
+export default FilterBlock;

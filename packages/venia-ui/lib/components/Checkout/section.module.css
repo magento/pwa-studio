@@ -1,0 +1,46 @@
+.root {
+    composes: bg-white from global;
+    composes: block from global;
+    composes: border-0 from global;
+    composes: w-full from global;
+
+    composes: focus_bg-gradient-radial from global;
+    composes: focus_outline-none from global;
+}
+
+.content {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-items-start from global;
+    composes: mx-sm from global;
+    composes: my-0 from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+    composes: text-left from global;
+    grid-template-columns: 5rem 1fr 2rem;
+    min-height: 4.5rem;
+}
+
+.label {
+    composes: font-semibold from global;
+    composes: text-brand from global;
+    composes: text-sm from global;
+}
+
+.summary {
+    composes: justify-self-stretch from global;
+    composes: leading-normal from global;
+    composes: overflow-hidden from global;
+    composes: overflow-ellipsis from global;
+    composes: text-sm from global;
+    composes: whitespace-nowrap from global;
+}
+
+.icon {
+    composes: justify-self-center from global;
+}

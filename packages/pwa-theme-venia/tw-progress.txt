@@ -1,0 +1,254 @@
+// ----------------------------------------------
+// Preset creation workflow notes:
+
+Code comments added to find open issues:
+- TODO @TW: cannot compose
+- TODO @TW: responsive
+- TODO @TW: review
+
+When searching, path for "files to include" to target CSS only:
+- packages/venia-ui/lib/**/*.module.css
+
+These files cannot be composed into because of global() or child selector usage:
+- packages/venia-ui/lib/components/CmsBlock/cmsBlock.module.css
+- packages/venia-ui/lib/components/HomePage/homePage.module.css
+- packages/venia-ui/lib/components/RichContent/richContent.module.css
+
+// ----------------------------------------------
+// TODO (Brendan)
+
+1. Enroll hardcoded "opacity" values as custom values in the theme preset
+
+
+// ----------------------------------------------
+// LEGEND
+
+⚪️ TODO
+✅ DONE
+🟡 DONE except compose issues
+❌ BLOCKER
+🟣 Theme-able
+🔵 Many custom units
+
+// ----------------------------------------------
+// Comments
+
+🟡 TODO @TW: cannot compose --- (75)
+✅ TODO @TW: responsive
+🟡 TODO @TW: review --- (23)
+
+// ----------------------------------------------
+// Breakpoints
+
+✅ Rewrite media queries to new scale
+✅ Refactor to min-width where needed
+🟡 Remove all min-width queries --- (20) cannot compose
+🟡 Remove all max-width queries --- (36) cannot compose
+
+// ----------------------------------------------
+// Pseudo Selectors and Calc
+
+🟡 :before / ::before --- (5) cannot compose
+🟡 :after / ::after --- (1) cannot compose
+🟡 :not --- (8) cannot compose
+🟡 :empty --- (20) cannot compose
+🟡 :first-child --- (1) cannot compose
+🟡 :last-child --- (10) cannot compose
+🟡 :nth-of-type --- (1) cannot compose
+🟡 :nth-last-of-type --- (1) cannot compose
+🟡 calc() --- (26) cannot compose
+🟡 :hover --- (8) cannot compose
+🟡 :focus --- (18) cannot compose
+🟡 :active --- (6) cannot compose
+
+// ----------------------------------------------
+// Layout
+
+✅ container
+✅ box-decoration-break
+🟡 box-sizing --- (1) cannot compose (index)
+🟡 display --- cannot compose
+🟡 float --- cannot compose
+✅ clear
+✅ isolation
+✅ object-fit
+✅ object-position
+🟡 overflow --- cannot compose (:not)
+✅ overscroll-behavior
+🟡 position --- cannot compose
+🟡 top --- cannot compose
+🟡 right --- cannot compose
+✅ bottom
+🟡 left --- cannot compose
+✅ visibility
+✅ z-index
+
+// ----------------------------------------------
+// Flexbox and Grid
+
+✅ flex-direction
+✅ flex-wrap
+✅ flex
+❌ flex-basis --- not in Tailwind (may need refactor)
+✅ flex-grow
+✅ flex-shrink
+✅ order
+❌ grid-area --- every instance is custom
+✅ grid-column --- still has one-off units (not worth putting in theme config)
+✅ grid-column-end
+✅ grid-column-start
+✅ grid-row --- still has one-off units (not worth putting in theme config)
+✅ grid-row-end
+✅ grid-row-start
+❌ grid-template-areas --- every instance is custom
+✅ grid-template-columns --- still has one-off units (not worth putting in theme config)
+✅ grid-template-rows --- still has one-off units (not worth putting in theme config)
+🟡 grid-auto-flow --- cannot compose (:not)
+✅ grid-auto-columns --- still has one-off units (not worth putting in theme config)
+✅ grid-auto-rows --- still has one-off units (not worth putting in theme config)
+✅ gap
+✅ justify-content
+✅ justify-items
+✅ justify-self
+✅ align-content
+✅ align-items
+✅ align-self
+✅ place-content
+✅ place-items
+✅ place-self
+
+// ----------------------------------------------
+// Spacing
+
+✅ padding
+✅ margin
+✅ space-between
+
+// ----------------------------------------------
+// Sizing
+
+🟡 width --- cannot compose (calc)
+🟡 min-width --- cannot compose (child)
+✅ max-width
+🟡 height --- cannot compose (calc)
+✅ min-height --- has one-off units (not worth putting in theme config)
+✅ max-height --- has one-off units (not worth putting in theme config)
+
+// ----------------------------------------------
+// Typography
+
+🟡 color --- cannot compose
+✅ font-family
+🟡 font-size --- cannot compose
+✅ font-stretch
+✅ font-style
+✅ font-variant
+✅ font-weight
+✅ hanging-punctuation
+✅ letter-spacing
+✅ line-height
+✅ list-style-type
+✅ text-align
+🟡 text-decoration --- cannot compose
+✅ text-indent
+✅ text-justify
+✅ text-overflow
+✅ text-shadow
+✅ text-stroke
+✅ text-transform
+✅ vertical-align
+🟡 white-space --- cannot compose
+✅ word-break
+✅ word-spacing
+
+// ----------------------------------------------
+// Backgrounds
+
+✅ background
+✅ background-attachment
+✅ background-clip
+✅ background-color
+✅ background-opacity
+✅ background-origin
+🟡 background-position --- cannot compose
+✅ background-repeat
+🟡 background-size --- cannot compose
+🟡 background-image --- cannot compose + review (swatch relies on CSS custom props)
+✅ gradient-color-stops
+🟡 linear-gradient --- cannot compose (::before)
+✅ radial-gradient
+
+// ----------------------------------------------
+// Borders
+
+🟡 border-radius --- cannot compose
+✅ border
+🟡 border-bottom --- cannot compose
+🟡 border-left --- cannot compose
+✅ border-right
+✅ border-top
+✅ border-width
+🟡 border-color --- cannot compose
+✅ border-opacity
+✅ border-style
+
+// ----------------------------------------------
+// Effects
+
+🟡 box-shadow --- (19) one-off values
+🟡 opacity --- except in @keyframes animation
+✅ mix-blend-mode
+✅ background-blend-mode
+
+// ----------------------------------------------
+// Filters
+
+🟡 filter --- cannot compose (inside animation)
+✅ blur
+✅ brightness
+✅ contrast
+✅ drop-shadow
+🟡 grayscale --- cannot compose (inside filter inside animation)
+✅ [...] skipped the rest
+
+// ----------------------------------------------
+// Tables
+
+✅ border-collapse
+✅ table-layout
+
+// ----------------------------------------------
+// Transitions
+
+🟣 transition-property
+🟣 transition-duration
+🟣 transition-timing-function
+🟣 transition-delay
+🟣 animation
+
+// ----------------------------------------------
+// Interactivity
+
+✅ appearance
+🟡 cursor --- cannot compose
+🟡 outline --- cannot compose
+🟡 pointer-events --- cannot compose
+✅ resize
+✅ user-select
+
+// ----------------------------------------------
+// SVG
+
+🟡 fill --- cannot compose (and custom property usage like: --stroke)
+🟡 stroke --- cannot compose (and custom property usage like: --stroke)
+✅ stroke-width
+
+// ----------------------------------------------
+// Accessibility
+
+🟡 screen readers --- cannot compose
+
+// ----------------------------------------------
+// Official Plugins
+
+⚪️ [...] review these

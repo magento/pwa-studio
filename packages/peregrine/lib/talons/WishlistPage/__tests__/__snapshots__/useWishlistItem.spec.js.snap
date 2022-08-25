@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handleAddToCart callback should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 10,
+    "name": "Product Name",
+    "priceTotal": 99,
+    "quantity": 1,
+    "selectedOptions": null,
+    "sku": "shoggoth-shirt",
+  },
+  "type": "CART_ADD_ITEM",
+}
+`;
+
+exports[`it returns the correct shape 1`] = `
+Object {
+  "addToCartButtonProps": Object {
+    "disabled": false,
+    "onClick": [Function],
+  },
+  "handleRemoveProductFromWishlist": [Function],
+  "hasError": false,
+  "hasRemoveProductFromWishlistError": false,
+  "imageProps": Object {
+    "alt": "Shoggoth Shirt",
+    "src": "https://example.com/media/shoggoth-shirt.jpg",
+    "width": 400,
+  },
+  "isInStock": true,
+  "isRemovalInProgress": false,
+  "isSupportedProductType": false,
+}
+`;
+
+exports[`mutation passes options for configurable item 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "cartItem": Object {
+      "quantity": 1,
+      "selected_options": Array [
+        "value-uid-1",
+      ],
+      "sku": "shoggoth-shirt",
+    },
+  },
+}
+`;
+
+exports[`mutation passes options for simple item 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "cartItem": Object {
+      "quantity": 1,
+      "sku": "shoggoth-shirt",
+    },
+  },
+}
+`;

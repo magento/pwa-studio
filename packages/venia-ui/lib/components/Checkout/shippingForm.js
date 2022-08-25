@@ -6,8 +6,8 @@ import Button from '../Button';
 import Label from './label';
 import Select from '../Select';
 
-import { mergeClasses } from '../../classify';
-import defaultClasses from './shippingForm.css';
+import { useStyle } from '../../classify';
+import defaultClasses from './shippingForm.module.css';
 import { useShippingForm } from '@magento/peregrine/lib/talons/Checkout/useShippingForm';
 
 const ShippingForm = props => {
@@ -33,18 +33,23 @@ const ShippingForm = props => {
         selectableShippingMethods
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
+
+    const formHeading = 'Shipping Information';
+    const shippingMethodLabel = 'Shipping Method';
+    const submitButtonText = 'Use Method';
+    const cancelButtonText = 'Cancel';
 
     return (
         <Form className={classes.root} onSubmit={handleSubmit}>
             <div className={classes.body}>
-                <h2 className={classes.heading}>Shipping Information</h2>
+                <h2 className={classes.heading}>{formHeading}</h2>
                 <div
                     className={classes.shippingMethod}
                     id={classes.shippingMethod}
                 >
                     <Label htmlFor={classes.shippingMethod}>
-                        Shipping Method
+                        {shippingMethodLabel}
                     </Label>
                     <Select
                         field="shippingMethod"
@@ -54,9 +59,11 @@ const ShippingForm = props => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Cancel</Button>
                 <Button priority="high" type="submit" disabled={isSubmitting}>
-                    Use Method
+                    {submitButtonText}
+                </Button>
+                <Button onClick={handleCancel} priority="low">
+                    {cancelButtonText}
                 </Button>
             </div>
         </Form>

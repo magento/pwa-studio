@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a disabled dropdown while loading 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="root"
+  >
+    <label
+      className="label"
+      htmlFor="root"
+    >
+      Country
+    </label>
+    <span
+      className="root"
+      style={
+        Object {
+          "--iconsAfter": 1,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span
+        className="input"
+      >
+        <select
+          className="input"
+          disabled={true}
+          id="root"
+          name="country"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value="US"
+        />
+      </span>
+      <span
+        className="before"
+      />
+      <span
+        className="after"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
+      </span>
+    </span>
+    <p
+      className="root"
+    />
+  </div>
+</form>
+`;
+
+exports[`renders dropdown with country data 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="root"
+  >
+    <label
+      className="label"
+      htmlFor="root"
+    >
+      Country
+    </label>
+    <span
+      className="root"
+      style={
+        Object {
+          "--iconsAfter": 1,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span
+        className="input"
+      >
+        <select
+          className="input"
+          disabled={false}
+          id="root"
+          name="country"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value="US"
+        >
+          <option
+            disabled={null}
+            hidden={null}
+            id="SAMPLE-ID"
+            value="US"
+          >
+            United State
+          </option>
+          <option
+            disabled={null}
+            hidden={null}
+            id="SAMPLE-ID"
+            value="FR"
+          >
+            France
+          </option>
+        </select>
+      </span>
+      <span
+        className="before"
+      />
+      <span
+        className="after"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
+      </span>
+    </span>
+    <p
+      className="root"
+    />
+  </div>
+</form>
+`;

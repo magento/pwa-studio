@@ -1,0 +1,20 @@
+.root {
+    composes: flex from global;
+    composes: items-center from global;
+    composes: w-full from global;
+}
+
+.content {
+    composes: gap-3 from global;
+    composes: grid from global;
+    composes: grid-cols-[1fr] from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: px-xs from global;
+    composes: py-2xs from global;
+    composes: w-full from global;
+}
+
+.text {
+    composes: text-left from global;
+}

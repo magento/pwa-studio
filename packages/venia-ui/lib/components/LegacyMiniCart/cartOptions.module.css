@@ -1,0 +1,55 @@
+.root {
+    composes: absolute from global;
+    composes: grid from global;
+    composes: left-0 from global;
+    composes: top-lg from global;
+    composes: w-full from global;
+    grid-template-rows: min-content 1fr;
+    height: calc(
+        100% - var(--legacy-minicart-header-height)
+    ); /* TODO @TW: review */
+}
+
+.focusItem {
+    composes: gap-md from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: grid-flow-col from global;
+    composes: p-xs from global;
+    composes: shadow-thin from global;
+}
+
+.name {
+    composes: overflow-hidden from global;
+    composes: overflow-ellipsis from global;
+    composes: whitespace-nowrap from global;
+}
+
+.form {
+    composes: overflow-auto from global;
+}
+
+.options {
+    composes: font-semibold from global;
+}
+
+.quantity {
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: border-t-0 from global;
+    composes: border-r-0 from global;
+    composes: border-b from global;
+    composes: border-l-0 from global;
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: pt-xs from global;
+    composes: pb-xs from global;
+}
+
+.quantityTitle {
+    composes: title from '../../components/ProductOptions/option.module.css';
+}
+
+.save {
+    composes: footer from '../../components/Checkout/flow.module.css';
+}

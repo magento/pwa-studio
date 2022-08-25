@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders AccountMenuItems when the user is signed in 1`] = `
+<aside
+  className="root_open"
+>
+  <div
+    className="contents_open"
+  >
+    <mock-AccountMenuItems
+      onSignOut={[MockFunction]}
+    />
+  </div>
+</aside>
+`;
+
+exports[`it renders SignIn component when the view is SIGNIN 1`] = `
+<aside
+  className="root_open"
+>
+  <div
+    className="contents_open"
+  >
+    <mock-SignIn
+      classes={
+        Object {
+          "modal_active": "loading",
+        }
+      }
+      setDefaultUsername={[MockFunction]}
+      showCreateAccount={[MockFunction]}
+      showForgotPassword={[MockFunction]}
+    />
+  </div>
+</aside>
+`;
+
+exports[`it renders create account component when the view is CREATE_ACCOUNT 1`] = `
+<aside
+  className="root_open"
+>
+  <div
+    className="contents_open"
+  >
+    <mock-CreateAccount
+      classes={
+        Object {
+          "root": "createAccount",
+        }
+      }
+      initialValues={
+        Object {
+          "email": "gooseton",
+        }
+      }
+      isCancelButtonHidden={false}
+    />
+  </div>
+</aside>
+`;
+
+exports[`it renders empty aside element when accountMenuIsOpen is false 1`] = `
+<aside
+  className="root"
+>
+  <div
+    className="contents"
+  />
+</aside>
+`;
+
+exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1`] = `
+<aside
+  className="root_open"
+>
+  <div
+    className="contents_open"
+  >
+    <mock-ForgotPassword
+      initialValues={
+        Object {
+          "email": "gooseton",
+        }
+      }
+    />
+  </div>
+</aside>
+`;

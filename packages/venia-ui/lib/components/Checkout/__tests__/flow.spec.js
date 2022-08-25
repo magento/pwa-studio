@@ -11,6 +11,20 @@ jest.mock('../checkoutButton', () => 'CheckoutButton');
 jest.mock('../form', () => 'Form');
 jest.mock('../Receipt', () => 'Receipt');
 
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
+    return {
+        ...apolloClient,
+        useMutation: jest.fn().mockImplementation(() => [
+            jest.fn(),
+            {
+                error: null
+            }
+        ])
+    };
+});
+
 jest.mock('@magento/peregrine', () => {
     const state = {};
     const api = {

@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`custom attribute is sorted 1`] = `
+Array [
+  Object {
+    "attribute_metadata": Object {
+      "attribute_labels": Array [
+        Object {
+          "label": "Default Label 1",
+          "store_code": "default",
+        },
+      ],
+      "code": "attribute_code_1",
+      "entity_type": "PRODUCT",
+      "label": "Attribute Label 1",
+      "ui_input": Object {
+        "is_html_allowed": true,
+        "ui_input_type": "TEXT",
+      },
+      "uid": "attribute-uid-1",
+      "used_in_components": Array [],
+    },
+    "entered_attribute_value": Object {
+      "value": "Custom Attribute 1",
+    },
+  },
+  Object {
+    "attribute_metadata": Object {
+      "attribute_labels": Array [
+        Object {
+          "label": "default label 2",
+          "store_code": "default",
+        },
+      ],
+      "code": "attribute_code_2",
+      "entity_type": "PRODUCT",
+      "label": "attribute label 2",
+      "ui_input": Object {
+        "is_html_allowed": true,
+        "ui_input_type": "TEXT",
+      },
+      "uid": "attribute-uid-2",
+      "used_in_components": Array [],
+    },
+    "entered_attribute_value": Object {
+      "value": "custom attribute 2",
+    },
+  },
+  Object {
+    "attribute_metadata": Object {
+      "attribute_labels": Array [
+        Object {
+          "label": "Default Label 3",
+          "store_code": "default",
+        },
+      ],
+      "code": "attribute_code_3",
+      "entity_type": "PRODUCT",
+      "label": "Attribute Label 3",
+      "ui_input": Object {
+        "is_html_allowed": true,
+        "ui_input_type": "TEXT",
+      },
+      "uid": "attribute-uid-3",
+      "used_in_components": Array [],
+    },
+    "entered_attribute_value": Object {
+      "value": "Custom Attribute 3",
+    },
+  },
+]
+`;
+
+exports[`should dispatch event on add to cart 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "ThisIsMyCart",
+    "currencyCode": "USD",
+    "discountAmount": 10,
+    "name": "Strive Shoulder Pac",
+    "priceTotal": 99,
+    "quantity": 2,
+    "selectedOptions": Array [],
+    "sku": "MySimpleProductSku",
+  },
+  "type": "CART_ADD_ITEM",
+}
+`;

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<button
+  onKeyDown={[Function]}
+  onMouseDown={[Function]}
+>
+  <span>
+    <span>
+      relevance
+    </span>
+  </span>
+</button>
+`;

@@ -33,5 +33,5 @@ This makes it possible to extend a Container using the `magento-loader-layout` t
 * Insert content after a child component in a container
 
 
-[`ContainerChild`]: {{ site.baseurl }}{% link peregrine/reference/container-child/index.md %}
-[PWA Buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
+[`ContainerChild`]: {% link peregrine/reference/container-child/index.md %}
+[PWA Buildpack]: {% link pwa-buildpack/index.md %}

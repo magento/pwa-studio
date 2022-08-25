@@ -2,9 +2,9 @@ import React from 'react';
 import { bool, node, shape, string } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
-import defaultClasses from './section.css';
+import defaultClasses from './section.module.css';
 
 const editIconAttrs = {
     color: 'black',
@@ -21,7 +21,7 @@ const Section = props => {
         ...restProps
     } = props;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const icon = showEditIcon ? EDIT_ICON : null;
 

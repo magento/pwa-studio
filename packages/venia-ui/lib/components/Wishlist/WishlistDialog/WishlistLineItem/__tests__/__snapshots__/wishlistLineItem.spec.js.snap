@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+<button
+  className="root"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  <h2
+    className="lineItemName"
+  />
+</button>
+`;

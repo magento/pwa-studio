@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Column component 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "alignSelf": "stretch",
+      "backgroundColor": undefined,
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "flex-start",
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+      "verticalAlignment": undefined,
+      "width": undefined,
+    }
+  }
+/>
+`;
+
+exports[`renders a Column component for mobile screen with mobileImage set 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "alignSelf": "flex-start",
+      "backgroundAttachment": undefined,
+      "backgroundColor": undefined,
+      "backgroundImage": "url(image-mobile.png)",
+      "backgroundPosition": undefined,
+      "backgroundRepeat": "repeat",
+      "backgroundSize": undefined,
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "center",
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+      "verticalAlignment": "middle",
+      "width": undefined,
+    }
+  }
+/>
+`;
+
+exports[`renders a Column component for mobile screen without mobileImage set 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "alignSelf": "center",
+      "backgroundAttachment": undefined,
+      "backgroundColor": undefined,
+      "backgroundImage": "url(image-desktop.png)",
+      "backgroundPosition": undefined,
+      "backgroundRepeat": "repeat",
+      "backgroundSize": undefined,
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "flex-end",
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+      "verticalAlignment": "bottom",
+      "width": undefined,
+    }
+  }
+/>
+`;
+
+exports[`renders a Column component with all props configured 1`] = `
+<div
+  className=" test-class"
+  style={
+    Object {
+      "alignSelf": "stretch",
+      "backgroundAttachment": "scroll",
+      "backgroundColor": "rgb(193, 193, 193)",
+      "backgroundImage": "url(image-desktop.png)",
+      "backgroundPosition": "left top",
+      "backgroundRepeat": "no-repeat",
+      "backgroundSize": "cover",
+      "border": "solid",
+      "borderColor": "rgb(0, 0, 0)",
+      "borderRadius": "10px",
+      "borderWidth": "1px",
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "flex-start",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "minHeight": "300px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "center",
+      "verticalAlignment": "top",
+      "width": "calc((100% / 3) - 20px)",
+    }
+  }
+/>
+`;
+
+exports[`renders a Column with appearance align bottom 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "alignSelf": "flex-end",
+      "backgroundColor": undefined,
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "flex-start",
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+      "verticalAlignment": undefined,
+      "width": undefined,
+    }
+  }
+/>
+`;

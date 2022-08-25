@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`callbacks update and return state handleApplyAddress 1`] = `
+Object {
+  "variables": Object {
+    "addressId": 2,
+    "cartId": "cart123",
+  },
+}
+`;
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "activeAddress": undefined,
+  "customerAddresses": Array [
+    Object {
+      "firstname": "Philip",
+      "id": 1,
+      "lastname": "Fry",
+      "street": Array [
+        "3000 57th Street",
+      ],
+    },
+    Object {
+      "firstname": "Bender",
+      "id": 2,
+      "lastname": "Rodríguez",
+      "street": Array [
+        "3000 57th Street",
+      ],
+    },
+    Object {
+      "firstname": "John",
+      "id": 3,
+      "lastname": "Zoidberg",
+      "street": Array [
+        "1 Dumpster Alley",
+      ],
+    },
+  ],
+  "errorMessage": "",
+  "handleAddAddress": [Function],
+  "handleApplyAddress": [Function],
+  "handleCancel": [Function],
+  "handleEditAddress": [Function],
+  "handleSelectAddress": [Function],
+  "isLoading": true,
+  "selectedAddress": 2,
+}
+`;

@@ -1,0 +1,30 @@
+{
+  "name": "@magento/experience-platform-connector",
+  "version": "1.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Sends storefront events to the Adobe Experience Platform",
+  "main": "./src/main.js",
+  "scripts": {
+    "clean": " "
+  },
+  "repository": "github:magento/pwa-studio",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "dependencies": {
+    "@adobe/magento-storefront-event-collector": "~1.1.13",
+    "@adobe/magento-storefront-events-sdk": "~1.1.13"
+  },
+  "devDependencies": {},
+  "peerDependencies": {
+    "@apollo/client": "~3.5.0",
+    "@magento/peregrine": "~12.5.1",
+    "@magento/pwa-buildpack": "~11.4.0",
+    "react": "~17.0.1"
+  },
+  "pwa-studio": {
+    "targets": {
+      "intercept": "./intercept"
+    }
+  }
+}

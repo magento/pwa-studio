@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders CreateWishlistForm and button 1`] = `
+<mock-Dialog
+  isOpen={true}
+  onCancel={[MockFunction]}
+  shouldShowButtons={false}
+  title="Add to Favorites"
+>
+  <div
+    className="root"
+  >
+    <button
+      className="createListButton"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      + Create a new list
+    </button>
+  </div>
+</mock-Dialog>
+`;
+
+exports[`renders existing wishlists 1`] = `
+<mock-Dialog
+  isOpen={true}
+  onCancel={[MockFunction]}
+  shouldShowButtons={false}
+  title="Add to Favorites"
+>
+  <div
+    className="root"
+  >
+    <ul
+      className="existingWishlists"
+    >
+      <li>
+        <button
+          className="root"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          <h2
+            className="lineItemName"
+            title="\\"Scott's Wishlist\\""
+          >
+            "Scott's Wishlist"
+          </h2>
+        </button>
+      </li>
+    </ul>
+  </div>
+</mock-Dialog>
+`;
+
+exports[`renders the correct tree 1`] = `
+<mock-Dialog
+  isOpen={true}
+  onCancel={[MockFunction]}
+  shouldShowButtons={false}
+  title="Add to Favorites"
+>
+  <div
+    className="root"
+  />
+</mock-Dialog>
+`;

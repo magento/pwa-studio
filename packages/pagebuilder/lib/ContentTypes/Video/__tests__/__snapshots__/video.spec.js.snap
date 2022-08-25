@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Video component 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "maxWidth": undefined,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "border": undefined,
+          "borderColor": undefined,
+          "borderRadius": undefined,
+          "borderWidth": undefined,
+          "paddingBottom": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+        }
+      }
+    >
+      <div>
+        <iframe
+          allowFullScreen="1"
+          frameBorder="0"
+          loading="lazy"
+          src="https://www.youtube.com/watch?v=N0bYol6ax8Y"
+          title="https://www.youtube.com/watch?v=N0bYol6ax8Y"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders a Video component with all props configured 1`] = `
+<div
+  className=" test-class"
+  style={
+    Object {
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "textAlign": "right",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "maxWidth": "500px",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "border": "solid",
+          "borderColor": "red",
+          "borderRadius": "15px",
+          "borderWidth": "10px",
+          "paddingBottom": "10px",
+          "paddingLeft": "10px",
+          "paddingRight": "10px",
+          "paddingTop": "10px",
+        }
+      }
+    >
+      <div>
+        <iframe
+          allowFullScreen="1"
+          frameBorder="0"
+          loading="lazy"
+          src="https://vimeo.com/116810486"
+          title="https://vimeo.com/116810486"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders a Video component with all props configured for local video 1`] = `
+<div
+  className=" test-class"
+  style={
+    Object {
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "textAlign": "right",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "maxWidth": "500px",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "border": "solid",
+          "borderColor": "red",
+          "borderRadius": "15px",
+          "borderWidth": "10px",
+          "paddingBottom": "10px",
+          "paddingLeft": "10px",
+          "paddingRight": "10px",
+          "paddingTop": "10px",
+        }
+      }
+    >
+      <div>
+        <video
+          autoPlay={true}
+          controls={true}
+          frameBorder="0"
+          muted={true}
+          src="https://example.com/video.mp4"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders an empty Video component 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "maxWidth": undefined,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "border": undefined,
+          "borderColor": undefined,
+          "borderRadius": undefined,
+          "borderWidth": undefined,
+          "paddingBottom": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+        }
+      }
+    >
+      
+    </div>
+  </div>
+</div>
+`;

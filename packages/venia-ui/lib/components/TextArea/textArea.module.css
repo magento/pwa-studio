@@ -1,0 +1,22 @@
+.input {
+    composes: input from '../Field/field.module.css';
+
+    composes: h-auto from global;
+    composes: max-w-full from global;
+    composes: min-w-full from global;
+    composes: px-xs from global;
+    composes: py-3 from global;
+}
+
+.input_shimmer {
+    composes: h-auto from global;
+    composes: m-0 from global;
+    composes: max-w-full from global;
+    composes: min-h-[6.75rem] from global;
+    composes: min-w-full from global;
+    composes: px-[15px] from global;
+    composes: py-[12px] from global;
+    composes: rounded-md from global;
+    composes: w-full from global;
+    font-size: 1rem;
+}

@@ -1,0 +1,34 @@
+{
+  "data": {
+    "customer": {
+      "id": null,
+      "wishlists": [
+        {
+          "id": "102",
+          "items_count": 0,
+          "sharing_code": "fugvRP8kq5JgrrO0TFO4NAkyQIgwIKqW",
+          "name": "Wish List",
+          "visibility": "PRIVATE",
+          "__typename": "Wishlist"
+        },
+        {
+          "id": "103",
+          "items_count": 0,
+          "sharing_code": "nEShEx5CL9O7H4iiGXpq2m0fFJCIRcnH",
+          "name": "Test List1",
+          "visibility": "PRIVATE",
+          "__typename": "Wishlist"
+        },
+        {
+          "id": "104",
+          "items_count": 1,
+          "sharing_code": "ub7EJmt2hzOjdqMNHFKdqvHd6gShSUC8",
+          "name": "Test List2",
+          "visibility": "PRIVATE",
+          "__typename": "Wishlist"
+        }
+      ],
+      "__typename": "Customer"
+    }
+  }
+}

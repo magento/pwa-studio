@@ -1,0 +1,70 @@
+.root {
+    composes: gap-sm from global;
+    composes: grid from global;
+    composes: justify-items-stretch from global;
+    composes: px-sm from global;
+    composes: py-xs from global;
+}
+
+.forgotPassword {
+    composes: block from global;
+    composes: text-error from global;
+    composes: text-sm from global;
+    composes: underline from global;
+}
+
+.form {
+    composes: grid from global;
+    composes: gap-y-xs from global;
+}
+
+.modal {
+    composes: absolute from global;
+    composes: bg-subtle from global;
+    composes: bottom-0 from global;
+    composes: h-full from global;
+    composes: text-center from global;
+    composes: w-full from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
+}
+
+.modal_active {
+    composes: modal;
+    composes: opacity-90 from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
+}
+
+.buttonsContainer {
+    composes: gap-sm from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: justify-center from global;
+    composes: mt-xs from global;
+    composes: w-full from global;
+}
+
+.forgotPasswordButtonContainer {
+    composes: flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: justify-self-start from global;
+    composes: text-center from global;
+}
+
+.forgotPasswordButton {
+    composes: root from '../LinkButton/linkButton.module.css';
+
+    composes: p-0 from global;
+}
+
+.title {
+    composes: capitalize from global;
+    composes: pt-2xs from global;
+    composes: text-lg from global;
+}

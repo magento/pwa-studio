@@ -1,0 +1,13 @@
+{
+    "data": {
+        "addProductsToWishlist": {
+            "user_errors": [],
+            "wishlist": {
+                "id": "103",
+                "name": "Test List1",
+                "__typename": "Wishlist"
+            },
+            "__typename": "AddProductsToWishlistOutput"
+        }
+    }
+}

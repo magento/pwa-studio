@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errors when trying to construct non-hooks 1`] = `"Package \\"myDep\\" declared target \\"bad\\" with an invalid target type \\"[object Boolean]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;
+
+exports[`errors when trying to construct non-hooks 2`] = `"Package \\"myDep\\" declared target \\"bad\\" with an invalid target type \\"[object Boolean]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;
+
+exports[`errors when trying to construct non-hooks 3`] = `"Package \\"myDep\\" declared target \\"bad\\" with an invalid target type \\"[object Object]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;
+
+exports[`errors when trying to construct non-hooks 4`] = `"Package \\"myDep\\" declared target \\"bad\\" with an invalid target type \\"[object Object]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;
+
+exports[`errors when trying to construct non-hooks 5`] = `"Package \\"myDep\\" declared target \\"bad\\" with an invalid target type \\"[object Object]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;
+
+exports[`errors when trying to construct non-hooks 6`] = `"Package \\"myDep\\" declared target \\"bad\\" with an invalid target type \\"[object Object]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;

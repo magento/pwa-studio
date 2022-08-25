@@ -1,0 +1,304 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders PriceSummary correctly on cart page 1`] = `
+<div
+  className="root"
+>
+  <div>
+    <ul>
+      <li
+        className="lineItems"
+      >
+        <span
+          className="lineItemLabel"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Subtotal"
+            id="priceSummary.lineItemLabel"
+          />
+        </span>
+        <span
+          className="price"
+        >
+          <span>
+            $
+          </span>
+          <span>
+            3
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            50
+          </span>
+        </span>
+      </li>
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      >
+        <span
+          className="totalLabel"
+        >
+          Estimated Total
+        </span>
+        <span
+          className="totalPrice"
+        >
+          <span>
+            $
+          </span>
+          <span>
+            8
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            50
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="checkoutButton_container"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Proceed to Checkout"
+          id="priceSummary.checkoutButton"
+        />
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders PriceSummary correctly on checkout page 1`] = `
+<div
+  className="root"
+>
+  <div>
+    <ul>
+      <li
+        className="lineItems"
+      >
+        <span
+          className="lineItemLabel"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Subtotal"
+            id="priceSummary.lineItemLabel"
+          />
+        </span>
+        <span
+          className="price"
+        >
+          <span>
+            $
+          </span>
+          <span>
+            3
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            50
+          </span>
+        </span>
+      </li>
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      >
+        <span
+          className="totalLabel"
+        >
+          Total
+        </span>
+        <span
+          className="totalPrice"
+        >
+          <span>
+            $
+          </span>
+          <span>
+            8
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            50
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`renders an error state if query fails 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="errorText"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Something went wrong. Please refresh and try again."
+      id="priceSummary.errorText"
+    />
+  </span>
+</div>
+`;
+
+exports[`renders nothing if query returns no items 1`] = `null`;
+
+exports[`renders summary with loading state if query is loading 1`] = `
+<div
+  className="root"
+>
+  <div>
+    <ul>
+      <li
+        className="lineItems"
+      >
+        <span
+          className="lineItemLabel"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Subtotal"
+            id="priceSummary.lineItemLabel"
+          />
+        </span>
+        <span
+          className="priceUpdating"
+        >
+          <span>
+            $
+          </span>
+          <span>
+            3
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            50
+          </span>
+        </span>
+      </li>
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      />
+      <li
+        className="lineItems"
+      >
+        <span
+          className="totalLabel"
+        >
+          Estimated Total
+        </span>
+        <span
+          className="priceUpdating"
+        >
+          <span>
+            $
+          </span>
+          <span>
+            8
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            50
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="checkoutButton_container"
+  >
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Proceed to Checkout"
+          id="priceSummary.checkoutButton"
+        />
+      </span>
+    </button>
+  </div>
+</div>
+`;

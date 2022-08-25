@@ -1,0 +1,68 @@
+.root {
+    composes: max-w-screen-lg from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: px-sm from global;
+
+    composes: lg_px-lg from global;
+    composes: lg_py-md from global;
+}
+
+.body {
+    composes: grid from global;
+    composes: gap-md from global;
+    grid-template-columns: 1fr 18rem;
+    /* The summary grid item spans the entire right column. */
+    grid-template-areas:
+        'items summary'
+        'adjustments summary';
+}
+
+.heading_container {
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: mb-xs from global;
+}
+
+.heading {
+    composes: leading-tight from global;
+}
+
+/* TODO @TW: cannot compose */
+.stockStatusMessageContainer:empty {
+    display: none;
+}
+
+.items_container {
+    grid-area: items;
+}
+
+.price_adjustments_container {
+    grid-area: adjustments;
+}
+
+.summary_container {
+    composes: h-full from global;
+    grid-area: summary;
+}
+
+.summary_contents {
+    composes: sticky from global;
+    /*
+     * TODO: Use CSS Properties (variables) or something instead of hardcoding this.
+     *  - 3.5rem = min-height of nav header. See the "toolbar" class in header.css.
+     *  - 2rem = padding-top of the cart page.
+     */
+    composes: top-[5.5rem] from global; /* TODO @TW: review */
+}
+
+@media (max-width: 959px) {
+    .body {
+        /* Only one column in mobile view. */
+        grid-template-columns: 100%;
+        grid-template-areas:
+            'items'
+            'adjustments'
+            'summary';
+    }
+}

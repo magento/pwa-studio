@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render properly 1`] = `
+<div
+  className="root"
+>
+  <Item
+    closeMiniCart={[MockFunction closeMiniCart]}
+    handleRemoveItem={[MockFunction handleRemoveItem]}
+    product={
+      Object {
+        "name": "Simple Product",
+      }
+    }
+    uid="1"
+  />
+</div>
+`;

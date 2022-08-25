@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`disables save if isSaveDisabled is true 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="listname"
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
+        List Name
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            id="listname"
+            name="listname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="actions"
+  >
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="reset"
+    >
+      <span
+        className="content"
+      >
+        Cancel
+      </span>
+    </button>
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Save
+      </span>
+    </button>
+  </div>
+</form>
+`;
+
+exports[`renders the correct tree 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="listname"
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
+        List Name
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            id="listname"
+            name="listname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="actions"
+  >
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="reset"
+    >
+      <span
+        className="content"
+      >
+        Cancel
+      </span>
+    </button>
+    <button
+      className="root_highPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Save
+      </span>
+    </button>
+  </div>
+</form>
+`;

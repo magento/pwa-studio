@@ -1,0 +1,84 @@
+.root {
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: gap-y-md from global;
+    composes: grid from global;
+    composes: p-sm from global;
+    composes: rounded-md from global;
+
+    composes: md_p-md from global;
+}
+
+.header {
+    composes: gap-y-0 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-between from global;
+
+    composes: md_gap-y-2xs from global;
+}
+
+@media (max-width: 799px) {
+    .header {
+        grid-template-rows: 1fr 1fr;
+    }
+}
+
+.nameContainer {
+    composes: gap-x-2xs from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: items-center from global;
+
+    composes: md_grid-flow-col from global;
+}
+
+.emptyListText {
+    composes: py-md from global;
+    composes: text-center from global;
+}
+
+.name {
+    composes: font-semibold from global;
+    composes: overflow-hidden from global;
+    composes: whitespace-nowrap from global;
+    composes: text-ellipsis from global;
+}
+
+.buttonsContainer {
+    composes: gap-x-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-self-end from global;
+
+    composes: md_justify-self-start from global;
+}
+
+.content_hidden {
+    composes: hidden from global;
+}
+
+.visibilityToggle_hidden {
+    composes: hidden from global;
+}
+
+.loadMore {
+    composes: root_lowPriority from '../Button/button.module.css';
+
+    composes: block from global;
+    composes: min-w-[20rem] from global;
+    composes: mx-auto from global;
+    composes: my-md from global;
+}
+
+.itemsCountContainer {
+    composes: col-end-span2 from global;
+    composes: justify-self-center from global;
+
+    composes: md_col-end-auto from global;
+    composes: md_justify-self-start from global;
+}

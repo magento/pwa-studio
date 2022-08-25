@@ -1,0 +1,71 @@
+{
+  "data": {
+    "availableStores": [
+      {
+        "category_url_suffix": ".html",
+        "default_display_currency_code": "USD",
+        "locale": "en_US",
+        "product_url_suffix": ".html",
+        "secure_base_media_url": "https:\/\/develop.pwa-venia.com\/media\/",
+        "store_code": "default",
+        "store_group_code": "main_website_store",
+        "store_group_name": "Main Website Store",
+        "store_name": "Default Store View",
+        "store_sort_order": 0,
+        "__typename": "StoreConfig"
+      },
+      {
+        "category_url_suffix": ".html",
+        "default_display_currency_code": "USD",
+        "locale": "en_US",
+        "product_url_suffix": ".html",
+        "secure_base_media_url": "https:\/\/develop.pwa-venia.com\/media\/",
+        "store_code": "view_1",
+        "store_group_code": "main_website_store",
+        "store_group_name": "Main Website Store",
+        "store_name": "View One",
+        "store_sort_order": 1,
+        "__typename": "StoreConfig"
+      },
+      {
+        "category_url_suffix": "",
+        "default_display_currency_code": "USD",
+        "locale": "en_US",
+        "product_url_suffix": "",
+        "secure_base_media_url": "https:\/\/develop.pwa-venia.com\/media\/",
+        "store_code": "view_1_b",
+        "store_group_code": "store_b",
+        "store_group_name": "Store B",
+        "store_name": "View One B",
+        "store_sort_order": 1,
+        "__typename": "StoreConfig"
+      },
+      {
+        "category_url_suffix": ".html",
+        "default_display_currency_code": "USD",
+        "locale": "en_US",
+        "product_url_suffix": ".html",
+        "secure_base_media_url": "https:\/\/develop.pwa-venia.com\/media\/",
+        "store_code": "view_2",
+        "store_group_code": "main_website_store",
+        "store_group_name": "Main Website Store",
+        "store_name": "View Two",
+        "store_sort_order": 10,
+        "__typename": "StoreConfig"
+      },
+      {
+        "category_url_suffix": "",
+        "default_display_currency_code": "USD",
+        "locale": "en_US",
+        "product_url_suffix": "",
+        "secure_base_media_url": "https:\/\/develop.pwa-venia.com\/media\/",
+        "store_code": "view_2_b",
+        "store_group_code": "store_b",
+        "store_group_name": "Store B",
+        "store_name": "View Two B",
+        "store_sort_order": 10,
+        "__typename": "StoreConfig"
+      }
+    ]
+  }
+}

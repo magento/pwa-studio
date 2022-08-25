@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can retrieve background image from node 1`] = `
+Object {
+  "backgroundAttachment": "fixed",
+  "backgroundPosition": "center center",
+  "backgroundRepeat": "repeat",
+  "backgroundSize": "contain",
+  "desktopImage": "{{media url=wysiwyg/gear/gear-main.jpg}}",
+  "mobileImage": "{{media url=wysiwyg/magento-logo.png}}",
+}
+`;
+
+exports[`can set image properties with no image properties in node 1`] = `
+Object {
+  "backgroundAttachment": "",
+  "backgroundPosition": "",
+  "backgroundRepeat": "repeat",
+  "backgroundSize": "",
+  "desktopImage": null,
+  "mobileImage": null,
+}
+`;

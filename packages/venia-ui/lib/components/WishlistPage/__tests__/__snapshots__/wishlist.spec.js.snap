@@ -1,0 +1,423 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hides visibility toggle 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="header"
+  >
+    <div
+      className="nameContainer"
+    >
+      <h2
+        className="name"
+        title="Favorites List"
+      >
+        Favorites List
+      </h2>
+    </div>
+    <div
+      className="itemsCountContainer"
+    >
+      You have 20 items in this list
+    </div>
+    <div
+      className="buttonsContainer"
+    >
+      <ActionMenu
+        id={5}
+        name="Favorites List"
+        visibility="PUBLIC"
+      />
+      <button
+        className="visibilityToggle_hidden"
+        onClick={[MockFunction handleContentToggle]}
+        type="button"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    className="content_hidden"
+  >
+    <WishlistItems
+      wishlistId={5}
+    />
+  </div>
+</div>
+`;
+
+exports[`render closed with items 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="header"
+  >
+    <div
+      className="nameContainer"
+    >
+      <h2
+        className="name"
+        title="Favorites List"
+      >
+        Favorites List
+      </h2>
+    </div>
+    <div
+      className="itemsCountContainer"
+    >
+      You have 20 items in this list
+    </div>
+    <div
+      className="buttonsContainer"
+    >
+      <ActionMenu
+        id={5}
+        name="Favorites List"
+        visibility="PUBLIC"
+      />
+      <button
+        className="visibilityToggle"
+        onClick={[MockFunction handleContentToggle]}
+        type="button"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    className="content_hidden"
+  >
+    <WishlistItems
+      wishlistId={5}
+    />
+  </div>
+</div>
+`;
+
+exports[`render loading state 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="header"
+  >
+    <div
+      className="nameContainer"
+    >
+      <h2
+        className="name"
+        title="Favorites List"
+      >
+        Favorites List
+      </h2>
+    </div>
+     
+    You have 0 items in this list
+    <div
+      className="buttonsContainer"
+    >
+      <ActionMenu
+        id={5}
+        name="Favorites List"
+        visibility="PUBLIC"
+      />
+    </div>
+  </div>
+  <div
+    className="root"
+  >
+    <span
+      className="root"
+    >
+      <svg
+        className="icon"
+        fill="none"
+        height={64}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={64}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line
+          x1="12"
+          x2="12"
+          y1="2"
+          y2="6"
+        />
+        <line
+          x1="12"
+          x2="12"
+          y1="18"
+          y2="22"
+        />
+        <line
+          x1="4.93"
+          x2="7.76"
+          y1="4.93"
+          y2="7.76"
+        />
+        <line
+          x1="16.24"
+          x2="19.07"
+          y1="16.24"
+          y2="19.07"
+        />
+        <line
+          x1="2"
+          x2="6"
+          y1="12"
+          y2="12"
+        />
+        <line
+          x1="18"
+          x2="22"
+          y1="12"
+          y2="12"
+        />
+        <line
+          x1="4.93"
+          x2="7.76"
+          y1="19.07"
+          y2="16.24"
+        />
+        <line
+          x1="16.24"
+          x2="19.07"
+          y1="7.76"
+          y2="4.93"
+        />
+      </svg>
+    </span>
+    <span
+      className="message"
+    />
+  </div>
+</div>
+`;
+
+exports[`render no button when id is not set 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="header"
+  >
+    <div
+      className="nameContainer"
+    >
+      <h2
+        className="name"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Wish List"
+          id="wishlist.name"
+        />
+      </h2>
+    </div>
+    <div
+      className="itemsCountContainer"
+    >
+      You have 0 items in this list
+    </div>
+  </div>
+  <div
+    className="content_hidden"
+  >
+    <p
+      className="emptyListText"
+    >
+      <mock-FormattedMessage
+        defaultMessage="There are currently no items in this list"
+        id="wishlist.emptyListText"
+      />
+    </p>
+  </div>
+</div>
+`;
+
+exports[`render open with no items 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="header"
+  >
+    <div
+      className="nameContainer"
+    >
+      <h2
+        className="name"
+        title="Favorites List"
+      >
+        Favorites List
+      </h2>
+    </div>
+    <div
+      className="itemsCountContainer"
+    >
+      You have 0 items in this list
+    </div>
+    <div
+      className="buttonsContainer"
+    >
+      <ActionMenu
+        id={5}
+        name="Favorites List"
+        visibility="PUBLIC"
+      />
+      <button
+        className="visibilityToggle"
+        onClick={[MockFunction handleContentToggle]}
+        type="button"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="18 15 12 9 6 15"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    className="content"
+  >
+    <p
+      className="emptyListText"
+    >
+      <mock-FormattedMessage
+        defaultMessage="There are currently no items in this list"
+        id="wishlist.emptyListText"
+      />
+    </p>
+  </div>
+</div>
+`;
+
+exports[`renders a name even if none in data 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="header"
+  >
+    <div
+      className="nameContainer"
+    >
+      <h2
+        className="name"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Wish List"
+          id="wishlist.name"
+        />
+      </h2>
+    </div>
+    <div
+      className="itemsCountContainer"
+    >
+      You have 20 items in this list
+    </div>
+    <div
+      className="buttonsContainer"
+    >
+      <ActionMenu
+        id={5}
+        visibility="PUBLIC"
+      />
+      <button
+        className="visibilityToggle"
+        onClick={[MockFunction handleContentToggle]}
+        type="button"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    className="content_hidden"
+  >
+    <WishlistItems
+      wishlistId={5}
+    />
+  </div>
+</div>
+`;

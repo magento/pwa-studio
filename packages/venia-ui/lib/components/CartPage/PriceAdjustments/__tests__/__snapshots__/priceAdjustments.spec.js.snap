@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders Venia price adjustments 1`] = `
+<div>
+  <div>
+    <div>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          <span>
+            Estimate your Shipping
+          </span>
+          <span>
+            <svg
+              fill="none"
+              height={24}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={24}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="6 9 12 15 18 9"
+              />
+            </svg>
+          </span>
+        </span>
+      </button>
+      <div>
+        <require('./ShippingMethods') />
+      </div>
+    </div>
+    <div>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          <span>
+            Enter Coupon Code
+          </span>
+          <span>
+            <svg
+              fill="none"
+              height={24}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={24}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="6 9 12 15 18 9"
+              />
+            </svg>
+          </span>
+        </span>
+      </button>
+      <div>
+        <require('./CouponCode') />
+      </div>
+    </div>
+    <GiftCardSection />
+    <GiftOptionsSection />
+  </div>
+</div>
+`;

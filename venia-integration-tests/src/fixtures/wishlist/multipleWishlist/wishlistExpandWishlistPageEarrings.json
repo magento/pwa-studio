@@ -1,0 +1,44 @@
+{
+  "data": {
+    "customer": {
+      "id": null,
+      "wishlist_v2": {
+        "id": "103",
+        "items_v2": {
+          "items": [
+            {
+              "id": "130",
+              "product": {
+                "uid": "Mg==",
+                "image": {
+                  "label": "Augusta Earrings",
+                  "url": "https:\/\/staging-vdt2zeq-c5v7sxvquxwl4.eu-4.magentosite.cloud\/media\/catalog\/product\/cache\/630b622004cff8fabf2e4f4175ea67bd\/v\/a\/va12-ts_main.jpg",
+                  "__typename": "ProductImage"
+                },
+                "name": "Augusta Earrings",
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "USD",
+                      "value": 78,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "sku": "VA12-SI-NA",
+                "stock_status": "IN_STOCK",
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "SimpleWishlistItem"
+            }
+          ],
+          "__typename": "WishlistItems"
+        },
+        "__typename": "Wishlist"
+      },
+      "__typename": "Customer"
+    }
+  }
+}

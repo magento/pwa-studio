@@ -1,12 +1,25 @@
 import React, { useEffect } from 'react';
 import { Form, Text } from 'informed';
-import { act } from 'react-test-renderer';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
-import { runQuery, useLazyQuery } from '@apollo/react-hooks';
-import { useAutocomplete } from '../../../talons/SearchBar';
+import { runQuery, useLazyQuery } from '@apollo/client';
+import { useAutocomplete } from '../useAutocomplete';
 import createTestInstance from '../../../util/createTestInstance';
+import { useEventingContext } from '../../../context/eventing';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('informed', () => ({
+    ...jest.requireActual('informed')
+}));
+
+jest.mock(
+    '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper',
+    () => {
+        return jest.fn().mockReturnValue({
+            value: ''
+        });
+    }
+);
+jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {
         data: null,
@@ -19,11 +32,20 @@ jest.mock('@apollo/react-hooks', () => {
     return { runQuery, queryResult, useLazyQuery };
 });
 
+// Could not figure out fakeTimers. Just mock debounce and call callback.
+jest.mock('lodash.debounce', () => {
+    return callback => args => callback(args);
+});
+
+jest.mock('../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 const log = jest.fn();
 
 const Component = props => {
-    const query = {};
-    const talonProps = useAutocomplete({ ...props, query });
+    const queries = {};
+    const talonProps = useAutocomplete({ ...props, queries });
 
     useEffect(() => {
         log(talonProps);
@@ -32,39 +54,40 @@ const Component = props => {
     return <i />;
 };
 
-test('runs query only when input exceeds two characters', () => {
-    let formApi;
-
+test('runs query when valid is true', () => {
     createTestInstance(
-        <Form
-            getApi={api => {
-                formApi = api;
-            }}
-        >
+        <Form>
             <Text field="search_query" initialValue="" />
-            <Component visible={true} />
+            <Component valid={true} visible={true} />
         </Form>
     );
 
-    act(() => {
-        formApi.setValue('search_query', 'a');
-    });
-    act(() => {
-        formApi.setValue('search_query', 'ab');
-    });
-    act(() => {
-        formApi.setValue('search_query', 'abc');
-    });
-
-    expect(runQuery).toHaveBeenCalledTimes(1);
     expect(runQuery).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
             variables: {
-                inputText: 'abc'
+                inputText: ''
             }
         })
     );
+});
+
+test('dispatches an event when valid and visible are true and there is text value', () => {
+    const [, { dispatch }] = useEventingContext();
+
+    useFieldState.mockReturnValueOnce({
+        value: 'MOCK_VALUE'
+    });
+
+    createTestInstance(
+        <Form>
+            <Text field="search_query" initialValue="" />
+            <Component valid={true} visible={true} />
+        </Form>
+    );
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch.mock.calls[0][0]).toMatchSnapshot();
 });
 
 test('renders a hint message', () => {
@@ -123,7 +146,7 @@ test('renders a loading message', () => {
 });
 
 test('renders an empty-set message', () => {
-    const data = { products: { filters: [], items: [] } };
+    const data = { products: { aggregations: [], items: [] } };
     useLazyQuery.mockReturnValueOnce([
         runQuery,
         { data, error: null, loading: false }
@@ -131,7 +154,7 @@ test('renders an empty-set message', () => {
 
     createTestInstance(
         <Form>
-            <Component visible={true} />
+            <Component valid={true} visible={true} />
         </Form>
     );
 
@@ -144,7 +167,9 @@ test('renders an empty-set message', () => {
 });
 
 test('renders a summary message', () => {
-    const data = { products: { filters: [], items: { length: 1 } } };
+    const data = {
+        products: { aggregations: [], items: { length: 1 }, total_count: 1 }
+    };
     useLazyQuery.mockReturnValueOnce([
         runQuery,
         { data, error: null, loading: false }
@@ -152,7 +177,7 @@ test('renders a summary message', () => {
 
     createTestInstance(
         <Form>
-            <Component visible={true} />
+            <Component valid={true} visible={true} />
         </Form>
     );
 
@@ -160,6 +185,26 @@ test('renders a summary message', () => {
         1,
         expect.objectContaining({
             messageType: 'RESULT_SUMMARY'
+        })
+    );
+});
+
+test('renders a message invalid character length', () => {
+    useFieldState.mockReturnValueOnce({
+        value: 'MOCK_VALUE'
+    });
+
+    createTestInstance(
+        <Form>
+            <Text field="search_query" initialValue="a" />
+            <Component valid={false} visible={true} />
+        </Form>
+    );
+
+    expect(log).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+            messageType: 'INVALID_CHARACTER_LENGTH'
         })
     );
 });

@@ -1,0 +1,12 @@
+.root {
+    composes: root from '../clickable.module.css';
+
+    composes: font-semibold from global;
+    composes: leading-tight from global;
+    composes: max-w-full from global;
+    composes: text-colorDefault from global;
+    composes: text-brand-dark from global;
+    composes: underline from global;
+
+    composes: hover_text-colorDefault from global;
+}

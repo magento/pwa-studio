@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render with mailingAddress payable 1`] = `
+<div
+  className="root"
+>
+  <p
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Make Check payable to:"
+      id="checkMo.payableToTitle"
+    />
+  </p>
+  <p
+    className="formatAddress"
+  >
+    Test Inc
+  </p>
+  <p
+    className="mailingAddressTitle"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Send Check to:"
+      id="checkMo.mailingAddressTitle"
+    />
+  </p>
+  <p
+    className="formatAddress"
+  >
+    <span
+      className="addressLine"
+    >
+      Test Inc
+       
+      <br />
+    </span>
+    <span
+      className="addressLine"
+    >
+      c/o Payment
+       
+      <br />
+    </span>
+    <span
+      className="addressLine"
+    >
+      PO 12
+       
+      <br />
+    </span>
+    <span
+      className="addressLine"
+    >
+      Austin Texas
+       
+      <br />
+    </span>
+  </p>
+  <p
+    className="note"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Note: Your order will be shipped once the Check/Money Order has been received and processed."
+      id="checkMo.note"
+    />
+  </p>
+  <mock-BillingAddress
+    onBillingAddressChangedError={[MockFunction]}
+    onBillingAddressChangedSuccess={[MockFunction]}
+  />
+</div>
+`;
+
+exports[`Should return correct shape 1`] = `
+<div
+  className="root"
+>
+  <p
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Make Check payable to:"
+      id="checkMo.payableToTitle"
+    />
+  </p>
+  <p
+    className="formatAddress"
+  >
+    Venia Inc
+  </p>
+  <p
+    className="mailingAddressTitle"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Send Check to:"
+      id="checkMo.mailingAddressTitle"
+    />
+  </p>
+  <p
+    className="formatAddress"
+  >
+    <span
+      className="addressLine"
+    >
+      Venia Inc
+       
+      <br />
+    </span>
+    <span
+      className="addressLine"
+    >
+      c/o Payment
+       
+      <br />
+    </span>
+    <span
+      className="addressLine"
+    >
+      PO 122334
+       
+      <br />
+    </span>
+    <span
+      className="addressLine"
+    >
+      Austin Texas
+       
+      <br />
+    </span>
+  </p>
+  <p
+    className="note"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Note: Your order will be shipped once the Check/Money Order has been received and processed."
+      id="checkMo.note"
+    />
+  </p>
+  <mock-BillingAddress
+    onBillingAddressChangedError={[MockFunction]}
+    onBillingAddressChangedSuccess={[MockFunction]}
+  />
+</div>
+`;

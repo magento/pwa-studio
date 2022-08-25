@@ -1,18 +1,7 @@
-import React, { useEffect } from 'react';
-import { HeadProvider } from 'react-head';
-
-const removeExistingTitleTags = titleTags => {
-    titleTags.forEach(titleTag => {
-        if (titleTag) titleTag.parentNode.removeChild(titleTag);
-    });
-};
+import React from 'react';
+import { HelmetProvider as HeadProvider } from 'react-helmet-async';
 
 const VeniaHeadProvider = props => {
-    useEffect(() => {
-        const titleTagsToRemove = document.getElementsByTagName('title');
-        removeExistingTitleTags([...titleTagsToRemove]);
-    }, []);
-
     return <HeadProvider>{props.children}</HeadProvider>;
 };
 

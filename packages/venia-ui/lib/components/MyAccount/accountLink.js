@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
 import { arrayOf, func, node, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Button from '../Button';
 
-import defaultClasses from './accountLink.css';
+import defaultClasses from './accountLink.module.css';
 
 const AccountLink = props => {
     const { children, onClick } = props;
     const [icon, text] = children;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
         if (typeof onClick === 'function') {

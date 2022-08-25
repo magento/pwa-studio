@@ -1,0 +1,49 @@
+.root {
+    composes: content-center from global;
+    composes: gap-lg from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: justify-items-center from global;
+    height: calc(100% - 6rem);
+    composes: mx-0 from global;
+    composes: my-lg from global;
+    composes: w-full from global;
+}
+
+.global {
+    composes: root;
+
+    composes: fixed from global;
+    composes: h-full from global;
+    composes: left-0 from global;
+    composes: m-0 from global;
+    composes: top-0 from global;
+    composes: w-full from global;
+}
+
+.message {
+    composes: text-colorDefault from global;
+    composes: text-subtle from global;
+    composes: uppercase from global;
+    letter-spacing: 0.25em;
+}
+
+.indicator {
+    animation-direction: alternate;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-name: pulse;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pulse {
+    0% {
+        filter: grayscale(1);
+        transform: scale(0.75) rotate(-540deg);
+    }
+    100% {
+        filter: grayscale(0);
+        transform: scale(1) rotate(0deg);
+    }
+}

@@ -1,0 +1,57 @@
+title: Venia UI API
+entries:
+    - label: Extension points
+      entries:
+        - label: Targets
+          url: /venia-ui/reference/targets/
+
+    - label: Application components
+      entries:
+
+      - label: Button
+        url: /venia-ui/reference/components/Button/
+
+      - label: ButtonGroup
+        url: /venia-ui/reference/components/ButtonGroup/
+
+      - label: Link
+        url: /venia-ui/reference/components/Link/
+
+      - label: Logo
+        url: /venia-ui/reference/components/Logo/
+
+      - label: Mask
+        url: /venia-ui/reference/components/Mask/
+
+      - label: Portal
+        url: /venia-ui/reference/components/Portal/
+
+      - label: ProductImageCarousel
+        url: /venia-ui/reference/components/ProductImageCarousel/
+
+      - label: Shimmer
+        url: /venia-ui/reference/components/Shimmer/
+
+      - label: ToastContainer
+        url: /venia-ui/reference/components/ToastContainer/
+
+      - label: Trigger
+        url: /venia-ui/reference/components/Trigger/
+
+    - label: Shopping cart components
+      entries:
+
+      - label: Cart Page
+        url: /venia-ui/reference/components/CartPage/
+
+      - label: Gift Cards
+        url: /venia-ui/reference/components/CartPage/GiftCards/
+
+      - label: Price Adjustments
+        url: /venia-ui/reference/components/CartPage/PriceAdjustments/
+
+      - label: Price Summary
+        url: /venia-ui/reference/components/CartPage/PriceSummary/
+
+      - label: Product Listing
+        url: /venia-ui/reference/components/CartPage/ProductListing/

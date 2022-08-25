@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <button
+    onClick={[MockFunction handleActionMenuClick]}
+    type="button"
+  >
+    <span>
+      <svg
+        fill="none"
+        height={24}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={24}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="1"
+        />
+        <circle
+          cx="19"
+          cy="12"
+          r="1"
+        />
+        <circle
+          cx="5"
+          cy="12"
+          r="1"
+        />
+      </svg>
+    </span>
+  </button>
+  <WishlistListActionsDialog
+    isOpen={[MockFunction listActionsIsOpen]}
+    onCancel={[MockFunction handleHideDialogs]}
+    onEdit={[MockFunction handleShowEditFavorites]}
+  />
+  <WishlistEditFavoritesListDialog
+    formErrors={[MockFunction formErrors]}
+    formProps={
+      Object {
+        "initialValues": Object {
+          "name": undefined,
+          "visibility": undefined,
+        },
+      }
+    }
+    isEditInProgress={[MockFunction isEditInProgress]}
+    isOpen={[MockFunction editFavoritesListIsOpen]}
+    onCancel={[MockFunction handleHideDialogs]}
+    onConfirm={[MockFunction handleEditWishlist]}
+  />
+</div>
+`;
+
+exports[`should not render if shouldRender is false 1`] = `null`;

@@ -1,0 +1,24 @@
+.root {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: pt-xs from global;
+
+    composes: lg_pt-0 from global;
+    composes: lg_sticky from global;
+    composes: lg_top-22 from global;
+}
+
+.form {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+}
+
+.actions {
+    composes: text-center from global;
+}
+
+.create_account_button {
+    composes: root_normalPriority from '../../Button/button.module.css';
+}

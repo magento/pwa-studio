@@ -89,6 +89,6 @@ Now that you have the basic directory structure for your theme project, you need
 
 [Magento Themes]: http://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-create.html
 [Magento Marketplace]: https://marketplace.magento.com/
-[install project dependencies]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
-[Project setup tutorial]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/index.md %}
+[install project dependencies]: {% link pwa-buildpack/project-setup/install-dependencies/index.md %}
+[Project setup tutorial]: {% link pwa-buildpack/project-setup/index.md %}
 [PWA base theme]: https://github.com/magento-research/theme-frontend-pwa

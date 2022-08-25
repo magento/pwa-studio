@@ -5,13 +5,11 @@ Array [
   <div
     className="root"
   >
-    <h3
+    <span
       className="title"
     >
-      <span>
-        option-1
-      </span>
-    </h3>
+      option-1
+    </span>
     <div
       className="root"
     />
@@ -21,7 +19,15 @@ Array [
       <dt
         className="selectionLabel"
       >
-        Selected option-1:
+        <mock-FormattedMessage
+          defaultMessage="Selected {label}:"
+          id="productOptions.selectedLabel"
+          values={
+            Object {
+              "label": "option-1",
+            }
+          }
+        />
       </dt>
       <dd>
         None
@@ -31,13 +37,11 @@ Array [
   <div
     className="root"
   >
-    <h3
+    <span
       className="title"
     >
-      <span>
-        option-1
-      </span>
-    </h3>
+      option-1
+    </span>
     <div
       className="root"
     />
@@ -47,7 +51,15 @@ Array [
       <dt
         className="selectionLabel"
       >
-        Selected option-1:
+        <mock-FormattedMessage
+          defaultMessage="Selected {label}:"
+          id="productOptions.selectedLabel"
+          values={
+            Object {
+              "label": "option-1",
+            }
+          }
+        />
       </dt>
       <dd>
         None
@@ -56,5 +68,3 @@ Array [
   </div>,
 ]
 `;
-
-exports[`renders null if product is not configurable 1`] = `null`;

@@ -1,0 +1,60 @@
+.root {
+    composes: relative from global;
+}
+
+.heading {
+    composes: bg-white from global;
+    composes: col-end-span2 from global;
+    composes: font-semibold from global;
+    composes: leading-none from global;
+    composes: pb-xs from global;
+    composes: pt-sm from global;
+    composes: px-0 from global;
+    composes: text-center from global;
+    composes: text-sm from global;
+    composes: top-0 from global;
+    composes: uppercase from global;
+    composes: z-foreground from global;
+}
+
+.body {
+    composes: bg-white from global;
+    composes: content-start from global;
+    composes: grid from global;
+    composes: gap-2xs from global;
+    composes: h-[7rem] from global;
+    composes: left-0 from global;
+    composes: overflow-auto from global;
+    composes: pb-2xs from global;
+    composes: px-sm from global;
+    composes: pt-0 from global;
+    composes: absolute from global;
+    composes: right-0 from global;
+    animation-duration: 224ms;
+    animation-iteration-count: 1;
+    animation-name: enter;
+    box-shadow: 0 -1px rgb(var(--venia-global-color-border));
+    max-height: calc(100vh - 8.5rem); /* TODO @TW: review */
+}
+
+.footer {
+    composes: bg-white from global;
+    composes: content-center from global;
+    composes: gap-y-1 from global;
+    composes: grid from global;
+    composes: h-[7rem] from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: relative from global;
+}
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}

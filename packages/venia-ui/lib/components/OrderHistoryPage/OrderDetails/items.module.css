@@ -1,0 +1,16 @@
+.root {
+    composes: pr-0 from global;
+
+    composes: lg_grid from global;
+    composes: lg_pr-sm from global;
+}
+
+.heading {
+    composes: font-bold from global;
+    composes: pb-3 from global;
+}
+
+.itemsContainer {
+    composes: grid from global;
+    composes: gap-y-md from global;
+}

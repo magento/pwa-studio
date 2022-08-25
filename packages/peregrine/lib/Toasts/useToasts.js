@@ -32,9 +32,9 @@ export const getToastId = ({
 
     // The hashing function below should generally avoid accidental collisions.
     // It exists to give a "readable" identifier to toasts for debugging.
-    let hash = 0,
-        i,
-        chr;
+    let hash = 0;
+    let i;
+    let chr;
     if (combined.length === 0) return hash;
     for (i = 0; i < combined.length; i++) {
         chr = combined.charCodeAt(i);
@@ -100,6 +100,11 @@ export const useToasts = () => {
          *   This property is optional when creating toasts.
          * @property {String} [actionText] Text to display as a call to action.
          *   This property is optional when creating toasts.
+         * @property {Bool} [hasDismissAction] Indicates whether the toast should have a
+         *   dismiss action with the same behavior as the dismiss icon.
+         *   This property is optional when creating toasts.
+         * @property {String} [dismissActionText] Text to display as a call to dissmisAction.
+         *   This property is optional when creating toasts.
          * @property {Function} [onAction] Callback invoked when a user clicks the action
          *   text.
          *   This property is optional when creating toasts.
@@ -113,7 +118,7 @@ export const useToasts = () => {
             const {
                 dismissable,
                 message,
-                timeout,
+                timeout = DEFAULT_TIMEOUT,
                 type,
                 onDismiss,
                 onAction

@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render EditModal component only if doneEditing is true 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="payment_info_container"
+  >
+    <require('./summary')
+      onEdit={[MockFunction]}
+    />
+  </div>
+  <require('./editModal')
+    isOpen={false}
+    onClose={[MockFunction]}
+  />
+</div>
+`;
+
+exports[`Should render PaymentMethods component only if doneEditing is false 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="payment_info_container"
+  >
+    <form
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <require('./paymentMethods')
+        onPaymentError={[MockFunction]}
+        onPaymentSuccess={[MockFunction]}
+      />
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Should render loading state 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="root"
+  >
+    <svg
+      className="icon"
+      fill="none"
+      height={64}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width={64}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line
+        x1="12"
+        x2="12"
+        y1="2"
+        y2="6"
+      />
+      <line
+        x1="12"
+        x2="12"
+        y1="18"
+        y2="22"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="4.93"
+        y2="7.76"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="16.24"
+        y2="19.07"
+      />
+      <line
+        x1="2"
+        x2="6"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="18"
+        x2="22"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="19.07"
+        y2="16.24"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="7.76"
+        y2="4.93"
+      />
+    </svg>
+  </span>
+  <span
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Fetching Payment Information"
+      id="checkoutPage.loadingPaymentInformation"
+    />
+  </span>
+</div>
+`;
+
+exports[`Should render summary component only if doneEditing is true 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="payment_info_container"
+  >
+    <require('./summary')
+      onEdit={[MockFunction]}
+    />
+  </div>
+  <require('./editModal')
+    isOpen={false}
+    onClose={[MockFunction]}
+  />
+</div>
+`;

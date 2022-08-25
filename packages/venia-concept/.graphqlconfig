@@ -1,14 +1,11 @@
 {
     "projects": {
         "venia": {
-            "schemaPath": "lastCachedGraphQLSchema.json",
+            "schemaPath": "merged-schema.v3.json",
+            "includes": ["**/client-schema.graphql"],
             "extensions": {
                 "endpoints": {
                     "default": "${env:MAGENTO_BACKEND_URL}/graphql"
-                },
-                "validate-magento-pwa-queries": {
-                    "clients": ["apollo", "literal"],
-                    "filesGlob": "src/**/*.{js,graphql,gql}"
                 }
             }
         }

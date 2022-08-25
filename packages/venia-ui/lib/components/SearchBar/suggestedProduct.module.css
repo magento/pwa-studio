@@ -1,0 +1,24 @@
+.root {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    grid-template-columns: 60px 1fr;
+}
+
+.image {
+    composes: items-center from global;
+    composes: inline-flex from global;
+    composes: justify-center from global;
+}
+
+.thumbnail {
+    composes: h-[75px] from global;
+    composes: max-h-[75px] from global;
+    composes: object-contain from global;
+    composes: object-center from global;
+}
+
+.name {
+    composes: break-words from global;
+}

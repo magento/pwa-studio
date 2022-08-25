@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addToCart should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "123",
+    "currencyCode": "USD",
+    "discountAmount": 0,
+    "name": "Shirt",
+    "priceTotal": 123.45,
+    "quantity": 1,
+    "selectedOptions": Array [
+      Object {
+        "attribute": "Color",
+        "value": "Red",
+      },
+      Object {
+        "attribute": "Size",
+        "value": "M",
+      },
+    ],
+    "sku": "nice-shirt",
+  },
+  "type": "CART_ADD_ITEM",
+}
+`;
+
+exports[`returns configurable option props 1`] = `
+Object {
+  "onSelectionChange": [Function],
+  "options": Array [
+    Object {
+      "attribute_id_v2": 1,
+      "label": "Color",
+      "values": Array [
+        Object {
+          "label": "Red",
+          "uid": "red-uid",
+          "value_index": "red-id",
+        },
+        Object {
+          "label": "Blue",
+          "uid": "blue-uid",
+          "value_index": "blue-id",
+        },
+      ],
+    },
+    Object {
+      "attribute_id_v2": 2,
+      "label": "Size",
+      "values": Array [
+        Object {
+          "label": "L",
+          "uid": "large-uid",
+          "value_index": "large-id",
+        },
+        Object {
+          "label": "M",
+          "uid": "medium-uid",
+          "value_index": "medium-id",
+        },
+      ],
+    },
+  ],
+  "selectedValues": Array [
+    Object {
+      "id": 1,
+      "value_id": "red-id",
+    },
+  ],
+}
+`;

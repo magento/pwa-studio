@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render configured tab 1`] = `
+<div
+  className="root test-class"
+  data-tabs={true}
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  style={
+    Object {
+      "--tabs-border": "solid",
+      "--tabs-border-color": "red",
+      "--tabs-border-radius": "5px",
+      "--tabs-border-width": "10px",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+    }
+  }
+>
+  <div
+    className={null}
+  >
+    <ul
+      className="navigationRight"
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseMove={[Function]}
+      onMouseUp={[Function]}
+      role="tablist"
+    >
+      <li
+        aria-controls="react-tabs-1"
+        aria-disabled="false"
+        aria-selected="true"
+        className="header selected"
+        id="react-tabs-0"
+        role="tab"
+        tabIndex="0"
+      >
+        Tab 1
+      </li>
+    </ul>
+  </div>
+  <div
+    className="contentRight"
+    style={
+      Object {
+        "minHeight": "300px",
+        "textAlign": undefined,
+      }
+    }
+  >
+    <div
+      aria-labelledby="react-tabs-0"
+      className="panel panelSelected"
+      id="react-tabs-1"
+      role="tabpanel"
+    >
+      <div>
+        Tab 1 content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`render tabs with no props 1`] = `null`;

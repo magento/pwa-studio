@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useCategoryContent tests handles no data prop 1`] = `
+Object {
+  "availableSortMethods": null,
+  "categoryDescription": "Jewelry category",
+  "categoryName": "Jewelry",
+  "filters": null,
+  "items": Array [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ],
+  "totalCount": null,
+  "totalPagesFromData": null,
+}
+`;
+
+exports[`useCategoryContent tests returns the proper shape 1`] = `
+Object {
+  "availableSortMethods": Array [
+    Object {
+      "label": "label",
+      "value": "value",
+    },
+  ],
+  "categoryDescription": "Jewelry category",
+  "categoryName": "Jewelry",
+  "filters": Array [
+    Object {
+      "label": "Label",
+    },
+  ],
+  "items": Array [
+    Object {
+      "id": 1,
+      "name": "Ring",
+    },
+    Object {
+      "id": 2,
+      "name": "Necklace",
+    },
+  ],
+  "totalCount": 2,
+  "totalPagesFromData": 1,
+}
+`;
+
+exports[`useCategoryContent tests should dispatch page view event 1`] = `
+Object {
+  "payload": Object {
+    "id": "UID",
+    "name": "Jewelry",
+    "url_key": "jewelry",
+    "url_path": "accessories/jewelry",
+  },
+  "type": "CATEGORY_PAGE_VIEW",
+}
+`;

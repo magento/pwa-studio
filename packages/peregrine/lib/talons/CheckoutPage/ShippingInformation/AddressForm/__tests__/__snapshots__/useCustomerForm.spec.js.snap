@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`return correct shape for address with street2 as null 1`] = `
+Object {
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
+  "handleCancel": [Function],
+  "handleSubmit": [Function],
+  "hasDefaultShipping": true,
+  "initialValues": Object {
+    "country": "US",
+    "region": Object {
+      "id": null,
+    },
+  },
+  "isLoading": true,
+  "isSaving": false,
+  "isUpdate": false,
+}
+`;
+
+exports[`return correct shape for address with street2 as null 2`] = `
+Object {
+  "refetchQueries": Array [
+    Object {
+      "query": "getCustomerAddressesQuery",
+    },
+    Object {
+      "query": "getCustomerAddressesQuery",
+    },
+  ],
+  "variables": Object {
+    "address": Object {
+      "country_code": "US",
+      "firstname": "Philip",
+      "region": Object {
+        "region_id": 2,
+      },
+      "street": Array [
+        "Street 1",
+      ],
+    },
+  },
+}
+`;
+
+exports[`return correct shape for initial address entry 1`] = `
+Object {
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
+  "handleCancel": [Function],
+  "handleSubmit": [Function],
+  "hasDefaultShipping": false,
+  "initialValues": Object {
+    "country": "US",
+    "email": "fry@planet.express",
+    "firstname": "Philip",
+    "lastname": "Fry",
+    "region": Object {
+      "id": null,
+    },
+  },
+  "isLoading": false,
+  "isSaving": false,
+  "isUpdate": false,
+}
+`;
+
+exports[`return correct shape for new address and fire create mutation 1`] = `
+Object {
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
+  "handleCancel": [Function],
+  "handleSubmit": [Function],
+  "hasDefaultShipping": true,
+  "initialValues": Object {
+    "country": "US",
+    "region": Object {
+      "id": null,
+    },
+  },
+  "isLoading": true,
+  "isSaving": false,
+  "isUpdate": false,
+}
+`;
+
+exports[`return correct shape for new address and fire create mutation 2`] = `
+Object {
+  "refetchQueries": Array [
+    Object {
+      "query": "getCustomerAddressesQuery",
+    },
+    Object {
+      "query": "getCustomerAddressesQuery",
+    },
+  ],
+  "variables": Object {
+    "address": Object {
+      "country_code": "US",
+      "firstname": "Philip",
+      "region": Object {
+        "region_id": 2,
+      },
+      "street": Array [
+        "Street 1",
+      ],
+    },
+  },
+}
+`;
+
+exports[`return correct shape for update address and fire update mutation 1`] = `
+Object {
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
+  "handleCancel": [Function],
+  "handleSubmit": [Function],
+  "hasDefaultShipping": true,
+  "initialValues": Object {
+    "city": "New York",
+    "country": "US",
+    "id": 66,
+    "region": Object {
+      "id": null,
+    },
+  },
+  "isLoading": false,
+  "isSaving": false,
+  "isUpdate": true,
+}
+`;
+
+exports[`return correct shape for update address and fire update mutation 2`] = `
+Object {
+  "refetchQueries": Array [
+    Object {
+      "query": "getCustomerAddressesQuery",
+    },
+  ],
+  "variables": Object {
+    "address": Object {
+      "country_code": "UK",
+      "firstname": "Bender",
+      "region": Object {
+        "region": 5,
+      },
+      "street": Array [
+        "Street 1",
+      ],
+    },
+    "addressId": 66,
+  },
+}
+`;
+
+exports[`returns Apollo errors for create customer address 1`] = `undefined`;
+
+exports[`returns Apollo errors for update customer address 1`] = `undefined`;
+
+exports[`should dispatch event(s) \`add\` and \`create\` when created first address 1`] = `
+Object {
+  "payload": Object {
+    "address": Object {
+      "country_code": "US",
+      "firstname": "Philip",
+      "region": Object {
+        "region_id": 2,
+      },
+      "street": Array [
+        "Street 1",
+      ],
+    },
+    "user": Object {
+      "customer": Object {
+        "default_shipping": null,
+        "email": "fry@planet.express",
+        "firstname": "Philip",
+        "lastname": "Fry",
+      },
+    },
+  },
+  "type": "USER_ADDRESS_CREATE",
+}
+`;
+
+exports[`should dispatch event(s) \`add\` and \`create\` when created first address 2`] = `
+Object {
+  "payload": Object {
+    "cart_id": undefined,
+  },
+  "type": "CHECKOUT_SHIPPING_INFORMATION_ADDED",
+}
+`;
+
+exports[`should dispatch event(s) \`create\` when new address added to the address book 1`] = `
+Object {
+  "payload": Object {
+    "address": Object {
+      "country_code": "US",
+      "firstname": "Philip",
+      "region": Object {
+        "region_id": 2,
+      },
+      "street": Array [
+        "Street 1",
+      ],
+    },
+    "user": Object {
+      "customer": Object {
+        "default_shipping": 5,
+        "email": "fry@planet.express",
+        "firstname": "Philip",
+        "lastname": "Fry",
+      },
+    },
+  },
+  "type": "USER_ADDRESS_CREATE",
+}
+`;
+
+exports[`should dispatch event(s) \`edit\` when user updates address 1`] = `
+Object {
+  "payload": Object {
+    "address": Object {
+      "country_code": "US",
+      "firstname": "Philip",
+      "region": Object {
+        "region_id": 2,
+      },
+      "street": Array [
+        "Street 2",
+      ],
+    },
+    "user": Object {
+      "customer": Object {
+        "default_shipping": 5,
+        "email": "fry@planet.express",
+        "firstname": "Philip",
+        "lastname": "Fry",
+      },
+    },
+  },
+  "type": "USER_ADDRESS_EDIT",
+}
+`;

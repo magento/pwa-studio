@@ -1,7 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@apollo/client';
+
+import mergeOperations from '../../util/shallowMerge';
+import { useAppContext } from '../../context/app';
+import { useCatalogContext } from '../../context/catalog';
+import { useUserContext } from '../../context/user';
+import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+import useInternalLink from '../../hooks/useInternalLink';
+
+import DEFAULT_OPERATIONS from './navigation.gql';
 
 const ancestors = {
     CREATE_ACCOUNT: 'SIGN_IN',
@@ -11,25 +18,46 @@ const ancestors = {
     MENU: null
 };
 
-export const useNavigation = () => {
+export const useNavigation = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCustomerQuery, getRootCategoryId } = operations;
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
     const [, { getUserDetails }] = useUserContext();
+    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
 
     // request data from server
     useEffect(() => {
-        getUserDetails();
-    }, [getUserDetails]);
+        getUserDetails({ fetchUserDetails });
+    }, [fetchUserDetails, getUserDetails]);
+
+    const { data: getRootCategoryData } = useQuery(getRootCategoryId, {
+        fetchPolicy: 'cache-and-network'
+    });
+
+    const rootCategoryId = useMemo(() => {
+        if (getRootCategoryData) {
+            return getRootCategoryData.storeConfig.root_category_uid;
+        }
+    }, [getRootCategoryData]);
 
     // extract relevant data from app state
     const { drawer } = appState;
     const isOpen = drawer === 'nav';
-    const { categories, rootCategoryId } = catalogState;
+    const { categories } = catalogState;
 
     // get local state
     const [view, setView] = useState('MENU');
     const [categoryId, setCategoryId] = useState(rootCategoryId);
+
+    useEffect(() => {
+        // On a fresh render with cold cache set the current category as root
+        // once the root category query completes.
+        if (rootCategoryId && !categoryId) {
+            setCategoryId(rootCategoryId);
+        }
+    }, [categoryId, rootCategoryId]);
 
     // define local variables
     const category = categories[categoryId];
@@ -49,9 +77,13 @@ export const useNavigation = () => {
         }
     }, [category, closeDrawer, isTopLevel, view]);
 
+    const { setShimmerType } = useInternalLink('category');
+
     const handleClose = useCallback(() => {
         closeDrawer();
-    }, [closeDrawer]);
+        // Sets next root component to show proper loading effect
+        setShimmerType();
+    }, [closeDrawer, setShimmerType]);
 
     // create callbacks for local state
     const showCreateAccount = useCallback(() => {
@@ -72,7 +104,6 @@ export const useNavigation = () => {
 
     return {
         catalogActions,
-        categories,
         categoryId,
         handleBack,
         handleClose,

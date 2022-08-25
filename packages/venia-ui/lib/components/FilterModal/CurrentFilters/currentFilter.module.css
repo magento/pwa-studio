@@ -1,0 +1,21 @@
+.root {
+    min-height: 2.5rem;
+    composes: bg-gray-700 from global;
+    composes: font-semibold from global;
+    composes: gap-2xs from global;
+    composes: grid-flow-col from global;
+    composes: inline-grid from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: pl-2 from global;
+    composes: pr-3 from global;
+    composes: py-2.5 from global;
+    composes: rounded-md from global;
+    composes: text-white from global;
+}
+
+/* TODO @TW: cannot compose */
+.root svg {
+    /* composes: stroke-white from global; */
+    stroke: rgb(var(--venia-global-color-gray-50));
+}

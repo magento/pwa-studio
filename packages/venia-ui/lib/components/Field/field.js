@@ -1,21 +1,27 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { bool, node, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
-import defaultClasses from './field.css';
+import { useStyle } from '../../classify';
+import defaultClasses from './field.module.css';
 
 const Field = props => {
-    const { children, id, label, required } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const requiredSymbol = required ? (
-        <span className={classes.requiredSymbol} />
+    const { children, id, label, optional } = props;
+    const classes = useStyle(defaultClasses, props.classes);
+    const optionalSymbol = optional ? (
+        <span className={classes.optional}>
+            <FormattedMessage
+                id={'field.optional'}
+                defaultMessage={'Optional'}
+            />
+        </span>
     ) : null;
 
     return (
         <div className={classes.root}>
             <label className={classes.label} htmlFor={id}>
-                {requiredSymbol}
                 {label}
+                {optionalSymbol}
             </label>
             {children}
         </div>
@@ -30,7 +36,7 @@ Field.propTypes = {
     }),
     id: string,
     label: node,
-    required: bool
+    optional: bool
 };
 
 export default Field;

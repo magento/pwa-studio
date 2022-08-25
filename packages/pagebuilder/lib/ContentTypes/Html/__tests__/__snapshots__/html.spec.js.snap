@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a html component 1`] = `
+<div
+  className="root"
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": undefined,
+    }
+  }
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  role="presentation"
+  style={
+    Object {
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+/>
+`;
+
+exports[`renders a html component with all props configured 1`] = `
+<div
+  className="root test-class"
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<button>Html button</button>",
+    }
+  }
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  role="presentation"
+  style={
+    Object {
+      "border": "solid",
+      "borderColor": "red",
+      "borderRadius": "15px",
+      "borderWidth": "10px",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "right",
+    }
+  }
+/>
+`;

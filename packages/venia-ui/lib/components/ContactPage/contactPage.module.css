@@ -1,0 +1,81 @@
+.root {
+    composes: px-4 from global;
+}
+
+.banner {
+    composes: mb-8 from global;
+}
+
+.title {
+    composes: mb-2 from global;
+    composes: mt-4 from global;
+    composes: text-center from global;
+    composes: text-3xl from global;
+
+    /* Medium */
+    composes: md_text-left from global;
+    composes: md_text-4xl from global;
+}
+
+.subtitle {
+    composes: mb-4 from global;
+}
+
+.content {
+    /* Medium */
+    composes: md_flex from global;
+    composes: md_justify-center from global;
+}
+
+.formContainer,
+.sideContent {
+    /* Medium */
+    composes: md_w-1/2 from global;
+}
+
+.sideContent {
+    composes: border-gray-300 from global;
+    composes: border-solid from global;
+    composes: border-t from global;
+    composes: mt-6 from global;
+    composes: pt-10 from global;
+
+    /* Medium */
+    composes: md_border-none from global;
+    composes: md_mt-0 from global;
+    composes: md_pt-4 from global;
+    composes: md_pl-12 from global;
+}
+
+.form {
+    composes: gap-y-4 from global;
+    composes: grid from global;
+}
+
+.formErrors {
+    border-color: rgb(var(--venia-global-color-error));
+    border-style: solid;
+    border-width: 0 0 0 5px;
+    padding: 1rem 0 1rem 1rem;
+    display: grid;
+    grid-column: 1 / span 1;
+}
+
+.loadingContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(252, 252, 252, 0.75);
+}
+
+.buttonsContainer {
+    composes: px-0 from global;
+    composes: py-4 from global;
+    composes: text-center from global;
+
+    /* Medium */
+    composes: md_text-left from global;
+}

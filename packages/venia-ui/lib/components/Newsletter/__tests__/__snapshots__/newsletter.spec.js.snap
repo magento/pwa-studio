@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Newsletter display it does not display when disabled 1`] = `null`;
+
+exports[`#Newsletter display it renders shimmer while loading config 1`] = `<NewsletterShimmer />`;
+
+exports[`#Newsletter display renders correctly 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Subscribe to Venia"
+      id="newsletter.titleText"
+    />
+  </span>
+  <p
+    className="newsletter_text"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Recieve the latest news, update and special offers right to your inbox."
+      id="newsletter.infoText"
+    />
+  </p>
+  <FormError
+    allowErrorMessages={true}
+    errors={Array []}
+  />
+  <form
+    className="form"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+        htmlFor="email"
+      >
+        Email
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            autoComplete="email"
+            className="input"
+            id="email"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+    <i />
+    <div
+      className="buttonsContainer"
+    >
+      <i />
+    </div>
+  </form>
+</div>
+`;
+
+exports[`#Newsletter submit displays an error message if the email already subscribed 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Subscribe to Venia"
+      id="newsletter.titleText"
+    />
+  </span>
+  <p
+    className="newsletter_text"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Recieve the latest news, update and special offers right to your inbox."
+      id="newsletter.infoText"
+    />
+  </p>
+  <FormError
+    allowErrorMessages={true}
+    errors={
+      Array [
+        "This email address is already subscribed.",
+      ]
+    }
+  />
+  <form
+    className="form"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+        htmlFor="email"
+      >
+        Email
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            autoComplete="email"
+            className="input"
+            id="email"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+    <i />
+    <div
+      className="buttonsContainer"
+    >
+      <i />
+    </div>
+  </form>
+</div>
+`;

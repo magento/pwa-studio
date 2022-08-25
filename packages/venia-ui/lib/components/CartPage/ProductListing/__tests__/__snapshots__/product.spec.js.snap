@@ -1,0 +1,1019 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders configurable product with options 1`] = `
+<li
+  className="root"
+>
+  <span
+    className="errorText"
+  />
+  <div
+    className="item"
+  >
+    <div
+      className="imageContainer"
+      to="/unittest.html"
+    >
+      <Image
+        alt=""
+        classes={
+          Object {
+            "image": "image",
+            "root": "imageRoot",
+          }
+        }
+        resource={Object {}}
+        width={100}
+      />
+    </div>
+    <div
+      className="details"
+    >
+      <div
+        className="name"
+      >
+        <div
+          to="/unittest.html"
+        >
+          
+        </div>
+      </div>
+      <dl
+        className="options"
+      >
+        <div
+          className="optionLabel"
+        >
+          <dt
+            className="optionName"
+          >
+            Option 1 :
+          </dt>
+          <dd
+            className="optionValue"
+          >
+            Value 1
+          </dd>
+        </div>
+        <div
+          className="optionLabel"
+        >
+          <dt
+            className="optionName"
+          >
+            Option 2 :
+          </dt>
+          <dd
+            className="optionValue"
+          >
+            Value 2
+          </dd>
+        </div>
+      </dl>
+      <span
+        className="price"
+      >
+        <span>
+          $
+        </span>
+        <span>
+          1
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
+        <mock-FormattedMessage
+          defaultMessage=" ea."
+          id="product.price"
+        />
+      </span>
+      <span
+        className="stockStatusMessage"
+      >
+        
+      </span>
+      <div
+        className="quantity"
+      >
+        <form
+          onKeyDown={[Function]}
+          onReset={[Function]}
+          onSubmit={[Function]}
+        >
+          <div
+            className="root"
+          >
+            <label
+              className="label"
+              htmlFor="123"
+            >
+              Quantity
+            </label>
+            <button
+              aria-label="Decrease Quantity"
+              className="button_decrement"
+              disabled={true}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+            <span
+              className="root"
+              style={
+                Object {
+                  "--iconsAfter": 0,
+                  "--iconsBefore": 0,
+                }
+              }
+            >
+              <span
+                className="input"
+              >
+                <input
+                  aria-label="Item Quantity"
+                  className="input"
+                  id="123"
+                  inputMode="numeric"
+                  min={0}
+                  name="quantity"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  pattern="[0-9]*"
+                  value={1}
+                />
+              </span>
+              <span
+                className="before"
+              />
+              <span
+                className="after"
+              />
+            </span>
+            <p
+              className="root"
+            />
+            <button
+              aria-label="Increase Quantity"
+              className="button_increment"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={20}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="12"
+                    x2="12"
+                    y1="5"
+                    y2="19"
+                  />
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      className="root"
+    >
+      <button
+        className="kebab"
+        onClick={[Function]}
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="5"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="19"
+              r="1"
+            />
+          </svg>
+        </span>
+      </button>
+      <ul
+        aria-hidden="true"
+        className="dropdown"
+      >
+        <li
+          className="menuItem"
+        >
+          <button
+            aria-label="Edit item"
+            className="button"
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={16}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                />
+              </svg>
+            </span>
+            <span
+              className="text"
+            >
+              Edit item
+            </span>
+          </button>
+        </li>
+        <li
+          className="menuItem"
+        >
+          <button
+            aria-label="Remove from cart"
+            className="button"
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={16}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polyline
+                  points="3 6 5 6 21 6"
+                />
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                />
+              </svg>
+            </span>
+            <span
+              className="text"
+            >
+              Remove from cart
+            </span>
+          </button>
+        </li>
+        <li>
+          <AddToListButton
+            atwProp1="value1"
+            classes={
+              Object {
+                "root": "addToListButton",
+                "root_selected": "addToListButton_selected",
+              }
+            }
+            icon={
+              <Icon
+                size={16}
+                src={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "propTypes": Object {
+                      "color": [Function],
+                      "size": [Function],
+                    },
+                    "render": [Function],
+                  }
+                }
+              />
+            }
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`renders out of stock product 1`] = `
+<li
+  className="root"
+>
+  <span
+    className="errorText"
+  />
+  <div
+    className="item"
+  >
+    <div
+      className="imageContainer"
+      to="/popular-product"
+    >
+      <Image
+        alt=""
+        classes={
+          Object {
+            "image": "image",
+            "root": "imageRoot",
+          }
+        }
+        resource={Object {}}
+        width={100}
+      />
+    </div>
+    <div
+      className="details"
+    >
+      <div
+        className="name"
+      >
+        <div
+          to="/popular-product"
+        >
+          
+        </div>
+      </div>
+      <span
+        className="price"
+      >
+        <span>
+          $
+        </span>
+        <span>
+          55
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
+        <mock-FormattedMessage
+          defaultMessage=" ea."
+          id="product.price"
+        />
+      </span>
+      <span
+        className="stockStatusMessage"
+      >
+        Out-of-stock
+      </span>
+      <div
+        className="quantity"
+      >
+        <form
+          onKeyDown={[Function]}
+          onReset={[Function]}
+          onSubmit={[Function]}
+        >
+          <div
+            className="root"
+          >
+            <label
+              className="label"
+              htmlFor="123"
+            >
+              Quantity
+            </label>
+            <button
+              aria-label="Decrease Quantity"
+              className="button_decrement"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+            <span
+              className="root"
+              style={
+                Object {
+                  "--iconsAfter": 0,
+                  "--iconsBefore": 0,
+                }
+              }
+            >
+              <span
+                className="input"
+              >
+                <input
+                  aria-label="Item Quantity"
+                  className="input"
+                  id="123"
+                  inputMode="numeric"
+                  min={0}
+                  name="quantity"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  pattern="[0-9]*"
+                  value={2}
+                />
+              </span>
+              <span
+                className="before"
+              />
+              <span
+                className="after"
+              />
+            </span>
+            <p
+              className="root"
+            />
+            <button
+              aria-label="Increase Quantity"
+              className="button_increment"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={20}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="12"
+                    x2="12"
+                    y1="5"
+                    y2="19"
+                  />
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      className="root"
+    >
+      <button
+        className="kebab"
+        onClick={[Function]}
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="5"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="19"
+              r="1"
+            />
+          </svg>
+        </span>
+      </button>
+      <ul
+        aria-hidden="true"
+        className="dropdown"
+      >
+        <li
+          className="menuItem"
+        >
+          <button
+            aria-label="Remove from cart"
+            className="button"
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={16}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polyline
+                  points="3 6 5 6 21 6"
+                />
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                />
+              </svg>
+            </span>
+            <span
+              className="text"
+            >
+              Remove from cart
+            </span>
+          </button>
+        </li>
+        <li>
+          <AddToListButton
+            atwProp1="value1"
+            classes={
+              Object {
+                "root": "addToListButton",
+                "root_selected": "addToListButton_selected",
+              }
+            }
+            icon={
+              <Icon
+                size={16}
+                src={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "propTypes": Object {
+                      "color": [Function],
+                      "size": [Function],
+                    },
+                    "render": [Function],
+                  }
+                }
+              />
+            }
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`renders simple product correctly 1`] = `
+<li
+  className="root"
+>
+  <span
+    className="errorText"
+  />
+  <div
+    className="item"
+  >
+    <div
+      className="imageContainer"
+      to="/unittest.html"
+    >
+      <Image
+        alt=""
+        classes={
+          Object {
+            "image": "image",
+            "root": "imageRoot",
+          }
+        }
+        resource={Object {}}
+        width={100}
+      />
+    </div>
+    <div
+      className="details"
+    >
+      <div
+        className="name"
+      >
+        <div
+          to="/unittest.html"
+        >
+          
+        </div>
+      </div>
+      <span
+        className="price"
+      >
+        <span>
+          $
+        </span>
+        <span>
+          1
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
+        <mock-FormattedMessage
+          defaultMessage=" ea."
+          id="product.price"
+        />
+      </span>
+      <span
+        className="stockStatusMessage"
+      >
+        
+      </span>
+      <div
+        className="quantity"
+      >
+        <form
+          onKeyDown={[Function]}
+          onReset={[Function]}
+          onSubmit={[Function]}
+        >
+          <div
+            className="root"
+          >
+            <label
+              className="label"
+              htmlFor="123"
+            >
+              Quantity
+            </label>
+            <button
+              aria-label="Decrease Quantity"
+              className="button_decrement"
+              disabled={true}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+            <span
+              className="root"
+              style={
+                Object {
+                  "--iconsAfter": 0,
+                  "--iconsBefore": 0,
+                }
+              }
+            >
+              <span
+                className="input"
+              >
+                <input
+                  aria-label="Item Quantity"
+                  className="input"
+                  id="123"
+                  inputMode="numeric"
+                  min={0}
+                  name="quantity"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  pattern="[0-9]*"
+                  value={1}
+                />
+              </span>
+              <span
+                className="before"
+              />
+              <span
+                className="after"
+              />
+            </span>
+            <p
+              className="root"
+            />
+            <button
+              aria-label="Increase Quantity"
+              className="button_increment"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={20}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="12"
+                    x2="12"
+                    y1="5"
+                    y2="19"
+                  />
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      className="root"
+    >
+      <button
+        className="kebab"
+        onClick={[Function]}
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="5"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="19"
+              r="1"
+            />
+          </svg>
+        </span>
+      </button>
+      <ul
+        aria-hidden="true"
+        className="dropdown"
+      >
+        <li
+          className="menuItem"
+        >
+          <button
+            aria-label="Remove from cart"
+            className="button"
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={16}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polyline
+                  points="3 6 5 6 21 6"
+                />
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                />
+              </svg>
+            </span>
+            <span
+              className="text"
+            >
+              Remove from cart
+            </span>
+          </button>
+        </li>
+        <li>
+          <AddToListButton
+            atwProp1="value1"
+            classes={
+              Object {
+                "root": "addToListButton",
+                "root_selected": "addToListButton_selected",
+              }
+            }
+            icon={
+              <Icon
+                size={16}
+                src={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "propTypes": Object {
+                      "color": [Function],
+                      "size": [Function],
+                    },
+                    "render": [Function],
+                  }
+                }
+              />
+            }
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</li>
+`;

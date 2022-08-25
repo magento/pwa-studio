@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errors if declared target is not a hook 1`] = `"Package \\"bad-target\\" declared target \\"bad\\" with an invalid target type \\"[object Date]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;
+
+exports[`errors if declared target is not a hook 2`] = `"Package \\"no-target\\" declared target \\"bad\\" with an invalid target type \\"[object Null]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;
+
+exports[`will not let you construct it by itself 1`] = `"BuildBus must not be created with its constructor. Use the static factory method BuildBus.for(context) instead."`;

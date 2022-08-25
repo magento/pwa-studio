@@ -1,26 +1,23 @@
 ---
-title: Tutorials
+title: Getting started
+adobeio: /tutorials/
 ---
 
-This section contains links to tutorials that will help you become familiar with the different tools provided by PWA Studio.
+PWA Studio is a library of tools and packages designed to help you create a Magento PWA storefront.
+In this section you will learn how to set up your storefront project using the scaffolding tool and learn about the different files and folders in your project.
 
-## Recommended tutorials
+## Prerequisites
 
-### UPWARD
+-   A basic understanding of working with [React][]
+-   [NodeJS >= 14.18.1](https://nodejs.org/en/)
+-   Yarn (recommended) or NPM
 
-This three part tutorial provides an introduction to the concepts introduced in the UPWARD spec.
-By the end of this tutorial, you should have a simple React application running on top of an UPWARD server.
+## First steps
 
-1.  [Creating a simple UPWARD server][] - Teaches the very basics of reading and writing an UPWARD specification file for your projects
-2.  [Using the TemplateResolver][] - Introduces the concept of using templates and the TemplateResolver to keep your UPWARD specification file lean
-3.  [Adding React][] - Add React and Webpack into your UPWARD project
+-   [Setup your project][]
+-   [Explore the project structure][]
 
-### Magento Cloud deployment
+[setup your project]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
+[explore the project structure]: <{%link tutorials/pwa-studio-fundamentals/project-structure/index.md %}>
 
-[Magento Cloud deployment][] - Provides steps for deploying a PWA Studio storefront into the Magento Cloud.
-This tutorial uses the Venia example storefront to illustrate the general process.
-
-[creating a simple upward server]: <{{site.baseurl}}{%link tutorials/hello-upward/simple-server/index.md%}>
-[using the templateresolver]: <{{site.baseurl}}{%link tutorials/hello-upward/using-template-resolver/index.md%}>
-[adding react]: <{{site.baseurl}}{%link tutorials/hello-upward/adding-react/index.md%}>
-[magento cloud deployment]: <{{site.baseurl}}{%link tutorials/cloud-deploy/index.md %}>
+[react]: https://reactjs.org/

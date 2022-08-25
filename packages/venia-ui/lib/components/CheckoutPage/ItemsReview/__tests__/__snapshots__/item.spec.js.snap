@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<div>
+  <mock-Image
+    alt=""
+    classes={
+      Object {
+        "root": undefined,
+      }
+    }
+    resource="www.venia.com/p1"
+    width={100}
+  />
+  <span>
+    
+  </span>
+  <mock-ProductOptions
+    classes={
+      Object {
+        "options": undefined,
+      }
+    }
+  />
+  <span>
+    <mock-FormattedMessage
+      defaultMessage="Qty : {quantity}"
+      id="checkoutPage.quantity"
+      values={
+        Object {
+          "quantity": 5,
+        }
+      }
+    />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test when configured to use variant image 1`] = `
+<div>
+  <mock-Image
+    alt="P1"
+    classes={
+      Object {
+        "root": undefined,
+      }
+    }
+    resource="www.venia.com/p1-variant1"
+    width={100}
+  />
+  <span>
+    P1
+  </span>
+  <mock-ProductOptions
+    classes={
+      Object {
+        "options": undefined,
+      }
+    }
+    options={
+      Array [
+        Object {
+          "configurable_product_option_uid": 22,
+          "configurable_product_option_value_uid": "Y29uZmlndXJhYmxlLzIyLzI=",
+          "option_label": "Color",
+          "value_label": "red",
+        },
+      ]
+    }
+  />
+  <span>
+    <mock-FormattedMessage
+      defaultMessage="Qty : {quantity}"
+      id="checkoutPage.quantity"
+      values={
+        Object {
+          "quantity": 5,
+        }
+      }
+    />
+  </span>
+</div>
+`;

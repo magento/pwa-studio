@@ -1,22 +1,20 @@
 import React from 'react';
 
-import defaultClasses from './indicator.css';
-import { mergeClasses } from '../../classify';
-
-import logo from '../Logo/logo.svg';
+import defaultClasses from './indicator.module.css';
+import { useStyle } from '../../classify';
+import { Loader as LoaderIcon } from 'react-feather';
+import Icon from '../Icon';
 
 const LoadingIndicator = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const className = props.global ? classes.global : classes.root;
 
     return (
         <div className={className}>
-            <img
-                className={classes.indicator}
-                src={logo}
-                width="64"
-                height="64"
-                alt="Loading indicator"
+            <Icon
+                src={LoaderIcon}
+                size={64}
+                classes={{ icon: classes.indicator }}
             />
             <span className={classes.message}>{props.children}</span>
         </div>

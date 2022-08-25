@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
-import { bool, func, number, object, shape, string } from 'prop-types';
+import { bool, func, number, object, shape, string, array } from 'prop-types';
 
 import PaymentMethodSummary from './paymentMethodSummary';
 import ShippingAddressSummary from './shippingAddressSummary';
 import ShippingMethodSummary from './shippingMethodSummary';
 import Section from './section';
 import Button from '../Button';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { useOverview } from '@magento/peregrine/lib/talons/Checkout/useOverview';
 
 /**
@@ -25,8 +25,6 @@ const Overview = props => {
         paymentData,
         ready,
         setEditing,
-        shippingAddress,
-        shippingTitle,
         submitOrder
     } = props;
 
@@ -49,6 +47,9 @@ const Overview = props => {
         submitOrder
     });
 
+    const itemCountText = `${numItems} Items`;
+    const submitButtonText = 'Confirm Order';
+    const cancelButtonText = 'Back to Cart';
     return (
         <Fragment>
             <div className={classes.body}>
@@ -57,11 +58,7 @@ const Overview = props => {
                     onClick={handleAddressFormClick}
                     showEditIcon={hasShippingAddress}
                 >
-                    <ShippingAddressSummary
-                        classes={classes}
-                        hasShippingAddress={hasShippingAddress}
-                        shippingAddress={shippingAddress}
-                    />
+                    <ShippingAddressSummary classes={classes} />
                 </Section>
                 <Section
                     label="Pay With"
@@ -76,29 +73,28 @@ const Overview = props => {
                 </Section>
                 <Section
                     label="Use"
+                    disabled={!hasShippingAddress}
                     onClick={handleShippingFormClick}
                     showEditIcon={hasShippingMethod}
                 >
-                    <ShippingMethodSummary
-                        classes={classes}
-                        hasShippingMethod={hasShippingMethod}
-                        shippingTitle={shippingTitle}
-                    />
+                    <ShippingMethodSummary classes={classes} />
                 </Section>
                 <Section label="TOTAL">
                     <Price currencyCode={currencyCode} value={subtotal} />
                     <br />
-                    <span>{numItems} Items</span>
+                    <span>{itemCountText}</span>
                 </Section>
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Back to Cart</Button>
                 <Button
                     priority="high"
                     disabled={isSubmitDisabled}
                     onClick={handleSubmit}
                 >
-                    Confirm Order
+                    {submitButtonText}
+                </Button>
+                <Button onClick={handleCancel} priority="low">
+                    {cancelButtonText}
                 </Button>
             </div>
         </Fragment>
@@ -109,12 +105,13 @@ Overview.propTypes = {
     cancelCheckout: func.isRequired,
     cart: shape({
         details: shape({
-            items_qty: number
-        }).isRequired,
-        cartId: string,
-        totals: shape({
-            quote_currency_code: string,
-            subtotal: number
+            items: array,
+            prices: shape({
+                grand_total: shape({
+                    currency: string.isRequired,
+                    value: number.isRequired
+                })
+            })
         }).isRequired
     }).isRequired,
     classes: shape({
@@ -128,8 +125,6 @@ Overview.propTypes = {
     paymentData: object,
     ready: bool,
     setEditing: func,
-    shippingAddress: object,
-    shippingTitle: string,
     submitOrder: func,
     submitting: bool
 };

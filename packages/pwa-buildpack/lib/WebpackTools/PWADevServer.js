@@ -1,18 +1,18 @@
 require('dotenv').config();
 const debug = require('../util/debug').makeFileLogger(__filename);
-const debugErrorMiddleware = require('debug-error-middleware').express;
 const {
     default: playgroundMiddleware
 } = require('graphql-playground-middleware-express');
+const compression = require('compression');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const chalk = require('chalk');
 const configureHost = require('../Utilities/configureHost');
 const portscanner = require('portscanner');
-const { readFile: readFileAsync } = require('fs');
-const { promisify } = require('util');
-const readFile = promisify(readFileAsync);
 const path = require('path');
 const boxen = require('boxen');
 const webpack = require('webpack');
+const errorhandler = require('errorhandler');
+const { version } = require('../../package.json');
 const UpwardDevServerPlugin = require('./plugins/UpwardDevServerPlugin');
 const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
@@ -27,7 +27,7 @@ const PWADevServer = {
             devServer = {},
             customOrigin = {},
             imageService = {},
-            backendUrl,
+            imageOptimizing = {},
             graphqlPlayground,
             upwardPath = 'upward.yml'
         } = devServerConfig;
@@ -46,9 +46,8 @@ const PWADevServer = {
             host: devServer.host || '0.0.0.0',
             port:
                 devServer.port || (await portscanner.findAPortNotInUse(10000)),
-            stats: 'normal',
+            stats: webpackConfig.stats || 'minimal',
             after(app, server) {
-                app.use(debugErrorMiddleware());
                 server.middleware.waitUntilValid(() => {
                     // We can try to set the hostname and port for the dev
                     // server all we want, but the only reliable way to know
@@ -76,13 +75,13 @@ const PWADevServer = {
                         url.port = detectedAddress.port;
                     }
                     let readyNotice = chalk.green(
-                        `PWADevServer ready at ${chalk.greenBright.underline(
+                        `PWADevServer ready at \n ${chalk.greenBright.underline(
                             url.href
                         )}`
                     );
                     if (graphqlPlayground) {
                         readyNotice +=
-                            '\n' +
+                            '\n\n' +
                             chalk.blueBright(
                                 `GraphQL Playground ready at ${chalk.blueBright.underline(
                                     new URL('/graphiql', url.origin).href
@@ -93,17 +92,26 @@ const PWADevServer = {
                         boxen(readyNotice, {
                             borderColor: 'gray',
                             float: 'center',
-                            align: 'center',
+                            textAlignment: 'center',
                             margin: 1,
                             padding: 1
                         })
                     );
                 });
+                errorhandler.title = `⚠️ Error in PWADevServer v${version}`;
+                app.use(errorhandler());
             },
             before(app) {
+                if (process.env.ENABLE_EXPRESS_SERVER_COMPRESSION === 'true') {
+                    app.use(
+                        compression({
+                            threshold: 0
+                        })
+                    );
+                }
                 addImgOptMiddleware(app, {
                     ...imageService,
-                    backendUrl
+                    ...imageOptimizing
                 });
             }
         };
@@ -162,61 +170,18 @@ const PWADevServer = {
 
         if (graphqlPlayground) {
             const endpoint = '/graphql';
-
             const oldBefore = webpackDevServerOptions.before;
+
             webpackDevServerOptions.before = (app, server) => {
                 oldBefore(app, server);
                 let middleware;
-                const gatheringQueryTabs = new Promise((resolve, reject) => {
-                    const { compiler } = server.middleware.context;
-                    compiler.hooks.done.tap(
-                        'PWADevServer',
-                        async ({ stats }) => {
-                            /**
-                             * Stats in an array because we have 2 webpack child
-                             * compilations, 1 for client and other for service worker.
-                             */
-                            const queryFilePaths = [];
-                            for (const { compilation } of stats) {
-                                for (const filename of compilation.fileDependencies) {
-                                    if (filename.endsWith('.graphql')) {
-                                        queryFilePaths.push(filename);
-                                    }
-                                }
-                            }
-                            try {
-                                resolve(
-                                    await Promise.all(
-                                        queryFilePaths.map(async queryFile => {
-                                            const query = await readFile(
-                                                queryFile,
-                                                'utf8'
-                                            );
-                                            const name = path.relative(
-                                                context,
-                                                queryFile
-                                            );
-                                            return {
-                                                endpoint,
-                                                name,
-                                                query
-                                            };
-                                        })
-                                    )
-                                );
-                            } catch (e) {
-                                reject(e);
-                            }
-                        }
-                    );
-                });
+
                 /* istanbul ignore next: dummy next() function not testable */
                 const noop = () => {};
                 app.get('/graphiql', async (req, res) => {
                     if (!middleware) {
                         middleware = playgroundMiddleware({
-                            endpoint,
-                            tabs: await gatheringQueryTabs
+                            endpoint
                         });
                     }
                     // this middleware has a bad habit of calling next() when it
@@ -236,7 +201,8 @@ const PWADevServer = {
                 webpackDevServerOptions,
                 process.env,
                 path.resolve(webpackConfig.context, upwardPath)
-            )
+            ),
+            new ReactRefreshWebpackPlugin()
         );
 
         return webpackDevServerOptions;

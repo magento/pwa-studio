@@ -1,5 +1,6 @@
 ---
 title: buildpack Command Line Interface
+adobeio: /api/buildpack/cli/
 ---
 
 The `buildpack` command is a command line toolkit with subcommands.
@@ -65,6 +66,6 @@ The `buildpack` CLI provides the following subcommands:
 -   [`create-env-file`][] - Generates a new `.env` file in the current directory.
 -   [`load-env`][] - Loads and validates the current environment.
 
-[`create-custom-origin`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/create-custom-origin/index.md %}
-[`create-env-file`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/create-env-file/index.md %}
-[`load-env`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}
+[`create-custom-origin`]: {%link pwa-buildpack/reference/buildpack-cli/create-custom-origin/index.md %}
+[`create-env-file`]: {%link pwa-buildpack/reference/buildpack-cli/create-env-file/index.md %}
+[`load-env`]: {%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}

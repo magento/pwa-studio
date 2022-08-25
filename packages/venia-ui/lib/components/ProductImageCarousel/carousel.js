@@ -1,20 +1,22 @@
 import React, { useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
-import { resourceUrl } from '@magento/venia-drivers';
+import { useIntl } from 'react-intl';
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon
 } from 'react-feather';
-import { mergeClasses } from '../../classify';
-import Thumbnail from './thumbnail';
-import defaultClasses from './carousel.css';
+
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
-import Icon from '../Icon';
-import Image from '../Image';
 import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
 
-const DEFAULT_IMAGE_WIDTH = 640;
-const DEFAULT_IMAGE_HEIGHT = 800;
+import { useStyle } from '../../classify';
+import AriaButton from '../AriaButton';
+import Icon from '../Icon';
+import Image from '../Image';
+import defaultClasses from './carousel.module.css';
+import Thumbnail from './thumbnail';
+
+const IMAGE_WIDTH = 640;
 
 /**
  * Carousel component for product images
@@ -31,9 +33,10 @@ const DEFAULT_IMAGE_HEIGHT = 800;
  */
 const ProductImageCarousel = props => {
     const { images } = props;
-
+    const { formatMessage } = useIntl();
     const talonProps = useProductImageCarousel({
-        images
+        images,
+        imageWidth: IMAGE_WIDTH
     });
 
     const {
@@ -46,21 +49,12 @@ const ProductImageCarousel = props => {
         sortedImages
     } = talonProps;
 
-    // if file value is present, form magento image file url
-    const src = currentImage.file
-        ? resourceUrl(currentImage.file, {
-              type: 'image-product',
-              width: DEFAULT_IMAGE_WIDTH,
-              height: DEFAULT_IMAGE_HEIGHT
-          })
-        : transparentPlaceholder;
-
     // create thumbnail image component for every images in sorted order
     const thumbnails = useMemo(
         () =>
             sortedImages.map((item, index) => (
                 <Thumbnail
-                    key={`${item.file}--${item.label}`}
+                    key={item.uid}
                     item={item}
                     itemIndex={index}
                     isActive={activeItemIndex === index}
@@ -70,28 +64,73 @@ const ProductImageCarousel = props => {
         [activeItemIndex, handleThumbnailClick, sortedImages]
     );
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
+    let image;
+    if (currentImage.file) {
+        image = (
+            <Image
+                alt={altText}
+                classes={{
+                    image: classes.currentImage,
+                    root: classes.imageContainer
+                }}
+                resource={currentImage.file}
+                width={IMAGE_WIDTH}
+            />
+        );
+    } else {
+        image = (
+            <Image
+                alt={altText}
+                classes={{
+                    image: classes.currentImage_placeholder,
+                    root: classes.imageContainer
+                }}
+                src={transparentPlaceholder}
+            />
+        );
+    }
+
+    const previousButton = formatMessage({
+        id: 'productImageCarousel.previousButtonAriaLabel',
+        defaultMessage: 'Previous Image'
+    });
+
+    const nextButton = formatMessage({
+        id: 'productImageCarousel.nextButtonAriaLabel',
+        defaultMessage: 'Next Image'
+    });
+
+    const chevronClasses = { root: classes.chevron };
     return (
         <div className={classes.root}>
-            <div className={classes.imageContainer}>
-                <button
+            <div className={classes.carouselContainer}>
+                <AriaButton
                     className={classes.previousButton}
-                    onClick={handlePrevious}
+                    onPress={handlePrevious}
+                    aria-label={previousButton}
+                    type="button"
                 >
-                    <Icon src={ChevronLeftIcon} size={40} />
-                </button>
-                <Image
-                    classes={{ root: classes.currentImage }}
-                    src={src}
-                    alt={altText}
-                    placeholder={transparentPlaceholder}
-                    fileSrc={currentImage.file}
-                    sizes={`${DEFAULT_IMAGE_WIDTH}px`}
-                />
-                <button className={classes.nextButton} onClick={handleNext}>
-                    <Icon src={ChevronRightIcon} size={40} />
-                </button>
+                    <Icon
+                        classes={chevronClasses}
+                        src={ChevronLeftIcon}
+                        size={40}
+                    />
+                </AriaButton>
+                {image}
+                <AriaButton
+                    className={classes.nextButton}
+                    onPress={handleNext}
+                    aria-label={nextButton}
+                    type="button"
+                >
+                    <Icon
+                        classes={chevronClasses}
+                        src={ChevronRightIcon}
+                        size={40}
+                    />
+                </AriaButton>
             </div>
             <div className={classes.thumbnailList}>{thumbnails}</div>
         </div>
@@ -111,14 +150,17 @@ const ProductImageCarousel = props => {
  * @property {string} classes.previousButton classes for previous button
  * @property {string} classes.root classes for root container
  * @property {Object[]} images Product images input for Carousel
- * @property {string} images.label label for image
- * @property {string} image.position Position of image in Carousel
- * @property {bool} image.disabled Is image disabled
- * @property {string} image.file filePath of image
+ * @property {bool} images[].disabled Is image disabled
+ * @property {string} images[].file filePath of image
+ * @property {string} images[].uid the id of the image
+ * @property {string} images[].label label for image
+ * @property {string} images[].position Position of image in Carousel
  */
 ProductImageCarousel.propTypes = {
     classes: shape({
+        carouselContainer: string,
         currentImage: string,
+        currentImage_placeholder: string,
         imageContainer: string,
         nextButton: string,
         previousButton: string,
@@ -129,7 +171,8 @@ ProductImageCarousel.propTypes = {
             label: string,
             position: number,
             disabled: bool,
-            file: string.isRequired
+            file: string.isRequired,
+            uid: string.isRequired
         })
     ).isRequired
 };

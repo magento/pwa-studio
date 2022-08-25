@@ -1,3 +1,5 @@
+/* Deprecated in PWA-12.1.0*/
+
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
@@ -7,7 +9,9 @@ import CategoryList from '../categoryList';
 import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 
-jest.mock('@magento/venia-drivers');
+jest.mock('react-router-dom', () => ({
+    Link: props => <mock-Link {...props} />
+}));
 jest.mock('../../../classify');
 jest.mock('@magento/peregrine/lib/talons/CategoryList/useCategoryTile', () => {
     return {

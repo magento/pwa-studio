@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`form submission calls configurable item mutation when options change 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "cartItemId": "NDA=",
+    "parentSku": "SP01",
+    "quantity": 5,
+    "variantSku": "SP21",
+  },
+}
+`;
+
+exports[`form submission calls update quantity mutation when only quantity changes 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "cartItemId": "NDA=",
+    "quantity": 10,
+  },
+}
+`;
+
+exports[`form submission should dispatch event when only quantity changes 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 5,
+    "name": "Product Name",
+    "priceTotal": 9.99,
+    "quantity": 10,
+    "selectedOptions": Array [
+      Object {
+        "attribute": "Color",
+        "value": "Pink",
+      },
+      Object {
+        "attribute": "Size",
+        "value": "XS",
+      },
+    ],
+    "sku": "SP01",
+  },
+  "type": "CART_UPDATE_ITEM",
+}
+`;
+
+exports[`form submission should dispatch event when options changes 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 5,
+    "name": "Product Name",
+    "priceTotal": 9.99,
+    "quantity": 5,
+    "selectedOptions": Array [
+      Object {
+        "attribute": "Color",
+        "value": "Pink",
+      },
+      Object {
+        "attribute": "Size",
+        "value": "XS",
+      },
+    ],
+    "sku": "SP01",
+  },
+  "type": "CART_UPDATE_ITEM",
+}
+`;
+
+exports[`returns correct shape with fetched options 1`] = `
+Object {
+  "configItem": Object {
+    "configurable_options": Array [
+      Object {
+        "attribute_code": "color",
+        "attribute_id": "123",
+        "label": "Color",
+        "values": Array [
+          Object {
+            "label": "Lilac",
+            "value_index": 1,
+          },
+          Object {
+            "label": "Red",
+            "value_index": 2,
+          },
+        ],
+      },
+      Object {
+        "attribute_code": "size",
+        "attribute_id": "456",
+        "label": "Red",
+        "values": Array [
+          Object {
+            "label": "XS",
+            "value_index": 1,
+          },
+          Object {
+            "label": "S",
+            "value_index": 2,
+          },
+        ],
+      },
+    ],
+    "variants": Array [
+      Object {
+        "attributes": Array [
+          Object {
+            "code": "color",
+            "value_index": 1,
+          },
+          Object {
+            "code": "size",
+            "value_index": 1,
+          },
+        ],
+        "product": Object {
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {},
+            },
+          },
+          "sku": "SP11",
+        },
+      },
+      Object {
+        "attributes": Array [
+          Object {
+            "code": "color",
+            "value_index": 1,
+          },
+          Object {
+            "code": "size",
+            "value_index": 2,
+          },
+        ],
+        "product": Object {
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {},
+            },
+          },
+          "sku": "SP12",
+        },
+      },
+      Object {
+        "attributes": Array [
+          Object {
+            "code": "color",
+            "value_index": 2,
+          },
+          Object {
+            "code": "size",
+            "value_index": 1,
+          },
+        ],
+        "product": Object {
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {},
+            },
+          },
+          "sku": "SP21",
+        },
+      },
+      Object {
+        "attributes": Array [
+          Object {
+            "code": "color",
+            "value_index": 2,
+          },
+          Object {
+            "code": "size",
+            "value_index": 2,
+          },
+        ],
+        "product": Object {
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {},
+            },
+          },
+          "sku": "SP22",
+        },
+      },
+    ],
+  },
+  "configurableThumbnailSource": "parent",
+  "errors": Map {
+    "updateQuantityMutation" => null,
+    "updateConfigurableOptionsMutation" => null,
+  },
+  "handleClose": [Function],
+  "handleOptionSelection": [Function],
+  "handleSubmit": [Function],
+  "isDialogOpen": true,
+  "isLoading": false,
+  "isSaving": false,
+  "outOfStockVariants": Array [],
+}
+`;

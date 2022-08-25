@@ -1,0 +1,23 @@
+.root {
+    box-shadow: 0 -1px rgb(var(--venia-global-color-border));
+    composes: leading-8 from global;
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: pt-sm from global;
+}
+
+.subtotalLabel {
+    composes: text-subtle from global;
+}
+
+.subtotalValue {
+    composes: font-semibold from global;
+    composes: ml-2xs from global;
+}
+
+.totals {
+    composes: items-center from global;
+    composes: flex from global;
+    composes: flex-wrap from global;
+    composes: justify-center from global;
+}

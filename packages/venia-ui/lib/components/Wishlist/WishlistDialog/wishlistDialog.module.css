@@ -1,0 +1,26 @@
+.root {
+}
+
+.formErrors {
+    composes: border-error from global;
+    composes: border-solid from global;
+    composes: border-t-0 from global;
+    composes: border-r-0 from global;
+    composes: border-b-0 from global;
+    composes: border-l-4 from global;
+    composes: grid from global;
+    composes: pl-xs from global;
+    composes: pr-0 from global;
+    composes: py-xs from global;
+    grid-column: 1 / span 1;
+}
+
+.existingWishlists {
+}
+
+.createListButton {
+    composes: font-semibold from global;
+    composes: h-[3.5rem] from global;
+    composes: text-left from global;
+    composes: w-full from global;
+}

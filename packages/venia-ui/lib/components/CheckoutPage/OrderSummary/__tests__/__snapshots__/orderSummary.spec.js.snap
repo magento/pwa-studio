@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders order summary 1`] = `
+<div
+  className="root"
+>
+  <h1
+    aria-live="polite"
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Order Summary"
+      id="checkoutPage.orderSummary"
+    />
+  </h1>
+  <PriceSummary
+    isUpdating={[MockFunction isUpdating]}
+  />
+</div>
+`;

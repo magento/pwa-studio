@@ -1,0 +1,1825 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders empty form without data 1`] = `
+Array [
+  <FormError
+    errors={Array []}
+  />,
+  <form
+    className="root"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="email"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="email"
+        >
+          Email
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Shipping Email"
+              className="input"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onPaste={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+        <p
+          className="root"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
+            id="guestForm.emailMessage"
+          />
+        </p>
+      </div>
+    </div>
+    <div
+      className="firstname"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="firstname"
+        >
+          First Name
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="First Name"
+              className="input"
+              id="firstname"
+              name="firstname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="lastname"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="lastname"
+        >
+          Last Name
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Last Name"
+              className="input"
+              id="lastname"
+              name="lastname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="country"
+    >
+      <Country
+        autoComplete="Country"
+        validate={[Function]}
+      />
+    </div>
+    <div
+      className="street0"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="street0"
+        >
+          Street Address
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Street Address"
+              className="input"
+              id="street0"
+              name="street[0]"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="street1"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="street1"
+        >
+          Street Address 2
+          <span
+            className="optional"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
+          </span>
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Street Address 2"
+              className="input"
+              id="street1"
+              name="street[1]"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="city"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="city"
+        >
+          City
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="City"
+              className="input"
+              id="city"
+              name="city"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="region"
+    >
+      <Region
+        autoComplete="State"
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
+        optionValueKey="id"
+        validate={[Function]}
+      />
+    </div>
+    <div
+      className="postcode"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="root"
+        >
+          ZIP / Postal Code
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="ZIP / Postal Code"
+              className="input"
+              id="root"
+              name="postcode"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="telephone"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="telephone"
+        >
+          Phone Number
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Phone Number"
+              className="input"
+              id="telephone"
+              name="telephone"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="buttons"
+    >
+      <button
+        className="root_normalPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          Continue to Shipping Method
+        </span>
+      </button>
+    </div>
+  </form>,
+]
+`;
+
+exports[`renders form error 1`] = `
+Array [
+  <FormError
+    errors={
+      Array [
+        [Error: Form Error],
+      ]
+    }
+  />,
+  <form
+    className="root"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="email"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="email"
+        >
+          Email
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Shipping Email"
+              className="input"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onPaste={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+        <p
+          className="root"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
+            id="guestForm.emailMessage"
+          />
+        </p>
+      </div>
+    </div>
+    <div
+      className="firstname"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="firstname"
+        >
+          First Name
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="First Name"
+              className="input"
+              id="firstname"
+              name="firstname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="lastname"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="lastname"
+        >
+          Last Name
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Last Name"
+              className="input"
+              id="lastname"
+              name="lastname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="country"
+    >
+      <Country
+        autoComplete="Country"
+        validate={[Function]}
+      />
+    </div>
+    <div
+      className="street0"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="street0"
+        >
+          Street Address
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Street Address"
+              className="input"
+              id="street0"
+              name="street[0]"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="street1"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="street1"
+        >
+          Street Address 2
+          <span
+            className="optional"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
+          </span>
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Street Address 2"
+              className="input"
+              id="street1"
+              name="street[1]"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="city"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="city"
+        >
+          City
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="City"
+              className="input"
+              id="city"
+              name="city"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="region"
+    >
+      <Region
+        autoComplete="State"
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
+        optionValueKey="id"
+        validate={[Function]}
+      />
+    </div>
+    <div
+      className="postcode"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="root"
+        >
+          ZIP / Postal Code
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="ZIP / Postal Code"
+              className="input"
+              id="root"
+              name="postcode"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="telephone"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="telephone"
+        >
+          Phone Number
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Phone Number"
+              className="input"
+              id="telephone"
+              name="telephone"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="buttons"
+    >
+      <button
+        className="root_normalPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          Continue to Shipping Method
+        </span>
+      </button>
+    </div>
+  </form>,
+]
+`;
+
+exports[`renders prefilled form with data with disabled buttons 1`] = `
+Array [
+  <FormError
+    errors={Array []}
+  />,
+  <form
+    className="root"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="email"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="email"
+        >
+          Email
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Shipping Email"
+              className="input"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onPaste={[Function]}
+              value="fry@planet.express"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="firstname"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="firstname"
+        >
+          First Name
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="First Name"
+              className="input"
+              id="firstname"
+              name="firstname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="Philip"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="lastname"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="lastname"
+        >
+          Last Name
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Last Name"
+              className="input"
+              id="lastname"
+              name="lastname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="Fry"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="country"
+    >
+      <Country
+        autoComplete="Country"
+        validate={[Function]}
+      />
+    </div>
+    <div
+      className="street0"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="street0"
+        >
+          Street Address
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Street Address"
+              className="input"
+              id="street0"
+              name="street[0]"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="3000 57th Street"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="street1"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="street1"
+        >
+          Street Address 2
+          <span
+            className="optional"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
+          </span>
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Street Address 2"
+              className="input"
+              id="street1"
+              name="street[1]"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="Suite 200"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="city"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="city"
+        >
+          City
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="City"
+              className="input"
+              id="city"
+              name="city"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="Manhattan"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="region"
+    >
+      <Region
+        autoComplete="State"
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
+        optionValueKey="id"
+        validate={[Function]}
+      />
+    </div>
+    <div
+      className="postcode"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="root"
+        >
+          ZIP / Postal Code
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="ZIP / Postal Code"
+              className="input"
+              id="root"
+              name="postcode"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="10019"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="telephone"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="telephone"
+        >
+          Phone Number
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Phone Number"
+              className="input"
+              id="telephone"
+              name="telephone"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="(123) 456-7890"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="buttons"
+    >
+      <button
+        className="root_lowPriority"
+        disabled={true}
+        onClick={[MockFunction handleCancel]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
+        </span>
+      </button>
+      <button
+        className="root_highPriority"
+        disabled={true}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          Update
+        </span>
+      </button>
+    </div>
+  </form>,
+]
+`;
+
+exports[`renders prefilled form with data with enabled buttons 1`] = `
+Array [
+  <FormError
+    errors={Array []}
+  />,
+  <form
+    className="root"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="email"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="email"
+        >
+          Email
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Shipping Email"
+              className="input"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onPaste={[Function]}
+              value="fry@planet.express"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="firstname"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="firstname"
+        >
+          First Name
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="First Name"
+              className="input"
+              id="firstname"
+              name="firstname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="Philip"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="lastname"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="lastname"
+        >
+          Last Name
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Last Name"
+              className="input"
+              id="lastname"
+              name="lastname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="Fry"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="country"
+    >
+      <Country
+        autoComplete="Country"
+        validate={[Function]}
+      />
+    </div>
+    <div
+      className="street0"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="street0"
+        >
+          Street Address
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Street Address"
+              className="input"
+              id="street0"
+              name="street[0]"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="3000 57th Street"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="street1"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="street1"
+        >
+          Street Address 2
+          <span
+            className="optional"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
+          </span>
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Street Address 2"
+              className="input"
+              id="street1"
+              name="street[1]"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="Suite 200"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="city"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="city"
+        >
+          City
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="City"
+              className="input"
+              id="city"
+              name="city"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="Manhattan"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="region"
+    >
+      <Region
+        autoComplete="State"
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
+        optionValueKey="id"
+        validate={[Function]}
+      />
+    </div>
+    <div
+      className="postcode"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="root"
+        >
+          ZIP / Postal Code
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="ZIP / Postal Code"
+              className="input"
+              id="root"
+              name="postcode"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="10019"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="telephone"
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="label"
+          htmlFor="telephone"
+        >
+          Phone Number
+        </label>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              autoComplete="Phone Number"
+              className="input"
+              id="telephone"
+              name="telephone"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value="(123) 456-7890"
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="buttons"
+    >
+      <button
+        className="root_lowPriority"
+        disabled={false}
+        onClick={[MockFunction handleCancel]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
+        </span>
+      </button>
+      <button
+        className="root_highPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          Update
+        </span>
+      </button>
+    </div>
+  </form>,
+]
+`;

@@ -1,0 +1,83 @@
+.root {
+    /* TODO @TW: review (B6) */
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: p-md from global;
+    composes: rounded-md from global;
+}
+
+.root_editMode {
+    composes: root;
+
+    /* TODO @TW: review (B6) */
+    composes: border-0 from global;
+    composes: border-b-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: p-0 from global;
+    composes: rounded-none from global;
+}
+
+.root_updated {
+    composes: root;
+
+    animation: flash var(--venia-global-anim-bounce) 640ms 2;
+}
+
+.cardHeader {
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: grid-flow-col from global;
+}
+
+.cardTitle {
+    composes: font-semibold from global;
+}
+
+.editButton {
+    composes: -m-xs from global;
+    composes: p-xs from global;
+    composes: text-brand-dark from global;
+}
+
+.editWrapper {
+    composes: grid from global;
+    composes: pb-sm from global;
+    composes: pt-xs from global;
+    composes: px-0 from global;
+    composes: gap-y-2xs from global;
+}
+
+.editTitle {
+    composes: font-semibold from global;
+    composes: uppercase from global;
+}
+
+.editIcon {
+    composes: stroke-brand-base from global;
+}
+
+.editText {
+    composes: hidden from global;
+
+    composes: lg_inline from global;
+}
+
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.module.css';
+
+    composes: text-center from global;
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

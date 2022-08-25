@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders cart message 1`] = `
+<div
+  className="root"
+>
+  <mock-FormattedMessage
+    defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout."
+    id="stockStatusMessage.message"
+  />
+</div>
+`;
+
+exports[`renders null with no out of stock products 1`] = `null`;

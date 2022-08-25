@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render proper shape 1`] = `
+Object {
+  "isDeleting": false,
+  "removeItem": [Function],
+}
+`;

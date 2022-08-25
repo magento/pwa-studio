@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`serializes all pretty 1`] = `"  insertBeforeJSX('span', { jsx: '<i>yo this is MTV raps coming at you after the break</i>' })"`;
+
+exports[`serializes all pretty 2`] = `"  removeJSX('<i>')"`;

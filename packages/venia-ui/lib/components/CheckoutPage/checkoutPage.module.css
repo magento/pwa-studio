@@ -1,0 +1,175 @@
+.root {
+    composes: max-w-screen-lg from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: px-sm from global;
+    composes: py-md from global;
+
+    composes: lg_px-lg from global;
+}
+
+/* prettier-ignore */
+.checkoutContent {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+
+    composes: lg_gap-md from global;
+    /* TODO @TW: review (B7) */
+    composes: lg_grid-cols-[2fr,1fr] from global;
+}
+
+.checkoutContent_hidden {
+    composes: checkoutContent;
+
+    composes: hidden from global;
+}
+
+.heading_container {
+    composes: col-span-1 from global;
+    composes: col-start-1 from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+}
+
+.heading {
+    composes: leading-tight from global;
+}
+
+.cartLink {
+    composes: root from '../LinkButton/linkButton.module.css';
+
+    composes: text-inherit from global;
+}
+
+.stepper_heading {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: pb-xs from global;
+    composes: text-colorDefault from global;
+    composes: uppercase from global;
+
+    composes: lg_pb-md from global;
+}
+
+.shipping_method_heading {
+    composes: stepper_heading;
+}
+
+.payment_information_heading {
+    composes: stepper_heading;
+    composes: border-b-0 from global;
+
+    /* On mobile, order summary has a top border, so avoid doubling up. */
+    composes: lg_border-b from global;
+}
+
+.signInContainer {
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: mb-xs from global;
+    composes: p-xs from global;
+    composes: rounded-md from global;
+    composes: row-start-1 from global;
+
+    composes: lg_grid-flow-col from global;
+    composes: lg_justify-items-start from global;
+    composes: lg_mb-0 from global;
+}
+
+.signInLabel {
+    composes: font-semibold from global;
+}
+
+.signInButton {
+    composes: root_normalPriority from '../Button/button.module.css';
+
+    composes: min-h-auto from global;
+    composes: min-w-auto from global;
+    composes: px-md from global;
+    composes: py-1 from global;
+}
+
+.empty_cart_container {
+    composes: mb-sm from global;
+}
+
+.shipping_information_container {
+    grid-column: 1 / span 1;
+    composes: relative from global;
+}
+
+.shipping_method_container {
+    grid-column: 1 / span 1;
+    composes: relative from global;
+}
+
+.payment_information_container {
+    grid-column: 1 / span 1;
+}
+
+.price_adjustments_container {
+    grid-column: 1 / span 1;
+}
+
+.items_review_container {
+    grid-column: 1 / span 1;
+}
+
+.summaryContainer {
+    grid-column: 1 / span 1;
+
+    composes: lg_h-minContent from global;
+    composes: lg_sticky from global;
+    /* TODO @TW: review. Magic number. Slightly bigger than sticky header. */
+    composes: lg_top-[6rem] from global;
+}
+
+@media (min-width: 960px) {
+    .summaryContainer {
+        grid-column: 2 / span 1;
+        grid-row: 2 / span 3;
+    }
+    .reCaptchaMargin {
+        margin-bottom: 5.5rem;
+    }
+    .signInContainerVisible {
+        grid-row: 1 / span 3;
+    }
+}
+
+.formErrors {
+    composes: border-error from global;
+    composes: border-solid from global;
+    composes: border-t-0 from global;
+    composes: border-r-0 from global;
+    composes: border-b-0 from global;
+    composes: border-l-4 from global;
+    composes: grid from global;
+    composes: pl-xs from global;
+    composes: pr-0 from global;
+    composes: py-xs from global;
+    grid-column: 1 / span 1;
+}
+
+.review_order_button {
+    composes: root_highPriority from '../Button/button.module.css';
+
+    grid-column: 1 / span 1;
+    composes: m-auto from global;
+}
+
+.place_order_button {
+    composes: root_highPriority from '../Button/button.module.css';
+
+    grid-column: 1 / span 1;
+    composes: m-auto from global;
+}

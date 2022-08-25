@@ -65,13 +65,11 @@ class ServiceWorkerPlugin {
      */
     apply(compiler) {
         const { enableServiceWorkerDebugging, mode } = this.config;
-        compiler.hooks.afterEmit.tap('ServiceWorkerPlugin', () => {
-            if (mode === 'development' && !enableServiceWorkerDebugging) {
-                console.warn('Emitting no ServiceWorker in development mode.');
-            } else {
-                this.applyWorkbox(compiler);
-            }
-        });
+        if (mode === 'development' && !enableServiceWorkerDebugging) {
+            console.warn('Emitting no ServiceWorker in development mode.');
+        } else {
+            this.applyWorkbox(compiler);
+        }
     }
 
     /**

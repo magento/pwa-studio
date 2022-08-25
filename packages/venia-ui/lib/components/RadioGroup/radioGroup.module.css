@@ -1,0 +1,24 @@
+.root {
+    composes: gap-2xs from global;
+    composes: grid from global;
+}
+
+.radioContainer {
+    composes: gap-3 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-center from global;
+    composes: leading-normal from global;
+    grid-template-areas: 'input label';
+    grid-template-columns: min-content 1fr;
+}
+
+.message {
+    composes: mt-xs from global;
+    composes: text-colorDefault from global;
+}
+
+/* TODO @TW: cannot compose */
+.message:empty {
+    display: none;
+}

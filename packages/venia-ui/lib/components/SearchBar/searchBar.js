@@ -1,31 +1,32 @@
 import React from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { useSearchBar } from '@magento/peregrine/lib/talons/SearchBar';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Autocomplete from './autocomplete';
 import SearchField from './searchField';
-import defaultClasses from './searchBar.css';
+import defaultClasses from './searchBar.module.css';
 
-const SearchBar = props => {
-    const { history, isOpen, location } = props;
-    const talonProps = useSearchBar({ history });
+const SearchBar = React.forwardRef((props, ref) => {
+    const { isOpen } = props;
+    const talonProps = useSearchBar();
     const {
         containerRef,
-        expanded,
         handleChange,
         handleFocus,
         handleSubmit,
         initialValues,
-        setExpanded
+        isAutoCompleteOpen,
+        setIsAutoCompleteOpen,
+        valid
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
 
     return (
-        <div className={rootClassName}>
+        <div className={rootClassName} data-cy="SearchBar-root" ref={ref}>
             <div ref={containerRef} className={classes.container}>
                 <Form
                     autoComplete="off"
@@ -33,24 +34,25 @@ const SearchBar = props => {
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
                 >
-                    <div className={classes.search}>
-                        <SearchField
-                            location={location}
-                            onChange={handleChange}
-                            onFocus={handleFocus}
-                        />
-                    </div>
                     <div className={classes.autocomplete}>
                         <Autocomplete
-                            setVisible={setExpanded}
-                            visible={expanded}
+                            setVisible={setIsAutoCompleteOpen}
+                            valid={valid}
+                            visible={isAutoCompleteOpen}
+                        />
+                    </div>
+                    <div className={classes.search}>
+                        <SearchField
+                            isSearchOpen={isOpen}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
                         />
                     </div>
                 </Form>
             </div>
         </div>
     );
-};
+});
 
 export default SearchBar;
 
@@ -63,9 +65,5 @@ SearchBar.propTypes = {
         root_open: string,
         search: string
     }),
-    history: shape({
-        push: func.isRequired
-    }).isRequired,
-    isOpen: bool,
-    location: shape({}).isRequired
+    isOpen: bool
 };

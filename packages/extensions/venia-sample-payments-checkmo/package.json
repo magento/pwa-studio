@@ -1,0 +1,27 @@
+{
+  "name": "@magento/venia-sample-payments-checkmo",
+  "version": "0.0.8",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Provides demo Check Money Order Payment Method for PWA Studio.",
+  "main": "./intercept.js",
+  "scripts": {
+    "clean": " "
+  },
+  "repository": "github:magento/pwa-studio",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "peerDependencies": {
+    "@magento/peregrine": "~12.5.1",
+    "@magento/pwa-buildpack": "~11.4.0",
+    "@magento/venia-ui": "~9.6.0",
+    "react": "~17.0.1",
+    "react-intl": "~5.20.0",
+    "react-router-dom": "~5.2.0"
+  },
+  "pwa-studio": {
+    "targets": {
+      "intercept": "./intercept"
+    }
+  }
+}

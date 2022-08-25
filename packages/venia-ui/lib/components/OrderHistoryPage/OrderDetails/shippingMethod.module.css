@@ -1,0 +1,19 @@
+.root {
+    composes: grid from global;
+    composes: gap-y-1.5 from global;
+}
+
+.heading {
+    composes: font-bold from global;
+    composes: pb-1.5 from global;
+}
+
+/* TODO @TW: cannot compose */
+.method:empty {
+    display: none;
+}
+
+.tracking {
+    composes: grid from global;
+    composes: gap-y-1.5 from global;
+}

@@ -1,0 +1,9 @@
+.root {
+    composes: bg-subtle from global;
+    composes: rounded-sm from global;
+    composes: w-full from global;
+}
+
+.container {
+    composes: w-[400px] from global;
+}

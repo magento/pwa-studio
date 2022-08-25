@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render add to cart if in stock 1`] = `
+<button
+  aria-label="Add to cart"
+  disabled={false}
+  onClick={[Function]}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  type="button"
+>
+  <span>
+    <span>
+      <svg
+        fill="none"
+        height={16}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+        />
+        <line
+          x1="3"
+          x2="21"
+          y1="6"
+          y2="6"
+        />
+        <path
+          d="M16 10a4 4 0 0 1-8 0"
+        />
+      </svg>
+    </span>
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="ADD TO CART"
+        id="addToCartButton.addItemToCart"
+      />
+    </span>
+  </span>
+</button>
+`;
+
+exports[`should render out of cart if not in stock 1`] = `
+<button
+  aria-label="Out of stock"
+  disabled={true}
+  onClick={[Function]}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  type="button"
+>
+  <span>
+    <span>
+      <svg
+        fill="none"
+        height={16}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          height="18"
+          rx="2"
+          ry="2"
+          width="18"
+          x="3"
+          y="3"
+        />
+        <line
+          x1="9"
+          x2="15"
+          y1="9"
+          y2="15"
+        />
+        <line
+          x1="15"
+          x2="9"
+          y1="9"
+          y2="15"
+        />
+      </svg>
+    </span>
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="OUT OF STOCK"
+        id="addToCartButton.itemOutOfStock"
+      />
+    </span>
+  </span>
+</button>
+`;
+
+exports[`should render properly 1`] = `
+<button
+  aria-label="Add to cart"
+  disabled={false}
+  onClick={[Function]}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  type="button"
+>
+  <span>
+    <span>
+      <svg
+        fill="none"
+        height={16}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+        />
+        <line
+          x1="3"
+          x2="21"
+          y1="6"
+          y2="6"
+        />
+        <path
+          d="M16 10a4 4 0 0 1-8 0"
+        />
+      </svg>
+    </span>
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="ADD TO CART"
+        id="addToCartButton.addItemToCart"
+      />
+    </span>
+  </span>
+</button>
+`;

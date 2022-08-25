@@ -1,0 +1,66 @@
+.root {
+    composes: gap-x-xs from global;
+    composes: gap-y-2xs from global;
+    composes: grid from global;
+    composes: opacity-100 from global;
+    composes: text-sm from global;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto auto auto auto 1fr;
+    transition-delay: 64ms;
+    transition-duration: 384ms;
+    transition-property: opacity;
+    transition-timing-function: var(--venia-global-anim-standard);
+}
+
+.root_disabled {
+    composes: root;
+
+    composes: opacity-50 from global;
+}
+
+.thumbnailContainer {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 6;
+}
+
+.thumbnail {
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+}
+
+.name {
+    composes: font-semibold from global;
+    composes: mb-2xs from global;
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.options {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 2;
+}
+
+.quantity {
+    grid-column: 2 / span 1;
+    grid-row: 4 / span 1;
+}
+
+.price {
+    grid-column: 2 / span 1;
+    grid-row: 5 / span 1;
+}
+
+.stockStatus {
+    composes: font-semibold from global;
+    composes: text-error from global;
+    grid-column: 2;
+    grid-row: 6;
+}
+
+.deleteButton {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+}

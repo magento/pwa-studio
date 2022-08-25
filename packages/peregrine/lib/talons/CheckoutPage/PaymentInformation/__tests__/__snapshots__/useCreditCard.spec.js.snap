@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "errors": Map {
+    "setBillingAddressMutation" => null,
+    "setCreditCardDetailsOnCartMutation" => null,
+  },
+  "initialValues": Object {
+    "city": "Austin",
+    "country": "US",
+    "firstName": "ba fn",
+    "isBillingAddressSame": false,
+    "lastName": "ba ln",
+    "phoneNumber": "1234567891",
+    "postcode": "78945",
+    "region": 5,
+    "street1": "45678 blvd",
+    "street2": "suite 300",
+  },
+  "isBillingAddressSame": false,
+  "isLoading": true,
+  "onPaymentError": [Function],
+  "onPaymentReady": [Function],
+  "onPaymentSuccess": [Function],
+  "recaptchaWidgetProps": Object {},
+  "resetShouldTeardownDropin": [Function],
+  "shippingAddressCountry": "UK",
+  "shouldRequestPaymentNonce": false,
+  "shouldTeardownDropin": false,
+  "stepNumber": 0,
+}
+`;

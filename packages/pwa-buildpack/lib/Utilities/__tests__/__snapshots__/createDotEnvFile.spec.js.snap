@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`passing an env object works, but warns deprecation and assumes cwd is context 1`] = `
+"######## PWA Studio Environment Variables ######################################
+#
+#   This file contains environment variables for a Magento PWA Studio project. PWA Studio uses environment variables for all variable cross-project values, so that a developer or a build system can override any variable with standard tools.
+#
+#   This file belongs at the root of the PWA, and must be named \`.env\`. Uncomment and modify variable declarations in this file and they will take effect throughout the Buildpack tool chain.
+#
+#   #
+################################################################################
+
+#### Nothing special ###########################################################
+#
+#   that doesnt look like anything to me
+TEST_ENV_VAR_NOTHING=foo
+#
+#   manichean!!
+#   - Default when not set: true
+TEST_ENV_VAR_SOMETHING=true
+#
+################################################################################
+"
+`;
+
+exports[`returns valid dotenv file if env is valid 1`] = `
+"######## PWA Studio Environment Variables ######################################
+#
+#   This file contains environment variables for a Magento PWA Studio project. PWA Studio uses environment variables for all variable cross-project values, so that a developer or a build system can override any variable with standard tools.
+#
+#   This file belongs at the root of the PWA, and must be named \`.env\`. Uncomment and modify variable declarations in this file and they will take effect throughout the Buildpack tool chain.
+#
+#   #
+################################################################################
+
+#### Connecting to a Magento store #############################################
+#
+#   Connect to an instance of Magento 2.3 by specifying its public domain name.
+MAGENTO_BACKEND_URL=https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/
+#
+################################################################################
+
+#### Magento Store Edition #####################################################
+#
+#   Specify the edition of the magento store (Adobe Commerce or Magento Open Source). Can be one of MOS or AC.
+#   - Default when not set: AC
+MAGENTO_BACKEND_EDITION=AC
+#
+################################################################################
+
+#### Magento Store View ########################################################
+#
+#   Specify the Magento store view code set in Stores > Settings > All Stores > Store View name
+#   - Default when not set: 
+STORE_VIEW_CODE=
+#
+#   Includes the store code in the store URLs if value is true.
+#   - Default when not set: false
+USE_STORE_CODE_IN_URL=false
+#
+################################################################################
+
+#### Image Optimizing Origin ###################################################
+#
+#   Specify the origin to use for images in the UI. Set to \`backend\` when Fastly or another CDN is optimizing images, and the frontend will load images directly from the Magento instance at MAGENTO_BACKEND_URL. To force usage of the onboard image optimizer, set to \`onboard\`. Set to \`auto\` to autodetect whether the backend is using FastlyIO and optimize onboard only if it needs to.
+#   - Default when not set: auto
+IMAGE_OPTIMIZING_ORIGIN=auto
+#
+################################################################################
+
+#### Default Country ###########################################################
+#
+#   Specify the default country to be selected in forms containing country field such as address books and shipping information forms.
+#   - Default when not set: US
+DEFAULT_COUNTRY_CODE=US
+#
+################################################################################
+
+#### Custom local origin #######################################################
+#
+#   Get or create a secure, unique hostname/port combination and a trusted SSL certificate for local development.
+#   - Default when not set: true
+CUSTOM_ORIGIN_ENABLED=true
+#
+#   Add a unique hash string to the custom origin, based on filesystem location. This naturally separates domains when running multiple project folders on one developer machine.
+#   - Default when not set: true
+CUSTOM_ORIGIN_ADD_UNIQUE_HASH=true
+#
+#   Specify the subdomain prefix of the custom origin manually, instead of using the package name.
+#   - Default when not set: 
+CUSTOM_ORIGIN_SUBDOMAIN=
+#
+#   Specify the exact domain of the custom origin manually.
+#   - Default when not set: 
+CUSTOM_ORIGIN_EXACT_DOMAIN=
+#
+################################################################################
+
+#### Development server ########################################################
+#
+#   Specify the hostname the dev server should bind to. If this is set, it overrides the host chosen by custom origin settings.
+#   - Default when not set: 
+DEV_SERVER_HOST=
+#
+#   Specify the port the dev server should bind to. If this is set, it overrides the port chosen by custom origin settings.
+#   - Default when not set: 0
+DEV_SERVER_PORT=0
+#
+#   Use a service worker in developer mode (PWADevServer), which are disabled in dev mode normally to simplify cache. Good for debugging.
+#   - Default when not set: false
+DEV_SERVER_SERVICE_WORKER_ENABLED=false
+#
+#   Set to a number greater than 0 to denote a polling interval in milliseconds. If this is greater than 0, the dev server will use filesystem polling instead of native filesystem events to watch for changes. Can increase CPU usage, but sometimes is the best option for exotic filesystems (e.g. NFS).
+#   - Default when not set: 0
+DEV_SERVER_WATCH_OPTIONS_USE_POLLING=0
+#
+################################################################################
+
+#### Staging server ############################################################
+#
+#   Specify the hostname the staging server should bind to. If this is set, it overrides the host chosen by custom origin settings.
+#   - Default when not set: 
+STAGING_SERVER_HOST=
+#
+#   Specify the port the staging server should bind to. If this is set, it overrides the port chosen by custom origin settings.
+#   - Default when not set: 0
+STAGING_SERVER_PORT=0
+#
+#   Specify the id which Buildpack will put in a comment above all generated bundle files and the index.html file
+#   - Default when not set: 
+STAGING_BUILD_ID=
+#
+################################################################################
+
+#### Onboard image optimization service ########################################
+#
+#   Lifetime of images in the local cache of resized images. Format is \\"[length] [unit]\\", as in \\"10 minutes\\" or \\"1 day\\".
+#   - Default when not set: 1 hour
+IMAGE_SERVICE_CACHE_EXPIRES=1 hour
+#
+#   Log image cache debug info to the console.
+#   - Default when not set: false
+IMAGE_SERVICE_CACHE_DEBUG=false
+#
+################################################################################
+
+#### UPWARD server settings ####################################################
+#
+#   UPWARD configuration file to use for the PWADevServer and the \\"stage:venia\\" sample server.
+#   - Default when not set: upward.yml
+UPWARD_JS_UPWARD_PATH=upward.yml
+#
+#   Upon launching the staging server, automatically attach to a local port and listen.
+#   - Default when not set: true
+UPWARD_JS_BIND_LOCAL=true
+#
+#   Log the bound URL to stdout once the sever is listening. Useful in testing and discovery scenarios, but may be disabled in production.
+#   - Default when not set: true
+UPWARD_JS_LOG_URL=true
+#
+################################################################################
+
+#### Checkout and payment settings #############################################
+#
+#   Specify a Braintree API token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.
+CHECKOUT_BRAINTREE_TOKEN=sandbox_8yrzsvtm_s2bg8fs563crhqzk
+#
+################################################################################
+
+#### BuildBus and targets ######################################################
+#
+#   A list of resolvable NPM modules that BuildBus will scan for targets, in addition to those declared in project \`dependencies\` and \`devDependencies\`.
+#   - Default when not set: 
+BUILDBUS_DEPS_ADDITIONAL=
+#
+################################################################################
+
+#### Custom HTTPS certificates #################################################
+#
+#   Absolute path to the custom HTTPS certificate key file.
+#   - Default when not set: 
+CUSTOM_HTTPS_KEY=
+#
+#   Absolute path to the custom HTTPS certificate cert file.
+#   - Default when not set: 
+CUSTOM_HTTPS_CERT=
+#
+################################################################################
+
+#### Express compression settings ##############################################
+#
+#   Specify if express server compression needs to be enabled. Defaults to false if not provided.
+#   - Default when not set: false
+ENABLE_EXPRESS_SERVER_COMPRESSION=false
+#
+################################################################################
+"
+`;

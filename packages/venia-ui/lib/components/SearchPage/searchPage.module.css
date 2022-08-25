@@ -1,0 +1,68 @@
+.root {
+    composes: p-xs from global;
+
+    composes: lg_flex from global;
+    composes: lg_flex-nowrap from global;
+}
+
+.noResult {
+    composes: flex from global;
+}
+
+.headerButtons {
+    flex-basis: 100%;
+    composes: flex from global;
+    composes: justify-center from global;
+    composes: mx-0 from global;
+    composes: my-xs from global;
+
+    composes: lg_justify-end from global;
+}
+
+.heading {
+    composes: flex from global;
+    composes: flex-wrap from global;
+    composes: justify-center from global;
+
+    composes: lg_flex-nowrap from global;
+    composes: lg_items-center from global;
+    composes: lg_justify-between from global;
+}
+
+.searchContent {
+    composes: lg_flex-grow from global;
+}
+
+.searchInfo {
+    composes: leading-tight from global;
+    composes: max-w-[75vw] from global;
+    composes: mb-xs from global;
+    composes: ml-0 from global;
+    composes: mr-0 from global;
+    composes: mt-10 from global;
+
+    composes: lg_m-0 from global;
+}
+
+@media (min-width: 960px) {
+    .searchInfo {
+        flex-basis: 100%;
+    }
+}
+
+.totalPages {
+    composes: ml-2xs from global;
+}
+
+.headingHighlight {
+    composes: font-bold from global;
+}
+
+.sidebar {
+    composes: hidden from global;
+
+    composes: lg_flex from global;
+    composes: lg_self-start from global;
+    composes: lg_pt-16 from global;
+    composes: lg_w-filterSidebarWidth from global;
+}

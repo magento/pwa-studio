@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should dispatch event when handlePaymentSuccess is called 1`] = `
+Object {
+  "payload": Object {
+    "cart_id": "123",
+    "selected_payment_method": "braintree",
+  },
+  "type": "CHECKOUT_BILLING_INFORMATION_UPDATED",
+}
+`;
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "handleClose": [Function],
+  "handlePaymentError": [Function],
+  "handlePaymentReady": [Function],
+  "handlePaymentSuccess": [Function],
+  "handleUpdate": [Function],
+  "isLoading": true,
+  "resetUpdateButtonClicked": [Function],
+  "selectedPaymentMethod": "braintree",
+  "updateButtonClicked": false,
+}
+`;

@@ -1,0 +1,55 @@
+.root {
+    composes: root from '../clickable.module.css';
+
+    composes: bg-transparent from global;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: h-[2rem] from global;
+    composes: -ml-px from global;
+    composes: min-w-[6rem] from global;
+    composes: text-colorDefault from global;
+    composes: text-xs from global;
+    composes: z-button from global;
+    transition-duration: 384ms;
+    transition-property: border-color, color;
+    transition-timing-function: var(--venia-global-anim-standard);
+
+    composes: disabled_border-subtle from global;
+    composes: disabled_text-subtle from global;
+
+    composes: hover_z-buttonHover from global;
+    composes: hover_border-strong from global;
+
+    composes: focus_border-brand-base from global;
+    composes: focus_outline-none from global;
+    composes: focus_text-teal from global;
+    composes: focus_z-buttonFocus from global;
+}
+
+.root:focus {
+    box-shadow: 0 0 0 2px rgb(var(--venia-global-color-teal-light)),
+        0 0 0.5rem 2px rgb(var(--venia-global-color-teal) / 0.2);
+    transition-duration: 128ms;
+}
+
+/* TODO @TW: cannot compose */
+.root:nth-of-type(1) {
+    border-radius: 0.25rem 0 0 0.25rem;
+    margin-left: 0;
+}
+
+/* TODO @TW: cannot compose */
+.root:nth-last-of-type(1) {
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.content {
+    composes: gap-2xs from global;
+    composes: grid-flow-col from global;
+    composes: inline-grid from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: justify-items-center from global;
+}

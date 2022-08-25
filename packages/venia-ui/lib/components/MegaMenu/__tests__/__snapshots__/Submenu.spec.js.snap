@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Submenu renders correctly it renders correctly 1`] = `
+<div
+  className="submenu_inactive"
+>
+  <div
+    className="submenuItems"
+    style={
+      Object {
+        "minWidth": NaN,
+      }
+    }
+  >
+    <mock-SubmenuColumn
+      category={
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "id": 3,
+              "isActive": false,
+              "name": "Pants",
+              "url_path": "pants",
+            },
+          ],
+          "id": 1,
+          "name": "Bottoms",
+          "url_path": "bottoms",
+        }
+      }
+      categoryUrlSuffix=".html"
+      handleCloseSubMenu={[MockFunction handleCloseSubMenu]}
+      index={0}
+      keyboardProps={Object {}}
+    />
+    <mock-SubmenuColumn
+      category={
+        Object {
+          "children": Array [],
+          "id": 2,
+          "isActive": false,
+          "name": "Tops",
+          "url_path": "tops",
+        }
+      }
+      categoryUrlSuffix=".html"
+      handleCloseSubMenu={[MockFunction handleCloseSubMenu]}
+      index={1}
+      keyboardProps={
+        Object {
+          "onKeyDown": [Function],
+          "onKeyUp": undefined,
+        }
+      }
+    />
+  </div>
+</div>
+`;

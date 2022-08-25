@@ -1,61 +1,194 @@
-import React, { Fragment, useCallback } from 'react';
-import { shape, string } from 'prop-types';
+import React, { Fragment, Suspense, useMemo, useRef } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { array, number, shape, string } from 'prop-types';
 
-import { Title } from '../../components/Head';
-import { mergeClasses } from '../../classify';
-import FilterModal from '../../components/FilterModal';
-import Gallery from '../../components/Gallery';
+import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
+import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
+
+import { useStyle } from '../../classify';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import FilterModalOpenButton, {
+    FilterModalOpenButtonShimmer
+} from '../../components/FilterModalOpenButton';
+import { FilterSidebarShimmer } from '../../components/FilterSidebar';
+import Gallery, { GalleryShimmer } from '../../components/Gallery';
+import { StoreTitle } from '../../components/Head';
 import Pagination from '../../components/Pagination';
-import defaultClasses from './category.css';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+import ProductSort, { ProductSortShimmer } from '../../components/ProductSort';
+import RichContent from '../../components/RichContent';
+import Shimmer from '../../components/Shimmer';
+import SortedByContainer, {
+    SortedByContainerShimmer
+} from '../../components/SortedByContainer';
+import defaultClasses from './category.module.css';
+import NoProductsFound from './NoProductsFound';
 
-// TODO: This can be replaced by the value from `storeConfig when the PR,
-// https://github.com/magento/graphql-ce/pull/650, is released.
-const pageSize = 6;
-const placeholderItems = Array.from({ length: pageSize }).fill(null);
+const FilterModal = React.lazy(() => import('../../components/FilterModal'));
+const FilterSidebar = React.lazy(() =>
+    import('../../components/FilterSidebar')
+);
 
 const CategoryContent = props => {
-    const [, { toggleDrawer }] = useAppContext();
+    const {
+        categoryId,
+        data,
+        isLoading,
+        pageControl,
+        sortProps,
+        pageSize
+    } = props;
+    const [currentSort] = sortProps;
 
-    const handleOpenFilters = useCallback(() => {
-        toggleDrawer('filter');
-    }, [toggleDrawer]);
+    const talonProps = useCategoryContent({
+        categoryId,
+        data,
+        pageSize
+    });
 
-    const { data, pageControl } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const filters = data ? data.products.filters : null;
-    const items = data ? data.products.items : placeholderItems;
-    const title = data ? data.category.name : null;
-    const titleContent = title ? `${title} - Venia` : 'Venia';
+    const {
+        availableSortMethods,
+        categoryName,
+        categoryDescription,
+        filters,
+        items,
+        totalCount,
+        totalPagesFromData
+    } = talonProps;
 
-    const header = filters ? (
-        <div className={classes.headerButtons}>
-            <button
-                className={classes.filterButton}
-                onClick={handleOpenFilters}
-                type="button"
-            >
-                {'Filter'}
-            </button>
-        </div>
+    const sidebarRef = useRef(null);
+    const classes = useStyle(defaultClasses, props.classes);
+    const shouldRenderSidebarContent = useIsInViewport({
+        elementRef: sidebarRef
+    });
+
+    const shouldShowFilterButtons = filters && filters.length;
+    const shouldShowFilterShimmer = filters === null;
+
+    // If there are no products we can hide the sort button.
+    const shouldShowSortButtons = totalPagesFromData && availableSortMethods;
+    const shouldShowSortShimmer = !totalPagesFromData && isLoading;
+
+    const maybeFilterButtons = shouldShowFilterButtons ? (
+        <FilterModalOpenButton filters={filters} />
+    ) : shouldShowFilterShimmer ? (
+        <FilterModalOpenButtonShimmer />
     ) : null;
 
-    const modal = filters ? <FilterModal filters={filters} /> : null;
+    const filtersModal = shouldShowFilterButtons ? (
+        <FilterModal filters={filters} />
+    ) : null;
+
+    const sidebar = shouldShowFilterButtons ? (
+        <FilterSidebar filters={filters} />
+    ) : shouldShowFilterShimmer ? (
+        <FilterSidebarShimmer />
+    ) : null;
+
+    const maybeSortButton = shouldShowSortButtons ? (
+        <ProductSort
+            sortProps={sortProps}
+            availableSortMethods={availableSortMethods}
+        />
+    ) : shouldShowSortShimmer ? (
+        <ProductSortShimmer />
+    ) : null;
+
+    const maybeSortContainer = shouldShowSortButtons ? (
+        <SortedByContainer currentSort={currentSort} />
+    ) : shouldShowSortShimmer ? (
+        <SortedByContainerShimmer />
+    ) : null;
+
+    const categoryResultsHeading =
+        totalCount > 0 ? (
+            <FormattedMessage
+                id={'categoryContent.resultCount'}
+                values={{
+                    count: totalCount
+                }}
+                defaultMessage={'{count} Results'}
+            />
+        ) : isLoading ? (
+            <Shimmer width={5} />
+        ) : null;
+
+    const categoryDescriptionElement = categoryDescription ? (
+        <RichContent html={categoryDescription} />
+    ) : null;
+
+    const content = useMemo(() => {
+        if (!totalPagesFromData && !isLoading) {
+            return <NoProductsFound categoryId={categoryId} />;
+        }
+
+        const gallery = totalPagesFromData ? (
+            <Gallery items={items} />
+        ) : (
+            <GalleryShimmer items={items} />
+        );
+
+        const pagination = totalPagesFromData ? (
+            <Pagination pageControl={pageControl} />
+        ) : null;
+
+        return (
+            <Fragment>
+                <section className={classes.gallery}>{gallery}</section>
+                <div className={classes.pagination}>{pagination}</div>
+            </Fragment>
+        );
+    }, [
+        categoryId,
+        classes.gallery,
+        classes.pagination,
+        isLoading,
+        items,
+        pageControl,
+        totalPagesFromData
+    ]);
+
+    const categoryTitle = categoryName ? categoryName : <Shimmer width={5} />;
+
     return (
         <Fragment>
-            <Title>{titleContent}</Title>
-            <article className={classes.root}>
-                <h1 className={classes.title}>
-                    <div className={classes.categoryTitle}>{title}</div>
-                </h1>
-                {header}
-                <section className={classes.gallery}>
-                    <Gallery items={items} />
-                </section>
-                <div className={classes.pagination}>
-                    <Pagination pageControl={pageControl} />
+            <Breadcrumbs categoryId={categoryId} />
+            <StoreTitle>{categoryName}</StoreTitle>
+            <article className={classes.root} data-cy="CategoryContent-root">
+                <div className={classes.categoryHeader}>
+                    <h1 aria-live="polite" className={classes.title}>
+                        <div
+                            className={classes.categoryTitle}
+                            data-cy="CategoryContent-categoryTitle"
+                        >
+                            {categoryTitle}
+                        </div>
+                    </h1>
+                    {categoryDescriptionElement}
                 </div>
-                {modal}
+                <div className={classes.contentWrapper}>
+                    <div ref={sidebarRef} className={classes.sidebar}>
+                        <Suspense fallback={<FilterSidebarShimmer />}>
+                            {shouldRenderSidebarContent ? sidebar : null}
+                        </Suspense>
+                    </div>
+                    <div className={classes.categoryContent}>
+                        <div className={classes.heading}>
+                            <div
+                                data-cy="CategoryContent-categoryInfo"
+                                className={classes.categoryInfo}
+                            >
+                                {categoryResultsHeading}
+                            </div>
+                            <div className={classes.headerButtons}>
+                                {maybeFilterButtons}
+                                {maybeSortButton}
+                            </div>
+                            {maybeSortContainer}
+                        </div>
+                        {content}
+                        <Suspense fallback={null}>{filtersModal}</Suspense>
+                    </div>
+                </div>
             </article>
         </Fragment>
     );
@@ -65,11 +198,21 @@ export default CategoryContent;
 
 CategoryContent.propTypes = {
     classes: shape({
-        filterContainer: string,
         gallery: string,
-        headerButtons: string,
         pagination: string,
         root: string,
-        title: string
-    })
+        categoryHeader: string,
+        title: string,
+        categoryTitle: string,
+        sidebar: string,
+        categoryContent: string,
+        heading: string,
+        categoryInfo: string,
+        headerButtons: string
+    }),
+    // sortProps contains the following structure:
+    // [{sortDirection: string, sortAttribute: string, sortText: string},
+    // React.Dispatch<React.SetStateAction<{sortDirection: string, sortAttribute: string, sortText: string}]
+    sortProps: array,
+    pageSize: number
 };

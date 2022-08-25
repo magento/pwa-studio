@@ -1,0 +1,103 @@
+.root {
+}
+a.link {
+    text-decoration: none;
+}
+.wrapper {
+    background-clip: padding-box;
+    border-radius: inherit;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+.overlay {
+    padding: 30px;
+    transition: background-color 500ms ease;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.videoOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.viewportElement {
+    height: 100%;
+    width: 1px;
+    position: absolute;
+    left: var(--leftViewportElement);
+    top: 0;
+    z-index: -100;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.content {
+    min-height: 50px;
+    width: 100%;
+}
+.button {
+    margin: 20px 0 0 0;
+    max-width: 100%;
+    text-align: inherit;
+    transition: opacity 500ms ease;
+    word-break: break-word;
+    width: 100%;
+}
+.root:hover .buttonHover {
+    opacity: 1;
+}
+.buttonHover {
+    composes: button;
+    opacity: 0;
+}
+.posterOverlay {
+    composes: overlay;
+    align-content: center;
+    justify-content: center;
+}
+.posterOverlayHover {
+    composes: posterOverlay;
+    background-color: transparent !important;
+}
+.collageLeftOverlay {
+    composes: overlay;
+    margin-right: auto;
+    max-width: 540px;
+}
+.collageLeftOverlayHover {
+    composes: collageLeftOverlay;
+    background-color: transparent !important;
+}
+.collageCenteredOverlay {
+    composes: overlay;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 540px;
+}
+.collageCenteredOverlayHover {
+    composes: collageCenteredOverlay;
+    background-color: transparent !important;
+}
+.collageRightOverlay {
+    composes: overlay;
+    margin-left: auto;
+    max-width: 540px;
+}
+.collageRightOverlayHover {
+    composes: collageRightOverlay;
+    background-color: transparent !important;
+}
+
+.root :global [id*='jarallax-container'] video,
+.root :global [id*='jarallax-container'] iframe,
+.root :global [id*='jarallax-container'] img {
+    margin: auto !important;
+    transform: none !important;
+}

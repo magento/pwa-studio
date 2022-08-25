@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Allows overriding of loading attribute 1`] = `
+<img
+  alt="SimpleImage Unit Test"
+  className="unit_test_class"
+  loading="eager"
+  onError={[MockFunction]}
+  onLoad={[MockFunction]}
+  sizes="100px"
+  src="prefixed/sku1234.jpg"
+  srcSet="prefixed/sku1234.jpg?auto=webp&format=pjpg&width=40&height=50 40w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=80&height=100 80w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=160&height=200 160w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=320&height=400 320w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=640&height=800 640w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=960&height=1200 960w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+/>
+`;
+
+exports[`renders correctly 1`] = `
+<img
+  alt="SimpleImage Unit Test"
+  className="unit_test_class"
+  loading="lazy"
+  onError={[MockFunction]}
+  onLoad={[MockFunction]}
+  sizes="100px"
+  src="prefixed/sku1234.jpg"
+  srcSet="prefixed/sku1234.jpg?auto=webp&format=pjpg&width=40&height=50 40w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=80&height=100 80w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=160&height=200 160w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=320&height=400 320w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=640&height=800 640w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=960&height=1200 960w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+            prefixed/sku1234.jpg?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+/>
+`;

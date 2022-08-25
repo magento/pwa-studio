@@ -34,9 +34,7 @@ test('calls talon with correct props', async () => {
 
     expect(useCategoryTree).toHaveBeenCalledTimes(1);
     expect(useCategoryTree).toHaveBeenNthCalledWith(1, {
-        categories: props.categories,
         categoryId: props.categoryId,
-        query: expect.any(Object),
         updateCategories: props.updateCategories
     });
 });

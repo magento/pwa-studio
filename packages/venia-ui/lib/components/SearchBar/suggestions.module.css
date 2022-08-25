@@ -1,0 +1,6 @@
+.heading {
+    composes: pt-3 from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
+    composes: uppercase from global;
+}

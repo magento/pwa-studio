@@ -1,0 +1,23 @@
+.root {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: p-md from global;
+}
+
+.heading_container {
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: grid-flow-col from global;
+}
+
+.heading {
+    composes: font-semibold from global;
+}
+
+.card_details_container {
+    composes: gap-2xs from global;
+    composes: grid from global;
+}
+
+.payment_details {
+}

@@ -1,44 +1,65 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Icon from '../../Icon';
-import { Check as Checkmark } from 'react-feather';
-import classify from '../../../classify';
-import defaultClasses from './filterDefault.css';
+import React from 'react';
+import { useIntl } from 'react-intl';
+import { bool, shape, string } from 'prop-types';
 
-class FilterDefault extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            icon: PropTypes.string,
-            iconActive: PropTypes.string
-        }),
-        item: PropTypes.shape({
-            label: PropTypes.string
-        }),
-        isSelected: PropTypes.bool,
-        label: PropTypes.string,
-        group: PropTypes.string
-    };
+import Checkbox from '../../Checkbox';
+import { useStyle } from '../../../classify';
+import defaultClasses from './filterDefault.module.css';
 
-    render() {
-        const {
-            classes,
-            isSelected,
-            item: { label },
-            ...rest
-        } = this.props;
+const FilterDefault = props => {
+    const { classes: propsClasses, isSelected, item, ...restProps } = props;
 
-        const iconClassName = isSelected ? classes.iconActive : classes.icon;
+    const { label, value_index } = item || {};
+    const classes = useStyle(defaultClasses, propsClasses);
+    const { formatMessage } = useIntl();
 
-        return (
-            <button className={classes.root} {...rest}>
-                <span className={iconClassName}>
-                    {isSelected && <Icon src={Checkmark} size={14} />}
-                </span>
-                <span>{label}</span>
-            </button>
-        );
-    }
-}
+    const ariaLabel = !isSelected
+        ? formatMessage(
+              {
+                  id: 'filterModal.item.applyFilter',
+                  defaultMessage: 'Apply filter "{optionName}".'
+              },
+              {
+                  optionName: label
+              }
+          )
+        : formatMessage(
+              {
+                  id: 'filterModal.item.clearFilter',
+                  defaultMessage: 'Remove filter "{optionName}".'
+              },
+              {
+                  optionName: label
+              }
+          );
 
-export default classify(defaultClasses)(FilterDefault);
+    return (
+        <Checkbox
+            classes={classes}
+            field={`${label}-${value_index}`}
+            fieldValue={!!isSelected}
+            label={label}
+            ariaLabel={ariaLabel}
+            data-cy="FilterDefault-checkbox"
+            {...restProps}
+        />
+    );
+};
+
+export default FilterDefault;
+
+FilterDefault.propTypes = {
+    classes: shape({
+        root: string,
+        icon: string,
+        label: string,
+        checked: string
+    }),
+    group: string,
+    isSelected: bool,
+    item: shape({
+        label: string.isRequired,
+        value_index: string.isRequired
+    }).isRequired,
+    label: string
+};

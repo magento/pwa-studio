@@ -1,0 +1,131 @@
+.root {
+    composes: bg-white from global;
+    composes: border from global;
+    composes: border-shaded-10 from global;
+    composes: border-solid from global;
+    composes: font-light from global;
+    composes: gap-x-2 from global;
+    composes: gap-y-3 from global;
+    composes: grid from global;
+    composes: items-start from global;
+    composes: justify-items-start from global;
+    composes: leading-tight from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: p-xs from global;
+    composes: rounded-sm from global;
+    composes: text-colorDefault from global;
+    composes: text-sm from global;
+    composes: w-[20rem] from global;
+    animation: toast-pulsate 0.5s 1s;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    grid-template-areas: 'icon message controls';
+    grid-auto-columns: min-content auto min-content;
+}
+
+@keyframes toast-pulsate {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.icon {
+    grid-area: icon;
+}
+
+.infoToast {
+    composes: root;
+
+    composes: border-b-4 from global;
+    composes: border-solid from global;
+    composes: border-info from global;
+}
+
+.infoToast > .icon {
+    --stroke: rgb(0, 104, 108);
+}
+
+.warningToast {
+    composes: root;
+
+    composes: border-b-4 from global;
+    composes: border-solid from global;
+    composes: border-warning from global;
+}
+
+.warningToast > .icon {
+    --stroke: rgb(var(--venia-global-color-orange));
+}
+
+.errorToast {
+    composes: root;
+
+    composes: border-b-4 from global;
+    composes: border-solid from global;
+    composes: border-error from global;
+}
+
+.errorToast > .icon {
+    --stroke: rgb(220, 20, 60);
+}
+
+.successToast {
+    composes: root;
+
+    composes: border-b-4 from global;
+    composes: border-solid from global;
+    composes: border-success from global;
+}
+
+.successToast > .icon {
+    --stroke: rgb(var(--venia-global-color-green-500));
+}
+
+.message {
+    composes: flex from global;
+    composes: text-sm from global;
+    grid-area: message;
+
+    /* For wrapping...*/
+    /* These are technically the same, but use both */
+    composes: break-words from global;
+
+    /* TODO @TW review */
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}
+
+.controls {
+    composes: border-l from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: pl-3 from global;
+    grid-area: controls;
+}
+
+.actionButton {
+    composes: font-semibold from global;
+    composes: text-colorDefault from global;
+    composes: underline from global;
+}
+
+.dismissButton {
+    composes: text-subtle from global;
+}

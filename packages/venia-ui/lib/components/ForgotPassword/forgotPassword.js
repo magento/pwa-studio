@@ -1,44 +1,67 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
-import ForgotPasswordForm from './ForgotPasswordForm';
-import FormSubmissionSuccessful from './FormSubmissionSuccessful';
-import defaultClasses from './forgotPassword.css';
 import { useForgotPassword } from '@magento/peregrine/lib/talons/ForgotPassword/useForgotPassword';
 
-const INSTRUCTIONS = 'Enter your email below to receive a password reset link.';
+import FormErrors from '../FormError';
+import { useStyle } from '../../classify';
+import ForgotPasswordForm from './ForgotPasswordForm';
+import FormSubmissionSuccessful from './FormSubmissionSuccessful';
+
+import forgotPasswordOperations from './forgotPassword.gql';
+
+import defaultClasses from './forgotPassword.module.css';
 
 const ForgotPassword = props => {
-    const { initialValues, onClose } = props;
+    const { initialValues, onCancel } = props;
 
+    const { formatMessage } = useIntl();
     const talonProps = useForgotPassword({
-        onClose
+        onCancel,
+        ...forgotPasswordOperations
     });
 
     const {
         forgotPasswordEmail,
-        handleContinue,
+        formErrors,
+        handleCancel,
         handleFormSubmit,
-        inProgress,
-        isResettingPassword
+        hasCompleted,
+        isResettingPassword,
+        recaptchaWidgetProps
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
-
-    const children = inProgress ? (
-        <FormSubmissionSuccessful
-            email={forgotPasswordEmail}
-            onContinue={handleContinue}
-        />
+    const classes = useStyle(defaultClasses, props.classes);
+    const INSTRUCTIONS = formatMessage({
+        id: 'forgotPassword.instructions',
+        defaultMessage:
+            'Please enter the email address associated with this account.'
+    });
+    const children = hasCompleted ? (
+        <FormSubmissionSuccessful email={forgotPasswordEmail} />
     ) : (
         <Fragment>
-            <p className={classes.instructions}>{INSTRUCTIONS}</p>
+            <h2 data-cy="ForgotPassword-title" className={classes.title}>
+                <FormattedMessage
+                    id={'forgotPassword.recoverPasswordText'}
+                    defaultMessage={'Recover Password'}
+                />
+            </h2>
+            <p
+                data-cy="ForgotPassword-instructions"
+                className={classes.instructions}
+            >
+                {INSTRUCTIONS}
+            </p>
             <ForgotPasswordForm
                 initialValues={initialValues}
-                onSubmit={handleFormSubmit}
                 isResettingPassword={isResettingPassword}
+                onSubmit={handleFormSubmit}
+                onCancel={handleCancel}
+                recaptchaWidgetProps={recaptchaWidgetProps}
             />
+            <FormErrors errors={formErrors} />
         </Fragment>
     );
 
@@ -52,9 +75,12 @@ ForgotPassword.propTypes = {
         instructions: string,
         root: string
     }),
-    email: string,
     initialValues: shape({
         email: string
     }),
-    onClose: func.isRequired
+    onCancel: func
+};
+
+ForgotPassword.defaultProps = {
+    onCancel: () => {}
 };

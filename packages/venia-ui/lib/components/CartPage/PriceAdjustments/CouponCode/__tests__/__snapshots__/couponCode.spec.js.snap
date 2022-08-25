@@ -1,0 +1,280 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`disables remove button on click 1`] = `
+<div
+  className="appliedCoupon"
+>
+  <span>
+    COUPON
+  </span>
+  <button
+    className="removeButton"
+    disabled={true}
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="couponCode.removeButton"
+      />
+    </span>
+  </button>
+</div>
+`;
+
+exports[`disables submit button on coupon entry 1`] = `
+<form
+  className="entryForm"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <label
+      htmlFor="couponCode"
+    >
+      Coupon Code
+    </label>
+    <span
+      style={
+        Object {
+          "--iconsAfter": 0,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span>
+        <input
+          id="couponCode"
+          name="couponCode"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Enter code"
+          value=""
+        />
+      </span>
+      <span />
+      <span />
+    </span>
+    <p>
+      
+    </p>
+  </div>
+  <div>
+    <label />
+    <button
+      disabled={true}
+      onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="submit"
+    >
+      <span>
+        <mock-FormattedMessage
+          defaultMessage="Apply"
+          id="couponCode.apply"
+        />
+      </span>
+    </button>
+  </div>
+</form>
+`;
+
+exports[`renders CouponCode input and submit button 1`] = `
+<form
+  className="entryForm"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <label
+      htmlFor="couponCode"
+    >
+      Coupon Code
+    </label>
+    <span
+      style={
+        Object {
+          "--iconsAfter": 0,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span>
+        <input
+          id="couponCode"
+          name="couponCode"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Enter code"
+          value=""
+        />
+      </span>
+      <span />
+      <span />
+    </span>
+    <p>
+      
+    </p>
+  </div>
+  <div>
+    <label />
+    <button
+      disabled={false}
+      onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="submit"
+    >
+      <span>
+        <mock-FormattedMessage
+          defaultMessage="Apply"
+          id="couponCode.apply"
+        />
+      </span>
+    </button>
+  </div>
+</form>
+`;
+
+exports[`renders an error message if an error occurs on code entry 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <label
+      htmlFor="couponCode"
+    >
+      Coupon Code
+    </label>
+    <span
+      style={
+        Object {
+          "--iconsAfter": 0,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span>
+        <input
+          id="couponCode"
+          name="couponCode"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Enter code"
+          value=""
+        />
+      </span>
+      <span />
+      <span />
+    </span>
+    <p>
+      A wild GQL error appeared!
+    </p>
+  </div>
+  <div>
+    <label />
+    <button
+      disabled={false}
+      onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="submit"
+    >
+      <span>
+        <mock-FormattedMessage
+          defaultMessage="Apply"
+          id="couponCode.apply"
+        />
+      </span>
+    </button>
+  </div>
+</form>
+`;
+
+exports[`renders an error state if unable to fetch applied coupons 1`] = `
+<div>
+  <mock-FormattedMessage
+    defaultMessage="Something went wrong. Please refresh and try again."
+    id="couponCode.errorContainer"
+  />
+</div>
+`;
+
+exports[`renders nothing if no data is returned 1`] = `null`;
+
+exports[`renders the coupon code view if applied coupons has data 1`] = `
+<div
+  className="appliedCoupon"
+>
+  <span>
+    COUPON
+  </span>
+  <button
+    className="removeButton"
+    disabled={false}
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="couponCode.removeButton"
+      />
+    </span>
+  </button>
+</div>
+`;

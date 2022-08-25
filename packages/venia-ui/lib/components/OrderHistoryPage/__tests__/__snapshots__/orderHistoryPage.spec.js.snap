@@ -1,0 +1,925 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with data 1`] = `
+<mock-OrderHistoryContextProvider>
+  <div
+    className="root"
+  >
+    Title
+    <h1
+      aria-live="polite"
+      className="heading"
+    >
+      Order History
+    </h1>
+    <div
+      className="filterRow"
+    >
+      <span
+        className="pageInfo"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Showing {current} of {total}"
+          id="orderHistoryPage.pageInfo"
+          values={
+            Object {
+              "current": 3,
+              "total": 6,
+            }
+          }
+        />
+      </span>
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 1,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+        <button
+          className="searchButton"
+          disabled={false}
+          onClick={[Function]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="submit"
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 5 19 12 12 19"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </form>
+    </div>
+    <ul
+      className="orderHistoryTable"
+    >
+      <OrderRow
+        order={
+          Object {
+            "id": 1,
+          }
+        }
+      />
+      <OrderRow
+        order={
+          Object {
+            "id": 2,
+          }
+        }
+      />
+      <OrderRow
+        order={
+          Object {
+            "id": 3,
+          }
+        }
+      />
+    </ul>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[MockFunction loadMoreOrders]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Load More"
+          id="orderHistoryPage.loadMore"
+        />
+      </span>
+    </button>
+  </div>
+</mock-OrderHistoryContextProvider>
+`;
+
+exports[`renders correctly without data 1`] = `
+<mock-OrderHistoryContextProvider>
+  <div
+    className="root"
+  >
+    Title
+    <h1
+      aria-live="polite"
+      className="heading"
+    >
+      Order History
+    </h1>
+    <div
+      className="filterRow"
+    >
+      <span
+        className="pageInfo"
+      />
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 1,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+        <button
+          className="searchButton"
+          disabled={false}
+          onClick={[Function]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="submit"
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 5 19 12 12 19"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </form>
+    </div>
+    <h3
+      className="emptyHistoryMessage"
+    >
+      <mock-FormattedMessage
+        defaultMessage="You don't have any orders yet."
+        id="orderHistoryPage.emptyDataMessage"
+      />
+    </h3>
+  </div>
+</mock-OrderHistoryContextProvider>
+`;
+
+exports[`renders error messages if any 1`] = `
+Array [
+  Array [
+    Object {
+      "dismissable": true,
+      "icon": <Icon
+        attrs={
+          Object {
+            "width": 18,
+          }
+        }
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
+      />,
+      "message": "Some Error Message",
+      "timeout": 10000,
+      "type": "error",
+    },
+  ],
+]
+`;
+
+exports[`renders invalid order id message if order id is wrong 1`] = `
+<mock-OrderHistoryContextProvider>
+  <div
+    className="root"
+  >
+    Title
+    <h1
+      aria-live="polite"
+      className="heading"
+    >
+      Order History
+    </h1>
+    <div
+      className="filterRow"
+    >
+      <span
+        className="pageInfo"
+      />
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 1,
+              "--iconsBefore": 1,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
+          >
+            <button
+              className="root"
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={24}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="18"
+                    x2="6"
+                    y1="6"
+                    y2="18"
+                  />
+                  <line
+                    x1="6"
+                    x2="18"
+                    y1="6"
+                    y2="18"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </span>
+        <p
+          className="root"
+        />
+        <button
+          className="searchButton"
+          disabled={false}
+          onClick={[Function]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="submit"
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 5 19 12 12 19"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </form>
+    </div>
+    <h3
+      className="emptyHistoryMessage"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Order \\"********\\" was not found."
+        id="orderHistoryPage.invalidOrderNumber"
+        values={
+          Object {
+            "number": "********",
+          }
+        }
+      />
+    </h3>
+  </div>
+</mock-OrderHistoryContextProvider>
+`;
+
+exports[`renders loading indicator 1`] = `
+<mock-OrderHistoryContextProvider>
+  <div
+    className="root"
+  >
+    Title
+    <h1
+      aria-live="polite"
+      className="heading"
+    >
+      Order History
+    </h1>
+    <div
+      className="filterRow"
+    >
+      <span
+        className="pageInfo"
+      />
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 1,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+        <button
+          className="searchButton"
+          disabled={true}
+          onClick={[Function]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="submit"
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 5 19 12 12 19"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </form>
+    </div>
+    <div
+      className="root"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={64}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={64}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="12"
+            x2="12"
+            y1="2"
+            y2="6"
+          />
+          <line
+            x1="12"
+            x2="12"
+            y1="18"
+            y2="22"
+          />
+          <line
+            x1="4.93"
+            x2="7.76"
+            y1="4.93"
+            y2="7.76"
+          />
+          <line
+            x1="16.24"
+            x2="19.07"
+            y1="16.24"
+            y2="19.07"
+          />
+          <line
+            x1="2"
+            x2="6"
+            y1="12"
+            y2="12"
+          />
+          <line
+            x1="18"
+            x2="22"
+            y1="12"
+            y2="12"
+          />
+          <line
+            x1="4.93"
+            x2="7.76"
+            y1="19.07"
+            y2="16.24"
+          />
+          <line
+            x1="16.24"
+            x2="19.07"
+            y1="7.76"
+            y2="4.93"
+          />
+        </svg>
+      </span>
+      <span
+        className="message"
+      />
+    </div>
+  </div>
+</mock-OrderHistoryContextProvider>
+`;
+
+exports[`renders no orders message is orders is empty 1`] = `
+<mock-OrderHistoryContextProvider>
+  <div
+    className="root"
+  >
+    Title
+    <h1
+      aria-live="polite"
+      className="heading"
+    >
+      Order History
+    </h1>
+    <div
+      className="filterRow"
+    >
+      <span
+        className="pageInfo"
+      />
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 1,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+        <button
+          className="searchButton"
+          disabled={false}
+          onClick={[Function]}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          type="submit"
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 5 19 12 12 19"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </form>
+    </div>
+    <h3
+      className="emptyHistoryMessage"
+    >
+      <mock-FormattedMessage
+        defaultMessage="You don't have any orders yet."
+        id="orderHistoryPage.emptyDataMessage"
+      />
+    </h3>
+  </div>
+</mock-OrderHistoryContextProvider>
+`;

@@ -1,0 +1,89 @@
+.root {
+    composes: col-span-6 from global;
+    composes: gap-none from global;
+    composes: grid from global;
+    composes: items-start from global;
+    composes: max-w-[20rem] from global;
+    composes: mx-auto from global;
+    composes: relative from global;
+
+    composes: sm_col-span-3 from global;
+}
+
+.form {
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: relative from global;
+}
+
+/* TODO @TW: cannot compose */
+.form input {
+    /* TODO @TW: review */
+    padding-right: calc(1.875rem * var(--iconsAfter) + 5.625rem);
+}
+
+@media (max-width: 799px) {
+    /* TODO @TW: cannot compose */
+    .form input {
+        /* TODO @TW: review */
+        padding-right: calc(1.875rem * var(--iconsAfter) + 0.625rem);
+    }
+}
+
+/* TODO @TW: cannot compose */
+.form label {
+    position: absolute;
+    z-index: -1;
+    /* composes: z-behind from global; */
+}
+
+.buttonsContainer {
+    composes: gap-sm from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: justify-center from global;
+    composes: mt-xs from global;
+    composes: w-full from global;
+
+    composes: md_hidden from global;
+}
+
+.title {
+    composes: block from global;
+    composes: font-semibold from global;
+    composes: mb-xs from global;
+    composes: text-colorDefault from global;
+    composes: text-sm from global;
+}
+
+.subscribe_link {
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: hidden from global;
+    composes: max-h-[35px] from global;
+    composes: px-3 from global;
+    composes: py-0 from global;
+    composes: right-1 from global;
+    composes: text-colorDefault from global;
+    composes: top-0 from global;
+    composes: underline from global;
+    min-height: 35px;
+    transform: translateY(7%);
+
+    composes: md_inline-block from global;
+}
+
+.newsletter_text {
+    composes: mb-sm from global;
+}
+
+.loadingContainer {
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: h-full from global;
+    composes: left-0 from global;
+    composes: opacity-75 from global;
+    composes: top-0 from global;
+    composes: w-full from global;
+    composes: z-mask from global;
+}

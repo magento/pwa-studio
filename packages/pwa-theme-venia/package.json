@@ -1,0 +1,15 @@
+{
+  "name": "@magento/pwa-theme-venia",
+  "version": "1.3.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Base theme for a PWA Studio storefront",
+  "main": "tailwind.preset.js",
+  "scripts": {
+    "clean": " "
+  },
+  "repository": "https://github.com/github:magento/pwa-studio",
+  "author": "Adobe Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)"
+}

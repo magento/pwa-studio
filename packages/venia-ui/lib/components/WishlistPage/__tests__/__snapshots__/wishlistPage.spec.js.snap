@@ -1,0 +1,245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty single wishlist 1`] = `
+<div
+  className="root"
+>
+  <h1
+    aria-live="polite"
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
+      id="wishlistPage.headingText"
+      values={
+        Object {
+          "count": 0,
+        }
+      }
+    />
+  </h1>
+  <Wishlist />
+  <CreateWishlist
+    numberOfWishlists={0}
+  />
+</div>
+`;
+
+exports[`renders a single wishlist without visibility toggle 1`] = `
+<div
+  className="root"
+>
+  <h1
+    aria-live="polite"
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
+      id="wishlistPage.headingText"
+      values={
+        Object {
+          "count": 1,
+        }
+      }
+    />
+  </h1>
+  <Wishlist
+    data={
+      Object {
+        "id": 1,
+        "name": "Favorites",
+      }
+    }
+    isCollapsed={false}
+  />
+  <CreateWishlist
+    numberOfWishlists={1}
+  />
+</div>
+`;
+
+exports[`renders disabled feature error 1`] = `
+<div
+  className="root"
+>
+  <h1
+    aria-live="polite"
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
+      id="wishlistPage.headingText"
+      values={
+        Object {
+          "count": 0,
+        }
+      }
+    />
+  </h1>
+  <div
+    className="errorContainer"
+  >
+    <p>
+      <mock-FormattedMessage
+        defaultMessage="Sorry, this feature has been disabled."
+        id="wishlistPage.disabledMessage"
+      />
+    </p>
+  </div>
+</div>
+`;
+
+exports[`renders general fetch error 1`] = `
+<div
+  className="root"
+>
+  <h1
+    aria-live="polite"
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
+      id="wishlistPage.headingText"
+      values={
+        Object {
+          "count": 0,
+        }
+      }
+    />
+  </h1>
+  <div
+    className="errorContainer"
+  >
+    <p
+      className="fetchError"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Something went wrong. Please refresh and try again."
+        id="wishlistPage.fetchErrorMessage"
+      />
+    </p>
+  </div>
+</div>
+`;
+
+exports[`renders loading indicator 1`] = `
+<div
+  className="global"
+>
+  <span
+    className="root"
+  >
+    <svg
+      className="icon"
+      fill="none"
+      height={64}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width={64}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line
+        x1="12"
+        x2="12"
+        y1="2"
+        y2="6"
+      />
+      <line
+        x1="12"
+        x2="12"
+        y1="18"
+        y2="22"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="4.93"
+        y2="7.76"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="16.24"
+        y2="19.07"
+      />
+      <line
+        x1="2"
+        x2="6"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="18"
+        x2="22"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="19.07"
+        y2="16.24"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="7.76"
+        y2="4.93"
+      />
+    </svg>
+  </span>
+  <span
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
+  </span>
+</div>
+`;
+
+exports[`renders wishlist data 1`] = `
+<div
+  className="root"
+>
+  <h1
+    aria-live="polite"
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
+      id="wishlistPage.headingText"
+      values={
+        Object {
+          "count": 2,
+        }
+      }
+    />
+  </h1>
+  <Wishlist
+    data={
+      Object {
+        "id": 1,
+        "name": "Favorites",
+      }
+    }
+    isCollapsed={false}
+  />
+  <Wishlist
+    data={
+      Object {
+        "id": 2,
+        "name": "Registry",
+      }
+    }
+    isCollapsed={true}
+  />
+  <CreateWishlist
+    numberOfWishlists={2}
+  />
+</div>
+`;

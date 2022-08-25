@@ -1,8 +1,8 @@
 import React from 'react';
 import { func, node, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
-import defaultClasses from './trigger.css';
+import { useStyle } from '../../classify';
+import defaultClasses from './trigger.module.css';
 
 /**
  * A component that will trigger a given action.
@@ -15,12 +15,24 @@ import defaultClasses from './trigger.css';
  * @returns {React.Element} A React component that when triggered invokes the action.
  */
 const Trigger = props => {
-    const { action, children } = props;
+    const {
+        action,
+        children,
+        ariaLabel,
+        classes: propClasses,
+        ...restProps
+    } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, propClasses);
 
     return (
-        <button className={classes.root} type="button" onClick={action}>
+        <button
+            className={classes.root}
+            type="button"
+            onClick={action}
+            aria-label={ariaLabel}
+            {...restProps}
+        >
             {children}
         </button>
     );

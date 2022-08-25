@@ -1,0 +1,402 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it disables inputs when the page is updating 1`] = `
+<div
+  className="root"
+>
+  <h3
+    className="editingHeading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Shipping Method"
+      id="shippingMethod.heading"
+    />
+  </h3>
+  <FormError
+    errors={Array []}
+  />
+  <form
+    className="form"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="root"
+    >
+      <label
+        aria-label=""
+        className="root"
+        htmlFor="shipping_method--flatrate|flatrate"
+      >
+        <input
+          checked={true}
+          className="input"
+          disabled={true}
+          id="shipping_method--flatrate|flatrate"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="radio"
+          value="flatrate|flatrate"
+        />
+        <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+          </svg>
+        </span>
+        <span
+          className="label"
+        >
+          <span>
+            Flat Rate
+          </span>
+          <div
+            className="price"
+          >
+            <span>
+              $
+            </span>
+            <span>
+              99
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
+          </div>
+        </span>
+      </label>
+    </div>
+    <p
+      className="root"
+    />
+    <div
+      className="formButtons"
+    >
+      <button
+        className="root_normalPriority"
+        disabled={true}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Continue to Payment Information"
+            id="shippingMethod.continueToNextStep"
+          />
+        </span>
+      </button>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`it renders correctly 1`] = `
+<div
+  className="root"
+>
+  <h3
+    className="editingHeading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Shipping Method"
+      id="shippingMethod.heading"
+    />
+  </h3>
+  <FormError
+    errors={Array []}
+  />
+  <form
+    className="form"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="root"
+    >
+      <label
+        aria-label=""
+        className="root"
+        htmlFor="shipping_method--flatrate|flatrate"
+      >
+        <input
+          checked={true}
+          className="input"
+          disabled={false}
+          id="shipping_method--flatrate|flatrate"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="radio"
+          value="flatrate|flatrate"
+        />
+        <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+          </svg>
+        </span>
+        <span
+          className="label"
+        >
+          <span>
+            Flat Rate
+          </span>
+          <div
+            className="price"
+          >
+            <span>
+              $
+            </span>
+            <span>
+              99
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
+          </div>
+        </span>
+      </label>
+    </div>
+    <p
+      className="root"
+    />
+    <div
+      className="formButtons"
+    >
+      <button
+        className="root_normalPriority"
+        disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="submit"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Continue to Payment Information"
+            id="shippingMethod.continueToNextStep"
+          />
+        </span>
+      </button>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`it renders correctly in done mode 1`] = `
+Array [
+  <div
+    className="done"
+  >
+    <Completed View Component
+      selectedShippingMethod={
+        Object {
+          "amount": Object {
+            "currency": "USD",
+            "value": 99,
+          },
+          "carrier_code": "flatrate",
+          "carrier_title": "Flat Rate",
+          "method_code": "flatrate",
+          "method_title": "Flat Rate",
+          "serializedValue": "flatrate|flatrate",
+        }
+      }
+      showUpdateMode={[MockFunction]}
+    />
+  </div>,
+  <Update Modal Component
+    formErrors={
+      Array [
+        [Error: Form Error],
+      ]
+    }
+    formInitialValues={
+      Object {
+        "shipping_method": "flatrate|flatrate",
+      }
+    }
+    handleCancel={[MockFunction]}
+    handleSubmit={[MockFunction]}
+    isLoading={false}
+    isOpen={false}
+    pageIsUpdating={false}
+    shippingMethods={
+      Array [
+        Object {
+          "amount": Object {
+            "currency": "USD",
+            "value": 99,
+          },
+          "available": true,
+          "carrier_code": "flatrate",
+          "carrier_title": "Flat Rate",
+          "method_code": "flatrate",
+          "method_title": "Flat Rate",
+          "serializedValue": "flatrate|flatrate",
+        },
+      ]
+    }
+  />,
+]
+`;
+
+exports[`it renders correctly in initializing mode 1`] = `
+<div
+  className="root"
+>
+  <h3
+    className="editingHeading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Shipping Method"
+      id="shippingMethod.heading"
+    />
+  </h3>
+  <FormError
+    errors={
+      Array [
+        [Error: Form Error],
+      ]
+    }
+  />
+  <div
+    className="root"
+  >
+    <span
+      className="root"
+    >
+      <svg
+        className="icon"
+        fill="none"
+        height={64}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={64}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line
+          x1="12"
+          x2="12"
+          y1="2"
+          y2="6"
+        />
+        <line
+          x1="12"
+          x2="12"
+          y1="18"
+          y2="22"
+        />
+        <line
+          x1="4.93"
+          x2="7.76"
+          y1="4.93"
+          y2="7.76"
+        />
+        <line
+          x1="16.24"
+          x2="19.07"
+          y1="16.24"
+          y2="19.07"
+        />
+        <line
+          x1="2"
+          x2="6"
+          y1="12"
+          y2="12"
+        />
+        <line
+          x1="18"
+          x2="22"
+          y1="12"
+          y2="12"
+        />
+        <line
+          x1="4.93"
+          x2="7.76"
+          y1="19.07"
+          y2="16.24"
+        />
+        <line
+          x1="16.24"
+          x2="19.07"
+          y1="7.76"
+          y2="4.93"
+        />
+      </svg>
+    </span>
+    <span
+      className="message"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Loading shipping methods..."
+        id="shippingMethod.loading"
+      />
+    </span>
+  </div>
+</div>
+`;

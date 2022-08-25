@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+Array [
+  <div
+    className="root"
+  >
+    <button
+      aria-label="Toggle My Account Menu"
+      className="trigger"
+      onClick={[MockFunction handleTriggerClick]}
+    >
+      <Account Chip
+        fallbackText="Sign In"
+        shouldIndicateLoading={true}
+      />
+    </button>
+  </div>,
+  <require('../AccountMenu')
+    accountMenuIsOpen={false}
+  />,
+]
+`;

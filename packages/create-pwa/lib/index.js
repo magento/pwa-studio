@@ -1,5 +1,6 @@
 const { basename, resolve } = require('path');
 const os = require('os');
+const fetch = require('node-fetch');
 const changeCase = require('change-case');
 const inquirer = require('inquirer');
 const execa = require('execa');
@@ -8,9 +9,35 @@ const gitUserInfo = require('git-user-info');
 const isInvalidPath = require('is-invalid-path');
 const isValidNpmName = require('is-valid-npm-name');
 const pkg = require('../package.json');
-const {
-    sampleBackends
-} = require('@magento/pwa-buildpack/lib/cli/create-project');
+const defaultSampleBackends = require('@magento/pwa-buildpack/sampleBackends.json');
+
+const uniqBy = (array, property) => {
+    const map = new Map();
+
+    for (const element of array) {
+        if (element && element.hasOwnProperty(property)) {
+            map.set(element[property], element);
+        }
+    }
+
+    return Array.from(map.values());
+};
+
+const removeDuplicateBackends = backendEnvironments =>
+    uniqBy(backendEnvironments, 'url');
+
+const fetchSampleBackends = async () => {
+    try {
+        const res = await fetch(
+            'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
+        );
+        const { sampleBackends } = await res.json();
+
+        return sampleBackends.environments;
+    } catch {
+        return [];
+    }
+};
 
 module.exports = async () => {
     console.log(chalk.greenBright(`${pkg.name} v${pkg.version}`));
@@ -19,6 +46,16 @@ module.exports = async () => {
     );
     const userAgent = process.env.npm_config_user_agent || '';
     const isYarn = userAgent.includes('yarn');
+
+    const sampleBackendEnvironments = await fetchSampleBackends();
+    const filteredBackendEnvironments = removeDuplicateBackends([
+        ...sampleBackendEnvironments,
+        ...defaultSampleBackends.environments
+    ]);
+    const sampleBackends = {
+        ...defaultSampleBackends,
+        environments: filteredBackendEnvironments
+    };
 
     const questions = [
         {
@@ -60,6 +97,12 @@ module.exports = async () => {
             }
         },
         {
+            name: 'template',
+            message: ({ name }) =>
+                `Which template would you like to use to bootstrap ${name}? Defaults to "@magento/venia-concept".`,
+            default: '@magento/venia-concept'
+        },
+        {
             name: 'backendUrl',
             type: 'list',
             message:
@@ -87,10 +130,24 @@ module.exports = async () => {
             when: ({ backendUrl }) => !backendUrl
         },
         {
+            name: 'backendEdition',
+            type: 'list',
+            message:
+                'Edition of the magento store (Adobe Commerce or Magento Open Source)',
+            choices: ['AC', 'EE', 'MOS', 'CE'],
+            default: 'AC'
+        },
+        {
+            name: 'braintreeToken',
+            message:
+                'Braintree API token to use to communicate with your Braintree instance (will be added to `.env` file)',
+            default: 'sandbox_8yrzsvtm_s2bg8fs563crhqzk'
+        },
+        {
             name: 'npmClient',
             type: 'list',
             message: 'NPM package management client to use',
-            choices: ['npm', 'yarn'],
+            choices: ['yarn', 'npm'],
             default: isYarn ? 'yarn' : 'npm'
         },
         {
@@ -104,40 +161,44 @@ module.exports = async () => {
     let answers;
     try {
         answers = await inquirer.prompt(questions);
+
+        answers.backendUrl = answers.backendUrl || answers.customBackendUrl;
+        const args = questions.reduce(
+            (args, q) => {
+                if (q.name === 'customBackendUrl' || q.name === 'directory') {
+                    return args;
+                }
+                const answer = answers[q.name];
+                const option = changeCase.paramCase(q.name);
+                if (q.type === 'confirm') {
+                    if (answer !== q.default) {
+                        return [
+                            ...args,
+                            answer ? `--${option}` : `--no-${option}`
+                        ];
+                    }
+                    return args;
+                }
+                return [...args, `--${option}`, `"${answer}"`];
+            },
+            ['create-project', answers.directory]
+        );
+
+        const argsString = args.join(' ');
+
+        console.log(
+            '\nRunning command: \n\n' +
+                chalk.whiteBright(`buildpack ${argsString}\n\n`)
+        );
+
+        const buildpackBinLoc = resolve(
+            require.resolve('@magento/pwa-buildpack'),
+            '../../bin/buildpack'
+        ).replace(/([ '"])/g, '\\$1');
+        await execa.shell(`${buildpackBinLoc} ${argsString}`, {
+            stdio: 'inherit'
+        });
     } catch (e) {
         console.error('App creation cancelled.');
     }
-    answers.backendUrl = answers.backendUrl || answers.customBackendUrl;
-    const args = questions.reduce(
-        (args, q) => {
-            if (q.name === 'customBackendUrl' || q.name === 'directory') {
-                return args;
-            }
-            const answer = answers[q.name];
-            const option = changeCase.paramCase(q.name);
-            if (q.type === 'confirm') {
-                if (answer !== q.default) {
-                    return [...args, answer ? `--${option}` : `--no-${option}`];
-                }
-                return args;
-            }
-            return [...args, `--${option}`, `"${answer}"`];
-        },
-        ['create-project', answers.directory, '--template', '"venia-concept"']
-    );
-
-    const argsString = args.join(' ');
-
-    console.log(
-        '\nRunning command: \n\n' +
-            chalk.whiteBright(`buildpack ${argsString}\n\n`)
-    );
-
-    const buildpackBinLoc = resolve(
-        require.resolve('@magento/pwa-buildpack'),
-        '../../bin/buildpack'
-    );
-    await execa.shell(`${buildpackBinLoc} ${argsString}`, {
-        stdio: 'inherit'
-    });
 };

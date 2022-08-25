@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it pops a toast on error 1`] = `
+Object {
+  "message": "Something went wrong. Please refresh and try again.",
+  "timeout": 5000,
+  "type": "error",
+}
+`;
+
+exports[`it renders a configurable wishlist item 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="root container"
+  >
+    <img
+      alt="Shoggoth Shirt"
+      className="image placeholder"
+      loading="eager"
+      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+      style={
+        Object {
+          "--width": "400px",
+        }
+      }
+      width={400}
+    />
+    <img
+      alt="Shoggoth Shirt"
+      className="image notLoaded"
+      height={500}
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
+      src="https://magento.test/shoggoth-shirt.jpg"
+      style={
+        Object {
+          "--height": "500px",
+          "--width": "400px",
+        }
+      }
+      width={400}
+    />
+  </div>
+  <div
+    className="actionWrap"
+  >
+    <span
+      className="name"
+    >
+      Shoggoth Shirt
+    </span>
+     
+    <button
+      aria-label="Remove Product from Wishlist"
+      className="deleteItem"
+      onClick={[MockFunction handleRemoveProductFromWishlist]}
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={16}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="3 6 5 6 21 6"
+          />
+          <path
+            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+          />
+          <line
+            x1="10"
+            x2="10"
+            y1="11"
+            y2="17"
+          />
+          <line
+            x1="14"
+            x2="14"
+            y1="11"
+            y2="17"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    className="priceContainer"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      123
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      45
+    </span>
+  </div>
+  <span
+    className="option"
+  >
+    Size : XL
+  </span>
+  <span
+    className="option"
+  >
+    Color : Black
+  </span>
+</div>
+`;
+
+exports[`it renders a simple wishlist item 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="root container"
+  >
+    <img
+      alt="Shoggoth Shirt"
+      className="image placeholder"
+      loading="eager"
+      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+      style={
+        Object {
+          "--width": "400px",
+        }
+      }
+      width={400}
+    />
+    <img
+      alt="Shoggoth Shirt"
+      className="image notLoaded"
+      height={500}
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
+      src="https://magento.test/shoggoth-shirt.jpg"
+      style={
+        Object {
+          "--height": "500px",
+          "--width": "400px",
+        }
+      }
+      width={400}
+    />
+  </div>
+  <div
+    className="actionWrap"
+  >
+    <span
+      className="name"
+    >
+      Shoggoth Shirt
+    </span>
+     
+    <button
+      aria-label="Remove Product from Wishlist"
+      className="deleteItem"
+      onClick={[MockFunction handleRemoveProductFromWishlist]}
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={16}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="3 6 5 6 21 6"
+          />
+          <path
+            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+          />
+          <line
+            x1="10"
+            x2="10"
+            y1="11"
+            y2="17"
+          />
+          <line
+            x1="14"
+            x2="14"
+            y1="11"
+            y2="17"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    className="priceContainer"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      123
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      45
+    </span>
+  </div>
+</div>
+`;

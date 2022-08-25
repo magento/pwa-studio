@@ -1,5 +1,6 @@
 ---
 title: CSS Modules
+adobeio: /guides/general-concepts/css-modules/
 ---
 
 A [CSS Module][] is a CSS file that defines class and animation names that are scoped locally by default.
@@ -36,7 +37,15 @@ For more information on reusable components and code sharing in front end develo
 {
     test: /\.css$/,
     use: [
-        'style-loader',
+        {
+            loader: 'style-loader',
+            options: {
+                injectType:
+                    mode === 'development'
+                        ? 'styleTag'
+                        : 'singletonStyleTag'
+            }
+        },
         {
             loader: 'css-loader',
             options: {
@@ -48,6 +57,12 @@ For more information on reusable components and code sharing in front end develo
     ]
 },
 ```
+
+The following is an explanation of the `style-loader` configuration:
+
+`injectType`
+
+: Allows to setup how styles will be injected into the DOM.
 
 The following is an explanation of each `css-loader` configuration:
 
@@ -220,7 +235,6 @@ This example assigns a style based on component logic:
 ```
 
 [Webpack]: https://webpack.js.org/
-[BEM]: http://getbem.com/
 [CSS Module]: https://github.com/css-modules/css-modules
 [style-loader]: https://github.com/webpack-contrib/style-loader
 [css-loader]: https://github.com/webpack-contrib/css-loader

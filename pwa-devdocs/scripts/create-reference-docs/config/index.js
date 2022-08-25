@@ -1,7 +1,9 @@
 const peregrineFiles = require('./peregrine');
-const veniaConceptFiles = require('./venia-concept');
+const veniaFiles = require('./venia');
+const pagebuilderFiles = require('./pagebuilder');
+const buildpackFiles = require('./buildpack');
 
-let files = [].concat(peregrineFiles, veniaConceptFiles);
+let files = [].concat(peregrineFiles, veniaFiles, pagebuilderFiles, buildpackFiles);
 
 module.exports = {
     baseGitHubPath:

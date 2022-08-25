@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const eslint = require('eslint');
 const fs = require('fs');
 const semver = require('semver');
+const glob = require('glob');
 
 let compatibilityDefinitions;
 try {
@@ -51,7 +52,30 @@ async function validateQueries(context, argv) {
 
         // Get the clients and filesGlob arguments from the .graphqlconfig.
         const configArgs = extensions[plugin.COMMAND];
-        const { clients, filesGlob } = configArgs;
+        const {
+            magentoBackendEdition,
+            clients,
+            filesGlob,
+            mosFilesGlob,
+            ceFilesGlob,
+            acFilesGlob,
+            eeFilesGlob,
+            ignore
+        } = configArgs;
+
+        if (magentoBackendEdition === 'MOS' || magentoBackendEdition === 'CE') {
+            ignore.push(acFilesGlob);
+            ignore.push(eeFilesGlob);
+        } else {
+            ignore.push(mosFilesGlob);
+            ignore.push(ceFilesGlob);
+        }
+
+        /**
+         * List of files to run query validation on ignoring
+         * files mentioned in the .graphqlconfig file.
+         */
+        const files = glob.sync(filesGlob, { ignore });
 
         // Ensure the schema exists.
         context.spinner.start('Locating schema...');
@@ -67,13 +91,13 @@ async function validateQueries(context, argv) {
 
         // Validate our queries against that schema.
         context.spinner.start('Finding queries in files...');
-        const validator = getValidator({ clients, project });
-        const queryFiles = validator.resolveFileGlobPatterns([filesGlob]);
-        context.spinner.succeed();
-
-        context.spinner.start(
-            "Validating project's queries against the schema..."
+        const validator = getValidator({ clients, project, schemaPath });
+        const queryFiles = validator.resolveFileGlobPatterns(files);
+        context.spinner.succeed(
+            `Found ${queryFiles.length} files to test in ${filesGlob}`
         );
+
+        context.spinner.start('Validating queries against the schema...');
         const report = validator.executeOnFiles(queryFiles);
         context.spinner.succeed();
 
@@ -81,22 +105,24 @@ async function validateQueries(context, argv) {
         console.log();
 
         // Report the results.
-        if (report.errorCount === 0) {
+        if (report.errorCount === 0 && report.warningCount === 0) {
             console.log(chalk.green('All queries are valid.'));
 
             process.exit(exitCodes.SUCCESS);
         } else {
-            console.warn(chalk.red('Found some invalid queries:'));
+            console.warn(chalk.red('Found some potential issues:'));
 
             const formatter = validator.getFormatter();
             console.log(formatter(report.results));
 
             console.log(getErrorResolutionDetails());
 
-            process.exit(exitCodes.FAILURE);
+            if (report.errorCount) {
+                process.exit(exitCodes.FAILURE);
+            } else {
+                process.exit(exitCodes.SUCCESS);
+            }
         }
-
-        process.exit(0);
     } catch (e) {
         const message = e.message ? e.message : e;
         context.spinner.fail(`An error occurred:\n${message}`);
@@ -116,20 +142,86 @@ function getSupportedArguments(args) {
  * Creates a linter configuration with rules based on the current
  * clients and project.
  */
-function getValidator({ clients, project }) {
+function getValidator({ clients, project, schemaPath }) {
     const clientRules = clients.map(clientName => ({
         env: clientName,
-        projectName: project
+        projectName: project,
+        schemaJsonFilepath: schemaPath
     }));
 
-    const ruleDefinition = ['error', ...clientRules];
+    const error = ['error', ...clientRules];
+    const warn = ['warn', ...clientRules];
+
+    /*
+     * Here we explicitly list the validators for the graphql/template-strings rule to use.
+     *
+     * We'd like to use the special value 'all' but we have to disable some validators due
+     * to how PWA Studio uses GraphQL.
+     *
+     * @see https://github.com/apollographql/eslint-plugin-graphql#selecting-validation-rules
+     */
+    const validators = [
+        'ExecutableDefinitions',
+        'FieldsOnCorrectType',
+        'FragmentsOnCompositeTypes',
+        'KnownArgumentNames',
+        'KnownDirectives',
+        /*
+         * PWA Studio sometimes uses fragments imported from other JS files.
+         * The parser does not recognize these.
+         */
+        // 'KnownFragmentNames',
+        'KnownTypeNames',
+        'LoneAnonymousOperation',
+        'NoFragmentCycles',
+        'NoUndefinedVariables',
+        /*
+         * PWA Studio sometimes defines fragments for use by other JS files.
+         */
+        // 'NoUnusedFragments',
+        'NoUnusedVariables',
+        'OverlappingFieldsCanBeMerged',
+        'PossibleFragmentSpreads',
+        'ProvidedRequiredArguments',
+        'ScalarLeafs',
+        'SingleFieldSubscriptions',
+        'UniqueArgumentNames',
+        'UniqueDirectivesPerLocation',
+        'UniqueFragmentNames',
+        'UniqueInputFieldNames',
+        'UniqueOperationNames',
+        'UniqueVariableNames',
+        'ValuesOfCorrectType',
+        'VariablesAreInputTypes',
+        /*
+         * The eslint-plugin-graphql docs may be out of date,
+         * this doesn't appear to be a legitimate validator anymore.
+         */
+        // 'VariablesDefaultValueAllowed',
+        'VariablesInAllowedPosition'
+    ];
 
     const linterConfiguration = {
         parser: 'babel-eslint',
         plugins: ['graphql'],
         rules: {
-            'graphql/template-strings': ruleDefinition,
-            'graphql/no-deprecated-fields': ruleDefinition
+            'graphql/capitalized-type-name': error,
+            'graphql/named-operations': error,
+            'graphql/no-deprecated-fields': warn,
+            'graphql/required-fields': [
+                'error',
+                ...clientRules.map(rule => ({
+                    ...rule,
+                    requiredFields: ['id']
+                }))
+            ],
+            'graphql/template-strings': [
+                'error',
+                ...clientRules.map(rule => ({
+                    ...rule,
+                    validators
+                }))
+            ]
         },
         useEslintrc: false
     };

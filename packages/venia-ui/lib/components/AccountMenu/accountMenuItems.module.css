@@ -1,0 +1,31 @@
+.root {
+    composes: gap-y-sm from global;
+    composes: grid from global;
+    composes: grid-flow-row from global;
+    composes: justify-stretch from global;
+    composes: p-sm from global;
+}
+
+.link {
+    composes: cursor-pointer from global;
+    composes: font-semibold from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-start from global;
+    composes: leading-tight from global;
+    composes: max-w-full from global;
+    composes: no-underline from global;
+    composes: pointer-events-auto from global;
+    composes: text-subtle from global;
+
+    composes: hover_text-colorDefault from global;
+}
+
+.signOut {
+    composes: link;
+
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-light from global;
+    composes: pt-xs from global;
+}

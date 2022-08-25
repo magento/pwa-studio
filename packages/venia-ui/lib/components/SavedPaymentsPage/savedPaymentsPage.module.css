@@ -1,0 +1,56 @@
+.root {
+    composes: max-w-site from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: px-sm from global;
+    composes: py-md from global;
+
+    composes: lg_px-lg from global;
+}
+
+.heading {
+    composes: capitalize from global;
+    composes: font-bold from global;
+    composes: font-serif from global;
+    composes: leading-tight from global;
+    composes: mb-md from global;
+    composes: text-center from global;
+}
+
+.subHeading {
+    composes: mb-md from global;
+    composes: text-left from global;
+
+    composes: lg_text-center from global;
+}
+
+/* prettier-ignore */
+.content {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    grid-auto-rows: minmax(6rem, max-content);
+
+    /* TODO @TW: review (B7) */
+    composes: lg_grid-cols-[1fr,1fr,1fr] from global;
+}
+
+.noPayments {
+    composes: text-center from global;
+}
+
+.addButton {
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: rounded-md from global;
+    composes: text-brand-dark from global;
+    composes: text-sm from global;
+    transition: border-color 384ms var(--venia-global-anim-standard);
+
+    composes: focus_outline-none from global;
+    composes: focus_shadow-buttonFocus from global;
+
+    composes: hover_border-brand-dark from global;
+}

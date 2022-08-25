@@ -1,0 +1,55 @@
+/* TODO @TW: review. This relies on custom prop to set color from JSX "style" prop. */
+.root {
+    --venia-swatch-bg: var(--venia-global-color-gray-100);
+
+    composes: root from './tile.module.css';
+
+    composes: border-shaded-10 from global;
+    composes: text-white from global;
+    composes: w-[3rem] from global;
+    background: var(--venia-swatch-bg);
+}
+
+/* TODO @TW: review. This relies on custom prop to set color from JSX "style" prop. */
+.root_selected {
+    composes: root;
+
+    background: linear-gradient(-45deg, rgba(0, 0, 0, 0.2), transparent),
+        var(--venia-swatch-bg);
+}
+
+.root_focused {
+    composes: root;
+}
+
+.root_selected_focused {
+    composes: root_selected;
+}
+
+.checked {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 256ms;
+}
+
+.unchecked {
+    composes: checked;
+    opacity: 0;
+}
+
+.root_outOfStock,
+.root_selected_outOfStock {
+    composes: root;
+    composes: opacity-40 from global;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-gray-400 from global;
+}
+.root_outOfStock:after,
+.root_selected_outOfStock:after {
+    content: '';
+    position: absolute;
+    border-top: 2px solid rgb(var(--venia-global-color-gray-400));
+    width: 62px;
+    transform: rotate(-45deg);
+}

@@ -1,0 +1,58 @@
+.root {
+}
+
+.credit_card_root {
+    composes: visible from global;
+    composes: opacity-100 from global;
+    transition-delay: 64ms;
+    transition-duration: 384ms;
+    transition-property: opacity, visbility;
+    transition-timing-function: var(--venia-global-anim-standard);
+}
+
+.credit_card_root_hidden {
+    composes: h-0 from global;
+    composes: invisible from global;
+    composes: opacity-0 from global;
+    composes: overflow-hidden from global;
+}
+
+.dropin_root {
+}
+
+.billing_address_fields_root {
+    composes: gap-x-xs from global;
+    composes: gap-y-sm from global;
+    composes: grid from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+}
+
+.billing_address_fields_root_hidden {
+    composes: h-0 from global;
+    composes: invisible from global;
+    composes: opacity-0 from global;
+    composes: overflow-hidden from global;
+}
+
+.formErrorContainer {
+    composes: pt-sm from global;
+}
+
+.first_name,
+.last_name {
+    composes: col-end-span2 from global;
+
+    composes: lg_col-end-span1 from global;
+}
+
+.country,
+.street1,
+.street2,
+.address_check,
+.city,
+.region,
+.postal_code,
+.phone_number {
+    composes: col-end-span2 from global;
+}

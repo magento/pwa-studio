@@ -2,6 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <form
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -19,6 +20,7 @@ exports[`renders correctly 1`] = `
     >
       <input
         className="input"
+        id="search_query"
         name="search_query"
         onBlur={[Function]}
         onChange={[Function]}
@@ -33,14 +35,15 @@ exports[`renders correctly 1`] = `
         className="root"
       >
         <svg
+          className="icon"
           fill="none"
-          height={18}
+          height={24}
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
           viewBox="0 0 24 24"
-          width={18}
+          width={24}
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle

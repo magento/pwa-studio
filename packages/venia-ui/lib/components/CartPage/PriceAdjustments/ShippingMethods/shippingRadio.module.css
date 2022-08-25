@@ -1,0 +1,3 @@
+.price {
+    composes: font-semibold from global;
+}

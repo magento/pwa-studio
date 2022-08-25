@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when closed 1`] = `
+<Dialog
+  isOpen={false}
+  onCancel={[MockFunction]}
+  shouldShowButtons={false}
+  shouldUnmountOnHide={false}
+  title="List Actions"
+>
+  <div
+    className="root"
+  >
+    <button
+      className="rowButton"
+      onClick={[MockFunction]}
+    >
+      <span
+        className="row"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Edit List"
+            id="wishlistListActionsDialog.edit"
+          />
+        </span>
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="9 18 15 12 9 6"
+            />
+          </svg>
+        </span>
+      </span>
+    </button>
+  </div>
+</Dialog>
+`;
+
+exports[`renders correctly when open 1`] = `
+<Dialog
+  isOpen={true}
+  onCancel={[MockFunction]}
+  shouldShowButtons={false}
+  shouldUnmountOnHide={false}
+  title="List Actions"
+>
+  <div
+    className="root"
+  >
+    <button
+      className="rowButton"
+      onClick={[MockFunction]}
+    >
+      <span
+        className="row"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Edit List"
+            id="wishlistListActionsDialog.edit"
+          />
+        </span>
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="9 18 15 12 9 6"
+            />
+          </svg>
+        </span>
+      </span>
+    </button>
+  </div>
+</Dialog>
+`;

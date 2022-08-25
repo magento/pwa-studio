@@ -1,19 +1,18 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
+import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/usePaymentsFormItems';
 
-import BraintreeDropin from './braintreeDropin';
+import combine from '../../util/combineValidators';
+import {
+    hasLengthExactly,
+    isRequired,
+    validateRegionCode
+} from '../../util/formValidators';
 import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
-import {
-    isRequired,
-    hasLengthExactly,
-    validateRegionCode,
-    validateEmail
-} from '../../util/formValidators';
-import combine from '../../util/combineValidators';
-import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/usePaymentsFormItems';
+import BraintreeDropin from './braintreeDropin';
 
 /**
  * This component is meant to be nested within an `informed` form. It utilizes
@@ -44,6 +43,7 @@ const PaymentsFormItems = props => {
     });
 
     const anchorRef = useRef(null);
+
     // When the address checkbox is unchecked, additional fields are rendered.
     // This causes the form to grow, and potentially to overflow, so the new
     // fields may go unnoticed. To reveal them, we scroll them into view.
@@ -74,15 +74,6 @@ const PaymentsFormItems = props => {
                         id={classes.lastname}
                         field="lastname"
                         validate={isRequired}
-                    />
-                </Field>
-            </div>
-            <div className={classes.email}>
-                <Field label="Email">
-                    <TextInput
-                        id={classes.email}
-                        field="email"
-                        validate={combine([isRequired, validateEmail])}
                     />
                 </Field>
             </div>
@@ -139,10 +130,14 @@ const PaymentsFormItems = props => {
         </Fragment>
     ) : null;
 
+    const headingText = 'Billing Information';
+    const submitButtonText = 'Use Card';
+    const cancelButtonText = 'Cancel';
+
     return (
         <Fragment>
             <div className={classes.body}>
-                <h2 className={classes.heading}>Billing Information</h2>
+                <h2 className={classes.heading}>{headingText}</h2>
                 <div className={classes.braintree}>
                     <BraintreeDropin
                         shouldRequestPaymentNonce={isSubmitting}
@@ -160,9 +155,11 @@ const PaymentsFormItems = props => {
                 {billingAddressFields}
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Cancel</Button>
                 <Button priority="high" type="submit" disabled={isDisabled}>
-                    Use Card
+                    {submitButtonText}
+                </Button>
+                <Button onClick={handleCancel} priority="low">
+                    {cancelButtonText}
                 </Button>
             </div>
         </Fragment>

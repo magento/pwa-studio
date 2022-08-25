@@ -1,0 +1,47 @@
+.root {
+    composes: h-full from global;
+}
+
+.contents {
+    grid-template-rows: auto auto;
+    composes: gap-y-2xs from global;
+    composes: grid from global;
+    composes: mt-xs from global;
+    composes: text-left from global;
+}
+
+.editButton {
+    composes: p-xs from global;
+    composes: -m-xs from global;
+    composes: text-brand-dark from global;
+}
+
+.editButtonText {
+    composes: hidden from global;
+
+    composes: lg_inline from global;
+}
+
+.editIcon {
+    composes: stroke-brand-base from global;
+}
+
+.error {
+    composes: leading-normal from global;
+    composes: self-center from global;
+    composes: text-error from global;
+}
+
+.free {
+    composes: uppercase from global;
+}
+
+.heading {
+    composes: font-semibold from global;
+}
+
+.titleContainer {
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: grid-flow-col from global;
+}

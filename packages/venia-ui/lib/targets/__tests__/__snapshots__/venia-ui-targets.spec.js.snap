@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`uses RichContentRenderers to inject a default strategy into RichContent 1`] = `
+<div
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<h1>word up</h1>",
+    }
+  }
+/>
+`;

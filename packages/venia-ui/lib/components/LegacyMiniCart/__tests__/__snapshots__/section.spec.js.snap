@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it does not render an icon when not passed one 1`] = `
+<li>
+  <button
+    aria-label="Unit Test Text"
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <Icon
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
+      size={16}
+    />
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
+
+exports[`it does not render an icon when passed an invalid one 1`] = `
+<li>
+  <button
+    aria-label="Unit Test Text"
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <Icon
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
+      size={16}
+    />
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
+
+exports[`it fills the icon when isFilled is true 1`] = `
+<li>
+  <button
+    aria-label="Unit Test Text"
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <Icon
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
+      size={16}
+      src={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "color": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+        }
+      }
+    />
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
+
+exports[`it renders an icon when passed a valid one 1`] = `
+<li>
+  <button
+    aria-label="Unit Test Text"
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <Icon
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
+      size={16}
+      src={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "color": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+        }
+      }
+    />
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;

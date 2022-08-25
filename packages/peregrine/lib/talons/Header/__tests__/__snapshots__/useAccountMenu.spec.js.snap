@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handleSignOut should set view to SIGNIN and dispatch appropriate event 1`] = `
+Object {
+  "payload": Object {
+    "__typename": "Customer",
+    "email": "roni_cost@example.com",
+    "firstname": "Veronica",
+    "is_subscribed": false,
+    "lastname": "Costello",
+  },
+  "type": "USER_SIGN_OUT",
+}
+`;
+
+exports[`should return correct shape 1`] = `
+Object {
+  "handleAccountCreation": [Function],
+  "handleCancel": [Function],
+  "handleCreateAccount": [Function],
+  "handleForgotPassword": [Function],
+  "handleSignOut": [Function],
+  "updateUsername": [Function],
+  "username": "",
+  "view": "ACCOUNT",
+}
+`;

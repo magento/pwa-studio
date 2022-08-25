@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handle submit fires mutation and callback 1`] = `
+Object {
+  "variables": Object {
+    "address": Object {
+      "city": "Manhattan",
+      "country_code": "US",
+      "firstname": "Philip",
+      "lastname": "Fry",
+      "postcode": "10019",
+      "region": 12,
+      "street": Array [
+        "3000 57th Street",
+        "Suite 200",
+      ],
+      "telephone": "(123) 456-7890",
+    },
+    "cartId": "cart123",
+    "email": "fry@planet.express",
+  },
+}
+`;
+
+exports[`handle submit fires mutation with street[1] as null 1`] = `
+Object {
+  "variables": Object {
+    "address": Object {
+      "city": "Manhattan",
+      "country_code": Object {
+        "code": "US",
+      },
+      "firstname": "Philip",
+      "lastname": "Fry",
+      "postcode": "10019",
+      "region": 12,
+      "street": Array [
+        "3000 57th Street",
+      ],
+      "telephone": "(123) 456-7890",
+    },
+    "cartId": "cart123",
+    "email": "fry@planet.express",
+  },
+}
+`;
+
+exports[`returns Apollo error 1`] = `undefined`;
+
+exports[`returns correct shape 1`] = `
+Object {
+  "errors": Map {
+    "setGuestShippingMutation" => undefined,
+  },
+  "handleCancel": [Function],
+  "handleSubmit": [Function],
+  "handleToastAction": [Function],
+  "handleValidateEmail": [Function],
+  "initialValues": Object {
+    "city": "Manhattan",
+    "country": "US",
+    "email": "fry@planet.express",
+    "firstname": "Philip",
+    "lastname": "Fry",
+    "postcode": "10019",
+    "region": Object {
+      "region": "New York",
+      "region_code": "NY",
+      "region_id": 12,
+    },
+    "street": Array [
+      "3000 57th Street",
+      "Suite 200",
+    ],
+    "telephone": "(123) 456-7890",
+  },
+  "isSaving": false,
+  "isUpdate": true,
+  "showSignInToast": false,
+}
+`;
+
+exports[`should dispatch add address event when new address 1`] = `
+Array [
+  Array [
+    Object {
+      "payload": Object {
+        "cart_id": "cart123",
+      },
+      "type": "CHECKOUT_SHIPPING_INFORMATION_ADDED",
+    },
+  ],
+]
+`;

@@ -1,0 +1,49 @@
+.root {
+    background: var(--backroundImageUrl);
+    /* two column grid because the "hangers" are on the right side of the page */
+    /* TODO @TW: review */
+    composes: bg-cover from global;
+    composes: content-center from global;
+    composes: grid from global;
+    composes: h-[600px] from global;
+    composes: p-xs from global;
+    grid-template: 'content .';
+}
+
+.content {
+    composes: content-start from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: text-center from global;
+    composes: text-white from global;
+    grid-area: content;
+
+    composes: sm_gap-md from global;
+}
+
+.header {
+    composes: font-semibold from global;
+    composes: text-2xl from global;
+}
+
+.message {
+    composes: leading-tight from global;
+    /* add a little space so the button is centered below the message */
+    composes: pb-sm from global;
+
+    composes: sm_pb-0 from global;
+}
+
+.actionsContainer {
+}
+
+@media (max-width: 639px) {
+    .root {
+        background-image: var(--mobileBackgroundImageUrl);
+        /* two row grid because the "hangers" are on the top of the page */
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas:
+            '.'
+            'content';
+    }
+}

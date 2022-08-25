@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div
+    componentName="Link Component"
+    to="carina-cardigan.html"
+  >
+    <div
+      className="undefined undefined"
+    >
+      <img
+        alt="Product 1"
+        className="undefined undefined"
+        loading="eager"
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+        style={
+          Object {
+            "--width": "50px",
+          }
+        }
+        width={50}
+      />
+      <img
+        alt="Product 1"
+        className="undefined undefined"
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        sizes="50px"
+        src="https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=50&height=62.5&fit=cover"
+        srcSet="https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
+        style={
+          Object {
+            "--height": "62.5px",
+            "--width": "50px",
+          }
+        }
+        width={50}
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      componentName="Link Component"
+      to="carina-cardigan.html"
+    >
+      Product 1
+    </div>
+  </div>
+  <dl>
+    <div>
+      <dt>
+        Color :
+      </dt>
+      <dd>
+        Black
+      </dd>
+    </div>
+  </dl>
+  <span>
+    <mock-FormattedMessage
+      defaultMessage="Qty : {quantity}"
+      id="orderDetails.quantity"
+      values={
+        Object {
+          "quantity": 3,
+        }
+      }
+    />
+  </span>
+  <div>
+    <span>
+      $
+    </span>
+    <span>
+      100
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </div>
+  <button
+    disabled={false}
+    onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Buy Again"
+        id="orderDetails.buyAgain"
+      />
+    </span>
+  </button>
+</div>
+`;

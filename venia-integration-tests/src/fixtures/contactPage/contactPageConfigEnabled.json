@@ -1,0 +1,9 @@
+{
+    "data": {
+        "storeConfig": {
+            "store_code": "default",
+            "contact_enabled": true,
+            "__typename": "StoreConfig"
+        }
+    }
+}

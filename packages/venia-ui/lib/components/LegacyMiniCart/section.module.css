@@ -1,0 +1,42 @@
+.menuItem {
+    composes: bg-white from global;
+    composes: block from global;
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: w-full from global;
+
+    composes: hover_bg-gray-300 from global;
+}
+
+.button {
+    composes: flex from global;
+    composes: gap-x-2.5 from global;
+    composes: items-center from global;
+    composes: justify-items-start from global;
+    composes: p-2xs from global;
+    composes: pb-3 from global;
+    composes: pr-sm from global;
+    composes: text-left from global;
+    composes: w-full from global;
+    composes: whitespace-pre from global;
+}
+
+.text {
+    composes: pl-2xs from global;
+    composes: pointer-events-none from global;
+    composes: pt-px from global;
+    composes: text-2xs from global;
+}
+
+.icon {
+    composes: root from '../Icon/icon.module.css';
+
+    --stroke: rgb(var(--venia-global-color-teal));
+}
+
+.icon_filled {
+    composes: icon;
+
+    --fill: rgb(var(--venia-global-color-teal));
+}

@@ -1,5 +1,6 @@
 ---
 title: Peregrine
+adobeio: /guides/packages/peregrine/
 ---
 
 The Peregrine package is a collection of functions that act as the brains of your visual components.
@@ -42,9 +43,9 @@ the JSDoc blocks in the source are kept up to date for developers who want to wo
 
 Visit the [`peregrine`][] package to view the source or contribute to this project.
 
-[venia]: {{site.baseurl}}{%link venia-pwa-concept/index.md %}
+[venia]: {%link venia-pwa-concept/index.md %}
 
-[`peregrine`]: https://github.com/magento/pwa-studio/tree/master/packages/peregrine
+[`peregrine`]: https://github.com/magento/pwa-studio/tree/main/packages/peregrine
 [custom react hooks]: https://reactjs.org/docs/hooks-custom.html
 [destructure]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 [jsdoc]: https://devdocs.io/jsdoc/

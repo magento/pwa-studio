@@ -1,0 +1,202 @@
+.root {
+    composes: px-0 from global;
+    composes: py-xs from global;
+
+    composes: lg_grid from global;
+    composes: lg_grid-flow-row from global;
+    composes: lg_items-start from global;
+    composes: lg_px-xs from global;
+    composes: lg_py-md from global;
+}
+
+@media (min-width: 960px) {
+    .root {
+        grid-template-areas:
+            'images title'
+            'images errors'
+            'images options'
+            'images quantity'
+            'images cart'
+            'images .';
+        grid-template-columns: minmax(0, 1.5625fr) minmax(0, 1fr);
+        grid-template-rows: repeat(5, min-content) 1fr [fold];
+    }
+
+    .title {
+        grid-template-columns: 1fr max-content;
+    }
+}
+
+.section {
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: border-t-0 from global;
+    composes: border-r-0 from global;
+    composes: border-b from global;
+    composes: border-l-0 from global;
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+}
+
+.sectionTitle {
+    composes: flex from global;
+    composes: font-semibold from global;
+    composes: items-center from global;
+    composes: leading-normal from global;
+    composes: mb-sm from global;
+    composes: text-colorDefault from global;
+}
+
+.title {
+    composes: section;
+    composes: gap-2 from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: leading-normal from global;
+    composes: px-sm from global;
+    composes: py-xs from global;
+    grid-area: title;
+}
+
+.productName {
+    composes: font-semibold from global;
+    composes: text-colorDefault from global;
+
+    composes: lg_font-normal from global;
+    composes: lg_text-xl from global;
+}
+
+.productPrice {
+    composes: block from global;
+    composes: mb-2 from global;
+}
+
+.imageCarousel {
+    grid-area: images;
+    grid-column: 1 / 2;
+    grid-row: 1 / fold;
+    composes: max-w-[640px] from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+
+    composes: lg_m-0 from global;
+    composes: lg_px-0 from global;
+    composes: lg_py-sm from global;
+}
+
+.options {
+    grid-area: options;
+}
+
+.formErrors {
+    composes: section;
+    grid-area: errors;
+}
+
+.quantity {
+    composes: section;
+    grid-area: quantity;
+}
+
+.quantityTitle {
+    composes: title from '../../components/ProductOptions/option.module.css';
+}
+
+.actions {
+    composes: gap-y-sm from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: section;
+    grid-area: cart;
+
+    composes: lg_border-b-0 from global;
+}
+
+.description {
+    composes: section;
+    grid-column: 1 / span 1;
+    grid-row: fold / span 1;
+
+    composes: lg_border-t from global;
+    composes: lg_m-0 from global;
+    composes: lg_pl-sm from global;
+    composes: lg_pr-sm from global;
+    composes: lg_self-stretch from global;
+}
+
+.descriptionTitle {
+    composes: sectionTitle;
+}
+
+.details {
+    composes: section;
+    grid-column: 2 / span 1;
+    grid-row: fold / span 1;
+
+    composes: lg_border-t from global;
+    composes: lg_m-0 from global;
+    composes: lg_pl-sm from global;
+    composes: lg_pr-sm from global;
+    composes: lg_self-stretch from global;
+}
+
+.detailsPageBuilder {
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: px-0 from global;
+    composes: py-sm from global;
+    grid-column: 1 / span 2;
+}
+
+.detailsPageBuilderList {
+    list-style: none;
+}
+
+@media (min-width: 1024px) {
+    .details {
+        align-self: stretch;
+        border-top-width: 1px;
+        margin: 0;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+.detailsTitle {
+    composes: sectionTitle;
+}
+
+.related {
+    composes: border-b-0 from global;
+    composes: section;
+    grid-column: 1 / span 2;
+}
+
+.relatedTitle {
+    composes: sectionTitle;
+}
+
+.quantityRoot {
+    composes: root from '../QuantityStepper/quantityStepper.module.css';
+    grid-template-columns: auto 4rem auto;
+    composes: justify-start from global;
+}
+
+.unavailableContainer {
+    composes: bg-subtle from global;
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: italic from global;
+    composes: items-center from global;
+    composes: justify-start from global;
+    composes: p-3 from global;
+    composes: text-subtle from global;
+    composes: w-full from global;
+}
+.actButton {
+    composes: mt-sm from global;
+}

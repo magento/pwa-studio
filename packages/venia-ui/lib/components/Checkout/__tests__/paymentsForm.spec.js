@@ -9,6 +9,17 @@ import Button from '../../Button';
 
 jest.mock('../../../classify');
 jest.mock('../braintreeDropin', () => 'BraintreeDropin');
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = {
+        isSignedIn: false
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
 const mockCancel = jest.fn();
 const mockSubmit = jest.fn();
 const defaultProps = {
@@ -19,6 +30,9 @@ const defaultProps = {
 beforeEach(() => {
     mockCancel.mockReset();
     mockSubmit.mockReset();
+
+    // informed's random ids make snapshots unstable
+    jest.spyOn(Math, 'random').mockReturnValue(0);
 });
 
 test('renders a PaymentsForm component', () => {
@@ -135,7 +149,7 @@ test('setPaymentNonce function gets billing address from form if not same as shi
 
 test('cancel instance function calls props cancel function', () => {
     const component = createTestInstance(<PaymentsForm {...defaultProps} />);
-    const button = component.root.findAllByType(Button)[0];
+    const button = component.root.findAllByType(Button)[1];
     button.props.onClick();
 
     expect(mockCancel).toHaveBeenCalled();

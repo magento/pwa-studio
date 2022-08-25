@@ -1,20 +1,20 @@
 import React from 'react';
 import { Form } from 'informed';
-import { array, bool, func, object, shape, string } from 'prop-types';
+import { array, bool, func, shape, string } from 'prop-types';
+import { useAddressForm } from '@magento/peregrine/lib/talons/Checkout/useAddressForm';
 
-import { mergeClasses } from '../../classify';
-import Button from '../Button';
-import defaultClasses from './addressForm.css';
+import { useStyle } from '../../classify';
+import combine from '../../util/combineValidators';
 import {
-    validateEmail,
-    isRequired,
     hasLengthExactly,
+    isRequired,
     validateRegionCode
 } from '../../util/formValidators';
-import combine from '../../util/combineValidators';
-import TextInput from '../TextInput';
+import Button from '../Button';
 import Field from '../Field';
-import { useAddressForm } from '@magento/peregrine/lib/talons/Checkout/useAddressForm';
+import TextInput from '../TextInput';
+import defaultClasses from './addressForm.module.css';
+import { gql } from '@apollo/client';
 
 const fields = [
     'city',
@@ -28,18 +28,44 @@ const fields = [
 ];
 
 const AddressForm = props => {
-    const { countries, error, isSubmitting, onCancel, onSubmit } = props;
+    const { countries, isSubmitting, onCancel, onSubmit } = props;
 
     const talonProps = useAddressForm({
+        countries,
         fields,
-        initialValues: props.initialValues,
         onCancel,
-        onSubmit
+        onSubmit,
+        setGuestEmailMutation: SET_GUEST_EMAIL_MUTATION,
+        setShippingAddressOnCartMutation: SET_SHIPPING_ADDRESS_MUTATION
     });
 
-    const { handleCancel, handleSubmit, initialValues } = talonProps;
+    const {
+        error,
+        handleCancel,
+        handleSubmit,
+        initialValues,
+        isSignedIn
+    } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
+
+    // hide email field if user is signed in; cart already has address
+    const emailField = !isSignedIn ? (
+        <div className={classes.email}>
+            <Field id={classes.email} label="Email">
+                <TextInput
+                    id={classes.email}
+                    field="email"
+                    validate={isRequired}
+                />
+            </Field>
+        </div>
+    ) : null;
+
+    const headingText = 'Shipping Address';
+    const submitText = 'Use Address';
+    const cancelText = 'Cancel';
+
     return (
         <Form
             className={classes.root}
@@ -47,8 +73,10 @@ const AddressForm = props => {
             onSubmit={handleSubmit}
         >
             <div className={classes.body}>
-                <h2 className={classes.heading}>Shipping Address</h2>
-                <div className={classes.validationMessage}>{error}</div>
+                <h2 className={classes.heading}>{headingText}</h2>
+                <div className={classes.validationMessage}>
+                    {error && error.toString()}
+                </div>
                 <div className={classes.firstname}>
                     <Field id={classes.firstname} label="First Name">
                         <TextInput
@@ -67,15 +95,7 @@ const AddressForm = props => {
                         />
                     </Field>
                 </div>
-                <div className={classes.email}>
-                    <Field id={classes.email} label="Email">
-                        <TextInput
-                            id={classes.email}
-                            field="email"
-                            validate={combine([isRequired, validateEmail])}
-                        />
-                    </Field>
-                </div>
+                {emailField}
                 <div className={classes.street0}>
                     <Field id={classes.street0} label="Street">
                         <TextInput
@@ -127,9 +147,11 @@ const AddressForm = props => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Cancel</Button>
                 <Button type="submit" priority="high" disabled={isSubmitting}>
-                    Use Address
+                    {submitText}
+                </Button>
+                <Button onClick={handleCancel} priority="low">
+                    {cancelText}
                 </Button>
             </div>
         </Form>
@@ -155,30 +177,65 @@ AddressForm.propTypes = {
         validation: string
     }),
     countries: array,
-    error: string,
-    initialValues: object,
     isSubmitting: bool,
     onSubmit: func.isRequired
 };
 
-AddressForm.defaultProps = {
-    initialValues: {}
-};
-
 export default AddressForm;
 
-/*
-const mockAddress = {
-    country_id: 'US',
-    firstname: 'Veronica',
-    lastname: 'Costello',
-    street: ['6146 Honey Bluff Parkway'],
-    city: 'Calder',
-    postcode: '49628-7978',
-    region_id: 33,
-    region_code: 'MI',
-    region: 'Michigan',
-    telephone: '(555) 229-3326',
-    email: 'veronica@example.com'
-};
-*/
+export const SET_GUEST_EMAIL_MUTATION = gql`
+    mutation setGuestEmailOnCart($cartId: String!, $email: String!) {
+        setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
+            cart {
+                id
+            }
+        }
+    }
+`;
+
+export const SET_SHIPPING_ADDRESS_MUTATION = gql`
+    mutation setShippingAddress(
+        $cartId: String!
+        $firstname: String!
+        $lastname: String!
+        $street: [String]!
+        $city: String!
+        $country_id: String!
+        $region_code: String!
+        $postcode: String!
+        $telephone: String!
+    ) {
+        setShippingAddressesOnCart(
+            input: {
+                cart_id: $cartId
+                shipping_addresses: [
+                    {
+                        address: {
+                            firstname: $firstname
+                            lastname: $lastname
+                            street: $street
+                            city: $city
+                            region: $region_code
+                            postcode: $postcode
+                            telephone: $telephone
+                            country_code: $country_id
+                            save_in_address_book: false
+                        }
+                    }
+                ]
+            }
+        ) {
+            cart {
+                id
+                shipping_addresses {
+                    available_shipping_methods {
+                        carrier_code
+                        carrier_title
+                        method_code
+                        method_title
+                    }
+                }
+            }
+        }
+    }
+`;

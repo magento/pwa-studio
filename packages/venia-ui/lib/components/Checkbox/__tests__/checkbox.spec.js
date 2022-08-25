@@ -14,6 +14,11 @@ const classes = ['icon', 'input', 'label', 'message', 'root'].reduce(
 
 const props = { classes, field, label };
 
+beforeAll(() => {
+    // informed's random ids make snapshots unstable
+    jest.spyOn(Math, 'random').mockReturnValue(0);
+});
+
 test('renders the correct tree', () => {
     const tree = createTestInstance(
         <Form>
@@ -56,18 +61,23 @@ test('applies `checked` based on `initialValue`', () => {
 });
 
 test('renders an error message if it exists', () => {
-    const error = 'error';
+    const error = { id: 'checkbox.id', defaultMessage: 'error' };
+    let formApi;
+    const setFormApi = api => (formApi = api);
+
     const { root } = createTestInstance(
-        <Form>
+        <Form getApi={setFormApi}>
             <Checkbox {...props} />
         </Form>
     );
 
     act(() => {
-        root.instance.formApi.setError(field, error);
+        formApi.setError(field, error);
     });
 
-    const messageInstance = root.findByProps({ children: error });
+    const messageInstance = root.findByProps({
+        children: error.defaultMessage
+    });
 
-    expect(messageInstance.props.children).toBe(error);
+    expect(messageInstance.props.children).toBe(error.defaultMessage);
 });

@@ -1,0 +1,519 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders "Discount applied" label if label data is empty 1`] = `
+Array [
+  <li
+    className="discountLineItems"
+  >
+    <span
+      className="discountLineItemLabel"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Applied discounts"
+        id="discountSummary.lineItemLabel"
+      />
+      <button
+        aria-expanded={false}
+        aria-label="Show individual discounts."
+        className="discountsButton"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
+      </button>
+    </span>
+    <span
+      className="price"
+    >
+      -
+      <span>
+        $
+      </span>
+      <span>
+        1
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </span>
+  </li>,
+  <div
+    aria-hidden={true}
+    className="rah-static rah-static--height-zero"
+    style={
+      Object {
+        "height": 0,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <div
+      style={Object {}}
+    >
+      <ul
+        className="individualDiscountsList"
+      >
+        <hr
+          className="individualDiscountSeparator"
+        />
+        <li
+          className="individualDiscountsListLineItem"
+        >
+          <span
+            className="lineItemLabel"
+          >
+            <span />
+          </span>
+          <span
+            className="price"
+          >
+            -
+            <span>
+              $
+            </span>
+            <span>
+              1
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
+          </span>
+        </li>
+        <hr
+          className="individualDiscountSeparator"
+        />
+      </ul>
+    </div>
+  </div>,
+]
+`;
+
+exports[`renders accumulated discount value 1`] = `
+Array [
+  <li
+    className="discountLineItems"
+  >
+    <span
+      className="discountLineItemLabel"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Applied discounts"
+        id="discountSummary.lineItemLabel"
+      />
+      <button
+        aria-expanded={false}
+        aria-label="Show individual discounts."
+        className="discountsButton"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
+      </button>
+    </span>
+    <span
+      className="price"
+    >
+      -
+      <span>
+        $
+      </span>
+      <span>
+        2
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </span>
+  </li>,
+  <div
+    aria-hidden={true}
+    className="rah-static rah-static--height-zero"
+    style={
+      Object {
+        "height": 0,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <div
+      style={Object {}}
+    >
+      <ul
+        className="individualDiscountsList"
+      >
+        <hr
+          className="individualDiscountSeparator"
+        />
+        <li
+          className="individualDiscountsListLineItem"
+        >
+          <span
+            className="lineItemLabel"
+          >
+            <span>
+              Discount 1
+            </span>
+          </span>
+          <span
+            className="price"
+          >
+            -
+            <span>
+              $
+            </span>
+            <span>
+              0
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
+          </span>
+        </li>
+        <li
+          className="individualDiscountsListLineItem"
+        >
+          <span
+            className="lineItemLabel"
+          >
+            <span>
+              Discount 2
+            </span>
+          </span>
+          <span
+            className="price"
+          >
+            -
+            <span>
+              $
+            </span>
+            <span>
+              1
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
+          </span>
+        </li>
+        <li
+          className="individualDiscountsListLineItem"
+        >
+          <span
+            className="lineItemLabel"
+          >
+            <span>
+              Discount 3
+            </span>
+          </span>
+          <span
+            className="price"
+          >
+            -
+            <span>
+              $
+            </span>
+            <span>
+              1
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
+          </span>
+        </li>
+        <hr
+          className="individualDiscountSeparator"
+        />
+      </ul>
+    </div>
+  </div>,
+]
+`;
+
+exports[`renders discount label value from data  1`] = `
+Array [
+  <li
+    className="discountLineItems"
+  >
+    <span
+      className="discountLineItemLabel"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Applied discounts"
+        id="discountSummary.lineItemLabel"
+      />
+      <button
+        aria-expanded={false}
+        aria-label="Show individual discounts."
+        className="discountsButton"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
+      </button>
+    </span>
+    <span
+      className="price"
+    >
+      -
+      <span>
+        $
+      </span>
+      <span>
+        1
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </span>
+  </li>,
+  <div
+    aria-hidden={true}
+    className="rah-static rah-static--height-zero"
+    style={
+      Object {
+        "height": 0,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <div
+      style={Object {}}
+    >
+      <ul
+        className="individualDiscountsList"
+      >
+        <hr
+          className="individualDiscountSeparator"
+        />
+        <li
+          className="individualDiscountsListLineItem"
+        >
+          <span
+            className="lineItemLabel"
+          >
+            <span>
+              Rebate
+            </span>
+          </span>
+          <span
+            className="price"
+          >
+            -
+            <span>
+              $
+            </span>
+            <span>
+              1
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
+          </span>
+        </li>
+        <hr
+          className="individualDiscountSeparator"
+        />
+      </ul>
+    </div>
+  </div>,
+]
+`;
+
+exports[`renders discount summary line item correctly 1`] = `
+Array [
+  <li
+    className="discountLineItems"
+  >
+    <span
+      className="discountLineItemLabel"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Applied discounts"
+        id="discountSummary.lineItemLabel"
+      />
+      <button
+        aria-expanded={false}
+        aria-label="Show individual discounts."
+        className="discountsButton"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
+      </button>
+    </span>
+    <span
+      className="price"
+    >
+      -
+      <span>
+        $
+      </span>
+      <span>
+        10
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </span>
+  </li>,
+  <div
+    aria-hidden={true}
+    className="rah-static rah-static--height-zero"
+    style={
+      Object {
+        "height": 0,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <div
+      style={Object {}}
+    >
+      <ul
+        className="individualDiscountsList"
+      >
+        <hr
+          className="individualDiscountSeparator"
+        />
+        <li
+          className="individualDiscountsListLineItem"
+        >
+          <span
+            className="lineItemLabel"
+          >
+            <span>
+              Special rebate
+            </span>
+          </span>
+          <span
+            className="price"
+          >
+            -
+            <span>
+              $
+            </span>
+            <span>
+              10
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
+          </span>
+        </li>
+        <hr
+          className="individualDiscountSeparator"
+        />
+      </ul>
+    </div>
+  </div>,
+]
+`;
+
+exports[`renders nothing if discount data is empty 1`] = `null`;
+
+exports[`renders nothing if discount value is "0" 1`] = `null`;

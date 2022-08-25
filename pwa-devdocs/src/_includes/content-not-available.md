@@ -10,4 +10,4 @@ If you would like to contribute content for this page, please visit our [Contrib
 
 [Return to main page]({{site.baseurl}}/)
 
-[Contribution Guide]: {{ site.data.vars.repo }}/blob/master/.github/CONTRIBUTING.md
+[Contribution Guide]: {{ site.data.vars.repo }}/blob/main/.github/CONTRIBUTING.md

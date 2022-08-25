@@ -1,10 +1,35 @@
 const debug = require('debug')('upward-js:ServiceResolver');
 const { inspect } = require('util');
-const { execute, makePromise } = require('apollo-link');
-const { HttpLink } = require('apollo-link-http');
+const { execute, HttpLink } = require('@apollo/client');
 const { isPlainObject } = require('lodash');
 const AbstractResolver = require('./AbstractResolver');
 const GraphQLDocument = require('../compiledResources/GraphQLDocument');
+
+/**
+ * Converts an observable into a promise.
+ * A utility function that was previously exported by apollo-link.
+ * See: https://github.com/apollographql/apollo-link/blob/master/packages/apollo-link/src/linkUtils.ts#L39-L56
+ * @param {*} observable
+ */
+function makePromise(observable) {
+    let completed = false;
+    return new Promise((resolve, reject) => {
+        observable.subscribe({
+            next: data => {
+                if (completed) {
+                    debug(
+                        `Promise Wrapper does not support multiple results from Observable`
+                    );
+                } else {
+                    completed = true;
+                    resolve(data);
+                }
+            },
+            error: reject
+        });
+    });
+}
+
 class ServiceResolver extends AbstractResolver {
     static get resolverType() {
         return 'service';
@@ -101,9 +126,12 @@ class ServiceResolver extends AbstractResolver {
                     return { data };
                 }
             })
-            .catch(e => {
+            .catch(async e => {
+                const { print } = require('graphql/language/printer');
                 throw new Error(
-                    `ServiceResolver: Request to ${endpoint.toString()} failed: ${e}`
+                    `ServiceResolver: Request to ${endpoint.toString()} failed: ${e}.\n\nQuery: ${print(
+                        await parsedQuery.render()
+                    )}\n\nVariables:\n\n ${JSON.stringify(variables)}`
                 );
             });
     }

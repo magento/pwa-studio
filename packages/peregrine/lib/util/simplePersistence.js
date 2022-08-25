@@ -2,6 +2,14 @@
  * Persistence layer with expiration based on localStorage.
  */
 
+const storageMock = {
+    length: 0,
+    getItem() {},
+    setItem() {},
+    removeItem() {},
+    clear() {}
+};
+
 class NamespacedLocalStorage {
     constructor(localStorage, key) {
         this.localStorage = localStorage;
@@ -24,11 +32,14 @@ class NamespacedLocalStorage {
 export default class BrowserPersistence {
     static KEY = 'M2_VENIA_BROWSER_PERSISTENCE';
     /* istanbul ignore next: test injects localstorage mock */
-    constructor(localStorage = window.localStorage) {
+    constructor(localStorage = globalThis.localStorage || storageMock) {
         this.storage = new NamespacedLocalStorage(
             localStorage,
             this.constructor.KEY || BrowserPersistence.KEY
         );
+    }
+    getRawItem(name) {
+        return this.storage.getItem(name);
     }
     getItem(name) {
         const now = Date.now();
@@ -37,10 +48,12 @@ export default class BrowserPersistence {
             return undefined;
         }
         const { value, ttl, timeStored } = JSON.parse(item);
+
         if (ttl && now - timeStored > ttl * 1000) {
             this.storage.removeItem(name);
             return undefined;
         }
+
         return JSON.parse(value);
     }
     setItem(name, value, ttl) {

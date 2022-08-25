@@ -72,25 +72,48 @@ class UpwardMiddleware {
                 errors.push(e.message);
             }
             if (errors.length > 0) {
-                if (req.accepts('json')) {
-                    res.json({
-                        errors: errors.map(message => ({ message }))
+                if (this.env.NODE_ENV === 'production') {
+                    res.status(500);
+                    res.format({
+                        json() {
+                            res.json({
+                                errors: [
+                                    {
+                                        status: 500,
+                                        message: 'Server Error'
+                                    }
+                                ]
+                            });
+                        },
+                        html() {
+                            res.send('500 Server Error');
+                        }
                     });
                 } else {
-                    next(
-                        new UpwardServerError(
-                            `Request did not evaluate to a valid response, because: \n${errors.join(
-                                '\n'
-                            )}`
-                        )
-                    );
+                    res.format({
+                        json() {
+                            res.status(500).json({
+                                errors: errors.map(message => ({ message }))
+                            });
+                        },
+                        html() {
+                            next(
+                                new UpwardServerError(
+                                    `Request did not evaluate to a valid response, because: \n${errors.join(
+                                        '\n\n'
+                                    )}`
+                                )
+                            );
+                        }
+                    });
                 }
             } else {
                 debug('status, headers, and body valid. responding');
                 res.status(response.status)
                     .set(response.headers)
                     .send(
-                        typeof response.body === 'string'
+                        typeof response.body === 'string' ||
+                            Buffer.isBuffer(response.body)
                             ? response.body
                             : response.body.toString()
                     );

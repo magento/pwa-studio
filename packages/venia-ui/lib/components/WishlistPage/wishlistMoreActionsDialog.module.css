@@ -1,0 +1,19 @@
+.root {
+    composes: grid from global;
+}
+
+.row {
+    composes: gap-md from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: p-xs from global;
+    composes: text-left from global;
+    grid-template-columns: auto 1fr auto;
+}
+
+.rowButton {
+    composes: even_border-bottom-2 from global;
+    composes: even_border-light from global;
+    composes: even_border-solid from global;
+    composes: even_border-top-2 from global;
+}

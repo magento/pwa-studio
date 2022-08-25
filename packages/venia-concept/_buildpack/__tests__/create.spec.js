@@ -1,8 +1,5 @@
 jest.mock('child_process');
 const { execSync } = require('child_process');
-execSync.mockImplementation((cmd, { cwd }) =>
-    JSON.stringify([{ filename: `${cwd.split('/').pop()}.tgz` }])
-);
 
 const { dirname, resolve } = require('path');
 const packagesRoot = resolve(__dirname, '../../../');
@@ -12,6 +9,7 @@ const {
     makeCommonTasks,
     makeCopyStream
 } = require('@magento/pwa-buildpack/lib/Utilities/createProject');
+const sampleBackends = require('@magento/pwa-buildpack/sampleBackends.json');
 const createVenia = require('../create');
 
 const mockFs = data => {
@@ -42,31 +40,42 @@ const mockFs = data => {
     return fs;
 };
 
-const runCreate = (fs, options) => {
-    const { visitor } = createVenia({
+const runCreate = async (fs, opts) => {
+    const options = {
+        ...opts,
+        directory: '/target'
+    };
+    const { after, before, visitor } = await createVenia({
         fs,
         tasks: makeCommonTasks(fs),
-        options
+        options,
+        sampleBackends
     });
-    return makeCopyStream({
+    if (before) {
+        await before({ options });
+    }
+    await makeCopyStream({
         fs,
-        options: {
-            ...options,
-            directory: '/target'
-        },
+        options,
         visitor,
         packageRoot: '/repo/packages/me',
         directory: '/project',
         ignores: []
     });
+    if (after) {
+        await after({ options });
+    }
 };
 
 test('copies files and writes new file structure, ignoring ignores', async () => {
     const fs = mockFs({
         '/repo/packages/me/src/index.js': 'alert("index")',
         '/repo/packages/me/src/components/Fake/Fake.js': 'alert("fake")',
-        '/repo/packages/me/src/components/Fake/Fake.css': '#fake {}',
-        '/repo/packages/me/CHANGELOG.md': '#markdown'
+        '/repo/packages/me/src/components/Fake/Fake.module.css': '#fake {}',
+        '/repo/packages/me/CHANGELOG.md': '#markdown',
+        '/repo/packages/me/.graphqlconfig': JSON.stringify({
+            projects: { venia: { 'venia-options': true } }
+        })
     });
     await runCreate(fs, {
         name: 'whee',
@@ -80,9 +89,16 @@ test('copies files and writes new file structure, ignoring ignores', async () =>
         fs.readFileSync('/project/src/components/Fake/Fake.js', 'utf8')
     ).toBe('alert("fake")');
     expect(
-        fs.readFileSync('/project/src/components/Fake/Fake.css', 'utf8')
+        fs.readFileSync('/project/src/components/Fake/Fake.module.css', 'utf8')
     ).toBe('#fake {}');
     expect(() => fs.readFileSync('/project/CHANGELOG.md', 'utf8')).toThrow();
+    expect(fs.readJsonSync('/project/.graphqlconfig')).toMatchObject({
+        projects: {
+            whee: {
+                'venia-options': true
+            }
+        }
+    });
 });
 
 test('outputs custom package.json', async () => {
@@ -94,7 +110,7 @@ test('outputs custom package.json', async () => {
             },
             scripts: {
                 'do-not-copy': 'this',
-                test: 'yarn run do test this'
+                watch: 'yarn run do watch this'
             }
         })
     });
@@ -115,7 +131,7 @@ test('outputs npm package.json', async () => {
             },
             scripts: {
                 'do-not-copy': 'this',
-                test: 'yarn run do test this'
+                watch: 'yarn run do watch this'
             }
         })
     });
@@ -156,48 +172,178 @@ test.skip('outputs package-lock or yarn.lock based on npmClient', async () => {
     });
 });
 
-test('forces yarn client, local deps, and console debugging if DEBUG_PROJECT_CREATION is set', async () => {
+describe('when DEBUG_PROJECT_CREATION is set', () => {
     const old = process.env.DEBUG_PROJECT_CREATION;
-    process.env.DEBUG_PROJECT_CREATION = 1;
+    const mockWorkspaceResponse = JSON.stringify({
+        foo: { location: '/repo/packages/me' },
+        '@magento/create-pwa': { location: 'packages/create-pwa' },
+        '@magento/pwa-buildpack': { location: 'packages/pwa-buildpack' },
+        '@magento/peregrine': { location: 'packages/peregrine' },
+        '@magento/venia-ui': { location: 'packages/venia-ui' }
+    });
 
-    const files = {
-        '/repo/packages/me/package.json': JSON.stringify({
+    let fs;
+    let pkg;
+
+    beforeEach(() => {
+        process.env.DEBUG_PROJECT_CREATION = 1;
+        pkg = {
             name: 'foo',
             author: 'bar',
             dependencies: {
                 '@magento/venia-ui': '1.0.0'
             },
             devDependencies: {
-                '@magento/peregrine': '1.0.0'
+                '@magento/peregrine': '1.0.0',
+                '@magento/pwa-buildpack': '1.0.0'
             },
             scripts: {},
             optionalDependencies: {
                 'no-package': '0.0.1'
             }
-        }),
-        '/repo/packages/me/package-lock.json': '{ "for": "npm" }',
-        '/repo/packages/me/yarn.lock': '{ "for": "yarn" }',
-        [resolve(packagesRoot, 'venia-ui/package.json')]: JSON.stringify({
-            name: '@magento/venia-ui'
-        }),
-        [resolve(packagesRoot, 'peregrine/package.json')]: JSON.stringify({
-            name: '@magento/peregrine'
-        }),
-        [resolve(packagesRoot, 'bad-package/package.json')]: 'bad json',
-        [resolve(packagesRoot, 'some-file.txt')]: 'not a package'
-    };
-
-    const fs = mockFs(files);
-
-    await runCreate(fs, {
-        name: 'foo',
-        author: 'bar',
-        npmClient: 'npm'
+        };
+        fs = mockFs({
+            '/repo/packages/me/package.json': JSON.stringify(pkg),
+            '/repo/packages/me/package-lock.json': '{ "for": "npm" }',
+            '/repo/packages/me/yarn.lock': '{ "for": "yarn" }',
+            [resolve(packagesRoot, 'venia-ui/package.json')]: JSON.stringify({
+                name: '@magento/venia-ui'
+            }),
+            [resolve(packagesRoot, 'peregrine/package.json')]: JSON.stringify({
+                name: '@magento/peregrine'
+            }),
+            [resolve(
+                packagesRoot,
+                'pwa-buildpack/package.json'
+            )]: JSON.stringify({
+                name: '@magento/pwa-buildpack'
+            })
+        });
+        execSync.mockImplementation((cmd, { cwd }) => {
+            if (!cmd.match(/npm.+pack/)) {
+                throw new Error(
+                    `Mock execSync expected passed command to be "npm pack", but it was "${cmd}"`
+                );
+            }
+            const pkgName = cwd.split('/').pop();
+            // as of NPM 7.21 npm pack produces this filename
+            fs.writeFileSync(
+                resolve(packagesRoot, pkgName, `magento-${pkgName}-1.0.0.tgz`),
+                `${pkgName} tarball contents`
+            );
+            // but it produces THIS in filename output. Hilarious!
+            return JSON.stringify([
+                { filename: `@magento/${pkgName}-1.0.0.tgz` }
+            ]);
+        });
     });
-    expect(
-        fs.readJsonSync('/project/package.json').resolutions[
-            '@magento/peregrine'
-        ]
-    ).toMatch(/^file/);
-    process.env.DEBUG_PROJECT_CREATION = old;
+
+    afterEach(() => {
+        process.env.DEBUG_PROJECT_CREATION = old;
+    });
+    describe('scaffolds using the current state of the other packages as dependencies, instead of the published release', () => {
+        const fileScheme = 'file://';
+
+        const createDebugScaffold = async () => {
+            execSync.mockReturnValueOnce(mockWorkspaceResponse);
+
+            await runCreate(fs, {
+                name: 'foo',
+                author: 'bar',
+                npmClient: 'npm',
+                testScaffolding: true
+            });
+
+            return fs.readJsonSync('/project/package.json');
+        };
+
+        test('sets the created package.json to use local tarballs for those dependencies', async () => {
+            const {
+                dependencies,
+                devDependencies,
+                resolutions
+            } = await createDebugScaffold();
+            expect(devDependencies['@magento/pwa-buildpack']).toMatch(
+                fileScheme
+            );
+            expect(dependencies['@magento/create-pwa']).toBeUndefined();
+            expect(resolutions['@magento/peregrine']).toMatch(fileScheme);
+        });
+        test('uses npm to create the local tarballs it references', async () => {
+            const {
+                dependencies,
+                devDependencies
+            } = await createDebugScaffold();
+            const tryReadTarball = dep => {
+                const tarballPath = dep.replace(fileScheme, '');
+                try {
+                    return fs.readFileSync(tarballPath, 'utf8');
+                } catch (e) {
+                    throw new Error(
+                        `Expected npm to have created ${tarballPath}, but: ${
+                            e.message
+                        }`
+                    );
+                }
+            };
+
+            expect(
+                tryReadTarball(devDependencies['@magento/pwa-buildpack'])
+            ).toBe('pwa-buildpack tarball contents');
+            expect(tryReadTarball(devDependencies['@magento/peregrine'])).toBe(
+                'peregrine tarball contents'
+            );
+            expect(tryReadTarball(dependencies['@magento/venia-ui'])).toBe(
+                'venia-ui tarball contents'
+            );
+        });
+        test('handles lots of older tarballs in the dep directories', async () => {
+            const debugPkgJson = await createDebugScaffold();
+            fs.writeFileSync(
+                resolve(
+                    packagesRoot,
+                    'peregrine',
+                    'magento-peregrine-0.0.1.tgz'
+                ),
+                'older peregrine tarball'
+            );
+            fs.writeFileSync(
+                resolve(
+                    packagesRoot,
+                    'peregrine',
+                    'magento-peregrine-0.0.2.tgz'
+                ),
+                'old peregrine tarball'
+            );
+            fs.writeFileSync(
+                resolve(
+                    packagesRoot,
+                    'pwa-buildpack',
+                    'magento-pwa-buildpack-0.0.1.tgz'
+                ),
+                'old buildpack tarball'
+            );
+            // now try again, but with too many tarballs.
+            // did it get the right ones (the same ones as before)?
+            await expect(createDebugScaffold()).resolves.toEqual(debugPkgJson);
+        });
+    });
+
+    test('handles missing scripts section or zero overrides', async () => {
+        delete pkg.scripts;
+        fs.outputJsonSync('/repo/packages/me/package.json', pkg, 'utf8');
+        await expect(
+            runCreate(fs, { name: 'foo', author: 'bar', npmClient: 'yarn' })
+        ).rejects.toThrow('scripts');
+    });
+
+    test('does not log or overwrite if there are zero overrides', async () => {
+        execSync.mockReturnValueOnce('{}'); // yarn prints zero workspaces
+        await expect(
+            runCreate(fs, { name: 'foo', author: 'bar', npmClient: 'yarn' })
+        ).resolves.not.toThrow();
+        expect(fs.readJsonSync('/project/package.json')).not.toHaveProperty(
+            'resolutions'
+        );
+    });
 });

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#CustomAttributes renders with custom attributes visible on front only 1`] = `
+<div>
+  <ul>
+    <li>
+      <mock-AttributeType
+        data={
+          Object {
+            "attribute_metadata": Object {
+              "uid": "uid-1",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+          }
+        }
+      />
+    </li>
+    <li>
+      <mock-AttributeType
+        data={
+          Object {
+            "attribute_metadata": Object {
+              "uid": "uid-2",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+          }
+        }
+      />
+    </li>
+    <li>
+      <mock-AttributeType
+        data={
+          Object {
+            "attribute_metadata": Object {
+              "uid": "uid-4",
+              "used_in_components": Array [
+                "PRODUCT_DETAILS_PAGE",
+              ],
+            },
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`#CustomAttributes renders without custom attributes 1`] = `null`;

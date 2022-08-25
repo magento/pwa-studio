@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`logs all types of change 1`] = `
+Array [
+  Array [
+    "  ⚠  Environment variable HAKEEM_OLAJUWON has been renamed in Buildpack vX.X.X-snapshot-testing. Its new name is AKEEM_OLAJUWON.",
+  ],
+  Array [
+    "  ⚠  Environment variable HAS_BEEN_REMOVED has been removed in Buildpack vX.X.X-snapshot-testing, because creative destruction.
+     Current value is motivation, but it will be ignored.",
+  ],
+  Array [
+    "  ⚠  Environment variable LEW_ALCINDOR has been renamed in Buildpack vX.X.X-snapshot-testing. Its new name is KAREEM_ABDUL_JABBAR.
+     The old variable is no longer functional. Please migrate to the new KAREEM_ABDUL_JABBAR variable as soon as possible.",
+  ],
+  Array [
+    "  ⚠  Environment variable RON_ARTEST has been renamed in Buildpack vX.X.X-snapshot-testing. Its new name is METTA_WORLD_PEACE.
+     The old variable will continue to work for the next several versions, but it will eventually be removed. Please migrate it as soon as possible.",
+  ],
+]
+`;
+
+exports[`throws on load if variable defs are invalid 1`] = `
+"Bad environment variable definition. Section inscrutable variable {
+ \\"type\\": \\"ineffable\\"
+} declares an unknown type ineffable"
+`;

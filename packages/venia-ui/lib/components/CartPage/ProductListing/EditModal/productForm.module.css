@@ -1,0 +1,52 @@
+.contents {
+    composes: contents from '../../../Dialog/dialog.module.css';
+
+    composes: relative from global;
+}
+
+.optionRoot {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+}
+
+.quantityLabel {
+    composes: font-semibold from global;
+    composes: leading-normal from global;
+    composes: mb-sm from global;
+    composes: pt-xs from global;
+    composes: text-colorDefault from global;
+}
+
+.quantityRoot {
+    composes: root from '../../../QuantityStepper/quantityStepper.module.css';
+    grid-template-columns: auto 4rem auto;
+    composes: justify-start from global;
+    composes: px-xs from global;
+    composes: py-0 from global;
+}
+
+.loading {
+    composes: root from '../../../LoadingIndicator/indicator.module.css';
+
+    composes: absolute from global;
+    composes: h-unset from global;
+    composes: left-0 from global;
+    composes: text-center from global;
+    composes: top-2/4 from global;
+    composes: z-mask from global;
+    transform: translateY(-50%);
+}
+
+.dataError {
+    composes: inline-block from global;
+    composes: leading-normal from global;
+    composes: pt-xs from global;
+    composes: text-error from global;
+}
+
+.errorContainer {
+    composes: pt-xs from global;
+}

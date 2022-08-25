@@ -1,5 +1,6 @@
 ---
 title: MagentoResolver
+adobeio: /api/buildpack/webpack/magento-resolver/
 ---
 
 An adapter that configures Webpack to resolve assets using Magento PWA conventions.
@@ -15,7 +16,7 @@ Currently, MagentoResolver does very little, but it's likely that the Magento de
 
 **Parameters:**
 
-* `options:`[`LocalProjectLocation`] - Configuration object that describes where the PWA storefront folders are located.
+* `options:` - Configuration object that describes where the PWA storefront folders are located. Must have a `root` property set to the context (root directory) of the project.
 
 **Return:**
 
@@ -31,7 +32,7 @@ In `webpack.config.js`:
 
 ``` js
 const buildpack = require('@magento/pwa-buildpack');
-const MagentoResolver = buildpack.Webpack.MagentoResolver;
+const MagentoResolver = buildpack.WebpackTools.MagentoResolver;
 
 module.exports = async env => {
     const config {
@@ -50,8 +51,6 @@ module.exports = async env => {
 }
 ```
 
-
-
 {: .bs-callout .bs-callout-tip}
 The special `__dirname` variable in Node always refers to the directory containing the currently executing script file.
 This is different from the "working directory", which is the current directory of the shell when the current process was started.
@@ -63,4 +62,3 @@ The example provided uses the newer, cleaner `async/await` syntax instead of usi
 
 [`resolve`]: https://webpack.js.org/configuration/resolve/
 [Promise]: https://webpack.js.org/configuration/configuration-types/#exporting-a-promise
-[`LocalProjectLocation`]: {{ site.baseurl }}{%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation

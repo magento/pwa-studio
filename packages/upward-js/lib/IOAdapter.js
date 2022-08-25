@@ -20,6 +20,14 @@ class IOAdapter {
                         `Cannot read ${resolvedPath} because it is outside ${baseDir}`
                     );
                 }
+
+                /**
+                 * Replaces binary as null.
+                 * For some reason nodejs interprets 'binary' as 'latin1'.
+                 * See: https://stackoverflow.com/a/46441727
+                 */
+                if (enc === 'binary') enc = null;
+
                 return readFile(resolvedPath, enc);
             }
         });
@@ -45,7 +53,7 @@ class IOAdapter {
      * @param {string} [encoding] Character set, e.g. 'utf-8'.
      * @return {Promise<string|Buffer>} Promise for file contents.
      */
-    async readFile(filePath, encoding) {} //eslint-disable-line
+    async readFile(filePath, encoding) {} //eslint-disable-line no-unused-vars
 
     /**
      * Works like `node-fetch`. (Injected for testability.)
@@ -53,7 +61,7 @@ class IOAdapter {
      * @param {object} options Fetch options, see node-fetch docs.
      * @return {Promise<Response>}
      */
-    async networkFetch(url, options) {} //eslint-disable-line
+    async networkFetch(url, options) {} //eslint-disable-line no-unused-vars
 }
 
 module.exports = IOAdapter;

@@ -1,0 +1,8 @@
+.root {
+    composes: grid from global;
+    composes: gap-xs from global;
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: px-0 from global;
+    composes: py-sm from global;
+}

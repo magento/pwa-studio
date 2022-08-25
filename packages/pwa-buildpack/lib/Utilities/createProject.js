@@ -5,6 +5,7 @@ const micromatch = require('micromatch');
 const getBuildpackInstructions = require('./getBuildpackInstructions');
 const fse = require('fs-extra');
 const gitIgnoreToGlob = require('gitignore-to-glob');
+const sampleBackends = require('../../sampleBackends.json');
 
 const isMatch = (path, globs) => micromatch.isMatch(path, globs, { dot: true });
 
@@ -31,7 +32,8 @@ const getIgnores = packageRoot => {
             )
                 // these come out as negations, but let's remove that because we'll be
                 // matching them positively in order to skip them
-                .map(glob => glob.replace(/^!/, ''))
+                // and remove brackets while we're at it, since they break everything
+                .map(glob => glob.replace(/^!/, '').replace(/{(.+)}/, '$1'))
         );
     } catch (e) {
         return defaultIgnores;
@@ -72,6 +74,10 @@ const makeCopyStream = ({
                 !isMatch(p, ignores)
         });
 
+        copyStream.on('error', e => {
+            failed = true;
+            fail(e);
+        });
         copyStream.on('readable', function() {
             let item;
             while (!failed && (item = this.read())) {
@@ -79,14 +85,10 @@ const makeCopyStream = ({
                 try {
                     visit(item);
                 } catch (e) {
-                    failed = true;
-                    fail(e);
+                    this.emit('error', e);
+                    break;
                 }
             }
-        });
-        copyStream.on('error', () => {
-            failed = true;
-            fail();
         });
         copyStream.on('end', () => {
             if (!failed) {
@@ -101,20 +103,19 @@ async function createProject(options) {
     const { instructions, packageRoot } = getBuildpackInstructions(template, [
         'create'
     ]);
+
     const {
-        after,
-        before,
-        visitor,
-        ignores = getIgnores(packageRoot)
-    } = instructions.create({
+        after = () => {},
+        before = () => {},
+        ignores = getIgnores(packageRoot),
+        visitor
+    } = await instructions.create({
         fs: fse,
         tasks: makeCommonTasks(fse),
-        options
+        options,
+        sampleBackends
     });
-
-    if (before) {
-        await before({ options });
-    }
+    await before({ options });
     await makeCopyStream({
         fs: fse,
         packageRoot,
@@ -123,9 +124,7 @@ async function createProject(options) {
         ignores,
         visitor
     });
-    if (after) {
-        await after({ options });
-    }
+    await after({ options });
 }
 
 module.exports = createProject;

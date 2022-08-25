@@ -1,6 +1,7 @@
 const debug = require('debug')('upward-js:ProxyResolver');
 const proxyMiddleware = require('http-proxy-middleware');
 const AbstractResolver = require('./AbstractResolver');
+const { Agent: HTTPSAgent, globalAgent } = require('https');
 
 const AllServers = new Map();
 class ProxyResolver extends AbstractResolver {
@@ -38,15 +39,39 @@ class ProxyResolver extends AbstractResolver {
 
         let server = ProxyResolver.servers.get(targetUrl);
         if (!server) {
+            const target = new URL(targetUrl);
             debug(`creating new server for ${targetUrl}`);
-            server = proxyMiddleware({
-                target: targetUrl.toString(),
-                secure: !ignoreSSLErrors,
+
+            let agent;
+            if (target.protocol === 'https:') {
+                agent = globalAgent;
+                if (ignoreSSLErrors) {
+                    debug(
+                        `target "%s" uses HTTPS and ignoreSSLErrors=true, creating HTTPSAgent({ rejectUnauthorized: false })`
+                    );
+                    agent = new HTTPSAgent({ rejectUnauthorized: false });
+                } else {
+                    debug(`target "%s" uses HTTPS, using global https agent`);
+                    agent = globalAgent;
+                }
+            } else {
+                debug(`target "%s" uses unsecure http`);
+                agent = null;
+            }
+            const opts = {
+                agent,
+                target: target.href,
                 changeOrigin: true,
                 autoRewrite: true,
-                cookieDomainRewrite: ''
-            });
-            ProxyResolver.servers.set(targetUrl, server);
+                cookieDomainRewrite: '',
+                xfwd: true
+            };
+            if (target.username) {
+                debug(`target URL contains a username, adding auth to proxy`);
+                opts.auth = [target.username, target.password].join(':');
+            }
+            server = proxyMiddleware(opts);
+            ProxyResolver.servers.set(target.href, server);
         }
 
         return server;

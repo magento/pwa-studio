@@ -1,58 +1,102 @@
-import React from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
-import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
+import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
+import { useIntl } from 'react-intl';
 
-import Icon from '../Icon';
-
-import { mergeClasses } from '../../classify';
-import defaultClasses from './cartTrigger.css';
 import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
 
-const CART_ICON_FILLED = (
-    <Icon
-        src={ShoppingCartIcon}
-        attrs={{
-            fill: 'rgb(var(--venia-text))',
-            stroke: 'rgb(var(--venia-text))'
-        }}
-    />
-);
-const CART_ICON_EMPTY = (
-    <Icon
-        src={ShoppingCartIcon}
-        attrs={{
-            stroke: 'rgb(var(--venia-text))'
-        }}
-    />
-);
+import { useStyle } from '../../classify';
+import Icon from '../Icon';
+import defaultClasses from './cartTrigger.module.css';
+import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
+
+const MiniCart = React.lazy(() => import('../MiniCart'));
 
 const CartTrigger = props => {
-    const { handleClick, itemCount } = useCartTrigger();
+    const {
+        handleLinkClick,
+        handleTriggerClick,
+        itemCount,
+        miniCartRef,
+        miniCartIsOpen,
+        hideCartTrigger,
+        setMiniCartIsOpen,
+        miniCartTriggerRef
+    } = useCartTrigger({
+        queries: {
+            getItemCountQuery: GET_ITEM_COUNT_QUERY
+        }
+    });
 
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const cartIcon = itemCount > 0 ? CART_ICON_FILLED : CART_ICON_EMPTY;
-    const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
+    const classes = useStyle(defaultClasses, props.classes);
+    const { formatMessage } = useIntl();
+    const buttonAriaLabel = formatMessage(
+        {
+            id: 'cartTrigger.ariaLabel',
+            defaultMessage:
+                'Toggle mini cart. You have {count} items in your cart.'
+        },
+        { count: itemCount }
+    );
+    const itemCountDisplay = itemCount > 99 ? '99+' : itemCount;
+    const triggerClassName = miniCartIsOpen
+        ? classes.triggerContainer_open
+        : classes.triggerContainer;
 
-    const itemCounter = itemCount ? (
-        <span className={classes.counter}>{itemCount}</span>
+    const maybeItemCounter = itemCount ? (
+        <span className={classes.counter} data-cy="CartTrigger-counter">
+            {itemCountDisplay}
+        </span>
     ) : null;
 
-    return (
-        <button
-            className={classes.root}
-            aria-label={buttonAriaLabel}
-            onClick={handleClick}
-        >
-            {cartIcon}
-            {itemCounter}
-        </button>
+    const cartTrigger = hideCartTrigger ? null : (
+        // Because this button behaves differently on desktop and mobile
+        // we render two buttons that differ only in their click handler
+        // and control which one displays via CSS.
+        <Fragment>
+            <div className={triggerClassName} ref={miniCartTriggerRef}>
+                <button
+                    aria-expanded={miniCartIsOpen}
+                    aria-label={buttonAriaLabel}
+                    className={classes.trigger}
+                    onClick={handleTriggerClick}
+                    data-cy="CartTrigger-trigger"
+                >
+                    <Icon src={ShoppingCartIcon} />
+                    {maybeItemCounter}
+                </button>
+            </div>
+            <button
+                aria-expanded={miniCartIsOpen}
+                aria-label={buttonAriaLabel}
+                className={classes.link}
+                onClick={handleLinkClick}
+            >
+                <Icon src={ShoppingCartIcon} />
+                {maybeItemCounter}
+            </button>
+            <Suspense fallback={null}>
+                <MiniCart
+                    isOpen={miniCartIsOpen}
+                    setIsOpen={setMiniCartIsOpen}
+                    ref={miniCartRef}
+                />
+            </Suspense>
+        </Fragment>
     );
-};
 
-CartTrigger.propTypes = {
-    classes: shape({
-        root: string
-    })
+    return cartTrigger;
 };
 
 export default CartTrigger;
+
+CartTrigger.propTypes = {
+    classes: shape({
+        counter: string,
+        link: string,
+        openIndicator: string,
+        root: string,
+        trigger: string,
+        triggerContainer: string
+    })
+};

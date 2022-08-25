@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Multiselect renders empty when no data is provided 1`] = `null`;
+
+exports[`#Multiselect renders label only when data is missing 1`] = `
+<div>
+  Multiselect Label
+</div>
+`;
+
+exports[`#Multiselect renders options with html when data is provided 1`] = `
+Array [
+  <div>
+    Multiselect Label
+  </div>,
+  <div>
+    <mock-RichContent
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
+      html="<span>Option 1</span>"
+    />
+    <mock-RichContent
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
+      html="<span>Option 2</span>"
+    />
+  </div>,
+]
+`;
+
+exports[`#Multiselect renders options without html when data is provided 1`] = `
+Array [
+  <div>
+    Multiselect Label
+  </div>,
+  <div>
+    Option 1, Option 2
+  </div>,
+]
+`;

@@ -1,33 +1,45 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { array, func, oneOfType, shape, string } from 'prop-types';
-import { useQuery } from '@apollo/react-hooks';
+import { gql, useQuery } from '@apollo/client';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
+import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import Block from './block';
-import defaultClasses from './cmsBlock.css';
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import GET_CMS_BLOCKS from '../../queries/getCmsBlocks.graphql';
+import defaultClasses from './cmsBlock.module.css';
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
 const CmsBlockGroup = props => {
     const { identifiers } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const { loading, error, data } = useQuery(GET_CMS_BLOCKS, {
-        variables: { identifiers }
+        variables: { identifiers },
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
-    if (loading) {
-        return fullPageLoadingIndicator;
-    }
+    if (!data) {
+        if (loading) {
+            return fullPageLoadingIndicator;
+        }
 
-    if (error) {
-        return <div>Data Fetch Error</div>;
+        if (error) {
+            return <ErrorView message={error.message} />;
+        }
     }
 
     const { items } = data.cmsBlocks;
 
     if (!Array.isArray(items) || !items.length) {
-        return <div>There are no blocks to display</div>;
+        return (
+            <div>
+                <FormattedMessage
+                    id={'cmsBlock.noBlocks'}
+                    defaultMessage={'There are no blocks to display'}
+                />
+            </div>
+        );
     }
 
     const BlockChild = typeof children === 'function' ? children : Block;
@@ -58,3 +70,14 @@ CmsBlockGroup.propTypes = {
 };
 
 export default CmsBlockGroup;
+
+export const GET_CMS_BLOCKS = gql`
+    query cmsBlocks($identifiers: [String]!) {
+        cmsBlocks(identifiers: $identifiers) {
+            items {
+                content
+                identifier
+            }
+        }
+    }
+`;

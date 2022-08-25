@@ -1,0 +1,24 @@
+{
+  "data": {
+    "storeConfig": {
+      "allow_gift_receipt": "0",
+      "allow_order": "0",
+      "allow_printed_card": "0",
+      "store_code": "view_1_b",
+      "root_category_uid": "MjI=",
+      "contact_enabled": true,
+      "category_url_suffix": "",
+      "configurable_thumbnail_source": "itself",
+      "store_name": "View One B",
+      "grid_per_page": 12,
+      "locale": "en_US",
+      "newsletter_enabled": true,
+      "store_group_name": "Store B",
+      "copyright": "Copyright \u00a9 2013-present Magento, Inc. All rights reserved.",
+      "product_url_suffix": "",
+      "magento_wishlist_general_is_enabled": "1",
+      "enable_multiple_wishlists": null,
+      "__typename": "StoreConfig"
+    }
+  }
+}

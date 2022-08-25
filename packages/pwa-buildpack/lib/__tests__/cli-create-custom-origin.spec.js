@@ -1,6 +1,5 @@
 jest.mock('../Utilities/configureHost');
 jest.mock('../Utilities/loadEnvironment');
-jest.mock('word-wrap', () => x => x);
 const createCustomOriginBuilder = require('../cli/create-custom-origin');
 const configureHost = require('../Utilities/configureHost');
 const loadEnvironment = require('../Utilities/loadEnvironment');
@@ -41,7 +40,8 @@ test('fails if customOrigin is disabled', async () => {
         createCustomOriginBuilder.handler({ directory: process.cwd() })
     ).rejects.toThrow();
     expect(process.chdir).not.toHaveBeenCalled();
-    expect(loadEnvironment).toHaveBeenCalledWith(process.cwd());
+    expect(loadEnvironment).toHaveBeenCalled();
+    expect(loadEnvironment.mock.calls[0][0]).toBe(process.cwd());
 });
 
 test('runs configureHost from environment settings in passed directory', async () => {
@@ -54,7 +54,8 @@ test('runs configureHost from environment settings in passed directory', async (
 
     await createCustomOriginBuilder.handler({ directory: process.cwd() });
     expect(process.chdir).not.toHaveBeenCalled();
-    expect(loadEnvironment).toHaveBeenCalledWith(process.cwd());
+    expect(loadEnvironment).toHaveBeenCalled();
+    expect(loadEnvironment.mock.calls[0][0]).toBe(process.cwd());
     expect(configureHost).toHaveBeenCalledWith(
         expect.objectContaining({
             interactive: true,

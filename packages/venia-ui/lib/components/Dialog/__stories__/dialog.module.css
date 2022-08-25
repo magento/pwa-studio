@@ -1,0 +1,5 @@
+.paragraph {
+    composes: leading-tight from global;
+    composes: mx-0 from global;
+    composes: my-2 from global;
+}

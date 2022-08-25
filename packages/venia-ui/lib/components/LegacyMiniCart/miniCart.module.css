@@ -1,0 +1,42 @@
+.root {
+    --legacy-minicart-header-height: 3.5rem;
+
+    composes: bg-white from global;
+    composes: bottom-0 from global;
+    composes: content-start from global;
+    composes: fixed from global;
+    composes: grid from global;
+    composes: h-full from global;
+    composes: opacity-0 from global;
+    composes: overflow-hidden from global;
+    composes: max-w-modal from global;
+    composes: right-0 from global;
+    composes: top-0 from global;
+    composes: w-full from global;
+    composes: z-menu from global;
+    box-shadow: -1px 0 rgb(var(--venia-global-color-border));
+    grid-template-rows: min-content 1fr;
+    transform: translate3d(100%, 0, 0);
+    transition-duration: 192ms;
+    transition-property: opacity, transform, visibility;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
+}
+
+/* state: open */
+
+.root_open {
+    composes: root;
+
+    composes: opacity-100 from global;
+    transform: translate3d(0, 0, 0);
+    transition-duration: 224ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
+}

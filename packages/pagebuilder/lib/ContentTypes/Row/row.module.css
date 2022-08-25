@@ -1,0 +1,40 @@
+.root {
+    --leftViewportElement: 0;
+    --scrollBarWidth: var(--global-scrollbar-width, 0px);
+}
+
+.contained {
+    composes: root;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: var(--venia-global-maxWidth, 1280px);
+    width: 100%;
+}
+
+.fullBleed {
+    composes: root;
+    width: calc(100vw - var(--scrollBarWidth));
+    transform: translateX(-50%);
+    margin-left: 50%;
+}
+
+.videoOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -99;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.root :global [id*='jarallax-container'] video,
+.root :global [id*='jarallax-container'] iframe {
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+    .root {
+        background-attachment: scroll !important;
+    }
+}

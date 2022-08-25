@@ -1,0 +1,900 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckoutPage renders address book for customer 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent_hidden"
+  >
+    <div
+      className="heading_container"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={Array []}
+      />
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            <FormattedMessage
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              <FormattedMessage
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
+            </Link>
+          </React.Fragment>
+        }
+      />
+      <h1
+        className="heading"
+      >
+        Review and Place Order
+      </h1>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <div
+        className="anchor"
+      />
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <div
+        className="anchor"
+      />
+      <h3
+        className="shipping_method_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="2. Shipping Method"
+          id="checkoutPage.shippingMethodStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <h3
+        className="payment_information_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="3. Payment Information"
+          id="checkoutPage.paymentInformationStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="summaryContainer"
+    >
+      <OrderSummary
+        isUpdating={false}
+      />
+    </div>
+  </div>
+  <AddressBook
+    activeContent="addressBook"
+    toggleActiveContent={[MockFunction toggleAddressBookContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders an error and disables review order button if there is no payment method 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent"
+  >
+    <div
+      className="heading_container"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={
+          Array [
+            [Error: Payment is currently unavailable.],
+          ]
+        }
+      />
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            <FormattedMessage
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              <FormattedMessage
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
+            </Link>
+          </React.Fragment>
+        }
+      />
+      <h1
+        className="heading"
+      >
+        Guest Checkout
+      </h1>
+    </div>
+    <div
+      className="signInContainer"
+    >
+      <span
+        className="signInLabel"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Sign in for Express Checkout"
+          id="checkoutPage.signInLabel"
+        />
+      </span>
+      <button
+        className="signInButton"
+        disabled={false}
+        onClick={[MockFunction toggleSignInContent]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Sign In"
+            id="checkoutPage.signInButton"
+          />
+        </span>
+      </button>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <div
+        className="anchor"
+      />
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <div
+        className="anchor"
+      />
+      <ShippingMethod
+        onSave={[MockFunction setShippingMethodDone]}
+        pageIsUpdating={true}
+        setPageIsUpdating={[MockFunction setIsUpdating]}
+      />
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <PaymentInformation
+        checkoutError={false}
+        onSave={[MockFunction setPaymentInformationDone]}
+      />
+    </div>
+    <div
+      className="price_adjustments_container"
+    >
+      <PriceAdjustments
+        setPageIsUpdating={[MockFunction setIsUpdating]}
+      />
+    </div>
+    <button
+      className="review_order_button"
+      disabled={true}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Review Order"
+          id="checkoutPage.reviewOrder"
+        />
+      </span>
+    </button>
+    <div
+      className="summaryContainer signInContainerVisible"
+    >
+      <OrderSummary
+        isUpdating={true}
+      />
+    </div>
+  </div>
+  <GuestSignIn
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
+    isActive={false}
+    toggleActiveContent={[MockFunction toggleSignInContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders checkout content for customer - default address 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent"
+  >
+    <div
+      className="heading_container"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={Array []}
+      />
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            <FormattedMessage
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              <FormattedMessage
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
+            </Link>
+          </React.Fragment>
+        }
+      />
+      <h1
+        className="heading"
+      >
+        Review and Place Order
+      </h1>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <div
+        className="anchor"
+      />
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <div
+        className="anchor"
+      />
+      <h3
+        className="shipping_method_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="2. Shipping Method"
+          id="checkoutPage.shippingMethodStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <h3
+        className="payment_information_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="3. Payment Information"
+          id="checkoutPage.paymentInformationStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="summaryContainer"
+    >
+      <OrderSummary
+        isUpdating={false}
+      />
+    </div>
+  </div>
+  <AddressBook
+    activeContent="checkout"
+    toggleActiveContent={[MockFunction toggleAddressBookContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders checkout content for customer - no default address 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent"
+  >
+    <div
+      className="heading_container"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={Array []}
+      />
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            <FormattedMessage
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              <FormattedMessage
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
+            </Link>
+          </React.Fragment>
+        }
+      />
+      <h1
+        className="heading"
+      >
+        Welcome Eloise!
+      </h1>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <div
+        className="anchor"
+      />
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <div
+        className="anchor"
+      />
+      <h3
+        className="shipping_method_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="2. Shipping Method"
+          id="checkoutPage.shippingMethodStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <h3
+        className="payment_information_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="3. Payment Information"
+          id="checkoutPage.paymentInformationStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="summaryContainer"
+    >
+      <OrderSummary
+        isUpdating={false}
+      />
+    </div>
+  </div>
+  <AddressBook
+    activeContent="checkout"
+    toggleActiveContent={[MockFunction toggleAddressBookContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent"
+  >
+    <div
+      className="heading_container"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={Array []}
+      />
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            <FormattedMessage
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              <FormattedMessage
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
+            </Link>
+          </React.Fragment>
+        }
+      />
+      <h1
+        className="heading"
+      >
+        Guest Checkout
+      </h1>
+    </div>
+    <div
+      className="signInContainer"
+    >
+      <span
+        className="signInLabel"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Sign in for Express Checkout"
+          id="checkoutPage.signInLabel"
+        />
+      </span>
+      <button
+        className="signInButton"
+        disabled={false}
+        onClick={[MockFunction toggleSignInContent]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Sign In"
+            id="checkoutPage.signInButton"
+          />
+        </span>
+      </button>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <div
+        className="anchor"
+      />
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <div
+        className="anchor"
+      />
+      <h3
+        className="shipping_method_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="2. Shipping Method"
+          id="checkoutPage.shippingMethodStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <h3
+        className="payment_information_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="3. Payment Information"
+          id="checkoutPage.paymentInformationStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="summaryContainer signInContainerVisible"
+    >
+      <OrderSummary
+        isUpdating={false}
+      />
+    </div>
+  </div>
+  <GuestSignIn
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
+    isActive={false}
+    toggleActiveContent={[MockFunction toggleSignInContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent"
+  >
+    <div
+      className="heading_container"
+    >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={Array []}
+      />
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            <FormattedMessage
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              <FormattedMessage
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
+            </Link>
+          </React.Fragment>
+        }
+      />
+      <h1
+        className="heading"
+      >
+        Guest Checkout
+      </h1>
+    </div>
+    <div
+      className="signInContainer"
+    >
+      <span
+        className="signInLabel"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Sign in for Express Checkout"
+          id="checkoutPage.signInLabel"
+        />
+      </span>
+      <button
+        className="signInButton"
+        disabled={false}
+        onClick={[MockFunction toggleSignInContent]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Sign In"
+            id="checkoutPage.signInButton"
+          />
+        </span>
+      </button>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <div
+        className="anchor"
+      />
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        setGuestSignInUsername={[MockFunction setGuestSignInUsername]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
+        toggleSignInContent={[MockFunction toggleSignInContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <div
+        className="anchor"
+      />
+      <h3
+        className="shipping_method_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="2. Shipping Method"
+          id="checkoutPage.shippingMethodStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <h3
+        className="payment_information_heading"
+      >
+        <mock-FormattedMessage
+          defaultMessage="3. Payment Information"
+          id="checkoutPage.paymentInformationStep"
+        />
+      </h3>
+    </div>
+    <div
+      className="summaryContainer signInContainerVisible"
+    >
+      <OrderSummary
+        isUpdating={false}
+      />
+    </div>
+  </div>
+  <GuestSignIn
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
+    isActive={false}
+    toggleActiveContent={[MockFunction toggleSignInContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders empty cart 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="empty_cart_container"
+  >
+    <div
+      className="heading_container"
+    >
+      <h1
+        aria-live="polite"
+        className="heading"
+      >
+        Guest Checkout
+      </h1>
+    </div>
+    <h3>
+      <mock-FormattedMessage
+        defaultMessage="There are no items in your cart."
+        id="checkoutPage.emptyMessage"
+      />
+    </h3>
+  </div>
+  <GuestSignIn
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
+    isActive={false}
+    toggleActiveContent={[MockFunction toggleSignInContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders loading indicator 1`] = `
+<div
+  className="global"
+>
+  <span
+    className="root"
+  >
+    <svg
+      className="icon"
+      fill="none"
+      height={64}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width={64}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line
+        x1="12"
+        x2="12"
+        y1="2"
+        y2="6"
+      />
+      <line
+        x1="12"
+        x2="12"
+        y1="18"
+        y2="22"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="4.93"
+        y2="7.76"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="16.24"
+        y2="19.07"
+      />
+      <line
+        x1="2"
+        x2="6"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="18"
+        x2="22"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="19.07"
+        y2="16.24"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="7.76"
+        y2="4.93"
+      />
+    </svg>
+  </span>
+  <span
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
+  </span>
+</div>
+`;
+
+exports[`CheckoutPage renders price adjustments and review order button 1`] = `
+Object {
+  "children": <PriceAdjustments
+    setPageIsUpdating={[MockFunction setIsUpdating]}
+  />,
+  "className": "price_adjustments_container",
+}
+`;
+
+exports[`CheckoutPage renders price adjustments and review order button 2`] = `
+Object {
+  "children": <FormattedMessage
+    defaultMessage="Review Order"
+    id="checkoutPage.reviewOrder"
+  />,
+  "className": "review_order_button",
+  "disabled": true,
+  "negative": false,
+  "onClick": [MockFunction handleReviewOrder],
+  "priority": "high",
+  "type": "button",
+}
+`;

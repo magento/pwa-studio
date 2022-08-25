@@ -30,17 +30,20 @@ class DirectoryResolver extends AbstractResolver {
 
         let server = DirectoryResolver.servers.get(directory);
         if (!server) {
+            const staticOpts = {
+                fallthrough: false,
+                index: false,
+                maxAge: process.env.NODE_ENV === 'production' ? 604800000 : 0
+            };
             debug(
-                `creating new server for ${directory} relative to ${
-                    this.visitor.upwardPath
-                }`
+                `creating new server for directory "%s" relative to "%s" with options %o`,
+                directory,
+                this.visitor.upwardPath,
+                staticOpts
             );
             server = serveStatic(
                 path.resolve(path.dirname(this.visitor.upwardPath), directory),
-                {
-                    fallthrough: false,
-                    index: false
-                }
+                staticOpts
             );
             DirectoryResolver.servers.set(directory, server);
         }

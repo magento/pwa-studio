@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the proper shape 1`] = `
+Object {
+  "flatData": Object {
+    "discounts": Array [
+      Object {
+        "amount": Object {
+          "value": 5,
+        },
+      },
+    ],
+    "giftCards": Array [
+      Object {
+        "code": "GiftCardCode",
+      },
+    ],
+    "giftOptions": Object {
+      "printed_card": Object {
+        "value": 10,
+      },
+    },
+    "shipping": Array [
+      Object {
+        "city": "Calder",
+        "country": Object {
+          "code": "US",
+          "label": "US",
+        },
+        "firstname": "Veronica",
+        "lastname": "Costello",
+        "region": Object {
+          "code": "MI",
+          "label": "Michigan",
+        },
+        "street": Array [
+          "6146 Honey Bluff Parkway",
+        ],
+      },
+    ],
+    "subtotal": Object {
+      "value": 20,
+    },
+    "taxes": Array [
+      Object {
+        "amount": Object {
+          "value": 7,
+        },
+      },
+    ],
+    "total": Object {
+      "value": 40,
+    },
+  },
+  "handleProceedToCheckout": [Function],
+  "hasError": false,
+  "hasItems": true,
+  "isCheckout": false,
+  "isLoading": false,
+}
+`;

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+Array [
+  <div
+    className="anchor"
+  />,
+  <div>
+    Child Component
+  </div>,
+]
+`;

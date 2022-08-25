@@ -1,0 +1,102 @@
+{
+  "data": {
+    "products": {
+      "aggregations": [
+        {
+          "label": "Category",
+          "count": 1,
+          "attribute_code": "category_id",
+          "options": [
+            {
+              "label": "Subcategory A",
+              "value": "3",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Price",
+          "count": 2,
+          "attribute_code": "price",
+          "options": [
+            {
+              "label": "0-100",
+              "value": "0_100",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "100-200",
+              "value": "100_200",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Color",
+          "count": 2,
+          "attribute_code": "fashion_color",
+          "options": [
+            {
+              "label": "Gold",
+              "value": "14",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Silver",
+              "value": "15",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Fashion Material",
+          "count": 2,
+          "attribute_code": "fashion_material",
+          "options": [
+            {
+              "label": "14K Gold",
+              "value": "16",
+              "__typename": "AggregationOption"
+            },
+            {
+              "label": "Sterling Silver",
+              "value": "17",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Has Video",
+          "count": 1,
+          "attribute_code": "has_video",
+          "options": [
+            {
+              "label": "0",
+              "value": "0",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        },
+        {
+          "label": "Size",
+          "count": 1,
+          "attribute_code": "fashion_size",
+          "options": [
+            {
+              "label": "L",
+              "value": "26",
+              "__typename": "AggregationOption"
+            }
+          ],
+          "__typename": "Aggregation"
+        }
+      ],
+      "__typename": "Products"
+    }
+  }
+}

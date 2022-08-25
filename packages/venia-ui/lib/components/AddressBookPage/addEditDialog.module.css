@@ -1,0 +1,20 @@
+.root {
+    composes: gap-x-2xs from global;
+    composes: gap-y-sm from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+
+    composes: lg_grid-cols-2 from global;
+}
+
+.fullWidthField {
+    composes: lg_col-end-span2 from global;
+}
+
+@media (min-width: 960px) {
+    .lastname,
+    .country,
+    .default_address_check {
+        composes: fullWidthField;
+    }
+}

@@ -1,6 +1,7 @@
 # Get the media URL from the store configuration.
 query {
     storeConfig {
+        store_code
         secure_base_media_url
     }
 }

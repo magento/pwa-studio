@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "categoryUrlSuffix": ".html",
+  "childCategories": Map {
+    "UID1==" => Object {
+      "category": Object {
+        "children": Array [
+          Object {
+            "children_count": 1,
+            "include_in_menu": 1,
+            "name": "Two",
+            "position": 0,
+            "uid": "UID2==",
+            "url_path": "1/2",
+          },
+          Object {
+            "children_count": 0,
+            "include_in_menu": 1,
+            "name": "Three",
+            "position": 0,
+            "uid": "UID3==",
+            "url_path": "1/2/3",
+          },
+          Object {
+            "children_count": 0,
+            "include_in_menu": 1,
+            "name": "Four",
+            "position": 0,
+            "uid": "UID4==",
+            "url_path": "1/4",
+          },
+        ],
+        "children_count": 3,
+        "include_in_menu": 1,
+        "name": "One",
+        "uid": "UID1==",
+        "url_path": "1",
+      },
+      "isLeaf": true,
+    },
+    "UID2==" => Object {
+      "category": Object {
+        "children_count": 1,
+        "include_in_menu": 1,
+        "name": "Two",
+        "position": 0,
+        "uid": "UID2==",
+        "url_path": "1/2",
+      },
+      "isLeaf": false,
+    },
+    "UID3==" => Object {
+      "category": Object {
+        "children_count": 0,
+        "include_in_menu": 1,
+        "name": "Three",
+        "position": 0,
+        "uid": "UID3==",
+        "url_path": "1/2/3",
+      },
+      "isLeaf": true,
+    },
+    "UID4==" => Object {
+      "category": Object {
+        "children_count": 0,
+        "include_in_menu": 1,
+        "name": "Four",
+        "position": 0,
+        "uid": "UID4==",
+        "url_path": "1/4",
+      },
+      "isLeaf": true,
+    },
+  },
+  "data": Object {
+    "categories": Object {
+      "items": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children_count": 1,
+              "include_in_menu": 1,
+              "name": "Two",
+              "position": 0,
+              "uid": "UID2==",
+              "url_path": "1/2",
+            },
+            Object {
+              "children_count": 0,
+              "include_in_menu": 1,
+              "name": "Three",
+              "position": 0,
+              "uid": "UID3==",
+              "url_path": "1/2/3",
+            },
+            Object {
+              "children_count": 0,
+              "include_in_menu": 1,
+              "name": "Four",
+              "position": 0,
+              "uid": "UID4==",
+              "url_path": "1/4",
+            },
+          ],
+          "children_count": 3,
+          "include_in_menu": 1,
+          "name": "One",
+          "uid": "UID1==",
+          "url_path": "1",
+        },
+      ],
+    },
+  },
+}
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render placeholder label without data 1`] = `
+<div>
+  <div>
+    <mock-FormattedMessage
+      defaultMessage="Shipping Information"
+      id="orderDetails.shippingInformationLabel"
+    />
+  </div>
+  <mock-FormattedMessage
+    defaultMessage="No shipping information"
+    id="orderDetails.noShippingInformation"
+  />
+</div>
+`;
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    <mock-FormattedMessage
+      defaultMessage="Shipping Information"
+      id="orderDetails.shippingInformationLabel"
+    />
+  </div>
+  <span>
+    Gooseton Jr
+  </span>
+  <span>
+    Goose Dr
+  </span>
+  <div>
+    Austin, TX 78759 US
+  </div>
+</div>
+`;

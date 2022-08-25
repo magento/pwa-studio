@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders product page correctly 1`] = `
+Array [
+  "StoreTitle",
+  "Meta",
+  <ProductFullDetail
+    product={
+      Object {
+        "additionalInfo": "<ul><li>100% cotton</li><li>Machine washable</li><li>Do not soak; wash in cold water and steam iron for best look</li><li>Breathable fabric lining</li><li>Pre-washed</li><li>Size up between sizes</li><li>Made in Thailand</li></ul>",
+        "description": "<p>Team these printed palazzo pants with a solid tank top and summer-ready sandals. Cut to fit like your most comfortable trousers, the fine cotton fabric promises a featherlike feel. Pockets on either side make these pants versatile and practical.</p><p><strong>Item # 315177</strong><br><strong>UPC # 885259775004</strong></p>",
+        "images": Array [
+          Object {
+            "id": "0",
+          },
+          Object {
+            "id": "1",
+          },
+          Object {
+            "id": "2",
+          },
+          Object {
+            "id": "3",
+          },
+        ],
+        "meta_description": "Team these printed palazzo pants with a solid tank top and summer-ready sandals",
+        "name": "Fitted Dress with Belt",
+        "options": Array [
+          Object {
+            "id": "size",
+            "name": "Size",
+            "type": "string",
+            "values": Array [
+              Object {
+                "id": "0",
+                "name": "0",
+              },
+              Object {
+                "id": "2",
+                "name": "2",
+              },
+              Object {
+                "id": "4",
+                "name": "4",
+              },
+              Object {
+                "id": "6",
+                "name": "6",
+              },
+              Object {
+                "id": "8",
+                "name": "8",
+              },
+              Object {
+                "id": "10",
+                "name": "10",
+              },
+              Object {
+                "id": "12",
+                "name": "12",
+              },
+              Object {
+                "id": "14",
+                "name": "14",
+              },
+            ],
+          },
+          Object {
+            "id": "color",
+            "name": "Color",
+            "type": "color",
+            "values": Array [
+              Object {
+                "id": "29, 23, 94",
+                "name": "Indigo",
+              },
+              Object {
+                "id": "133, 22, 60",
+                "name": "Burgundy",
+              },
+              Object {
+                "id": "139, 139, 139",
+                "name": "Silver",
+              },
+            ],
+          },
+        ],
+        "price": "$160.00",
+      }
+    }
+  />,
+]
+`;
+
+exports[`renders product page correctly when error and product data exist 1`] = `
+Array [
+  "StoreTitle",
+  "Meta",
+  <ProductFullDetail
+    product={
+      Object {
+        "additionalInfo": "<ul><li>100% cotton</li><li>Machine washable</li><li>Do not soak; wash in cold water and steam iron for best look</li><li>Breathable fabric lining</li><li>Pre-washed</li><li>Size up between sizes</li><li>Made in Thailand</li></ul>",
+        "description": "<p>Team these printed palazzo pants with a solid tank top and summer-ready sandals. Cut to fit like your most comfortable trousers, the fine cotton fabric promises a featherlike feel. Pockets on either side make these pants versatile and practical.</p><p><strong>Item # 315177</strong><br><strong>UPC # 885259775004</strong></p>",
+        "images": Array [
+          Object {
+            "id": "0",
+          },
+          Object {
+            "id": "1",
+          },
+          Object {
+            "id": "2",
+          },
+          Object {
+            "id": "3",
+          },
+        ],
+        "meta_description": "Team these printed palazzo pants with a solid tank top and summer-ready sandals",
+        "name": "Fitted Dress with Belt",
+        "options": Array [
+          Object {
+            "id": "size",
+            "name": "Size",
+            "type": "string",
+            "values": Array [
+              Object {
+                "id": "0",
+                "name": "0",
+              },
+              Object {
+                "id": "2",
+                "name": "2",
+              },
+              Object {
+                "id": "4",
+                "name": "4",
+              },
+              Object {
+                "id": "6",
+                "name": "6",
+              },
+              Object {
+                "id": "8",
+                "name": "8",
+              },
+              Object {
+                "id": "10",
+                "name": "10",
+              },
+              Object {
+                "id": "12",
+                "name": "12",
+              },
+              Object {
+                "id": "14",
+                "name": "14",
+              },
+            ],
+          },
+          Object {
+            "id": "color",
+            "name": "Color",
+            "type": "color",
+            "values": Array [
+              Object {
+                "id": "29, 23, 94",
+                "name": "Indigo",
+              },
+              Object {
+                "id": "133, 22, 60",
+                "name": "Burgundy",
+              },
+              Object {
+                "id": "139, 139, 139",
+                "name": "Silver",
+              },
+            ],
+          },
+        ],
+        "price": "$160.00",
+      }
+    }
+  />,
+]
+`;
+
+exports[`renders product page failed when error data 1`] = `<ErrorView />`;

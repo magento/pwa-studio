@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it disables the button when in progress 1`] = `
+Array [
+  <div>
+    <span>
+      unit test card code
+    </span>
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Balance: "
+        id="giftCard.balance"
+      />
+      <span>
+        $
+      </span>
+      <span>
+        99
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </span>
+  </div>,
+  <button
+    disabled={true}
+    onClick={[MockFunction]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="giftCard.remove"
+      />
+    </span>
+  </button>,
+]
+`;
+
+exports[`it renders correctly 1`] = `
+Array [
+  <div>
+    <span>
+      unit test card code
+    </span>
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Balance: "
+        id="giftCard.balance"
+      />
+      <span>
+        $
+      </span>
+      <span>
+        99
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </span>
+  </div>,
+  <button
+    disabled={false}
+    onClick={[MockFunction]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    type="button"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="giftCard.remove"
+      />
+    </span>
+  </button>,
+]
+`;

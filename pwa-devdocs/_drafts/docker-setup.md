@@ -22,7 +22,7 @@ To use a custom .env file for configuration, pass it to the `run-docker` script 
 
 ## Service Workers and Hot Reloading
 
-Service workers are disabled by default when running the `docker/run-docker` script, but they can easily be turned on by changing the default value of `DEV_SERVER_SERVICE_WORKER_ENABLED=0` to `DEV_SERVER_SERVICE_WORKER_ENABLED=1` in `.env.docker`.
+Service workers are disabled by default when running the `docker/run-docker` script, but they can easily be turned on by changing the default value of `DEV_SERVER_SERVICE_WORKER_ENABLED=false` to `DEV_SERVER_SERVICE_WORKER_ENABLED=true` in `.env.docker`.
 
 Hot reloading is enabled by default when running the `docker/run-docker` script and automatically refreshes the browser on changes made in the container as well as on the host machine, ie your local file system. 
 

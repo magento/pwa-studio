@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { shape, string } from 'prop-types';
-
-import { mergeClasses } from '../../classify';
-import AuthBar from '../AuthBar';
-import AuthModal from '../AuthModal';
-import CategoryTree from '../CategoryTree';
-import NavHeader from './navHeader';
-import defaultClasses from './navigation.css';
 import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
+
+import { useStyle } from '../../classify';
+import AuthBar from '../AuthBar';
+import CategoryTree from '../CategoryTree';
+import CurrencySwitcher from '../Header/currencySwitcher';
+import StoreSwitcher from '../Header/storeSwitcher';
+import LoadingIndicator from '../LoadingIndicator';
+import NavHeader from './navHeader';
+import defaultClasses from './navigation.module.css';
+import { FocusScope } from 'react-aria';
+import { Portal } from '../Portal';
+const AuthModal = React.lazy(() => import('../AuthModal'));
 
 const Navigation = props => {
     const {
         catalogActions,
-        categories,
         categoryId,
         handleBack,
         handleClose,
@@ -28,51 +32,64 @@ const Navigation = props => {
         view
     } = useNavigation();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
-    const rootHeaderClassName =
-        isTopLevel && view === 'MENU' ? classes.isRoot : classes.header;
+    const tabindex = isOpen ? '0' : '-1';
+
+    // Lazy load the auth modal because it may not be needed.
+    const authModal = hasModal ? (
+        <Suspense fallback={<LoadingIndicator />}>
+            <AuthModal
+                closeDrawer={handleClose}
+                showCreateAccount={showCreateAccount}
+                showForgotPassword={showForgotPassword}
+                showMainMenu={showMainMenu}
+                showMyAccount={showMyAccount}
+                showSignIn={showSignIn}
+                view={view}
+            />
+        </Suspense>
+    ) : null;
 
     return (
-        <aside className={rootClassName}>
-            <header className={rootHeaderClassName}>
-                <NavHeader
-                    isTopLevel={isTopLevel}
-                    onBack={handleBack}
-                    onClose={handleClose}
-                    view={view}
-                />
-            </header>
-            <div className={bodyClassName}>
-                <CategoryTree
-                    categoryId={categoryId}
-                    categories={categories}
-                    onNavigate={handleClose}
-                    setCategoryId={setCategoryId}
-                    updateCategories={catalogActions.updateCategories}
-                />
-            </div>
-            <div className={classes.footer}>
-                <AuthBar
-                    disabled={hasModal}
-                    showMyAccount={showMyAccount}
-                    showSignIn={showSignIn}
-                />
-            </div>
-            <div className={modalClassName}>
-                <AuthModal
-                    closeDrawer={handleClose}
-                    showCreateAccount={showCreateAccount}
-                    showForgotPassword={showForgotPassword}
-                    showMainMenu={showMainMenu}
-                    showMyAccount={showMyAccount}
-                    showSignIn={showSignIn}
-                    view={view}
-                />
-            </div>
-        </aside>
+        <Portal>
+            {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+            <FocusScope contain={isOpen} restoreFocus autoFocus>
+                {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                <aside className={rootClassName}>
+                    <header className={classes.header}>
+                        <NavHeader
+                            isTopLevel={isTopLevel}
+                            onBack={handleBack}
+                            view={view}
+                        />
+                    </header>
+                    <div className={bodyClassName}>
+                        <CategoryTree
+                            categoryId={categoryId}
+                            onNavigate={handleClose}
+                            setCategoryId={setCategoryId}
+                            updateCategories={catalogActions.updateCategories}
+                            tabindex={tabindex}
+                        />
+                    </div>
+                    <div className={classes.footer}>
+                        <div className={classes.switchers}>
+                            <StoreSwitcher />
+                            <CurrencySwitcher />
+                        </div>
+                        <AuthBar
+                            disabled={hasModal}
+                            showMyAccount={showMyAccount}
+                            showSignIn={showSignIn}
+                        />
+                    </div>
+                    <div className={modalClassName}>{authModal}</div>
+                </aside>
+            </FocusScope>
+        </Portal>
     );
 };
 
@@ -88,7 +105,6 @@ Navigation.propTypes = {
         root: string,
         root_open: string,
         signIn_closed: string,
-        signIn_open: string,
-        isRoot: string
+        signIn_open: string
     })
 };

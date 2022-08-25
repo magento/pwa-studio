@@ -12,9 +12,9 @@ Object {
   "name": "whee",
   "private": true,
   "scripts": Object {
-    "build": "yarn run clean && yarn run validate-queries && webpack --no-progress --env.mode production",
-    "build:dev": "yarn run clean && webpack --progress --env.mode development",
-    "test": "yarn run do test this",
+    "storybook": "start-storybook -p 9001 -c src/.storybook",
+    "storybook:build": "build-storybook -c src/.storybook -o storybook-dist",
+    "watch": "yarn run do watch this",
   },
   "version": "0.0.1",
 }
@@ -32,9 +32,9 @@ Object {
   "name": "whee",
   "private": true,
   "scripts": Object {
-    "build": "npm run clean && npm run validate-queries && webpack --no-progress --env.mode production",
-    "build:dev": "npm run clean && webpack --progress --env.mode development",
-    "test": "npm run do test this",
+    "storybook": "start-storybook -p 9001 -c src/.storybook",
+    "storybook:build": "build-storybook -c src/.storybook -o storybook-dist",
+    "watch": "npm run do watch this",
   },
   "version": "0.0.1",
 }

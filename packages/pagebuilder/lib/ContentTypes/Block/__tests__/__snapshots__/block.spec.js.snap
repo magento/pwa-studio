@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Block component 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <div
+    className="root"
+  />
+</div>
+`;
+
+exports[`renders a Block component with HTML content 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <div
+    className="root"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<h1>Testing HTML content</h1>",
+      }
+    }
+  />
+</div>
+`;

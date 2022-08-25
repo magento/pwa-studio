@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders closed modal 1`] = `
+<portal-mock>
+  <aside
+    className="root"
+  >
+    <div
+      className="header"
+    >
+      <span
+        className="headerText"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Edit Shipping Information"
+          id="checkoutPage.editShippingInfo"
+        />
+      </span>
+      <button
+        className="closeButton"
+        onClick={[MockFunction handleClose]}
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="18"
+              x2="6"
+              y1="6"
+              y2="18"
+            />
+            <line
+              x1="6"
+              x2="18"
+              y1="6"
+              y2="18"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      className="body"
+    />
+  </aside>
+</portal-mock>
+`;
+
+exports[`renders open modal 1`] = `
+<portal-mock>
+  <aside
+    className="root_open"
+  >
+    <div
+      className="header"
+    >
+      <span
+        className="headerText"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Edit Shipping Information"
+          id="checkoutPage.editShippingInfo"
+        />
+      </span>
+      <button
+        className="closeButton"
+        onClick={[MockFunction handleClose]}
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="18"
+              x2="6"
+              y1="6"
+              y2="18"
+            />
+            <line
+              x1="6"
+              x2="18"
+              y1="6"
+              y2="18"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      className="body"
+    >
+      <AddressForm
+        afterSubmit={[MockFunction handleClose]}
+        onCancel={[MockFunction handleClose]}
+        shippingData={
+          Object {
+            "shipping": "data",
+          }
+        }
+      />
+    </div>
+  </aside>
+</portal-mock>
+`;

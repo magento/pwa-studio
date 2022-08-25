@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handleSubmit fires necessary mutations and callbacks 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "shippingMethod": Object {
+      "carrier_code": "usps",
+      "method_code": "flatrate",
+    },
+  },
+}
+`;
+
+exports[`returns Apollo error 1`] = `undefined`;
+
+exports[`should dispatch add/update event: added 1`] = `
+Object {
+  "payload": Object {
+    "cart_id": "cart123",
+    "selected_shipping_method": Object {
+      "serializedValue": "usps|flatrate",
+    },
+  },
+  "type": "CHECKOUT_SHIPPING_METHOD_ADDED",
+}
+`;
+
+exports[`should dispatch add/update event: updated 1`] = `
+Object {
+  "payload": Object {
+    "cart_id": "cart123",
+    "selected_shipping_method": Object {
+      "serializedValue": "freeshipping|freeshipping",
+    },
+  },
+  "type": "CHECKOUT_SHIPPING_METHOD_UPDATED",
+}
+`;

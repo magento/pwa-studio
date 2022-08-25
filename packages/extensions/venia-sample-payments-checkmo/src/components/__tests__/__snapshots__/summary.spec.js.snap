@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="heading_container"
+  >
+    <h5
+      className="heading"
+    >
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Payment Information"
+        id="checkoutPage.paymentInformation"
+      />
+    </h5>
+    <mock-LinkButton
+      className="edit_button"
+      onClick={[MockFunction onEdit]}
+      type="button"
+    >
+      <mock-Icon
+        classes={
+          Object {
+            "icon": "edit_icon",
+          }
+        }
+        size={16}
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
+      />
+      <span
+        className="edit_text"
+      >
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Edit"
+          id="global.editButton"
+        />
+      </span>
+    </mock-LinkButton>
+  </div>
+  <div
+    className="checkmo_details_container"
+  >
+    <span
+      className="payment_type"
+    >
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Check / Money Order"
+        id="checkMo.paymentType"
+      />
+    </span>
+  </div>
+</div>
+`;

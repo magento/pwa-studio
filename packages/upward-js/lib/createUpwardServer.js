@@ -6,7 +6,8 @@
 const { resolve } = require('path');
 const express = require('express');
 const middleware = require('./middleware');
-const debugErrorMiddleware = require('debug-error-middleware').express;
+const errorhandler = require('errorhandler');
+const { version } = require('../package.json');
 const morgan = require('morgan');
 
 /**
@@ -48,14 +49,17 @@ async function createUpwardServer({
     const app = express();
     before(app);
     const upward = await middleware(resolve(upwardPath), env);
+
     if (env.NODE_ENV === 'production') {
         app.use(morgan('combined'));
         app.use(upward);
     } else {
         app.use(morgan('dev'));
         app.use(upward);
-        app.use(debugErrorMiddleware());
+        errorhandler.title = `⚠️ Error in upward-js v${version}`;
+        app.use(errorhandler());
     }
+
     if (bindLocal) {
         return new Promise((resolve, reject) => {
             try {

@@ -1,0 +1,673 @@
+{
+  "data": {
+    "products": {
+      "items": [
+        {
+          "id": 1132,
+          "uid": "MTEzMg==",
+          "name": "Bellona Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK01",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk01-la_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "bellona-skirt"
+        },
+        {
+          "id": 1131,
+          "uid": "MTEzMQ==",
+          "name": "Rowena Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK02",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk02-ll_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "rowena-skirt"
+        },
+        {
+          "id": 1130,
+          "uid": "MTEzMA==",
+          "name": "Johanna Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK03",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk03-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "johanna-skirt"
+        },
+        {
+          "id": 1129,
+          "uid": "MTEyOQ==",
+          "name": "Daria Crochet Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK04",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk04-kh_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "daria-crochet-skirt"
+        },
+        {
+          "id": 1128,
+          "uid": "MTEyOA==",
+          "name": "Agatha Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK05",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk05-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "agatha-skirt"
+        },
+        {
+          "id": 1127,
+          "uid": "MTEyNw==",
+          "name": "Leona Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK06",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk06-la_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "leona-skirt"
+        },
+        {
+          "id": 1126,
+          "uid": "MTEyNg==",
+          "name": "Davina Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK07",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk07-rn_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "davina-skirt"
+        },
+        {
+          "id": 1125,
+          "uid": "MTEyNQ==",
+          "name": "Tatiana Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK08",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk08-ly_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "tatiana-skirt"
+        },
+        {
+          "id": 1124,
+          "uid": "MTEyNA==",
+          "name": "Iona Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK09",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk09-rn_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "iona-skirt"
+        },
+        {
+          "id": 1123,
+          "uid": "MTEyMw==",
+          "name": "Samara Skirt",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSK10",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/s\/vsk10-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "samara-skirt"
+        }
+      ],
+      "total_count": 10,
+      "filters": [
+        {
+          "name": "Category",
+          "filter_items_count": 6,
+          "request_var": "cat",
+          "filter_items": [
+            {
+              "label": "Tops",
+              "value_string": "8",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Bottoms",
+              "value_string": "11",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Dresses",
+              "value_string": "14",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Accessories",
+              "value_string": "3",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Shop The Look",
+              "value_string": "15",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "New Products",
+              "value_string": "7",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Fashion Material",
+          "filter_items_count": 15,
+          "request_var": "fashion_material",
+          "filter_items": [
+            {
+              "label": "14K Gold",
+              "value_string": "16",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Acrylic",
+              "value_string": "40",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Cashmere",
+              "value_string": "41",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Sterling Silver",
+              "value_string": "17",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Cotton",
+              "value_string": "42",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Linen",
+              "value_string": "43",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Leather",
+              "value_string": "44",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Nylon",
+              "value_string": "45",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Organic Cotton",
+              "value_string": "46",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Polyester",
+              "value_string": "47",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Rayon",
+              "value_string": "48",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Silk",
+              "value_string": "49",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Spandex",
+              "value_string": "50",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Viscose",
+              "value_string": "51",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Wool",
+              "value_string": "52",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Fashion Style",
+          "filter_items_count": 19,
+          "request_var": "fashion_style",
+          "filter_items": [
+            {
+              "label": "Above Knee",
+              "value_string": "53",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Below Knee",
+              "value_string": "54",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Ankle Length",
+              "value_string": "55",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Halter Top",
+              "value_string": "56",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Short Sleeve",
+              "value_string": "57",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Sleeveless",
+              "value_string": "58",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Long Sleeve",
+              "value_string": "59",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "3\/4 Sleeve",
+              "value_string": "60",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Slim Fit",
+              "value_string": "61",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Wide Leg",
+              "value_string": "62",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Capri",
+              "value_string": "63",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Full Length",
+              "value_string": "64",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Straight Leg",
+              "value_string": "65",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Open Front",
+              "value_string": "66",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Crew",
+              "value_string": "67",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Hooded",
+              "value_string": "68",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Scoopneck",
+              "value_string": "69",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "V-neck",
+              "value_string": "70",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "Button-down",
+              "value_string": "71",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Fashion Color",
+          "filter_items_count": 10,
+          "request_var": "fashion_color",
+          "filter_items": [
+            {
+              "label": "Gold",
+              "value_string": "14",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Peach",
+              "value_string": "21",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Khaki",
+              "value_string": "22",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Silver",
+              "value_string": "15",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Lilac",
+              "value_string": "23",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Rain",
+              "value_string": "24",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Mint",
+              "value_string": "25",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Lily",
+              "value_string": "26",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Latte",
+              "value_string": "27",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "Cocoa",
+              "value_string": "28",
+              "__typename": "SwatchLayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Fashion Size",
+          "filter_items_count": 9,
+          "request_var": "fashion_size",
+          "filter_items": [
+            {
+              "label": "L",
+              "value_string": "29",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "M",
+              "value_string": "30",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "S",
+              "value_string": "31",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "XS",
+              "value_string": "32",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "2",
+              "value_string": "33",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "4",
+              "value_string": "34",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "6",
+              "value_string": "35",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "8",
+              "value_string": "36",
+              "__typename": "SwatchLayerFilterItem"
+            },
+            {
+              "label": "10",
+              "value_string": "37",
+              "__typename": "SwatchLayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Price",
+          "filter_items_count": 2,
+          "request_var": "price",
+          "filter_items": [
+            {
+              "label": "<span class=\"price\">$0.00<\/span> - <span class=\"price\">$99.99<\/span>",
+              "value_string": "0-100",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "<span class=\"price\">$100.00<\/span> - <span class=\"price\">$199.99<\/span>",
+              "value_string": "100-200",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        },
+        {
+          "name": "Has Video",
+          "filter_items_count": 2,
+          "request_var": "has_video",
+          "filter_items": [
+            {
+              "label": "Yes",
+              "value_string": "1",
+              "__typename": "LayerFilterItem"
+            },
+            {
+              "label": "No",
+              "value_string": "0",
+              "__typename": "LayerFilterItem"
+            }
+          ],
+          "__typename": "LayerFilter"
+        }
+      ],
+      "__typename": "Products"
+    }
+  }
+}

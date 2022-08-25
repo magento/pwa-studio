@@ -1,0 +1,13 @@
+.root {
+    composes: border-l-4 from global;
+    composes: border-solid from global;
+    composes: border-error from global;
+    composes: font-semibold from global;
+    composes: leading-normal from global;
+    composes: mb-xs from global;
+    composes: pl-xs from global;
+    composes: pr-0 from global;
+    composes: py-xs from global;
+    composes: text-error from global;
+    composes: text-sm from global;
+}

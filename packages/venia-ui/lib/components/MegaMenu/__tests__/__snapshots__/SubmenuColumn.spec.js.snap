@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Submenu column renders correctly it renders correctly 1`] = `
+<div
+  className="submenuColumn"
+>
+  <a
+    className="link"
+    href="/pants.html"
+    onClick={[Function]}
+  >
+    <span
+      className="heading"
+    >
+      Pants
+    </span>
+  </a>
+  <ul
+    className="submenuChild"
+  >
+    <li
+      className="submenuChildItem"
+    >
+      <a
+        className="linkActive"
+        href="/jeans.html"
+        onClick={[Function]}
+      >
+        Jeans
+      </a>
+    </li>
+  </ul>
+</div>
+`;

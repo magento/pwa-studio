@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useCategory tests returns the correct shape 1`] = `
+Object {
+  "categoryData": Object {
+    "categories": Object {
+      "items": Array [
+        Object {
+          "meta_description": "Category meta-description",
+        },
+      ],
+    },
+    "products": Object {
+      "page_info": Object {
+        "total_pages": 6,
+      },
+    },
+  },
+  "categoryNotFound": false,
+  "error": null,
+  "loading": false,
+  "metaDescription": "Category meta-description",
+  "pageControl": Object {
+    "currentPage": 3,
+    "setPage": [MockFunction],
+    "totalPages": 6,
+  },
+  "pageSize": 12,
+  "sortProps": Array [
+    Object {
+      "sortAttribute": "relevance",
+      "sortDirection": "DESC",
+      "sortText": "Best Match",
+    },
+    [MockFunction],
+  ],
+}
+`;
+
+exports[`useCategory tests runs the category query 1`] = `
+Object {
+  "variables": Object {
+    "currentPage": 3,
+    "filters": Object {
+      "category_uid": Object {
+        "eq": "Mg==",
+      },
+      "price": Object {
+        "from": "0",
+        "to": "100",
+      },
+    },
+    "id": "Mg==",
+    "pageSize": 12,
+    "sort": Object {
+      "relevance": "DESC",
+    },
+  },
+}
+`;

@@ -1,0 +1,19 @@
+.root {
+    composes: items-center from global;
+    composes: inline-flex from global;
+    composes: justify-center from global;
+    touch-action: manipulation;
+}
+
+.icon {
+    fill: var(--fill, none);
+    stroke: var(--stroke, rgb(var(--venia-global-color-text)));
+}
+
+.icon_desktop {
+    composes: h-auto from global;
+    composes: w-auto from global;
+
+    composes: sm_h-[28px] from global;
+    composes: sm_w-[28px] from global;
+}

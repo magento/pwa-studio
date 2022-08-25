@@ -2,6 +2,8 @@ const { join } = require('path');
 const MemoryFS = require('memory-fs');
 const webpack = require('webpack');
 const jsYaml = require('js-yaml');
+
+const { mockBuildBus } = require('../../../TestHelpers');
 const UpwardIncludePlugin = require('../UpwardIncludePlugin');
 
 const basic3PageProjectDir = join(
@@ -14,6 +16,11 @@ const basic1PageProjectDir = join(
 );
 const missingUpwardFileDir = join(__dirname, '__fixtures/dupe-root-component');
 const badUpwardFileDir = join(__dirname, '__fixtures__/missing-page-types');
+const baseStaticContent = join(__dirname, '__fixtures__/base-static-content');
+const overrideStaticContent = join(
+    __dirname,
+    '__fixtures__/override-static-content'
+);
 
 const compile = config =>
     new Promise((resolve, reject) => {
@@ -31,6 +38,12 @@ const compile = config =>
     });
 
 test('merges upward files and resources', async () => {
+    const bus = mockBuildBus({
+        context: __dirname,
+        dependencies: [{ name: '@magento/pwa-buildpack' }]
+    });
+    bus.runPhase('declare');
+
     const config = {
         context: basic1PageProjectDir,
         entry: {
@@ -41,6 +54,7 @@ test('merges upward files and resources', async () => {
         },
         plugins: [
             new UpwardIncludePlugin({
+                bus,
                 upwardDirs: [basic3PageProjectDir, basic1PageProjectDir]
             })
         ]
@@ -107,4 +121,38 @@ test('handles bad upward file', async () => {
 
     // const { stats: { compilation: { assets } } } = await compile(config);
     await expect(compile(config)).rejects.toThrow(/error parsing/);
+});
+
+test('only uses override value for static assets', async () => {
+    const bus = mockBuildBus({
+        context: __dirname,
+        dependencies: [{ name: '@magento/pwa-buildpack' }]
+    });
+    bus.runPhase('declare');
+
+    const config = {
+        context: basic1PageProjectDir,
+        entry: {
+            main: join(baseStaticContent, 'entry.js')
+        },
+        output: {
+            path: join(baseStaticContent, 'dist')
+        },
+        plugins: [
+            new UpwardIncludePlugin({
+                bus,
+                upwardDirs: [baseStaticContent, overrideStaticContent]
+            })
+        ]
+    };
+    const {
+        stats: {
+            compilation: { assets }
+        }
+    } = await compile(config);
+
+    expect(assets['upward.yml']).toBeTruthy();
+    expect(assets['baz.txt']).toBeTruthy();
+    expect(assets['bar.txt']).toBeTruthy();
+    expect(assets).not.toHaveProperty('foo.txt');
 });

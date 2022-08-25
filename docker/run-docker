@@ -49,7 +49,7 @@ create_certificate () {
   # make docker/certs folder if one does not already exist
   [ -d ./docker/certs ] || mkdir ./docker/certs
   # install devcert dependency
-  cd ./docker && yarn install && cd -
+  cd ./docker && yarn install --frozen-lockfile && cd -
   node ./docker/makeHostAndCert "$DEV_SERVER_HOST" || STATUS=$?
 }
 

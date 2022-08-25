@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders an error message when no shipping methods 1`] = `
+<span
+  className="error"
+>
+  Error loading shipping methods. Please ensure a shipping address is set and try again.
+</span>
+`;
+
+exports[`it renders correctly 1`] = `
+<Radio Group
+  classes={
+    Object {
+      "message": "radioMessage",
+      "radioLabel": "radioLabel",
+      "root": "radioRoot",
+    }
+  }
+  field="shipping_method"
+  id="shippingMethod"
+  items={
+    Array [
+      Object {
+        "label": <UNDEFINED
+          currency="USD"
+          name="Flat Rate"
+          price={99}
+        />,
+        "value": "flatrate|flatrate",
+      },
+    ]
+  }
+/>
+`;

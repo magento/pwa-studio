@@ -1,0 +1,12 @@
+.root {
+    composes: bottom-0 from global;
+    composes: fixed from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: mb-xs from global;
+    composes: min-w-full from global;
+    composes: z-toast from global;
+
+    composes: lg_min-w-auto from global;
+    composes: lg_right-md from global;
+}

@@ -1,0 +1,146 @@
+.root h1,
+.root h2,
+.root h3,
+.root h4,
+.root h5,
+.root h6 {
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+}
+
+.root h1 {
+    margin-top: 0.75rem;
+    font-size: 1.875rem;
+    font-weight: 400;
+}
+
+.root h2 {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.root h3 {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.root h4 {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.root h5 {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.root h6 {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.root p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.root p:last-child {
+    margin-bottom: 0;
+}
+
+.root img {
+    max-width: 100%;
+    margin: 1rem 0;
+}
+
+.root ol,
+.root ul {
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.root p + ol,
+.root p + ul {
+    margin-top: 0;
+}
+
+/* TODO @TW: cannot compose */
+.root ol {
+    /* composes: list-decimal from global; */
+    list-style-type: decimal;
+}
+
+/* TODO @TW: cannot compose */
+.root ul {
+    /* composes: list-disc from global; */
+    list-style-type: disc;
+}
+
+.root a {
+    text-decoration: underline;
+}
+
+.root blockquote {
+    margin: 1rem 0;
+    font-size: 1.25rem;
+    font-style: italic;
+}
+
+.root table {
+    width: 100%;
+    text-align: left;
+}
+
+.root pre {
+    padding: 1rem;
+    /* composes: border from global; */
+    /* composes: border-solid from global; */
+    /* composes: border-subtle from global; */
+    border: 1px solid rgb(var(--venia-global-color-border));
+    /* composes: bg-gray-900 from global; */
+    background: rgb(var(--venia-global-color-gray));
+}
+
+.root :global .cms-content-important {
+    padding: 1rem;
+    /* composes: border from global; */
+    /* composes: border-solid from global; */
+    /* composes: border-subtle from global; */
+    border: 1px solid rgb(var(--venia-global-color-border));
+    /* composes: bg-gray-900 from global; */
+    background: rgb(var(--venia-global-color-gray));
+    font-size: 1.125rem;
+}
+
+@media (min-width: 800px) {
+    .root h1 {
+        font-size: 3rem;
+    }
+
+    .root h2 {
+        font-size: 2.25rem;
+    }
+
+    .root h3 {
+        font-size: 1.875rem;
+    }
+
+    .root h4 {
+        font-size: 1.5rem;
+    }
+
+    .root h5 {
+        font-size: 1.125rem;
+    }
+
+    .root h6 {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,78 @@
+.root {
+    composes: content-start from global;
+    composes: grid from global;
+    composes: gap-y-2xs from global;
+}
+
+.root_disabled {
+    composes: root;
+
+    composes: opacity-50 from global;
+}
+
+.name {
+    composes: font-semibold from global;
+    composes: text-colorDefault from global;
+}
+
+.detail {
+    composes: text-sm from global;
+    composes: text-subtle from global;
+}
+
+.option {
+    composes: detail;
+}
+
+.outOfStock {
+    composes: text-sm from global;
+    composes: text-error from global;
+}
+
+.priceContainer {
+    composes: text-colorDefault from global;
+}
+
+.image {
+    composes: h-full from global;
+    composes: object-contain from global;
+    composes: w-full from global;
+}
+
+.image_disabled {
+    composes: image;
+    composes: opacity-50 from global;
+}
+
+.addToCart {
+    composes: root_highPriority from '../Button/button.module.css';
+
+    composes: justify-self-start from global;
+    composes: min-w-full from global;
+    composes: mt-1 from global;
+
+    composes: xs_min-w-auto from global;
+}
+
+.deleteItem {
+    composes: mt-0 from global;
+    composes: mr-2 from global;
+    composes: mb-0 from global;
+    composes: ml-xs from global;
+    composes: justify-self-end from global;
+}
+
+.actionWrap {
+    composes: flex from global;
+    composes: items-start from global;
+}
+
+.moreActions {
+    composes: bg-gray-100 from global;
+    composes: hidden from global;
+    /* Hide actions menu until PWA-1683 */
+    /* composes: inline-flex from global; */
+    composes: items-center from global;
+    composes: p-0.5 from global;
+    composes: rounded-full from global;
+}

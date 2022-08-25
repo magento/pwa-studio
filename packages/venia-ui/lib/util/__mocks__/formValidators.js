@@ -1,4 +1,3 @@
-export const validateEmail = jest.fn();
 export const isRequired = jest.fn();
 export const validatePassword = jest.fn();
 export const validateConfirmPassword = jest.fn();

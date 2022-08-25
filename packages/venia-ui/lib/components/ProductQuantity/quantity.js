@@ -1,21 +1,29 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { arrayOf, number, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Select from '../Select';
 import mockData from './mockData';
-import defaultClasses from './quantity.css';
+import defaultClasses from './quantity.module.css';
 
+/**
+ * @deprecated
+ */
 const Quantity = props => {
     const { classes: propClasses, selectLabel, ...restProps } = props;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const { formatMessage } = useIntl();
+    const classes = useStyle(defaultClasses, propClasses);
 
     return (
         <div className={classes.root}>
             <Select
                 {...restProps}
                 field="quantity"
-                aria-label={selectLabel}
+                aria-label={formatMessage({
+                    id: 'productQuantity.label',
+                    defaultMessage: selectLabel
+                })}
                 items={mockData}
             />
         </div>

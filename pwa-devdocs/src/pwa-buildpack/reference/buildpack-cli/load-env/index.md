@@ -1,5 +1,6 @@
 ---
 title: load-env
+adobeio: /api/buildpack/cli/load-environment-file/
 ---
 
 The `load-env` subcommand for the [`buildpack`][] CLI command loads and validates the local `.env` file according to the variable declarations in the [`envVarDefinitions.json`][] file.
@@ -37,7 +38,7 @@ Loads a given directory's `.env` file and provides a [configuration object][].
 ```js
 const { loadEnvironment } = require('@magento/pwa-buildpack');
 
-const configuration = loadEnvironment(process.cwd());
+const configuration = await loadEnvironment(process.cwd());
 ```
 
 #### Parameters
@@ -91,7 +92,7 @@ import { loadEnvironment } from '@magento/pwa-buildpack';
 
 // Give `loadEnvironment` the path to the project root.
 // If the current file is in project root, use the Node builtin `__dirname`.
-const configuration = loadEnvironment('/Users/me/path/to/project');
+const configuration = await loadEnvironment('/Users/me/path/to/project');
 
 // `loadEnvironment` has now read the contents of
 // `/Users/me/path/to/project/.env` and merged it with any environment
@@ -186,9 +187,9 @@ if (configuration.isDev) {
 }
 ```
 
-[upward]: {{site.baseurl}}{%link technologies/upward/reference-implementation/index.md %}
-[`buildpack`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/index.md %}
-[configuration object]: {{site.baseurl}}{%link pwa-buildpack/configuration-management/index.md %}
+[upward]: {%link technologies/upward/reference-implementation/index.md %}
+[`buildpack`]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
+[configuration object]: {%link pwa-buildpack/configuration-management/index.md %}
 
 [`envvardefinitions.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
 [camelcased]: https://npmjs.com/package/camelspace

@@ -1,110 +1,77 @@
-import React, { useEffect } from 'react';
-import { number, shape, string } from 'prop-types';
-import { useLazyQuery } from '@apollo/react-hooks';
-import { usePagination } from '@magento/peregrine';
+import React, { Fragment } from 'react';
+import { shape, string } from 'prop-types';
+import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Category';
+import { useStyle } from '../../classify';
 
-import { mergeClasses } from '../../classify';
-
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import { withRouter } from '@magento/venia-drivers';
-import GET_CATEGORY from '../../queries/getCategory.graphql';
-import isObjectEmpty from '../../util/isObjectEmpty';
-import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
 import CategoryContent from './categoryContent';
-import defaultClasses from './category.css';
-import NoProductsFound from './NoProductsFound';
+import defaultClasses from './category.module.css';
+import { Meta } from '../../components/Head';
+import { GET_PAGE_SIZE } from './category.gql';
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
+import { useIntl } from 'react-intl';
 
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
+const MESSAGES = new Map().set(
+    'NOT_FOUND',
+    "Looks like the category you were hoping to find doesn't exist. Sorry about that."
+);
 
 const Category = props => {
-    const [, catalogApi] = useCatalogContext();
-    const { clear: filterClear } = catalogApi.actions.filterOption;
+    const { uid } = props;
+    const { formatMessage } = useIntl();
 
-    const { id, pageSize } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
-
-    const [paginationValues, paginationApi] = usePagination({
-        history: props.history,
-        location: props.location
+    const talonProps = useCategory({
+        id: uid,
+        queries: {
+            getPageSize: GET_PAGE_SIZE
+        }
     });
 
-    const { currentPage, totalPages } = paginationValues;
-    const { setCurrentPage, setTotalPages } = paginationApi;
+    const {
+        error,
+        metaDescription,
+        loading,
+        categoryData,
+        pageControl,
+        sortProps,
+        pageSize,
+        categoryNotFound
+    } = talonProps;
 
-    const pageControl = {
-        currentPage,
-        setPage: setCurrentPage,
-        totalPages
-    };
+    const classes = useStyle(defaultClasses, props.classes);
 
-    const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY);
-    const { loading, error, data } = queryResponse;
-
-    // clear any stale filters
-    useEffect(() => {
-        if (isObjectEmpty(getFilterParams())) {
-            filterClear();
-        }
-    }, [filterClear]);
-
-    // Run the category query immediately and whenever its variable values change.
-    useEffect(() => {
-        runQuery({
-            variables: {
-                currentPage: Number(currentPage),
-                id: Number(id),
-                idString: String(id),
-                onServer: false,
-                pageSize: Number(pageSize)
+    if (!categoryData) {
+        if (error && pageControl.currentPage === 1) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(error);
             }
-        });
 
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
-        });
-    }, [currentPage, id, pageSize, runQuery]);
-
-    const totalPagesFromData = data
-        ? data.products.page_info.total_pages
-        : null;
-
-    useEffect(() => {
-        setTotalPages(totalPagesFromData);
-        return () => {
-            setTotalPages(null);
-        };
-    }, [setTotalPages, totalPagesFromData]);
-
-    // If we get an error after loading we should try to reset to page 1.
-    // If we continue to have errors after that, render an error message.
-    useEffect(() => {
-        if (error && !loading && currentPage !== 1) {
-            setCurrentPage(1);
+            return <ErrorView />;
         }
-    }, [currentPage, error, loading, setCurrentPage]);
-
-    if (error && currentPage === 1 && !loading) {
-        if (process.env.NODE_ENV !== 'production') {
-            console.error(error);
-        }
-        return <div>Data Fetch Error</div>;
+    }
+    if (categoryNotFound) {
+        return (
+            <ErrorView
+                message={formatMessage({
+                    id: 'category.notFound',
+                    defaultMessage: MESSAGES.get('NOT_FOUND')
+                })}
+            />
+        );
     }
 
-    // Show the loading indicator until data has been fetched.
-    if (totalPagesFromData === null) {
-        return fullPageLoadingIndicator;
-    }
-
-    return totalPagesFromData === 0 ? (
-        <NoProductsFound categoryId={id} />
-    ) : (
-        <CategoryContent
-            classes={classes}
-            data={loading ? null : data}
-            pageControl={pageControl}
-        />
+    return (
+        <Fragment>
+            <Meta name="description" content={metaDescription} />
+            <CategoryContent
+                categoryId={uid}
+                classes={classes}
+                data={categoryData}
+                isLoading={loading}
+                pageControl={pageControl}
+                sortProps={sortProps}
+                pageSize={pageSize}
+            />
+        </Fragment>
     );
 };
 
@@ -114,15 +81,11 @@ Category.propTypes = {
         root: string,
         title: string
     }),
-    id: number,
-    pageSize: number
+    uid: string
 };
 
 Category.defaultProps = {
-    id: 3,
-    // TODO: This can be replaced by the value from `storeConfig when the PR,
-    // https://github.com/magento/graphql-ce/pull/650, is released.
-    pageSize: 6
+    uid: 'Mg=='
 };
 
-export default withRouter(Category);
+export default Category;

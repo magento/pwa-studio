@@ -12,6 +12,58 @@
             ]
         },
         {
+            "name": "Magento Store Edition",
+            "variables": [
+                {
+                    "name": "MAGENTO_BACKEND_EDITION",
+                    "type": "str",
+                    "desc": "Specify the edition of the magento store (Adobe Commerce or Magento Open Source). Can be one of MOS or AC.",
+                    "example": "AC",
+                    "default": "AC"
+                }
+            ]
+        },
+        {
+            "name": "Magento Store View",
+            "variables": [
+                {
+                    "name": "STORE_VIEW_CODE",
+                    "type": "str",
+                    "desc": "Specify the Magento store view code set in Stores > Settings > All Stores > Store View name",
+                    "default": ""
+                },
+                {
+                    "name": "USE_STORE_CODE_IN_URL",
+                    "type": "bool",
+                    "desc": "Includes the store code in the store URLs if value is true.",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "name": "Image Optimizing Origin",
+            "variables": [
+                {
+                    "name": "IMAGE_OPTIMIZING_ORIGIN",
+                    "type": "str",
+                    "choices": ["backend", "onboard", "auto"],
+                    "desc": "Specify the origin to use for images in the UI. Set to `backend` when Fastly or another CDN is optimizing images, and the frontend will load images directly from the Magento instance at MAGENTO_BACKEND_URL. To force usage of the onboard image optimizer, set to `onboard`. Set to `auto` to autodetect whether the backend is using FastlyIO and optimize onboard only if it needs to.",
+                    "default": "auto"
+                }
+            ]
+        },
+        {
+            "name": "Default Country",
+            "variables": [
+                {
+                    "name": "DEFAULT_COUNTRY_CODE",
+                    "type": "str",
+                    "desc": "Specify the default country to be selected in forms containing country field such as address books and shipping information forms.",
+                    "default": "US"
+                }
+            ]
+        },
+        {
             "name": "Custom local origin",
             "variables": [
                 {
@@ -83,19 +135,18 @@
                     "type": "num",
                     "desc": "Specify the port the staging server should bind to. If this is set, it overrides the port chosen by custom origin settings.",
                     "default": 0
+                },
+                {
+                    "name": "STAGING_BUILD_ID",
+                    "type": "str",
+                    "desc": "Specify the id which Buildpack will put in a comment above all generated bundle files and the index.html file",
+                    "default": ""
                 }
             ]
         },
         {
             "name": "Onboard image optimization service",
             "variables": [
-                {
-                    "name": "IMAGE_SERVICE_PUBLIC_PATH",
-                    "type": "str",
-                    "desc": "Root path to mount the onboard image optimization service in the DevServer and staging server.",
-                    "example": "/img/",
-                    "default": "/img/"
-                },
                 {
                     "name": "IMAGE_SERVICE_CACHE_EXPIRES",
                     "type": "str",
@@ -108,12 +159,6 @@
                     "type": "bool",
                     "desc": "Log image cache debug info to the console.",
                     "default": false
-                },
-                {
-                    "name": "IMAGE_SERVICE_CACHE_REDIS_CLIENT",
-                    "type": "str",
-                    "desc": "To use a Redis instance instead of a local memory cache for persistence between server processes, set this variable to the socket or URL of the Redis instance.",
-                    "default": ""
                 }
             ]
         },
@@ -146,116 +191,50 @@
                 {
                     "name": "CHECKOUT_BRAINTREE_TOKEN",
                     "type": "str",
-                    "desc": "Specify a Braintree API token token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.",
-                    "default": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
+                    "desc": "Specify a Braintree API token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.",
+                    "example": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
+                }
+            ]
+        },
+        {
+            "name": "BuildBus and targets",
+            "variables": [
+                {
+                    "name": "BUILDBUS_DEPS_ADDITIONAL",
+                    "type": "str",
+                    "desc": "A list of resolvable NPM modules that BuildBus will scan for targets, in addition to those declared in project `dependencies` and `devDependencies`.",
+                    "default": ""
+                }
+            ]
+        },
+        {
+            "name": "Custom HTTPS certificates",
+            "variables": [
+                {
+                    "name": "CUSTOM_HTTPS_KEY",
+                    "type": "str",
+                    "desc": "Absolute path to the custom HTTPS certificate key file.",
+                    "default": ""
+                },
+                {
+                    "name": "CUSTOM_HTTPS_CERT",
+                    "type": "str",
+                    "desc": "Absolute path to the custom HTTPS certificate cert file.",
+                    "default": ""
+                }
+            ]
+        },
+        {
+            "name": "Express compression settings",
+            "variables": [
+                {
+                    "name": "ENABLE_EXPRESS_SERVER_COMPRESSION",
+                    "type": "bool",
+                    "desc": "Specify if express server compression needs to be enabled. Defaults to false if not provided.",
+                    "default": false
                 }
             ]
         }
     ],
-    "changes": [
-        {
-            "name": "UPWARD_JS_UPWARD_PATH",
-            "type": "defaultChanged",
-            "reason": "a new requirement that UPWARD definition files have a standardized name, to enable extensibility. You may need to rename the UPWARD definition file in your project",
-            "original": "venia-upward.yml"
-        },
-        {
-            "name": "MAGENTO_BACKEND_URL",
-            "type": "exampleChanged",
-            "reason": "updates to our backend cloud instances",
-            "original": "https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.cloud/"
-        },
-        {
-            "name": "MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST",
-            "type": "renamed",
-            "update": "CUSTOM_ORIGIN_ENABLED",
-            "supportLegacy": true
-        },
-        {
-            "name": "MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN",
-            "type": "renamed",
-            "update": "CUSTOM_ORIGIN_SUBDOMAIN",
-            "supportLegacy": true
-        },
-        {
-            "name": "MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN",
-            "type": "renamed",
-            "update": "CUSTOM_ORIGIN_EXACT_DOMAIN",
-            "supportLegacy": true
-        },
-        {
-            "name": "MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH",
-            "type": "renamed",
-            "update": "CUSTOM_ORIGIN_ADD_UNIQUE_HASH",
-            "supportLegacy": true
-        },
-        {
-            "name": "ENABLE_SERVICE_WORKER_DEBUGGING",
-            "type": "renamed",
-            "update": "DEV_SERVER_SERVICE_WORKER_ENABLED",
-            "supportLegacy": true
-        },
-        {
-            "name": "BRAINTREE_TOKEN",
-            "type": "renamed",
-            "update": "CHECKOUT_BRAINTREE_TOKEN",
-            "supportLegacy": true
-        },
-        {
-            "name": "MAGENTO_BACKEND_MEDIA_PATH_PRODUCT",
-            "type": "removed",
-            "reason": "PWA Studio now reads media paths directly from instance configuration."
-        },
-        {
-            "name": "MAGENTO_BACKEND_MEDIA_PATH_CATEGORY",
-            "type": "removed",
-            "reason": "PWA Studio now reads media paths directly from instance configuration."
-        },
-        {
-            "name": "PWA_STUDIO_PORTS_DEVELOPMENT",
-            "type": "renamed",
-            "update": "DEV_SERVER_PORT",
-            "supportLegacy": true
-        },
-        {
-            "name": "PWA_STUDIO_HOT_RELOAD_WITH_POLLING",
-            "type": "renamed",
-            "update": "DEV_SERVER_WATCH_OPTIONS_USE_POLLING",
-            "supportLegacy": true
-        },
-        {
-            "name": "IMAGE_SERVICE_PATH",
-            "type": "renamed",
-            "update": "IMAGE_SERVICE_PUBLIC_PATH",
-            "supportLegacy": true
-        },
-        {
-            "name": "IMAGE_CACHE_EXPIRES",
-            "type": "renamed",
-            "update": "IMAGE_SERVICE_CACHE_EXPIRES",
-            "supportLegacy": true
-        },
-        {
-            "name": "IMAGE_CACHE_DEBUG",
-            "type": "renamed",
-            "update": "IMAGE_SERVICE_CACHE_DEBUG",
-            "supportLegacy": true
-        },
-        {
-            "name": "IMAGE_CACHE_REDIS_CLIENT",
-            "type": "renamed",
-            "update": "IMAGE_SERVICE_CACHE_REDIS_CLIENT",
-            "supportLegacy": true
-        },
-        {
-            "name": "SERVICE_WORKER_FILE_NAME",
-            "type": "removed",
-            "reason": "The standard filename 'sw.js' is better for caching, stability, and compatibility, and a PWA Studio project should not register more than one ServiceWorker."
-        },
-        {
-            "name": "PWA_STUDIO_PUBLIC_PATH",
-            "type": "removed",
-            "reason": "The new environment variables DEV_SERVER_HOST and STAGING_SERVER_HOST now provide the host override functionality for the Docker setup."
-        }
-    ]
+    "changes": []
 }

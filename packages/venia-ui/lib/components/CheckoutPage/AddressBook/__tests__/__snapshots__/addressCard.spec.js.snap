@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders base card state 1`] = `
+<div
+  className="root"
+  onClick={[MockFunction handleClick]}
+  onKeyPress={[MockFunction handleKeyPress]}
+  role="button"
+  tabIndex="0"
+>
+  <span
+    className="defaultBadge"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Default"
+      id="addressCard.defaultText"
+    />
+  </span>
+  <span
+    className="name"
+  >
+    Philip Fry
+  </span>
+  <span>
+    3000 57th Street
+  </span>
+  <span>
+    Suite 200
+  </span>
+  <span>
+    Manhattan, NY 10019 US
+  </span>
+</div>
+`;
+
+exports[`renders selected card state 1`] = `
+<div
+  className="root_selected"
+  onClick={[MockFunction handleClick]}
+  onKeyPress={[MockFunction handleKeyPress]}
+  role="button"
+  tabIndex="0"
+>
+  <button
+    className="editButton"
+    onClick={[MockFunction handleEditAddress]}
+  >
+    <span
+      className="root"
+    >
+      <svg
+        className="icon"
+        fill="none"
+        height={16}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+        />
+      </svg>
+    </span>
+  </button>
+  <span
+    className="name"
+  >
+    Philip Fry
+  </span>
+  <span>
+    3000 57th Street
+  </span>
+  <span>
+    Suite 200
+  </span>
+  <span>
+    Manhattan, NY 10019 US
+  </span>
+</div>
+`;
+
+exports[`renders updated card state 1`] = `
+<div
+  className="root_updated"
+  onClick={[MockFunction handleClick]}
+  onKeyPress={[MockFunction handleKeyPress]}
+  role="button"
+  tabIndex="0"
+>
+  <button
+    className="editButton"
+    onClick={[MockFunction handleEditAddress]}
+  >
+    <span
+      className="root"
+    >
+      <svg
+        className="icon"
+        fill="none"
+        height={16}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+        />
+      </svg>
+    </span>
+  </button>
+  <span
+    className="defaultBadge"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Default"
+      id="addressCard.defaultText"
+    />
+  </span>
+  <span
+    className="name"
+  >
+    Philip Fry
+  </span>
+  <span>
+    3000 57th Street
+  </span>
+  <span>
+    Suite 200
+  </span>
+  <span>
+    Manhattan, NY 10019 US
+  </span>
+</div>
+`;

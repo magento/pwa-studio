@@ -1,0 +1,111 @@
+.root {
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-items-start from global;
+    composes: max-w-site from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: px-xs from global;
+    composes: py-2xs from global;
+    composes: relative from global;
+
+    composes: sm_justify-items-end from global;
+}
+
+.trigger {
+    composes: max-w-[15rem] from global;
+    composes: overflow-ellipsis from global;
+    composes: overflow-hidden from global;
+    composes: whitespace-nowrap from global;
+
+    composes: sm_max-w-full from global;
+}
+
+.menu {
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: bottom-md from global;
+    composes: left-xs from global;
+    composes: max-w-[90vw] from global;
+    composes: opacity-0 from global;
+    composes: pb-2xs from global;
+    composes: pt-2xs from global;
+    composes: right-auto from global;
+    composes: rounded from global;
+    composes: shadow-menu from global;
+    composes: top-auto from global;
+    composes: w-max from global;
+    composes: z-menu from global;
+    transform: translate3d(0, -8px, 0);
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-global-anim-out);
+    transition-property: opacity, transform, visibility;
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
+
+    composes: sm_bottom-auto from global;
+    composes: sm_left-auto from global;
+    composes: sm_right-xs from global;
+    composes: sm_top-md from global;
+}
+
+.menu_open {
+    composes: menu;
+
+    composes: opacity-100 from global;
+    transform: translate3d(0, 4px, 0);
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
+}
+
+.menuItem {
+    composes: hover_bg-subtle from global;
+}
+
+.groups {
+    composes: max-h-[24rem] from global;
+    composes: overflow-auto from global;
+}
+
+.groupList {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: pb-2xs from global;
+    composes: pt-2xs from global;
+
+    composes: last_border-none from global;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 639px) {
+    .root:only-child {
+        grid-column: 2;
+    }
+
+    /* TODO @TW: cannot compose */
+    .root:last-child .menu {
+        right: 1rem;
+        left: auto;
+    }
+
+    .menu {
+        transform: translate3d(0, 8px, 0);
+    }
+
+    .menu_open {
+        transform: translate3d(0, -4px, 0);
+    }
+}

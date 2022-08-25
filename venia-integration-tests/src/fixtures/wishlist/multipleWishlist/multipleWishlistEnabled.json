@@ -1,0 +1,11 @@
+{
+    "data": {
+        "storeConfig": {
+            "store_code": "default",
+            "enable_multiple_wishlists": "1",
+            "magento_wishlist_general_is_enabled": "1",
+            "maximum_number_of_wishlists": "5",
+            "__typename": "StoreConfig"
+        }
+    }
+}

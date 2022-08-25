@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compression middleware should not be attached if env.ENABLE_EXPRESS_SERVER_COMPRESSION is false 1`] = `Array []`;
+
+exports[`compression middleware to be attached if env.ENABLE_EXPRESS_SERVER_COMPRESSION is true 1`] = `
+Array [
+  Array [
+    [MockFunction compression middleware],
+  ],
+]
+`;

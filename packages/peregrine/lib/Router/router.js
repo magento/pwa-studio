@@ -4,6 +4,9 @@ import { func, object, string } from 'prop-types';
 
 export const { Consumer, Provider } = createContext();
 
+/**
+ * @deprecated see @magento/venia-ui/components/Routes/routes.js
+ */
 export default class MagentoRouter extends Component {
     static propTypes = {
         apiBase: string.isRequired,

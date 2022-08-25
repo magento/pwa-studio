@@ -1,0 +1,39 @@
+.root {
+    composes: bg-white from global;
+    composes: relative from global;
+    composes: text-colorDefault from global;
+    composes: z-foreground from global;
+}
+
+.root_masked {
+    composes: root;
+}
+
+.page {
+    composes: max-w-site from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    min-height: 40rem;
+}
+
+.page_masked {
+    composes: page;
+}
+
+@media (min-height: 640px) {
+    .page {
+        min-height: 48rem;
+    }
+}
+
+@media (min-height: 768px) {
+    .page {
+        min-height: 60rem;
+    }
+}
+
+@media (min-height: 960px) {
+    .page {
+        min-height: 72rem;
+    }
+}

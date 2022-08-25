@@ -1,0 +1,75 @@
+.root {
+    composes: relative from global;
+    composes: ml-2xs from global;
+}
+
+.menu {
+    composes: absolute from global;
+    composes: bg-clip-padding from global;
+    composes: bg-white from global;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: list-none from global;
+    composes: mb-0 from global;
+    composes: min-w-[10rem] from global;
+    composes: mt-0.5 from global;
+    composes: mx-0 from global;
+    composes: right-0 from global;
+    composes: rounded from global;
+    composes: shadow-menu from global;
+    composes: text-colorDefault from global;
+    composes: text-left from global;
+    composes: top-[110%] from global;
+    composes: z-menu from global;
+}
+
+.menuItem {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+
+    composes: hover_bg-subtle from global;
+
+    composes: last_border-b-0 from global;
+}
+
+.sortButton {
+    /* TODO @TW: review (C2). This is fragile to extend. */
+    composes: root_lowPriority from '../../components/Button/button.module.css';
+
+    composes: min-w-[6.26rem] from global;
+
+    composes: lg_border-2 from global;
+    composes: lg_border-gray-500 from global;
+    composes: lg_font-normal from global;
+    composes: lg_normal-case from global;
+    composes: lg_rounded-md from global;
+}
+
+.desktopText {
+    composes: hidden from global;
+
+    composes: lg_inline-flex from global;
+}
+
+.sortText {
+    composes: leading-normal from global;
+    composes: text-colorDefault from global;
+}
+
+.desktopIconWrapper {
+    composes: root from '../Icon/icon.module.css';
+
+    transform: translateX(10px);
+}
+
+.desktopIcon {
+    composes: icon from '../Icon/icon.module.css';
+
+    composes: stroke-gray-500 from global;
+}
+
+.mobileText {
+    composes: lg_hidden from global;
+}

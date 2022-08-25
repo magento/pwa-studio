@@ -2,13 +2,13 @@ import React from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { useCategoryBranch } from '@magento/peregrine/lib/talons/CategoryTree';
 
-import { mergeClasses } from '../../classify';
-import defaultClasses from './categoryBranch.css';
+import { useStyle } from '../../classify';
+import defaultClasses from './categoryBranch.module.css';
 
 const Branch = props => {
-    const { category, setCategoryId } = props;
+    const { category, setCategoryId, tabindex } = props;
     const { name } = category;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useCategoryBranch({ category, setCategoryId });
     const { exclude, handleClick } = talonProps;
@@ -20,7 +20,9 @@ const Branch = props => {
     return (
         <li className={classes.root}>
             <button
+                tabindex={tabindex}
                 className={classes.target}
+                data-cy="CategoryTree-Branch-target"
                 type="button"
                 onClick={handleClick}
             >
@@ -34,7 +36,7 @@ export default Branch;
 
 Branch.propTypes = {
     category: shape({
-        id: number.isRequired,
+        uid: string.isRequired,
         include_in_menu: number,
         name: string.isRequired
     }).isRequired,
@@ -43,5 +45,6 @@ Branch.propTypes = {
         target: string,
         text: string
     }),
-    setCategoryId: func.isRequired
+    setCategoryId: func.isRequired,
+    tabindex: func.isRequired
 };

@@ -1,0 +1,47 @@
+.root {
+    composes: root from '../clickable.module.css';
+
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-strong from global;
+    composes: h-[3rem] from global;
+    composes: min-w-[3rem] from global;
+    composes: px-2xs from global;
+    composes: py-0 from global;
+    composes: rounded-sm from global;
+    position: relative;
+}
+
+.root_selected {
+    composes: root;
+
+    composes: bg-gray-900 from global;
+    composes: text-white from global;
+}
+
+.root_focused {
+    composes: root;
+}
+
+.root_selected_focused {
+    composes: root_selected;
+}
+
+.root_outOfStock,
+.root_selected_outOfStock {
+    composes: root;
+    composes: bg-disabledTile from global;
+    composes: opacity-50 from global;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-gray-400 from global;
+    composes: text-gray-600 from global;
+}
+.root_outOfStock:after,
+.root_selected_outOfStock:after {
+    content: '';
+    position: absolute;
+    border-top: 2px solid rgb(var(--venia-global-color-gray-400));
+    width: 62px;
+    transform: rotate(-45deg);
+}

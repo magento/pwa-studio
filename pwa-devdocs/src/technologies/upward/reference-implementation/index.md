@@ -1,5 +1,6 @@
 ---
 title: Reference Implementation
+adobeio: /guides/packages/upward/javascript/
 ---
 
 The [upward-js][] package is a reference implementation of the [UPWARD][] specification built using JavaScript.
@@ -81,7 +82,7 @@ app.use(middleware('./my-upward-server.yml'));
 
 You can also pass an `IOAdapter` as a second argument to the middleware.
 
-[upward-js]: https://github.com/magento/pwa-studio/tree/master/packages/upward-js
+[upward-js]: https://github.com/magento/pwa-studio/tree/main/packages/upward-js
 
-[UPWARD]: {{site.baseurl}}{% link technologies/upward/index.md %}
-[Setting up Venia]: {{site.baseurl}}{% link venia-pwa-concept/setup/index.md %}
+[UPWARD]: {% link technologies/upward/index.md %}
+[Setting up Venia]: {% link venia-pwa-concept/setup/index.md %}

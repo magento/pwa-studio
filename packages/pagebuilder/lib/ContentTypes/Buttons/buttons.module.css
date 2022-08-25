@@ -1,0 +1,21 @@
+.root {
+    max-width: 100%;
+}
+.root > div {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    max-width: 100%;
+}
+.root button[class] {
+    max-width: 100%;
+    overflow: hidden;
+    min-width: var(--buttonMinWidth);
+}
+.stacked {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.inline > div {
+    margin-inline-end: 0.5rem;
+}

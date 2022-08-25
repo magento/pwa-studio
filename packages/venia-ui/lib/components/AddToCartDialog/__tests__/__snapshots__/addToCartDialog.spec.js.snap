@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders dialog with content 1`] = `
+<Dialog
+  classes={
+    Object {
+      "headerText": "dialogHeaderText",
+    }
+  }
+  isOpen={true}
+  onCancel={[MockFunction handleOnClose]}
+  shouldShowButtons={false}
+  title={null}
+>
+  <FormError />
+  <div
+    className="root"
+  >
+    <Image
+      alt="image-label"
+      classes={
+        Object {
+          "image": "image",
+        }
+      }
+      src="https://example.com/media/image.jpg"
+    />
+    <div
+      className="detailsContainer"
+    >
+      <span
+        className="name"
+      >
+        Configurable Product
+      </span>
+      <span
+        className="price"
+      >
+        <Price
+          currency="USD"
+          value="123.45"
+        />
+      </span>
+      <Options
+        classes={
+          Object {
+            "root": undefined,
+            "title": "optionTitle",
+          }
+        }
+        options={
+          Array [
+            "option1",
+            "option2",
+          ]
+        }
+        outOfStockVariants={
+          Array [
+            Array [
+              55,
+              56,
+            ],
+            Array [
+              31,
+            ],
+          ]
+        }
+      />
+      <button
+        className="root_normalPriority"
+        disabled={false}
+        onClick={[MockFunction buttonProps.onClick]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add to Cart"
+            id="addToCartDialog.addToCart"
+          />
+        </span>
+      </button>
+    </div>
+  </div>
+</Dialog>
+`;
+
+exports[`renders dialog without content 1`] = `
+<Dialog
+  classes={
+    Object {
+      "headerText": "dialogHeaderText",
+    }
+  }
+  isOpen={false}
+  onCancel={[MockFunction handleOnClose]}
+  shouldShowButtons={false}
+  title={
+    <div
+      className="titleContainer"
+    >
+      <Spinner />
+    </div>
+  }
+>
+  <FormError
+    errors={
+      Array [
+        "error1",
+        "error2",
+      ]
+    }
+  />
+</Dialog>
+`;

@@ -1,78 +1,133 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Facebook, Instagram, Twitter } from 'react-feather';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
-import { mergeClasses } from '../../classify';
-import defaultClasses from './footer.css';
-import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
+import Logo from '../Logo';
+import Newsletter from '../Newsletter';
+import { useStyle } from '../../classify';
+import defaultClasses from './footer.module.css';
+import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 const Footer = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const { links } = props;
+    const classes = useStyle(defaultClasses, props.classes);
+    const talonProps = useFooter();
 
-    const talonProps = useFooter({
-        query: GET_STORE_CONFIG_DATA
-    });
     const { copyrightText } = talonProps;
+    const { formatMessage } = useIntl();
+    const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
 
-    let copyright = null;
-    if (copyrightText) {
-        copyright = <span>{copyrightText}</span>;
-    }
+    const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
+        const linkElements = Array.from(linkProps, ([text, pathInfo]) => {
+            let path = pathInfo;
+            let Component = Fragment;
+            if (pathInfo && typeof pathInfo === 'object') {
+                path = pathInfo.path;
+                Component = pathInfo.Component;
+            }
+
+            const itemKey = `text: ${text} path:${path}`;
+            const child = path ? (
+                <Link data-cy="Footer-link" className={classes.link} to={path}>
+                    <FormattedMessage id={text} defaultMessage={text} />
+                </Link>
+            ) : (
+                <span data-cy="Footer-label" className={classes.label}>
+                    <FormattedMessage id={text} defaultMessage={text} />
+                </span>
+            );
+
+            return (
+                <Component key={itemKey}>
+                    <li className={classes.linkItem}>{child}</li>
+                </Component>
+            );
+        });
+
+        return (
+            <ul key={groupKey} className={classes.linkGroup}>
+                {linkElements}
+            </ul>
+        );
+    });
 
     return (
-        <footer className={classes.root}>
-            <div className={classes.tile}>
-                <h2 className={classes.tileTitle}>
-                    <span>Your Account</span>
-                </h2>
-                <p className={classes.tileBody}>
-                    <span>
-                        Sign up and get access to our wonderful rewards program.
+        <footer data-cy="Footer-root" className={classes.root}>
+            <div className={classes.links}>
+                {linkGroups}
+                <div className={classes.callout}>
+                    <span
+                        data-cy="Footer-calloutHeading"
+                        className={classes.calloutHeading}
+                    >
+                        <FormattedMessage
+                            id={'footer.followText'}
+                            defaultMessage={'Follow Us!'}
+                        />
                     </span>
-                </p>
+                    <p
+                        data-cy="Footer-calloutText"
+                        className={classes.calloutBody}
+                    >
+                        <FormattedMessage
+                            id={'footer.calloutText'}
+                            defaultMessage={LOREM_IPSUM}
+                        />
+                    </p>
+                    <ul className={classes.socialLinks}>
+                        <li>
+                            <Instagram size={20} />
+                        </li>
+                        <li>
+                            <Facebook size={20} />
+                        </li>
+                        <li>
+                            <Twitter size={20} />
+                        </li>
+                    </ul>
+                </div>
+                <Newsletter />
             </div>
-            <div className={classes.tile}>
-                <h2 className={classes.tileTitle}>
-                    <span>inquiries@example.com</span>
-                </h2>
-                <p className={classes.tileBody}>
-                    <span>
-                        Need to email us? Use the address above and we&rsquo;ll
-                        respond as soon as possible.
-                    </span>
-                </p>
+            <div className={classes.branding}>
+                <ul className={classes.legal}>
+                    <li data-cy="Footer-terms" className={classes.terms}>
+                        <FormattedMessage
+                            id={'footer.termsText'}
+                            defaultMessage={'Terms of Use'}
+                        />
+                    </li>
+                    <li data-cy="Footer-privacy" className={classes.privacy}>
+                        <FormattedMessage
+                            id={'footer.privacyText'}
+                            defaultMessage={'Privacy Policy'}
+                        />
+                    </li>
+                </ul>
+                <p className={classes.copyright}>{copyrightText || null}</p>
+                <Link
+                    to={resourceUrl('/')}
+                    aria-label={title}
+                    className={classes.logoContainer}
+                >
+                    <Logo classes={{ logo: classes.logo }} />
+                </Link>
             </div>
-            <div className={classes.tile}>
-                <h2 className={classes.tileTitle}>
-                    <span>Live Chat</span>
-                </h2>
-                <p className={classes.tileBody}>
-                    <span>Mon – Fri: 5 a.m. – 10 p.m. PST</span>
-                    <br />
-                    <span>Sat – Sun: 6 a.m. – 9 p.m. PST</span>
-                </p>
-            </div>
-            <div className={classes.tile}>
-                <h2 className={classes.tileTitle}>
-                    <span>Help Center</span>
-                </h2>
-                <p className={classes.tileBody}>
-                    <span>Get answers from our community online.</span>
-                </p>
-            </div>
-            <small className={classes.copyright}>{copyright}</small>
         </footer>
     );
 };
 
-Footer.propTypes = {
-    classes: shape({
-        copyright: string,
-        root: string,
-        tile: string,
-        tileBody: string,
-        tileTitle: string
-    })
+export default Footer;
+
+Footer.defaultProps = {
+    links: DEFAULT_LINKS
 };
 
-export default Footer;
+Footer.propTypes = {
+    classes: shape({
+        root: string
+    })
+};

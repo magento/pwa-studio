@@ -1,0 +1,10 @@
+.root {
+    composes: pb-xs from global;
+    composes: text-center from global;
+    composes: text-sm from global;
+    composes: lg_hidden from global;
+}
+
+.sortText {
+    composes: font-semibold from global;
+}

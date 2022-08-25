@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    <mock-FormattedMessage
+      defaultMessage="Payment Method"
+      id="orderDetails.paymentMethodLabel"
+    />
+  </div>
+  <div>
+    Credit Card
+  </div>
+</div>
+`;

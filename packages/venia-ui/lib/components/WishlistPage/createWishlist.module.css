@@ -1,0 +1,64 @@
+.root {
+}
+
+.body {
+    composes: overflow-auto from global;
+}
+
+.buttons {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-center from global;
+    composes: pb-md from global;
+    composes: pt-xs from global;
+    composes: px-xs from global;
+}
+
+.cancelButton {
+    composes: root_lowPriority from '../Button/button.module.css';
+
+    composes: min-w-[9rem] from global;
+}
+
+.confirmButton {
+    composes: root_highPriority from '../Button/button.module.css';
+
+    composes: min-w-[9rem] from global;
+}
+
+.contents {
+    composes: h-fitContent from global;
+    composes: p-xs from global;
+}
+
+.createButton {
+    composes: w-full from global;
+}
+
+.form {
+    composes: gap-md from global;
+    composes: grid from global;
+    composes: m-auto from global;
+    composes: px-xs from global;
+    composes: py-2xs from global;
+}
+
+.icon {
+    composes: stroke-brand-base from global;
+}
+
+.labelContainer {
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: h-[6rem] from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: rounded-md from global;
+    composes: text-brand-dark from global;
+}

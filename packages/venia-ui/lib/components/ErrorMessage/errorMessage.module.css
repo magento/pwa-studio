@@ -1,0 +1,9 @@
+.root {
+}
+
+.errorMessage {
+    composes: font-semibold from global;
+    composes: leading-normal from global;
+    composes: text-error from global;
+    composes: text-sm from global;
+}

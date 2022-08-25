@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders null when options are missing 1`] = `null`;
+
+exports[`it renders null when options is empty 1`] = `null`;
+
+exports[`it renders the correct tree 1`] = `
+<dl>
+  <div>
+    <dt>
+      Label 1 :
+    </dt>
+    <dd>
+      Value 1
+    </dd>
+  </div>
+  <div>
+    <dt>
+      Label 2 :
+    </dt>
+    <dd>
+      Value 2
+    </dd>
+  </div>
+</dl>
+`;

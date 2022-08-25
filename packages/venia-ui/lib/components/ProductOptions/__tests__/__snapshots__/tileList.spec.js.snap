@@ -6,9 +6,9 @@ exports[`renders TileList component correctly 1`] = `
 >
   <button
     className="root"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
+    title="foo"
+    type="button"
   >
     <span>
       foo

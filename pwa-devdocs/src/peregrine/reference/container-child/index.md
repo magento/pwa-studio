@@ -33,4 +33,4 @@ import { ContainerChild } from '@magento/peregrine';
 ```
 
 [render prop]: https://reactjs.org/docs/render-props.html
-[Container]: {{ site.baseurl }}{% link technologies/basic-concepts/container-extensibility/index.md %}
+[Container]: {% link technologies/basic-concepts/container-extensibility/index.md %}

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders null when loading 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+/>
+`;
+
+exports[`should render error message if availablePaymentMethods is empty 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="root"
+  >
+    <div
+      className="root"
+    />
+    <p
+      className="root"
+    />
+    <div
+      className="payment_errors"
+    >
+      <span>
+        There was an error loading payments.
+      </span>
+      <span>
+        Please refresh or try again later.
+      </span>
+    </div>
+  </div>
+</form>
+`;

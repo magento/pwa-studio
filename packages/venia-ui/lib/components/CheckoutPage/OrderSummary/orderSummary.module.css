@@ -1,0 +1,18 @@
+.root {
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: mt-xs from global;
+    composes: pt-md from global;
+
+    composes: lg_border-2 from global;
+    composes: lg_border-solid from global;
+    composes: lg_border-subtle from global;
+    composes: lg_rounded-md from global;
+    composes: lg_mt-0 from global;
+    composes: lg_p-md from global;
+}
+
+.title {
+    composes: sr-only from global;
+}

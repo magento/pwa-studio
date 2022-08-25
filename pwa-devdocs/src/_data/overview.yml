@@ -1,0 +1,118 @@
+title: Overview
+entries:
+
+    - label: PWA Studio Overview
+      url: /technologies/overview/
+      entries:
+
+        - label: External tools and libraries
+          url: /technologies/tools-libraries/
+
+        - label: Versioning strategy
+          url: /technologies/versioning/
+
+        - label: Upgrading versions
+          url: /technologies/upgrading-versions/
+
+        - label: Contributing to PWA Studio
+          url: /technologies/contribute/
+
+        - label: Frequently Asked Questions
+          url: /frequently-asked-questions/
+
+    - label: Commerce integration
+      entries:
+        - label: Commerce features
+          url: /technologies/features/
+
+        - label: Version compatibility
+          url: /technologies/magento-compatibility/
+
+        - label: Magento theme vs PWA storefront
+          url: /technologies/theme-vs-storefront/
+
+    - label: Basic concepts
+      url: /technologies/basic-concepts/
+      entries:
+          - label: Application shell
+            url: /technologies/basic-concepts/app-shell/
+
+          - label: Content rendering
+            url: /technologies/basic-concepts/content-rendering/
+
+          - label: CSS modules
+            url: /technologies/basic-concepts/css-modules/
+
+          - label: GraphQL
+            url: /technologies/basic-concepts/graphql/
+
+          - label: Client-side caching
+            url: /technologies/basic-concepts/client-side-caching/
+
+          - label: Internationalization
+            url: /technologies/basic-concepts/internationalization/
+
+          - label: State management
+            url: /technologies/basic-concepts/state-management/
+
+    - label: PWA Storefront architecture
+      url: /technologies/storefront-architecture/
+      entries:
+
+          - label: Runtime architecture
+            url: /technologies/storefront-architecture/runtime/
+
+          - label: Build-time architecture
+            url: /technologies/storefront-architecture/buildtime/
+
+    - label: Venia
+      url: /venia-pwa-concept/
+      entries:
+
+          - label: Venia storefront setup
+            url: /venia-pwa-concept/setup/
+
+          - label: Install Venia sample data
+            url: /venia-pwa-concept/install-sample-data/
+
+          - label: Venia project structure
+            url: /venia-pwa-concept/project-structure/
+
+          - label: Modular components
+            url: /venia-pwa-concept/features/modular-components/
+
+    - label: Peregrine
+      url: /peregrine/
+      entries:
+
+          - label: Talons
+            url: /peregrine/talons/
+
+          - label: Routing in PWA Studio
+            url: /peregrine/routing/
+
+    - label: PWA Buildpack tools
+      url: /pwa-buildpack/
+      entries:
+
+          - label: Configuration management
+            url: /pwa-buildpack/configuration-management/
+
+          - label: Extensibility framework
+            url: /pwa-buildpack/extensibility-framework/
+
+          - label: Scaffolding
+            url: /pwa-buildpack/scaffolding/
+
+          - label: Custom project templates
+            url: /pwa-buildpack/scaffolding/custom-project-templates/
+
+          - label: Troubleshooting
+            url: /pwa-buildpack/troubleshooting/
+
+    - label: UPWARD
+      url: /technologies/upward/
+      entries:
+
+          - label: Reference implementation
+            url: /technologies/upward/reference-implementation/

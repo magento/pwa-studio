@@ -4,26 +4,68 @@ import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import Button from '../../Button';
-import LoadingIndicator from '../../LoadingIndicator';
 import SignIn from '../signIn';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useMutation } from '@apollo/client';
 
+jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
+    useApolloClient: jest.fn().mockImplementation(() => {}),
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ]),
+    useQuery: jest.fn().mockImplementation(() => ({
+        data: {},
+        error: null,
+        loading: false
+    }))
+}));
 jest.mock('../../../classify');
 jest.mock('../../Button', () => () => <i />);
+jest.mock('../../FormError/formError', () => 'FormError');
 jest.mock('../../LoadingIndicator', () => () => <i />);
+
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {};
+    const api = {
+        createCart: jest.fn(),
+        getCartDetails: jest.fn(),
+        removeCart: jest.fn()
+    };
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
+});
 
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userState = {
         isGettingDetails: false,
-        isSigningIn: false,
-        signInError: null,
         getDetailsError: null
     };
-    const userApi = { signIn: jest.fn() };
+    const userApi = {
+        getUserDetails: jest.fn(),
+        setToken: jest.fn(),
+        signIn: jest.fn()
+    };
     const useUserContext = jest.fn(() => [userState, userApi]);
 
     return { useUserContext };
 });
+
+jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
+    const useAwaitQuery = jest
+        .fn()
+        .mockResolvedValue({ data: { customer: {} } });
+
+    return { useAwaitQuery };
+});
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const props = {
     setDefaultUsername: jest.fn(),
@@ -31,7 +73,11 @@ const props = {
     showForgotPassword: jest.fn(),
     signIn: jest.fn(),
     hasError: false,
-    isSigningIn: false
+    isSigningIn: false,
+    recaptchaWidgetProps: {
+        containerElement: jest.fn(),
+        shouldRender: false
+    }
 };
 
 test('renders correctly', () => {
@@ -40,29 +86,33 @@ test('renders correctly', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('renders the loading indicator when form is submitting', () => {
-    const [userState, userApi] = useUserContext();
-    useUserContext.mockReturnValueOnce([
-        { ...userState, isSigningIn: true },
-        userApi
-    ]);
-
+test('renders prefilled form with initial values', () => {
     const testProps = {
-        ...props
+        ...props,
+        initialValues: {
+            email: 'test@mail.com'
+        }
     };
-    const { root } = createTestInstance(<SignIn {...testProps} />);
-
-    act(() => {
-        expect(root.findByType(LoadingIndicator)).toBeTruthy();
-    });
+    const component = createTestInstance(<SignIn {...testProps} />);
+    expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('displays an error message if there is a sign in error', () => {
-    const [userState, userApi] = useUserContext();
-    useUserContext.mockReturnValueOnce([
-        { ...userState, signInError: new Error() },
-        userApi
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        {
+            error: {
+                graphQLErrors: [
+                    {
+                        message:
+                            'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.'
+                    }
+                ]
+            }
+        }
     ]);
+    const [userState, userApi] = useUserContext();
+    useUserContext.mockReturnValueOnce([{ ...userState }, userApi]);
     const testProps = {
         ...props
     };
@@ -72,9 +122,10 @@ test('displays an error message if there is a sign in error', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('calls `signIn` on submit', () => {
-    const [, { signIn }] = useUserContext();
-
+// TODO: Move this to useSignIn.spec.js and test handleSignIn
+test.skip('calls `signIn` on submit', () => {
+    const signInMock = jest.fn();
+    useMutation.mockReturnValueOnce([signInMock, {}]);
     const values = { email: 'a', password: 'b' };
 
     const { root } = createTestInstance(<SignIn {...props} />);
@@ -83,10 +134,12 @@ test('calls `signIn` on submit', () => {
         root.findByType(Form).props.onSubmit(values);
     });
 
-    expect(signIn).toHaveBeenCalledTimes(1);
-    expect(signIn).toHaveBeenNthCalledWith(1, {
-        username: values.email,
-        password: values.password
+    expect(signInMock).toHaveBeenCalledTimes(1);
+    expect(signInMock).toHaveBeenNthCalledWith(1, {
+        variables: {
+            email: values.email,
+            password: values.password
+        }
     });
 });
 
@@ -95,8 +148,8 @@ test('changes view to CreateAccount', () => {
     const { root } = createTestInstance(<SignIn {...props} />);
 
     const { onClick } = root
-        .findByProps({ className: 'createAccountButton' })
-        .findByType(Button).props;
+        .findByProps({ className: 'buttonsContainer' })
+        .findByProps({ type: 'button' }).props;
 
     act(() => {
         onClick();
@@ -111,7 +164,7 @@ test('changes view to ForgotPassword', () => {
     const { root } = createTestInstance(<SignIn {...props} />);
 
     const { onClick } = root
-        .findByProps({ className: 'forgotPasswordButton' })
+        .findByProps({ className: 'forgotPasswordButtonContainer' })
         .findByType(Button).props;
 
     act(() => {
@@ -119,32 +172,5 @@ test('changes view to ForgotPassword', () => {
     });
 
     expect(setDefaultUsername).toHaveBeenCalledTimes(1);
-    expect(showForgotPassword).toHaveBeenCalledTimes(1);
-});
-
-test("avoids reading the form if it doesn't exist", () => {
-    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
-    const instance = createTestInstance(<SignIn {...props} />);
-    const { root } = instance;
-
-    const { onClick: createAccount } = root
-        .findByProps({ className: 'createAccountButton' })
-        .findByType(Button).props;
-    const { onClick: forgotPassword } = root
-        .findByProps({ className: 'forgotPasswordButton' })
-        .findByType(Button).props;
-
-    instance.unmount();
-
-    act(() => {
-        createAccount();
-    });
-
-    act(() => {
-        forgotPassword();
-    });
-
-    expect(setDefaultUsername).not.toHaveBeenCalled();
-    expect(showCreateAccount).toHaveBeenCalledTimes(1);
     expect(showForgotPassword).toHaveBeenCalledTimes(1);
 });

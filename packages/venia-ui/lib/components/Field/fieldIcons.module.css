@@ -1,0 +1,53 @@
+.root {
+    composes: grid-flow-col from global;
+    composes: h-[2.5rem] from global;
+    composes: inline-grid from global;
+    composes: w-full from global;
+    grid-template-areas: 'before input after';
+    grid-template-columns: auto 1fr auto;
+}
+
+.input {
+    composes: items-center from global;
+    composes: flex from global;
+    grid-column: before-start / after-end;
+    grid-row: input-start / input-end;
+}
+
+/* TODO @TW: cannot compose */
+.input > input {
+    padding-left: calc(1.875rem * var(--iconsBefore) + 0.625rem);
+    padding-right: calc(1.875rem * var(--iconsAfter) + 0.625rem);
+}
+
+.before,
+.after {
+    composes: flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: mx-0.5 from global;
+    composes: my-0 from global;
+    composes: pointer-events-none from global;
+    composes: w-[2.5rem] from global;
+    composes: z-foreground from global;
+}
+
+/* TODO @TW: cannot compose */
+.before:empty,
+.after:empty {
+    display: none;
+}
+
+.before {
+    grid-area: before;
+}
+
+.after {
+    grid-area: after;
+}
+
+/* TODO @TW: cannot compose */
+.before svg {
+    /* composes: stroke-gray-600 from global; */
+    stroke: rgb(var(--venia-global-color-gray-600));
+}

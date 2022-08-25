@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "doneEditing": false,
+  "handlePaymentError": [Function],
+  "handlePaymentSuccess": [Function],
+  "hideEditModal": [Function],
+  "isEditModalActive": false,
+  "isLoading": false,
+  "showEditModal": [Function],
+}
+`;
+
+exports[`should dispatch add payment information event 1`] = `
+Object {
+  "payload": Object {
+    "cart_id": "123",
+    "selected_payment_method": null,
+  },
+  "type": "CHECKOUT_BILLING_INFORMATION_ADDED",
+}
+`;

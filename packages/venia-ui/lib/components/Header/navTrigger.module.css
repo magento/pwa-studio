@@ -1,0 +1,8 @@
+.root {
+    composes: root from '../clickable.module.css';
+
+    composes: h-[3rem] from global;
+    composes: w-[3rem] from global;
+
+    composes: lg_hidden from global;
+}

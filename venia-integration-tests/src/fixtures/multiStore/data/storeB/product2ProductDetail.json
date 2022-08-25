@@ -1,0 +1,3917 @@
+{
+  "data": {
+    "products": {
+      "items": [
+        {
+          "id": 1164,
+          "uid": "MTE2NA==",
+          "__typename": "ConfigurableProduct",
+          "categories": [
+            {
+              "uid": "MjM=",
+              "breadcrumbs": null,
+              "__typename": "CategoryTree"
+            },
+            {
+              "uid": "MjM=",
+              "breadcrumbs": [
+                {
+                  "category_uid": "MjM=",
+                  "__typename": "Breadcrumb"
+                }
+              ],
+              "__typename": "CategoryTree"
+            }
+          ],
+          "description": {
+            "html": "<p>Made of super soft pima cotton, this lightweight scarf is laid out in a chic, continuous loop. Double it or drape it to create the perfect embellishment to any ensemble.</p><ul><li>58\" L x 32\" W</li><li>Cotton/Viscose blend</li></ul>",
+            "__typename": "ComplexTextValue"
+          },
+          "media_gallery_entries": [
+            {
+              "uid": "MTI4Ng==",
+              "label": "Main",
+              "position": 1,
+              "disabled": false,
+              "file": "/v/a/va03-ly_main_2.jpg",
+              "__typename": "MediaGalleryEntry"
+            },
+            {
+              "uid": "MTI4Nw==",
+              "label": "",
+              "position": 2,
+              "disabled": false,
+              "file": "/v/a/va03-ly_alt_1.jpg",
+              "__typename": "MediaGalleryEntry"
+            }
+          ],
+          "meta_description": "Made of super soft pima cotton, this lightweight scarf is laid out in a chic, continuous loop. Double it or drape it to create the perfect embellishment to any ensemble. 58\" L x 32\" W. Cotton/Viscose blend. ",
+          "name": "Ombre Infinity Scarf",
+          "price": {
+            "regularPrice": {
+              "amount": {
+                "currency": "EUR",
+                "value": 33.92,
+                "__typename": "Money"
+              },
+              "__typename": "Price"
+            },
+            "__typename": "ProductPrices"
+          },
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "EUR",
+                "value": 33.92,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VA03",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/89b95971682c72ea898815b5daec2278/v/a/va03-ly_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "url_key": "ombre-infinity-scarf",
+          "custom_attributes": [
+            {
+              "selected_attribute_options": {
+                "attribute_option": [
+                  {
+                    "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMTQ=",
+                    "label": "Gold",
+                    "is_default": true,
+                    "__typename": "AttributeOption"
+                  }
+                ],
+                "__typename": "SelectedAttributeOption"
+              },
+              "entered_attribute_value": {
+                "value": null,
+                "__typename": "EnteredAttributeValue"
+              },
+              "attribute_metadata": {
+                "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                "code": "fashion_color",
+                "label": "Color",
+                "attribute_labels": [
+                  {
+                    "store_code": "default",
+                    "label": "Fashion Color",
+                    "__typename": "StoreLabels"
+                  }
+                ],
+                "data_type": "INT",
+                "is_system": false,
+                "entity_type": "PRODUCT",
+                "ui_input": {
+                  "ui_input_type": "SELECT",
+                  "is_html_allowed": true,
+                  "__typename": "UiAttributeTypeSelect"
+                },
+                "used_in_components": [
+                  "PRODUCTS_LISTING",
+                  "PRODUCTS_COMPARE",
+                  "PRODUCT_FILTER",
+                  "PRODUCT_SEARCH_RESULTS_FILTER",
+                  "ADVANCED_CATALOG_SEARCH"
+                ],
+                "__typename": "ProductAttributeMetadata"
+              },
+              "__typename": "CustomAttribute"
+            },
+            {
+              "selected_attribute_options": {
+                "attribute_option": [
+                  {
+                    "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                    "label": "No",
+                    "is_default": false,
+                    "__typename": "AttributeOption"
+                  }
+                ],
+                "__typename": "SelectedAttributeOption"
+              },
+              "entered_attribute_value": {
+                "value": null,
+                "__typename": "EnteredAttributeValue"
+              },
+              "attribute_metadata": {
+                "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                "code": "has_video",
+                "label": "Has Video",
+                "attribute_labels": [],
+                "data_type": "INT",
+                "is_system": false,
+                "entity_type": "PRODUCT",
+                "ui_input": {
+                  "ui_input_type": "BOOLEAN",
+                  "is_html_allowed": true,
+                  "__typename": "UiAttributeTypeBoolean"
+                },
+                "used_in_components": [
+                  "PRODUCTS_LISTING",
+                  "PRODUCTS_COMPARE",
+                  "PRODUCT_FILTER",
+                  "PRODUCT_SEARCH_RESULTS_FILTER",
+                  "ADVANCED_CATALOG_SEARCH"
+                ],
+                "__typename": "ProductAttributeMetadata"
+              },
+              "__typename": "CustomAttribute"
+            },
+            {
+              "selected_attribute_options": {
+                "attribute_option": [
+                  {
+                    "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                    "label": "Organic Cotton",
+                    "is_default": false,
+                    "__typename": "AttributeOption"
+                  },
+                  {
+                    "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                    "label": "Spandex",
+                    "is_default": false,
+                    "__typename": "AttributeOption"
+                  }
+                ],
+                "__typename": "SelectedAttributeOption"
+              },
+              "entered_attribute_value": {
+                "value": null,
+                "__typename": "EnteredAttributeValue"
+              },
+              "attribute_metadata": {
+                "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                "code": "fashion_material",
+                "label": "Material",
+                "attribute_labels": [
+                  {
+                    "store_code": "default",
+                    "label": "Fashion Material",
+                    "__typename": "StoreLabels"
+                  }
+                ],
+                "data_type": "STRING",
+                "is_system": false,
+                "entity_type": "PRODUCT",
+                "ui_input": {
+                  "ui_input_type": "MULTISELECT",
+                  "is_html_allowed": true,
+                  "__typename": "UiAttributeTypeMultiSelect"
+                },
+                "used_in_components": [
+                  "PRODUCTS_LISTING",
+                  "PRODUCTS_COMPARE",
+                  "PRODUCT_FILTER",
+                  "PRODUCT_SEARCH_RESULTS_FILTER",
+                  "ADVANCED_CATALOG_SEARCH"
+                ],
+                "__typename": "ProductAttributeMetadata"
+              },
+              "__typename": "CustomAttribute"
+            },
+            {
+              "selected_attribute_options": {
+                "attribute_option": [
+                  {
+                    "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8yOQ==",
+                    "label": "L",
+                    "is_default": true,
+                    "__typename": "AttributeOption"
+                  }
+                ],
+                "__typename": "SelectedAttributeOption"
+              },
+              "entered_attribute_value": {
+                "value": null,
+                "__typename": "EnteredAttributeValue"
+              },
+              "attribute_metadata": {
+                "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                "code": "fashion_size",
+                "label": "Size",
+                "attribute_labels": [
+                  {
+                    "store_code": "default",
+                    "label": "Fashion Size",
+                    "__typename": "StoreLabels"
+                  }
+                ],
+                "data_type": "INT",
+                "is_system": false,
+                "entity_type": "PRODUCT",
+                "ui_input": {
+                  "ui_input_type": "SELECT",
+                  "is_html_allowed": true,
+                  "__typename": "UiAttributeTypeSelect"
+                },
+                "used_in_components": [
+                  "PRODUCT_FILTER"
+                ],
+                "__typename": "ProductAttributeMetadata"
+              },
+              "__typename": "CustomAttribute"
+            }
+          ],
+          "configurable_options": [
+            {
+              "attribute_code": "fashion_color",
+              "attribute_id": "179",
+              "uid": "Y29uZmlndXJhYmxlLzExNjQvMTc5",
+              "label": "Color",
+              "values": [
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE3OS8yMg==",
+                  "default_label": "Khaki",
+                  "label": "Khaki",
+                  "store_label": "Khaki",
+                  "use_default_value": true,
+                  "value_index": 22,
+                  "swatch_data": {
+                    "value": "#f9efe5",
+                    "__typename": "ColorSwatchData"
+                  },
+                  "__typename": "ConfigurableProductOptionsValues"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE3OS8yMw==",
+                  "default_label": "Lilac",
+                  "label": "Lilac",
+                  "store_label": "Lilac",
+                  "use_default_value": true,
+                  "value_index": 23,
+                  "swatch_data": {
+                    "value": "#dcd5e1",
+                    "__typename": "ColorSwatchData"
+                  },
+                  "__typename": "ConfigurableProductOptionsValues"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE3OS8yNg==",
+                  "default_label": "Lily",
+                  "label": "Lily",
+                  "store_label": "Lily",
+                  "use_default_value": true,
+                  "value_index": 26,
+                  "swatch_data": {
+                    "value": "#f0f0c0",
+                    "__typename": "ColorSwatchData"
+                  },
+                  "__typename": "ConfigurableProductOptionsValues"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE3OS8yNw==",
+                  "default_label": "Latte",
+                  "label": "Latte",
+                  "store_label": "Latte",
+                  "use_default_value": true,
+                  "value_index": 27,
+                  "swatch_data": {
+                    "value": "#C0a890",
+                    "__typename": "ColorSwatchData"
+                  },
+                  "__typename": "ConfigurableProductOptionsValues"
+                }
+              ],
+              "__typename": "ConfigurableProductOptions"
+            },
+            {
+              "attribute_code": "fashion_size",
+              "attribute_id": "182",
+              "uid": "Y29uZmlndXJhYmxlLzExNjQvMTgy",
+              "label": "Size",
+              "values": [
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE4Mi8yOQ==",
+                  "default_label": "L",
+                  "label": "L",
+                  "store_label": "L",
+                  "use_default_value": true,
+                  "value_index": 29,
+                  "swatch_data": {
+                    "value": "L",
+                    "__typename": "TextSwatchData"
+                  },
+                  "__typename": "ConfigurableProductOptionsValues"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMA==",
+                  "default_label": "M",
+                  "label": "M",
+                  "store_label": "M",
+                  "use_default_value": true,
+                  "value_index": 30,
+                  "swatch_data": {
+                    "value": "M",
+                    "__typename": "TextSwatchData"
+                  },
+                  "__typename": "ConfigurableProductOptionsValues"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMQ==",
+                  "default_label": "S",
+                  "label": "S",
+                  "store_label": "S",
+                  "use_default_value": true,
+                  "value_index": 31,
+                  "swatch_data": {
+                    "value": "S",
+                    "__typename": "TextSwatchData"
+                  },
+                  "__typename": "ConfigurableProductOptionsValues"
+                },
+                {
+                  "uid": "Y29uZmlndXJhYmxlLzE4Mi8zMg==",
+                  "default_label": "XS",
+                  "label": "XS",
+                  "store_label": "XS",
+                  "use_default_value": true,
+                  "value_index": 32,
+                  "swatch_data": {
+                    "value": "XS",
+                    "__typename": "TextSwatchData"
+                  },
+                  "__typename": "ConfigurableProductOptionsValues"
+                }
+              ],
+              "__typename": "ConfigurableProductOptions"
+            }
+          ],
+          "variants": [
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 27,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 31,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1OA==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2OA==",
+                    "disabled": false,
+                    "file": "/v/a/va03-la_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LA-S",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjc=",
+                          "label": "Latte",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMQ==",
+                          "label": "S",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 23,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 31,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1NA==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2NA==",
+                    "disabled": false,
+                    "file": "/v/a/va03-ll_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LL-S",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjM=",
+                          "label": "Lilac",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMQ==",
+                          "label": "S",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 26,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 31,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1MA==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2MA==",
+                    "disabled": false,
+                    "file": "/v/a/va03-ly_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LY-S",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjY=",
+                          "label": "Lily",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMQ==",
+                          "label": "S",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 22,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 32,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA2MQ==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA3MQ==",
+                    "disabled": false,
+                    "file": "/v/a/va03-kh_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-KH-XS",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjI=",
+                          "label": "Khaki",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMg==",
+                          "label": "XS",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 27,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 32,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1Nw==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2Nw==",
+                    "disabled": false,
+                    "file": "/v/a/va03-la_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LA-XS",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjc=",
+                          "label": "Latte",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMg==",
+                          "label": "XS",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 23,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 32,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1Mw==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2Mw==",
+                    "disabled": false,
+                    "file": "/v/a/va03-ll_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LL-XS",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjM=",
+                          "label": "Lilac",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMg==",
+                          "label": "XS",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 26,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 32,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA0OQ==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA1OQ==",
+                    "disabled": false,
+                    "file": "/v/a/va03-ly_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LY-XS",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjY=",
+                          "label": "Lily",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMg==",
+                          "label": "XS",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 22,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 30,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA2Mw==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA3Mw==",
+                    "disabled": false,
+                    "file": "/v/a/va03-kh_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-KH-M",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjI=",
+                          "label": "Khaki",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMA==",
+                          "label": "M",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 27,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 30,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1OQ==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2OQ==",
+                    "disabled": false,
+                    "file": "/v/a/va03-la_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LA-M",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjc=",
+                          "label": "Latte",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMA==",
+                          "label": "M",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 23,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 30,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1NQ==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2NQ==",
+                    "disabled": false,
+                    "file": "/v/a/va03-ll_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LL-M",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjM=",
+                          "label": "Lilac",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMA==",
+                          "label": "M",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 26,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 30,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1MQ==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2MQ==",
+                    "disabled": false,
+                    "file": "/v/a/va03-ly_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LY-M",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjY=",
+                          "label": "Lily",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8zMA==",
+                          "label": "M",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 22,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 29,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA2NA==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA3NA==",
+                    "disabled": false,
+                    "file": "/v/a/va03-kh_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-KH-L",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjI=",
+                          "label": "Khaki",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8yOQ==",
+                          "label": "L",
+                          "is_default": true,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 27,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 29,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA2MA==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA3MA==",
+                    "disabled": false,
+                    "file": "/v/a/va03-la_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LA-L",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjc=",
+                          "label": "Latte",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8yOQ==",
+                          "label": "L",
+                          "is_default": true,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 23,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 29,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1Ng==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2Ng==",
+                    "disabled": false,
+                    "file": "/v/a/va03-ll_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LL-L",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjM=",
+                          "label": "Lilac",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8yOQ==",
+                          "label": "L",
+                          "is_default": true,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            },
+            {
+              "attributes": [
+                {
+                  "code": "fashion_color",
+                  "value_index": 26,
+                  "__typename": "ConfigurableAttributeOption"
+                },
+                {
+                  "code": "fashion_size",
+                  "value_index": 29,
+                  "__typename": "ConfigurableAttributeOption"
+                }
+              ],
+              "product": {
+                "uid": "MTA1Mg==",
+                "media_gallery_entries": [
+                  {
+                    "uid": "MTA2Mg==",
+                    "disabled": false,
+                    "file": "/v/a/va03-ly_main_1.jpg",
+                    "label": "Main",
+                    "position": 1,
+                    "__typename": "MediaGalleryEntry"
+                  }
+                ],
+                "sku": "VA03-LY-L",
+                "stock_status": "IN_STOCK",
+                "price": {
+                  "regularPrice": {
+                    "amount": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "Price"
+                  },
+                  "__typename": "ProductPrices"
+                },
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "EUR",
+                      "value": 33.92,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "custom_attributes": [
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3IvMjY=",
+                          "label": "Lily",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fY29sb3I=",
+                      "code": "fashion_color",
+                      "label": "Color",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Color",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlby8w",
+                          "label": "No",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2hhc192aWRlbw==",
+                      "code": "has_video",
+                      "label": "Has Video",
+                      "attribute_labels": [],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "BOOLEAN",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeBoolean"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNDY=",
+                          "label": "Organic Cotton",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        },
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWwvNTA=",
+                          "label": "Spandex",
+                          "is_default": false,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fbWF0ZXJpYWw=",
+                      "code": "fashion_material",
+                      "label": "Material",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Material",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "STRING",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "MULTISELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeMultiSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCTS_LISTING",
+                        "PRODUCTS_COMPARE",
+                        "PRODUCT_FILTER",
+                        "PRODUCT_SEARCH_RESULTS_FILTER",
+                        "ADVANCED_CATALOG_SEARCH"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  },
+                  {
+                    "selected_attribute_options": {
+                      "attribute_option": [
+                        {
+                          "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZS8yOQ==",
+                          "label": "L",
+                          "is_default": true,
+                          "__typename": "AttributeOption"
+                        }
+                      ],
+                      "__typename": "SelectedAttributeOption"
+                    },
+                    "entered_attribute_value": {
+                      "value": null,
+                      "__typename": "EnteredAttributeValue"
+                    },
+                    "attribute_metadata": {
+                      "uid": "Y2F0YWxvZ19wcm9kdWN0L2Zhc2hpb25fc2l6ZQ==",
+                      "code": "fashion_size",
+                      "label": "Size",
+                      "attribute_labels": [
+                        {
+                          "store_code": "default",
+                          "label": "Fashion Size",
+                          "__typename": "StoreLabels"
+                        }
+                      ],
+                      "data_type": "INT",
+                      "is_system": false,
+                      "entity_type": "PRODUCT",
+                      "ui_input": {
+                        "ui_input_type": "SELECT",
+                        "is_html_allowed": true,
+                        "__typename": "UiAttributeTypeSelect"
+                      },
+                      "used_in_components": [
+                        "PRODUCT_FILTER"
+                      ],
+                      "__typename": "ProductAttributeMetadata"
+                    },
+                    "__typename": "CustomAttribute"
+                  }
+                ],
+                "__typename": "SimpleProduct"
+              },
+              "__typename": "ConfigurableVariant"
+            }
+          ]
+        }
+      ],
+      "__typename": "Products"
+    }
+  }
+}

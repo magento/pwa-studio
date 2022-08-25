@@ -1,0 +1,33 @@
+.root {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: w-full from global;
+}
+
+.content {
+    composes: gap-2xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: h-[3rem] from global;
+    composes: items-center from global;
+    composes: justify-items-start from global;
+    grid-template-columns: 2rem 1fr;
+}
+
+.icon {
+    composes: flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: justify-self-center from global;
+    composes: text-brand from global;
+}
+
+.text {
+    composes: leading-none from global;
+    composes: text-sm from global;
+}
+
+.root_normalPriority {
+    composes: root;
+}

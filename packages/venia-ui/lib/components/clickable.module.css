@@ -1,0 +1,9 @@
+.root {
+    composes: cursor-pointer from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: leading-none from global;
+    composes: pointer-events-auto from global;
+    composes: text-center from global;
+}

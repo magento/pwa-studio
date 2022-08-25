@@ -1,42 +1,46 @@
-import { useCallback } from 'react';
-import { useFieldState, useFormApi } from 'informed';
+import { useCallback, useEffect, useRef } from 'react';
+import { useFormApi } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
-import { useSearchParam } from '../../hooks/useSearchParam';
+import { getSearchParam } from '@magento/peregrine/lib/hooks/useSearchParam';
 
 /**
  * Returns props necessary to render a SearchField component.
- *
- * @param {Object} props
- * @param {Object} props.location
- * @param {Function} props.onChange
  */
 export const useSearchField = props => {
-    const { location, onChange } = props;
+    const { isSearchOpen } = props;
+
+    const inputRef = useRef();
     const { value } = useFieldState('search_query');
     const formApi = useFormApi();
-
-    const setValue = useCallback(
-        nextValue => {
-            // update the search field
-            if (nextValue) {
-                formApi.setValue('search_query', nextValue);
-            }
-
-            // trigger any effects of clearing the field
-            if (typeof onChange === 'function') {
-                onChange('');
-            }
-        },
-        [formApi, onChange]
-    );
-
-    useSearchParam({ location, parameter: 'query', setValue });
 
     const resetForm = useCallback(() => {
         formApi.reset();
     }, [formApi]);
 
+    // When the search field is opened focus on the input.
+    useEffect(() => {
+        if (isSearchOpen && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isSearchOpen]);
+
+    // Pre-populate the search field with the search term from the URL.
+    // We purposefully only ever run this effect on initial mount.
+    /* eslint-disable react-hooks/exhaustive-deps */
+    useEffect(() => {
+        const urlTerm = getSearchParam('query', location);
+
+        if (!formApi || !urlTerm) {
+            return;
+        }
+
+        formApi.setValue('search_query', urlTerm);
+    }, []);
+    /* eslint-enable react-hooks/exhaustive-deps */
+
     return {
+        inputRef,
         resetForm,
         value
     };

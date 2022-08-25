@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders price adjustments 1`] = `
+<div
+  className="root"
+>
+  <mock-Accordion
+    canOpenMultiple={true}
+  >
+    <mock-Section
+      id="coupon_code"
+      title="Enter Coupon Code"
+    >
+      <CouponCode
+        setIsCartUpdating={[MockFunction setPageIsUpdating]}
+      />
+    </mock-Section>
+    <GiftCardSection
+      setIsCartUpdating={[MockFunction setPageIsUpdating]}
+    />
+    <GiftOptionsSection />
+  </mock-Accordion>
+</div>
+`;

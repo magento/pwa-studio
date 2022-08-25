@@ -1,0 +1,434 @@
+{
+  "data": {
+    "categories": {
+      "items": [
+        {
+          "uid": "OQ==",
+          "meta_title": null,
+          "meta_keywords": null,
+          "meta_description": null,
+          "__typename": "CategoryTree"
+        }
+      ],
+      "__typename": "CategoryResult"
+    },
+    "products": {
+      "items": [
+        {
+          "id": 1116,
+          "uid": "MTExNg==",
+          "name": "Carina Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW01",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 100,
+          "__typename": "ConfigurableProduct",
+          "url_key": "carina-cardigan"
+        },
+        {
+          "id": 1115,
+          "uid": "MTExNQ==",
+          "name": "Juno Sweater",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 68,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 68,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW02",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "juno-sweater"
+        },
+        {
+          "id": 1114,
+          "uid": "MTExNA==",
+          "name": "Phoebe Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW03",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw03-kh_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "phoebe-cardigan"
+        },
+        {
+          "id": 1113,
+          "uid": "MTExMw==",
+          "name": "Rosalina Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW04",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw04-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "rosalina-cardigan"
+        },
+        {
+          "id": 1112,
+          "uid": "MTExMg==",
+          "name": "Hanna Sweater",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW05",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw05-kh_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "hanna-sweater"
+        },
+        {
+          "id": 1111,
+          "uid": "MTExMQ==",
+          "name": "Sabina Hooded Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW06",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw06-rn_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "sabina-hooded-cardigan"
+        },
+        {
+          "id": 1110,
+          "uid": "MTExMA==",
+          "name": "Brigid Boucle Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 118,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 118,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW07",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw07-mt_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "brigid-boucle-cardigan"
+        },
+        {
+          "id": 1109,
+          "uid": "MTEwOQ==",
+          "name": "Roxana Cropped Sweater",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW08",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw08-ll_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "roxana-cropped-sweater"
+        },
+        {
+          "id": 1108,
+          "uid": "MTEwOA==",
+          "name": "Helena Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW09",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw09-rn_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "helena-cardigan"
+        },
+        {
+          "id": 1107,
+          "uid": "MTEwNw==",
+          "name": "Corina Lace-Back Sweater",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW10",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw10-ly_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "corina-lace-back-sweater"
+        },
+        {
+          "id": 1106,
+          "uid": "MTEwNg==",
+          "name": "Echo Sweater",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW11",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw11-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "echo-sweater"
+        },
+        {
+          "id": 1105,
+          "uid": "MTEwNQ==",
+          "name": "Lorena Cardigan",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VSW12",
+          "small_image": {
+            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw12-pe_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "ConfigurableProduct",
+          "url_key": "lorena-cardigan"
+        }
+      ],
+      "page_info": {
+        "total_pages": 1,
+        "__typename": "SearchResultPageInfo"
+      },
+      "total_count": 12,
+      "__typename": "Products"
+    }
+  }
+}

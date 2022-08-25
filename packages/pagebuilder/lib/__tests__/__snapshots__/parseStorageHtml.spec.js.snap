@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse valid root element 1`] = `
+Object {
+  "appearance": null,
+  "children": Array [
+    Object {
+      "appearance": "contained",
+      "children": Array [
+        Object {
+          "appearance": "default",
+          "children": Array [],
+          "contentType": "heading",
+        },
+      ],
+      "contentType": "row",
+    },
+  ],
+  "contentType": "root-container",
+}
+`;

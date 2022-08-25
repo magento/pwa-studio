@@ -1,6 +1,6 @@
 {
   "name": "@magento/create-pwa",
-  "version": "1.0.0",
+  "version": "2.3.2",
   "publishConfig": {
     "access": "public"
   },
@@ -14,7 +14,7 @@
     "clean": " ",
     "test": " "
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "keywords": [
     "magento",
     "pwa",
@@ -22,21 +22,24 @@
     "create-pwa-app",
     "pwa-studio"
   ],
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/create-pwa#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/create-pwa#readme",
   "dependencies": {
-    "@magento/pwa-buildpack": "~4.0.0",
+    "@magento/pwa-buildpack": "~11.4.0",
+    "@magento/venia-concept": "~12.6.0",
     "chalk": "^2.4.2",
     "change-case": "^3.1.0",
+    "compression": "~1.7.4",
     "execa": "^1.0.0",
     "git-user-info": "^1.0.1",
-    "inquirer": "^6.3.1",
+    "inquirer": "^8.2.0",
     "is-invalid-path": "^1.0.2",
     "is-valid-npm-name": "^0.0.4",
-    "webpack": "^4.29.5"
+    "node-fetch": "~2.6.1",
+    "webpack": "~4.46.0"
   }
 }

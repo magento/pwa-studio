@@ -1,87 +1,187 @@
-import { useCallback, useState } from 'react';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
+import { useCallback, useEffect, useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 
-import getCurrencyCode from '@magento/peregrine/lib/util/getCurrencyCode';
+import { useCartContext } from '../../context/cart';
+import { deriveErrorMessage } from '../../util/deriveErrorMessage';
+import mergeOperations from '../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './miniCart.gql';
+import { useEventingContext } from '../../context/eventing';
 
-export const useMiniCart = () => {
-    const [{ drawer }, { closeDrawer }] = useAppContext();
-    const [
-        cartState,
-        { updateItemInCart, removeItemFromCart }
-    ] = useCartContext();
-    const [, { cancelCheckout }] = useCheckoutContext();
-    const [step, setStep] = useState('cart');
+/**
+ *
+ * @param {Boolean} props.isOpen - True if the mini cart is open
+ * @param {Function} props.setIsOpen - Function to toggle the mini cart
+ * @param {DocumentNode} props.operations.miniCartQuery - Query to fetch mini cart data
+ * @param {DocumentNode} props.operations.removeItemMutation - Mutation to remove an item from cart
+ *
+ * @returns {
+ *      closeMiniCart: Function,
+ *      errorMessage: String,
+ *      handleEditCart: Function,
+ *      handleProceedToCheckout: Function,
+ *      handleRemoveItem: Function,
+ *      loading: Boolean,
+ *      productList: Array<>,
+ *      subTotal: Number,
+ *      totalQuantity: Number
+ *      configurableThumbnailSource: String
+ *  }
+ */
+export const useMiniCart = props => {
+    const { isOpen, setIsOpen } = props;
 
-    const { isLoading, isUpdatingItem } = cartState;
+    const [, { dispatch }] = useEventingContext();
 
-    const [isEditingItem, setIsEditingItem] = useState(false);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const {
+        removeItemMutation,
+        miniCartQuery,
+        getStoreConfigQuery
+    } = operations;
 
-    const currencyCode = getCurrencyCode(cartState);
-    const cartItems = cartState.details.items;
-    const numItems = cartState.details.items_qty;
-    const subtotal = cartState.totals.subtotal;
+    const [{ cartId }] = useCartContext();
+    const history = useHistory();
 
-    const shouldShowFooter =
-        step === 'receipt' ||
-        step === 'form' ||
-        !((cartState.isEmpty && step === 'cart') || isLoading || isEditingItem);
-
-    const isMiniCartMaskOpen = step === 'form';
-    const isOpen = drawer === 'cart';
-
-    const handleClose = useCallback(() => {
-        setStep('cart');
-        setIsEditingItem(false);
-        closeDrawer();
-    }, [closeDrawer, setStep]);
-
-    const handleBeginEditItem = useCallback(() => {
-        setIsEditingItem(true);
-    }, []);
-
-    const handleEndEditItem = useCallback(() => {
-        setIsEditingItem(false);
-    }, []);
-
-    const handleUpdateItemInCart = useCallback(
-        async (...args) => {
-            try {
-                await updateItemInCart(...args);
-            } catch (error) {
-                console.log('Unable to update item:', error.message);
-            } finally {
-                setIsEditingItem(false);
-            }
-        },
-        [updateItemInCart]
+    const { data: miniCartData, loading: miniCartLoading } = useQuery(
+        miniCartQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first',
+            variables: { cartId },
+            skip: !cartId,
+            errorPolicy: 'all'
+        }
     );
 
-    const handleDismiss = useCallback(() => {
-        setStep('cart');
-        cancelCheckout();
-    }, [cancelCheckout]);
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
+
+    const configurableThumbnailSource = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.configurable_thumbnail_source;
+        }
+    }, [storeConfigData]);
+
+    const storeUrlSuffix = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.product_url_suffix;
+        }
+    }, [storeConfigData]);
+
+    const [
+        removeItem,
+        {
+            loading: removeItemLoading,
+            called: removeItemCalled,
+            error: removeItemError
+        }
+    ] = useMutation(removeItemMutation);
+
+    const totalQuantity = useMemo(() => {
+        if (!miniCartLoading) {
+            return miniCartData?.cart?.total_quantity;
+        }
+    }, [miniCartData, miniCartLoading]);
+
+    const subTotal = useMemo(() => {
+        if (!miniCartLoading) {
+            return miniCartData?.cart?.prices?.subtotal_excluding_tax;
+        }
+    }, [miniCartData, miniCartLoading]);
+
+    const productList = useMemo(() => {
+        if (!miniCartLoading) {
+            return miniCartData?.cart?.items;
+        }
+    }, [miniCartData, miniCartLoading]);
+
+    const closeMiniCart = useCallback(() => {
+        setIsOpen(false);
+    }, [setIsOpen]);
+
+    const handleRemoveItem = useCallback(
+        async id => {
+            try {
+                await removeItem({
+                    variables: {
+                        cartId,
+                        itemId: id
+                    }
+                });
+
+                const [product] = productList.filter(
+                    p => (p.uid || p.id) === id
+                );
+
+                const selectedOptionsLabels =
+                    product.configurable_options?.map(
+                        ({ option_label, value_label }) => ({
+                            attribute: option_label,
+                            value: value_label
+                        })
+                    ) || null;
+
+                dispatch({
+                    type: 'CART_REMOVE_ITEM',
+                    payload: {
+                        cartId,
+                        sku: product.product.sku,
+                        name: product.product.name,
+                        priceTotal: product.prices.price.value,
+                        currencyCode: product.prices.price.currency,
+                        discountAmount:
+                            product.prices.total_item_discount.value,
+                        selectedOptions: selectedOptionsLabels,
+                        quantity: product.quantity
+                    }
+                });
+            } catch (e) {
+                // Error is logged by apollo link - no need to double log.
+            }
+        },
+        [removeItem, cartId, dispatch, productList]
+    );
+
+    const handleProceedToCheckout = useCallback(() => {
+        setIsOpen(false);
+        history.push('/checkout');
+    }, [history, setIsOpen]);
+
+    const handleEditCart = useCallback(() => {
+        setIsOpen(false);
+        history.push('/cart');
+    }, [history, setIsOpen]);
+
+    const derivedErrorMessage = useMemo(
+        () => deriveErrorMessage([removeItemError]),
+        [removeItemError]
+    );
+
+    useEffect(() => {
+        if (isOpen) {
+            dispatch({
+                type: 'MINI_CART_VIEW',
+                payload: {
+                    cartId: cartId,
+                    products: productList
+                }
+            });
+        }
+    }, [isOpen, cartId, productList, dispatch]);
 
     return {
-        cartItems,
-        cartState,
-        currencyCode,
-        handleBeginEditItem,
-        handleDismiss,
-        handleEndEditItem,
-        handleClose,
-        handleUpdateItemInCart,
-        isEditingItem,
-        isLoading,
-        isMiniCartMaskOpen,
-        isOpen,
-        isUpdatingItem,
-        numItems,
-        removeItemFromCart,
-        setStep,
-        shouldShowFooter,
-        step,
-        subtotal
+        closeMiniCart,
+        errorMessage: derivedErrorMessage,
+        handleEditCart,
+        handleProceedToCheckout,
+        handleRemoveItem,
+        loading: miniCartLoading || (removeItemCalled && removeItemLoading),
+        productList,
+        subTotal,
+        totalQuantity,
+        configurableThumbnailSource,
+        storeUrlSuffix
     };
 };

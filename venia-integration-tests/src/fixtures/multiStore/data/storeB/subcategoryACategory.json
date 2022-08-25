@@ -1,0 +1,86 @@
+{
+  "data": {
+    "categories": {
+      "items": [
+        {
+          "breadcrumbs": null,
+          "uid": "MjM=",
+          "meta_title": null,
+          "meta_keywords": null,
+          "meta_description": null,
+          "__typename": "CategoryTree"
+        }
+      ],
+      "__typename": "CategoryResult"
+    },
+    "products": {
+      "items": [
+        {
+          "id": 2,
+          "uid": "Mg==",
+          "name": "Augusta Earrings",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VA12-SI-NA",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/9035ce720818089a082f5297e3136814\/v\/a\/va12-ts_main.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "SimpleProduct",
+          "url_key": "augusta-earrings"
+        },
+        {
+          "id": 1,
+          "uid": "MTE2NA==",
+          "name": "Ombre Infinity Scarf",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 48,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 48,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VA03",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va03-ly_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "ombre-infinity-scarf"
+        }
+      ],
+      "page_info": {
+        "total_pages": 1,
+        "__typename": "SearchResultPageInfo"
+      },
+      "total_count": 2,
+      "__typename": "Products"
+    }
+  }
+}

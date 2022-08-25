@@ -1,0 +1,9 @@
+.root {
+    composes: root from '../Icon/icon.module.css';
+    --stroke: rgb(var(--venia-global-color-text-hint));
+}
+
+.icon {
+    composes: icon from '../Icon/icon.module.css';
+    composes: animation-spin from global;
+}

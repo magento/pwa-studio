@@ -1,18 +1,17 @@
 import { useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import { DELIMITER } from '../FilterModal/helpers';
 
 // TODO: derive from store config when available
-const getLocation = (searchValue, categoryId) => {
-    // start with the current uri
-    const uri = new URL('/search.html', window.location);
+const setSearchParams = (existing, options) => {
+    const params = new URLSearchParams(existing);
+    const { categoryId, label, searchValue } = options;
 
-    // update the query params
-    uri.searchParams.set('query', searchValue);
-    uri.searchParams.set('category', categoryId);
+    params.set('query', searchValue);
+    params.set('category_id[filter]', `${label}${DELIMITER}${categoryId}`);
 
-    const { pathname, search } = uri;
-
-    // return only the pieces React Router wants
-    return { pathname, search };
+    return `${params}`;
 };
 
 /**
@@ -24,8 +23,11 @@ const getLocation = (searchValue, categoryId) => {
  * @param {String} props.searchValue - search term
  */
 export const useSuggestedCategory = props => {
-    const { categoryId, onNavigate, searchValue } = props;
-    const destination = getLocation(searchValue, categoryId);
+    const { onNavigate, ...restProps } = props;
+    const { search } = useLocation();
+
+    const nextSearchParams = setSearchParams(search, restProps);
+    const destination = `/search.html?${nextSearchParams}`;
 
     const handleClick = useCallback(() => {
         if (typeof onNavigate === 'function') {

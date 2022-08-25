@@ -1,0 +1,57 @@
+.root {
+    composes: grid from global;
+    composes: gap-xs from global;
+    composes: grid-cols-auto from global;
+
+    composes: lg_grid-cols-2 from global;
+}
+
+.image {
+    composes: h-full from global;
+    composes: object-contain from global;
+    composes: w-full from global;
+}
+
+.detailsContainer {
+    composes: content-start from global;
+    composes: gap-y-xs from global;
+    composes: grid from global;
+}
+
+.name {
+    composes: font-bold from global;
+    composes: font-serif from global;
+    composes: text-xl from global;
+}
+
+.price {
+    composes: font-semibold from global;
+}
+
+/* TODO @TW: cannot compose */
+.price:empty {
+    /* composes: bg-subtle from global; */
+    background-color: rgb(var(--venia-global-color-gray));
+    min-height: 1rem;
+    width: 4rem;
+}
+
+.optionTitle {
+    composes: border-t from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: font-semibold from global;
+    composes: px-0 from global;
+    composes: py-xs from global;
+}
+
+.dialogHeaderText {
+    composes: headerText from '../Dialog/dialog.module.css';
+
+    composes: overflow-visible from global;
+}
+
+.titleContainer {
+    composes: leading-none from global;
+    composes: w-fit from global;
+}

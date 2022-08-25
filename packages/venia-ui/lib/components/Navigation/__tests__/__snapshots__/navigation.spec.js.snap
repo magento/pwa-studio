@@ -1,11 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`authModal is rendered when hasModal is true 1`] = `
+<aside
+  className="root"
+>
+  <header
+    className="header"
+  >
+    <i />
+  </header>
+  <div
+    className="body_masked"
+  >
+    <i />
+  </div>
+  <div
+    className="footer"
+  >
+    <div
+      className="switchers"
+    >
+      StoreSwitcher
+      CurrencySwitcher
+    </div>
+    <i />
+  </div>
+  <div
+    className="modal_open"
+  >
+    <require('../AuthModal')
+      view="MENU"
+    />
+  </div>
+</aside>
+`;
+
 exports[`renders correctly when closed 1`] = `
 <aside
   className="root"
 >
   <header
-    className="isRoot"
+    className="header"
   >
     <i />
   </header>
@@ -17,13 +52,17 @@ exports[`renders correctly when closed 1`] = `
   <div
     className="footer"
   >
+    <div
+      className="switchers"
+    >
+      StoreSwitcher
+      CurrencySwitcher
+    </div>
     <i />
   </div>
   <div
     className="modal"
-  >
-    <i />
-  </div>
+  />
 </aside>
 `;
 
@@ -32,7 +71,7 @@ exports[`renders correctly when open 1`] = `
   className="root_open"
 >
   <header
-    className="isRoot"
+    className="header"
   >
     <i />
   </header>
@@ -44,12 +83,16 @@ exports[`renders correctly when open 1`] = `
   <div
     className="footer"
   >
+    <div
+      className="switchers"
+    >
+      StoreSwitcher
+      CurrencySwitcher
+    </div>
     <i />
   </div>
   <div
     className="modal"
-  >
-    <i />
-  </div>
+  />
 </aside>
 `;

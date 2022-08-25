@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`searchCategory returns the correct shape 1`] = `
+Object {
+  "availableSortMethods": Array [
+    Object {
+      "label": "Position",
+      "value": "position",
+    },
+  ],
+  "data": Object {
+    "products": Object {
+      "page_info": Object {
+        "total_pages": 6,
+      },
+    },
+  },
+  "error": null,
+  "filters": undefined,
+  "loading": false,
+  "openDrawer": [Function],
+  "pageControl": Object {
+    "currentPage": 3,
+    "setPage": [MockFunction],
+    "totalPages": 6,
+  },
+  "searchCategory": null,
+  "searchTerm": "",
+  "sortProps": Array [
+    Object {
+      "sortAttribute": "relevance",
+      "sortDirection": "DESC",
+      "sortText": "Best Match",
+    },
+    [MockFunction],
+  ],
+}
+`;
+
+exports[`searchCategory should dispatch event when search request takes effect 1`] = `
+Object {
+  "payload": Object {
+    "currentPage": 3,
+    "pageSize": 12,
+    "query": "Search Query Value",
+    "refinements": Array [
+      Object {
+        "attribute": "category_id",
+        "isRange": false,
+        "value": "FilterEqualTypeInput",
+      },
+    ],
+    "sort": Object {
+      "attribute": "Sort Attribute",
+      "order": "DESC",
+    },
+  },
+  "type": "SEARCH_REQUEST",
+}
+`;

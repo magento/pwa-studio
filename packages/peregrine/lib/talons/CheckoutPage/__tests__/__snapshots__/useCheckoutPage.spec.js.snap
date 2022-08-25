@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "activeContent": "checkout",
+  "availablePaymentMethods": null,
+  "cartItems": Array [],
+  "checkoutStep": 1,
+  "customer": Object {
+    "id": "goose123",
+    "name": "gooseton",
+  },
+  "error": undefined,
+  "guestSignInUsername": "",
+  "handlePlaceOrder": [Function],
+  "handleReviewOrder": [Function],
+  "hasError": false,
+  "isCartEmpty": true,
+  "isGuestCheckout": true,
+  "isLoading": true,
+  "isUpdating": false,
+  "orderDetailsData": null,
+  "orderDetailsLoading": false,
+  "orderNumber": null,
+  "placeOrderButtonClicked": false,
+  "placeOrderLoading": false,
+  "recaptchaWidgetProps": Object {
+    "containerElement": [Function],
+    "shouldRender": false,
+  },
+  "resetReviewOrderButtonClicked": [Function],
+  "reviewOrderButtonClicked": false,
+  "scrollShippingInformationIntoView": [Function],
+  "scrollShippingMethodIntoView": [Function],
+  "setCheckoutStep": [Function],
+  "setGuestSignInUsername": [Function],
+  "setIsUpdating": [Function],
+  "setPaymentInformationDone": [Function],
+  "setShippingInformationDone": [Function],
+  "setShippingMethodDone": [Function],
+  "shippingInformationRef": Object {
+    "current": Object {
+      "scrollIntoView": [MockFunction],
+    },
+  },
+  "shippingMethodRef": Object {
+    "current": Object {
+      "scrollIntoView": [MockFunction],
+    },
+  },
+  "toggleAddressBookContent": [Function],
+  "toggleSignInContent": [Function],
+}
+`;
+
+exports[`should dispatch checkout page view event 1`] = `
+Object {
+  "payload": Object {
+    "cart_id": "123",
+    "products": Array [
+      "item1",
+      "item2",
+    ],
+  },
+  "type": "CHECKOUT_PAGE_VIEW",
+}
+`;
+
+exports[`should dispatch checkout review button clicked event 1`] = `
+Object {
+  "payload": Object {
+    "cart_id": "123",
+  },
+  "type": "CHECKOUT_REVIEW_BUTTON_CLICKED",
+}
+`;
+
+exports[`should dispatch order confirmation page view event 1`] = `
+Array [
+  Array [
+    Object {
+      "payload": Object {
+        "amount": undefined,
+        "cart_id": "123",
+        "order_number": "001",
+        "payment": undefined,
+        "products": undefined,
+        "shipping": Array [
+          Object {
+            "carrier_title": "carrier",
+            "method_title": "method",
+          },
+        ],
+      },
+      "type": "ORDER_CONFIRMATION_PAGE_VIEW",
+    },
+  ],
+]
+`;
+
+exports[`should dispatch place order button clicked event 1`] = `
+Object {
+  "payload": Object {
+    "amount": undefined,
+    "cart_id": "123",
+    "payment": undefined,
+    "products": undefined,
+    "shipping": undefined,
+  },
+  "type": "CHECKOUT_PLACE_ORDER_BUTTON_CLICKED",
+}
+`;

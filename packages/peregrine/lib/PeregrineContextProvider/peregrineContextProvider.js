@@ -5,6 +5,8 @@ import CartContextProvider from '../context/cart';
 import CatalogContextProvider from '../context/catalog';
 import CheckoutContextProvider from '../context/checkout';
 import ErrorContextProvider from '../context/unhandledErrors';
+import EventingContextProvider from '../context/eventing';
+import RootComponentsProvider from '../context/rootComponents';
 import UserContextProvider from '../context/user';
 
 /**
@@ -14,11 +16,13 @@ import UserContextProvider from '../context/user';
  */
 const contextProviders = [
     ErrorContextProvider,
+    EventingContextProvider,
     AppContextProvider,
     UserContextProvider,
     CatalogContextProvider,
     CartContextProvider,
-    CheckoutContextProvider
+    CheckoutContextProvider,
+    RootComponentsProvider
 ];
 
 const PeregrineContextProvider = ({ children }) => {

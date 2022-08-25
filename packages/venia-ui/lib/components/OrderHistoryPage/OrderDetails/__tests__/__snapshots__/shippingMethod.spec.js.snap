@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render placeholder text without shipments 1`] = `
+<div>
+  <div>
+    <mock-FormattedMessage
+      defaultMessage="Shipping Method"
+      id="orderDetails.shippingMethodLabel"
+    />
+  </div>
+  <div />
+  <div>
+    <mock-FormattedMessage
+      defaultMessage="Waiting for tracking information"
+      id="orderDetails.waitingOnTracking"
+    />
+  </div>
+</div>
+`;
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    <mock-FormattedMessage
+      defaultMessage="Shipping Method"
+      id="orderDetails.shippingMethodLabel"
+    />
+  </div>
+  <div />
+  <div>
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="<strong>Tracking number:</strong> {number}"
+        id="orderDetails.trackingInformation"
+        values={
+          Object {
+            "number": "FEDEX5885541235452125",
+            "strong": [Function],
+          }
+        }
+      />
+    </span>
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="<strong>Tracking number:</strong> {number}"
+        id="orderDetails.trackingInformation"
+        values={
+          Object {
+            "number": "USPS8645",
+            "strong": [Function],
+          }
+        }
+      />
+    </span>
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="<strong>Tracking number:</strong> {number}"
+        id="orderDetails.trackingInformation"
+        values={
+          Object {
+            "number": "UPS0001",
+            "strong": [Function],
+          }
+        }
+      />
+    </span>
+  </div>
+</div>
+`;

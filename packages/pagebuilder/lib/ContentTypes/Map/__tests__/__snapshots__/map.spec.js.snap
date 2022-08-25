@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render map with all props configured 1`] = `
+<div
+  className=" test-class"
+  style={
+    Object {
+      "border": "solid",
+      "borderColor": "red",
+      "borderRadius": "15px",
+      "borderWidth": "10px",
+      "height": "200px",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "right",
+    }
+  }
+/>
+`;
+
+exports[`render map with no props 1`] = `null`;

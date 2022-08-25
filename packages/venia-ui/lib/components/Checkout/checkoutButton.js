@@ -1,20 +1,30 @@
 import React from 'react';
-import { bool, func } from 'prop-types';
-
-import Button from '../Button';
-import Icon from '../Icon';
+import { bool, func, shape, string } from 'prop-types';
 import { Lock as LockIcon } from 'react-feather';
 
-const CheckoutButton = ({ disabled, onClick }) => {
+import { useStyle } from '../../classify';
+import Button from '../Button';
+import Icon from '../Icon';
+import defaultClasses from './checkoutButton.module.css';
+
+const CheckoutButton = props => {
+    const { disabled, onClick, classes: propsClasses } = props;
+    const classes = useStyle(defaultClasses, propsClasses);
+    const iconClasses = { root: classes.icon };
+    const buttonText = 'Checkout';
+
     return (
         <Button priority="high" disabled={disabled} onClick={onClick}>
-            <Icon src={LockIcon} size={16} />
-            <span>Checkout</span>
+            <Icon classes={iconClasses} src={LockIcon} size={20} />
+            <span>{buttonText}</span>
         </Button>
     );
 };
 
 CheckoutButton.propTypes = {
+    classes: shape({
+        icon: string
+    }),
     disabled: bool,
     onClick: func
 };

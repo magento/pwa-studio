@@ -1,0 +1,9 @@
+.hr {
+    border: 0;
+    border-top: 1px solid #cccccc;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    max-width: 100%;
+    width: 100%;
+}

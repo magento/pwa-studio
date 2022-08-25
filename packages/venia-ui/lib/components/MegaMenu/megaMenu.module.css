@@ -1,0 +1,12 @@
+.megaMenu {
+    composes: col-end-10 from global;
+    composes: col-start-3 from global;
+    composes: flex-grow from global;
+    composes: hidden from global;
+    composes: justify-self-center from global;
+}
+
+/* Large screen styles */
+.megaMenu {
+    composes: lg_flex from global;
+}

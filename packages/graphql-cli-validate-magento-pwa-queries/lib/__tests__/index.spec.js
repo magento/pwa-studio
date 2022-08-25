@@ -2,9 +2,11 @@ const plugin = require('../index');
 
 const fs = require('fs');
 const eslint = require('eslint');
+const glob = require('glob');
 
 jest.mock('fs');
 jest.mock('eslint');
+jest.mock('glob');
 
 test('it exports the correct command name', () => {
     expect(plugin.command).toBe('validate-magento-pwa-queries');
@@ -49,20 +51,26 @@ describe('handler', () => {
     const mockArgs = {
         project: 'myApp'
     };
-    const mockContext = {
-        getProjectConfig: jest.fn(() => {
-            return Promise.resolve({
-                config: {
-                    extensions: {
-                        'validate-magento-pwa-queries': {
-                            clients: ['apollo', 'literal'],
-                            filesGlob: '*.graphql'
-                        }
-                    },
-                    schemaPath: 'unit test'
+    const getProjectConfig = jest.fn().mockResolvedValue({
+        config: {
+            extensions: {
+                'validate-magento-pwa-queries': {
+                    clients: ['apollo', 'literal'],
+                    filesGlob: '*.graphql',
+                    ignore: ['*.js'],
+                    magentoBackendEdition: 'MOS',
+                    mosFilesGlob: 'mosFilesGlob',
+                    ceFilesGlob: 'ceFilesGlob',
+                    acFilesGlob: 'acFilesGlob',
+                    eeFilesGlob: 'eeFilesGlob'
                 }
-            });
-        }),
+            },
+            schemaPath: 'unit test'
+        }
+    });
+
+    const mockContext = {
+        getProjectConfig,
         spinner: {
             fail: jest.fn(),
             start: jest.fn(),
@@ -75,6 +83,7 @@ describe('handler', () => {
     let mockConsoleLog;
     let mockConsoleWarn;
     let mockProcessExit;
+    let globSyncSpy;
 
     beforeAll(() => {
         const noop = () => {};
@@ -90,6 +99,9 @@ describe('handler', () => {
             })),
             resolveFileGlobPatterns: jest.fn()
         }));
+
+        globSyncSpy = jest.spyOn(glob, 'sync');
+        globSyncSpy.mockImplementation(() => []);
 
         // For happy paths, mock the file existing.
         existsSyncSpy = jest.spyOn(fs, 'existsSync');
@@ -141,20 +153,24 @@ describe('handler', () => {
     });
 
     test('it creates a validator with the correct configuration', async () => {
-        const expectedRule = [
-            'error',
+        // Act.
+        await plugin.handler(mockContext, mockArgs);
+
+        // Assert.
+        const ruleTargets = [
             // These objects are derived from mockArgs.
             {
                 env: 'apollo',
-                projectName: 'myApp'
+                projectName: 'myApp',
+                schemaJsonFilepath: 'unit test'
             },
             {
                 env: 'literal',
-                projectName: 'myApp'
+                projectName: 'myApp',
+                schemaJsonFilepath: 'unit test'
             }
         ];
-
-        await plugin.handler(mockContext, mockArgs);
+        const warnRule = ['warn', ...ruleTargets];
 
         const lintConfiguration = eslintCLIEngineSpy.mock.calls[0][0];
 
@@ -171,26 +187,28 @@ describe('handler', () => {
         expect(lintConfiguration.plugins).toContain('graphql');
 
         const rulesKeys = Object.keys(lintConfiguration.rules);
-        expect(rulesKeys).toHaveLength(2);
+        expect(rulesKeys).toHaveLength(5);
         expect(rulesKeys).toContain('graphql/template-strings');
         expect(rulesKeys).toContain('graphql/no-deprecated-fields');
 
         const templateStringsRule =
             lintConfiguration.rules['graphql/template-strings'];
-        expect(templateStringsRule).toEqual(expectedRule);
+        expect(templateStringsRule).toBeInstanceOf(Array);
+        expect(templateStringsRule[0]).toBe('error');
+        expect(templateStringsRule[1]).toEqual(
+            expect.objectContaining({
+                env: expect.any(String),
+                projectName: expect.any(String),
+                schemaJsonFilepath: expect.any(String),
+                validators: expect.any(Array)
+            })
+        );
 
         const deprecatedFieldsRule =
             lintConfiguration.rules['graphql/no-deprecated-fields'];
-        expect(deprecatedFieldsRule).toEqual(expectedRule);
+        expect(deprecatedFieldsRule).toEqual(warnRule);
 
         expect(lintConfiguration.useEslintrc).toBe(false);
-    });
-
-    test('it logs an appropriate message when there are no errors', async () => {
-        await plugin.handler(mockContext, mockArgs);
-
-        expect(mockConsoleLog).toHaveBeenCalled();
-        expect(mockProcessExit).toHaveBeenCalledWith(0);
     });
 
     test('it warns when there are errors', async () => {
@@ -204,12 +222,96 @@ describe('handler', () => {
             getFormatter: jest.fn().mockImplementation(() => {
                 return function() {};
             }),
-            resolveFileGlobPatterns: jest.fn()
+            resolveFileGlobPatterns: jest.fn().mockReturnValue({
+                length: Number.POSITIVE_INFINITY
+            })
         }));
 
         await plugin.handler(mockContext, mockArgs);
 
         expect(mockConsoleWarn).toHaveBeenCalled();
         expect(mockProcessExit).toHaveBeenCalledWith(1);
+    });
+
+    test('it ignores AC and EE files if magentoBackendEdition is MOS', async () => {
+        await plugin.handler(mockContext, mockArgs);
+
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('acFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('eeFilesGlob');
+    });
+
+    test('it ignores AC and EE files if magentoBackendEdition is CE', async () => {
+        getProjectConfig.mockResolvedValueOnce({
+            config: {
+                extensions: {
+                    'validate-magento-pwa-queries': {
+                        clients: ['apollo', 'literal'],
+                        filesGlob: '*.graphql',
+                        ignore: ['*.js'],
+                        magentoBackendEdition: 'CE',
+                        mosFilesGlob: 'mosFilesGlob',
+                        ceFilesGlob: 'ceFilesGlob',
+                        acFilesGlob: 'acFilesGlob',
+                        eeFilesGlob: 'eeFilesGlob'
+                    }
+                },
+                schemaPath: 'unit test'
+            }
+        });
+
+        await plugin.handler(mockContext, mockArgs);
+
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('acFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('eeFilesGlob');
+    });
+
+    test('it ignores MOS and CE files if magentoBackendEdition is AC', async () => {
+        getProjectConfig.mockResolvedValueOnce({
+            config: {
+                extensions: {
+                    'validate-magento-pwa-queries': {
+                        clients: ['apollo', 'literal'],
+                        filesGlob: '*.graphql',
+                        ignore: ['*.js'],
+                        magentoBackendEdition: 'AC',
+                        mosFilesGlob: 'mosFilesGlob',
+                        ceFilesGlob: 'ceFilesGlob',
+                        acFilesGlob: 'acFilesGlob',
+                        eeFilesGlob: 'eeFilesGlob'
+                    }
+                },
+                schemaPath: 'unit test'
+            }
+        });
+
+        await plugin.handler(mockContext, mockArgs);
+
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('mosFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('ceFilesGlob');
+    });
+
+    test('it ignores MOS and CE files if magentoBackendEdition is EE', async () => {
+        getProjectConfig.mockResolvedValueOnce({
+            config: {
+                extensions: {
+                    'validate-magento-pwa-queries': {
+                        clients: ['apollo', 'literal'],
+                        filesGlob: '*.graphql',
+                        ignore: ['*.js'],
+                        magentoBackendEdition: 'EE',
+                        mosFilesGlob: 'mosFilesGlob',
+                        ceFilesGlob: 'ceFilesGlob',
+                        acFilesGlob: 'acFilesGlob',
+                        eeFilesGlob: 'eeFilesGlob'
+                    }
+                },
+                schemaPath: 'unit test'
+            }
+        });
+
+        await plugin.handler(mockContext, mockArgs);
+
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('mosFilesGlob');
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('ceFilesGlob');
     });
 });

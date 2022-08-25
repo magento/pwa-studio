@@ -1,0 +1,171 @@
+{
+  "data": {
+    "customer": {
+      "id": null,
+      "wishlist_v2": {
+        "id": "104",
+        "items_v2": {
+          "items": [
+            {
+              "id": "128",
+              "product": {
+                "uid": "MTEyMA==",
+                "image": {
+                  "label": "Main",
+                  "url": "https:\/\/staging-vdt2zeq-c5v7sxvquxwl4.eu-4.magentosite.cloud\/media\/catalog\/product\/cache\/630b622004cff8fabf2e4f4175ea67bd\/v\/s\/vsw01-rn_main_2.jpg",
+                  "__typename": "ProductImage"
+                },
+                "name": "Carina Cardigan",
+                "price_range": {
+                  "maximum_price": {
+                    "final_price": {
+                      "currency": "USD",
+                      "value": 78,
+                      "__typename": "Money"
+                    },
+                    "__typename": "ProductPrice"
+                  },
+                  "__typename": "PriceRange"
+                },
+                "sku": "VSW01",
+                "stock_status": "IN_STOCK",
+                "configurable_options": [
+                  {
+                    "uid": 48,
+                    "attribute_code": "fashion_color",
+                    "attribute_id": "181",
+                    "attribute_id_v2": 181,
+                    "label": "Fashion Color",
+                    "values": [
+                      {
+                        "uid": "Y29uZmlndXJhYmxlLzE4MS81NDQ4",
+                        "default_label": "Peach",
+                        "label": "Peach",
+                        "store_label": "Peach",
+                        "use_default_value": true,
+                        "value_index": 5448,
+                        "swatch_data": {
+                          "value": "#fee1d2",
+                          "__typename": "ColorSwatchData"
+                        },
+                        "__typename": "ConfigurableProductOptionsValues"
+                      },
+                      {
+                        "uid": "Y29uZmlndXJhYmxlLzE4MS81NDQ5",
+                        "default_label": "Khaki",
+                        "label": "Khaki",
+                        "store_label": "Khaki",
+                        "use_default_value": true,
+                        "value_index": 5449,
+                        "swatch_data": {
+                          "value": "#f9efe5",
+                          "__typename": "ColorSwatchData"
+                        },
+                        "__typename": "ConfigurableProductOptionsValues"
+                      },
+                      {
+                        "uid": "Y29uZmlndXJhYmxlLzE4MS81NDUw",
+                        "default_label": "Lilac",
+                        "label": "Lilac",
+                        "store_label": "Lilac",
+                        "use_default_value": true,
+                        "value_index": 5450,
+                        "swatch_data": {
+                          "value": "#dcd5e1",
+                          "__typename": "ColorSwatchData"
+                        },
+                        "__typename": "ConfigurableProductOptionsValues"
+                      },
+                      {
+                        "uid": "Y29uZmlndXJhYmxlLzE4MS81NDUx",
+                        "default_label": "Rain",
+                        "label": "Rain",
+                        "store_label": "Rain",
+                        "use_default_value": true,
+                        "value_index": 5451,
+                        "swatch_data": {
+                          "value": "#d4e3ec",
+                          "__typename": "ColorSwatchData"
+                        },
+                        "__typename": "ConfigurableProductOptionsValues"
+                      }
+                    ],
+                    "__typename": "ConfigurableProductOptions"
+                  },
+                  {
+                    "uid": 49,
+                    "attribute_code": "fashion_size",
+                    "attribute_id": "184",
+                    "attribute_id_v2": 184,
+                    "label": "Fashion Size",
+                    "values": [
+                      {
+                        "uid": "Y29uZmlndXJhYmxlLzE4NC81NDU2",
+                        "default_label": "L",
+                        "label": "L",
+                        "store_label": "L",
+                        "use_default_value": true,
+                        "value_index": 5456,
+                        "swatch_data": {
+                          "value": "L",
+                          "__typename": "TextSwatchData"
+                        },
+                        "__typename": "ConfigurableProductOptionsValues"
+                      },
+                      {
+                        "uid": "Y29uZmlndXJhYmxlLzE4NC81NDU3",
+                        "default_label": "M",
+                        "label": "M",
+                        "store_label": "M",
+                        "use_default_value": true,
+                        "value_index": 5457,
+                        "swatch_data": {
+                          "value": "M",
+                          "__typename": "TextSwatchData"
+                        },
+                        "__typename": "ConfigurableProductOptionsValues"
+                      },
+                      {
+                        "uid": "Y29uZmlndXJhYmxlLzE4NC81NDU4",
+                        "default_label": "S",
+                        "label": "S",
+                        "store_label": "S",
+                        "use_default_value": true,
+                        "value_index": 5458,
+                        "swatch_data": {
+                          "value": "S",
+                          "__typename": "TextSwatchData"
+                        },
+                        "__typename": "ConfigurableProductOptionsValues"
+                      },
+                      {
+                        "uid": "Y29uZmlndXJhYmxlLzE4NC81NDU5",
+                        "default_label": "XS",
+                        "label": "XS",
+                        "store_label": "XS",
+                        "use_default_value": true,
+                        "value_index": 5459,
+                        "swatch_data": {
+                          "value": "XS",
+                          "__typename": "TextSwatchData"
+                        },
+                        "__typename": "ConfigurableProductOptionsValues"
+                      }
+                    ],
+                    "__typename": "ConfigurableProductOptions"
+                  }
+                ],
+                "__typename": "ConfigurableProduct"
+              },
+              "configurable_options": [],
+              "__typename": "ConfigurableWishlistItem"
+            }
+          ],
+          "__typename": "WishlistItems"
+        },
+        "__typename": "Wishlist"
+      },
+      "__typename": "Customer"
+    }
+  }
+}

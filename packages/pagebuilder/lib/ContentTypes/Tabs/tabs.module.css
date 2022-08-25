@@ -1,0 +1,178 @@
+.root {
+    -webkit-tap-highlight-color: transparent;
+    --tabs-border: solid;
+    --tabs-border-color: #ccc;
+    --tabs-border-width: 1px;
+    --tabs-border-radius: 0px;
+}
+
+.root ul li.header.selected {
+    background: #fff;
+    z-index: 3;
+}
+
+.root ul.navigation {
+    display: block;
+    font-size: 0;
+    margin: 0 0 calc(var(--tabs-border-width) * -1);
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    position: relative;
+    user-select: none;
+}
+ul.navigation::-webkit-scrollbar {
+    display: none;
+}
+.navigationLeft {
+    composes: navigation;
+    text-align: left;
+}
+.navigationCenter {
+    composes: navigation;
+    text-align: center;
+}
+.navigationRight {
+    composes: navigation;
+    text-align: right;
+}
+
+.navigationGradientLeft,
+.navigationGradientBoth,
+.navigationGradientRight {
+    position: relative;
+}
+.navigationGradientLeft:before,
+.navigationGradientBoth:before {
+    pointer-events: none;
+    opacity: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: var(--tabs-border-width);
+    content: '';
+    display: block;
+    width: 100px;
+    z-index: 4;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+.navigationGradientRight:after,
+.navigationGradientBoth:after {
+    pointer-events: none;
+    opacity: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: var(--tabs-border-width);
+    content: '';
+    display: block;
+    width: 100px;
+    z-index: 4;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+    );
+}
+
+.root ul li.header {
+    list-style: none;
+    background: rgb(var(--venia-global-color-gray));
+    border: var(--tabs-border-width) var(--tabs-border) var(--tabs-border-color);
+    border-bottom: 0;
+    border-top-left-radius: var(--tabs-border-radius);
+    border-top-right-radius: var(--tabs-border-radius);
+    display: inline-block;
+    margin: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    position: relative;
+    word-wrap: break-word;
+    z-index: 1;
+    color: rgb(var(--venia-global-color-text));
+    cursor: pointer !important;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.875rem 1.25rem;
+    transition: background-color 0.3s;
+    vertical-align: bottom;
+    white-space: normal;
+}
+
+.root ul li.header:focus {
+    outline: 0;
+}
+
+.root ul li.header:focus:after {
+    content: '';
+    position: absolute;
+    height: 5px;
+    left: -4px;
+    right: -4px;
+    bottom: -5px;
+    background: #fff;
+}
+
+.root ul li.header:not(:first-child) {
+    margin-left: calc(var(--tabs-border-width) * -1);
+}
+
+.panel {
+    min-height: inherit;
+}
+
+.panelSelected {
+    display: block;
+}
+
+.panel:empty {
+    display: none !important; /* Necessary because of inline styles; to be fixed in MC-18326 */
+}
+
+.content {
+    border: var(--tabs-border-width) var(--tabs-border) var(--tabs-border-color);
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    border-radius: var(--tabs-border-radius);
+}
+.contentLeft {
+    composes: content;
+    border-top-left-radius: 0px;
+}
+.contentCenter {
+    composes: content;
+}
+.contentRight {
+    composes: content;
+    border-top-right-radius: 0px;
+}
+
+.root ul.navigation li:first-child {
+    margin-left: 0 !important;
+}
+
+.disabled {
+    color: GrayText;
+    cursor: default;
+}
+
+.item {
+    min-height: inherit;
+}
+
+.item:not(:first-child) {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .item {
+        background-attachment: scroll !important;
+    }
+}

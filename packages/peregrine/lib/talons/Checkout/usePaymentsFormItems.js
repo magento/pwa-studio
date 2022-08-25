@@ -9,7 +9,6 @@ import { useFormState } from 'informed';
  */
 export const usePaymentsFormItems = props => {
     const [isReady, setIsReady] = useState(false);
-
     const { isSubmitting, setIsSubmitting, onCancel, onSubmit } = props;
 
     // Currently form state toggles dirty from false to true because of how

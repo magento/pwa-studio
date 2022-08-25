@@ -1,0 +1,19 @@
+.root {
+    composes: bg-white from global;
+    composes: p-0 from global;
+}
+
+.root_open {
+    composes: root;
+
+    composes: relative from global;
+    composes: z-foreground from global;
+}
+
+.placeholderButton {
+    composes: mt-sm from global;
+    composes: mr-0 from global;
+    composes: mb-xs from global;
+    composes: ml-0 from global;
+    composes: text-center from global;
+}

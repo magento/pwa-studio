@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders "FREE"" if shipping value is "0" 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Estimated Shipping
+  </span>,
+  <span
+    className="price"
+  >
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="FREE"
+        id="global.free"
+      />
+    </span>
+  </span>,
+]
+`;
+
+exports[`renders nothing if shipping data is empty 1`] = `null`;
+
+exports[`renders nothing if there is no selected shipping method 1`] = `null`;
+
+exports[`renders shipping summary line item correctly 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Estimated Shipping
+  </span>,
+  <span
+    className="price"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      10
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </span>,
+]
+`;
