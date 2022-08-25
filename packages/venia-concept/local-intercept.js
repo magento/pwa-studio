@@ -203,6 +203,12 @@ module.exports = targets => {
                         type: 'bool',
                         desc: 'Specify the view for the Product Detail Page (PDP).',
                         default: true
+                    },
+                    {
+                        name: 'B2BSTORE_VERSION',
+                        type: 'str',
+                        desc: 'Specfiy b2bstore version PREMIUM or BASIC',
+                        default: 'BASIC'
                     }
                 ]
             }
