@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { bool, func, oneOf, shape, string } from 'prop-types';
 import {
     Edit2 as Edit2Icon,
@@ -10,6 +10,7 @@ import { useStyle } from '../../classify';
 import Icon from '../Icon';
 
 import defaultClasses from './section.module.css';
+import { useButton } from 'react-aria';
 
 const icons = new Map()
     .set('Heart', HeartIcon)
@@ -30,6 +31,13 @@ const Section = props => {
     const iconClasses = { root: classes.icon };
     const iconSrc = icons.get(icon);
 
+    const buttonRef = useRef();
+
+    const { buttonProps: buttonAriaProps } = useButton(
+        { type: 'button', onPress: onClick, 'aria-label': text },
+        buttonRef
+    );
+
     if (isFilled) {
         iconClasses.root = classes.icon_filled;
     }
@@ -37,8 +45,9 @@ const Section = props => {
     return (
         <li className={classes.menuItem} {...restProps}>
             <button
+                ref={buttonRef}
                 className={classes.button}
-                onMouseDown={onClick}
+                {...buttonAriaProps}
                 data-cy="LegacyMiniCart-Section-button"
             >
                 <Icon classes={iconClasses} size={16} src={iconSrc} />

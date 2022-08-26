@@ -405,7 +405,6 @@
 
 :global(.venia-home-products .slick-slider .slick-dots li > button) {
     background-clip: content-box !important;
-    background-color: hsl(205 004% 088%) !important;
     border-color: transparent;
     border-radius: 0;
     border-style: solid;
