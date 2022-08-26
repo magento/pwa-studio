@@ -15,6 +15,7 @@ exports[`renders a placeholder item while awaiting item 1`] = `
     >
       <img
         alt="Placeholder for gallery item image"
+        aria-hidden="true"
         className="image placeholder_layoutOnly"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -75,6 +76,7 @@ exports[`renders correctly with valid item data 1`] = `
     >
       <img
         alt="Test Product"
+        aria-hidden="true"
         className="image placeholder_layoutOnly"
         height={375}
         loading="eager"
