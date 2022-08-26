@@ -173,10 +173,7 @@ const SearchPage = props => {
 
     const itemCountHeading =
         data && !loading ? (
-            <span
-                aria-live="polite"
-                className={classes.totalPages}
-            >
+            <span aria-live="polite" className={classes.totalPages}>
                 {formatMessage(
                     {
                         id: 'searchPage.totalPages',
