@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useAddressBookPage } from '../useAddressBookPage';
+import { useEventingContext } from '../../../context/eventing';
 
 const mockDeleteCustomerAddress = jest.fn();
 const mockCreateCustomerAddress = jest.fn();
@@ -49,7 +50,14 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const state = {
-        isSignedIn: false
+        isSignedIn: false,
+        currentUser: {
+            __typename: 'Customer',
+            email: 'PhilipFry@futurama.email',
+            firstname: 'Philip',
+            lastname: 'Fry',
+            is_subscribed: false
+        }
     };
     const api = {};
     const useUserContext = jest.fn(() => [state, api]);
@@ -67,6 +75,10 @@ const Component = props => {
 
     return null;
 };
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const props = {
     operations: {
@@ -207,7 +219,8 @@ test('returns map of country display names', () => {
     `);
 });
 
-test('return correct shape for an updated address with undefined middlename and null street2 values and fire update mutation', async () => {
+test('return correct shape for an updated address with undefined middlename and null street2 values, fire update mutation, and dispatch event', async () => {
+    const [, { dispatch }] = useEventingContext();
     const customerData = {
         firstname: 'Philip',
         lastname: 'Fry',
@@ -242,9 +255,13 @@ test('return correct shape for an updated address with undefined middlename and 
             }
         })
     );
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch.mock.calls[0][0]).toMatchSnapshot();
 });
 
-test('return correct shape for new address with undefined middlename and null street2 values and fire create mutation', async () => {
+test('return correct shape for new address with undefined middlename and null street2 values, fire create mutation, and dispatch event', async () => {
+    const [, { dispatch }] = useEventingContext();
     const customerData = {
         firstname: 'Philip',
         lastname: 'Fry',
@@ -273,4 +290,31 @@ test('return correct shape for new address with undefined middlename and null st
             }
         })
     );
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('handleConfirmDeleteAddress() fires delete mutation and dispatches event', async () => {
+    const [, { dispatch }] = useEventingContext();
+
+    const { result } = renderHook(() => useAddressBookPage(props));
+
+    const addressToDelete = 'addressId-1';
+
+    act(() => {
+        result.current.handleDeleteAddress(addressToDelete);
+    });
+
+    expect(result.current.confirmDeleteAddressId).toMatch(addressToDelete);
+
+    await act(async () => {
+        result.current.handleConfirmDeleteAddress();
+    });
+
+    expect(mockDeleteCustomerAddress).toHaveBeenCalled();
+    expect(mockDeleteCustomerAddress.mock.calls[0][0]).toMatchSnapshot();
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch.mock.calls[0][0]).toMatchSnapshot();
 });

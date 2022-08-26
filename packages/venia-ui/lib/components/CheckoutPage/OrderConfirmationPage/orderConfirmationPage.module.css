@@ -1,30 +1,43 @@
+/* prettier-ignore */
 .root {
-    padding: 2.5rem 3rem;
-    max-width: 1080px;
-    margin: 0 auto;
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: max-w-screen-lg from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: px-sm from global;
+    composes: py-sm from global;
 
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: 2fr 1fr;
+    composes: lg_gap-md from global;
+    /* TODO @TW: review (B7) */
+    composes: lg_grid-cols-[2fr,1fr] from global;
+    composes: lg_px-lg from global;
+    composes: lg_py-md from global;
 }
 
 .mainContainer {
-    grid-column: 1;
-
-    display: grid;
-    row-gap: 1rem;
+    composes: col-start-1 from global;
+    composes: grid from global;
+    composes: gap-y-xs from global;
 }
 
 .sidebarContainer {
-    grid-column: 2;
+    composes: border-t from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: col-start-1 from global;
+
+    composes: lg_border-0 from global;
+    composes: lg_col-start-2 from global;
 }
 
 .header {
-    font-weight: 600;
+    composes: font-semibold from global;
 }
 
 .text {
-    line-height: 1.5em;
+    composes: leading-normal from global;
 }
 
 .orderNumber {
@@ -37,11 +50,11 @@
 
 .shippingInfo {
     composes: text;
-    display: grid;
+    composes: grid from global;
 }
 
 .shippingAddress {
-    display: grid;
+    composes: grid from global;
 }
 
 .shippingMethodHeading {
@@ -54,25 +67,4 @@
 
 .additionalText {
     composes: text;
-}
-
-/*
- * Mobile-specific styles.
- */
-
-@media (max-width: 960px) {
-    .root {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        /* Only one column in mobile view. */
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .sidebarContainer {
-        grid-column: 1;
-        grid-row: auto;
-        height: auto;
-        border-top: 1px solid rgb(var(--venia-global-color-border));
-    }
 }

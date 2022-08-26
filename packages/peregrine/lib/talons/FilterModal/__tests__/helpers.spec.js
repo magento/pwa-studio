@@ -1,4 +1,8 @@
-import { getFiltersFromSearch, getFilterInput } from '../helpers';
+import {
+    getFiltersFromSearch,
+    getFilterInput,
+    sortFiltersArray
+} from '../helpers';
 
 describe('#getFiltersFromSearch', () => {
     test('returns filter values from a search string', () => {
@@ -93,5 +97,148 @@ describe('#getFilterInput', () => {
 
             expect(filterInput).toEqual(expected);
         });
+    });
+});
+
+describe('#sortFiltersArray', () => {
+    test('returns sorted filters array', () => {
+        const initialFiltersArray = [
+            {
+                attribute_code: 'code_c',
+                label: 'C - Label',
+                position: 0
+            },
+            {
+                attribute_code: 'code_b',
+                label: 'B - Label',
+                position: 0
+            },
+            {
+                attribute_code: 'code_f',
+                label: 'Label - F',
+                position: 20
+            },
+            {
+                attribute_code: 'category_id',
+                label: 'label',
+                position: null
+            },
+            {
+                attribute_code: 'code_e',
+                label: 'Label - E',
+                position: 10
+            },
+            {
+                attribute_code: 'code_a',
+                label: 'A - Label',
+                position: 0
+            }
+        ];
+        const sortedFilters = sortFiltersArray(initialFiltersArray);
+
+        expect(sortedFilters).toMatchInlineSnapshot(`
+            Array [
+              Object {
+                "attribute_code": "category_id",
+                "label": "label",
+                "position": null,
+              },
+              Object {
+                "attribute_code": "code_a",
+                "label": "A - Label",
+                "position": 0,
+              },
+              Object {
+                "attribute_code": "code_b",
+                "label": "B - Label",
+                "position": 0,
+              },
+              Object {
+                "attribute_code": "code_c",
+                "label": "C - Label",
+                "position": 0,
+              },
+              Object {
+                "attribute_code": "code_e",
+                "label": "Label - E",
+                "position": 10,
+              },
+              Object {
+                "attribute_code": "code_f",
+                "label": "Label - F",
+                "position": 20,
+              },
+            ]
+        `);
+    });
+    test('returns sorted filters array with entry containing category_uid attribute code', () => {
+        const initialFiltersArray = [
+            {
+                attribute_code: 'code_c',
+                label: 'C - Label',
+                position: 0
+            },
+            {
+                attribute_code: 'code_b',
+                label: 'B - Label',
+                position: 0
+            },
+            {
+                attribute_code: 'code_f',
+                label: 'Label - F',
+                position: 20
+            },
+            {
+                attribute_code: 'category_uid',
+                label: 'label',
+                position: null
+            },
+            {
+                attribute_code: 'code_e',
+                label: 'Label - E',
+                position: 10
+            },
+            {
+                attribute_code: 'code_a',
+                label: 'A - Label',
+                position: 0
+            }
+        ];
+        const sortedFilters = sortFiltersArray(initialFiltersArray);
+
+        expect(sortedFilters).toMatchInlineSnapshot(`
+            Array [
+              Object {
+                "attribute_code": "category_uid",
+                "label": "label",
+                "position": null,
+              },
+              Object {
+                "attribute_code": "code_a",
+                "label": "A - Label",
+                "position": 0,
+              },
+              Object {
+                "attribute_code": "code_b",
+                "label": "B - Label",
+                "position": 0,
+              },
+              Object {
+                "attribute_code": "code_c",
+                "label": "C - Label",
+                "position": 0,
+              },
+              Object {
+                "attribute_code": "code_e",
+                "label": "Label - E",
+                "position": 10,
+              },
+              Object {
+                "attribute_code": "code_f",
+                "label": "Label - F",
+                "position": 20,
+              },
+            ]
+        `);
     });
 });

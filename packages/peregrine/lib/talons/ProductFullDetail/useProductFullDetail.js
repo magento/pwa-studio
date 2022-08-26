@@ -11,10 +11,13 @@ import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/ut
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './productFullDetail.gql';
+import { useEventingContext } from '../../context/eventing';
+import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
 const OUT_OF_STOCK_CODE = 'OUT_OF_STOCK';
+const IN_STOCK_CODE = 'IN_STOCK';
 
 const deriveOptionCodesFromProduct = product => {
     // If this is a simple product it has no option codes.
@@ -78,9 +81,23 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
             optionSelections,
             variants
         });
+        const stockStatus = item?.product?.stock_status;
 
-        return item.product.stock_status === OUT_OF_STOCK_CODE;
+        return stockStatus === OUT_OF_STOCK_CODE || !stockStatus;
     }
+    return stock_status === OUT_OF_STOCK_CODE;
+};
+const getIsAllOutOfStock = product => {
+    const { stock_status, variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+
+    if (isConfigurable) {
+        const inStockItem = variants.find(item => {
+            return item.product.stock_status === IN_STOCK_CODE;
+        });
+        return !inStockItem;
+    }
+
     return stock_status === OUT_OF_STOCK_CODE;
 };
 
@@ -154,7 +171,7 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         0;
 
     if (!isConfigurable || !optionsSelected) {
-        value = product.price.regularPrice.amount;
+        value = product.price_range?.maximum_price;
     } else {
         const item = findMatchingVariant({
             optionCodes,
@@ -163,11 +180,43 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
         });
 
         value = item
-            ? item.product.price.regularPrice.amount
-            : product.price.regularPrice.amount;
+            ? item.product.price_range?.maximum_price
+            : product.price_range?.maximum_price;
     }
 
     return value;
+};
+
+const attributeLabelCompare = (attribute1, attribute2) => {
+    const label1 = attribute1['attribute_metadata']['label'].toLowerCase();
+    const label2 = attribute2['attribute_metadata']['label'].toLowerCase();
+    if (label1 < label2) return -1;
+    else if (label1 > label2) return 1;
+    else return 0;
+};
+
+const getCustomAttributes = (product, optionCodes, optionSelections) => {
+    const { custom_attributes, variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (isConfigurable && optionsSelected) {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        return item && item.product
+            ? [...item.product.custom_attributes].sort(attributeLabelCompare)
+            : [];
+    }
+
+    return custom_attributes
+        ? [...custom_attributes].sort(attributeLabelCompare)
+        : [];
 };
 
 /**
@@ -195,6 +244,8 @@ export const useProductFullDetail = props => {
         addSimpleProductToCartMutation,
         product
     } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const hasDeprecatedOperationProp = !!(
         addConfigurableProductToCartMutation || addSimpleProductToCartMutation
@@ -255,6 +306,8 @@ export const useProductFullDetail = props => {
         derivedOptionSelections
     );
 
+    const [singleOptionSelection, setSingleOptionSelection] = useState();
+
     const derivedOptionCodes = useMemo(
         () => deriveOptionCodesFromProduct(product),
         [product]
@@ -271,8 +324,53 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
+    // Check if display out of stock products option is selected in the Admin Dashboard
+    const isOutOfStockProductDisplayed = useMemo(() => {
+        let totalVariants = 1;
+        const isConfigurable = isProductConfigurable(product);
+        if (product.configurable_options && isConfigurable) {
+            for (const option of product.configurable_options) {
+                const length = option.values.length;
+                totalVariants = totalVariants * length;
+            }
+            return product.variants.length === totalVariants;
+        }
+    }, [product]);
+
+    const isEverythingOutOfStock = useMemo(() => getIsAllOutOfStock(product), [
+        product
+    ]);
+
+    const outOfStockVariants = useMemo(
+        () =>
+            getOutOfStockVariants(
+                product,
+                optionCodes,
+                singleOptionSelection,
+                optionSelections,
+                isOutOfStockProductDisplayed
+            ),
+        [
+            product,
+            optionCodes,
+            singleOptionSelection,
+            optionSelections,
+            isOutOfStockProductDisplayed
+        ]
+    );
+
     const mediaGalleryEntries = useMemo(
         () => getMediaGalleryEntries(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
+    const customAttributes = useMemo(
+        () => getCustomAttributes(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
+    const productPrice = useMemo(
+        () => getConfigPrice(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
     );
 
@@ -298,7 +396,7 @@ export const useProductFullDetail = props => {
         optionSelections.forEach((value, key) => {
             const values = attributeIdToValuesMap.get(key);
 
-            const selectedValue = values.find(
+            const selectedValue = values?.find(
                 item => item.value_index === value
             );
 
@@ -383,6 +481,29 @@ export const useProductFullDetail = props => {
 
                 try {
                     await addProductToCart({ variables });
+
+                    const selectedOptionsLabels =
+                        selectedOptionsArray?.map((uid, i) => ({
+                            attribute: product.configurable_options[i].label,
+                            value:
+                                product.configurable_options[i].values.findLast(
+                                    x => x.uid === uid
+                                )?.label || null
+                        })) || null;
+
+                    dispatch({
+                        type: 'CART_ADD_ITEM',
+                        payload: {
+                            cartId,
+                            sku: product.sku,
+                            name: product.name,
+                            priceTotal: productPrice.final_price.value,
+                            currencyCode: productPrice.final_price.currency,
+                            discountAmount: productPrice.discount.amount_off,
+                            selectedOptions: selectedOptionsLabels,
+                            quantity
+                        }
+                    });
                 } catch {
                     return;
                 }
@@ -393,11 +514,13 @@ export const useProductFullDetail = props => {
             addProductToCart,
             addSimpleProductToCart,
             cartId,
+            dispatch,
             hasDeprecatedOperationProp,
             isSupportedProductType,
             optionCodes,
             optionSelections,
             product,
+            productPrice,
             productType,
             selectedOptionsArray
         ]
@@ -410,20 +533,20 @@ export const useProductFullDetail = props => {
             const nextOptionSelections = new Map([...optionSelections]);
             nextOptionSelections.set(optionId, selection);
             setOptionSelections(nextOptionSelections);
+            // Create a new Map to keep track of single selections with key as String
+            const nextSingleOptionSelection = new Map();
+            nextSingleOptionSelection.set(optionId, selection);
+            setSingleOptionSelection(nextSingleOptionSelection);
         },
         [optionSelections]
-    );
-
-    const productPrice = useMemo(
-        () => getConfigPrice(product, optionCodes, optionSelections),
-        [product, optionCodes, optionSelections]
     );
 
     // Normalization object for product details we need for rendering.
     const productDetails = {
         description: product.description,
+        shortDescription: product.short_description,
         name: product.name,
-        price: productPrice,
+        price: productPrice?.final_price,
         sku: product.sku
     };
 
@@ -475,8 +598,11 @@ export const useProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isOutOfStock,
+        isEverythingOutOfStock,
+        outOfStockVariants,
         isAddToCartDisabled:
             isOutOfStock ||
+            isEverythingOutOfStock ||
             isMissingOptions ||
             isAddConfigurableLoading ||
             isAddSimpleLoading ||
@@ -488,6 +614,7 @@ export const useProductFullDetail = props => {
             storeConfigData &&
             !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
         productDetails,
+        customAttributes,
         wishlistButtonProps,
         wishlistItemOptions
     };

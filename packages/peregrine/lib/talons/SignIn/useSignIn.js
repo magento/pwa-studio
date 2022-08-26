@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
 import { useApolloClient, useMutation } from '@apollo/client';
 
+import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha/useGoogleReCaptcha';
 import mergeOperations from '../../util/shallowMerge';
 import { useCartContext } from '../../context/cart';
 import { useUserContext } from '../../context/user';
@@ -8,6 +9,7 @@ import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
 
 import DEFAULT_OPERATIONS from './signIn.gql';
+import { useEventingContext } from '../../context/eventing';
 
 export const useSignIn = props => {
     const {
@@ -38,8 +40,19 @@ export const useSignIn = props => {
         { getUserDetails, setToken }
     ] = useUserContext();
 
+    const [, { dispatch }] = useEventingContext();
+
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
+    });
+
+    const {
+        generateReCaptchaData,
+        recaptchaLoading,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_LOGIN',
+        formAction: 'signIn'
     });
 
     const [fetchCartId] = useMutation(createCartMutation);
@@ -57,16 +70,23 @@ export const useSignIn = props => {
                 // Get source cart id (guest cart id).
                 const sourceCartId = cartId;
 
+                // Get recaptchaV3 data for login
+                const recaptchaData = await generateReCaptchaData();
+
                 // Sign in and set the token.
                 const signInResponse = await signIn({
-                    variables: { email, password }
+                    variables: {
+                        email,
+                        password
+                    },
+                    ...recaptchaData
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
-                await apolloClient.clearCacheData(apolloClient, 'checkout');
+                await apolloClient.clearCacheData(apolloClient, 'customer');
                 await removeCart();
 
                 // Create and get the customer's cart id.
@@ -84,7 +104,20 @@ export const useSignIn = props => {
                 });
 
                 // Ensure old stores are updated with any new data.
-                getUserDetails({ fetchUserDetails });
+
+                await getUserDetails({ fetchUserDetails });
+
+                const { data } = await fetchUserDetails({
+                    fetchPolicy: 'cache-only'
+                });
+
+                dispatch({
+                    type: 'USER_SIGN_IN',
+                    payload: {
+                        ...data.customer
+                    }
+                });
+
                 getCartDetails({ fetchCartId, fetchCartDetails });
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
@@ -96,17 +129,19 @@ export const useSignIn = props => {
         },
         [
             cartId,
-            apolloClient,
-            removeCart,
+            generateReCaptchaData,
             signIn,
             setToken,
+            apolloClient,
+            removeCart,
             createCart,
             fetchCartId,
             mergeCarts,
             getUserDetails,
             fetchUserDetails,
             getCartDetails,
-            fetchCartDetails
+            fetchCartDetails,
+            dispatch
         ]
     );
 
@@ -144,7 +179,8 @@ export const useSignIn = props => {
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy: isGettingDetails || isSigningIn,
-        setFormApi
+        isBusy: isGettingDetails || isSigningIn || recaptchaLoading,
+        setFormApi,
+        recaptchaWidgetProps
     };
 };

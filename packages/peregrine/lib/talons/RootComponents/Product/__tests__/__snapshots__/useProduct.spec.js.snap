@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should dispatch page view event 1`] = `
+Object {
+  "payload": Object {
+    "currency_code": "USD",
+    "id": 1,
+    "name": "Karena Halter Dress",
+    "price_range": Object {
+      "maximum_price": Object {
+        "final_price": "100",
+      },
+    },
+    "sku": "TEST",
+    "url_key": "karena-halter-dress",
+  },
+  "type": "PRODUCT_PAGE_VIEW",
+}
+`;

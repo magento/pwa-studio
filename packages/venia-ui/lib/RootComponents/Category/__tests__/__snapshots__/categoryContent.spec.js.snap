@@ -13,6 +13,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -41,6 +42,16 @@ Array [
             className="headerButtons"
           >
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -100,6 +111,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -135,6 +147,16 @@ Array [
               }
             />
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -201,6 +223,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -236,6 +259,16 @@ Array [
               }
             />
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -302,6 +335,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -345,6 +379,16 @@ Array [
               }
             />
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -411,6 +455,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -461,6 +506,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -529,6 +575,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -557,6 +604,16 @@ Array [
             className="headerButtons"
           >
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {
@@ -616,6 +673,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -666,6 +724,7 @@ Array [
       className="categoryHeader"
     >
       <h1
+        aria-live="polite"
         className="title"
       >
         <div
@@ -694,6 +753,16 @@ Array [
             className="headerButtons"
           >
             <ProductSort
+              availableSortMethods={
+                Array [
+                  Object {
+                    "attribute": "sortItem.attribute",
+                    "id": "sortItem.method",
+                    "sortDirection": "ASC",
+                    "text": "sortItem.text",
+                  },
+                ]
+              }
               sortProps={
                 Array [
                   Object {

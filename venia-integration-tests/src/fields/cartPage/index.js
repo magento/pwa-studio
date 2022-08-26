@@ -1,5 +1,8 @@
 export const cartPageRoot = '[data-cy="CartPage-root"]';
 
+export const cartPageHeading =
+    '[data-cy="CartPage-root"] [data-cy="CartPage-heading"]';
+
 export const productListingProduct =
     '[data-cy="CartPage-root"] [data-cy="ProductListing-root"] [data-cy="Product-root"]';
 
@@ -11,6 +14,9 @@ export const kebabMenuButton = '[data-cy="Kebab-button"]';
 export const saveForLaterButton = '[data-cy="addToListButton-root"]';
 
 export const cartPageProductLink = '[data-cy="Product-imageContainer"]';
+
+export const cartPageProductImageLink =
+    '[data-cy="Product-imageContainer"] [data-cy="Product-image"]';
 
 export const kebabMenuEditButton = '[data-cy="Product-Section-editItem"]';
 
@@ -24,7 +30,7 @@ export const editMenuUpdateCartButton =
 
 export const cartPageProductOption = '[data-cy="ProductOptions-optionValue"]';
 
-export const cartPageProductQuantity = '[data-cy="QuantityFields-input"]';
+export const cartPageProductQuantity = '[data-cy="QuantityStepper-input"]';
 
 export const cartPageProductPrice = '[data-cy="Product-price"]';
 
@@ -35,8 +41,20 @@ export const productKebab = '[data-cy="Kebab-button"]';
 export const productSectionRemoveFromCartButton =
     '[data-cy="Product-Section-removeFromCart"] [data-cy="LegacyMiniCart-Section-button"]';
 
+export const cartPagePriceSummaryTotalValue =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-totalValue"]';
+
+export const cartPagePriceSummarySubtotalValue =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-subtotalValue"]';
+
 export const cartPagePriceSummaryDiscountSummary =
-    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-label"]';
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-Label"]';
+
+export const cartPageDiscountSummaryDropdownButton =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="DiscountSummary-DiscountValue-TriggerButton"]';
+
+export const cartPageDiscountSummaryIndividualDiscount =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="DiscountSummary-IndividualDiscount"]';
 
 export const cartPagePriceSummaryGiftCardSummary =
     '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-GiftCardSummary-label"]';
@@ -68,6 +86,9 @@ export const shippingMethodPostCodeTextField =
 export const shippingMethodSubmitButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="ShippingMethods-ShippingForm-submit"]';
 
+export const shippingMethodSection =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="ShippingMethods-root"]';
+
 export const couponCodeSectionButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-couponCodeSection"] [data-cy="Section-titleContainer"]';
 
@@ -76,6 +97,9 @@ export const couponCodeCouponCodeTextField =
 
 export const couponCodeSubmitButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="CouponCode-submit"]';
+
+export const couponCodeForm =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="CouponCode-form"]';
 
 export const couponCodeRemoveButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="CouponCode-removeCouponButton"]';
@@ -92,6 +116,8 @@ export const giftCardCardTextField =
 export const giftCardCardApplyButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftCards-apply"]';
 
+export const giftCardsForm =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-giftCardSection"] [data-cy="GiftCards-form"]';
 export const giftOptionsSection =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-giftOptionsSection"]';
 
@@ -119,6 +145,17 @@ export const giftOptionsCardFromInput =
 export const giftOptionsCardMessageTextarea =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-cardMessage"]';
 
+export const giftOptionsForm =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-form"]';
+
+export const cartPagePriceSummarySubtotalLabel =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-lineItemLabel"]';
+
+export const cartPagePriceSummaryTotalLabel =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-totalLabel"]';
+
+export const cartPagePriceAdjustmentSectionTitleButtons =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="Section-titleContainer"]';
 export const giftOptionsEditGiftMessageButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-editGiftMessageButton"]';
 

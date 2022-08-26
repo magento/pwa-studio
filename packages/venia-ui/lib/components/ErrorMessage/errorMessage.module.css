@@ -2,8 +2,8 @@
 }
 
 .errorMessage {
-    color: rgb(var(--venia-global-color-error));
-    font-size: var(--venia-typography-body-S-fontSize);
-    font-weight: var(--venia-global-fontWeight-semibold);
-    line-height: var(--venia-global-lineHeight-300);
+    composes: font-semibold from global;
+    composes: leading-normal from global;
+    composes: text-error from global;
+    composes: text-sm from global;
 }

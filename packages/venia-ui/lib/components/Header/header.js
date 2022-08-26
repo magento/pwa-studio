@@ -17,6 +17,7 @@ import StoreSwitcher from './storeSwitcher';
 import CurrencySwitcher from './currencySwitcher';
 import MegaMenu from '../MegaMenu';
 import PageLoadingIndicator from '../PageLoadingIndicator';
+import { useIntl } from 'react-intl';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
@@ -36,7 +37,10 @@ const Header = props => {
     const searchBarFallback = (
         <div className={classes.searchFallback} ref={searchRef}>
             <div className={classes.input}>
-                <div className={classes.loader} />
+                <div className={classes.loader}>
+                    <div className={classes.loaderBefore} />
+                    <div className={classes.loaderAfter} />
+                </div>
             </div>
         </div>
     );
@@ -48,10 +52,13 @@ const Header = props => {
         </Suspense>
     ) : null;
 
+    const { formatMessage } = useIntl();
+    const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
+
     return (
         <Fragment>
             <div className={classes.switchersContainer}>
-                <div className={classes.switchers}>
+                <div className={classes.switchers} data-cy="Header-switchers">
                     <StoreSwitcher />
                     <CurrencySwitcher />
                 </div>
@@ -66,8 +73,10 @@ const Header = props => {
                         isOnline={isOnline}
                     />
                     <Link
+                        aria-label={title}
                         to={resourceUrl('/')}
                         className={classes.logoContainer}
+                        data-cy="Header-logoContainer"
                     >
                         <Logo classes={{ logo: classes.logo }} />
                     </Link>

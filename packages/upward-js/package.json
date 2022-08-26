@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-js",
-  "version": "5.2.0",
+  "version": "5.3.2",
   "publishConfig": {
     "access": "public"
   },
@@ -25,14 +25,14 @@
     "express",
     "upward"
   ],
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/upward-js#readme",
   "dependencies": {
-    "@apollo/client": "~3.4.0",
+    "@apollo/client": "~3.5.0",
     "camelspace": "~1.0.0",
     "connect": "~3.6.6",
     "contains-path": "~1.0.0",
@@ -48,7 +48,7 @@
     "node-fetch": "~2.6.1"
   },
   "devDependencies": {
-    "@magento/upward-spec": "~5.1.0",
+    "@magento/upward-spec": "~5.2.1",
     "express": "~4.16.4",
     "supertest": "~3.4.2"
   },

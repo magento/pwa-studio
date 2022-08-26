@@ -21,6 +21,7 @@ export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
                     label
                     value
                 }
+                position
             }
         }
     }
@@ -47,9 +48,16 @@ export const PRODUCT_SEARCH = gql`
                 name
                 price_range {
                     maximum_price {
+                        final_price {
+                            currency
+                            value
+                        }
                         regular_price {
                             currency
                             value
+                        }
+                        discount {
+                            amount_off
                         }
                     }
                 }
@@ -82,9 +90,23 @@ export const GET_FILTER_INPUTS = gql`
     }
 `;
 
+export const GET_SEARCH_AVAILABLE_SORT_METHODS = gql`
+    query getSearchAvailableSortMethods($search: String!) {
+        products(search: $search) {
+            sort_fields {
+                options {
+                    label
+                    value
+                }
+            }
+        }
+    }
+`;
+
 export default {
     getFilterInputsQuery: GET_FILTER_INPUTS,
     getPageSize: GET_PAGE_SIZE,
     getProductFiltersBySearchQuery: GET_PRODUCT_FILTERS_BY_SEARCH,
+    getSearchAvailableSortMethods: GET_SEARCH_AVAILABLE_SORT_METHODS,
     productSearchQuery: PRODUCT_SEARCH
 };

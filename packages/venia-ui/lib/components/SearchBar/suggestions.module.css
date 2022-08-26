@@ -1,6 +1,6 @@
 .heading {
-    color: rgb(var(--venia-global-color-text-alt));
-    font-size: 0.875rem;
-    padding-top: 0.75rem;
-    text-transform: uppercase;
+    composes: pt-3 from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
+    composes: uppercase from global;
 }

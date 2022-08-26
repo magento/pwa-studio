@@ -18,6 +18,11 @@ exports[`renders a placeholder item while awaiting item 1`] = `
         className="image placeholder_layoutOnly"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+        style={
+          Object {
+            "--width": "100px",
+          }
+        }
         width={100}
       />
       <img
@@ -27,6 +32,7 @@ exports[`renders a placeholder item while awaiting item 1`] = `
         onError={[MockFunction]}
         onLoad={[MockFunction]}
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+        style={Object {}}
       />
     </div>
   </div>
@@ -73,6 +79,12 @@ exports[`renders correctly with valid item data 1`] = `
         height={375}
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+        style={
+          Object {
+            "--height": "375px",
+            "--width": "100px",
+          }
+        }
         width={100}
       />
       <img
@@ -92,6 +104,11 @@ exports[`renders correctly with valid item data 1`] = `
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+        style={
+          Object {
+            "--width": "100px",
+          }
+        }
         width={100}
       />
     </div>
@@ -133,7 +150,7 @@ exports[`renders correctly with valid item data 1`] = `
           "name": "Test Product",
           "price_range": Object {
             "maximum_price": Object {
-              "regular_price": Object {
+              "final_price": Object {
                 "currency": "USD",
                 "value": 21,
               },

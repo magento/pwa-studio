@@ -33,6 +33,7 @@ const MiniCart = React.forwardRef((props, ref) => {
     useScrollLock(isOpen);
 
     const talonProps = useMiniCart({
+        isOpen,
         setIsOpen,
         operations
     });
@@ -80,15 +81,18 @@ const MiniCart = React.forwardRef((props, ref) => {
             <div className={classes.stockStatusMessageContainer}>
                 <StockStatusMessage cartItems={productList} />
             </div>
-            <span className={quantityClassName}>
+            <span
+                data-cy="MiniCart-totalQuantity"
+                className={quantityClassName}
+            >
                 <FormattedMessage
                     id={'miniCart.totalQuantity'}
                     defaultMessage={'{totalQuantity} Items'}
                     values={{ totalQuantity }}
                 />
             </span>
-            <span className={priceClassName}>
-                <span>
+            <span data-cy="MiniCart-subtotalPrice" className={priceClassName}>
+                <span data-cy="MiniCart-subtotalPriceLabel">
                     <FormattedMessage
                         id={'miniCart.subtotal'}
                         defaultMessage={'Subtotal: '}

@@ -1,20 +1,16 @@
 .root {
-    padding-right: 1.5rem;
+    composes: pr-0 from global;
+
+    composes: lg_grid from global;
+    composes: lg_pr-sm from global;
 }
 
 .heading {
-    font-weight: var(--venia-global-fontWeight-bold);
-    padding-bottom: 0.75rem;
+    composes: font-bold from global;
+    composes: pb-3 from global;
 }
 
 .itemsContainer {
-    display: grid;
-    row-gap: 2.5rem;
-}
-
-@media (max-width: 960px) {
-    .root {
-        display: grid;
-        padding-right: 0rem;
-    }
+    composes: grid from global;
+    composes: gap-y-md from global;
 }

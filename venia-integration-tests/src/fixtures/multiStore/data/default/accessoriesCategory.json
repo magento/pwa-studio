@@ -1,0 +1,120 @@
+{
+  "data": {
+    "categories": {
+      "items": [
+        {
+          "breadcrumbs": null,
+          "description": null,
+          "uid": "Mw==",
+          "meta_title": null,
+          "meta_keywords": null,
+          "meta_description": "Accessories",
+          "name": "Accessories",
+          "url_path": "venia-accessories",
+          "__typename": "CategoryTree"
+        }
+      ],
+      "__typename": "CategoryResult"
+    },
+    "products": {
+      "items": [
+        {
+          "id": 5,
+          "uid": "NQ==",
+          "name": "Silver Sol Earrings",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 48,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 48,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VA15-SI-NA",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va15-si_main.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "SimpleProduct",
+          "url_key": "silver-sol-earrings"
+        },
+        {
+          "id": 4,
+          "uid": "NA==",
+          "name": "Augusta Necklace",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VA14-SI-NA",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va14-ts_main.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "SimpleProduct",
+          "url_key": "augusta-necklace"
+        },
+        {
+          "id": 3,
+          "uid": "Mw==",
+          "name": "Carmina Necklace",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 98,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VA13-GO-NA",
+          "small_image": {
+            "url": "https:\/\/master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud\/media\/catalog\/product\/cache\/89b95971682c72ea898815b5daec2278\/v\/a\/va13-sg_main.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "rating_summary": 0,
+          "__typename": "SimpleProduct",
+          "url_key": "carmina-necklace"
+        }
+      ],
+      "page_info": {
+        "total_pages": 1,
+        "__typename": "SearchResultPageInfo"
+      },
+      "total_count": 3,
+      "__typename": "Products"
+    }
+  }
+}

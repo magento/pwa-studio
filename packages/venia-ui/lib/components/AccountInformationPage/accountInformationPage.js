@@ -30,7 +30,8 @@ const AccountInformationPage = props => {
         isUpdateMode,
         loadDataError,
         shouldShowNewPassword,
-        showUpdateMode
+        showUpdateMode,
+        recaptchaWidgetProps
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -110,6 +111,7 @@ const AccountInformationPage = props => {
                         onChangePassword={handleChangePassword}
                         onSubmit={handleSubmit}
                         shouldShowNewPassword={shouldShowNewPassword}
+                        recaptchaWidgetProps={recaptchaWidgetProps}
                     />
                 </Suspense>
             </Fragment>
@@ -125,6 +127,7 @@ const AccountInformationPage = props => {
                 })}
             </StoreTitle>
             <h1
+                aria-live="polite"
                 className={classes.title}
                 data-cy="AccountInformationPage-title"
             >

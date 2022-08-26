@@ -1,5 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
-import { array, shape, string, func, number } from 'prop-types';
+import { array, func, number, shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
 import setValidator from '@magento/peregrine/lib/validators/set';
 import { useFilterList } from '@magento/peregrine/lib/talons/FilterModal';
@@ -7,6 +7,7 @@ import { useFilterList } from '@magento/peregrine/lib/talons/FilterModal';
 import { useStyle } from '../../../classify';
 import FilterItem from './filterItem';
 import defaultClasses from './filterList.module.css';
+import FilterItemRadioGroup from './filterItemRadioGroup';
 
 const labels = new WeakMap();
 
@@ -14,6 +15,8 @@ const FilterList = props => {
     const {
         filterApi,
         filterState,
+        filterFrontendInput,
+        name,
         group,
         itemCountToShow,
         items,
@@ -26,50 +29,70 @@ const FilterList = props => {
 
     // memoize item creation
     // search value is not referenced, so this array is stable
-    const itemElements = useMemo(
-        () =>
-            items.map((item, index) => {
-                const { title, value } = item;
-                const key = `item-${group}-${value}`;
+    const itemElements = useMemo(() => {
+        if (filterFrontendInput === 'boolean') {
+            const key = `item-${group}`;
+            return (
+                <li
+                    key={key}
+                    className={classes.item}
+                    data-cy="FilterList-item"
+                >
+                    <FilterItemRadioGroup
+                        filterApi={filterApi}
+                        filterState={filterState}
+                        group={group}
+                        name={name}
+                        items={items}
+                        onApply={onApply}
+                        labels={labels}
+                    />
+                </li>
+            );
+        }
 
-                if (!isListExpanded && index >= itemCountToShow) {
-                    return null;
-                }
+        return items.map((item, index) => {
+            const { title, value } = item;
+            const key = `item-${group}-${value}`;
 
-                // create an element for each item
-                const element = (
-                    <li
-                        key={key}
-                        className={classes.item}
-                        data-cy="FilterList-item"
-                    >
-                        <FilterItem
-                            filterApi={filterApi}
-                            filterState={filterState}
-                            group={group}
-                            item={item}
-                            onApply={onApply}
-                        />
-                    </li>
-                );
+            if (!isListExpanded && index >= itemCountToShow) {
+                return null;
+            }
 
-                // associate each element with its normalized title
-                // titles are not unique, so use the element as the key
-                labels.set(element, title.toUpperCase());
+            // create an element for each item
+            const element = (
+                <li
+                    key={key}
+                    className={classes.item}
+                    data-cy="FilterList-item"
+                >
+                    <FilterItem
+                        filterApi={filterApi}
+                        filterState={filterState}
+                        group={group}
+                        item={item}
+                        onApply={onApply}
+                    />
+                </li>
+            );
 
-                return element;
-            }),
-        [
-            classes,
-            filterApi,
-            filterState,
-            group,
-            items,
-            isListExpanded,
-            itemCountToShow,
-            onApply
-        ]
-    );
+            // associate each element with its normalized title
+            // titles are not unique, so use the element as the key
+            labels.set(element, title.toUpperCase());
+            return element;
+        });
+    }, [
+        classes,
+        filterApi,
+        filterState,
+        filterFrontendInput,
+        name,
+        group,
+        items,
+        isListExpanded,
+        itemCountToShow,
+        onApply
+    ]);
 
     const showMoreLessItem = useMemo(() => {
         if (items.length <= itemCountToShow) {
@@ -128,6 +151,7 @@ FilterList.propTypes = {
     }),
     filterApi: shape({}),
     filterState: setValidator,
+    name: string,
     group: string,
     items: array,
     onApply: func,

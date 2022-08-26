@@ -129,3 +129,6 @@ export const defaultShippingMethods = {
         label: 'Fixed'
     }
 };
+
+export const braintreeFormAction = 'braintree';
+export const placeOrderFormAction = 'placeOrder';

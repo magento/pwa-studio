@@ -1,0 +1,9 @@
+.label {
+    composes: font-bold from global;
+    composes: inline-block from global;
+    composes: mr-2 from global;
+}
+
+.content {
+    composes: inline-block from global;
+}

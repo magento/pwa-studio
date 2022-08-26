@@ -12,6 +12,10 @@ export const placeOrder = () => {
     cy.get(fields.checkoutPagePlaceOrderButton).click();
 };
 
+export const selectCreditCardPaymentMethod = () => {
+    cy.get(fields.checkoutPageCreditCardPaymentSelectInput).click();
+};
+
 /**
  * Utility function to set Guest Shipping Address
  *
@@ -234,7 +238,8 @@ export const editCreditCardInformation = ({
     expiration,
     cvv
 }) => {
-    cy.get(fields.checkoutPageCreditCardCardholderName)
+    cy.getIframeBody(fields.checkoutPageCreditCardNameFrame)
+        .find(fields.checkoutPageCreditCardCardFrameholderName)
         .clear()
         .type(name);
 
@@ -345,9 +350,9 @@ export const openEditPaymentInformationDialog = () => {
 };
 
 /**
- * Utility function to enable Biiling Address Form on CheckoutPage
+ * Utility function to toggle Biiling Address Form on CheckoutPage
  */
-export const enableBillingAddressForm = () => {
+export const toggleBillingAddressForm = () => {
     cy.get(fields.checkoutPageCreditCardBillingAddressCheckbox).click();
 };
 

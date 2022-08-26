@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-studio",
-  "version": "12.1.0",
+  "version": "12.6.0",
   "private": true,
   "workspaces": [
     "packages/babel-preset-peregrine",
@@ -15,7 +15,7 @@
     "packages/venia-concept",
     "packages/venia-ui"
   ],
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "homepage": "https://github.com/magento/pwa-studio",
   "bugs": {
@@ -44,6 +44,9 @@
     "venia": "yarn workspace @magento/venia-concept",
     "watch:all": "node scripts/watch-all.js",
     "watch:venia": "yarn venia run watch"
+  },
+  "dependencies": {
+    "caniuse-lite": "~1.0.30001335"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "~7.4.4",

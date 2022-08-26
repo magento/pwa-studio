@@ -1,11 +1,8 @@
 .root {
     composes: root from '../clickable.module.css';
-    height: 3rem;
-    width: 3rem;
-}
 
-@media (min-width: 1024px) {
-    .root {
-        display: none;
-    }
+    composes: h-[3rem] from global;
+    composes: w-[3rem] from global;
+
+    composes: lg_hidden from global;
 }

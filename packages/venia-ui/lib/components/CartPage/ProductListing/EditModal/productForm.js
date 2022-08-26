@@ -6,7 +6,7 @@ import { useStyle } from '../../../../classify';
 import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
-import { QuantityFields } from '../quantity';
+import QuantityStepper from '../../../QuantityStepper';
 import defaultClasses from './productForm.module.css';
 import Dialog from '../../../Dialog';
 import ProductDetail from './productDetail';
@@ -31,10 +31,12 @@ const ProductForm = props => {
         errors,
         handleOptionSelection,
         handleSubmit,
+        outOfStockVariants,
         isLoading,
         isSaving,
         isDialogOpen,
-        handleClose
+        handleClose,
+        configurableThumbnailSource
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -90,7 +92,11 @@ const ProductForm = props => {
                     errors={Array.from(errors.values())}
                     scrollOnError={false}
                 />
-                <ProductDetail item={cartItem} variantPrice={variantPrice} />
+                <ProductDetail
+                    item={cartItem}
+                    variantPrice={variantPrice}
+                    configurableThumbnailSource={configurableThumbnailSource}
+                />
                 <Options
                     classes={{
                         root: classes.optionRoot
@@ -98,6 +104,7 @@ const ProductForm = props => {
                     onSelectionChange={handleOptionSelection}
                     options={configItem.configurable_options}
                     selectedValues={cartItem.configurable_options}
+                    outOfStockVariants={outOfStockVariants}
                 />
                 <h3 className={classes.quantityLabel}>
                     <FormattedMessage
@@ -105,7 +112,7 @@ const ProductForm = props => {
                         defaultMessage={'Quantity'}
                     />
                 </h3>
-                <QuantityFields
+                <QuantityStepper
                     classes={{
                         root: classes.quantityRoot
                     }}

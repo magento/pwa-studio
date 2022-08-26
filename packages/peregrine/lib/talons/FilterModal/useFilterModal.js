@@ -6,7 +6,12 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useFilterState } from './useFilterState';
-import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
+import {
+    getSearchFromState,
+    getStateFromSearch,
+    sortFiltersArray,
+    stripHtml
+} from './helpers';
 
 import DEFAULT_OPERATIONS from './filterModal.gql';
 
@@ -50,6 +55,7 @@ export const useFilterModal = props => {
         // Disable category filtering when not on a search page.
         if (pathname !== '/search.html') {
             disabled.add('category_id');
+            disabled.add('category_uid');
         }
 
         return disabled;
@@ -77,13 +83,42 @@ export const useFilterModal = props => {
         return nextFilters;
     }, [DISABLED_FILTERS, attributeCodes, introspectionData]);
 
+    const isBooleanFilter = options => {
+        const optionsString = JSON.stringify(options);
+        return (
+            options.length <= 2 &&
+            (optionsString.includes(
+                JSON.stringify({
+                    __typename: 'AggregationOption',
+                    label: '0',
+                    value: '0'
+                })
+            ) ||
+                optionsString.includes(
+                    JSON.stringify({
+                        __typename: 'AggregationOption',
+                        label: '1',
+                        value: '1'
+                    })
+                ))
+        );
+    };
+
     // iterate over filters once to set up all the collections we need
-    const [filterNames, filterKeys, filterItems] = useMemo(() => {
+    const [
+        filterNames,
+        filterKeys,
+        filterItems,
+        filterFrontendInput
+    ] = useMemo(() => {
         const names = new Map();
         const keys = new Set();
+        const frontendInput = new Map();
         const itemsByGroup = new Map();
 
-        for (const filter of filters) {
+        const sortedFilters = sortFiltersArray([...filters]);
+
+        for (const filter of sortedFilters) {
             const { options, label: name, attribute_code: group } = filter;
 
             // If this aggregation is not a possible filter, just back out.
@@ -96,15 +131,35 @@ export const useFilterModal = props => {
                 // add filter key permutations
                 keys.add(`${group}[filter]`);
 
-                // add items
-                for (const { label, value } of options) {
-                    items.push({ title: stripHtml(label), value });
+                // TODO: Get all frontend input type from gql if other filter input types are needed
+                // See: https://github.com/magento-commerce/magento2-pwa/pull/26
+                if (isBooleanFilter(options)) {
+                    frontendInput.set(group, 'boolean');
+                    // add items
+                    items.push({
+                        title: 'No',
+                        value: '0',
+                        label: name + ':' + 'No'
+                    });
+                    items.push({
+                        title: 'Yes',
+                        value: '1',
+                        label: name + ':' + 'Yes'
+                    });
+                } else {
+                    // Add frontend input type
+                    frontendInput.set(group, null);
+                    // add items
+                    for (const { label, value } of options) {
+                        items.push({ title: stripHtml(label), value });
+                    }
                 }
+
                 itemsByGroup.set(group, items);
             }
         }
 
-        return [names, keys, itemsByGroup];
+        return [names, keys, itemsByGroup, frontendInput];
     }, [filters, possibleFilters]);
 
     // on apply, write filter state to location
@@ -189,6 +244,7 @@ export const useFilterModal = props => {
         filterItems,
         filterKeys,
         filterNames,
+        filterFrontendInput,
         filterState,
         handleApply,
         handleClose,

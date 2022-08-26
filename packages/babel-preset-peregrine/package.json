@@ -1,6 +1,6 @@
 {
   "name": "@magento/babel-preset-peregrine",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "publishConfig": {
     "access": "public"
   },
@@ -10,7 +10,7 @@
     "clean": " "
   },
   "repository": "github:magento/pwa-studio",
-  "author": "Magento Commerce",
+  "author": "Adobe Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"

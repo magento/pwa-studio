@@ -16,6 +16,7 @@ import { useStyle } from '../../../classify';
 
 import defaultClasses from './creditCard.module.css';
 import FormError from '../../FormError';
+import GoogleReCaptcha from '../../GoogleReCaptcha';
 
 const STEP_DESCRIPTIONS = [
     { defaultMessage: 'Loading Payment', id: 'checkoutPage.step0' },
@@ -83,7 +84,8 @@ const CreditCard = props => {
         initialValues,
         shippingAddressCountry,
         shouldTeardownDropin,
-        resetShouldTeardownDropin
+        resetShouldTeardownDropin,
+        recaptchaWidgetProps
     } = talonProps;
 
     const creditCardComponentClassName = isLoading
@@ -154,6 +156,7 @@ const CreditCard = props => {
         <div className={classes.root} data-cy="CreditCard-root">
             <div className={creditCardComponentClassName}>
                 <FormError
+                    allowErrorMessages
                     classes={{ root: classes.formErrorContainer }}
                     errors={Array.from(errors.values())}
                 />
@@ -167,7 +170,10 @@ const CreditCard = props => {
                         resetShouldTeardownDropin={resetShouldTeardownDropin}
                     />
                 </div>
-                <div className={classes.address_check}>
+                <div
+                    data-cy="CreditCard-AddressCheck-root"
+                    className={classes.address_check}
+                >
                     <Checkbox
                         data-cy="PaymentInformation-billingAddressSame"
                         field="isBillingAddressSame"
@@ -179,7 +185,10 @@ const CreditCard = props => {
                         initialValue={initialValues.isBillingAddressSame}
                     />
                 </div>
-                <div className={billingAddressFieldsClassName}>
+                <div
+                    data-cy="CreditCard-billingAddressFields"
+                    className={billingAddressFieldsClassName}
+                >
                     <Field
                         id="firstName"
                         classes={fieldClasses.first_name}
@@ -304,6 +313,7 @@ const CreditCard = props => {
                         />
                     </Field>
                 </div>
+                <GoogleReCaptcha {...recaptchaWidgetProps} />
             </div>
             {loadingIndicator}
         </div>

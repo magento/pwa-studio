@@ -4,11 +4,11 @@ adobeio: /integrations/pagebuilder/
 ---
 
 {: .bs-callout-info}
-The Page Builder integration to PWA Studio is only compatible with Magento Commerce 2.3.4+. A GraphQL change within Magento Commerce 2.3.4 was necessary in order to integrate the Page Builder Products content type into PWA Studio.
+The Page Builder integration to PWA Studio is only compatible with Adobe Commerce 2.3.4+. A GraphQL change within Adobe Commerce 2.3.4 was necessary in order to integrate the Page Builder Products content type into PWA Studio.
 
 ## Integration overview
 
-At the highest level, the Page Builder integration into PWA Studio simply ensures that CMS Pages built in Magento Commerce with _native_ Page Builder content types are rendered correctly within PWA Studio apps.
+At the highest level, the Page Builder integration into PWA Studio simply ensures that CMS Pages built in Adobe Commerce with _native_ Page Builder content types are rendered correctly within PWA Studio apps.
 
 <div style="position: relative; overflow: hidden; padding-top: 56.25%; border: 1px solid #ccc;">
    <iframe style="position: absolute; top:0; left:0; width: 100%; height:100%; border: 0;" title="Adobe Video Publishing Cloud Player" src="https://video.tv.adobe.com/v/31598t1/?enable10seconds=on&hidetitle=true&quality=9&speedcontrol=on" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen scrolling="no"></iframe>
@@ -16,7 +16,7 @@ At the highest level, the Page Builder integration into PWA Studio simply ensure
 
 ---
 
-The diagram below shows how the PWA Studio makes a request to the Magento Commerce backend to retrieve a CMS page for processing. The Page Builder integration framework processes the original Page Builder HTML and returns a group of React components that faithfully reproduces the Page Builder content for display in a PWA Studio app.
+The diagram below shows how the PWA Studio makes a request to the Adobe Commerce backend to retrieve a CMS page for processing. The Page Builder integration framework processes the original Page Builder HTML and returns a group of React components that faithfully reproduces the Page Builder content for display in a PWA Studio app.
 
 ![Page Builder Integration Big Picture](images/PageBuilderBigPicture1.svg)
 
@@ -88,7 +88,7 @@ The `<ContentTypeFactory />` component parses a property object tree to retrieve
 
 ## How it works
 
-The framework executes on the client side to ensure compatibility with the various hosting options available for Magento Commerce. The following video and subsequent flow diagram describes how the parts of the framework combine to render Page Builder components within the Venia app.
+The framework executes on the client side to ensure compatibility with the various hosting options available for Adobe Commerce. The following video and subsequent flow diagram describes how the parts of the framework combine to render Page Builder components within the Venia app.
 
 <div style="position: relative; overflow: hidden; padding-top: 56.25%; border: 1px solid #ccc;">
    <iframe style="position: absolute; top:0; left:0; width: 100%; height:100%; border: 0;" title="Adobe Video Publishing Cloud Player" src="https://video.tv.adobe.com/v/31596t2/?enable10seconds=on&hidetitle=true&quality=9&speedcontrol=on" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen scrolling="no"></iframe>

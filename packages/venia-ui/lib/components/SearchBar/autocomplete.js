@@ -20,11 +20,13 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                     label
                     value
                 }
+                position
             }
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
                 id
                 uid
+                sku
                 name
                 small_image {
                     url
@@ -36,6 +38,17 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                         amount {
                             value
                             currency
+                        }
+                    }
+                }
+                price_range {
+                    maximum_price {
+                        final_price {
+                            currency
+                            value
+                        }
+                        discount {
+                            amount_off
                         }
                     }
                 }
@@ -123,8 +136,14 @@ const Autocomplete = props => {
             : messageTpl;
 
     return (
-        <div className={rootClassName}>
-            <div className={classes.message}>{message}</div>
+        <div data-cy="Autocomplete-root" className={rootClassName}>
+            <label
+                id="search_query"
+                data-cy="Autocomplete-message"
+                className={classes.message}
+            >
+                {message}
+            </label>
             <div className={classes.suggestions}>
                 <Suggestions
                     displayResult={displayResult}

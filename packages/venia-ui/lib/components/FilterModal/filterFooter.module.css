@@ -1,10 +1,10 @@
 .root {
-    align-items: center;
-    background-color: white;
-    display: grid;
-    height: 7rem;
-    row-gap: 0.25rem;
-    justify-items: center;
-    align-content: center;
-    position: relative;
+    composes: bg-white from global;
+    composes: content-center from global;
+    composes: gap-y-1 from global;
+    composes: grid from global;
+    composes: h-[7rem] from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: relative from global;
 }

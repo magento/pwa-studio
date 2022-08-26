@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#PageBuilder DynamicBlock AC does not render a Dynamic Block component when no uids are provided 1`] = `null`;
+
+exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component inlined 1`] = `
+<span
+  aria-busy="false"
+  aria-live="polite"
+  className=""
+  style={
+    Object {
+      "border": "solid",
+      "borderColor": "red",
+      "borderRadius": "15px",
+      "borderWidth": "10px",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "minHeight": "40px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "right",
+    }
+  }
+>
+  <mock-CmsDynamicBlockGroup
+    uids="uids"
+  />
+</span>
+`;
+
+exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component with custom classes 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className=" test-class"
+  style={
+    Object {
+      "border": "solid",
+      "borderColor": "red",
+      "borderRadius": "15px",
+      "borderWidth": "10px",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "minHeight": "40px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "right",
+    }
+  }
+>
+  <mock-CmsDynamicBlockGroup
+    uids="uids"
+  />
+</div>
+`;
+
+exports[`#PageBuilder DynamicBlock AC renders a Dynamic Block component without custom classes 1`] = `
+<div
+  aria-busy="false"
+  aria-live="polite"
+  className=""
+  style={
+    Object {
+      "border": "solid",
+      "borderColor": "red",
+      "borderRadius": "15px",
+      "borderWidth": "10px",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "minHeight": "40px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "right",
+    }
+  }
+>
+  <mock-CmsDynamicBlockGroup
+    uids="uids"
+  />
+</div>
+`;

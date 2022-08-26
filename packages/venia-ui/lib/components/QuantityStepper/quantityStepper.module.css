@@ -1,0 +1,80 @@
+.root {
+    --stroke: var(--venia-global-color-gray-600);
+
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: text-center from global;
+    grid-template-columns: 1fr 4rem 1fr;
+}
+
+.wrap {
+    composes: flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+}
+
+/* TODO @TW: cannot compose */
+.label:not(:focus):not(:active) {
+    /* composes: sr-only from global; */
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(100%);
+    white-space: nowrap;
+}
+
+.button {
+    composes: bg-white from global;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-button from global;
+    composes: h-[2rem] from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: rounded-full from global;
+    composes: w-[2rem] from global;
+    stroke: rgb(var(--stroke));
+
+    composes: disabled_cursor-not-allowed from global;
+
+    composes: focus_outline-none from global;
+}
+
+.button:hover {
+    --stroke: rgb(var(--venia-global-color-gray-900));
+    border-color: rgb(var(--stroke));
+}
+
+/* TODO @TW: cannot compose */
+.button:disabled,
+.button:disabled:hover {
+    --stroke: rgb(var(--venia-global-color-gray-400));
+    /* composes: border-subtle from global; */
+    border-color: rgb(var(--venia-global-color-gray-400));
+}
+
+.button_decrement {
+    composes: button;
+}
+
+.button_increment {
+    composes: button;
+}
+
+.icon {
+    composes: items-center from global;
+    composes: inline-flex from global;
+    composes: justify-center from global;
+    touch-action: manipulation;
+}
+
+.input {
+    composes: input from '../TextInput/textInput.module.css';
+
+    composes: text-center from global;
+}

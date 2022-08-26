@@ -33,7 +33,12 @@ const CurrencySwitcher = props => {
 
     const currencies = availableCurrencies.map(code => {
         return (
-            <li key={code} className={classes.menuItem}>
+            <li
+                role="option"
+                aria-selected={currentCurrencyCode}
+                key={code}
+                className={classes.menuItem}
+            >
                 <SwitcherItem
                     active={code === currentCurrencyCode}
                     onClick={handleSwitchCurrency}
@@ -51,12 +56,14 @@ const CurrencySwitcher = props => {
     });
 
     return (
-        <div className={classes.root}>
+        <div data-cy="CurrencySwitcher-root" className={classes.root}>
             <button
+                data-cy="CurrencySwitcher-triggerButton"
                 className={classes.trigger}
                 aria-label={currentCurrencyCode}
                 onClick={handleTriggerClick}
                 ref={currencyMenuTriggerRef}
+                aria-expanded={currencyMenuIsOpen}
             >
                 <span className={classes.label}>
                     <CurrencySymbol
@@ -68,7 +75,7 @@ const CurrencySwitcher = props => {
                 </span>
             </button>
             <div ref={currencyMenuRef} className={menuClassName}>
-                <ul>{currencies}</ul>
+                <ul role="listbox">{currencies}</ul>
             </div>
         </div>
     );

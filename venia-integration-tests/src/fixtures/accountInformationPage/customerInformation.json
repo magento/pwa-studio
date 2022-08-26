@@ -1,0 +1,11 @@
+{
+  "data": {
+    "customer": {
+      "id": null,
+      "firstname": "John",
+      "lastname": "Doe",
+      "email": "foo@example.com",
+      "__typename": "Customer"
+    }
+  }
+}

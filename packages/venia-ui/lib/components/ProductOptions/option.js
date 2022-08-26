@@ -34,7 +34,9 @@ const Option = props => {
         label,
         onSelectionChange,
         selectedValue,
-        values
+        values,
+        isEverythingOutOfStock,
+        outOfStockVariants
     } = props;
 
     const talonProps = useOption({
@@ -66,9 +68,14 @@ const Option = props => {
                 selectedValue={initialSelection}
                 items={values}
                 onSelectionChange={handleSelectionChange}
+                isEverythingOutOfStock={isEverythingOutOfStock}
+                outOfStockVariants={outOfStockVariants}
             />
             <dl className={classes.selection}>
-                <dt className={classes.selectionLabel}>
+                <dt
+                    data-cy="ProductOptions-Option-selectedLabel"
+                    className={classes.selectionLabel}
+                >
                     <FormattedMessage
                         id="productOptions.selectedLabel"
                         defaultMessage="Selected {label}:"

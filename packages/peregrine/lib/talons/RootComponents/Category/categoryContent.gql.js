@@ -13,6 +13,7 @@ export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
                     label
                     value
                 }
+                position
             }
         }
     }
@@ -26,6 +27,23 @@ export const GET_CATEGORY_CONTENT = gql`
                 uid
                 name
                 description
+                url_key
+                url_path
+            }
+        }
+    }
+`;
+
+export const GET_CATEGORY_AVAILABLE_SORT_METHODS = gql`
+    query getCategoryAvailableSortMethods(
+        $categoryIdFilter: FilterEqualTypeInput!
+    ) {
+        products(filter: { category_uid: $categoryIdFilter }) {
+            sort_fields {
+                options {
+                    label
+                    value
+                }
             }
         }
     }
@@ -33,5 +51,6 @@ export const GET_CATEGORY_CONTENT = gql`
 
 export default {
     getCategoryContentQuery: GET_CATEGORY_CONTENT,
-    getProductFiltersByCategoryQuery: GET_PRODUCT_FILTERS_BY_CATEGORY
+    getProductFiltersByCategoryQuery: GET_PRODUCT_FILTERS_BY_CATEGORY,
+    getCategoryAvailableSortMethodsQuery: GET_CATEGORY_AVAILABLE_SORT_METHODS
 };

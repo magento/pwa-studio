@@ -5,10 +5,6 @@
 .sortButtonShimmer {
     composes: root_button from '../Shimmer/shimmer.module.css';
     composes: sortButton from './productSort.module.css';
-}
 
-@media (min-width: 1024px) {
-    .sortButtonShimmer {
-        min-width: 12rem;
-    }
+    composes: lg_min-w-[12rem] from global;
 }

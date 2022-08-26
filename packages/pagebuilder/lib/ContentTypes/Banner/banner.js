@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import defaultClasses from './banner.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import { arrayOf, bool, oneOf, shape, string, func } from 'prop-types';
+import { arrayOf, bool, oneOf, shape, string, func, object } from 'prop-types';
 import Button from '@magento/venia-ui/lib/components/Button/button';
-import resolveLinkProps from '../../resolveLinkProps';
+import resolveLinkProps from '@magento/peregrine/lib/util/resolveLinkProps';
 import { Link, useHistory } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import useIntersectionObserver from '@magento/peregrine/lib/hooks/useIntersectionObserver';
+import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 import handleHtmlContentClick from '../../handleHtmlContentClick';
 
 const { matchMedia } = globalThis;
@@ -60,6 +61,7 @@ const Banner = props => {
         marginRight,
         marginBottom,
         marginLeft,
+        mediaQueries,
         paddingTop,
         paddingRight,
         paddingBottom,
@@ -74,6 +76,8 @@ const Banner = props => {
         videoOverlayColor,
         getParallax = () => {}
     } = props;
+
+    const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
 
     let image = desktopImage;
     if (mobileImage && matchMedia && matchMedia('(max-width: 768px)').matches) {
@@ -207,7 +211,6 @@ const Banner = props => {
     }, [backgroundElement, image, intersectionObserver, setBgImage]);
 
     if (appearance === 'poster') {
-        wrapperStyles.minHeight = minHeight;
         overlayStyles.minHeight = minHeight;
         overlayStyles.paddingTop = paddingTop;
         overlayStyles.paddingRight = paddingRight;
@@ -281,11 +284,20 @@ const Banner = props => {
     let BannerFragment = (
         <div
             className={classes.wrapper}
-            style={wrapperStyles}
+            style={{
+                ...wrapperStyles,
+                ...(appearance !== 'poster' && mediaQueryStyles)
+            }}
             ref={backgroundElement}
         >
             {videoOverlay}
-            <div className={overlayClass} style={overlayStyles}>
+            <div
+                className={overlayClass}
+                style={{
+                    ...overlayStyles,
+                    ...(appearance === 'poster' && mediaQueryStyles)
+                }}
+            >
                 <div
                     className={classes.content}
                     style={contentStyles}
@@ -379,6 +391,7 @@ const Banner = props => {
  * @property {String} marginRight CSS margin right property
  * @property {String} marginBottom CSS margin bottom property
  * @property {String} marginLeft CSS margin left property
+ * @property {Array} mediaQueries List of media query rules to be applied to the component
  * @property {String} paddingTop CSS padding top property
  * @property {String} paddingRight CSS padding right property
  * @property {String} paddingBottom CSS padding bottom property
@@ -445,6 +458,12 @@ Banner.propTypes = {
     marginRight: string,
     marginBottom: string,
     marginLeft: string,
+    mediaQueries: arrayOf(
+        shape({
+            media: string,
+            style: object
+        })
+    ),
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,

@@ -7,6 +7,18 @@ Map {
 }
 `;
 
+exports[`handleSubmit should dispatch create account event 1`] = `
+Object {
+  "payload": Object {
+    "email": "gooston@goosemail.com",
+    "firstName": "Gooseton",
+    "isSubscribed": false,
+    "lastName": "Jr",
+  },
+  "type": "USER_CREATE_ACCOUNT",
+}
+`;
+
 exports[`should return properly 1`] = `
 Object {
   "errors": Map {
@@ -24,5 +36,6 @@ Object {
     "userName": "gooseton",
   },
   "isDisabled": false,
+  "recaptchaWidgetProps": Object {},
 }
 `;

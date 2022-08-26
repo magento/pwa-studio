@@ -3,9 +3,9 @@ import { useIntl } from 'react-intl';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
-
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 import DEFAULT_OPERATIONS from './product.gql';
+import { useEventingContext } from '../../../context/eventing';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
@@ -37,6 +37,8 @@ export const useProduct = props => {
         setIsCartUpdating,
         wishlistConfig
     } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
@@ -138,11 +140,33 @@ export const useProduct = props => {
                     itemId: item.uid
                 }
             });
+
+            const selectedOptionsLabels =
+                item.configurable_options?.map(
+                    ({ option_label, value_label }) => ({
+                        attribute: option_label,
+                        value: value_label
+                    })
+                ) || null;
+
+            dispatch({
+                type: 'CART_REMOVE_ITEM',
+                payload: {
+                    cartId,
+                    sku: item.product.sku,
+                    name: item.product.name,
+                    priceTotal: item.prices.price.value,
+                    currencyCode: item.prices.price.currency,
+                    discountAmount: item.prices.total_item_discount.value,
+                    selectedOptions: selectedOptionsLabels,
+                    quantity: item.quantity
+                }
+            });
         } catch (err) {
             // Make sure any errors from the mutation are displayed.
             setDisplayError(true);
         }
-    }, [cartId, item.uid, removeItemFromCart]);
+    }, [cartId, dispatch, item, removeItemFromCart]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
@@ -154,12 +178,34 @@ export const useProduct = props => {
                         quantity
                     }
                 });
+
+                const selectedOptions =
+                    item.configurable_options?.map(
+                        ({ option_label, value_label }) => ({
+                            attribute: option_label,
+                            value: value_label
+                        })
+                    ) || null;
+
+                dispatch({
+                    type: quantity ? 'CART_UPDATE_ITEM' : 'CART_REMOVE_ITEM',
+                    payload: {
+                        cartId,
+                        sku: item.product.sku,
+                        name: item.product.name,
+                        priceTotal: item.prices.price.value,
+                        currencyCode: item.prices.price.currency,
+                        discountAmount: item.prices.total_item_discount.value,
+                        selectedOptions,
+                        quantity: quantity || item.quantity
+                    }
+                });
             } catch (err) {
                 // Make sure any errors from the mutation are displayed.
                 setDisplayError(true);
             }
         },
-        [cartId, item.uid, updateItemQuantity]
+        [cartId, dispatch, item, updateItemQuantity]
     );
 
     useEffect(() => {

@@ -18,7 +18,7 @@ const Component = () => {
     return <GiftOptionsSection />;
 };
 
-describe('#GiftOptionsSection EE', () => {
+describe('#GiftOptionsSection AC', () => {
     it('renders loading', () => {
         useGiftOptionsSection.mockReturnValueOnce({
             giftOptionsConfigData: {},

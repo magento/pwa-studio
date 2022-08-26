@@ -2,6 +2,7 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 
 import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
+import { availableRoutes } from '@magento/venia-ui/lib/components/Routes/routes';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './storeSwitcher.module.css';
@@ -19,7 +20,7 @@ const StoreSwitcher = props => {
         storeMenuTriggerRef,
         storeMenuIsOpen,
         handleTriggerClick
-    } = useStoreSwitcher();
+    } = useStoreSwitcher({ availableRoutes });
 
     const classes = useStyle(defaultClasses, props.classes);
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
@@ -33,7 +34,7 @@ const StoreSwitcher = props => {
 
     storeGroups.forEach((group, key) => {
         const stores = [];
-        group.forEach(({ storeGroupName, storeName, isCurrent, code }) => {
+        group.forEach(({ storeGroupName, storeName, isCurrent, storeCode }) => {
             let label;
             if (hasOnlyOneGroup) {
                 label = `${storeName}`;
@@ -41,11 +42,17 @@ const StoreSwitcher = props => {
                 label = `${storeGroupName} - ${storeName}`;
             }
             stores.push(
-                <li key={code} className={classes.menuItem}>
+                <li
+                    aria-selected={currentStoreName}
+                    role="option"
+                    key={storeCode}
+                    className={classes.menuItem}
+                    data-cy="StoreSwitcher-view"
+                >
                     <SwitcherItem
                         active={isCurrent}
                         onClick={handleSwitchStore}
-                        option={code}
+                        option={storeCode}
                     >
                         {label}
                     </SwitcherItem>
@@ -54,7 +61,12 @@ const StoreSwitcher = props => {
         });
 
         groups.push(
-            <ul className={classes.groupList} key={key}>
+            <ul
+                role="listbox"
+                className={classes.groupList}
+                key={key}
+                data-cy="StoreSwitcher-group"
+            >
                 {stores}
             </ul>
         );
@@ -68,16 +80,23 @@ const StoreSwitcher = props => {
     }
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="StoreSwitcher-root">
             <button
+                data-cy="StoreSwitcher-triggerButton"
                 className={classes.trigger}
                 aria-label={currentStoreName}
                 onClick={handleTriggerClick}
                 ref={storeMenuTriggerRef}
+                data-cy="StoreSwitcher-trigger"
+                aria-expanded={storeMenuIsOpen}
             >
                 {triggerLabel}
             </button>
-            <div ref={storeMenuRef} className={menuClassName}>
+            <div
+                ref={storeMenuRef}
+                className={menuClassName}
+                data-cy="StoreSwitcher-menu"
+            >
                 <div className={classes.groups}>{groups}</div>
             </div>
         </div>

@@ -8,6 +8,7 @@ import { useFilterSidebar } from '../useFilterSidebar';
 jest.mock('../../FilterModal/helpers', () => ({
     getStateFromSearch: jest.fn(() => ({})),
     getSearchFromState: jest.fn(() => 'searchFromState'),
+    sortFiltersArray: jest.fn(props => props),
     stripHtml: jest.fn(() => 'strippedHtml')
 }));
 
@@ -46,7 +47,13 @@ jest.mock('@apollo/client', () => {
                     name: 'category_id'
                 },
                 {
+                    name: 'category_uid'
+                },
+                {
                     name: 'foo'
+                },
+                {
+                    name: 'boolean_filter'
                 }
             ]
         }
@@ -91,12 +98,42 @@ const defaultProps = {
             ]
         },
         {
+            attribute_code: 'category_uid',
+            label: 'Category 2',
+            options: [
+                {
+                    label: 'Bottoms',
+                    value: '28'
+                },
+                {
+                    label: 'Tops',
+                    value: '19'
+                }
+            ]
+        },
+        {
             attribute_code: 'foo',
             label: 'Foo',
             options: [
                 {
                     label: 'Bar',
                     value: 'bar'
+                }
+            ]
+        },
+        {
+            attribute_code: 'boolean_filter',
+            label: 'Boolean Filter',
+            options: [
+                {
+                    __typename: 'AggregationOption',
+                    label: '0',
+                    value: '0'
+                },
+                {
+                    __typename: 'AggregationOption',
+                    label: '1',
+                    value: '1'
                 }
             ]
         }
@@ -128,6 +165,7 @@ describe('#useFilterSidebar', () => {
             filterItems: expect.any(Object),
             filterKeys: expect.any(Object),
             filterNames: expect.any(Object),
+            filterFrontendInput: expect.any(Object),
             filterState: expect.any(Object),
             handleApply: expect.any(Function),
             handleClose: expect.any(Function),
@@ -146,12 +184,15 @@ describe('#useFilterSidebar', () => {
         createTestInstance(<Component />);
         const { filterNames } = log.mock.calls[0][0];
         expect(filterNames.get('category_id')).toBeTruthy();
+        expect(filterNames.get('category_uid')).toBeTruthy();
     });
 
     it('only renders filters that are valid and enabled', () => {
         createTestInstance(<Component />);
         const { filterNames } = log.mock.calls[0][0];
         expect(filterNames.get('foo')).toBeTruthy();
+        expect(filterNames.get('category_id')).toBeFalsy();
+        expect(filterNames.get('category_uid')).toBeFalsy();
     });
 
     it('writes filter state to history when "isApplying"', () => {
@@ -162,5 +203,11 @@ describe('#useFilterSidebar', () => {
             handleApply();
         });
         expect(mockPush).toHaveBeenCalled();
+    });
+
+    it('renders boolean filters', () => {
+        createTestInstance(<Component />);
+        const { filterNames } = log.mock.calls[0][0];
+        expect(filterNames.get('boolean_filter')).toBeTruthy();
     });
 });

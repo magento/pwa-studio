@@ -21,7 +21,7 @@ const ProductList = props => {
         if (items) {
             return items.map(item => (
                 <Item
-                    key={item.id}
+                    key={item.uid}
                     {...item}
                     closeMiniCart={closeMiniCart}
                     handleRemoveItem={handleRemoveItem}

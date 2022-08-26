@@ -17,6 +17,9 @@ export const WishlistItemFragment = gql`
                         currency
                         value
                     }
+                    discount {
+                        amount_off
+                    }
                 }
             }
             sku
@@ -45,8 +48,24 @@ export const WishlistItemFragment = gql`
                         }
                     }
                 }
+                variants {
+                    attributes {
+                        uid
+                        code
+                        value_index
+                    }
+                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
+                    product {
+                        uid
+                        stock_status
+                        small_image {
+                            url
+                        }
+                    }
+                }
             }
         }
+        # TODO: Use configurable_product_option_uid for ConfigurableWishlistItem when available in 2.4.5
         ... on ConfigurableWishlistItem {
             configurable_options {
                 id

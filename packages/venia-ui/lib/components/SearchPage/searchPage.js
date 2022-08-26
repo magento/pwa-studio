@@ -26,6 +26,7 @@ const SearchPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useSearchPage();
     const {
+        availableSortMethods,
         data,
         error,
         filters,
@@ -54,7 +55,7 @@ const SearchPage = props => {
 
         if (!data && error) {
             return (
-                <div className={classes.noResult}>
+                <div aria-live="polite" className={classes.noResult}>
                     <FormattedMessage
                         id={'searchPage.noResult'}
                         defaultMessage={
@@ -71,7 +72,11 @@ const SearchPage = props => {
 
         if (data.products.items.length === 0) {
             return (
-                <div className={classes.noResult} data-cy="SearchPage-noResult">
+                <div
+                    aria-live="polite"
+                    className={classes.noResult}
+                    data-cy="SearchPage-noResult"
+                >
                     <FormattedMessage
                         id={'searchPage.noResultImportant'}
                         defaultMessage={'No results found!'}
@@ -109,7 +114,7 @@ const SearchPage = props => {
     const shouldShowFilterShimmer = filters === null;
 
     // If there are no products we can hide the sort button.
-    const shouldShowSortButtons = productsCount;
+    const shouldShowSortButtons = productsCount && availableSortMethods;
     const shouldShowSortShimmer = !productsCount && loading;
 
     const maybeFilterButtons = shouldShowFilterButtons ? (
@@ -129,7 +134,12 @@ const SearchPage = props => {
     ) : null;
 
     const maybeSortButton = shouldShowSortButtons ? (
-        <ProductSort sortProps={sortProps} />
+        availableSortMethods && (
+            <ProductSort
+                sortProps={sortProps}
+                availableSortMethods={availableSortMethods}
+            />
+        )
     ) : shouldShowSortShimmer ? (
         <ProductSortShimmer />
     ) : null;
@@ -163,7 +173,11 @@ const SearchPage = props => {
 
     const itemCountHeading =
         data && !loading ? (
-            <span className={classes.totalPages}>
+            <span
+                aria-live="polite"
+                aria-busy="true"
+                className={classes.totalPages}
+            >
                 {formatMessage(
                     {
                         id: 'searchPage.totalPages',

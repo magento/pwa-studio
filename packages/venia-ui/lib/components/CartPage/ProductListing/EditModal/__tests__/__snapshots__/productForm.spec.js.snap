@@ -90,6 +90,11 @@ exports[`renders form errors 1`] = `
                     className="image placeholder"
                     loading="eager"
                     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                    style={
+                      Object {
+                        "--width": "240px",
+                      }
+                    }
                     width={240}
                   />
                   <img
@@ -109,6 +114,12 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
+                    style={
+                      Object {
+                        "--height": "300px",
+                        "--width": "240px",
+                      }
+                    }
                     width={240}
                   />
                 </div>
@@ -163,6 +174,17 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                   Array [
                     "option3",
                     "option4",
+                  ]
+                }
+                outOfStockVariants={
+                  Array [
+                    Array [
+                      55,
+                      56,
+                    ],
+                    Array [
+                      31,
+                    ],
                   ]
                 }
                 selectedValues={
@@ -436,6 +458,11 @@ exports[`renders form with data 1`] = `
                     className="image placeholder"
                     loading="eager"
                     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                    style={
+                      Object {
+                        "--width": "240px",
+                      }
+                    }
                     width={240}
                   />
                   <img
@@ -455,6 +482,12 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
+                    style={
+                      Object {
+                        "--height": "300px",
+                        "--width": "240px",
+                      }
+                    }
                     width={240}
                   />
                 </div>
@@ -509,6 +542,17 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                   Array [
                     "option3",
                     "option4",
+                  ]
+                }
+                outOfStockVariants={
+                  Array [
+                    Array [
+                      55,
+                      56,
+                    ],
+                    Array [
+                      31,
+                    ],
                   ]
                 }
                 selectedValues={

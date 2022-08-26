@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useAccountInformationPage } from '../useAccountInformationPage';
+import { useEventingContext } from '../../../context/eventing';
 
 const mockSetCustomerInformation = jest.fn();
 const mockChangeCustomerPassword = jest.fn();
@@ -39,6 +40,18 @@ jest.mock('@apollo/client', () => ({
         error: null,
         loading: false
     })
+}));
+
+jest.mock('../../../hooks/useGoogleReCaptcha', () => ({
+    useGoogleReCaptcha: jest.fn().mockReturnValue({
+        recaptchaLoading: false,
+        generateReCaptchaData: jest.fn(() => {}),
+        recaptchaWidgetProps: {}
+    })
+}));
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const Component = props => {
@@ -129,6 +142,7 @@ test('showUpdateMode sets isUpdateMode to true', () => {
 });
 
 test('handleSubmit calls setCustomerInformationQuery', async () => {
+    const [, { dispatch }] = useEventingContext();
     const { talonProps } = getTalonProps(mockProps);
     const { handleSubmit } = talonProps;
 
@@ -142,6 +156,7 @@ test('handleSubmit calls setCustomerInformationQuery', async () => {
     expect(mockSetCustomerInformation).toHaveBeenCalled();
     expect(mockChangeCustomerPassword).not.toHaveBeenCalled();
     expect(mockSetCustomerInformation.mock.calls[0][0]).toMatchSnapshot();
+    expect(dispatch).toHaveBeenCalledTimes(1);
 });
 
 test('handleSubmit calls changeCustomerPassword if new password is provided', async () => {
@@ -164,7 +179,7 @@ test('handleSubmit does not throw', async () => {
     const mockSetCustomerInformation = jest
         .fn()
         .mockRejectedValue(new Error('Async error'));
-    useMutation.mockReturnValue([mockSetCustomerInformation, {}]);
+    useMutation.mockReturnValueOnce([mockSetCustomerInformation, {}]);
 
     const { talonProps } = getTalonProps(mockProps);
     const { handleSubmit } = talonProps;
@@ -180,4 +195,21 @@ test('handleSubmit does not throw', async () => {
 
     expect(mockSetCustomerInformation).toHaveBeenCalled();
     expect(mockChangeCustomerPassword).not.toHaveBeenCalled();
+});
+
+test('handleSubmit dispatches account update event', async () => {
+    const [, { dispatch }] = useEventingContext();
+
+    const { talonProps } = getTalonProps(mockProps);
+    const { handleSubmit } = talonProps;
+
+    await handleSubmit({
+        firstname: 'Updated',
+        lastname: 'Name',
+        email: 'foobar@express.net',
+        password: 'abc123'
+    });
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch.mock.calls[0][0]).toMatchSnapshot();
 });

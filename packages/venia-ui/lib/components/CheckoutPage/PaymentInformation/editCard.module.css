@@ -1,4 +1,5 @@
 .root {
-    overflow: auto;
-    padding: 0.5rem 1rem;
+    composes: overflow-auto from global;
+    composes: px-xs from global;
+    composes: py-2xs from global;
 }

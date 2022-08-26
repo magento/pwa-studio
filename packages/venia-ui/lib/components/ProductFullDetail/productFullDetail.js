@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { useMemo, Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -13,9 +13,10 @@ import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
 import FormError from '../FormError';
-import { QuantityFields } from '../CartPage/ProductListing/quantity';
+import QuantityStepper from '../QuantityStepper';
 import RichContent from '../RichContent/richContent';
 import { ProductOptionsShimmer } from '../ProductOptions';
+import CustomAttributes from './CustomAttributes';
 import defaultClasses from './productFullDetail.module.css';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
@@ -46,12 +47,16 @@ const ProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isOutOfStock,
+        isEverythingOutOfStock,
+        outOfStockVariants,
         isAddToCartDisabled,
         isSupportedProductType,
         mediaGalleryEntries,
         productDetails,
+        customAttributes,
         wishlistButtonProps
     } = talonProps;
+
     const { formatMessage } = useIntl();
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -61,6 +66,8 @@ const ProductFullDetail = props => {
             <Options
                 onSelectionChange={handleSelectionChange}
                 options={product.configurable_options}
+                isEverythingOutOfStock={isEverythingOutOfStock}
+                outOfStockVariants={outOfStockVariants}
             />
         </Suspense>
     ) : null;
@@ -126,27 +133,78 @@ const ProductFullDetail = props => {
         }
     }
 
-    const cartCallToActionText = !isOutOfStock ? (
-        <FormattedMessage
-            id="productFullDetail.addItemToCart"
-            defaultMessage="Add to Cart"
-        />
-    ) : (
-        <FormattedMessage
-            id="productFullDetail.itemOutOfStock"
-            defaultMessage="Out of Stock"
-        />
-    );
+    const customAttributesDetails = useMemo(() => {
+        const list = [];
+        const pagebuilder = [];
+        const skuAttribute = {
+            attribute_metadata: {
+                uid: 'attribute_sku',
+                used_in_components: ['PRODUCT_DETAILS_PAGE'],
+                ui_input: {
+                    ui_input_type: 'TEXT'
+                },
+                label: formatMessage({
+                    id: 'global.sku',
+                    defaultMessage: 'SKU'
+                })
+            },
+            entered_attribute_value: {
+                value: productDetails.sku
+            }
+        };
+        if (Array.isArray(customAttributes)) {
+            customAttributes.forEach(customAttribute => {
+                if (
+                    customAttribute.attribute_metadata.ui_input
+                        .ui_input_type === 'PAGEBUILDER'
+                ) {
+                    pagebuilder.push(customAttribute);
+                } else {
+                    list.push(customAttribute);
+                }
+            });
+        }
+        list.unshift(skuAttribute);
+        return {
+            list: list,
+            pagebuilder: pagebuilder
+        };
+    }, [customAttributes, productDetails.sku, formatMessage]);
 
+    const cartCallToActionText =
+        !isEverythingOutOfStock || !isOutOfStock ? (
+            <FormattedMessage
+                id="productFullDetail.addItemToCart"
+                defaultMessage="Add to Cart"
+            />
+        ) : (
+            <FormattedMessage
+                id="productFullDetail.itemOutOfStock"
+                defaultMessage="Out of Stock"
+            />
+        );
+    // Error message for screen reader
     const cartActionContent = isSupportedProductType ? (
-        <Button
-            data-cy="ProductFullDetail-addToCartButton"
-            disabled={isAddToCartDisabled}
-            priority="high"
-            type="submit"
-        >
-            {cartCallToActionText}
-        </Button>
+        <section className={classes.actButton}>
+            <Button
+                data-cy="ProductFullDetail-addToCartButton"
+                disabled={isAddToCartDisabled}
+                aria-disabled={isAddToCartDisabled}
+                aria-label={
+                    isEverythingOutOfStock
+                        ? formatMessage({
+                              id: 'productFullDetail.outOfStockProduct',
+                              defaultMessage:
+                                  'This item is currently out of stock'
+                          })
+                        : ''
+                }
+                priority="high"
+                type="submit"
+            >
+                {cartCallToActionText}
+            </Button>
+        </section>
     ) : (
         <div className={classes.unavailableContainer}>
             <Info />
@@ -161,6 +219,20 @@ const ProductFullDetail = props => {
         </div>
     );
 
+    const shortDescription = productDetails.shortDescription ? (
+        <RichContent html={productDetails.shortDescription.html} />
+    ) : null;
+
+    const pageBuilderAttributes = customAttributesDetails.pagebuilder.length ? (
+        <section className={classes.detailsPageBuilder}>
+            <CustomAttributes
+                classes={{ list: classes.detailsPageBuilderList }}
+                customAttributes={customAttributesDetails.pagebuilder}
+                showLabels={false}
+            />
+        </section>
+    ) : null;
+
     return (
         <Fragment>
             {breadcrumbs}
@@ -169,22 +241,27 @@ const ProductFullDetail = props => {
                 data-cy="ProductFullDetail-root"
                 onSubmit={handleAddToCart}
             >
+                <section className={classes.imageCarousel}>
+                    <Carousel images={mediaGalleryEntries} />
+                </section>
                 <section className={classes.title}>
                     <h1
+                        aria-live="polite"
                         className={classes.productName}
                         data-cy="ProductFullDetail-productName"
                     >
                         {productDetails.name}
                     </h1>
-                    <p className={classes.productPrice}>
+                    <p
+                        data-cy="ProductFullDetail-productPrice"
+                        className={classes.productPrice}
+                    >
                         <Price
                             currencyCode={productDetails.price.currency}
                             value={productDetails.price.value}
                         />
                     </p>
-                </section>
-                <section className={classes.imageCarousel}>
-                    <Carousel images={mediaGalleryEntries} />
+                    {shortDescription}
                 </section>
                 <FormError
                     classes={{
@@ -194,13 +271,16 @@ const ProductFullDetail = props => {
                 />
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
-                    <span className={classes.quantityTitle}>
+                    <span
+                        data-cy="ProductFullDetail-quantityTitle"
+                        className={classes.quantityTitle}
+                    >
                         <FormattedMessage
                             id={'global.quantity'}
                             defaultMessage={'Quantity'}
                         />
                     </span>
-                    <QuantityFields
+                    <QuantityStepper
                         classes={{ root: classes.quantityRoot }}
                         min={1}
                         message={errors.get('quantity')}
@@ -213,23 +293,32 @@ const ProductFullDetail = props => {
                     </Suspense>
                 </section>
                 <section className={classes.description}>
-                    <span className={classes.descriptionTitle}>
+                    <span
+                        data-cy="ProductFullDetail-descriptionTitle"
+                        className={classes.descriptionTitle}
+                    >
                         <FormattedMessage
-                            id={'productFullDetail.productDescription'}
-                            defaultMessage={'Product Description'}
+                            id={'productFullDetail.description'}
+                            defaultMessage={'Description'}
                         />
                     </span>
                     <RichContent html={productDetails.description} />
                 </section>
                 <section className={classes.details}>
-                    <span className={classes.detailsTitle}>
+                    <span
+                        data-cy="ProductFullDetail-detailsTitle"
+                        className={classes.detailsTitle}
+                    >
                         <FormattedMessage
-                            id={'global.sku'}
-                            defaultMessage={'SKU'}
+                            id={'productFullDetail.details'}
+                            defaultMessage={'Details'}
                         />
                     </span>
-                    <strong>{productDetails.sku}</strong>
+                    <CustomAttributes
+                        customAttributes={customAttributesDetails.list}
+                    />
                 </section>
+                {pageBuilderAttributes}
             </Form>
         </Fragment>
     );
@@ -241,6 +330,8 @@ ProductFullDetail.propTypes = {
         description: string,
         descriptionTitle: string,
         details: string,
+        detailsPageBuilder: string,
+        detailsPageBuilderList: string,
         detailsTitle: string,
         imageCarousel: string,
         options: string,
@@ -248,6 +339,7 @@ ProductFullDetail.propTypes = {
         productPrice: string,
         quantity: string,
         quantityTitle: string,
+        quantityRoot: string,
         root: string,
         title: string,
         unavailableContainer: string
@@ -274,7 +366,11 @@ ProductFullDetail.propTypes = {
                 file: string.isRequired
             })
         ),
-        description: string
+        description: string,
+        short_description: shape({
+            html: string,
+            __typename: string
+        })
     }).isRequired
 };
 

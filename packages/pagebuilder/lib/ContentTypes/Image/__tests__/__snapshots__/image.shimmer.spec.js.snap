@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders ImageShimmer correctly render empty ImageShimmer component 1`] = `null`;
+
+exports[`renders ImageShimmer correctly renders a ImageShimmer using desktop image dimension 1`] = `
+<figure
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <div
+    aria-busy="true"
+    aria-live="polite"
+    className="root_rectangle"
+    style={
+      Object {
+        "border": undefined,
+        "borderColor": undefined,
+        "borderRadius": undefined,
+        "borderWidth": undefined,
+        "height": "300px",
+        "width": "400px",
+      }
+    }
+  />
+</figure>
+`;
+
+exports[`renders ImageShimmer correctly renders a ImageShimmer using desktop image dimension on mobile device when no mobile image 1`] = `
+<figure
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <div
+    aria-busy="true"
+    aria-live="polite"
+    className="root_rectangle"
+    style={
+      Object {
+        "border": undefined,
+        "borderColor": undefined,
+        "borderRadius": undefined,
+        "borderWidth": undefined,
+        "height": "300px",
+        "width": "400px",
+      }
+    }
+  />
+</figure>
+`;
+
+exports[`renders ImageShimmer correctly renders a ImageShimmer using mobile image dimension 1`] = `
+<figure
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <div
+    aria-busy="true"
+    aria-live="polite"
+    className="root_rectangle"
+    style={
+      Object {
+        "border": undefined,
+        "borderColor": undefined,
+        "borderRadius": undefined,
+        "borderWidth": undefined,
+        "height": "250px",
+        "width": "125px",
+      }
+    }
+  />
+</figure>
+`;
+
+exports[`renders ImageShimmer correctly renders a ImageShimmer using mobile image dimension even without desktop image 1`] = `
+<figure
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <div
+    aria-busy="true"
+    aria-live="polite"
+    className="root_rectangle"
+    style={
+      Object {
+        "border": undefined,
+        "borderColor": undefined,
+        "borderRadius": undefined,
+        "borderWidth": undefined,
+        "height": "250px",
+        "width": "125px",
+      }
+    }
+  />
+</figure>
+`;

@@ -104,6 +104,41 @@ export const getFiltersFromSearch = initialValue => {
     return filters;
 };
 
+/**
+ * Sort filters array
+ * @param {Array} initialArray an array containing filters data
+ */
+export const sortFiltersArray = initialArray => {
+    return initialArray.sort((a, b) => {
+        // Place Category filter first
+        if (
+            a['attribute_code'] === 'category_id' ||
+            a['attribute_code'] === 'category_uid'
+        ) {
+            return -1;
+        }
+        if (
+            b['attribute_code'] === 'category_id' ||
+            b['attribute_code'] === 'category_uid'
+        ) {
+            return 1;
+        }
+
+        // Sort alphabetically if same position
+        if (a['position'] === b['position']) {
+            if (a['label'] < b['label']) {
+                return -1;
+            }
+            if (a['label'] > b['label']) {
+                return 1;
+            }
+        }
+
+        // Sort by position
+        return a['position'] - b['position'];
+    });
+};
+
 export const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
 /** GetFilterInput helpers below. */

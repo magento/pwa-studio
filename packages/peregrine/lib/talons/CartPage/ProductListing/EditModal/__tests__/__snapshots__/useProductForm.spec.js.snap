@@ -22,6 +22,56 @@ Object {
 }
 `;
 
+exports[`form submission should dispatch event when only quantity changes 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 5,
+    "name": "Product Name",
+    "priceTotal": 9.99,
+    "quantity": 10,
+    "selectedOptions": Array [
+      Object {
+        "attribute": "Color",
+        "value": "Pink",
+      },
+      Object {
+        "attribute": "Size",
+        "value": "XS",
+      },
+    ],
+    "sku": "SP01",
+  },
+  "type": "CART_UPDATE_ITEM",
+}
+`;
+
+exports[`form submission should dispatch event when options changes 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 5,
+    "name": "Product Name",
+    "priceTotal": 9.99,
+    "quantity": 5,
+    "selectedOptions": Array [
+      Object {
+        "attribute": "Color",
+        "value": "Pink",
+      },
+      Object {
+        "attribute": "Size",
+        "value": "XS",
+      },
+    ],
+    "sku": "SP01",
+  },
+  "type": "CART_UPDATE_ITEM",
+}
+`;
+
 exports[`returns correct shape with fetched options 1`] = `
 Object {
   "configItem": Object {
@@ -29,10 +79,32 @@ Object {
       Object {
         "attribute_code": "color",
         "attribute_id": "123",
+        "label": "Color",
+        "values": Array [
+          Object {
+            "label": "Lilac",
+            "value_index": 1,
+          },
+          Object {
+            "label": "Red",
+            "value_index": 2,
+          },
+        ],
       },
       Object {
         "attribute_code": "size",
         "attribute_id": "456",
+        "label": "Red",
+        "values": Array [
+          Object {
+            "label": "XS",
+            "value_index": 1,
+          },
+          Object {
+            "label": "S",
+            "value_index": 2,
+          },
+        ],
       },
     ],
     "variants": Array [
@@ -118,6 +190,7 @@ Object {
       },
     ],
   },
+  "configurableThumbnailSource": "parent",
   "errors": Map {
     "updateQuantityMutation" => null,
     "updateConfigurableOptionsMutation" => null,
@@ -128,5 +201,6 @@ Object {
   "isDialogOpen": true,
   "isLoading": false,
   "isSaving": false,
+  "outOfStockVariants": Array [],
 }
 `;

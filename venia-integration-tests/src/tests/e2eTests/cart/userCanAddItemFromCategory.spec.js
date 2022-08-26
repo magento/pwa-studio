@@ -22,49 +22,53 @@ const {
     getCategoriesCall,
     getProductDetailForProductPageCall,
     hitGraphqlPath,
-    getStoreConfigDataForGalleryEECall
+    getStoreConfigDataForGalleryACCall
 } = graphqlMockedCallsFixtures;
 
-describe('Verify Cart actions', () => {
-    it("User shouldn't be able to add a CustomizableProduct from category page", () => {
-        cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
+describe(
+    'Verify Add to Cart actions on category page',
+    { tags: ['@e2e', '@commerce', '@open-source', '@ci', '@cart'] },
+    () => {
+        it("User shouldn't be able to add a CustomizableProduct from category page", () => {
+            cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
 
-        cy.intercept('GET', getProductDetailForProductPageCall).as(
-            'gqlGetProductDetailForProductPageQuery'
-        );
+            cy.intercept('GET', getProductDetailForProductPageCall).as(
+                'gqlGetProductDetailForProductPageQuery'
+            );
 
-        cy.intercept('POST', hitGraphqlPath, req => {
-            aliasMutation(req, 'AddProductToCart');
+            cy.intercept('POST', hitGraphqlPath, req => {
+                aliasMutation(req, 'AddProductToCart');
+            });
+
+            cy.intercept('GET', getStoreConfigDataForGalleryACCall).as(
+                'gqlGetStoreConfigDataForGallery'
+            );
+
+            cy.visit(categorySweaters);
+            cy.wait(['@gqlGetCategoriesQuery'], {
+                timeout: 60000
+            });
+
+            cy.wait(['@gqlGetStoreConfigDataForGallery'], {
+                timeout: 60000
+            });
+
+            addProductToCartFromCategoryPage(carinaCardigan.name);
+
+            cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
+                timeout: 60000
+            });
+            cy.checkUrlPath(carinaCardigan.url);
+
+            assertCartIsEmpty();
+            cy.visit(categoryJewelry);
+
+            cy.wait(['@gqlGetCategoriesQuery'], {
+                timeout: 60000
+            });
+            addProductToCartFromCategoryPage(silverAmorBangleSet.name);
+
+            assertCartTriggerCount(1);
         });
-
-        cy.intercept('GET', getStoreConfigDataForGalleryEECall).as(
-            'gqlGetStoreConfigDataForGallery'
-        );
-
-        cy.visit(categorySweaters);
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
-
-        cy.wait(['@gqlGetStoreConfigDataForGallery'], {
-            timeout: 60000
-        });
-
-        addProductToCartFromCategoryPage(carinaCardigan.name);
-
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-            timeout: 60000
-        });
-        cy.checkUrlPath(carinaCardigan.url);
-
-        assertCartIsEmpty();
-        cy.visit(categoryJewelry);
-
-        cy.wait(['@gqlGetCategoriesQuery'], {
-            timeout: 60000
-        });
-        addProductToCartFromCategoryPage(silverAmorBangleSet.name);
-
-        assertCartTriggerCount(1);
-    });
-});
+    }
+);

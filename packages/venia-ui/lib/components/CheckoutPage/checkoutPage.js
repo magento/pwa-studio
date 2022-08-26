@@ -27,6 +27,7 @@ import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
+import GoogleReCaptcha from '../GoogleReCaptcha';
 
 import defaultClasses from './checkoutPage.module.css';
 import ScrollAnchor from '../ScrollAnchor/scrollAnchor';
@@ -60,6 +61,7 @@ const CheckoutPage = props => {
         orderDetailsLoading,
         orderNumber,
         placeOrderLoading,
+        placeOrderButtonClicked,
         setCheckoutStep,
         setGuestSignInUsername,
         setIsUpdating,
@@ -73,6 +75,7 @@ const CheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
+        recaptchaWidgetProps,
         toggleAddressBookContent,
         toggleSignInContent
     } = talonProps;
@@ -134,6 +137,7 @@ const CheckoutPage = props => {
             <div className={classes.empty_cart_container}>
                 <div className={classes.heading_container}>
                     <h1
+                        aria-live="polite"
                         className={classes.heading}
                         data-cy="ChekoutPage-heading"
                     >
@@ -149,7 +153,9 @@ const CheckoutPage = props => {
             </div>
         );
     } else {
-        const signInContainerElement = isGuestCheckout ? (
+        const signInContainerVisible =
+            isGuestCheckout && checkoutStep !== CHECKOUT_STEP.REVIEW;
+        const signInContainerElement = signInContainerVisible ? (
             <div className={classes.signInContainer}>
                 <span className={classes.signInLabel}>
                     <FormattedMessage
@@ -268,7 +274,10 @@ const CheckoutPage = props => {
                     className={classes.place_order_button}
                     data-cy="CheckoutPage-placeOrderButton"
                     disabled={
-                        isUpdating || placeOrderLoading || orderDetailsLoading
+                        isUpdating ||
+                        placeOrderLoading ||
+                        orderDetailsLoading ||
+                        placeOrderButtonClicked
                     }
                 >
                     <FormattedMessage
@@ -284,7 +293,17 @@ const CheckoutPage = props => {
         );
 
         const orderSummary = shouldRenderPriceSummary ? (
-            <div className={classes.summaryContainer}>
+            <div
+                className={
+                    classes.summaryContainer +
+                    (signInContainerVisible
+                        ? ' ' + classes.signInContainerVisible
+                        : '') +
+                    (recaptchaWidgetProps.shouldRender
+                        ? ' ' + classes.reCaptchaMargin
+                        : '')
+                }
+            >
                 <OrderSummary isUpdating={isUpdating} />
             </div>
         ) : null;
@@ -377,6 +396,7 @@ const CheckoutPage = props => {
                 {itemsReview}
                 {orderSummary}
                 {placeOrderButton}
+                <GoogleReCaptcha {...recaptchaWidgetProps} />
             </div>
         );
     }
@@ -438,6 +458,8 @@ CheckoutPage.propTypes = {
         summaryContainer: string,
         formErrors: string,
         review_order_button: string,
-        place_order_button: string
+        place_order_button: string,
+        signInContainerVisible: string,
+        reCaptchaMargin: string
     })
 };

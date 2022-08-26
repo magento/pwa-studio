@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -6,9 +6,11 @@ import { useCartContext } from '../../context/cart';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './miniCart.gql';
+import { useEventingContext } from '../../context/eventing';
 
 /**
  *
+ * @param {Boolean} props.isOpen - True if the mini cart is open
  * @param {Function} props.setIsOpen - Function to toggle the mini cart
  * @param {DocumentNode} props.operations.miniCartQuery - Query to fetch mini cart data
  * @param {DocumentNode} props.operations.removeItemMutation - Mutation to remove an item from cart
@@ -27,7 +29,9 @@ import DEFAULT_OPERATIONS from './miniCart.gql';
  *  }
  */
 export const useMiniCart = props => {
-    const { setIsOpen } = props;
+    const { isOpen, setIsOpen } = props;
+
+    const [, { dispatch }] = useEventingContext();
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
@@ -106,11 +110,38 @@ export const useMiniCart = props => {
                         itemId: id
                     }
                 });
+
+                const [product] = productList.filter(
+                    p => (p.uid || p.id) === id
+                );
+
+                const selectedOptionsLabels =
+                    product.configurable_options?.map(
+                        ({ option_label, value_label }) => ({
+                            attribute: option_label,
+                            value: value_label
+                        })
+                    ) || null;
+
+                dispatch({
+                    type: 'CART_REMOVE_ITEM',
+                    payload: {
+                        cartId,
+                        sku: product.product.sku,
+                        name: product.product.name,
+                        priceTotal: product.prices.price.value,
+                        currencyCode: product.prices.price.currency,
+                        discountAmount:
+                            product.prices.total_item_discount.value,
+                        selectedOptions: selectedOptionsLabels,
+                        quantity: product.quantity
+                    }
+                });
             } catch (e) {
                 // Error is logged by apollo link - no need to double log.
             }
         },
-        [cartId, removeItem]
+        [removeItem, cartId, dispatch, productList]
     );
 
     const handleProceedToCheckout = useCallback(() => {
@@ -127,6 +158,18 @@ export const useMiniCart = props => {
         () => deriveErrorMessage([removeItemError]),
         [removeItemError]
     );
+
+    useEffect(() => {
+        if (isOpen) {
+            dispatch({
+                type: 'MINI_CART_VIEW',
+                payload: {
+                    cartId: cartId,
+                    products: productList
+                }
+            });
+        }
+    }, [isOpen, cartId, productList, dispatch]);
 
     return {
         closeMiniCart,

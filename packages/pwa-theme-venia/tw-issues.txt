@@ -1,0 +1,238 @@
+ISSUES IN PWA THEME BASE
+
+
+// ==============================================
+// A. BUILD TOOLING
+// ==============================================
+
+
+// ----------------------------------------------
+// A1. "tailwind.config.js" needs local path to "tailwind.preset.js"
+
+When published, "tailwind.config.js" points to the Node modules version of
+"tailwind.preset.js".
+
+See: node_modules/magento/pwa-studio/packages/pwa-theme-venia/tailwind.preset.js
+Path: @magento/pwa-theme-venia
+
+For core devs + contributors, you will need to edit the "preset" while working.
+Obviously you can't edit inside "node_modules".
+This is a problem because "config" determines which "preset" to use.
+
+You need to change "config" to point to the local version of "preset" with your changes.
+Otherwise your local build will never reflect any changes to "preset".
+
+See: packages/pwa-theme-venia/tailwind.preset.js
+Path: ../pwa-theme-venia
+
+But you can't publish "config" using a relative path to local "preset".
+Because in a scaffolded project that file won't exist (only in "node_modules").
+
+
+// ----------------------------------------------
+// A2. "tailwind.preset.js" commented out "aspectRatioPlugin" to prevent build breaks.
+
+Error — Cannot find "node_modules" folder.
+
+Tailwind plugins may need to be installed globally (not in package only).
+
+
+
+// ==============================================
+// B. Tailwind Implementation Issues
+// ==============================================
+
+
+// ----------------------------------------------
+// B1. Cannot compose :global()
+
+:global(body) {}
+
+
+// ----------------------------------------------
+// B2. Cannot compose media queries
+
+@media (min-width: 960px) {
+    .thing {}
+}
+
+
+// ----------------------------------------------
+// B3. Cannot compose non-class selectors
+
+.dropdown li {}
+(improvement: .dropdownItem) (See: Kebab > Section)
+
+(ComponentA).thing (ComponentB)p {}
+(improvement: sub-component should have props to define styling)
+
+:not() {}
+(improvement: depends, simplify JSX or CSS)
+
+
+// ----------------------------------------------
+// B4. Cannot compose pseudo selectors
+
+.thing::before {}
+(improvement: no pseudos in Tailwind. Change to <div className={css.before} />)
+
+
+// ----------------------------------------------
+// B5. Cannot compose calc()
+
+.something {
+    width: calc(100% - var(--venia-foo));
+}
+
+
+// ----------------------------------------------
+// B6. Using CSS Modules compose (like SCSS/Less "extends") breaks Tailwind
+// TODO @TW: review (B6)
+
+Using compositions for cases like "menu / menu_open" breaks Tailwind.
+Where you have based styles on "menu", and something like:
+
+.menu_open {
+    composes: menu;
+    ...
+}
+
+The problem is all Tailwind classes from "menu" AND "menu_open" get placed in the DOM.
+So whichever Tailwind class exists last in the generated stylesheet wins.
+This is hard to catch, unless there's an obvious visual failure.
+
+For menus, the outcome is these classes are applied in the DOM:
+.menu ➔ "invisible"
+.menu_open ➔ "invisible visible"
+
+And due to the order that TW generates classes, "invisible" wins.
+
+Right now, these cases must stay plain CSS to work.
+To fix this we have to change JSX (and CSS).
+
+Affected areas (probably more --- search for comment B6):
+- accountMenu
+- currencySwitcher
+- miniCart
+- searchBar
+- storeSwitcher
+- CheckoutPage: ShippingInformation (borders in "root_editMode")
+
+Solution:
+See: SearchBar/autocomplete.module.css
+Has "root" then "root_hidden" AND "root_visible", which both compose "root".
+Only the variant classes are applied (not "root").
+This works around the Tailwind issue, but requires JSX changes.
+
+BAD PATTERN (both classes in JSX):
+.root {}
+.root_open { composes: root; }
+
+GOOD PATTERN (only variants in JSX, not "root"):
+.root {}
+.root_closed { composes: root; }
+.root_open { composes: root; }
+
+
+// ----------------------------------------------
+// B7. Prettier mangles TW2 arbitrary values syntax
+// TODO @TW: review (B7)
+
+See: https://github.com/magento/pwa-studio/pull/3686#issuecomment-1029360673
++ follow-up comments for detail.
+
+In TW2, to use spaces in arbitrary values, use the "," character.
+The generated class name will contain a " " replacement.
+
+Problem: Prettier requires a real " " after commas in CSS, and it "fixes" it by mangling it.
+TW2 won't generate the class, so the UI breaks.
+
+# Original
+composes: lg_grid-cols-[2fr,1fr] from global;
+
+# Prettier version, space added, TW won't generate the rule so it doesn't apply
+composes: lg_grid-cols-[2fr, 1fr] from global;
+
+In TW3, an "_" is used as the space character, which Prettier won't mangle.
+
+As a workaround before updating to TW3, all instances that Prettier mangles will have ignore comments.
+
+
+
+// ==============================================
+// C. Theme Implementation Issues
+// ==============================================
+
+
+// ----------------------------------------------
+// C1. Hardcoded classes on <body> in "template.html"
+
+These are hard-defaults that simulate global selectors on raw elements like (html, body).
+
+Tailwind can't compose into :global() selectors in CSS Modules, so this is a workaround.
+
+See: packages/venia-ui/lib/index.module.css
+
+
+// ----------------------------------------------
+// C2. Cross-component CSS breaks Tailwind specificity
+// TODO @TW: review (C2)
+
+Components should not import CSS from other components.
+Components should own their styles only, and expose a prop API to render variants.
+Applying a component's variant should be declarative.
+
+Absorbing the styling cross-component is hard-to-read trace, and easy to break.
+It also breaks Tailwind because cross-component composition has different source order.
+
+Affected area:
+/ProductSort/productSort.module.css :: sortButton
+composes /Button/button.module.css :: lowPriority
+
+Affected area:
+/CheckoutPage/ShippingMethod/shippingRadios.module.css :: radioRoot
+composes /RadioGroup/radioGroup.module.css :: root
+
+Note — this affects Venia heavily (composed CSS over declared JSX).
+Components were written to override CSS easily instead of maintaining variants.
+See: D2
+
+
+// ==============================================
+// D. Other Improvements
+// ==============================================
+
+// ----------------------------------------------
+// D1. Inconsistent JSX class name syntax
+
+Should be: "styleName"
+Outliers: "style_name"
+
+This is confusing because "_" usually refers to composed classes like:
+"menu" and "menu_open"
+
+Note — I saw this in ~5% of CSS files.
+I didn't take note where I saw this (oops) but I may have put an "@TW: review" comment.
+
+
+// ----------------------------------------------
+// D2. Browser dev-tools are frustrating with TW
+
+DevEx issue — This is a major negative of TW from my time with it.
+
+While debugging UI regressions, I have an original-Venia and TW-Venia instance
+running in side-by-side browsers with DevTools open.
+
+The CSS stack in orginal-Venia is short (2-3 declarations at most).
+Usually for a node, there's one ruleset + another media query ruleset.
+
+The TW-Venia has dozens of declarations sorted by TW source order.
+Breakpoints are mixed within the stack, so it's hard to see them together.
+Computed styles aren't much better because values/units are converted and collapsed.
+
+This problem is worsened by C2 because Venia favors composed CSS over declared JSX.
+I'm +100 hours converting into TW now, and it still takes minutes to cognitive-load
+the computed rules in some composed TW when it takes seconds to see the same in original-Venia.
+
+The core problem here is TW doesn't play nice with CSS Modules compose.
+If C2's approach didn't exist, then D2 would be less problematic.

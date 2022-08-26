@@ -1,0 +1,4 @@
+# Save cart conditions data in cache
+extend type DynamicBlocks {
+    salesRulesData: String
+}

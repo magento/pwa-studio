@@ -5,8 +5,10 @@ import mergeOperations from '../../../util/shallowMerge';
 import { useUserContext } from '../../../context/user';
 import { useCartContext } from '../../../context/cart';
 import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
+import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 
 import DEFAULT_OPERATIONS from './createAccount.gql';
+import { useEventingContext } from '../../../context/eventing';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -23,7 +25,8 @@ import DEFAULT_OPERATIONS from './createAccount.gql';
  *   errors: Map,
  *   handleSubmit: function,
  *   isDisabled: boolean,
- *   initialValues: object
+ *   initialValues: object,
+ *   recaptchaWidgetProps: { containerElement: function, shouldRender: boolean }
  * }}
  */
 export const useCreateAccount = props => {
@@ -44,6 +47,8 @@ export const useCreateAccount = props => {
         { getUserDetails, setToken }
     ] = useUserContext();
 
+    const [, { dispatch }] = useEventingContext();
+
     const [fetchCartId] = useMutation(createCartMutation);
 
     // For create account and sign in mutations, we don't want to cache any
@@ -62,10 +67,22 @@ export const useCreateAccount = props => {
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
+    const {
+        generateReCaptchaData,
+        recaptchaLoading,
+        recaptchaWidgetProps
+    } = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_CREATE',
+        formAction: 'createAccount'
+    });
+
     const handleSubmit = useCallback(
         async formValues => {
             setIsSubmitting(true);
             try {
+                // Get reCaptchaV3 Data for createAccount mutation
+                const recaptchaDataForCreateAccount = await generateReCaptchaData();
+
                 // Create the account and then sign in.
                 await createAccount({
                     variables: {
@@ -74,13 +91,29 @@ export const useCreateAccount = props => {
                         lastname: formValues.customer.lastname,
                         password: formValues.password,
                         is_subscribed: !!formValues.subscribe
+                    },
+                    ...recaptchaDataForCreateAccount
+                });
+
+                dispatch({
+                    type: 'USER_CREATE_ACCOUNT',
+                    payload: {
+                        email: formValues.customer.email,
+                        firstName: formValues.customer.firstname,
+                        lastName: formValues.customer.lastname,
+                        isSubscribed: !!formValues.subscribe
                     }
                 });
+
+                // Get reCaptchaV3 Data for signIn mutation
+                const recaptchaDataForSignIn = await generateReCaptchaData();
+
                 const signInResponse = await signIn({
                     variables: {
                         email: formValues.customer.email,
                         password: formValues.password
-                    }
+                    },
+                    ...recaptchaDataForSignIn
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
@@ -117,12 +150,14 @@ export const useCreateAccount = props => {
             fetchCartDetails,
             fetchCartId,
             fetchUserDetails,
+            generateReCaptchaData,
             getCartDetails,
             getUserDetails,
             onSubmit,
             removeCart,
             setToken,
-            signIn
+            signIn,
+            dispatch
         ]
     );
 
@@ -147,7 +182,8 @@ export const useCreateAccount = props => {
     return {
         errors,
         handleSubmit,
-        isDisabled: isSubmitting || isGettingDetails,
-        initialValues: sanitizedInitialValues
+        isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
+        initialValues: sanitizedInitialValues,
+        recaptchaWidgetProps
     };
 };

@@ -1,5 +1,5 @@
 .root {
-    display: grid;
+    composes: grid from global;
     grid-template-rows: min-content 1fr;
-    overflow: auto;
+    composes: overflow-auto from global;
 }

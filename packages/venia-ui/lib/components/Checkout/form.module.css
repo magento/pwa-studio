@@ -3,8 +3,9 @@
 
 .body {
     composes: body from './flow.module.css';
-    grid-gap: 0;
-    padding: 0;
+
+    composes: gap-0 from global;
+    composes: p-0 from global;
 }
 
 .footer {
@@ -12,26 +13,29 @@
 }
 
 .informationPrompt {
-    color: rgb(var(--venia-global-color-error));
-    text-transform: capitalize;
+    composes: capitalize from global;
+    composes: text-error from global;
 }
 
 .disabledPrompt {
     composes: informationPrompt;
-    color: rgb(var(--venia-global-color-gray-dark));
+
+    composes: text-subtle from global;
 }
 
 .paymentDisplayPrimary {
-    text-transform: capitalize;
+    composes: capitalize from global;
 }
 
 .paymentDisplaySecondary {
     /* The ::first-letter pseudo element below only works on block elements */
-    display: block;
-    text-transform: lowercase;
+    composes: block from global;
+    composes: lowercase from global;
 }
+
+/* TODO @TW: cannot compose */
 .paymentDisplaySecondary::first-letter {
-    text-transform: uppercase;
+    composes: uppercase from global;
 }
 
 @keyframes enter {

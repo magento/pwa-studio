@@ -5,11 +5,19 @@ import Option from './option';
 import { useOptions } from '@magento/peregrine/lib/talons/ProductOptions/useOptions';
 
 const Options = props => {
-    const { classes, onSelectionChange, options, selectedValues = [] } = props;
+    const {
+        classes,
+        onSelectionChange,
+        options,
+        selectedValues = [],
+        isEverythingOutOfStock,
+        outOfStockVariants
+    } = props;
 
     const talonProps = useOptions({
         onSelectionChange,
-        selectedValues
+        selectedValues,
+        options
     });
 
     const { handleSelectionChange, selectedValueMap } = talonProps;
@@ -22,6 +30,8 @@ const Options = props => {
             key={option.attribute_id}
             onSelectionChange={handleSelectionChange}
             selectedValue={selectedValueMap.get(option.label)}
+            isEverythingOutOfStock={isEverythingOutOfStock}
+            outOfStockVariants={outOfStockVariants}
         />
     ));
 };

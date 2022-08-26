@@ -1,0 +1,19 @@
+{
+    "data": {
+        "recaptchaV3Config": {
+            "website_key": "websitekey",
+            "badge_position": "bottomright",
+            "language_code": "en",
+            "forms": [
+                "CUSTOMER_FORGOT_PASSWORD",
+                "PLACE_ORDER",
+                "BRAINTREE",
+                "CUSTOMER_CREATE",
+                "CUSTOMER_EDIT",
+                "CUSTOMER_FORGOT_PASSWORD",
+                "CUSTOMER_LOGIN"
+            ],
+            "__typename": "ReCaptchaConfigurationV3"
+        }
+    }
+}

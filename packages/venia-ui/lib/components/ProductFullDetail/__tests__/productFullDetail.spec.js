@@ -22,14 +22,13 @@ jest.mock(
     }
 );
 
+jest.mock('../../QuantityStepper', () => () => 'QuantityStepper');
 jest.mock('../../Breadcrumbs', () => 'Breadcrumbs');
 jest.mock('../../FormError', () => 'FormError');
 jest.mock('../../ProductImageCarousel', () => 'ProductImageCarousel');
 jest.mock('../../ProductOptions', () => () => 'ProductOptions');
-jest.mock('../../CartPage/ProductListing/quantity', () => ({
-    QuantityFields: () => 'QuantityFields'
-}));
 jest.mock('../../RichContent/richContent', () => 'RichContent');
+jest.mock('../CustomAttributes', () => 'CustomAttributes');
 
 jest.mock('../../../classify');
 
@@ -176,6 +175,8 @@ const talonProps = {
     handleAddToCart: mockHandleAddToCart,
     handleSelectionChange: mockHandleSelectionChange,
     isOutOfStock: false,
+    isEverythingOutOfStock: false,
+    outOfStockVariants: [],
     isAddToCartDisabled: false,
     isSupportedProductType: true,
     mediaGalleryEntries: [],
@@ -187,7 +188,8 @@ const talonProps = {
             currency: 'USD',
             value: 3.5
         }
-    }
+    },
+    customAttributes: {}
 };
 
 test('it renders correctly', () => {
@@ -348,6 +350,20 @@ test('it renders message with unsupported product type', () => {
     useProductFullDetail.mockReturnValue({
         ...talonProps,
         isSupportedProductType: false
+    });
+
+    const tree = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('it renders message with everything out of stock', () => {
+    useProductFullDetail.mockReturnValue({
+        ...talonProps,
+        isEverythingOutOfStock: true,
+        isAddToCartDisabled: true
     });
 
     const tree = createTestInstance(

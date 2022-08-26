@@ -1,0 +1,11 @@
+{
+    "data": {
+        "placeOrder": {
+            "order": {
+                "order_number": "000000005",
+                "__typename": "Order"
+            },
+            "__typename": "PlaceOrderOutput"
+        }
+    }
+}

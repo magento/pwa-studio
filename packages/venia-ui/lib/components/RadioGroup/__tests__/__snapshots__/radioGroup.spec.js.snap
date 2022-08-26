@@ -8,6 +8,7 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
 >
   <div>
     <label
+      aria-label=""
       htmlFor="foo--1"
     >
       <mock-Radio
@@ -39,6 +40,7 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--2"
     >
       <mock-Radio
@@ -70,6 +72,7 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--3"
     >
       <mock-Radio
@@ -101,6 +104,7 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--4"
     >
       <mock-Radio
@@ -132,6 +136,7 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--5"
     >
       <mock-Radio
@@ -163,6 +168,7 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--6"
     >
       <mock-Radio
@@ -194,6 +200,7 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--7"
     >
       <mock-Radio
@@ -225,6 +232,7 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--whatever"
     >
       <mock-Radio
@@ -268,6 +276,7 @@ exports[`renders as expected 1`] = `
 >
   <div>
     <label
+      aria-label=""
       htmlFor="foo--1"
     >
       <mock-Radio
@@ -298,6 +307,7 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--2"
     >
       <mock-Radio
@@ -328,6 +338,7 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--3"
     >
       <mock-Radio
@@ -358,6 +369,7 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--4"
     >
       <mock-Radio
@@ -388,6 +400,7 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--5"
     >
       <mock-Radio
@@ -418,6 +431,7 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--6"
     >
       <mock-Radio
@@ -448,6 +462,7 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--7"
     >
       <mock-Radio
@@ -478,6 +493,7 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
+      aria-label=""
       htmlFor="foo--whatever"
     >
       <mock-Radio

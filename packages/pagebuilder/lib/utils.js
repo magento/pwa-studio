@@ -173,3 +173,52 @@ export function getIsHidden(node) {
         isHidden: node.style.display === 'none'
     };
 }
+
+/**
+ * Converts a CSS string style into a JSX object inline style
+ *
+ * @param {String} style
+ * @returns {Object}
+ */
+export function cssToJSXStyle(style) {
+    const toCamelCase = str => str.replace(/-(.)/g, (_, p) => p.toUpperCase());
+    const result = {};
+    style.split(';').forEach(el => {
+        const [prop, value] = el.split(':');
+        if (prop) {
+            result[toCamelCase(prop.trim())] = value.trim();
+        }
+    });
+
+    return result;
+}
+
+/**
+ * Retrieve media queries from a master format node
+ *
+ * @param node
+ * @param {Array} mediaQueries
+ *
+ * @returns {{mediaQueries: {media: string, style: string}}}
+ */
+export function getMediaQueries(node) {
+    const response = [];
+    const dataset = Object.keys(node.dataset);
+
+    const medias = dataset
+        .filter(key => key.match(/media-/))
+        .map(key => node.dataset[key]);
+
+    const styles = dataset
+        .filter(key => key.match(/mediaStyle/))
+        .map(key => node.dataset[key]);
+
+    medias.forEach((media, i) => {
+        response.push({
+            media,
+            style: cssToJSXStyle(styles[i])
+        });
+    });
+
+    return { mediaQueries: response };
+}

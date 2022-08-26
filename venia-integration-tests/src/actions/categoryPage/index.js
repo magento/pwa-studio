@@ -19,7 +19,11 @@ import {
     megaMenuMega,
     megaMenuMegaMenuItem,
     megaMenuMegaMenuItemLink,
-    megaMenuSubmenuColumnLink
+    megaMenuSubmenuColumnLink,
+    productsGalleryItemName,
+    categoryPageProductGalleryItem,
+    filterDefaultRadioElement,
+    filterRadioRoot
 } from '../../fields/categoryPage';
 
 /**
@@ -100,11 +104,13 @@ export const toggleFilterList = (filterListName, isMobile = true) => {
  * @param {String} filterListName filter list name
  * @param {String} filterLabel filter label
  * @param {Boolean} [isMobile] is mobile
+ * @param {Boolean} [isRadio] is Radio
  */
 export const selectFilterFromList = (
     filterListName,
     filterLabel,
-    isMobile = true
+    isMobile = true,
+    isRadio = false
 ) => {
     const filtersFilterBlock =
         sharedFilterElements[isMobile ? 'mobile' : 'desktop'].filterBlock;
@@ -112,11 +118,24 @@ export const selectFilterFromList = (
     cy.get(filtersFilterBlock)
         .contains(filtersFilterBlock, filterListName)
         .then($filterBlock => {
-            cy.wrap($filterBlock)
-                .find(filterListItemElement)
-                .contains(filterListItemElement, filterLabel)
-                .find(filterDefaultCheckboxElement)
-                .check();
+            // Toggle block if not expanded
+            if ($filterBlock.find(filterListItemElement).length === 0) {
+                toggleFilterBlock(filterListName, isMobile);
+            }
+
+            if (isRadio) {
+                cy.wrap($filterBlock)
+                    .find(filterListItemElement)
+                    .contains(filterRadioRoot, filterLabel)
+                    .find(filterDefaultRadioElement)
+                    .check();
+            } else {
+                cy.wrap($filterBlock)
+                    .find(filterListItemElement)
+                    .contains(filterListItemElement, filterLabel)
+                    .find(filterDefaultCheckboxElement)
+                    .check();
+            }
         });
 };
 
@@ -185,11 +204,12 @@ export const createWishlistViaDialog = wishlistName => {
 };
 
 /**
- * Utility function to add product to wishlist from category page
+ * Utility function to add product to cart from category page
  */
 export const addProductToCartFromCategoryPage = productToAdd => {
     // add product to cart
-    cy.contains(productToAdd)
+    cy.get(categoryPageProductGalleryItem)
+        .contains(productToAdd)
         .siblings()
         .find(categoryPageAddToCartButton)
         .click();
@@ -227,4 +247,10 @@ export const selectCategoryFromMegaMenu = categoryName => {
     cy.get(`${megaMenuMegaMenuItemLink}, ${megaMenuSubmenuColumnLink}`)
         .filter(`:contains("${categoryName}")`)
         .click({ force: true });
+};
+
+export const selectProductFromCategoryPage = productName => {
+    cy.get(productsGalleryItemName)
+        .contains(productName)
+        .click();
 };

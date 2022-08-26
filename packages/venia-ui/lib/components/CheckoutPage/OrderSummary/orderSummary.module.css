@@ -1,23 +1,18 @@
 .root {
-    border-top: 2px solid rgb(var(--venia-global-color-gray-400));
-    margin-top: 1rem;
-    padding-top: 2rem;
-}
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: mt-xs from global;
+    composes: pt-md from global;
 
-@media (min-width: 961px) {
-    .root {
-        margin-top: 0;
-        border: 2px solid rgb(var(--venia-global-color-gray-400));
-        border-radius: 0.375rem;
-        padding: 2rem;
-    }
+    composes: lg_border-2 from global;
+    composes: lg_border-solid from global;
+    composes: lg_border-subtle from global;
+    composes: lg_rounded-md from global;
+    composes: lg_mt-0 from global;
+    composes: lg_p-md from global;
 }
 
 .title {
-    position: absolute;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-    white-space: nowrap;
+    composes: sr-only from global;
 }

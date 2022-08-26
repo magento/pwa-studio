@@ -11,6 +11,7 @@ import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
 import createTestInstance from '../../../util/createTestInstance';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import CheckoutError from '../CheckoutError';
 
 /**
@@ -58,6 +59,10 @@ jest.mock('../CheckoutError', () => {
 
     return CheckoutError;
 });
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 /**
  * Constants
@@ -309,7 +314,7 @@ test("should place order and cleanup when we have order details and place order 
     expect(createCart).toHaveBeenCalledWith({ fetchCartId });
 });
 
-test('should set checkout step and review order button click state when an error ocurrs during placeOrderAndCleanup()', async () => {
+test('should be able to place order again when an error ocurrs during placeOrderAndCleanup()', async () => {
     const consoleErrorSpy = jest.spyOn(console, 'error');
     const createCart = jest.fn();
     const removeCart = jest.fn(() => {
@@ -336,8 +341,7 @@ test('should set checkout step and review order button click state when an error
     const updatedProps = update(defaultProps);
 
     expect(consoleErrorSpy).toHaveBeenCalled();
-    expect(updatedProps.reviewOrderButtonClicked).toBeFalsy();
-    expect(updatedProps.checkoutStep).toEqual(CHECKOUT_STEP.PAYMENT);
+    expect(updatedProps.placeOrderButtonClicked).toBeFalsy();
 });
 
 test('hasError should be true if place order mutation failed with errors', () => {
@@ -699,4 +703,111 @@ test('should scroll shipping method into view when scrollShippingMethodIntoView 
     talonProps.scrollShippingMethodIntoView();
 
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
+});
+
+test('should dispatch checkout page view event', () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    const cartItems = ['item1', 'item2'];
+    getCheckoutDetailsQueryResult.mockReturnValueOnce({
+        data: { cart: { cart_id: '123', items: cartItems } }
+    });
+
+    getTalonProps(defaultProps);
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('should dispatch checkout review button clicked event', () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    const { talonProps, update } = getTalonProps(defaultProps);
+
+    talonProps.handleReviewOrder();
+
+    update();
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('should dispatch place order button clicked event', async () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    useLazyQuery.mockImplementation(() => {
+        return [
+            jest.fn(),
+            { data: { cart: { id: '123', total_quantity: 5 } }, loading: false }
+        ];
+    });
+
+    const { talonProps } = getTalonProps(defaultProps);
+
+    await act(async () => {
+        await talonProps.handlePlaceOrder();
+    });
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('should dispatch order confirmation page view event', async () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([{}, { dispatch: mockDispatchEvent }]);
+
+    placeOrderMutationResult
+        .mockReturnValueOnce([() => {}, { data: null, loading: false }])
+        .mockReturnValueOnce([
+            () => {},
+            {
+                data: { placeOrder: { order: { order_number: '001' } } },
+                loading: false
+            }
+        ]);
+
+    getOrderDetailsQueryResult
+        .mockReturnValueOnce([
+            () => {},
+            { data: null, loading: false, error: null }
+        ])
+        .mockReturnValueOnce([
+            () => {},
+            {
+                data: {
+                    cart: {
+                        id: '123',
+                        shipping_addresses: [
+                            {
+                                firstname: 'firstname',
+                                lastname: 'lastname',
+                                selected_shipping_method: {
+                                    carrier_title: 'carrier',
+                                    method_title: 'method'
+                                }
+                            }
+                        ]
+                    }
+                },
+                loading: false,
+                error: null
+            }
+        ]);
+
+    const { talonProps } = getTalonProps(defaultProps);
+
+    await act(async () => {
+        await talonProps.handlePlaceOrder();
+    });
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+    expect(mockDispatchEvent.mock.calls).toMatchSnapshot();
 });

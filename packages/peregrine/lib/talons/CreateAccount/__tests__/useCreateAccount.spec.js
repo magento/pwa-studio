@@ -8,6 +8,7 @@ import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../../store/actions/cart';
 import createTestInstance from '../../../util/createTestInstance';
 import { useCreateAccount } from '../useCreateAccount';
+import { useEventingContext } from '../../../context/eventing';
 
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
@@ -49,6 +50,18 @@ jest.mock('../../../store/actions/cart', () => {
         retrieveCartId
     });
 });
+
+jest.mock('../../../hooks/useGoogleReCaptcha', () => ({
+    useGoogleReCaptcha: jest.fn().mockReturnValue({
+        recaptchaLoading: false,
+        generateReCaptchaData: jest.fn(() => {}),
+        recaptchaWidgetProps: {}
+    })
+}));
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const Component = props => {
     const talonProps = useCreateAccount(props);
@@ -432,5 +445,25 @@ describe('handleSubmit', () => {
         await talonProps.handleSubmit(defaultFormValues);
 
         expect(onSubmit).toHaveBeenCalled();
+    });
+
+    test('should dispatch create account event', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValueOnce([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const { talonProps } = getTalonProps({
+            ...defaultProps
+        });
+
+        await talonProps.handleSubmit(defaultFormValues);
+
+        expect(mockDispatch).toHaveBeenCalledTimes(1);
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
     });
 });

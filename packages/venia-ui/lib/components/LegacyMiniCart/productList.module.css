@@ -1,6 +1,8 @@
 .root {
-    display: grid;
-    grid-gap: 1rem;
-    margin: 0 1.5rem;
-    padding: 1.5rem 0;
+    composes: grid from global;
+    composes: gap-xs from global;
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: px-0 from global;
+    composes: py-sm from global;
 }

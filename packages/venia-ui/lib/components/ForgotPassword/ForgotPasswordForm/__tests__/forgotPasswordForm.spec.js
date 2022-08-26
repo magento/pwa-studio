@@ -6,9 +6,24 @@ import ForgotPasswordForm from '../forgotPasswordForm';
 
 jest.mock('../../../../classify');
 
-test('renders correctly', () => {
+test('renders when not busy', () => {
     const wrapper = createTestInstance(
-        <ForgotPasswordForm onSubmit={() => {}} />
+        <ForgotPasswordForm
+            isResettingPassword={false}
+            onCancel={() => {}}
+            onSubmit={() => {}}
+        />
+    );
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('renders when busy', () => {
+    const wrapper = createTestInstance(
+        <ForgotPasswordForm
+            isResettingPassword={true}
+            onCancel={() => {}}
+            onSubmit={() => {}}
+        />
     );
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
@@ -16,7 +31,11 @@ test('renders correctly', () => {
 test('calls onSubmit callback', () => {
     const onSubmit = jest.fn();
     const wrapper = createTestInstance(
-        <ForgotPasswordForm onSubmit={onSubmit} />
+        <ForgotPasswordForm
+            isResettingPassword={false}
+            onCancel={() => {}}
+            onSubmit={onSubmit}
+        />
     );
     wrapper.root.findByType(Form).props.onSubmit();
 

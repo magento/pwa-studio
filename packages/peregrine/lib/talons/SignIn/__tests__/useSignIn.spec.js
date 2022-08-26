@@ -7,6 +7,8 @@ import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
 import defaultOperations from '../signIn.gql';
 import { useSignIn } from '../useSignIn';
+import { useEventingContext } from '../../../context/eventing';
+import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
 
 jest.mock('@apollo/client', () => {
     return {
@@ -14,7 +16,9 @@ jest.mock('@apollo/client', () => {
         useApolloClient: jest.fn()
     };
 });
-jest.mock('../../../hooks/useAwaitQuery');
+jest.mock('../../../hooks/useAwaitQuery', () => ({
+    useAwaitQuery: jest.fn()
+}));
 jest.mock('../../../store/actions/cart', () => ({
     retrieveCartId: jest.fn().mockReturnValue('new-cart-id')
 }));
@@ -38,6 +42,18 @@ jest.mock('../../../context/user', () => ({
         },
         { getUserDetails: jest.fn(), setToken: jest.fn() }
     ])
+}));
+
+jest.mock('../../../hooks/useGoogleReCaptcha', () => ({
+    useGoogleReCaptcha: jest.fn().mockReturnValue({
+        recaptchaLoading: false,
+        generateReCaptchaData: jest.fn(() => {}),
+        recaptchaWidgetProps: {}
+    })
+}));
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
 const signInVariables = {
@@ -108,15 +124,28 @@ test('returns correct shape', () => {
           "handleCreateAccount": [Function],
           "handleForgotPassword": [Function],
           "handleSubmit": [Function],
-          "isBusy": false,
+          "isBusy": true,
+          "recaptchaWidgetProps": Object {
+            "containerElement": [Function],
+            "shouldRender": false,
+          },
           "setFormApi": [Function],
         }
     `);
 });
 
 test('handleSubmit triggers waterfall of operations and actions', async () => {
+    useAwaitQuery.mockReturnValueOnce(() => ({
+        data: {
+            customer: {
+                email: 'john@fake.email'
+            }
+        }
+    }));
+
     const [, { getCartDetails }] = useCartContext();
     const [, { getUserDetails, setToken }] = useUserContext();
+    const [, { dispatch }] = useEventingContext();
 
     const { result } = renderHookWithProviders();
 
@@ -126,6 +155,16 @@ test('handleSubmit triggers waterfall of operations and actions', async () => {
     expect(setToken).toHaveBeenCalledWith(authToken);
     expect(getCartDetails).toHaveBeenCalled();
     expect(getUserDetails).toHaveBeenCalled();
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch.mock.calls[0][0]).toMatchInlineSnapshot(`
+        Object {
+          "payload": Object {
+            "email": "john@fake.email",
+          },
+          "type": "USER_SIGN_IN",
+        }
+    `);
 });
 
 test('handleSubmit exception is logged and resets state', async () => {

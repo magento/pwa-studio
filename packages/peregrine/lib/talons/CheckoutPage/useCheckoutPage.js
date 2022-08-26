@@ -5,6 +5,7 @@ import {
     useMutation,
     useQuery
 } from '@apollo/client';
+import { useEventingContext } from '../../context/eventing';
 
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
@@ -14,6 +15,7 @@ import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
 
 import CheckoutError from './CheckoutError';
+import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -74,6 +76,11 @@ export const useCheckoutPage = (props = {}) => {
         placeOrderMutation
     } = operations;
 
+    const { generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
+        currentForm: 'PLACE_ORDER',
+        formAction: 'placeOrder'
+    });
+
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
     );
@@ -83,6 +90,9 @@ export const useCheckoutPage = (props = {}) => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
+    const [placeOrderButtonClicked, setPlaceOrderButtonClicked] = useState(
+        false
+    );
     const [activeContent, setActiveContent] = useState('checkout');
     const [checkoutStep, setCheckoutStep] = useState(
         CHECKOUT_STEP.SHIPPING_ADDRESS
@@ -133,7 +143,7 @@ export const useCheckoutPage = (props = {}) => {
     });
 
     const cartItems = useMemo(() => {
-        return (checkoutData && checkoutData.cart.items) || [];
+        return (checkoutData && checkoutData?.cart?.items) || [];
     }, [checkoutData]);
 
     /**
@@ -227,8 +237,11 @@ export const useCheckoutPage = (props = {}) => {
                 cartId
             }
         });
+        setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
     }, [cartId, getOrderDetails]);
+
+    const [, { dispatch }] = useEventingContext();
 
     // Go back to checkout if shopper logs in
     useEffect(() => {
@@ -240,10 +253,13 @@ export const useCheckoutPage = (props = {}) => {
     useEffect(() => {
         async function placeOrderAndCleanup() {
             try {
+                const reCaptchaData = await generateReCaptchaData();
+
                 await placeOrder({
                     variables: {
                         cartId
-                    }
+                    },
+                    ...reCaptchaData
                 });
                 // Cleanup stale cart and customer info.
                 await removeCart();
@@ -257,8 +273,7 @@ export const useCheckoutPage = (props = {}) => {
                     'An error occurred during when placing the order',
                     err
                 );
-                setReviewOrderButtonClicked(false);
-                setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+                setPlaceOrderButtonClicked(false);
             }
         }
 
@@ -271,16 +286,90 @@ export const useCheckoutPage = (props = {}) => {
         cartId,
         createCart,
         fetchCartId,
+        generateReCaptchaData,
         orderDetailsData,
         placeOrder,
         removeCart,
         isPlacingOrder
     ]);
 
+    useEffect(() => {
+        if (
+            checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS &&
+            cartItems.length
+        ) {
+            dispatch({
+                type: 'CHECKOUT_PAGE_VIEW',
+                payload: {
+                    cart_id: cartId,
+                    products: cartItems
+                }
+            });
+        } else if (reviewOrderButtonClicked) {
+            dispatch({
+                type: 'CHECKOUT_REVIEW_BUTTON_CLICKED',
+                payload: {
+                    cart_id: cartId
+                }
+            });
+        } else if (
+            placeOrderButtonClicked &&
+            orderDetailsData &&
+            orderDetailsData.cart
+        ) {
+            const shipping =
+                orderDetailsData.cart?.shipping_addresses &&
+                orderDetailsData.cart.shipping_addresses.reduce(
+                    (result, item) => {
+                        return [
+                            ...result,
+                            {
+                                ...item.selected_shipping_method
+                            }
+                        ];
+                    },
+                    []
+                );
+            const eventPayload = {
+                cart_id: cartId,
+                amount: orderDetailsData.cart.prices,
+                shipping: shipping,
+                payment: orderDetailsData.cart.selected_payment_method,
+                products: orderDetailsData.cart.items
+            };
+            if (isPlacingOrder) {
+                dispatch({
+                    type: 'CHECKOUT_PLACE_ORDER_BUTTON_CLICKED',
+                    payload: eventPayload
+                });
+            } else if (placeOrderData && orderDetailsData?.cart.id === cartId) {
+                dispatch({
+                    type: 'ORDER_CONFIRMATION_PAGE_VIEW',
+                    payload: {
+                        order_number:
+                            placeOrderData.placeOrder.order.order_number,
+                        ...eventPayload
+                    }
+                });
+            }
+        }
+    }, [
+        placeOrderButtonClicked,
+        cartId,
+        checkoutStep,
+        orderDetailsData,
+        cartItems,
+        isLoading,
+        dispatch,
+        placeOrderData,
+        isPlacingOrder,
+        reviewOrderButtonClicked
+    ]);
+
     return {
         activeContent,
         availablePaymentMethods: checkoutData
-            ? checkoutData.cart.available_payment_methods
+            ? checkoutData?.cart?.available_payment_methods
             : null,
         cartItems,
         checkoutStep,
@@ -289,7 +378,7 @@ export const useCheckoutPage = (props = {}) => {
         guestSignInUsername,
         handlePlaceOrder,
         hasError: !!checkoutError,
-        isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
+        isCartEmpty: !(checkoutData && checkoutData?.cart?.total_quantity),
         isGuestCheckout: !isSignedIn,
         isLoading,
         isUpdating,
@@ -299,6 +388,7 @@ export const useCheckoutPage = (props = {}) => {
             (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
             null,
         placeOrderLoading,
+        placeOrderButtonClicked,
         setCheckoutStep,
         setGuestSignInUsername,
         setIsUpdating,
@@ -312,6 +402,7 @@ export const useCheckoutPage = (props = {}) => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
+        recaptchaWidgetProps,
         toggleAddressBookContent,
         toggleSignInContent
     };
