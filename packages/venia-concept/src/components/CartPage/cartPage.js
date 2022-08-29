@@ -50,7 +50,6 @@ const CartPage = props => {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
     });
-
     const {
         cartItems,
         hasItems,
@@ -98,7 +97,7 @@ const CartPage = props => {
     const priceAdjustments = hasItems ? <PriceAdjustments setIsCartUpdating={setIsCartUpdating} /> : null;
 
     const priceSummary = hasItems ? <PriceSummary isUpdating={isCartUpdating} /> : null;
-
+    const isPremium = process.env.B2BSTORE_VERSION === 'PREMIUM';
     const handleOpenPopup = () => {
         setOpenPopup(true);
     };
@@ -135,7 +134,7 @@ const CartPage = props => {
                     <div className={classes.summary_contents}>
                         {priceSummary}
                         <div className={classes.additionalOptionsContainer}>
-                            {hasItems ? <SavedCartButton /> : null}
+                            {hasItems && isPremium ? <SavedCartButton /> : null}
                             {hasItems ? printPdfButton : null}
                             <AddProductByCsv
                                 csvErrorType={csvErrorType}
