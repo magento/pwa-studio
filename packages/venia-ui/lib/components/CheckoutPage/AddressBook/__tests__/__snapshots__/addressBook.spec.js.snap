@@ -32,6 +32,7 @@ Array [
     className="root_active"
   >
     <h1
+      aria-live="polite"
       className="headerText"
     >
       <mock-FormattedMessage
@@ -215,6 +216,7 @@ Array [
     className="root"
   >
     <h1
+      aria-live="polite"
       className="headerText"
     >
       <mock-FormattedMessage

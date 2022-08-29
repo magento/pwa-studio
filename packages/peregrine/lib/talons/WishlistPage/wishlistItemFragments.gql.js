@@ -17,6 +17,9 @@ export const WishlistItemFragment = gql`
                         currency
                         value
                     }
+                    discount {
+                        amount_off
+                    }
                 }
             }
             sku
@@ -42,6 +45,21 @@ export const WishlistItemFragment = gql`
                                 thumbnail
                             }
                             value
+                        }
+                    }
+                }
+                variants {
+                    attributes {
+                        uid
+                        code
+                        value_index
+                    }
+                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
+                    product {
+                        uid
+                        stock_status
+                        small_image {
+                            url
                         }
                     }
                 }

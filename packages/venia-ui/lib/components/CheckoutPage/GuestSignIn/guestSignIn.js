@@ -54,7 +54,7 @@ const GuestSignIn = props => {
 
     return (
         <div className={rootClass}>
-            <h1 className={classes.header}>
+            <h1 aria-live="polite" className={classes.header}>
                 <FormattedMessage
                     id="checkoutPage.guestSignIn.header"
                     defaultMessage="Account Sign-in"

@@ -24,7 +24,7 @@ afterEach(() => {
 describe('verify version banner', () => {
     it(
         'user can see list of important package versions',
-        { tags: ['@commerce', '@open-source', '@ci'] },
+        { tags: ['@e2e', '@commerce', '@open-source', '@ci'] },
         () => {
             cy.intercept('GET', clientJs).as('resourceClientJs');
 

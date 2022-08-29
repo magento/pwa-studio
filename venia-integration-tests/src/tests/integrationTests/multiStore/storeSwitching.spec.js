@@ -18,7 +18,7 @@ import {
 } from '../../../actions/storeSwitcher';
 
 import { assertUrlSuffix, assertNoUrlSuffix } from '../../../assertions/app';
-import { assertProductIsOutOfStock } from '../../../assertions/productPage';
+import { assertSizeSwatchDisable } from '../../../assertions/productPage';
 import {
     assertProductInCartPage,
     assertProductImageDisplayedInCartPage
@@ -45,7 +45,6 @@ import {
     assertProductInList,
     assertProductImageDisplayed
 } from '../../../assertions/miniCart';
-import { assertErrorInPage } from '../../../assertions/notFoundPage';
 import { assertImageUrlContainsBaseUrl } from '../../../assertions/pageBuilder';
 
 import {
@@ -326,11 +325,47 @@ const interceptStoreRequests = expectedStoreCode => {
 
     // Requests for data about the homepage route
     cy.intercept('GET', getRouteDataCall, req => {
-        expect(req.headers.store).to.equal(expectedStoreCode);
-        req.reply({
-            fixture: `${DATA_DIRECTORY}/homeRoute.json`
-        });
-    }).as('getMockHomeRoute');
+        const { headers, query } = req;
+        const url = JSON.parse(query.variables).url;
+
+        expect(headers.store).to.equal(expectedStoreCode);
+
+        switch (url) {
+            case '/':
+                req.alias = 'mockHomeRouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/homeRoute.json`
+                });
+                break;
+            // Switching from default store to second store
+            case defaultStore.accessoriesPathname:
+                req.alias = 'mockAccessoriesRouteData';
+                req.reply({
+                    //fixture: `${DATA_DIRECTORY}/default/accessoriesRoute.json`
+                    fixture: `${DATA_DIRECTORY}/storeB/accessoriesRoute.json`
+                });
+                break;
+            // Switching from second store to default store
+            case secondStore.accessoriesPathname:
+                req.alias = 'getMockAccessoriesRouteData';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/default/accessoriesRoute.json`
+                });
+                break;
+            case subcategoryAPathname:
+                req.alias = 'mockSubcategoryARouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/subcategoryARoute.json`
+                });
+                break;
+            case subcategoryBPathname:
+                req.alias = 'mockSubcategoryBRouteDataCall';
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/storeB/subcategoryBRoute.json`
+                });
+                break;
+        }
+    });
 
     // Requests for currency data
     cy.intercept('GET', getCurrencyDataCall, req => {
@@ -554,488 +589,514 @@ const interceptRouteDataRequests = expectedStoreCode => {
     });
 };
 
-describe('default store', { tags: ['@commerce', '@ci', '@multistore'] }, () => {
-    it('contains valid CMS Page data', () => {
-        interceptStoreRequests(defaultStore.defaultView.storeCode);
-        interceptRouteDataRequests(defaultStore.defaultView.storeCode);
+describe(
+    'default store',
+    { tags: ['@integration', '@commerce', '@ci', '@multistore'] },
+    () => {
+        it('contains valid CMS Page data', () => {
+            interceptStoreRequests(defaultStore.defaultView.storeCode);
+            interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-        cy.visitPage('/');
+            cy.visitPage('/');
 
-        cy.wait([
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu',
-            '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForCategoryTree'
-        ]);
+            cy.wait([
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu',
+                '@getMockStoreConfigForMegaMenu',
+                '@getMockStoreConfigForCategoryTree'
+            ]);
 
-        // Should not have any url suffix
-        assertNoUrlSuffix();
+            // Should not have any url suffix
+            assertNoUrlSuffix();
 
-        // Images should load properly
-        assertImageUrlContainsBaseUrl();
-    });
-
-    it('displays subcategories from the default root category', () => {
-        interceptStoreRequests(defaultStore.defaultView.storeCode);
-        interceptRouteDataRequests(defaultStore.defaultView.storeCode);
-
-        cy.visitPage('/');
-
-        cy.wait([
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu',
-            '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForCategoryTree'
-        ]);
-
-        // Assertions to make sure we are using the mock data for categories
-        assertNumberOfCategoriesInMegaMenu(defaultStore.categories.length);
-        assertNumberOfCategoriesInCategoryTree(defaultStore.categories.length);
-
-        defaultStore.categories.forEach(categoryLabel => {
-            assertCategoryInMegaMenu(categoryLabel);
-            assertCategoryInCategoryTree(categoryLabel);
-        });
-    });
-
-    it('displays assigned products', () => {
-        interceptStoreRequests(defaultStore.defaultView.storeCode);
-        interceptRouteDataRequests(defaultStore.defaultView.storeCode);
-
-        cy.visitPage('/');
-
-        cy.wait([
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu',
-            '@getMockStoreConfigForMegaMenu',
-            '@getMockStoreConfigForCategoryTree'
-        ]);
-
-        // Setup calls for the accessories page
-        interceptCategoryPagesRequests(
-            defaultStore.defaultView.storeCode,
-            'accessories'
-        );
-
-        // Navigate to the accessories category
-        selectCategoryFromMegaMenu(defaultStore.categories[3]);
-
-        cy.wait('@getMockCategory');
-
-        assertUrlSuffix();
-        assertProductsFound();
-
-        // Assertions to make sure we are using the mock data for accessories
-        assertNumberOfProductsListed(defaultAccessoriesProducts.length);
-
-        defaultAccessoriesProducts.forEach(productName => {
-            assertProductIsInGallery(productName);
-        });
-    });
-});
-
-describe('switching to another store', { tags: ['@commerce', '@ci'] }, () => {
-    it('contains valid CMS Page data specific to the different store', () => {
-        interceptStoreRequests(defaultStore.defaultView.storeCode);
-        interceptRouteDataRequests(defaultStore.defaultView.storeCode);
-
-        cy.visitPage('/');
-
-        cy.wait([
-            '@getMockCmsPage',
-            '@getMockProductCarousel',
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu'
-        ]);
-
-        // Setup network interactions for the second store view
-        interceptStoreRequests(secondStore.viewOne.storeCode);
-        interceptRouteDataRequests(secondStore.viewOne.storeCode);
-
-        // Switch to second store view
-        toggleHeaderStoreSwitcher();
-        selectStoreView(
-            `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
-        );
-
-        cy.wait([
-            '@getMockCmsPage',
-            '@getMockProductCarousel',
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu'
-        ]);
-
-        // Should not have any url suffix
-        assertNoUrlSuffix();
-
-        // Images should load properly
-        assertImageUrlContainsBaseUrl();
-    });
-
-    it('shows categories specific to the different store', () => {
-        interceptStoreRequests(defaultStore.defaultView.storeCode);
-        interceptRouteDataRequests(defaultStore.defaultView.storeCode);
-
-        cy.visitPage('/');
-
-        cy.wait([
-            '@getMockCmsPage',
-            '@getMockProductCarousel',
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu'
-        ]);
-
-        // Setup network interactions for the second store view
-        interceptStoreRequests(secondStore.viewOne.storeCode);
-        interceptRouteDataRequests(secondStore.viewOne.storeCode);
-
-        // Switch to second store view
-        toggleHeaderStoreSwitcher();
-        selectStoreView(
-            `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
-        );
-
-        cy.wait([
-            '@getMockCmsPage',
-            '@getMockProductCarousel',
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu'
-        ]);
-
-        // Assert categories for second store
-        assertNumberOfCategoriesInMegaMenu(secondStore.categories.length);
-        assertNumberOfCategoriesInCategoryTree(secondStore.categories.length);
-
-        secondStore.categories.forEach(categoryLabel => {
-            assertCategoryInMegaMenu(categoryLabel);
-            assertCategoryInCategoryTree(categoryLabel);
+            // Images should load properly
+            assertImageUrlContainsBaseUrl();
         });
 
-        // Setup network interactions for a different store one view
-        interceptStoreRequests(defaultStore.viewOne.storeCode);
-        interceptRouteDataRequests(defaultStore.viewOne.storeCode);
+        it('displays subcategories from the default root category', () => {
+            interceptStoreRequests(defaultStore.defaultView.storeCode);
+            interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-        // Switch to different store one view
-        toggleHeaderStoreSwitcher();
-        selectStoreView(
-            `${defaultStore.groupName} - ${defaultStore.viewOne.storeName}`
-        );
+            cy.visitPage('/');
 
-        cy.wait([
-            '@getMockCmsPage',
-            '@getMockProductCarousel',
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu'
-        ]);
+            cy.wait([
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu',
+                '@getMockStoreConfigForMegaMenu',
+                '@getMockStoreConfigForCategoryTree'
+            ]);
 
-        // Assertions to make sure we are showing the default mock data
-        assertNumberOfCategoriesInMegaMenu(defaultStore.categories.length);
-        assertNumberOfCategoriesInCategoryTree(defaultStore.categories.length);
-
-        defaultStore.categories.forEach(categoryLabel => {
-            assertCategoryInMegaMenu(categoryLabel);
-            assertCategoryInCategoryTree(categoryLabel);
-        });
-    });
-
-    it('shows products specific to the categories in the different store', () => {
-        interceptStoreRequests(defaultStore.defaultView.storeCode);
-        interceptRouteDataRequests(defaultStore.defaultView.storeCode);
-
-        cy.visitPage('/');
-
-        cy.wait([
-            '@getMockCmsPage',
-            '@getMockProductCarousel',
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu'
-        ]);
-
-        // Setup mock network interactions
-        interceptStoreRequests(secondStore.viewOne.storeCode);
-        interceptRouteDataRequests(secondStore.viewOne.storeCode);
-
-        // Switch to second store view
-        toggleHeaderStoreSwitcher();
-
-        selectStoreView(
-            `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
-        );
-
-        cy.wait([
-            '@getMockCmsPage',
-            '@getMockProductCarousel',
-            '@getMockMegaMenu',
-            '@getMockNavigationMenu'
-        ]);
-
-        //Setup network mock network requests for the first category page
-        interceptCategoryPagesRequests(
-            secondStore.viewOne.storeCode,
-            'subcategoryA'
-        );
-
-        selectCategoryFromMegaMenu(secondStore.categories[0]);
-
-        // Make sure we are using the mock data for the second store products
-        assertNoUrlSuffix();
-        assertProductsFound();
-
-        assertNumberOfProductsListed(subcategoryAProducts.length);
-
-        subcategoryAProducts.forEach(productName => {
-            assertProductIsInGallery(productName);
-        });
-
-        // Setup network interactions for second category
-        interceptCategoryPagesRequests(
-            secondStore.viewOne.storeCode,
-            'subcategoryB'
-        );
-
-        // Visit second category
-        selectCategoryFromMegaMenu(secondStore.categories[1]);
-
-        // These are no products assigned to Subcategory B in the mock data
-        assertNoUrlSuffix();
-        assertNoProductsFound();
-    });
-});
-
-describe('shopping cart', { tags: ['@commerce', '@ci'] }, () => {
-    it('lets users add products to cart regardless of store view', () => {
-        interceptStoreRequests(defaultStore.defaultView.storeCode);
-        interceptRouteDataRequests(defaultStore.defaultView.storeCode);
-
-        // Visit default store and add a product
-        cy.visitPage('/');
-
-        interceptCategoryPagesRequests(
-            defaultStore.defaultView.storeCode,
-            'accessories'
-        );
-
-        selectCategoryFromMegaMenu(defaultStore.categories[3]);
-
-        // Intercept calls that update the cart
-        cy.intercept('POST', hitGraphqlPath, req => {
-            expect(req.headers.store).to.equal(
-                defaultStore.defaultView.storeCode
+            // Assertions to make sure we are using the mock data for categories
+            assertNumberOfCategoriesInMegaMenu(defaultStore.categories.length);
+            assertNumberOfCategoriesInCategoryTree(
+                defaultStore.categories.length
             );
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/cart/addProductsToCart1.json`
+
+            defaultStore.categories.forEach(categoryLabel => {
+                assertCategoryInMegaMenu(categoryLabel);
+                assertCategoryInCategoryTree(categoryLabel);
             });
-        }).as('mockAddItemToCart');
+        });
 
-        interceptCartDataRequests(1, defaultStore.defaultView.storeCode);
+        it('displays assigned products', () => {
+            interceptStoreRequests(defaultStore.defaultView.storeCode);
+            interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-        addProductToCartFromCategoryPage(defaultAccessoriesProducts[1]);
+            cy.visitPage('/');
 
-        cy.wait(['@mockAddItemToCart']);
+            cy.wait([
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu',
+                '@getMockStoreConfigForMegaMenu',
+                '@getMockStoreConfigForCategoryTree'
+            ]);
 
-        assertCartTriggerCount(1);
-        assertProductInList(defaultAccessoriesProducts[1]);
+            // Setup calls for the accessories page
+            interceptCategoryPagesRequests(
+                defaultStore.defaultView.storeCode,
+                'accessories'
+            );
 
-        cy.wait([
-            '@getMockItemCount',
-            '@getMockAuthedUserCheck',
-            '@getMockMiniCart'
-        ]);
+            // Navigate to the accessories category
+            selectCategoryFromMegaMenu(defaultStore.categories[3]);
 
-        // Visit View 1 from default store and add product
-        interceptStoreRequests(defaultStore.viewOne.storeCode);
-        interceptRouteDataRequests(defaultStore.viewOne.storeCode);
+            cy.wait('@getMockCategory');
 
-        // Setup cart endpoint responses
-        interceptCartDataRequests(1, defaultStore.viewOne.storeCode);
+            assertUrlSuffix();
+            assertProductsFound();
 
-        // View 1 - Accessories Category
-        interceptCategoryPagesRequests(
-            defaultStore.viewOne.storeCode,
-            'accessories'
-        );
+            // Assertions to make sure we are using the mock data for accessories
+            assertNumberOfProductsListed(defaultAccessoriesProducts.length);
 
-        toggleHeaderStoreSwitcher();
-
-        selectStoreView(
-            `${defaultStore.groupName} - ${defaultStore.viewOne.storeName}`
-        );
-
-        cy.wait([
-            '@getMockCategory',
-            '@getMockBreadcrumbsData',
-            '@getMockCategoryData',
-            '@getMockProductFilter',
-            '@getMockFilterInputs'
-        ]);
-
-        assertProductsFound();
-
-        // Add second item to cart
-        // Intercept calls that update the cart
-        cy.intercept('POST', hitGraphqlPath, req => {
-            expect(req.headers.store).to.equal(defaultStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/cart/addProductsToCart2.json`
+            defaultAccessoriesProducts.forEach(productName => {
+                assertProductIsInGallery(productName);
             });
-        }).as('mockAddItemToCart2');
-        interceptCartDataRequests(2, defaultStore.viewOne.storeCode);
+        });
+    }
+);
 
-        addProductToCartFromCategoryPage(defaultAccessoriesProducts[2]);
+describe(
+    'switching to another store',
+    { tags: ['@integration', '@commerce', '@ci'] },
+    () => {
+        it('contains valid CMS Page data specific to the different store', () => {
+            interceptStoreRequests(defaultStore.defaultView.storeCode);
+            interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-        cy.wait('@mockAddItemToCart2');
+            cy.visitPage('/');
 
-        assertCartTriggerCount(2);
+            cy.wait([
+                '@getMockCmsPage',
+                '@getMockProductCarousel',
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu'
+            ]);
 
-        assertProductInList(defaultAccessoriesProducts[2]);
+            // Setup network interactions for the second store view
+            interceptStoreRequests(secondStore.viewOne.storeCode);
+            interceptRouteDataRequests(secondStore.viewOne.storeCode);
 
-        // View 1 - Tops Category
-        interceptCategoryPagesRequests(defaultStore.viewOne.storeCode, 'tops');
+            // Switch to second store view
+            toggleHeaderStoreSwitcher();
+            selectStoreView(
+                `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
+            );
 
-        selectCategoryFromMegaMenu(defaultStore.categories[0]);
+            cy.wait([
+                '@getMockCmsPage',
+                '@getMockProductCarousel',
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu'
+            ]);
 
-        cy.wait(['@mockTopsRouteData']);
+            // Should not have any url suffix
+            assertNoUrlSuffix();
 
-        // View 1 - Product 1 Detail Page
-        interceptProductPagesRequests(
-            defaultStore.viewOne.storeCode,
-            'product1'
-        );
+            // Images should load properly
+            assertImageUrlContainsBaseUrl();
+        });
 
-        addProductToCartFromCategoryPage(defaultTopsProducts[0]);
+        it('shows categories specific to the different store', () => {
+            interceptStoreRequests(defaultStore.defaultView.storeCode);
+            interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-        cy.wait(['@mockProduct1RouteData']);
+            cy.visitPage('/');
 
-        selectOptionsFromProductPage();
+            cy.wait([
+                '@getMockCmsPage',
+                '@getMockProductCarousel',
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu'
+            ]);
 
-        // Intercept calls that update the cart
-        cy.intercept('POST', hitGraphqlPath, req => {
-            expect(req.headers.store).to.equal(defaultStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/cart/addProductsToCart3.json`
+            // Setup network interactions for the second store view
+            interceptStoreRequests(secondStore.viewOne.storeCode);
+            interceptRouteDataRequests(secondStore.viewOne.storeCode);
+
+            // Switch to second store view
+            toggleHeaderStoreSwitcher();
+            selectStoreView(
+                `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
+            );
+
+            cy.wait([
+                '@getMockCmsPage',
+                '@getMockProductCarousel',
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu'
+            ]);
+
+            // Assert categories for second store
+            assertNumberOfCategoriesInMegaMenu(secondStore.categories.length);
+            assertNumberOfCategoriesInCategoryTree(
+                secondStore.categories.length
+            );
+
+            secondStore.categories.forEach(categoryLabel => {
+                assertCategoryInMegaMenu(categoryLabel);
+                assertCategoryInCategoryTree(categoryLabel);
             });
-        }).as('mockAddItemToCart3');
-        interceptCartDataRequests(3, defaultStore.viewOne.storeCode);
 
-        addToCartFromProductPage();
+            // Setup network interactions for a different store one view
+            interceptStoreRequests(defaultStore.viewOne.storeCode);
+            interceptRouteDataRequests(defaultStore.viewOne.storeCode);
 
-        cy.wait('@mockAddItemToCart3');
+            // Switch to different store one view
+            toggleHeaderStoreSwitcher();
+            selectStoreView(
+                `${defaultStore.groupName} - ${defaultStore.viewOne.storeName}`
+            );
 
-        // Make sure we have 3 products added to cart
-        assertCartTriggerCount(3);
+            cy.wait([
+                '@getMockCmsPage',
+                '@getMockProductCarousel',
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu'
+            ]);
 
-        assertProductInList(defaultTopsProducts[0]);
+            // Assertions to make sure we are showing the default mock data
+            assertNumberOfCategoriesInMegaMenu(defaultStore.categories.length);
+            assertNumberOfCategoriesInCategoryTree(
+                defaultStore.categories.length
+            );
 
-        // Visit View 1 B from Store B
-        selectCategoryFromMegaMenu(defaultStore.categories[3]);
-
-        interceptStoreRequests(secondStore.viewOne.storeCode);
-        interceptRouteDataRequests(secondStore.viewOne.storeCode);
-
-        interceptCartDataRequests(3, secondStore.viewOne.storeCode);
-
-        toggleHeaderStoreSwitcher();
-
-        selectStoreView(
-            `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
-        );
-
-        cy.wait([
-            '@getMockCategory',
-            '@getMockBreadcrumbsData',
-            '@getMockCategoryData',
-            '@getMockProductFilter',
-            '@getMockFilterInputs'
-        ]);
-
-        assertErrorInPage();
-
-        // Go to first category
-        interceptCategoryPagesRequests(
-            secondStore.viewOne.storeCode,
-            'subcategoryA'
-        );
-
-        selectCategoryFromMegaMenu(secondStore.categories[0]);
-
-        // Intercept calls that update the cart
-        cy.intercept('POST', hitGraphqlPath, req => {
-            expect(req.headers.store).to.equal(secondStore.viewOne.storeCode);
-            req.reply({
-                fixture: `${DATA_DIRECTORY}/cart/addProductsToCart4.json`
+            defaultStore.categories.forEach(categoryLabel => {
+                assertCategoryInMegaMenu(categoryLabel);
+                assertCategoryInCategoryTree(categoryLabel);
             });
-        }).as('mockAddItemToCart4');
+        });
 
-        interceptCartDataRequests(4, secondStore.viewOne.storeCode);
+        it('shows products specific to the categories in the different store', () => {
+            interceptStoreRequests(defaultStore.defaultView.storeCode);
+            interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-        interceptProductPagesRequests(
-            secondStore.viewOne.storeCode,
-            'product2'
-        );
+            cy.visitPage('/');
 
-        // Add third item to cart
-        assertProductsFound();
-        addProductToCartFromCategoryPage(subcategoryAProducts[1]);
+            cy.wait([
+                '@getMockCmsPage',
+                '@getMockProductCarousel',
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu'
+            ]);
 
-        cy.wait(['@mockProduct2RouteData']);
+            // Setup mock network interactions
+            interceptStoreRequests(secondStore.viewOne.storeCode);
+            interceptRouteDataRequests(secondStore.viewOne.storeCode);
 
-        setProductColorOption('Khaki');
-        setProductSizeOption('S');
+            // Switch to second store view
+            toggleHeaderStoreSwitcher();
 
-        assertProductIsOutOfStock();
+            selectStoreView(
+                `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
+            );
 
-        setProductSizeOption('M');
-        addToCartFromProductPage();
+            cy.wait([
+                '@getMockCmsPage',
+                '@getMockProductCarousel',
+                '@getMockMegaMenu',
+                '@getMockNavigationMenu'
+            ]);
 
-        cy.wait(['@mockAddItemToCart4']);
+            //Setup network mock network requests for the first category page
+            interceptCategoryPagesRequests(
+                secondStore.viewOne.storeCode,
+                'subcategoryA'
+            );
 
-        // Make sure we have 4 products added to cart
-        assertCartTriggerCount(4);
-        assertProductInList(subcategoryAProducts[1]);
+            selectCategoryFromMegaMenu(secondStore.categories[0]);
 
-        // Setup mock network responses for the cart page
-        interceptCartPageRequests(secondStore.viewOne.storeCode);
+            // Make sure we are using the mock data for the second store products
+            assertNoUrlSuffix();
+            assertProductsFound();
 
-        // Open MiniCart
-        triggerMiniCart();
+            assertNumberOfProductsListed(subcategoryAProducts.length);
 
-        // Assert correct product image urls
-        assertProductImageDisplayed('va14-ts_main', 0);
-        assertProductImageDisplayed('va13-sg_main', 1);
-        assertProductImageDisplayed('vsw01-pe_main_1', 2);
-        assertProductImageDisplayed('va03-kh_main_1', 3);
+            subcategoryAProducts.forEach(productName => {
+                assertProductIsInGallery(productName);
+            });
 
-        // Navigate to the cart page
-        goToCartPageFromEditCartButton();
+            // Setup network interactions for second category
+            interceptCategoryPagesRequests(
+                secondStore.viewOne.storeCode,
+                'subcategoryB'
+            );
 
-        cy.wait(['@getMockProductListing']);
+            // Visit second category
+            selectCategoryFromMegaMenu(secondStore.categories[1]);
 
-        // Assert we have the correct items in the cart
-        assertProductInCartPage(defaultAccessoriesProducts[1]);
-        assertProductInCartPage(defaultAccessoriesProducts[2]);
-        assertProductInCartPage(defaultTopsProducts[0]);
-        assertProductInCartPage(subcategoryAProducts[1]);
+            // These are no products assigned to Subcategory B in the mock data
+            assertNoUrlSuffix();
+            assertNoProductsFound();
+        });
+    }
+);
 
-        // Test image source
-        assertProductImageDisplayedInCartPage('vsw01-pe_main_1', 2);
-        assertProductImageDisplayedInCartPage('va03-kh_main_1', 3);
+describe(
+    'shopping cart',
+    { tags: ['@integration', '@commerce', '@ci'] },
+    () => {
+        it('lets users add products to cart regardless of store view', () => {
+            interceptStoreRequests(defaultStore.defaultView.storeCode);
+            interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-        // Visit back View 1 from default store and validate store config
-        interceptStoreRequests(defaultStore.defaultView.storeCode);
-        interceptRouteDataRequests(defaultStore.defaultView.storeCode);
-        interceptCartDataRequests(4, defaultStore.defaultView.storeCode);
-        interceptCartPageRequests(defaultStore.defaultView.storeCode);
+            // Visit default store and add a product
+            cy.visitPage('/');
 
-        toggleHeaderStoreSwitcher();
+            interceptCategoryPagesRequests(
+                defaultStore.defaultView.storeCode,
+                'accessories'
+            );
 
-        selectStoreView(
-            `${defaultStore.groupName} - ${defaultStore.defaultView.storeName}`
-        );
+            selectCategoryFromMegaMenu(defaultStore.categories[3]);
 
-        cy.wait(['@getMockProductListing']);
+            // Intercept calls that update the cart
+            cy.intercept('POST', hitGraphqlPath, req => {
+                expect(req.headers.store).to.equal(
+                    defaultStore.defaultView.storeCode
+                );
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/cart/addProductsToCart1.json`
+                });
+            }).as('mockAddItemToCart');
 
-        // Test if image source has changed
-        assertProductImageDisplayedInCartPage('vsw01-rn_main_2', 2);
-        assertProductImageDisplayedInCartPage('va03-ly_main_2', 3);
-    });
-});
+            interceptCartDataRequests(1, defaultStore.defaultView.storeCode);
+
+            addProductToCartFromCategoryPage(defaultAccessoriesProducts[1]);
+
+            cy.wait(['@mockAddItemToCart']);
+
+            assertCartTriggerCount(1);
+            assertProductInList(defaultAccessoriesProducts[1]);
+
+            cy.wait([
+                '@getMockItemCount',
+                '@getMockAuthedUserCheck',
+                '@getMockMiniCart'
+            ]);
+
+            // Visit View 1 from default store and add product
+            interceptStoreRequests(defaultStore.viewOne.storeCode);
+            interceptRouteDataRequests(defaultStore.viewOne.storeCode);
+
+            // Setup cart endpoint responses
+            interceptCartDataRequests(1, defaultStore.viewOne.storeCode);
+
+            // View 1 - Accessories Category
+            interceptCategoryPagesRequests(
+                defaultStore.viewOne.storeCode,
+                'accessories'
+            );
+
+            toggleHeaderStoreSwitcher();
+
+            selectStoreView(
+                `${defaultStore.groupName} - ${defaultStore.viewOne.storeName}`
+            );
+
+            cy.wait([
+                '@getMockCategory',
+                '@getMockBreadcrumbsData',
+                '@getMockCategoryData',
+                '@getMockProductFilter',
+                '@getMockFilterInputs'
+            ]);
+
+            assertProductsFound();
+
+            // Add second item to cart
+            // Intercept calls that update the cart
+            cy.intercept('POST', hitGraphqlPath, req => {
+                expect(req.headers.store).to.equal(
+                    defaultStore.viewOne.storeCode
+                );
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/cart/addProductsToCart2.json`
+                });
+            }).as('mockAddItemToCart2');
+            interceptCartDataRequests(2, defaultStore.viewOne.storeCode);
+
+            addProductToCartFromCategoryPage(defaultAccessoriesProducts[2]);
+
+            cy.wait('@mockAddItemToCart2');
+
+            assertCartTriggerCount(2);
+
+            assertProductInList(defaultAccessoriesProducts[2]);
+
+            // View 1 - Tops Category
+            interceptCategoryPagesRequests(
+                defaultStore.viewOne.storeCode,
+                'tops'
+            );
+
+            selectCategoryFromMegaMenu(defaultStore.categories[0]);
+
+            cy.wait(['@mockTopsRouteData']);
+
+            // View 1 - Product 1 Detail Page
+            interceptProductPagesRequests(
+                defaultStore.viewOne.storeCode,
+                'product1'
+            );
+
+            addProductToCartFromCategoryPage(defaultTopsProducts[0]);
+
+            cy.wait(['@mockProduct1RouteData']);
+
+            selectOptionsFromProductPage();
+
+            // Intercept calls that update the cart
+            cy.intercept('POST', hitGraphqlPath, req => {
+                expect(req.headers.store).to.equal(
+                    defaultStore.viewOne.storeCode
+                );
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/cart/addProductsToCart3.json`
+                });
+            }).as('mockAddItemToCart3');
+            interceptCartDataRequests(3, defaultStore.viewOne.storeCode);
+
+            addToCartFromProductPage();
+
+            cy.wait('@mockAddItemToCart3');
+
+            // Make sure we have 3 products added to cart
+            assertCartTriggerCount(3);
+
+            assertProductInList(defaultTopsProducts[0]);
+
+            // Visit View 1 B from Store B
+            selectCategoryFromMegaMenu(defaultStore.categories[3]);
+
+            interceptStoreRequests(secondStore.viewOne.storeCode);
+            interceptRouteDataRequests(secondStore.viewOne.storeCode);
+
+            interceptCartDataRequests(3, secondStore.viewOne.storeCode);
+
+            toggleHeaderStoreSwitcher();
+
+            selectStoreView(
+                `${secondStore.groupName} - ${secondStore.viewOne.storeName}`
+            );
+
+            cy.wait([
+                '@getMockCategory',
+                '@getMockBreadcrumbsData',
+                '@getMockCategoryData',
+                '@getMockProductFilter',
+                '@getMockFilterInputs'
+            ]);
+
+            // Go to first category
+            interceptCategoryPagesRequests(
+                secondStore.viewOne.storeCode,
+                'subcategoryA'
+            );
+
+            selectCategoryFromMegaMenu(secondStore.categories[0]);
+
+            // Intercept calls that update the cart
+            cy.intercept('POST', hitGraphqlPath, req => {
+                expect(req.headers.store).to.equal(
+                    secondStore.viewOne.storeCode
+                );
+                req.reply({
+                    fixture: `${DATA_DIRECTORY}/cart/addProductsToCart4.json`
+                });
+            }).as('mockAddItemToCart4');
+
+            interceptCartDataRequests(4, secondStore.viewOne.storeCode);
+
+            interceptProductPagesRequests(
+                secondStore.viewOne.storeCode,
+                'product2'
+            );
+
+            // Add third item to cart
+            assertProductsFound();
+            addProductToCartFromCategoryPage(subcategoryAProducts[1]);
+
+            cy.wait(['@mockProduct2RouteData']);
+
+            setProductColorOption('Khaki');
+
+            assertSizeSwatchDisable('S');
+
+            setProductSizeOption('M');
+            addToCartFromProductPage();
+
+            cy.wait(['@mockAddItemToCart4']);
+
+            // Make sure we have 4 products added to cart
+            assertCartTriggerCount(4);
+            assertProductInList(subcategoryAProducts[1]);
+
+            // Setup mock network responses for the cart page
+            interceptCartPageRequests(secondStore.viewOne.storeCode);
+
+            // Open MiniCart
+            triggerMiniCart();
+
+            // Assert correct product image urls
+            assertProductImageDisplayed('va14-ts_main', 0);
+            assertProductImageDisplayed('va13-sg_main', 1);
+            assertProductImageDisplayed('vsw01-pe_main_1', 2);
+            assertProductImageDisplayed('va03-kh_main_1', 3);
+
+            // Navigate to the cart page
+            goToCartPageFromEditCartButton();
+
+            cy.wait(['@getMockProductListing']);
+
+            // Assert we have the correct items in the cart
+            assertProductInCartPage(defaultAccessoriesProducts[1]);
+            assertProductInCartPage(defaultAccessoriesProducts[2]);
+            assertProductInCartPage(defaultTopsProducts[0]);
+            assertProductInCartPage(subcategoryAProducts[1]);
+
+            // Test image source
+            assertProductImageDisplayedInCartPage('vsw01-pe_main_1', 2);
+            assertProductImageDisplayedInCartPage('va03-kh_main_1', 3);
+
+            // Visit back View 1 from default store and validate store config
+            interceptStoreRequests(defaultStore.defaultView.storeCode);
+            interceptRouteDataRequests(defaultStore.defaultView.storeCode);
+            interceptCartDataRequests(4, defaultStore.defaultView.storeCode);
+            interceptCartPageRequests(defaultStore.defaultView.storeCode);
+
+            toggleHeaderStoreSwitcher();
+
+            selectStoreView(
+                `${defaultStore.groupName} - ${
+                    defaultStore.defaultView.storeName
+                }`
+            );
+
+            cy.wait(['@getMockProductListing']);
+
+            // Test if image source has changed
+            assertProductImageDisplayedInCartPage('vsw01-rn_main_2', 2);
+            assertProductImageDisplayedInCartPage('va03-ly_main_2', 3);
+        });
+    }
+);

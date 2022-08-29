@@ -64,7 +64,16 @@ const {
 
 describe(
     'verify Google ReCaptcha in checkout',
-    { tags: ['@commerce', '@open-source', '@ci', '@recaptcha', '@checkout'] },
+    {
+        tags: [
+            '@integration',
+            '@commerce',
+            '@open-source',
+            '@ci',
+            '@recaptcha',
+            '@checkout'
+        ]
+    },
     () => {
         it('user can fill and submit payment form and place order with inline badge position', () => {
             // Intercepts

@@ -9,5 +9,5 @@
 }
 
 .contentHtml {
-    composes: block from global;
+    composes: inline-block from global;
 }

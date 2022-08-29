@@ -24,10 +24,13 @@ export const ProductListingFragment = gql`
                     variants {
                         attributes {
                             uid
+                            code
+                            value_index
                         }
                         # eslint-disable-next-line @graphql-eslint/require-id-when-available
                         product {
                             uid
+                            stock_status
                             small_image {
                                 url
                             }
@@ -38,6 +41,12 @@ export const ProductListingFragment = gql`
             prices {
                 price {
                     currency
+                    value
+                }
+                row_total {
+                    value
+                }
+                total_item_discount {
                     value
                 }
             }
@@ -55,6 +64,7 @@ export const ProductListingFragment = gql`
                     option_label
                     configurable_product_option_value_uid
                     value_label
+                    value_id
                 }
             }
         }

@@ -8,6 +8,8 @@ import {
 } from '../__fixtures__/configurableProduct';
 import { configurableThumbnailSourceResponse } from '../__fixtures__/configurableThumbnailSource';
 import { useProductForm } from '../useProductForm';
+import { useEventingContext } from '../../../../../context/eventing';
+import { getOutOfStockVariantsWithInitialSelection } from '@magento/peregrine/lib/util/getOutOfStockVariantsWithInitialSelection';
 
 jest.mock('@apollo/client', () => ({
     useMutation: jest
@@ -47,6 +49,17 @@ jest.mock('../../../../../context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('../../../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
+jest.mock(
+    '@magento/peregrine/lib/util/getOutOfStockVariantsWithInitialSelection',
+    () => ({
+        getOutOfStockVariantsWithInitialSelection: jest.fn().mockReturnValue([])
+    })
+);
+
 const Component = props => {
     const talonProps = useProductForm(props);
     return <i talonProps={talonProps} />;
@@ -58,6 +71,219 @@ const mockProps = {
     setVariantPrice: jest.fn(),
     setActiveEditItem: jest.fn()
 };
+
+const configurableProductWithTwoOptionGroupProps = {
+    ...mockProps,
+    product: {
+        __typename: 'ConfigurableProduct',
+        stock_status: 'IN_STOCK',
+        configurable_options: [
+            {
+                attribute_code: 'fashion_color',
+                attribute_id: '179',
+                id: 1,
+                label: 'Fashion Color',
+                values: [
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '20',
+                        default_label: 'Gold',
+                        label: 'Gold',
+                        store_label: 'Gold',
+                        use_default_value: true,
+                        value_index: 14
+                    },
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '30',
+                        default_label: 'Peach',
+                        label: 'Peach',
+                        store_label: 'Peach',
+                        use_default_value: true,
+                        value_index: 31
+                    },
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '40',
+                        default_label: 'Mint',
+                        label: 'Mint',
+                        store_label: 'Mint',
+                        use_default_value: true,
+                        value_index: 35
+                    },
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '50',
+                        default_label: 'Lily',
+                        label: 'Lily',
+                        store_label: 'Lily',
+                        use_default_value: true,
+                        value_index: 36
+                    }
+                ]
+            },
+            {
+                attribute_code: 'fashion_size',
+                attribute_id: '190',
+                id: 2,
+                label: 'Fashion Size',
+                values: [
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '60',
+                        default_label: 'L',
+                        label: 'L',
+                        store_label: 'L',
+                        use_default_value: true,
+                        value_index: 43
+                    },
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '70',
+                        default_label: 'M',
+                        label: 'M',
+                        store_label: 'M',
+                        use_default_value: true,
+                        value_index: 44
+                    },
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '80',
+                        default_label: 'S',
+                        label: 'S',
+                        store_label: 'S',
+                        use_default_value: true,
+                        value_index: 45
+                    },
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '90',
+                        default_label: 'XS',
+                        label: 'XS',
+                        store_label: 'XS',
+                        use_default_value: true,
+                        value_index: 46
+                    }
+                ]
+            }
+        ],
+        variants: [
+            {
+                attributes: [
+                    {
+                        code: 'fashion_color',
+                        value_index: 14,
+                        __typename: 'ConfigurableAttributeOption'
+                    },
+                    {
+                        code: 'fashion_size',
+                        value_index: 45,
+                        __typename: 'ConfigurableAttributeOption'
+                    }
+                ],
+                product: {
+                    __typename: 'SimpleProduct',
+                    sku: 'configurableProductPropsConfig1',
+                    stock_status: 'IN_STOCK',
+                    id: 3
+                },
+                __typename: 'ConfigurableVariant'
+            },
+            {
+                attributes: [
+                    {
+                        code: 'fashion_color',
+                        value_index: 14,
+                        __typename: 'ConfigurableAttributeOption'
+                    },
+                    {
+                        code: 'fashion_size',
+                        value_index: 46,
+                        __typename: 'ConfigurableAttributeOption'
+                    }
+                ],
+                product: {
+                    __typename: 'SimpleProduct',
+                    sku: 'configurableProductPropsConfig2',
+                    stock_status: 'OUT_OF_STOCK',
+                    id: 4
+                },
+                __typename: 'ConfigurableVariant'
+            },
+            {
+                attributes: [
+                    {
+                        code: 'fashion_color',
+                        value_index: 14,
+                        __typename: 'ConfigurableAttributeOption'
+                    },
+                    {
+                        code: 'fashion_size',
+                        value_index: 44,
+                        __typename: 'ConfigurableAttributeOption'
+                    }
+                ],
+                product: {
+                    __typename: 'SimpleProduct',
+                    sku: 'configurableProductPropsConfig3',
+                    stock_status: 'OUT_OF_STOCK',
+                    id: 5
+                },
+                __typename: 'ConfigurableVariant'
+            },
+            {
+                attributes: [
+                    {
+                        code: 'fashion_color',
+                        value_index: 31,
+                        __typename: 'ConfigurableAttributeOption'
+                    },
+                    {
+                        code: 'fashion_size',
+                        value_index: 43,
+                        __typename: 'ConfigurableAttributeOption'
+                    }
+                ],
+                product: {
+                    __typename: 'SimpleProduct',
+                    sku: 'configurableProductPropsConfig4',
+                    stock_status: 'OUT_OF_STOCK',
+                    id: 6
+                },
+                __typename: 'ConfigurableVariant'
+            },
+            {
+                attributes: [
+                    {
+                        code: 'fashion_color',
+                        value_index: 35,
+                        __typename: 'ConfigurableAttributeOption'
+                    },
+                    {
+                        code: 'fashion_size',
+                        value_index: 44,
+                        __typename: 'ConfigurableAttributeOption'
+                    }
+                ],
+                product: {
+                    __typename: 'SimpleProduct',
+                    sku: 'configurableProductPropsConfig5',
+                    stock_status: 'OUT_OF_STOCK',
+                    id: 7
+                },
+                __typename: 'ConfigurableVariant'
+            }
+        ]
+    }
+};
+
+const configurableOptionCodes = new Map();
+configurableOptionCodes.set('179', 'fashion_color');
+configurableOptionCodes.set('190', 'fashion_size');
+const multipleOptionSelections = new Map();
+multipleOptionSelections.set('179', 14);
+multipleOptionSelections.set('190', 43);
+const isOutOfStockProductDisplayed = true;
 
 test('returns correct shape with fetched options', () => {
     useQuery
@@ -190,6 +416,27 @@ describe('form submission', () => {
         expect(updateConfigurableOptions).not.toHaveBeenCalled();
     });
 
+    test('should dispatch event when only quantity changes', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+        const { handleSubmit } = talonProps;
+
+        await handleSubmit({ quantity: 10 });
+
+        expect(mockDispatch).toBeCalledTimes(1);
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
+    });
+
     test('calls configurable item mutation when options change', async () => {
         // since this test renders twice, we need to double up the mocked returns
 
@@ -212,6 +459,35 @@ describe('form submission', () => {
 
         expect(updateItemQuantity).not.toHaveBeenCalled();
         expect(updateConfigurableOptions.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('should dispatch event when options changes', async () => {
+        // since this test renders twice, we need to double up the mocked returns
+        setupMockedReturns();
+
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValue([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+        const { handleOptionSelection } = talonProps;
+
+        handleOptionSelection('123', 2);
+
+        const { talonProps: newTalonProps } = root.findByType('i').props;
+        const { handleSubmit } = newTalonProps;
+
+        await handleSubmit({ quantity: 5 });
+
+        expect(mockDispatch).toBeCalledTimes(1);
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
     });
 
     test('does not call configurable item mutation when final options selection matches backend value', async () => {
@@ -260,4 +536,67 @@ test('does not clear activeEditItem on error', async () => {
 
     expect(updateItemQuantity).toHaveBeenCalled();
     expect(setActiveEditItem).not.toHaveBeenCalledWith(null);
+});
+
+describe('with configurable product options', () => {
+    test('calls getOutOfStockVariantsWithInitialSelection() with initial selections', () => {
+        getOutOfStockVariantsWithInitialSelection(
+            configurableProductWithTwoOptionGroupProps,
+            configurableOptionCodes,
+            multipleOptionSelections,
+            configurableProductWithTwoOptionGroupProps,
+            isOutOfStockProductDisplayed
+        );
+
+        expect(getOutOfStockVariantsWithInitialSelection).toHaveBeenCalledTimes(
+            1
+        );
+
+        expect(getOutOfStockVariantsWithInitialSelection.mock.calls[0][2])
+            .toMatchInlineSnapshot(`
+            Map {
+              "179" => 14,
+              "190" => 43,
+            }
+        `);
+    });
+    test('calls getOutOfStockVariants() with the correct selection values when selection changes', () => {
+        getOutOfStockVariantsWithInitialSelection(
+            configurableProductWithTwoOptionGroupProps,
+            configurableOptionCodes,
+            multipleOptionSelections,
+            configurableProductWithTwoOptionGroupProps,
+            isOutOfStockProductDisplayed
+        );
+
+        // Select a new fashion color
+        multipleOptionSelections.set('179', 35);
+
+        expect(getOutOfStockVariantsWithInitialSelection).toHaveBeenCalledTimes(
+            1
+        );
+        //multipleOptionSelections
+        expect(getOutOfStockVariantsWithInitialSelection.mock.calls[0][2])
+            .toMatchInlineSnapshot(`
+        Map {
+          "179" => 35,
+          "190" => 43,
+        }
+    `);
+
+        // Select a new fashion size
+        multipleOptionSelections.set('190', 45);
+
+        expect(getOutOfStockVariantsWithInitialSelection).toHaveBeenCalledTimes(
+            1
+        );
+        //multipleOptionSelections
+        expect(getOutOfStockVariantsWithInitialSelection.mock.calls[0][2])
+            .toMatchInlineSnapshot(`
+        Map {
+          "179" => 35,
+          "190" => 45,
+        }
+    `);
+    });
 });
