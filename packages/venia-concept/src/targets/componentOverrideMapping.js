@@ -204,5 +204,9 @@ module.exports = componentOverrideMapping = {
     // New overwrite
     [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/item.module.css`]: './src/components/CheckoutPage/ItemsReview/item.module.css',
     //New OverWrite
-    [`@magento/venia-ui/lib/components/CheckoutPage/checkoutPage.js`]: './src/components/CheckoutPage/checkoutPage.js'
+    [`@magento/venia-ui/lib/components/CheckoutPage/checkoutPage.js`]: './src/components/CheckoutPage/checkoutPage.js',
+
+    //New OverWrite
+    [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethods.js`]: './src/components/CheckoutPage/PaymentInformation/paymentMethods.js',
+
 };
