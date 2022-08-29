@@ -11,7 +11,7 @@
     "csr.closeTicket": "Fechar ticket",
     "csr.closed": "Fechado",
     "csr.closedDate": "Data de fechamento",
-    "csr.confirmationBodyText": "Tem certeza de que deseja {nextState} o ticket?",
+    "csr.confirmationBody": "Tem certeza de que deseja {nextState} o ticket?",
     "csr.confirmationModalTitle": "Confirmação",
     "csr.confirmationTitle": "Você está prestes a {nextState} o ticket {ticketNumber}",
     "csr.createTicket": "Criar um ticket",

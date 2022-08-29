@@ -173,7 +173,7 @@ const TicketItem = props => {
                         <div className={classes.ticketGridItemState}>
                             <div className={classes.ticketGridItem}>
                                 <p className={classes.fieldTitle}>{stateText}</p>
-                                <p className={classes.fieldStateGrid}>{states[ticket.state_id]}</p>
+                                <p className={classes.fieldStateGrid}>{stateValueText}</p>
                             </div>
                             <p className={classes.fieldChangeState} onClick={() => setIsConfirmationModalOpen(true)}>
                                 {states[ticket.state_id] === 'closed' ? reopenTicketsText : closeTicketsText}

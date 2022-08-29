@@ -24,6 +24,7 @@
     "accountMenu.savedPaymentsLink": "Paiements enregistrés",
     "accountMenu.signOutButtonText": "Déconnexion",
     "accountMenu.storeCreditLink": "Cartes de crédit et cadeaux en magasin",
+    "accountMenu.supportLink": "Assistance",
     "accountTrigger.ariaLabel": "Toggle Menu Mon compte",
     "accountTrigger.buttonFallback": "Se connecter",
     "accountTrigger.signIn": "Se connecter",
