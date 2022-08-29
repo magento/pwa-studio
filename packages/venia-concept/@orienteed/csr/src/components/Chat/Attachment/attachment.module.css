@@ -12,6 +12,7 @@
 }
 
 .fileNameAndSizeBody {
+    align-items: center;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -21,15 +22,16 @@
 .filenameText {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+    /* padding-right: 10px; */
     color: #e8ab00;
     display: -webkit-box;
     font-size: 16px;
     font-weight: 700;
-    line-height: 16px;
-    overflow: hidden;
-    /* padding-right: 10px; */
-    text-overflow: ellipsis;
     line-break: anywhere;
+    line-height: 16px;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .sizeText {

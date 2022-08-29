@@ -55,15 +55,18 @@
     display: -webkit-box;
     font-size: 16px;
     font-weight: 700;
-    line-height: 16px;
     overflow: hidden;
     padding-right: 10px;
     text-overflow: ellipsis;
+    line-break: anywhere;
 }
 
 .dropzoneItemSize {
-    composes: dropzoneItemName;
     color: #807a7a;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    white-space: nowrap;
 }
 
 .dropzoneItemCloseButton {

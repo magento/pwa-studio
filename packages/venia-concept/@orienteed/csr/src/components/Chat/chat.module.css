@@ -207,6 +207,11 @@
     stroke: var(--stroke, rgb(var(--venia-global-color-text)));
     stroke-width: 1px;
 }
+
+.doubleCheckIcon {
+    width: 16px;
+}
+
 /***** end chatInput *****/
 
 /***** chatFiles *****/
@@ -280,10 +285,10 @@
     display: -webkit-box;
     font-size: 16px;
     font-weight: 700;
-    line-height: 16px;
     overflow: hidden;
     padding-right: 10px;
     text-overflow: ellipsis;
+    line-break: anywhere;
 }
 
 .dropzoneItemSize {
@@ -291,17 +296,18 @@
     font-size: 16px;
     font-weight: 700;
     line-height: 16px;
-    width: max-content;
-    max-width: 65px;
+    white-space: nowrap;
 }
 
 .dropzoneItemCloseButton {
     width: 14px;
+    cursor: pointer;
 }
 
 .dropzoneItemDataContainer {
     display: flex;
     gap: 10px;
+    margin-right: 10px;
 }
 
 @media (max-width: 600px) {
