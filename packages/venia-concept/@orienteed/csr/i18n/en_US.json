@@ -95,5 +95,6 @@
     "sortItem.createdAsc": "Creation: Oldest",
     "sortItem.createdDesc": "Creation: Most recent",
     "sortItem.updateAsc": "Updated: Oldest",
-    "sortItem.updateDesc": "Updated: Most recent"
+    "sortItem.updateDesc": "Updated: Most recent",
+    "csr.reopenToSendAMessage": "Reopen the ticket to send a new message"
 }

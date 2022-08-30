@@ -30,7 +30,7 @@ import { Smile as EmojiPickerIcon } from 'react-feather';
 import Picker from 'emoji-picker-react';
 
 const Chat = props => {
-    const { ticketId } = props;
+    const { ticketId, isTicketClosed } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const {
         attachmentModal,
@@ -72,6 +72,10 @@ const Chat = props => {
     const travelPlacesText = formatMessage({ id: 'csr.travel_places', defaultMessage: 'Travel & Places' });
     const typeYourMessageText = formatMessage({ id: 'csr.typeYourMessage', defaultMessage: 'Type your message' });
     const emptyAttachmentsText = formatMessage({ id: 'csr.emptyAttachments', defaultMessage: 'No attachments yet' });
+    const reopenToSendAMessageText = formatMessage({
+        id: 'csr.reopenToSendAMessage',
+        defaultMessage: 'Reopen the ticket to send a new message'
+    });
 
     // Methods
     const isoDateToChat = isoDate => {
@@ -254,11 +258,17 @@ const Chat = props => {
         ));
 
     const emojiPickerButton = (
-        <Trigger action={() => setIsEmojiPickerOpen(prevState => !prevState)}>
+        <Trigger action={() => !isTicketClosed && setIsEmojiPickerOpen(prevState => !prevState)}>
             {isEmojiPickerOpen ? (
                 <img className={classes.emojiPickerIcon} src={closeIcon} alt="Close icon" />
             ) : (
-                <Icon src={EmojiPickerIcon} size={25} />
+                <Icon
+                    src={EmojiPickerIcon}
+                    size={25}
+                    classes={{
+                        root: isTicketClosed ? classes.emojiPickerIconDisabled : classes.emojiPickerIconEnabled
+                    }}
+                />
             )}
         </Trigger>
     );
@@ -270,6 +280,7 @@ const Chat = props => {
                     filesUploaded={filesUploaded}
                     setFilesUploaded={setFilesUploaded}
                     setDropzoneError={setDropzoneError}
+                    isTicketClosed={isTicketClosed}
                 />
             }
         </Trigger>
@@ -292,15 +303,16 @@ const Chat = props => {
                                 <TextInput
                                     id="chatTextInput"
                                     field="comment"
-                                    placeholder={typeYourMessageText}
+                                    placeholder={isTicketClosed ? reopenToSendAMessageText : typeYourMessageText}
                                     maxLength={10000}
                                     before={emojiPickerButton}
                                     after={attachmentButton}
+                                    disabled={isTicketClosed}
                                     value={comment}
                                     onChange={e => {
                                         setComment(e.target.value);
                                     }}
-                                    classes={{ input: classes.chatInput }}
+                                    classes={{ input: isTicketClosed ? classes.chatInputDisabled : classes.chatInput }}
                                     supportEmoji={true}
                                     autoComplete="off"
                                 />

@@ -193,6 +193,11 @@
     line-height: 24px;
 }
 
+.chatInputDisabled {
+    composes: chatInput;
+    cursor: not-allowed;
+}
+
 .sendCommentButton {
     composes: root_highPriority from '@magento/venia-concept/src/components/Button/button.module.css';
     height: 50px;
@@ -325,6 +330,10 @@
 .emojiPickerIcon {
     width: 13px;
     margin: 10px;
+}
+
+.emojiPickerIconDisabled {
+    cursor: not-allowed;
 }
 /***** end emojiPicker *****/
 

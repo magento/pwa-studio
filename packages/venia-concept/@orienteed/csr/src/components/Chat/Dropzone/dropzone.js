@@ -16,7 +16,7 @@ const MAX_FILE_SIZE = 10000000;
 const MAX_FILES_ACCEPTED = 6;
 
 const Dropzone = props => {
-    const { filesUploaded, setFilesUploaded, setDropzoneError } = props;
+    const { filesUploaded, setFilesUploaded, setDropzoneError, isTicketClosed } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const acceptedFilesTypes = [
         'application/gzip',
@@ -126,11 +126,11 @@ const Dropzone = props => {
     return (
         <section
             {...getRootProps({
-                onClick: event => filesUploaded.length >= 6 && event.stopPropagation()
+                onClick: event => (filesUploaded.length >= 6 || isTicketClosed) && event.stopPropagation()
             })}
         >
             <input {...getInputProps({})} />
-            <img src={attachFilesIcon} className={classes.attachFilesIcon} alt="Attach" />
+            <img src={attachFilesIcon} className={isTicketClosed ? classes.attachFilesIconDisabled : classes.attachFilesIcon} alt="Attach" />
         </section>
     );
 };
