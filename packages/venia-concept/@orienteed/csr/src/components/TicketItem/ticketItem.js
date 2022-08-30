@@ -88,7 +88,7 @@ const TicketItem = props => {
         return `${day} ${month} ${year}`;
     };
 
-    const chatView = <Chat ticketId={ticket.id} />;
+    const chatView = <Chat ticketId={ticket.id} isTicketClosed={states[ticket.state_id] === 'closed'} />;
 
     const ticketItemList = (
         <div ref={ticketDesktopRef} className={classes.ticketAndChatListContainer}>
@@ -136,9 +136,6 @@ const TicketItem = props => {
                         className={openedChat[0] === ticket.number ? classes.closeIcon : classes.messageIcon}
                         alt="Message icon"
                     />
-                    {openedChat[0] !== ticket.number && (
-                        <span className={classes.messageText}>{ticket.article_count}</span>
-                    )}
                 </div>
             </div>
             {openedChat[0] === ticket.number && chatView}
@@ -197,9 +194,6 @@ const TicketItem = props => {
                             className={openedChat[0] === ticket.number ? classes.closeIcon : classes.messageIcon}
                             alt="Message icon"
                         />
-                        {openedChat[0] !== ticket.number && (
-                            <span className={classes.messageText}>{ticket.article_count}</span>
-                        )}
                     </div>
                 </div>
             </div>
