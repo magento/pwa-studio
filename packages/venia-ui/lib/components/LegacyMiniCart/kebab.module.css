@@ -34,9 +34,8 @@
 .kebab {
     composes: bg-white from global;
     composes: border-0 from global;
-    composes: outline-none from global;
+
+    composes: focus_outline from global;
+    composes: focus_outline-2 from global;
 }
 
-.kebab:focus {
-    border: 1px solid rgb(115, 115, 115);
-}
