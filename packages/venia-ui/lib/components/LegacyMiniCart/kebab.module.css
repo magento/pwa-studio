@@ -34,8 +34,5 @@
 .kebab {
     composes: bg-white from global;
     composes: border-0 from global;
-
-    composes: focus_outline from global;
-    composes: focus_outline-2 from global;
 }
 
