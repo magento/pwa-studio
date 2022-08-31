@@ -1,6 +1,8 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { useIntl } from 'react-intl';
+
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import { getOrderPrice } from '@orienteed/customComponents/util/order';
 
 import createTicket from '../../services/tickets/createTicket';
 
@@ -10,7 +12,7 @@ export const useCreateTicketModal = props => {
     const { orderBy, setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast } = props;
     const fetchCustomerOrders = useAwaitQuery(GET_CUSTOMER_ORDERS);
     const fetchProductImage = useAwaitQuery(GET_IMAGE_BY_SKU);
-    const { formatMessage } = useIntl();
+    const { formatMessage, locale } = useIntl();
 
     // Translations
     const attachedFilesText = formatMessage({ id: 'csr.attachedFile', defaultMessage: 'Attached file/s...' });
@@ -90,13 +92,18 @@ export const useCreateTicketModal = props => {
                         }
                     });
 
+                    const orderItemPrice = getOrderPrice(
+                        locale,
+                        order.total.grand_total.currency,
+                        order.total.grand_total.value
+                    );
+
                     return {
                         number: order.number,
                         order_date: isoDateToLocaleDate(order.order_date),
                         status: order.status,
-                        total: `${order.total.grand_total.value} ${
-                            order.total.grand_total.currency === 'EUR' ? '€' : '$'
-                        }`,
+                        total: orderItemPrice,
+                        currency: order.total.grand_total.currency,
                         image_url: data?.products?.items[0]?.image?.url
                     };
                 })

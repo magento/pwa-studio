@@ -8,9 +8,9 @@ import Select from '@magento/venia-ui/lib/components/Select';
 import TextArea from '@magento/venia-ui/lib/components/TextArea';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
-import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import { useCreateTicketModal } from '../../talons/useCreateTicketModal';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './createTicketModal.module.css';
 
