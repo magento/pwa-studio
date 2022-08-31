@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect, useMemo } from 'react';
-import { useIntl } from 'react-intl';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
@@ -7,12 +6,8 @@ import getTicketComments from '../../services/tickets/ticket_articles/getTicketC
 import sendComment from '../../services/tickets/ticket_articles/sendComment';
 
 export const useChat = props => {
-    const { ticketId } = props;
+    const { isTicketClosed, ticketId } = props;
     const [{ isSignedIn }] = useUserContext();
-    const { formatMessage } = useIntl();
-
-    // Translations
-    const attachedFilesText = formatMessage({ id: 'csr.attachedFile', defaultMessage: 'Attached file/s...' });
 
     // Refs
     const lastMessageRef = useRef(null);
@@ -95,10 +90,12 @@ export const useChat = props => {
     };
 
     const sendCommentAndAttachments = comment => {
+        if (isTicketClosed) return;
+
         const formattedComment = comment.replace(/\s+/g, ' ').trim(); // Remove extra spaces and trim
         const tempFilesUploaded = filesUploaded;
         setFilesUploaded([]);
-        sendComment(ticketId, formattedComment, tempFilesUploaded, attachedFilesText).then(res => {
+        sendComment(ticketId, formattedComment, tempFilesUploaded, isTicketClosed).then(res => {
             setTicketComments(prevTicketsComments => [...prevTicketsComments, res]);
             setLastCustomerTicketId(prevLastCustomerTicketId => [...prevLastCustomerTicketId, res.id]);
             res.attachments.length > 0 &&

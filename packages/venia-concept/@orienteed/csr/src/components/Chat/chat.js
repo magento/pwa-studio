@@ -50,6 +50,7 @@ const Chat = props => {
         setIsEmojiPickerOpen,
         ticketComments
     } = useChat({
+        isTicketClosed,
         ticketId
     });
     const { formatMessage } = useIntl();
