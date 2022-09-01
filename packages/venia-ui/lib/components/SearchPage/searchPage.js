@@ -39,7 +39,7 @@ const SearchPage = props => {
 
     const { formatMessage } = useIntl();
     const [currentSort] = sortProps;
-    const metaTitle = `Search Result for term ${searchTerm}`;
+    const metaTitle = `${STORE_NAME}'s Search Result for term ${searchTerm}`;
     const content = useMemo(() => {
         if (!data && loading) {
             return (
