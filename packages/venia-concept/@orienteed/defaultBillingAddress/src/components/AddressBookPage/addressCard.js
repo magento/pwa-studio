@@ -75,7 +75,6 @@ const AddressCard = props => {
             </span>
         ) : null;
 
-    const nameString = [firstname, middlename].filter(name => !!name).join(' ');
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement =
@@ -140,7 +139,7 @@ const AddressCard = props => {
         <div className={classes.root}>
             <div className={classes.contentContainer}>
                 {defaultBadge}
-                <span className={classes.name}>{nameString}</span>
+                <span className={classes.name}>{firstname}</span>
                 {streetRows}
                 <span className={classes.additionalAddress}>
                     {additionalAddressString}
