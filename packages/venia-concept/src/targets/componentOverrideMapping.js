@@ -175,5 +175,26 @@ module.exports = componentOverrideMapping = {
     //new overwrite
     [`@magento/venia-ui/lib/components/AccountInformationPage/editForm.module.css`]: './src/components/AccountInformationPage/editForm.module.css',
     //new overwrite
-    [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPage.gql.js`]: './src/components/AccountInformationPage/accountInformationPage.gql.js'
+    [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPage.gql.js`]: './src/components/AccountInformationPage/accountInformationPage.gql.js',
+    //new overwrite
+    [`@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation/AddressForm/customerForm.js`]: './src/components/CheckoutPage/ShippingInformation/AddressForm/customerForm.js',
+
+    //new overwrite
+    [`@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm.js`]: './src/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm.js',
+    //new overwrite
+
+    //new overwrite
+    [`@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js`]: './src/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js',
+
+    //new overwrite
+    [`@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation/card.js`]: './src/components/CheckoutPage/ShippingInformation/card.js',
+
+    //new overwrite
+    [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressBook.js`]: './src/components/CheckoutPage/AddressBook/addressBook.js',
+
+    //new overwrite
+    [`@magento/peregrine/lib/talons/CheckoutPage/AddressBook/addressBookFragments.gql.js`]: './src/components/CheckoutPage/AddressBook/addressBookFragments.gql.js',
+    //new overwrite
+    [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressCard.js`]: './src/components/CheckoutPage/AddressBook/addressCard.js',
+    [`@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js`]: './src/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js'
 };
