@@ -48,8 +48,6 @@ export const useOrderHistoryPage = (props = {}) => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
-    console.log('ordersData', orderData);
-    console.log('storeConfigData', storeConfigData);
 
     const orders = orderData ? orderData.customer.orders.items : [];
 
