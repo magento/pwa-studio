@@ -14,7 +14,7 @@ import GalleryItemShimmer from './item.shimmer';
 import defaultClasses from './item.module.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
-import AddToCartbutton from '../Gallery/addToCartButton';
+import AddToCartButton from './addToCartButton';
 // eslint-disable-next-line no-unused-vars
 import Rating from '../Rating';
 
@@ -58,7 +58,7 @@ const GalleryItem = props => {
     ) : null;
 
     const addButton = isSupportedProductType ? (
-        <AddToCartbutton item={item} urlSuffix={productUrlSuffix} />
+        <AddToCartButton item={item} urlSuffix={productUrlSuffix} />
     ) : (
         <div className={classes.unavailableContainer}>
             <Info />
