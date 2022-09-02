@@ -46,7 +46,8 @@ const SwatchList = props => {
             items,
             onSelectionChange,
             isEverythingOutOfStock,
-            outOfStockVariants
+            outOfStockVariants,
+            attributeLabel
         ]
     );
 

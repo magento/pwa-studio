@@ -85,7 +85,7 @@ const Swatch = props => {
         });
     }
     const selectedText = isSelected ? 'Selected' : '';
-    const ariaLabel = `${attributeLabel}'s ${selectedText} option ${label}`
+    const ariaLabel = `${attributeLabel}'s ${selectedText} option ${label}`;
     const className =
         classes[
             getClassName(
@@ -107,7 +107,6 @@ const Swatch = props => {
             data-cy="Swatch-root"
             disabled={isEverythingOutOfStock || isOptionOutOfStock}
             aria-label={ariaLabel}
-            
         >
             {!isOptionOutOfStock && (
                 <Icon classes={{ root: checkStyle }} src={CheckIcon} />
