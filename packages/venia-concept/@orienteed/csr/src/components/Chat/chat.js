@@ -319,7 +319,7 @@ const Chat = props => {
                                 />
                                 <Button
                                     className={classes.sendCommentButton}
-                                    disabled={comment === ''}
+                                    disabled={comment.replace(/\s+/g, ' ').trim() === ''}
                                     priority={'high'}
                                     type="submit"
                                 >
