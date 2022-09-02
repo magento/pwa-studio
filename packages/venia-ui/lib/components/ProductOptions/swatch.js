@@ -85,7 +85,7 @@ const Swatch = props => {
         });
     }
     const selectedText = isSelected ? 'Selected' : '';
-    const ariaLabel = `${attributeLabel}'s option ${label} ${selectedText}`
+    const ariaLabel = `${attributeLabel}'s ${selectedText} option ${label}`
     const className =
         classes[
             getClassName(
