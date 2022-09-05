@@ -103,3 +103,8 @@
     composes: lg_grid-flow-row from global;
     composes: lg_mt-0 from global;
 }
+
+.carouselContainer > div {
+    grid-area: 1 / 1 / 2 / 4;
+    margin: 0 auto;
+}

@@ -311,7 +311,7 @@
 
 .imageCarousel > div > div > div img {
     width: 100%;
-    height: 500px;
+    height: 500px !important;
 }
 
 
@@ -325,6 +325,6 @@
     }
 
     .imageCarousel div div div img {
-        height: 400px;
+        height: 400px  !important;
     }
 }
