@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
-
+import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
 import mergeOperations from '../../util/shallowMerge';
 import { useAppContext } from '../../context/app';
 import { usePagination } from '../../hooks/usePagination';
@@ -22,7 +22,7 @@ import { useEventingContext } from '../../context/eventing';
 export const useSearchPage = (props = {}) => {
     const [, { dispatch }] = useEventingContext();
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-
+    const { currentStoreName } = useStoreSwitcher();
     const {
         getFilterInputsQuery,
         getPageSize,
@@ -43,6 +43,7 @@ export const useSearchPage = (props = {}) => {
             nextFetchPolicy: 'cache-first'
         }
     );
+    
 
     const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 
@@ -286,6 +287,7 @@ export const useSearchPage = (props = {}) => {
         pageControl,
         searchCategory,
         searchTerm: inputText,
-        sortProps
+        sortProps,
+        currentStoreName
     };
 };
