@@ -30,6 +30,10 @@
     grid-column: 1 / span 2;
 }
 
+.lastname {
+    display: none;
+}
+
 .buttons {
     composes: field;
     display: grid;

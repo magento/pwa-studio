@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
-import { useQuery, useApolloClient, useMutation, useLazyQuery } from '@apollo/client';
+import {
+    useQuery,
+    useApolloClient,
+    useMutation,
+    useLazyQuery
+} from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
@@ -16,7 +21,16 @@ import DEFAULT_OPERATIONS from './billingAddress.gql';
  */
 export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
-        const { firstName, lastName, city, postcode, phoneNumber, street, country, region } = rawAddressData;
+        const {
+            firstName,
+            lastName,
+            city,
+            postcode,
+            phoneNumber,
+            street,
+            country,
+            region
+        } = rawAddressData;
 
         return {
             firstName,
@@ -41,7 +55,9 @@ export const getDefaultBillingAddress = customerAddressesData => {
         if (customer) {
             const { addresses } = customer;
 
-            const defaultBillingAddressArray = addresses.filter(address => address.default_billing == true);
+            const defaultBillingAddressArray = addresses.filter(
+                address => address.default_billing == true
+            );
             if (defaultBillingAddressArray.length > 0) {
                 return defaultBillingAddressArray[0];
             }
@@ -81,9 +97,16 @@ export const getDefaultBillingAddress = customerAddressesData => {
  */
 export default original => {
     return function useBillingAddress(props, ...restArgs) {
-        const { shouldSubmit, onBillingAddressChangedError, onBillingAddressChangedSuccess } = props;
+        const {
+            shouldSubmit,
+            onBillingAddressChangedError,
+            onBillingAddressChangedSuccess
+        } = props;
 
-        const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+        const operations = mergeOperations(
+            DEFAULT_OPERATIONS,
+            props.operations
+        );
 
         const {
             getBillingAddressQuery,
@@ -100,22 +123,34 @@ export default original => {
         const [{ cartId }] = useCartContext();
         const [{ isSignedIn }] = useUserContext();
 
-        const { data: customerAddressesData } = useQuery(getCustomerAddressesQuery, {
-            fetchPolicy: 'cache-and-network',
-            skip: !isSignedIn
-        });
+        const { data: customerAddressesData } = useQuery(
+            getCustomerAddressesQuery,
+            {
+                fetchPolicy: 'cache-and-network',
+                skip: !isSignedIn
+            }
+        );
 
-        const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
-            skip: !cartId,
-            variables: { cartId }
-        });
+        const { data: shippingAddressData } = useQuery(
+            getShippingAddressQuery,
+            {
+                skip: !cartId,
+                variables: { cartId }
+            }
+        );
 
-        const { data: isBillingAddressSameData } = useQuery(getIsBillingAddressSameQuery, {
-            skip: !cartId,
-            variables: { cartId }
-        });
+        const { data: isBillingAddressSameData } = useQuery(
+            getIsBillingAddressSameQuery,
+            {
+                skip: !cartId,
+                variables: { cartId }
+            }
+        );
 
-        const [loadBillingAddressQuery, { data: billingAddressData }] = useLazyQuery(getBillingAddressQuery, {
+        const [
+            loadBillingAddressQuery,
+            { data: billingAddressData }
+        ] = useLazyQuery(getBillingAddressQuery, {
             skip: !cartId,
             variables: { cartId }
         });
@@ -142,9 +177,12 @@ export default original => {
             ? shippingAddressData.cart.shippingAddresses[0].country.code
             : 'US';
 
-        const defaultBillingAddressObject = getDefaultBillingAddress(customerAddressesData);
+        const defaultBillingAddressObject = getDefaultBillingAddress(
+            customerAddressesData
+        );
 
-        const isBillingAddressDefault = Object.keys(defaultBillingAddressObject).length > 0 ? true : false;
+        const isBillingAddressDefault =
+            Object.keys(defaultBillingAddressObject).length > 0 ? true : false;
 
         const initialValues = useMemo(() => {
             let billingAddress = {};
@@ -163,8 +201,16 @@ export default original => {
                 }
             }
 
-            return { isBillingAddressDefault, ...billingAddress, defaultBillingAddressObject };
-        }, [isBillingAddressSameData, billingAddressData, defaultBillingAddressObject]);
+            return {
+                isBillingAddressDefault,
+                ...billingAddress,
+                defaultBillingAddressObject
+            };
+        }, [
+            billingAddressData,
+            defaultBillingAddressObject,
+            isBillingAddressDefault
+        ]);
 
         /**
          * Helpers
@@ -186,7 +232,12 @@ export default original => {
                     }
                 }
             });
-        }, [client, cartId, getIsBillingAddressSameQuery, isBillingAddressDefault]);
+        }, [
+            client,
+            cartId,
+            getIsBillingAddressSameQuery,
+            isBillingAddressDefault
+        ]);
 
         /**
          * This function sets the billing address on the cart using the
@@ -223,6 +274,7 @@ export default original => {
          * This function sets the billing address on the cart using the
          * information from the form.
          */
+        console.log('formState', formState);
         const setBillingAddress = useCallback(() => {
             const {
                 firstName,
@@ -295,7 +347,9 @@ export default original => {
                             setBillingAddress();
                             setIsBillingAddressSameInCache();
                         } else {
-                            throw new Error('Errors in the billing address form');
+                            throw new Error(
+                                'Errors in the billing address form'
+                            );
                         }
                     }
                 }
@@ -322,13 +376,21 @@ export default original => {
          */
         useEffect(() => {
             try {
-                const billingAddressMutationCompleted = billingAddressMutationCalled && !billingAddressMutationLoading;
+                const billingAddressMutationCompleted =
+                    billingAddressMutationCalled &&
+                    !billingAddressMutationLoading;
 
-                if (billingAddressMutationCompleted && !billingAddressMutationError) {
+                if (
+                    billingAddressMutationCompleted &&
+                    !billingAddressMutationError
+                ) {
                     onBillingAddressChangedSuccess();
                 }
 
-                if (billingAddressMutationCompleted && billingAddressMutationError) {
+                if (
+                    billingAddressMutationCompleted &&
+                    billingAddressMutationError
+                ) {
                     /**
                      * Billing address save mutation is not successful.
                      * Reset update button clicked flag.
@@ -355,13 +417,20 @@ export default original => {
         useEffect(() => {
             try {
                 const billingAddressMutationCompleted =
-                    defaultBillingAddressMutationCalled && !defaultBillingAddressMutationLoading;
+                    defaultBillingAddressMutationCalled &&
+                    !defaultBillingAddressMutationLoading;
 
-                if (billingAddressMutationCompleted && !defaultBillingAddressMutationError) {
+                if (
+                    billingAddressMutationCompleted &&
+                    !defaultBillingAddressMutationError
+                ) {
                     onBillingAddressChangedSuccess();
                 }
 
-                if (billingAddressMutationCompleted && defaultBillingAddressMutationError) {
+                if (
+                    billingAddressMutationCompleted &&
+                    defaultBillingAddressMutationError
+                ) {
                     /**
                      * Billing address save mutation is not successful.
                      * Reset update button clicked flag.
@@ -386,7 +455,10 @@ export default original => {
             () =>
                 new Map([
                     ['setBillingAddressMutation', billingAddressMutationError],
-                    ['setBillingAddressMutation', defaultBillingAddressMutationError]
+                    [
+                        'setBillingAddressMutation',
+                        defaultBillingAddressMutationError
+                    ]
                 ]),
             [billingAddressMutationError, defaultBillingAddressMutationError]
         );

@@ -196,5 +196,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/peregrine/lib/talons/CheckoutPage/AddressBook/addressBookFragments.gql.js`]: './src/components/CheckoutPage/AddressBook/addressBookFragments.gql.js',
     //new overwrite
     [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressCard.js`]: './src/components/CheckoutPage/AddressBook/addressCard.js',
-    [`@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js`]: './src/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js'
+    [`@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js`]: './src/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js',
+    [`@magento/venia-ui/lib/components/CheckoutPage/BillingAddress/billingAddress.module.css`]: './src/components/CheckoutPage/BillingAddress/billingAddress.module.css',
+    [`@magento/venia-ui/lib/components/CreateAccount/createAccount.js`]: './src/components/CreateAccount/createAccount.js'
 };

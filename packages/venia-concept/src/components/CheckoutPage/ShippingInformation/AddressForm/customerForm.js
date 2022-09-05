@@ -42,7 +42,6 @@ const CustomerForm = props => {
         isSaving,
         isUpdate
     } = talonProps;
-
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, propClasses);
 
@@ -159,6 +158,23 @@ const CustomerForm = props => {
                             field="firstname"
                             id="customer_firstname"
                             data-cy="CustomerForm-firstName"
+                            validate={isRequired}
+                        />
+                    </Field>
+                </div>
+                <div className={classes.lastname}>
+                    <Field
+                        id="customer_lastname"
+                        label={formatMessage({
+                            id: 'global.lastName',
+                            defaultMessage: 'Last Name'
+                        })}
+                    >
+                        <TextInput
+                            disabled={!hasDefaultShipping}
+                            field="lastname"
+                            id="customer_lastname"
+                            data-cy="CustomerForm-lastName"
                             validate={isRequired}
                         />
                     </Field>

@@ -18,9 +18,18 @@ const BillingAddress = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
-    const { shouldSubmit, onBillingAddressChangedError, onBillingAddressChangedSuccess } = props;
+    const {
+        shouldSubmit,
+        onBillingAddressChangedError,
+        onBillingAddressChangedSuccess
+    } = props;
 
-    const { isBillingAddressDefault, initialValues, shippingAddressCountry, errors } = useBillingAddress({
+    const {
+        isBillingAddressDefault,
+        initialValues,
+        shippingAddressCountry,
+        errors
+    } = useBillingAddress({
         shouldSubmit,
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess
@@ -52,17 +61,20 @@ const BillingAddress = props => {
      * of `formValidators`. They perform validations only if the
      * billing address is different from shipping address.
      */
-    const isFieldRequired = useCallback((value, { isBillingAddressDefault }) => {
-        if (isBillingAddressDefault) {
-            /**
-             * Informed validator functions return `undefined` if
-             * validation is `true`
-             */
-            return undefined;
-        } else {
-            return isRequired(value);
-        }
-    }, []);
+    const isFieldRequired = useCallback(
+        (value, { isBillingAddressDefault }) => {
+            if (isBillingAddressDefault) {
+                /**
+                 * Informed validator functions return `undefined` if
+                 * validation is `true`
+                 */
+                return undefined;
+            } else {
+                return isRequired(value);
+            }
+        },
+        []
+    );
 
     const billingAddressFieldsClassName = isBillingAddressDefault
         ? classes.billing_address_fields_root_hidden
@@ -74,25 +86,30 @@ const BillingAddress = props => {
                 <h2 className={classes.address_check}>
                     <FormattedMessage
                         id={'checkoutPage.billingAddressDefault'}
-                        defaultMessage={'Your default billing address will be used for this order'}
+                        defaultMessage={
+                            'Your default billing address will be used for this order'
+                        }
                     />
                 </h2>
             );
         }
         return null;
-    }, [initialValues]);
+    }, [initialValues, classes]);
 
     return (
         <div>
-            <FormError classes={{ root: classes.formErrorContainer }} errors={Array.from(errors.values())} />
+            <FormError
+                classes={{ root: classes.formErrorContainer }}
+                errors={Array.from(errors.values())}
+            />
             {isBillingAddressDefaultHtml}
             <div className={billingAddressFieldsClassName}>
                 <Field
                     id="firstName"
                     classes={fieldClasses.first_name}
                     label={formatMessage({
-                        id: 'global.firstName',
-                        defaultMessage: 'First Name'
+                        id: 'global.companyName',
+                        defaultMessage: 'Company Name'
                     })}
                 >
                     <TextInput
@@ -114,7 +131,7 @@ const BillingAddress = props => {
                         id="lastName"
                         field="lastName"
                         validate={isFieldRequired}
-                        initialValue={initialValues.lastName}
+                        initialValue={'ㅤ'}
                     />
                 </Field>
                 <Country
@@ -152,7 +169,11 @@ const BillingAddress = props => {
                     })}
                     optional={true}
                 >
-                    <TextInput id="street2" field="street2" initialValue={initialValues.street2} />
+                    <TextInput
+                        id="street2"
+                        field="street2"
+                        initialValue={initialValues.street2}
+                    />
                 </Field>
                 <Field
                     id="city"
@@ -162,9 +183,18 @@ const BillingAddress = props => {
                         defaultMessage: 'City'
                     })}
                 >
-                    <TextInput id="city" field="city" validate={isFieldRequired} initialValue={initialValues.city} />
+                    <TextInput
+                        id="city"
+                        field="city"
+                        validate={isFieldRequired}
+                        initialValue={initialValues.city}
+                    />
                 </Field>
-                <Region classes={fieldClasses.region} initialValue={initialValues.region} validate={isFieldRequired} />
+                <Region
+                    classes={fieldClasses.region}
+                    initialValue={initialValues.region}
+                    validate={isFieldRequired}
+                />
                 <Postcode
                     classes={fieldClasses.postal_code}
                     validate={isFieldRequired}

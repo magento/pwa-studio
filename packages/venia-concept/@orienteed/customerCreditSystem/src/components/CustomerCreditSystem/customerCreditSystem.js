@@ -3,14 +3,18 @@ import { shape, string, bool, func } from 'prop-types';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { useCustomerCreditSystem } from '@orienteed/customerCreditSystem/src/talons/useCustomerCreditSystem';
 import { FormattedMessage } from 'react-intl';
-import Button from '@magento/venia-ui/lib/components/Button';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './customerCreditSystem.module.css';
 import BillingAddress from '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress';
 
 const CustomerCreditSystem = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { onPaymentSuccess, onPaymentError, resetShouldSubmit, shouldSubmit } = props;
+    const {
+        onPaymentSuccess,
+        onPaymentError,
+        resetShouldSubmit,
+        shouldSubmit
+    } = props;
 
     const talonProps = useCustomerCreditSystem({
         onPaymentSuccess,
@@ -19,15 +23,15 @@ const CustomerCreditSystem = props => {
         shouldSubmit
     });
 
-    console.log('shouldSubmit CustomerCreditSystem');
-    console.log(shouldSubmit);
-
     const { loading } = talonProps;
 
     if (loading) {
         return (
             <LoadingIndicator>
-                <FormattedMessage id={'creditLoading.creditLoadingText'} defaultMessage={'Loading Payment'} />
+                <FormattedMessage
+                    id={'creditLoading.creditLoadingText'}
+                    defaultMessage={'Loading Payment'}
+                />
             </LoadingIndicator>
         );
     }
@@ -55,7 +59,9 @@ const CustomerCreditSystem = props => {
             <div className={classes.orderAmountError}>
                 <FormattedMessage
                     id={'customerCreditError.customerCreditErrorText'}
-                    defaultMessage={'Order Amount Is Greater Than The Credit Amount'}
+                    defaultMessage={
+                        'Order Amount Is Greater Than The Credit Amount'
+                    }
                 />
             </div>
         );
