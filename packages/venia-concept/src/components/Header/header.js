@@ -1,6 +1,7 @@
 import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
 import { Link, Route } from 'react-router-dom';
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
 import AccountTrigger from '@magento/venia-ui/lib/components/Header/accountTrigger';
 import CartTrigger from '@magento/venia-ui/lib/components/Header/cartTrigger';
@@ -20,7 +21,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import defaultClasses from '@magento/venia-ui/lib/components/Header/header.module.css';
-
+import { useStoreConfigData } from '../../talons/useStoreConfigData';
 const SearchBar = React.lazy(() =>
     import('@magento/venia-ui/lib/components/SearchBar')
 );
@@ -34,6 +35,15 @@ const Header = props => {
         searchRef,
         searchTriggerRef
     } = useHeader();
+    const storage = new BrowserPersistence();
+    const { storeConfigData } = useStoreConfigData();
+
+    if (storeConfigData) {
+        storage.setItem(
+            'is_required_login',
+            storeConfigData.storeConfig.is_required_login
+        );
+    }
 
     const [{ isSignedIn: isUserSignedIn }, {}] = useUserContext();
     const classes = useStyle(defaultClasses, props.classes);
