@@ -160,4 +160,7 @@ module.exports = componentOverrideMapping = {
     //New CSR override
     [`@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage.js`]: './src/talons/AccountInformationPage/useAccountInformationPage.js',
     [`@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems.js`]: './src/talons/AccountMenu/useAccountMenuItems.js',
+
+    // New CSR override (macbook fix)
+    [`@magento/peregrine/lib/RestApi/Magento2/M2ApiRequest.js`]: './src/talons/RestApi/Magento2/M2ApiRequest.js'
 };
