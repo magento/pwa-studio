@@ -38,6 +38,7 @@
     display: table-cell;
     vertical-align: inherit;
     padding: 10px 6px;
+    font-size: 14px;
 }
 .creditActions {
     display: -ms-flexbox;
