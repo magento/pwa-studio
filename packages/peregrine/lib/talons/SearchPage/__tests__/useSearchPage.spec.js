@@ -28,27 +28,9 @@ const mockUseSort = jest
     ])
     .mockName('mockUseSort');
 const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
-jest.mock('@magento/peregrine', () => ({
-    ...jest.requireActual('@magento/peregrine'),
-    Util: {
-        BrowserPersistence: function() {
-            return {
-                getItem: jest.fn().mockReturnValueOnce('store2')
-            };
-        }
-    }
-}));
+
 jest.mock('@magento/peregrine/lib/talons/Header/useStoreSwitcher', () => ({
     useStoreSwitcher: jest.fn()
-}));
-
-jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
-    useDropdown: jest.fn().mockReturnValue({
-        elementRef: 'elementRef',
-        expanded: false,
-        setExpanded: jest.fn(),
-        triggerRef: jest.fn()
-    })
 }));
 
 jest.mock('react-router-dom', () => ({
@@ -293,7 +275,7 @@ describe('searchCategory', () => {
                 ]);
                 tree.update(<Component {...initialProps} />);
             });
-          
+
             expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
         }
     );

@@ -43,7 +43,6 @@ export const useSearchPage = (props = {}) => {
             nextFetchPolicy: 'cache-first'
         }
     );
-    
 
     const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 

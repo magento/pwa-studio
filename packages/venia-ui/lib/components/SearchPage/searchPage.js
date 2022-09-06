@@ -37,9 +37,8 @@ const SearchPage = props => {
         currentStoreName
     } = talonProps;
 
-    
     const { formatMessage } = useIntl();
-   
+
     const [currentSort] = sortProps;
     const metaTitle = `${currentStoreName}'s Search Result for term ${searchTerm}`;
     const content = useMemo(() => {
