@@ -31,7 +31,7 @@ const CustomerCreditSystem = props => {
             cartId
         }
     });
-    const priceSummary =data?.cart?.prices.grand_total
+    const priceSummary = data?.cart?.prices.grand_total;
     const { loading } = talonProps;
 
     if (loading) {
@@ -93,7 +93,9 @@ const CustomerCreditSystem = props => {
                 <tbody>
                     <tr>
                         <td>
-                            <Price value={priceSummary?.value} currencyCode={priceSummary?.currency} />
+                            {priceSummary?.currency && (
+                                <Price value={priceSummary?.value} currencyCode={priceSummary?.currency} />
+                            )}
                         </td>
                         <td>{remainingcreditformatted}</td>
                         <td>{leftincredit}</td>
