@@ -16,9 +16,13 @@ export const useTicketItem = props => {
     useEffect(() => {
         if (openedChat[0] === ticket.number) {
             setTimeout(() => {
-                window.innerWidth > 700
-                    ? ticketDesktopRef?.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
-                    : ticketMobileRef?.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+                if (window.innerWidth > 700) {
+                    ticketDesktopRef?.current?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                } else {
+                    const ticketHeight = ticketMobileRef?.current?.offsetHeight;
+                    const ticketTop = ticketMobileRef?.current?.offsetTop;
+                    window.scrollTo(0, ticketHeight + ticketTop - window.innerHeight + 20);
+                }
             }, 1000);
         }
     }, [openedChat]);
