@@ -35,6 +35,11 @@ module.exports = targets => {
                 name: 'compare product',
                 pattern: '/compare_products',
                 path: '@orienteed/customComponents/components/comparePage/components'
+            },
+            {
+                name: 'Privacy product',
+                pattern: '/privacy',
+                path: '@orienteed/customComponents/components/privacyPage/components'
             }
         );
         return routes;
