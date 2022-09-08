@@ -144,7 +144,8 @@
         "workbox-routing": "~6.2.4",
         "workbox-strategies": "~6.2.4",
         "workbox-webpack-plugin": "~6.2.4",
-        "react-ga": "~3.3.0"
+        "react-ga": "~3.3.0",
+        "react-cookie-consent":"~8.0.1"
     },
     "optionalDependencies": {
         "sharp": "~0.29.3"
