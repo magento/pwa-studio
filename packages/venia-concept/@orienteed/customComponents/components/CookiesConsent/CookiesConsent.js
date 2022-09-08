@@ -16,11 +16,9 @@ const CookiesConsent = () => {
                 <FormattedMessage
                     id={'CookiesConsent.cookiesmsg'}
                     defaultMessage={'This website uses cookies to enhance the user experience.'}
-                />
+                />&nbsp;
                 <span style={{ fontSize: '10px' }}>
-                    <Link to="/privacy">
                         <FormattedMessage id={'CookiesConsent.privacy'} defaultMessage={'Privacy'} />
-                    </Link>
                 </span>
             </CookieConsent>
         </>
