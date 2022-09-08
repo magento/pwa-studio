@@ -89,6 +89,7 @@
     "checkoutPage.loadingPaymentInformation": "Fetching Payment Information",
     "checkoutPage.loginAndCheckoutFaster": "Faster login and payment",
     "checkoutPage.noPaymentAvailable": "Payment is currently unavailable.",
+    "checkoutPage.noProductText": "Some products are not available",
     "checkoutPage.orderNumber": "Order Number: {orderNumber}",
     "checkoutPage.orderSummary": "Order Summary",
     "checkoutPage.paymentInformation": "Payment Information",
@@ -155,6 +156,9 @@
     "contactPage.telephonePlaceholder": "(123) 123 456 789",
     "contactPage.title": "Contact Us",
     "contactPage.titleText": "Contact Us",
+    "CookiesConsent.accept":"Accept",
+    "CookiesConsent.cookiesmsg":"This website uses cookies to enhance the user experience.",
+    "CookiesConsent.privacy":"Privacy",
     "country.AD": "Andorra",
     "country.AE": "Emirs. Árabes Unidos",
     "country.AI": "Anguilla",
@@ -813,6 +817,6 @@
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} other {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
-    "checkoutPage.noProductText": "Some products are not available"
+    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
+
 }
