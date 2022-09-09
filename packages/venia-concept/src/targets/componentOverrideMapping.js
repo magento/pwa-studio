@@ -158,5 +158,8 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/showAllButton.module.css`]: './src/components/CheckoutPage/ItemsReview/showAllButton.module.css',
 
     //new overwrite
-    [`@magento/peregrine/lib/store/enhancers/middleware.js`]: './src/enhancers/middleware.js'
+    [`@magento/peregrine/lib/store/enhancers/middleware.js`]: './src/enhancers/middleware.js',
+    [`@magento/peregrine/lib/talons/Header/useHeader.js`]: './src/talons/Header/useHeader.js',
+    [`@magento/peregrine/lib/talons/MegaMenu/useMegaMenu.js`]: './src/talons/MegaMenu/useMegaMenu.js',
+    [`@magento/peregrine/lib/talons/MegaMenu/megaMenu.gql.js`]: './src/talons/MegaMenu/megaMenu.gql.js'
 };
