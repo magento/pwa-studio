@@ -152,20 +152,18 @@ export const useAccountInformationPage = props => {
     }, [confirmDeleteAddressId, deleteCustomerAddress, getCustomerAddressesQuery]);
 
     const handleSubmit = useCallback(
-        async ({ email, firstname, lastname, taxvat, password, newPassword }) => {
+        async ({ email, firstname, taxvat, password, newPassword }) => {
             try {
                 taxvat = taxvat.trim();
                 email = email.trim();
                 firstname = firstname.trim();
-                lastname = lastname.trim();
                 password = password.trim();
                 newPassword = newPassword ? newPassword.trim() : newPassword;
 
                 if (
                     initialValues.customer.email !== email ||
                     initialValues.customer.firstname !== firstname ||
-                    initialValues.customer.taxvat !== taxvat ||
-                    initialValues.customer.lastname !== lastname
+                    initialValues.customer.taxvat !== taxvat
                 ) {
                     await setCustomerInformation({
                         variables: {
@@ -173,14 +171,13 @@ export const useAccountInformationPage = props => {
                                 email,
                                 firstname,
                                 taxvat,
-                                lastname,
                                 // You must send password because it is required
                                 // when changing email.
                                 password
                             }
                         }
                     });
-                    modifyCustomer(firstname, lastname, email);
+                    modifyCustomer(firstname, '', email);
                 }
                 if (password && newPassword) {
                     const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
