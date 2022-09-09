@@ -168,8 +168,12 @@ export default original => {
                 }
             }
 
-            return { isBillingAddressDefault, ...billingAddress, defaultBillingAddressObject };
-        }, [isBillingAddressSameData, billingAddressData, defaultBillingAddressObject]);
+            return {
+                isBillingAddressDefault,
+                ...billingAddress,
+                defaultBillingAddressObject
+            };
+        }, [billingAddressData, defaultBillingAddressObject, isBillingAddressDefault]);
 
         /**
          * Helpers
@@ -230,6 +234,7 @@ export default original => {
          * This function sets the billing address on the cart using the
          * information from the form.
          */
+        console.log('formState', formState);
         const setBillingAddress = useCallback(() => {
             const {
                 firstName,
@@ -264,7 +269,10 @@ export default original => {
                         type: 'error',
                         icon: errorIcon,
                         message: (
-                            <FormattedMessage id={'billingAddress.somethingWentWrongTryAnotherState'} defaultMessage={'Something went wrong, try another state'} />
+                            <FormattedMessage
+                                id={'billingAddress.somethingWentWrongTryAnotherState'}
+                                defaultMessage={'Something went wrong, try another state'}
+                            />
                         ),
                         timeout: 6000
                     })

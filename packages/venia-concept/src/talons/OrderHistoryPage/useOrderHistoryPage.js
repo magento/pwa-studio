@@ -49,7 +49,7 @@ export const useOrderHistoryPage = (props, ...restArgs) => {
 
     const ordersInitial = orderData ? orderData.customer.orders.items : [];
 
-    let newSortOrder = [...ordersInitial];
+    const newSortOrder = [...ordersInitial];
 
     const orders = newSortOrder.sort((a, b) => (a.order_date < b.order_date ? 1 : -1));
 

@@ -20,21 +20,3 @@
 .last_name {
     display: none;
 }
-
-.first_name,
-.last_name {
-    composes: col-end-span2 from global;
-
-    composes: lg_col-end-span1 from global;
-}
-
-.country,
-.street1,
-.street2,
-.address_check,
-.city,
-.region,
-.postal_code,
-.phone_number {
-    composes: col-end-span2 from global;
-}

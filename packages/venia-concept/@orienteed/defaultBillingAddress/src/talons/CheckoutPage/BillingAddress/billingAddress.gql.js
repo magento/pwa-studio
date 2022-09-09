@@ -119,9 +119,15 @@ export const SET_BILLING_ADDRESS = gql`
 `;
 
 export const SET_DEFAULT_BILLING_ADDRESS = gql`
-    mutation setDefaultBillingAddress($cartId: String!, $customerAddressId: Int) {
+    mutation setDefaultBillingAddress(
+        $cartId: String!
+        $customerAddressId: Int
+    ) {
         setBillingAddressOnCart(
-            input: { cart_id: $cartId, billing_address: { customer_address_id: $customerAddressId } }
+            input: {
+                cart_id: $cartId
+                billing_address: { customer_address_id: $customerAddressId }
+            }
         ) @connection(key: "setBillingAddressOnCart") {
             cart {
                 id

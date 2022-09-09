@@ -53,7 +53,7 @@ const OrderHistoryPage = props => {
         setErrorToast,
         setSuccessToast,
         storeConfigData,
-        successToast,
+        successToast
     } = talonProps;
 
     const [, { addToast }] = useToasts();

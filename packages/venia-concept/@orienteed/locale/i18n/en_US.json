@@ -14,7 +14,7 @@
     "accountInformationPage.editAccount": "Edit Account Information",
     "accountInformationPage.errorTryAgain": "Something went wrong. Please refresh and try again.",
     "accountInformationPage.titleAccount": "Account Information",
-    "accountMenu.accountInfoLink": "Account Information",
+    "accountMenu.accountInfoLink": "Company Info",
     "accountMenu.addressBookLink": "Address Book",
     "accountMenu.buyLaterNotes": "Saved carts",
     "accountMenu.communicationsLink": "Communications",
@@ -459,7 +459,7 @@
     "global.editButton": "Edit",
     "global.email": "Email",
     "global.emailPlaceholder": "abc@xyz.com",
-    "global.firstName": "First Name",
+    "global.companyName": "Company name",
     "global.free": "Free",
     "global.home": "Home",
     "global.lastName": "Last Name",
@@ -818,5 +818,7 @@
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} other {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
+    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
+    "global.vatNumber": "VAT Number",
+    "global.companyName&Name": "Company/Name"
 }

@@ -5,7 +5,7 @@
     "accountInformationPage.editAccount": "Editar la información de la cuenta",
     "accountInformationPage.errorTryAgain": "Ha ocurrido un problema. Inténtalo de nuevo.",
     "accountInformationPage.titleAccount": "Información de la cuenta",
-    "accountMenu.accountInfoLink": "Información de la cuenta",
+    "accountMenu.accountInfoLink": "Información de la compañía",
     "accountMenu.addressBookLink": "Listado de direcciones",
     "accountMenu.buyLaterNotes": "Carritos guardados",
     "accountMenu.communicationsLink": "Comunicaciones",
@@ -27,7 +27,7 @@
     "addressBook.headerText": "Editar la información de envío",
     "addressBookPage.addAddressText": "Añadir una nueva dirección",
     "addressBookPage.addDialogTitle": "Nueva dirección",
-    "addressBookPage.addressBookText": "Listado de direcciones",
+    "addressBookPage.addressBookText": "Directorio",
     "addressBookPage.editDialogTitle": "Editar dirección",
     "addressBookPage.makeDefaultAddress": "Seleccionar como dirección de envío por defecto",
     "addressBookPage.telephone": "Teléfono",
@@ -455,7 +455,7 @@
     "global.editButton": "Editar",
     "global.email": "Correo electrónico",
     "global.emailPlaceholder": "abc@xyz.com",
-    "global.firstName": "Nombre",
+    "global.companyName": "Nombre de la empresa",
     "global.free": "Gratis",
     "global.home": "Página principal",
     "global.lastName": "Segundo apellido",
@@ -819,5 +819,7 @@
     "wishlistPage.disabledMessage": "Lo sentimos, esta funcionalidad ha sido deshabilitada",
     "wishlistPage.fetchErrorMessage": "Algo ha salido mal. Por favor refresca la página e inténtalo de nuevo.",
     "wishlistPage.headingText": "Listas de favoritos",
-    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento"
+    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento",
+    "global.vatNumber": "Número VAT",
+    "global.companyName&Name": "Empresa/Nombre"
 }

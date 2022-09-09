@@ -5,7 +5,7 @@
     "accountInformationPage.editAccount": "Modifier les informations du compte",
     "accountInformationPage.errorTryAgain": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "accountInformationPage.titleAccount": "Information sur le compte",
-    "accountMenu.accountInfoLink": "Information sur le compte",
+    "accountMenu.accountInfoLink": "Information d'entreprise",
     "accountMenu.addressBookLink": "Carnet d'adresses",
     "accountMenu.buyLaterNotes": "Paniers enregistrés",
     "accountMenu.communicationsLink": "Les communications",
@@ -455,7 +455,7 @@
     "global.editButton": "Éditer",
     "global.email": "Courriel",
     "global.emailPlaceholder": "abc@xyz.com",
-    "global.firstName": "Prénom",
+    "global.companyName": "Nom de l'entreprise",
     "global.free": "Gratuit",
     "global.home": "Accueil",
     "global.lastName": "Nom de famille",
@@ -819,5 +819,7 @@
     "wishlistPage.disabledMessage": "Désolé, cette fonctionnalité a été désactivée.",
     "wishlistPage.fetchErrorMessage": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "wishlistPage.headingText": "Listes de favoris",
-    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement."
+    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement.",
+    "global.vatNumber": "Numéro de TVA",
+    "global.companyName&Name": "Compagnie/Nom"
 }

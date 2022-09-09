@@ -2,15 +2,25 @@ module.exports = componentOverrideMapping = {
     //JS
     // [`@orienteed/buyLaterNotes/components/SavedCarts/savedCartsTable.js`]: './src/components/SavedCarts/savedCartsTable.js', // replace directly,
     [`@magento/venia-ui/lib/RootComponents/Category/categoryContent.js`]: './src/RootComponents/Category/categoryContent.js',
+    [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPage.js`]: './src/components/AccountInformationPage/accountInformationPage.js',
+    [`@magento/venia-ui/lib/components/AccountInformationPage/editForm.js`]: './src/components/AccountInformationPage/editForm.js',
+    [`@magento/venia-ui/lib/components/AddressBookPage/addEditDialog.js`]: './src/components/AddressBookPage/addEditDialog.js',
+    [`@magento/venia-ui/lib/components/AddressBookPage/addressBookPage.js`]: './src/components/AddressBookPage/addressBookPage.js',
     [`@magento/venia-ui/lib/components/App/app.js`]: './src/components/App/app.js',
     [`@magento/venia-ui/lib/components/App/contextProvider.js`]: './src/components/App/contextProvider.js',
     [`@magento/venia-ui/lib/components/Breadcrumbs/breadcrumbs.js`]: './src/components/Breadcrumbs/breadcrumbs.js',
     [`@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.js`]: './src/components/CartPage/PriceSummary/priceSummary.js',
     [`@magento/venia-ui/lib/components/CartPage/ProductListing/productListing.js`]: './src/components/CartPage/ProductListing/productListing.js',
     [`@magento/venia-ui/lib/components/CartPage/cartPage.js`]: './src/components/CartPage/cartPage.js',
+    [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressBook.js`]: './src/components/CheckoutPage/AddressBook/addressBook.js',
+    [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressCard.js`]: './src/components/CheckoutPage/AddressBook/addressCard.js',
+    [`@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js`]: './src/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethods.js`]: './src/components/CheckoutPage/PaymentInformation/paymentMethods.js',
+    [`@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation/AddressForm/customerForm.js`]: './src/components/CheckoutPage/ShippingInformation/AddressForm/customerForm.js',
+    [`@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation/card.js`]: './src/components/CheckoutPage/ShippingInformation/card.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/checkoutPage.js`]: './src/components/CheckoutPage/checkoutPage.js',
     [`@magento/venia-ui/lib/components/CommunicationsPage/communicationsPage.js`]: './src/components/CommunicationsPage/communicationsPage.js',
+    [`@magento/venia-ui/lib/components/CreateAccount/createAccount.js`]: './src/components/CreateAccount/createAccount.js',
     [`@magento/venia-ui/lib/components/CreateAccountPage/createAccountPage.js`]: './src/components/CreateAccountPage/createAccountPage.js',
     [`@magento/venia-ui/lib/components/ErrorView/errorView.js`]: './src/components/ErrorView/errorView.js',
     [`@magento/venia-ui/lib/components/FilterSidebar/filterSidebar.js`]: './src/components/FilterSidebar/filterSidebar.js',
@@ -53,7 +63,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/WishlistPage/wishlistItem.js`]: './src/components/WishlistPage/wishlistItem.js',
     [`@magento/venia-ui/lib/components/WishlistPage/wishlistItems.js`]: './src/components/WishlistPage/wishlistItems.js',
     [`@magento/venia-ui/lib/components/WishlistPage/wishlistPage.js`]: './src/components/WishlistPage/wishlistPage.js',
-    
+
     //TALONS
     [`@magento/peregrine/lib/RestApi/Magento2/M2ApiRequest.js`]: './src/talons/RestApi/Magento2/M2ApiRequest.js',
     [`@magento/peregrine/lib/hooks/useCarousel.js`]: './src/hooks/useCarousel.js',
@@ -62,6 +72,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems.js`]: './src/talons/AccountMenu/useAccountMenuItems.js',
     [`@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary.js`]: './src/talons/usePriceSummary.js',
     [`@magento/peregrine/lib/talons/CartPage/useCartPage.js`]: './src/talons/CartPage/useCartPage.js',
+    [`@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm.js`]: './src/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm.js',
     [`@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage.js`]: './src/talons/CheckoutPage/useCheckoutPage.js',
     [`@magento/peregrine/lib/talons/CreateAccount/useCreateAccount.js`]: './src/talons/CreateAccount/useCreateAccount.js',
     [`@magento/peregrine/lib/talons/Gallery/useAddToCartButton.js`]: './src/talons/Gallery/useAddToCartButton.js',
@@ -77,18 +88,24 @@ module.exports = componentOverrideMapping = {
     [`@magento/peregrine/lib/talons/WishlistPage/useWishlistItem.js`]: './src/talons/WishlistPage/useWishlistItem.js',
 
     //GRAPHQL
+    [`@magento/peregrine/lib/talons/CheckoutPage/AddressBook/addressBookFragments.gql.js`]: './src/components/CheckoutPage/AddressBook/addressBookFragments.gql.js',
     [`@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js`]: './src/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js',
+    [`@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js`]: './src/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js',
     [`@magento/peregrine/lib/talons/CreateAccount/createAccount.gql.js`]: './src/talons/CreateAccount/createAccount.gql.js',
     [`@magento/peregrine/lib/talons/RootComponents/Category/categoryFragments.gql.js`]: './src/talons/RootComponents/Category/categoryFragments.gql.js',
     [`@magento/peregrine/lib/talons/RootComponents/Product/productDetailFragment.gql.js`]: './src/talons/RootComponents/Product/productDetailFragment.gql.js',
     [`@magento/peregrine/lib/talons/SearchPage/searchPage.gql.js`]: './src/talons/SearchPage/searchPage.gql.js',
     [`@magento/peregrine/lib/talons/SignIn/signIn.gql.js`]: './src/talons/SignIn/signIn.gql.js',
     [`@magento/peregrine/lib/talons/WishlistPage/wishlistItemFragments.gql.js`]: './src/talons/WishlistPage/wishlistItemFragments.gql.js',
+    [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPage.gql.js`]: './src/components/AccountInformationPage/accountInformationPage.gql.js',
+    [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPageFragment.gql.js`]: './src/components/AccountInformationPage/accountInformationPageFragment.gql.js',
 
     //CSS
     [`@magento/venia-ui/lib/RootComponents/Category/category.module.css`]: './src/RootComponents/Category/category.module.css',
     [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPage.module.css`]: './src/components/AccountInformationPage/accountInformationPage.module.css',
+    [`@magento/venia-ui/lib/components/AccountInformationPage/editForm.module.css`]: './src/components/AccountInformationPage/editForm.module.css',
     [`@magento/venia-ui/lib/components/AddToCartDialog/addToCartDialog.module.css`]: './src/components/AddToCartDialog/addToCartDialog.module.css',
+    [`@magento/venia-ui/lib/components/AddressBookPage/addEditDialog.module.css`]: './src/components/AddressBookPage/addEditDialog.module.css',
     [`@magento/venia-ui/lib/components/AddressBookPage/addressBookPage.module.css`]: './src/components/AddressBookPage/addressBookPage.module.css',
     [`@magento/venia-ui/lib/components/AddressBookPage/addressCard.module.css`]: './src/components/AddressBookPage/addressCard.module.css',
     [`@magento/venia-ui/lib/components/Breadcrumbs/breadcrumbs.module.css`]: './src/components/Breadcrumbs/breadcrumbs.module.css',
@@ -99,6 +116,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/Checkbox/checkbox.module.css`]: './src/components/Checkbox/checkbox.module.css',
     [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressBook.module.css`]: './src/components/CheckoutPage/AddressBook/addressBook.module.css',
     [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressCard.module.css`]: './src/components/CheckoutPage/AddressBook/addressCard.module.css',
+    [`@magento/venia-ui/lib/components/CheckoutPage/BillingAddress/billingAddress.module.css`]: './src/components/CheckoutPage/BillingAddress/billingAddress.module.css',
     [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/item.module.css`]: './src/components/CheckoutPage/ItemsReview/item.module.css',
     [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/itemsReview.module.css`]: './src/components/CheckoutPage/ItemsReview/itemsReview.module.css',
     [`@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/showAllButton.module.css`]: './src/components/CheckoutPage/ItemsReview/showAllButton.module.css',
@@ -164,5 +182,5 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/index.module.css`]: './src/css/index.module.css',
     [`@magento/venia-ui/lib/tokens.module.css`]: './src/css/tokens.module.css',
     [`@orienteed/customComponents/css/forms.module.css`]: './src/css/forms.module.css', // replace directly
-    [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css', // replace directly
+    [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css' // replace directly
 };
