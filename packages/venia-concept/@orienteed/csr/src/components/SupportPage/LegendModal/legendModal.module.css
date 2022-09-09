@@ -1,0 +1,19 @@
+.legendModalContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.legend {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    min-width: 150px;
+    gap: 10px;
+}
+
+.legendIcon {
+    width: 25px;
+}

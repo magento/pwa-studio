@@ -1,4 +1,3 @@
-
 module.exports = targets => {
     const builtins = targets.of('@magento/pwa-buildpack');
     builtins.specialFeatures.tap(features => {
@@ -22,16 +21,4 @@ module.exports = targets => {
         }
         return routes;
     });
-
-    const peregrineTargets = targets.of('@magento/peregrine');
-    const talonsTarget = peregrineTargets.talons;
-    if (process.env.B2BSTORE_VERSION === 'PREMIUM') {
-        talonsTarget.tap(talonWrapperConfig => {
-            talonWrapperConfig.AccountMenu.useAccountMenuItems.wrapWith(
-                '@orienteed/buyLaterNotes/talons/useAccountMenuItems'
-            );
-        });
-    }
 };
-// }
-

@@ -4,9 +4,10 @@ import { Search as SearchIcon, AlertCircle as AlertCircleIcon, ArrowRight as Sub
 import { shape, string } from 'prop-types';
 import { Form } from 'informed';
 
+import closeIcon from '@orienteed/csr/src/components/CreateTicketModal/Dropzone/Icons/close.svg';
 import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
-import { useOrderHistoryPage } from '../../../reorder/talons/useOrderHistoryPage';
+import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage.js';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import ResetButton from '@magento/venia-ui/lib/components/OrderHistoryPage/resetButton';
@@ -38,18 +39,23 @@ const OrderHistoryPage = props => {
         }
     });
     const {
+        address,
         errorMessage,
-        loadMoreOrders,
+        errorToast,
         handleReset,
         handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
+        loadMoreOrders,
         orders,
         pageInfo,
         searchText,
+        setErrorToast,
+        setSuccessToast,
         storeConfigData,
-        address
+        successToast,
     } = talonProps;
+
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
     const PAGE_TITLE = formatMessage({
@@ -64,9 +70,18 @@ const OrderHistoryPage = props => {
 
     const orderRows = useMemo(() => {
         return orders.map(order => {
-            return <OrderRow address={address} key={order.id} order={order} config={storeConfigData} />;
+            return (
+                <OrderRow
+                    address={address}
+                    config={storeConfigData}
+                    key={order.id}
+                    order={order}
+                    setErrorToast={setErrorToast}
+                    setSuccessToast={setSuccessToast}
+                />
+            );
         });
-    }, [orders]);
+    }, [orders, storeConfigData, setSuccessToast, setErrorToast]);
 
     const pageContents = useMemo(() => {
         if (isLoadingWithoutData) {
@@ -136,6 +151,38 @@ const OrderHistoryPage = props => {
         </Button>
     ) : null;
 
+    const successToastContainer = (
+        <div className={classes.successToastContainer}>
+            <p className={classes.successToastText}>
+                <FormattedMessage id={'csr.ticketCreated'} defaultMessage={'Ticket created successfully'} />
+            </p>
+            <img
+                alt="Close icon"
+                className={classes.toastCloseIcon}
+                onClick={() => setSuccessToast(false)}
+                src={closeIcon}
+            />
+        </div>
+    );
+
+    const errorToastContainer = (
+        <div className={classes.errorToastContainer}>
+            <p className={classes.errorToastText}>
+                <FormattedMessage
+                    id={'csr.errorToast'}
+                    defaultMessage={'Sorry, there has been an error.{br}Please, try again later.'}
+                    values={{ br: <br /> }}
+                />
+            </p>
+            <img
+                alt="Close icon"
+                className={classes.toastCloseIcon}
+                onClick={() => setErrorToast(false)}
+                src={closeIcon}
+            />
+        </div>
+    );
+
     useEffect(() => {
         if (errorMessage) {
             addToast({
@@ -178,6 +225,8 @@ const OrderHistoryPage = props => {
                     {loadMoreButton}
                 </div>
             </OrderHistoryContextProvider>
+            {successToast && successToastContainer}
+            {errorToast && errorToastContainer}
         </>
     );
 };

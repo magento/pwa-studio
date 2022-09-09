@@ -48,6 +48,7 @@
     "dependencies": {
         "axios": "~0.26.1",
         "babel-plugin-require-context-hook": "^1.0.0",
+        "emoji-picker-react": "~3.6.1",
         "papaparse": "~5.3.2",
         "react-csv": "^2.2.2",
         "react-drag-drop-files": "^2.3.4",

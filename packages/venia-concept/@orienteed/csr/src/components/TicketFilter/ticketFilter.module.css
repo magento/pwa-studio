@@ -1,0 +1,36 @@
+.root {
+    composes: relative from global;
+    composes: ml-2xs from global;
+}
+
+.menu {
+    composes: absolute from global;
+    composes: bg-clip-padding from global;
+    composes: bg-white from global;
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: list-none from global;
+    composes: mb-0 from global;
+    composes: min-w-[10rem] from global;
+    composes: mt-0.5 from global;
+    composes: mx-0 from global;
+    composes: right-0 from global;
+    composes: rounded from global;
+    composes: shadow-menu from global;
+    composes: text-colorDefault from global;
+    composes: text-left from global;
+    composes: top-[110%] from global;
+    /* composes: z-menu from global; */
+    z-index: 9;
+}
+
+.menuItem {
+    composes: hover_bg-subtle from global;
+}
+
+.orderByIcon {
+    cursor: pointer;
+    max-width: 30px;
+    height: 100%;
+}

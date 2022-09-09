@@ -1,0 +1,223 @@
+.ticketAndChatListContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticketListContainer {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr repeat(2, 1.5fr) 2.5fr 1fr 1fr;
+    background-color: #f6f8fb;
+    border-radius: 5px;
+    align-items: center;
+    overflow-x: auto;
+}
+
+.ticketAndChatGridContainer {
+    display: none;
+    visibility: hidden;
+}
+
+.ticketGridContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f8fb;
+    border-radius: 5px;
+    width: 100%;
+    padding: 16px;
+}
+
+.ticketGridHeaderContainer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+}
+
+.ticketMainHeaderContainer {
+    composes: ticketGridContainer;
+    padding: 0px;
+}
+
+.ticketGridBodyContainer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid #cecccc;
+    min-height: 75px;
+}
+
+.ticketGridItem {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 5px;
+    padding: 8px 0px;
+}
+
+.ticketGridItemState {
+    composes: ticketGridItem;
+    padding: 0;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.ticketMainHeaderContainer > .ticketGridItem + .ticketGridItem {
+    border-top: 1px solid #cecccc;
+}
+
+.ticketGridItem .fieldTitle::after {
+    content: ':';
+}
+
+.ticketGridSummaryItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ticketListItem {
+    border-right: 1px solid #cecccc;
+    display: flex;
+    flex-direction: column;
+    min-height: 80px;
+    justify-content: center;
+    padding: 0 20px;
+    margin: 10px 0;
+}
+
+.ticketImage {
+    min-width: 45px;
+    margin: 30px 20px;
+    margin-left: 35px;
+}
+
+.ticketImageGrid {
+    min-width: 45px;
+    margin: 30px;
+    margin-left: 20px;
+}
+
+.fieldTitle {
+    font-weight: 300;
+    font-size: 14px;
+    color: #0c0c0c;
+}
+
+.fieldValue {
+    font-weight: 600;
+    font-size: 20px;
+    color: #0c0c0c;
+}
+
+.fieldValueGrid {
+    font-weight: 600;
+    font-size: 14px;
+    color: #0c0c0c;
+}
+
+.fieldState {
+    composes: fieldValue;
+    text-transform: capitalize;
+}
+
+.fieldStateGrid {
+    composes: fieldValueGrid;
+    text-transform: capitalize;
+}
+
+.fieldChangeState {
+    font-weight: 600;
+    font-size: 14px;
+    color: #e8aa00;
+    text-align: left;
+    height: 24px;
+    cursor: pointer;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    overflow: hidden;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+    line-break: anywhere;
+}
+
+.fieldSummary {
+    composes: fieldValue;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-break: anywhere;
+}
+
+.fieldSummaryGrid {
+    composes: fieldSummary;
+    font-size: 14px;
+}
+
+/***** NotificationButton *****/
+.messageContainer {
+    position: relative;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.messageIcon {
+    min-width: 35px;
+}
+
+.closeIcon {
+    min-width: 20px;
+}
+/***** end NotificationButton *****/
+
+@media (max-width: 959px) {
+    .ticketListItem {
+        padding: 0 10px;
+        margin: 10px 0;
+    }
+
+    .messageContainer {
+        padding: 0 10px;
+    }
+
+    .fieldValue {
+        font-size: 16px;
+    }
+
+    .ticketImage {
+        min-width: 40px;
+        margin: 25px 15px;
+    }
+}
+
+@media (max-width: 700px) {
+    .ticketAndChatListContainer {
+        display: none;
+        visibility: hidden;
+    }
+
+    .ticketAndChatGridContainer {
+        display: flex;
+        flex-direction: column;
+        visibility: visible;
+    }
+
+    .ticketMainHeaderContainer {
+        padding: 0px;
+    }
+}
+
+@media (max-width: 350px) {
+    .ticketImageGrid {
+        min-width: 45px;
+        margin: 15px;
+        margin-left: 5px;
+    }
+}

@@ -21,13 +21,22 @@ export class TextInput extends Component {
     };
 
     render() {
-        const { after, before, classes, fieldState, message, ...rest } = this.props;
-
+        const { after, before, classes, fieldState, message, supportEmoji = false, ...rest } = this.props;
         const inputClass = fieldState.error ? classes.input_error : classes.input;
+
+        const inputRest = { ...rest };
+        delete inputRest.fieldState;
+        delete inputRest.fieldApi;
+        delete inputRest.forwardedRef;
+
         return (
             <Fragment>
                 <FieldIcons after={after} before={before}>
-                    <BasicText {...rest} fieldState={fieldState} className={inputClass} />
+                    {supportEmoji ? (
+                        <input {...inputRest} className={inputClass} />
+                    ) : (
+                        <BasicText {...rest} className={inputClass} fieldState={fieldState} />
+                    )}
                 </FieldIcons>
                 <Message fieldState={fieldState}>{message}</Message>
             </Fragment>
