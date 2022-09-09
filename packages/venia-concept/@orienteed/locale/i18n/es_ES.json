@@ -90,6 +90,7 @@
     "checkoutPage.loadingPaymentInformation": "Recuperando información de pago.",
     "checkoutPage.loginAndCheckoutFaster": "Inicio de sesión y pago más rápidos",
     "checkoutPage.noPaymentAvailable": "El pago no está disponible en este momento.",
+    "checkoutPage.noProductText": "Algunos productos no están disponibles",
     "checkoutPage.orderNumber": "Número de pedido: {orderNumber}",
     "checkoutPage.orderSummary": "Resumen de tu pedido.",
     "checkoutPage.paymentInformation": "Información de pago.",
@@ -156,6 +157,9 @@
     "contactPage.telephonePlaceholder": "(123) 123 456 789",
     "contactPage.title": "Contacta con nosotros",
     "contactPage.titleText": "Contacta con nosotros",
+    "CookiesConsent.accept":"Aceptar",
+    "CookiesConsent.cookiesmsg":"Este sitio web utiliza cookies para mejorar la experiencia del usuario.",
+    "CookiesConsent.privacy":"Privacidad",
     "country.AD": "Andorra",
     "country.AE": "Emirs. Árabes Unidos",
     "country.AI": "Anguilla",
@@ -815,6 +819,5 @@
     "wishlistPage.disabledMessage": "Lo sentimos, esta funcionalidad ha sido deshabilitada",
     "wishlistPage.fetchErrorMessage": "Algo ha salido mal. Por favor refresca la página e inténtalo de nuevo.",
     "wishlistPage.headingText": "Listas de favoritos",
-    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento",
-    "checkoutPage.noProductText": "Algunos productos no están disponibles"
+    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento"
 }
