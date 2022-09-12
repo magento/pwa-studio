@@ -5,8 +5,9 @@ const restrictedAuthPage = store => next => action => {
     const unAuthPath = ['sign-in', 'create-account', 'forgot-password'];
     const currentPath = window.location.pathname;
     const signin_token = storage.getItem('signin_token');
+    const storeConfigRequiredLogin = storage.getItem('is_required_login');
 
-    if (!signin_token) {
+    if (!signin_token && storeConfigRequiredLogin === '1') {
         let found = false;
         unAuthPath.forEach(value => {
             if (currentPath.indexOf(value) > -1) {
@@ -19,7 +20,6 @@ const restrictedAuthPage = store => next => action => {
             history.go(0);
         }
     }
-
     return next(action);
 };
 

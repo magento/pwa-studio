@@ -1,6 +1,6 @@
 module.exports = componentOverrideMapping = {
     //JS
-    // [`@orienteed/buyLaterNotes/components/SavedCarts/savedCartsTable.js`]: './src/components/SavedCarts/savedCartsTable.js', // replace directly,
+    [`@magento/peregrine/lib/talons/MegaMenu/useMegaMenu.js`]: './src/talons/MegaMenu/useMegaMenu.js',
     [`@magento/venia-ui/lib/RootComponents/Category/categoryContent.js`]: './src/RootComponents/Category/categoryContent.js',
     [`@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPage.js`]: './src/components/AccountInformationPage/accountInformationPage.js',
     [`@magento/venia-ui/lib/components/AccountInformationPage/editForm.js`]: './src/components/AccountInformationPage/editForm.js',
@@ -77,6 +77,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/peregrine/lib/talons/CreateAccount/useCreateAccount.js`]: './src/talons/CreateAccount/useCreateAccount.js',
     [`@magento/peregrine/lib/talons/Gallery/useAddToCartButton.js`]: './src/talons/Gallery/useAddToCartButton.js',
     [`@magento/peregrine/lib/talons/Header/useAccountMenu.js`]: './src/talons/Header/useAccountMenu.js',
+    [`@magento/peregrine/lib/talons/Header/useHeader.js`]: './src/talons/Header/useHeader.js',
     [`@magento/peregrine/lib/talons/MiniCart/useMiniCart.js`]: './src/talons/MiniCart/useMiniCart.js',
     [`@magento/peregrine/lib/talons/Newsletter/useNewsletter.js`]: './src/talons/Newsletter/useNewsletter.js',
     [`@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage.js`]: './src/talons/OrderHistoryPage/useOrderHistoryPage.js',
@@ -92,6 +93,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js`]: './src/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js',
     [`@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js`]: './src/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js',
     [`@magento/peregrine/lib/talons/CreateAccount/createAccount.gql.js`]: './src/talons/CreateAccount/createAccount.gql.js',
+    [`@magento/peregrine/lib/talons/MegaMenu/megaMenu.gql.js`]: './src/talons/MegaMenu/megaMenu.gql.js',
     [`@magento/peregrine/lib/talons/RootComponents/Category/categoryFragments.gql.js`]: './src/talons/RootComponents/Category/categoryFragments.gql.js',
     [`@magento/peregrine/lib/talons/RootComponents/Product/productDetailFragment.gql.js`]: './src/talons/RootComponents/Product/productDetailFragment.gql.js',
     [`@magento/peregrine/lib/talons/SearchPage/searchPage.gql.js`]: './src/talons/SearchPage/searchPage.gql.js',

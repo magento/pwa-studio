@@ -13,7 +13,7 @@ import PageLoadingIndicator from '@magento/venia-ui/lib/components/PageLoadingIn
 import QuickOrder from '@orienteed/quickOrderForm/src/components/QuickOrder';
 import SearchTrigger from '@magento/venia-ui/lib/components/Header/searchTrigger';
 import StoreSwitcher from '@magento/venia-ui/lib/components/Header/storeSwitcher';
-
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -23,6 +23,7 @@ import useCompareProduct from '@orienteed/customComponents/components/comparePag
 import CompareIcon from './icons/compare.svg';
 
 import defaultClasses from '@magento/venia-ui/lib/components/Header/header.module.css';
+const storage = new BrowserPersistence();
 
 const SearchBar = React.lazy(() => import('@magento/venia-ui/lib/components/SearchBar'));
 
@@ -35,6 +36,7 @@ const Header = props => {
         searchRef,
         searchTriggerRef
     } = useHeader();
+    const storeConfigRequiredLogin = storage.getItem('is_required_login');
 
     const { location } = useHistory();
     const { productsCount } = useCompareProduct();
@@ -75,7 +77,9 @@ const Header = props => {
                     <Link to={resourceUrl('/')} className={classes.logoContainer}>
                         <Logo classes={{ logo: classes.logo }} />
                     </Link>
-                    {isUserSignedIn && <MegaMenu />}
+                    {storeConfigRequiredLogin === '0' || isUserSignedIn ? (
+                        <MegaMenu />
+                    ) : null}
                     <div className={classes.secondaryActions}>
                         <SearchTrigger onClick={handleSearchTriggerClick} ref={searchTriggerRef} />
                         <AccountTrigger />
