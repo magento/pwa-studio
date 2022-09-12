@@ -129,12 +129,12 @@ export const useFilterSidebar = props => {
                     items.push({
                         title: 'No',
                         value: '0',
-                        label: name + ':' + 'No'
+                        label: name
                     });
                     items.push({
                         title: 'Yes',
                         value: '1',
-                        label: name + ':' + 'Yes'
+                        label: name
                     });
                 } else {
                     // Add frontend input type
