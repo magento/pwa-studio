@@ -7,7 +7,8 @@ import {
     productPageQuantityTitle,
     productPageDescriptionTitle,
     productPageOptionLabels,
-    productPagePrice
+    productPagePrice,
+    productPageSizeButton
 } from '../../fields/productPage';
 
 /**
@@ -68,4 +69,13 @@ export const assertProductPriceHasCurrency = currency => {
  */
 export const assertProductIsOutOfStock = () => {
     cy.get(productPageAddToCartButton).contains('Out of Stock');
+};
+
+/**
+ * Utility function to assert if a swatch is disabled
+ */
+export const assertSizeSwatchDisable = option => {
+    cy.get(productPageSizeButton)
+        .get(`[title="${option}"]`)
+        .should('be.disabled');
 };
