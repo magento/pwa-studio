@@ -16,7 +16,7 @@ export const useAccountMenuItems = props => {
         onSignOut();
     }, [onSignOut]);
 
-    const MENU_ITEMS = [
+    const MENU_ITEMS_PREMIUM = [
         {
             name: 'Account Information',
             id: 'accountMenu.accountInfoLink',
@@ -115,6 +115,6 @@ export const useAccountMenuItems = props => {
 
     return {
         handleSignOut,
-        menuItems: process.env.B2BSTORE_VERSION === 'BASIC' ? MENU_ITEMS_BASIC : MENU_ITEMS
+        menuItems: process.env.B2BSTORE_VERSION === 'BASIC' ? MENU_ITEMS_BASIC : MENU_ITEMS_PREMIUM
     };
 };
