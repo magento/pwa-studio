@@ -271,3 +271,7 @@
 .compareIcon img {
     width: 20px;
 }
+
+.requestBtn button {
+    margin-left: -0.5rem;
+}
