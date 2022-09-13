@@ -1,0 +1,15 @@
+.root {
+    composes: block from global;
+}
+
+.createAccountActions {
+    composes: actions from '../CreateAccount/createAccount.module.css';
+
+    composes: grid-flow-row from global;
+}
+
+.createAccountSubmitButton {
+    composes: root_highPriority from '../Button/button.module.css';
+
+    composes: col-start-auto from global;
+}

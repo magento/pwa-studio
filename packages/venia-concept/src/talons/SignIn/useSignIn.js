@@ -137,6 +137,8 @@ export const useSignIn = props => {
 
     const handleCreateAccount = useCallback(() => {
         history.push('/create-account');
+        showCreateAccount();
+        
     }, [history]);
 
     const handleForgotPassword = useCallback(() => {
