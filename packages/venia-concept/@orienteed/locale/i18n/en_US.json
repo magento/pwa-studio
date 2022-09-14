@@ -616,6 +616,7 @@
     "productFullDetailB2B.indexName": "Name",
     "productFullDetailB2B.indexQuantity": "Quantity",
     "productFullDetailB2B.indexUnitPrice": "Price / Unit",
+    "productFullDetailB2B.quote": "Quote",
     "productFullDetailB2B.totalPrice": "Total Price",
     "productImageCarousel.nextButtonAriaLabel": "Next Image",
     "productImageCarousel.previousButtonAriaLabel": "Previous Image",
