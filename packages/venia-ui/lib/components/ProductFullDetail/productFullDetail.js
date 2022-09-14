@@ -47,6 +47,8 @@ const ProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isOutOfStock,
+        isEverythingOutOfStock,
+        outOfStockVariants,
         isAddToCartDisabled,
         isSupportedProductType,
         mediaGalleryEntries,
@@ -64,6 +66,8 @@ const ProductFullDetail = props => {
             <Options
                 onSelectionChange={handleSelectionChange}
                 options={product.configurable_options}
+                isEverythingOutOfStock={isEverythingOutOfStock}
+                outOfStockVariants={outOfStockVariants}
             />
         </Suspense>
     ) : null;
@@ -167,27 +171,40 @@ const ProductFullDetail = props => {
         };
     }, [customAttributes, productDetails.sku, formatMessage]);
 
-    const cartCallToActionText = !isOutOfStock ? (
-        <FormattedMessage
-            id="productFullDetail.addItemToCart"
-            defaultMessage="Add to Cart"
-        />
-    ) : (
-        <FormattedMessage
-            id="productFullDetail.itemOutOfStock"
-            defaultMessage="Out of Stock"
-        />
-    );
-
+    const cartCallToActionText =
+        !isEverythingOutOfStock || !isOutOfStock ? (
+            <FormattedMessage
+                id="productFullDetail.addItemToCart"
+                defaultMessage="Add to Cart"
+            />
+        ) : (
+            <FormattedMessage
+                id="productFullDetail.itemOutOfStock"
+                defaultMessage="Out of Stock"
+            />
+        );
+    // Error message for screen reader
     const cartActionContent = isSupportedProductType ? (
-        <Button
-            data-cy="ProductFullDetail-addToCartButton"
-            disabled={isAddToCartDisabled}
-            priority="high"
-            type="submit"
-        >
-            {cartCallToActionText}
-        </Button>
+        <section className={classes.actButton}>
+            <Button
+                data-cy="ProductFullDetail-addToCartButton"
+                disabled={isAddToCartDisabled}
+                aria-disabled={isAddToCartDisabled}
+                aria-label={
+                    isEverythingOutOfStock
+                        ? formatMessage({
+                              id: 'productFullDetail.outOfStockProduct',
+                              defaultMessage:
+                                  'This item is currently out of stock'
+                          })
+                        : ''
+                }
+                priority="high"
+                type="submit"
+            >
+                {cartCallToActionText}
+            </Button>
+        </section>
     ) : (
         <div className={classes.unavailableContainer}>
             <Info />

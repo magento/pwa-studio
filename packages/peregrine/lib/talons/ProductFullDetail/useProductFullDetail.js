@@ -12,10 +12,12 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './productFullDetail.gql';
 import { useEventingContext } from '../../context/eventing';
+import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
 const OUT_OF_STOCK_CODE = 'OUT_OF_STOCK';
+const IN_STOCK_CODE = 'IN_STOCK';
 
 const deriveOptionCodesFromProduct = product => {
     // If this is a simple product it has no option codes.
@@ -83,6 +85,19 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
 
         return stockStatus === OUT_OF_STOCK_CODE || !stockStatus;
     }
+    return stock_status === OUT_OF_STOCK_CODE;
+};
+const getIsAllOutOfStock = product => {
+    const { stock_status, variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+
+    if (isConfigurable) {
+        const inStockItem = variants.find(item => {
+            return item.product.stock_status === IN_STOCK_CODE;
+        });
+        return !inStockItem;
+    }
+
     return stock_status === OUT_OF_STOCK_CODE;
 };
 
@@ -291,6 +306,8 @@ export const useProductFullDetail = props => {
         derivedOptionSelections
     );
 
+    const [singleOptionSelection, setSingleOptionSelection] = useState();
+
     const derivedOptionCodes = useMemo(
         () => deriveOptionCodesFromProduct(product),
         [product]
@@ -305,6 +322,41 @@ export const useProductFullDetail = props => {
     const isOutOfStock = useMemo(
         () => getIsOutOfStock(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
+    );
+
+    // Check if display out of stock products option is selected in the Admin Dashboard
+    const isOutOfStockProductDisplayed = useMemo(() => {
+        let totalVariants = 1;
+        const isConfigurable = isProductConfigurable(product);
+        if (product.configurable_options && isConfigurable) {
+            for (const option of product.configurable_options) {
+                const length = option.values.length;
+                totalVariants = totalVariants * length;
+            }
+            return product.variants.length === totalVariants;
+        }
+    }, [product]);
+
+    const isEverythingOutOfStock = useMemo(() => getIsAllOutOfStock(product), [
+        product
+    ]);
+
+    const outOfStockVariants = useMemo(
+        () =>
+            getOutOfStockVariants(
+                product,
+                optionCodes,
+                singleOptionSelection,
+                optionSelections,
+                isOutOfStockProductDisplayed
+            ),
+        [
+            product,
+            optionCodes,
+            singleOptionSelection,
+            optionSelections,
+            isOutOfStockProductDisplayed
+        ]
     );
 
     const mediaGalleryEntries = useMemo(
@@ -344,7 +396,7 @@ export const useProductFullDetail = props => {
         optionSelections.forEach((value, key) => {
             const values = attributeIdToValuesMap.get(key);
 
-            const selectedValue = values.find(
+            const selectedValue = values?.find(
                 item => item.value_index === value
             );
 
@@ -481,6 +533,10 @@ export const useProductFullDetail = props => {
             const nextOptionSelections = new Map([...optionSelections]);
             nextOptionSelections.set(optionId, selection);
             setOptionSelections(nextOptionSelections);
+            // Create a new Map to keep track of single selections with key as String
+            const nextSingleOptionSelection = new Map();
+            nextSingleOptionSelection.set(optionId, selection);
+            setSingleOptionSelection(nextSingleOptionSelection);
         },
         [optionSelections]
     );
@@ -542,8 +598,11 @@ export const useProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isOutOfStock,
+        isEverythingOutOfStock,
+        outOfStockVariants,
         isAddToCartDisabled:
             isOutOfStock ||
+            isEverythingOutOfStock ||
             isMissingOptions ||
             isAddConfigurableLoading ||
             isAddSimpleLoading ||

@@ -6,6 +6,7 @@ import { useCartContext } from '../../../../context/cart';
 import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
 import DEFAULT_OPERATIONS from './productForm.gql';
 import { useEventingContext } from '../../../../context/eventing';
+import { getOutOfStockVariantsWithInitialSelection } from '../../../../util/getOutOfStockVariantsWithInitialSelection';
 
 /**
  * This talon contains logic for a product edit form.
@@ -32,6 +33,18 @@ import { useEventingContext } from '../../../../context/eventing';
  * @example <caption>Importing into your project</caption>
  * import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
  */
+
+// Get initial selections
+function deriveOptionSelectionsFromProduct(cartItem) {
+    if (cartItem) {
+        const initialOptionSelections = new Map();
+        for (const { id, value_id } of cartItem.configurable_options) {
+            initialOptionSelections.set(String(id), value_id);
+        }
+        return initialOptionSelections;
+    }
+}
+
 export const useProductForm = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
@@ -52,11 +65,28 @@ export const useProductForm = props => {
     const [, { dispatch }] = useEventingContext();
 
     const [{ cartId }] = useCartContext();
+
+    const derivedOptionSelections = useMemo(() => {
+        if (cartItem) {
+            return deriveOptionSelectionsFromProduct(cartItem);
+        }
+    }, [cartItem]);
+
     const [optionSelections, setOptionSelections] = useState(new Map());
+    const [multipleOptionSelections, setMultipleOptionSelections] = useState(
+        derivedOptionSelections ? derivedOptionSelections : new Map()
+    );
+    useEffect(() => {
+        if (cartItem) {
+            setMultipleOptionSelections(derivedOptionSelections);
+        }
+    }, [derivedOptionSelections, cartItem]);
 
     const handleClose = useCallback(() => {
+        setMultipleOptionSelections(new Map());
+        setOptionSelections(new Map());
         setActiveEditItem(null);
-    }, [setActiveEditItem]);
+    }, [setActiveEditItem, setMultipleOptionSelections, setOptionSelections]);
 
     const [
         updateItemQuantity,
@@ -106,19 +136,40 @@ export const useProductForm = props => {
                 option => option.id == optionId
             );
 
-            if (initialSelection.value_id === selection) {
+            if (initialSelection?.value_id === selection) {
                 nextOptionSelections.delete(optionId);
             } else {
                 nextOptionSelections.set(optionId, selection);
             }
 
             setOptionSelections(nextOptionSelections);
+
+            // Create a new Map to only keep track of user multiple selections with key as String
+            // without considering initialSelection.value_id
+            const nextMultipleOptionSelections = new Map([
+                ...multipleOptionSelections
+            ]);
+            nextMultipleOptionSelections.set(optionId, selection);
+            setMultipleOptionSelections(nextMultipleOptionSelections);
         },
-        [cartItem, optionSelections]
+        [cartItem, optionSelections, multipleOptionSelections]
     );
 
     const configItem =
         !loading && !error && data ? data.products.items[0] : null;
+
+    // Check if display out of stock products option is selected in the Admin Dashboard
+    const isOutOfStockProductDisplayed = useMemo(() => {
+        let totalVariants = 1;
+
+        if (configItem && configItem.configurable_options) {
+            for (const option of configItem.configurable_options) {
+                const length = option.values.length;
+                totalVariants = totalVariants * length;
+            }
+            return configItem.variants.length === totalVariants;
+        }
+    }, [configItem]);
 
     const configurableOptionCodes = useMemo(() => {
         const optionCodeMap = new Map();
@@ -149,6 +200,25 @@ export const useProductForm = props => {
         }
     }, [cartItem, configItem, configurableOptionCodes, optionSelections]);
 
+    const outOfStockVariants = useMemo(() => {
+        if (cartItem && configItem) {
+            const product = cartItem.product;
+            return getOutOfStockVariantsWithInitialSelection(
+                product,
+                configurableOptionCodes,
+                multipleOptionSelections,
+                configItem,
+                isOutOfStockProductDisplayed
+            );
+        }
+    }, [
+        cartItem,
+        configurableOptionCodes,
+        multipleOptionSelections,
+        configItem,
+        isOutOfStockProductDisplayed
+    ]);
+
     const configurableThumbnailSource = useMemo(() => {
         return storeConfigData?.storeConfig?.configurable_thumbnail_source;
     }, [storeConfigData]);
@@ -164,7 +234,10 @@ export const useProductForm = props => {
             try {
                 const quantity = formValues.quantity;
 
-                if (selectedVariant && optionSelections.size) {
+                if (
+                    (selectedVariant && optionSelections.size) ||
+                    (selectedVariant && multipleOptionSelections.size)
+                ) {
                     await updateConfigurableOptions({
                         variables: {
                             cartId,
@@ -176,6 +249,7 @@ export const useProductForm = props => {
                     });
 
                     setOptionSelections(new Map());
+                    setMultipleOptionSelections(new Map());
                 } else if (quantity !== cartItem.quantity) {
                     await updateItemQuantity({
                         variables: {
@@ -234,6 +308,7 @@ export const useProductForm = props => {
             dispatch,
             handleClose,
             optionSelections.size,
+            multipleOptionSelections.size,
             selectedVariant,
             updateConfigurableOptions,
             updateItemQuantity
@@ -254,6 +329,7 @@ export const useProductForm = props => {
         errors,
         handleOptionSelection,
         handleSubmit,
+        outOfStockVariants,
         isLoading: !!loading,
         isSaving,
         isDialogOpen: cartItem !== null,
