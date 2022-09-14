@@ -13,6 +13,10 @@ import outOfStock from '../assets/outOfStock.svg';
 import copyToClipboard from '../assets/copyToClipboard.png';
 import useCopy from 'use-copy';
 
+import Button from '@magento/venia-ui/lib/components/Button';
+import { useAddToQuote } from '@orienteed/quickOrderForm/src/talons/useAddToQuote';
+import ConfirmationModal from '@magento/venia-concept/src/components/Gallery/ConfirmationModal';
+
 const ProductItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -26,8 +30,10 @@ const ProductItem = props => {
         errors,
         isAddConfigurableLoading
     } = props;
-
+    console.log(props, 'propsprops');
     const [copied, copy, setCopied] = useCopy(variant.product.sku);
+
+    const { handleAddCofigItemBySku } = useAddToQuote();
 
     const copyText = () => {
         copy();
@@ -41,6 +47,7 @@ const ProductItem = props => {
 
     const [error, setError] = useState('');
 
+    const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         setTimeout(() => setError(''), 10000);
     }, [error]);
@@ -65,19 +72,32 @@ const ProductItem = props => {
         }
     }, [cartId, quantity, variant, addConfigurableProductToCart, setError]);
 
-    const stockStatusText = (
-        <FormattedMessage
-            id={'productFullDetailB2B.stockStatus'}
-            defaultMessage={'Stock Status'}
-        />
+    const requestQuoteClick = () => setIsOpen(true);
+
+    const confirmRequestQuote = () => {
+        let simpleProducts = [
+            {
+                sku: variant.product.sku,
+                quantity
+            }
+        ];
+        handleAddCofigItemBySku(simpleProducts);
+        setIsOpen(false);
+    };
+
+    const requestQuateButton = (
+        <div className={classes.requestBtn}>
+            <Button disabled={variant.product.stock_status === 'OUT_OF_STOCK'} onClick={requestQuoteClick} priority="high">
+                <FormattedMessage id={'productFullDetailB2B.quote'} defaultMessage={'Quote'} />
+            </Button>
+        </div>
     );
 
-    const totalPriceText = (
-        <FormattedMessage
-            id={'productFullDetailB2B.totalPrice'}
-            defaultMessage={'Total Price'}
-        />
+    const stockStatusText = (
+        <FormattedMessage id={'productFullDetailB2B.stockStatus'} defaultMessage={'Stock Status'} />
     );
+
+    const totalPriceText = <FormattedMessage id={'productFullDetailB2B.totalPrice'} defaultMessage={'Total Price'} />;
 
     const imageIcon = widthSize => (
         <div className={classes.indexFixedImage}>
@@ -89,9 +109,7 @@ const ProductItem = props => {
         </div>
     );
 
-    const nameTag = (
-        <p>{product.name + ' ' + categoriesValuesName.join(' - ')}</p>
-    );
+    const nameTag = <p>{product.name + ' ' + categoriesValuesName.join(' - ')}</p>;
 
     const quantitySelector = (id = 1) => (
         <div className={classes.quantity}>
@@ -107,9 +125,7 @@ const ProductItem = props => {
     const priceTag = (
         <span className={classes.indexFixed}>
             <Price
-                currencyCode={
-                    variant.product.price.regularPrice.amount.currency
-                }
+                currencyCode={variant.product.price.regularPrice.amount.currency}
                 value={variant.product.price.minimalPrice.amount.value}
             />
         </span>
@@ -146,23 +162,16 @@ const ProductItem = props => {
     const categoriesKeyValue = () => {
         const tempCategoriesKeyValueList = [];
         categoriesName.map((categoryName, i) => {
-            return tempCategoriesKeyValueList.push([
-                categoryName,
-                categoriesValuesName[i]
-            ]);
+            return tempCategoriesKeyValueList.push([categoryName, categoriesValuesName[i]]);
         });
         return tempCategoriesKeyValueList;
     };
     // str.substring(str.length - n)
-    const lastDigitsOfSku = variant.product.sku.substring(
-        variant.product.sku.length - 7
-    );
+    const lastDigitsOfSku = variant.product.sku.substring(variant.product.sku.length - 7);
 
     const productItemDesktop = (
         <div className={classes.productItemErrorContainerDesktop}>
-            <div className={classes.errorMessage}>
-                {error != '' && <p>{errors.get('quantity')}</p>}
-            </div>
+            <div className={classes.errorMessage}>{error != '' && <p>{errors.get('quantity')}</p>}</div>
 
             <div className={classes.productItemContainerDesktop}>
                 {imageIcon(120)}
@@ -171,29 +180,19 @@ const ProductItem = props => {
                     {' '}
                     {copied ? (
                         <div className={classes.copiedText}>
-                            <FormattedMessage
-                                id={'productFullDetailB2B.copiedText'}
-                                defaultMessage={'Copied'}
-                            />
+                            <FormattedMessage id={'productFullDetailB2B.copiedText'} defaultMessage={'Copied'} />
                         </div>
                     ) : (
                         <div className={classes.productSkuContainer}>
                             <a onClick={copyText}>...{lastDigitsOfSku}</a>
-                            <img
-                                src={copyToClipboard}
-                                alt="copyToClipboard"
-                                onClick={copyText}
-                            />
+                            <img src={copyToClipboard} alt="copyToClipboard" onClick={copyText} />
                         </div>
                     )}
                 </p>
                 <div className={classes.categoriesItemList}>
                     {categoriesValuesName.map((category, i) => {
                         return (
-                            <p
-                                key={`${variant.product.sku}-${category}-${i}`}
-                                className={classes.indexFixedCategory}
-                            >
+                            <p key={`${variant.product.sku}-${category}-${i}`} className={classes.indexFixedCategory}>
                                 {category}
                             </p>
                         );
@@ -203,20 +202,23 @@ const ProductItem = props => {
                 {priceTag}
                 <span className={classes.indexFixed}>
                     <Price
-                        currencyCode={
-                            variant.product.price.regularPrice.amount.currency
-                        }
-                        value={
-                            variant.product.price.minimalPrice.amount.value *
-                            quantity
-                        }
+                        currencyCode={variant.product.price.regularPrice.amount.currency}
+                        value={variant.product.price.minimalPrice.amount.value * quantity}
                     />
                 </span>
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
-                    {addToCartButton}
+                    {variant.product.price.minimalPrice.amount.value?addToCartButton:requestQuateButton}
                 </div>
             </div>
+            <ConfirmationModal
+                isOpen={isOpen}
+                onCancel={() => setIsOpen(false)}
+                onConfirm={confirmRequestQuote}
+                product={variant}
+                quantity={quantity}
+                setQuantity={val => setQuantity(val)}
+            />
         </div>
     );
 
@@ -225,19 +227,13 @@ const ProductItem = props => {
             <div className={classes.productItemContainerMobileContent}>
                 {/* Header Part */}
                 <div className={classes.productItemHeaderMobile}>
-                    <div className={classes.productItemHeaderImageMobile}>
-                        {imageIcon(150)}
-                    </div>
+                    <div className={classes.productItemHeaderImageMobile}>{imageIcon(150)}</div>
                     <div className={classes.productItemHeaderTextMobile}>
                         <h2>{nameTag}</h2>
-                        <small className={classes.skuTextMobile}>
-                            {variant.product.sku}
-                        </small>
+                        <small className={classes.skuTextMobile}>{variant.product.sku}</small>
                         <div className={classes.stockStatusContainer}>
                             <div>{stockStatusText}:</div>
-                            <div className={classes.stockStatusCircle}>
-                                {stockStatus}
-                            </div>
+                            <div className={classes.stockStatusCircle}>{stockStatus}</div>
                         </div>
                         <h2>{priceTag}</h2>
                     </div>
@@ -247,17 +243,9 @@ const ProductItem = props => {
                 <div className={classes.productItemBodyInformation}>
                     {categoriesKeyValue().map(row => {
                         return (
-                            <div
-                                className={
-                                    classes.productItemBodyInformationRow
-                                }
-                            >
-                                <p className={classes.mobileCategoryName}>
-                                    {row[0]}{' '}
-                                </p>
-                                <p className={classes.mobileCategoryValue}>
-                                    {row[1]}
-                                </p>
+                            <div className={classes.productItemBodyInformationRow}>
+                                <p className={classes.mobileCategoryName}>{row[0]} </p>
+                                <p className={classes.mobileCategoryValue}>{row[1]}</p>
                             </div>
                         );
                     })}
@@ -269,14 +257,8 @@ const ProductItem = props => {
                             {' '}
                             <span className={classes.indexFixed}>
                                 <Price
-                                    currencyCode={
-                                        variant.product.price.regularPrice
-                                            .amount.currency
-                                    }
-                                    value={
-                                        variant.product.price.minimalPrice
-                                            .amount.value * quantity
-                                    }
+                                    currencyCode={variant.product.price.regularPrice.amount.currency}
+                                    value={variant.product.price.minimalPrice.amount.value * quantity}
                                 />
                             </span>
                         </div>
@@ -285,11 +267,7 @@ const ProductItem = props => {
                         {quantitySelector(2)}
                         {addToCartButton}
                     </div>
-                    {error != '' && (
-                        <p style={{ color: '#f00' }}>
-                            {errors.get('quantity')}
-                        </p>
-                    )}
+                    {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </div>
             </div>
         </div>
