@@ -24,7 +24,7 @@ const Kebab = props => {
             >
                 <Icon src={MoreVerticalIcon} />
             </button>
-            <ul aria-hidden="true" className={toggleClass}>
+            <ul aria-hidden={isOpen ? 'false' : 'true'} className={toggleClass}>
                 {children}
             </ul>
         </div>
