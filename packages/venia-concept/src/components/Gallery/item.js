@@ -131,10 +131,9 @@ const GalleryItem = props => {
     };
     const requestQuateButton = (
         <div className={classes.requestBtn}>
-
-        <Button  onClick={requestQuoteClick} priority="high">
-            <FormattedMessage id={'galleryItem.Requestquote'} defaultMessage={'Request quote'} />
-        </Button>
+            <Button disabled={item.stock_status === 'OUT_OF_STOCK'} onClick={requestQuoteClick} priority="high">
+                <FormattedMessage id={'galleryItem.Requestquote'} defaultMessage={'Request quote'} />
+            </Button>
         </div>
     );
     const addButton = isSupportedProductType ? (
