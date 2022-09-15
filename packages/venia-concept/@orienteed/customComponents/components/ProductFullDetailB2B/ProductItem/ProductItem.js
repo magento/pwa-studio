@@ -78,6 +78,7 @@ const ProductItem = props => {
         let simpleProducts = [
             {
                 sku: variant.product.sku,
+                parent_sku: product.sku,
                 quantity
             }
         ];
@@ -87,7 +88,11 @@ const ProductItem = props => {
 
     const requestQuateButton = (
         <div className={classes.requestBtn}>
-            <Button disabled={variant.product.stock_status === 'OUT_OF_STOCK'} onClick={requestQuoteClick} priority="high">
+            <Button
+                disabled={variant.product.stock_status === 'OUT_OF_STOCK'}
+                onClick={requestQuoteClick}
+                priority="high"
+            >
                 <FormattedMessage id={'productFullDetailB2B.quote'} defaultMessage={'Quote'} />
             </Button>
         </div>
@@ -208,7 +213,7 @@ const ProductItem = props => {
                 </span>
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
-                    {variant.product.price.minimalPrice.amount.value?addToCartButton:requestQuateButton}
+                    {variant.product.price.minimalPrice.amount.value ? addToCartButton : requestQuateButton}
                 </div>
             </div>
             <ConfirmationModal
@@ -265,7 +270,7 @@ const ProductItem = props => {
                     </div>
                     <div className={classes.productItemBodyOperations}>
                         {quantitySelector(2)}
-                        {addToCartButton}
+                        {variant.product.price.minimalPrice.amount.value ? addToCartButton : requestQuateButton}
                     </div>
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </div>

@@ -88,7 +88,7 @@
 
     composes: lg_max-h-modal from global;
     composes: lg_max-w-full from global;
-    max-height: 300px;
+    max-height: 320px;
 }
 
 /*
