@@ -24,7 +24,7 @@ const PaymentMethods = props => {
     if (isLoading) {
         return null;
     }
-    let paymentMethods =
+    const paymentMethods =
         process.env.B2BSTORE_VERSION === 'BASIC'
             ? availablePaymentMethods?.filter(({ code }) => code !== 'creditsystem')
             : availablePaymentMethods;
@@ -49,6 +49,15 @@ const PaymentMethods = props => {
 
             return (
                 <div key={code} className={classes.payment_method}>
+                    <header>
+                        <h5>
+                            {formatMessage({
+                                id: 'checkoutPage.paymentsTitles',
+                                defaultMessage: 'Payment Methods'
+                            })}
+                        </h5>
+                    </header>
+
                     <Radio
                         id={id}
                         label={title}
