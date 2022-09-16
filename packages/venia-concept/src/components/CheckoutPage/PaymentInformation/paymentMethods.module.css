@@ -17,11 +17,11 @@
 
     composes: last_pt-0 from global;
 }
-.payment_method header {
+.root header {
     padding-bottom: 1.125rem;
 }
 
-.payment_method header h5 {
+.root header h5 {
     font-weight: bold;
 }
 
@@ -46,7 +46,7 @@
     .root {
         padding: 0.7rem;
     }
-    .payment_method header {
+    .root header {
         padding: 1.125rem;
     }
 }

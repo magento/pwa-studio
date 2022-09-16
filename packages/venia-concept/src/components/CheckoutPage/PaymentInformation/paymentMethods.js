@@ -49,15 +49,6 @@ const PaymentMethods = props => {
 
             return (
                 <div key={code} className={classes.payment_method}>
-                    <header>
-                        <h5>
-                            {formatMessage({
-                                id: 'checkoutPage.paymentsTitles',
-                                defaultMessage: 'Payment Methods'
-                            })}
-                        </h5>
-                    </header>
-
                     <Radio
                         id={id}
                         label={title}
@@ -92,6 +83,14 @@ const PaymentMethods = props => {
 
     return (
         <div className={classes.root}>
+            <header>
+                <h5>
+                    {formatMessage({
+                        id: 'checkoutPage.paymentsTitles',
+                        defaultMessage: 'Payment Methods'
+                    })}
+                </h5>
+            </header>
             <RadioGroup
                 classes={{ root: classes.radio_group }}
                 field="selectedPaymentMethod"

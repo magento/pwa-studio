@@ -109,7 +109,7 @@
     "checkoutPage.paymentLoadingError": "Ocorreu um erro a carregar pagamentos",
     "checkoutPage.paymentMethodStatus": "{selectedPaymentMethod} não pode ser editado",
     "checkoutPage.paymentSummary": "{cardType} termina em {lastFour}",
-    "checkoutPage.paymentsTitles": "Métodos de pagamento"
+    "checkoutPage.paymentsTitles": "Métodos de pagamento",
     "checkoutPage.placeOrder": "Confirmar encomenda",
     "checkoutPage.quantity": "Qtd : {quantity}",
     "checkoutPage.quickCheckout": "Checkout rapido quando voltar",
@@ -822,5 +822,5 @@
     "wishlistPage.disabledMessage": "Desculpa, esta funcionalidade foi desativada",
     "wishlistPage.fetchErrorMessage": "Algo correu mal. Por favor atualize a pagina e tente de novo",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} outro {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "A lista de desejos não esta disponivel de momento",
+    "wishlistPage.wishlistDisabledMessage": "A lista de desejos não esta disponivel de momento"
 }

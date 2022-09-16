@@ -109,7 +109,7 @@
     "checkoutPage.paymentLoadingError": "Il y avait une erreur de chargement des paiements.",
     "checkoutPage.paymentMethodStatus": "{selectedPaymentMethod} n'est pas pris en charge pour l'édition.",
     "checkoutPage.paymentSummary": "{cardType} se terminant par {lastFour}",
-    "checkoutPage.paymentsTitles": "Moyen de paiement"
+    "checkoutPage.paymentsTitles": "Moyen de paiement",
     "checkoutPage.placeOrder": "Passer la commande",
     "checkoutPage.quantity": "Qté : {quantity}",
     "checkoutPage.quickCheckout": "Paiement rapide à votre retour",
@@ -822,5 +822,5 @@
     "wishlistPage.disabledMessage": "Désolé, cette fonctionnalité a été désactivée.",
     "wishlistPage.fetchErrorMessage": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "wishlistPage.headingText": "Listes de favoris",
-    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement.",
+    "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement."
 }

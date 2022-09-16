@@ -106,7 +106,7 @@
     "checkoutPage.paymentLoadingError": "There was an error loading payments.",
     "checkoutPage.paymentMethodStatus": "{selectedPaymentMethod} is not supported for editing.",
     "checkoutPage.paymentSummary": "{cardType} ending in {lastFour}",
-    "checkoutPage.paymentsTitles": "Payment Methods"
+    "checkoutPage.paymentsTitles": "Payment Methods",
     "checkoutPage.placeOrder": "Place Order",
     "checkoutPage.quantity": "Qty : {quantity}",
     "checkoutPage.quickCheckout": "Quick Checkout When You Return",
@@ -821,5 +821,5 @@
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} other {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
+    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
 }
