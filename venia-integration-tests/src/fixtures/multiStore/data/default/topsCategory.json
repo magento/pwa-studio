@@ -24,6 +24,11 @@
           "name": "Carina Cardigan",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 78,
@@ -49,6 +54,11 @@
           "name": "Juno Sweater",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 68,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 68,
@@ -74,6 +84,11 @@
           "name": "Phoebe Cardigan",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 88,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 88,

@@ -36,7 +36,7 @@ const { assertCartIsEmpty, assertCartTriggerCount } = headerAssertions;
 
 describe(
     'verify remove item cart action',
-    { tags: ['@commerce', '@open-source', '@ci', '@cart'] },
+    { tags: ['@e2e', '@commerce', '@open-source', '@ci', '@cart'] },
     () => {
         it('user should be able to remove an item from the cart', () => {
             cy.intercept('GET', getProductDetailForProductPageCall).as(

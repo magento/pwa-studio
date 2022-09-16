@@ -45,6 +45,17 @@ Object {
 }
 `;
 
+exports[`handleSubmit dispatches account update event 1`] = `
+Object {
+  "payload": Object {
+    "email": "foobar@express.net",
+    "firstName": "Updated",
+    "lastName": "Name",
+  },
+  "type": "USER_ACCOUNT_UPDATE",
+}
+`;
+
 exports[`return correct shape 1`] = `
 Object {
   "formErrors": Array [],

@@ -7,6 +7,7 @@ exports[`renders correctly with data 1`] = `
   >
     Title
     <h1
+      aria-live="polite"
       className="heading"
     >
       Order History
@@ -207,6 +208,7 @@ exports[`renders correctly without data 1`] = `
   >
     Title
     <h1
+      aria-live="polite"
       className="heading"
     >
       Order History
@@ -383,6 +385,7 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
   >
     Title
     <h1
+      aria-live="polite"
       className="heading"
     >
       Order History
@@ -570,6 +573,7 @@ exports[`renders loading indicator 1`] = `
   >
     Title
     <h1
+      aria-live="polite"
       className="heading"
     >
       Order History
@@ -780,6 +784,7 @@ exports[`renders no orders message is orders is empty 1`] = `
   >
     Title
     <h1
+      aria-live="polite"
       className="heading"
     >
       Order History

@@ -48,7 +48,7 @@ const { assertGuestCheckoutPage } = miniCartAssertions;
 
 describe(
     'PWA-1424: verify anchor links',
-    { tags: ['@commerce', '@open-source', '@ci'] },
+    { tags: ['@e2e', '@commerce', '@open-source', '@ci'] },
     () => {
         it('Verify venia anchor links', () => {
             cy.intercept('GET', getProductDetailForProductPageCall).as(

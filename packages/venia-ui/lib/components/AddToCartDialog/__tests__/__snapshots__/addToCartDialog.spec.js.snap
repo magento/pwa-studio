@@ -54,6 +54,17 @@ exports[`renders dialog with content 1`] = `
             "option2",
           ]
         }
+        outOfStockVariants={
+          Array [
+            Array [
+              55,
+              56,
+            ],
+            Array [
+              31,
+            ],
+          ]
+        }
       />
       <button
         className="root_normalPriority"

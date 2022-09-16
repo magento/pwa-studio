@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 
 import { useProduct } from '../useProduct';
 
@@ -30,7 +31,16 @@ jest.mock('@apollo/client', () => {
                     {
                         id: 1,
                         name: 'Karena Halter Dress',
-                        url_key: 'karena-halter-dress'
+                        url_key: 'karena-halter-dress',
+                        price_range: {
+                            maximum_price: {
+                                final_price: {
+                                    currency: 'USD',
+                                    value: '100'
+                                }
+                            }
+                        },
+                        sku: 'TEST'
                     }
                 ]
             }
@@ -44,6 +54,10 @@ jest.mock('@apollo/client', () => {
         useQuery: useQueryMock
     };
 });
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const log = jest.fn();
 const Component = props => {
@@ -276,4 +290,28 @@ test('product is correct when product url suffix is configured with no period', 
     const talonProps = log.mock.calls[0][0];
     const { product } = talonProps;
     expect(product).toEqual({ name: 'VALID', url_key: 'unit_test' });
+});
+
+test('should dispatch page view event', () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatchEvent
+        }
+    ]);
+
+    useLocation.mockImplementation(() => ({
+        pathname: '/karena-halter-dress'
+    }));
+
+    // Act.
+    createTestInstance(<Component {...props} />);
+
+    // Assert.
+
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
 });

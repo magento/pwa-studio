@@ -1,5 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`it handles cart removal should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 0,
+    "name": "unit test",
+    "priceTotal": 99,
+    "quantity": 7,
+    "selectedOptions": null,
+    "sku": "unit-test-sku",
+  },
+  "type": "CART_REMOVE_ITEM",
+}
+`;
+
+exports[`it handles item quantity updates should dispatch "remove" event when updating qty to zero 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 0,
+    "name": "unit test",
+    "priceTotal": 99,
+    "quantity": 7,
+    "selectedOptions": null,
+    "sku": "unit-test-sku",
+  },
+  "type": "CART_REMOVE_ITEM",
+}
+`;
+
+exports[`it handles item quantity updates should dispatch event 1`] = `
+Object {
+  "payload": Object {
+    "cartId": "cart123",
+    "currencyCode": "USD",
+    "discountAmount": 0,
+    "name": "unit test",
+    "priceTotal": 99,
+    "quantity": 100,
+    "selectedOptions": null,
+    "sku": "unit-test-sku",
+  },
+  "type": "CART_UPDATE_ITEM",
+}
+`;
+
 exports[`it returns an error message when the item has an error 1`] = `
 <i
   talonProps={
