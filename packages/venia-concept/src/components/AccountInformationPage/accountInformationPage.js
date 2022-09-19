@@ -76,17 +76,11 @@ const AccountInformationPage = props => {
         isDialogBusy,
         isDialogEditMode,
         isDialogOpen,
-        isLoading,
         formErrorsSubscribeToNewsletter,
         handleSubmitSubscribeToNewsletter,
         initialValuesSubscribeToNewsletter,
         isDisabledSubscribeToNewsletter
     } = talonProps;
-
-    const title = formatMessage({
-        id: 'communicationsPage.title',
-        defaultMessage: 'Communications'
-    });
 
     const validateIfBillingAddressExist = useMemo(() => {
         return customerAddresses?.filter(address => {
