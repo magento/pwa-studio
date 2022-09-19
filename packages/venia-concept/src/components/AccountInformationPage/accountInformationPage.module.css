@@ -4,6 +4,12 @@
     row-gap: 2rem;
 }
 
+.rootSubscribeToNewsletter {
+    display: grid;
+    padding: 2.5rem 16rem;
+    row-gap: 2rem;
+}
+
 .title {
     justify-self: center;
     font-family: var(--b2bStore-font-family-Lato);
@@ -78,6 +84,16 @@
     color: var(--orienteed-primary-color-base1);
 }
 
+.buttonsContainer {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.form {
+    display: grid;
+    row-gap: 2rem;
+}
+
 @media (max-width: 961px) {
     .accountDetails {
         display: flex;
@@ -92,23 +108,13 @@
         margin-top: 5rem;
         text-align: center;
     }
-}
 
-/* @media (min-width: 961px) {
-    .nameLabel,
-    .emailLabel,
-    .passwordLabel {
-        composes: lineItemLabel;
+    .rootSubscribeToNewsletter {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .buttonsContainer {
+        justify-content: center;
     }
 }
-
-@media (max-width: 960px) {
-    .accountDetails {
-        grid-template-columns: 1fr;
-    }
-
-    .lineItemsContainer {
-        grid-template-columns: 1fr;
-        grid-gap: 0.75rem;
-    }
-} */

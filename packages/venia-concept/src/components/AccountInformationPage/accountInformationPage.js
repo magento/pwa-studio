@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useMemo } from 'react';
+import React, { Fragment, Suspense, useMemo, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useAccountInformationPage } from '@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage';
 import { PlusSquare } from 'react-feather';
@@ -16,16 +16,36 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 
 import AddEditDialogCompanyInfo from '@orienteed/customComponents/components/AddEditDialogCompanyInfo';
 import AddressCard from '@magento/venia-ui/lib/components/AddressBookPage/addressCard';
+import { useToasts } from '@magento/peregrine';
+import FormError from '@magento/venia-ui/lib/components/FormError';
+import { Form } from 'informed';
+import Field from '@magento/venia-ui/lib/components/Field';
+import Checkbox from '@magento/venia-ui/lib/components/Checkbox';
 
-const EditModal = React.lazy(() =>
-    import('@magento/venia-ui/lib/components/AccountInformationPage/editModal')
-);
+const EditModal = React.lazy(() => import('@magento/venia-ui/lib/components/AccountInformationPage/editModal'));
 
 const AccountInformationPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
+    const { formatMessage } = useIntl();
+
+    //Communication
+    const [, { addToast }] = useToasts();
+
+    const afterSubmit = useCallback(() => {
+        addToast({
+            type: 'info',
+            message: formatMessage({
+                id: 'communicationsPage.preferencesText',
+                defaultMessage: 'Your preferences have been updated.'
+            }),
+            timeout: 5000
+        });
+    }, [addToast, formatMessage]);
+    //
 
     const talonProps = useAccountInformationPage({
-        ...AccountInformationPageOperations
+        ...AccountInformationPageOperations,
+        afterSubmit
     });
 
     const {
@@ -56,9 +76,17 @@ const AccountInformationPage = props => {
         isDialogBusy,
         isDialogEditMode,
         isDialogOpen,
-        isLoading
+        isLoading,
+        formErrorsSubscribeToNewsletter,
+        handleSubmitSubscribeToNewsletter,
+        initialValuesSubscribeToNewsletter,
+        isDisabledSubscribeToNewsletter
     } = talonProps;
-    const { formatMessage } = useIntl();
+
+    const title = formatMessage({
+        id: 'communicationsPage.title',
+        defaultMessage: 'Communications'
+    });
 
     const validateIfBillingAddressExist = useMemo(() => {
         return customerAddresses?.filter(address => {
@@ -76,23 +104,18 @@ const AccountInformationPage = props => {
         return Array.from(customerAddresses)
             .sort(defaultToBeginning)
             .map(addressEntry => {
-                const countryName = countryDisplayNameMap.get(
-                    addressEntry.country_code
-                );
+                const countryName = countryDisplayNameMap.get(addressEntry.country_code);
 
                 const boundEdit = () => handleEditAddress(addressEntry);
                 const boundDelete = () => handleDeleteAddress(addressEntry.id);
-                const isConfirmingDelete =
-                    confirmDeleteAddressId === addressEntry.id;
+                const isConfirmingDelete = confirmDeleteAddressId === addressEntry.id;
                 if (addressEntry.default_billing === true)
                     return (
                         <AddressCard
                             address={addressEntry}
                             countryName={countryName}
                             isConfirmingDelete={isConfirmingDelete}
-                            isDeletingCustomerAddress={
-                                isDeletingCustomerAddress
-                            }
+                            isDeletingCustomerAddress={isDeletingCustomerAddress}
                             key={addressEntry.id}
                             onCancelDelete={handleCancelDeleteAddress}
                             onConfirmDelete={handleConfirmDeleteAddress}
@@ -116,9 +139,7 @@ const AccountInformationPage = props => {
         <Message>
             <FormattedMessage
                 id={'accountInformationPage.errorTryAgain'}
-                defaultMessage={
-                    'Something went wrong. Please refresh and try again.'
-                }
+                defaultMessage={'Something went wrong. Please refresh and try again.'}
             />
         </Message>
     ) : null;
@@ -143,60 +164,35 @@ const AccountInformationPage = props => {
                                     defaultMessage: 'Account Information'
                                 })}
                             </StoreTitle>
-                            <h1
-                                className={classes.title}
-                                data-cy="AccountInformationPage-title"
-                            >
+                            <h1 className={classes.title} data-cy="AccountInformationPage-title">
                                 <FormattedMessage
-                                    id={
-                                        'accountInformationPage.accountInformation'
-                                    }
+                                    id={'accountInformationPage.accountInformation'}
                                     defaultMessage={'Account Information'}
                                 />
                             </h1>
                             <section className={classes.titleContainer}>
                                 <article className={classes.title}>
-                                    <FormattedMessage
-                                        id={'global.companyName'}
-                                        defaultMessage={'Company Name'}
-                                    />
+                                    <FormattedMessage id={'global.companyName'} defaultMessage={'Company Name'} />
                                 </article>
-                                <article className={classes.nameValue}>
-                                    {customerName}
-                                </article>
+                                <article className={classes.nameValue}>{customerName}</article>
                             </section>
                             <section className={classes.titleContainer}>
                                 <article className={classes.title}>
-                                    <FormattedMessage
-                                        id={'global.taxVatId'}
-                                        defaultMessage={'Tax/Vat Id'}
-                                    />
+                                    <FormattedMessage id={'global.taxVatId'} defaultMessage={'Tax/Vat Id'} />
                                 </article>
-                                <article className={classes.nameValue}>
-                                    {customerTaxVatId}
-                                </article>
+                                <article className={classes.nameValue}>{customerTaxVatId}</article>
                             </section>
                             <section className={classes.titleContainer}>
                                 <span className={classes.title}>
-                                    <FormattedMessage
-                                        id={'global.email'}
-                                        defaultMessage={'Email'}
-                                    />
+                                    <FormattedMessage id={'global.email'} defaultMessage={'Email'} />
                                 </span>
-                                <span className={classes.emailValue}>
-                                    {customer.email}
-                                </span>
+                                <span className={classes.emailValue}>{customer.email}</span>
                             </section>
                             <section className={classes.titleContainer}>
                                 <span className={classes.title}>
-                                    <FormattedMessage
-                                        id={'global.password'}
-                                        defaultMessage={'Password'}
-                                    />
+                                    <FormattedMessage id={'global.password'} defaultMessage={'Password'} />
                                 </span>
-                                <span className={classes.passwordValue}>
-                                    {passwordValue}
-                                </span>
+                                <span className={classes.passwordValue}>{passwordValue}</span>
                             </section>
                             <div className={classes.editButtonContainer}>
                                 <Button
@@ -206,10 +202,7 @@ const AccountInformationPage = props => {
                                     priority="normal"
                                     data-cy="AccountInformationPage-editInformationButton"
                                 >
-                                    <FormattedMessage
-                                        id={'global.editButton'}
-                                        defaultMessage={'Edit'}
-                                    />
+                                    <FormattedMessage id={'global.editButton'} defaultMessage={'Edit'} />
                                 </Button>
                             </div>
                         </div>
@@ -276,6 +269,46 @@ const AccountInformationPage = props => {
             </StoreTitle>
 
             {errorMessage ? errorMessage : pageContent}
+
+            {initialValuesSubscribeToNewsletter && (
+                <div className={classes.rootSubscribeToNewsletter}>
+                    <FormError errors={formErrorsSubscribeToNewsletter} />
+                    <Form
+                        className={classes.form}
+                        onSubmit={handleSubmitSubscribeToNewsletter}
+                        initialValues={initialValuesSubscribeToNewsletter}
+                    >
+                        <Field
+                            id="isSubscribed"
+                            label={formatMessage({
+                                id: 'communicationsPage.eNewsletterText',
+                                defaultMessage: 'B2BStore E-Newsletter'
+                            })}
+                        >
+                            <Checkbox
+                                field="isSubscribed"
+                                label={formatMessage({
+                                    id: 'communicationsPage.subscribeText',
+                                    defaultMessage: 'Stay updated; subscribe to the monthly B2BStore Newsletter.'
+                                })}
+                            />
+                        </Field>
+                        <div className={classes.buttonsContainer}>
+                            <Button disabled={isDisabledSubscribeToNewsletter} type="submit" priority="high">
+                                {isDisabledSubscribeToNewsletter
+                                    ? formatMessage({
+                                          id: 'communicationsPage.savingText',
+                                          defaultMessage: 'Saving'
+                                      })
+                                    : formatMessage({
+                                          id: 'communicationsPage.changesText',
+                                          defaultMessage: 'Save Changes'
+                                      })}
+                            </Button>
+                        </div>
+                    </Form>
+                </div>
+            )}
         </div>
     );
 };

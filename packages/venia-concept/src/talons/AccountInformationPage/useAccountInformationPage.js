@@ -6,8 +6,13 @@ import modifyCustomer from '@orienteed/csr/services/users/modifyCustomer';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CommunicationsPage/communicationsPage.gql.js';
+
 export const useAccountInformationPage = props => {
+    const [{ isSignedIn }] = useUserContext();
     const {
+        afterSubmit,
         mutations: {
             setCustomerInformationMutation,
             changeCustomerPasswordMutation,
@@ -18,7 +23,39 @@ export const useAccountInformationPage = props => {
         queries: { getCustomerInformationQuery, getCustomerAddressesQuery }
     } = props;
 
-    const [{ isSignedIn }] = useUserContext();
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCustomerSubscriptionQuery, setNewsletterSubscriptionMutation } = operations;
+
+    const { data: subscriptionData, error: subscriptionDataError } = useQuery(getCustomerSubscriptionQuery, {
+        skip: !isSignedIn
+    });
+
+    const initialValuesSubscribeToNewsletter = useMemo(() => {
+        if (subscriptionData) {
+            return { isSubscribed: subscriptionData.customer.is_subscribed };
+        }
+    }, [subscriptionData]);
+
+    const [setNewsletterSubscription, { error: setNewsletterSubscriptionError, loading: isSubmitting }] = useMutation(
+        setNewsletterSubscriptionMutation
+    );
+
+    const handleSubmitSubscribeToNewsletter = useCallback(
+        async formValues => {
+            try {
+                await setNewsletterSubscription({
+                    variables: formValues
+                });
+            } catch {
+                return;
+            }
+            if (afterSubmit) {
+                afterSubmit();
+            }
+        },
+        [setNewsletterSubscription, afterSubmit]
+    );
+
     const [shouldShowNewPassword, setShouldShowNewPassword] = useState(false);
     const [
         ,
@@ -325,6 +362,10 @@ export const useAccountInformationPage = props => {
         isDialogBusy,
         isDialogEditMode,
         isDialogOpen,
-        isLoading: isLoadingWithoutData
+        isLoading: isLoadingWithoutData,
+        formErrorsSubscribeToNewsletter: [setNewsletterSubscriptionError, subscriptionDataError],
+        initialValuesSubscribeToNewsletter,
+        handleSubmitSubscribeToNewsletter,
+        isDisabledSubscribeToNewsletter: isSubmitting
     };
 };
