@@ -24,14 +24,7 @@ const Footer = props => {
     const { storeConfigData } = useStoreConfigData();
 
     if (storeConfigData) {
-        storage.setItem(
-            'is_required_login',
-            storeConfigData.storeConfig.is_required_login
-        );
-        console.log(
-            'storeConfigData.storeConfig.is_required_login',
-            storeConfigData.storeConfig.is_required_login
-        );
+        storage.setItem('is_required_login', storeConfigData.storeConfig.is_required_login);
     }
 
     const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
@@ -46,17 +39,11 @@ const Footer = props => {
             const itemKey = `text: ${text} path:${path}`;
             const child = path ? (
                 <Link data-cy="Footer-link" className={classes.link} to={path}>
-                    <FormattedMessage
-                        id={`footer.${text}`}
-                        defaultMessage={text}
-                    />
+                    <FormattedMessage id={`footer.${text}`} defaultMessage={text} />
                 </Link>
             ) : (
                 <span data-cy="Footer-label" className={classes.label}>
-                    <FormattedMessage
-                        id={`footer.${text}`}
-                        defaultMessage={text}
-                    />
+                    <FormattedMessage id={`footer.${text}`} defaultMessage={text} />
                 </span>
             );
 
