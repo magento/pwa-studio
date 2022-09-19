@@ -17,6 +17,7 @@ const Kebab = props => {
     return (
         <div className={classes.root}>
             <button
+                aria-expanded={isOpen}
                 className={classes.kebab}
                 data-cy="Kebab-button"
                 onClick={handleKebabClick}
@@ -24,7 +25,9 @@ const Kebab = props => {
             >
                 <Icon src={MoreVerticalIcon} />
             </button>
-            <ul className={toggleClass}>{children}</ul>
+            <ul aria-hidden={isOpen ? 'false' : 'true'} className={toggleClass}>
+                {children}
+            </ul>
         </div>
     );
 };

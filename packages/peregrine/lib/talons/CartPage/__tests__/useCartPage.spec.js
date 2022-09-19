@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 import { useLazyQuery } from '@apollo/client';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 
 import { useCartPage } from '../useCartPage';
 
@@ -41,6 +42,10 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
     return { useCartContext };
 });
+
+jest.mock('@magento/peregrine/lib/context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
 
 const log = jest.fn();
 const Component = () => {
@@ -174,4 +179,30 @@ test('onAddToWishlistSuccess should update wishlistSuccessProps', () => {
           "message": "Successfully added an item to wishlist",
         }
     `);
+});
+
+test('should dispatch page view event', () => {
+    const mockDispatchEvent = jest.fn();
+
+    useEventingContext.mockReturnValue([
+        {},
+        {
+            dispatch: mockDispatchEvent
+        }
+    ]);
+
+    const cartItems = ['item1', 'item2'];
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn().mockReturnValueOnce({ data: { cart: { items: cartItems } } }),
+        {
+            called: true,
+            loading: false,
+            data: { cart: { items: cartItems } }
+        }
+    ]);
+
+    createTestInstance(<Component />);
+    expect(mockDispatchEvent).toBeCalledTimes(1);
+
+    expect(mockDispatchEvent.mock.calls[0][0]).toMatchSnapshot();
 });

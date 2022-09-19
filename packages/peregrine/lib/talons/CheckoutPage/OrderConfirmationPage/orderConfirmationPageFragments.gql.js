@@ -18,10 +18,30 @@ export const OrderConfirmationPageFragment = gql`
             country {
                 label
             }
-
             selected_shipping_method {
+                amount {
+                    value
+                    currency
+                }
                 carrier_title
                 method_title
+            }
+        }
+        selected_payment_method {
+            purchase_order_number
+            title
+        }
+        prices {
+            grand_total {
+                value
+                currency
+            }
+            discounts {
+                amount {
+                    currency
+                    value
+                }
+                label
             }
         }
         ...ItemsReviewFragment

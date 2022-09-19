@@ -69,7 +69,7 @@ module.exports = async env => {
      * given store code instead of the default one.
      */
     const availableStore = availableStores.find(
-        ({ code }) => code === process.env.STORE_VIEW_CODE
+        ({ store_code }) => store_code === process.env.STORE_VIEW_CODE
     );
 
     global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
@@ -128,7 +128,7 @@ module.exports = async env => {
         new HTMLWebpackPlugin(htmlWebpackConfig)
     ];
 
-    /* 
+    /*
     Commenting out this section until SSR is fully implemented
     */
     // const serverConfig = Object.assign({}, config, {

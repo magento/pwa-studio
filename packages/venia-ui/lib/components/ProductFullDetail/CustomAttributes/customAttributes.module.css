@@ -1,9 +1,4 @@
 .root {
-    composes: mt-8 from global;
-}
-
-.title {
-    composes: font-semibold from global;
 }
 
 .list {

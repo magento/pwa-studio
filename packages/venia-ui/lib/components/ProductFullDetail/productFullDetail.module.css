@@ -18,8 +18,12 @@
             'images quantity'
             'images cart'
             'images .';
-        grid-template-columns: 1.5625fr 1fr;
+        grid-template-columns: minmax(0, 1.5625fr) minmax(0, 1fr);
         grid-template-rows: repeat(5, min-content) 1fr [fold];
+    }
+
+    .title {
+        grid-template-columns: 1fr max-content;
     }
 }
 
@@ -33,7 +37,7 @@
     composes: my-0 from global;
     composes: mx-sm from global;
     composes: px-0 from global;
-    composes: py-sm from global;
+    composes: py-xs from global;
 }
 
 .sectionTitle {
@@ -46,16 +50,14 @@
 }
 
 .title {
-    composes: gap-xs from global;
+    composes: section;
+    composes: gap-2 from global;
     composes: grid from global;
     composes: items-center from global;
     composes: leading-normal from global;
     composes: px-sm from global;
     composes: py-xs from global;
     grid-area: title;
-    grid-template-columns: 1fr max-content;
-
-    composes: lg_p-sm from global;
 }
 
 .productName {
@@ -68,6 +70,7 @@
 
 .productPrice {
     composes: block from global;
+    composes: mb-2 from global;
 }
 
 .imageCarousel {
@@ -140,6 +143,28 @@
     composes: lg_self-stretch from global;
 }
 
+.detailsPageBuilder {
+    composes: my-0 from global;
+    composes: mx-sm from global;
+    composes: px-0 from global;
+    composes: py-sm from global;
+    grid-column: 1 / span 2;
+}
+
+.detailsPageBuilderList {
+    list-style: none;
+}
+
+@media (min-width: 1024px) {
+    .details {
+        align-self: stretch;
+        border-top-width: 1px;
+        margin: 0;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
 .detailsTitle {
     composes: sectionTitle;
 }
@@ -171,4 +196,7 @@
     composes: p-3 from global;
     composes: text-subtle from global;
     composes: w-full from global;
+}
+.actButton {
+    composes: mt-sm from global;
 }

@@ -5,6 +5,7 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './product.gql';
+import { useEventingContext } from '../../../context/eventing';
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
@@ -76,10 +77,36 @@ export const useProduct = props => {
         return mapProduct(product);
     }, [data, mapProduct, urlKey]);
 
+    const [, { dispatch }] = useEventingContext();
+
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
+
+    useEffect(() => {
+        if (!error && !loading && product) {
+            dispatch({
+                type: 'PRODUCT_PAGE_VIEW',
+                payload: {
+                    id: product.id,
+                    name: product.name,
+                    sku: product.sku,
+                    currency_code:
+                        product?.price_range?.maximum_price?.final_price
+                            ?.currency,
+                    price_range: {
+                        maximum_price: {
+                            final_price:
+                                product?.price_range?.maximum_price?.final_price
+                                    ?.value
+                        }
+                    },
+                    url_key: product.url_key
+                }
+            });
+        }
+    }, [error, loading, product, dispatch]);
 
     return {
         error,

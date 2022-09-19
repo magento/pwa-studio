@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should dispatch page view event 1`] = `
+Object {
+  "payload": Object {
+    "title": "Home Page - Venia",
+    "url_key": "venia-new-home",
+  },
+  "type": "CMS_PAGE_VIEW",
+}
+`;
+
+exports[`should return correct shape 1`] = `
+Object {
+  "cmsPage": Object {
+    "content": "<div>Content</div>
+",
+    "content_heading": "Heading",
+    "meta_description": "Venia Sample Home Page",
+    "meta_keywords": "Keyword",
+    "meta_title": "Meta title",
+    "page_layout": "1column",
+    "title": "Home Page - Venia",
+    "url_key": "venia-new-home",
+  },
+  "shouldShowLoadingIndicator": false,
+}
+`;
+
+exports[`should return correct shape when loading 1`] = `
+Object {
+  "cmsPage": null,
+  "shouldShowLoadingIndicator": true,
+}
+`;

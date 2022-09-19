@@ -6,6 +6,7 @@ exports[`renders correctly when there are existing addresses 1`] = `
 >
   Title
   <h1
+    aria-live="polite"
     className="heading"
   >
     Address Book
@@ -125,6 +126,7 @@ exports[`renders correctly when there are no existing addresses 1`] = `
 >
   Title
   <h1
+    aria-live="polite"
     className="heading"
   >
     Address Book
@@ -199,6 +201,7 @@ exports[`renders delete confirmation on address that is being deleted 1`] = `
 >
   Title
   <h1
+    aria-live="polite"
     className="heading"
   >
     Address Book

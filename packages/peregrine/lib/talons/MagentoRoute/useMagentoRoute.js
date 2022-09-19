@@ -109,6 +109,13 @@ export const useMagentoRoute = (props = {}) => {
     } else if (routeError) {
         // ERROR
         routeData = { hasError: true, routeError };
+    } else if (empty && fetchedPathname.current === pathname && !loading) {
+        // NOT FOUND
+        routeData = { isNotFound: true };
+    } else if (nextRootComponent) {
+        // LOADING with full page shimmer
+        showPageLoader = true;
+        routeData = { isLoading: true, shimmer: nextRootComponent };
     } else if (redirect) {
         // REDIRECT
         routeData = {
@@ -117,13 +124,6 @@ export const useMagentoRoute = (props = {}) => {
                 ? relative_url
                 : '/' + relative_url
         };
-    } else if (empty && fetchedPathname.current === pathname && !loading) {
-        // NOT FOUND
-        routeData = { isNotFound: true };
-    } else if (nextRootComponent) {
-        // LOADING with full page shimmer
-        showPageLoader = true;
-        routeData = { isLoading: true, shimmer: nextRootComponent };
     } else {
         // LOADING
         const isInitialLoad = !isInitialized;

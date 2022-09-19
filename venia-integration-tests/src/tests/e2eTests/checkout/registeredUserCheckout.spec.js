@@ -90,6 +90,7 @@ describe(
     'PWA-1412: verify registered user checkout actions',
     {
         tags: [
+            '@e2e',
             '@commerce',
             '@open-source',
             '@ci',

@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { CheckoutPageFragment } from './checkoutPageFragments.gql';
+import { ItemsReviewFragment } from './ItemsReview/itemsReviewFragments.gql';
 import { OrderConfirmationPageFragment } from './OrderConfirmationPage/orderConfirmationPageFragments.gql';
 
 export const CREATE_CART = gql`
@@ -37,9 +38,11 @@ export const GET_CHECKOUT_DETAILS = gql`
         cart(cart_id: $cartId) {
             id
             ...CheckoutPageFragment
+            ...ItemsReviewFragment
         }
     }
     ${CheckoutPageFragment}
+    ${ItemsReviewFragment}
 `;
 
 export const GET_CUSTOMER = gql`

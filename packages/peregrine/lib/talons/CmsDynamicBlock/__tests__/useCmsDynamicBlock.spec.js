@@ -371,7 +371,7 @@ describe('#useCmsDynamicBlock', () => {
             ]
         });
 
-        await waitForValueToChange(() => result.current.loading);
+        await waitForValueToChange(() => result.current.data);
 
         // Check data after load
         expect(result.current).toMatchInlineSnapshot(`
