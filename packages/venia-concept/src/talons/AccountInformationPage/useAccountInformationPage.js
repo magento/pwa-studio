@@ -249,7 +249,6 @@ export const useAccountInformationPage = props => {
                             updated_address: {
                                 ...formValues,
                                 // Sends value as empty if none are provided
-                                middlename: formValues.middlename || '',
                                 // Cleans up the street array when values are null or undefined
                                 street: formValues.street.filter(e => e),
                                 default_billing: true
@@ -276,7 +275,6 @@ export const useAccountInformationPage = props => {
                             address: {
                                 ...formValues,
                                 // Sends value as empty if none are provided
-                                middlename: formValues.middlename || '',
                                 // Cleans up the street array when values are null or undefined
                                 street: formValues.street.filter(e => e),
                                 default_billing: true

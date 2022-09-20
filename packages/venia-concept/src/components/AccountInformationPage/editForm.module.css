@@ -9,6 +9,9 @@
 .field {
     composes: col-end-span2 from global;
 }
+.firstname {
+    grid-column: 1 / span 2;
+}
 
 .email,
 .passwordLabel {
@@ -30,9 +33,12 @@
 
 @media (max-width: 959px) {
     .firstname,
-    .taxvat .lastname,
     .password,
     .newPassword {
+        grid-column: 1 / span 2;
+    }
+
+    .taxvat {
         grid-column: 1 / span 2;
     }
 }

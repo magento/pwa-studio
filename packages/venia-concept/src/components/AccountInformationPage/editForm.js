@@ -93,21 +93,6 @@ const EditForm = props => {
                         />
                     </Field>
                 </div>
-                <div className={classes.taxvat}>
-                    <Field
-                        id="taxvat"
-                        label={formatMessage({
-                            id: 'global.taxVatId',
-                            defaultMessage: 'Tax/Vat Id'
-                        })}
-                    >
-                        <TextInput
-                            field="taxvat"
-                            data-cy="taxvat"
-                            validate={isRequired}
-                        />
-                    </Field>
-                </div>
                 <div className={classes.email}>
                     <Field
                         id="email"
@@ -120,6 +105,21 @@ const EditForm = props => {
                             field="email"
                             validate={isRequired}
                             data-cy="email"
+                        />
+                    </Field>
+                </div>
+                <div className={classes.taxvat}>
+                    <Field
+                        label={formatMessage({
+                            id: 'global.taxVatId',
+                            defaultMessage: 'Tax/Vat Id'
+                        })}
+                    >
+                        <TextInput
+                            autocomplete="off"
+                            field="taxvat"
+                            data-cy="taxvat"
+                            validate={isRequired}
                         />
                     </Field>
                 </div>
