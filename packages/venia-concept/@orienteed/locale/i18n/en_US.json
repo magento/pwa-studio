@@ -566,6 +566,7 @@
     "orderRow.processingText": "Processing",
     "orderRow.readyToShipText": "Ready to ship",
     "orderRow.shippedText": "Shipped",
+    "orderRow.canceled": "Canceled",
     "pagination.firstPage": "move to the first page",
     "pagination.lastPage": "move to the last page",
     "pagination.nextPage": "move to the next page",
