@@ -185,7 +185,7 @@ const CustomerForm = props => {
                     <Country
                         validate={isRequired}
                         data-cy="CustomerForm-country"
-                        aria-label="Country  Required"
+                        aria-label="Country Required"
                     />
                 </div>
                 <div className={classes.street0}>
