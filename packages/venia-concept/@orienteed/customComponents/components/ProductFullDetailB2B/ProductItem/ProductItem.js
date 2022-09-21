@@ -30,7 +30,6 @@ const ProductItem = props => {
         errors,
         isAddConfigurableLoading
     } = props;
-    console.log(props, 'propsprops');
     const [copied, copy, setCopied] = useCopy(variant.product.sku);
 
     const { handleAddCofigItemBySku } = useAddToQuote();
@@ -78,7 +77,7 @@ const ProductItem = props => {
         let simpleProducts = [
             {
                 sku: variant.product.sku,
-                parent_sku: product.sku,
+                orParentSku: product.sku,
                 quantity
             }
         ];
@@ -208,7 +207,7 @@ const ProductItem = props => {
                 <span className={classes.indexFixed}>
                     <Price
                         currencyCode={variant.product.price.regularPrice.amount.currency}
-                        value={variant.product.price.minimalPrice.amount.value * quantity}
+                        value={variant.product.price.minimalPrice.amount.value * quantity || 0}
                     />
                 </span>
                 <div className={classes.stockAddContainer}>

@@ -121,8 +121,8 @@ const GalleryItem = props => {
     const confirmRequestQuote = () => {
         let simpleProducts = [
             {
-                sku: selectedVeriant.product.sku,
-                parent_sku: selectedVeriant.parentSku,
+                sku: selectedVeriant.product.sku ,
+                orParentSku: selectedVeriant.parentSku,
                 quantity
             }
         ];
