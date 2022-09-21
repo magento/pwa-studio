@@ -189,6 +189,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           <button
             className="passwordButton"
             disabled={false}
+            onBlur={null}
             onClick={[Function]}
             onDragStart={[Function]}
             onKeyDown={[Function]}
@@ -291,6 +292,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
       <button
         className="create_account_button"
         disabled={false}
+        onBlur={null}
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -512,6 +514,7 @@ exports[`CreateAccount renders errors 1`] = `
           <button
             className="passwordButton"
             disabled={false}
+            onBlur={null}
             onClick={[Function]}
             onDragStart={[Function]}
             onKeyDown={[Function]}
@@ -614,6 +617,7 @@ exports[`CreateAccount renders errors 1`] = `
       <button
         className="create_account_button"
         disabled={false}
+        onBlur={null}
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
