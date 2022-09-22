@@ -86,8 +86,6 @@ const GalleryItem = props => {
         <div
             data-cy="GalleryItem-root"
             className={classes.root}
-            aria-live="polite"
-            aria-busy="false"
             ref={itemRef}
         >
             <Link
