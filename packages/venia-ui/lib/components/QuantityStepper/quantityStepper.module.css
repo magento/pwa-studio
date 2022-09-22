@@ -41,8 +41,6 @@
     stroke: rgb(var(--stroke));
 
     composes: disabled_cursor-not-allowed from global;
-
- 
 }
 
 .button:hover {
