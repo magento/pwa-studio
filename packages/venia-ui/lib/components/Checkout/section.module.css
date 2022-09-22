@@ -5,7 +5,7 @@
     composes: w-full from global;
 
     composes: focus_bg-gradient-radial from global;
-    composes: focus_outline-none from global;
+  
 }
 
 .content {

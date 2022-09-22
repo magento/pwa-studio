@@ -42,7 +42,7 @@
 
     composes: disabled_cursor-not-allowed from global;
 
-    composes: focus_outline-none from global;
+ 
 }
 
 .button:hover {
