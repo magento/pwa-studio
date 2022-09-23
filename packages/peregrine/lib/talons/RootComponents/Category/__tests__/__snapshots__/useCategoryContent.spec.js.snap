@@ -51,3 +51,15 @@ Object {
   "totalPagesFromData": 1,
 }
 `;
+
+exports[`useCategoryContent tests should dispatch page view event 1`] = `
+Object {
+  "payload": Object {
+    "id": "UID",
+    "name": "Jewelry",
+    "url_key": "jewelry",
+    "url_path": "accessories/jewelry",
+  },
+  "type": "CATEGORY_PAGE_VIEW",
+}
+`;

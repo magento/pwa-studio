@@ -7,6 +7,7 @@ import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
 import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
+import { useEventingContext } from '../../../context/eventing';
 
 export const useShippingInformation = props => {
     const { onSave, toggleActiveContent } = props;
@@ -97,6 +98,7 @@ export const useShippingInformation = props => {
     // On first submission, when we have data, we should tell the checkout page
     // so that we set the next step correctly.
     const doneEditing = !!shippingData && !!shippingData.city;
+    const [, { dispatch }] = useEventingContext();
 
     useEffect(() => {
         if (doneEditing) {
@@ -157,6 +159,17 @@ export const useShippingInformation = props => {
             toggleDrawer('shippingInformation.edit');
         }
     }, [isSignedIn, toggleActiveContent, toggleDrawer]);
+
+    useEffect(() => {
+        if (doneEditing && hasUpdate) {
+            dispatch({
+                type: 'CHECKOUT_SHIPPING_INFORMATION_UPDATED',
+                payload: {
+                    cart_id: cartId
+                }
+            });
+        }
+    }, [cartId, doneEditing, dispatch, hasUpdate]);
 
     return {
         doneEditing,

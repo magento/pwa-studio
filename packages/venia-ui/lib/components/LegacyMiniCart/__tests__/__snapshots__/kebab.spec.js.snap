@@ -3,6 +3,7 @@
 exports[`it renders children passed to it 1`] = `
 <div>
   <button
+    aria-expanded={false}
     onClick={[Function]}
   >
     <Icon
@@ -18,7 +19,9 @@ exports[`it renders children passed to it 1`] = `
       }
     />
   </button>
-  <ul>
+  <ul
+    aria-hidden="true"
+  >
     <span />
     <p />
     <div />
@@ -29,6 +32,7 @@ exports[`it renders children passed to it 1`] = `
 exports[`it renders correctly without children 1`] = `
 <div>
   <button
+    aria-expanded={false}
     onClick={[Function]}
   >
     <Icon
@@ -44,6 +48,8 @@ exports[`it renders correctly without children 1`] = `
       }
     />
   </button>
-  <ul />
+  <ul
+    aria-hidden="true"
+  />
 </div>
 `;

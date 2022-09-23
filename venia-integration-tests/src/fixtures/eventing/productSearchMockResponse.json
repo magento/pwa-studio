@@ -1,0 +1,80 @@
+{
+  "data": {
+    "products": {
+      "items": [
+        {
+          "id": 14,
+          "uid": "MTQ=",
+          "name": "Night Out Collection",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 576,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 616,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 40,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VA24",
+          "small_image": {
+            "url": "\/media\/catalog\/product\/v\/a\/va24_main.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "BundleProduct",
+          "url_key": "night-out-collection"
+        },
+        {
+          "id": 1144,
+          "uid": "MTE0NA==",
+          "name": "Selena Pants",
+          "price_range": {
+            "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "regular_price": {
+                "currency": "USD",
+                "value": 108,
+                "__typename": "Money"
+              },
+              "discount": {
+                "amount_off": 0,
+                "__typename": "Money"
+              },
+              "__typename": "ProductPrice"
+            },
+            "__typename": "PriceRange"
+          },
+          "sku": "VP01",
+          "small_image": {
+            "url": "\/media\/catalog\/product\/v\/p\/vp01-ll_main_2.jpg",
+            "__typename": "ProductImage"
+          },
+          "stock_status": "IN_STOCK",
+          "__typename": "ConfigurableProduct",
+          "url_key": "selena-pants"
+        }
+      ],
+      "page_info": {
+        "total_pages": 1,
+        "__typename": "SearchResultPageInfo"
+      },
+      "total_count": 2,
+      "__typename": "Products"
+    }
+  }
+}

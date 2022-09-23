@@ -3,8 +3,9 @@ import { Form, Text } from 'informed';
 import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import { runQuery, useLazyQuery } from '@apollo/client';
-import { useAutocomplete } from '../../../talons/SearchBar';
+import { useAutocomplete } from '../useAutocomplete';
 import createTestInstance from '../../../util/createTestInstance';
+import { useEventingContext } from '../../../context/eventing';
 
 jest.mock('informed', () => ({
     ...jest.requireActual('informed')
@@ -36,6 +37,10 @@ jest.mock('lodash.debounce', () => {
     return callback => args => callback(args);
 });
 
+jest.mock('../../../context/eventing', () => ({
+    useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
+}));
+
 const log = jest.fn();
 
 const Component = props => {
@@ -65,6 +70,24 @@ test('runs query when valid is true', () => {
             }
         })
     );
+});
+
+test('dispatches an event when valid and visible are true and there is text value', () => {
+    const [, { dispatch }] = useEventingContext();
+
+    useFieldState.mockReturnValueOnce({
+        value: 'MOCK_VALUE'
+    });
+
+    createTestInstance(
+        <Form>
+            <Text field="search_query" initialValue="" />
+            <Component valid={true} visible={true} />
+        </Form>
+    );
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch.mock.calls[0][0]).toMatchSnapshot();
 });
 
 test('renders a hint message', () => {

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#PageLoadingIndicator displays correctly depend on the position type when absolute is false and page is loading 1`] = `
+<div
+  className="root_relative"
+>
+  <div
+    className="indicator_undefined"
+  />
+</div>
+`;
+
+exports[`#PageLoadingIndicator displays correctly depend on the position type when absolute is true and page is not loading 1`] = `
+<div
+  className="root_absolute"
+>
+  <div
+    className="indicator_undefined"
+  />
+</div>
+`;

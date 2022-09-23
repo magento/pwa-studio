@@ -23,10 +23,10 @@ const Logo = props => {
 
     return (
         <Image
-            alt={title}
             classes={{ image: classes.logo }}
             height={height}
             src={logo}
+            alt={title}
             title={title}
             width={width}
         />

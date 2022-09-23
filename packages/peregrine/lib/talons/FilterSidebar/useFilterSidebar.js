@@ -45,6 +45,7 @@ export const useFilterSidebar = props => {
         // Disable category filtering when not on a search page.
         if (pathname !== '/search.html') {
             disabled.add('category_id');
+            disabled.add('category_uid');
         }
 
         return disabled;
