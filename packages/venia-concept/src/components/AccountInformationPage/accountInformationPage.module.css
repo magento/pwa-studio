@@ -8,6 +8,7 @@
     display: grid;
     padding: 2.5rem 16rem;
     row-gap: 2rem;
+    width: fit-content;
 }
 
 .title {
