@@ -108,6 +108,19 @@ const EditForm = props => {
                         />
                     </Field>
                 </div>
+
+                <div className={classes.password}>
+                    <Password
+                        fieldName="password"
+                        label={passwordLabel}
+                        validate={isRequired}
+                        autoComplete="current-password"
+                        isToggleButtonHidden={false}
+                        data-cy="password"
+                    />
+                </div>
+                {maybeNewPasswordField}
+
                 <div className={classes.taxvat}>
                     <Field
                         label={formatMessage({
@@ -123,17 +136,6 @@ const EditForm = props => {
                         />
                     </Field>
                 </div>
-                <div className={classes.password}>
-                    <Password
-                        fieldName="password"
-                        label={passwordLabel}
-                        validate={isRequired}
-                        autoComplete="current-password"
-                        isToggleButtonHidden={false}
-                        data-cy="password"
-                    />
-                </div>
-                {maybeNewPasswordField}
             </div>
             {maybeChangePasswordButton}
         </Fragment>
