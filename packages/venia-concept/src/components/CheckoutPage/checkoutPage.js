@@ -29,6 +29,8 @@ import defaultClasses from '@magento/venia-ui/lib/components/CheckoutPage/checko
 import ScrollAnchor from '@magento/venia-ui/lib/components/ScrollAnchor/scrollAnchor';
 import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
+import {DeliveryDates} from '@orienteed/deliveryDate/src/components/DeliveryDatesForm';
+
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
@@ -342,6 +344,10 @@ const CheckoutPage = props => {
                 <div className={classes.shipping_method_container}>
                     <ScrollAnchor ref={shippingMethodRef}>{shippingMethodSection}</ScrollAnchor>
                 </div>
+                        <div className={classes.deliveryDatesContainer}>
+                            <DeliveryDates />
+                        </div>
+
                 <div className={classes.payment_information_container}>{paymentInformationSection}</div>
                 {priceAdjustmentsSection}
                 {reviewOrderButton}
