@@ -93,21 +93,6 @@ const EditForm = props => {
                         />
                     </Field>
                 </div>
-                <div className={classes.taxvat}>
-                    <Field
-                        id="taxvat"
-                        label={formatMessage({
-                            id: 'global.taxVatId',
-                            defaultMessage: 'Tax/Vat Id'
-                        })}
-                    >
-                        <TextInput
-                            field="taxvat"
-                            data-cy="taxvat"
-                            validate={isRequired}
-                        />
-                    </Field>
-                </div>
                 <div className={classes.email}>
                     <Field
                         id="email"
@@ -123,6 +108,7 @@ const EditForm = props => {
                         />
                     </Field>
                 </div>
+
                 <div className={classes.password}>
                     <Password
                         fieldName="password"
@@ -134,6 +120,22 @@ const EditForm = props => {
                     />
                 </div>
                 {maybeNewPasswordField}
+
+                <div className={classes.taxvat}>
+                    <Field
+                        label={formatMessage({
+                            id: 'global.taxVatId',
+                            defaultMessage: 'Tax/Vat Id'
+                        })}
+                    >
+                        <TextInput
+                            autocomplete="off"
+                            field="taxvat"
+                            data-cy="taxvat"
+                            validate={isRequired}
+                        />
+                    </Field>
+                </div>
             </div>
             {maybeChangePasswordButton}
         </Fragment>
