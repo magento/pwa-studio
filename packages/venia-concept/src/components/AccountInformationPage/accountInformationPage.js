@@ -265,42 +265,44 @@ const AccountInformationPage = props => {
             {errorMessage ? errorMessage : pageContent}
 
             {initialValuesSubscribeToNewsletter && (
-                <div className={classes.rootSubscribeToNewsletter}>
-                    <FormError errors={formErrorsSubscribeToNewsletter} />
-                    <Form
-                        className={classes.form}
-                        onSubmit={handleSubmitSubscribeToNewsletter}
-                        initialValues={initialValuesSubscribeToNewsletter}
-                    >
-                        <Field
-                            id="isSubscribed"
-                            label={formatMessage({
-                                id: 'communicationsPage.eNewsletterText',
-                                defaultMessage: 'B2BStore E-Newsletter'
-                            })}
+                <div className={classes.container}>
+                    <div className={classes.rootSubscribeToNewsletter}>
+                        <FormError errors={formErrorsSubscribeToNewsletter} />
+                        <Form
+                            className={classes.form}
+                            onSubmit={handleSubmitSubscribeToNewsletter}
+                            initialValues={initialValuesSubscribeToNewsletter}
                         >
-                            <Checkbox
-                                field="isSubscribed"
+                            <Field
+                                id="isSubscribed"
                                 label={formatMessage({
-                                    id: 'communicationsPage.subscribeText',
-                                    defaultMessage: 'Stay updated; subscribe to the monthly B2BStore Newsletter.'
+                                    id: 'communicationsPage.eNewsletterText',
+                                    defaultMessage: 'B2BStore E-Newsletter'
                                 })}
-                            />
-                        </Field>
-                        <div className={classes.buttonsContainer}>
-                            <Button disabled={isDisabledSubscribeToNewsletter} type="submit" priority="high">
-                                {isDisabledSubscribeToNewsletter
-                                    ? formatMessage({
-                                          id: 'communicationsPage.savingText',
-                                          defaultMessage: 'Saving'
-                                      })
-                                    : formatMessage({
-                                          id: 'communicationsPage.changesText',
-                                          defaultMessage: 'Save Changes'
-                                      })}
-                            </Button>
-                        </div>
-                    </Form>
+                            >
+                                <Checkbox
+                                    field="isSubscribed"
+                                    label={formatMessage({
+                                        id: 'communicationsPage.subscribeText',
+                                        defaultMessage: 'Stay updated; subscribe to the monthly B2BStore Newsletter.'
+                                    })}
+                                />
+                            </Field>
+                            <div className={classes.buttonsContainer}>
+                                <Button disabled={isDisabledSubscribeToNewsletter} type="submit" priority="high">
+                                    {isDisabledSubscribeToNewsletter
+                                        ? formatMessage({
+                                              id: 'communicationsPage.savingText',
+                                              defaultMessage: 'Saving'
+                                          })
+                                        : formatMessage({
+                                              id: 'communicationsPage.changesText',
+                                              defaultMessage: 'Save Changes'
+                                          })}
+                                </Button>
+                            </div>
+                        </Form>
+                    </div>
                 </div>
             )}
         </div>
