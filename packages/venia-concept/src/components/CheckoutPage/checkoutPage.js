@@ -29,7 +29,7 @@ import defaultClasses from '@magento/venia-ui/lib/components/CheckoutPage/checko
 import ScrollAnchor from '@magento/venia-ui/lib/components/ScrollAnchor/scrollAnchor';
 import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
-import {DeliveryDates} from '@orienteed/deliveryDate/src/components/DeliveryDatesForm';
+import DeliveryDates from '@orienteed/deliveryDate/src/components/DeliveryDatesForm/deliveryDatesForm';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 

@@ -3343,6 +3343,10 @@
   version "0.0.0"
   uid ""
 
+"@orienteed/deliveryDate@link:./packages/venia-concept/@orienteed/deliveryDate":
+  version "0.0.0"
+  uid ""
+
 "@orienteed/lms@link:./packages/venia-concept/@orienteed/lms":
   version "0.0.0"
   uid ""
