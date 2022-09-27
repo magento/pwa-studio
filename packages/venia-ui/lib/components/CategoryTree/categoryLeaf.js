@@ -9,7 +9,7 @@ import { useStyle } from '../../classify';
 import defaultClasses from './categoryLeaf.module.css';
 
 const Leaf = props => {
-    const { category, onNavigate, categoryUrlSuffix } = props;
+    const { category, onNavigate, categoryUrlSuffix, tabindex } = props;
     const { name, url_path, children } = category;
     const classes = useStyle(defaultClasses, props.classes);
     const { handleClick } = useCategoryLeaf({ onNavigate });
@@ -35,6 +35,7 @@ const Leaf = props => {
                 data-cy="CategoryTree-Leaf-target"
                 to={destination}
                 onClick={handleClick}
+                tabIndex={tabindex}
             >
                 <span className={classes.text}>{leafLabel}</span>
             </Link>
@@ -55,5 +56,6 @@ Leaf.propTypes = {
         text: string
     }),
     onNavigate: func.isRequired,
+    tabindex: func.isRequired,
     categoryUrlSuffix: string
 };

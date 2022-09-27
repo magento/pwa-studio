@@ -54,3 +54,51 @@ test('appends "_focused" to className if hasFocus is true', () => {
 
     expect(component).toMatchSnapshot();
 });
+
+test('appends "_outOfStock" to className if isEverythingOutOfStock is true', () => {
+    const props = {
+        ...defaultProps,
+        isEverythingOutOfStock: true
+    };
+    const component = testRenderer.create(<Tile {...props} />);
+
+    expect(component.root.findByType('button').props.className).toContain(
+        '_outOfStock'
+    );
+
+    expect(component).toMatchSnapshot();
+});
+
+test('appends "_outOfStock" to className if isOptionOutOfStock is true', () => {
+    const props = {
+        ...defaultProps,
+        isOptionOutOfStock: true
+    };
+    const component = testRenderer.create(<Tile {...props} />);
+
+    expect(component.root.findByType('button').props.className).toContain(
+        '_outOfStock'
+    );
+
+    expect(component).toMatchSnapshot();
+});
+
+test('button is disabled if isEverythingOutOfStock is true', () => {
+    const props = {
+        ...defaultProps,
+        isEverythingOutOfStock: true
+    };
+    const component = testRenderer.create(<Tile {...props} />);
+
+    expect(component.root.findByType('button').props.disabled).toBeTruthy;
+});
+
+test('button is disabled if isOptionOutOfStock is true', () => {
+    const props = {
+        ...defaultProps,
+        isOptionOutOfStock: true
+    };
+    const component = testRenderer.create(<Tile {...props} />);
+
+    expect(component.root.findByType('button').props.disabled).toBeTruthy;
+});

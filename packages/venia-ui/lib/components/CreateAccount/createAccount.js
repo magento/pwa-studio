@@ -84,12 +84,14 @@ const CreateAccount = props => {
             </h2>
             <FormError errors={Array.from(errors.values())} />
             <Field
+                id="firstName"
                 label={formatMessage({
                     id: 'createAccount.firstNameText',
                     defaultMessage: 'First Name'
                 })}
             >
                 <TextInput
+                    id="firstName"
                     field="customer.firstname"
                     autoComplete="given-name"
                     validate={isRequired}
@@ -100,12 +102,14 @@ const CreateAccount = props => {
                 />
             </Field>
             <Field
+                id="lastName"
                 label={formatMessage({
                     id: 'createAccount.lastNameText',
                     defaultMessage: 'Last Name'
                 })}
             >
                 <TextInput
+                    id="lastName"
                     field="customer.lastname"
                     autoComplete="family-name"
                     validate={isRequired}
@@ -116,12 +120,14 @@ const CreateAccount = props => {
                 />
             </Field>
             <Field
+                id="Email"
                 label={formatMessage({
                     id: 'createAccount.emailText',
                     defaultMessage: 'Email'
                 })}
             >
                 <TextInput
+                    id="Email"
                     field="customer.email"
                     autoComplete="email"
                     validate={isRequired}
@@ -132,6 +138,7 @@ const CreateAccount = props => {
                 />
             </Field>
             <Password
+                id="Password"
                 autoComplete="new-password"
                 fieldName="password"
                 isToggleButtonHidden={false}

@@ -1,0 +1,62 @@
+<svg width="60px" height="60px" class="lh-vars" viewBox="0 0 60 60"
+    xmlns="http://www.w3.org/2000/svg">
+    <style>
+        <!-- 164 is ~= (2 * Math.PI * 26) <- (circle radius) https://codepen.io/xgad/post/svg-radial-progress-meters
+        A lighthouse score of 50 is `stroke-dasharray: 82 164`.
+        The `stroke-linecap: round` on the arc requires it to be extended a few more points than normal.
+        -->
+        .lh-vars {
+            --size: 60px;
+            --score: 84;
+            --full-circle: 164;
+        }
+
+        .lh-gauge-base {
+            opacity: 0.1;
+        }
+
+        .lh-gauge__score {
+            font-family: "Menlo";
+            font-size: calc(var(--size) * 0.34 + 1.3px);
+        }
+
+        .lh-gauge-arc {
+            fill: none;
+            transform-origin: center;
+            animation: load-gauge 1s ease forwards;
+            animation-delay: 250ms;
+            transform: rotate(-90deg);
+            stroke-dasharray: calc(var(--full-circle) * var(--score)/100), var(--full-circle);
+        }
+
+        .lh-gauge__wrapper--pass {
+            color: #080;
+            fill: #0c6;
+            stroke: #0c6;
+        }
+
+        .lh-gauge__wrapper--average {
+            color: #fa3;
+            fill: #fa3;
+            stroke: #fa3;
+        }
+
+        .lh-gauge__wrapper--fail {
+            color: #c00;
+            fill: #f33;
+            stroke: #f33;
+        }
+
+        @keyframes load-gauge {
+            from {
+                stroke-dasharray: 0 var(--full-circle);
+            }
+        }
+
+    </style>
+    <g class="lh-gauge__wrapper--average lh-gauge__score">
+        <circle class="lh-gauge-base" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
+        <circle class="lh-gauge-arc" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
+        <text x="16" y="38">84</text>
+    </g>
+</svg>

@@ -59,10 +59,10 @@ Object {
     "selectedOptions": Array [
       Object {
         "attribute": "Color",
-        "value": "Red",
+        "value": "Pink",
       },
       Object {
-        "attribute": "Red",
+        "attribute": "Size",
         "value": "XS",
       },
     ],
@@ -201,5 +201,6 @@ Object {
   "isDialogOpen": true,
   "isLoading": false,
   "isSaving": false,
+  "outOfStockVariants": Array [],
 }
 `;
