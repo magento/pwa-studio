@@ -72,7 +72,7 @@ const OrderRow = props => {
 
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
 
-    const isCollapsed =isOpen ? "true" : "false";
+    const isCollapsed = isOpen ? 'true' : 'false';
 
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
 
