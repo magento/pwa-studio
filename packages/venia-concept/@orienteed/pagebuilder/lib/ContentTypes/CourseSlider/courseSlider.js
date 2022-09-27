@@ -6,8 +6,8 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import CourseItem from '@orienteed/lms/src/components/CourseItem';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 
-import getCourses from '@orienteed/lms/services/getCourses';
-import getCoursesByCategory from '@orienteed/lms/services/getCoursesByCategory';
+import getCourses from '@orienteed/lms/services/courses/getCourses';
+import getCoursesByCategory from '@orienteed/lms/services/courses/getCoursesByCategory';
 
 import defaultClasses from './courseSlider.css';
 
@@ -43,9 +43,7 @@ const CourseSlider = ({ bannerType, categoryId }) => {
         switch (bannerType) {
             case 'category':
                 if (moodleMagentoMatchCategoryId[categoryId] !== undefined) {
-                    getCoursesByCategory(
-                        moodleMagentoMatchCategoryId[categoryId]
-                    ).then(courseResponse => {
+                    getCoursesByCategory(moodleMagentoMatchCategoryId[categoryId]).then(courseResponse => {
                         courseResponse = courseResponse.sort(() => {
                             return Math.random() - 0.5;
                         });
@@ -63,9 +61,7 @@ const CourseSlider = ({ bannerType, categoryId }) => {
                 }
             case 'latest':
                 getCourses().then(courseResponse => {
-                    setCourseData(
-                        courseResponse.slice(courseResponse.length - 4)
-                    );
+                    setCourseData(courseResponse.slice(courseResponse.length - 4));
                 });
                 break;
             default:
@@ -83,18 +79,9 @@ const CourseSlider = ({ bannerType, categoryId }) => {
         <section className={classes.courseSliderContainer}>
             <header className={classes.courseSliderHeaderContainer}>
                 <h1 className={classes.headerTitle}>{learnOurProductsText}</h1>
-                <Link
-                    className={classes.courseSliderHeaderLinkContainer}
-                    to="/learning"
-                >
-                    <span className={classes.linkText}>
-                        {showAllCoursesText}
-                    </span>
-                    <img
-                        className={classes.linkIcon}
-                        src={ArrowRightIcon}
-                        alt="Arrow right icon"
-                    />
+                <Link className={classes.courseSliderHeaderLinkContainer} to="/learning">
+                    <span className={classes.linkText}>{showAllCoursesText}</span>
+                    <img className={classes.linkIcon} src={ArrowRightIcon} alt="Arrow right icon" />
                 </Link>
             </header>
             <aside>

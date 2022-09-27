@@ -16,7 +16,7 @@ import noCoursesImage from '../CoursesCatalog/Icons/noCourses.svg';
 const DELIMITER = '/';
 
 const CourseContent = props => {
-    const { courseId, userMoodleId, userMoodleToken, userCoursesIdList, setUserCoursesIdList, setMarkAsDoneListQty } = props;
+    const { courseId, userCoursesIdList, setUserCoursesIdList, setMarkAsDoneListQty } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const {
         courseDetails,
@@ -29,8 +29,6 @@ const CourseContent = props => {
         courseId,
         setUserCoursesIdList,
         userCoursesIdList,
-        userMoodleId,
-        userMoodleToken,
         isEnrolled: userCoursesIdList.length !== 0 ? userCoursesIdList.includes(parseInt(courseId)) : false
     });
     const history = useHistory();
@@ -121,9 +119,9 @@ const CourseContent = props => {
                                 {courseDetails.overviewfiles.length !== 0 ? (
                                     <img
                                         className={classes.courseImage}
-                                        src={`${
-                                            courseDetails.overviewfiles[0].fileurl
-                                        }?token=${process.env.LMS_API_KEY}`}
+                                        src={`${courseDetails.overviewfiles[0].fileurl}?token=${
+                                            process.env.LMS_API_KEY
+                                        }`}
                                         alt="Course logo"
                                     />
                                 ) : (
@@ -187,8 +185,6 @@ const CourseContent = props => {
                                                         <CourseModuleContent
                                                             courseModule={module}
                                                             isEnrolled={enrolled}
-                                                            userMoodleId={userMoodleId}
-                                                            userMoodleToken={userMoodleToken}
                                                             setMarkAsDoneListQty={setMarkAsDoneListQty}
                                                             key={module.id}
                                                             white={i % 2 === 0}
