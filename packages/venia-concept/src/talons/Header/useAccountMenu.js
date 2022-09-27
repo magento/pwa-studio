@@ -43,10 +43,6 @@ export const useAccountMenu = props => {
         setView('SIGNIN');
         setAccountMenuIsOpen(false);
 
-        // Delete moodle data from local storage
-        localStorage.removeItem('LMS_INTEGRATION_moodle_token');
-        localStorage.removeItem('LMS_INTEGRATION_moodle_id');
-
         // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
 
