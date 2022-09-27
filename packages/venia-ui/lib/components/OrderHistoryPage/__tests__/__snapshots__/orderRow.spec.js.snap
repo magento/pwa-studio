@@ -573,7 +573,7 @@ exports[`it renders open order row 1`] = `
     />
   </div>
   <button
-    aria-expanded="false"
+    aria-expanded="true"
     className="contentToggleContainer"
     onClick={[MockFunction handleContentToggle]}
     type="button"
