@@ -228,6 +228,7 @@ test('exposes all hooks and targets', async () => {
           talons.SearchBar.useSearchBar.wrapWith() wraps export "useSearchBar" from "SearchBar/useSearchBar.js"
           talons.SearchBar.useSearchField.wrapWith() wraps export "useSearchField" from "SearchBar/useSearchField.js"
           talons.SearchBar.useSuggestedCategory.wrapWith() wraps export "useSuggestedCategory" from "SearchBar/useSuggestedCategory.js"
+          talons.SearchBar.useSuggestedProduct.wrapWith() wraps export "useSuggestedProduct" from "SearchBar/useSuggestedProduct.js"
           talons.SearchBar.useSuggestions.wrapWith() wraps export "useSuggestions" from "SearchBar/useSuggestions.js"
           talons.SearchPage.useSearchPage.wrapWith() wraps export "useSearchPage" from "SearchPage/useSearchPage.js"
           talons.SignIn.useSignIn.wrapWith() wraps export "useSignIn" from "SignIn/useSignIn.js"

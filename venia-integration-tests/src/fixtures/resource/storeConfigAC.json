@@ -1,0 +1,10 @@
+{
+  "data": {
+    "storeConfig": {
+      "store_code": "default",
+      "store_name": "Default Store View",
+      "store_group_name": "Main Website Store",
+      "__typename": "StoreConfig"
+    }
+  }
+}

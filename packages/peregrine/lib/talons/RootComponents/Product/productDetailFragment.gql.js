@@ -13,6 +13,9 @@ export const ProductDetailsFragment = gql`
         description {
             html
         }
+        short_description {
+            html
+        }
         id
         uid
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
@@ -30,6 +33,17 @@ export const ProductDetailsFragment = gql`
                 amount {
                     currency
                     value
+                }
+            }
+        }
+        price_range {
+            maximum_price {
+                final_price {
+                    currency
+                    value
+                }
+                discount {
+                    amount_off
                 }
             }
         }
@@ -116,6 +130,17 @@ export const ProductDetailsFragment = gql`
                             amount {
                                 currency
                                 value
+                            }
+                        }
+                    }
+                    price_range {
+                        maximum_price {
+                            final_price {
+                                currency
+                                value
+                            }
+                            discount {
+                                amount_off
                             }
                         }
                     }

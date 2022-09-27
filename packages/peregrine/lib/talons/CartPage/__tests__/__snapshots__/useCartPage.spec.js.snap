@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should dispatch page view event 1`] = `
+Object {
+  "payload": Object {
+    "cart_id": "cart123",
+    "products": Array [
+      "item1",
+      "item2",
+    ],
+  },
+  "type": "CART_PAGE_VIEW",
+}
+`;

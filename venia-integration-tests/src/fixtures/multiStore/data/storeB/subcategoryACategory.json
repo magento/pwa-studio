@@ -21,6 +21,11 @@
           "name": "Augusta Earrings",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 78,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 78,
@@ -46,6 +51,11 @@
           "name": "Ombre Infinity Scarf",
           "price_range": {
             "maximum_price": {
+              "final_price": {
+                "currency": "USD",
+                "value": 48,
+                "__typename": "Money"
+              },
               "regular_price": {
                 "currency": "USD",
                 "value": 48,
