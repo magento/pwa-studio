@@ -2,7 +2,7 @@ import { BrowserPersistence } from '@magento/peregrine/lib/util';
 const storage = new BrowserPersistence();
 
 const restrictedAuthPage = store => next => action => {
-    const unAuthPath = ['sign-in', 'create-account', 'forgot-password'];
+    const unAuthPath = ['sign-in', 'create-account', 'forgot-password', 'customer/account/createPassword'];
     const currentPath = window.location.pathname;
     const signin_token = storage.getItem('signin_token');
     const storeConfigRequiredLogin = storage.getItem('is_required_login');

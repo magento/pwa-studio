@@ -2,9 +2,10 @@ import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha/useGoogleReCaptcha';
-import modifyCustomer from '@orienteed/csr/services/users/modifyCustomer';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import modifyCsrCustomer from '@orienteed/csr/services/users/modifyCustomer';
+import modifyLmsCustomer from '@orienteed/lms/services/users/modifyCustomer';
 
 export const useAccountInformationPage = props => {
     const {
@@ -177,7 +178,6 @@ export const useAccountInformationPage = props => {
                             }
                         }
                     });
-                    modifyCustomer(firstname, '', email);
                 }
                 if (password && newPassword) {
                     const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
@@ -189,6 +189,8 @@ export const useAccountInformationPage = props => {
                         ...recaptchaDataForChangeCustomerPassword
                     });
                 }
+                modifyCsrCustomer(firstname, '', email);
+                modifyLmsCustomer(firstname, '', email, newPassword);
                 // After submission, close the form if there were no errors.
                 handleCancel(false);
             } catch {
