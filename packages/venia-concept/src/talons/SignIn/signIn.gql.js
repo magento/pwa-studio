@@ -42,33 +42,6 @@ export const MERGE_CARTS = gql`
     ${CheckoutPageFragment}
 `;
 
-export const GET_MOODLE_TOKEN = gql`
-    query GetMoodleToken {
-        customer {
-            moodle_token
-        }
-    }
-`;
-
-export const GET_MOODLE_ID = gql`
-    query GetMoodleId {
-        customer {
-            moodle_id
-        }
-    }
-`;
-
-export const SET_MOODLE_TOKEN_ID = gql`
-    mutation SetMoodleToken($moodle_token: String!, $moodle_id: String!) {
-        updateCustomer(input: { moodle_token: $moodle_token, moodle_id: $moodle_id }) {
-            customer {
-                moodle_token
-                moodle_id
-            }
-        }
-    }
-`;
-
 export const GET_CART_DETAILS_QUERY = gql`
     query GetCartDetailsAfterSignIn($cartId: String!) {
         cart(cart_id: $cartId) {
@@ -117,8 +90,5 @@ export default {
     createCartMutation: CREATE_CART,
     getCustomerQuery: GET_CUSTOMER,
     mergeCartsMutation: MERGE_CARTS,
-    signInMutation: SIGN_IN,
-    getMoodleTokenQuery: GET_MOODLE_TOKEN,
-    getMoodleIdQuery: GET_MOODLE_ID,
-    setMoodleTokenAndIdMutation: SET_MOODLE_TOKEN_ID
+    signInMutation: SIGN_IN
 };

@@ -11,9 +11,8 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { retrieveCartId } from '@magento/peregrine/lib/store/actions/cart';
 
 import DEFAULT_OPERATIONS from './signIn.gql.js';
-import registerUserAndSaveData from '@orienteed/lms/services/registerUserAndSaveData';
-import getTokenAndSave from '@orienteed/lms/services/getTokenAndSave.js';
 import doCsrLogin from '@orienteed/csr/services/auth/login.js';
+import doLmsLogin from '@orienteed/lms/services/auth/login.js';
 
 export const useSignIn = props => {
     const { getCartDetailsQuery, setDefaultUsername, showCreateAccount, showForgotPassword } = props;
@@ -22,9 +21,6 @@ export const useSignIn = props => {
     const {
         createCartMutation,
         getCustomerQuery,
-        getMoodleTokenQuery,
-        getMoodleIdQuery,
-        setMoodleTokenAndIdMutation,
         mergeCartsMutation,
         signInMutation
     } = operations;
@@ -43,9 +39,6 @@ export const useSignIn = props => {
 
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
-    const [setMoodleTokenAndId] = useMutation(setMoodleTokenAndIdMutation);
-    const fetchMoodleToken = useAwaitQuery(getMoodleTokenQuery);
-    const fetchMoodleId = useAwaitQuery(getMoodleIdQuery);
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
@@ -67,17 +60,7 @@ export const useSignIn = props => {
                 await setToken(token);
 
                 // LMS logic
-                const moodleTokenResponse = await fetchMoodleToken();
-                const moodleIdResponse = await fetchMoodleId();
-
-                if (
-                    moodleTokenResponse.data.customer.moodle_token !== null &&
-                    moodleIdResponse.data.customer.moodle_id !== null
-                ) {
-                    getTokenAndSave(email, password, moodleIdResponse.data.customer.moodle_id, setMoodleTokenAndId);
-                } else {
-                    registerUserAndSaveData(email, password, setMoodleTokenAndId);
-                }
+                doLmsLogin(password);
 
                 // CSR logic
                 doCsrLogin();
@@ -121,15 +104,12 @@ export const useSignIn = props => {
             createCart,
             fetchCartDetails,
             fetchCartId,
-            fetchMoodleId,
-            fetchMoodleToken,
             fetchUserDetails,
             getCartDetails,
             getUserDetails,
             history,
             mergeCarts,
             removeCart,
-            setMoodleTokenAndId,
             setToken,
             signIn
         ]
@@ -138,7 +118,6 @@ export const useSignIn = props => {
     const handleCreateAccount = useCallback(() => {
         history.push('/create-account');
         showCreateAccount();
-        
     }, [history]);
 
     const handleForgotPassword = useCallback(() => {
