@@ -99,6 +99,7 @@ const CreateAccount = props => {
                     <TextInput
                         field="customer.firstname"
                         autoComplete="given-name"
+                        aria-label="First Name Required"
                         data-cy="OrderConfirmationPage-CreateAccount-firstName"
                         validate={isRequired}
                         validateOnBlur
@@ -113,6 +114,7 @@ const CreateAccount = props => {
                     <TextInput
                         field="customer.lastname"
                         autoComplete="family-name"
+                        aria-label="Last Name Required"
                         data-cy="OrderConfirmationPage-CreateAccount-lastName"
                         validate={isRequired}
                         validateOnBlur
@@ -127,6 +129,7 @@ const CreateAccount = props => {
                     <TextInput
                         field="customer.email"
                         autoComplete="email"
+                        aria-label="Email Required"
                         data-cy="OrderConfirmationPage-CreateAccount-email"
                         validate={isRequired}
                         validateOnBlur
@@ -147,6 +150,7 @@ const CreateAccount = props => {
                         validatePassword
                     ])}
                     validateOnBlur
+                    aria-label="Password Required"
                 />
                 <div className={classes.subscribe}>
                     <Checkbox
