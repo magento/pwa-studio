@@ -16,7 +16,7 @@ export const useAccountMenuItems = props => {
         onSignOut();
     }, [onSignOut]);
 
-    const MENU_ITEMS = [
+    const MENU_ITEMS_PREMIUM = [
         {
             name: 'Account Information',
             id: 'accountMenu.accountInfoLink',
@@ -75,8 +75,46 @@ export const useAccountMenuItems = props => {
         // },
     ];
 
+    const MENU_ITEMS_BASIC = [
+        {
+            name: 'Account Information',
+            id: 'accountMenu.accountInfoLink',
+            url: '/account-information'
+        },
+        {
+            name: 'Address Book',
+            id: 'accountMenu.addressBookLink',
+            url: '/address-book'
+        },
+        {
+            name: 'Buy Later Notes',
+            id: 'accountMenu.buyLaterNotes',
+            url: '/mpsavecart'
+        },
+        {
+            name: 'Order History',
+            id: 'accountMenu.orderHistoryLink',
+            url: '/order-history'
+        },
+        {
+            name: 'Favorites Lists',
+            id: 'accountMenu.favoritesListsLink',
+            url: '/wishlist'
+        },
+        {
+            name: 'Support',
+            id: 'accountMenu.supportLink',
+            url: '/support'
+        },
+        {
+            name: 'Learning',
+            id: 'accountMenu.learningLink',
+            url: '/learning'
+        }
+    ];
+
     return {
         handleSignOut,
-        menuItems: MENU_ITEMS
+        menuItems: process.env.B2BSTORE_VERSION === 'BASIC' ? MENU_ITEMS_BASIC : MENU_ITEMS_PREMIUM
     };
 };
