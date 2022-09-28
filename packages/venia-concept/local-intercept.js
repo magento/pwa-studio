@@ -169,6 +169,35 @@ module.exports = targets => {
     buildpackTargets.envVarDefinitions.tap(defs => {
         defs.sections.push(
             {
+                name: 'B2BStore variables',
+                variables: [
+                    {
+                        name: 'B2BSTORE_VERSION',
+                        type: 'str',
+                        desc: 'Specfiy b2bstore version PREMIUM or BASIC',
+                        default: 'BASIC'
+                    },
+                    {
+                        name: 'IS_B2B',
+                        type: 'bool',
+                        desc: 'Specify the view for the Product Detail Page (PDP).',
+                        default: true
+                    },
+                    {
+                        name: 'LMS_ENABLED',
+                        type: 'bool',
+                        desc: 'Specify if enable or not the LMS module.',
+                        default: true
+                    },
+                    {
+                        name: 'CSR_ENABLED',
+                        type: 'bool',
+                        desc: 'Specify if enable or not the CSR module.',
+                        default: true
+                    }
+                ]
+            },
+            {
                 name: 'CSR Project',
                 variables: [
                     {
@@ -187,29 +216,6 @@ module.exports = targets => {
                         type: 'str',
                         desc: 'Specify the URL where the LMS is.',
                         default: ''
-                    },
-                    {
-                        name: 'LMS_API_KEY',
-                        type: 'str',
-                        desc: 'Specify the API token for creating accounts, enroll users, ...',
-                        default: ''
-                    }
-                ]
-            },
-            {
-                name: 'B2BStore variables',
-                variables: [
-                    {
-                        name: 'B2BSTORE_VERSION',
-                        type: 'str',
-                        desc: 'Specfiy b2bstore version PREMIUM or BASIC',
-                        default: 'BASIC'
-                    },
-                    {
-                        name: 'IS_B2B',
-                        type: 'bool',
-                        desc: 'Specify the view for the Product Detail Page (PDP).',
-                        default: true
                     }
                 ]
             }

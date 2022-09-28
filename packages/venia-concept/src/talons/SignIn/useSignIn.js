@@ -18,12 +18,7 @@ export const useSignIn = props => {
     const { getCartDetailsQuery, setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const {
-        createCartMutation,
-        getCustomerQuery,
-        mergeCartsMutation,
-        signInMutation
-    } = operations;
+    const { createCartMutation, getCustomerQuery, mergeCartsMutation, signInMutation } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
@@ -60,10 +55,10 @@ export const useSignIn = props => {
                 await setToken(token);
 
                 // LMS logic
-                doLmsLogin(password);
+                process.env.LMS_ENABLED === 'true' && doLmsLogin(password);
 
                 // CSR logic
-                doCsrLogin();
+                process.env.CSR_ENABLED === 'true' && doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await clearCartDataFromCache(apolloClient);

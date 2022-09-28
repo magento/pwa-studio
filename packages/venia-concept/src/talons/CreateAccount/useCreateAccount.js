@@ -107,10 +107,10 @@ export const useCreateAccount = props => {
                 await setToken(token);
 
                 // LMS logic
-                doLmsLogin(formValues.password);
+                process.env.LMS_ENABLED === 'true' && doLmsLogin(formValues.password);
 
                 // CSR logic
-                doCsrLogin();
+                process.env.CSR_ENABLED === 'true' && doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');

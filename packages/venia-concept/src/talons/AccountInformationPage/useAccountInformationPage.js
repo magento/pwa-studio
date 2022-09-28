@@ -189,8 +189,8 @@ export const useAccountInformationPage = props => {
                         ...recaptchaDataForChangeCustomerPassword
                     });
                 }
-                modifyCsrCustomer(firstname, '', email);
-                modifyLmsCustomer(firstname, '', email, newPassword);
+                process.env.LMS_ENABLED === 'true' && modifyLmsCustomer(firstname, '', email, newPassword);
+                process.env.CSR_ENABLED === 'true' && modifyCsrCustomer(firstname, '', email);
                 // After submission, close the form if there were no errors.
                 handleCancel(false);
             } catch {

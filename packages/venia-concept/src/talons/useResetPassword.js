@@ -49,7 +49,7 @@ export const useResetPassword = props => {
 
                     await handleSignIn({ email, password: newPassword });
 
-                    modifyLmsCustomer('', '', email, newPassword);
+                    process.env.LMS_ENABLED === 'true' && modifyLmsCustomer('', '', email, newPassword);
 
                     setHasCompleted(true);
                 }
@@ -58,7 +58,7 @@ export const useResetPassword = props => {
                 setHasCompleted(false);
             }
         },
-        [generateReCaptchaData, resetPassword, token, handleSignIn]
+        [resetPassword, token, handleSignIn]
     );
 
     return {

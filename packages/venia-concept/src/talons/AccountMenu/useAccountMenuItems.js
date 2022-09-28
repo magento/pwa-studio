@@ -13,8 +13,8 @@ export const useAccountMenuItems = props => {
     const { onSignOut } = props;
 
     const handleSignOut = useCallback(() => {
-        doLmsLogout();
-        doCsrLogout();
+        process.env.LMS_ENABLED === 'true' && doLmsLogout();
+        process.env.CSR_ENABLED === 'true' && doCsrLogout();
         onSignOut();
     }, [onSignOut]);
 
@@ -48,16 +48,6 @@ export const useAccountMenuItems = props => {
             name: 'Favorites Lists',
             id: 'accountMenu.favoritesListsLink',
             url: '/wishlist'
-        },
-        {
-            name: 'Support',
-            id: 'accountMenu.supportLink',
-            url: '/support'
-        },
-        {
-            name: 'Learning',
-            id: 'accountMenu.learningLink',
-            url: '/learning'
         }
         // Hide links until features are completed
         // {
@@ -76,6 +66,22 @@ export const useAccountMenuItems = props => {
         //     url: '/communications'
         // },
     ];
+
+    if (process.env.CSR_ENABLED === 'true') {
+        MENU_ITEMS.push({
+            name: 'Support',
+            id: 'accountMenu.supportLink',
+            url: '/support'
+        });
+    }
+
+    if (process.env.LMS_ENABLED === 'true') {
+        MENU_ITEMS.push({
+            name: 'Learning',
+            id: 'accountMenu.learningLink',
+            url: '/learning'
+        });
+    }
 
     return {
         handleSignOut,
