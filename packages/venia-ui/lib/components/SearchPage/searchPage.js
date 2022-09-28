@@ -199,7 +199,11 @@ const SearchPage = props => {
             </div>
             <div className={classes.searchContent}>
                 <div className={classes.heading}>
-                    <div className={classes.searchInfo}>
+                    <div
+                        aria-live="polite"
+                        aria-atomic="true"
+                        className={classes.searchInfo}
+                    >
                         {searchResultsHeading}
                         {itemCountHeading}
                     </div>
