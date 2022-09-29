@@ -94,7 +94,6 @@ exports[`it disables inputs when the page is updating 1`] = `
       <button
         className="root_normalPriority"
         disabled={true}
-        onBlur={null}
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -217,7 +216,6 @@ exports[`it renders correctly 1`] = `
       <button
         className="root_normalPriority"
         disabled={false}
-        onBlur={null}
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}

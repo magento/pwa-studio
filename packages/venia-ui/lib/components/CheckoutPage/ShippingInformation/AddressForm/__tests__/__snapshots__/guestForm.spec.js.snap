@@ -430,7 +430,6 @@ Array [
       <button
         className="root_normalPriority"
         disabled={false}
-        onBlur={null}
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -890,7 +889,6 @@ Array [
       <button
         className="root_normalPriority"
         disabled={false}
-        onBlur={null}
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -1338,7 +1336,6 @@ Array [
       <button
         className="root_lowPriority"
         disabled={true}
-        onBlur={null}
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -1365,7 +1362,6 @@ Array [
       <button
         className="root_highPriority"
         disabled={true}
-        onBlur={null}
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -1813,7 +1809,6 @@ Array [
       <button
         className="root_lowPriority"
         disabled={false}
-        onBlur={null}
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -1840,7 +1835,6 @@ Array [
       <button
         className="root_highPriority"
         disabled={false}
-        onBlur={null}
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
