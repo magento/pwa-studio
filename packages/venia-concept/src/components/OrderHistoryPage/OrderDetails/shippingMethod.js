@@ -7,7 +7,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './shippingMethod.module.css';
 
 const ShippingMethod = props => {
-    const { data, classes: propsClasses } = props;
+    const { data, mp_delivery_information, classes: propsClasses } = props;
     const { shipments, shippingMethod } = data;
     const classes = useStyle(defaultClasses, propsClasses);
     let trackingElement;
@@ -53,6 +53,49 @@ const ShippingMethod = props => {
                     {/* {shippingMethod} */}
                 </div>
                 <div className={classes.tracking}>{trackingElement}</div>
+                <div>
+                    <div />
+                    {mp_delivery_information.mp_delivery_date !== '' && (
+                        <div className={classes.method}>
+                            <span>
+                                <FormattedMessage id={'deliveryDate.deliveryDate'} defaultMessage={'Delivery Date'} />:
+                            </span>
+                            &nbsp;
+                            <span>{mp_delivery_information.mp_delivery_date}</span>
+                        </div>
+                    )}
+                    {mp_delivery_information.mp_delivery_time !== '' && (
+                        <div className={classes.method}>
+                            <span>
+                                <FormattedMessage id={'deliveryDate.deliveryTime'} defaultMessage={'Delivery Time'} />:
+                            </span>
+                            &nbsp;
+                            <span>{mp_delivery_information.mp_delivery_time}</span>
+                        </div>
+                    )}
+                    {mp_delivery_information.mp_house_security_code !== '' && (
+                        <div className={classes.method}>
+                            <span>
+                                <FormattedMessage
+                                    id={'deliveryDate.houseSecurityCode'}
+                                    defaultMessage={'House Security Code'}
+                                />
+                                :
+                            </span>
+                            &nbsp;
+                            <span>{mp_delivery_information.mp_house_security_code}</span>
+                        </div>
+                    )}
+                    {mp_delivery_information.mp_delivery_comment !== '' && (
+                        <div className={classes.method}>
+                            <span>
+                                <FormattedMessage id={'deliveryDate.commentDate'} defaultMessage={'Comment Date'} />:
+                            </span>
+                            &nbsp;
+                            <span>{mp_delivery_information.mp_delivery_comment}</span>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

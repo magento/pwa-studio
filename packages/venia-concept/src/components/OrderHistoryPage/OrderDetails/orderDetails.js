@@ -27,7 +27,8 @@ const OrderDetails = props => {
         shipping_address,
         shipping_method,
         shipments,
-        total
+        total,
+        mp_delivery_information
     } = orderData;
     const classes = useStyle(defaultClasses, propClasses);
 
@@ -42,22 +43,17 @@ const OrderDetails = props => {
             <div className={classes.root}>
                 <div className={classes.shippingInformationContainer}>
                     <ConditionalWrapper condition={shipping_address}>
-                        <ShippingInformation
-                            address={address}
-                            data={shipping_address}
-                        />
+                        <ShippingInformation address={address} data={shipping_address} />
                     </ConditionalWrapper>
                 </div>
                 <div className={classes.shippingMethodContainer}>
                     <ConditionalWrapper condition={shipping_method}>
-                        <ShippingMethod data={shippingMethodData} />
+                        <ShippingMethod data={shippingMethodData} mp_delivery_information={mp_delivery_information} />
                     </ConditionalWrapper>
                 </div>
 
                 <div className={classes.paymentMethodContainer}>
-                    <ConditionalWrapper
-                        condition={payment_methods && payment_methods.length}
-                    >
+                    <ConditionalWrapper condition={payment_methods && payment_methods.length}>
                         <PaymentMethod total={total} data={payment_methods} />
                     </ConditionalWrapper>
                 </div>
@@ -73,7 +69,6 @@ const OrderDetails = props => {
                         <Items data={{ imagesData, items }} />
                     </ConditionalWrapper>
                 </div>
-              
             </div>
             <Button
                 className={classes.printButton}
@@ -84,10 +79,7 @@ const OrderDetails = props => {
             >
                 <Icon src={Printer} />
                 <span className={classes.printLabel}>
-                    <FormattedMessage
-                        id="orderDetails.printLabel"
-                        defaultMessage="Print Receipt"
-                    />
+                    <FormattedMessage id="orderDetails.printLabel" defaultMessage="Print Receipt" />
                 </span>
             </Button>
         </>
