@@ -121,7 +121,7 @@ const GalleryItem = props => {
     const confirmRequestQuote = () => {
         let simpleProducts = [
             {
-                sku: selectedVeriant.product.sku ,
+                sku: selectedVeriant.product.sku,
                 orParentSku: selectedVeriant.parentSku,
                 quantity
             }
@@ -381,7 +381,9 @@ const GalleryItem = props => {
                 </div>
             )}
             <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}`}>
-                {price.minimalPrice?.amount.value ? addButton : requestQuateButton}
+                {!price.minimalPrice?.amount.value && process.env.B2BSTORE_VERSION === 'PREMIUM'
+                    ? requestQuateButton
+                    : addButton}
                 <button className={classes.compareIcon} onClick={addToCompare}>
                     <img src={CompareIcon} alt="compare icon" />
                 </button>
