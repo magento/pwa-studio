@@ -30,13 +30,16 @@ import ScrollAnchor from '@magento/venia-ui/lib/components/ScrollAnchor/scrollAn
 import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
 import DeliveryDates from '@orienteed/deliveryDate/src/components/DeliveryDatesForm/deliveryDatesForm';
+import { useDeliveryDate } from '@orienteed/deliveryDate/src/talons/useDeliveryDate';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
-    const talonProps = useCheckoutPage();
+    const { deliveryDates, handleChange, submitDeliveryDate, deliveryDatesData } = useDeliveryDate({});
+
+    const talonProps = useCheckoutPage({ submitDeliveryDate, deliveryDatesData });
     const { noProduct } = useNoReorderProductContext();
 
     const {
@@ -77,9 +80,9 @@ const CheckoutPage = props => {
         reviewOrderButtonClicked,
         recaptchaWidgetProps,
         toggleAddressBookContent,
-        toggleSignInContent
+        toggleSignInContent,
+        cartId
     } = talonProps;
-
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
@@ -344,9 +347,11 @@ const CheckoutPage = props => {
                 <div className={classes.shipping_method_container}>
                     <ScrollAnchor ref={shippingMethodRef}>{shippingMethodSection}</ScrollAnchor>
                 </div>
-                        <div className={classes.deliveryDatesContainer}>
-                            <DeliveryDates />
-                        </div>
+                {checkoutStep < 4 && (
+                    <div className={classes.deliveryDatesContainer}>
+                        <DeliveryDates handleChange={handleChange} deliveryDates={deliveryDates} cartId={cartId} />
+                    </div>
+                )}
 
                 <div className={classes.payment_information_container}>{paymentInformationSection}</div>
                 {priceAdjustmentsSection}

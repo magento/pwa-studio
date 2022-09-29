@@ -63,9 +63,9 @@ export const CHECKOUT_STEP = {
  * }
  */
 export const useCheckoutPage = (props = {}) => {
+    const { submitDeliveryDate, deliveryDatesData } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { setNoProduct } = useNoReorderProductContext();
-
     const {
         createCartMutation,
         getCheckoutDetailsQuery,
@@ -153,14 +153,15 @@ export const useCheckoutPage = (props = {}) => {
         }
     }, [placeOrderError]);
 
-    const handleReviewOrder = useCallback(() => {
+    const handleReviewOrder = () => {
+        submitDeliveryDate();
         ReactGA.event({
             category: 'Checkout page',
             action: 'Review order clicked',
             label: `Checkout page- Review order clicked`
         });
         setReviewOrderButtonClicked(true);
-    }, []);
+    }
 
     const resetReviewOrderButtonClicked = useCallback(() => {
         setReviewOrderButtonClicked(false);
@@ -332,6 +333,7 @@ export const useCheckoutPage = (props = {}) => {
         reviewOrderButtonClicked,
         recaptchaWidgetProps,
         toggleAddressBookContent,
-        toggleSignInContent
+        toggleSignInContent,
+        cartId
     };
 };
