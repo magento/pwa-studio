@@ -36,6 +36,7 @@ const AccountTrigger = props => {
         <Fragment>
             <div className={rootClassName} ref={accountMenuTriggerRef}>
                 <button
+                    aria-expanded={accountMenuIsOpen}
                     aria-label={formatMessage({
                         id: 'accountTrigger.ariaLabel',
                         defaultMessage: 'Toggle My Account Menu'
