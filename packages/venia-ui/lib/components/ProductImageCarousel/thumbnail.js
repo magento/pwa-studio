@@ -66,14 +66,15 @@ const Thumbnail = props => {
     }, [file, isDesktop, label, classes.image]);
 
     return (
-        <span
+        <button
             className={isActive ? classes.rootSelected : classes.root}
             onClick={handleClick}
             role="button"
-            aria-hidden="true"
+            aria-label="true"
+
         >
             {thumbnailImage}
-        </span>
+        </button>
     );
 };
 
