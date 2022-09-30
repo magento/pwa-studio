@@ -70,8 +70,7 @@ const Thumbnail = props => {
             className={isActive ? classes.rootSelected : classes.root}
             onClick={handleClick}
             role="button"
-            aria-label="true"
-
+            aria-hidden="true"
         >
             {thumbnailImage}
         </button>
