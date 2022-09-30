@@ -286,7 +286,7 @@ const ProductFullDetailB2B = props => {
                         {filterOptions}
                         {indexTable}
                         {productsTable}
-                        <Pagination class="productsTable" pageControl={pageControl} />
+                        <Pagination classes={{ root: classes.paginationB2B}} class="productsTable" pageControl={pageControl} />
                     </div>
                 </section>
                 <section className={classes.hide}>{availableOptions}</section>
