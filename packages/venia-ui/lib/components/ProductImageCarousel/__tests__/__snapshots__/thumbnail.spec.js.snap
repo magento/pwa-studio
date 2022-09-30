@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders root class if not the active Thumbnail 1`] = `
-<span
+<button
   aria-hidden="true"
   className="root"
   onClick={[Function]}
@@ -50,11 +50,11 @@ exports[`renders root class if not the active Thumbnail 1`] = `
       width={135}
     />
   </div>
-</span>
+</button>
 `;
 
 exports[`renders the Thumbnail component correctly 1`] = `
-<span
+<button
   aria-hidden="true"
   className="rootSelected"
   onClick={[Function]}
@@ -103,11 +103,11 @@ exports[`renders the Thumbnail component correctly 1`] = `
       width={135}
     />
   </div>
-</span>
+</button>
 `;
 
 exports[`renders transparent placeholder when no file name is provided 1`] = `
-<span
+<button
   aria-hidden="true"
   className="rootSelected"
   onClick={[Function]}
@@ -133,5 +133,5 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
       style={Object {}}
     />
   </div>
-</span>
+</button>
 `;

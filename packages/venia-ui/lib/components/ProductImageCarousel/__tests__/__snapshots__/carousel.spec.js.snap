@@ -238,7 +238,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
   <div
     className="thumbnailList"
   >
-    <span
+    <button
       aria-hidden="true"
       className="rootSelected"
       onClick={[Function]}
@@ -287,8 +287,8 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           width={135}
         />
       </div>
-    </span>
-    <span
+    </button>
+    <button
       aria-hidden="true"
       className="root"
       onClick={[Function]}
@@ -337,8 +337,8 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           width={135}
         />
       </div>
-    </span>
-    <span
+    </button>
+    <button
       aria-hidden="true"
       className="root"
       onClick={[Function]}
@@ -387,8 +387,8 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           width={135}
         />
       </div>
-    </span>
-    <span
+    </button>
+    <button
       aria-hidden="true"
       className="root"
       onClick={[Function]}
@@ -437,7 +437,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           width={135}
         />
       </div>
-    </span>
+    </button>
   </div>
 </div>
 `;
