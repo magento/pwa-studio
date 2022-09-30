@@ -18,14 +18,21 @@ jest.mock(
     }
 );
 
+const mockSetPaymentMethodOnCartMutation = jest.fn();
+
 jest.mock('@apollo/client', () => {
     return {
+        useMutation: jest.fn(() => [
+            mockSetPaymentMethodOnCartMutation,
+            { loading: true }
+        ]),
         useQuery: jest.fn().mockReturnValue({
             data: {
                 cart: {
                     available_payment_methods: [
                         { code: 'availablePaymentMethod' }
-                    ]
+                    ],
+                    selected_payment_method: { code: 'braintree' }
                 }
             },
             loading: false
@@ -34,8 +41,17 @@ jest.mock('@apollo/client', () => {
 });
 
 jest.mock('../paymentMethods.gql', () => ({
-    getPaymentMethodsQuery: 'paymentMethodsQuery'
+    getPaymentMethodsQuery: 'paymentMethodsQuery',
+    setPaymentMethodOnCartMutation: 'setPaymentMethod'
 }));
+
+const getPaymentMethodsQuery = 'getPaymentMethodsQuery';
+const setPaymentMethodOnCartMutation = 'setPaymentMethodOnCartMutation';
+
+const operations = {
+    getPaymentMethodsQuery,
+    setPaymentMethodOnCartMutation
+};
 
 const Component = props => {
     const talonProps = usePaymentMethods(props);
@@ -58,7 +74,9 @@ const getTalonProps = props => {
 };
 
 it('returns the correct shape', () => {
-    const { talonProps } = getTalonProps();
+    const { talonProps } = getTalonProps({
+        operations
+    });
 
     expect(talonProps).toMatchSnapshot();
 });
