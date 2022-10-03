@@ -9,7 +9,7 @@ Object {
   ],
   "currentSelectedPaymentMethod": "currentSelectedPaymentMethod",
   "handlePaymentMethodSelection": [Function],
-  "initialSelectedMethod": "braintree",
+  "initialSelectedMethod": "availablePaymentMethod",
   "isLoading": false,
 }
 `;

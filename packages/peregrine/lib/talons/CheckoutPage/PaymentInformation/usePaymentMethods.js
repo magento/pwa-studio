@@ -29,8 +29,18 @@ export const usePaymentMethods = props => {
     const availablePaymentMethods =
         (data && data.cart.available_payment_methods) || [];
 
-    const initialSelectedMethod =
+    // If there is one payment method, select it by default.
+    // If more than one, none should be selected by default.
+    const defaultPaymentCode =
+        (availablePaymentMethods.length && availablePaymentMethods[0].code) ||
+        null;
+    const selectedPaymentCode =
         (data && data.cart.selected_payment_method.code) || null;
+
+    const initialSelectedMethod =
+        availablePaymentMethods.length > 1
+            ? selectedPaymentCode
+            : defaultPaymentCode;
 
     const handlePaymentMethodSelection = useCallback(
         element => {

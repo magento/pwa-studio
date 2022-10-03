@@ -89,3 +89,38 @@ it('returns an empty array for availablePaymentMethods when there is no data', (
     expect(talonProps.availablePaymentMethods).toEqual([]);
     expect(talonProps.initialSelectedMethod).toBeNull();
 });
+
+it('default payment is selected when there is one available payment method', () => {
+    useQuery.mockReturnValueOnce({
+        data: {
+            cart: {
+                available_payment_methods: [{ code: 'availablePaymentMethod' }],
+                selected_payment_method: { code: null }
+            }
+        }
+    });
+
+    const { talonProps } = getTalonProps();
+
+    expect(talonProps.availablePaymentMethods.length).toEqual(1);
+    expect(talonProps.initialSelectedMethod).toEqual('availablePaymentMethod');
+});
+
+it('default payment is not selected when there is more than one available payment method', () => {
+    useQuery.mockReturnValueOnce({
+        data: {
+            cart: {
+                available_payment_methods: [
+                    { code: 'availablePaymentMethod1' },
+                    { code: 'availablePaymentMethod2' }
+                ],
+                selected_payment_method: { code: null }
+            }
+        }
+    });
+
+    const { talonProps } = getTalonProps();
+
+    expect(talonProps.availablePaymentMethods.length).toEqual(2);
+    expect(talonProps.initialSelectedMethod).toBeNull();
+});
