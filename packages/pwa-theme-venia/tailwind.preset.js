@@ -28,7 +28,8 @@ const extend = {
     backgroundColor: theme => ({
         body: '#FFF',
         header: '#FFF',
-        subtle: theme('colors.gray.100')
+        subtle: theme('colors.gray.100'),
+        disabledTile: '#f5f5f5'
     }),
     backgroundImage: theme => ({
         'gradient-radial': `radial-gradient(circle, ${theme(
