@@ -42,7 +42,7 @@ const SuggestedProduct = props => {
                 />
                 <span className={classes.name}>{name}</span>
                 <span data-cy="SuggestedProduct-price" className={classes.price}>
-                    <Price currencyCode={price.regularPrice.amount.currency} value={price.regularPrice.amount.value} />
+                    <Price currencyCode={price.minimalPrice.amount.currency} value={price.minimalPrice.amount.value} />
                 </span>
             </div>
         </>

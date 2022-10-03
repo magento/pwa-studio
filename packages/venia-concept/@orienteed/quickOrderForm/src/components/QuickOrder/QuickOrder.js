@@ -211,11 +211,11 @@ const AddQuickOrder = props => {
                                                     {item.price ? (
                                                         <span className={classes.priceText}>
                                                             {' '}
-                                                            {item.price.regularPrice.amount.currency === 'USD'
+                                                            {item.price.minimalPrice.amount.currency === 'USD'
                                                                 ? '$'
                                                                 : '€'}
                                                             {(
-                                                                item.price.regularPrice.amount.value * item.quantity
+                                                                item.price.minimalPrice.amount.value * item.quantity
                                                             ).toFixed(2)}
                                                         </span>
                                                     ) : (
