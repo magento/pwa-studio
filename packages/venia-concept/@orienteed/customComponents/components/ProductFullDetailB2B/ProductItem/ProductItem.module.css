@@ -23,7 +23,7 @@
     align-items: center;
     justify-items: center;
     align-content: center;
-    /* width: 100%; */
+    width: 100%;
     /* height: 100%; */
 }
 
@@ -196,9 +196,7 @@
     margin: 10px 0px;
 }
 
-.productItemBodyInformation
-    > .productItemBodyInformationRow
-    + .productItemBodyInformationRow {
+.productItemBodyInformation > .productItemBodyInformationRow + .productItemBodyInformationRow {
     border-top: 1px solid rgb(var(--venia-global-color-border));
 }
 
