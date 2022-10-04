@@ -69,11 +69,11 @@ const ProductFullDetailB2B = props => {
                 return null;
             }
         });
-       
+
         return items;
     };
 
-    const totalPage = useMemo(() => Math.ceil(selectedVariants(product.variants)?.length / 10)||2, [
+    const totalPage = useMemo(() => Math.ceil(selectedVariants(product.variants)?.length / 10) || 2, [
         product,
         selectedFilterCategory
     ]);
@@ -85,7 +85,7 @@ const ProductFullDetailB2B = props => {
         let endIndex = currentPage * pageSize;
         if (currentPage > totalPage) setCurrentPage(totalPage);
         return items?.slice(startIndex, endIndex);
-    }, [product, currentPage, selectedFilter, totalPage ,selectedFilterCategory]);
+    }, [product, currentPage, selectedFilter, totalPage, selectedFilterCategory]);
     const pageControl = {
         currentPage: currentPage,
         setPage: val => setCurrentPage(val),
@@ -257,7 +257,7 @@ const ProductFullDetailB2B = props => {
                 </section>
                 <section className={classes.imageCarouselContainer}>
                     <div className={classes.imageCarousel}>
-                    <Carousel images={mediaGalleryEntries} carouselWidth={960} />
+                        <Carousel images={mediaGalleryEntries} carouselWidth={960} />
                     </div>
                 </section>
 
@@ -286,14 +286,18 @@ const ProductFullDetailB2B = props => {
                         {filterOptions}
                         {indexTable}
                         {productsTable}
-                        <Pagination classes={{ root: classes.paginationB2B}} class="productsTable" pageControl={pageControl} />
+                        <Pagination
+                            classes={{ root: classes.paginationB2B }}
+                            class="productsTable"
+                            pageControl={pageControl}
+                        />
                     </div>
+                    <section className={classes.recommendedProdut}>
+                        <CmsBlock content={recommendedProductBlock} />
+                    </section>
                 </section>
                 <section className={classes.hide}>{availableOptions}</section>
             </Form>
-            <section>
-                <CmsBlock content={recommendedProductBlock} />
-            </section>
         </Fragment>
     );
 };
