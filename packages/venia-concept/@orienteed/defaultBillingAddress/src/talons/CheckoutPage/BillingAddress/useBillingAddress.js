@@ -274,7 +274,7 @@ export default original => {
          * This function sets the billing address on the cart using the
          * information from the form.
          */
-        console.log('formState', formState);
+
         const setBillingAddress = useCallback(() => {
             const {
                 firstName,

@@ -98,15 +98,11 @@ const AddEditDialogCompanyInfo = props => {
                         />
                     </Field>
                 </div>
-                {/* <div className={classes.lastname}>
+                <div className={classes.lastname}>
                     <Field id="lastname" label={lastNameLabel}>
-                        <TextInput
-                            field="lastname"
-                            validate={isRequired}
-                            data-cy="lastname"
-                        />
+                        <TextInput field="lastname" data-cy="lastname" />
                     </Field>
-                </div> */}
+                </div>
                 <div className={classes.country}>
                     <Country
                         field={'country_code'}

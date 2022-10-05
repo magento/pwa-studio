@@ -48,6 +48,10 @@ const AddEditDialog = props => {
         id: 'global.companyName',
         defaultMessage: 'Company name'
     });
+    const lastNameLabel = formatMessage({
+        id: 'global.lastName',
+        defaultMessage: 'Last Name'
+    });
 
     const street1Label = formatMessage({
         id: 'global.streetAddress',
@@ -93,6 +97,12 @@ const AddEditDialog = props => {
                             validate={isRequired}
                             data-cy="firstname"
                         />
+                    </Field>
+                </div>
+
+                <div className={classes.lastname}>
+                    <Field id="lastname" label={lastNameLabel}>
+                        <TextInput field="lastname" data-cy="lastname" />
                     </Field>
                 </div>
 

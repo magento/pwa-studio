@@ -1,46 +1,41 @@
-import { useCallback, useMemo, useState, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha/useGoogleReCaptcha';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-export const useAccountInformationPage = props => {
+import defaultOperations from '@magento/peregrine/lib/talons/AddressBookPage/addressBookPage.gql.js';
+
+/**
+ *  A talon to support the functionality of the Address Book page.
+ *
+ *  @function
+ *
+ *  @param {Object} props
+ *  @param {Object} props.operations - GraphQL operations to be run by the talon.
+ *
+ *  @returns {AddressBookPageTalonProps}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
+ */
+export const useAddressBookPage = (props = {}) => {
+    const operations = mergeOperations(defaultOperations, props.operations);
     const {
-        mutations: {
-            setCustomerInformationMutation,
-            changeCustomerPasswordMutation,
-            createCustomerAddressMutation,
-            deleteCustomerAddressMutation,
-            updateCustomerAddressMutation
-        },
-        queries: { getCustomerInformationQuery, getCustomerAddressesQuery }
-    } = props;
+        createCustomerAddressMutation,
+        deleteCustomerAddressMutation,
+        getCustomerAddressesQuery,
+        updateCustomerAddressMutation
+    } = operations;
 
-    const [{ isSignedIn }] = useUserContext();
-    const [shouldShowNewPassword, setShouldShowNewPassword] = useState(false);
     const [
         ,
         {
             actions: { setPageLoading }
         }
     ] = useAppContext();
-
-    const { data: accountInformationData, error: loadDataError } = useQuery(
-        getCustomerInformationQuery,
-        {
-            skip: !isSignedIn,
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
-        }
-    );
-
-    const [isUpdateMode, setIsUpdateMode] = useState(false);
-
-    // Use local state to determine whether to display errors or not.
-    // Could be replaced by a "reset mutation" function from apollo client.
-    // https://github.com/apollographql/apollo-feature-requests/issues/170
-    const [displayError, setDisplayError] = useState(false);
+    const [{ isSignedIn }] = useUserContext();
 
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
@@ -49,44 +44,12 @@ export const useAccountInformationPage = props => {
             skip: !isSignedIn
         }
     );
-
-    const [
-        setCustomerInformation,
-        {
-            error: customerInformationUpdateError,
-            loading: isUpdatingCustomerInformation
-        }
-    ] = useMutation(setCustomerInformationMutation);
-
-    const [
-        changeCustomerPassword,
-        {
-            error: customerPasswordChangeError,
-            loading: isChangingCustomerPassword
-        }
-    ] = useMutation(changeCustomerPasswordMutation);
-
     const [
         deleteCustomerAddress,
         { loading: isDeletingCustomerAddress }
     ] = useMutation(deleteCustomerAddressMutation);
 
     const [confirmDeleteAddressId, setConfirmDeleteAddressId] = useState();
-
-    const {
-        generateReCaptchaData,
-        recaptchaLoading,
-        recaptchaWidgetProps
-    } = useGoogleReCaptcha({
-        currentForm: 'CUSTOMER_EDIT',
-        formAction: 'editCustomer'
-    });
-
-    const initialValues = useMemo(() => {
-        if (accountInformationData) {
-            return { customer: accountInformationData.customer };
-        }
-    }, [accountInformationData]);
 
     const isRefetching = !!customerAddressesData && loading;
     const customerAddresses =
@@ -114,22 +77,10 @@ export const useAccountInformationPage = props => {
     const [isDialogEditMode, setIsDialogEditMode] = useState(false);
     const [formAddress, setFormAddress] = useState({});
 
-    const handleChangePassword = useCallback(() => {
-        setShouldShowNewPassword(true);
-    }, [setShouldShowNewPassword]);
-
-    const handleCancel = useCallback(() => {
-        setIsUpdateMode(false);
-        setShouldShowNewPassword(false);
-    }, [setIsUpdateMode]);
-
-    const showUpdateMode = useCallback(() => {
-        setIsUpdateMode(true);
-
-        // If there were errors from removing/updating info, hide them
-        // when we open the modal.
-        setDisplayError(false);
-    }, [setIsUpdateMode]);
+    // Use local state to determine whether to display errors or not.
+    // Could be replaced by a "reset mutation" function from apollo client.
+    // https://github.com/apollographql/apollo-feature-requests/issues/170
+    const [displayError, setDisplayError] = useState(false);
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
@@ -152,17 +103,6 @@ export const useAccountInformationPage = props => {
     const handleCancelDeleteAddress = useCallback(() => {
         setConfirmDeleteAddressId(null);
     }, []);
-    const handleEditAddress = useCallback(address => {
-        // Hide all previous errors when we open the dialog.
-        setDisplayError(false);
-
-        setIsDialogEditMode(true);
-        setFormAddress(address);
-        setIsDialogOpen(true);
-    }, []);
-    const handleCancelDialog = useCallback(() => {
-        setIsDialogOpen(false);
-    }, []);
 
     const handleConfirmDeleteAddress = useCallback(async () => {
         try {
@@ -182,64 +122,19 @@ export const useAccountInformationPage = props => {
         getCustomerAddressesQuery
     ]);
 
-    const handleSubmit = useCallback(
-        async ({ email, firstname, taxvat, password, newPassword }) => {
-            try {
-                taxvat = taxvat.trim();
-                email = email.trim();
-                firstname = firstname.trim();
-                password = password.trim();
-                newPassword = newPassword ? newPassword.trim() : newPassword;
+    const handleEditAddress = useCallback(address => {
+        // Hide all previous errors when we open the dialog.
+        setDisplayError(false);
 
-                if (
-                    initialValues.customer.email !== email ||
-                    initialValues.customer.firstname !== firstname ||
-                    initialValues.customer.taxvat !== taxvat
-                ) {
-                    await setCustomerInformation({
-                        variables: {
-                            customerInput: {
-                                email,
-                                firstname,
-                                lastname: 'ㅤ',
-                                taxvat,
-                                // You must send password because it is required
-                                // when changing email.
-                                password
-                            }
-                        }
-                    });
-                }
-                if (password && newPassword) {
-                    const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
-                    await changeCustomerPassword({
-                        variables: {
-                            currentPassword: password,
-                            newPassword: newPassword
-                        },
-                        ...recaptchaDataForChangeCustomerPassword
-                    });
-                }
-                // After submission, close the form if there were no errors.
-                handleCancel(false);
-            } catch {
-                // Make sure any errors from the mutation are displayed.
-                setDisplayError(true);
+        setIsDialogEditMode(true);
+        setFormAddress(address);
+        setIsDialogOpen(true);
+    }, []);
 
-                // we have an onError link that logs errors, and FormError
-                // already renders this error, so just return to avoid
-                // triggering the success callback
-                return;
-            }
-        },
-        [
-            initialValues,
-            handleCancel,
-            setCustomerInformation,
-            generateReCaptchaData,
-            changeCustomerPassword
-        ]
-    );
+    const handleCancelDialog = useCallback(() => {
+        setIsDialogOpen(false);
+    }, []);
+
     const handleConfirmDialog = useCallback(
         async formValues => {
             if (isDialogEditMode) {
@@ -250,10 +145,10 @@ export const useAccountInformationPage = props => {
                             updated_address: {
                                 ...formValues,
                                 // Sends value as empty if none are provided
+                                middlename: formValues.middlename || '',
+                                lastname: 'ㅤ',
                                 // Cleans up the street array when values are null or undefined
-                                street: formValues.street.filter(e => e),
-                                default_billing: true,
-                                lastname: 'ㅤ'
+                                street: formValues.street.filter(e => e)
                             }
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }],
@@ -277,10 +172,10 @@ export const useAccountInformationPage = props => {
                             address: {
                                 ...formValues,
                                 // Sends value as empty if none are provided
+                                middlename: formValues.middlename || '',
+                                lastname: 'ㅤ',
                                 // Cleans up the street array when values are null or undefined
-                                street: formValues.street.filter(e => e),
-                                default_billing: true,
-                                lastname: 'ㅤ'
+                                street: formValues.street.filter(e => e)
                             }
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }],
@@ -308,7 +203,7 @@ export const useAccountInformationPage = props => {
         ]
     );
 
-    const formErrorsCustomerAddress = useMemo(() => {
+    const formErrors = useMemo(() => {
         if (displayError) {
             return new Map([
                 ['createCustomerAddressMutation', createCustomerAddressError],
@@ -338,29 +233,11 @@ export const useAccountInformationPage = props => {
         initialValues: formAddress
     };
 
-    const errors = displayError
-        ? [customerInformationUpdateError, customerPasswordChangeError]
-        : [];
-
     return {
-        handleCancel,
-        formErrors: errors,
-        handleSubmit,
-        handleChangePassword,
-        initialValues,
-        isDisabled:
-            isUpdatingCustomerInformation ||
-            isChangingCustomerPassword ||
-            recaptchaLoading,
-        isUpdateMode,
-        loadDataError,
-        shouldShowNewPassword,
-        showUpdateMode,
-        recaptchaWidgetProps,
         confirmDeleteAddressId,
         countryDisplayNameMap,
         customerAddresses,
-        formErrorsCustomerAddress,
+        formErrors,
         formProps,
         handleAddAddress,
         handleCancelDeleteAddress,
@@ -376,3 +253,28 @@ export const useAccountInformationPage = props => {
         isLoading: isLoadingWithoutData
     };
 };
+
+/**
+ * Object type returned by the {@link useAddressBookPage} talon.
+ * It provides props data to use when rendering the address book page component.
+ *
+ * @typedef {Object} AddressBookPageTalonProps
+ *
+ * @property {String} confirmDeleteAddressId - The id of the address that is waiting to be confirmed for deletion.
+ * @property {Map} countryDisplayNameMap - A Map of country id to its localized display name.
+ * @property {Array<Object>} customerAddresses - A list of customer addresses.
+ * @property {Map} formErrors - A Map of form errors.
+ * @property {Object} formProps - Properties to pass to the add/edit form.
+ * @property {Function} handleAddAdddress - Function to invoke when adding a new address.
+ * @property {Function} handleCancelDeleteAddress - Function to deny the confirmation of deleting an address.
+ * @property {Function} handleCancelDialog - Function to invoke when cancelling the add/edit dialog.
+ * @property {Function} handleConfirmDeleteAddress - Function to invoke to accept the confirmation of deleting an address.
+ * @property {Function} handleConfirmDialog - Function to invoke when submitting the add/edit dialog.
+ * @property {Function} handleDeleteAddress - Function to invoke to begin the address deletion process.
+ * @property {Function} handleEditAddress - Function to invoke when editing an existing address.
+ * @property {Boolean} isDeletingCustomerAddress - Whether an address deletion is currently in progress.
+ * @property {Boolean} isDialogBusy - Whether actions inside the dialog should be disabled.
+ * @property {Boolean} isDialogEditMode - Whether the dialog is in edit mode (true) or add new mode (false).
+ * @property {Boolean} isDialogOpen - Whether the dialog should be open.
+ * @property {Boolean} isLoading - Whether the page is loading.
+ */

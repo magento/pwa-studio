@@ -198,5 +198,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressCard.js`]: './src/components/CheckoutPage/AddressBook/addressCard.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js`]: './src/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/BillingAddress/billingAddress.module.css`]: './src/components/CheckoutPage/BillingAddress/billingAddress.module.css',
-    [`@magento/venia-ui/lib/components/CreateAccount/createAccount.js`]: './src/components/CreateAccount/createAccount.js'
+    [`@magento/venia-ui/lib/components/CreateAccount/createAccount.js`]: './src/components/CreateAccount/createAccount.js',
+    //05/10/2022
+    [`@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage.js`]: './src/talons/AddresBookPage/useAddressBookPage.js'
 };
