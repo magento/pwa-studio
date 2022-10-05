@@ -326,7 +326,7 @@
     "customerForm.defaultShipping": "Tornar morada predefinida",
     "customerForm.formMessage": "A morada de entrega que você inserir será guardada na sua lista de moradas e definido como padrão para compras futuras.",
     "customerForm.loading": "A procurar detalhes de cliente",
-    "deliveryDate.commentDate": "Data do Comentário",
+    "deliveryDate.commentDate": "Comentário",
     "deliveryDate.deliveryDate": "Data de Entrega",
     "deliveryDate.deliveryTime": "Tempo de entrega",
     "deliveryDate.houseSecurityCode": "Código de Segurança da Casa",

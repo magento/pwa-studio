@@ -326,7 +326,7 @@
     "customerForm.defaultShipping": "Marcar como dirección por defecto",
     "customerForm.formMessage": "La dirección de envío especificada se guardará en tu libreta de direcciones y será utilizada por defecto para futuras compras.",
     "customerForm.loading": "Recuperando los datos de cliente…",
-    "deliveryDate.commentDate": "Fecha del comentario",
+    "deliveryDate.commentDate": "Comentario",
     "deliveryDate.deliveryDate": "Fecha de entrega",
     "deliveryDate.deliveryTime": "Tiempo de entrega",
     "deliveryDate.houseSecurityCode": "Código de seguridad de la casa",

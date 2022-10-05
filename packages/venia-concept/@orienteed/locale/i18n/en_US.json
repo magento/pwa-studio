@@ -325,7 +325,7 @@
     "customerForm.defaultShipping": "Make this my default address",
     "customerForm.formMessage": "The shipping address you enter will be saved to your address book and set as your default for future purchases.",
     "customerForm.loading": "Fetching Customer Details...",
-    "deliveryDate.commentDate": "Comment Date",
+    "deliveryDate.commentDate": "Comment",
     "deliveryDate.deliveryDate": "Delivery Date",
     "deliveryDate.deliveryTime": "Delivery Time",
     "deliveryDate.houseSecurityCode": "House Security Code",

@@ -326,7 +326,7 @@
     "customerForm.defaultShipping": "Faites-en mon adresse par défaut",
     "customerForm.formMessage": "L'adresse de livraison que vous entrez sera enregistrée dans votre carnet d'adresses et définie par défaut pour vos futurs achats.",
     "customerForm.loading": "Récupération des détails du client ...",
-    "deliveryDate.commentDate": "Date du commentaire",
+    "deliveryDate.commentDate": "Commentaire",
     "deliveryDate.deliveryDate": "Date de livraison",
     "deliveryDate.deliveryTime": "Délai de livraison",
     "deliveryDate.houseSecurityCode": "Code de sécurité de la maison",
