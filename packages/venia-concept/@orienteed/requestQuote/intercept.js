@@ -1,6 +1,6 @@
 module.exports = targets => {
-    if (process.env.B2BSTORE_VERSION === 'PREMIUM') {
-        const { specialFeatures } = targets.of('@magento/pwa-buildpack');
+    const { specialFeatures } = targets.of('@magento/pwa-buildpack');
+    process.env.B2BSTORE_VERSION === 'PREMIUM' &&
         specialFeatures.tap(flags => {
             flags[targets.name] = {
                 esModules: true,
@@ -9,7 +9,8 @@ module.exports = targets => {
             };
         });
 
-        // Routes
+    // Routes
+    process.env.B2BSTORE_VERSION === 'PREMIUM' &&
         targets.of('@magento/venia-ui').routes.tap(routes => {
             routes.push(
                 {
@@ -30,5 +31,4 @@ module.exports = targets => {
             );
             return routes;
         });
-    }
 };
