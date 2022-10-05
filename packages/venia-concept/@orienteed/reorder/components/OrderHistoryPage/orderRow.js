@@ -24,29 +24,18 @@ import IncidencesIcon from './Icons/incidences.svg';
 const OrderRow = props => {
     const { order, config, address, setSuccessToast, setErrorToast } = props;
     const { formatMessage } = useIntl();
-    const {
-        invoices,
-        items,
-        number: orderNumber,
-        order_date: orderDate,
-        shipments,
-        status,
-        total
-    } = order;
+    const { invoices, items, number: orderNumber, order_date: orderDate, shipments, status, total } = order;
 
     const { grand_total: grandTotal } = total;
     const { currency, value: orderTotal } = grandTotal;
 
     // Convert date to ISO-8601 format so Safari can also parse it
     const isoFormattedDate = orderDate.replace(' ', 'T');
-    const formattedDate = new Date(isoFormattedDate).toLocaleDateString(
-        undefined,
-        {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        }
-    );
+    const formattedDate = new Date(isoFormattedDate).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
 
     const hasInvoice = !!invoices.length;
     const hasShipment = !!shipments.length;
@@ -97,123 +86,62 @@ const OrderRow = props => {
 
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
 
-    const collapsedImageGalleryElement = isOpen ? null : (
-        <CollapsedImageGallery items={imagesData} />
-    );
+    const collapsedImageGalleryElement = isOpen ? null : <CollapsedImageGallery items={imagesData} />;
 
     const orderDetails = loading ? null : (
-        <OrderDetails
-            address={address}
-            orderData={order}
-            imagesData={imagesData}
-        />
+        <OrderDetails config={config} address={address} orderData={order} imagesData={imagesData} />
     );
 
     const orderTotalPrice =
-        currency && orderTotal !== null ? (
-            <Price currencyCode={currency} value={orderTotal} />
-        ) : (
-            '-'
-        );
+        currency && orderTotal !== null ? <Price currencyCode={currency} value={orderTotal} /> : '-';
 
     const thumbnailProps = {
         alt: 'orderDetail',
         width: 75
     };
-    const thumbnailElement = image?.thumbnail ? (
-        <Image {...thumbnailProps} resource={image.thumbnail.url} />
-    ) : (
-        <></>
-    );
+    const thumbnailElement = image?.thumbnail ? <Image {...thumbnailProps} resource={image.thumbnail.url} /> : <></>;
     return (
         <li className={[classes.root, classes.reOrderRow].join(' ')}>
             <div className={classes.imageWrapper}>{thumbnailElement}</div>
-            <div
-                className={[
-                    classes.orderNumberContainer,
-                    classes.sideBorder
-                ].join(' ')}
-            >
+            <div className={[classes.orderNumberContainer, classes.sideBorder].join(' ')}>
                 <span className={classes.orderNumberLabel}>
-                    <FormattedMessage
-                        id={'orderRow.orderNumber'}
-                        defaultMessage={'Order number'}
-                    />
+                    <FormattedMessage id={'orderRow.orderNumber'} defaultMessage={'Order number'} />
                 </span>
                 <span className={classes.orderNumber}>{orderNumber}</span>
             </div>
-            <div
-                className={[
-                    classes.orderNumberContainer,
-                    classes.sideBorder
-                ].join(' ')}
-            >
+            <div className={[classes.orderNumberContainer, classes.sideBorder].join(' ')}>
                 <span className={classes.orderDateLabel}>
-                    <FormattedMessage
-                        id={'orderRow.orderDateText'}
-                        defaultMessage={'Order Date'}
-                    />
+                    <FormattedMessage id={'orderRow.orderDateText'} defaultMessage={'Order Date'} />
                 </span>
                 <span className={classes.orderDate}>{formattedDate}</span>
             </div>
             <div className={classes.orderNumberContainer}>
                 <span className={classes.orderTotalLabel}>
-                    <FormattedMessage
-                        id={'orderRow.orderTotalText'}
-                        defaultMessage={'Order Total'}
-                    />
+                    <FormattedMessage id={'orderRow.orderTotalText'} defaultMessage={'Order Total'} />
                 </span>
                 <div className={classes.orderTotal}>{orderTotalPrice}</div>
             </div>
 
-            <div
-                className={[
-                    classes.orderNumberContainer,
-                    classes.orderReOrderContainer
-                ].join(' ')}
-            >
-                <ReOrderBtn
-                    orderNumber={orderNumber}
-                    order={order}
-                    config={config}
-                />
+            <div className={[classes.orderNumberContainer, classes.orderReOrderContainer].join(' ')}>
+                <ReOrderBtn orderNumber={orderNumber} order={order} config={config} />
             </div>
 
-            <div
-                className={[
-                    classes.orderStatusContainer,
-                    classes.orderReStatusContainer
-                ].join(' ')}
-            >
-                <span className={classes.orderStatusBadge}>
-                    {derivedStatus}
-                </span>
+            <div className={[classes.orderStatusContainer, classes.orderReStatusContainer].join(' ')}>
+                <span className={classes.orderStatusBadge}>{derivedStatus}</span>
                 <OrderProgressBar status={derivedStatus} />
                 <Button
                     onClick={() => {
-                        openOrderIncidenceModal(
-                            orderNumber,
-                            formattedDate,
-                            orderTotalPrice,
-                            derivedStatus
-                        );
+                        openOrderIncidenceModal(orderNumber, formattedDate, orderTotalPrice, derivedStatus);
                     }}
                     type="button"
                     id={'orderIncidence' + orderNumber}
                     className={classes.orderInsurancesButton}
                 >
                     <img src={IncidencesIcon} alt="IncidencesIcon" />
-                    <FormattedMessage
-                        id={'orderRow.openIncident'}
-                        defaultMessage={'Open incident'}
-                    />
+                    <FormattedMessage id={'orderRow.openIncident'} defaultMessage={'Open incident'} />
                 </Button>
             </div>
-            <button
-                className={classes.contentToggleContainer}
-                onClick={handleContentToggle}
-                type="button"
-            >
+            <button className={classes.contentToggleContainer} onClick={handleContentToggle} type="button">
                 {contentToggleIcon}
             </button>
             <div className={contentClass}>{orderDetails}</div>
