@@ -19,7 +19,7 @@ import defaultClasses from '@magento/venia-ui/lib/components/OrderHistoryPage/Or
 const ConditionalWrapper = props => (props.condition ? props.children : null);
 
 const OrderDetails = props => {
-    const { classes: propClasses, imagesData, orderData, address } = props;
+    const { classes: propClasses, imagesData, orderData, address, config } = props;
     const {
         billing_address,
         items,
@@ -48,7 +48,11 @@ const OrderDetails = props => {
                 </div>
                 <div className={classes.shippingMethodContainer}>
                     <ConditionalWrapper condition={shipping_method}>
-                        <ShippingMethod data={shippingMethodData} mp_delivery_information={mp_delivery_information} />
+                        <ShippingMethod
+                            data={shippingMethodData}
+                            mp_delivery_information={mp_delivery_information}
+                            config={config}
+                        />
                     </ConditionalWrapper>
                 </div>
 

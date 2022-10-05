@@ -37,7 +37,7 @@ const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
-    const { deliveryDates, handleChange, submitDeliveryDate, deliveryDatesData } = useDeliveryDate({});
+    const { deliveryDates, handleChange, submitDeliveryDate, deliveryDatesData, local } = useDeliveryDate({});
 
     const talonProps = useCheckoutPage({ submitDeliveryDate, deliveryDatesData });
     const { noProduct } = useNoReorderProductContext();
@@ -126,7 +126,14 @@ const CheckoutPage = props => {
           });
 
     if (orderNumber && orderDetailsData) {
-        return <OrderConfirmationPage data={orderDetailsData} orderNumber={orderNumber} />;
+        return (
+            <OrderConfirmationPage
+                data={orderDetailsData}
+                orderNumber={orderNumber}
+                deliveryDatesData={deliveryDatesData}
+                local={local}
+            />
+        );
     } else if (isLoading) {
         return fullPageLoadingIndicator;
     } else if (isCartEmpty) {
@@ -347,11 +354,16 @@ const CheckoutPage = props => {
                 <div className={classes.shipping_method_container}>
                     <ScrollAnchor ref={shippingMethodRef}>{shippingMethodSection}</ScrollAnchor>
                 </div>
-                {checkoutStep < 4 && (
-                    <div className={classes.deliveryDatesContainer}>
-                        <DeliveryDates handleChange={handleChange} deliveryDates={deliveryDates} cartId={cartId} />
-                    </div>
-                )}
+                <div className={classes.deliveryDatesContainer}>
+                    <DeliveryDates
+                        local={local}
+                        handleChange={handleChange}
+                        deliveryDates={deliveryDates}
+                        cartId={cartId}
+                        checkoutStep={checkoutStep}
+                        deliveryDatesData={deliveryDatesData}
+                    />
+                </div>
 
                 <div className={classes.payment_information_container}>{paymentInformationSection}</div>
                 {priceAdjustmentsSection}

@@ -19,4 +19,14 @@ const SET_DELIVERY_TIME = gql`
         MpDeliveryTime(cart_id: $cart_id, mp_delivery_time: $mp_delivery_time)
     }
 `;
-export default { GET_DELIVERY_DATES, SET_DELIVERY_TIME };
+
+const GET_LOCALE = gql`
+    query getLocale {
+        storeConfig {
+            store_code
+            locale
+        }
+    }
+`;
+
+export default { GET_DELIVERY_DATES, SET_DELIVERY_TIME ,GET_LOCALE};

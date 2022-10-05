@@ -9,28 +9,22 @@ import CreateAccount from '@magento/venia-ui/lib/components/CheckoutPage/OrderCo
 import ItemsReview from '@magento/venia-ui/lib/components/CheckoutPage/ItemsReview';
 import defaultClasses from '@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.module.css';
 
+import moment from 'moment';
 const OrderConfirmationPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { data, orderNumber } = props;
+    const { data, orderNumber, deliveryDatesData, local } = props;
     const { formatMessage } = useIntl();
 
     const talonProps = useOrderConfirmationPage({
         data
     });
 
+    moment.locale(local);
+    const formatDeliveryDate = moment(new Date(deliveryDatesData?.mp_delivery_date)).format('L');
+    
     const { flatData, isSignedIn } = talonProps;
 
-    const {
-        city,
-        country,
-        email,
-        firstname,
-        lastname,
-        postcode,
-        region,
-        shippingMethod,
-        street
-    } = flatData;
+    const { city, country, email, firstname, lastname, postcode, region, shippingMethod, street } = flatData;
 
     const streetRows = street.map((row, index) => {
         return (
@@ -52,12 +46,13 @@ const OrderConfirmationPage = props => {
         }
     }, []);
 
+    const delveryTime = deliveryDatesData?.mp_delivery_time
+        ?.split('-')
+        ?.map(ele => ele.trim().slice(0, 5))
+        .join('-');
+
     const createAccountForm = !isSignedIn ? (
-        <CreateAccount
-            firstname={firstname}
-            lastname={lastname}
-            email={email}
-        />
+        <CreateAccount firstname={firstname} lastname={lastname} email={email} />
     ) : null;
 
     const nameString = `${firstname}`;
@@ -72,59 +67,81 @@ const OrderConfirmationPage = props => {
                 })}
             </StoreTitle>
             <div className={classes.mainContainer}>
-                <h2
-                    data-cy="OrderConfirmationPage-header"
-                    className={classes.heading}
-                >
-                    <FormattedMessage
-                        id={'checkoutPage.thankYou'}
-                        defaultMessage={'Thank you for your order!'}
-                    />
+                <h2 data-cy="OrderConfirmationPage-header" className={classes.heading}>
+                    <FormattedMessage id={'checkoutPage.thankYou'} defaultMessage={'Thank you for your order!'} />
                 </h2>
-                <div
-                    data-cy="OrderConfirmationPage-orderNumber"
-                    className={classes.orderNumber}
-                >
+                <div data-cy="OrderConfirmationPage-orderNumber" className={classes.orderNumber}>
                     <FormattedMessage
                         id={'checkoutPage.orderNumber'}
                         defaultMessage={'Order Number: {orderNumber}'}
                         values={{ orderNumber }}
                     />
                 </div>
-                <div
-                    data-cy="OrderConfirmationPage-shippingInfoHeading"
-                    className={classes.shippingInfoHeading}
-                >
-                    <FormattedMessage
-                        id={'global.shippingInformation'}
-                        defaultMessage={'Shipping Information'}
-                    />
+                <div data-cy="OrderConfirmationPage-shippingInfoHeading" className={classes.shippingInfoHeading}>
+                    <FormattedMessage id={'global.shippingInformation'} defaultMessage={'Shipping Information'} />
                 </div>
                 <div className={classes.shippingInfo}>
                     <span className={classes.email}>{email}</span>
                     <span className={classes.name}>{nameString}</span>
                     {streetRows}
-                    <span className={classes.addressAdditional}>
-                        {additionalAddressString}
-                    </span>
+                    <span className={classes.addressAdditional}>{additionalAddressString}</span>
                 </div>
-                <div
-                    data-cy="OrderConfirmationPage-shippingMethodHeading"
-                    className={classes.shippingMethodHeading}
-                >
-                    <FormattedMessage
-                        id={'global.shippingMethod'}
-                        defaultMessage={'Shipping Method'}
-                    />
+                <div data-cy="OrderConfirmationPage-shippingMethodHeading" className={classes.shippingMethodHeading}>
+                    <FormattedMessage id={'global.shippingMethod'} defaultMessage={'Shipping Method'} />
                 </div>
                 <div className={classes.shippingMethod}>{shippingMethod}</div>
+                {Object.keys(deliveryDatesData).every(ele => deliveryDatesData[ele] !== '') && (
+                    <div
+                        data-cy="OrderConfirmationPage-shippingMethodHeading"
+                        className={classes.shippingMethodHeading}
+                    >
+                        <FormattedMessage id={'deliveryDate.deliveryDate'} defaultMessage={'Delivery Date'} />
+                    </div>
+                )}
+                <div>
+                    {deliveryDatesData.mp_delivery_date !== '' && (
+                        <div>
+                            <span>
+                                <FormattedMessage id={'deliveryDate.deliveryDate'} defaultMessage={'Delivery Date'} />:
+                                &nbsp;
+                            </span>
+                            <span>{formatDeliveryDate}</span>
+                        </div>
+                    )}
+                    {deliveryDatesData.mp_delivery_time !== '' && (
+                        <div>
+                            <span>
+                                <FormattedMessage id={'deliveryDate.deliveryTime'} defaultMessage={'Delivery Time'} />:
+                                &nbsp;
+                            </span>
+                            <span>{delveryTime}</span>
+                        </div>
+                    )}
+                    {deliveryDatesData.mp_house_security_code !== '' && (
+                        <div>
+                            <span>
+                                <FormattedMessage
+                                    id={'deliveryDate.houseSecurityCode'}
+                                    defaultMessage={'House Security Code'}
+                                />
+                                : &nbsp;
+                            </span>
+                            <span>{deliveryDatesData.mp_house_security_code}</span>
+                        </div>
+                    )}
+                    {deliveryDatesData.mp_delivery_comment !== '' && (
+                        <div>
+                            <span>
+                                <FormattedMessage id={'deliveryDate.commentDate'} defaultMessage={'Comment'} />: &nbsp;
+                            </span>
+                            <span>{deliveryDatesData.mp_delivery_comment}</span>
+                        </div>
+                    )}
+                </div>
                 <div className={classes.itemsReview}>
                     <ItemsReview data={data} />
                 </div>
-                <div
-                    data-cy="OrderConfirmationPage-additionalText"
-                    className={classes.additionalText}
-                >
+                <div data-cy="OrderConfirmationPage-additionalText" className={classes.additionalText}>
                     <FormattedMessage
                         id={'checkoutPage.additionalText'}
                         defaultMessage={

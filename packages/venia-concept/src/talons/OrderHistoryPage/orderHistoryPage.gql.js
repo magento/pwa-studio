@@ -121,11 +121,12 @@ export const GET_STORE_CONFIG_DATA = gql`
             store_code
             store_name
             store_group_name
+            locale
         }
     }
 `;
 
 export default {
     getCustomerOrdersQuery: GET_CUSTOMER_ORDERS,
-    getStoreConfigData: GET_STORE_CONFIG_DATA
+    getStoreConfigData: GET_STORE_CONFIG_DATA,
 };

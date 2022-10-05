@@ -4,14 +4,26 @@ import { FormattedMessage } from 'react-intl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
+import moment from 'moment';
+
 import defaultClasses from './shippingMethod.module.css';
 
 const ShippingMethod = props => {
-    const { data, mp_delivery_information, classes: propsClasses } = props;
+    const { data, mp_delivery_information, classes: propsClasses, config } = props;
     const { shipments, shippingMethod } = data;
+    const { storeConfig } = config;
+
+    moment.locale(storeConfig.locale);
+
     const classes = useStyle(defaultClasses, propsClasses);
     let trackingElement;
     const method = shippingMethod.split('-');
+    const formatDeliveryDate = moment(new Date(mp_delivery_information?.mp_delivery_date)).format('L');
+
+    const delveryTime = mp_delivery_information?.mp_delivery_time
+        ?.split('-')
+        ?.map(ele => ele.trim().slice(0, 5))
+        .join('-');
 
     if (shipments.length) {
         trackingElement = shipments.map(shipment => {
@@ -61,7 +73,7 @@ const ShippingMethod = props => {
                                 <FormattedMessage id={'deliveryDate.deliveryDate'} defaultMessage={'Delivery Date'} />:
                             </span>
                             &nbsp;
-                            <span>{mp_delivery_information.mp_delivery_date}</span>
+                            <span>{formatDeliveryDate}</span>
                         </div>
                     )}
                     {mp_delivery_information.mp_delivery_time !== '' && (
@@ -70,7 +82,7 @@ const ShippingMethod = props => {
                                 <FormattedMessage id={'deliveryDate.deliveryTime'} defaultMessage={'Delivery Time'} />:
                             </span>
                             &nbsp;
-                            <span>{mp_delivery_information.mp_delivery_time}</span>
+                            <span>{delveryTime}</span>
                         </div>
                     )}
                     {mp_delivery_information.mp_house_security_code !== '' && (

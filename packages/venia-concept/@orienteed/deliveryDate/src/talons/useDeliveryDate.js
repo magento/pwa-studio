@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { useReducer } from 'react';
+import { useReducer, useMemo } from 'react';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import DEFAULT_OPERATIONS from '../graphql/deliveryDate.gql';
@@ -33,9 +33,17 @@ export const useDeliveryDate = props => {
         dispatch({ type: name, value });
     };
 
+    const { GET_DELIVERY_DATES, SET_DELIVERY_TIME, GET_LOCALE } = operations;
+
+    const { data } = useQuery(GET_LOCALE, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+    const local = useMemo(() => {
+        return data && data.storeConfig.locale;
+    }, [data]);
     const [{ cartId }] = useCartContext();
 
-    const { GET_DELIVERY_DATES, SET_DELIVERY_TIME } = operations;
     const { data: deliveryDates } = useQuery(GET_DELIVERY_DATES);
     const [deliverytime, { error: deliveryTimeError, loading, data: setDeliveryTimeData }] = useMutation(
         SET_DELIVERY_TIME
@@ -49,5 +57,5 @@ export const useDeliveryDate = props => {
         });
     };
 
-    return { deliveryDates, submitDeliveryDate, deliveryDatesData: state, handleChange };
+    return { deliveryDates, submitDeliveryDate, deliveryDatesData: state, handleChange, local };
 };
