@@ -12,68 +12,9 @@ export const useAccountMenuItems = props => {
     const { onSignOut } = props;
 
     const handleSignOut = useCallback(() => {
-        doCsrLogout();
+        process.env.CSR_ENABLED === 'true' && doCsrLogout();
         onSignOut();
     }, [onSignOut]);
-
-    const MENU_ITEMS_PREMIUM = [
-        {
-            name: 'Account Information',
-            id: 'accountMenu.accountInfoLink',
-            url: '/account-information'
-        },
-        {
-            name: 'Address Book',
-            id: 'accountMenu.addressBookLink',
-            url: '/address-book'
-        },
-        {
-            name: 'Buy Later Notes',
-            id: 'accountMenu.buyLaterNotes',
-            url: '/mpsavecart'
-        },
-        {
-            name: 'Order History',
-            id: 'accountMenu.orderHistoryLink',
-            url: '/order-history'
-        },
-        {
-            name: 'My Quotes',
-            id: 'accountMenu.myQuotes',
-            url: '/mprequestforquote/customer/quotes'
-        },
-        {
-            name: 'Favorites Lists',
-            id: 'accountMenu.favoritesListsLink',
-            url: '/wishlist'
-        },
-        {
-            name: 'Support',
-            id: 'accountMenu.supportLink',
-            url: '/support'
-        },
-        {
-            name: 'Learning',
-            id: 'accountMenu.learningLink',
-            url: '/learning'
-        }
-        // Hide links until features are completed
-        // {
-        //     name: 'Store Credit & Gift Cards',
-        //     id: 'accountMenu.storeCreditLink',
-        //     url: ''
-        // },
-        // {
-        //     name: 'Saved Payments',
-        //     id: 'accountMenu.savedPaymentsLink',
-        //     url: '/saved-payments'
-        // },
-        // {
-        //     name: 'Communications',
-        //     id: 'accountMenu.communicationsLink',
-        //     url: '/communications'
-        // },
-    ];
 
     const MENU_ITEMS_BASIC = [
         {
@@ -87,7 +28,30 @@ export const useAccountMenuItems = props => {
             url: '/address-book'
         },
         {
-            name: 'Buy Later Notes',
+            name: 'Order History',
+            id: 'accountMenu.orderHistoryLink',
+            url: '/order-history'
+        },
+        {
+            name: 'Favorites Lists',
+            id: 'accountMenu.favoritesListsLink',
+            url: '/wishlist'
+        }
+    ];
+
+    const MENU_ITEMS_PREMIUM = [
+        {
+            name: 'Account Information',
+            id: 'accountMenu.accountInfoLink',
+            url: '/account-information'
+        },
+        {
+            name: 'Address Book',
+            id: 'accountMenu.addressBookLink',
+            url: '/address-book'
+        },
+        {
+            name: 'Saved carts',
             id: 'accountMenu.buyLaterNotes',
             url: '/mpsavecart'
         },
@@ -97,24 +61,56 @@ export const useAccountMenuItems = props => {
             url: '/order-history'
         },
         {
+            name: 'Offers',
+            id: 'accountMenu.myQuotes',
+            url: '/mprequestforquote/customer/quotes'
+        },
+        {
             name: 'Favorites Lists',
             id: 'accountMenu.favoritesListsLink',
             url: '/wishlist'
-        },
-        {
+        }
+    ];
+
+    if (process.env.CSR_ENABLED === 'true') {
+        const csrItem = {
             name: 'Support',
             id: 'accountMenu.supportLink',
             url: '/support'
-        },
-        {
+        };
+        MENU_ITEMS_BASIC.push(csrItem);
+        MENU_ITEMS_PREMIUM.push(csrItem);
+    }
+
+    if (process.env.LMS_ENABLED === 'true') {
+        const lmsItem = {
             name: 'Learning',
             id: 'accountMenu.learningLink',
             url: '/learning'
-        }
-    ];
+        };
+        MENU_ITEMS_BASIC.push(lmsItem);
+        MENU_ITEMS_PREMIUM.push(lmsItem);
+    }
 
     return {
         handleSignOut,
         menuItems: process.env.B2BSTORE_VERSION === 'BASIC' ? MENU_ITEMS_BASIC : MENU_ITEMS_PREMIUM
     };
 };
+
+// Hide links until features are completed
+// {
+//     name: 'Store Credit & Gift Cards',
+//     id: 'accountMenu.storeCreditLink',
+//     url: ''
+// },
+// {
+//     name: 'Saved Payments',
+//     id: 'accountMenu.savedPaymentsLink',
+//     url: '/saved-payments'
+// },
+// {
+//     name: 'Communications',
+//     id: 'accountMenu.communicationsLink',
+//     url: '/communications'
+// },
