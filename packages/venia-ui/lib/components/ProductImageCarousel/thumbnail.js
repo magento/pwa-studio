@@ -38,8 +38,8 @@ const Thumbnail = props => {
         itemIndex
     });
 
-    const { handleClick } = talonProps; 
-    const selectedItem=isActive?"Current Image":"Next Image";
+    const { handleClick } = talonProps;
+    const selectedItem = isActive ? 'Current Image' : 'Next Image';
     const windowSize = useWindowSize();
     const isDesktop = windowSize.innerWidth >= 1024;
 
@@ -64,7 +64,7 @@ const Thumbnail = props => {
             />
         );
     }, [file, isDesktop, label, classes.image]);
-    
+
     return (
         <button
             className={isActive ? classes.rootSelected : classes.root}

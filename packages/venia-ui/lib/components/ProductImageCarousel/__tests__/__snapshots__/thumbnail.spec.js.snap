@@ -2,10 +2,9 @@
 
 exports[`renders root class if not the active Thumbnail 1`] = `
 <button
-  aria-hidden="true"
+  aria-label="Next Image"
   className="root"
   onClick={[Function]}
-  role="button"
 >
   <div
     className="root container"
@@ -55,10 +54,9 @@ exports[`renders root class if not the active Thumbnail 1`] = `
 
 exports[`renders the Thumbnail component correctly 1`] = `
 <button
-  aria-hidden="true"
+  aria-label="Current Image"
   className="rootSelected"
   onClick={[Function]}
-  role="button"
 >
   <div
     className="root container"
@@ -108,10 +106,9 @@ exports[`renders the Thumbnail component correctly 1`] = `
 
 exports[`renders transparent placeholder when no file name is provided 1`] = `
 <button
-  aria-hidden="true"
+  aria-label="Current Image"
   className="rootSelected"
   onClick={[Function]}
-  role="button"
 >
   <div
     className="root container"
