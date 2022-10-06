@@ -1,9 +1,9 @@
 module.exports = targets => {
     const builtins = targets.of('@magento/pwa-buildpack');
-    process.env.B2BSTORE_VERSION === 'PREMIUM' &&
-        builtins.specialFeatures.tap(features => {
-            features[targets.name] = { esModules: true, cssModules: true };
-        });
+
+    builtins.specialFeatures.tap(features => {
+        features[targets.name] = { esModules: true, cssModules: true };
+    });
 
     process.env.B2BSTORE_VERSION === 'PREMIUM' &&
         targets.of('@magento/venia-ui').routes.tap(routes => {

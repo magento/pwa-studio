@@ -1,15 +1,14 @@
 module.exports = targets => {
     const builtins = targets.of('@magento/pwa-buildpack');
 
-    process.env.LMS_ENABLED === 'true' &&
-        builtins.specialFeatures.tap(features => {
-            features[targets.name] = {
-                esModules: true,
-                cssModules: true,
-                i18n: true,
-                graphqlQueries: true
-            };
-        });
+    builtins.specialFeatures.tap(features => {
+        features[targets.name] = {
+            esModules: true,
+            cssModules: true,
+            i18n: true,
+            graphqlQueries: true
+        };
+    });
 
     process.env.LMS_ENABLED === 'true' &&
         targets.of('@magento/venia-ui').routes.tap(routes => {

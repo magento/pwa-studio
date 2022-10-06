@@ -1,13 +1,13 @@
 module.exports = targets => {
     const { specialFeatures } = targets.of('@magento/pwa-buildpack');
-    process.env.B2BSTORE_VERSION === 'PREMIUM' &&
-        specialFeatures.tap(flags => {
-            flags[targets.name] = {
-                esModules: true,
-                cssModules: true,
-                graphqlQueries: true
-            };
-        });
+
+    specialFeatures.tap(flags => {
+        flags[targets.name] = {
+            esModules: true,
+            cssModules: true,
+            graphqlQueries: true
+        };
+    });
 
     // Routes
     process.env.B2BSTORE_VERSION === 'PREMIUM' &&
