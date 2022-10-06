@@ -3,6 +3,13 @@ import { gql } from '@apollo/client';
 const CustomerOrdersFragment = gql`
     fragment CustomerOrdersFragment on CustomerOrders {
         items {
+            mp_delivery_information {
+                mp_delivery_comment
+                mp_delivery_date
+                mp_delivery_time
+                mp_house_security_code
+                __typename
+            }
             store_id
             billing_address {
                 city
@@ -114,11 +121,12 @@ export const GET_STORE_CONFIG_DATA = gql`
             store_code
             store_name
             store_group_name
+            locale
         }
     }
 `;
 
 export default {
     getCustomerOrdersQuery: GET_CUSTOMER_ORDERS,
-    getStoreConfigData: GET_STORE_CONFIG_DATA
+    getStoreConfigData: GET_STORE_CONFIG_DATA,
 };

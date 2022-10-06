@@ -29,12 +29,17 @@ import defaultClasses from '@magento/venia-ui/lib/components/CheckoutPage/checko
 import ScrollAnchor from '@magento/venia-ui/lib/components/ScrollAnchor/scrollAnchor';
 import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
+import DeliveryDates from '@orienteed/deliveryDate/src/components/DeliveryDatesForm/deliveryDatesForm';
+import { useDeliveryDate } from '@orienteed/deliveryDate/src/talons/useDeliveryDate';
+
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
-    const talonProps = useCheckoutPage();
+    const { deliveryDates, handleChange, submitDeliveryDate, deliveryDatesData, local } = useDeliveryDate({});
+
+    const talonProps = useCheckoutPage({ submitDeliveryDate, deliveryDatesData });
     const { noProduct } = useNoReorderProductContext();
 
     const {
@@ -75,9 +80,9 @@ const CheckoutPage = props => {
         reviewOrderButtonClicked,
         recaptchaWidgetProps,
         toggleAddressBookContent,
-        toggleSignInContent
+        toggleSignInContent,
+        cartId
     } = talonProps;
-
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
@@ -121,7 +126,14 @@ const CheckoutPage = props => {
           });
 
     if (orderNumber && orderDetailsData) {
-        return <OrderConfirmationPage data={orderDetailsData} orderNumber={orderNumber} />;
+        return (
+            <OrderConfirmationPage
+                data={orderDetailsData}
+                orderNumber={orderNumber}
+                deliveryDatesData={deliveryDatesData}
+                local={local}
+            />
+        );
     } else if (isLoading) {
         return fullPageLoadingIndicator;
     } else if (isCartEmpty) {
@@ -342,6 +354,17 @@ const CheckoutPage = props => {
                 <div className={classes.shipping_method_container}>
                     <ScrollAnchor ref={shippingMethodRef}>{shippingMethodSection}</ScrollAnchor>
                 </div>
+                <div className={classes.deliveryDatesContainer}>
+                    <DeliveryDates
+                        local={local}
+                        handleChange={handleChange}
+                        deliveryDates={deliveryDates}
+                        cartId={cartId}
+                        checkoutStep={checkoutStep}
+                        deliveryDatesData={deliveryDatesData}
+                    />
+                </div>
+
                 <div className={classes.payment_information_container}>{paymentInformationSection}</div>
                 {priceAdjustmentsSection}
                 {reviewOrderButton}

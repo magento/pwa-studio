@@ -50,6 +50,7 @@
         "@orienteed/reorder": "link:./@orienteed/reorder",
         "@orienteed/requestQuote": "link:./@orienteed/requestQuote",
         "@orienteed/csr": "link:./@orienteed/csr",
+        "@orienteed/deliveryDate": "link:./@orienteed/deliveryDate",
         "use-copy": "0.0.2"
     },
     "devDependencies": {
@@ -146,7 +147,8 @@
         "workbox-strategies": "~6.2.4",
         "workbox-webpack-plugin": "~6.2.4",
         "react-ga": "~3.3.0",
-        "react-cookie-consent":"~8.0.1"
+        "react-cookie-consent":"~8.0.1",
+        "react-datepicker":"~4.8.0"
     },
     "optionalDependencies": {
         "sharp": "~0.29.3"
