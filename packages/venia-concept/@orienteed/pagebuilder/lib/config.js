@@ -117,13 +117,15 @@ const contentTypesConfig = {
         configAggregator: bannerConfigAggregator,
         component: React.lazy(() => import('@magento/pagebuilder/lib/ContentTypes/Banner')),
         componentShimmer: BannerShimmer
-    },
-    // We refer here to the name that is used in the Magento backend
-    pagebuilder_lms: {
-        configAggregator: courseSliderConfigAggregator,
-        component: React.lazy(() => import('@orienteed/pagebuilder/lib/ContentTypes/CourseSlider'))
     }
 };
+
+if (process.env.LMS_ENABLED === 'true') {
+    contentTypesConfig['pagebuilder_lms'] = {
+        configAggregator: courseSliderConfigAggregator,
+        component: React.lazy(() => import('@orienteed/pagebuilder/lib/ContentTypes/CourseSlider'))
+    };
+}
 
 /**
  * Retrieve a content types configuration

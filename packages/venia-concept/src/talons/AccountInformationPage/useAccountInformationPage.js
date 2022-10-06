@@ -214,7 +214,7 @@ export const useAccountInformationPage = props => {
                             }
                         }
                     });
-                    modifyCustomer(firstname, '', email);
+                    process.env.CSR_ENABLED === 'true' && modifyCustomer(firstname, '', email);
                 }
                 if (password && newPassword) {
                     const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
