@@ -5,7 +5,10 @@ exports[`it renders AccountMenuItems when the user is signed in 1`] = `
   className="root_open"
 >
   <div
+    aria-live="polite"
+    aria-modal="true"
     className="contents_open"
+    role="dialog"
   >
     <mock-AccountMenuItems
       onSignOut={[MockFunction]}
@@ -19,7 +22,10 @@ exports[`it renders SignIn component when the view is SIGNIN 1`] = `
   className="root_open"
 >
   <div
+    aria-live="polite"
+    aria-modal="true"
     className="contents_open"
+    role="dialog"
   >
     <mock-SignIn
       classes={
@@ -40,7 +46,10 @@ exports[`it renders create account component when the view is CREATE_ACCOUNT 1`]
   className="root_open"
 >
   <div
+    aria-live="polite"
+    aria-modal="true"
     className="contents_open"
+    role="dialog"
   >
     <mock-CreateAccount
       classes={
@@ -64,7 +73,10 @@ exports[`it renders empty aside element when accountMenuIsOpen is false 1`] = `
   className="root"
 >
   <div
+    aria-live="polite"
+    aria-modal="true"
     className="contents"
+    role="dialog"
   />
 </aside>
 `;
@@ -74,7 +86,10 @@ exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1
   className="root_open"
 >
   <div
+    aria-live="polite"
+    aria-modal="true"
     className="contents_open"
+    role="dialog"
   >
     <mock-ForgotPassword
       initialValues={
