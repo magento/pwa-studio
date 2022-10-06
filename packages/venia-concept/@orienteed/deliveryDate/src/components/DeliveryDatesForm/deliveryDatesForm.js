@@ -52,6 +52,11 @@ const DeliveryDatesForm = props => {
         const dateFormat = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
         handleChange('mp_delivery_date', dateFormat);
     };
+
+    const formatDelviryTime = deliveryDatesData?.mp_delivery_time
+        ?.split('-')
+        ?.map(ele => ele.trim().slice(0, 5))
+        .join(' - ');
     return (
         <div className={classes.root}>
             <h5 className={classes.heading}>
@@ -68,7 +73,7 @@ const DeliveryDatesForm = props => {
                                 selected={date}
                                 filterDate={isWeekday}
                                 onChange={handleDateChange}
-                                locale="pt-BR"
+                                locale={local}
                                 dateFormat={moment(date).format('L')}
                                 dayClassName={disabledDates}
                                 minDate={new Date()}
@@ -147,7 +152,7 @@ const DeliveryDatesForm = props => {
                                 <FormattedMessage id={'deliveryDate.deliveryTime'} defaultMessage={'Delivery Time'} />:
                                 &nbsp;
                             </span>
-                            <span>{deliveryDatesData.mp_delivery_time}</span>
+                            <span>{formatDelviryTime}</span>
                         </div>
                     )}
                     {deliveryDatesData.mp_house_security_code !== '' && (
