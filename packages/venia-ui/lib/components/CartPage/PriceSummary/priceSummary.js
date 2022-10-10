@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
@@ -10,7 +10,7 @@ import GiftCardSummary from './giftCardSummary';
 import GiftOptionsSummary from './giftOptionsSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
-import { useCallback } from 'react';
+
 /**
  * A child component of the CartPage component.
  * This component fetches and renders cart data, such as subtotal, discounts applied,
@@ -40,6 +40,14 @@ const PriceSummary = props => {
         flatData
     } = talonProps;
     const { formatMessage } = useIntl();
+
+    const handleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleProceedToCheckout();
+            }
+        };
+    }, [handleProceedToCheckout]);
 
     if (hasError) {
         return (
@@ -83,14 +91,6 @@ const PriceSummary = props => {
               id: 'priceSummary.estimatedTotal',
               defaultMessage: 'Estimated Total'
           });
-    
-        const handleEnterKeyPress = useCallback(
-            event => {
-                if (event.key === 'Enter') {
-                    handleProceedToCheckout();
-                }
-            },
-        );
 
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
