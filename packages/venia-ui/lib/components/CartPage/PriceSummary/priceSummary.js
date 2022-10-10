@@ -10,7 +10,7 @@ import GiftCardSummary from './giftCardSummary';
 import GiftOptionsSummary from './giftOptionsSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
-
+import { useCallback } from 'react';
 /**
  * A child component of the CartPage component.
  * This component fetches and renders cart data, such as subtotal, discounts applied,
@@ -83,6 +83,14 @@ const PriceSummary = props => {
               id: 'priceSummary.estimatedTotal',
               defaultMessage: 'Estimated Total'
           });
+    
+        const handleEnterKeyPress = useCallback(
+            event => {
+                if (event.key === 'Enter') {
+                    handleProceedToCheckout();
+                }
+            },
+        );
 
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
@@ -90,6 +98,7 @@ const PriceSummary = props => {
                 disabled={isPriceUpdating}
                 priority={'high'}
                 onClick={handleProceedToCheckout}
+                onKeyDown={handleEnterKeyPress}
                 data-cy="PriceSummary-checkoutButton"
             >
                 <FormattedMessage
