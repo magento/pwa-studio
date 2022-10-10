@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-theme-venia",
-  "version": "1.3.0",
+  "version": "1.4.0-alpha.1",
   "publishConfig": {
     "access": "public"
   },
