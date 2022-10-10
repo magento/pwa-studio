@@ -1,4 +1,4 @@
-import { React, useCallback } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
@@ -33,6 +33,7 @@ const PriceSummary = props => {
 
     const {
         handleProceedToCheckout,
+        handleEnterKeyPress,
         hasError,
         hasItems,
         isCheckout,
@@ -40,14 +41,6 @@ const PriceSummary = props => {
         flatData
     } = talonProps;
     const { formatMessage } = useIntl();
-
-    const handleEnterKeyPress = useCallback(() => {
-        event => {
-            if (event.key === 'Enter') {
-                handleProceedToCheckout();
-            }
-        };
-    }, [handleProceedToCheckout]);
 
     if (hasError) {
         return (
