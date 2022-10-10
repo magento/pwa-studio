@@ -62,8 +62,6 @@ exports[`renders a placeholder item while awaiting item 1`] = `
 
 exports[`renders correctly with valid item data 1`] = `
 <div
-  aria-busy="false"
-  aria-live="polite"
   className="root"
 >
   <a
