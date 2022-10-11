@@ -20,3 +20,13 @@
 .last_name {
     display: none;
 }
+
+.heading {
+    font-weight: 600 !important;
+    margin-bottom: 0.8rem;
+}
+
+.formContainer > div div label {
+    font-size: 1rem;
+    font-weight: 500;
+}
