@@ -9,26 +9,38 @@ import defaultClasses from './billingInformation.module.css';
 
 const BillingInformation = props => {
     const { data, total, classes: propsClasses } = props;
+    const { city, country_code, firstname, lastname, postcode, region, street, telephone } = data;
     const classes = useStyle(defaultClasses, propsClasses);
 
+    const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
+    const fullName = `${firstname} ${lastname}`;
+    
+    const streetRows = street.map((row, index) => {
+        return (
+            <span className={classes.streetRow} key={index}>
+                {row}, &nbsp;
+            </span>
+        );
+    });
+
     return (
-        <div
-            className={classes.root}
-            data-cy="OrderDetails-BillingInformation-root"
-        >
+        <div className={classes.root} data-cy="OrderDetails-BillingInformation-root">
             <div className={classes.heading}>
-                <FormattedMessage
-                    id="orderDetails.TotalPrice"
-                    defaultMessage="Total price"
-                />
+                <FormattedMessage id={'billingAddress.label'} defaultMessage={'Billing Address'} />
             </div>
             <div className={classes.billingData}>
-                <span>
-                    <Price
-                        value={total?.grand_total.value}
-                        currencyCode={total?.grand_total.currency}
-                    />
-                </span>
+                <div>
+                    <span className={classes.name}>{fullName}</span>
+                    <span className={classes.name}>
+                        <FormattedMessage id={'createAccountNonCustomer.phone'} defaultMessage={'Phone'} />
+                        {telephone}
+                    </span>
+                </div>
+                
+                <div>
+                    {streetRows}
+                    <div className={classes.additionalAddress}>{additionalAddressString}</div>
+                </div>
             </div>
         </div>
     );
