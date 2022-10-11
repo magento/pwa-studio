@@ -167,7 +167,6 @@ const ProductSort = props => {
             ref={elementRef}
             className={classes.root}
             data-cy="ProductSort-root"
-            aria-live="polite"
             aria-busy="false"
         >
             <Button
