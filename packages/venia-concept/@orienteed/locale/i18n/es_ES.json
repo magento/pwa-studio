@@ -49,6 +49,7 @@
     "autocomplete.prompt": "Buscar un producto.",
     "autocomplete.resultSummary": "{resultCount} artículos",
     "availableCredit.availableCreditText": "Crédito disponible",
+    "billingAddress.label":"Dirección de facturación",
     "billingAddress.somethingWentWrongTryAnotherState": "Algo salió mal, intente en otro estado",
     "buyLaterNotesPage.emptyDataMessage": "Todavía no tienes ningún carrito guardado.",
     "buyLaterNotesPage.pageTitleText": "Carritos Guardados",
