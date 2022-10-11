@@ -6,6 +6,7 @@ exports[`renders correctly 1`] = `
   aria-live="polite"
 >
   <button
+    aria-label="Sort Button Collapsed"
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
