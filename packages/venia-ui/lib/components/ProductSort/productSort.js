@@ -156,12 +156,14 @@ const ProductSort = props => {
     const handleSortClick = () => {
         setExpanded(!expanded);
     };
- 
-    const handleKeypress= e =>{
 
-    }
+    const handleKeypress = e => {
+        if (e.code == 'Enter') {
+            setExpanded(expanded);
+        }
+    };
 
-    const result = expanded?"Sort Button Expanded":"Sort Button Collapsed";
+    const result = expanded ? 'Sort Button Expanded' : 'Sort Button Collapsed';
     return (
         <div
             ref={elementRef}

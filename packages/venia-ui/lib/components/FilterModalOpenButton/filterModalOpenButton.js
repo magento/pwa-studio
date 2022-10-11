@@ -11,9 +11,11 @@ const FilterModalOpenButton = props => {
     const classes = useStyle(defaultClasses, propsClasses);
     const { handleOpen } = useFilterModal({ filters });
 
-    const handleKeypress= e =>{
-
-    }
+    const handleKeypress = e => {
+        if (e.code == 'Enter') {
+            handleOpen;
+        }
+    };
 
     return (
         <Button
