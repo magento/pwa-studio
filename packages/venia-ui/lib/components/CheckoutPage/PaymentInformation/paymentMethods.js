@@ -28,6 +28,7 @@ const PaymentMethods = props => {
     const {
         availablePaymentMethods,
         currentSelectedPaymentMethod,
+        handlePaymentMethodSelection,
         initialSelectedMethod,
         isLoading
     } = talonProps;
@@ -65,6 +66,7 @@ const PaymentMethods = props => {
                             label: classes.radio_label
                         }}
                         checked={isSelected}
+                        onChange={handlePaymentMethodSelection}
                     />
                     {renderedComponent}
                 </div>
