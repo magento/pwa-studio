@@ -6,7 +6,7 @@ import { useStyle } from '../../classify';
 import defaultClasses from './categoryBranch.module.css';
 
 const Branch = props => {
-    const { category, setCategoryId, tabindex } = props;
+    const { category, setCategoryId, tabIndex } = props;
     const { name } = category;
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -20,7 +20,7 @@ const Branch = props => {
     return (
         <li className={classes.root}>
             <button
-                tabindex={tabindex}
+                tabIndex={tabIndex}
                 className={classes.target}
                 data-cy="CategoryTree-Branch-target"
                 type="button"
@@ -46,5 +46,5 @@ Branch.propTypes = {
         text: string
     }),
     setCategoryId: func.isRequired,
-    tabindex: func.isRequired
+    tabIndex: func.isRequired
 };
