@@ -20,21 +20,16 @@ export const useCustomerCreditSystem = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const { onPaymentSuccess, resetShouldSubmit, shouldSubmit, onPaymentError } = props;
+    const { onPaymentSuccess, resetShouldSubmit, shouldSubmit, onPaymentError, paymentMethodMutationData } = props;
 
     const [, { addToast }] = useToasts();
 
     const [checkoutData, setCheckoutData] = useState({});
 
-    const [
-        updatePaymentMethod,
-        {
-            error: paymentMethodMutationError,
-            called: paymentMethodMutationCalled,
-            loading: paymentMethodMutationLoading
-        }
-    ] = useMutation(setPaymentMethodOnCartMutation);
-
+    const paymentMethodMutationLoading = paymentMethodMutationData?.paymentMethodMutationLoading;
+    const paymentMethodMutationError = paymentMethodMutationData?.paymentMethodMutationError;
+    const paymentMethodMutationCalled = paymentMethodMutationData?.paymentMethodMutationCalled;
+   
     // Get config details
     const { data, loading } = useQuery(GET_PAYMENT_CREDIT_SYSTEM_CONFIG, {
         fetchPolicy: 'cache-and-network',
@@ -96,14 +91,7 @@ export const useCustomerCreditSystem = props => {
         resetShouldSubmit();
     }, [resetShouldSubmit]);
 
-    /**
-     * This function will be called if address was successfully set.
-     */
-    const onBillingAddressChangedSuccess = useCallback(() => {
-        updatePaymentMethod({
-            variables: { cartId }
-        });
-    }, [updatePaymentMethod, cartId]);
+  
 
     /** Handle Submit Btn */
     const handleSubmitBtn = useCallback(() => {
@@ -115,6 +103,5 @@ export const useCustomerCreditSystem = props => {
         checkoutData,
         handleSubmitBtn,
         onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
     };
 };

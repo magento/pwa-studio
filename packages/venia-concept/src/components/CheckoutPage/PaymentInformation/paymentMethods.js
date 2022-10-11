@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { shape, string, bool, func } from 'prop-types';
 import { useIntl } from 'react-intl';
 
@@ -11,8 +11,16 @@ import defaultClasses from './paymentMethods.module.css';
 import payments from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection';
 
 const PaymentMethods = props => {
-    const { classes: propClasses, onPaymentError, onPaymentSuccess, resetShouldSubmit, shouldSubmit } = props;
-
+    const {
+        classes: propClasses,
+        onPaymentError,
+        onPaymentSuccess,
+        resetShouldSubmit,
+        shouldSubmit,
+        setCurrentSelectedPaymentMethod,
+        paymentMethodMutationData
+    } = props;
+    // console.log(props, 'props', paymentMethodMutationData);
     const { formatMessage } = useIntl();
 
     const classes = useStyle(defaultClasses, propClasses);
@@ -21,9 +29,14 @@ const PaymentMethods = props => {
 
     const { availablePaymentMethods, currentSelectedPaymentMethod, initialSelectedMethod, isLoading } = talonProps;
 
+    useEffect(() => {
+        setCurrentSelectedPaymentMethod(currentSelectedPaymentMethod);
+    }, [currentSelectedPaymentMethod]);
+
     if (isLoading) {
         return null;
     }
+    
     const paymentMethods =
         process.env.B2BSTORE_VERSION === 'BASIC'
             ? availablePaymentMethods?.filter(({ code }) => code !== 'creditsystem')
@@ -44,6 +57,7 @@ const PaymentMethods = props => {
                     onPaymentError={onPaymentError}
                     resetShouldSubmit={resetShouldSubmit}
                     shouldSubmit={shouldSubmit}
+                    paymentMethodMutationData={paymentMethodMutationData}
                 />
             ) : null;
 

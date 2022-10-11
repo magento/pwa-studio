@@ -12,16 +12,12 @@ export const usePayWithBankTransfer = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const { onPaymentSuccess, resetShouldSubmit, onPaymentError } = props;
+    const { onPaymentSuccess, resetShouldSubmit, onPaymentError, paymentMethodMutationData } = props;
+    const paymentMethodMutationLoading = paymentMethodMutationData?.paymentMethodMutationLoading;
+    const paymentMethodMutationError = paymentMethodMutationData?.paymentMethodMutationError;
+    const paymentMethodMutationCalled = paymentMethodMutationData?.paymentMethodMutationCalled;
 
-    const [
-        updatePaymentMethod,
-        {
-            error: paymentMethodMutationError,
-            called: paymentMethodMutationCalled,
-            loading: paymentMethodMutationLoading
-        }
-    ] = useMutation(setPaymentMethodOnCartMutation);
+
 
     // Getting Extra Information
     const { data: extraInfo, loading } = useQuery(getStoreConfig, {
@@ -39,11 +35,6 @@ export const usePayWithBankTransfer = props => {
     /**
      * This function will be called if address was successfully set.
      */
-    const onBillingAddressChangedSuccess = useCallback(() => {
-        updatePaymentMethod({
-            variables: { cartId }
-        });
-    }, [updatePaymentMethod, cartId]);
 
     useEffect(() => {
         const paymentMethodMutationCompleted = paymentMethodMutationCalled && !paymentMethodMutationLoading;
@@ -72,7 +63,6 @@ export const usePayWithBankTransfer = props => {
         loading,
         extraInfo,
         handleSubmitBtn,
-        onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
+        onBillingAddressChangedError
     };
 };

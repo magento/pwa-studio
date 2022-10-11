@@ -13,15 +13,15 @@ import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CartPage/PriceSumm
 
 const CustomerCreditSystem = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { onPaymentSuccess, onPaymentError, resetShouldSubmit, shouldSubmit } = props;
+    const { onPaymentSuccess, onPaymentError, resetShouldSubmit, shouldSubmit, paymentMethodMutationData } = props;
     const { getPriceSummaryQuery } = DEFAULT_OPERATIONS;
     const [{ cartId }] = useCartContext();
-
     const talonProps = useCustomerCreditSystem({
         onPaymentSuccess,
         onPaymentError,
         resetShouldSubmit,
-        shouldSubmit
+        shouldSubmit,
+        paymentMethodMutationData
     });
     const { error, data } = useQuery(getPriceSummaryQuery, {
         fetchPolicy: 'cache-and-network',

@@ -3,14 +3,14 @@ import { shape, string, bool, func } from 'prop-types';
 import PayWithBankTransfer from './PayWithBankTransfer';
 
 const PaymentMethods = props => {
-    const { onPaymentSuccess, onPaymentError, resetShouldSubmit, shouldSubmit } = props;
-
+    const { onPaymentSuccess, onPaymentError, resetShouldSubmit, shouldSubmit, paymentMethodMutationData } = props;
     return (
         <PayWithBankTransfer
             onPaymentSuccess={onPaymentSuccess}
             onPaymentError={onPaymentError}
             resetShouldSubmit={resetShouldSubmit}
             shouldSubmit={shouldSubmit}
+            paymentMethodMutationData={paymentMethodMutationData}
         />
     );
 };
