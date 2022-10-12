@@ -10,12 +10,12 @@ const FilterModalOpenButton = props => {
     const { filters, classes: propsClasses } = props;
     const classes = useStyle(defaultClasses, propsClasses);
     const { handleOpen } = useFilterModal({ filters });
-
     const handleKeypress = e => {
         if (e.code == 'Enter') {
             handleOpen;
         }
     };
+    
     return (
         <Button
             priority={'low'}
