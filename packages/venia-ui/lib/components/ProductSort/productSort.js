@@ -156,7 +156,7 @@ const ProductSort = props => {
     const handleSortClick = () => {
         setExpanded(!expanded);
     };
-    
+
     const handleKeypress = e => {
         if (e.code == 'Enter') {
             setExpanded(expanded);
