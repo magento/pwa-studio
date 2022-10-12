@@ -157,6 +157,13 @@ const ProductSort = props => {
         setExpanded(!expanded);
     };
 
+    const handleKeypress = e => {
+        if (e.code == 'Enter') {
+            setExpanded(expanded);
+        }
+    };
+    const result = expanded ? 'Sort Button Expanded' : 'Sort Button Collapsed';
+
     return (
         <div
             ref={elementRef}
@@ -172,6 +179,8 @@ const ProductSort = props => {
                 }}
                 onClick={handleSortClick}
                 data-cy="ProductSort-sortButton"
+                onKeyDown={handleKeypress}
+                aria-label={result}
             >
                 <span className={classes.mobileText}>
                     <FormattedMessage
