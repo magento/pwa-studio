@@ -3,7 +3,6 @@
 exports[`renders correctly 1`] = `
 <div
   aria-busy="false"
-  aria-live="polite"
 >
   <button
     aria-label="Sort Button Collapsed"

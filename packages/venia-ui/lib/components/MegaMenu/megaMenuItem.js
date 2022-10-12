@@ -99,6 +99,10 @@ const MegaMenuItem = props => {
                 handleSubMenuFocus();
                 handleMenuItemFocus();
             }}
+            onFocus={() => {
+                handleSubMenuFocus();
+                handleMenuItemFocus();
+            }}
             onTouchStart={() => {
                 handleSubMenuFocus();
                 handleMenuItemFocus();
