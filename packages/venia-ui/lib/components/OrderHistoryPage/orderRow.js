@@ -72,6 +72,8 @@ const OrderRow = props => {
 
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
 
+    const isCollapsed = isOpen ? 'true' : 'false';
+
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
 
     const collapsedImageGalleryElement = isOpen ? null : (
@@ -131,6 +133,7 @@ const OrderRow = props => {
                 className={classes.contentToggleContainer}
                 onClick={handleContentToggle}
                 type="button"
+                aria-expanded={isCollapsed}
             >
                 {contentToggleIcon}
             </button>

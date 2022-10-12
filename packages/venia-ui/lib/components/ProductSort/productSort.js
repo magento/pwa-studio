@@ -157,6 +157,14 @@ const ProductSort = props => {
         setExpanded(!expanded);
     };
 
+    const handleKeypress = e => {
+        if (e.code == 'Enter') {
+            setExpanded(expanded);
+        }
+    };
+
+    const result = expanded ? 'Sort Button Expanded' : 'Sort Button Collapsed';
+
     return (
         <div
             ref={elementRef}
@@ -170,6 +178,8 @@ const ProductSort = props => {
                 classes={{
                     root_lowPriority: classes.sortButton
                 }}
+                onKeyDown={handleKeypress}
+                aria-label={result}
                 onClick={handleSortClick}
                 data-cy="ProductSort-sortButton"
             >
