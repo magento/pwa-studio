@@ -165,6 +165,15 @@ export const useSignIn = props => {
         showCreateAccount();
     }, [setDefaultUsername, showCreateAccount]);
 
+    const handleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleCreateAccount();
+            }
+        };
+    }, [handleCreateAccount]);
+
+
     const errors = useMemo(
         () =>
             new Map([
@@ -177,6 +186,7 @@ export const useSignIn = props => {
     return {
         errors,
         handleCreateAccount,
+        handleEnterKeyPress,
         handleForgotPassword,
         handleSubmit,
         isBusy: isGettingDetails || isSigningIn || recaptchaLoading,
