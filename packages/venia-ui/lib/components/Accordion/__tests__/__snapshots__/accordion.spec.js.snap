@@ -8,6 +8,7 @@ exports[`it renders a closed Section correctly 1`] = `
     className="root"
   >
     <button
+      aria-expanded={false}
       className="title_container"
       onClick={[Function]}
       type="button"
@@ -59,6 +60,7 @@ exports[`it renders an open Section correctly 1`] = `
     className="root"
   >
     <button
+      aria-expanded={true}
       className="title_container"
       onClick={[Function]}
       type="button"
