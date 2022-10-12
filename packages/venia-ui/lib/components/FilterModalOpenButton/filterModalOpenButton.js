@@ -11,6 +11,11 @@ const FilterModalOpenButton = props => {
     const classes = useStyle(defaultClasses, propsClasses);
     const { handleOpen } = useFilterModal({ filters });
 
+    const handleKeypress = e => {
+        if (e.code == 'Enter') {
+            handleOpen;
+        }
+    };
     return (
         <Button
             priority={'low'}
@@ -19,6 +24,7 @@ const FilterModalOpenButton = props => {
             }}
             data-cy="FilterModalOpenButton-button"
             onClick={handleOpen}
+            onKeyDown={handleKeypress}
             type="button"
             aria-live="polite"
             aria-busy="false"
