@@ -15,7 +15,7 @@ const FilterModalOpenButton = props => {
             handleOpen;
         }
     };
-    
+
     return (
         <Button
             priority={'low'}
