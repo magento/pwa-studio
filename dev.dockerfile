@@ -36,7 +36,7 @@ WORKDIR /usr/src/app
 # node:alpine comes with a configured user and group
 RUN chown -R node:node /usr/src/app
 # copy build from previous stage
-COPY --from=build /usr/src/app .
+COPY --chown=node:node --from=build /usr/src/app .
 USER node
 # command to run application
 CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch"]
