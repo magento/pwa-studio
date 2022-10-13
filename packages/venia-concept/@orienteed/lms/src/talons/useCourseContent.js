@@ -27,6 +27,10 @@ export const useCourseContent = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [courseId]);
 
+    useEffect(() => {
+        setEnrolled(isEnrolled);
+    }, [isEnrolled]);
+
     const handleEnrollInCourse = () => {
         enrollUser(courseId).then(reply => (reply ? setEnrolled(true) : null));
         setUserCoursesIdList(prevState => [...prevState, parseInt(courseId)]);
