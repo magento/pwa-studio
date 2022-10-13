@@ -1,17 +1,15 @@
 import { Magento2 } from '@magento/peregrine/lib/RestApi';
 
-const getCourseModuleMedia = async courseModuleId => {
+const getCourseModuleMedia = async courseModuleUri => {
     const { request } = Magento2;
 
-    const reply = await request(`/lms/api/v1/media/?courseModuleId=${courseModuleId}`, {
+    const reply = await request(`/lms/api/v1/media/resource?uri=${courseModuleUri}`, {
         method: 'GET',
         parseJSON: false,
         credentials: 'include'
     });
 
-    console.log(reply.blob());
-
-    return reply.blob();
+    return reply;
 };
 
 export default getCourseModuleMedia;

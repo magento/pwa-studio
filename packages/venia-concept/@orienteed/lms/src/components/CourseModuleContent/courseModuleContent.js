@@ -8,7 +8,7 @@ import { useCourseModuleContent } from '../../talons/useCourseModuleContent';
 
 import defaultClasses from './courseModuleContent.module.css';
 
-import markAsDone from '../../../services/markAsDone';
+import markAsDone from '@orienteed/lms/services/completion/markAsDone';
 
 import audioIcon from './Icons/audio.svg';
 import checkFillIcon from './Icons/checkFill.svg';
@@ -23,11 +23,14 @@ import videoIcon from './Icons/video.svg';
 import viewIcon from './Icons/view.svg';
 
 const CourseModuleContent = props => {
-    const { courseModule, isEnrolled, userMoodleId, userMoodleToken, setMarkAsDoneListQty, white } = props;
+    const { courseModule, isEnrolled, setMarkAsDoneListQty, white } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
-    const { isDone, setIsDone, isModalOpen, setIsModalOpen } = useCourseModuleContent({
-        completiondata: courseModule.completiondata
+    const { isDone, setIsDone, isModalOpen, setIsModalOpen, courseModuleUrl } = useCourseModuleContent({
+        courseModuleUri: courseModule.hasOwnProperty('contents') && courseModule.contents[0].fileurl,
+        courseModuleMimetype: courseModule.hasOwnProperty('contents') && courseModule.contents[0].mimetype,
+        completiondata: courseModule.completiondata,
+        isEnrolled
     });
 
     const { formatMessage } = useIntl();
@@ -47,19 +50,14 @@ const CourseModuleContent = props => {
     };
 
     const handleDownload = () => {
-        fetch(`${courseModule.contents[0].fileurl}&token=${userMoodleToken}`)
-            .then(response => response.blob())
-            .then(blob => {
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = courseModule.contents[0].filename;
-                link.click();
-            })
-            .catch(console.error);
+        const link = document.createElement('a');
+        link.href = courseModuleUrl;
+        link.download = courseModule.contents[0].filename;
+        link.click();
     };
 
     const handleMarkAsDone = () => {
-        markAsDone(userMoodleId, courseModule.id).then(reply =>
+        markAsDone(courseModule.id).then(reply =>
             reply ? setIsDone(true) && setMarkAsDoneListQty(list => [...list, true]) : null
         );
     };
@@ -159,7 +157,7 @@ const CourseModuleContent = props => {
                     </div>
                     <ContentDialog
                         dialogName={courseModule.name}
-                        url={`${courseModule.contents[0].fileurl}&token=${userMoodleToken}`}
+                        url={courseModuleUrl}
                         contentFile={courseModule.contents[0]}
                         isModalOpen={isModalOpen}
                         handleClosePopUp={handleClosePopUp}
