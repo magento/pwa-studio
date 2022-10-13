@@ -7,6 +7,7 @@ export const useCustomerForm = props => {
     const { afterSubmit, onCancel, onSuccess, shippingData } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+
     const {
         createCustomerAddressMutation,
         updateCustomerAddressMutation,

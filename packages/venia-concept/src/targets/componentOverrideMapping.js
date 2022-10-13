@@ -193,12 +193,14 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressBook.js`]: './src/components/CheckoutPage/AddressBook/addressBook.js',
 
     //new overwrite
-    [`@magento/peregrine/lib/talons/CheckoutPage/AddressBook/addressBookFragments.gql.js`]: './src/components/CheckoutPage/AddressBook/addressBookFragments.gql.js',
-    //new overwrite
     [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressCard.js`]: './src/components/CheckoutPage/AddressBook/addressCard.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js`]: './src/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/BillingAddress/billingAddress.module.css`]: './src/components/CheckoutPage/BillingAddress/billingAddress.module.css',
     [`@magento/venia-ui/lib/components/CreateAccount/createAccount.js`]: './src/components/CreateAccount/createAccount.js',
     //05/10/2022
-    [`@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage.js`]: './src/talons/AddresBookPage/useAddressBookPage.js'
+    [`@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage.js`]: './src/talons/AddresBookPage/useAddressBookPage.js',
+
+    // 11/10/2022 FOR THE CUSTOMER ADDRESS IN NEWCOMPANYPAGE
+    [`@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/customerForm.gql.js`]: './src/talons/CheckoutPage/ShippingInformation/AddressForm/customerForm.gql.js',
+    [`@magento/peregrine/lib/talons/CheckoutPage/AddressBook/addressBookFragments.gql.js`]: './src/talons/CheckoutPage/AddressBook/addressBookFragments.gql.js'
 };

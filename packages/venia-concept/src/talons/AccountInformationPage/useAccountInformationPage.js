@@ -201,7 +201,7 @@ export const useAccountInformationPage = props => {
                             customerInput: {
                                 email,
                                 firstname,
-                                lastname: 'ㅤ',
+                                lastname: '.',
                                 taxvat,
                                 // You must send password because it is required
                                 // when changing email.
@@ -253,7 +253,7 @@ export const useAccountInformationPage = props => {
                                 // Cleans up the street array when values are null or undefined
                                 street: formValues.street.filter(e => e),
                                 default_billing: true,
-                                lastname: 'ㅤ'
+                                lastname: '.'
                             }
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }],
@@ -280,7 +280,7 @@ export const useAccountInformationPage = props => {
                                 // Cleans up the street array when values are null or undefined
                                 street: formValues.street.filter(e => e),
                                 default_billing: true,
-                                lastname: 'ㅤ'
+                                lastname: '.'
                             }
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }],

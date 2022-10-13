@@ -35,7 +35,7 @@ export const useShippingInformation = props => {
             cartId
         }
     });
-
+    console.log('shippingInformationData', shippingInformationData);
     const {
         data: defaultShippingData,
         loading: getDefaultShippingLoading

@@ -146,7 +146,7 @@ export const useAddressBookPage = (props = {}) => {
                                 ...formValues,
                                 // Sends value as empty if none are provided
                                 middlename: formValues.middlename || '',
-                                lastname: 'ㅤ',
+                                lastname: '.',
                                 // Cleans up the street array when values are null or undefined
                                 street: formValues.street.filter(e => e)
                             }
@@ -173,7 +173,7 @@ export const useAddressBookPage = (props = {}) => {
                                 ...formValues,
                                 // Sends value as empty if none are provided
                                 middlename: formValues.middlename || '',
-                                lastname: 'ㅤ',
+                                lastname: '.',
                                 // Cleans up the street array when values are null or undefined
                                 street: formValues.street.filter(e => e)
                             }
