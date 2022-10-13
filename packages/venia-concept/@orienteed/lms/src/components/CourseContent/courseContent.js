@@ -13,6 +13,7 @@ import defaultClasses from './courseContent.module.css';
 
 import noImageAvailable from '../CourseItem/Icons/noImageAvailable.svg';
 import noCoursesImage from '../CoursesCatalog/Icons/noCourses.svg';
+import ConfirmationModal from './ConfirmationModal/confirmationModal';
 
 const DELIMITER = '/';
 
@@ -20,12 +21,14 @@ const CourseContent = props => {
     const { courseId, userCoursesIdList, setUserCoursesIdList, setMarkAsDoneListQty } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const {
-        courseDetails,
         courseContent,
+        courseDetails,
+        courseNotFound,
         enrolled,
         handleEnrollInCourse,
         handleUnenrollFromCourse,
-        courseNotFound
+        isConfirmationModalOpen,
+        setConfirmationModalOpen
     } = useCourseContent({
         courseId,
         setUserCoursesIdList,
@@ -140,16 +143,26 @@ const CourseContent = props => {
                                     <div className={classes.enrollButtonContainer}>
                                         <Button
                                             className={classes.enrollButton}
-                                            onClick={enrolled ? handleUnenrollFromCourse : handleEnrollInCourse}
+                                            onClick={() => setConfirmationModalOpen(true)}
                                             priority={'normal'}
                                         >
                                             {enrolled ? (
-                                                <FormattedMessage id={'lms.unenroll'} defaultMessage={'Unenroll'} />
+                                                <FormattedMessage
+                                                    id={'lms.unsubscribe'}
+                                                    defaultMessage={'Unsubscribe'}
+                                                />
                                             ) : (
-                                                <FormattedMessage id={'lms.enroll'} defaultMessage={'Enroll'} />
+                                                <FormattedMessage id={'lms.subscribe'} defaultMessage={'Subscribe'} />
                                             )}
                                         </Button>
                                     </div>
+                                    <ConfirmationModal
+                                        isOpen={isConfirmationModalOpen}
+                                        onCancel={() => setConfirmationModalOpen(false)}
+                                        onConfirm={enrolled ? handleUnenrollFromCourse : handleEnrollInCourse}
+                                        isEnrolled={enrolled}
+                                        courseName={courseDetails.fullname}
+                                    />
                                 </div>
                             </div>
                         )}

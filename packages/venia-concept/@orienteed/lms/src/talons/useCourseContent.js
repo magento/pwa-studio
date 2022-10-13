@@ -8,10 +8,11 @@ import unEnrollUser from '@orienteed/lms/services/enrollment/unEnrollUser';
 export const useCourseContent = props => {
     const { userCoursesIdList, setUserCoursesIdList, courseId, isEnrolled } = props;
 
-    const [courseDetails, setCourseDetails] = useState();
     const [courseContent, setCourseContent] = useState();
-    const [enrolled, setEnrolled] = useState(isEnrolled);
+    const [courseDetails, setCourseDetails] = useState();
     const [courseNotFound, setCourseNotFound] = useState(false);
+    const [enrolled, setEnrolled] = useState(isEnrolled);
+    const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
     useEffect(() => {
         getCourseDetails(courseId).then(reply => setCourseDetails(reply.courses[0]));
@@ -34,6 +35,7 @@ export const useCourseContent = props => {
                 ? setCourseContent([...reply])
                 : reply.hasOwnProperty('errorcode') && reply.errorcode === 'invalidrecord' && setCourseNotFound(true)
         );
+        setConfirmationModalOpen(false);
         setEnrolled(true);
     };
 
@@ -48,8 +50,18 @@ export const useCourseContent = props => {
                 ? setCourseContent([...reply])
                 : reply.hasOwnProperty('errorcode') && reply.errorcode === 'invalidrecord' && setCourseNotFound(true)
         );
+        setConfirmationModalOpen(false);
         setEnrolled(false);
     };
 
-    return { courseDetails, courseContent, enrolled, handleEnrollInCourse, handleUnenrollFromCourse, courseNotFound };
+    return {
+        courseContent,
+        courseDetails,
+        courseNotFound,
+        enrolled,
+        handleEnrollInCourse,
+        handleUnenrollFromCourse,
+        isConfirmationModalOpen,
+        setConfirmationModalOpen
+    };
 };
