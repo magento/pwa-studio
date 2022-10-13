@@ -38,6 +38,7 @@ test('renders dialog with content', () => {
         configurableOptionProps: {
             options: ['option1', 'option2']
         },
+        outOfStockVariants: [[55, 56], [31]],
         imageProps: {
             alt: 'image-label',
             src: 'https://example.com/media/image.jpg'

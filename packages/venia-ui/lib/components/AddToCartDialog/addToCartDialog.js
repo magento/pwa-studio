@@ -22,6 +22,7 @@ const AddToCartDialog = props => {
         configurableOptionProps,
         formErrors,
         handleOnClose,
+        outOfStockVariants,
         imageProps,
         isFetchingProductDetail,
         priceProps
@@ -60,6 +61,7 @@ const AddToCartDialog = props => {
                                 root: undefined,
                                 title: classes.optionTitle
                             }}
+                            outOfStockVariants={outOfStockVariants}
                         />
                         <Button {...buttonProps}>
                             <FormattedMessage
@@ -83,7 +85,8 @@ const AddToCartDialog = props => {
         configurableOptionProps,
         imageComponent,
         item,
-        priceComponent
+        priceComponent,
+        outOfStockVariants
     ]);
 
     const titleElement = isFetchingProductDetail ? (

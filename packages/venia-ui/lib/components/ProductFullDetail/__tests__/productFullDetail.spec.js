@@ -175,6 +175,8 @@ const talonProps = {
     handleAddToCart: mockHandleAddToCart,
     handleSelectionChange: mockHandleSelectionChange,
     isOutOfStock: false,
+    isEverythingOutOfStock: false,
+    outOfStockVariants: [],
     isAddToCartDisabled: false,
     isSupportedProductType: true,
     mediaGalleryEntries: [],
@@ -348,6 +350,20 @@ test('it renders message with unsupported product type', () => {
     useProductFullDetail.mockReturnValue({
         ...talonProps,
         isSupportedProductType: false
+    });
+
+    const tree = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('it renders message with everything out of stock', () => {
+    useProductFullDetail.mockReturnValue({
+        ...talonProps,
+        isEverythingOutOfStock: true,
+        isAddToCartDisabled: true
     });
 
     const tree = createTestInstance(

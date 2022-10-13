@@ -13,7 +13,7 @@ const Tree = props => {
         onNavigate,
         setCategoryId,
         updateCategories,
-        tabindex
+        tabIndex
     } = props;
 
     const talonProps = useCategoryTree({
@@ -35,14 +35,14 @@ const Tree = props => {
                       category={category}
                       onNavigate={onNavigate}
                       categoryUrlSuffix={categoryUrlSuffix}
-                      tabindex={tabindex}
+                      tabIndex={tabIndex}
                   />
               ) : (
                   <Branch
                       key={id}
                       category={category}
                       setCategoryId={setCategoryId}
-                      tabindex={tabindex}
+                      tabIndex={tabIndex}
                   />
               );
           })
@@ -66,5 +66,5 @@ Tree.propTypes = {
     onNavigate: func.isRequired,
     setCategoryId: func.isRequired,
     updateCategories: func.isRequired,
-    tabindex: func.isRequired
+    tabIndex: func.isRequired
 };

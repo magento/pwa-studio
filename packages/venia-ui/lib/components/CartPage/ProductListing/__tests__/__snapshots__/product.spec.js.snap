@@ -223,6 +223,7 @@ exports[`renders configurable product with options 1`] = `
       className="root"
     >
       <button
+        aria-expanded={false}
         className="kebab"
         onClick={[Function]}
       >
@@ -267,8 +268,21 @@ exports[`renders configurable product with options 1`] = `
           className="menuItem"
         >
           <button
+            aria-label="Edit item"
             className="button"
-            onMouseDown={[MockFunction]}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
           >
             <span
               className="root"
@@ -301,8 +315,21 @@ exports[`renders configurable product with options 1`] = `
           className="menuItem"
         >
           <button
+            aria-label="Remove from cart"
             className="button"
-            onMouseDown={[MockFunction]}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
           >
             <span
               className="root"
@@ -557,6 +584,7 @@ exports[`renders out of stock product 1`] = `
       className="root"
     >
       <button
+        aria-expanded={false}
         className="kebab"
         onClick={[Function]}
       >
@@ -601,8 +629,21 @@ exports[`renders out of stock product 1`] = `
           className="menuItem"
         >
           <button
+            aria-label="Remove from cart"
             className="button"
-            onMouseDown={[MockFunction]}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
           >
             <span
               className="root"
@@ -857,6 +898,7 @@ exports[`renders simple product correctly 1`] = `
       className="root"
     >
       <button
+        aria-expanded={false}
         className="kebab"
         onClick={[Function]}
       >
@@ -901,8 +943,21 @@ exports[`renders simple product correctly 1`] = `
           className="menuItem"
         >
           <button
+            aria-label="Remove from cart"
             className="button"
-            onMouseDown={[MockFunction]}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchCancel={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            type="button"
           >
             <span
               className="root"
