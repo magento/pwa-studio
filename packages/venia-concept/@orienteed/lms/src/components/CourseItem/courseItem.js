@@ -6,6 +6,7 @@ import Button from '@magento/venia-ui/lib/components/Button';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useCourseItem } from '@orienteed/lms/src/talons/useCourseItem';
 
 import defaultClasses from './courseItem.module.css';
 
@@ -18,6 +19,11 @@ const CourseItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const history = useHistory();
     const { formatMessage } = useIntl();
+
+    const { coursePreviewUrl } = useCourseItem({
+        courseImageUri: data.overviewfiles[0].fileurl,
+        courseModuleMimetype: data.overviewfiles[0].mimetype
+    });
 
     const startCourseText = formatMessage({
         id: 'lms.watchCourse',
@@ -65,11 +71,7 @@ const CourseItem = props => {
 
     const courseLogo =
         data.overviewfiles.length !== 0 ? (
-            <img
-                className={classes.courseImage}
-                src={`${data.overviewfiles[0].fileurl}?token=${process.env.LMS_API_KEY}`}
-                alt="Course logo"
-            />
+            <img className={classes.courseImage} src={coursePreviewUrl} alt="Course logo" />
         ) : (
             <img className={classes.courseImage} src={noImageAvailable} alt="Course logo not available" />
         );

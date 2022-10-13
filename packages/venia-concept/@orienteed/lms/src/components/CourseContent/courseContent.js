@@ -7,6 +7,7 @@ import CourseModuleContent from '../CourseModuleContent/courseModuleContent';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { useCourseContent } from '../../talons/useCourseContent';
+import { useCourseItem } from '../../talons/useCourseItem';
 
 import defaultClasses from './courseContent.module.css';
 
@@ -31,6 +32,12 @@ const CourseContent = props => {
         userCoursesIdList,
         isEnrolled: userCoursesIdList.length !== 0 ? userCoursesIdList.includes(parseInt(courseId)) : false
     });
+
+    const { coursePreviewUrl } = useCourseItem({
+        courseImageUri: courseDetails?.overviewfiles[0].fileurl,
+        courseModuleMimetype: courseDetails?.overviewfiles[0].mimetype
+    });
+
     const history = useHistory();
 
     const learningTitle = 'Learning';
@@ -117,13 +124,7 @@ const CourseContent = props => {
                         {courseDetails !== undefined && (
                             <div className={classes.headerCourseContainer}>
                                 {courseDetails.overviewfiles.length !== 0 ? (
-                                    <img
-                                        className={classes.courseImage}
-                                        src={`${courseDetails.overviewfiles[0].fileurl}?token=${
-                                            process.env.LMS_API_KEY
-                                        }`}
-                                        alt="Course logo"
-                                    />
+                                    <img className={classes.courseImage} src={coursePreviewUrl} alt="Course logo" />
                                 ) : (
                                     <img
                                         className={classes.courseImage}
