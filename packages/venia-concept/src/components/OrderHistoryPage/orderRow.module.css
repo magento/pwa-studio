@@ -67,6 +67,7 @@
     justify-self: flex-start;
     font-size: 15px;
     padding: 0.25rem 1.25rem;
+    text-align: center;
 }
 
 .content {

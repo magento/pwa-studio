@@ -130,33 +130,37 @@ const OrderRow = props => {
             <div className={[classes.orderStatusContainer, classes.orderReStatusContainer].join(' ')}>
                 <span className={classes.orderStatusBadge}>{derivedStatus}</span>
                 <OrderProgressBar status={derivedStatus} />
-                <Button
-                    onClick={() => {
-                        openOrderIncidenceModal(orderNumber, formattedDate, orderTotalPrice, derivedStatus);
-                    }}
-                    type="button"
-                    id={'orderIncidence' + orderNumber}
-                    className={classes.orderInsurancesButton}
-                >
-                    <img src={IncidencesIcon} alt="IncidencesIcon" />
-                    <FormattedMessage id={'orderRow.openIncident'} defaultMessage={'Open incident'} />
-                </Button>
+                {process.env.CSR_ENABLED === 'true' && (
+                    <Button
+                        onClick={() => {
+                            openOrderIncidenceModal(orderNumber, formattedDate, orderTotalPrice, derivedStatus);
+                        }}
+                        type="button"
+                        id={'orderIncidence' + orderNumber}
+                        className={classes.orderInsurancesButton}
+                    >
+                        <img src={IncidencesIcon} alt="IncidencesIcon" />
+                        <FormattedMessage id={'orderRow.openIncident'} defaultMessage={'Open incident'} />
+                    </Button>
+                )}
             </div>
             <button className={classes.contentToggleContainer} onClick={handleContentToggle} type="button">
                 {contentToggleIcon}
             </button>
             <div className={contentClass}>{orderDetails}</div>
-            <OrderIncidencesModal
-                isOpen={ticketModal}
-                setTicketModal={setTicketModal}
-                orderNumber={orderNumber}
-                orderDate={formattedDate}
-                orderTotal={orderTotalPrice}
-                orderStatus={derivedStatus}
-                imagesData={imagesData}
-                setErrorToast={setErrorToast}
-                setSuccessToast={setSuccessToast}
-            />
+            {process.env.CSR_ENABLED === 'true' && (
+                <OrderIncidencesModal
+                    isOpen={ticketModal}
+                    setTicketModal={setTicketModal}
+                    orderNumber={orderNumber}
+                    orderDate={formattedDate}
+                    orderTotal={orderTotalPrice}
+                    orderStatus={derivedStatus}
+                    imagesData={imagesData}
+                    setErrorToast={setErrorToast}
+                    setSuccessToast={setSuccessToast}
+                />
+            )}
         </li>
     );
 };
