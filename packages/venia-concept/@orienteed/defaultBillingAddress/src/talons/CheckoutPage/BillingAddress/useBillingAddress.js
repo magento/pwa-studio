@@ -145,7 +145,7 @@ export default original => {
         ] = useMutation(setDefaultBillingAddressMutation);
 
         const shippingAddressCountry = shippingAddressData
-            ? shippingAddressData.cart.shippingAddresses[0].country.code
+            ? shippingAddressData.cart?.shippingAddresses[0]?.country.code
             : 'US';
 
         const defaultBillingAddressObject = getDefaultBillingAddress(customerAddressesData);
@@ -211,8 +211,9 @@ export default original => {
          * shipping address.
          */
         const setShippingAddressAsBillingAddress = useCallback(() => {
-            const shippingAddress = shippingAddressData
-                ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
+            console.log(shippingAddressData,'shippingAddressData');
+            const shippingAddress = shippingAddressData?.cart
+                ? mapAddressData(shippingAddressData.cart?.shippingAddresses[0])
                 : {};
 
             updateBillingAddress({
