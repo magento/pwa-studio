@@ -83,13 +83,7 @@ const GalleryItem = props => {
     // ) : null;
 
     return (
-        <div
-            data-cy="GalleryItem-root"
-            className={classes.root}
-            aria-live="polite"
-            aria-busy="false"
-            ref={itemRef}
-        >
+        <div data-cy="GalleryItem-root" className={classes.root} ref={itemRef}>
             <Link
                 onClick={handleLinkClick}
                 to={productLink}

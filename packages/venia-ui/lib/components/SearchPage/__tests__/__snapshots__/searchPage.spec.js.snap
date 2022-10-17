@@ -14,6 +14,8 @@ exports[`Search Page Component error view does not render when data is present 1
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <mock-FormattedMessage
@@ -84,6 +86,8 @@ exports[`Search Page Component error view renders when data is not present and n
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       />
       <div
@@ -128,6 +132,8 @@ exports[`Search Page Component filter button/modal does not render if there are 
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <mock-FormattedMessage
@@ -206,6 +212,8 @@ exports[`Search Page Component filter button/modal renders when there are filter
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <mock-FormattedMessage
@@ -291,6 +299,8 @@ exports[`Search Page Component loading indicator does not render when data is pr
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <Shimmer
@@ -360,6 +370,8 @@ exports[`Search Page Component loading indicator renders when data is not presen
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <Shimmer
@@ -430,6 +442,8 @@ exports[`Search Page Component search results does not render if data returned h
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <Shimmer
@@ -484,6 +498,8 @@ exports[`Search Page Component search results heading renders a generic message 
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <mock-FormattedMessage
@@ -586,6 +602,8 @@ exports[`Search Page Component search results heading renders a specific message
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <mock-FormattedMessage
@@ -695,6 +713,8 @@ exports[`Search Page Component search results renders if data has items 1`] = `
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <Shimmer
@@ -764,6 +784,8 @@ exports[`Search Page Component sort button/container does not render if total co
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <mock-FormattedMessage
@@ -819,6 +841,8 @@ exports[`Search Page Component sort button/container renders when total count > 
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <mock-FormattedMessage
@@ -921,6 +945,8 @@ exports[`Search Page Component total count renders 0 items if data.products.tota
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <mock-FormattedMessage
@@ -976,6 +1002,8 @@ exports[`Search Page Component total count renders results from data 1`] = `
       className="heading"
     >
       <div
+        aria-atomic="true"
+        aria-live="polite"
         className="searchInfo"
       >
         <mock-FormattedMessage
