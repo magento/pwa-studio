@@ -46,6 +46,12 @@ export const GET_PRODUCTS_BY_SKU = gql`
                 name
                 sku
                 price {
+                    minimalPrice {
+                        amount {
+                            value
+                            currency
+                        }
+                    }
                     regularPrice {
                         amount {
                             value
