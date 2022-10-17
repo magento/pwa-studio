@@ -231,7 +231,6 @@ exports[`CheckoutPage renders an error and disables review order button if there
       className="review_order_button"
       disabled={true}
       onDragStart={[Function]}
-      onKeyDown={[Function]}
       onKeyUp={[Function]}
       onMouseDown={[Function]}
       onMouseEnter={[Function]}
@@ -894,6 +893,7 @@ Object {
   "disabled": true,
   "negative": false,
   "onClick": [MockFunction handleReviewOrder],
+  "onKeyDown": undefined,
   "priority": "high",
   "type": "button",
 }
