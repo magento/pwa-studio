@@ -66,8 +66,7 @@ const ShippingMethod = props => {
                 </div>
                 <div className={classes.tracking}>{trackingElement}</div>
                 <div>
-                    <div />
-                    {mp_delivery_information.mp_delivery_date !== '' && (
+                    {mp_delivery_information.mp_delivery_date && mp_delivery_information.mp_delivery_date !== '' && (
                         <div className={classes.method}>
                             <span>
                                 <FormattedMessage id={'deliveryDate.deliveryDate'} defaultMessage={'Delivery Date'} />:
@@ -76,7 +75,7 @@ const ShippingMethod = props => {
                             <span>{formatDeliveryDate}</span>
                         </div>
                     )}
-                    {mp_delivery_information.mp_delivery_time !== '' && (
+                    {mp_delivery_information.mp_delivery_time && mp_delivery_information.mp_delivery_time != '' && (
                         <div className={classes.method}>
                             <span>
                                 <FormattedMessage id={'deliveryDate.deliveryTime'} defaultMessage={'Delivery Time'} />:
@@ -85,20 +84,21 @@ const ShippingMethod = props => {
                             <span>{delveryTime}</span>
                         </div>
                     )}
-                    {mp_delivery_information.mp_house_security_code !== '' && (
-                        <div className={classes.method}>
-                            <span>
-                                <FormattedMessage
-                                    id={'deliveryDate.houseSecurityCode'}
-                                    defaultMessage={'House Security Code'}
-                                />
-                                :
-                            </span>
-                            &nbsp;
-                            <span>{mp_delivery_information.mp_house_security_code}</span>
-                        </div>
-                    )}
-                    {mp_delivery_information.mp_delivery_comment !== '' && (
+                    {mp_delivery_information.mp_house_security_code &&
+                        mp_delivery_information.mp_house_security_code !== '' && (
+                            <div className={classes.method}>
+                                <span>
+                                    <FormattedMessage
+                                        id={'deliveryDate.houseSecurityCode'}
+                                        defaultMessage={'House Security Code'}
+                                    />
+                                    :
+                                </span>
+                                &nbsp;
+                                <span>{mp_delivery_information.mp_house_security_code}</span>
+                            </div>
+                        )}
+                    {mp_delivery_information.mp_delivery_comment && mp_delivery_information.mp_delivery_comment !== '' && (
                         <div className={classes.method}>
                             <span>
                                 <FormattedMessage id={'deliveryDate.commentDate'} defaultMessage={'Comment Date'} />:
