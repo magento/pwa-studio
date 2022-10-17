@@ -211,7 +211,6 @@ export default original => {
          * shipping address.
          */
         const setShippingAddressAsBillingAddress = useCallback(() => {
-            console.log(shippingAddressData,'shippingAddressData');
             const shippingAddress = shippingAddressData?.cart
                 ? mapAddressData(shippingAddressData.cart?.shippingAddresses[0])
                 : {};
@@ -325,7 +324,6 @@ export default original => {
                         setDefaultBillingAddress();
                         setIsBillingAddressSameInCache();
                     } else {
-                        console.log(formState.errors, 'formState.errors');
                         const hasErrors = Object.keys(formState.errors).length;
                         if (!hasErrors) {
                             setBillingAddress();

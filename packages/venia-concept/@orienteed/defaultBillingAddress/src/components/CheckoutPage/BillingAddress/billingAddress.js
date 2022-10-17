@@ -204,58 +204,90 @@ const BillingAddress = props => {
                         <span>
                             <FormattedMessage id={'global.companyName'} defaultMessage="Company Name" />: &nbsp;
                         </span>
-                        <span>{initialValues.firstName}</span>
+                        <span>
+                            {isBillingAddressDefault
+                                ? initialValues?.defaultBillingAddressObject.firstname
+                                : initialValues.firstName}
+                        </span>
                     </div>{' '}
-                    <div>
+                    {/* <div>
                         <span>
                             <FormattedMessage id={'global.lastName'} defaultMessage="Last Name" />: &nbsp;
                         </span>
                         <span>{initialValues.firstName}</span>
-                    </div>
+                    </div> */}
                     <div>
                         <span>
                             <FormattedMessage id={'country.label'} defaultMessage="Country" />: &nbsp;
                         </span>
-                        <span>{locationLabel.country}</span>
+                        <span>
+                            {isBillingAddressDefault
+                                ? initialValues?.defaultBillingAddressObject.country_code
+                                : locationLabel.country}
+                        </span>
                     </div>
                     <div>
                         <span>
                             <FormattedMessage id={'global.streetAddress'} defaultMessage="Street Address" />: &nbsp;
                         </span>
-                        <span>{initialValues.street1}</span>
+                        <span>
+                            {isBillingAddressDefault
+                                ? initialValues?.defaultBillingAddressObject.street[0]
+                                : initialValues.street1}
+                        </span>
                     </div>
-                    {initialValues.street2 && (
+                    {(initialValues?.defaultBillingAddressObject.street[1] || initialValues.street2) && (
                         <div>
                             <span>
                                 <FormattedMessage id={'global.streetAddress2'} defaultMessage="Street Address 2" />:
                                 &nbsp;
                             </span>
-                            <span>{initialValues.street2}</span>
+                            <span>
+                                {isBillingAddressDefault
+                                    ? initialValues?.defaultBillingAddressObject.street[1]
+                                    : initialValues.street2}
+                            </span>
                         </div>
                     )}
                     <div>
                         <span>
                             <FormattedMessage id={'global.city'} defaultMessage="City" />: &nbsp;
                         </span>
-                        <span>{initialValues.city}</span>
+                        <span>
+                            {isBillingAddressDefault
+                                ? initialValues?.defaultBillingAddressObject.city
+                                : initialValues.city}
+                        </span>
                     </div>
                     <div>
                         <span>
                             <FormattedMessage id={'region.label'} defaultMessage="State" />: &nbsp;
                         </span>
-                        <span>{locationLabel.region || initialValues.region}</span>
+                        <span>
+                            {isBillingAddressDefault
+                                ? initialValues?.defaultBillingAddressObject?.region.region
+                                : locationLabel.region || initialValues.region}
+                        </span>
                     </div>
                     <div>
                         <span>
                             <FormattedMessage id={'postcode.label'} defaultMessage="ZIP / Postal Code" />: &nbsp;
                         </span>
-                        <span>{initialValues.postcode}</span>
+                        <span>
+                            {isBillingAddressDefault
+                                ? initialValues?.defaultBillingAddressObject.postcode
+                                : initialValues.postcode}
+                        </span>
                     </div>
                     <div>
                         <span>
                             <FormattedMessage id={'global.phoneNumber'} defaultMessage="Phone Number" />: &nbsp;
                         </span>
-                        <span>{initialValues.phoneNumber}</span>
+                        <span>
+                            {isBillingAddressDefault
+                                ? initialValues?.defaultBillingAddressObject.telephone
+                                : initialValues.phoneNumber}
+                        </span>
                     </div>
                 </>
             )}
