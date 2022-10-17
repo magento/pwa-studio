@@ -49,6 +49,7 @@
     "autocomplete.prompt": "Rechercher un produit",
     "autocomplete.resultSummary": "{resultCount} articles",
     "availableCredit.availableCreditText": "Crédit disponible",
+    "billingAddress.label": "Adresse de facturation",
     "billingAddress.somethingWentWrongTryAnotherState": "Quelque chose s'est mal passé, essayez un autre état",
     "buyLaterNotesPage.emptyDataMessage": "Vous n'avez pas encore de chariot.",
     "buyLaterNotesPage.pageTitleText": "Paniers enregistrés",

@@ -71,7 +71,8 @@ export const useCheckoutPage = (props = {}) => {
         getCheckoutDetailsQuery,
         getCustomerQuery,
         getOrderDetailsQuery,
-        placeOrderMutation
+        placeOrderMutation,
+        setPaymentMethodOnCartMutation
     } = operations;
 
     const { generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
@@ -90,6 +91,8 @@ export const useCheckoutPage = (props = {}) => {
     const [activeContent, setActiveContent] = useState('checkout');
     const [checkoutStep, setCheckoutStep] = useState(CHECKOUT_STEP.SHIPPING_ADDRESS);
     const [guestSignInUsername, setGuestSignInUsername] = useState('');
+
+    const [currentSelectedPaymentMethod, setCurrentSelectedPaymentMethod] = useState('banktransfer');
 
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
@@ -122,6 +125,26 @@ export const useCheckoutPage = (props = {}) => {
             cartId
         }
     });
+
+    const [
+        updatePaymentMethod,
+        {
+            error: paymentMethodMutationError,
+            called: paymentMethodMutationCalled,
+            loading: paymentMethodMutationLoading
+        }
+    ] = useMutation(setPaymentMethodOnCartMutation);
+
+    const paymentMethodMutationData = {
+        paymentMethodMutationError,
+        paymentMethodMutationCalled,
+        paymentMethodMutationLoading
+    };
+    const onBillingAddressChangedSuccess = useCallback(() => {
+        updatePaymentMethod({
+            variables: { cartId, payment_method: currentSelectedPaymentMethod }
+        });
+    }, [updatePaymentMethod, cartId, currentSelectedPaymentMethod]);
 
     const cartItems = useMemo(() => {
         return (checkoutData && checkoutData.cart.items) || [];
@@ -161,11 +184,15 @@ export const useCheckoutPage = (props = {}) => {
             label: `Checkout page- Review order clicked`
         });
         setReviewOrderButtonClicked(true);
-    }
+    };
 
     const resetReviewOrderButtonClicked = useCallback(() => {
         setReviewOrderButtonClicked(false);
     }, []);
+
+    const onBillingAddressChangedError = useCallback(() => {
+        resetReviewOrderButtonClicked();
+    }, [resetReviewOrderButtonClicked]);
 
     const scrollShippingInformationIntoView = useCallback(() => {
         if (shippingInformationRef.current) {
@@ -334,6 +361,10 @@ export const useCheckoutPage = (props = {}) => {
         recaptchaWidgetProps,
         toggleAddressBookContent,
         toggleSignInContent,
-        cartId
+        cartId,
+        onBillingAddressChangedError,
+        setCurrentSelectedPaymentMethod,
+        onBillingAddressChangedSuccess,
+        paymentMethodMutationData
     };
 };

@@ -56,14 +56,15 @@ const OrderDetails = props => {
                     </ConditionalWrapper>
                 </div>
 
-                <div className={classes.paymentMethodContainer}>
-                    <ConditionalWrapper condition={payment_methods && payment_methods.length}>
-                        <PaymentMethod total={total} data={payment_methods} />
-                    </ConditionalWrapper>
-                </div>
+            
                 <div className={classes.billingInformationContainer}>
                     <ConditionalWrapper condition={billing_address}>
                         <BillingInformation total={total} data={billing_address} />
+                    </ConditionalWrapper>
+                </div>
+                <div className={classes.paymentMethodContainer}>
+                    <ConditionalWrapper condition={payment_methods && payment_methods.length}>
+                        <PaymentMethod total={total} data={payment_methods} />
                     </ConditionalWrapper>
                 </div>
             </div>

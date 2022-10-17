@@ -187,5 +187,10 @@ module.exports = componentOverrideMapping = {
     [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css', // replace directly
 
     //new overwrite
-    [`@magento/venia-ui/lib/components/AuthModal//authModal.module.css`]: './src/components/AuthModal//authModal.module.css'
+    [`@magento/venia-ui/lib/components/AuthModal//authModal.module.css`]: './src/components/AuthModal//authModal.module.css',
+
+    //new overwrite
+    [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentInformation.js`]: './src/components/CheckoutPage/PaymentInformation/paymentInformation.js',
+    [`@magento/peregrine/lib/talons/CheckoutPage/checkoutPage.gql.js`]: './src/talons/CheckoutPage/checkoutPage.gql.js',
+    [`@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods.js`]: './src/talons/CheckoutPage/PaymentInformation/usePaymentMethods.js'
 };

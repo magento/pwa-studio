@@ -103,6 +103,7 @@ export default original => {
         const client = useApolloClient();
         const formState = useFormState();
         const { validate: validateBillingAddressForm } = useFormApi();
+        const { validate } = useFormApi();
         const [{ cartId }] = useCartContext();
         const [{ isSignedIn }] = useUserContext();
 
@@ -144,7 +145,7 @@ export default original => {
         ] = useMutation(setDefaultBillingAddressMutation);
 
         const shippingAddressCountry = shippingAddressData
-            ? shippingAddressData.cart.shippingAddresses[0].country.code
+            ? shippingAddressData.cart?.shippingAddresses[0]?.country.code
             : 'US';
 
         const defaultBillingAddressObject = getDefaultBillingAddress(customerAddressesData);
@@ -175,6 +176,14 @@ export default original => {
             };
         }, [billingAddressData, defaultBillingAddressObject, isBillingAddressDefault]);
 
+        const locationLabel = useMemo(() => {
+            const { ...rawBillingAddress } = billingAddressData?.cart?.billingAddress;
+            const { region, country } = rawBillingAddress;
+            return {
+                region: region?.label,
+                country: country?.label
+            };
+        }, [isBillingAddressSameData, billingAddressData]);
         /**
          * Helpers
          */
@@ -202,8 +211,8 @@ export default original => {
          * shipping address.
          */
         const setShippingAddressAsBillingAddress = useCallback(() => {
-            const shippingAddress = shippingAddressData
-                ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
+            const shippingAddress = shippingAddressData?.cart
+                ? mapAddressData(shippingAddressData.cart?.shippingAddresses[0])
                 : {};
 
             updateBillingAddress({
@@ -234,7 +243,6 @@ export default original => {
          * This function sets the billing address on the cart using the
          * information from the form.
          */
-        console.log('formState', formState);
         const setBillingAddress = useCallback(() => {
             const {
                 firstName,
@@ -421,7 +429,8 @@ export default original => {
             errors,
             isBillingAddressDefault,
             initialValues,
-            shippingAddressCountry
+            shippingAddressCountry,
+            locationLabel
         };
     };
 };

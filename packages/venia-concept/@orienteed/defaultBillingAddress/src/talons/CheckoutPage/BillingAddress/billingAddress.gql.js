@@ -27,11 +27,13 @@ export const GET_BILLING_ADDRESS = gql`
                 lastName: lastname
                 country {
                     code
+                    label
                 }
                 street
                 city
                 region {
                     code
+                    label
                 }
                 postcode
                 phoneNumber: telephone

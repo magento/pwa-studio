@@ -31,6 +31,8 @@ import { useNoReorderProductContext } from '@orienteed/customComponents/componen
 
 import DeliveryDates from '@orienteed/deliveryDate/src/components/DeliveryDatesForm/deliveryDatesForm';
 import { useDeliveryDate } from '@orienteed/deliveryDate/src/talons/useDeliveryDate';
+import BillingAddress from '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress';
+import { Form } from 'informed';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -81,7 +83,11 @@ const CheckoutPage = props => {
         recaptchaWidgetProps,
         toggleAddressBookContent,
         toggleSignInContent,
-        cartId
+        cartId,
+        onBillingAddressChangedError,
+        setCurrentSelectedPaymentMethod,
+        onBillingAddressChangedSuccess,
+        paymentMethodMutationData
     } = talonProps;
     const [, { addToast }] = useToasts();
 
@@ -212,6 +218,8 @@ const CheckoutPage = props => {
                     resetShouldSubmit={resetReviewOrderButtonClicked}
                     setCheckoutStep={setCheckoutStep}
                     shouldSubmit={reviewOrderButtonClicked}
+                    setCurrentSelectedPaymentMethod={setCurrentSelectedPaymentMethod}
+                    paymentMethodMutationData={paymentMethodMutationData}
                 />
             ) : (
                 <h3 className={classes.payment_information_heading}>
@@ -364,7 +372,17 @@ const CheckoutPage = props => {
                         deliveryDatesData={deliveryDatesData}
                     />
                 </div>
-
+                <div className={classes.billingAddressContainer}>
+                    <Form>
+                        <BillingAddress
+                            resetShouldSubmit={resetReviewOrderButtonClicked}
+                            shouldSubmit={reviewOrderButtonClicked}
+                            onBillingAddressChangedError={onBillingAddressChangedError}
+                            onBillingAddressChangedSuccess={onBillingAddressChangedSuccess}
+                            checkoutStep={checkoutStep}
+                        />
+                    </Form>
+                </div>
                 <div className={classes.payment_information_container}>{paymentInformationSection}</div>
                 {priceAdjustmentsSection}
                 {reviewOrderButton}
