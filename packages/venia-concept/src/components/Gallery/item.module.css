@@ -50,9 +50,8 @@
 }
 
 .actionsContainer {
-    column-gap: 1rem;
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: 1.9fr 0.2fr !important ;
     padding-left: 0.5rem;
 }
 
@@ -262,4 +261,20 @@
 
 .customAttributes {
     margin-bottom: 0.5rem;
+}
+
+.compareIcon {
+    width: 20px;
+    align-items: center;
+}
+
+.compareIcon img {
+    width: 20px;
+}
+
+.requestBtn button {
+    margin-left: -0.5rem;
+    padding: 0 0.5rem;
+    min-height: 2rem;
+    text-transform: uppercase;
 }

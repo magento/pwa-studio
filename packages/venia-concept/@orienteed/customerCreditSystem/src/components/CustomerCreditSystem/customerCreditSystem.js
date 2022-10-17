@@ -3,25 +3,35 @@ import { shape, string, bool, func } from 'prop-types';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { useCustomerCreditSystem } from '@orienteed/customerCreditSystem/src/talons/useCustomerCreditSystem';
 import { FormattedMessage } from 'react-intl';
-import Button from '@magento/venia-ui/lib/components/Button';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './customerCreditSystem.module.css';
 import BillingAddress from '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress';
+import Price from '@magento/venia-ui/lib/components/Price';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useQuery } from '@apollo/client';
+import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CartPage/PriceSummary/priceSummary.gql';
 
 const CustomerCreditSystem = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { onPaymentSuccess, onPaymentError, resetShouldSubmit, shouldSubmit } = props;
-
+    const { onPaymentSuccess, onPaymentError, resetShouldSubmit, shouldSubmit, paymentMethodMutationData } = props;
+    const { getPriceSummaryQuery } = DEFAULT_OPERATIONS;
+    const [{ cartId }] = useCartContext();
     const talonProps = useCustomerCreditSystem({
         onPaymentSuccess,
         onPaymentError,
         resetShouldSubmit,
-        shouldSubmit
+        shouldSubmit,
+        paymentMethodMutationData
     });
-
-    console.log('shouldSubmit CustomerCreditSystem');
-    console.log(shouldSubmit);
-
+    const { error, data } = useQuery(getPriceSummaryQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !cartId,
+        variables: {
+            cartId
+        }
+    });
+    const priceSummary = data?.cart?.prices.grand_total;
     const { loading } = talonProps;
 
     if (loading) {
@@ -41,13 +51,7 @@ const CustomerCreditSystem = props => {
     const {
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess,
-        checkoutData: {
-            grand_total,
-            grand_total_formatted,
-            leftincredit,
-            remainingcreditformatted,
-            remainingcreditcurrentcurrency
-        }
+        checkoutData: { grand_total, leftincredit, remainingcreditformatted, remainingcreditcurrentcurrency }
     } = talonProps;
 
     if (parseFloat(remainingcreditcurrentcurrency) < grand_total) {
@@ -88,7 +92,11 @@ const CustomerCreditSystem = props => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{grand_total_formatted}</td>
+                        <td>
+                            {priceSummary?.currency && (
+                                <Price value={priceSummary?.value} currencyCode={priceSummary?.currency} />
+                            )}
+                        </td>
                         <td>{remainingcreditformatted}</td>
                         <td>{leftincredit}</td>
                     </tr>

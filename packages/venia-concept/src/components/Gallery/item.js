@@ -31,6 +31,12 @@ import Select from './SelectField/select';
 
 import { useHistory } from 'react-router-dom';
 
+import Button from '@magento/venia-ui/lib/components/Button';
+import CompareIcon from './Icons/compare.svg';
+import useCompareProduct from '@orienteed/customComponents/components/comparePage/talons/useCompareProduct';
+
+import { useAddToQuote } from '@orienteed/quickOrderForm/src/talons/useAddToQuote';
+import ConfirmationModal from './ConfirmationModal';
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
 const IMAGE_WIDTH = 300;
@@ -50,10 +56,16 @@ const GalleryItem = props => {
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
     const { location } = useHistory();
+    const history = useHistory();
     const isHomePage = location.pathname === '/';
     const [quantity, setQuantity] = useState(1);
     const [selectedVeriant, setSelectedVeriant] = useState();
 
+    const compareProps = useCompareProduct();
+    const { addProductsToCompare } = compareProps;
+
+    const { handleAddCofigItemBySku } = useAddToQuote();
+    const [isOpen, setIsOpen] = useState(false);
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;
     }
@@ -69,7 +81,6 @@ const GalleryItem = props => {
         custom_attributes,
         rating_summary
     } = item;
-
     const { url: smallImageURL } = small_image;
 
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
@@ -102,6 +113,29 @@ const GalleryItem = props => {
 
     const wishlistButton = wishlistButtonProps ? <WishlistGalleryButton {...wishlistButtonProps} /> : null;
 
+    const requestQuoteClick = () => {
+        if (selectedVeriant?.parentSku) {
+            setIsOpen(true);
+        } else return history.push(productLink);
+    };
+    const confirmRequestQuote = () => {
+        let simpleProducts = [
+            {
+                sku: selectedVeriant.product.sku,
+                orParentSku: selectedVeriant.parentSku,
+                quantity
+            }
+        ];
+        handleAddCofigItemBySku(simpleProducts);
+        setIsOpen(false);
+    };
+    const requestQuateButton = (
+        <div className={classes.requestBtn}>
+            <Button disabled={item.stock_status === 'OUT_OF_STOCK'} onClick={requestQuoteClick} priority="high">
+                <FormattedMessage id={'galleryItem.Requestquote'} defaultMessage={'Request quote'} />
+            </Button>
+        </div>
+    );
     const addButton = isSupportedProductType ? (
         <AddToCartbutton
             item={
@@ -154,24 +188,18 @@ const GalleryItem = props => {
                 {status === 'IN_STOCK' ? (
                     <span className={classes.inStock}>
                         <img src={InStockIcon} alt="in stock" />
-                        <FormattedMessage
-                            id={'galleryItem.inStock'}
-                            defaultMessage={'In stock'}
-                        />
+                        <FormattedMessage id={'galleryItem.inStock'} defaultMessage={'In stock'} />
                     </span>
                 ) : (
                     <span className={classes.outStock}>
                         <img src={OutStockIcon} alt="out stock" />
-                        <FormattedMessage
-                            id={'galleryItem.outStock'}
-                            defaultMessage={'Out of stock'}
-                        />
+                        <FormattedMessage id={'galleryItem.outStock'} defaultMessage={'Out of stock'} />
                     </span>
                 )}
             </>
         );
     };
-    
+
     const shareClick = () => {
         navigator.clipboard.writeText(window.origin + productLink);
         addToast({
@@ -239,6 +267,10 @@ const GalleryItem = props => {
                 </div>
             );
         });
+
+    const addToCompare = () => {
+        addProductsToCompare(item);
+    };
 
     return (
         <div data-cy="GalleryItem-root" className={classes.root} aria-live="polite" aria-busy="false">
@@ -320,11 +352,7 @@ const GalleryItem = props => {
                 )}
                 <div className={classes.productPrice}>
                     <span>
-                        <FormattedMessage
-                            id={'galleryItem.yourPrice'}
-                            defaultMessage={'Your price:'}
-                        />{' '}
-                        &nbsp;
+                        <FormattedMessage id={'galleryItem.yourPrice'} defaultMessage={'Your price:'} /> &nbsp;
                     </span>
                     {priceRender}
                 </div>
@@ -353,7 +381,20 @@ const GalleryItem = props => {
                 </div>
             )}
             <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}`}>
-                {addButton}
+                {!price.minimalPrice?.amount.value && process.env.B2BSTORE_VERSION === 'PREMIUM'
+                    ? requestQuateButton
+                    : addButton}
+                <button className={classes.compareIcon} onClick={addToCompare}>
+                    <img src={CompareIcon} alt="compare icon" />
+                </button>
+                <ConfirmationModal
+                    isOpen={isOpen}
+                    onCancel={() => setIsOpen(false)}
+                    onConfirm={confirmRequestQuote}
+                    product={selectedVeriant}
+                    quantity={quantity}
+                    setQuantity={val => setQuantity(val)}
+                />
                 {/* {!isHomePage && wishlistButton} */}
             </div>
         </div>

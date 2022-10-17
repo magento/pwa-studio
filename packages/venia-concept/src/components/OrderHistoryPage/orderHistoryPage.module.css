@@ -72,3 +72,39 @@
         justify-self: center;
     }
 }
+
+/***** toast notification *****/
+.successToastContainer {
+    /* Position */
+    bottom: 20px;
+    position: fixed;
+    right: 50%;
+    transform: translate(50%, 0);
+    z-index: 9999;
+
+    /* Content distribution */
+    align-items: center;
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    justify-content: space-between;
+
+    /* Box  */
+    background-color: #c9f0d4;
+    border-radius: 5px;
+    max-width: 400px;
+    padding: 25px;
+    width: 100%;
+}
+
+.errorToastContainer {
+    composes: successToastContainer;
+    background-color: #ffdfdb;
+}
+
+.toastCloseIcon {
+    height: 15px;
+}
+
+/***** end toast notification *****/

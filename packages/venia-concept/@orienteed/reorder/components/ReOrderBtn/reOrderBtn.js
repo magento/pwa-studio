@@ -5,12 +5,17 @@ import buttonClasses from '@magento/venia-ui/lib/components/Button/button.module
 import useReOrderItems from '@orienteed/reorder/hooks/useReOrderItems';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { FormattedMessage } from 'react-intl';
+import { ADD_CONFIGURABLE_MUTATION } from '@magento/peregrine/lib/talons/ProductFullDetail/productFullDetail.gql.ce';
 
 const ReOrder = props => {
-    const { orderNumber } = props;
+    const { orderNumber, order, config } = props;
     const classes = useStyle(defaultClasses, buttonClasses);
 
-    const talonPropsForReOrderItems = useReOrderItems();
+    const talonPropsForReOrderItems = useReOrderItems({
+        order,
+        config,
+        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION
+    });
     const { handleReOrderClick, isLoading } = talonPropsForReOrderItems;
 
     if (isLoading) {
@@ -25,10 +30,7 @@ const ReOrder = props => {
                 id={orderNumber}
                 className={[classes.reOrderBtn, classes.root].join(' ')}
             >
-                <FormattedMessage
-                    id={'orderRow.ReOrder'}
-                    defaultMessage={'ReOrder'}
-                />
+                <FormattedMessage id={'orderRow.ReOrder'} defaultMessage={'ReOrder'} />
             </button>
         </div>
     );

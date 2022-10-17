@@ -17,6 +17,10 @@
     composes: pt-sm from global;
 }
 
+.last_name {
+    display: none;
+}
+
 .first_name,
 .last_name {
     composes: col-end-span2 from global;

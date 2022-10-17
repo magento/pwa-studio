@@ -250,10 +250,7 @@ export const useProductFullDetail = props => {
     useEffect(() => {
         setOptionCode(derivedOptionCodes);
     }, [derivedOptionCodes]);
-    // const { name } = product;
-    // useEffect(() => {
-    //     setOptionSelections(derivedOptionSelections);
-    // }, [name]);
+
     const isMissingOptions = useMemo(() => getIsMissingOptions(product, optionSelections), [product, optionSelections]);
 
     const hasOptionsOfTheSelection = useMemo(
@@ -346,82 +343,6 @@ export const useProductFullDetail = props => {
             } else {
                 console.error('Unsupported product type. Cannot add to cart.');
             }
-
-            /*
-                @deprecated in favor of general addProductsToCart mutation. Will support until the next MAJOR.
-                @deprecated Orienteed custom - If not possible use addProductToCart GraphQL
-             */
-            /* if (hasDeprecatedOperationProp) {
-                const payload = {
-                    item: product,
-                    productType,
-                    quantity
-                };
-
-                if (isProductConfigurable(product)) {
-                    appendOptionsToPayload(
-                        payload,
-                        optionSelections,
-                        optionCodes
-                    );
-                }
-
-                if (isSupportedProductType) {
-                    const variables = {
-                        cartId,
-                        parentSku: payload.parentSku,
-                        product: payload.item,
-                        quantity: payload.quantity,
-                        sku: payload.item.sku
-                    };
-                    // Use the proper mutation for the type.
-                    if (productType === 'SimpleProduct') {
-                        try {
-                            await addSimpleProductToCart({
-                                variables
-                            });
-                        } catch {
-                            return;
-                        }
-                    } else if (productType === 'ConfigurableProduct') {
-                        try {
-                            await addConfigurableProductToCart({
-                                variables
-                            });
-                        } catch {
-                            return;
-                        }
-                    }
-                } else {
-                    console.error(
-                        'Unsupported product type. Cannot add to cart.'
-                    );
-                }
-            } else {
-                const variables = {
-                    cartId,
-                    product: {
-                        sku: product.sku,
-                        quantity
-                    },
-                    entered_options: [
-                        {
-                            uid: product.uid,
-                            value: product.name
-                        }
-                    ]
-                };
-
-                if (selectedOptionsArray.length) {
-                    variables.product.selected_options = selectedOptionsArray;
-                }
-
-                try {
-                    await addProductToCart({ variables });
-                } catch {
-                    return;
-                }
-            }*/
         },
         [
             addConfigurableProductToCart,
@@ -434,15 +355,14 @@ export const useProductFullDetail = props => {
             productType
         ]
     );
-    let optionSelectionsKeys = Array.from(optionSelections.keys());
-    let derivedOptionSelectionsKey = Array.from(derivedOptionSelections.keys());
-    let iskeysEqual = derivedOptionSelectionsKey.every(ele => optionSelectionsKeys.includes(ele));
-    
+    const optionSelectionsKeys = Array.from(optionSelections.keys());
+    const derivedOptionSelectionsKey = Array.from(derivedOptionSelections.keys());
+    const iskeysEqual = derivedOptionSelectionsKey.every(ele => optionSelectionsKeys.includes(ele));
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
-            let optionSelectionsKeys1 = Array.from(optionSelections.keys());
-            let derivedOptionSelectionsKeys1 = Array.from(derivedOptionSelections.keys());
+            const optionSelectionsKeys1 = Array.from(optionSelections.keys());
+            const derivedOptionSelectionsKeys1 = Array.from(derivedOptionSelections.keys());
 
             if (!derivedOptionSelectionsKeys1.every(ele => optionSelectionsKeys1.includes(ele))) {
                 const newOptionSelections = new Map([...derivedOptionSelections]);

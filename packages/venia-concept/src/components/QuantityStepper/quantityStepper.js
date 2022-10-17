@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { useQuantityStepper } from '@magento/peregrine/lib/talons/QuantityStepper/useQuantityStepper';
@@ -10,23 +10,18 @@ import { Message } from '@magento/venia-ui/lib/components/Field';
 import defaultClasses from '@magento/venia-ui/lib/components/QuantityStepper/quantityStepper.module.css';
 
 const QuantityStepper = props => {
-    const {
-        initialValue,
-        itemId,
-        label,
-        min,
-        onChange,
-        message,
-        fieldName = 'quantity'
-    } = props;
+    const { initialValue, itemId, label, min, onChange, message, fieldName = 'quantity' } = props;
     const { formatMessage } = useIntl();
+
     const classes = useStyle(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
+    const [isQtyChange, setIsQtyChange] = useState(false);
     const talonProps = useQuantityStepper({
         initialValue,
         min,
         onChange,
+        isQtyChange,
         fieldName
     });
 
@@ -72,7 +67,10 @@ const QuantityStepper = props => {
                     inputMode="numeric"
                     mask={maskInput}
                     min={min}
-                    onBlur={handleBlur}
+                    onChange={e => {
+                        handleBlur(e);
+                        setIsQtyChange(e.target.value);
+                    }}
                     pattern="[0-9]*"
                 />
                 <button

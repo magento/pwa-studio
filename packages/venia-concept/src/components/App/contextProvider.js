@@ -7,6 +7,7 @@ import {
 import LocaleProvider from '@magento/venia-ui/lib/components/App/localeProvider';
 import { DownloadCsvProvider } from '@orienteed/customComponents/components/DownloadCsvProvider/downloadCsvProvider';
 import { PrintPdfProvider } from '@orienteed/customComponents/components/PrintPdfProvider/printPdfProvider';
+import { NoReorderProductProvider } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
 /**
  * List of context providers that are required to run Venia
@@ -20,7 +21,9 @@ const ContextProvider = ({ children }) => {
         return (
             <PrintPdfProvider>
                 <DownloadCsvProvider>
-                    <ContextProvider>{memo}</ContextProvider>
+                    <NoReorderProductProvider>
+                        <ContextProvider>{memo}</ContextProvider>
+                    </NoReorderProductProvider>
                 </DownloadCsvProvider>
             </PrintPdfProvider>
         );

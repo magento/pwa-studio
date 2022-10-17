@@ -103,6 +103,7 @@ export default original => {
         const client = useApolloClient();
         const formState = useFormState();
         const { validate: validateBillingAddressForm } = useFormApi();
+        const { validate } = useFormApi();
         const [{ cartId }] = useCartContext();
         const [{ isSignedIn }] = useUserContext();
 
@@ -144,7 +145,7 @@ export default original => {
         ] = useMutation(setDefaultBillingAddressMutation);
 
         const shippingAddressCountry = shippingAddressData
-            ? shippingAddressData.cart.shippingAddresses[0].country.code
+            ? shippingAddressData.cart?.shippingAddresses[0]?.country.code
             : 'US';
 
         const defaultBillingAddressObject = getDefaultBillingAddress(customerAddressesData);
@@ -168,9 +169,21 @@ export default original => {
                 }
             }
 
-            return { isBillingAddressDefault, ...billingAddress, defaultBillingAddressObject };
-        }, [isBillingAddressSameData, billingAddressData, defaultBillingAddressObject]);
+            return {
+                isBillingAddressDefault,
+                ...billingAddress,
+                defaultBillingAddressObject
+            };
+        }, [billingAddressData, defaultBillingAddressObject, isBillingAddressDefault]);
 
+        const locationLabel = useMemo(() => {
+            const { ...rawBillingAddress } = billingAddressData?.cart?.billingAddress;
+            const { region, country } = rawBillingAddress;
+            return {
+                region: region?.label,
+                country: country?.label
+            };
+        }, [isBillingAddressSameData, billingAddressData]);
         /**
          * Helpers
          */
@@ -198,8 +211,8 @@ export default original => {
          * shipping address.
          */
         const setShippingAddressAsBillingAddress = useCallback(() => {
-            const shippingAddress = shippingAddressData
-                ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
+            const shippingAddress = shippingAddressData?.cart
+                ? mapAddressData(shippingAddressData.cart?.shippingAddresses[0])
                 : {};
 
             updateBillingAddress({
@@ -264,7 +277,10 @@ export default original => {
                         type: 'error',
                         icon: errorIcon,
                         message: (
-                            <FormattedMessage id={'billingAddress.somethingWentWrongTryAnotherState'} defaultMessage={'Something went wrong, try another state'} />
+                            <FormattedMessage
+                                id={'billingAddress.somethingWentWrongTryAnotherState'}
+                                defaultMessage={'Something went wrong, try another state'}
+                            />
                         ),
                         timeout: 6000
                     })
@@ -413,7 +429,8 @@ export default original => {
             errors,
             isBillingAddressDefault,
             initialValues,
-            shippingAddressCountry
+            shippingAddressCountry,
+            locationLabel
         };
     };
 };

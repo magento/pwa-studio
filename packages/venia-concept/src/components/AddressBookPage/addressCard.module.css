@@ -50,6 +50,7 @@
     display: grid;
     justify-items: start;
     row-gap: 0.5rem;
+    margin-top: 1rem;
 }
 
 .defaultBadge {
@@ -105,6 +106,16 @@
 
     .linkButton {
         padding: 0 0.25rem 0.25rem;
+    }
+    .root {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .actionContainer {
+        margin-top: 1rem;
+        display: block;
+        align-items: center;
     }
 }
 

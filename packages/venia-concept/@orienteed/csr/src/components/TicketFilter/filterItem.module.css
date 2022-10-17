@@ -1,0 +1,22 @@
+.root {
+    composes: flex from global;
+    composes: items-center from global;
+    composes: w-full from global;
+}
+
+.content {
+    composes: items-center from global;
+    composes: grid from global;
+    composes: grid-cols-[1fr] from global;
+    composes: grid-flow-col from global;
+    composes: gap-3 from global;
+    composes: h-[2.5rem] from global;
+    composes: px-3 from global;
+    composes: py-0 from global;
+    composes: w-full from global;
+}
+
+.text {
+    composes: text-left from global;
+    composes: whitespace-nowrap from global;
+}

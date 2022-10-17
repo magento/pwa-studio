@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/OrderHistoryPage/orderRow.gql';
-import { useHistory } from 'react-router-dom';
 
 /**
  * @function
@@ -15,8 +14,9 @@ import { useHistory } from 'react-router-dom';
  * @returns {OrderRowTalonProps}
  */
 export const useOrderRow = props => {
+    const [ticketModal, setTicketModal] = useState(false);
+
     const { items } = props;
-    const history = useHistory();
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getProductThumbnailsQuery, getConfigurableThumbnailSource } = operations;
 
@@ -70,16 +70,18 @@ export const useOrderRow = props => {
         setIsOpen(currentValue => !currentValue);
     }, []);
 
-    const handleOrderIncidences = useCallback(async orderNumber => {
-        history.push('/order-incidences?orderNumber=' + orderNumber);
-    }, []);
+    const openOrderIncidenceModal = () => {
+        setTicketModal(true);
+    };
 
     return {
         loading,
         imagesData,
         isOpen,
         handleContentToggle,
-        handleOrderIncidences
+        openOrderIncidenceModal,
+        setTicketModal,
+        ticketModal
     };
 };
 

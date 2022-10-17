@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string, bool, func } from 'prop-types';
+import { shape, string, bool, func, object } from 'prop-types';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { usePayWithBankTransfer } from '@orienteed/payWithBankTransfer/src/talons/usePayWithBankTransfer';
 import { FormattedMessage } from 'react-intl';
@@ -16,7 +16,8 @@ const PayWithBankTransfer = props => {
         resetShouldSubmit,
         shouldSubmit,
         onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
+        onBillingAddressChangedSuccess,
+        paymentMethodMutationData
     } = usePayWithBankTransfer(props);
 
     const talonProps = usePayWithBankTransfer({
@@ -25,7 +26,8 @@ const PayWithBankTransfer = props => {
         resetShouldSubmit,
         shouldSubmit,
         onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
+        onBillingAddressChangedSuccess,
+        paymentMethodMutationData
     });
 
     const { loading } = talonProps;
@@ -66,12 +68,12 @@ const PayWithBankTransfer = props => {
     return (
         <div className={classes.root}>
             {_instructionsHtml}
-            <BillingAddress
+            {/* <BillingAddress
                 resetShouldSubmit={props.resetShouldSubmit}
                 shouldSubmit={props.shouldSubmit}
                 onBillingAddressChangedError={onBillingAddressChangedError}
                 onBillingAddressChangedSuccess={onBillingAddressChangedSuccess}
-            />
+            /> */}
         </div>
     );
 };
@@ -88,5 +90,6 @@ PayWithBankTransfer.propTypes = {
     onDropinReady: func,
     onPaymentError: func,
     resetShouldSubmit: func,
-    onPaymentReady: func
+    onPaymentReady: func,
+    paymentMethodMutationData:object
 };

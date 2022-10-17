@@ -33,7 +33,7 @@ export const useAccountMenuItems = props => {
         },
         {
             name: 'Address Book',
-            id: 'accountMenu.addressBookLink',
+            id: 'addressBookPage.addressBookText',
             url: '/address-book'
         },
         {

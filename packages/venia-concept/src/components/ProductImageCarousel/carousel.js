@@ -15,7 +15,8 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 import Image from '@magento/venia-ui/lib/components/Image';
 import defaultClasses from '@magento/venia-ui/lib/components/ProductImageCarousel/carousel.module.css';
 import Thumbnail from '@magento/venia-ui/lib/components/ProductImageCarousel/thumbnail';
-
+import ReactImageZoom from 'react-image-zoom';
+import { generateUrl } from '@magento/peregrine/lib/util/imageUtils';
 const IMAGE_WIDTH = 640;
 
 /**
@@ -32,7 +33,7 @@ const IMAGE_WIDTH = 640;
  * @returns {React.Element}
  */
 const ProductImageCarousel = props => {
-    const { images , carouselWidth } = props;
+    const { images, carouselWidth } = props;
 
     const { formatMessage } = useIntl();
     const talonProps = useProductImageCarousel({
@@ -67,25 +68,19 @@ const ProductImageCarousel = props => {
                 />
             ) : null;
         });
-    }, [
-        activeItemIndex,
-        handleThumbnailClick,
-        sortedImages,
-        initialIndex,
-        lastIndex
-    ]);
+    }, [activeItemIndex, handleThumbnailClick, sortedImages, initialIndex, lastIndex]);
 
+    const src = useMemo(() => {
+        if (currentImage.file) {
+            return generateUrl(currentImage.file, 'image-product')(IMAGE_WIDTH, 800);
+        }
+    }, [generateUrl, currentImage, IMAGE_WIDTH]);
     let image;
     if (currentImage.file) {
         image = (
-            <Image
-                alt={altText}
-                classes={{
-                    image: classes.currentImage,
-                    root: classes.imageContainer
-                }}
-                resource={currentImage.file}
-                width={IMAGE_WIDTH}
+            <ReactImageZoom
+                zoomWidth={500}
+                img={src}
             />
         );
     } else {
@@ -112,6 +107,7 @@ const ProductImageCarousel = props => {
     });
 
     const chevronClasses = { root: classes.chevron };
+
     return (
         <div className={classes.root}>
             <div className={classes.carouselContainer}>
@@ -121,25 +117,11 @@ const ProductImageCarousel = props => {
                     aria-label={previousButton}
                     type="button"
                 >
-                    <Icon
-                        classes={chevronClasses}
-                        src={ChevronLeftIcon}
-                        size={40}
-                    />
+                    <Icon classes={chevronClasses} src={ChevronLeftIcon} size={40} />
                 </AriaButton>
-
                 {image}
-                <AriaButton
-                    className={classes.nextButton}
-                    onPress={handleNext}
-                    aria-label={nextButton}
-                    type="button"
-                >
-                    <Icon
-                        classes={chevronClasses}
-                        src={ChevronRightIcon}
-                        size={40}
-                    />
+                <AriaButton className={classes.nextButton} onPress={handleNext} aria-label={nextButton} type="button">
+                    <Icon classes={chevronClasses} src={ChevronRightIcon} size={40} />
                 </AriaButton>
             </div>
 
@@ -150,29 +132,17 @@ const ProductImageCarousel = props => {
                     aria-label={previousButton}
                     type="button"
                 >
-                    <Icon
-                        classes={chevronClasses}
-                        src={ChevronUpIcon}
-                        size={40}
-                    />
+                    <Icon classes={chevronClasses} src={ChevronUpIcon} size={40} />
                 </AriaButton>
 
                 {thumbnails}
                 <AriaButton
                     className={classes.nextButtonDesktop}
-                    onPress={
-                        activeItemIndex >= sortedImages.length - 1
-                            ? null
-                            : handleNext
-                    }
+                    onPress={activeItemIndex >= sortedImages.length - 1 ? null : handleNext}
                     aria-label={nextButton}
                     type="button"
                 >
-                    <Icon
-                        classes={chevronClasses}
-                        src={ChevronDownIcon}
-                        size={40}
-                    />
+                    <Icon classes={chevronClasses} src={ChevronDownIcon} size={40} />
                 </AriaButton>
             </div>
         </div>

@@ -16,6 +16,7 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 import { useHistory } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
+import CookiesMsg from '@orienteed/customComponents/components/CookiesConsent'
 
 ReactGA.initialize('UA-158777378-4');
 ReactGA.plugin.require('ecommerce');
@@ -113,6 +114,7 @@ const App = props => {
         <HeadProvider>
             <StoreTitle />
             <Main isMasked={hasOverlay}>
+                <CookiesMsg/>
                 <Routes />
             </Main>
             <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />

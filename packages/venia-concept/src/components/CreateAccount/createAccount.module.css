@@ -4,6 +4,9 @@
     justify-items: stretch;
     padding: 1rem 1.5rem;
 }
+.last_name {
+    display: none;
+}
 
 .message {
     background-color: rgb(var(--venia-global-color-gray));

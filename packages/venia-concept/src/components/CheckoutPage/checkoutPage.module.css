@@ -125,6 +125,21 @@
     margin: auto;
 }
 
+.errorNoProductText {
+    color: red;
+}
+
+.billingAddressContainer {
+    composes: border-b-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: grid from global;
+    composes: gap-y-xs from global;
+    composes: p-md from global;
+    composes: rounded-md from global;
+    border-width: 2px;
+}
+
 /*
  * Mobile-specific styles.
  */

@@ -12,10 +12,20 @@ import facebookLogo from './assets/facebook.svg';
 import instagramLogo from './assets/instagram.svg';
 import youtubeLogo from './assets/youtube.svg';
 import b2bLogo from '../Logo/B2Blogo.svg';
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { useStoreConfigData } from '../../talons/useStoreConfigData';
+
+const storage = new BrowserPersistence();
 
 const Footer = props => {
     const { links } = props;
     const classes = useStyle(defaultClasses, props.classes);
+
+    const { storeConfigData } = useStoreConfigData();
+
+    if (storeConfigData) {
+        storage.setItem('is_required_login', storeConfigData.storeConfig.is_required_login);
+    }
 
     const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
         const linkElements = Array.from(linkProps, ([text, pathInfo]) => {

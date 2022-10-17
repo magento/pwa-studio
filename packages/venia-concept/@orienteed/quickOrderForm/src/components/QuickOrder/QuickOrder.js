@@ -211,11 +211,11 @@ const AddQuickOrder = props => {
                                                     {item.price ? (
                                                         <span className={classes.priceText}>
                                                             {' '}
-                                                            {item.price.regularPrice.amount.currency === 'USD'
+                                                            {item.price.minimalPrice.amount.currency === 'USD'
                                                                 ? '$'
                                                                 : '€'}
                                                             {(
-                                                                item.price.regularPrice.amount.value * item.quantity
+                                                                item.price.minimalPrice.amount.value * item.quantity
                                                             ).toFixed(2)}
                                                         </span>
                                                     ) : (
@@ -289,11 +289,18 @@ const AddQuickOrder = props => {
                                     <Icon className={classes.addCartIcon} src={ArrowDown} alt="arrowDown-icon" />
                                 </Button>
                             </div>
-                            <div>
-                                <Button disabled={isLoadingAddQuote} type="button" priority="high" onClick={addQuoteClick}>
-                                    <FormattedMessage id="quickOrder.GetQuote" defaultMessage="Get Quote" />
-                                </Button>
-                            </div>
+                            {process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                                <div>
+                                    <Button
+                                        disabled={isLoadingAddQuote}
+                                        type="button"
+                                        priority="high"
+                                        onClick={addQuoteClick}
+                                    >
+                                        <FormattedMessage id="quickOrder.GetQuote" defaultMessage="Get Quote" />
+                                    </Button>
+                                </div>
+                            )}
                             <div>
                                 <Button type="button" priority="high" onClick={createOrderClick}>
                                     <FormattedMessage id="quickOrder.CreateOrder" defaultMessage="Create Order" />

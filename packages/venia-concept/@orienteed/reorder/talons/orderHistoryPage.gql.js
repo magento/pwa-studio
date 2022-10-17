@@ -8,7 +8,7 @@ const CustomerOrdersFragment = gql`
                 city
                 country_code
                 firstname
-                lastname
+                # lastname
                 postcode
                 region
                 street

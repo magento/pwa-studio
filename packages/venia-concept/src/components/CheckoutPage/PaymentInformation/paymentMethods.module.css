@@ -17,6 +17,13 @@
 
     composes: last_pt-0 from global;
 }
+.root header {
+    padding-bottom: 1.125rem;
+}
+
+.root header h5 {
+    font-weight: bold;
+}
 
 /* TODO @TW: cannot compose */
 .payment_method:last-of-type {
@@ -38,5 +45,8 @@
 @media (max-width: 960px) {
     .root {
         padding: 0.7rem;
+    }
+    .root header {
+        padding: 1.125rem;
     }
 }

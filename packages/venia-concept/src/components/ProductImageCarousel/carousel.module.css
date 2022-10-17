@@ -6,7 +6,7 @@
     grid-template-areas:
         'main'
         'thumbs';
-        gap: .3rem;
+    gap: 0.3rem;
 }
 
 @media (min-width: 960px) {
@@ -102,4 +102,13 @@
     composes: lg_grid-cols-[1fr] from global;
     composes: lg_grid-flow-row from global;
     composes: lg_mt-0 from global;
+}
+
+.carouselContainer > div {
+    grid-area: 1 / 1 / 2 / 4;
+    margin: 0 auto;
+}
+
+.carouselContainer > div div:nth-child(3) {
+    box-shadow: 0 0 10px 0 #fbe4a4;
 }

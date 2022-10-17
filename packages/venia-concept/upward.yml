@@ -12,6 +12,9 @@ veniaResponse:
         # handled by the top-level 'veniaProxy' object, which is a ProxyResolver
         # that passes the request through to the backing Magento server.
         - matches: request.url.pathname
+          pattern: '^/(csr)(/|$)'
+          use: csrProxy
+        - matches: request.url.pathname
           pattern: '^/(graphql|rest|media)(/|$)'
           use: veniaProxy
         - matches: request.url.pathname
@@ -99,6 +102,16 @@ veniaProxy:
                   inline: false
         default:
             inline: true
+
+csrProxy:
+    resolver: proxy
+    target: env.CSR_URL
+    # A local Magento install may have SSH configured and untrusted,
+    # which is not a major concern for this one origin, especially if
+    # containerized. Clients which require trust may proxy through UPWARD.
+    # ignoreSSLErrors:
+    #     default:
+    #         inline: true
 
 # Page type data for initial render
 veniaPageType:

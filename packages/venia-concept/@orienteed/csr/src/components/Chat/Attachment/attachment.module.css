@@ -1,0 +1,63 @@
+.containerBody {
+    align-items: center;
+    border-bottom: 1px solid #cecccc;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: clamp(5px, 1vw, 20px);
+    height: 80px;
+    padding: 15px clamp(0px, 1vw, 15px);
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.fileNameAndSizeBody {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.filenameText {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    /* padding-right: 10px; */
+    color: #e8ab00;
+    display: -webkit-box;
+    font-size: 16px;
+    font-weight: 700;
+    line-break: anywhere;
+    line-height: 16px;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sizeText {
+    color: #807a7a;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    white-space: nowrap;
+}
+
+.dateText {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #807a7a;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-break: anywhere;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

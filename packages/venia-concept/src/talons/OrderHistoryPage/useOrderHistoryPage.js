@@ -1,9 +1,9 @@
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
@@ -23,10 +23,12 @@ export const useOrderHistoryPage = (props, ...restArgs) => {
     ] = useAppContext();
 
     const history = useHistory();
-    const [{ isSignedIn }] = useUserContext();
 
+    const [errorToast, setErrorToast] = useState(false);
     const [pageSize, setPageSize] = useState(PAGE_SIZE);
     const [searchText, setSearchText] = useState('');
+    const [successToast, setSuccessToast] = useState(false);
+    const [{ isSignedIn }] = useUserContext();
 
     const { data: orderData, error: getOrderError, loading: orderLoading } = useQuery(getCustomerOrdersQuery, {
         fetchPolicy: 'cache-and-network',
@@ -47,7 +49,7 @@ export const useOrderHistoryPage = (props, ...restArgs) => {
 
     const ordersInitial = orderData ? orderData.customer.orders.items : [];
 
-    let newSortOrder = [...ordersInitial];
+    const newSortOrder = [...ordersInitial];
 
     const orders = newSortOrder.sort((a, b) => (a.order_date < b.order_date ? 1 : -1));
 
@@ -102,8 +104,23 @@ export const useOrderHistoryPage = (props, ...restArgs) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setSuccessToast(false);
+        }, 5000);
+        return () => clearTimeout(timeout);
+    }, [successToast]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setErrorToast(false);
+        }, 5000);
+        return () => clearTimeout(timeout);
+    }, [errorToast]);
+
     return {
         errorMessage: derivedErrorMessage,
+        errorToast,
         handleReset,
         handleSubmit,
         isBackgroundLoading,
@@ -112,7 +129,9 @@ export const useOrderHistoryPage = (props, ...restArgs) => {
         orders,
         pageInfo,
         searchText,
-        searchText,
-        storeConfigData
+        setErrorToast,
+        setSuccessToast,
+        storeConfigData,
+        successToast
     };
 };

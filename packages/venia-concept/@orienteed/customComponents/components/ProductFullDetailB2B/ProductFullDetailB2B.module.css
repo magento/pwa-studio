@@ -72,6 +72,13 @@
     margin: 0 auto;
 }
 
+.recommendedProdut {
+    border-color: rgb(var(--venia-global-color-border));
+    border-style: solid;
+    border-width: 1px 0 0 0;
+    margin: 0 1.5rem;
+}
+
 .imageCarousel {
     /* max-width: 640px;
     margin: 0 auto; */
@@ -260,6 +267,22 @@
     width: clamp(90px, 10vw, 120px);
 }
 
+.paginationB2B {
+    composes: bg-white from global;
+    /* composes: border-t from global;
+    composes: border-solid from global;
+    composes: border-subtle from global; */
+    composes: gap-1 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-center from global;
+    composes: px-0 from global;
+    composes: my-xs from global;
+    composes: text-center from global;
+    grid-auto-columns: minmax(2rem, auto);
+    margin-top: 30px;
+}
+
 @media (max-width: 1250px) {
     .indexMobileSku {
         display: none;
@@ -311,20 +334,19 @@
 
 .imageCarousel > div > div > div img {
     width: 100%;
-    height: 500px;
+    height: 500px !important;
 }
-
 
 @media (max-width: 580px) {
     .imageCarousel div {
         height: 450px;
     }
 
-    .imageCarousel div div  {
+    .imageCarousel div div {
         height: 400px;
     }
 
     .imageCarousel div div div img {
-        height: 400px;
+        height: 400px !important;
     }
 }

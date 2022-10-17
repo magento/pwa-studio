@@ -10,6 +10,7 @@ import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCapt
 
 import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CreateAccount/createAccount.gql.js';
 import registerUserAndSaveData from '@orienteed/lms/services/registerUserAndSaveData';
+import doCsrLogin from '../../../@orienteed/csr/services/auth/login';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -113,8 +114,17 @@ export const useCreateAccount = props => {
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
 
-                // Moodle logic
-                registerUserAndSaveData(formValues.customer.email, formValues.password, setMoodleTokenAndId, saveMoodleTokenAndId);
+                // LMS logic
+                process.env.LMS_ENABLED === 'true' &&
+                    registerUserAndSaveData(
+                        formValues.customer.email,
+                        formValues.password,
+                        setMoodleTokenAndId,
+                        saveMoodleTokenAndId
+                    );
+
+                // CSR logic
+                process.env.CSR_ENABLED === 'true' && doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');

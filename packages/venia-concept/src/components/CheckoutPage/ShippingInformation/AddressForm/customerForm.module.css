@@ -26,9 +26,12 @@
     padding-top: 1rem;
 }
 
-.firstname,
+.firstname {
+    grid-column: 1 / span 2;
+}
+
 .lastname {
-    grid-column-end: span 1;
+    display: none;
 }
 
 .buttons {

@@ -1,0 +1,8 @@
+.attachFilesIcon {
+    padding-right: 10px;
+}
+
+.attachFilesIconDisabled {
+    composes: attachFilesIcon;
+    cursor: not-allowed;
+}

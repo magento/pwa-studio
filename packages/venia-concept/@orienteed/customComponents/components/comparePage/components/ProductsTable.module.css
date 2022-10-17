@@ -1,0 +1,53 @@
+.tableWrapper {
+    max-width: 90vw;
+    clear: both;
+    overflow-x: auto !important;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.tableWrapper table caption {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.productTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    max-width: 100%;
+    table-layout: fixed;
+}
+
+.cell {
+    border-bottom: 1px solid #cccccc;
+    border-top: 0;
+    padding: 15px;
+    width: 204px;
+    border-right: 1px solid #cccccc;
+}
+
+.productRow {
+    border-bottom: 1px solid #cccccc;
+    border-top: 0;
+    border-right: 1px solid #cccccc;
+    padding: 15px;
+    width: 180px;
+}
+
+.description div ul {
+    padding-inline-start: 40px;
+}
+
+@media (min-width:1540px){
+    .tableWrapper {
+        max-width: 85vw;
+     
+    }
+}

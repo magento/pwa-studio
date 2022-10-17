@@ -31,6 +31,7 @@ import GoogleReCaptcha from '../GoogleReCaptcha';
 
 import defaultClasses from './checkoutPage.module.css';
 import ScrollAnchor from '../ScrollAnchor/scrollAnchor';
+import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -38,7 +39,9 @@ const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
     const talonProps = useCheckoutPage();
+    const { noProduct } = useNoReorderProductContext();
 
+    console.log('noProduct', noProduct);
     const {
         /**
          * Enum, one of:
@@ -369,6 +372,9 @@ const CheckoutPage = props => {
                     >
                         {headerText}
                     </h1>
+                    <h2>
+                        {noProduct ? 'Some products are not available' : null}
+                    </h2>
                 </div>
                 {signInContainerElement}
                 <div className={classes.shipping_information_container}>

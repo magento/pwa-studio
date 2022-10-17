@@ -13,6 +13,7 @@ import { retrieveCartId } from '@magento/peregrine/lib/store/actions/cart';
 import DEFAULT_OPERATIONS from './signIn.gql.js';
 import registerUserAndSaveData from '@orienteed/lms/services/registerUserAndSaveData';
 import getTokenAndSave from '@orienteed/lms/services/getTokenAndSave.js';
+import doCsrLogin from '@orienteed/csr/services/auth/login.js';
 
 export const useSignIn = props => {
     const { getCartDetailsQuery, setDefaultUsername, showCreateAccount, showForgotPassword } = props;
@@ -66,17 +67,22 @@ export const useSignIn = props => {
                 await setToken(token);
 
                 // LMS logic
-                const moodleTokenResponse = await fetchMoodleToken();
-                const moodleIdResponse = await fetchMoodleId();
+                if (process.env.LMS_ENABLED === 'true') {
+                    const moodleTokenResponse = await fetchMoodleToken();
+                    const moodleIdResponse = await fetchMoodleId();
 
-                if (
-                    moodleTokenResponse.data.customer.moodle_token !== null &&
-                    moodleIdResponse.data.customer.moodle_id !== null
-                ) {
-                    getTokenAndSave(email, password, moodleIdResponse.data.customer.moodle_id, setMoodleTokenAndId);
-                } else {
-                    registerUserAndSaveData(email, password, setMoodleTokenAndId);
+                    if (
+                        moodleTokenResponse.data.customer.moodle_token !== null &&
+                        moodleIdResponse.data.customer.moodle_id !== null
+                    ) {
+                        getTokenAndSave(email, password, moodleIdResponse.data.customer.moodle_id, setMoodleTokenAndId);
+                    } else {
+                        registerUserAndSaveData(email, password, setMoodleTokenAndId);
+                    }
                 }
+
+                // CSR logic
+                process.env.CSR_ENABLED === 'true' && doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await clearCartDataFromCache(apolloClient);
@@ -133,6 +139,7 @@ export const useSignIn = props => {
 
     const handleCreateAccount = useCallback(() => {
         history.push('/create-account');
+        showCreateAccount();
     }, [history]);
 
     const handleForgotPassword = useCallback(() => {
