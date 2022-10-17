@@ -32,6 +32,7 @@ const Section = props => {
     return (
         <div className={classes.root} {...restProps}>
             <button
+                aria-expanded={isOpen}
                 className={classes.title_container}
                 data-cy="Section-titleContainer"
                 onClick={handleSectionToggleWithId}
