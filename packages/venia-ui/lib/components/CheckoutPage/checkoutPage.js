@@ -52,6 +52,7 @@ const CheckoutPage = props => {
         error,
         guestSignInUsername,
         handlePlaceOrder,
+        handlePlaceOrderEnterKeyPress,
         hasError,
         isCartEmpty,
         isGuestCheckout,
@@ -270,6 +271,7 @@ const CheckoutPage = props => {
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
                 <Button
                     onClick={handlePlaceOrder}
+                    onKeyDown={handlePlaceOrderEnterKeyPress}
                     priority="high"
                     className={classes.place_order_button}
                     data-cy="CheckoutPage-placeOrderButton"
