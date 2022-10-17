@@ -19,7 +19,7 @@
             'images favorites';
         grid-template-columns: 1.5625fr 1fr;
         grid-template-rows: repeat(3, min-content);
-        padding: 2.5rem 3rem;
+        padding: 5rem 3rem;
     }
 }
 
@@ -335,7 +335,7 @@ header .productName {
         height: 450px;
     }
 
-    .imageCarousel div div  {
+    .imageCarousel div div {
         height: 400px;
     }
 
@@ -343,7 +343,7 @@ header .productName {
         height: 400px;
     }
 
-    .title{
+    .title {
         margin-top: 0;
     }
 }
@@ -353,7 +353,7 @@ header .productName {
         height: 500px;
     }
 
-    .imageCarousel div div  {
+    .imageCarousel div div {
         height: 450px;
     }
 
@@ -361,7 +361,7 @@ header .productName {
         height: 450px;
     }
 
-    .title{
+    .title {
         margin-top: 30px;
     }
 }
