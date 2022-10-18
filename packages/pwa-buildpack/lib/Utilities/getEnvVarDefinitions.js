@@ -79,8 +79,8 @@ module.exports = getEnvVarDefinitions;
  * and/or an array of `choices` to limit the valid values.
  *
  * The recommended way to access the current environment values in build scripts and interceptors is through the
- * [Configuration]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/cli/}
- * object returned by [`loadEnvironment()`]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/cli/}.
+ * [Configuration object]{@link https://developer.adobe.com/commerce/pwa-studio/guides/general-concepts/configuration/#configuration-object}
+ * object returned by [`loadEnvironment()`]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/cli/load-environment-file/}.
  *
  * **Note:** Any build environment will have hundreds of environment variables _set_, most of which are unrelated to the build process.
  * Any environment variable during the build is accessible via `process.env` in NodeJS.
