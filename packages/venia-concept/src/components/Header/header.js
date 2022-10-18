@@ -77,9 +77,9 @@ const Header = props => {
                     <Link to={resourceUrl('/')} className={classes.logoContainer}>
                         <Logo classes={{ logo: classes.logo }} />
                     </Link>
-                    {storeConfigRequiredLogin === '0' || isUserSignedIn ? (
-                        <MegaMenu />
-                    ) : null}
+
+                    {storeConfigRequiredLogin === '0' || isUserSignedIn ? <MegaMenu /> : null}
+
                     <div className={classes.secondaryActions}>
                         <SearchTrigger onClick={handleSearchTriggerClick} ref={searchTriggerRef} />
                         <AccountTrigger />

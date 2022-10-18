@@ -93,7 +93,7 @@
     gap: 1rem;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1200px) {
     .root {
         grid-template-columns: 1fr 1fr;
     }

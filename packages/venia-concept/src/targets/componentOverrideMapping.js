@@ -187,5 +187,9 @@ module.exports = componentOverrideMapping = {
     [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css', // replace directly
 
     //new overwrite
-    [`@magento/venia-ui/lib/components/AuthModal//authModal.module.css`]: './src/components/AuthModal//authModal.module.css'
+    [`@magento/venia-ui/lib/components/AuthModal//authModal.module.css`]: './src/components/AuthModal//authModal.module.css',
+
+    //17/10/2022
+    [`@magento/venia-ui/lib/components/MegaMenu/megaMenu.module.css`]: './src/components/MegaMenu/megaMenu.module.css',
+    [`@magento/venia-ui/lib/components/Header/navTrigger.module.css`]: './src/components/Header/navTrigger.module.css'
 };
