@@ -28,7 +28,7 @@ module.exports = targets => {
          * configuration with the project-wide environment variable system.
          *
          * @see [Variable definition schema]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/environment/definition-object/}
-         * @see[Core variable definitions]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/environment/variables/}
+         * @see [Core variable definitions]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/environment/variables/}
          *
          * @param {object} envVarDefinitions The [variable definitions object]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/environment/definition-object/}.
          * Modify in place.
