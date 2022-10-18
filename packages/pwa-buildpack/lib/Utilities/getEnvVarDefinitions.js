@@ -5,8 +5,8 @@ const debug = require('debug')('pwa-buildpack:getEnvVarDefinitions');
 
 /**
  * Get the list of environment definitions.
- * Calling this function will invoke the [`envVarDefinitions`]{@link http://pwastudio.io/pwa-buildpack/reference/buildbus/targets/#module_BuiltinTargets.envVarDefinitions}
- * target, passing the list of [built-in environment variables]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/}
+ * Calling this function will invoke the [`envVarDefinitions`]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/environment/definition-object/}
+ * target, passing the list of [built-in environment variables]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/environment/variables/}
  * to all interceptors.
  * Any installed dependencies that intercept this target may add to or modify the list of environment variables.
  *
@@ -50,10 +50,10 @@ module.exports = getEnvVarDefinitions;
  * Defines the global settings of the project as a list of typed environment variables.
  * Includes a set of changes made to the environment variables in recent versions, to aid with migration and upgrades.
  *
- * `EnvVarDefinitions` are used by [`loadEnvironment()`]{@link http://pwastudio.io/pwa-buildpack/reference/buildpack-cli/load-env/#loadenvironmentdirorenv-logger}
+ * `EnvVarDefinitions` are used by [`loadEnvironment()`]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/cli/load-environment-file/}
  * to validate the currently defined values in the environment.
  *
- * `EnvVarDefinitions` are also used by [`createDotEnvFile()`]{@link http://pwastudio.io/pwa-buildpack/reference/buildpack-cli/create-env-file/#createdotenvfiledirectory-options}
+ * `EnvVarDefinitions` are also used by [`createDotEnvFile()`]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/cli/create-environment-file/}
  * to generate an extensively commented `.env` file for a project.
  *
  * @typedef {Object} EnvVarDefinitions
@@ -79,8 +79,8 @@ module.exports = getEnvVarDefinitions;
  * and/or an array of `choices` to limit the valid values.
  *
  * The recommended way to access the current environment values in build scripts and interceptors is through the
- * [Configuration]{@link http://pwastudio.io/pwa-buildpack/reference/buildpack-cli/load-env/#configuration-object}
- * object returned by [`loadEnvironment()`]{@link http://pwastudio.io/pwa-buildpack/reference/buildpack-cli/load-env/#loadenvironmentdirorenv-logger}.
+ * [Configuration]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/cli/}
+ * object returned by [`loadEnvironment()`]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/cli/}.
  *
  * **Note:** Any build environment will have hundreds of environment variables _set_, most of which are unrelated to the build process.
  * Any environment variable during the build is accessible via `process.env` in NodeJS.
