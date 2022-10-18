@@ -177,7 +177,7 @@ const CustomerForm = props => {
                             id="customer_lastname"
                             data-cy="CustomerForm-lastName"
                             validate={isRequired}
-                            initialValue={'.'}
+                            initialValue={'lastname'}
                         />
                     </Field>
                 </div>

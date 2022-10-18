@@ -110,7 +110,7 @@ const CreateAccount = props => {
                         field="customer.lastname"
                         autoComplete="family-name"
                         validateOnBlur
-                        initialValue={'.'}
+                        initialValue={'lastname'}
                         maskOnBlur={true}
                         data-cy="customer-lastname"
                     />

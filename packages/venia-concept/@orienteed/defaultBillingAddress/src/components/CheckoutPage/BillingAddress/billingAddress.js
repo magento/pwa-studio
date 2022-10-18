@@ -131,7 +131,7 @@ const BillingAddress = props => {
                         id="lastName"
                         field="lastName"
                         validate={isFieldRequired}
-                        initialValue={'.'}
+                        initialValue={'lastname'}
                     />
                 </Field>
                 <Country

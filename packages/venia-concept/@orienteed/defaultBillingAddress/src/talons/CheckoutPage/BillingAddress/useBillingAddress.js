@@ -23,6 +23,7 @@ export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
         const {
             firstName,
+            lastname,
             city,
             postcode,
             phoneNumber,
@@ -33,6 +34,7 @@ export const mapAddressData = rawAddressData => {
 
         return {
             firstName,
+            lastname,
             city,
             postcode,
             phoneNumber,
@@ -276,6 +278,7 @@ export default original => {
         const setBillingAddress = useCallback(() => {
             const {
                 firstName,
+                lastname,
                 country,
                 street1,
                 street2,
@@ -289,6 +292,7 @@ export default original => {
                 variables: {
                     cartId,
                     firstName,
+                    lastname,
                     country,
                     street1,
                     street2,

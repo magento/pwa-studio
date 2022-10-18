@@ -14,7 +14,7 @@ export const useCustomerForm = props => {
         getCustomerAddressesQuery,
         getDefaultShippingQuery
     } = operations;
-    console.log('HELLO');
+
     const [
         createCustomerAddress,
         {
