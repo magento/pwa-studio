@@ -65,32 +65,32 @@ See [Upgrading versions][] for more information about upgrading between PWA Stud
 [scaffolded project]: https://developer.adobe.com/commerce/pwa-studio/tutorials/
 [upgrading versions]: https://developer.adobe.com/commerce/pwa-studio/guides/upgrading-versions/
 
-### Update dependencies
+### Updated package dependencies
 
 Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
-The following table lists the latest versions of each package as of 12.7.0.
+The following table lists the latest versions of each package as of 12.7.0. The **bolded** versions with an asterisk (*) are the packages that were updated from PWA Studio 12.6.0.
 
 **Note:**
 Your project may not depend on some packages listed in this table.
 
 | Package                             | Latest version |
 |-------------------------------------|----------------|
-| `babel-preset-peregrine`            | **1.2.2**      |
-| `create-pwa`                        | **2.3.3**      |
-| `experience-platform-connector`     | **1.0.2**      |
-| `upward-security-headers`           | **1.0.11**     |
-| `venia-sample-backends`             | 0.0.8      |
-| `venia-sample-eventing`             | **0.0.3**      |
-| `venia-sample-language-packs`       | **0.0.11**     |
-| `venia-sample-payments-checkmo`     | **0.0.9**      |
-| `pagebuilder`                       | **7.4.2**      |
-| `peregrine`                         | **12.6.0**     |
-| `pwa-buildpack`                     | **11.4.1**     |
-| `pwa-theme-venia`                   | **1.4.0**      |
+| `babel-preset-peregrine`            | **1.2.2***      |
+| `create-pwa`                        | **2.3.3***      |
+| `experience-platform-connector`     | **1.0.2***      |
+| `upward-security-headers`           | **1.0.11***     |
+| `venia-sample-backends`             | **0.0.9***      |
+| `venia-sample-eventing`             | **0.0.3***      |
+| `venia-sample-language-packs`       | **0.0.11***     |
+| `venia-sample-payments-checkmo`     | **0.0.9***      |
+| `pagebuilder`                       | **7.4.2***      |
+| `peregrine`                         | **12.6.0***     |
+| `pwa-buildpack`                     | **11.4.1***     |
+| `pwa-theme-venia`                   | **1.4.0***      |
 | `upward-js`                         | 5.3.2      |
 | `upward-spec`                       | 5.2.1      |
-| `venia-concept`                     | **12.7.0**     |
-| `venia-ui`                          | **9.7.0**      |
+| `venia-concept`                     | **12.7.0***     |
+| `venia-ui`                          | **9.7.0***      |
 | `magento2-pwa`                      | 0.3.0      |
 | `magento2-pwa-commerce`             | 0.0.2      |
 | `magento-venia-sample-data-modules` | 0.0.3      |
