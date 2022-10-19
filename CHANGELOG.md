@@ -8,24 +8,24 @@ _For older release notes, see_ [PWA Studio releases][].
 
 The 12.7.0 release of PWA Studio focuses on accessibility improvements and bug fixes.
 
-### Additions
+### Features
 
-- New Feature: [3903][] — **Out-of-stock variations** — The out-of-stock setting can now be applied to configurable product variations, making it easier for customers to select variations.
-- Documentation: [155][] — **Tailwind theming documentation** — New instructions on how to install, configure, and use Tailwind with Venia to theme your own PWA Studio app. See [Tailwind Theming for PWA Studio apps](https://developer.adobe.com/commerce/pwa-studio/guides/theming/).
-- Accessibility: [3791][] — **Action menus** — Action menu functions are now accessible by keyboard.
-- Accessibility: [3891][] — **Search results content** — Screen reading of search results has been improved.
-- Accessibility: [3935][] — **Search results count** — Screen reader announces the total items found in the searched result.
-- Accessibility: [3792][] — **UI Control states** — Screen readers now announce the expanded and collapsed states of controls.
-- Accessibility: [3798][] — **Mega Menu** — The Mega Menu is now accessible by keyboard.
-- Accessibility: [3864][] — **Actionable UI elements** — When actionable UI elements receive focus, a visible focus indicator is present.
-- Accessibility: [3936][] — **Logo component** — The Logo component now renders the `alt` property.
+- **Out-of-stock for product variations** [3903][] — The out-of-stock setting can now be applied to configurable product variations, making it easier for customers to select variations.
+- **Tailwind theming documentation** [155][] — New instructions on how to install, configure, and use Tailwind with Venia to theme your own PWA Studio app. See [Tailwind Theming for PWA Studio apps](https://developer.adobe.com/commerce/pwa-studio/guides/theming/).
+- **Accessible Action menus** [3791][] — Action menu functions are now accessible by keyboard.
+- **Accessible Search results content** [3891][] —Screen reading of search results has been improved.
+- **Accessible Search results count** [3935][] — Screen reader announces the total items found in the searched result.
+- **Accessible UI Control states** [3792][] — Screen readers now announce the expanded and collapsed states of controls.
+- **Accessible Mega Menu** [3798][] — The Mega Menu is now accessible by keyboard.
+- **Accessible Actionable UI elements** [3864][] — When actionable UI elements receive focus, a visible focus indicator is present.
+- **Accessible Logo component** [3936][] — The Logo component now renders the `alt` property.
 
 ### Fixes
 
-- Bug: [3969][] — The selected payment method now persists during the user session, when multiple payment methods are available.
-- Bug: [3955][] — Fixed a permission error that occurred during the compilation process initiated by Docker.
-- Bug: [3648][] — Fixed a typo in the import name of a component.
-- Bug: [3942][] — Fixed console warnings for invalid DOM property names.
+- **Fixed selected payment method** [3969][] — The selected payment method now persists during the user session, when multiple payment methods are available.
+- **Fixed permission error** [3955][] — Fixed a permission error that occurred during the compilation process initiated by Docker.
+- **Fixed import typo** [3648][] — Fixed a typo for the import name of a component.
+- **Fixed console warnings** [3942][] — Fixed console warnings for invalid DOM property names.
 
 ## 12.7.0 Lighthouse scores
 
