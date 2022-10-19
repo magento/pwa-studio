@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import getCourseContent from '@orienteed/lms/services/courses/getCourseContent';
 import getCourseDetails from '@orienteed/lms/services/courses/getCourseDetails';
@@ -7,6 +8,8 @@ import unEnrollUser from '@orienteed/lms/services/enrollment/unEnrollUser';
 
 export const useCourseContent = props => {
     const { userCoursesIdList, setUserCoursesIdList, courseId, isEnrolled } = props;
+
+    const history = useHistory();
 
     const [courseContent, setCourseContent] = useState();
     const [courseDetails, setCourseDetails] = useState();
@@ -49,13 +52,7 @@ export const useCourseContent = props => {
             return value !== parseInt(courseId) ? value : null;
         });
         setUserCoursesIdList(userCoursesIdListUpdate);
-        getCourseContent(courseId, false).then(reply =>
-            Array.isArray(reply)
-                ? setCourseContent([...reply])
-                : reply.hasOwnProperty('errorcode') && reply.errorcode === 'invalidrecord' && setCourseNotFound(true)
-        );
-        setConfirmationModalOpen(false);
-        setEnrolled(false);
+        history.push('/learning');
     };
 
     return {
