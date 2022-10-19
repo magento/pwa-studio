@@ -2,6 +2,8 @@
     "lms.allCourses": "Todos los cursos",
     "lms.allCoursesTitle": "Lista de nuestros cursos online",
     "lms.browserIncompatibility": "Este contenido no está disponible para este navegador.",
+    "lms.confirmationMarkAsDoneSubBody": "¿Estás seguro de que quieres marcar este curso como hecho?",
+    "lms.confirmationMarkAsDoneSubTitle": "Estás a punto de suscribirte a {courseModuleName}",
     "lms.confirmationModalTitle": "Confirmación",
     "lms.confirmationSubBody": "¿Estás seguro de que quieres suscribirte al curso?",
     "lms.confirmationSubTitle": "Estás a punto de suscribirte a {courseName}",
