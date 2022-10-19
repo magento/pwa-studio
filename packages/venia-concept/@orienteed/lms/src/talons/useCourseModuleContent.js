@@ -3,9 +3,11 @@ import getCourseModuleMedia from '@orienteed/lms/services/media/getCourseModuleM
 
 export const useCourseModuleContent = props => {
     const { courseModuleUri, courseModuleMimetype, completiondata, isEnrolled } = props;
+    
+    const [courseModuleUrl, setCourseModuleUrl] = useState('');
+    const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
     const [isDone, setIsDone] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [courseModuleUrl, setCourseModuleUrl] = useState('');
 
     useEffect(() => {
         if (isEnrolled && courseModuleUri) {
@@ -20,5 +22,13 @@ export const useCourseModuleContent = props => {
         completiondata?.state === 0 ? setIsDone(false) : setIsDone(true);
     }, [completiondata]);
 
-    return { isDone, setIsDone, isModalOpen, setIsModalOpen, courseModuleUrl };
+    return {
+        courseModuleUrl,
+        isConfirmationModalOpen,
+        isDone,
+        isModalOpen,
+        setConfirmationModalOpen,
+        setIsDone,
+        setIsModalOpen,
+    };
 };

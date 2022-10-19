@@ -2,9 +2,10 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import ContentDialog from '../ContentDialog/contentDialog';
+import ConfirmationModal from '@orienteed/lms/src/components/CourseModuleContent/ConfirmationModal/confirmationModal';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import { useCourseModuleContent } from '../../talons/useCourseModuleContent';
+import { useCourseModuleContent } from '@orienteed/lms/src/talons/useCourseModuleContent';
 
 import defaultClasses from './courseModuleContent.module.css';
 
@@ -26,7 +27,15 @@ const CourseModuleContent = props => {
     const { courseModule, isEnrolled, setMarkAsDoneListQty, white } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
-    const { isDone, setIsDone, isModalOpen, setIsModalOpen, courseModuleUrl } = useCourseModuleContent({
+    const {
+        courseModuleUrl,
+        isConfirmationModalOpen,
+        isDone,
+        isModalOpen,
+        setConfirmationModalOpen,
+        setIsDone,
+        setIsModalOpen
+    } = useCourseModuleContent({
         courseModuleUri: courseModule.hasOwnProperty('contents') && courseModule.contents[0].fileurl,
         courseModuleMimetype: courseModule.hasOwnProperty('contents') && courseModule.contents[0].mimetype,
         completiondata: courseModule.completiondata,
@@ -57,9 +66,14 @@ const CourseModuleContent = props => {
     };
 
     const handleMarkAsDone = () => {
+        setConfirmationModalOpen(false);
         markAsDone(courseModule.id).then(reply =>
             reply ? setIsDone(true) && setMarkAsDoneListQty(list => [...list, true]) : null
         );
+    };
+
+    const handleOpenConfirmationModal = () => {
+        setConfirmationModalOpen(true);
     };
 
     const selectIcon = contentFile => {
@@ -91,7 +105,7 @@ const CourseModuleContent = props => {
         return isDone ? (
             <img title={doneText} src={checkFillIcon} className={classes.actionIconsDisabled} alt="Done" />
         ) : (
-            <button className={classes.actionIcons} onClick={() => handleMarkAsDone()}>
+            <button className={classes.actionIcons} onClick={() => handleOpenConfirmationModal()}>
                 <img title={markAsDoneText} src={checkNoFillIcon} alt="Mark as done" />
             </button>
         );
@@ -172,6 +186,12 @@ const CourseModuleContent = props => {
                     </span>
                 </div>
             )}
+            <ConfirmationModal
+                isOpen={isConfirmationModalOpen}
+                onCancel={() => setConfirmationModalOpen(false)}
+                onConfirm={handleMarkAsDone}
+                courseModuleName={courseModule.name}
+            />
         </li>
     );
 };
