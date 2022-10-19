@@ -10,7 +10,7 @@ const {
 } = require('./mapHooksToTargets');
 
 /**
- * Respond to a request from a [TargetProvider]{@link https://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/}
+ * Respond to a request from a [TargetProvider]{@link https://developer.adobe.com/commerce/pwa-studio/guides/general-concepts/extensibility/#targetproviders}
  * to retrieve a different(external) TargetProvider.
  *
  * This callback pattern helps to loosely couple TargetProviders so
@@ -43,7 +43,7 @@ class TargetProvider extends Trackable {
      * @param {Object} dep - The package which owns this TargetProvider.
      * @param {string} dep.name - Name of the package which owns this.
      * @param {getExternalTargets} getExternalTargets - Function this TargetProvider will use to retrieve external packages when they are requested with `.of()`.
-     * Should usually be a delegate to BuildBus's [`getExternalTargets()`]{@link http://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/#buildpackbuildbusgetexternaltargets--targetprovider}
+     * Should usually be a delegate to BuildBus's [`getExternalTargets()`]{@link https://developer.adobe.com/commerce/pwa-studio/guides/general-concepts/extensibility/#targetproviders}
      *
      * @memberof TargetProvider
      */
