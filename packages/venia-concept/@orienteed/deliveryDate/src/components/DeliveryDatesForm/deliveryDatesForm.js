@@ -39,12 +39,12 @@ const DeliveryDatesForm = props => {
         return isDisabled ? classes.disabled : undefined;
     };
 
-    const deliveryTime = deliveryDates?.deliveryTime.deliveryTime.map(item => {
+    const deliveryTime = deliveryDates?.deliveryTime?.deliveryTime?.map(item => {
         let element = {
             value: item,
             label: item
                 .split('-')
-                .map(ele => ele.trim().slice(0, 5))
+                ?.map(ele => ele.trim().slice(0, 5))
                 .join(' - ')
         };
         return element;

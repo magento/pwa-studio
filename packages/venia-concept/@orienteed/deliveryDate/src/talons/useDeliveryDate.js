@@ -44,10 +44,20 @@ export const useDeliveryDate = props => {
     }, [data]);
     const [{ cartId }] = useCartContext();
 
-    const { data: deliveryDates } = useQuery(GET_DELIVERY_DATES);
+    const { data: deliveryDates, error } = useQuery(GET_DELIVERY_DATES, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
     const [deliverytime, { error: deliveryTimeError, loading, data: setDeliveryTimeData }] = useMutation(
         SET_DELIVERY_TIME
     );
+    const deliveryDatesIsActivated = useMemo(() => {
+        if (deliveryDates?.deliveryTime) {
+            return Object.keys(deliveryDates?.deliveryTime).every(
+                ele => deliveryDates.deliveryTime[ele] || deliveryDates.deliveryTime[ele] === ''
+            );
+        }
+    }, [deliveryDates]);
     const submitDeliveryDate = async data => {
         await deliverytime({
             variables: {
@@ -57,5 +67,12 @@ export const useDeliveryDate = props => {
         });
     };
 
-    return { deliveryDates, submitDeliveryDate, deliveryDatesData: state, handleChange, local };
+    return {
+        deliveryDates,
+        submitDeliveryDate,
+        deliveryDatesData: state,
+        handleChange,
+        local,
+        deliveryDatesIsActivated
+    };
 };

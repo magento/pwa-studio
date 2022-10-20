@@ -63,7 +63,7 @@ export const CHECKOUT_STEP = {
  * }
  */
 export const useCheckoutPage = (props = {}) => {
-    const { submitDeliveryDate, deliveryDatesData } = props;
+    const { submitDeliveryDate, deliveryDatesIsActivated } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { setNoProduct } = useNoReorderProductContext();
     const {
@@ -177,7 +177,7 @@ export const useCheckoutPage = (props = {}) => {
     }, [placeOrderError]);
 
     const handleReviewOrder = () => {
-        submitDeliveryDate();
+        if (deliveryDatesIsActivated) submitDeliveryDate();
         ReactGA.event({
             category: 'Checkout page',
             action: 'Review order clicked',
