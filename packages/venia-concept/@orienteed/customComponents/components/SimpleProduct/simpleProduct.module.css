@@ -354,7 +354,7 @@ header .productName {
     }
 
     .imageCarousel div div {
-        height: 450px;
+        height: 500px;
     }
 
     .imageCarousel div div div img {
@@ -362,6 +362,6 @@ header .productName {
     }
 
     .title {
-        margin-top: 30px;
+        margin-top: 8rem;
     }
 }
