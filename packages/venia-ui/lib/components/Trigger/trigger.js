@@ -27,16 +27,15 @@ const Trigger = props => {
     let resultedLabel = addLabel ? addLabel : 'Close';
 
     const handleKeypress = () => {
-      
         action();
         resultedLabel = '';
     };
 
-    const changeAction=(e)=>{
-        if (e.keyCode===13){
+    const changeAction = e => {
+        if (e.keyCode === 13) {
             action();
         }
-    }
+    };
 
     return (
         <button
@@ -46,7 +45,6 @@ const Trigger = props => {
             onKeyDown={changeAction}
             aria-hidden="false"
             aria-label={resultedLabel}
-            
             {...restProps}
         >
             {children}

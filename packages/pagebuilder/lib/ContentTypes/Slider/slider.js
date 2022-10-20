@@ -1,5 +1,5 @@
 import React, { Children } from 'react';
-//import { useEffect } from 'react';
+
 import {
     arrayOf,
     bool,
@@ -58,7 +58,6 @@ const Slider = props => {
 
     const { styles: mediaQueryStyles } = useMediaQuery({ mediaQueries });
 
-    console.log(children);
     const dynamicStyles = {
         minHeight,
         textAlign,
@@ -77,7 +76,7 @@ const Slider = props => {
     };
 
     const jarallaxInstances = {};
-    console.log(showDots);
+
     const sliderSettings = {
         dots: showDots,
         arrows: showArrows,
