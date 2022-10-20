@@ -231,11 +231,11 @@ const BillingAddress = props => {
                         </span>
                         <span>
                             {isBillingAddressDefault
-                                ? initialValues?.defaultBillingAddressObject.street[0]
+                                ? initialValues?.defaultBillingAddressObject?.street[0]
                                 : initialValues.street1}
                         </span>
                     </div>
-                    {(initialValues?.defaultBillingAddressObject.street[1] || initialValues.street2) && (
+                    {(initialValues?.defaultBillingAddressObject?.street?.length > 1 || initialValues.street2) && (
                         <div>
                             <span>
                                 <FormattedMessage id={'global.streetAddress2'} defaultMessage="Street Address 2" />:
