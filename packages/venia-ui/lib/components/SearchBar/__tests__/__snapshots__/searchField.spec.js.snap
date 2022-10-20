@@ -61,6 +61,7 @@ exports[`renders correctly 1`] = `
       </span>
     </span>
     <span
+      aria-hiden="false"
       className="after"
     />
   </span>

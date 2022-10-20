@@ -26,14 +26,27 @@ const Password = props => {
     const talonProps = usePassword();
     const { handleBlur, togglePasswordVisibility, visible } = talonProps;
     const classes = useStyle(defaultClasses, propClasses);
+    const speak = visible ? 'Hide Password' : 'View Password';
+
+    const handleKeypress = e => {
+        if (e.code == 'Enter') {
+            togglePasswordVisibility;
+        }
+    };
 
     const passwordButton = (
         <Button
             className={classes.passwordButton}
             onClick={togglePasswordVisibility}
+            onKeyDown={handleKeypress}
+            onKey
             type="button"
         >
-            {visible ? <Eye /> : <EyeOff />}
+            {visible ? (
+                <Eye aria-label={speak} />
+            ) : (
+                <EyeOff aria-label={speak} />
+            )}
         </Button>
     );
 

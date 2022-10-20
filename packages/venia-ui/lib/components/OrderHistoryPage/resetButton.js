@@ -20,7 +20,11 @@ const ResetButton = props => {
         }
     };
 
-    return <Trigger action={handleReset}>{clearIcon}</Trigger>;
+    return (
+        <Trigger action={handleReset} addLabel="Clear Text">
+            {clearIcon}
+        </Trigger>
+    );
 };
 
 export default ResetButton;

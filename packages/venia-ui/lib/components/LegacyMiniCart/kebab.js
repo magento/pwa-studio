@@ -13,6 +13,7 @@ const Kebab = props => {
     const { children } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
+    const result = isOpen ? 'More Options Expanded' : 'More Options Collapsed';
 
     return (
         <div className={classes.root}>
@@ -20,6 +21,7 @@ const Kebab = props => {
                 className={classes.kebab}
                 data-cy="Kebab-button"
                 onClick={handleKebabClick}
+                aria-label={result}
                 ref={kebabRef}
             >
                 <Icon src={MoreVerticalIcon} />

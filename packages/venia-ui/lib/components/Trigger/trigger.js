@@ -1,6 +1,6 @@
 import React from 'react';
 import { func, node, shape, string } from 'prop-types';
-
+import Button from '../Button';
 import { useStyle } from '../../classify';
 import defaultClasses from './trigger.module.css';
 
@@ -16,21 +16,37 @@ import defaultClasses from './trigger.module.css';
  */
 const Trigger = props => {
     const {
+        addLabel,
         action,
         children,
         ariaLabel,
         classes: propClasses,
         ...restProps
     } = props;
-
     const classes = useStyle(defaultClasses, propClasses);
+    let resultedLabel = addLabel ? addLabel : 'Close';
+
+    const handleKeypress = () => {
+      
+        action();
+        resultedLabel = '';
+    };
+
+    const changeAction=(e)=>{
+        if (e.keyCode===13){
+            action();
+        }
+    }
 
     return (
         <button
             className={classes.root}
             type="button"
-            onClick={action}
-            aria-label={ariaLabel}
+            onClick={handleKeypress}
+            onKeyDown={changeAction}
+            aria-hidden="false"
+            aria-label={resultedLabel}
+            
             {...restProps}
         >
             {children}

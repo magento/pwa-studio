@@ -50,6 +50,7 @@ const Item = props => {
     });
 
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
+    const buttonStatus = isDeleting ? 'Item Deleted' : 'Delete';
     const configured_variant = configuredVariant(configurable_options, product);
 
     return (
@@ -113,6 +114,7 @@ const Item = props => {
                 className={classes.deleteButton}
                 disabled={isDeleting}
                 data-cy="MiniCart-Item-deleteButton"
+                aria-label={buttonStatus}
             >
                 <Icon
                     size={16}

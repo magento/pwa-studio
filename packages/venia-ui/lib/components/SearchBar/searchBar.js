@@ -43,6 +43,7 @@ const SearchBar = React.forwardRef((props, ref) => {
                     </div>
                     <div className={classes.search}>
                         <SearchField
+                            addLabel="clear Text"
                             isSearchOpen={isOpen}
                             onChange={handleChange}
                             onFocus={handleFocus}
