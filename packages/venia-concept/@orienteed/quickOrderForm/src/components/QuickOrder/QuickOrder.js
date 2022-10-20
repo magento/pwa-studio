@@ -259,7 +259,7 @@ const AddQuickOrder = props => {
                                     <p>
                                         <FormattedMessage
                                             id="quickOrder.HereYouCanUploadOwnFile"
-                                            defaultMessage="Here you can upload own file XLS, XLSX or CSV and products to cart."
+                                            defaultMessage="Here you can upload your own CSV file with products to cart"
                                         />
                                     </p>
                                     <div>
