@@ -6,11 +6,13 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
-The 12.7.0 release of PWA Studio focuses on accessibility improvements and bug fixes.
+The 12.7.0 release of PWA Studio provides customers with a better product selection experience by showing which variations of a configurable product are out of stock. This addition prevents customers from selecting out of stock variations when configuring a product for purchase.
 
-### Features
+This release also adds and improves several keyboard and screen-reader accessibility features along with user session and permission bug fixes. Full details are described below.
 
-- **Out-of-stock for product variations** [3903][] — The out-of-stock setting can now be applied to configurable product variations, making it easier for customers to select variations.
+## New Features
+
+- **Out-of-stock for product variations** [3903][] — The out-of-stock setting can now be applied to configurable product variations, making it easier for customers to configure a product with the available variations.
 - **Tailwind theming documentation** [155][] — New instructions on how to install, configure, and use Tailwind with Venia to theme your own PWA Studio app. See [Tailwind Theming for PWA Studio apps](https://developer.adobe.com/commerce/pwa-studio/guides/theming/).
 - **Accessible Action menus** [3791][] — Action menu functions are now accessible by keyboard.
 - **Accessible Search results content** [3891][] —Screen reading of search results has been improved.
@@ -20,7 +22,7 @@ The 12.7.0 release of PWA Studio focuses on accessibility improvements and bug f
 - **Accessible Actionable UI elements** [3864][] — When actionable UI elements receive focus, a visible focus indicator is present.
 - **Accessible Logo component** [3936][] — The Logo component now renders the `alt` property.
 
-### Fixes
+## Bug Fixes
 
 - **Fixed selected payment method** [3969][] — The selected payment method now persists during the user session, when multiple payment methods are available.
 - **Fixed permission error** [3955][] — Fixed a permission error that occurred during the compilation process initiated by Docker.
