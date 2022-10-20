@@ -15,6 +15,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressBook.js`]: './src/components/CheckoutPage/AddressBook/addressBook.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/AddressBook/addressCard.js`]: './src/components/CheckoutPage/AddressBook/addressCard.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js`]: './src/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js',
+    [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentInformation.js`]: './src/components/CheckoutPage/PaymentInformation/paymentInformation.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethods.js`]: './src/components/CheckoutPage/PaymentInformation/paymentMethods.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation/AddressForm/customerForm.js`]: './src/components/CheckoutPage/ShippingInformation/AddressForm/customerForm.js',
     [`@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation/card.js`]: './src/components/CheckoutPage/ShippingInformation/card.js',
@@ -70,8 +71,10 @@ module.exports = componentOverrideMapping = {
     [`@magento/peregrine/lib/store/enhancers/middleware.js`]: './src/enhancers/middleware.js',
     [`@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage.js`]: './src/talons/AccountInformationPage/useAccountInformationPage.js',
     [`@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems.js`]: './src/talons/AccountMenu/useAccountMenuItems.js',
+    [`@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage.js`]: './src/talons/AddresBookPage/useAddressBookPage.js',
     [`@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary.js`]: './src/talons/usePriceSummary.js',
     [`@magento/peregrine/lib/talons/CartPage/useCartPage.js`]: './src/talons/CartPage/useCartPage.js',
+    [`@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods.js`]: './src/talons/CheckoutPage/PaymentInformation/usePaymentMethods.js',
     [`@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm.js`]: './src/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm.js',
     [`@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage.js`]: './src/talons/CheckoutPage/useCheckoutPage.js',
     [`@magento/peregrine/lib/talons/CreateAccount/useCreateAccount.js`]: './src/talons/CreateAccount/useCreateAccount.js',
@@ -91,7 +94,9 @@ module.exports = componentOverrideMapping = {
     //GRAPHQL
     [`@magento/peregrine/lib/talons/CheckoutPage/AddressBook/addressBookFragments.gql.js`]: './src/components/CheckoutPage/AddressBook/addressBookFragments.gql.js',
     [`@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js`]: './src/talons/CheckoutPage/ItemsReview/itemsReviewFragments.gql.js',
+    [`@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/customerForm.gql.js`]: './src/talons/CheckoutPage/ShippingInformation/AddressForm/customerForm.gql.js',
     [`@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js`]: './src/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js',
+    [`@magento/peregrine/lib/talons/CheckoutPage/checkoutPage.gql.js`]: './src/talons/CheckoutPage/checkoutPage.gql.js',
     [`@magento/peregrine/lib/talons/CreateAccount/createAccount.gql.js`]: './src/talons/CreateAccount/createAccount.gql.js',
     [`@magento/peregrine/lib/talons/MegaMenu/megaMenu.gql.js`]: './src/talons/MegaMenu/megaMenu.gql.js',
     [`@magento/peregrine/lib/talons/RootComponents/Category/categoryFragments.gql.js`]: './src/talons/RootComponents/Category/categoryFragments.gql.js',
@@ -110,6 +115,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/AddressBookPage/addEditDialog.module.css`]: './src/components/AddressBookPage/addEditDialog.module.css',
     [`@magento/venia-ui/lib/components/AddressBookPage/addressBookPage.module.css`]: './src/components/AddressBookPage/addressBookPage.module.css',
     [`@magento/venia-ui/lib/components/AddressBookPage/addressCard.module.css`]: './src/components/AddressBookPage/addressCard.module.css',
+    [`@magento/venia-ui/lib/components/AuthModal//authModal.module.css`]: './src/components/AuthModal//authModal.module.css',
     [`@magento/venia-ui/lib/components/Breadcrumbs/breadcrumbs.module.css`]: './src/components/Breadcrumbs/breadcrumbs.module.css',
     [`@magento/venia-ui/lib/components/Button/button.module.css`]: './src/components/Button/button.module.css',
     [`@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.module.css`]: './src/components/CartPage/PriceSummary/priceSummary.module.css',
@@ -184,13 +190,5 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/index.module.css`]: './src/css/index.module.css',
     [`@magento/venia-ui/lib/tokens.module.css`]: './src/css/tokens.module.css',
     [`@orienteed/customComponents/css/forms.module.css`]: './src/css/forms.module.css', // replace directly
-    [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css', // replace directly
-
-    //new overwrite
-    [`@magento/venia-ui/lib/components/AuthModal//authModal.module.css`]: './src/components/AuthModal//authModal.module.css',
-
-    //new overwrite
-    [`@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentInformation.js`]: './src/components/CheckoutPage/PaymentInformation/paymentInformation.js',
-    [`@magento/peregrine/lib/talons/CheckoutPage/checkoutPage.gql.js`]: './src/talons/CheckoutPage/checkoutPage.gql.js',
-    [`@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods.js`]: './src/talons/CheckoutPage/PaymentInformation/usePaymentMethods.js'
+    [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css' // replace directly
 };

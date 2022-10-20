@@ -14,6 +14,10 @@
     display: none;
 } */
 
+.lastname {
+    display: none;
+}
+
 @media (min-width: 960px) {
     .firstname,
     .lastname,

@@ -32,6 +32,7 @@ const CustomerForm = props => {
         onSuccess,
         shippingData
     });
+
     const {
         errors,
         handleCancel,
@@ -176,7 +177,7 @@ const CustomerForm = props => {
                             id="customer_lastname"
                             data-cy="CustomerForm-lastName"
                             validate={isRequired}
-                            initialValue={'ㅤ'}
+                            initialValue={'lastname'}
                         />
                     </Field>
                 </div>

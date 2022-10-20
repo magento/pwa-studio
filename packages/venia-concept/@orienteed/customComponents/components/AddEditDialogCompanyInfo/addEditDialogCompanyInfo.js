@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
-import Checkbox from '@magento/venia-ui/lib/components/Checkbox';
 import Country from '@magento/venia-ui/lib/components/Country';
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
 import Field from '@magento/venia-ui/lib/components/Field';
@@ -68,10 +67,6 @@ const AddEditDialogCompanyInfo = props => {
         id: 'global.phoneNumber',
         defaultMessage: 'Phone Number'
     });
-    const defaultAddressCheckLabel = formatMessage({
-        id: 'addressBookPage.makeDefaultAddress',
-        defaultMessage: 'Make this my default address'
-    });
 
     return (
         <Dialog
@@ -98,15 +93,11 @@ const AddEditDialogCompanyInfo = props => {
                         />
                     </Field>
                 </div>
-                {/* <div className={classes.lastname}>
+                <div className={classes.lastname}>
                     <Field id="lastname" label={lastNameLabel}>
-                        <TextInput
-                            field="lastname"
-                            validate={isRequired}
-                            data-cy="lastname"
-                        />
+                        <TextInput field="lastname" data-cy="lastname" />
                     </Field>
-                </div> */}
+                </div>
                 <div className={classes.country}>
                     <Country
                         field={'country_code'}
@@ -159,13 +150,6 @@ const AddEditDialogCompanyInfo = props => {
                         />
                     </Field>
                 </div>
-                {/* <div className={classes.default_address_check}>
-                    <Checkbox
-                        field="default_billing"
-                        label={defaultAddressCheckLabel}
-                        data-cy="default_shipping"
-                    />
-                </div> */}
             </div>
         </Dialog>
     );

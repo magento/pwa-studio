@@ -117,7 +117,12 @@ const BillingAddress = props => {
                                 defaultMessage: 'Last Name'
                             })}
                         >
-                            <TextInput id="lastName" field="lastName" validate={isFieldRequired} initialValue={'ㅤ'} />
+                            <TextInput
+                                id="lastName"
+                                field="lastName"
+                                validate={isFieldRequired}
+                                initialValue={'lastname'}
+                            />
                         </Field>
                         <Country
                             classes={fieldClasses.country}
@@ -210,12 +215,6 @@ const BillingAddress = props => {
                                 : initialValues.firstName}
                         </span>
                     </div>{' '}
-                    {/* <div>
-                        <span>
-                            <FormattedMessage id={'global.lastName'} defaultMessage="Last Name" />: &nbsp;
-                        </span>
-                        <span>{initialValues.firstName}</span>
-                    </div> */}
                     <div>
                         <span>
                             <FormattedMessage id={'country.label'} defaultMessage="Country" />: &nbsp;
