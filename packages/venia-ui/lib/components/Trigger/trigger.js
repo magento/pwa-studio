@@ -1,6 +1,5 @@
 import React from 'react';
 import { func, node, shape, string } from 'prop-types';
-import Button from '../Button';
 import { useStyle } from '../../classify';
 import defaultClasses from './trigger.module.css';
 
@@ -19,7 +18,6 @@ const Trigger = props => {
         addLabel,
         action,
         children,
-        ariaLabel,
         classes: propClasses,
         ...restProps
     } = props;

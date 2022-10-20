@@ -37,7 +37,9 @@ exports[`renders the correct tree 1`] = `
         />
       </span>
       <span />
-      <span />
+      <span
+        aria-hidden="false"
+      />
     </span>
     <p />
   </div>
@@ -66,7 +68,9 @@ exports[`renders the correct tree 1`] = `
         />
       </span>
       <span />
-      <span />
+      <span
+        aria-hidden="false"
+      />
     </span>
     <p />
   </div>
@@ -95,7 +99,9 @@ exports[`renders the correct tree 1`] = `
         />
       </span>
       <span />
-      <span />
+      <span
+        aria-hidden="false"
+      />
     </span>
     <p />
   </div>
@@ -125,11 +131,14 @@ exports[`renders the correct tree 1`] = `
         />
       </span>
       <span />
-      <span>
+      <span
+        aria-hidden="false"
+      >
         <button
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
+          onKey={true}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
           onMouseDown={[Function]}
@@ -144,6 +153,7 @@ exports[`renders the correct tree 1`] = `
         >
           <span>
             <svg
+              aria-label="View Password"
               fill="none"
               height={24}
               stroke="currentColor"
@@ -275,7 +285,9 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
         />
       </span>
       <span />
-      <span />
+      <span
+        aria-hidden="false"
+      />
     </span>
     <p />
   </div>
@@ -304,7 +316,9 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
         />
       </span>
       <span />
-      <span />
+      <span
+        aria-hidden="false"
+      />
     </span>
     <p />
   </div>
@@ -333,7 +347,9 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
         />
       </span>
       <span />
-      <span />
+      <span
+        aria-hidden="false"
+      />
     </span>
     <p />
   </div>
@@ -363,11 +379,14 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
         />
       </span>
       <span />
-      <span>
+      <span
+        aria-hidden="false"
+      >
         <button
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
+          onKey={true}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
           onMouseDown={[Function]}
@@ -382,6 +401,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
         >
           <span>
             <svg
+              aria-label="View Password"
               fill="none"
               height={24}
               stroke="currentColor"

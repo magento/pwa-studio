@@ -67,6 +67,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -110,6 +111,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         >
           <i />
@@ -195,6 +197,7 @@ exports[`renders correctly 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -238,6 +241,7 @@ exports[`renders correctly 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         >
           <i />
@@ -323,6 +327,7 @@ exports[`renders prefilled form with initial values 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -366,6 +371,7 @@ exports[`renders prefilled form with initial values 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         >
           <i />
