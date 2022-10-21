@@ -59,3 +59,10 @@
         align-items: center;
     }
 }
+
+@media (max-width: 1200px) {
+    .orderReStatusContainer {
+        grid-column-end: span 2;
+        padding: 1.5rem;
+    }
+}

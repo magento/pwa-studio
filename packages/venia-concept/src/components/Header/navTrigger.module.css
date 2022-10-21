@@ -7,7 +7,7 @@
     composes: lg_hidden from global;
 }
 
-@media (max-width: 1200px) {
+@media ((max-width: 1300px) and (min-width: 960px)) {
     .root {
         display: block !important;
     }
