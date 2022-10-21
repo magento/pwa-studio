@@ -10,6 +10,9 @@
 .fullWidthField {
     composes: lg_col-end-span2 from global;
 }
+.lastname {
+    display: none;
+}
 
 @media (min-width: 960px) {
     .firstname,

@@ -117,7 +117,12 @@ const BillingAddress = props => {
                                 defaultMessage: 'Last Name'
                             })}
                         >
-                            <TextInput id="lastName" field="lastName" validate={isFieldRequired} initialValue={'ㅤ'} />
+                            <TextInput
+                                id="lastName"
+                                field="lastName"
+                                validate={isFieldRequired}
+                                initialValue={'lastname'}
+                            />
                         </Field>
                         <Country
                             classes={fieldClasses.country}
@@ -210,12 +215,6 @@ const BillingAddress = props => {
                                 : initialValues.firstName}
                         </span>
                     </div>{' '}
-                    {/* <div>
-                        <span>
-                            <FormattedMessage id={'global.lastName'} defaultMessage="Last Name" />: &nbsp;
-                        </span>
-                        <span>{initialValues.firstName}</span>
-                    </div> */}
                     <div>
                         <span>
                             <FormattedMessage id={'country.label'} defaultMessage="Country" />: &nbsp;
@@ -232,11 +231,11 @@ const BillingAddress = props => {
                         </span>
                         <span>
                             {isBillingAddressDefault
-                                ? initialValues?.defaultBillingAddressObject.street[0]
+                                ? initialValues?.defaultBillingAddressObject?.street[0]
                                 : initialValues.street1}
                         </span>
                     </div>
-                    {(initialValues?.defaultBillingAddressObject.street[1] || initialValues.street2) && (
+                    {(initialValues?.defaultBillingAddressObject?.street?.length > 1 || initialValues.street2) && (
                         <div>
                             <span>
                                 <FormattedMessage id={'global.streetAddress2'} defaultMessage="Street Address 2" />:

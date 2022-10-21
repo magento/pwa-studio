@@ -109,9 +109,8 @@ const CreateAccount = props => {
                     <TextInput
                         field="customer.lastname"
                         autoComplete="family-name"
-                        validate={isRequired}
                         validateOnBlur
-                        initialValue={'ㅤ'}
+                        initialValue={'lastname'}
                         maskOnBlur={true}
                         data-cy="customer-lastname"
                     />
