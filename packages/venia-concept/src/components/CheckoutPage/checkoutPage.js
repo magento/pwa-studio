@@ -39,9 +39,16 @@ const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
-    const { deliveryDates, handleChange, submitDeliveryDate, deliveryDatesData, local } = useDeliveryDate({});
+    const {
+        deliveryDates,
+        handleChange,
+        submitDeliveryDate,
+        deliveryDatesData,
+        local,
+        deliveryDatesIsActivated
+    } = useDeliveryDate({});
 
-    const talonProps = useCheckoutPage({ submitDeliveryDate, deliveryDatesData });
+    const talonProps = useCheckoutPage({ submitDeliveryDate, deliveryDatesData ,deliveryDatesIsActivated});
     const { noProduct } = useNoReorderProductContext();
 
     const {
@@ -362,16 +369,18 @@ const CheckoutPage = props => {
                 <div className={classes.shipping_method_container}>
                     <ScrollAnchor ref={shippingMethodRef}>{shippingMethodSection}</ScrollAnchor>
                 </div>
-                <div className={classes.deliveryDatesContainer}>
-                    <DeliveryDates
-                        local={local}
-                        handleChange={handleChange}
-                        deliveryDates={deliveryDates}
-                        cartId={cartId}
-                        checkoutStep={checkoutStep}
-                        deliveryDatesData={deliveryDatesData}
-                    />
-                </div>
+                {deliveryDatesIsActivated && (
+                    <div className={classes.deliveryDatesContainer}>
+                        <DeliveryDates
+                            local={local}
+                            handleChange={handleChange}
+                            deliveryDates={deliveryDates}
+                            cartId={cartId}
+                            checkoutStep={checkoutStep}
+                            deliveryDatesData={deliveryDatesData}
+                        />
+                    </div>
+                )}
                 <div className={classes.billingAddressContainer}>
                     <Form>
                         <BillingAddress
