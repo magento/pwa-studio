@@ -26,7 +26,7 @@ const ShippingInformation = props => {
             telephone
         } = data;
         const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
-        const fullName = `${firstname} ${lastname}`;
+        const fullName = `${firstname}`;
         const streetRows = street.join(' ');
         shippingContentElement = (
             <div className={classes.contentWrapper}>

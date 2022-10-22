@@ -13,12 +13,13 @@ const BillingInformation = props => {
     const classes = useStyle(defaultClasses, propsClasses);
 
     const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
-    const fullName = `${firstname} ${lastname}`;
-    
+    const fullName = `${firstname}`;
+
     const streetRows = street.map((row, index) => {
         return (
             <span className={classes.streetRow} key={index}>
-                {row}, &nbsp;
+                {row}
+                {index < street.length - 1 && ', '} 
             </span>
         );
     });
@@ -31,14 +32,17 @@ const BillingInformation = props => {
             <div className={classes.billingData}>
                 <div>
                     <span className={classes.name}>{fullName}</span>
+                    <br />
                     <span className={classes.name}>
                         <FormattedMessage id={'createAccountNonCustomer.phone'} defaultMessage={'Phone'} />
+                        &nbsp;
                         {telephone}
                     </span>
                 </div>
-                
+
                 <div>
                     {streetRows}
+                    <br />
                     <div className={classes.additionalAddress}>{additionalAddressString}</div>
                 </div>
             </div>
