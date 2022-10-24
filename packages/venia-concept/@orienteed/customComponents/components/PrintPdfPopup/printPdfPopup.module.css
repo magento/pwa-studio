@@ -13,6 +13,7 @@
     font-size: 15px;
     height: 150px;
     width: inherit;
+    resize: none;
 }
 
 /* 
