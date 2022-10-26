@@ -202,7 +202,7 @@
     color: rgb(var(--venia-global-color-background));
 }
 
-@media ((max-width: 1300px) and (min-width: 960px)) {
+@media all and (max-device-width: 1300px) and (min-device-width: 960px) {
     .toolbar {
         column-gap: 1rem !important;
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
@@ -210,5 +210,8 @@
     .logoContainer {
         grid-column-start: 3 !important;
         margin-right: 0rem !important;
+    }
+    .closed {
+        background-color: blue !important;
     }
 }

@@ -11,7 +11,7 @@
     composes: lg_flex from global;
 }
 
-@media ((max-width: 1300px)) {
+@media all and (max-device-width: 1300px) {
     .megaMenu {
         display: none !important;
     }
