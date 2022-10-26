@@ -211,7 +211,4 @@
         grid-column-start: 3 !important;
         margin-right: 0rem !important;
     }
-    .closed {
-        background-color: blue !important;
-    }
 }
