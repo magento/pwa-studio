@@ -7,7 +7,7 @@
     justify-content: start;
 }
 
-@media (min-width: 959px) {
+@media (min-device-width: 959px) {
     .root {
         border-bottom: 1px solid #e5e5e5;
         align-items: start;
@@ -58,7 +58,7 @@
 .innerPrice .priceNumber {
     margin-left: 10px;
 }
-@media (max-width: 959px) {
+@media (max-device-width: 959px) {
     .title {
         padding: 1.5rem;
     }
@@ -69,7 +69,7 @@ header .productName {
     font-weight: 600;
 }
 
-@media (min-width: 959px) {
+@media (min-device-width: 959px) {
     .productName {
         font-size: 1.3125rem;
         font-weight: 700;
@@ -91,7 +91,7 @@ header .productName {
     margin: 0 auto;
 }
 
-@media (min-width: 960) {
+@media (min-device-width: 960) {
     .imageCarousel {
         /* max-width: 50%; */
         margin: 0 auto;
@@ -112,7 +112,7 @@ header .productName {
     grid-area: description;
 }
 
-@media (min-width: 959px) {
+@media (min-device-width: 959px) {
     .description {
         align-self: stretch;
         border-top-width: 1px;
@@ -150,7 +150,7 @@ header .productName {
     padding-bottom: 2.5rem;
 }
 
-@media (min-width: 959px) {
+@media (min-device-width: 959px) {
     .b2cContent {
         align-self: stretch;
         border-top-width: 1px;
@@ -255,7 +255,7 @@ header .productName {
     width: clamp(90px, 10vw, 120px);
 }
 
-@media (max-width: 1250px) {
+@media (max-device-width: 1250px) {
     .indexMobileSku {
         display: none;
     }
@@ -274,7 +274,7 @@ header .productName {
 }
 
 /* Tablet and mobile */
-@media (max-width: 980px) {
+@media (max-device-width: 980px) {
     .productItemContainer {
         display: none;
     }
@@ -287,7 +287,7 @@ header .productName {
     }
 }
 
-@media (max-width: 580px) {
+@media (max-device-width: 580px) {
     .productItemContainer {
         display: none;
     }
@@ -300,7 +300,7 @@ header .productName {
 }
 
 /* Tablet and mobile */
-@media (max-width: 980px) {
+@media (max-device-width: 980px) {
     .productItemContainer {
         display: none;
     }
@@ -312,7 +312,7 @@ header .productName {
     }
 }
 
-@media (max-width: 580px) {
+@media (max-device-width: 580px) {
     .productItemContainer {
         display: none;
     }
@@ -330,7 +330,7 @@ header .productName {
     color: '#666666';
 }
 
-@media (max-width: 580px) {
+@media (max-device-width: 580px) {
     .imageCarousel div {
         height: 450px;
     }
@@ -340,7 +340,7 @@ header .productName {
     }
 
     .imageCarousel div div div img {
-        height: 400px;
+        height: 500px !important;
     }
 
     .title {
@@ -348,17 +348,17 @@ header .productName {
     }
 }
 
-@media (max-width: 959px) {
+@media (max-device-width: 959px) {
     .imageCarousel div {
         height: 500px;
     }
 
     .imageCarousel div div {
-        height: 500px;
+        height: 510px;
     }
 
     .imageCarousel div div div img {
-        height: 450px;
+        height: 500px !important;
     }
 
     .title {
