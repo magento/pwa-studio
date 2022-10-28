@@ -4,7 +4,6 @@
     composes: flex-grow from global;
     composes: hidden from global;
     composes: justify-self-center from global;
-    composes: text-center from global;
 }
 
 /* Large screen styles */
