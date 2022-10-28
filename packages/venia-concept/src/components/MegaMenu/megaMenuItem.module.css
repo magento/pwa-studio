@@ -1,0 +1,62 @@
+.megaMenuItem {
+    padding: 0 10px;
+}
+
+.megaMenuLink {
+    align-items: center;
+    display: inline-flex;
+    min-height: 5rem;
+}
+
+.megaMenuLinkActive {
+    composes: megaMenuLink;
+    text-decoration: underline;
+}
+
+.megaMenuItem:hover > div,
+.megaMenuItem:focus > div {
+    display: flex;
+}
+
+.iconMenu {
+    width: 54px;
+    background-color: #e8ab00;
+    border-radius: 28px;
+    height: 54px;
+}
+
+/*
+.iconMenuO{
+    width: 54px;
+    background-color: #45655F;
+    border-radius: 28px;
+    height: 54px;
+}
+
+.iconMenuC{
+    width: 54px;
+    background-color: #616160;
+    border-radius: 28px;
+    height: 54px;
+}
+*/
+
+.iconMenu::after {
+    fill: white;
+    color: white;
+}
+
+.megaMenuItem_active {
+    composes: megaMenuItem;
+    display: flex;
+}
+
+.arrowDown {
+    padding-left: 0.5rem;
+    line-height: 0;
+}
+
+.megaMenuItem:hover .megaMenuLink,
+.megaMenuItem:focus .megaMenuLink {
+    text-decoration: underline;
+}
