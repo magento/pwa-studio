@@ -3359,6 +3359,10 @@
   version "0.0.0"
   uid ""
 
+"@orienteed/orderAttributes@link:./packages/venia-concept/@orienteed/orderAttributes":
+  version "0.0.0"
+  uid ""
+
 "@orienteed/pagebuilder@link:./packages/venia-concept/@orienteed/pagebuilder":
   version "0.0.0"
   uid ""
