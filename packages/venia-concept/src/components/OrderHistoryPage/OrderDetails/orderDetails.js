@@ -28,14 +28,17 @@ const OrderDetails = props => {
         shipping_method,
         shipments,
         total,
-        mp_delivery_information
+        mp_delivery_information,
+        comment,
+        external_order_number
     } = orderData;
     const classes = useStyle(defaultClasses, propClasses);
-
     const shippingMethodData = {
         shippingMethod: shipping_method,
         shipments
     };
+
+    const orderAttributs = { comment, external_order_number };
 
     const hasTotals = total.grand_total && total.grand_total.currency;
     return (
@@ -43,7 +46,11 @@ const OrderDetails = props => {
             <div className={classes.root}>
                 <div className={classes.shippingInformationContainer}>
                     <ConditionalWrapper condition={shipping_address}>
-                        <ShippingInformation address={address} data={shipping_address} />
+                        <ShippingInformation
+                            address={address}
+                            data={shipping_address}
+                            orderAttributes={orderAttributs}
+                        />
                     </ConditionalWrapper>
                 </div>
                 <div className={classes.shippingMethodContainer}>
@@ -56,7 +63,6 @@ const OrderDetails = props => {
                     </ConditionalWrapper>
                 </div>
 
-            
                 <div className={classes.billingInformationContainer}>
                     <ConditionalWrapper condition={billing_address}>
                         <BillingInformation total={total} data={billing_address} />

@@ -3,6 +3,8 @@ import { gql } from '@apollo/client';
 const CustomerOrdersFragment = gql`
     fragment CustomerOrdersFragment on CustomerOrders {
         items {
+        comment
+        external_order_number
             mp_delivery_information {
                 mp_delivery_comment
                 mp_delivery_date
