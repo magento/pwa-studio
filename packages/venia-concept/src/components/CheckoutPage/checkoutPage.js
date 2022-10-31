@@ -34,6 +34,9 @@ import { useDeliveryDate } from '@orienteed/deliveryDate/src/talons/useDeliveryD
 import BillingAddress from '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress';
 import { Form } from 'informed';
 
+import OrderAttributes from '@orienteed/orderAttributes/src/components/OrderAttributesForm/orderAttributesForm';
+import { useOrderAttributes } from '@orienteed/orderAttributes/src/talons/useOrderAttributes';
+
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
@@ -47,8 +50,18 @@ const CheckoutPage = props => {
         local,
         deliveryDatesIsActivated
     } = useDeliveryDate({});
-
-    const talonProps = useCheckoutPage({ submitDeliveryDate, deliveryDatesData ,deliveryDatesIsActivated});
+    const {
+        handleChangeOrderAttribute,
+        orderAttributesData,
+        submitOrderAttribute,
+        orderAttributesIsActivated
+    } = useOrderAttributes({});
+    const talonProps = useCheckoutPage({
+        submitDeliveryDate,
+        deliveryDatesData,
+        deliveryDatesIsActivated,
+        submitOrderAttribute
+    });
     const { noProduct } = useNoReorderProductContext();
 
     const {
@@ -144,6 +157,8 @@ const CheckoutPage = props => {
                 data={orderDetailsData}
                 orderNumber={orderNumber}
                 deliveryDatesData={deliveryDatesData}
+                orderAttributesData={orderAttributesData}
+                orderAttributesIsActivated={orderAttributesIsActivated}
                 local={local}
             />
         );
@@ -393,6 +408,16 @@ const CheckoutPage = props => {
                     </Form>
                 </div>
                 <div className={classes.payment_information_container}>{paymentInformationSection}</div>
+                {(checkoutStep <= 3 || orderAttributesIsActivated) && (
+                    <div className={checkoutStep > 3 ? classes.orderAttributesData : classes.orderAttributesContainer}>
+                        <OrderAttributes
+                            orderAttributesData={orderAttributesData}
+                            handleChange={handleChangeOrderAttribute}
+                            checkoutStep={checkoutStep}
+                            orderAttributesIsActivated={orderAttributesIsActivated}
+                        />
+                    </div>
+                )}
                 {priceAdjustmentsSection}
                 {reviewOrderButton}
                 {itemsReview}
