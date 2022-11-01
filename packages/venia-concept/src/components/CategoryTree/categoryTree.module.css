@@ -1,0 +1,36 @@
+.root {
+}
+
+.tree {
+}
+
+.leaf {
+}
+
+.branch {
+}
+
+.inactive {
+    composes: fixed from global;
+    composes: invisible from global;
+}
+
+.quickOrderMobile {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    /* composes: flex from global; */
+    composes: items-center from global;
+    composes: mx-5 from global;
+    composes: my-0 from global;
+}
+
+.quickOrderMobile > div {
+    /* width: 100%; */
+}
+
+@media (min-width: 750px) {
+    .quickOrderMobile {
+        display: none;
+    }
+}
