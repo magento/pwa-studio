@@ -653,6 +653,7 @@
     "quickOrder.Items": "Items",
     "quickOrder.Price": "Price",
     "quickOrder.Qty": "Qty",
+    "quickOrder.quickOrder":"Quick Order",
     "quickOrder.quickOrderForm": "Quick Order Form",
     "quickOrder.SearchProduct": "Enter SKU or name of product",
     "quickOrder.somethingWentWrongTryAgainLater": "something went wrong, try again later",

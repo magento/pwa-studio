@@ -654,6 +654,7 @@
     "quickOrder.Items": "Artículos",
     "quickOrder.Price": "Precio",
     "quickOrder.Qty": "Cantidad",
+    "quickOrder.quickOrder":"Pedido rápido",
     "quickOrder.quickOrderForm": "Formulario de pedido rápido",
     "quickOrder.SearchProduct": "Introduzca la referencia o el nombre del producto",
     "quickOrder.somethingWentWrongTryAgainLater": "algo ha ido mal, inténtalo de nuevo más tarde",
