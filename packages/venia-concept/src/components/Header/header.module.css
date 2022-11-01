@@ -199,9 +199,8 @@
     margin-right: 0.4rem;
     width: 18px;
     position: relative;
-
 }
-.productsCount{
+.productsCount {
     height: 1.3rem;
     position: absolute;
     bottom: 38%;
@@ -214,7 +213,6 @@
     border-radius: 100px;
     color: rgb(var(--venia-global-color-background));
 }
-
 
 @media (max-width: 650px) {
     .secondaryActions > button {
@@ -246,3 +244,8 @@
     }
 }
 
+@media (max-width: 750px) {
+    .quickOrderContainer {
+        display: none;
+    }
+}

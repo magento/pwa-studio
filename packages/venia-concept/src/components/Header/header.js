@@ -90,7 +90,10 @@ const Header = props => {
                                 <img src={CompareIcon} alt=" compare Icon" />
                             </Link>
                         )}
+                        <div className={classes.quickOrderContainer}>
+
                         {isUserSignedIn && <QuickOrder />}
+                        </div>
                     </div>
                 </div>
                 {searchBar}
