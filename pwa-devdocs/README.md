@@ -79,7 +79,7 @@ This project is licensed under OSL-3.0 - see the [LICENSE.txt] file for details.
 [contribution guidelines]: https://magento.github.io/pwa-studio/technologies/contribute/
 [code of conduct]: https://github.com/magento/pwa-studio/blob/develop/.github/CODE_OF_CONDUCT.md
 [license.txt]: LICENSE.txt
-[documentation site]: https://pwastudio.io
+[documentation site]: https://developer.adobe.com/commerce/pwa-studio/
 [node.js]: https://nodejs.org
 [ruby]: https://www.ruby-lang.org/
 [bundler]: http://bundler.io/
