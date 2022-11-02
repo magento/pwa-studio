@@ -52,6 +52,7 @@ export const ProductFormFragment = gql`
                         }
                     }
                     sku
+                    stock_status
                 }
             }
         }

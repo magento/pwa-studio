@@ -314,6 +314,7 @@
     "productFullDetail.errorUnknown": "Impossible d'ajouter l'article au panier. Veuillez vérifier les options requises et réessayer.",
     "productFullDetail.productDescription": "Description du produit",
     "productFullDetail.details": "Détails",
+    "productFullDetail.outOfStockProduct": "Cet article n'est actuellement plus en stock",
     "productList.each": " ch.",
     "productList.outOfStock": "en rupture de stock",
     "productList.quantity": "Qté : {quantity}",
