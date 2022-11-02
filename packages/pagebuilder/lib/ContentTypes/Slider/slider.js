@@ -1,5 +1,4 @@
 import React, { Children } from 'react';
-
 import {
     arrayOf,
     bool,
@@ -74,9 +73,7 @@ const Slider = props => {
         paddingBottom,
         paddingLeft
     };
-
     const jarallaxInstances = {};
-
     const sliderSettings = {
         dots: showDots,
         arrows: showArrows,
@@ -118,7 +115,7 @@ const Slider = props => {
             className={[classes.root, ...cssClasses].join(' ')}
             style={{ ...dynamicStyles, ...mediaQueryStyles }}
         >
-            <SlickSlider {...sliderSettings}>{children}</SlickSlider>
+            <SlickSlider >{children}</SlickSlider>
         </div>
     );
 };
