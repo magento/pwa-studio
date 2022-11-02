@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "11.4.1-beta.2",
+  "version": "11.4.1",
   "publishConfig": {
     "access": "public"
   },
