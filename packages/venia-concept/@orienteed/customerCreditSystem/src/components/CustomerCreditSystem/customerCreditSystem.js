@@ -102,12 +102,12 @@ const CustomerCreditSystem = props => {
                     </tr>
                 </tbody>
             </table>
-            <BillingAddress
+            {/* <BillingAddress
                 resetShouldSubmit={props.resetShouldSubmit}
                 shouldSubmit={shouldSubmit}
                 onBillingAddressChangedError={onBillingAddressChangedError}
                 onBillingAddressChangedSuccess={onBillingAddressChangedSuccess}
-            />
+            /> */}
         </div>
     );
 };

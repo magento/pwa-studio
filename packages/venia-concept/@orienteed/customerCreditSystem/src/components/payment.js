@@ -3,13 +3,12 @@ import { bool, func } from 'prop-types';
 import CustomerCreditSystem from './CustomerCreditSystem';
 
 const PaymentMethods = props => {
-    console.log('PaymentMethods');
-    console.log(props);
 
-    const { onPaymentError, onPaymentSuccess, resetShouldSubmit, shouldSubmit } = props;
+    const { onPaymentError, onPaymentSuccess, resetShouldSubmit, shouldSubmit, paymentMethodMutationData } = props;
 
     return (
         <CustomerCreditSystem
+            paymentMethodMutationData={paymentMethodMutationData}
             onPaymentSuccess={onPaymentSuccess}
             onPaymentError={onPaymentError}
             resetShouldSubmit={resetShouldSubmit}
