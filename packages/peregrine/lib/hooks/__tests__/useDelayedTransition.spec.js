@@ -8,7 +8,7 @@ import { mockSetPageLoading } from '@magento/peregrine/lib/context/app';
 import { mockSetComponentMap } from '@magento/peregrine/lib/context/rootComponents';
 
 import { getRootComponent } from '../../talons/MagentoRoute/helpers';
-import useDelayedTransition from '../useDelayedTransition';
+import { useDelayedTransition } from '../useDelayedTransition';
 
 // jest.mock('react');
 
