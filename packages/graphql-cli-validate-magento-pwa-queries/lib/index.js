@@ -22,7 +22,7 @@ const exitCodes = {
     FAILURE: 1
 };
 const DOCS_COMPAT_TABLE_PATH =
-    'https://pwastudio.io/technologies/magento-compatibility/';
+    'https://developer.adobe.com/commerce/pwa-studio/integrations/adobe-commerce/version-compatibility';
 const plugin = {
     COMMAND: 'validate-magento-pwa-queries',
     DESCRIPTION:

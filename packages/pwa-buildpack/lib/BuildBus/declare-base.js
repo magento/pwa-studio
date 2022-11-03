@@ -21,16 +21,16 @@ module.exports = targets => {
         /**
          * Called to collect the definitions and documentation for project-wide
          * configuration values. Core environment variables are defined in the
-         * [`envVarDefinitions.json` file]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/}.
+         * [`envVarDefinitions.json` file]{@link https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json}.
          *
          * Intercept this target in your project to add new environment
          * variables, typed and documented. This integrates your extension
          * configuration with the project-wide environment variable system.
          *
-         * @see [Variable definition schema]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/definitions-api/}
-         * @see [Core variable definitions]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/}
+         * @see [Variable definition schema]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/environment/definition-object/}
+         * @see [Core variable definitions]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/environment/variables/}
          *
-         * @param {object} envVarDefinitions The [variable definitions object]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/definitions-api/}.
+         * @param {object} envVarDefinitions The [variable definitions object]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/environment/definition-object/}.
          * Modify in place.
          * @member {tapable.SyncHook}
          * @example <caption>Add config fields for your extension</caption>
@@ -111,7 +111,7 @@ module.exports = targets => {
          * Use a [specialFeatures intercept function]{@link specialFeaturesIntercept}
          * to add special build features for the modules used in your project.
          *
-         * @see [Special flags in `configureWebpack()`]{@link http://pwastudio.io/pwa-buildpack/reference/configure-webpack/#special-flags}
+         * @see [Special flags in `configureWebpack()`]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/webpack/configure/#special-flags}
          *
          * @member {tapable.SyncHook}
          *
@@ -250,11 +250,11 @@ module.exports = targets => {
 /**
  * Callback to add a transform.
  *
- * @see [TransformRequest]{@link https://pwastudio.io/pwa-buildpack/reference/transform-requests/#addTransform}
+ * @see [TransformRequest]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/transform-requests/}
  *
  * @callback addTransform
  * @param {Buildpack/WebpackTools~TransformRequest} transformRequest -
- *   [Request]{@link https://pwastudio.io/pwa-buildpack/reference/transform-requests/#addTransform}
+ *   [Request]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/transform-requests/}
  * to apply a transform to a file provided by this dependency.
  */
 
