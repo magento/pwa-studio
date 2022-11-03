@@ -2,9 +2,10 @@ import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha/useGoogleReCaptcha';
-import modifyCustomer from '@orienteed/csr/services/users/modifyCustomer';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import modifyCsrCustomer from '@orienteed/csr/services/users/modifyCustomer';
+import modifyLmsCustomer from '@orienteed/lms/services/users/modifyCustomer';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CommunicationsPage/communicationsPage.gql.js';
@@ -215,7 +216,6 @@ export const useAccountInformationPage = props => {
                             }
                         }
                     });
-                    process.env.CSR_ENABLED === 'true' && modifyCustomer(firstname, '', email);
                 }
                 if (password && newPassword) {
                     const recaptchaDataForChangeCustomerPassword = await generateReCaptchaData();
@@ -227,6 +227,8 @@ export const useAccountInformationPage = props => {
                         ...recaptchaDataForChangeCustomerPassword
                     });
                 }
+                process.env.LMS_ENABLED === 'true' && modifyLmsCustomer(firstname, '', email, newPassword);
+                process.env.CSR_ENABLED === 'true' && modifyCsrCustomer(firstname, '', email);
                 // After submission, close the form if there were no errors.
                 handleCancel(false);
             } catch {

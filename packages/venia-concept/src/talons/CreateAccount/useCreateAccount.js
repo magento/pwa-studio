@@ -9,8 +9,8 @@ import { retrieveCartId } from '@magento/peregrine/lib/store/actions/cart';
 import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha';
 
 import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CreateAccount/createAccount.gql.js';
-import registerUserAndSaveData from '@orienteed/lms/services/registerUserAndSaveData';
-import doCsrLogin from '../../../@orienteed/csr/services/auth/login';
+import doCsrLogin from '@orienteed/csr/services/auth/login';
+import doLmsLogin from '@orienteed/lms/services/auth/login';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -38,8 +38,7 @@ export const useCreateAccount = props => {
         getCartDetailsQuery,
         getCustomerQuery,
         mergeCartsMutation,
-        signInMutation,
-        setMoodleTokenAndIdMutation
+        signInMutation
     } = operations;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,17 +62,10 @@ export const useCreateAccount = props => {
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
-    const [setMoodleTokenAndId] = useMutation(setMoodleTokenAndIdMutation);
-
     const { generateReCaptchaData, recaptchaLoading, recaptchaWidgetProps } = useGoogleReCaptcha({
         currentForm: 'CUSTOMER_CREATE',
         formAction: 'createAccount'
     });
-
-    const saveMoodleTokenAndId = (moodleToken, moodleId) => {
-        localStorage.setItem('LMS_INTEGRATION_moodle_token', moodleToken);
-        localStorage.setItem('LMS_INTEGRATION_moodle_id', moodleId);
-    };
 
     const handleCancel = useCallback(() => {
         onCancel();
@@ -115,13 +107,7 @@ export const useCreateAccount = props => {
                 await setToken(token);
 
                 // LMS logic
-                process.env.LMS_ENABLED === 'true' &&
-                    registerUserAndSaveData(
-                        formValues.customer.email,
-                        formValues.password,
-                        setMoodleTokenAndId,
-                        saveMoodleTokenAndId
-                    );
+                process.env.LMS_ENABLED === 'true' && doLmsLogin(formValues.password);
 
                 // CSR logic
                 process.env.CSR_ENABLED === 'true' && doCsrLogin();
@@ -178,8 +164,7 @@ export const useCreateAccount = props => {
             fetchUserDetails,
             getCartDetails,
             fetchCartDetails,
-            onSubmit,
-            setMoodleTokenAndId
+            onSubmit
         ]
     );
 

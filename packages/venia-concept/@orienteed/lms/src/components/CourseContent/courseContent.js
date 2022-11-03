@@ -7,32 +7,40 @@ import CourseModuleContent from '../CourseModuleContent/courseModuleContent';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { useCourseContent } from '../../talons/useCourseContent';
+import { useCourseItem } from '../../talons/useCourseItem';
 
 import defaultClasses from './courseContent.module.css';
 
 import noImageAvailable from '../CourseItem/Icons/noImageAvailable.svg';
 import noCoursesImage from '../CoursesCatalog/Icons/noCourses.svg';
+import ConfirmationModal from './ConfirmationModal/confirmationModal';
 
 const DELIMITER = '/';
 
 const CourseContent = props => {
-    const { courseId, userMoodleId, userMoodleToken, userCoursesIdList, setUserCoursesIdList, setMarkAsDoneListQty } = props;
+    const { courseId, userCoursesIdList, setUserCoursesIdList, setMarkAsDoneListQty } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const {
-        courseDetails,
         courseContent,
+        courseDetails,
+        courseNotFound,
         enrolled,
         handleEnrollInCourse,
         handleUnenrollFromCourse,
-        courseNotFound
+        isConfirmationModalOpen,
+        setConfirmationModalOpen
     } = useCourseContent({
         courseId,
         setUserCoursesIdList,
         userCoursesIdList,
-        userMoodleId,
-        userMoodleToken,
         isEnrolled: userCoursesIdList.length !== 0 ? userCoursesIdList.includes(parseInt(courseId)) : false
     });
+
+    const { coursePreviewUrl } = useCourseItem({
+        courseImageUri: courseDetails?.overviewfiles[0].fileurl,
+        courseModuleMimetype: courseDetails?.overviewfiles[0].mimetype
+    });
+
     const history = useHistory();
 
     const learningTitle = 'Learning';
@@ -119,13 +127,7 @@ const CourseContent = props => {
                         {courseDetails !== undefined && (
                             <div className={classes.headerCourseContainer}>
                                 {courseDetails.overviewfiles.length !== 0 ? (
-                                    <img
-                                        className={classes.courseImage}
-                                        src={`${
-                                            courseDetails.overviewfiles[0].fileurl
-                                        }?token=${process.env.LMS_API_KEY}`}
-                                        alt="Course logo"
-                                    />
+                                    <img className={classes.courseImage} src={coursePreviewUrl} alt="Course logo" />
                                 ) : (
                                     <img
                                         className={classes.courseImage}
@@ -141,16 +143,26 @@ const CourseContent = props => {
                                     <div className={classes.enrollButtonContainer}>
                                         <Button
                                             className={classes.enrollButton}
-                                            onClick={enrolled ? handleUnenrollFromCourse : handleEnrollInCourse}
+                                            onClick={() => setConfirmationModalOpen(true)}
                                             priority={'normal'}
                                         >
                                             {enrolled ? (
-                                                <FormattedMessage id={'lms.unenroll'} defaultMessage={'Unenroll'} />
+                                                <FormattedMessage
+                                                    id={'lms.unsubscribe'}
+                                                    defaultMessage={'Unsubscribe'}
+                                                />
                                             ) : (
-                                                <FormattedMessage id={'lms.enroll'} defaultMessage={'Enroll'} />
+                                                <FormattedMessage id={'lms.subscribe'} defaultMessage={'Subscribe'} />
                                             )}
                                         </Button>
                                     </div>
+                                    <ConfirmationModal
+                                        isOpen={isConfirmationModalOpen}
+                                        onCancel={() => setConfirmationModalOpen(false)}
+                                        onConfirm={enrolled ? handleUnenrollFromCourse : handleEnrollInCourse}
+                                        isEnrolled={enrolled}
+                                        courseName={courseDetails.fullname}
+                                    />
                                 </div>
                             </div>
                         )}
@@ -187,8 +199,6 @@ const CourseContent = props => {
                                                         <CourseModuleContent
                                                             courseModule={module}
                                                             isEnrolled={enrolled}
-                                                            userMoodleId={userMoodleId}
-                                                            userMoodleToken={userMoodleToken}
                                                             setMarkAsDoneListQty={setMarkAsDoneListQty}
                                                             key={module.id}
                                                             white={i % 2 === 0}

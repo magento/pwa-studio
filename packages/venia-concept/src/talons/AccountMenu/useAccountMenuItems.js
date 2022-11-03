@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import doCsrLogout from '@orienteed/csr/services/auth/logout';
+import doLmsLogout from '@orienteed/lms/services/auth/logout';
 
 /**
  * @param {Object}      props
@@ -13,6 +14,7 @@ export const useAccountMenuItems = props => {
 
     const handleSignOut = useCallback(() => {
         process.env.CSR_ENABLED === 'true' && doCsrLogout();
+        process.env.LMS_ENABLED === 'true' && doLmsLogout();
         onSignOut();
     }, [onSignOut]);
 

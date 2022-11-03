@@ -1,28 +1,12 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
-import getCourses from '../../services/getCourses';
-import getUserCourses from '../../services/getUserCourses';
-
-import OPERATIONS from '../graphql/getUserCourses.gql';
+import getCourses from '@orienteed/lms/services/courses/getCourses';
+import getUserCourses from '@orienteed/lms/services/courses/getUserCourses';
 
 export const useLearningRoute = () => {
-    const { getMoodleTokenAndIdQuery } = OPERATIONS;
-    const fetchMoodleTokenAndId = useAwaitQuery(getMoodleTokenAndIdQuery);
     const [{ isSignedIn }] = useUserContext();
-    const getAndSaveMoodleTokenAndId = useCallback(async () => {
-        if (isSignedIn) {
-            const responseData = await fetchMoodleTokenAndId();
-            localStorage.setItem('LMS_INTEGRATION_moodle_token', responseData.data.customer.moodle_token);
-            localStorage.setItem('LMS_INTEGRATION_moodle_id', responseData.data.customer.moodle_id);
-        }
-    }, [fetchMoodleTokenAndId, isSignedIn]);
-
-    const userMoodleToken = localStorage.getItem('LMS_INTEGRATION_moodle_token');
-    const userMoodleId = localStorage.getItem('LMS_INTEGRATION_moodle_id');
-    userMoodleToken !== null && userMoodleId !== null ? null : getAndSaveMoodleTokenAndId();
 
     const [courses, setCourses] = useState();
     const [userCourses, setUserCourses] = useState();
@@ -39,9 +23,9 @@ export const useLearningRoute = () => {
 
     useEffect(() => {
         if (isSignedIn) {
-            getUserCourses(userMoodleToken, userMoodleId).then(userCoursesData => setUserCourses(userCoursesData));
+            getUserCourses().then(userCoursesData => setUserCourses(userCoursesData));
         }
-    }, [userMoodleToken, userMoodleId, userCoursesIdListQty, markAsDoneListQty, isSignedIn]);
+    }, [userCoursesIdListQty, markAsDoneListQty, isSignedIn]);
 
     useEffect(() => {
         if (isSignedIn) {
@@ -65,8 +49,6 @@ export const useLearningRoute = () => {
     }, [userCoursesIdList.length, userCoursesIdListQty, isSignedIn]);
 
     return {
-        userMoodleId,
-        userMoodleToken,
         buttonSelected,
         setSelectedButton,
         courses,

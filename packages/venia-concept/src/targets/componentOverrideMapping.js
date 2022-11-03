@@ -66,6 +66,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/WishlistPage/wishlistPage.js`]: './src/components/WishlistPage/wishlistPage.js',
 
     //TALONS
+    [`@magento/peregrine/lib/talons/MyAccount/useResetPassword.js`]: './src/talons/useResetPassword.js',
     [`@magento/peregrine/lib/RestApi/Magento2/M2ApiRequest.js`]: './src/talons/RestApi/Magento2/M2ApiRequest.js',
     [`@magento/peregrine/lib/hooks/useCarousel.js`]: './src/hooks/useCarousel.js',
     [`@magento/peregrine/lib/store/enhancers/middleware.js`]: './src/enhancers/middleware.js',
@@ -115,7 +116,7 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/AddressBookPage/addEditDialog.module.css`]: './src/components/AddressBookPage/addEditDialog.module.css',
     [`@magento/venia-ui/lib/components/AddressBookPage/addressBookPage.module.css`]: './src/components/AddressBookPage/addressBookPage.module.css',
     [`@magento/venia-ui/lib/components/AddressBookPage/addressCard.module.css`]: './src/components/AddressBookPage/addressCard.module.css',
-    [`@magento/venia-ui/lib/components/AuthModal//authModal.module.css`]: './src/components/AuthModal//authModal.module.css',
+    [`@magento/venia-ui/lib/components/AuthModal/authModal.module.css`]: './src/components/AuthModal/authModal.module.css',
     [`@magento/venia-ui/lib/components/Breadcrumbs/breadcrumbs.module.css`]: './src/components/Breadcrumbs/breadcrumbs.module.css',
     [`@magento/venia-ui/lib/components/Button/button.module.css`]: './src/components/Button/button.module.css',
     [`@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.module.css`]: './src/components/CartPage/PriceSummary/priceSummary.module.css',
@@ -190,5 +191,5 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/index.module.css`]: './src/css/index.module.css',
     [`@magento/venia-ui/lib/tokens.module.css`]: './src/css/tokens.module.css',
     [`@orienteed/customComponents/css/forms.module.css`]: './src/css/forms.module.css', // replace directly
-    [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css' // replace directly
+    [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css', // replace directly
 };

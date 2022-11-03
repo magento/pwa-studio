@@ -216,12 +216,6 @@ module.exports = targets => {
                         type: 'str',
                         desc: 'Specify the URL where the LMS is.',
                         default: ''
-                    },
-                    {
-                        name: 'LMS_API_KEY',
-                        type: 'str',
-                        desc: 'Specify the API token for creating accounts, enroll users, ...',
-                        default: ''
                     }
                 ]
             }

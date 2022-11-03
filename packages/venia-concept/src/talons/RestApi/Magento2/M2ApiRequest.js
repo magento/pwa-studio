@@ -63,7 +63,7 @@ class M2ApiRequest {
             headers: withDefaultHeaders(
                 new Headers({
                     authorization: signin_token ? `Bearer ${signin_token}` : '',
-                    'csr-authorization': signin_token ? signin_token : ''
+                    'api-authorization': signin_token ? signin_token : ''
                 })
             )
         };

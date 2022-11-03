@@ -114,41 +114,11 @@ export const MERGE_CARTS = gql`
     ${CheckoutPageFragment}
 `;
 
-export const GET_MOODLE_TOKEN = gql`
-    query GetMoodleToken {
-        customer {
-            moodle_token
-        }
-    }
-`;
-
-export const GET_MOODLE_ID = gql`
-    query GetMoodleId {
-        customer {
-            moodle_id
-        }
-    }
-`;
-
-export const SET_MOODLE_TOKEN_ID = gql`
-    mutation SetMoodleToken($moodle_token: String!, $moodle_id: String!) {
-        updateCustomer(input: { moodle_token: $moodle_token, moodle_id: $moodle_id }) {
-            customer {
-                moodle_token
-                moodle_id
-            }
-        }
-    }
-`;
-
 export default {
     createAccountMutation: CREATE_ACCOUNT,
     createCartMutation: CREATE_CART,
     getCartDetailsQuery: GET_CART_DETAILS,
     getCustomerQuery: GET_CUSTOMER,
     mergeCartsMutation: MERGE_CARTS,
-    signInMutation: SIGN_IN,
-    getMoodleTokenQuery: GET_MOODLE_TOKEN,
-    getMoodleIdQuery: GET_MOODLE_ID,
-    setMoodleTokenAndIdMutation: SET_MOODLE_TOKEN_ID
+    signInMutation: SIGN_IN
 };
