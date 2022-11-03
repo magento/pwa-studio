@@ -1,2 +1,2 @@
-export { default as useContactPage } from './useContactPage';
-export { default as useContactLink } from './useContactLink';
+export { useContactPage } from './useContactPage';
+export { useContactLink } from './useContactLink';
