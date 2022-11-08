@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { bool } from 'prop-types';
-import useLink from '@magento/peregrine/lib/talons/Link/useLink';
+import { useLink } from '@magento/peregrine/lib/talons/Link/useLink';
 
 /**
  * @kind functional component

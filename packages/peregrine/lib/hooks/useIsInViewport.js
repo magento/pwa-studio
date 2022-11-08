@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import useIntersectionObserver from '@magento/peregrine/lib/hooks/useIntersectionObserver';
+import { useIntersectionObserver } from '@magento/peregrine/lib/hooks/useIntersectionObserver';
 
 export const useIsInViewport = props => {
     const { elementRef, renderOnce = true } = props;
