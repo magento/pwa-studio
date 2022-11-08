@@ -2,4 +2,4 @@
 
 Documentation content has been moved to the [MagentoResolver][] page on the PWA devdocs site.
 
-[MagentoResolver]: https://pwastudio.io/pwa-buildpack/reference/magento-resolver/
+[MagentoResolver]: https://developer.adobe.com/commerce/pwa-studio/api/buildpack/webpack/magento-resolver/
