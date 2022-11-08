@@ -12,7 +12,7 @@ import defaultClasses from '@magento/venia-ui/lib/components/CheckoutPage/OrderC
 import moment from 'moment';
 const OrderConfirmationPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { data, orderNumber, deliveryDatesData, local } = props;
+    const { data, orderNumber, deliveryDatesData, local, orderAttributesData , orderAttributesIsActivated } = props;
     const { formatMessage } = useIntl();
 
     const talonProps = useOrderConfirmationPage({
@@ -21,7 +21,7 @@ const OrderConfirmationPage = props => {
 
     moment.locale(local);
     const formatDeliveryDate = moment(new Date(deliveryDatesData?.mp_delivery_date)).format('L');
-    
+
     const { flatData, isSignedIn } = talonProps;
 
     const { city, country, email, firstname, lastname, postcode, region, shippingMethod, street } = flatData;
@@ -138,6 +138,40 @@ const OrderConfirmationPage = props => {
                         </div>
                     )}
                 </div>
+                <>
+                    {orderAttributesIsActivated && (
+                        <>
+                            <div
+                                data-cy="OrderConfirmationPage-shippingMethodHeading"
+                                className={classes.shippingMethodHeading}
+                            >
+                                <FormattedMessage id={'orderAttributes.label'} defaultMessage={'Order Attributes'} />
+                            </div>
+                            {orderAttributesData.comment && (
+                                <div>
+                                    <span>
+                                        <FormattedMessage id="deliveryDate.commentDate" defaultMessage="Comment" />:
+                                        &nbsp;
+                                    </span>
+                                    <span>{orderAttributesData.comment}</span>
+                                </div>
+                            )}
+                            {orderAttributesData.external_order_number && (
+                                <div>
+                                    <span>
+                                        <FormattedMessage
+                                            id="orderDetails.externalOrderNumber"
+                                            defaultMessage="External order number"
+                                        />{' '}
+                                        : &nbsp;
+                                    </span>
+                                    <span>{orderAttributesData.external_order_number}</span>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </>
+
                 <div className={classes.itemsReview}>
                     <ItemsReview data={data} />
                 </div>

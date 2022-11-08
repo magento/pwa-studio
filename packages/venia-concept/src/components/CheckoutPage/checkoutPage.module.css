@@ -140,6 +140,19 @@
     border-width: 2px;
 }
 
+.orderAttributesContainer {
+    grid-column: 1 / span 1;
+}
+
+.orderAttributesData {
+    grid-column: 1 / span 1;
+    composes: border-b-2 from global;
+    composes: border-solid from global;
+    composes: p-md from global;
+    composes: rounded-md from global;
+    border-width: 2px;
+    composes: border-subtle from global;
+}
 /*
  * Mobile-specific styles.
  */
