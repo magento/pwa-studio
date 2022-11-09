@@ -15,7 +15,7 @@ const defaultProps = {
             value: '#123123'
         }
     },
-    attributeLabel : "Color"
+    attributeLabel: 'Color'
 };
 
 test('renders a Swatch correctly', () => {
