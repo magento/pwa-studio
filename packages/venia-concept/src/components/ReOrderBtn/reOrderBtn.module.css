@@ -6,14 +6,9 @@
     border-color: var(--orienteed-primary-color-base1);
 }
 
-.reOrderDiv {
-}
-
 .imageWrapper {
-    padding:  5px;
+    padding: 5px;
     display: flex;
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
 .imageWrapper img {
@@ -56,17 +51,16 @@
         grid-template-columns: 0.5fr repeat(5, 0.7fr) 40px;
     }
 }
-@media only screen and (min-width: 961px) and (max-width: 1300px) {
-    .reOrderRow {
-        grid-template-columns: 1fr 1fr 1fr 2px;
+
+@media (min-width: 1201px) {
+    .imageWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
-@media (max-width: 960px) {
-    .orderReOrderContainer {
-        grid-column: 1 span;
-        grid-row: unset;
-        padding: 1.5rem;
-    }
+
+@media (max-width: 1200px) {
     .orderReStatusContainer {
         grid-column-end: span 2;
         padding: 1.5rem;

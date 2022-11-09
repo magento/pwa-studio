@@ -39,6 +39,12 @@
  * Mobile-specific styles.
  */
 
+@media (max-width: 1200px) {
+    .root {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 959px) {
     .printButton {
         grid-row: 7 / span 1;
@@ -66,6 +72,6 @@
 
 @media (max-width: 430px) {
     .root {
-        grid-template-columns:1fr
+        grid-template-columns: 1fr;
     }
 }

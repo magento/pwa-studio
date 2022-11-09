@@ -1,0 +1,14 @@
+.root {
+    composes: root from '@magento/venia-ui/lib/components/clickable.module.css';
+
+    composes: h-[3rem] from global;
+    composes: w-[3rem] from global;
+
+    composes: lg_hidden from global;
+}
+
+@media all and (max-device-width: 1300px) and (min-device-width: 960px) {
+    .root {
+        display: block !important;
+    }
+}

@@ -36,7 +36,6 @@ const OrderRow = props => {
         month: 'short',
         day: 'numeric'
     });
-    console.log('status', status);
 
     const hasInvoice = !!invoices.length;
     const hasShipment = !!shipments.length;
@@ -101,6 +100,7 @@ const OrderRow = props => {
         width: 75
     };
     const thumbnailElement = image?.thumbnail ? <Image {...thumbnailProps} resource={image.thumbnail.url} /> : <></>;
+
     return (
         <li className={[classes.root, classes.reOrderRow].join(' ')}>
             <div className={classes.imageWrapper}>{thumbnailElement}</div>
