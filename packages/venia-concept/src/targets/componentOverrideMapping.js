@@ -196,4 +196,8 @@ module.exports = componentOverrideMapping = {
     //new Overwrite
     [`@magento/peregrine/lib/talons/Accordion/useAccordion.js`]: './src/talons/Accordion/useAccordion.js',
 
+
+    //new OverWrite 
+    [`@magento/venia-ui/lib/components/CategoryTree/categoryTree.js`]: './src/components/CategoryTree/categoryTree.js',
+    [`@magento/venia-ui/lib/components/CategoryTree/categoryTree.module.css`]: './src/components/CategoryTree/categoryTree.module.css',
 };

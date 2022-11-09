@@ -5,7 +5,7 @@
     height: 48px;
     border-radius: 30px;
     grid-column: 18;
-    color: #fff;
+    color: #000;
     outline: none;
 }
 
@@ -182,7 +182,7 @@
     .addbtn {
         margin-top: 0.5rem;
     }
-    .mobileHidden{
+    .mobileHidden {
         display: none;
     }
 }
@@ -195,8 +195,8 @@
     stroke: #fff;
 }
 
-.inputQtyQuick  {
-   padding-bottom: 1rem;
+.inputQtyQuick {
+    padding-bottom: 1rem;
 }
 .inputQtyQuick > div {
     background: #ffffff;
@@ -220,4 +220,23 @@
 
 .inputQtyQuick > form > div {
     display: block;
+}
+@media (max-width: 750px) {
+    .btnOrderContainer {
+        display: block;
+    }
+
+    .orderIcon {
+        width: 100%;
+    }
+    .orderIcon >span {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 750px) {
+    .mobileText {
+        display: none;
+    }
 }
