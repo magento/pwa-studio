@@ -59,10 +59,10 @@ exports[`Search Page Component error view does not render when data is present 1
     </section>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -105,10 +105,10 @@ exports[`Search Page Component error view renders when data is not present and n
     </div>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -177,10 +177,10 @@ exports[`Search Page Component filter button/modal does not render if there are 
     </section>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -272,10 +272,10 @@ exports[`Search Page Component filter button/modal renders when there are filter
     />
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -343,10 +343,10 @@ exports[`Search Page Component loading indicator does not render when data is pr
     </section>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -415,10 +415,10 @@ exports[`Search Page Component loading indicator renders when data is not presen
     />
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -471,10 +471,10 @@ exports[`Search Page Component search results does not render if data returned h
     </div>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -575,10 +575,10 @@ exports[`Search Page Component search results heading renders a generic message 
     </section>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term false
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term false"
     name="title"
   />
   <Meta
@@ -686,10 +686,10 @@ exports[`Search Page Component search results heading renders a specific message
     </section>
   </div>
   <Title>
-    Search Term - Venia Search
+    undefined's Search Result for term Search Term
   </Title>
   <Meta
-    content="Search Term - Venia Search"
+    content="undefined's Search Result for term Search Term"
     name="title"
   />
   <Meta
@@ -757,10 +757,10 @@ exports[`Search Page Component search results renders if data has items 1`] = `
     </section>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -814,10 +814,10 @@ exports[`Search Page Component sort button/container does not render if total co
     </div>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -918,10 +918,10 @@ exports[`Search Page Component sort button/container renders when total count > 
     </section>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -975,10 +975,10 @@ exports[`Search Page Component total count renders 0 items if data.products.tota
     </div>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
@@ -1079,10 +1079,10 @@ exports[`Search Page Component total count renders results from data 1`] = `
     </section>
   </div>
   <Title>
-    Venia Search
+    undefined's Search Result for term undefined
   </Title>
   <Meta
-    content="Venia Search"
+    content="undefined's Search Result for term undefined"
     name="title"
   />
   <Meta
