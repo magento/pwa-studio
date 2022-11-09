@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
-import useDelayedTransition from '@magento/peregrine/lib/hooks/useDelayedTransition';
+import { useDelayedTransition } from '@magento/peregrine/lib/hooks/useDelayedTransition';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import globalCSS from '../../index.module.css';
