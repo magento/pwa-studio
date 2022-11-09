@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Select from '@magento/venia-concept/src/components/Gallery/SelectField/select';
 import DatePicker from 'react-datepicker';
@@ -9,6 +9,9 @@ import TextArea from '@magento/venia-ui/lib/components/TextArea';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 import { Form } from 'informed';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { Accordion, Section } from '@magento/venia-ui/lib/components/Accordion';
+import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 
 import moment from 'moment';
 const DeliveryDatesForm = props => {
@@ -67,90 +70,116 @@ const DeliveryDatesForm = props => {
     return (
         <>
             {isShowing && (
-                <div className={classes.root}>
-                    <h5 className={classes.heading}>
+                <div>
+                    {/* <h5 className={classes.heading}>
                         <FormattedMessage id={'deliveryDate.deliveryDate'} defaultMessage={'Delivery Date'} />
-                    </h5>
+                    </h5> */}
                     {checkoutStep <= 3 ? (
-                        <div>
-                            <div className={classes.gridWrapper}>
-                                <div className={classes.dataPickerWrapper}>
-                                    <span>
-                                        <FormattedMessage
-                                            id={'deliveryDate.deliveryDate'}
-                                            defaultMessage={'Delivery Date'}
-                                        />
-                                    </span>
-                                    <DatePicker
-                                        selected={date}
-                                        filterDate={isWeekday}
-                                        onChange={handleDateChange}
-                                        locale={local}
-                                        dateFormat={moment(date).format('L')}
-                                        dayClassName={disabledDates}
-                                        minDate={new Date()}
-                                    />
-                                </div>
-                                {deliveryDates?.deliveryTime && (
-                                    <div className={classes.timeWrapper}>
-                                        <span>
-                                            <FormattedMessage
-                                                id={'deliveryDate.deliveryTime'}
-                                                defaultMessage={'Delivery Time'}
-                                            />
-                                        </span>
-                                        <Select
-                                            field="shippingMethod"
-                                            initialValue={''}
-                                            items={[
-                                                {
-                                                    label: formatMessage({
-                                                        id: 'deliveryDate.pleaseSelect',
-                                                        defaultMessage: 'Please select one'
-                                                    })
-                                                },
-                                                ...deliveryTime
-                                            ]}
-                                            onChange={e =>
-                                                handleChange('mp_delivery_time', JSON.parse(e.target.value).value)
-                                            }
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                            {deliveryDates?.deliveryTime.isEnabledHouseSecurityCode === '1' && (
-                                <div className={classes.securityCode}>
-                                    <span>
-                                        <FormattedMessage
-                                            id={'deliveryDate.houseSecurityCode'}
-                                            defaultMessage={'House Security Code'}
-                                        />
-                                    </span>
-                                    <TextInput
-                                        onChange={e => handleChange('mp_house_security_code', e.target.value)}
-                                        field="securityCode"
-                                    />
-                                </div>
-                            )}
-                            {deliveryDates?.deliveryTime.isEnabledDeliveryComment === '1' && (
-                                <div className={classes.deliveryComment}>
-                                    <span>
-                                        <FormattedMessage id={'deliveryDate.commentDate'} defaultMessage={'Comment'} />
-                                    </span>
-                                    <Form>
-                                        <TextArea
-                                            id="description"
-                                            field="description"
-                                            validate={isRequired}
-                                            maxLength={10000}
-                                            onChange={e => handleChange('mp_delivery_comment', e.target.value)}
-                                        />
-                                    </Form>
-                                </div>
-                            )}
-                        </div>
+                        <Accordion canOpenMultiple={true}>
+                            <Section
+                                data-cy="PriceAdjustments-couponCodeSection"
+                                id={'coupon_code'}
+                                title={formatMessage({
+                                    id: 'deliveryDate.deliveryDate',
+                                    defaultMessage: 'Delivery Date'
+                                })}
+                            >
+                                <Suspense fallback={<LoadingIndicator />}>
+                                    <div>
+                                        <div className={classes.gridWrapper}>
+                                            <div className={classes.dataPickerWrapper}>
+                                                <span>
+                                                    <FormattedMessage
+                                                        id={'deliveryDate.deliveryDate'}
+                                                        defaultMessage={'Delivery Date'}
+                                                    />
+                                                </span>
+                                                <DatePicker
+                                                    selected={date}
+                                                    filterDate={isWeekday}
+                                                    onChange={handleDateChange}
+                                                    locale={local}
+                                                    dateFormat={moment(date).format('L')}
+                                                    dayClassName={disabledDates}
+                                                    minDate={new Date()}
+                                                />
+                                            </div>
+                                            {deliveryDates?.deliveryTime && (
+                                                <div className={classes.timeWrapper}>
+                                                    <span>
+                                                        <FormattedMessage
+                                                            id={'deliveryDate.deliveryTime'}
+                                                            defaultMessage={'Delivery Time'}
+                                                        />
+                                                    </span>
+                                                    <Select
+                                                        field="shippingMethod"
+                                                        initialValue={''}
+                                                        items={[
+                                                            {
+                                                                label: formatMessage({
+                                                                    id: 'deliveryDate.pleaseSelect',
+                                                                    defaultMessage: 'Please select one'
+                                                                })
+                                                            },
+                                                            ...deliveryTime
+                                                        ]}
+                                                        onChange={e =>
+                                                            handleChange(
+                                                                'mp_delivery_time',
+                                                                JSON.parse(e.target.value).value
+                                                            )
+                                                        }
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                        {deliveryDates?.deliveryTime.isEnabledHouseSecurityCode === '1' && (
+                                            <div className={classes.securityCode}>
+                                                <span>
+                                                    <FormattedMessage
+                                                        id={'deliveryDate.houseSecurityCode'}
+                                                        defaultMessage={'House Security Code'}
+                                                    />
+                                                </span>
+                                                <TextInput
+                                                    onChange={e =>
+                                                        handleChange('mp_house_security_code', e.target.value)
+                                                    }
+                                                    field="securityCode"
+                                                />
+                                            </div>
+                                        )}
+                                        {deliveryDates?.deliveryTime.isEnabledDeliveryComment === '1' && (
+                                            <div className={classes.deliveryComment}>
+                                                <span>
+                                                    <FormattedMessage
+                                                        id={'deliveryDate.commentDate'}
+                                                        defaultMessage={'Comment'}
+                                                    />
+                                                </span>
+                                                <Form>
+                                                    <TextArea
+                                                        id="description"
+                                                        field="description"
+                                                        validate={isRequired}
+                                                        maxLength={10000}
+                                                        onChange={e =>
+                                                            handleChange('mp_delivery_comment', e.target.value)
+                                                        }
+                                                    />
+                                                </Form>
+                                            </div>
+                                        )}
+                                    </div>{' '}
+                                </Suspense>
+                            </Section>
+                        </Accordion>
                     ) : (
-                        <>
+                        <div className={classes.root}>
+                            <h5 className={classes.heading}>
+                                <FormattedMessage id={'deliveryDate.deliveryDate'} defaultMessage={'Delivery Date'} />
+                            </h5>
                             {deliveryDatesData.mp_delivery_date !== '' && (
                                 <div>
                                     <span>
@@ -196,7 +225,7 @@ const DeliveryDatesForm = props => {
                                     <span>{deliveryDatesData.mp_delivery_comment}</span>
                                 </div>
                             )}
-                        </>
+                        </div>
                     )}
                 </div>
             )}
