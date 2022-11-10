@@ -122,6 +122,7 @@ test('returns correct shape', () => {
             "signInMutation" => undefined,
           },
           "handleCreateAccount": [Function],
+          "handleEnterKeyPress": [Function],
           "handleForgotPassword": [Function],
           "handleSubmit": [Function],
           "isBusy": true,
