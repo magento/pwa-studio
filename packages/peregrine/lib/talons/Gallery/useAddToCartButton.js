@@ -91,7 +91,7 @@ export const useAddToCartButton = props => {
 
                 setIsLoading(false);
             } else if (productType === 'ConfigurableProduct') {
-                history.push(`${item.url_key}${urlSuffix || ''}`);
+                history.push(`/${item.url_key}${urlSuffix || ''}`);
             } else {
                 console.warn('Unsupported product type unable to handle.');
             }

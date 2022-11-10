@@ -222,7 +222,7 @@ describe('testing handleAddToCart', () => {
 
         await talonProps.handleAddToCart();
 
-        expect(push).toHaveBeenCalledWith('configurable_product.suffix');
+        expect(push).toHaveBeenCalledWith('/configurable_product.suffix');
     });
 
     test('should console warn if item is a bundle product', async () => {
