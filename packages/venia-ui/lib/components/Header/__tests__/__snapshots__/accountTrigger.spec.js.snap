@@ -6,8 +6,8 @@ Array [
     className="root"
   >
     <button
-      aria-label="Sign In"
       aria-expanded={false}
+      aria-label="Sign In"
       className="trigger"
       onClick={[MockFunction handleTriggerClick]}
     >
