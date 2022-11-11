@@ -14,7 +14,7 @@ const Kebab = props => {
     const { children } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
-    const result = isOpen ? 'More Options Expanded' : 'More Options Collapsed';
+    //const result = isOpen ? 'More Options Expanded' : 'More Options Collapsed';
 
     const { formatMessage } = useIntl();
 
@@ -26,7 +26,8 @@ const Kebab = props => {
                 onClick={handleKebabClick}
                 aria-label={formatMessage({
                     id: 'Kebab.buttonstatus',
-                    defaultMessage: "checking for translation"
+                    defaultMessage:
+                        'checking for translation taking component value'
                 })}
                 //aria-label={result}
                 ref={kebabRef}
