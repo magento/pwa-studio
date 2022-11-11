@@ -224,7 +224,7 @@ exports[`renders configurable product with options 1`] = `
       className="root"
     >
       <button
-        aria-label="More Options Collapsed"
+        aria-label="modifier l'état du bouton Test uniquement"
         className="kebab"
         onClick={[Function]}
       >
@@ -586,7 +586,7 @@ exports[`renders out of stock product 1`] = `
       className="root"
     >
       <button
-        aria-label="More Options Collapsed"
+        aria-label="modifier l'état du bouton Test uniquement"
         className="kebab"
         onClick={[Function]}
       >
@@ -901,7 +901,7 @@ exports[`renders simple product correctly 1`] = `
       className="root"
     >
       <button
-        aria-label="More Options Collapsed"
+        aria-label="modifier l'état du bouton Test uniquement"
         className="kebab"
         onClick={[Function]}
       >
