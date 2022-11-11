@@ -1,6 +1,6 @@
 import React from 'react';
 import { node, shape, string } from 'prop-types';
-import { FormattedMessage , useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { MoreVertical as MoreVerticalIcon } from 'react-feather';
 
 import { useStyle } from '../../classify';
@@ -17,7 +17,7 @@ const Kebab = props => {
     const result = isOpen ? 'More Options Expanded' : 'More Options Collapsed';
 
     const { formatMessage } = useIntl();
-   
+
     return (
         <div className={classes.root}>
             <button
@@ -26,12 +26,12 @@ const Kebab = props => {
                 onClick={handleKebabClick}
                 aria-label={formatMessage({
                     id: 'Kebab.buttonstatus',
-                    defaultMessage: result
+                    defaultMessage: "checking for translation"
                 })}
                 //aria-label={result}
                 ref={kebabRef}
             >
-                 <Icon src={MoreVerticalIcon} /> 
+                <Icon src={MoreVerticalIcon} />
             </button>
             <ul aria-hidden={isOpen ? 'false' : 'true'} className={toggleClass}>
                 {children}
