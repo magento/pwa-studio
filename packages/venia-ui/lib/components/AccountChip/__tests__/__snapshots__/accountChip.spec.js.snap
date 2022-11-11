@@ -30,7 +30,11 @@ exports[`it renders a loading indicator when appropriate 1`] = `
     </svg>
   </span>
   <span
+
     aria-label="Toggle My Account Menu"
+    aria-atomic="true"
+    aria-live="polite"
+
     className="text"
   >
     <span

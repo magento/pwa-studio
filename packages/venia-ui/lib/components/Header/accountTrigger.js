@@ -47,6 +47,7 @@ const AccountTrigger = props => {
             <div className={rootClassName} ref={accountMenuTriggerRef}>
                 <button
                     aria-label={ariaLabel}
+                    aria-expanded={accountMenuIsOpen}
                     className={classes.trigger}
                     onClick={handleTriggerClick}
                     data-cy="AccountTrigger-trigger"

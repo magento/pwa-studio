@@ -62,7 +62,10 @@ const AccountChip = props => {
         <span className={classes.root}>
             <Icon src={AccountIcon} />
             <span
+
                 aria-label={ariaLabel}
+                aria-atomic="true"
+                aria-live="polite"
                 data-cy="AccountChip-text"
                 className={classes.text}
             >
