@@ -1,15 +1,17 @@
 import React from 'react';
 import { act, create } from 'react-test-renderer';
 import { Link as RouterLink } from 'react-router-dom';
-import useLink from '@magento/peregrine/lib/talons/Link/useLink';
+import { useLink } from '@magento/peregrine/lib/talons/Link/useLink';
 import Link from '../link';
 
 jest.mock('@magento/peregrine/lib/talons/Link/useLink', () => {
-    return jest.fn(({ innerRef }) => {
-        return {
-            ref: innerRef
-        };
-    });
+    return {
+        useLink: jest.fn(({ innerRef }) => {
+            return {
+                ref: innerRef
+            };
+        })
+    };
 });
 
 jest.mock('react-router-dom', () => {

@@ -70,7 +70,7 @@ module.exports = targets => {
  *
  * Interceptors of `hooks` should call `wrapWith` on the individual hooks in
  * the provided [`HookInterceptorSet` object]{@link
- * http://pwastudio.io/peregrine/reference/targets/wrappable-talons}.
+ * https://developer.adobe.com/commerce/pwa-studio/tutorials/targets/modify-talon-results/}.
  *
  * @callback hookInterceptFunction
  * @param {HookInterceptorSet} hookInterceptors Registry of wrappable hook namespaces

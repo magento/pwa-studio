@@ -3,7 +3,7 @@ import { useAppContext } from '../context/app';
 
 export const SHIMMER_TYPE_SUFFIX = '_SHIMMER';
 
-export default rootType => {
+export const useInternalLink = rootType => {
     const [, appApi] = useAppContext();
     const { actions: appActions } = appApi;
     const { setNextRootComponent } = appActions;
