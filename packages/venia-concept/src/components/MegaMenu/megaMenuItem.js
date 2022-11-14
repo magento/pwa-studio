@@ -8,9 +8,6 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './megaMenuItem.module.css';
 import Submenu from '@magento/venia-ui/lib/components/MegaMenu/submenu';
 import Icon from '@magento/venia-ui/lib/components/Icon';
-import Offers from './icons/ICONO_OFERTAS_TERRAZAS.svg';
-import Outlet from './icons/ICONO_OUTLET.svg';
-import SpareParts from './icons/ICONO_REPUESTOS.svg';
 
 /**
  * The MegaMenuItem component displays mega menu item
@@ -59,7 +56,7 @@ const MegaMenuItem = props => {
         ) : null;
     }, [category, isFocused, mainNavWidth, subMenuState, handleCloseSubMenu, categoryUrlSuffix, onNavigate]);
 
-    const maybeDownArrowIcon = category.children.length ? (
+    const maybeDownArrowIcon = category.children.length && category.category_icon === '' ? (
         <Icon className={classes.arrowDown} src={ArrowDown} size={16} />
     ) : null;
 
@@ -69,22 +66,23 @@ const MegaMenuItem = props => {
           }
         : {};
 
-    const validationSrc = () => {
-        if (category.name === 'Ofertas terrazas') {
-            return Offers;
-        } else if (category.name === 'Outlet') {
-            return Outlet;
-        } else if (category.name === 'Repuestos') {
-            return SpareParts;
+        let tempImage = undefined
+        try {
+            tempImage=require(`./icons/${category.category_icon}.svg`)
+        } catch (error) {
+            tempImage=undefined
         }
-    };
-
-    const contentLink =
-        category.category_icon != '' ? (
-            <img className={classes.iconMenu} src={validationSrc()} alt={category.name} />
-        ) : (
-            category.name
-        );
+    
+        const contentLink =
+            category.category_icon != '' && tempImage != undefined ? (
+                <img
+                    className={classes.iconMenu}
+                    src={tempImage}
+                    alt={category.name}
+                />
+            ) : (
+                category.name
+            );
 
     return (
         <div className={megaMenuItemClassname}>
