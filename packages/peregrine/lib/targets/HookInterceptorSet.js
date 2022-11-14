@@ -14,7 +14,7 @@ class HookInterceptorSet extends Trackable {
     /**
      * Direct access to the array of all generated hooks. Used for retrieving all the transform requests.
      * @type {TransformRequest[]}
-     * @see [TransformRequest]{@link https://pwastudio.io/pwa-buildpack/reference/transform-requests/#addTransform}
+     * @see [TransformRequest]{@link https://developer.adobe.com/commerce/pwa-studio/api/buildpack/transform-requests/}
      */
     get allModules() {
         return this._all;
