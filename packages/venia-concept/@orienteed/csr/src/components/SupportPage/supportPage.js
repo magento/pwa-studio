@@ -31,6 +31,8 @@ import { useSortTicket } from '../../talons/useSortTicket.js';
 import TicketFilter from '../TicketFilter/ticketFilter';
 import { useFilterTicket } from '../../talons/useFilterTicket.js';
 
+import getJWT from '../../../services/auth/getJWT';
+
 const DELIMITER = '/';
 const PAGE_SIZE = 8;
 
@@ -38,6 +40,7 @@ const ContentDialog = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useSupportPage();
     const {
+        accountInformationData,
         errorToast,
         filterByStatus,
         filterByType,
@@ -70,7 +73,7 @@ const ContentDialog = props => {
         ticketModal,
         tickets
     } = talonProps;
-    const { formatMessage } = useIntl();
+    const { formatMessage, locale } = useIntl();
 
     // Texts
     const supportTitle = formatMessage({ id: 'csr.supportTitle', defaultMessage: 'Support page' });
@@ -317,6 +320,27 @@ const ContentDialog = props => {
         </Button>
     );
 
+    function chatBotButton() {
+        (function(w, d, x, id){
+            const s=d.createElement('script');
+            s.src='https://d2zasqxhmd6ne4.cloudfront.net/amazon-connect-chat-interface-client.js';
+            s.async=1;
+            s.id=id;
+            d.getElementsByTagName('head')[0].appendChild(s);
+            w[x] =  w[x] || function() { (w[x].ac = w[x].ac || []).push(arguments) };
+        })(window, document, 'amazon_connect', 'a3e036a3-33d6-4ab6-b4c9-6b1b3db8bb01');
+        amazon_connect('styles', { openChat: { color: 'white', backgroundColor: '#E8AA00'}, closeChat: { color: 'white', backgroundColor: '#E8AA00'} });
+        amazon_connect('snippetId', 'QVFJREFIaTl2VUdnV3lybUVtc0FxTFVtYk4vUHoxRGdsUDM2Vm4zaFp0YXlzdS8wUEFHNWM5UUNtSE1kOWUvczd2UlBxcGZPQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNL2Z3V1J5UW9NeWMrOENlNUFnRVFnQ3R6L24rOVBPWjkyWUtscEI3bmQ1YTloenFCcTU5UzFNYnFuNUM1RWVGSVcvc3QzRm5nK3p6Y2FTWGs6OkZMTEl2Qmh4eW83Q2VzbmlLaEtxN0hSbkRkNDByaTJZbmVOK1RhcTdmTDlTaW0wdkZ6Q1I0di9YZ2tLSmVLUXRaWDhwb01BZnZRaEF4OVMwYXZNNGJVSkFBdU1SWm9JcGhxVGl3K1BGcVhUY3M2UGdvYlNsLzVSeXM3cGYxQXlSd0taSUdWVnlCd2lyNXV4K21xa25LYk1zckd5N3FUdz0=');
+        amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown' ]);
+        amazon_connect('customerDisplayName', function(callback) {
+            const displayName = accountInformationData.customer.firstname;
+            callback(displayName);
+          });
+        amazon_connect('authenticate', function(callback) {
+            getJWT(locale).then(res => callback(res));
+        });
+    }
+
     return (
         <div className={classes.container}>
             {breadcrumbs}
@@ -371,6 +395,7 @@ const ContentDialog = props => {
             />
             {successToast && successToastContainer}
             {errorToast && errorToastContainer}
+            <script type='text/javascript'>{chatBotButton()}</script>
         </div>
     );
 };
