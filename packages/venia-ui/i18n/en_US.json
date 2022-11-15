@@ -478,5 +478,6 @@
     "wishlist.itemCountOpen": "Showing {currentCount} of {count} items in this list",
     "wishlist.itemCountClosed": "You have {count} {count, plural, one {item} other {items}} in this list",
     "wishlist.loadMore": "Load More",
-    "Kebab.buttonstatus":"button testing taking value on json file"
+    "Kebab.buttonstatus":"button testing taking value on json file",
+    "delete.buttonStatus":"Delete button from json file in default mode"
 }

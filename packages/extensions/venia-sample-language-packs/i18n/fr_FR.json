@@ -407,5 +407,6 @@
     "wishlistPage.fetchErrorMessage": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "wishlistPage.headingText": "Listes de favoris",
     "wishlistPage.wishlistDisabledMessage": "La liste de souhaits n'est pas disponible actuellement.",
-    "Kebab.buttonstatus":"modifier l'état du bouton Test uniquement"
+    "Kebab.buttonstatus":"modifier l'état du bouton Test uniquement",
+    "delete.buttonStatus":"Le bouton supprimé devrait fonctionner en français"
 }

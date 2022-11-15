@@ -114,7 +114,12 @@ const Item = props => {
                 className={classes.deleteButton}
                 disabled={isDeleting}
                 data-cy="MiniCart-Item-deleteButton"
-                aria-label={buttonStatus}
+                //aria-label={buttonStatus}
+                aria-label={formatMessage({
+                    id: 'delete.buttonStatus',
+                    defaultMessage:
+                        'delete button label from component value'
+                })}
             >
                 <Icon
                     size={16}
