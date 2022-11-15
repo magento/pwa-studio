@@ -162,8 +162,17 @@ const ProductSort = props => {
             setExpanded(expanded);
         }
     };
-    const result = expanded ? 'Sort Button Expanded' : 'Sort Button Collapsed';
-
+    const result =
+                expanded
+                ? formatMessage({
+                      id: 'productSort.sortButtonExpanded',
+                      defaultMessage: 'Sort Button Expanded'
+                  })
+                : formatMessage({
+                      id: 'productSort.sortButtonCollapsed',
+                      defaultMessage: 'Sort Button Collapsed'
+                  }),
+   
     return (
         <div
             ref={elementRef}

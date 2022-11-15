@@ -28,7 +28,10 @@ const FilterModalOpenButton = props => {
             type="button"
             aria-live="polite"
             aria-busy="false"
-            aria-label="Filter Button for Filter Options"
+            aria-label={formatMessage({
+                id: 'filterModalOpenButton.ariaLabel',
+                defaultMessage: 'Filter Button for Filter Options'
+            })}
         >
             <FormattedMessage
                 id={'productList.filter'}
