@@ -1,4 +1,4 @@
-export default () => {
+export const useIntersectionObserver = () => {
     if (typeof IntersectionObserver === 'undefined') {
         return;
     }

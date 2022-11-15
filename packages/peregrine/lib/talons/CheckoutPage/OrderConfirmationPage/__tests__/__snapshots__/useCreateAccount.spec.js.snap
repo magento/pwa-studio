@@ -18,6 +18,7 @@ Object {
     "createAccountQuery" => undefined,
     "signInMutation" => undefined,
   },
+  "handleEnterKeyPress": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
@@ -37,6 +38,7 @@ Object {
     "createAccountQuery" => undefined,
     "signInMutation" => undefined,
   },
+  "handleEnterKeyPress": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {

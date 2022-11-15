@@ -1,7 +1,6 @@
 import React, { Fragment, Suspense, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
-
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
 
 import { useStyle } from '../../classify';
@@ -34,11 +33,14 @@ const SearchPage = props => {
         pageControl,
         searchCategory,
         searchTerm,
-        sortProps
+        sortProps,
+        currentStoreName
     } = talonProps;
 
     const { formatMessage } = useIntl();
+
     const [currentSort] = sortProps;
+    const metaTitle = `${currentStoreName}'s Search Result for term ${searchTerm}`;
     const content = useMemo(() => {
         if (!data && loading) {
             return (
@@ -216,8 +218,8 @@ const SearchPage = props => {
                 {content}
                 <Suspense fallback={null}>{maybeFilterModal}</Suspense>
             </div>
-            <Title>{metaLabel}</Title>
-            <Meta name="title" content={metaLabel} />
+            <Title>{metaTitle}</Title>
+            <Meta name="title" content={metaTitle} />
             <Meta name="description" content={metaLabel} />
         </article>
     );
