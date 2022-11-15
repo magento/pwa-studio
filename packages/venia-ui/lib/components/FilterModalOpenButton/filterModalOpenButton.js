@@ -5,6 +5,7 @@ import Button from '../Button';
 import { useStyle } from '../../classify';
 import defaultClasses from './filterModalOpenButton.module.css';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
+import { useIntl } from 'react-intl';
 
 const FilterModalOpenButton = props => {
     const { filters, classes: propsClasses } = props;
@@ -15,7 +16,7 @@ const FilterModalOpenButton = props => {
             handleOpen;
         }
     };
-
+    const { formatMessage } = useIntl();
     return (
         <Button
             priority={'low'}
