@@ -171,7 +171,7 @@ const ProductSort = props => {
                 : formatMessage({
                       id: 'productSort.sortButtonCollapsed',
                       defaultMessage: 'Sort Button Collapsed'
-                  }),
+                  });
    
     return (
         <div
