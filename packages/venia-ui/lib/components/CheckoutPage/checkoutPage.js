@@ -75,6 +75,7 @@ const CheckoutPage = props => {
         shippingMethodRef,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
+        handleReviewOrderEnterKeyPress,
         reviewOrderButtonClicked,
         recaptchaWidgetProps,
         toggleAddressBookContent,
@@ -244,6 +245,7 @@ const CheckoutPage = props => {
             checkoutStep === CHECKOUT_STEP.PAYMENT ? (
                 <Button
                     onClick={handleReviewOrder}
+                    onKeyDown={handleReviewOrderEnterKeyPress}
                     priority="high"
                     className={classes.review_order_button}
                     data-cy="CheckoutPage-reviewOrderButton"

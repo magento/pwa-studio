@@ -61,6 +61,7 @@ export const CHECKOUT_STEP = {
  *  scrollShippingMethodIntoView: Function,
  *  resetReviewOrderButtonClicked: Function,
  *  handleReviewOrder: Function,
+ *  handleReviewOrderEnterKeyPress: Function,
  *  reviewOrderButtonClicked: Boolean,
  *  toggleAddressBookContent: Function,
  *  toggleSignInContent: Function,
@@ -182,6 +183,14 @@ export const useCheckoutPage = (props = {}) => {
     const handleReviewOrder = useCallback(() => {
         setReviewOrderButtonClicked(true);
     }, []);
+
+    const handleReviewOrderEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleReviewOrder();
+            }
+        };
+    }, [handleReviewOrder]);
 
     const resetReviewOrderButtonClicked = useCallback(() => {
         setReviewOrderButtonClicked(false);
@@ -411,6 +420,7 @@ export const useCheckoutPage = (props = {}) => {
         scrollShippingMethodIntoView,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
+        handleReviewOrderEnterKeyPress,
         reviewOrderButtonClicked,
         recaptchaWidgetProps,
         toggleAddressBookContent,

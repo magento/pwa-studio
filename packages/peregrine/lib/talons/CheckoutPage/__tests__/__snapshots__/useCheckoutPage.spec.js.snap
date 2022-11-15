@@ -15,6 +15,7 @@ Object {
   "handlePlaceOrder": [Function],
   "handlePlaceOrderEnterKeyPress": [Function],
   "handleReviewOrder": [Function],
+  "handleReviewOrderEnterKeyPress": [Function],
   "hasError": false,
   "isCartEmpty": true,
   "isGuestCheckout": true,
