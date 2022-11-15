@@ -131,6 +131,7 @@ const OrderRow = props => {
                 className={classes.contentToggleContainer}
                 onClick={handleContentToggle}
                 type="button"
+                aria-expanded={isOpen}
             >
                 {contentToggleIcon}
             </button>
