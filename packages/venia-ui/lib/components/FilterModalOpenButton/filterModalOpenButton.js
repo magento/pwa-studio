@@ -1,11 +1,10 @@
 import React from 'react';
 import { shape, string, array } from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Button from '../Button';
 import { useStyle } from '../../classify';
 import defaultClasses from './filterModalOpenButton.module.css';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
-import { useIntl } from 'react-intl';
 
 const FilterModalOpenButton = props => {
     const { filters, classes: propsClasses } = props;
