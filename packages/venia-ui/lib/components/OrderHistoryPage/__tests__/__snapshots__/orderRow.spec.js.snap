@@ -127,6 +127,7 @@ exports[`it does not render order details if loading is true 1`] = `
     />
   </div>
   <button
+    aria-expanded={false}
     className="contentToggleContainer"
     onClick={[MockFunction handleContentToggle]}
     type="button"
@@ -285,6 +286,7 @@ exports[`it renders collapsed order row 1`] = `
     />
   </div>
   <button
+    aria-expanded={false}
     className="contentToggleContainer"
     onClick={[MockFunction handleContentToggle]}
     type="button"
@@ -571,6 +573,7 @@ exports[`it renders open order row 1`] = `
     />
   </div>
   <button
+    aria-expanded={true}
     className="contentToggleContainer"
     onClick={[MockFunction handleContentToggle]}
     type="button"
@@ -867,6 +870,7 @@ exports[`it renders with missing order information 1`] = `
     />
   </div>
   <button
+    aria-expanded={false}
     className="contentToggleContainer"
     onClick={[MockFunction]}
     type="button"

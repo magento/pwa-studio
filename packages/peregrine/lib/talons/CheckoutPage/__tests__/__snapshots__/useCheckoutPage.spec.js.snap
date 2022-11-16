@@ -13,6 +13,7 @@ Object {
   "error": undefined,
   "guestSignInUsername": "",
   "handlePlaceOrder": [Function],
+  "handlePlaceOrderEnterKeyPress": [Function],
   "handleReviewOrder": [Function],
   "handleReviewOrderEnterKeyPress": [Function],
   "hasError": false,
