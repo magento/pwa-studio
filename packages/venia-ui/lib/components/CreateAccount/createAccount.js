@@ -99,7 +99,10 @@ const CreateAccount = props => {
                     mask={value => value && value.trim()}
                     maskOnBlur={true}
                     data-cy="customer-firstname"
-                    aria-label="First Name Required"
+                    aria-label={formatMessage({
+                        id: 'Form.fistname',
+                        defaultMessage: 'First Name Required'
+                    })}
                 />
             </Field>
             <Field
@@ -118,7 +121,10 @@ const CreateAccount = props => {
                     mask={value => value && value.trim()}
                     maskOnBlur={true}
                     data-cy="customer-lastname"
-                    aria-label="Last Name Required"
+                    aria-label={formatMessage({
+                        id: 'Form.lastname',
+                        defaultMessage: 'Last Name Required'
+                    })}
                 />
             </Field>
             <Field
@@ -137,7 +143,10 @@ const CreateAccount = props => {
                     mask={value => value && value.trim()}
                     maskOnBlur={true}
                     data-cy="customer-email"
-                    aria-label="Email Required"
+                    aria-label={formatMessage({
+                        id: 'Form.Email',
+                        defaultMessage: 'Email Required'
+                    })}
                 />
             </Field>
             <Password
@@ -158,7 +167,10 @@ const CreateAccount = props => {
                 mask={value => value && value.trim()}
                 maskOnBlur={true}
                 data-cy="password"
-                aria-label="Password Required"
+                aria-label={formatMessage({
+                    id: 'Form.Password',
+                    defaultMessage: 'Password Required'
+                })}
             />
             <div className={classes.subscribe}>
                 <Checkbox
