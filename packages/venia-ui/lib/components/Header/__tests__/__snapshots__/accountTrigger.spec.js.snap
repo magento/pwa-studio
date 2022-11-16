@@ -6,7 +6,8 @@ Array [
     className="root"
   >
     <button
-      aria-label="Toggle My Account Menu"
+      aria-expanded={false}
+      aria-label="Sign In"
       className="trigger"
       onClick={[MockFunction handleTriggerClick]}
     >
