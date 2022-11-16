@@ -16,6 +16,7 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       >
         <img
           alt="Test Product 1"
+          aria-hidden="true"
           className="image placeholder_layoutOnly"
           height={375}
           loading="eager"
@@ -110,6 +111,7 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       >
         <img
           alt="Test Product 2"
+          aria-hidden="true"
           className="image placeholder_layoutOnly"
           height={375}
           loading="eager"

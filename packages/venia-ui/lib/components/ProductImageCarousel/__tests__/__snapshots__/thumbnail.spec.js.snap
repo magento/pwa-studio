@@ -12,6 +12,7 @@ exports[`renders root class if not the active Thumbnail 1`] = `
   >
     <img
       alt="test-thumbnail"
+      aria-hidden="true"
       className="image placeholder"
       height={170}
       loading="eager"
@@ -65,6 +66,7 @@ exports[`renders the Thumbnail component correctly 1`] = `
   >
     <img
       alt="test-thumbnail"
+      aria-hidden="true"
       className="image placeholder"
       height={170}
       loading="eager"
@@ -118,6 +120,7 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
   >
     <img
       alt="placeholder-thumbnail"
+      aria-hidden="true"
       className="image placeholder"
       loading="eager"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="

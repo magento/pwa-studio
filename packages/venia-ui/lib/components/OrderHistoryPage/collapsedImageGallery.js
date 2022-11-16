@@ -19,13 +19,13 @@ const CollapsedImageGallery = props => {
             const baseImageElements = Object.values(items)
                 .slice(0, DISPLAY_COUNT)
                 .map((item, index) => {
-                    const { thumbnail } = item;
-                    const { label, url } = thumbnail;
+                    const { thumbnail, name } = item;
+                    const { url } = thumbnail;
 
                     return (
                         <Image
                             key={Object.keys(items)[index]}
-                            alt={label}
+                            alt={name}
                             src={url}
                             width={48}
                         />
