@@ -224,8 +224,8 @@ exports[`renders configurable product with options 1`] = `
       className="root"
     >
       <button
-        aria-label="More Options Collapsed"
         aria-expanded={false}
+        aria-label="More Options Collapsed"
         className="kebab"
         onClick={[Function]}
       >
@@ -587,8 +587,8 @@ exports[`renders out of stock product 1`] = `
       className="root"
     >
       <button
-        aria-label="More Options Collapsed"
         aria-expanded={false}
+        aria-label="More Options Collapsed"
         className="kebab"
         onClick={[Function]}
       >
@@ -903,8 +903,8 @@ exports[`renders simple product correctly 1`] = `
       className="root"
     >
       <button
-        aria-label="More Options Collapsed"
         aria-expanded={false}
+        aria-label="More Options Collapsed"
         className="kebab"
         onClick={[Function]}
       >
