@@ -31,6 +31,7 @@ const CreateAccount = props => {
         errors,
         handleCancel,
         handleSubmit,
+        handleEnterKeyPress,
         isDisabled,
         initialValues,
         recaptchaWidgetProps
@@ -60,6 +61,7 @@ const CreateAccount = props => {
             disabled={isDisabled}
             type="submit"
             priority="high"
+            onKeyDown={handleEnterKeyPress}
             data-cy="CreateAccount-submitButton"
         >
             <FormattedMessage

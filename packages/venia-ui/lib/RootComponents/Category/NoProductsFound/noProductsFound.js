@@ -28,7 +28,7 @@ const NoProductsFound = props => {
             );
 
             return (
-                <li key={category.id} className={classes.listItem}>
+                <li key={category.uid} className={classes.listItem}>
                     <Link to={uri}>{category.name}</Link>
                 </li>
             );

@@ -12,7 +12,8 @@ const SwatchList = props => {
         items,
         onSelectionChange,
         isEverythingOutOfStock,
-        outOfStockVariants
+        outOfStockVariants,
+        attributeLabel
     } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -35,6 +36,7 @@ const SwatchList = props => {
                         onClick={onSelectionChange}
                         isEverythingOutOfStock={isEverythingOutOfStock}
                         isOptionOutOfStock={isOptionOutOfStock}
+                        attributeLabel={attributeLabel}
                     />
                 );
             }),
@@ -44,7 +46,8 @@ const SwatchList = props => {
             items,
             onSelectionChange,
             isEverythingOutOfStock,
-            outOfStockVariants
+            outOfStockVariants,
+            attributeLabel
         ]
     );
 
