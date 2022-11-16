@@ -50,8 +50,17 @@ const Item = props => {
     });
 
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
-    const buttonStatus = isDeleting ? 'Item Deleted' : 'Delete';
     const configured_variant = configuredVariant(configurable_options, product);
+
+    const minicartButtonDeleted = formatMessage({
+        id: 'miniCartButton.Deleted',
+        defaultMessage: 'Item Deleted'
+    });
+    const miniCartButton = formatMessage({
+        id: 'miniCartButton.notDeleted',
+        defaultMessage: 'Delete'
+    });
+    const buttonStatus = isDeleting ? minicartButtonDeleted : miniCartButton;
 
     return (
         <div className={rootClass} data-cy="MiniCart-Item-root">

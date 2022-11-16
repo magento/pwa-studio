@@ -1,6 +1,7 @@
 import React from 'react';
 import { bool, shape, string } from 'prop-types';
 import { Form } from 'informed';
+import { useIntl } from 'react-intl';
 import { useSearchBar } from '@magento/peregrine/lib/talons/SearchBar';
 
 import { useStyle } from '../../classify';
@@ -24,7 +25,7 @@ const SearchBar = React.forwardRef((props, ref) => {
 
     const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
-
+    const { formatMessage } = useIntl();
     return (
         <div className={rootClassName} data-cy="SearchBar-root" ref={ref}>
             <div ref={containerRef} className={classes.container}>
@@ -43,7 +44,10 @@ const SearchBar = React.forwardRef((props, ref) => {
                     </div>
                     <div className={classes.search}>
                         <SearchField
-                            addLabel="clear Text"
+                            addLabel={formatMessage({
+                                id: 'Cross.buttonlabel',
+                                defaultMessage: 'Clear Text'
+                            })}
                             isSearchOpen={isOpen}
                             onChange={handleChange}
                             onFocus={handleFocus}

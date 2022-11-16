@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { func, node, shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 import defaultClasses from './trigger.module.css';
@@ -22,7 +23,19 @@ const Trigger = props => {
         ...restProps
     } = props;
     const classes = useStyle(defaultClasses, propClasses);
-    let resultedLabel = addLabel ? addLabel : 'Close';
+
+    const { formatMessage } = useIntl();
+    const arialabelClear = formatMessage({
+        id: 'Cross.buttonlabel',
+        defaultMessage: 'Clear Text'
+    });
+
+    const arialabelClose = formatMessage({
+        id: 'Cross.buttonlabelClose',
+        defaultMessage: 'Close'
+    });
+
+    let resultedLabel = addLabel ? arialabelClear : arialabelClose;
 
     const handleKeypress = () => {
         action();

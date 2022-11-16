@@ -14,8 +14,8 @@ test('config is aggregated correctly for slider', () => {
             autoplaySpeed: 500,
             fade: true,
             infinite: true,
-            showArrows: true,
-            showDots: true
+            showArrows: false,
+            showDots: false
         })
     );
 });

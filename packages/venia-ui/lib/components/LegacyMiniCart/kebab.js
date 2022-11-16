@@ -14,9 +14,18 @@ const Kebab = props => {
     const { children } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
-    //const result = isOpen ? 'More Options Expanded' : 'More Options Collapsed';
 
     const { formatMessage } = useIntl();
+    const ariaLabelExpanded = formatMessage({
+        id: 'Kebabbutton.statusExpanded',
+        defaultMessage: 'More Options Expanded'
+    });
+    const ariaLabelCollapsed = formatMessage({
+        id: 'Kebabbutton.statusCollapsed',
+        defaultMessage: 'More Options Collapsed'
+    });
+
+    const result = isOpen ? ariaLabelExpanded : ariaLabelCollapsed;
 
     return (
         <div className={classes.root}>
@@ -24,12 +33,7 @@ const Kebab = props => {
                 className={classes.kebab}
                 data-cy="Kebab-button"
                 onClick={handleKebabClick}
-                aria-label={formatMessage({
-                    id: 'Kebab.buttonstatus',
-                    defaultMessage:
-                        'checking for translation taking component value'
-                })}
-                //aria-label={result}
+                aria-label={result}
                 ref={kebabRef}
             >
                 <Icon src={MoreVerticalIcon} />

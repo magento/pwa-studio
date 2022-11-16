@@ -478,5 +478,13 @@
     "wishlist.itemCountOpen": "Showing {currentCount} of {count} items in this list",
     "wishlist.itemCountClosed": "You have {count} {count, plural, one {item} other {items}} in this list",
     "wishlist.loadMore": "Load More",
-    "Kebab.buttonstatus":"button testing taking value on json file"
+    "Kebabbutton.statusExpanded":"More Options Expanded",
+    "Kebabbutton.statusCollapsed":"More Options Collapsed",
+    "miniCartButton.Deleted":"Item Deleted",
+    "miniCartButton.notDeleted":"Delete",
+    "singinpassword.hide":"Hide Password",
+    "singinpassword.View":"View Password",
+    "Cross.buttonlabel":"Clear Text",
+    "Cross.buttonlabelClose":"Close"
+
 }

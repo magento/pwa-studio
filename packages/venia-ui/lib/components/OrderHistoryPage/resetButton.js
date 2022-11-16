@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormApi } from 'informed';
+import { useIntl } from 'react-intl';
 import { func } from 'prop-types';
 import { X as ClearIcon } from 'react-feather';
 
@@ -19,9 +20,15 @@ const ResetButton = props => {
             onReset();
         }
     };
-
+    const { formatMessage } = useIntl();
     return (
-        <Trigger action={handleReset} addLabel="Clear Text">
+        <Trigger
+            action={handleReset}
+            addLabel={formatMessage({
+                id: 'Cross.buttonlabel',
+                defaultMessage: 'Clear Text'
+            })}
+        >
             {clearIcon}
         </Trigger>
     );

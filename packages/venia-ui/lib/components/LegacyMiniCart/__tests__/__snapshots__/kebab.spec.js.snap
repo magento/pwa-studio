@@ -3,7 +3,7 @@
 exports[`it renders children passed to it 1`] = `
 <div>
   <button
-    aria-label="modifier l'état du bouton Test uniquement"
+    aria-label="More Options Collapsed"
     onClick={[Function]}
   >
     <Icon
@@ -32,7 +32,7 @@ exports[`it renders children passed to it 1`] = `
 exports[`it renders correctly without children 1`] = `
 <div>
   <button
-    aria-label="modifier l'état du bouton Test uniquement"
+    aria-label="More Options Collapsed"
     onClick={[Function]}
   >
     <Icon
