@@ -10,7 +10,7 @@ const SortedByContainer = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <div className={classes.root} aria-live="polite" aria-busy="true">
+        <div className={classes.root} aria-busy="true">
             <FormattedMessage
                 id={'searchPage.sortContainer'}
                 defaultMessage={'Items sorted by '}
