@@ -32,7 +32,14 @@ test('render slider with props and verify Slick is called correctly', () => {
     createTestInstance(<Slider {...sliderProps} />);
 
     expect(mockSlick).toHaveBeenCalledWith(
-        expect.objectContaining({}),
+        expect.objectContaining({
+            autoplay: true,
+            autoplaySpeed: 333,
+            fade: true,
+            infinite: true,
+            arrows: false,
+            dots: false
+        }),
         expect.anything()
     );
 });
