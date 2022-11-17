@@ -36,6 +36,7 @@ const SignIn = props => {
     const {
         errors,
         handleCreateAccount,
+        handleEnterKeyPress,
         handleForgotPassword,
         handleSubmit,
         isBusy,
@@ -131,6 +132,7 @@ const SignIn = props => {
                         type="button"
                         onClick={handleCreateAccount}
                         data-cy="CreateAccount-initiateButton"
+                        onKeyDown={handleEnterKeyPress}
                     >
                         <FormattedMessage
                             id={'signIn.createAccountText'}

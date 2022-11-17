@@ -11,11 +11,11 @@ jest.mock('react-router-dom', () => ({
     useLocation: jest.fn(() => ({ pathname: '/venia-tops.html' }))
 }));
 
-jest.mock('../../../hooks/useInternalLink', () =>
-    jest.fn(() => ({
+jest.mock('../../../hooks/useInternalLink', () => ({
+    useInternalLink: jest.fn(() => ({
         setShimmerType: jest.fn().mockName('onNavigate')
     }))
-);
+}));
 
 jest.mock('../../../hooks/useEventListener', () => ({
     useEventListener: jest.fn()
