@@ -87,6 +87,7 @@ exports[`renders form errors 1`] = `
                 >
                   <img
                     alt="Juno Sweater"
+                    aria-hidden="true"
                     className="image placeholder"
                     loading="eager"
                     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -456,6 +457,7 @@ exports[`renders form with data 1`] = `
                 >
                   <img
                     alt="Juno Sweater"
+                    aria-hidden="true"
                     className="image placeholder"
                     loading="eager"
                     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
