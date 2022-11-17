@@ -34,11 +34,11 @@ const Password = props => {
     };
     const { formatMessage } = useIntl();
     const hidePassword = formatMessage({
-        id: 'singinpassword.hide',
+        id: 'password.hide',
         defaultMessage: 'Hide Password'
     });
     const viewPassword = formatMessage({
-        id: 'singinpassword.view',
+        id: 'password.view',
         defaultMessage: 'View Password'
     });
     const speak = visible ? hidePassword : viewPassword;

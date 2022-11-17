@@ -53,11 +53,11 @@ const Item = props => {
     const configured_variant = configuredVariant(configurable_options, product);
 
     const minicartButtonDeleted = formatMessage({
-        id: 'miniCartButton.Deleted',
+        id: 'global.deletedButton',
         defaultMessage: 'Item Deleted'
     });
     const miniCartButton = formatMessage({
-        id: 'miniCartButton.notDeleted',
+        id: 'global.deleteButton',
         defaultMessage: 'Delete'
     });
     const buttonStatus = isDeleting ? minicartButtonDeleted : miniCartButton;

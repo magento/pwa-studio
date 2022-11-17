@@ -45,7 +45,7 @@ const SearchBar = React.forwardRef((props, ref) => {
                     <div className={classes.search}>
                         <SearchField
                             addLabel={formatMessage({
-                                id: 'Cross.buttonlabel',
+                                id: 'global.clearText',
                                 defaultMessage: 'Clear Text'
                             })}
                             isSearchOpen={isOpen}

@@ -17,11 +17,11 @@ const Kebab = props => {
 
     const { formatMessage } = useIntl();
     const ariaLabelExpanded = formatMessage({
-        id: 'Kebabbutton.statusExpanded',
+        id: 'LegacyMiniCart.buttonExpanded',
         defaultMessage: 'More Options Expanded'
     });
     const ariaLabelCollapsed = formatMessage({
-        id: 'Kebabbutton.statusCollapsed',
+        id: 'LegacyMiniCart.buttonCollapsed',
         defaultMessage: 'More Options Collapsed'
     });
 

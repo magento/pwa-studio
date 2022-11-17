@@ -26,12 +26,12 @@ const Trigger = props => {
 
     const { formatMessage } = useIntl();
     const arialabelClear = formatMessage({
-        id: 'Cross.buttonlabel',
+        id: 'global.clearText',
         defaultMessage: 'Clear Text'
     });
 
     const arialabelClose = formatMessage({
-        id: 'Cross.buttonlabelClose',
+        id: 'global.close',
         defaultMessage: 'Close'
     });
 

@@ -25,7 +25,7 @@ const ResetButton = props => {
         <Trigger
             action={handleReset}
             addLabel={formatMessage({
-                id: 'Cross.buttonlabel',
+                id: 'global.clearText',
                 defaultMessage: 'Clear Text'
             })}
         >

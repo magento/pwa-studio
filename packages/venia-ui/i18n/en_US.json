@@ -482,13 +482,11 @@
     "wishlist.itemCountOpen": "Showing {currentCount} of {count} items in this list",
     "wishlist.itemCountClosed": "You have {count} {count, plural, one {item} other {items}} in this list",
     "wishlist.loadMore": "Load More",
-    "Kebabbutton.statusExpanded":"More Options Expanded",
-    "Kebabbutton.statusCollapsed":"More Options Collapsed",
-    "miniCartButton.Deleted":"Item Deleted",
-    "miniCartButton.notDeleted":"Delete",
-    "singinpassword.hide":"Hide Password",
-    "singinpassword.View":"View Password",
-    "Cross.buttonlabel":"Clear Text",
-    "Cross.buttonlabelClose":"Close"
-
+    "LegacyMiniCart.buttonExpanded":"More Options Expanded",
+    "LegacyMiniCart.buttonCollapsed":"More Options Collapsed",
+    "global.deletedButton":"Item Deleted",
+    "password.hide":"Hide Password",
+    "password.View":"View Password",
+    "global.clearText":"Clear Text",
+    "global.close":"Close"
 }
