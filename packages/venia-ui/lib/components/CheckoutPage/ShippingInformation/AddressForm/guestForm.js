@@ -154,7 +154,7 @@ const GuestForm = props => {
                             data-cy="GuestForm-email"
                             validate={isRequired}
                             aria-label={formatMessage({
-                                id: 'Form.Email',
+                                id: 'global.emailRequired',
                                 defaultMessage: 'Email Required'
                             })}
                             onBlur={() =>
@@ -190,7 +190,7 @@ const GuestForm = props => {
                             data-cy="GuestForm-firstName"
                             validate={isRequired}
                             aria-label={formatMessage({
-                                id: 'Form.fistname',
+                                id: 'global.firstNameRequired',
                                 defaultMessage: 'First Name Required'
                             })}
                         />
@@ -214,7 +214,7 @@ const GuestForm = props => {
                             data-cy="GuestForm-lastName"
                             validate={isRequired}
                             aria-label={formatMessage({
-                                id: 'Form.lastname',
+                                id: 'global.lastNameRequired',
                                 defaultMessage: 'Last Name Required'
                             })}
                         />
@@ -229,7 +229,7 @@ const GuestForm = props => {
                         validate={isRequired}
                         data-cy="GuestForm-country"
                         aria-label={formatMessage({
-                            id: 'Form.country',
+                            id: 'global.countryRequired',
                             defaultMessage: 'Country Required'
                         })}
                     />
@@ -252,7 +252,7 @@ const GuestForm = props => {
                             data-cy="GuestForm-street0"
                             validate={isRequired}
                             aria-label={formatMessage({
-                                id: 'Form.streetAddress',
+                                id: 'global.streetAddressRequired',
                                 defaultMessage: 'Street Address Required'
                             })}
                         />
@@ -296,7 +296,7 @@ const GuestForm = props => {
                             data-cy="GuestForm-city"
                             validate={isRequired}
                             aria-label={formatMessage({
-                                id: 'Form.city',
+                                id: 'global.cityRequired',
                                 defaultMessage: 'City Required'
                             })}
                         />
@@ -314,7 +314,7 @@ const GuestForm = props => {
                         optionValueKey={'id'}
                         data-cy="GuestForm-region"
                         aria-label={formatMessage({
-                            id: 'Form.state',
+                            id: 'global.stateRequired',
                             defaultMessage: 'State Required'
                         })}
                     />
@@ -328,7 +328,7 @@ const GuestForm = props => {
                         validate={isRequired}
                         data-cy="GuestForm-postcode"
                         aria-label={formatMessage({
-                            id: 'Form.postalCode',
+                            id: 'global.postalCodeRequired',
                             defaultMessage: 'ZIP / Postal Code Required'
                         })}
                     />
@@ -351,7 +351,7 @@ const GuestForm = props => {
                             data-cy="GuestForm-telephone"
                             validate={isRequired}
                             aria-label={formatMessage({
-                                id: 'Form.phonenumber',
+                                id: 'global.phonenumberRequired',
                                 defaultMessage: 'Phone Number Required'
                             })}
                         />

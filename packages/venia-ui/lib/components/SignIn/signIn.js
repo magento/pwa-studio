@@ -78,7 +78,7 @@ const SignIn = props => {
                         validate={isRequired}
                         data-cy="email"
                         aria-label={formatMessage({
-                            id: 'Form.Email',
+                            id: 'global.emailRequired',
                             defaultMessage: 'Email Required'
                         })}
                     />
@@ -96,7 +96,7 @@ const SignIn = props => {
                     isToggleButtonHidden={false}
                     data-cy="password"
                     aria-label={formatMessage({
-                        id: 'Form.Password',
+                        id: 'global.passwordRequired',
                         defaultMessage: 'Password Required'
                     })}
                 />

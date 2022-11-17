@@ -160,7 +160,7 @@ const CustomerForm = props => {
                             data-cy="CustomerForm-firstName"
                             validate={isRequired}
                             aria-label={formatMessage({
-                                id: 'Form.fistname',
+                                id: 'global.firstNameRequired',
                                 defaultMessage: 'First Name Required'
                             })}
                         />
@@ -181,7 +181,7 @@ const CustomerForm = props => {
                             data-cy="CustomerForm-lastName"
                             validate={isRequired}
                             aria-label={formatMessage({
-                                id: 'Form.lastname',
+                                id: 'global.lastNameRequired',
                                 defaultMessage: 'Last Name Required'
                             })}
                         />
@@ -192,7 +192,7 @@ const CustomerForm = props => {
                         validate={isRequired}
                         data-cy="CustomerForm-country"
                         aria-label={formatMessage({
-                            id: 'Form.country',
+                            id: 'global.countryRequired',
                             defaultMessage: 'Country Required'
                         })}
                     />
@@ -211,7 +211,7 @@ const CustomerForm = props => {
                             id="customer_street0"
                             data-cy="CustomerForm-street0"
                             aria-label={formatMessage({
-                                id: 'Form.streetAddress',
+                                id: 'global.streetAddressRequired',
                                 defaultMessage: 'Street Address Required'
                             })}
                         />
@@ -241,7 +241,7 @@ const CustomerForm = props => {
                             defaultMessage: 'City'
                         })}
                         aria-label={formatMessage({
-                            id: 'Form.country',
+                            id: 'global.countryRequired',
                             defaultMessage: 'Country Required'
                         })}
                     >
@@ -251,7 +251,7 @@ const CustomerForm = props => {
                             id="customer_city"
                             data-cy="CustomerForm-city"
                             aria-label={formatMessage({
-                                id: 'Form.city',
+                                id: 'global.cityRequired',
                                 defaultMessage: 'City Required'
                             })}
                         />
@@ -265,7 +265,7 @@ const CustomerForm = props => {
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
                         aria-label={formatMessage({
-                            id: 'Form.state',
+                            id: 'global.stateRequired',
                             defaultMessage: 'State Required'
                         })}
                     />
@@ -275,7 +275,7 @@ const CustomerForm = props => {
                         validate={isRequired}
                         data-cy="CustomerForm-postcode"
                         aria-label={formatMessage({
-                            id: 'Form.postalCode',
+                            id: 'global.postalCodeRequired',
                             defaultMessage: 'ZIP / Postal Code Required'
                         })}
                     />
@@ -294,7 +294,7 @@ const CustomerForm = props => {
                             id="customer_telephone"
                             data-cy="CustomerForm-telephone"
                             aria-label={formatMessage({
-                                id: 'Form.phonenumber',
+                                id: 'global.phonenumberRequired',
                                 defaultMessage: 'Phone Number Required'
                             })}
                         />

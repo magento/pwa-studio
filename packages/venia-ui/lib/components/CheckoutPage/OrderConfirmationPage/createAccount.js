@@ -100,7 +100,7 @@ const CreateAccount = props => {
                         field="customer.firstname"
                         autoComplete="given-name"
                         aria-label={formatMessage({
-                            id: 'Form.fistname',
+                            id: 'global.firstNameRequired',
                             defaultMessage: 'First Name Required'
                         })}
                         data-cy="OrderConfirmationPage-CreateAccount-firstName"
@@ -118,7 +118,7 @@ const CreateAccount = props => {
                         field="customer.lastname"
                         autoComplete="family-name"
                         aria-label={formatMessage({
-                            id: 'Form.lastname',
+                            id: 'global.lastNameRequired',
                             defaultMessage: 'Last Name Required'
                         })}
                         data-cy="OrderConfirmationPage-CreateAccount-lastName"
@@ -136,7 +136,7 @@ const CreateAccount = props => {
                         field="customer.email"
                         autoComplete="email"
                         aria-label={formatMessage({
-                            id: 'Form.Email',
+                            id: 'global.emailRequired',
                             defaultMessage: 'Email Required'
                         })}
                         data-cy="OrderConfirmationPage-CreateAccount-email"
@@ -160,7 +160,7 @@ const CreateAccount = props => {
                     ])}
                     validateOnBlur
                     aria-label={formatMessage({
-                        id: 'Form.Password',
+                        id: 'global.passwordRequired',
                         defaultMessage: 'Password Required'
                     })}
                 />

@@ -100,7 +100,7 @@ const CreateAccount = props => {
                     maskOnBlur={true}
                     data-cy="customer-firstname"
                     aria-label={formatMessage({
-                        id: 'Form.fistname',
+                        id: 'global.firstNameRequired',
                         defaultMessage: 'First Name Required'
                     })}
                 />
@@ -122,7 +122,7 @@ const CreateAccount = props => {
                     maskOnBlur={true}
                     data-cy="customer-lastname"
                     aria-label={formatMessage({
-                        id: 'Form.lastname',
+                        id: 'global.lastNameRequired',
                         defaultMessage: 'Last Name Required'
                     })}
                 />
@@ -144,7 +144,7 @@ const CreateAccount = props => {
                     maskOnBlur={true}
                     data-cy="customer-email"
                     aria-label={formatMessage({
-                        id: 'Form.Email',
+                        id: 'global.emailRequired',
                         defaultMessage: 'Email Required'
                     })}
                 />
@@ -168,7 +168,7 @@ const CreateAccount = props => {
                 maskOnBlur={true}
                 data-cy="password"
                 aria-label={formatMessage({
-                    id: 'Form.Password',
+                    id: 'global.passwordRequired',
                     defaultMessage: 'Password Required'
                 })}
             />
