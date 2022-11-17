@@ -40,6 +40,7 @@ export const CHECKOUT_STEP = {
  *  customer: Object,
  *  error: ApolloError,
  *  handlePlaceOrder: Function,
+ *  handlePlaceOrderEnterKeyPress: Function,
  *  hasError: Boolean,
  *  isCartEmpty: Boolean,
  *  isGuestCheckout: Boolean,
@@ -250,6 +251,14 @@ export const useCheckoutPage = (props = {}) => {
         setIsPlacingOrder(true);
     }, [cartId, getOrderDetails]);
 
+    const handlePlaceOrderEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handlePlaceOrder();
+            }
+        };
+    }, [handlePlaceOrder]);
+
     const [, { dispatch }] = useEventingContext();
 
     // Go back to checkout if shopper logs in
@@ -386,6 +395,7 @@ export const useCheckoutPage = (props = {}) => {
         error: checkoutError,
         guestSignInUsername,
         handlePlaceOrder,
+        handlePlaceOrderEnterKeyPress,
         hasError: !!checkoutError,
         isCartEmpty: !(checkoutData && checkoutData?.cart?.total_quantity),
         isGuestCheckout: !isSignedIn,
