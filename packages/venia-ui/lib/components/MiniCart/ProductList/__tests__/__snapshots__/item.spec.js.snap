@@ -13,6 +13,7 @@ exports[`Should disable delete icon while loading 1`] = `
     >
       <img
         alt="P1"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -170,6 +171,7 @@ exports[`Should render correctly 1`] = `
     >
       <img
         alt="P1"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -327,6 +329,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
     >
       <img
         alt="P1"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -484,6 +487,7 @@ exports[`Should render correctly with out of stock product 1`] = `
     >
       <img
         alt="P1"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="

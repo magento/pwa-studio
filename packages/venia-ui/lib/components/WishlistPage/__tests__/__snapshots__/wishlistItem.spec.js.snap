@@ -17,6 +17,7 @@ exports[`it renders a configurable wishlist item 1`] = `
   >
     <img
       alt="Shoggoth Shirt"
+      aria-hidden="true"
       className="image placeholder"
       loading="eager"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -133,6 +134,7 @@ exports[`it renders a simple wishlist item 1`] = `
   >
     <img
       alt="Shoggoth Shirt"
+      aria-hidden="true"
       className="image placeholder"
       loading="eager"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="

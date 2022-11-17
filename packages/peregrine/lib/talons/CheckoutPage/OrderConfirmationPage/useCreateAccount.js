@@ -24,6 +24,7 @@ import { useEventingContext } from '../../../context/eventing';
  * @returns {{
  *   errors: Map,
  *   handleSubmit: function,
+ *   handleEnterKeyPress: function,
  *   isDisabled: boolean,
  *   initialValues: object,
  *   recaptchaWidgetProps: { containerElement: function, shouldRender: boolean }
@@ -161,6 +162,14 @@ export const useCreateAccount = props => {
         ]
     );
 
+    const handleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleSubmit();
+            }
+        };
+    }, [handleSubmit]);
+
     const sanitizedInitialValues = useMemo(() => {
         const { email, firstName, lastName, ...rest } = initialValues;
 
@@ -182,6 +191,7 @@ export const useCreateAccount = props => {
     return {
         errors,
         handleSubmit,
+        handleEnterKeyPress,
         isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
         initialValues: sanitizedInitialValues,
         recaptchaWidgetProps

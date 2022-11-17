@@ -52,6 +52,7 @@ Object {
       "value": 40,
     },
   },
+  "handleEnterKeyPress": [Function],
   "handleProceedToCheckout": [Function],
   "hasError": false,
   "hasItems": true,

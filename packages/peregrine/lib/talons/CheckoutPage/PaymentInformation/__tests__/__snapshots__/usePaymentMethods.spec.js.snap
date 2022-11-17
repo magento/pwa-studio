@@ -8,6 +8,7 @@ Object {
     },
   ],
   "currentSelectedPaymentMethod": "currentSelectedPaymentMethod",
+  "handlePaymentMethodSelection": [Function],
   "initialSelectedMethod": "availablePaymentMethod",
   "isLoading": false,
 }

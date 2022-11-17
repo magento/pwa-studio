@@ -50,6 +50,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     >
       <img
         alt="image-product"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -160,6 +161,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     >
       <img
         alt="test-thumbnail1"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -248,6 +250,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       >
         <img
           alt="test-thumbnail1"
+          aria-hidden="true"
           className="image placeholder"
           height={170}
           loading="eager"
@@ -297,6 +300,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       >
         <img
           alt="test-thumbnail2"
+          aria-hidden="true"
           className="image placeholder"
           height={170}
           loading="eager"
@@ -346,6 +350,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       >
         <img
           alt="test-thumbnail3"
+          aria-hidden="true"
           className="image placeholder"
           height={170}
           loading="eager"
@@ -395,6 +400,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       >
         <img
           alt="test-thumbnail4"
+          aria-hidden="true"
           className="image placeholder"
           height={170}
           loading="eager"
