@@ -39,7 +39,7 @@ const Thumbnail = props => {
     });
 
     const { handleClick } = talonProps;
-
+    const selectedItem = isActive ? 'Current Image' : 'Next Image';
     const windowSize = useWindowSize();
     const isDesktop = windowSize.innerWidth >= 1024;
 
@@ -66,14 +66,13 @@ const Thumbnail = props => {
     }, [file, isDesktop, label, classes.image]);
 
     return (
-        <span
+        <button
             className={isActive ? classes.rootSelected : classes.root}
             onClick={handleClick}
-            role="button"
-            aria-hidden="true"
+            aria-label={selectedItem}
         >
             {thumbnailImage}
-        </span>
+        </button>
     );
 };
 

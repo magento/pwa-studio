@@ -35,6 +35,13 @@ const AccountChip = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
+    const ariaLabelMyMenu = formatMessage({
+        id: 'accountTrigger.ariaLabelMyMenu',
+        defaultMessage: 'Toggle My Account Menu'
+    });
+
+    const ariaLabel = isUserSignedIn ? ariaLabelMyMenu : '';
+
     let chipText;
     if (!isUserSignedIn) {
         chipText = fallbackText;
@@ -55,6 +62,7 @@ const AccountChip = props => {
         <span className={classes.root}>
             <Icon src={AccountIcon} />
             <span
+                aria-label={ariaLabel}
                 aria-atomic="true"
                 aria-live="polite"
                 data-cy="AccountChip-text"
