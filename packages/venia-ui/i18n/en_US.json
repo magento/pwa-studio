@@ -481,5 +481,15 @@
     "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
     "wishlist.itemCountOpen": "Showing {currentCount} of {count} items in this list",
     "wishlist.itemCountClosed": "You have {count} {count, plural, one {item} other {items}} in this list",
-    "wishlist.loadMore": "Load More"
+    "wishlist.loadMore": "Load More",
+    "global.firstNameRequired":"First Name Required",
+    "global.lastNameRequired":"Last Name Required",
+    "global.emailRequired":"Email Required",
+    "global.passwordRequired":"Password Required",
+    "global.countryRequired":"Country Required",
+    "global.streetAddressRequired":"Street Address Required",
+    "global.cityRequired":"City Required",
+    "global.stateRequired":"State Required",
+    "Form.postalCode":"ZIP / Postal Code Required",
+    "Form.phonenumber":"Phone Number Required"
 }
