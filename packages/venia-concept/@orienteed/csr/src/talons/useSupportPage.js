@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useQuery } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
-import getTickets from '../../services/tickets/getTickets';
-import getGroups from '../../services/groups/getGroups';
-import getStates from '../../services/tickets/ticket_states/getStates';
+import getTickets from '@orienteed/csr/services/tickets/getTickets';
+import getGroups from '@orienteed/csr/services/groups/getGroups';
+import getStates from '@orienteed/csr/services/tickets/ticket_states/getStates';
+import accountInformationPageGql from '@magento/venia-ui/lib/components/AccountInformationPage/accountInformationPage.gql.js';
 
 export const useSupportPage = () => {
     const [{ isSignedIn }] = useUserContext();
@@ -130,7 +132,14 @@ export const useSupportPage = () => {
         [isSignedIn, orderBy]
     );
 
+    const getCustomerInformationQuery = accountInformationPageGql.queries.getCustomerInformationQuery;
+
+    const { data: accountInformationData, error: loadDataError } = useQuery(
+        getCustomerInformationQuery
+    );
+
     return {
+        accountInformationData,
         changeOrderBy,
         errorToast,
         filterByStatus,
@@ -140,6 +149,7 @@ export const useSupportPage = () => {
         handleReset,
         handleSubmit,
         legendModal,
+        loadDataError,
         numPage,
         openTicketModal,
         openedChat,
