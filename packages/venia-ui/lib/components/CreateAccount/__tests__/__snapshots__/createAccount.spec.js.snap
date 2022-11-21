@@ -28,6 +28,7 @@ exports[`renders the correct tree 1`] = `
     >
       <span>
         <input
+          aria-label="First Name Required"
           autoComplete="given-name"
           id="firstName"
           name="customer.firstname"
@@ -59,6 +60,7 @@ exports[`renders the correct tree 1`] = `
     >
       <span>
         <input
+          aria-label="Last Name Required"
           autoComplete="family-name"
           id="lastName"
           name="customer.lastname"
@@ -90,6 +92,7 @@ exports[`renders the correct tree 1`] = `
     >
       <span>
         <input
+          aria-label="Email Required"
           autoComplete="email"
           id="Email"
           name="customer.email"
@@ -121,6 +124,7 @@ exports[`renders the correct tree 1`] = `
     >
       <span>
         <input
+          aria-label="Password Required"
           autoComplete="new-password"
           id="Password"
           name="password"
@@ -275,6 +279,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
     >
       <span>
         <input
+          aria-label="First Name Required"
           autoComplete="given-name"
           id="firstName"
           name="customer.firstname"
@@ -306,6 +311,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
     >
       <span>
         <input
+          aria-label="Last Name Required"
           autoComplete="family-name"
           id="lastName"
           name="customer.lastname"
@@ -337,6 +343,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
     >
       <span>
         <input
+          aria-label="Email Required"
           autoComplete="email"
           id="Email"
           name="customer.email"
@@ -368,6 +375,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
     >
       <span>
         <input
+          aria-label="Password Required"
           autoComplete="new-password"
           id="Password"
           name="password"

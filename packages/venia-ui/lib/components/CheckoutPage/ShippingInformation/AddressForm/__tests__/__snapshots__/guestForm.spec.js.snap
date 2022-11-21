@@ -36,6 +36,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Email Required"
               autoComplete="Shipping Email"
               className="input"
               id="email"
@@ -92,6 +93,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="First Name Required"
               autoComplete="First Name"
               className="input"
               id="firstname"
@@ -139,6 +141,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Last Name Required"
               autoComplete="Last Name"
               className="input"
               id="lastname"
@@ -165,6 +168,7 @@ Array [
       className="country"
     >
       <Country
+        aria-label="Country Required"
         autoComplete="Country"
         validate={[Function]}
       />
@@ -194,6 +198,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Street Address Required"
               autoComplete="Street Address"
               className="input"
               id="street0"
@@ -296,6 +301,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="City Required"
               autoComplete="City"
               className="input"
               id="city"
@@ -322,6 +328,7 @@ Array [
       className="region"
     >
       <Region
+        aria-label="State Required"
         autoComplete="State"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
@@ -354,6 +361,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="ZIP / Postal Code Required"
               autoComplete="ZIP / Postal Code"
               className="input"
               id="root"
@@ -401,6 +409,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Phone Number Required"
               autoComplete="Phone Number"
               className="input"
               id="telephone"
@@ -494,6 +503,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Email Required"
               autoComplete="Shipping Email"
               className="input"
               id="email"
@@ -550,6 +560,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="First Name Required"
               autoComplete="First Name"
               className="input"
               id="firstname"
@@ -597,6 +608,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Last Name Required"
               autoComplete="Last Name"
               className="input"
               id="lastname"
@@ -623,6 +635,7 @@ Array [
       className="country"
     >
       <Country
+        aria-label="Country Required"
         autoComplete="Country"
         validate={[Function]}
       />
@@ -652,6 +665,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Street Address Required"
               autoComplete="Street Address"
               className="input"
               id="street0"
@@ -754,6 +768,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="City Required"
               autoComplete="City"
               className="input"
               id="city"
@@ -780,6 +795,7 @@ Array [
       className="region"
     >
       <Region
+        aria-label="State Required"
         autoComplete="State"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
@@ -812,6 +828,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="ZIP / Postal Code Required"
               autoComplete="ZIP / Postal Code"
               className="input"
               id="root"
@@ -859,6 +876,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Phone Number Required"
               autoComplete="Phone Number"
               className="input"
               id="telephone"
@@ -948,6 +966,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Email Required"
               autoComplete="Shipping Email"
               className="input"
               id="email"
@@ -996,6 +1015,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="First Name Required"
               autoComplete="First Name"
               className="input"
               id="firstname"
@@ -1043,6 +1063,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Last Name Required"
               autoComplete="Last Name"
               className="input"
               id="lastname"
@@ -1069,6 +1090,7 @@ Array [
       className="country"
     >
       <Country
+        aria-label="Country Required"
         autoComplete="Country"
         validate={[Function]}
       />
@@ -1098,6 +1120,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Street Address Required"
               autoComplete="Street Address"
               className="input"
               id="street0"
@@ -1200,6 +1223,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="City Required"
               autoComplete="City"
               className="input"
               id="city"
@@ -1226,6 +1250,7 @@ Array [
       className="region"
     >
       <Region
+        aria-label="State Required"
         autoComplete="State"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
@@ -1258,6 +1283,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="ZIP / Postal Code Required"
               autoComplete="ZIP / Postal Code"
               className="input"
               id="root"
@@ -1305,6 +1331,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Phone Number Required"
               autoComplete="Phone Number"
               className="input"
               id="telephone"
@@ -1420,6 +1447,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Email Required"
               autoComplete="Shipping Email"
               className="input"
               id="email"
@@ -1468,6 +1496,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="First Name Required"
               autoComplete="First Name"
               className="input"
               id="firstname"
@@ -1515,6 +1544,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Last Name Required"
               autoComplete="Last Name"
               className="input"
               id="lastname"
@@ -1541,6 +1571,7 @@ Array [
       className="country"
     >
       <Country
+        aria-label="Country Required"
         autoComplete="Country"
         validate={[Function]}
       />
@@ -1570,6 +1601,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Street Address Required"
               autoComplete="Street Address"
               className="input"
               id="street0"
@@ -1672,6 +1704,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="City Required"
               autoComplete="City"
               className="input"
               id="city"
@@ -1698,6 +1731,7 @@ Array [
       className="region"
     >
       <Region
+        aria-label="State Required"
         autoComplete="State"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
@@ -1730,6 +1764,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="ZIP / Postal Code Required"
               autoComplete="ZIP / Postal Code"
               className="input"
               id="root"
@@ -1777,6 +1812,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Phone Number Required"
               autoComplete="Phone Number"
               className="input"
               id="telephone"
