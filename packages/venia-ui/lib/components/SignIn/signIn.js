@@ -78,6 +78,10 @@ const SignIn = props => {
                         field="email"
                         validate={isRequired}
                         data-cy="email"
+                        aria-label={formatMessage({
+                            id: 'global.emailRequired',
+                            defaultMessage: 'Email Required'
+                        })}
                     />
                 </Field>
                 <Password
@@ -92,6 +96,10 @@ const SignIn = props => {
                     autoComplete="current-password"
                     isToggleButtonHidden={false}
                     data-cy="password"
+                    aria-label={formatMessage({
+                        id: 'global.passwordRequired',
+                        defaultMessage: 'Password Required'
+                    })}
                 />
                 <div className={classes.forgotPasswordButtonContainer}>
                     <LinkButton
