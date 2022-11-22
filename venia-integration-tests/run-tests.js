@@ -85,7 +85,7 @@ const dockerRuns = {};
 const port = new URL(baseUrl).port;
 
 let dockerCommand = null;
-let dockerImage = 'cypress/included:8.3.1';
+let dockerImage = 'cypress/included:10.11.0';
 if (process.env.DockerRegistry) {
     dockerImage = process.env.DockerRegistry + dockerImage;
 }
@@ -103,7 +103,7 @@ if (port) {
 
     dockerCommand = `docker run --rm -v ${
         process.env.PWD
-    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress ${dockerImage} run --browser chrome --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --env grepTags=${tags} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
+    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress ${dockerImage} run --browser electron --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.js --env updateSnapshots=true --env grepTags=${tags} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
 }
 
 const start = process.hrtime();
