@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useQuery } from '@apollo/client';
-import useContactLink from '../useContactLink';
+import { useContactLink } from '../useContactLink';
 
 jest.mock('@apollo/client', () => ({
     useQuery: jest.fn()

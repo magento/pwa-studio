@@ -159,6 +159,10 @@ const CustomerForm = props => {
                             id="customer_firstname"
                             data-cy="CustomerForm-firstName"
                             validate={isRequired}
+                            aria-label={formatMessage({
+                                id: 'global.firstNameRequired',
+                                defaultMessage: 'First Name Required'
+                            })}
                         />
                     </Field>
                 </div>
@@ -176,6 +180,10 @@ const CustomerForm = props => {
                             id="customer_lastname"
                             data-cy="CustomerForm-lastName"
                             validate={isRequired}
+                            aria-label={formatMessage({
+                                id: 'global.lastNameRequired',
+                                defaultMessage: 'Last Name Required'
+                            })}
                         />
                     </Field>
                 </div>
@@ -183,6 +191,10 @@ const CustomerForm = props => {
                     <Country
                         validate={isRequired}
                         data-cy="CustomerForm-country"
+                        aria-label={formatMessage({
+                            id: 'global.countryRequired',
+                            defaultMessage: 'Country Required'
+                        })}
                     />
                 </div>
                 <div className={classes.street0}>
@@ -198,6 +210,10 @@ const CustomerForm = props => {
                             validate={isRequired}
                             id="customer_street0"
                             data-cy="CustomerForm-street0"
+                            aria-label={formatMessage({
+                                id: 'global.streetAddressRequired',
+                                defaultMessage: 'Street Address Required'
+                            })}
                         />
                     </Field>
                 </div>
@@ -224,12 +240,20 @@ const CustomerForm = props => {
                             id: 'global.city',
                             defaultMessage: 'City'
                         })}
+                        aria-label={formatMessage({
+                            id: 'global.countryRequired',
+                            defaultMessage: 'Country Required'
+                        })}
                     >
                         <TextInput
                             field="city"
                             validate={isRequired}
                             id="customer_city"
                             data-cy="CustomerForm-city"
+                            aria-label={formatMessage({
+                                id: 'global.cityRequired',
+                                defaultMessage: 'City Required'
+                            })}
                         />
                     </Field>
                 </div>
@@ -240,12 +264,20 @@ const CustomerForm = props => {
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
+                        aria-label={formatMessage({
+                            id: 'global.stateRequired',
+                            defaultMessage: 'State Required'
+                        })}
                     />
                 </div>
                 <div className={classes.postcode}>
                     <Postcode
                         validate={isRequired}
                         data-cy="CustomerForm-postcode"
+                        aria-label={formatMessage({
+                            id: 'global.postalCodeRequired',
+                            defaultMessage: 'ZIP / Postal Code Required'
+                        })}
                     />
                 </div>
                 <div className={classes.telephone}>
@@ -261,6 +293,10 @@ const CustomerForm = props => {
                             validate={isRequired}
                             id="customer_telephone"
                             data-cy="CustomerForm-telephone"
+                            aria-label={formatMessage({
+                                id: 'global.phonenumberRequired',
+                                defaultMessage: 'Phone Number Required'
+                            })}
                         />
                     </Field>
                 </div>

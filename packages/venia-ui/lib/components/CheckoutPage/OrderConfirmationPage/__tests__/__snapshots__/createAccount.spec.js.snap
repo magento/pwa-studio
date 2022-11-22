@@ -46,6 +46,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="input"
         >
           <input
+            aria-label="First Name Required"
             autoComplete="given-name"
             className="input"
             id="customer.firstname"
@@ -87,6 +88,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="input"
         >
           <input
+            aria-label="Last Name Required"
             autoComplete="family-name"
             className="input"
             id="customer.lastname"
@@ -128,6 +130,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="input"
         >
           <input
+            aria-label="Email Required"
             autoComplete="email"
             className="input"
             id="customer.email"
@@ -170,6 +173,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="input"
         >
           <input
+            aria-label="Password Required"
             autoComplete="new-password"
             className="input"
             id="password"
@@ -369,6 +373,7 @@ exports[`CreateAccount renders errors 1`] = `
           className="input"
         >
           <input
+            aria-label="First Name Required"
             autoComplete="given-name"
             className="input"
             id="customer.firstname"
@@ -410,6 +415,7 @@ exports[`CreateAccount renders errors 1`] = `
           className="input"
         >
           <input
+            aria-label="Last Name Required"
             autoComplete="family-name"
             className="input"
             id="customer.lastname"
@@ -451,6 +457,7 @@ exports[`CreateAccount renders errors 1`] = `
           className="input"
         >
           <input
+            aria-label="Email Required"
             autoComplete="email"
             className="input"
             id="customer.email"
@@ -493,6 +500,7 @@ exports[`CreateAccount renders errors 1`] = `
           className="input"
         >
           <input
+            aria-label="Password Required"
             autoComplete="new-password"
             className="input"
             id="password"

@@ -52,6 +52,7 @@ const CheckoutPage = props => {
         error,
         guestSignInUsername,
         handlePlaceOrder,
+        handlePlaceOrderEnterKeyPress,
         hasError,
         isCartEmpty,
         isGuestCheckout,
@@ -74,6 +75,7 @@ const CheckoutPage = props => {
         shippingMethodRef,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
+        handleReviewOrderEnterKeyPress,
         reviewOrderButtonClicked,
         recaptchaWidgetProps,
         toggleAddressBookContent,
@@ -243,6 +245,7 @@ const CheckoutPage = props => {
             checkoutStep === CHECKOUT_STEP.PAYMENT ? (
                 <Button
                     onClick={handleReviewOrder}
+                    onKeyDown={handleReviewOrderEnterKeyPress}
                     priority="high"
                     className={classes.review_order_button}
                     data-cy="CheckoutPage-reviewOrderButton"
@@ -270,6 +273,7 @@ const CheckoutPage = props => {
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
                 <Button
                     onClick={handlePlaceOrder}
+                    onKeyDown={handlePlaceOrderEnterKeyPress}
                     priority="high"
                     className={classes.place_order_button}
                     data-cy="CheckoutPage-placeOrderButton"

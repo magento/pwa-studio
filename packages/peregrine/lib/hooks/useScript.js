@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
  *
  * @returns {string} - returns one of the possible status: "idle", "loading", "ready" or "error"
  */
-export default src => {
+export const useScript = src => {
     // Keep track of script status ("idle", "loading", "ready", "error")
     const [status, setStatus] = useState(src ? 'loading' : 'idle');
     useEffect(
