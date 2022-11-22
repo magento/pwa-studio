@@ -18,15 +18,13 @@
     -webkit-font-smoothing: antialiased;
 }
 
-/*
- * Lock the window's scroll position while an overlay is active.
- * Has no effect in iOS Safari.
- * https://bugs.webkit.org/show_bug.cgi?id=153852
- *
- * :global(html[data-scroll-lock='true'] body) {
- *   overflow: hidden;
- * }
- */
+:global(html[data-scroll-lock='true']),
+:global(html[data-scroll-lock='true'] body) {
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
 
 /* TODO @TW: cannot compose */
 :global(body),
