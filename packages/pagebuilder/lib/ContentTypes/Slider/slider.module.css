@@ -127,11 +127,6 @@
 
 .root :global .slick-prev,
 .root :global .slick-next {
-    opacity: 0;
-    transition: 0.3s;
-}
-.root:hover :global .slick-prev,
-.root:hover :global .slick-next {
     opacity: 1;
 }
 
