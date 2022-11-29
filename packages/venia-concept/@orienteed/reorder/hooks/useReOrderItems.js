@@ -3,22 +3,25 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useNoReorderProductContext } from '@orienteed/customComponents/components/NoReorderProductProvider/noReorderProductProvider';
+import { GET_PARENT_SKU } from '../../quickOrderForm/src/graphql/addProductByCsv.gql';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 const useReOrderItems = ({ order, addConfigurableProductToCartMutation }) => {
     const history = useHistory();
     const { setNoProduct, setLoadingProduct } = useNoReorderProductContext();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading] = useState(false);
     const [{ cartId }] = useCartContext();
 
+    const getParentSku = useAwaitQuery(GET_PARENT_SKU);
     const [addConfigurableProductToCart] = useMutation(
         addConfigurableProductToCartMutation || operations.addConfigurableProductToCartMutation
     );
 
     const handleAddToCart = useCallback(
-        async product => {
+        async (product, parentSku) => {
             const variables = {
                 cartId,
-                parentSku: product.product_name,
+                parentSku,
                 quantity: product.quantity_ordered,
                 sku: product.product_sku
             };
@@ -35,8 +38,11 @@ const useReOrderItems = ({ order, addConfigurableProductToCartMutation }) => {
     );
 
     const handleReOrderClick = async () => {
-        for (let i = 0; i < order.items.length; i++) {
-            await handleAddToCart(order.items[i]);
+        for (const element of order.items) {
+            const { data } = await getParentSku({
+                variables: { sku: element.product_sku }
+            });
+            await handleAddToCart(element, data?.products?.items[0].orParentSku);
             setLoadingProduct(true);
             window.scroll({ top: 0, left: 0 });
         }
