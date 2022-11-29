@@ -2,7 +2,7 @@ import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtu
 const { getCMSPage } = graphqlMockedCallsFixtures;
 describe(
     'PWA-1165: verify pagebuilder smoke test content',
-    { tags: ['@commerce', '@ci', '@pagebuilder', '@snapshot', '@skip'] },
+    { tags: ['@commerce', '@ci', '@pagebuilder', '@snapshot'] },
     () => {
         it('verify smoke test content', () => {
             cy.intercept('GET', getCMSPage, {
