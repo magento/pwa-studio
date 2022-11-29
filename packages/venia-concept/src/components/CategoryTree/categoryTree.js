@@ -4,15 +4,16 @@ import { useCategoryTree } from '@magento/peregrine/lib/talons/CategoryTree';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
-
 import defaultClasses from '@magento/venia-ui/lib/components/CategoryTree/categoryTree.module.css';
 import QuickOrder from '@orienteed/quickOrderForm/src/components/QuickOrder';
 import Branch from '@magento/venia-ui/lib/components/CategoryTree/categoryBranch';
 import Leaf from '@magento/venia-ui/lib/components/CategoryTree/categoryLeaf';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const Tree = props => {
     const { categoryId, onNavigate, setCategoryId, updateCategories } = props;
 
+    const [{ isSignedIn: isUserSignedIn }] = useUserContext();
     const talonProps = useCategoryTree({
         categoryId,
         updateCategories
@@ -26,18 +27,9 @@ const Tree = props => {
         ? Array.from(childCategories, childCategory => {
               const [id, { category, isLeaf }] = childCategory;
               return isLeaf ? (
-                  <Leaf
-                      key={id}
-                      category={category}
-                      onNavigate={onNavigate}
-                      categoryUrlSuffix={categoryUrlSuffix}
-                  />
+                  <Leaf key={id} category={category} onNavigate={onNavigate} categoryUrlSuffix={categoryUrlSuffix} />
               ) : (
-                  <Branch
-                      key={id}
-                      category={category}
-                      setCategoryId={setCategoryId}
-                  />
+                  <Branch key={id} category={category} setCategoryId={setCategoryId} />
               );
           })
         : null;
@@ -45,9 +37,7 @@ const Tree = props => {
     return (
         <div className={classes.root} data-cy="CategoryTree-root">
             <ul className={classes.tree}>
-                <li className={classes.quickOrderMobile}>
-                    <QuickOrder />
-                </li>
+                <li className={classes.quickOrderMobile}>{isUserSignedIn && <QuickOrder />}</li>
                 {branches}
             </ul>
         </div>
