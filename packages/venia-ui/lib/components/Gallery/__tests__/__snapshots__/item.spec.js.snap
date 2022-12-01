@@ -65,6 +65,7 @@ exports[`renders correctly with valid item data 1`] = `
   className="root"
 >
   <a
+    aria-label="Test Product"
     className="images"
     href="/strive-shoulder-pack.html"
     onClick={[Function]}
