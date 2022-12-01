@@ -26,8 +26,8 @@ test('render slider with props and verify Slick is called correctly', () => {
         autoplaySpeed: 333,
         fade: true,
         infinite: true,
-        showArrows: false,
-        showDots: false
+        showArrows: true,
+        showDots: true
     };
     createTestInstance(<Slider {...sliderProps} />);
 
@@ -37,8 +37,8 @@ test('render slider with props and verify Slick is called correctly', () => {
             autoplaySpeed: 333,
             fade: true,
             infinite: true,
-            arrows: false,
-            dots: false
+            arrows: true,
+            dots: true
         }),
         expect.anything()
     );
