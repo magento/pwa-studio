@@ -12,7 +12,7 @@ export default (node, props) => {
             autoplaySpeed: parseInt(node.getAttribute('data-autoplay-speed')),
             infinite: node.getAttribute('data-infinite-loop') === 'true',
             arrows: node.getAttribute('data-show-arrows') === 'true',
-            dots: node.getAttribute('data-show-dots') === 'false',
+            dots: node.getAttribute('data-show-dots') === 'true',
             carouselMode: node.getAttribute('data-carousel-mode'),
             centerPadding: node.getAttribute('data-center-padding')
         };

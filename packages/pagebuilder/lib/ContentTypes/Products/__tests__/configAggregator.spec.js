@@ -34,7 +34,7 @@ test('products config aggregator retrieves carousel appearance settings', () => 
             autoplaySpeed: 4000,
             infinite: false,
             arrows: false,
-            dots: false,
+            dots: true,
             carouselMode: 'default',
             centerPadding: '90px'
         })
