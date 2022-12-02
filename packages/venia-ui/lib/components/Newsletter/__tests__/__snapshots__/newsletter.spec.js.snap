@@ -69,6 +69,7 @@ exports[`#Newsletter display renders correctly 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -155,6 +156,7 @@ exports[`#Newsletter submit displays an error message if the email already subsc
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
