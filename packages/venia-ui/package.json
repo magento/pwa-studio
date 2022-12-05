@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "9.7.0",
+  "version": "10.0.0-alpha.1",
   "publishConfig": {
     "access": "public"
   },
@@ -80,7 +80,7 @@
   "peerDependencies": {
     "@apollo/client": "~3.5.0",
     "@magento/babel-preset-peregrine": "~1.2.2",
-    "@magento/peregrine": "~12.6.0",
+    "@magento/peregrine": "13.0.0-alpha.1",
     "@magento/pwa-buildpack": "~11.4.1",
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.33.3",
