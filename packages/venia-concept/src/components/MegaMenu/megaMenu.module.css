@@ -3,6 +3,7 @@
     composes: col-start-3 from global;
     composes: flex-grow from global;
     /* composes: hidden from global; */
+    composes: hidden from global;
     composes: justify-self-center from global;
 }
 

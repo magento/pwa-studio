@@ -197,5 +197,10 @@ module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/index.module.css`]: './src/css/index.module.css',
     [`@magento/venia-ui/lib/tokens.module.css`]: './src/css/tokens.module.css',
     [`@orienteed/customComponents/css/forms.module.css`]: './src/css/forms.module.css', // replace directly
-    [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css' // replace directly
+    [`@orienteed/reorder/components/ReOrderBtn/reOrderBtn.module.css`]: './src/components/ReOrderBtn/reOrderBtn.module.css', // replace directly
+
+    //for the task of add icons in the megaMenu
+    [`@magento/venia-ui/lib/components/MegaMenu/megaMenu.js`]: './src/components/MegaMenu/megaMenu.js',
+    [`@magento/venia-ui/lib/components/MegaMenu/submenu.module.css`]: './src/components/MegaMenu/submenu.module.css',
+    [`@magento/venia-ui/lib/components/MegaMenu/megaMenu.module.css`]: './src/components/MegaMenu/megaMenu.module.css'
 };
