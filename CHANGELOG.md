@@ -28,7 +28,7 @@ The 13.0 release of PWA Studio provides customers with many accessibility improv
 
 ## Bug fixes
 
--  Bug: [2642][] — Fixed the issue where the `setup:upgrade` command got stuck at the `Magento_PageBuilderPwa` step when PageBuilder contained 20+ MB of assets.
+-  Bug: [31][] — Fixed the issue where the `setup:upgrade` command got stuck at the `Magento_PageBuilderPwa` step when PageBuilder contained 20+ MB of assets.
 -  Bug: [3982][] — Replaced `id` with `uid` in `noProductsFound.js` to give a unique value for each category and resolve the browser console warning.
 -  Bug: [4001][] — Fixed the redirection URL for the Add to Cart button on a configurable product gallery item to match the URL used on the product tile.
 -  Bug: [3874][] — Fixed all hooks and talons to use named exports to prevent errors when using them for wrapping.
@@ -107,6 +107,7 @@ Your project may not depend on some packages listed in this table.
 | `upward-php`                           | 2.0.1          |
 
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
+[31]: https://github.com/magento-commerce/magento2-pwa/pull/31
 [3865]: https://github.com/magento/pwa-studio/pull/3865
 [3952]: https://github.com/magento/pwa-studio/pull/3952
 [4006]: https://github.com/magento/pwa-studio/pull/4006
