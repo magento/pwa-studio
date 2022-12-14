@@ -17,7 +17,7 @@ The 13.0 release of PWA Studio provides customers with many accessibility improv
 -  Story: [3977][] — Added expanded and collapsed states for the Accordion control.
 -  Story: [3932][] — Matched the accessible name of buttons to their visible text labels.
 -  Story: [3973][] — Enabled keyboard navigation on the Cart page.
--  Story: [3980][] — Enabled keyboard navigation on on the Checkout page.
+-  Story: [3980][] — Enabled keyboard navigation on the Checkout page.
 -  Story: [3961][] — Labeled required form fields as required.
 -  Story: [3978][] — Enabled keyboard navigation on Sign In and Create Account pages.
 -  Story: [3988][] — Added Accessible names to all icon buttons.
@@ -41,25 +41,25 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 
 ### Desktop scores
 
-|               | Home Page | Product Category | Product Details | Search Results |
-| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
-| **Desktop** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-| Performance | ![](images/score_88.svg) | ![](images/score_94.svg) | ![](images/score_63.svg) | ![](images/score_96.svg) |
-| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| PWA | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) | ![](images/pwa_perfect.svg) |
+|                |            Home Page            |          Product Category           |          Product Details           |          Search Results           |
+| -------------: | :-----------------------------: | :---------------------------------: | :--------------------------------: | :-------------------------------: |
+|    **Desktop** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
+|    Performance |    ![](images/score_88.svg)     |      ![](images/score_94.svg)       |      ![](images/score_63.svg)      |     ![](images/score_96.svg)      |
+|  Accessibility |    ![](images/score_100.svg)    |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     | ![](images/score_100.svg) 
+| Best Practices |    ![](images/score_100.svg)    |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     | ![](images/score_100.svg) 
+|            SEO |    ![](images/score_100.svg)    |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     | ![](images/score_100.svg) 
+|            PWA |   ![](images/pwa_perfect.svg)   |     ![](images/pwa_perfect.svg)     |    ![](images/pwa_perfect.svg)     |    ![](images/pwa_perfect.svg)    | ![](images/pwa_perfect.svg) 
 
 ### Mobile scores
 
-|               | &nbsp;&nbsp;Home Page&nbsp;&nbsp; | Product Category | Product Details | Search Results |
-| ------------: | :---------------: | :---------------: | :---------------: | :---------------: |
-| **Mobile** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-| Performance | ![](images/score_23.svg) | ![](images/score_34.svg) | ![](images/score_27.svg) | ![](images/score_39.svg) |
-| Accessibility | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| Best Practices | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| SEO | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) | ![](images/score_100.svg) |
-| PWA | ![](images/pwa_perfect.svg) | ![](images/pwa_imperfect.svg) | ![](images/pwa_imperfect.svg) | ![](images/pwa_perfect.svg) |
+|                | &nbsp;&nbsp;Home Page&nbsp;&nbsp; |          Product Category           |          Product Details           |          Search Results           |
+| -------------: | :-------------------------------: | :---------------------------------: | :--------------------------------: | :-------------------------------: |
+|     **Mobile** |  ![](images/venia_page_home.png)  | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
+|    Performance |     ![](images/score_23.svg)      |      ![](images/score_34.svg)       |      ![](images/score_27.svg)      |     ![](images/score_39.svg)      |
+|  Accessibility |     ![](images/score_100.svg)     |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     |
+| Best Practices |     ![](images/score_100.svg)     |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     |
+|            SEO |     ![](images/score_100.svg)     |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     |
+|            PWA |    ![](images/pwa_perfect.svg)    |    ![](images/pwa_imperfect.svg)    |   ![](images/pwa_imperfect.svg)    |    ![](images/pwa_perfect.svg)    |
 
 ## Known issue
 
@@ -81,30 +81,30 @@ The following table lists the latest versions of each package as of 13.0.0. The 
 **Note:**
 Your project may not depend on some packages listed in this table.
 
-| Package                             | Latest version |
-|-------------------------------------|----------------|
-| `babel-preset-peregrine`            | **1.2.2***      |
-| `create-pwa`                        | **2.3.3***      |
-| `experience-platform-connector`     | **1.0.2***      |
-| `upward-security-headers`           | **1.0.11***     |
-| `venia-sample-backends`             | **0.0.9***      |
-| `venia-sample-eventing`             | **0.0.3***      |
-| `venia-sample-language-packs`       | **0.0.11***     |
-| `venia-sample-payments-checkmo`     | **0.0.9***      |
-| `pagebuilder`                       | **7.4.2***      |
-| `peregrine`                         | **12.6.0***     |
-| `pwa-buildpack`                     | **11.4.1***     |
-| `pwa-theme-venia`                   | **1.4.0***      |
-| `upward-js`                         | 5.3.2      |
-| `upward-spec`                       | 5.2.1      |
-| `venia-concept`                     | **12.7.0***     |
-| `venia-ui`                          | **9.7.0***      |
-| `magento2-pwa`                      | 0.3.0      |
-| `magento2-pwa-commerce`             | 0.0.2      |
-| `magento-venia-sample-data-modules` | 0.0.3      |
-| `magento-venia-sample-data-modules-ee`| 0.0.2    |
-| `magento2-upward-connector`         | 2.0.1      |
-| `upward-php`                        | 2.0.1      |
+| Package                                | Latest version |
+| -------------------------------------- | -------------- |
+| `babel-preset-peregrine`               | 1.2.2          |
+| `create-pwa`                           | **2.3.4***     |
+| `experience-platform-connector`        | **1.0.3***     |
+| `upward-security-headers`              | **1.0.12***    |
+| `venia-sample-backends`                | 0.0.9          |
+| `venia-sample-eventing`                | **0.0.4***     |
+| `venia-sample-language-packs`          | **0.0.12***    |
+| `venia-sample-payments-checkmo`        | **0.0.10***    |
+| `pagebuilder`                          | **8.0.0***     |
+| `peregrine`                            | **13.0.0***    |
+| `pwa-buildpack`                        | 11.4.1         |
+| `pwa-theme-venia`                      | 1.4.0          |
+| `upward-js`                            | 5.3.2          |
+| `upward-spec`                          | 5.3.1          |
+| `venia-concept`                        | **13.0.0***    |
+| `venia-ui`                             | **10.0.0***    |
+| `magento2-pwa`                         | 0.3.0          |
+| `magento2-pwa-commerce`                | 0.0.2          |
+| `magento-venia-sample-data-modules`    | 0.0.3          |
+| `magento-venia-sample-data-modules-ee` | 0.0.2          |
+| `magento2-upward-connector`            | 2.0.1          |
+| `upward-php`                           | 2.0.1          |
 
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
 [3865]: https://github.com/magento/pwa-studio/pull/3865
