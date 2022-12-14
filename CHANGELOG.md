@@ -6,11 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
-The 13.0 release of PWA Studio provides customers with a better product selection experience by showing which variations of a configurable product are out of stock. This addition prevents customers from selecting out of stock variations when configuring a product for purchase.
-
-This release also adds and improves several keyboard and screen-reader accessibility features along with user session and permission bug fixes. Full details are described below.
-
-## Highlights
+The 13.0 release of PWA Studio provides customers with many accessibility improvements for keyboard and screen-reader access, as well as several bug fixes. Full details are described below.
 
 ## Accessibility Updates
 
@@ -32,10 +28,11 @@ This release also adds and improves several keyboard and screen-reader accessibi
 
 ## Bug fixes
 
--  Bug: [3982][] — Replaced \`id\` with \`uid\` in \`noProductsFound.js\` to give a unique value for each category and resolve the browser console warning.
+-  Bug: [2642][] — Fixed the issue where the `setup:upgrade` command got stuck at the `Magento_PageBuilderPwa` step when PageBuilder contained 20+ MB of assets.
+-  Bug: [3982][] — Replaced `id` with `uid` in `noProductsFound.js` to give a unique value for each category and resolve the browser console warning.
 -  Bug: [4001][] — Fixed the redirection URL for the Add to Cart button on a configurable product gallery item to match the URL used on the product tile.
 -  Bug: [3874][] — Fixed all hooks and talons to use named exports to prevent errors when using them for wrapping.
--  Bug: [4011][] — Fixed \`tabIndex\` prop type on \`categoryBranch\`, categoryLeaf, and categoryTree.
+-  Bug: [4011][] — Fixed `tabIndex` prop type on `categoryBranch`, categoryLeaf, and categoryTree.
 -  Bug: [4011][] — Fixed accessibility issue on home page with carousel gallery item links by adding aria-label for link names.
 
 ## 13.0.0 Lighthouse scores
