@@ -31,7 +31,7 @@ const Banner = props => {
     const viewportElement = useRef(null);
     const classes = useStyle(defaultClasses, props.classes);
     const [hovered, setHovered] = useState(false);
-    const [bgImageStyle, setBgImageStyle] = useState('');
+    const [bgImageStyle, setBgImageStyle] = useState(null);
     const toggleHover = () => setHovered(!hovered);
     const intersectionObserver = useIntersectionObserver();
     const {
@@ -160,7 +160,7 @@ const Banner = props => {
     ]);
     /* eslint-enable react-hooks/exhaustive-deps */
 
-    if (image) {
+    if (image && bgImageStyle) {
         wrapperStyles.backgroundImage = `url(${bgImageStyle})`;
         wrapperStyles.backgroundSize = backgroundSize;
         wrapperStyles.backgroundPosition = backgroundPosition;

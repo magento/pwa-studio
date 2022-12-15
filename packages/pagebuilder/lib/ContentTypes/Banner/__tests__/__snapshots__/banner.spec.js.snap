@@ -303,12 +303,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
       className="wrapper"
       style={
         Object {
-          "backgroundAttachment": "scroll",
           "backgroundColor": "blue",
-          "backgroundImage": "url()",
-          "backgroundPosition": "center center",
-          "backgroundRepeat": "no-repeat",
-          "backgroundSize": "cover",
           "border": "solid",
           "borderColor": "rgb(0,0,0)",
           "borderRadius": "15px",
