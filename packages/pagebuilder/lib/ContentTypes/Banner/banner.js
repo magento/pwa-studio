@@ -31,7 +31,7 @@ const Banner = props => {
     const viewportElement = useRef(null);
     const classes = useStyle(defaultClasses, props.classes);
     const [hovered, setHovered] = useState(false);
-    const [bgImageStyle, setBgImageStyle] = useState(null);
+    const [bgImageStyle, setBgImageStyle] = useState('');
     const toggleHover = () => setHovered(!hovered);
     const intersectionObserver = useIntersectionObserver();
     const {

@@ -305,7 +305,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
         Object {
           "backgroundAttachment": "scroll",
           "backgroundColor": "blue",
-          "backgroundImage": "url(null)",
+          "backgroundImage": "url()",
           "backgroundPosition": "center center",
           "backgroundRepeat": "no-repeat",
           "backgroundSize": "cover",
