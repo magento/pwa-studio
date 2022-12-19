@@ -53,10 +53,10 @@ const baseProps = {
             name: 'Product Name',
             price: {
                 regularPrice: {
-                  amount: {
-                    value: 99,
-                    currency: 'USD',
-                  }
+                    amount: {
+                        value: 99,
+                        currency: 'USD'
+                    }
                 }
             },
             price_range: {
