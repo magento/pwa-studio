@@ -1,0 +1,52 @@
+.root {
+    composes: grid from global;
+    composes: p-md from global;
+    composes: pb-s from global;
+}
+
+.radio_group {
+    composes: grid from global;
+}
+
+.payment_method {
+    composes: border-b from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: pb-xs from global;
+    composes: pt-xs from global;
+}
+
+.root header {
+    padding-bottom: 1.125rem;
+}
+
+.root header h5 {
+    font-weight: bold;
+}
+
+/* TODO @TW: cannot compose */
+.payment_method:last-of-type {
+    /* composes: border-b-0 from global; */
+    border-bottom-width: 0;
+    /* margin-top: 1.25rem; */
+}
+
+.radio_label {
+    composes: font-semibold from global;
+    composes: justify-self-start from global;
+}
+
+.payment_errors {
+    composes: grid from global;
+    composes: gap-2xs from global;
+    composes: text-error from global;
+}
+
+@media (max-width: 960px) {
+    .root {
+        padding: 0.7rem;
+    }
+    .root header {
+        padding: 1.125rem;
+    }
+}

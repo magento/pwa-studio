@@ -1,0 +1,95 @@
+.root {
+    composes: grid from global;
+    composes: grid-cols-autoFirst from global;
+    composes: gap-y-2 from global;
+    composes: gap-x-4 from global;
+    composes: lg_gap-y-1.5 from global;
+
+    background: #ffffff;
+    border: 1px solid var(--b2bstore-background-color);
+    border-radius: 8px;
+    padding: 16px 16px 8px 8px;
+    margin-bottom: 0.5rem;
+}
+
+.skuText {
+    color: #737b7d;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.detailsWrapp {
+    margin-top: 10px;
+    display: grid !important;
+    grid-template-columns: 2fr 1fr !important;
+}
+
+.thumbnailContainer {
+    grid-row: 1 / -1;
+}
+
+.nameContainer {
+    composes: font-bold from global;
+    grid-column: 2 / -1;
+}
+
+.buyAgainButton {
+    composes: col-auto from global;
+    composes: invisible from global; /* Hide until PWA-979 is completed */
+    composes: justify-self-start from global;
+    composes: self-start from global;
+    composes: underline from global;
+
+    composes: lg_col-end-[-1] from global;
+}
+
+.detailsWrapper {
+    display: flex;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1rem 0;
+}
+
+.removeBtn {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    gap: 0.4rem;
+    color: var(--b2bstore-global-color-orange);
+}
+
+.nameProduct {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.tableRow {
+    height: 88px;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.tableRow td {
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.tableRow td a {
+    display: flex;
+    padding-left: 1rem;
+}
+
+.grossPrice {
+    color: var(--b2bstore-global-color-orange);
+    font-weight: 600 !important;
+    font-size: 24px !important;
+}

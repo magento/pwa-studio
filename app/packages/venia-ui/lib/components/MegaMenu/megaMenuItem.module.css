@@ -1,0 +1,58 @@
+.megaMenuItem {
+    composes: px-3 from global;
+    composes: py-0 from global;
+}
+
+.megaMenuLink {
+    composes: items-center from global;
+    composes: inline-flex from global;
+    min-height: 5rem;
+}
+
+.megaMenuLinkActive {
+    composes: megaMenuLink;
+    composes: underline from global;
+}
+
+.megaMenuItem:hover > div,
+.megaMenuItem:focus > div {
+    display: flex;
+}
+
+.iconMenu {
+    width: 54px;
+    background-color: var(--b2bstore-global-color-orange);
+    border-radius: 28px;
+    height: 54px;
+}
+
+.iconMenu::after {
+    fill: white;
+    color: white;
+}
+
+.megaMenuItem_active {
+    composes: megaMenuItem;
+    display: flex;
+}
+
+.arrowDown {
+    padding-left: 0.5rem;
+    line-height: 0;
+}
+
+.megaMenuItem_active {
+    composes: megaMenuItem;
+    composes: flex from global;
+}
+
+.arrowDown {
+    composes: leading-[0] from global;
+    composes: pl-2xs from global;
+}
+
+/* TODO @TW: cannot compose */
+.megaMenuItem:hover .megaMenuLink,
+.megaMenuItem:focus .megaMenuLink {
+    text-decoration: underline;
+}

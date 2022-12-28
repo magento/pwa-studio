@@ -1,0 +1,96 @@
+.orderAmountError {
+    margin: 20px 0 10px;
+    line-height: 1.4;
+    color: rgb(var(--venia-global-color-warning-dark));
+}
+
+.root {
+    margin: 25px 0 10px;
+}
+
+.creditTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    max-width: 100%;
+    display: table;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgb(var(--venia-global-color-gray-100));
+}
+
+.creditTable thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.creditTable tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.creditTable th {
+    display: table-cell;
+    vertical-align: top;
+    font-weight: 600;
+    text-align: -internal-center;
+    text-align: left;
+    padding: 10px 6px;
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray-100));
+}
+
+.creditTable td {
+    display: table-cell;
+    vertical-align: inherit;
+    padding: 10px 6px;
+    font-size: 14px;
+}
+
+.creditActions {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.customerCreditButton {
+    --stroke: var(--b2bstore-global-color-gray);
+    border-color: rgb(var(--stroke));
+    border-radius: 10rem;
+    border-style: solid;
+    border-width: 2px;
+    font-size: var(--venia-global-fontSize-100);
+    font-weight: var(--venia-global-fontWeight-bold);
+    line-height: 1.25rem;
+    max-width: 100%;
+    min-width: 10rem;
+    min-height: 2.5rem;
+    outline: none;
+    padding: calc(0.5rem + 1px) 1.5rem calc(0.5rem - 1px);
+    text-transform: uppercase;
+    transition-duration: 256ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: var(--venia-global-anim-standard);
+    background-color: rgb(var(--stroke));
+    color: rgb(var(--venia-global-color-gray-50));
+}
+
+.customerCreditButton:hover {
+    --stroke: var(--b2bstore-global-color-orange);
+}
+
+.customerCreditButton:focus {
+    box-shadow: -6px 6px rgb(var(--venia-brand-color-1-100));
+}
+
+.customerCreditButton:active {
+    transition-duration: 128ms;
+    --stroke: var(--b2bstore-global-color-orange);
+}
+
+.customerCreditButton:disabled,
+.customerCreditButton:hover:disabled {
+    pointer-events: none;
+    --stroke: var(--b2bstore-global-color-gray);
+}

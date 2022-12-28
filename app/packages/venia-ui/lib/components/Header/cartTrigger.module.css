@@ -1,0 +1,58 @@
+.counter {
+    composes: absolute from global;
+    composes: font-semibold from global;
+    composes: leading-tight from global;
+    composes: left-sm from global;
+    composes: min-w-[1.25rem] from global;
+    composes: px-1 from global;
+    composes: py-0 from global;
+    composes: rounded-full from global;
+    composes: text-sm from global;
+    composes: text-white from global;
+    composes: top-1.5 from global;
+    background-color: var(--b2bstore-global-color-orange);
+}
+
+.trigger {
+    composes: root from '../clickable.module.css';
+
+    composes: content-center from global;
+    composes: flex from global;
+    composes: h-[3rem] from global;
+    composes: justify-center from global;
+    composes: min-w-[3rem] from global;
+    composes: relative from global;
+    composes: z-foreground from global;
+
+    margin-left: -10px;
+}
+
+.triggerContainer {
+    composes: hidden from global;
+    composes: items-center from global;
+    composes: h-lg from global;
+
+    composes: lg_grid from global;
+}
+
+.triggerContainer_open {
+    composes: triggerContainer;
+
+    box-shadow: 0 4px var(--b2bstore-global-color-orange);
+}
+
+.link {
+    composes: trigger;
+
+    display: none !important;
+}
+
+@media (max-width: 959px) {
+    .triggerContainer {
+        display: none;
+    }
+
+    .link {
+        display: flex !important;
+    }
+}

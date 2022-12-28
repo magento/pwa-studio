@@ -1,0 +1,27 @@
+.selectStyles {
+    border-width: 2px;
+    border-color: rgb(var(--venia-global-color-gray-500));
+    border-radius: 6px;
+    font-weight: var(--venia-global-fontWeight-normal);
+    text-transform: none;
+}
+
+.downloadButton {
+    composes: root_highPriority from '../../Button/button.module.css';
+
+    border-radius: 0.375rem;
+    height: auto;
+    text-transform: uppercase;
+    width: max-content;
+
+}
+
+.buttonContainer {
+    composes: ml-2xs from global;
+    
+    display: flex;
+}
+
+.sortContainer {
+    display: flex;
+}

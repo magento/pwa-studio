@@ -1,0 +1,63 @@
+.courseSliderContainer a {
+    text-decoration: none;
+}
+
+.courseSliderContainer p,
+.courseSliderContainer img {
+    margin: 0;
+    line-height: normal;
+}
+
+.courseSliderContainer h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.courseSliderContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 1rem 0;
+}
+
+/* Header */
+.courseSliderHeaderContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.courseSliderHeaderLinkContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.headerTitle {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 130%;
+}
+
+.linkText {
+    color: var( --b2bstore-global-color-orange);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    margin: 4px;
+    text-align: right;
+}
+
+.linkIcon {
+    width: 16px;
+    margin: 4px;
+}
+
+/* Body */
+.courseSliderBodyContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+}

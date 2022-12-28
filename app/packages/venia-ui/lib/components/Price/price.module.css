@@ -1,0 +1,4 @@
+.link {    
+    composes: root from '../LinkButton/linkButton.module.css';
+    composes: p-0 from global;
+}

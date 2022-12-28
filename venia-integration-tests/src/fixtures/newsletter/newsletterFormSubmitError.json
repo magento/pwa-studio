@@ -1,1 +1,0 @@
-{"errors":[{"message":"Enter a valid email address.","extensions":{"category":"graphql-input"},"locations":[{"line":2,"column":3}],"path":["subscribeEmailToNewsletter"]}],"data":{"subscribeEmailToNewsletter":null}}

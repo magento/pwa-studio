@@ -1,0 +1,34 @@
+.root {
+    composes: border-b-2 from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: grid from global;
+    composes: gap-y-xs from global;
+    composes: p-md from global;
+    composes: rounded-md from global;
+    border-width: 2px;
+}
+
+.datePicker {
+    composes: input from '../../TextInput/textInput.module.css';
+}
+
+.gridWrapper {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.disabled {
+    pointer-events: none;
+    color: #ccc;
+}
+
+.timeWrapper > span {
+    margin-bottom: 0.5rem;
+}
+
+.securityCode,
+.deliveryComment {
+    margin-top: 0.5rem;
+}

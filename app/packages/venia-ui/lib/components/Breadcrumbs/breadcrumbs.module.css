@@ -1,0 +1,42 @@
+.root {
+    --whitespace-start: 1rem;
+    --whitespace-end: 10px;
+
+    padding-bottom: var(--whitespace-end); /* Allow space for focus ring */
+    margin-bottom: calc(-1 * var(--whitespace-end)); /* Prevent focus ring space affecting the rest of the UI */
+
+    /* Permanent height to prevent pop-in. */
+    composes: h-[2.5rem] from global;
+    composes: mt-xs from global;
+    composes: ml-xs from global;
+    /* Show ellipses when overflowing. */
+    composes: overflow-hidden from global;
+    composes: overflow-ellipsis from global;
+    composes: text-sm from global;
+    composes: whitespace-nowrap from global;
+}
+
+.text {
+    composes: p-1 from global;
+}
+
+.divider {
+    composes: text;
+}
+
+.link {
+    composes: text;
+    composes: underline from global;
+}
+
+.currentCategory {
+    composes: text;
+}
+
+.rightNav {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: auto auto;
+    margin: 0 0.8rem;
+}
+

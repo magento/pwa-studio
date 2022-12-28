@@ -1,0 +1,205 @@
+.orderIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    border-radius: 30px;
+    grid-column: 18;
+    color: #000;
+    outline: none;
+}
+
+.orderIcon img {
+    width: 28px;
+    height: 28px;
+}
+
+.orderIcon > span {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.orderIcon svg {
+    stroke: #fff;
+}
+
+.flex {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.labalWrapper {
+    display: grid;
+    grid-template-columns: 35% 17% 21% 15% 1%;
+    gap: 16px;
+}
+
+.m_1 {
+    margin-top: 1rem;
+}
+
+.gridWrapper {
+    display: grid;
+    grid-template-columns: 68.3% 31.7%;
+    gap: 16px;
+}
+
+.uploadContainer {
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 24px;
+    height: 256px;
+    margin-top: 2.5rem;
+}
+
+.uploadHeader {
+    font-weight: var(--venia-global-fontWeight-bold);
+    font-size: var(--venia-global-fontSize-300);
+    font-family: var(--venia-global-fontFamily-Basier-Circle);
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0.5rem 0px;
+}
+
+.noMargin {
+    margin: 0;
+}
+
+.icon {
+    margin-left: 0.6rem;
+}
+
+.downloadBtn {
+    color: rgb(var(--venia-global-color-blue-200));
+    font-size: var(--venia-global-fontSize-100);
+    margin-left: 1rem;
+}
+
+.addBtn {
+    align-content: center;
+    display: flex;
+    color: rgb(var(--venia-global-color-blue-200));
+    font-size: var(--venia-global-fontSize-100);
+}
+
+.container {
+    margin: 8px 0;
+}
+
+.priceWrapper {
+    display: flex;
+    align-items: center;
+    padding-bottom: 19px;
+}
+
+.spanUnAailable {
+    align-items: center;
+    text-align: center;
+    font-size: var(--venia-global-fontSize-150);
+    color: rgb(var(--venia-global-color-gray-550));
+    font-family: var(--venia-global-fontFamily-Basier-Square);
+}
+
+.priceText {
+    align-items: center;
+    text-align: center;
+    font-size: var(--venia-global-fontSize-550);
+    color: rgb(var(--venia-global-color-blue-200));
+    font-family: var(--venia-global-fontFamily-Basier-Square);
+}
+
+.searchBar {
+    padding: 0 !important;
+    margin-left: -1rem;
+}
+
+.sqs-search-ui-button-wrapper .search-input {
+    padding: 0 !important;
+    margin-left: -1rem;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    height: 48px;
+}
+
+.btnOrderContainer {
+    display: grid;
+}
+
+.gridBtn {
+    grid-column: 16;
+}
+
+@media (max-width: 960px) {
+    .gridWrapper {
+        grid-template-columns: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .labalWrapper {
+        grid-template-columns: 35% 35% 26% 15% 1% 1%;
+        margin-bottom: 1.5rem;
+        row-gap: 0;
+    }
+
+    .searchBar + .inputQtyQuick {
+        grid-column-start: 1;
+    }
+    .searchBar {
+        grid-column: 1 /4;
+    }
+    .searchBar > div {
+        justify-content: start;
+        display: block;
+    }
+    .priceWrapper {
+        padding: 0;
+    }
+    .addbtn {
+        margin-top: 0.5rem;
+    }
+    .mobileHidden {
+        display: none;
+    }
+}
+
+.removeIcon svg {
+    stroke: #df6868;
+}
+
+.disable {
+    visibility: hidden;
+    width: 0px;
+}
+
+.disable_gap {
+    gap: 0px;
+}
+
+.addCartIcon svg {
+    stroke: #fff;
+}
+
+@media (max-width: 750px) {
+    .btnOrderContainer {
+        display: block;
+    }
+
+    .orderIcon {
+        width: 100%;
+    }
+    .orderIcon > span {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "graphql-cli-validate-magento-pwa-queries",
+  "version": "1.4.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "graphql-cli plugin for validating all queries in a Magento 2 PWA project",
+  "main": "index.js",
+  "scripts": {
+    "build": "mkdir -p ./lib/ && cp ../../../magento-compatibility.js ./lib/",
+    "clean": "rimraf ./lib/magento-compatibility.js ./node_modules",
+    "prepare": "yarn run -s build"
+  },
+  "repository": "https://github.com/magento/pwa-studio",
+  "keywords": [
+    "graphql",
+    "graphql-cli",
+    "plugin"
+  ],
+  "author": "Adobe, Inc",
+  "license": "MIT",
+  "dependencies": {
+    "babel-eslint": "~10.0.1",
+    "chalk": "~2.4.2",
+    "eslint": "~5.15.1",
+    "eslint-plugin-graphql": "~3.0.3",
+    "semver": "~5.6.0"
+  },
+  "devDependencies": {
+    "glob": "~7.1.6",
+    "graphql-cli": "^3",
+    "rimraf": "~2.6.3"
+  },
+  "peerDependencies": {
+    "graphql-cli": "^3"
+  }
+}

@@ -1,0 +1,68 @@
+# This is the UPWARD specification file for the Venia storefront.
+# It is used by an UPWARD server implementation, such as upward-js and
+# upward-php, to describe how the server responds to requests.
+# See: https://developer.adobe.com/commerce/pwa-studio/guides/packages/upward
+
+# The root properties of an UPWARD spec file are part of a global context
+# that includes request and environment data.
+# These properties are available to other properties and are ultimately
+# populated with Resolvers.
+
+# The root 'status', 'headers', and 'body' properties are required properties
+# in an UPWARD spec file.
+# An UPWARD server uses the resolved values of these properties to create an
+# HTTP response to the client.
+# In this file, these properties get their values from a top-level
+# 'response' object, which is a recommended and best practice approach.
+status: veniaResponse.status
+headers: veniaResponse.headers
+body: veniaResponse.body
+
+veniaSecurityHeaders:
+  resolver: inline
+  inline:
+    content-security-policy:
+      resolver: template
+      engine: mustache
+      provide:
+        backend: env.MAGENTO_BACKEND_URL
+        pageTypeNonce: veniaPageTypeNonce.nonce
+      template:
+        resolver: conditional
+        when:
+          - matches: env.NODE_ENV
+            pattern: development
+            use:
+              inline: ""
+          - matches: env.SCRIPT_NAME
+            pattern: '.*\.php$'
+            use:
+              inline: "
+                script-src http: https: {{ backend }}{{#pageTypeNonce}} 'nonce-{{ pageTypeNonce }}'{{/pageTypeNonce}};
+                style-src 'self' blob: https: 'unsafe-inline' {{ backend }};
+                img-src data: http: https: blob:;
+                object-src 'none';
+                base-uri 'none';
+                child-src 'self';
+                font-src 'self' fonts.gstatic.com;
+                frame-src assets.braintreegateway.com *.google.com *.youtube.com *.youtu.be *.vimeo.com blob:
+                "
+        default:
+          inline: "
+            script-src http: https: {{ backend }} 'sha256-LIluChX1lfRQMZ94iF22w+SU4kATfhV0QFSiV4YYjao=';
+            style-src 'self' blob: https: 'unsafe-inline' {{ backend }};
+            img-src data: http: https: blob:;
+            object-src 'none';
+            base-uri 'none';
+            child-src 'self';
+            font-src 'self' fonts.gstatic.com;
+            frame-src assets.braintreegateway.com *.google.com *.youtube.com *.youtu.be *.vimeo.com blob:
+            "
+    strict-transport-security:
+      inline: max-age=31536000
+    x-content-type-options:
+      inline: nosniff
+    x-frame-options:
+      inline: SAMEORIGIN
+    x-xss-protection:
+      inline: "1; mode=block"

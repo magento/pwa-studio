@@ -1,19 +1,12 @@
-version: '3'
+version: "3"
 services:
-  # proxy service that creates a reverse proxy to the pwa container - https://bit.ly/2HpZJDI
-  # the reverse proxy connects the SSL/TLS certs created on the local file system into the nginx container
-  # this allows the pwa container to be accessible over HTTPS
-  # it also proxies requests to the configured domain running at the configured port for the pwa container
   pwa:
-    # build pwa using the Dockerfile from the PWD
     image: node:14.18.1
-    
+
     tty: true
-    # list of directories and files on the host system to volume mount into the container
-    # changes made to files in the container and on the host file system are mapped to one another
-    # this enables hot reloading from the container to detect changes made on the host file system
+
     volumes:
-      - ./:/app
-      
+      - ./app/:/app
+
     ports:
       - 10000:10000

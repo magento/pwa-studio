@@ -1,0 +1,46 @@
+.root {
+    composes: gap-x-2xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoFirst from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+}
+
+.loader {
+    composes: indicator from '../LoadingIndicator/indicator.module.css';
+}
+
+/* Responsive account chip text with ellipsis */
+.chipContainer {
+    width: fit-content;
+    max-width: clamp(100px, 8vw, 150px);
+}
+
+@media (max-width: 1300px) {
+    .chipContainer {
+        max-width: clamp(75px, 15vw, 300px);
+    }
+}
+
+@media (max-width: 959px) {
+    .chipContainer {
+        max-width: clamp(60px, 12vw, 150px);
+    }
+}
+
+@media (max-width: 639px) {
+    .chipContainer {
+        max-width: none;
+        padding-right: 20px;
+    }
+}
+
+.text {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-height: initial;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-break: anywhere;
+}

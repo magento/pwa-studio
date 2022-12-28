@@ -1,0 +1,99 @@
+.courseContainer {
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    border: 1px solid rgb(var(--venia-global-color-border));
+}
+
+.courseBody {
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    line-height: 24px;
+    height: calc(100% - 170px);
+}
+
+.courseImage {
+    height: 170px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+.courseTitle {
+    font-size: 20px;
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.categoryTag {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--b2bstore-global-color-orange);
+    margin-top: auto;
+}
+
+.courseDescription {
+    font-size: 16px;
+    font-weight: 400;
+
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    height: 72px;
+}
+
+.actionButtonContainer {
+    padding: 0 50px;
+}
+
+.actionButton {
+    composes: root_highPriorityInv from '../../Button/button.module.css';
+}
+
+.iconStyle {
+    width: 16px;
+}
+
+/* Progress Bar */
+.progressBarContainer {
+    width: 100%;
+    margin-top: auto;
+}
+
+.progressBar {
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.progressBarFillContainer {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.progressBarFill {
+    display: block;
+    height: 24px;
+    border-radius: 5px;
+    font-weight: 700;
+    background-color: var(--b2bstore-global-color-orange);
+}
+
+.progressBarFillText {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    font-weight: bold;
+    color: black;
+}
