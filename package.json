@@ -13,7 +13,8 @@
     "packages/upward-js",
     "packages/upward-spec",
     "packages/venia-concept",
-    "packages/venia-ui"
+    "packages/venia-ui",
+    "packages/ssr"
   ],
   "author": "Adobe Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",

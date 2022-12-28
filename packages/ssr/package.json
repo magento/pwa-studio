@@ -1,0 +1,54 @@
+{
+  "name": "@magento/ssr",
+  "version": "1.0.0",
+  "description": "Server side rendering middlware for Magento PWA",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "babel -d lib lib/esm --out-file-extension .js"
+  },
+  "repository": "github:magento/pwa-studio",
+  "author": "Magento Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "dependencies": {
+    "@apollo/client": "~3.5.0",
+    "@loadable/server": "~5.15.0",
+    "dotenv": "~6.2.0",
+    "html-minifier": "~4.0.0",
+    "jsdom": "~20.0.3",
+    "node-fetch": "~2.6.1",
+    "react": "~17.0.1",
+    "react-helmet-async": "^1.0.2"
+  },
+  "engines": {
+    "node": ">=14.x",
+    "yarn": ">=1.12.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "~7.2.3",
+    "@babel/core": "~7.3.4",
+    "@babel/preset-env": "~7.3.4",
+    "@babel/preset-react": "~7.14.5",
+    "dotenv": "~6.2.0",
+    "js-base64": "^2.3.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react",
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          },
+          "modules": "commonjs"
+        }
+      ]
+    ]
+  },
+  "pwa-studio": {
+    "targets": {
+      "intercept": "intercept.js"
+    }
+  }
+}
