@@ -1,5 +1,6 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
+import loadable from '@loadable/component';
 import { Link, Route } from 'react-router-dom';
 
 import Logo from '../Logo';
@@ -19,7 +20,7 @@ import MegaMenu from '../MegaMenu';
 import PageLoadingIndicator from '../PageLoadingIndicator';
 import { useIntl } from 'react-intl';
 
-const SearchBar = React.lazy(() => import('../SearchBar'));
+const SearchBar = loadable(() => import('../SearchBar'));
 
 const Header = props => {
     const {
@@ -45,11 +46,13 @@ const Header = props => {
         </div>
     );
     const searchBar = isSearchOpen ? (
-        <Suspense fallback={searchBarFallback}>
-            <Route>
-                <SearchBar isOpen={isSearchOpen} ref={searchRef} />
-            </Route>
-        </Suspense>
+        <Route>
+            <SearchBar
+                fallback={searchBarFallback}
+                isOpen={isSearchOpen}
+                ref={searchRef}
+            />
+        </Route>
     ) : null;
 
     const { formatMessage } = useIntl();

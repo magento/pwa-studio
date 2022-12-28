@@ -1,4 +1,5 @@
-import React, { Suspense } from 'react';
+import React from 'react';
+import loadable from '@loadable/component';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'informed';
 import { shape, func, string, bool, instanceOf } from 'prop-types';
@@ -10,9 +11,9 @@ import { useStyle } from '../../../classify';
 import defaultClasses from './paymentInformation.module.css';
 import LoadingIndicator from '../../LoadingIndicator';
 
-const PaymentMethods = React.lazy(() => import('./paymentMethods'));
-const EditModal = React.lazy(() => import('./editModal'));
-const Summary = React.lazy(() => import('./summary'));
+const PaymentMethods = loadable(() => import('./paymentMethods'));
+const EditModal = loadable(() => import('./editModal'));
+const Summary = loadable(() => import('./summary'));
 
 const PaymentInformation = props => {
     const {
@@ -69,15 +70,13 @@ const PaymentInformation = props => {
     );
 
     const editModal = doneEditing ? (
-        <Suspense fallback={null}>
-            <EditModal onClose={hideEditModal} isOpen={isEditModalActive} />
-        </Suspense>
+        <EditModal onClose={hideEditModal} isOpen={isEditModalActive} />
     ) : null;
 
     return (
         <div className={classes.root} data-cy="PaymentInformation-root">
             <div className={classes.payment_info_container}>
-                <Suspense fallback={null}>{paymentInformation}</Suspense>
+                {paymentInformation}
             </div>
             {editModal}
         </div>

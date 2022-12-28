@@ -1,5 +1,6 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { array, bool, func, number, shape, string } from 'prop-types';
+import loadable from '@loadable/component';
 import { Form } from 'informed';
 
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -18,7 +19,7 @@ import defaultClasses from './cartOptions.module.css';
 import { REMOVE_ITEM_MUTATION, UPDATE_ITEM_MUTATION } from './cartOptions.gql';
 import { gql } from '@apollo/client';
 
-const Options = React.lazy(() => import('../ProductOptions'));
+const Options = loadable(() => import('../ProductOptions'));
 
 const LOADING_TEXT = 'Fetching Options...';
 
@@ -61,15 +62,14 @@ const CartOptions = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const options = isProductConfigurable(configItem) ? (
-        <Suspense fallback={loadingIndicator}>
-            <section className={classes.options}>
-                <Options
-                    onSelectionChange={handleSelectionChange}
-                    options={configItem.configurable_options}
-                    selectedValues={cartItem.configurable_options}
-                />
-            </section>
-        </Suspense>
+        <section className={classes.options}>
+            <Options
+                fallback={loadingIndicator}
+                onSelectionChange={handleSelectionChange}
+                options={configItem.configurable_options}
+                selectedValues={cartItem.configurable_options}
+            />
+        </section>
     ) : null;
 
     return (

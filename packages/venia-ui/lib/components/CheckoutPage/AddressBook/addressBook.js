@@ -1,4 +1,5 @@
-import React, { Fragment, useEffect, useMemo, Suspense } from 'react';
+import React, { Fragment, useEffect, useMemo } from 'react';
+import loadable from '@loadable/component';
 import { FormattedMessage } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 import { PlusSquare, AlertCircle as AlertCircleIcon } from 'react-feather';
@@ -12,7 +13,7 @@ import AddressCard from './addressCard';
 import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';
 
-const EditModal = React.lazy(() => import('../ShippingInformation/editModal'));
+const EditModal = loadable(() => import('../ShippingInformation/editModal'));
 
 const errorIcon = (
     <Icon
@@ -164,9 +165,7 @@ const AddressBook = props => {
 
                 <div className={classes.content}>{addressElements}</div>
             </div>
-            <Suspense fallback={null}>
-                <EditModal onSuccess={onSuccess} shippingData={activeAddress} />
-            </Suspense>
+            <EditModal onSuccess={onSuccess} shippingData={activeAddress} />
         </Fragment>
     );
 };

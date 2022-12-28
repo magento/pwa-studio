@@ -1,4 +1,4 @@
-import React from 'react';
+import loadable from '@loadable/component';
 import rowConfigAggregator from './ContentTypes/Row/configAggregator';
 import Row from './ContentTypes/Row';
 import columnConfigAggregator from './ContentTypes/Column/configAggregator';
@@ -45,7 +45,7 @@ const contentTypesConfig = {
     },
     image: {
         configAggregator: imageConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Image')),
+        component: loadable(() => import('./ContentTypes/Image')),
         componentShimmer: ImageShimmer
     },
     heading: {
@@ -58,15 +58,15 @@ const contentTypesConfig = {
     },
     tabs: {
         configAggregator: tabsConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Tabs'))
+        component: loadable(() => import('./ContentTypes/Tabs'))
     },
     'tab-item': {
         configAggregator: tabItemConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/TabItem'))
+        component: loadable(() => import('./ContentTypes/TabItem'))
     },
     buttons: {
         configAggregator: buttonsConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Buttons'))
+        component: loadable(() => import('./ContentTypes/Buttons'))
     },
     'button-item': {
         configAggregator: buttonItemConfigAggregator,
@@ -74,47 +74,47 @@ const contentTypesConfig = {
     },
     block: {
         configAggregator: blockConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Block'))
+        component: loadable(() => import('./ContentTypes/Block'))
     },
     dynamic_block: {
         configAggregator: dynamicBlockConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/DynamicBlock')),
+        component: loadable(() => import('./ContentTypes/DynamicBlock')),
         componentShimmer: DynamicBlockShimmer
     },
     products: {
         configAggregator: productsConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Products'))
+        component: loadable(() => import('./ContentTypes/Products'))
     },
     html: {
         configAggregator: htmlConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Html'))
+        component: loadable(() => import('./ContentTypes/Html'))
     },
     divider: {
         configAggregator: dividerConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Divider'))
+        component: loadable(() => import('./ContentTypes/Divider'))
     },
     video: {
         configAggregator: videoConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Video'))
+        component: loadable(() => import('./ContentTypes/Video'))
     },
     map: {
         configAggregator: mapConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Map'))
+        component: loadable(() => import('./ContentTypes/Map'))
     },
     banner: {
         configAggregator: bannerConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Banner')),
+        component: loadable(() => import('./ContentTypes/Banner')),
         componentShimmer: BannerShimmer
     },
     slider: {
         configAggregator: sliderConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Slider')),
+        component: loadable(() => import('./ContentTypes/Slider')),
         componentShimmer: SliderShimmer
     },
     // Slide is just a banner wrapped inside a slider
     slide: {
         configAggregator: bannerConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Banner')),
+        component: loadable(() => import('./ContentTypes/Banner')),
         componentShimmer: BannerShimmer
     }
 };

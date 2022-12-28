@@ -1,4 +1,5 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment } from 'react';
+import loadable from '@loadable/component';
 import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
@@ -9,7 +10,7 @@ import AccountChip from '../AccountChip';
 
 import defaultClasses from './accountTrigger.module.css';
 
-const AccountMenu = React.lazy(() => import('../AccountMenu'));
+const AccountMenu = loadable(() => import('../AccountMenu'));
 
 /**
  * The AccountTrigger component is the call to action in the site header
@@ -61,13 +62,11 @@ const AccountTrigger = props => {
                     />
                 </button>
             </div>
-            <Suspense fallback={null}>
-                <AccountMenu
-                    ref={accountMenuRef}
-                    accountMenuIsOpen={accountMenuIsOpen}
-                    setAccountMenuIsOpen={setAccountMenuIsOpen}
-                />
-            </Suspense>
+            <AccountMenu
+                ref={accountMenuRef}
+                accountMenuIsOpen={accountMenuIsOpen}
+                setAccountMenuIsOpen={setAccountMenuIsOpen}
+            />
         </Fragment>
     );
 };

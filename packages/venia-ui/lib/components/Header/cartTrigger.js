@@ -1,5 +1,6 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
+import loadable from '@loadable/component';
 import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
 import { useIntl } from 'react-intl';
 
@@ -10,7 +11,7 @@ import Icon from '../Icon';
 import defaultClasses from './cartTrigger.module.css';
 import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
-const MiniCart = React.lazy(() => import('../MiniCart'));
+const MiniCart = loadable(() => import('../MiniCart'));
 
 const CartTrigger = props => {
     const {
@@ -75,13 +76,11 @@ const CartTrigger = props => {
                 <Icon src={ShoppingCartIcon} />
                 {maybeItemCounter}
             </button>
-            <Suspense fallback={null}>
-                <MiniCart
-                    isOpen={miniCartIsOpen}
-                    setIsOpen={setMiniCartIsOpen}
-                    ref={miniCartRef}
-                />
-            </Suspense>
+            <MiniCart
+                isOpen={miniCartIsOpen}
+                setIsOpen={setMiniCartIsOpen}
+                ref={miniCartRef}
+            />
         </Fragment>
     );
 
