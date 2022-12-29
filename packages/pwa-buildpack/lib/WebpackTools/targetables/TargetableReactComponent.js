@@ -1,6 +1,7 @@
 const TargetableESModule = require('./TargetableESModule');
 
 const loadableImportString = `loadable from '@loadable/component';\n`;
+const fallbackComponentImportString = `{ fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';\n`;
 const babelPluginPath =
     '@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js';
 
@@ -56,6 +57,7 @@ class TargetableReactComponent extends TargetableESModule {
         if (this._lazyComponents.size === 0) {
             // first one! add the known binding to lazy, so that we don't have
             // to count on someone else's React import statement.
+            this.addImport(fallbackComponentImportString);
             this.addImport(loadableImportString);
         }
         this._lazyComponents.set(modulePath, elementName);
