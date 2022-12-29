@@ -14,7 +14,11 @@ function addRoutes(routeList, routes) {
     );
 
     for (const route of routes) {
-        const AddedRoute = routeList.addReactLazyImport(route.path, route.name);
+        const AddedRoute = routeList.addReactLazyImport(
+            route.path,
+            route.name,
+            route.ssr
+        );
         const exact = route.exact ? 'exact ' : '';
         const path = JSON.stringify(route.pattern);
         const redirectTo =

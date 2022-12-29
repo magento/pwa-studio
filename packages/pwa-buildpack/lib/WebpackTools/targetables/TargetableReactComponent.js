@@ -1,6 +1,6 @@
 const TargetableESModule = require('./TargetableESModule');
 
-const lazyImportString = `{ lazy as reactLazy } from 'react';\n`;
+const loadableImportString = `loadable from '@loadable/component';\n`;
 const babelPluginPath =
     '@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js';
 
@@ -40,10 +40,11 @@ class TargetableReactComponent extends TargetableESModule {
      * wrapper for use with React.Suspense.
      *
      * @param {string} modulePath - Resolvable path to the module to import.
+     * @param {boolean} ssr - Render on server side.
      * @param {string} [localName] - Optional human-readable name for debugging.
      * @returns {string} Name of the local binding of the element, to be used in JSX operations.
      */
-    addReactLazyImport(modulePath, localName = 'Component') {
+    addReactLazyImport(modulePath, localName = 'Component', ssr = true) {
         // Dedupe
         const alreadyAdded = this._lazyComponents.get(modulePath);
         if (alreadyAdded) {
@@ -55,13 +56,14 @@ class TargetableReactComponent extends TargetableESModule {
         if (this._lazyComponents.size === 0) {
             // first one! add the known binding to lazy, so that we don't have
             // to count on someone else's React import statement.
-            this.addImport(lazyImportString);
+            this.addImport(loadableImportString);
         }
         this._lazyComponents.set(modulePath, elementName);
         this.insertAfterSource(
-            lazyImportString,
-            `const ${elementName} = reactLazy(() => import('${modulePath}'));\n`
+            loadableImportString,
+            `const ${elementName} = loadable(() => import('${modulePath}'), { fallback: fullPageLoadingIndicator, ssr: ${ssr} });\n`
         );
+
         return elementName;
     }
     /**
