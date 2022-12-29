@@ -5,7 +5,7 @@ import {
 
 export const registerSW = () => {
     if (VALID_SERVICE_WORKER_ENVIRONMENT && globalThis.navigator) {
-        window.navigator.serviceWorker
+        globalThis.navigator.serviceWorker
             .register('/sw.js')
             .then(() => {
                 console.log('SW Registered');
@@ -15,7 +15,7 @@ export const registerSW = () => {
                  * console.* statements are removed by webpack
                  * in production mode. window.console.* are not.
                  */
-                window.console.warn('Failed to register SW.');
+                globalThis.console.warn('Failed to register SW.');
             });
 
         navigator.serviceWorker.addEventListener('message', e => {

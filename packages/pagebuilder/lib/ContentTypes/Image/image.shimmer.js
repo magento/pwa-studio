@@ -61,7 +61,7 @@ const ImageShimmer = props => {
             width: 0
         };
         if (
-            window.matchMedia('(max-width: 48rem)').matches &&
+            globalThis.matchMedia('(max-width: 48rem)').matches &&
             mobileImage &&
             mobileImage.dimensions
         ) {
@@ -81,7 +81,7 @@ const ImageShimmer = props => {
             const width = figureRef.current.offsetWidth;
             if (dimensions.width > width) {
                 if (
-                    window.matchMedia('(max-width: 48rem)').matches &&
+                    globalThis.matchMedia('(max-width: 48rem)').matches &&
                     mobileImage &&
                     mobileImage.dimensions
                 ) {

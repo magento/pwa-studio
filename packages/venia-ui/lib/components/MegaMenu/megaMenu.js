@@ -40,12 +40,12 @@ const MegaMenu = props => {
             setMainNavWidth(navWidth);
         };
 
-        window.addEventListener('resize', handleResize);
+        globalThis.addEventListener('resize', handleResize);
 
         handleResize();
 
         return () => {
-            window.removeEventListener('resize', handleResize);
+            globalThis.removeEventListener('resize', handleResize);
         };
     });
 
