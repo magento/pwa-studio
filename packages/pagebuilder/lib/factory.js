@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { getContentTypeConfig, setContentTypeConfig } from './config';
 import customContentTypes from './ContentTypes/customContentTypes';
 
@@ -29,9 +29,9 @@ addCustomContentTypes(customContentTypes);
  * @param data
  * @returns {*}
  */
-const renderContentType = (Component, data) => {
+const renderContentType = (Component, data, fallback) => {
     return (
-        <Component {...data}>
+        <Component {...data} fallback={fallback}>
             {data.children.map((childTreeItem, i) => (
                 <ContentTypeFactory key={i} data={childTreeItem} />
             ))}
@@ -55,12 +55,16 @@ const ContentTypeFactory = ({ data }) => {
 
     const contentTypeConfig = getContentTypeConfig(props.contentType);
     if (contentTypeConfig && contentTypeConfig.component) {
-        const Component = renderContentType(contentTypeConfig.component, props);
         const ComponentShimmer = contentTypeConfig.componentShimmer
             ? renderContentType(contentTypeConfig.componentShimmer, props)
-            : '';
+            : null;
+        const Component = renderContentType(
+            contentTypeConfig.component,
+            props,
+            ComponentShimmer
+        );
 
-        return <Suspense fallback={ComponentShimmer}>{Component}</Suspense>;
+        return Component;
     }
 
     return null;
