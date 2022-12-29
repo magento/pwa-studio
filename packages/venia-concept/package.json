@@ -88,6 +88,7 @@
     "graphql": "~15.5.0",
     "graphql-tag": "~2.12.5",
     "html-webpack-plugin": "~4.5.2",
+    "html-webpack-skip-assets-plugin": "~1.0.2",
     "informed": "~3.29.0",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",

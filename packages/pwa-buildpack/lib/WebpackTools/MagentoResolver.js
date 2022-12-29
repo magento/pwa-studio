@@ -11,6 +11,7 @@ const { CachedInputFileSystem, ResolverFactory } = require('enhanced-resolve');
  * @module MagentoResolver
  * @property {boolean} isAC Resolve Adobe Commerce (`*.ac.js` or `*.ee.js`) modules instead of Magento Open Source (`*.mos.js` or `*.ce.js`) modules
  * @property {Object} paths Filesystem paths to resolve from
+ * @property {"web"|"node"} target Target environment type
  */
 
 /**
@@ -59,7 +60,7 @@ class MagentoResolver {
      * @param {Buildpack/WebpackTools~MagentoResolverOptions} options
      */
     constructor(options) {
-        const { isAC, paths, ...restOptions } = options;
+        const { isAC, paths, target, ...restOptions } = options;
         if (!paths || typeof paths.root !== 'string') {
             throw new Error(
                 'new MagentoResolver(options) requires "options.paths.root" to be a string'
@@ -86,8 +87,11 @@ class MagentoResolver {
         this.config = {
             alias: {},
             modules: [this._root, 'node_modules'],
-            mainFiles: ['index'],
-            mainFields: ['esnext', 'es2015', 'module', 'browser', 'main'],
+            mainFiles: target === 'node' ? undefined : ['index'],
+            mainFields:
+                target === 'node'
+                    ? undefined
+                    : ['esnext', 'es2015', 'module', 'browser', 'main'],
             extensions,
             ...restOptions
         };

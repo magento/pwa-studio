@@ -18,19 +18,28 @@ const plugins = [
     ['babel-plugin-graphql-tag']
 ];
 
+const nodeTarget = 'node 10';
+
 const config = (api, opts = {}) => {
+    const isWebTarget = api.caller(
+        caller => caller && caller.target !== 'node'
+    );
+    const isWebpack = api.caller(
+        caller => caller && caller.name === 'babel-loader'
+    );
+
     // Different environments, different settings for preset-env.
     const targets = Object.assign(
         {},
         {
             // For maximum recompile speed:
-            dev: 'last 2 Chrome versions',
+            dev: isWebTarget ? 'last 2 Chrome versions' : nodeTarget,
             // A consuming package can optionally provide a list of browsers;
             // otherwise, use the defaults.
-            prod: require('./browserslist'),
+            prod: isWebTarget ? require('./browserslist') : nodeTarget,
             // The Jest test runner provides a synthetic DOM, but  not a real
             // browser environment; instead, it's Node.
-            test: 'node 10'
+            test: nodeTarget
         },
         opts.targets
     );
@@ -48,12 +57,21 @@ const config = (api, opts = {}) => {
               ]
           ];
 
+    const devPlugins = [];
+    if (isWebTarget) {
+        devPlugins.push(['react-refresh/babel']);
+    }
+
+    if (!isWebTarget) {
+        plugins.push(['babel-plugin-dynamic-import-node']);
+    }
+
+    const modules = isWebpack ? false : 'commonjs';
+
     const envConfigs = {
         development: {
-            plugins: [...plugins, 'react-refresh/babel'],
-            presets: [
-                ['@babel/preset-env', { modules: false, targets: targets.dev }]
-            ]
+            plugins: [...plugins, ...devPlugins],
+            presets: [['@babel/preset-env', { modules, targets: targets.dev }]]
         },
         production: {
             plugins: [
@@ -68,7 +86,7 @@ const config = (api, opts = {}) => {
             presets: [
                 // Do not compile modules; leave them for Webpack to use for
                 // tree-shaking based on import/export syntax.
-                ['@babel/preset-env', { modules: false, targets: targets.prod }]
+                ['@babel/preset-env', { modules, targets: targets.prod }]
             ]
         },
         test: {

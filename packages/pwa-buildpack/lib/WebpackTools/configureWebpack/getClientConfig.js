@@ -6,6 +6,8 @@ const path = require('path');
 const webpack = require('webpack');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const TerserPlugin = require('terser-webpack-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const getModuleRules = require('./getModuleRules');
 const getResolveLoader = require('./getResolveLoader');
@@ -16,10 +18,7 @@ const UpwardIncludePlugin = require('../plugins/UpwardIncludePlugin');
 const LocalizationPlugin = require('../plugins/LocalizationPlugin');
 
 const VirtualModulesPlugin = require('webpack-virtual-modules');
-
-function isDevServer() {
-    return process.argv.find(v => v.includes('webpack-dev-server'));
-}
+const { isDevServer } = require('../../util/process');
 
 /**
  * Create a Webpack configuration object for the browser bundle.
@@ -31,6 +30,7 @@ async function getClientConfig(opts) {
     const {
         mode,
         context,
+        target,
         paths,
         hasFlag,
         vendor,
@@ -52,6 +52,7 @@ async function getClientConfig(opts) {
     const virtualModules = new VirtualModulesPlugin();
 
     const config = {
+        target,
         mode,
         context, // Node global for the running script's directory
         stats,
@@ -64,7 +65,8 @@ async function getClientConfig(opts) {
             filename:
                 mode === 'production' ? '[name].[contenthash].js' : '[name].js',
             strictModuleExceptionHandling: true,
-            chunkFilename: '[name].[chunkhash].js'
+            chunkFilename: '[name].[chunkhash].js',
+            libraryTarget: target === 'web' ? 'var' : 'commonjs2'
         },
         module: {
             rules: await getModuleRules(opts)
@@ -73,6 +75,7 @@ async function getClientConfig(opts) {
         resolve: resolver.config,
         resolveLoader: getResolveLoader(),
         plugins: [
+            new LoadablePlugin(),
             new RootComponentsPlugin({
                 rootComponentsDirs: [
                     ...hasFlag('rootComponents'),
@@ -124,6 +127,50 @@ async function getClientConfig(opts) {
                     });
                 }
             }),
+            new LocalizationPlugin({
+                virtualModules,
+                context,
+                dirs: [...hasFlag('i18n'), context] // Directories to search for i18n/*.json files
+            }),
+            new MiniCssExtractPlugin({
+                filename:
+                    mode === 'production'
+                        ? '[name].[contentHash].css'
+                        : '[name].css',
+                chunkFilename:
+                    mode === 'production'
+                        ? '[id].[contentHash].css'
+                        : '[id].css',
+                ignoreOrder: false // Enable to remove warnings about conflicting order
+            }),
+            virtualModules
+        ],
+        devtool: 'source-map',
+        optimization: {
+            splitChunks:
+                target === 'node'
+                    ? false
+                    : {
+                          cacheGroups: {
+                              /**
+                               * Creating the vendors bundle. This bundle
+                               * will have all the packages that the app
+                               * needs to render. Since these dont change
+                               * often, it is advantageous to bundle them
+                               * separately and cache them on the client.
+                               */
+                              vendor: {
+                                  test: new RegExp(vendorTest),
+                                  name: 'vendors',
+                                  chunks: 'all'
+                              }
+                          }
+                      }
+        }
+    };
+
+    if (target === 'web') {
+        config.plugins.push(
             new ServiceWorkerPlugin({
                 mode,
                 paths,
@@ -136,39 +183,33 @@ async function getClientConfig(opts) {
                     swSrc: './src/ServiceWorker/sw.js',
                     swDest: './sw.js'
                 }
-            }),
-            new LocalizationPlugin({
-                virtualModules,
-                context,
-                dirs: [...hasFlag('i18n'), context] // Directories to search for i18n/*.json files
-            }),
-            virtualModules
-        ],
-        devtool: 'source-map',
-        optimization: {
-            splitChunks: {
-                cacheGroups: {
-                    /**
-                     * Creating the vendors bundle. This bundle
-                     * will have all the packages that the app
-                     * needs to render. Since these dont change
-                     * often, it is advantageous to bundle them
-                     * separately and cache them on the client.
-                     */
-                    vendor: {
-                        test: new RegExp(vendorTest),
-                        name: 'vendors',
-                        chunks: 'all'
-                    }
+            })
+        );
+    }
+
+    if (target === 'node') {
+        config.externals = [
+            {
+                canvas: {},
+                react: {
+                    commonjs: 'react',
+                    commonjs2: 'react'
+                },
+                'react-dom': {
+                    commonjs: 'react-dom',
+                    commonjs2: 'react-dom'
                 }
-            }
-        }
-    };
+            },
+            '@loadable/component',
+            'react-helmet-async'
+        ];
+    }
 
     if (mode === 'development') {
         debug('Modifying client config for development environment');
         Object.assign(config.optimization, {
             moduleIds: 'named',
+            chunkIds: 'named',
             nodeEnv: 'development',
             minimize: false,
             occurrenceOrder: true,
@@ -240,6 +281,7 @@ async function getClientConfig(opts) {
         config.optimization = {
             ...config.optimization,
             moduleIds: 'hashed',
+            chunkIds: 'named',
             /**
              * This will move the runtime configuration to
              * its own bundle. Since runtime config tends to
@@ -248,30 +290,33 @@ async function getClientConfig(opts) {
              * needs to be downloaded. Separating them will only
              * download runtime bundle and use the cached client code.
              */
-            runtimeChunk: 'single',
-            minimizer: [
-                new TerserPlugin({
-                    parallel: true,
-                    cache: true,
-                    terserOptions: {
-                        ecma: 8,
-                        parse: {
-                            ecma: 8
-                        },
-                        compress: {
-                            drop_console: true
-                        },
-                        output: {
-                            ecma: 7,
-                            semicolons: false
-                        },
-                        keep_fnames: true
-                    }
-                }),
-                new webpack.BannerPlugin({
-                    banner: `@version ${versionBanner}`
-                })
-            ]
+            runtimeChunk: target === 'node' ? false : 'single',
+            minimizer:
+                target === 'node'
+                    ? undefined
+                    : [
+                          new TerserPlugin({
+                              parallel: true,
+                              cache: true,
+                              terserOptions: {
+                                  ecma: 8,
+                                  parse: {
+                                      ecma: 8
+                                  },
+                                  compress: {
+                                      drop_console: true
+                                  },
+                                  output: {
+                                      ecma: 7,
+                                      semicolons: false
+                                  },
+                                  keep_fnames: true
+                              }
+                          }),
+                          new webpack.BannerPlugin({
+                              banner: `@version ${versionBanner}`
+                          })
+                      ]
         };
     } else {
         debug(
