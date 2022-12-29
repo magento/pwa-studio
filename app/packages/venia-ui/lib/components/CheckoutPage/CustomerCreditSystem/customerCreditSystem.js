@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string, bool, func } from 'prop-types';
 
 import LoadingIndicator from '../../LoadingIndicator';
@@ -15,6 +15,7 @@ import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CartPage/PriceSumm
 import defaultClasses from './customerCreditSystem.module.css';
 
 const CustomerCreditSystem = props => {
+    const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
     const { onPaymentSuccess, onPaymentError, resetShouldSubmit, shouldSubmit, paymentMethodMutationData } = props;
     const { getPriceSummaryQuery } = DEFAULT_OPERATIONS;
@@ -71,19 +72,19 @@ const CustomerCreditSystem = props => {
             <table className={classes.creditTable}>
                 <thead>
                     <tr>
-                        <th>
+                        <th scope="col">
                             <FormattedMessage
                                 id={'totalOrderAmount.totalOrderAmountText'}
                                 defaultMessage={'Total Order Amount'}
                             />
                         </th>
-                        <th>
+                        <th scope="col">
                             <FormattedMessage
                                 id={'availableCredit.availableCreditText'}
                                 defaultMessage={'Available Credit'}
                             />
                         </th>
-                        <th>
+                        <th scope="col">
                             <FormattedMessage
                                 id={'remainingCredit.remainingCreditText'}
                                 defaultMessage={'Remaining Credit'}
@@ -93,13 +94,32 @@ const CustomerCreditSystem = props => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
+                        <td
+                            data-label={formatMessage({
+                                id: 'totalOrderAmount.totalOrderAmountText',
+                                defaultMessage: 'Total Order Amount'
+                            })}
+                        >
                             {priceSummary?.currency && (
                                 <Price value={priceSummary?.value} currencyCode={priceSummary?.currency} />
                             )}
                         </td>
-                        <td>{remainingcreditformatted}</td>
-                        <td>{leftincredit}</td>
+                        <td
+                            data-label={formatMessage({
+                                id: 'availableCredit.availableCreditText',
+                                defaultMessage: 'Available Credit'
+                            })}
+                        >
+                            {remainingcreditformatted}
+                        </td>
+                        <td
+                            data-label={formatMessage({
+                                id: 'remainingCredit.remainingCreditText',
+                                defaultMessage: 'Remaining Credit'
+                            })}
+                        >
+                            {leftincredit}
+                        </td>
                     </tr>
                 </tbody>
             </table>
