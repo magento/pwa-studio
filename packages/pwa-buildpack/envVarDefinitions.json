@@ -234,6 +234,25 @@
                     "default": false
                 }
             ]
+        },
+        {
+            "name": "SSR settings",
+            "variables": [
+                {
+                    "name": "SSR_ENABLED",
+                    "type": "bool",
+                    "desc": "Enable server side rendering.",
+                    "example": true,
+                    "default": true
+                },
+                {
+                    "name": "SSR_ENCODE_APOLLO_STATE",
+                    "type": "bool",
+                    "desc": "Encode Apollo state object into a base64 string before inserted into the document.",
+                    "example": false,
+                    "default": false
+                }
+            ]
         }
     ],
     "changes": []

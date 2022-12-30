@@ -1,4 +1,8 @@
-module.exports = class ServerModuleOverridePlugin {
+/**
+ * @description webpack plugin that runs on "node" targeted builds and resolves
+ * any "*.js" module as "*.server.js" if that file exists.
+ */
+class ServerModuleOverridePlugin {
     constructor() {
         this.name = 'ServerModuleOverridePlugin';
     }
@@ -17,10 +21,9 @@ module.exports = class ServerModuleOverridePlugin {
         }
     }
     apply(compiler) {
-        const isWeb = compiler.options.target === 'web';
         compiler.hooks.normalModuleFactory.tap(this.name, nmf => {
             nmf.hooks.beforeResolve.tap(this.name, resolve => {
-                if (!resolve || isWeb) {
+                if (!resolve || compiler.options.target !== 'node') {
                     return;
                 }
 
@@ -58,4 +61,6 @@ module.exports = class ServerModuleOverridePlugin {
             });
         });
     }
-};
+}
+
+module.exports = ServerModuleOverridePlugin;
