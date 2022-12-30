@@ -113,10 +113,16 @@
     /* .thumbnailList {
         max-width: 100% !important;
     } */
+    .imageZoomContainer {
+        display: none;
+    }
 }
 
 @media (min-width: 960px) {
     .thumbnailList {
         width: 50%;
+    }
+    .imageNoZoomContainer {
+        display: none;
     }
 }
