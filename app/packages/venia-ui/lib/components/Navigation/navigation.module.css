@@ -118,3 +118,44 @@
     /* composes: visible from global; */
     visibility: visible;
 }
+
+.compareLink {
+    margin-right: 0.4rem;
+    width: 18px;
+    position: relative;
+}
+
+.compareLink img {
+    width: 18px;
+}
+
+.productsCount {
+    composes: absolute from global;
+    composes: font-semibold from global;
+    composes: leading-tight from global;
+    composes: min-w-[1.25rem] from global;
+    composes: px-1 from global;
+    composes: py-0 from global;
+    composes: rounded-full from global;
+    composes: text-sm from global;
+    composes: text-white from global;
+
+    background-color: var(--b2bstore-global-color-orange);
+    bottom: 79%;
+    left: 7px;
+    text-align: center;
+}
+
+.actionsContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-direction: row-reverse;
+    padding: 0 1rem;
+}
+
+@media (min-width: 750px) {
+    .actionsContainer {
+        display: none;
+    }
+}
