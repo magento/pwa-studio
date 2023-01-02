@@ -26,12 +26,12 @@ const QuotesTable = props => {
     const contentClass = isOpen ? classes.content : classes.content_collapsed;
 
     // Format Date
-    const createdAt = new Date(created_at).toLocaleDateString(undefined, DATE_FORMAT);
+    const createdAt = new Date(created_at?.replace(/-/g, '/')).toLocaleDateString(undefined, DATE_FORMAT);
     let expiredAt;
     if (expired_at == undefined || expired_at == null || expired_at == '') {
         expiredAt = null;
     } else {
-        expiredAt = new Date(expired_at).toLocaleDateString(undefined, DATE_FORMAT);
+        expiredAt = new Date(expired_at?.replace(/-/g, '/')).toLocaleDateString(undefined, DATE_FORMAT);
     }
 
     const entityId = useMemo(() => {

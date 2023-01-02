@@ -19,7 +19,7 @@ const SavedCartsView = props => {
     } = props;
 
     // Format Date
-    const formattedDate = new Date(created_at).toLocaleDateString(undefined, DATE_FORMAT);
+    const formattedDate = new Date(created_at?.replace(/-/g, '/')).toLocaleDateString(undefined, DATE_FORMAT);
 
     const classes = useStyle(defaultClasses, props.classes);
 

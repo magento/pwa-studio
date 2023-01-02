@@ -20,7 +20,7 @@ const QuotesView = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     // Format Date
-    const createdAt = new Date(created_at).toLocaleDateString(
+    const createdAt = new Date(created_at?.replace(/-/g, '/')).toLocaleDateString(
         undefined,
         DATE_FORMAT
     );

@@ -77,7 +77,7 @@ const SavedCartTable = props => {
     );
 
     // Format Date
-    const formattedDate = new Date(created_at).toLocaleDateString(undefined, DATE_FORMAT);
+    const formattedDate = new Date(created_at.replace(/-/g, "/")).toLocaleDateString(undefined, DATE_FORMAT);
 
     const cartItems = useMemo(() => {
         return items.map(item => {
