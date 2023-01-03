@@ -84,6 +84,8 @@ export const useProduct = props => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
+    console.log(product);
+
     useEffect(() => {
         if (!error && !loading && product) {
             dispatch({
@@ -95,6 +97,7 @@ export const useProduct = props => {
                     currency_code:
                         product?.price_range?.maximum_price?.final_price
                             ?.currency,
+                    price: product.price,
                     price_range: {
                         maximum_price: {
                             final_price:
