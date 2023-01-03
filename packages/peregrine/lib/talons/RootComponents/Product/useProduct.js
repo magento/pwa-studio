@@ -84,8 +84,6 @@ export const useProduct = props => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
-    console.log(product);
-
     useEffect(() => {
         if (!error && !loading && product) {
             dispatch({
