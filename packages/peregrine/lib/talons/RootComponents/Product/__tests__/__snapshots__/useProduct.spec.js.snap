@@ -6,7 +6,14 @@ Object {
     "currency_code": "USD",
     "id": 1,
     "name": "Karena Halter Dress",
-    "price": undefined,
+    "price": Object {
+      "regularPrice": Object {
+        "amount": Object {
+          "currency": "USD",
+          "value": "100",
+        },
+      },
+    },
     "price_range": Object {
       "maximum_price": Object {
         "final_price": "100",
