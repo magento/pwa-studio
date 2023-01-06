@@ -34,8 +34,8 @@ The 13.0 release of PWA Studio provides customers with many accessibility improv
 -  Bug: [3874][] — Fixed all hooks and talons to use named exports to prevent errors when using them for wrapping.
 -  Bug: [4011][] — Fixed `tabIndex` prop type on `categoryBranch`, categoryLeaf, and categoryTree.
 -  Bug: [4011][] — Fixed accessibility issue on home page with carousel gallery item links by adding aria-label for link names.
--  Bug: [4019][] — Fixed add to cart event crashing app due to unset contexts.
--  Bug: [4025][] — Fixed product page view event captures and adds more data when setting the product page view context.
+-  Bug: [4019][] — Fixed an issue in which the `addToCart` event would crash the app when contexts were not set.
+-  Bug: [4025][] — Fixed `productPageView` event to capture and add more data when setting the `productPageView` context.
 
 ## 13.0.0 Lighthouse scores
 
