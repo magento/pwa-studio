@@ -1,7 +1,5 @@
 import { RetryLink } from '@apollo/client/link/retry';
 
-const isServer = !globalThis.document;
-
 export default function createRetryLink() {
     return new RetryLink({
         delay: {
@@ -11,7 +9,7 @@ export default function createRetryLink() {
         },
         attempts: {
             max: 5,
-            retryIf: error => error && !isServer && navigator.onLine
+            retryIf: error => error && !IS_SERVER && navigator.onLine
         }
     });
 }

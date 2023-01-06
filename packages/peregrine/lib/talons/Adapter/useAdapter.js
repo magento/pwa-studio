@@ -12,7 +12,6 @@ import getLinks from '@magento/peregrine/lib/Apollo/links';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
-const isServer = !globalThis.document;
 const storage = new BrowserPersistence();
 const urlHasStoreCode = process.env.USE_STORE_CODE_IN_URL === 'true';
 
@@ -41,12 +40,12 @@ export const useAdapter = props => {
         return new ApolloClient({
             cache,
             link,
-            ssrMode: isServer
+            ssrMode: IS_SERVER
         });
     }, []);
 
     const createCachePersistor = useCallback((storeCode, cache) => {
-        return isServer
+        return IS_SERVER
             ? null
             : new CachePersistor({
                   key: `${CACHE_PERSIST_PREFIX}-${storeCode}`,
@@ -90,7 +89,7 @@ export const useAdapter = props => {
                             apolloLink
                         );
 
-                        storeClient.persistor = isServer
+                        storeClient.persistor = IS_SERVER
                             ? null
                             : createCachePersistor(
                                   store.store_code,
@@ -113,7 +112,7 @@ export const useAdapter = props => {
     const apolloClient = useMemo(() => {
         const storeCode = storage.getItem('store_view_code') || 'default';
         const client = createApolloClient(preInstantiatedCache, apolloLink);
-        const persistor = isServer
+        const persistor = IS_SERVER
             ? null
             : createCachePersistor(storeCode, preInstantiatedCache);
 

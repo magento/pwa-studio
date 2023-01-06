@@ -9,7 +9,6 @@ import React, {
 import mergeClasses from '@magento/peregrine/lib/util/shallowMerge';
 
 const StyleContext = createContext();
-const isServer = !globalThis.document;
 
 /**
  * Client-side. Injects rulesets into a StyleSheet element, returning a cleanup
@@ -38,7 +37,7 @@ const StyleContextProvider = props => {
     const { children, initialState } = props;
 
     const api = useMemo(
-        () => (isServer ? addModule(initialState) : insertModule),
+        () => (IS_SERVER ? addModule(initialState) : insertModule),
         [initialState]
     );
 
@@ -85,14 +84,14 @@ export const useStyle = (cssModule, ...overrides) => {
     useEffect(() => {
         // React hooks must run the same number of times and in the same order
         // so any conditionals belong inside the effect
-        if (!isServer) {
+        if (!IS_SERVER) {
             runInsert();
         }
     }, [runInsert]);
 
     // React ignores effects on the server, so run this one during render
     // even though it's an antipattern on the client
-    if (isServer) {
+    if (IS_SERVER) {
         runInsert();
     }
 

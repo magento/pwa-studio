@@ -7,11 +7,8 @@ import Adapter from '@magento/venia-ui/lib/components/Adapter';
 import { registerSW } from './registerSW';
 import './index.css';
 
-// server rendering differs from browser rendering
-const isServer = !globalThis.document;
-
 // TODO: on the server, the http request should provide the origin
-const origin = isServer
+const origin = IS_SERVER
     ? process.env.MAGENTO_BACKEND_URL
     : globalThis.location.origin;
 
@@ -29,7 +26,7 @@ const tree = (
     />
 );
 
-if (isServer) {
+if (IS_SERVER) {
     // TODO: ensure this actually renders correctly
     import('react-dom/server').then(({ default: ReactDOMServer }) => {
         console.log(ReactDOMServer.renderToString(tree));
