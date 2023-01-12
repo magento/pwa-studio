@@ -128,6 +128,30 @@ module.exports = async env => {
         new HTMLWebpackPlugin(htmlWebpackConfig)
     ];
 
+    // Add TypeScript support
+    config.resolve.extensions.push('.ts', '.tsx');
+
+    config.module.rules.push({
+        test: /\.ts$/,
+        exclude: /(node_modules)/,
+        use: [
+            {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env']
+                }
+            },
+            {
+                loader: 'ts-loader',
+                options: {
+                    compilerOptions: {
+                        noEmit: false
+                    }
+                }
+            }
+        ]
+    });
+
     /*
     Commenting out this section until SSR is fully implemented
     */
