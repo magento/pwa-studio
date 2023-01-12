@@ -11,7 +11,7 @@ import getCoursesByCategory from '@magento/peregrine/lib/RestApi/Lms/courses/get
 
 import defaultClasses from './courseSlider.css';
 
-import ArrowRightIcon from './Icons/arrowRight.svg';
+import { ArrowRightIcon } from '@magento/venia-ui/lib/assets/arrowRightIcon';
 
 const CourseSlider = ({ bannerType, categoryId }) => {
     const classes = mergeClasses(defaultClasses);
@@ -81,7 +81,7 @@ const CourseSlider = ({ bannerType, categoryId }) => {
                 <h1 className={classes.headerTitle}>{learnOurProductsText}</h1>
                 <Link className={classes.courseSliderHeaderLinkContainer} to="/learning">
                     <span className={classes.linkText}>{showAllCoursesText}</span>
-                    <img className={classes.linkIcon} src={ArrowRightIcon} alt="Arrow right icon" />
+                    <ArrowRightIcon />
                 </Link>
             </header>
             <aside>
