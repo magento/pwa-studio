@@ -7,7 +7,8 @@
         "packages/pagebuilder",
         "packages/peregrine",
         "packages/venia-concept",
-        "packages/venia-ui"
+        "packages/venia-ui",
+        "packages/adapters/*"
     ],
     "author": "Adobe Commerce",
     "license": "SEE LICENSE IN LICENSE.txt",
