@@ -22,7 +22,7 @@ import PageLoadingIndicator from '../PageLoadingIndicator';
 import { useIntl } from 'react-intl';
 
 import useCompareProduct from '@magento/peregrine/lib/talons/ComparePage/useCompareProduct';
-import CompareIcon from './icons/compare.svg';
+import CompareIcon from '@magento/venia-ui/lib/assets/compare.svg';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 

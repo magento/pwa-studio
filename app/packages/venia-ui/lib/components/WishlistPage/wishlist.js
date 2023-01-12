@@ -12,13 +12,14 @@ import Button from '../Button';
 import defaultClasses from './wishlist.module.css';
 import ActionMenu from './actionMenu';
 
-import ShareIcon from './assets/shareWithBorder.svg';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import defaultOperations from '@magento/peregrine/lib/talons/WishlistPage/wishlistItem.gql';
 import { useMutation } from '@apollo/client';
 import { useToasts } from '@magento/peregrine';
-import orangeThrashCan from './assets/orangeThrashCan.svg';
 import { useReactToPrint } from 'react-to-print';
+
+import { ShareWithBorderIcon } from '@magento/venia-ui/lib/assets/shareWithBorderIcon';
+import { ThrashIcon } from '@magento/venia-ui/lib/assets/ThrashIcon';
 /**
  * A single wishlist container.
  *
@@ -229,7 +230,7 @@ const Wishlist = props => {
 
             <article className={classes.addAllToCartShareContainer}>
                 <button onClick={handleShareClick} className={classes.shareIcon}>
-                    <img src={ShareIcon} alt="share icon" />
+                    <ShareWithBorderIcon />
                 </button>
             </article>
         </section>
@@ -246,7 +247,7 @@ const Wishlist = props => {
                     data-cy="wishlistItem-deleteItem"
                     onClick={handleRemoveAllProductsFromWishlist}
                 >
-                    <img src={orangeThrashCan} alt="orangeThrashCan" />
+                    <ThrashIcon />
 
                     <span>
                         <FormattedMessage id={'wishlist.removeAll'} defaultMessage={'Remove all'} />
