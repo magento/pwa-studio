@@ -1,0 +1,6 @@
+[submodule "app/packages/adapters/b2bstore-bigcommerce-adapter"]
+	path = app/packages/adapters/b2bstore-bigcommerce-adapter
+	url = https://github.com/jalvarez00/b2bstore-bigcommerce-adapter.git
+[submodule "app/packages/adapters/b2bstore-magento-adapter"]
+	path = app/packages/adapters/b2bstore-magento-adapter
+	url = https://github.com/jalvarez00/b2bstore-magento-adapter.git
