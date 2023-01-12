@@ -4,6 +4,13 @@ import { useHistory } from 'react-router-dom';
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
+import getStyles from '../../RestApi/S3/getStyles';
+
+// import theme from './my_custom_styles.json';
+
+// const multitenant = process.env.CSS_MULTI_THEME_ENABLED;
+// document.documentElement.style.setProperty('--multitenant', multitenant);
+
 const dismissers = new WeakMap();
 
 // Memoize dismisser funcs to reduce re-renders from func identity change.
@@ -31,14 +38,7 @@ const getErrorDismisser = (error, onDismissError) => {
  * }}
  */
 export const useApp = props => {
-    const {
-        handleError,
-        handleIsOffline,
-        handleIsOnline,
-        markErrorHandled,
-        renderError,
-        unhandledErrors
-    } = props;
+    const { handleError, handleIsOffline, handleIsOnline, markErrorHandled, renderError, unhandledErrors } = props;
     const history = useHistory();
 
     const reload = useCallback(() => {
@@ -48,17 +48,7 @@ export const useApp = props => {
     }, [history]);
 
     const renderErrors = useMemo(
-        () =>
-            renderError
-                ? [
-                      errorRecord(
-                          renderError,
-                          globalThis,
-                          useApp,
-                          renderError.stack
-                      )
-                  ]
-                : [],
+        () => (renderError ? [errorRecord(renderError, globalThis, useApp, renderError.stack)] : []),
         [renderError]
     );
 
@@ -70,12 +60,7 @@ export const useApp = props => {
     // otherwise we infinitely loop.
     useEffect(() => {
         for (const { error, id, loc } of errors) {
-            handleError(
-                error,
-                id,
-                loc,
-                getErrorDismisser(error, handleDismissError)
-            );
+            handleError(error, id, loc, getErrorDismisser(error, handleDismissError));
         }
     }, [errors, handleDismissError, handleError]);
 
@@ -102,3 +87,36 @@ export const useApp = props => {
         handleCloseDrawer
     };
 };
+
+function applyStylesInApp(styles) {
+    const stylekeys = Object.keys(styles);
+    for (const styleProps of stylekeys) {
+        for (const tokenKey of Object.keys(styles[styleProps])) {
+            document.documentElement.style.setProperty(tokenKey, styles[styleProps][tokenKey]);
+        }
+    }
+}
+
+function applyDefaultStyles() {
+    import('../../../../venia-ui/lib/cssTokens.json').then(styles => {
+        applyStylesInApp(styles);
+    });
+}
+
+export function applyStyles() {
+    console.log('CSS_MULTI_THEME_ENABLED: ', process.env.MULTITENANT_ENABLED);
+
+    if (process.env.MULTITENANT_ENABLED === 'true') {
+        getStyles()
+          .then((styles) => {
+            console.log('styles: ', styles);
+            applyStylesInApp(styles)
+        })
+          .catch(() => {
+            console.log("En catch");
+            applyDefaultStyles()
+        });
+      } else {
+        applyDefaultStyles();
+      }
+}

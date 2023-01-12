@@ -17,6 +17,9 @@ veniaResponse:
         - matches: request.url.pathname
           pattern: '^/(csr)(/|$)'
           use: csrProxy
+        - matches: request.url.pathname 
+          pattern: '^/(css)(/|$)'
+          use: s3Proxy
         - matches: request.url.pathname
           pattern: '^/(graphql|rest|media)(/|$)'
           use: veniaProxy
@@ -125,6 +128,10 @@ csrProxy:
   # ignoreSSLErrors:
   #     default:
   #         inline: true
+
+s3Proxy:
+  resolver: proxy
+  target: env.KONG_URL
 
 # Page type data for initial render
 veniaPageType:
