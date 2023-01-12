@@ -26,9 +26,9 @@ import { useToasts } from '@magento/peregrine';
 import defaultClasses from './item.module.css';
 
 import { CompareIcon } from '@magento/venia-ui/lib/assets/compareIcon';
-import InStockIcon from './Icons/inStock.svg';
-import InfoIcon from './Icons/info.svg';
-import OutStockIcon from './Icons/outStock.svg';
+import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
+import InfoIcon from '@magento/venia-ui/lib/assets/info.svg';
+import { OutStockIcon } from '@magento/venia-ui/lib/assets/outStockIcon';
 import { ShareIcon } from '@magento/venia-ui/lib/assets/shareIcon';
 
 // The placeholder image is 4:5, so we should make sure to size our product
@@ -173,12 +173,12 @@ const GalleryItem = props => {
             <>
                 {status === 'IN_STOCK' ? (
                     <span className={classes.inStock}>
-                        <img src={InStockIcon} alt="in stock" />
+                        <InStockIcon />
                         <FormattedMessage id={'galleryItem.inStock'} defaultMessage={'In stock'} />
                     </span>
                 ) : (
                     <span className={classes.outStock}>
-                        <img src={OutStockIcon} alt="out stock" />
+                        <OutStockIcon />
                         <FormattedMessage id={'galleryItem.outStock'} defaultMessage={'Out of stock'} />
                     </span>
                 )}

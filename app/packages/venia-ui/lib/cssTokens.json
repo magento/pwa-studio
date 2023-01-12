@@ -1,6 +1,9 @@
 {
     "palette": {
         "--b2bstore-compareIcon-color": "#1f39ff",
+        "--b2bstore-inStockIcon-color": "#02a647",
+        "--b2bstore-outStockIcon-color": "#e45b62",
+        "--b2bstore-shareIcon-color": "#ff5733",
         "--b2bstore-global-color-orange": "#ff5733",
         "--b2bstore-global-color-orange-SVG": "#00FF91",
         "--b2bstore-global-color-gray": "#808080",
