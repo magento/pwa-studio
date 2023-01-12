@@ -9,12 +9,13 @@ import Image from '../../../Image';
 import Icon from '../../../Icon';
 import Button from '../../../Button';
 import defaultClasses from './ProductItem.module.css';
-import inStock from '../icons/inStock.svg';
-import outOfStock from '../icons/outOfStock.svg';
-import copyToClipboard from '../icons/copyToClipboard.png';
 
 import { useAddToQuote } from '@magento/peregrine/lib/talons/QuickOrderForm/useAddToQuote';
 import ConfirmationModal from '../../../RequestQuote/ConfirmationModal';
+
+import copyToClipboard from '@magento/venia-ui/lib/assets/copyToClipboard.png';
+import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
+import { OutStockIcon } from '@magento/venia-ui/lib/assets/outStockIcon';
 
 const ProductItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -134,11 +135,11 @@ const ProductItem = props => {
     const stockStatus =
         variant.product.stock_status === 'IN_STOCK' ? (
             <div className={classes.inStockContainer}>
-                <img src={inStock} alt="inStock" />
+                <InStockIcon />
             </div>
         ) : (
             <div className={classes.outStockContainer}>
-                <img src={outOfStock} alt="outOfStock" />
+                <OutStockIcon />
             </div>
         );
 
