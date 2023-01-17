@@ -83,9 +83,10 @@ td {
     font-weight: 400;
     height: 56px;
     font-size: 14px;
+    padding: 0 12px;
 }
 
-@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+@media only screen and (max-width: 600px), (min-device-width: 768px) and (max-device-width: 600px) {
     table {
         width: 100%;
     }
@@ -117,7 +118,6 @@ td {
 
     td:before {
         position: absolute;
-        top: 10%;
         left: 6px;
         width: 45%;
         padding-right: 10px;
