@@ -80,10 +80,6 @@ const Navigation = props => {
                         />
                     </div>
                     <div className={classes.footer}>
-                        <div className={classes.switchers}>
-                            <StoreSwitcher />
-                            <CurrencySwitcher />
-                        </div>
                         <div className={classes.actionsContainer}>
                             {isSignedIn && productsCount > 0 && (
                                 <Link className={classes.compareLink} to="/compare_products">
@@ -93,6 +89,11 @@ const Navigation = props => {
                             )}
                             <div className={classes.quickOrderContainer}>{isSignedIn && <QuickOrderForm />}</div>
                         </div>
+                        <div className={classes.switchers}>
+                            <StoreSwitcher />
+                            <CurrencySwitcher />
+                        </div>
+
                         <AuthBar disabled={hasModal} showMyAccount={showMyAccount} showSignIn={showSignIn} />
                     </div>
                     <div className={modalClassName}>{authModal}</div>
