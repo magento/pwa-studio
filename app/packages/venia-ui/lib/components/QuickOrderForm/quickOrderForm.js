@@ -89,7 +89,7 @@ const QuickOrderForm = props => {
     }, [products]);
 
     const csvBtn = useMemo(() => {
-        if (csvData.length) {
+        if (csvData.length && csvData[0]?.sku) {
             return (
                 <CSVLink filename={'quick-order-file.csv'} data={csvData}>
                     <Button className={classes.downloadBtn}>
@@ -102,15 +102,7 @@ const QuickOrderForm = props => {
                 </CSVLink>
             );
         } else {
-            return (
-                <Button disabled={true} className={classes.downloadBtn}>
-                    <Icon src={Download} alt="download-icon" />
-                    <FormattedMessage
-                        id="quickOrder.DownloadYourSampleFile"
-                        defaultMessage="Download your sample file"
-                    />
-                </Button>
-            );
+            return;
         }
     }, [csvData, classes]);
 
