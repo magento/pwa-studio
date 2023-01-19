@@ -18,7 +18,7 @@ import { useStyle } from '../../classify';
 import defaultClasses from './orderRow.module.css';
 import reOrderBtnClasses from './ReOrderBtn/reOrderBtn.module.css';
 
-import IncidencesIcon from './Icons/incidences.svg';
+import { IncidenceIcon } from '@magento/venia-ui/lib/assets/incidenceIcon';
 
 const OrderRow = props => {
     const { order, config, address, setSuccessToast, setErrorToast } = props;
@@ -137,7 +137,7 @@ const OrderRow = props => {
                             id={'orderIncidence' + orderNumber}
                             className={classes.orderInsurancesButton}
                         >
-                            <img src={IncidencesIcon} alt="IncidencesIcon" />
+                            <IncidenceIcon />
                             <FormattedMessage id={'orderRow.openIncident'} defaultMessage={'Open incident'} />
                         </Button>
                     </div>
