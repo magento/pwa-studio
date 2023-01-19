@@ -246,3 +246,20 @@
 .requestBtn button {
     min-width: auto;
 }
+
+.placeholderContainer{
+    composes: relative from global;
+
+}
+.placeholder {
+    composes: bg-transparent from global;
+    composes: left-0 from global;
+    composes: relative from global;
+    composes: top-0 from global;
+}
+
+.placeholder_layoutOnly {
+    composes: placeholder;
+
+    composes: bg-transparent from global;
+}
