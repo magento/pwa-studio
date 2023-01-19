@@ -51,7 +51,11 @@ const Item = props => {
                         </span>
                     </Link>
                 </td>
-                <td>{mappedOptions.join(', ')}</td>
+                <td>
+                    {selected_options.map(option => (
+                        <p key={option.label}>{`${option.label}: ${option.value}`}</p>
+                    ))}
+                </td>
                 <td>
                     {quantity_ordered + ' '}
                     <FormattedMessage id="orderDetails.items" defaultMessage="items" />
