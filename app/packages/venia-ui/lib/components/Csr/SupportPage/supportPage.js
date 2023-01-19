@@ -24,12 +24,12 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import defaultClasses from './supportPage.module.css';
 
-import closeIcon from '../CreateTicketModal/Dropzone/Icons/close.svg';
-import enhancementIcon from './Icons/enhancementIcon.svg';
-import infoIcon from './Icons/infoIcon.svg';
-import emptyTicketsIcon from '@magento/venia-ui/lib/components/Lms/CoursesCatalog/Icons/noCourses.svg';
-import orderIcon from './Icons/orderIcon.svg';
-import supportIcon from './Icons/supportIcon.svg';
+import closeIcon from '@magento/venia-ui/lib/assets/close.svg';
+import enhancementIcon from '@magento/venia-ui/lib/assets/enhancementIcon.svg';
+import infoIcon from '@magento/venia-ui/lib/assets/infoIcon.svg';
+import emptyTicketsIcon from '@magento/venia-ui/lib/assets/noCourses.svg';
+import orderIcon from '@magento/venia-ui/lib/assets/orderIcon.svg';
+import supportIcon from '@magento/venia-ui/lib/assets/supportIcon.svg';
 import TicketSort from '../TicketSort/ticketSort';
 import TicketFilter from '../TicketFilter/ticketFilter';
 

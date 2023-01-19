@@ -19,12 +19,12 @@ import { useChat } from '@magento/peregrine/lib/talons/Csr/useChat';
 
 import defaultClasses from './chat.module.css';
 
-import emptyAttachmentsIcon from '../../Lms/CoursesCatalog/Icons/noCourses.svg';
-import doubleCheckUnread from './Icons/doubleCheckUnread.svg';
-import doubleCkeckRead from './Icons/doubleCheckRead.svg';
-import optionsIcon from './Icons/optionsIcon.svg';
-import sendCommentIcon from './Icons/sendCommentIcon.svg';
-import closeIcon from './Icons/close.svg';
+import emptyAttachmentsIcon from '@magento/venia-ui/lib/assets/noCourses.svg';
+import doubleCheckUnread from '@magento/venia-ui/lib/assets/doubleCheckUnread.svg';
+import doubleCkeckRead from '@magento/venia-ui/lib/assets/doubleCheckRead.svg';
+import optionsIcon from '@magento/venia-ui/lib/assets/optionsIcon.svg';
+import sendCommentIcon from '@magento/venia-ui/lib/assets/sendCommentIcon.svg';
+import closeIcon from '@magento/venia-ui/lib/assets/close.svg';
 import { Smile as EmojiPickerIcon } from 'react-feather';
 
 import EmojiPicker, { Categories } from 'emoji-picker-react';

@@ -5,7 +5,8 @@ import React, { useMemo, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { arrayOf, shape, string } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
-import orderByIcon from './Icons/orderByIcon.svg';
+import orderByIcon from '@magento/venia-ui/lib/assets/orderByIcon.svg';
+import { OrderByIcon } from '@magento/venia-ui/lib/assets/orderByIcon';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import SortItem from './sortItem';
@@ -111,7 +112,11 @@ const TicketSort = props => {
 
     return (
         <div ref={elementRef}>
-            <img src={orderByIcon} alt="sort" onClick={handleSortClick} className={classes.orderByIcon} />
+            {/* <img src={orderByIcon} alt="sort" onClick={handleSortClick} className={classes.orderByIcon} />
+            {sortElements} */}
+            <button className={classes.sortButton} onClick={handleSortClick}>
+                <OrderByIcon />
+            </button>
             {sortElements}
         </div>
     );

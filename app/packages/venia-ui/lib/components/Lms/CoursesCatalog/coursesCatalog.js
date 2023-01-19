@@ -8,7 +8,7 @@ import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator'
 
 import CourseItem from '../CourseItem';
 import defaultClasses from './coursesCatalog.module.css';
-import noCoursesImage from './Icons/noCourses.svg';
+import noCoursesImage from '@magento/venia-ui/lib/assets/noCourses.svg';
 
 const DELIMITER = '/';
 

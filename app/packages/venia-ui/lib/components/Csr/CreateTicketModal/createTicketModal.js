@@ -14,7 +14,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './createTicketModal.module.css';
 
-import notFoundImage from './Icons/notFound.svg';
+import notFoundImage from '@magento/venia-ui/lib/assets/notFound.svg';
 
 const CreateTicketModal = props => {
     const { orderBy, isOpen, setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast } = props;
