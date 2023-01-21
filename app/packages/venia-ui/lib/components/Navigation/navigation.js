@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { shape, string } from 'prop-types';
 import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
+import { Link } from 'react-router-dom';
 
 import { useStyle } from '../../classify';
 import AuthBar from '../AuthBar';
@@ -12,6 +13,10 @@ import NavHeader from './navHeader';
 import defaultClasses from './navigation.module.css';
 import { FocusScope } from 'react-aria';
 import { Portal } from '../Portal';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import QuickOrderForm from '../QuickOrderForm';
+import useCompareProduct from '@magento/peregrine/lib/talons/ComparePage/useCompareProduct';
+import CompareIcon from '../Header/icons/compare.svg';
 const AuthModal = React.lazy(() => import('../AuthModal'));
 
 const Navigation = props => {
@@ -32,11 +37,14 @@ const Navigation = props => {
         view
     } = useNavigation();
 
+    const { productsCount } = useCompareProduct();
+
     const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
     const tabIndex = isOpen ? '0' : '-1';
+    const [{ isSignedIn }] = useUserContext();
 
     // Lazy load the auth modal because it may not be needed.
     const authModal = hasModal ? (
@@ -60,11 +68,7 @@ const Navigation = props => {
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
                 <aside className={rootClassName}>
                     <header className={classes.header}>
-                        <NavHeader
-                            isTopLevel={isTopLevel}
-                            onBack={handleBack}
-                            view={view}
-                        />
+                        <NavHeader isTopLevel={isTopLevel} onBack={handleBack} view={view} />
                     </header>
                     <div className={bodyClassName}>
                         <CategoryTree
@@ -76,15 +80,21 @@ const Navigation = props => {
                         />
                     </div>
                     <div className={classes.footer}>
+                        <div className={classes.actionsContainer}>
+                            {isSignedIn && productsCount > 0 && (
+                                <Link className={classes.compareLink} to="/compare_products">
+                                    <span className={classes.productsCount}>{productsCount}</span>
+                                    <img src={CompareIcon} alt=" compare Icon" />
+                                </Link>
+                            )}
+                            <div className={classes.quickOrderContainer}>{isSignedIn && <QuickOrderForm />}</div>
+                        </div>
                         <div className={classes.switchers}>
                             <StoreSwitcher />
                             <CurrencySwitcher />
                         </div>
-                        <AuthBar
-                            disabled={hasModal}
-                            showMyAccount={showMyAccount}
-                            showSignIn={showSignIn}
-                        />
+
+                        <AuthBar disabled={hasModal} showMyAccount={showMyAccount} showSignIn={showSignIn} />
                     </div>
                     <div className={modalClassName}>{authModal}</div>
                 </aside>

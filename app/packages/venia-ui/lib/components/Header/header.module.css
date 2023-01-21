@@ -206,3 +206,9 @@
         margin-right: 0rem !important;
     }
 }
+
+@media (max-width: 750px) {
+    .quickOrderContainer , .compareLink{
+        display: none;
+    }
+}
