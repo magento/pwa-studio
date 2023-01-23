@@ -33,7 +33,7 @@ const Items = props => {
                                 <FormattedMessage id="orderItems.productName" defaultMessage="Product Name" />
                             </th>
                             <th>
-                                <FormattedMessage id="orderItems.color" defaultMessage="Color" />
+                                <FormattedMessage id="orderItems.attributes" defaultMessage="Attributes" />
                             </th>
                             <th>
                                 <FormattedMessage id="orderItems.quantity" defaultMessage="Quantity" />
