@@ -17,19 +17,6 @@
     margin-bottom: 15px;
     border-bottom: 1px solid rgb(var(--venia-global-color-gray-100));
 }
-
-.creditTable thead {
-    display: table-header-group;
-    vertical-align: middle;
-    border-color: inherit;
-}
-
-.creditTable tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
-}
-
 .creditTable th {
     display: table-cell;
     vertical-align: top;
@@ -38,20 +25,6 @@
     text-align: left;
     padding: 10px 6px;
     border-bottom: 2px solid rgb(var(--venia-global-color-gray-100));
-}
-
-.creditTable td {
-    display: table-cell;
-    vertical-align: inherit;
-    padding: 10px 6px;
-    font-size: 14px;
-}
-
-.creditActions {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
 }
 
 .customerCreditButton {
@@ -93,4 +66,64 @@
 .customerCreditButton:hover:disabled {
     pointer-events: none;
     --stroke: var(--b2bstore-global-color-gray);
+}
+.customerCreditButton:disabled,
+.customerCreditButton:hover:disabled {
+    pointer-events: none;
+    --stroke: var(--b2bstore-global-color-gray);
+}
+
+/* Zebra striping */
+
+th {
+    text-align: left;
+}
+
+td {
+    font-weight: 400;
+    height: 56px;
+    font-size: 14px;
+    padding: 0 12px;
+}
+
+@media only screen and (max-width: 600px), (min-device-width: 768px) and (max-device-width: 600px) {
+    table {
+        width: 100%;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        display: flex;
+        align-items: center;
+    }
+
+    td:before {
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        font-weight: 700;
+        font-size: 15px;
+        color: #373737;
+        content: attr(data-label);
+    }
 }
