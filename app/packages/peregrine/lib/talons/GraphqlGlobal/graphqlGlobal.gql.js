@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 import { CustomerAddressBookAddressFragment } from '@magento/peregrine/lib/talons/AddressBookPage/addressBookFragments.gql';
 
 export const GET_CUSTOMER_ADDRESSES = gql`
