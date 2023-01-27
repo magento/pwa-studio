@@ -16,7 +16,7 @@ export const GET_PAYMENT_CREDIT_SYSTEM_CONFIG = gql`
 `;
 
 export const SET_PAYMENT_METHOD_ON_CART = gql`
-    mutation setPaymentMethodOnCart($cartId: String!) {
+    mutation setPaymentMethodOnCartCreditSystem($cartId: String!) {
         setPaymentMethodOnCart(input: { cart_id: $cartId, payment_method: { code: "creditsystem" } }) {
             cart {
                 id

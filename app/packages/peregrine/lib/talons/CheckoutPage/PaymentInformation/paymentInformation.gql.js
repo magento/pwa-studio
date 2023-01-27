@@ -104,10 +104,8 @@ export const SET_BILLING_ADDRESS = gql`
 
 // Sets the provided payment method object on the cart.
 export const SET_FREE_PAYMENT_METHOD_ON_CART = gql`
-    mutation setPaymentMethodOnCart($cartId: String!) {
-        setPaymentMethodOnCart(
-            input: { cart_id: $cartId, payment_method: { code: "free" } }
-        ) {
+    mutation setPaymentMethodOnCartPaymentInfo($cartId: String!) {
+        setPaymentMethodOnCart(input: { cart_id: $cartId, payment_method: { code: "free" } }) {
             cart {
                 id
                 selected_payment_method {

@@ -53,7 +53,7 @@ export const GET_CUSTOMER = gql`
 `;
 
 export const SET_PAYMENT_METHOD_ON_CART = gql`
-    mutation setPaymentMethodOnCart($cartId: String!, $payment_method: String!) {
+    mutation setPaymentMethodOnCartCheckoutPage($cartId: String!, $payment_method: String!) {
         setPaymentMethodOnCart(input: { cart_id: $cartId, payment_method: { code: $payment_method } })
             @connection(key: "setPaymentMethodOnCart") {
             cart {
