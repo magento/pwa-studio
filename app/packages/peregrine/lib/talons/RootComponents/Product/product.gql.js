@@ -1,16 +1,7 @@
 import { gql } from '@apollo/client';
 
 import { ProductDetailsFragment } from './productDetailFragment.gql';
-
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            product_url_suffix
-        }
-    }
-`;
+import { GET_STORE_CONFIG_DATA } from '../GraphqlGlobal/graphqlGlobal.gql';
 
 export const GET_PRODUCT_DETAIL_QUERY = gql`
     query getProductDetailForProductPage($urlKey: String!) {

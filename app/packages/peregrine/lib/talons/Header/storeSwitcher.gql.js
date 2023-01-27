@@ -1,15 +1,5 @@
 import { gql } from '@apollo/client';
-
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            store_name
-            store_group_name
-        }
-    }
-`;
+import { GET_STORE_CONFIG_DATA } from '../GraphqlGlobal/graphqlGlobal.gql';
 
 export const GET_ROUTE_DATA = gql`
     query getRouteData($url: String!) {

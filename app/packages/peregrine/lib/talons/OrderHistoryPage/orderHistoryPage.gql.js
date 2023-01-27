@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { GET_STORE_CONFIG_DATA } from '../GraphqlGlobal/graphqlGlobal.gql';
 
 const CustomerOrdersFragment = gql`
     fragment CustomerOrdersFragment on CustomerOrders {
@@ -121,19 +122,6 @@ export const GET_CUSTOMER_ORDERS = gql`
         }
     }
     ${CustomerOrdersFragment}
-`;
-
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        storeConfig {
-            id
-            code
-            store_code
-            store_name
-            store_group_name
-            locale
-        }
-    }
 `;
 
 export default {

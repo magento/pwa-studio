@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { GET_STORE_CONFIG_DATA } from '../GraphqlGlobal/graphqlGlobal.gql';
 
 export const GET_CMS_DYNAMIC_BLOCKS = gql`
     query GetCmsDynamicBlocks(
@@ -80,16 +81,6 @@ export const GET_SALES_RULES_DATA = gql`
                 }
             }
             total_quantity
-        }
-    }
-`;
-
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            product_url_suffix
         }
     }
 `;
