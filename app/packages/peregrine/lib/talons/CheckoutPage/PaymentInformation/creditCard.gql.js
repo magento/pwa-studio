@@ -45,7 +45,7 @@ export const GET_SHIPPING_ADDRESS = gql`
 `;
 
 export const SET_BILLING_ADDRESS = gql`
-    mutation setBillingAddress(
+    mutation setBillingAddressCreditCard(
         $cartId: String!
         $firstName: String!
         $lastName: String!

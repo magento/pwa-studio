@@ -48,7 +48,7 @@ export const GET_PAYMENT_NONCE = gql`
 `;
 
 export const SET_BILLING_ADDRESS = gql`
-    mutation setBillingAddress(
+    mutation setBillingAddressPaymentInformation(
         $cartId: String!
         $firstname: String!
         $lastname: String!
