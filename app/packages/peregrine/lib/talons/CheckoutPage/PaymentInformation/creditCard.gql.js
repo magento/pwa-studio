@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
+import { GET_BILLING_ADDRESS } from '../../GraphqlGlobal/graphqlGlobal.gql';
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
@@ -17,28 +18,6 @@ export const GET_PAYMENT_NONCE = gql`
         cart(cart_id: $cartId) @client {
             id
             paymentNonce
-        }
-    }
-`;
-
-export const GET_BILLING_ADDRESS = gql`
-    query getBillingAddress($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            billingAddress: billing_address {
-                firstName: firstname
-                lastName: lastname
-                country {
-                    code
-                }
-                street
-                city
-                region {
-                    code
-                }
-                postcode
-                phoneNumber: telephone
-            }
         }
     }
 `;

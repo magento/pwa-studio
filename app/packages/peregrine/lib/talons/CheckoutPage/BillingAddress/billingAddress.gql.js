@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { GET_BILLING_ADDRESS } from '../../GraphqlGlobal/graphqlGlobal.gql';
 
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentInformation.gql';
@@ -10,30 +11,6 @@ export const GET_IS_BILLING_ADDRESS_SAME = gql`
         cart(cart_id: $cartId) @client {
             id
             isBillingAddressSame
-        }
-    }
-`;
-
-export const GET_BILLING_ADDRESS = gql`
-    query getBillingAddress($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            billingAddress: billing_address {
-                firstName: firstname
-                lastName: lastname
-                country {
-                    code
-                    label
-                }
-                street
-                city
-                region {
-                    code
-                    label
-                }
-                postcode
-                phoneNumber: telephone
-            }
         }
     }
 `;
