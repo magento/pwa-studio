@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_SUMMARY_DATA = gql`
-    query getSummaryData($cartId: String!) {
+    query getSummaryDataSummary($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             selected_payment_method {
