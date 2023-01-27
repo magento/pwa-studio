@@ -35,23 +35,6 @@ export const GET_CUSTOMER_INFORMATION = gql`
     ${AccountInformationPageFragment}
 `;
 
-export const GET_CUSTOMER_ADDRESSES = gql`
-    query GetCustomerAddressesForAddressBook {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        customer {
-            addresses {
-                id
-                ...CustomerAddressBookAddressFragment
-            }
-        }
-        countries {
-            id
-            full_name_locale
-        }
-    }
-    ${CustomerAddressBookAddressFragment}
-`;
-
 export const ADD_NEW_CUSTOMER_ADDRESS = gql`
     mutation AddNewCustomerAddressToAddressBook($address: CustomerAddressInput!) {
         createCustomerAddress(input: $address) {

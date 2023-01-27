@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentInformation.gql';
 
-import { CustomerAddressBookAddressFragment } from '../../AddressBookPage/addressBookFragments.gql';
+import { GET_CUSTOMER_ADDRESSES } from '@magento/peregrine/lib/talons/GraphqlGlobal/graphqlGlobal.gql';
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
@@ -117,15 +117,9 @@ export const SET_BILLING_ADDRESS = gql`
 `;
 
 export const SET_DEFAULT_BILLING_ADDRESS = gql`
-    mutation setDefaultBillingAddress(
-        $cartId: String!
-        $customerAddressId: Int
-    ) {
+    mutation setDefaultBillingAddress($cartId: String!, $customerAddressId: Int) {
         setBillingAddressOnCart(
-            input: {
-                cart_id: $cartId
-                billing_address: { customer_address_id: $customerAddressId }
-            }
+            input: { cart_id: $cartId, billing_address: { customer_address_id: $customerAddressId } }
         ) @connection(key: "setBillingAddressOnCart") {
             cart {
                 id
@@ -150,23 +144,6 @@ export const SET_DEFAULT_BILLING_ADDRESS = gql`
     }
     ${PriceSummaryFragment}
     ${AvailablePaymentMethodsFragment}
-`;
-
-export const GET_CUSTOMER_ADDRESSES = gql`
-    query GetCustomerAddressesForAddressBook {
-        customer {
-            id
-            addresses {
-                id
-                ...CustomerAddressBookAddressFragment
-            }
-        }
-        countries {
-            id
-            full_name_locale
-        }
-    }
-    ${CustomerAddressBookAddressFragment}
 `;
 
 export default {

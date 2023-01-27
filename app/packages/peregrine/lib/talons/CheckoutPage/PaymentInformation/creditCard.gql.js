@@ -3,8 +3,6 @@ import { gql } from '@apollo/client';
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 
-import { CustomerAddressBookAddressFragment } from '@magento/peregrine/lib/talons/AddressBookPage/addressBookFragments.gql';
-
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
         cart(cart_id: $cartId) @client {
@@ -173,23 +171,6 @@ export const SET_DEFAULT_BILLING_ADDRESS = gql`
     }
     ${PriceSummaryFragment}
     ${AvailablePaymentMethodsFragment}
-`;
-
-export const GET_CUSTOMER_ADDRESSES = gql`
-    query GetCustomerAddressesForAddressBook {
-        customer {
-            id
-            addresses {
-                id
-                ...CustomerAddressBookAddressFragment
-            }
-        }
-        countries {
-            id
-            full_name_locale
-        }
-    }
-    ${CustomerAddressBookAddressFragment}
 `;
 
 export default {
