@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_CONFIG_DETAILS = gql`
-    query getConfigDetails {
+    query getConfigDetailsRequestQuote {
         mpQuoteConfig {
             allow_category
             category
