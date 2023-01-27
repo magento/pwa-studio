@@ -18,7 +18,7 @@ veniaResponse:
           pattern: '^/(csr)(/|$)'
           use: csrProxy
         - matches: request.url.pathname 
-          pattern: '^/(css)(/|$)'
+          pattern: '^/(css|env)(/|$)'
           use: s3Proxy
         - matches: request.url.pathname
           pattern: '^/(graphql|rest|media)(/|$)'

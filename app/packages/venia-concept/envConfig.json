@@ -1,0 +1,11 @@
+{
+    "env": {
+        "lms": {
+            "ENABLED": false
+        },
+        "csr": {
+            "ENABLED": true,
+            "ENDPOINT": "http://b2b-zammad-gateway.orienteed.lan/"
+        }
+    }
+}

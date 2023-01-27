@@ -4,7 +4,7 @@ import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
 import useDelayedTransition from '@magento/peregrine/lib/hooks/useDelayedTransition';
-import { useApp, applyStyles } from '@magento/peregrine/lib/talons/App/useApp';
+import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import globalCSS from '../../index.module.css';
 
@@ -32,18 +32,8 @@ const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const App = props => {
-    // const colors = {
-    //     primary: '#ff0000',
-    //     secondary: '#00ff00',
-    // };
-    
-    // // Use the variables in your stylesheets
-    // document.documentElement.style.setProperty('--b2bstore-global-color-orange', colors.primary);
-    // document.documentElement.style.setProperty('--secondary-color', colors.secondary);
 
-    // applyStyles.applyStyles();
-
-    applyStyles();
+    // applyStyles();
     
     const { markErrorHandled, renderError, unhandledErrors } = props;
     const { formatMessage } = useIntl();

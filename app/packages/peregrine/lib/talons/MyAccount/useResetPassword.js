@@ -7,6 +7,7 @@ import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCapt
 import { GET_CART_DETAILS_QUERY } from '@magento/venia-ui/lib/components/SignIn/signIn.gql.js';
 import { useSignIn } from '../SignIn/useSignIn';
 import modifyLmsCustomer from '@magento/peregrine/lib/RestApi/Lms/users/modifyCustomer';
+import { useModulesContext } from '../../context/modulesProvider';
 
 /**
  * Returns props necessary to render a ResetPassword form.
@@ -20,6 +21,8 @@ import modifyLmsCustomer from '@magento/peregrine/lib/RestApi/Lms/users/modifyCu
  */
 export const useResetPassword = props => {
     const { mutations } = props;
+
+    const { enabledModules } = useModulesContext();
 
     const [hasCompleted, setHasCompleted] = useState(false);
     const location = useLocation();
@@ -50,7 +53,7 @@ export const useResetPassword = props => {
 
                     await handleSignIn({ email, password: newPassword });
 
-                    process.env.LMS_ENABLED === 'true' && modifyLmsCustomer('', '', email, newPassword);
+                    enabledModules?.lms?.isEnabled() && modifyLmsCustomer('', '', email, newPassword);
 
                     setHasCompleted(true);
                 }
@@ -59,7 +62,7 @@ export const useResetPassword = props => {
                 setHasCompleted(false);
             }
         },
-        [generateReCaptchaData, resetPassword, token, handleSignIn]
+        [generateReCaptchaData, resetPassword, token, handleSignIn, enabledModules]
     );
 
     return {

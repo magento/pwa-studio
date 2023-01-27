@@ -10,6 +10,7 @@ import modifyCsrCustomer from '@magento/peregrine/lib/RestApi/Csr/users/modifyCu
 
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from '../../talons/CommunicationsPage/communicationsPage.gql.js';
+import { useModulesContext } from '../../context/modulesProvider';
 
 export const useAccountInformationPage = props => {
     const {
@@ -25,6 +26,8 @@ export const useAccountInformationPage = props => {
     } = props;
 
     const [{ isSignedIn }] = useUserContext();
+
+    const { enabledModules } = useModulesContext();
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerSubscriptionQuery, setNewsletterSubscriptionMutation } = operations;
@@ -247,10 +250,10 @@ export const useAccountInformationPage = props => {
                 });
 
                 // LMS logic
-                process.env.LMS_ENABLED === 'true' && modifyLmsCustomer(firstname, '', email, newPassword);
+                enabledModules?.lms?.isEnabled() && modifyLmsCustomer(firstname, '', email, newPassword);
 
                 // CSR logic
-                process.env.CSR_ENABLED === 'true' && modifyCsrCustomer(firstname, '', email);
+                enabledModules?.csr?.isEnabled() && modifyCsrCustomer(firstname, '', email);
 
                 // After submission, close the form if there were no errors.
                 handleCancel(false);
@@ -264,7 +267,7 @@ export const useAccountInformationPage = props => {
                 return;
             }
         },
-        [initialValues, handleCancel, setCustomerInformation, generateReCaptchaData, changeCustomerPassword, dispatch]
+        [initialValues, handleCancel, setCustomerInformation, generateReCaptchaData, changeCustomerPassword, dispatch, enabledModules]
     );
 
     const handleConfirmDialog = useCallback(

@@ -14,6 +14,8 @@ import { useEventingContext } from '../../context/eventing';
 import doCsrLogin from   '@magento/peregrine/lib/RestApi/Csr/auth/login';
 import doLmsLogin from '@magento/peregrine/lib/RestApi/Lms/auth/login';
 
+import { useModulesContext } from '../../context/modulesProvider';
+
 /**
  * Returns props necessary to render CreateAccount component. In particular this
  * talon handles the submission flow by first doing a pre-submisson validation
@@ -43,6 +45,9 @@ export const useCreateAccount = props => {
         signInMutation
     } = operations;
     const apolloClient = useApolloClient();
+
+    const { enabledModules } = useModulesContext();
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [{ cartId }, { createCart, removeCart, getCartDetails }] = useCartContext();
     const [{ isGettingDetails }, { getUserDetails, setToken }] = useUserContext();
@@ -121,10 +126,10 @@ export const useCreateAccount = props => {
                 await setToken(token);
 
                 // LMS logic
-                process.env.LMS_ENABLED === 'true' && doLmsLogin(formValues.password);
+                enabledModules?.lms?.isEnabled() && doLmsLogin(formValues.password);
 
                 // CSR logic
-                process.env.CSR_ENABLED === 'true' && doCsrLogin();
+                enabledModules?.csr?.isEnabled() && doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
@@ -169,6 +174,7 @@ export const useCreateAccount = props => {
             createAccount,
             createCart,
             dispatch,
+            enabledModules,
             fetchCartDetails,
             fetchCartId,
             fetchUserDetails,

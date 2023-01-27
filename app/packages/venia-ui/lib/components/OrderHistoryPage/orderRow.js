@@ -19,6 +19,9 @@ import defaultClasses from './orderRow.module.css';
 import reOrderBtnClasses from './ReOrderBtn/reOrderBtn.module.css';
 
 import { IncidenceIcon } from '@magento/venia-ui/lib/assets/incidenceIcon';
+import { useModulesContext } from '@magento/peregrine/lib/context/modulesProvider';
+
+
 
 const OrderRow = props => {
     const { order, config, address, setSuccessToast, setErrorToast } = props;
@@ -27,6 +30,8 @@ const OrderRow = props => {
 
     const { grand_total: grandTotal } = total;
     const { currency, value: orderTotal } = grandTotal;
+
+    const { enabledModules } = useModulesContext();
 
     // Convert date to ISO-8601 format so Safari can also parse it
     const isoFormattedDate = orderDate.replace(' ', 'T');
@@ -127,7 +132,7 @@ const OrderRow = props => {
             <div className={[classes.orderStatusContainer, classes.orderReStatusContainer].join(' ')}>
                 <span className={classes.orderStatusBadge}>{derivedStatus}</span>
                 <OrderProgressBar status={derivedStatus} />
-                {process.env.CSR_ENABLED === 'true' && (
+                {enabledModules?.csr?.isEnabled() && (
                     <div className={classes.orderIncidenciesButtonContainer}>
                         <Button
                             onClick={() => {
@@ -147,7 +152,7 @@ const OrderRow = props => {
                 {contentToggleIcon}
             </button>
             <div className={contentClass}>{orderDetails}</div>
-            {process.env.CSR_ENABLED === 'true' && (
+            {enabledModules?.csr?.isEnabled() && (
                 <OrderIncidencesModal
                     isOpen={ticketModal}
                     setTicketModal={setTicketModal}
