@@ -1,0 +1,4 @@
+[submodule "app/packages/adapters/b2bstore-boilerplate-adapter"]
+	path = app/packages/adapters/b2bstore-boilerplate-adapter
+	url = https://github.com/orienteed/b2bstore-boilerplate-adapter.git
+	branch = develop
