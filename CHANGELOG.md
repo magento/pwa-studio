@@ -1,4 +1,4 @@
-# PWA Studio Release  13.0.0
+# PWA Studio Release   13.0.0
 
 **NOTE:**
 _This changelog only contains release notes for PWA Studio and Venia 13.0.0_.
