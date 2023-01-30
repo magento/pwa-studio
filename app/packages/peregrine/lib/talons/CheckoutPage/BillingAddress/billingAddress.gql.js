@@ -4,7 +4,7 @@ import { GET_BILLING_ADDRESS } from '../../GraphqlGlobal/graphqlGlobal.gql';
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentInformation.gql';
 
-import { GET_CUSTOMER_ADDRESSES } from '@magento/peregrine/lib/talons/GraphqlGlobal/graphqlGlobal.gql';
+import { GET_CUSTOMER_ADDRESSES } from '../../AddressBookPage/addressBookPage.gql';
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {

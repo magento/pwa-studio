@@ -1,7 +1,23 @@
 import { gql } from '@apollo/client';
 
 import { CustomerAddressBookAddressFragment } from './addressBookFragments.gql';
-import { GET_CUSTOMER_ADDRESSES } from '../GraphqlGlobal/graphqlGlobal.gql';
+
+export const GET_CUSTOMER_ADDRESSES = gql`
+    query GetCustomerAddressesForAddressBook {
+        customer {
+            id
+            addresses {
+                id
+                ...CustomerAddressBookAddressFragment
+            }
+        }
+        countries {
+            id
+            full_name_locale
+        }
+    }
+    ${CustomerAddressBookAddressFragment}
+`;
 
 export const ADD_NEW_CUSTOMER_ADDRESS = gql`
     mutation AddNewCustomerAddressToAddressBook($address: CustomerAddressInput!) {
