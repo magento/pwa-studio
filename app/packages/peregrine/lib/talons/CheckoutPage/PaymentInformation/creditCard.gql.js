@@ -5,6 +5,7 @@ import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 
 import { GET_CUSTOMER_ADDRESSES } from '../../AddressBookPage/addressBookPage.gql';
 import { GET_BILLING_ADDRESS } from '../../CheckoutPage/BillingAddress/billingAddress.gql';
+import { SET_BILLING_ADDRESS } from '../BillingAddress/billingAddress.gql';
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
@@ -44,62 +45,6 @@ export const GET_SHIPPING_ADDRESS = gql`
             }
         }
     }
-`;
-
-export const SET_BILLING_ADDRESS = gql`
-    mutation setBillingAddressCreditCard(
-        $cartId: String!
-        $firstName: String!
-        $lastName: String!
-        $street1: String!
-        $street2: String
-        $city: String!
-        $region: String!
-        $postcode: String!
-        $country: String!
-        $phoneNumber: String!
-    ) {
-        setBillingAddressOnCart(
-            input: {
-                cart_id: $cartId
-                billing_address: {
-                    address: {
-                        firstname: $firstName
-                        lastname: $lastName
-                        street: [$street1, $street2]
-                        city: $city
-                        region: $region
-                        postcode: $postcode
-                        country_code: $country
-                        telephone: $phoneNumber
-                        save_in_address_book: false
-                    }
-                }
-            }
-        ) @connection(key: "setBillingAddressOnCart") {
-            cart {
-                id
-                billing_address {
-                    firstname
-                    lastname
-                    country {
-                        code
-                    }
-                    street
-                    city
-                    region {
-                        code
-                    }
-                    postcode
-                    telephone
-                }
-                ...PriceSummaryFragment
-                ...AvailablePaymentMethodsFragment
-            }
-        }
-    }
-    ${PriceSummaryFragment}
-    ${AvailablePaymentMethodsFragment}
 `;
 
 export const SET_CC_DETAILS_ON_CART = gql`

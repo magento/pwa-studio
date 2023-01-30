@@ -1,6 +1,7 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 import DEFAULT_OPERATIONS from './paymentInformation.gql';
+import { SET_BILLING_ADDRESS } from '../BillingAddress/billingAddress.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '../../../context/cart';
@@ -22,19 +23,12 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
  * @returns {PaymentInformationTalonProps}
  */
 export const usePaymentInformation = props => {
-    const {
-        onSave,
-        checkoutError,
-        resetShouldSubmit,
-        setCheckoutStep,
-        shouldSubmit
-    } = props;
+    const { onSave, checkoutError, resetShouldSubmit, setCheckoutStep, shouldSubmit } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         getPaymentInformationQuery,
         getPaymentNonceQuery,
-        setBillingAddressMutation,
         setFreePaymentMethodMutation
     } = operations;
     /**
@@ -74,20 +68,14 @@ export const usePaymentInformation = props => {
     /**
      * Queries
      */
-    const {
-        data: paymentInformationData,
-        loading: paymentInformationLoading
-    } = useQuery(getPaymentInformationQuery, {
+    const { data: paymentInformationData, loading: paymentInformationLoading } = useQuery(getPaymentInformationQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !cartId,
         variables: { cartId }
     });
 
-    const [
-        setFreePaymentMethod,
-        { loading: setFreePaymentMethodLoading }
-    ] = useMutation(setFreePaymentMethodMutation);
+    const [setFreePaymentMethod, { loading: setFreePaymentMethodLoading }] = useMutation(setFreePaymentMethodMutation);
 
     const clearPaymentDetails = useCallback(() => {
         client.writeQuery({
@@ -102,7 +90,7 @@ export const usePaymentInformation = props => {
         });
     }, [cartId, client, getPaymentNonceQuery]);
 
-    const [setBillingAddress] = useMutation(setBillingAddressMutation);
+    const [setBillingAddress] = useMutation(SET_BILLING_ADDRESS);
 
     // We must wait for payment method to be set if this is the first time we
     // are hitting this component and the total is $0. If we don't wait then
@@ -114,43 +102,27 @@ export const usePaymentInformation = props => {
      */
 
     const availablePaymentMethods = useMemo(
-        () =>
-            paymentInformationData
-                ? paymentInformationData.cart.available_payment_methods
-                : [],
+        () => (paymentInformationData ? paymentInformationData.cart.available_payment_methods : []),
         [paymentInformationData]
     );
 
     const selectedPaymentMethod =
-        (paymentInformationData &&
-            paymentInformationData.cart.selected_payment_method.code) ||
-        null;
+        (paymentInformationData && paymentInformationData.cart.selected_payment_method.code) || null;
 
     // Whenever selected payment method is no longer an available method we
     // should reset to the payment step to force the user to select again.
     useEffect(() => {
-        if (
-            !availablePaymentMethods.find(
-                ({ code }) => code === selectedPaymentMethod
-            )
-        ) {
+        if (!availablePaymentMethods.find(({ code }) => code === selectedPaymentMethod)) {
             resetShouldSubmit();
             setCheckoutStep(CHECKOUT_STEP.PAYMENT);
             setDoneEditing(false);
         }
-    }, [
-        availablePaymentMethods,
-        resetShouldSubmit,
-        selectedPaymentMethod,
-        setCheckoutStep
-    ]);
+    }, [availablePaymentMethods, resetShouldSubmit, selectedPaymentMethod, setCheckoutStep]);
 
     // If free is ever available and not selected, automatically select it.
     useEffect(() => {
         const setFreeIfAvailable = async () => {
-            const freeIsAvailable = !!availablePaymentMethods.find(
-                ({ code }) => code === 'free'
-            );
+            const freeIsAvailable = !!availablePaymentMethods.find(({ code }) => code === 'free');
             if (freeIsAvailable) {
                 if (selectedPaymentMethod !== 'free') {
                     await setFreePaymentMethod({
@@ -165,13 +137,7 @@ export const usePaymentInformation = props => {
             }
         };
         setFreeIfAvailable();
-    }, [
-        availablePaymentMethods,
-        cartId,
-        selectedPaymentMethod,
-        setDoneEditing,
-        setFreePaymentMethod
-    ]);
+    }, [availablePaymentMethods, cartId, selectedPaymentMethod, setDoneEditing, setFreePaymentMethod]);
 
     const shippingAddressOnCart =
         (paymentInformationData &&
@@ -184,39 +150,26 @@ export const usePaymentInformation = props => {
     // information before shipping address.
     useEffect(() => {
         if (selectedPaymentMethod === 'free' && shippingAddressOnCart) {
-            const {
-                firstname,
-                lastname,
-                street,
-                city,
-                region,
-                postcode,
-                country,
-                telephone
-            } = shippingAddressOnCart;
+            const { firstname, lastname, street, city, region, postcode, country, telephone } = shippingAddressOnCart;
             const regionCode = region.code;
             const countryCode = country.code;
 
             setBillingAddress({
                 variables: {
                     cartId,
-                    firstname,
-                    lastname,
+                    firstName: firstname,
+                    lastName: lastname,
                     street,
                     city,
                     regionCode,
-                    postcode,
+                    postCode: postcode,
                     countryCode,
-                    telephone
+                    phoneNumber: telephone,
+                    sameAsShipping: false
                 }
             });
         }
-    }, [
-        cartId,
-        selectedPaymentMethod,
-        setBillingAddress,
-        shippingAddressOnCart
-    ]);
+    }, [cartId, selectedPaymentMethod, setBillingAddress, shippingAddressOnCart]);
 
     // When the "review order" button is clicked, if the selected method is free
     // and free is still available, proceed.
@@ -238,10 +191,7 @@ export const usePaymentInformation = props => {
     }, [resetShouldSubmit, setCheckoutStep, clearPaymentDetails, cartId]);
 
     useEffect(() => {
-        if (
-            checkoutError instanceof CheckoutError &&
-            checkoutError.hasPaymentExpired()
-        ) {
+        if (checkoutError instanceof CheckoutError && checkoutError.hasPaymentExpired()) {
             handleExpiredPaymentError();
         }
     }, [checkoutError, handleExpiredPaymentError]);

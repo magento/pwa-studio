@@ -61,16 +61,15 @@ export const GET_SHIPPING_ADDRESS = gql`
 `;
 
 export const SET_BILLING_ADDRESS = gql`
-    mutation setBillingAddressBillingAddress(
+    mutation setBillingAddress(
         $cartId: String!
         $firstName: String!
         $lastName: String!
-        $street1: String!
-        $street2: String
+        $street: [String]!
         $city: String!
-        $region: String!
-        $postcode: String!
-        $country: String!
+        $regionCode: String!
+        $postCode: String!
+        $countryCode: String!
         $phoneNumber: String!
     ) {
         setBillingAddressOnCart(
@@ -80,11 +79,11 @@ export const SET_BILLING_ADDRESS = gql`
                     address: {
                         firstname: $firstName
                         lastname: $lastName
-                        street: [$street1, $street2]
+                        street: $street
                         city: $city
-                        region: $region
-                        postcode: $postcode
-                        country_code: $country
+                        region: $regionCode
+                        postcode: $postCode
+                        country_code: $countryCode
                         telephone: $phoneNumber
                         save_in_address_book: false
                     }

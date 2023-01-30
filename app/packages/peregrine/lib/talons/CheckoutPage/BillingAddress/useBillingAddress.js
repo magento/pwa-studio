@@ -30,8 +30,7 @@ export const mapAddressData = rawAddressData => {
             city,
             postcode,
             phoneNumber,
-            street1: street[0],
-            street2: street[1],
+            street,
             country: country.code,
             region: region.code
         };
@@ -76,8 +75,7 @@ export const getDefaultBillingAddress = customerAddressesData => {
  *      city: String,
  *      postcode: String,
  *      phoneNumber: String,
- *      street1: String,
- *      street2: String,
+ *      street: [String],
  *      country: String,
  *      state: String,
  *      isBillingAddressSame: Boolean
@@ -244,29 +242,18 @@ export const useBillingAddress = props => {
      * information from the form.
      */
     const setBillingAddress = useCallback(() => {
-        const {
-            firstName,
-            lastName,
-            country,
-            street1,
-            street2,
-            city,
-            region,
-            postcode,
-            phoneNumber
-        } = formState.values;
+        const { firstName, lastName, country, street, city, region, postcode, phoneNumber } = formState.values;
 
         updateBillingAddress({
             variables: {
                 cartId,
                 firstName,
                 lastName,
-                country,
-                street1,
-                street2: street2 || '',
+                street,
                 city,
-                region,
-                postcode,
+                regionCode: region,
+                postCode: postcode,
+                countryCode: country,
                 phoneNumber,
                 sameAsShipping: false
             }

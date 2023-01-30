@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 
 export const AvailablePaymentMethodsFragment = gql`
     fragment AvailablePaymentMethodsFragment on Cart {
@@ -47,61 +46,6 @@ export const GET_PAYMENT_NONCE = gql`
     }
 `;
 
-export const SET_BILLING_ADDRESS = gql`
-    mutation setBillingAddressPaymentInformation(
-        $cartId: String!
-        $firstname: String!
-        $lastname: String!
-        $street: [String]!
-        $city: String!
-        $regionCode: String!
-        $postcode: String!
-        $countryCode: String!
-        $telephone: String!
-    ) {
-        setBillingAddressOnCart(
-            input: {
-                cart_id: $cartId
-                billing_address: {
-                    address: {
-                        firstname: $firstname
-                        lastname: $lastname
-                        street: $street
-                        city: $city
-                        region: $regionCode
-                        postcode: $postcode
-                        country_code: $countryCode
-                        telephone: $telephone
-                        save_in_address_book: false
-                    }
-                }
-            }
-        ) {
-            cart {
-                id
-                billing_address {
-                    firstname
-                    lastname
-                    country {
-                        code
-                    }
-                    street
-                    city
-                    region {
-                        code
-                    }
-                    postcode
-                    telephone
-                }
-                ...PriceSummaryFragment
-                ...AvailablePaymentMethodsFragment
-            }
-        }
-    }
-    ${PriceSummaryFragment}
-    ${AvailablePaymentMethodsFragment}
-`;
-
 // Sets the provided payment method object on the cart.
 export const SET_FREE_PAYMENT_METHOD_ON_CART = gql`
     mutation setPaymentMethodOnCartForFree($cartId: String!) {
@@ -120,6 +64,5 @@ export const SET_FREE_PAYMENT_METHOD_ON_CART = gql`
 export default {
     getPaymentNonceQuery: GET_PAYMENT_NONCE,
     getPaymentInformationQuery: GET_PAYMENT_INFORMATION,
-    setBillingAddressMutation: SET_BILLING_ADDRESS,
     setFreePaymentMethodMutation: SET_FREE_PAYMENT_METHOD_ON_CART
 };

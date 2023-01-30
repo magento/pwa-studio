@@ -6,7 +6,6 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
-
 import DEFAULT_OPERATIONS from './creditCard.gql';
 import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 
@@ -17,7 +16,7 @@ import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
  *
  * @param {ShippingCartAddress|BillingCartAddress} rawAddressData query data
  */
- export const mapAddressData = rawAddressData => {
+export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
         const { firstName, lastName, city, postcode, phoneNumber, street, country, region } = rawAddressData;
 
@@ -27,8 +26,7 @@ import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
             city,
             postcode,
             phoneNumber,
-            street1: street[0],
-            street2: street[1],
+            street,
             country: country.code,
             region: region.code
         };
@@ -82,8 +80,7 @@ export const getDefaultBillingAddress = customerAddressesData => {
  *      city: String,
  *      postcode: String,
  *      phoneNumber: String,
- *      street1: String,
- *      street2: String,
+ *      street: [String],
  *      country: String,
  *      state: String,
  *      isBillingAddressDefault: Boolean
@@ -109,14 +106,10 @@ export const useCreditCard = props => {
         setDefaultBillingAddressMutation
     } = operations;
 
-const {
-    recaptchaLoading,
-    generateReCaptchaData,
-    recaptchaWidgetProps
-} = useGoogleReCaptcha({
-    currentForm: 'BRAINTREE',
-    formAction: 'braintree'
-});
+    const { recaptchaLoading, generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
+        currentForm: 'BRAINTREE',
+        formAction: 'braintree'
+    });
 
     /**
      * Definitions
@@ -271,29 +264,18 @@ const {
      * information from the form.
      */
     const setBillingAddress = useCallback(() => {
-        const {
-            firstName,
-            lastName,
-            country,
-            street1,
-            street2,
-            city,
-            region,
-            postcode,
-            phoneNumber
-        } = formState.values;
+        const { firstName, lastName, country, street, city, region, postcode, phoneNumber } = formState.values;
 
         updateBillingAddress({
             variables: {
                 cartId,
                 firstName,
                 lastName,
-                country,
-                street1,
-                street2,
+                street,
                 city,
-                region,
-                postcode,
+                regionCode: region,
+                postCode: postcode,
+                countryCode: country,
                 phoneNumber,
                 sameAsShipping: false
             }
@@ -493,12 +475,7 @@ const {
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
         }
-    }, [
-        billingAddressMutationError,
-        billingAddressMutationCalled,
-        billingAddressMutationLoading,
-        resetShouldSubmit
-    ]);
+    }, [billingAddressMutationError, billingAddressMutationCalled, billingAddressMutationLoading, resetShouldSubmit]);
 
     /**
      * Default billing address mutation has completed
