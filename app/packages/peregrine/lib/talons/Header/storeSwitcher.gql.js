@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
-import { GET_STORE_CONFIG_DATA } from '../GraphqlGlobal/graphqlGlobal.gql';
+
+import { GET_STORE_CONFIG_DATA } from '../StoreConfig/storeConfig.gql';
 
 export const GET_ROUTE_DATA = gql`
     query getRouteData($url: String!) {

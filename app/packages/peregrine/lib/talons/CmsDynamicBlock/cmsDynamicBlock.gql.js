@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
-import { GET_STORE_CONFIG_DATA } from '../GraphqlGlobal/graphqlGlobal.gql';
+
+import { GET_STORE_CONFIG_DATA } from '../StoreConfig/storeConfig.gql';
 
 export const GET_CMS_DYNAMIC_BLOCKS = gql`
     query GetCmsDynamicBlocks(

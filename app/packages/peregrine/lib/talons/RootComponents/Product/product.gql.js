@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 
 import { ProductDetailsFragment } from './productDetailFragment.gql';
-import { GET_STORE_CONFIG_DATA } from '../../GraphqlGlobal/graphqlGlobal.gql';
+
+import { GET_STORE_CONFIG_DATA } from '../../StoreConfig/storeConfig.gql';
 
 export const GET_PRODUCT_DETAIL_QUERY = gql`
     query getProductDetailForProductPageProduct($urlKey: String!) {
