@@ -264,14 +264,24 @@ export const useCreditCard = props => {
      * information from the form.
      */
     const setBillingAddress = useCallback(() => {
-        const { firstName, lastName, country, street, city, region, postcode, phoneNumber } = formState.values;
+        const {
+            firstName,
+            lastName,
+            country,
+            street1,
+            street2,
+            city,
+            region,
+            postcode,
+            phoneNumber
+        } = formState.values;
 
         updateBillingAddress({
             variables: {
                 cartId,
                 firstName,
                 lastName,
-                street,
+                street: [street1, street2 || ''],
                 city,
                 regionCode: region,
                 postCode: postcode,

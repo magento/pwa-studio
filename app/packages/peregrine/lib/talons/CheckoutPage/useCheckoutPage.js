@@ -141,6 +141,7 @@ export const useCheckoutPage = props => {
         paymentMethodMutationCalled,
         paymentMethodMutationLoading
     };
+
     const onBillingAddressChangedSuccess = useCallback(() => {
         updatePaymentMethod({
             variables: { cartId, payment_method: currentSelectedPaymentMethod }

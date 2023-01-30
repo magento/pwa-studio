@@ -30,7 +30,7 @@ const PaymentMethods = props => {
     const { availablePaymentMethods, currentSelectedPaymentMethod, initialSelectedMethod, isLoading } = talonProps;
 
     useEffect(() => {
-        setCurrentSelectedPaymentMethod(currentSelectedPaymentMethod);
+        setCurrentSelectedPaymentMethod({ code: currentSelectedPaymentMethod });
     }, [currentSelectedPaymentMethod]);
 
     if (isLoading) {
