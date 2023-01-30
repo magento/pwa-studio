@@ -148,6 +148,14 @@ module.exports = [
         path: '../ComparePage'
     },
     {
+        name: 'Products Alert',
+        pattern: '/productsAlert',
+        path: '../ProductsAlert/CusotmerAlertPage',
+        authed: true,
+        redirectTo: '/sign-in',
+        isEnabled: process.env.B2BSTORE_VERSION === 'PREMIUM'
+    },
+    {
         name: 'BuyLaterNotes',
         pattern: '/mpsavecart',
         path: '../BuyLaterNotes/SavedCarts'
