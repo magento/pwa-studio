@@ -87,7 +87,7 @@ export const GET_SALES_RULES_DATA = gql`
 `;
 
 export const GET_PRODUCT_DETAIL_QUERY = gql`
-    query getProductDetailForProductPageCms($urlKey: String!) {
+    query getProductDetailForCmsDynamicBlock($urlKey: String!) {
         products(filter: { url_key: { eq: $urlKey } }) {
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {

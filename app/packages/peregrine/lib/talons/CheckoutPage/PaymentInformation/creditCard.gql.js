@@ -4,8 +4,7 @@ import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFr
 import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 
 import { GET_CUSTOMER_ADDRESSES } from '../../AddressBookPage/addressBookPage.gql';
-import { GET_BILLING_ADDRESS } from '../../CheckoutPage/BillingAddress/billingAddress.gql';
-import { SET_BILLING_ADDRESS } from '../BillingAddress/billingAddress.gql';
+import { GET_BILLING_ADDRESS, SET_BILLING_ADDRESS } from '../BillingAddress/billingAddress.gql';
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
