@@ -1,6 +1,9 @@
 import { gql } from '@apollo/client';
+
 import { CheckoutPageFragment } from './checkoutPageFragments.gql';
 import { OrderConfirmationPageFragment } from './OrderConfirmationPage/orderConfirmationPageFragments.gql';
+
+import { SET_PAYMENT_METHOD_ON_CART } from './PaymentInformation/paymentMethods.gql';
 
 export const CREATE_CART = gql`
     # This mutation will return a masked cart id. If a bearer token is provided for
@@ -52,20 +55,6 @@ export const GET_CUSTOMER = gql`
     }
 `;
 
-export const SET_PAYMENT_METHOD_ON_CART = gql`
-    mutation setPaymentMethodOnCartCheckoutPage($cartId: String!, $payment_method: String!) {
-        setPaymentMethodOnCart(input: { cart_id: $cartId, payment_method: { code: $payment_method } })
-            @connection(key: "setPaymentMethodOnCart") {
-            cart {
-                id
-                selected_payment_method {
-                    code
-                    title
-                }
-            }
-        }
-    }
-`;
 export default {
     createCartMutation: CREATE_CART,
     getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
