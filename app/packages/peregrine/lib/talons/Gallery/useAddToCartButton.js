@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '../../context/cart';
-import operations from './addToCart.gql';
 import { ADD_CONFIGURABLE_MUTATION, GET_PARENT_SKU } from '../QuickOrderForm/addProductByCsv.gql';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 /**
@@ -39,8 +38,6 @@ export const useAddToCartButton = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const [addToCart] = useMutation(operations.ADD_ITEM);
-
     const [addConfigurableProductToCart] = useMutation(ADD_CONFIGURABLE_MUTATION);
 
     const handleAddToCart = useCallback(async () => {
@@ -62,23 +59,6 @@ export const useAddToCartButton = props => {
                         parentSku: item.parentSku || parentSku
                     }
                 });
-
-                // await addToCart({  NOTE : USE addConfigurableProductToCart method
-                //     variables: {
-                //         cartId,
-                //         cartItem: {
-                //             quantity: quantity || 1,
-                //             entered_options: [
-                //                 {
-                //                     uid: item.uid,
-                //                     value: item.name
-                //                 }
-                //             ],
-                //             sku: item.sku
-                //         }
-                //     }
-                // });
-
                 setIsLoading(false);
             } else if (productType === 'ConfigurableProduct') {
                 history.push(`${item.url_key}${urlSuffix || ''}`);
@@ -88,7 +68,7 @@ export const useAddToCartButton = props => {
         } catch (error) {
             console.error(error);
         }
-    }, [addToCart, cartId, history, item.sku, item.url_key, productType, item.uid, item.name, urlSuffix, quantity]);
+    }, [cartId, history, item.sku, item.url_key, productType, item.uid, item.name, urlSuffix, quantity]);
 
     return {
         handleAddToCart,
