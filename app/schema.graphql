@@ -1464,11 +1464,6 @@ interface ProductInterface {
   # The categories assigned to a product.
   categories: [CategoryInterface]
   color: Int
-  color_asiento: Int
-  color_carcasa_tejido: Int
-  color_estructura: Int
-  color_tablero: Int
-  color_tejido: Int
 
   # The product's country of origin.
   country_of_manufacture: String
@@ -1489,7 +1484,6 @@ interface ProductInterface {
   fashion_material: String
   fashion_size: Int
   fashion_style: String
-  forma: Int
   format: Int
 
   # Indicates whether a gift message is available.
@@ -1504,7 +1498,6 @@ interface ProductInterface {
 
   # A number representing the product's manufacturer.
   manufacturer: Int
-  material_estructura: Int
 
   # An array of media gallery objects.
   media_gallery: [MediaGalleryInterface]
@@ -1512,7 +1505,6 @@ interface ProductInterface {
   # An array of MediaGalleryEntry objects.
   media_gallery_entries: [MediaGalleryEntry]
     @deprecated(reason: "Use `media_gallery` instead.")
-  medida_comercial: Int
 
   # A brief overview of the product for search results listings, maximum 255 characters.
   meta_description: String
@@ -8008,11 +8000,6 @@ type VirtualProduct implements ProductInterface & RoutableInterface & Customizab
   # The categories assigned to a product.
   categories: [CategoryInterface]
   color: Int
-  color_asiento: Int
-  color_carcasa_tejido: Int
-  color_estructura: Int
-  color_tablero: Int
-  color_tejido: Int
 
   # The product's country of origin.
   country_of_manufacture: String
@@ -8033,7 +8020,6 @@ type VirtualProduct implements ProductInterface & RoutableInterface & Customizab
   fashion_material: String
   fashion_size: Int
   fashion_style: String
-  forma: Int
   format: Int
 
   # Indicates whether a gift message is available.
@@ -8048,7 +8034,6 @@ type VirtualProduct implements ProductInterface & RoutableInterface & Customizab
 
   # A number representing the product's manufacturer.
   manufacturer: Int
-  material_estructura: Int
 
   # An array of media gallery objects.
   media_gallery: [MediaGalleryInterface]
@@ -8056,7 +8041,6 @@ type VirtualProduct implements ProductInterface & RoutableInterface & Customizab
   # An array of MediaGalleryEntry objects.
   media_gallery_entries: [MediaGalleryEntry]
     @deprecated(reason: "Use `media_gallery` instead.")
-  medida_comercial: Int
 
   # A brief overview of the product for search results listings, maximum 255 characters.
   meta_description: String
@@ -8207,11 +8191,6 @@ type SimpleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   # The categories assigned to a product.
   categories: [CategoryInterface]
   color: Int
-  color_asiento: Int
-  color_carcasa_tejido: Int
-  color_estructura: Int
-  color_tablero: Int
-  color_tejido: Int
 
   # The product's country of origin.
   country_of_manufacture: String
@@ -8232,7 +8211,6 @@ type SimpleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   fashion_material: String
   fashion_size: Int
   fashion_style: String
-  forma: Int
   format: Int
 
   # Indicates whether a gift message is available.
@@ -8247,7 +8225,6 @@ type SimpleProduct implements ProductInterface & RoutableInterface & PhysicalPro
 
   # A number representing the product's manufacturer.
   manufacturer: Int
-  material_estructura: Int
 
   # An array of media gallery objects.
   media_gallery: [MediaGalleryInterface]
@@ -8820,11 +8797,6 @@ type DownloadableProduct implements ProductInterface & RoutableInterface & Custo
   # The categories assigned to a product.
   categories: [CategoryInterface]
   color: Int
-  color_asiento: Int
-  color_carcasa_tejido: Int
-  color_estructura: Int
-  color_tablero: Int
-  color_tejido: Int
 
   # The product's country of origin.
   country_of_manufacture: String
@@ -8851,7 +8823,6 @@ type DownloadableProduct implements ProductInterface & RoutableInterface & Custo
   fashion_material: String
   fashion_size: Int
   fashion_style: String
-  forma: Int
   format: Int
 
   # Indicates whether a gift message is available.
@@ -8872,7 +8843,6 @@ type DownloadableProduct implements ProductInterface & RoutableInterface & Custo
 
   # A number representing the product's manufacturer.
   manufacturer: Int
-  material_estructura: Int
 
   # An array of media gallery objects.
   media_gallery: [MediaGalleryInterface]
@@ -8880,7 +8850,6 @@ type DownloadableProduct implements ProductInterface & RoutableInterface & Custo
   # An array of MediaGalleryEntry objects.
   media_gallery_entries: [MediaGalleryEntry]
     @deprecated(reason: "Use `media_gallery` instead.")
-  medida_comercial: Int
 
   # A brief overview of the product for search results listings, maximum 255 characters.
   meta_description: String
@@ -9304,11 +9273,6 @@ type BundleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   # The categories assigned to a product.
   categories: [CategoryInterface]
   color: Int
-  color_asiento: Int
-  color_carcasa_tejido: Int
-  color_estructura: Int
-  color_tablero: Int
-  color_tejido: Int
 
   # The product's country of origin.
   country_of_manufacture: String
@@ -9338,7 +9302,6 @@ type BundleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   fashion_material: String
   fashion_size: Int
   fashion_style: String
-  forma: Int
   format: Int
 
   # Indicates whether a gift message is available.
@@ -9356,7 +9319,6 @@ type BundleProduct implements ProductInterface & RoutableInterface & PhysicalPro
 
   # A number representing the product's manufacturer.
   manufacturer: Int
-  material_estructura: Int
 
   # An array of media gallery objects.
   media_gallery: [MediaGalleryInterface]
@@ -9364,7 +9326,6 @@ type BundleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   # An array of MediaGalleryEntry objects.
   media_gallery_entries: [MediaGalleryEntry]
     @deprecated(reason: "Use `media_gallery` instead.")
-  medida_comercial: Int
 
   # A brief overview of the product for search results listings, maximum 255 characters.
   meta_description: String
@@ -9851,11 +9812,6 @@ type GroupedProduct implements ProductInterface & RoutableInterface & PhysicalPr
   # The categories assigned to a product.
   categories: [CategoryInterface]
   color: Int
-  color_asiento: Int
-  color_carcasa_tejido: Int
-  color_estructura: Int
-  color_tablero: Int
-  color_tejido: Int
 
   # The product's country of origin.
   country_of_manufacture: String
@@ -9876,7 +9832,6 @@ type GroupedProduct implements ProductInterface & RoutableInterface & PhysicalPr
   fashion_material: String
   fashion_size: Int
   fashion_style: String
-  forma: Int
   format: Int
 
   # Indicates whether a gift message is available.
@@ -9894,7 +9849,6 @@ type GroupedProduct implements ProductInterface & RoutableInterface & PhysicalPr
 
   # A number representing the product's manufacturer.
   manufacturer: Int
-  material_estructura: Int
 
   # An array of media gallery objects.
   media_gallery: [MediaGalleryInterface]
@@ -9902,7 +9856,6 @@ type GroupedProduct implements ProductInterface & RoutableInterface & PhysicalPr
   # An array of MediaGalleryEntry objects.
   media_gallery_entries: [MediaGalleryEntry]
     @deprecated(reason: "Use `media_gallery` instead.")
-  medida_comercial: Int
 
   # A brief overview of the product for search results listings, maximum 255 characters.
   meta_description: String
@@ -10086,11 +10039,6 @@ type ConfigurableProduct implements ProductInterface & RoutableInterface & Physi
   # The categories assigned to a product.
   categories: [CategoryInterface]
   color: Int
-  color_asiento: Int
-  color_carcasa_tejido: Int
-  color_estructura: Int
-  color_tablero: Int
-  color_tejido: Int
 
   # An array of options for the configurable product.
   configurable_options: [ConfigurableProductOptions]
@@ -10119,7 +10067,6 @@ type ConfigurableProduct implements ProductInterface & RoutableInterface & Physi
   fashion_material: String
   fashion_size: Int
   fashion_style: String
-  forma: Int
   format: Int
 
   # Indicates whether a gift message is available.
@@ -10134,7 +10081,6 @@ type ConfigurableProduct implements ProductInterface & RoutableInterface & Physi
 
   # A number representing the product's manufacturer.
   manufacturer: Int
-  material_estructura: Int
 
   # An array of media gallery objects.
   media_gallery: [MediaGalleryInterface]
@@ -10142,7 +10088,6 @@ type ConfigurableProduct implements ProductInterface & RoutableInterface & Physi
   # An array of MediaGalleryEntry objects.
   media_gallery_entries: [MediaGalleryEntry]
     @deprecated(reason: "Use `media_gallery` instead.")
-  medida_comercial: Int
 
   # A brief overview of the product for search results listings, maximum 255 characters.
   meta_description: String
