@@ -1,8 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_COMPARE_LIST_CUSTOMER = gql`
-   # Write your query or mutation here
- query getCustomerCompareList {
+    query getCustomerCompareList {
         customer {
             compare_list {
                 item_count
@@ -31,10 +30,10 @@ export const GET_COMPARE_LIST_CUSTOMER = gql`
                                 final_price {
                                     value
                                 }
-                              regular_price{
-                                currency
-                                value
-                              }
+                                regular_price {
+                                    currency
+                                    value
+                                }
                             }
                             minimum_price {
                                 regular_price {
@@ -59,7 +58,7 @@ export const GET_COMPARE_LIST_CUSTOMER = gql`
     }
 `;
 export const GET_COMPARE_LIST = gql`
-    query getCompareList($uid: [ID!]) {
+    query getCompareList($uid: ID!) {
         compareList(uid: $uid) {
             item_count
             uid
@@ -154,9 +153,7 @@ export const ASSGIN_COMPARE_TO_CUSTOMER = gql`
 
 export const DELETE_PRODUCTS_FROM_LIST = gql`
     mutation deleteProductsFromList($uid: ID!, $products: [ID]!) {
-        removeProductsFromCompareList(
-            input: { uid: $uid, products: $products }
-        ) {
+        removeProductsFromCompareList(input: { uid: $uid, products: $products }) {
             uid
             item_count
             attributes {

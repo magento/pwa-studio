@@ -30,13 +30,13 @@ function reducer(state, action) {
 export const useDeliveryDate = () => {
     const [state, dispatch] = useReducer(reducer, deliveryDateData);
 
-    const { GET_DELIVERY_DATE, SET_DELIVERY_TIME, GET_LOCALE } = mergeOperations(DEFAULT_OPERATIONS);
+    const { getDeliveryDateQuery, setDeliveryTimeMutation, getLocaleQuery } = mergeOperations(DEFAULT_OPERATIONS);
 
     const handleChange = (name, value) => {
         dispatch({ type: name, value });
     };
 
-    const { data } = useQuery(GET_LOCALE, {
+    const { data } = useQuery(getLocaleQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -47,12 +47,12 @@ export const useDeliveryDate = () => {
 
     const [{ cartId }] = useCartContext();
 
-    const { data: deliveryDate } = useQuery(GET_DELIVERY_DATE, {
+    const { data: deliveryDate } = useQuery(getDeliveryDateQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const [deliverytime] = useMutation(SET_DELIVERY_TIME);
+    const [deliverytime] = useMutation(setDeliveryTimeMutation);
 
     const deliveryDateIsActivated = useMemo(() => {
         if (deliveryDate?.deliveryTime) {
