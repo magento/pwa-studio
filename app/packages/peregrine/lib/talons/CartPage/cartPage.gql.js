@@ -11,6 +11,24 @@ const GET_CART_DETAILS = gql`
     ${CartPageFragment}
 `;
 
+export const CREATE_CART = gql`
+    mutation CreateCart {
+        cartId: createEmptyCart
+    }
+`;
+
+export const IS_USER_AUTHED = gql`
+    query IsUserAuthed($cartId: String!) {
+        cart(cart_id: $cartId) {
+            # The purpose of this query is to check that the user is authorized
+            # to query on the current cart. Just fetch "id" to keep it small.
+            id
+        }
+    }
+`;
+
 export default {
-    getCartDetailsQuery: GET_CART_DETAILS
+    getCartDetailsQuery: GET_CART_DETAILS,
+    createCartMutation: CREATE_CART,
+    IsUserAuthedQuery: IS_USER_AUTHED
 };
