@@ -9,7 +9,7 @@ import { useStyle } from '../../classify';
 import defaultClasses from './addToCartButton.module.css';
 
 const AddToCartButton = props => {
-    const { item, urlSuffix } = props;
+    const { item, urlSuffix, handleOpendStockModal } = props;
     const talonProps = useAddToCartButton({
         item,
         urlSuffix,
@@ -64,7 +64,27 @@ const AddToCartButton = props => {
         </Button>
     );
 
-    return isInStock ? buttonInStock : buttonOutOfStock;
+    const buttonAlertStock = (
+        <Button
+            aria-label={formatMessage({
+                id: 'addToCartButton.itemOutOfStockAriaLabel',
+                defaultMessage: 'Out of Stock'
+            })}
+            className={classes.root}
+            // disabled={isDisabled}
+            onPress={handleOpendStockModal}
+            priority="high"
+            type="button"
+        >
+            {OutOfStockIcon}
+            <span className={classes.text}>
+                <FormattedMessage id="productAlert.Notify me" defaultMessage="Notify me" />
+            </span>
+        </Button>
+    );
+    const outOfStockBtn = process.env.B2BSTORE_VERSION === 'PREMIUM' ? buttonAlertStock : buttonOutOfStock;
+    
+    return isInStock ? buttonInStock : outOfStockBtn;
 };
 
 export default AddToCartButton;

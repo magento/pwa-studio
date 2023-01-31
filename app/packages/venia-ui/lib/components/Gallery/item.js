@@ -23,6 +23,9 @@ import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGallery
 import { useStyle } from '../../classify';
 import { useToasts } from '@magento/peregrine';
 
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import StockAlertModal from '@magento/venia-ui/lib/components/ProductsAlert/StockAlertModal';
+
 import defaultClasses from './item.module.css';
 
 import CompareIcon from './Icons/compare.svg';
@@ -57,6 +60,16 @@ const GalleryItem = props => {
 
     const compareProps = useCompareProduct();
     const { addProductsToCompare } = compareProps;
+
+    const productsAlert = useProductsAlert({ ItemSku: item.sku });
+    const {
+        formProps,
+        isStockModalOpened,
+        setisStockModalOpened,
+        submitStockAlert,
+        handleOpendStockModal,
+        isUserSignIn
+    } = productsAlert;
 
     const { handleAddCofigItemBySku } = useAddToQuote();
     const [isOpen, setIsOpen] = useState(false);
@@ -132,6 +145,7 @@ const GalleryItem = props => {
             }
             urlSuffix={productUrlSuffix}
             quantity={quantity}
+            handleOpendStockModal={handleOpendStockModal}
         />
     ) : (
         <div className={classes.unavailableContainer}>
@@ -376,6 +390,13 @@ const GalleryItem = props => {
                     product={selectedVeriant}
                     quantity={quantity}
                     setQuantity={val => setQuantity(val)}
+                />
+                <StockAlertModal
+                    onCancel={() => setisStockModalOpened(false)}
+                    isOpen={isStockModalOpened}
+                    onConfirm={submitStockAlert}
+                    formProps={formProps}
+                    isUserSignIn={isUserSignIn}
                 />
                 {/* {!isHomePage && wishlistButton} */}
             </div>
