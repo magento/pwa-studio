@@ -153,7 +153,7 @@ module.exports = [
         path: '../ProductsAlert/CusotmerAlertPage',
         authed: true,
         redirectTo: '/sign-in',
-        isEnabled: process.env.B2BSTORE_VERSION === 'PREMIUM'
+        isEnabled: process.env.B2BSTORE_VERSION === 'PREMIUM'&&'true'
     },
     {
         name: 'BuyLaterNotes',
