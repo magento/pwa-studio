@@ -4,8 +4,6 @@ import { useHistory } from 'react-router-dom';
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
-import getStyles from '../../RestApi/S3/getStyles';
-
 import { useModulesContext } from '../../context/modulesProvider';
 
 const dismissers = new WeakMap();
@@ -38,7 +36,7 @@ export const useApp = props => {
     const { handleError, handleIsOffline, handleIsOnline, markErrorHandled, renderError, unhandledErrors } = props;
     const history = useHistory();
 
-    const { enabledModules, fetchEnabledModules } = useModulesContext();
+    const { applyConfig } = useModulesContext();
 
     const reload = useCallback(() => {
         if (process.env.NODE_ENV !== 'development') {
@@ -81,44 +79,8 @@ export const useApp = props => {
         closeDrawer();
     }, [closeDrawer]);
 
-    function applyStylesInApp(styles) {
-        const stylekeys = Object.keys(styles);
-        console.log("Applying styles: ", styles)
-        for (const styleProps of stylekeys) {
-            for (const tokenKey of Object.keys(styles[styleProps])) {
-                document.documentElement.style.setProperty(tokenKey, styles[styleProps][tokenKey]);
-            }
-        }
-    }
-    
-    function applyDefaultStyles() {
-        import('../../../../venia-ui/lib/cssTokens.json').then(styles => {
-            applyStylesInApp(styles);
-        });
-    }
-    
-    function applyStyles() {
-    
-        if (process.env.MULTITENANT_ENABLED === 'true') {
-            getStyles()
-              .then((styles) => {
-                applyStylesInApp(styles)
-            })
-              .catch(() => {
-                applyDefaultStyles()
-            });
-          } else {
-            applyDefaultStyles();
-          }
-    }
-
     useEffect(() => {
-        console.log("Enabled modules: ", enabledModules)
-    }, [enabledModules]);
-
-    useEffect(() => {
-        applyStyles()
-        fetchEnabledModules();
+        applyConfig();
     }, []);
 
     return {

@@ -1,57 +1,61 @@
-import { useState } from 'react';
-
+import { useCallback, useState } from 'react';
 import getEnabledModules from '../../RestApi/Configuration/getModules';
 
 export const useModules = () => {
     const [enabledModules, setEnabledModules] = useState({});
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    let reply = {};
 
     class Module {
         constructor(moduleObj) {
-            this.enabled = moduleObj.ENABLED;
-            this.endpoint = moduleObj.ENDPOINT;
+            this.enabled = Boolean(moduleObj.ENABLED === 'true');
         }
 
         isEnabled() {
             return this.enabled;
         }
-
-        getEndpoint() {
-            return this.endpoint;
-        }
     }
 
-    const parseEnabledModules = enabledModulesObj => {
-        const modules = {};
-
-        for (const [key, value] of Object.entries(enabledModulesObj)) {
-            modules[key] = new Module(value);
-        }
-
-        console.log(modules);
-        return modules;
-    };
-
-    async function fetchEnabledModules() {
-        try {
-            reply = await getEnabledModules();
-            console.log('He hecho la llamada a la API');
-        } catch (err) {
-            setError(err);
-        } finally {
-            if (reply) {
-                setEnabledModules(parseEnabledModules(reply.env));
-                setLoading(false);
+    function applyDefaultConfig() {
+         const enabledModulesObj = {
+            "lms": {
+                "ENABLED": process.env.LMS_ENABLED
+            },
+            "csr": {
+                "ENABLED": process.env.CSR_ENABLED
             }
-        }
+        };
+
+        return enabledModulesObj
     }
 
-    fetchEnabledModules();
+    const fetchEnabledModules = useCallback(async function() {
+        const parseEnabledModules = enabledModulesObj => {
+            const modules = {};
+    
+            for (const [key, value] of Object.entries(enabledModulesObj)) {
+                modules[key] = new Module(value);
+            }
+    
+            return modules;
+        }
+
+        if (process.env.MULTITENANT_ENABLED === 'true') {
+            try {
+                const reply = await getEnabledModules();
+                setEnabledModules(parseEnabledModules(reply?.env));
+                return reply;
+            } catch (err) {
+                setError(err);
+            }
+        } else {
+            const defaultConfig = applyDefaultConfig();
+            const enabledModules = parseEnabledModules(defaultConfig);
+            setEnabledModules(enabledModules);
+        }
+    }, [ setError ]);
 
     return {
         enabledModules,
+        fetchEnabledModules
     };
-};
+}
