@@ -11,6 +11,5 @@ export const GiftCardSummaryFragment = gql`
                 currency
             }
         }
-        __typename
     }
 `;
