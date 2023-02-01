@@ -166,7 +166,7 @@ const GalleryItem = props => {
         const values = ele.values.map(({ default_label }) => default_label);
         return (
             <div className={classes.configurableWrapper} key={key + 'configurable_options'}>
-                <span className={classes.configrableLabel}>{ele.label} </span>{' '}
+                <span className={classes.configrableLabel}>{ele?.label} </span>{' '}
                 <Tippy
                     content={
                         <ul className={classes.list}>
@@ -214,7 +214,7 @@ const GalleryItem = props => {
 
     const getCategoriesValuesNameByVariant = variant => {
         return variant.attributes.map((attribute, i) => {
-            return item.configurable_options[i].values.find(value => value.value_index == attribute.value_index).label;
+            return item.configurable_options[i].values.find(value => value.value_index == attribute.value_index)?.label;
         });
     };
 
@@ -251,18 +251,18 @@ const GalleryItem = props => {
             parentSku: item.sku,
             value:
                 '....' +
-                variant.product.sku.slice(variants[0].product.sku.length - 6) +
+                variant.product.sku.slice(variants[0].product.sku?.length - 6) +
                 ' ' +
                 getCategoriesValuesNameByVariant(variant).join(' - ')
         }));
     };
     const customAttributes = () =>
         custom_attributes?.slice(0, 3).map(({ attribute_metadata, selected_attribute_options }) => {
-            let labelValue = selected_attribute_options.attribute_option[0].label;
-            labelValue.length > 15 ? (labelValue = labelValue.slice(0, 15) + '...') : labelValue;
+            let labelValue = selected_attribute_options.attribute_option[0]?.label;
+            labelValue?.length > 15 ? (labelValue = labelValue.slice(0, 15) + '...') : labelValue;
             return (
                 <div className={classes.customAttributes}>
-                    <span>{attribute_metadata.label}:</span>
+                    <span>{attribute_metadata?.label}:</span>
                     <span>{labelValue}</span>
                 </div>
             );
