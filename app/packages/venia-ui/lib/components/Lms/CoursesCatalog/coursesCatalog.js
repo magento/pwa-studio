@@ -5,6 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
+import ErrorView from '../../ErrorView';
 
 import CourseItem from '../CourseItem';
 import defaultClasses from './coursesCatalog.module.css';
@@ -18,7 +19,8 @@ const CoursesCatalog = props => {
         setSelectedButton,
         courses,
         userCourses,
-        userCoursesIdList
+        userCoursesIdList,
+        isEnabled
     } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
@@ -30,6 +32,10 @@ const CoursesCatalog = props => {
     const inProgressCoursesTitle = formatMessage({
         id: 'lms.inProgressCoursesTitle',
         defaultMessage: 'Your courses in progress'
+    });
+    const errorViewText = formatMessage({
+        id: 'magentoRoute.routeError',
+        defaultMessage: "Looks like the page you were hoping to find doesn't exist. Sorry about that."
     });
     const learningTitle = 'Learning';
 
@@ -121,6 +127,12 @@ const CoursesCatalog = props => {
             </Button>
         </div>
     );
+
+    if (!isEnabled) {
+        return (
+            <ErrorView message={errorViewText} />
+        );
+    }
 
     return (
         <div className={classes.container}>

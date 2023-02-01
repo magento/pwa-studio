@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Form } from 'informed';
 import { BrowserRouter, Link } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -15,6 +15,7 @@ import LoadingIndicator from '../../LoadingIndicator';
 import ResetButton from '../../OrderHistoryPage/resetButton';
 import TextInput from '../../TextInput';
 import TicketItem from '../TicketItem/ticketItem';
+import ErrorView from '../../ErrorView';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { useSupportPage } from '@magento/peregrine/lib/talons/Csr/useSupportPage';
@@ -50,6 +51,7 @@ const ContentDialog = props => {
         handleLoadMore,
         handleReset,
         handleSubmit,
+        isEnabled,
         legendModal,
         numPage,
         openTicketModal,
@@ -88,6 +90,10 @@ const ContentDialog = props => {
     const orderIssueText = formatMessage({ id: 'csr.orderIssue', defaultMessage: 'Order issue' });
     const enhancementText = formatMessage({ id: 'csr.enhancement', defaultMessage: 'Enhancement' });
     const loadingIndicatorText = formatMessage({ id: 'loadingIndicator.message', defaultMessage: 'Fetching Data...' });
+    const errorViewText = formatMessage({
+        id: 'magentoRoute.routeError',
+        defaultMessage: "Looks like the page you were hoping to find doesn't exist. Sorry about that."
+    });
 
     const sortProps = useSortTicket();
     const filterProps = useFilterTicket();
@@ -130,7 +136,7 @@ const ContentDialog = props => {
             return (
                 <FormattedMessage
                     id={'csr.emptyTicketsFilterAdvice'}
-                    defaultMessage={"Oops... It seems that no tickets were found related to your filters"}
+                    defaultMessage={'Oops... It seems that no tickets were found related to your filters'}
                 />
             );
         }
@@ -323,24 +329,40 @@ const ContentDialog = props => {
     );
 
     function chatBotButton() {
-        (function(w, d, x, id){
-            const s=d.createElement('script');
-            s.src='https://d2zasqxhmd6ne4.cloudfront.net/amazon-connect-chat-interface-client.js';
-            s.async=1;
-            s.id=id;
+        (function(w, d, x, id) {
+            const s = d.createElement('script');
+            s.src = 'https://d2zasqxhmd6ne4.cloudfront.net/amazon-connect-chat-interface-client.js';
+            s.async = 1;
+            s.id = id;
             d.getElementsByTagName('head')[0].appendChild(s);
-            w[x] =  w[x] || function() { (w[x].ac = w[x].ac || []).push(arguments) };
+            w[x] =
+                w[x] ||
+                function() {
+                    (w[x].ac = w[x].ac || []).push(arguments);
+                };
         })(window, document, 'amazon_connect', 'a3e036a3-33d6-4ab6-b4c9-6b1b3db8bb01');
-        amazon_connect('styles', { openChat: { color: 'white', backgroundColor: '#E8AA00'}, closeChat: { color: 'white', backgroundColor: '#E8AA00'} });
-        amazon_connect('snippetId', 'QVFJREFIaTl2VUdnV3lybUVtc0FxTFVtYk4vUHoxRGdsUDM2Vm4zaFp0YXlzdS8wUEFHNWM5UUNtSE1kOWUvczd2UlBxcGZPQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNL2Z3V1J5UW9NeWMrOENlNUFnRVFnQ3R6L24rOVBPWjkyWUtscEI3bmQ1YTloenFCcTU5UzFNYnFuNUM1RWVGSVcvc3QzRm5nK3p6Y2FTWGs6OkZMTEl2Qmh4eW83Q2VzbmlLaEtxN0hSbkRkNDByaTJZbmVOK1RhcTdmTDlTaW0wdkZ6Q1I0di9YZ2tLSmVLUXRaWDhwb01BZnZRaEF4OVMwYXZNNGJVSkFBdU1SWm9JcGhxVGl3K1BGcVhUY3M2UGdvYlNsLzVSeXM3cGYxQXlSd0taSUdWVnlCd2lyNXV4K21xa25LYk1zckd5N3FUdz0=');
-        amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown' ]);
+        amazon_connect('styles', {
+            openChat: { color: 'white', backgroundColor: '#E8AA00' },
+            closeChat: { color: 'white', backgroundColor: '#E8AA00' }
+        });
+        amazon_connect(
+            'snippetId',
+            'QVFJREFIaTl2VUdnV3lybUVtc0FxTFVtYk4vUHoxRGdsUDM2Vm4zaFp0YXlzdS8wUEFHNWM5UUNtSE1kOWUvczd2UlBxcGZPQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNL2Z3V1J5UW9NeWMrOENlNUFnRVFnQ3R6L24rOVBPWjkyWUtscEI3bmQ1YTloenFCcTU5UzFNYnFuNUM1RWVGSVcvc3QzRm5nK3p6Y2FTWGs6OkZMTEl2Qmh4eW83Q2VzbmlLaEtxN0hSbkRkNDByaTJZbmVOK1RhcTdmTDlTaW0wdkZ6Q1I0di9YZ2tLSmVLUXRaWDhwb01BZnZRaEF4OVMwYXZNNGJVSkFBdU1SWm9JcGhxVGl3K1BGcVhUY3M2UGdvYlNsLzVSeXM3cGYxQXlSd0taSUdWVnlCd2lyNXV4K21xa25LYk1zckd5N3FUdz0='
+        );
+        amazon_connect('supportedMessagingContentTypes', ['text/plain', 'text/markdown']);
         amazon_connect('customerDisplayName', function(callback) {
             const displayName = currentUser.firstname;
             callback(displayName);
-          });
+        });
         amazon_connect('authenticate', function(callback) {
             getJWT(locale).then(res => callback(res));
         });
+    }
+
+    if (!isEnabled) {
+        return (
+            <ErrorView message={errorViewText} />
+        );
     }
 
     return (
@@ -397,7 +419,7 @@ const ContentDialog = props => {
             />
             {successToast && successToastContainer}
             {errorToast && errorToastContainer}
-            <script type='text/javascript'>{chatBotButton()}</script>
+            <script type="text/javascript">{chatBotButton()}</script>
         </div>
     );
 };
