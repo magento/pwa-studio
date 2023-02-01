@@ -44,6 +44,11 @@ export const GET_CUSTOMERS_ALERTS = gql`
                         subscribe_created_at
                         subscribe_updated_at
                         subscriber_id
+                        product_data {
+                            name
+                            product_image_url
+                            sku
+                        }
                         type
                         website_id
                         __typename
@@ -71,6 +76,11 @@ export const GET_CUSTOMERS_ALERTS = gql`
                         subscriber_id
                         type
                         website_id
+                        product_data {
+                            name
+                            product_image_url
+                            sku
+                        }
                         __typename
                     }
                 }
