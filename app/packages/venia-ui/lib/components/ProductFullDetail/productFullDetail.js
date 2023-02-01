@@ -62,7 +62,8 @@ const ProductFullDetail = props => {
         isAddConfigurableLoading,
         cartId,
         customAttributes,
-        setOptionSelections
+        setOptionSelections,
+        selectedVarient
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -335,6 +336,7 @@ const ProductFullDetail = props => {
             tempTotalPrice={tempTotalPrice}
             wishlistButtonProps={wishlistButtonProps}
             customAttributes={customAttributes}
+            selectedVarient={selectedVarient}
         />
     );
 };

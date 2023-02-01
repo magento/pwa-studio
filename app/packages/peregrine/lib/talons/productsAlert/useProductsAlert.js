@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useQuery, useMutation } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
@@ -19,16 +19,23 @@ import {
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 export const useProductsAlert = props => {
+    const selectProductSku = props?.selectProductSku;
+    console.log('selectProductSku', selectProductSku);
+    const formApiRef = useRef(null);
+    const setFormApi = useCallback(api => (formApiRef.current = api), []);
+    const [formEmail, setFormEmail] = useState();
+    const formProps = {
+        initialValues: formEmail
+    };
+
     const ItemSku = props?.ItemSku;
     const [, { addToast }] = useToasts();
-    const [formEmail] = useState();
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isStockModalOpened, setisStockModalOpened] = useState(false);
     const [stockPageControl, setStockPageControl] = useState({});
     const [priceControlPage, setPriceControlPage] = useState({});
-    const formProps = {
-        initialValues: formEmail
-    };
+
     const [{ isSignedIn }] = useUserContext();
     const { loading, data: customersAlertsItems, refetch } = useQuery(GET_CUSTOMERS_ALERTS, {
         fetchPolicy: 'no-cache',
@@ -56,17 +63,32 @@ export const useProductsAlert = props => {
     }, [customersAlertsItems]);
 
     const handleOpendStockModal = () => setisStockModalOpened(true);
-    const submitPriceAlert = useCallback(async () => {
-        try {
-            if (isSignedIn) {
-                await submitCustomerPriceAlert();
-            } else {
-                await submiGuestPriceAlert();
+    const handleCloseModal = () => setisStockModalOpened(false);
+
+    const handleSubmitPriceAlert = useCallback(
+        async apiValue => {
+            console.log('apiValue', apiValue);
+            try {
+                if (isSignedIn) {
+                    await submitCustomerPriceAlert({
+                        variables: {
+                            productSku: selectProductSku
+                        }
+                    });
+                } else {
+                    await submiGuestPriceAlert({
+                        variables: {
+                            productSku: selectProductSku,
+                            email: apiValue?.email
+                        }
+                    });
+                }
+            } catch (error) {
+                console.log({ error });
             }
-        } catch (error) {
-            console.log({ error });
-        }
-    }, [submitCustomerPriceAlert, submiGuestPriceAlert, isSignedIn]);
+        },
+        [submitCustomerPriceAlert, submiGuestPriceAlert, isSignedIn, selectProductSku]
+    );
 
     const submitStockAlert = useCallback(
         async apiValue => {
@@ -129,7 +151,7 @@ export const useProductsAlert = props => {
     return {
         loading,
         customersAlertsItems: customersAlertsItems?.customer?.mp_product_alert,
-        submitPriceAlert,
+        handleSubmitPriceAlert,
         submitStockAlert,
         formProps,
         isModalOpen,
@@ -142,6 +164,8 @@ export const useProductsAlert = props => {
         setStockPageControl,
         stockPageControl,
         priceControlPage,
-        setPriceControlPage
+        setPriceControlPage,
+        handleCloseModal,
+        setFormApi
     };
 };

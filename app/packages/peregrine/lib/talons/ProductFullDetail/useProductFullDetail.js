@@ -557,6 +557,20 @@ export const useProductFullDetail = props => {
         storeConfig: storeConfigData ? storeConfigData.storeConfig : {}
     };
 
+    const selectedVarient = useMemo(() => {
+        const allKeysHaveDefinedValues = ![...optionSelections.entries()].some(([, value]) => value === undefined);
+
+        if (allKeysHaveDefinedValues) {
+            const item = findMatchingVariant({
+                optionCodes,
+                optionSelections,
+                variants: product.variants
+            });
+            return item;
+        }
+        return;
+    }, [optionSelections, optionCodes, product]);
+
     return {
         breadcrumbCategoryId,
         errorMessage: derivedErrorMessage,
@@ -585,6 +599,7 @@ export const useProductFullDetail = props => {
         addConfigurableProductToCart,
         isAddConfigurableLoading,
         cartId,
-        derivedOptionSelectionsKey
+        derivedOptionSelectionsKey,
+        selectedVarient
     };
 };

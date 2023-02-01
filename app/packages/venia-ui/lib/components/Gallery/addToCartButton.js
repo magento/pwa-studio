@@ -7,6 +7,7 @@ import Icon from '../Icon';
 import Button from '../Button';
 import { useStyle } from '../../classify';
 import defaultClasses from './addToCartButton.module.css';
+import NotifyButton from '../ProductsAlert/NotifyButton';
 
 const AddToCartButton = props => {
     const { item, urlSuffix, handleOpendStockModal } = props;
@@ -64,26 +65,13 @@ const AddToCartButton = props => {
         </Button>
     );
 
-    const buttonAlertStock = (
-        <Button
-            aria-label={formatMessage({
-                id: 'addToCartButton.itemOutOfStockAriaLabel',
-                defaultMessage: 'Out of Stock'
-            })}
-            className={classes.root}
-            // disabled={isDisabled}
-            onPress={handleOpendStockModal}
-            priority="high"
-            type="button"
-        >
-            {OutOfStockIcon}
-            <span className={classes.text}>
-                <FormattedMessage id="productAlert.Notify me" defaultMessage="Notify me" />
-            </span>
-        </Button>
-    );
-    const outOfStockBtn = process.env.B2BSTORE_VERSION === 'PREMIUM' ? buttonAlertStock : buttonOutOfStock;
-    
+    const outOfStockBtn =
+        process.env.B2BSTORE_VERSION === 'PREMIUM' ? (
+            <NotifyButton handleOpendStockModal={handleOpendStockModal} />
+        ) : (
+            buttonOutOfStock
+        );
+
     return isInStock ? buttonInStock : outOfStockBtn;
 };
 
