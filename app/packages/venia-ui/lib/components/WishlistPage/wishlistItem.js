@@ -8,9 +8,10 @@ import Image from '../Image';
 import Price from '../Price';
 
 import defaultClasses from './wishlistItem.module.css';
-import orangeThrashCan from './assets/orangeThrashCan.svg';
-import ShareIcon from './assets/share.svg';
+import { ShareWithBorderIcon } from '@magento/venia-ui/lib/assets/shareWithBorderIcon';
+import { ShareIcon } from '@magento/venia-ui/lib/assets/shareIcon';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { ThrashIcon } from '../../assets/ThrashIcon';
 
 const WishlistItem = props => {
     const { item } = props;
@@ -143,7 +144,7 @@ const WishlistItem = props => {
                 </span>{' '}
                 <article className={classes.shareAndCanContainer}>
                     <button onClick={handleShareClick} className={classes.shareIcon}>
-                        <img src={ShareIcon} alt="share icon" />
+                        <ShareIcon />
                     </button>
                     <button
                         className={classes.deleteItem}
@@ -151,7 +152,7 @@ const WishlistItem = props => {
                         aria-label={removeProductAriaLabel}
                         data-cy="wishlistItem-deleteItem"
                     >
-                        <img src={orangeThrashCan} alt="orangeThrashCan" />
+                        <ThrashIcon />
                     </button>
                 </article>
             </div>

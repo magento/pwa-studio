@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useModulesContext } from '../../context/modulesProvider';
 
 import getCourses from '@magento/peregrine/lib/RestApi/Lms/courses/getCourses';
 import getUserCourses from '@magento/peregrine/lib/RestApi/Lms/courses/getUserCourses';
 
 export const useLearningRoute = () => {
     const [{ isSignedIn }] = useUserContext();
+    const { enabledModules } = useModulesContext();
+    const isEnabled = enabledModules?.lms?.isEnabled();
 
     const [courses, setCourses] = useState();
     const [userCourses, setUserCourses] = useState();
@@ -50,11 +53,12 @@ export const useLearningRoute = () => {
 
     return {
         buttonSelected,
-        setSelectedButton,
         courses,
-        userCourses,
-        userCoursesIdList,
+        isEnabled,
+        setMarkAsDoneListQty,
+        setSelectedButton,
         setUserCoursesIdList,
-        setMarkAsDoneListQty
+        userCourses,
+        userCoursesIdList
     };
 };

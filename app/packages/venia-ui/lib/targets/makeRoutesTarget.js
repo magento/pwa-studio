@@ -24,17 +24,15 @@ function addRoutes(routeList, routes) {
         const redirectToProp = redirectTo ? `redirectTo={${redirectTo}} ` : '';
         const Component = route.authed ? AuthRouteComponent : 'Route';
 
-        if (route.isEnabled === undefined || route.isEnabled === 'true') {
-            routeList.prependJSX(
-                'Switch',
-                `<${Component} ${exact}${redirectToProp}path={${path}}><${AddedRoute}/></${Component}>`
-            );
+        routeList.prependJSX(
+            'Switch',
+            `<${Component} ${exact}${redirectToProp}path={${path}}><${AddedRoute}/></${Component}>`
+        );
 
-            routeList.insertAfterSource(
-                'const availableRoutes = [];',
-                'availableRoutes.push(' + JSON.stringify(route) + ');'
-            );
-        }
+        routeList.insertAfterSource(
+            'const availableRoutes = [];',
+            'availableRoutes.push(' + JSON.stringify(route) + ');'
+        );
     }
 }
 

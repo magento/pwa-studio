@@ -102,7 +102,6 @@ module.exports = [
         path: '../Lms/LearningRoute',
         authed: true,
         redirectTo: '/sign-in',
-        isEnabled: process.env.LMS_INVENTADO
     },
     {
         name: 'Course',
@@ -111,7 +110,6 @@ module.exports = [
         path: '../Lms/LearningRoute',
         authed: true,
         redirectTo: '/sign-in',
-        isEnabled: process.env.LMS_ENABLED
     },
     {
         name: 'Support',
@@ -120,7 +118,6 @@ module.exports = [
         path: '../Csr/SupportPage',
         authed: true,
         redirectTo: '/sign-in',
-        isEnabled: process.env.CSR_ENABLED
     },
     {
         name: 'AdminPwaLogin',

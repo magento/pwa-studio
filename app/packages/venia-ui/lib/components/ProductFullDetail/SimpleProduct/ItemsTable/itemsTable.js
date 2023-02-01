@@ -9,10 +9,12 @@ import Image from '@magento/venia-ui/lib/components/Image';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import defaultClasses from './itemsTable.module.css';
 import Button from '../../../Button';
-import inStock from '../icons/inStock.svg';
-import outOfStock from '../icons/outOfStock.svg';
-import copyToClipboard from '../icons/copyToClipboard.png';
 import QuantityStepper from '../../../QuantityStepper';
+
+import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
+import { OutStockIcon } from '@magento/venia-ui/lib/assets/outStockIcon';
+import copyToClipboard from '@magento/venia-ui/lib/assets/copyToClipboard.png';
+
 
 const ItemsTable = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -64,11 +66,11 @@ const ItemsTable = props => {
     const stockStatus =
         simpleProductData.stock_status === 'IN_STOCK' ? (
             <div className={classes.inStockContainer}>
-                <img src={inStock} alt="inStock" />
+                <InStockIcon />
             </div>
         ) : (
             <div className={classes.outStockContainer}>
-                <img src={outOfStock} alt="outOfStock" />
+                <OutStockIcon />
             </div>
         );
 

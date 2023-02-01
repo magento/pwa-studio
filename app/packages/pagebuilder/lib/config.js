@@ -30,6 +30,9 @@ import { DynamicBlockShimmer } from './ContentTypes/DynamicBlock';
 import { ImageShimmer } from './ContentTypes/Image';
 import { SliderShimmer } from './ContentTypes/Slider';
 
+import { useModulesContext } from '@magento/peregrine/lib/context/modulesProvider';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+
 /* istanbul ignore next */
 const contentTypesConfig = {
     row: {
@@ -120,12 +123,18 @@ const contentTypesConfig = {
     }
 };
 
-if (process.env.LMS_ENABLED === 'true') {
-    contentTypesConfig['pagebuilder_lms'] = {
-        configAggregator: courseSliderConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/CourseSlider'))
-    };
+const addLmsContentType = () => {
+    const { enabledModules } = useModulesContext();
+    const [{ isSignedIn }] = useUserContext();
+
+    if (enabledModules?.lms?.isEnabled() && isSignedIn) {
+        contentTypesConfig['pagebuilder_lms'] = {
+            configAggregator: courseSliderConfigAggregator,
+            component: React.lazy(() => import('./ContentTypes/CourseSlider'))
+        };
+    }
 }
+
 
 /**
  * Retrieve a content types configuration
@@ -134,6 +143,7 @@ if (process.env.LMS_ENABLED === 'true') {
  * @returns {*}
  */
 export function getContentTypeConfig(contentType) {
+    addLmsContentType();
     if (contentTypesConfig[contentType]) {
         return contentTypesConfig[contentType];
     }

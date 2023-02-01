@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
+import { useModulesContext } from '../../context/modulesProvider';
+
 const dismissers = new WeakMap();
 
 // Memoize dismisser funcs to reduce re-renders from func identity change.
@@ -31,15 +33,10 @@ const getErrorDismisser = (error, onDismissError) => {
  * }}
  */
 export const useApp = props => {
-    const {
-        handleError,
-        handleIsOffline,
-        handleIsOnline,
-        markErrorHandled,
-        renderError,
-        unhandledErrors
-    } = props;
+    const { handleError, handleIsOffline, handleIsOnline, markErrorHandled, renderError, unhandledErrors } = props;
     const history = useHistory();
+
+    const { applyConfig } = useModulesContext();
 
     const reload = useCallback(() => {
         if (process.env.NODE_ENV !== 'development') {
@@ -48,17 +45,7 @@ export const useApp = props => {
     }, [history]);
 
     const renderErrors = useMemo(
-        () =>
-            renderError
-                ? [
-                      errorRecord(
-                          renderError,
-                          globalThis,
-                          useApp,
-                          renderError.stack
-                      )
-                  ]
-                : [],
+        () => (renderError ? [errorRecord(renderError, globalThis, useApp, renderError.stack)] : []),
         [renderError]
     );
 
@@ -70,12 +57,7 @@ export const useApp = props => {
     // otherwise we infinitely loop.
     useEffect(() => {
         for (const { error, id, loc } of errors) {
-            handleError(
-                error,
-                id,
-                loc,
-                getErrorDismisser(error, handleDismissError)
-            );
+            handleError(error, id, loc, getErrorDismisser(error, handleDismissError));
         }
     }, [errors, handleDismissError, handleError]);
 
@@ -97,8 +79,13 @@ export const useApp = props => {
         closeDrawer();
     }, [closeDrawer]);
 
+    useEffect(() => {
+        applyConfig();
+    }, []);
+
     return {
         hasOverlay: !!overlay,
         handleCloseDrawer
     };
 };
+

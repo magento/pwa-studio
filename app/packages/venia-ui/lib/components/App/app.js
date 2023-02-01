@@ -7,6 +7,7 @@ import useDelayedTransition from '@magento/peregrine/lib/hooks/useDelayedTransit
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import globalCSS from '../../index.module.css';
+
 import { HeadProvider, StoreTitle } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';

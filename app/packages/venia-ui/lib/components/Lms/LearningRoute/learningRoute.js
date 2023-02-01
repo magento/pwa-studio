@@ -20,6 +20,7 @@ const LearningRoute = () => {
         buttonSelected,
         setSelectedButton,
         courses,
+        isEnabled,
         userCourses,
         userCoursesIdList,
         setUserCoursesIdList,
@@ -36,6 +37,7 @@ const LearningRoute = () => {
                         courses={courses}
                         userCourses={userCourses}
                         userCoursesIdList={userCoursesIdList}
+                        isEnabled={isEnabled}
                     />
                 </Route>
                 <Route path="/:lang*/course/:courseId">

@@ -118,7 +118,7 @@
     height: 25px;
 }
 
-.shareIcon img {
+.shareIcon svg {
     margin: 0 !important;
 }
 
@@ -152,23 +152,23 @@
 
 .inStock {
     display: flex;
-    color: #00893a;
+    color: var(--b2bstore-inStockIcon-color);
     font-weight: 400;
     font-size: 14px;
 }
 
-.inStock img {
+.inStock svg {
     margin-right: 8px !important;
     margin-top: 0 !important;
 }
 
-.outStock img {
+.outStock svg {
     margin-right: 8px;
 }
 
 .outStock {
     display: flex;
-    color: #f52f2f;
+    color: var(--b2bstore-outStockIcon-color);
     font-weight: 400;
     font-size: 14px;
     width: 120px;

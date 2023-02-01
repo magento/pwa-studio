@@ -25,11 +25,11 @@ import { useToasts } from '@magento/peregrine';
 
 import defaultClasses from './item.module.css';
 
-import CompareIcon from './Icons/compare.svg';
-import InStockIcon from './Icons/inStock.svg';
-import InfoIcon from './Icons/info.svg';
-import OutStockIcon from './Icons/outStock.svg';
-import ShareIcon from './Icons/share.svg';
+import { CompareIcon } from '@magento/venia-ui/lib/assets/compareIcon';
+import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
+import InfoIcon from '@magento/venia-ui/lib/assets/info.svg';
+import { OutStockIcon } from '@magento/venia-ui/lib/assets/outStockIcon';
+import { ShareIcon } from '@magento/venia-ui/lib/assets/shareIcon';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -173,12 +173,12 @@ const GalleryItem = props => {
             <>
                 {status === 'IN_STOCK' ? (
                     <span className={classes.inStock}>
-                        <img src={InStockIcon} alt="in stock" />
+                        <InStockIcon />
                         <FormattedMessage id={'galleryItem.inStock'} defaultMessage={'In stock'} />
                     </span>
                 ) : (
                     <span className={classes.outStock}>
-                        <img src={OutStockIcon} alt="out stock" />
+                        <OutStockIcon />
                         <FormattedMessage id={'galleryItem.outStock'} defaultMessage={'Out of stock'} />
                     </span>
                 )}
@@ -308,7 +308,7 @@ const GalleryItem = props => {
                 ) : null}
                 <div className={classes.favIcon}>{wishlistButton}</div>
                 <div onClick={shareClick} className={classes.shareIcon}>
-                    <img src={ShareIcon} alt="share icon" />
+                    <ShareIcon />
                 </div>
                 <div className={classes.stockIcon}>
                     <StockStatus status={stock_status} />
@@ -367,7 +367,7 @@ const GalleryItem = props => {
                     ? requestQuoteButton
                     : addButton}
                 <button className={classes.compareIcon} onClick={addToCompare}>
-                    <img src={CompareIcon} alt="compare icon" />
+                    <CompareIcon />
                 </button>
                 <ConfirmationModal
                     isOpen={isOpen}

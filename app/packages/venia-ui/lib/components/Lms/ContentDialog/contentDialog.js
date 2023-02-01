@@ -5,7 +5,7 @@ import Dialog from '@magento/venia-ui/lib/components/Dialog';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
-import OpenIcon from './Icons/open.svg';
+import OpenIcon from '@magento/venia-ui/lib/assets/open.svg';
 
 import defaultClasses from './contentDialog.module.css';
 

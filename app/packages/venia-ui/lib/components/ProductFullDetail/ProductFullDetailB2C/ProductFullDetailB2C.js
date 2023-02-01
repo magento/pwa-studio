@@ -14,7 +14,7 @@ const WishlistButton = React.lazy(() =>
 );
 
 import defaultClasses from './ProductFullDetailB2C.module.css';
-import noImage from './icons/product-package-cancelled.svg';
+import noImage from '@magento/venia-ui/lib/assets/product-package-cancelled.svg';
 
 const ProductFullDetailB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);

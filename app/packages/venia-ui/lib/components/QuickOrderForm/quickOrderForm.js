@@ -17,7 +17,7 @@ import { useAddToQuote } from '@magento/peregrine/lib/talons/QuickOrderForm/useA
 
 import defaultClasses from './quickOrderForm.module.css';
 
-import fastCart from './Icons/fastCart.svg';
+import fastCart from '@magento/venia-ui/lib/assets/fastCart.svg';
 
 const initialArray = [{ name: '', quantity: 1 }];
 

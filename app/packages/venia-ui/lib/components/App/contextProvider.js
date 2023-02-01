@@ -8,6 +8,7 @@ import LocaleProvider from './localeProvider';
 import { NoReorderProductProvider } from '../NoReorderProductProvider/noReorderProductProvider';
 import { DownloadCsvProvider } from '../Gallery/DownloadCsvProvider/downloadCsvProvider';
 import { PrintPdfProvider } from '../CartPage/PrintPdfProvider/printPdfProvider';
+import { ModulesProvider } from '@magento/peregrine/lib/context/modulesProvider';
 /**
  * List of context providers that are required to run Venia
  *
@@ -21,7 +22,9 @@ const ContextProvider = ({ children }) => {
             <PrintPdfProvider>
                 <DownloadCsvProvider>
                     <NoReorderProductProvider>
-                        <ContextProvider>{memo}</ContextProvider>
+                        <ModulesProvider>
+                            <ContextProvider>{memo}</ContextProvider>
+                        </ModulesProvider>
                     </NoReorderProductProvider>
                 </DownloadCsvProvider>
             </PrintPdfProvider>
