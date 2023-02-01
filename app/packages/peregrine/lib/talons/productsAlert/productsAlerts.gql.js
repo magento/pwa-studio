@@ -20,12 +20,17 @@ const subscriberOutput = gql`
     }
 `;
 
-
 export const GET_CUSTOMERS_ALERTS = gql`
-    query getCustomersAlerts {
+    query getCustomersAlerts($priceCurrentPage: Int = 1, $stockCurrentPage: Int = 1) {
         customer {
             mp_product_alert {
-                product_price {
+                product_price(pageSize: 5, currentPage: $priceCurrentPage) {
+                    pageInfo {
+                        currentPage
+                        hasNextPage
+                        pageSize
+                    }
+                    total_count
                     items {
                         customer_email
                         customer_group
@@ -44,7 +49,13 @@ export const GET_CUSTOMERS_ALERTS = gql`
                         __typename
                     }
                 }
-                out_of_stock {
+                out_of_stock(pageSize: 5, currentPage: $stockCurrentPage) {
+                    total_count
+                    pageInfo {
+                        currentPage
+                        hasNextPage
+                        pageSize
+                    }
                     items {
                         customer_email
                         customer_group
@@ -102,4 +113,10 @@ export const SUBMIT_GUEST_STOCK_ALERT = gql`
         }
     }
     ${subscriberOutput}
+`;
+
+export const SUBMIT_DELETE_ALERT = gql`
+    mutation MpProductAlertSubscriberDelete($id: Int!) {
+        MpProductAlertSubscriberDelete(input: { id: $id })
+    }
 `;
