@@ -48,60 +48,8 @@ export const SIGN_IN = gql`
     }
 `;
 
-export const GET_CART_DETAILS = gql`
-    query GetCartDetailsAfterCheckout($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
-            items {
-                uid
-                prices {
-                    price {
-                        value
-                    }
-                }
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
-                product {
-                    uid
-                    name
-                    sku
-                    small_image {
-                        url
-                        label
-                    }
-                    price {
-                        regularPrice {
-                            amount {
-                                value
-                            }
-                        }
-                    }
-                }
-                quantity
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
-                ... on ConfigurableCartItem {
-                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
-                    configurable_options {
-                        configurable_product_option_uid
-                        option_label
-                        configurable_product_option_value_uid
-                        value_label
-                    }
-                }
-            }
-            prices {
-                grand_total {
-                    value
-                    currency
-                }
-            }
-        }
-    }
-`;
-
 export default {
     createAccountMutation: CREATE_ACCOUNT,
-    getCartDetailsQuery: GET_CART_DETAILS,
     getCustomerQuery: GET_CUSTOMER,
     signInMutation: SIGN_IN
 };

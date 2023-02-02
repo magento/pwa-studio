@@ -14,7 +14,6 @@ import { useStyle } from '../../classify';
 import defaultClasses from './product.module.css';
 
 import { REMOVE_ITEM_MUTATION } from './cartOptions.gql';
-import { gql } from '@apollo/client';
 
 const QUANTITY_OPERATOR = '×';
 
@@ -25,7 +24,6 @@ const Product = props => {
 
     const talonProps = useProduct({
         beginEditItem,
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         item,
         removeItemMutation: REMOVE_ITEM_MUTATION
     });
@@ -102,50 +100,3 @@ Product.propTypes = {
 };
 
 export default Product;
-
-export const GET_CART_DETAILS_QUERY = gql`
-    query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            items {
-                uid
-                prices {
-                    price {
-                        value
-                    }
-                }
-                product {
-                    id
-                    name
-                    sku
-                    small_image {
-                        url
-                        label
-                    }
-                    price {
-                        regularPrice {
-                            amount {
-                                value
-                            }
-                        }
-                    }
-                }
-                quantity
-                ... on ConfigurableCartItem {
-                    configurable_options {
-                        id
-                        option_label
-                        value_id
-                        value_label
-                    }
-                }
-            }
-            prices {
-                grand_total {
-                    value
-                    currency
-                }
-            }
-        }
-    }
-`;

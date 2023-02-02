@@ -6,10 +6,10 @@ import { useUserContext } from '../../../context/user';
 import { useCartContext } from '../../../context/cart';
 import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
 import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
-
-import createCartMutation from '../../CartPage/cartPage.gql';
-import DEFAULT_OPERATIONS from './createAccount.gql';
 import { useEventingContext } from '../../../context/eventing';
+
+import DEFAULT_OPERATIONS from './createAccount.gql';
+import CART_OPERATIONS from '../../CartPage/cartPage.gql';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -33,8 +33,16 @@ import { useEventingContext } from '../../../context/eventing';
 export const useCreateAccount = props => {
     const { initialValues = {}, onSubmit } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { createAccountMutation, getCartDetailsQuery, getCustomerQuery, signInMutation } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+
+    const {
+        createAccountMutation,
+        createCartMutation,
+        getCartDetailsQuery,
+        getCustomerQuery,
+        signInMutation
+    } = operations;
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [{ isGettingDetails }, { getUserDetails, setToken }] = useUserContext();

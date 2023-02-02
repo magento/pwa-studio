@@ -7,7 +7,7 @@ import { useCartContext } from '../../context/cart';
 
 import mergeOperations from '../../util/shallowMerge';
 
-import createCartMutation from '../CartPage/cartPage.gql';
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
 
 import CheckoutError from './CheckoutError';
@@ -66,15 +66,19 @@ export const CHECKOUT_STEP = {
  */
 export const useCheckoutPage = props => {
     const { submitDeliveryDate, deliveryDateIsActivated, submitOrderAttribute } = props;
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { setNoProduct } = useNoReorderProductContext();
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+
     const {
+        createCartMutation,
         getCheckoutDetailsQuery,
         getCustomerQuery,
         getOrderDetailsQuery,
         placeOrderMutation,
         setPaymentMethodOnCartMutation
     } = operations;
+
+    const { setNoProduct } = useNoReorderProductContext();
 
     const { generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
         currentForm: 'PLACE_ORDER',

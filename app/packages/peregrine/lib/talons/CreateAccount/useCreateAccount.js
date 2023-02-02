@@ -8,7 +8,7 @@ import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
-import createCartMutation from '../CartPage//cartPage.gql';
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
 import DEFAULT_OPERATIONS from './createAccount.gql';
 import { useEventingContext } from '../../context/eventing';
 
@@ -36,14 +36,17 @@ import { useModulesContext } from '../../context/modulesProvider';
 export const useCreateAccount = props => {
     const { initialValues = {}, onSubmit, onCancel } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+
     const {
         createAccountMutation,
+        createCartMutation,
         getCartDetailsQuery,
         getCustomerQuery,
         mergeCartsMutation,
         signInMutation
     } = operations;
+    
     const apolloClient = useApolloClient();
 
     const { enabledModules } = useModulesContext();

@@ -8,7 +8,7 @@ import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
 
-import createCartMutation from '../CartPage/cartPage.gql';
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
 import DEFAULT_OPERATIONS from './signIn.gql';
 import { useEventingContext } from '../../context/eventing';
 
@@ -18,10 +18,17 @@ import doLmsLogin from '@magento/peregrine/lib/RestApi/Lms/auth/login.js';
 import { useModulesContext } from '../../context/modulesProvider';
 
 export const useSignIn = props => {
-    const { getCartDetailsQuery, setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerQuery, mergeCartsMutation, signInMutation } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+    
+    const {
+        getCustomerQuery,
+        mergeCartsMutation,
+        signInMutation,
+        getCartDetailsQuery,
+        createCartMutation
+    } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);

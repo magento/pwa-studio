@@ -7,7 +7,8 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '../../util/appendOptionsToPayload';
 import { isProductConfigurable } from '../../util/isProductConfigurable';
 
-import createCartMutation from '../CartPage/cartPage.gql';
+import DEFAULT_OPERATIONS from '../CartPage/cartPage.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 const isItemMissingOptions = (cartItem, configItem, numSelections) => {
     // Non-configurable products can't be missing options
@@ -30,10 +31,12 @@ export const useCartOptions = props => {
         cartItem,
         configItem,
         endEditItem,
-        getCartDetailsQuery,
         removeItemMutation,
         updateItemMutation
     } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { createCartMutation, getCartDetailsQuery } = operations;
 
     const { configurable_options: cartItemOptions, product, quantity: qty } = cartItem;
     const { name, price } = product;

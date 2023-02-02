@@ -4,7 +4,6 @@ import { useMutation } from '@apollo/client';
 
 import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha';
 
-import { GET_CART_DETAILS_QUERY } from '@magento/venia-ui/lib/components/SignIn/signIn.gql.js';
 import { useSignIn } from '../SignIn/useSignIn';
 import modifyLmsCustomer from '@magento/peregrine/lib/RestApi/Lms/users/modifyCustomer';
 import { useModulesContext } from '../../context/modulesProvider';
@@ -33,9 +32,7 @@ export const useResetPassword = props => {
         formAction: 'resetPassword'
     });
 
-    const { handleSubmit: handleSignIn } = useSignIn({
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY
-    });
+    const { handleSubmit: handleSignIn } = useSignIn();
 
     const searchParams = useMemo(() => new URLSearchParams(location.search), [location]);
     const token = searchParams.get('token');

@@ -2,11 +2,16 @@ import { useCallback, useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { SHARE_CART } from './buyLaterNotes.gql';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
-import { GET_CART_DETAILS } from '@magento/peregrine/lib/talons/CreateAccount/createAccount.gql';
+
+import { SHARE_CART } from './buyLaterNotes.gql';
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useShareCartPage = async () => {
+    const operations = mergeOperations(CART_OPERATIONS);
+    const { getCartDetailsQuery } = operations;
+
     const [isLoading, setIsLoading] = useState(true);
     const [shareCartUpadte, setShareCartUpadte] = useState(1);
     const { pathname } = useLocation();
@@ -18,7 +23,7 @@ export const useShareCartPage = async () => {
     // Share Cart
     const [getShareCart] = useMutation(SHARE_CART);
 
-    const fetchCartDetails = useAwaitQuery(GET_CART_DETAILS);
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const handleShareCart = useCallback(async () => {
         const token = url[5];
