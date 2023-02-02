@@ -1,0 +1,112 @@
+.root {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    grid-template-columns: 50px 1fr 1fr 1fr 0.7fr;
+}
+
+.image {
+    composes: items-center from global;
+    composes: inline-flex from global;
+    composes: justify-center from global;
+}
+
+.cartImages {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    width: 40px;
+}
+
+.thumbnail {
+    composes: h-[75px] from global;
+    composes: max-h-[75px] from global;
+    composes: object-contain from global;
+    composes: object-center from global;
+}
+
+.name {
+    composes: break-words from global;
+}
+
+.addButton {
+    composes: root_highPriority from '../Button/button.module.css';
+    min-width: auto;
+    width: fit-content;
+    padding: 0.5rem;
+}
+
+.addButtonMobile {
+    display: none;
+    visibility: hidden;
+    composes: root_highPriority from '../Button/button.module.css';
+    min-width: fit-content;
+}
+
+@media only screen and (max-width: 980px) {
+    .addButtonMobile {
+        display: inline-block;
+        visibility: visible;
+    }
+
+    .addButton {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+@media only screen and (max-width: 680px) {
+    .root {
+        grid-template-columns: 40px 1fr 40px 1fr;
+    }
+}
+
+@media (max-width: 450px) {
+    .root {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .sku {
+        grid-row-start: 2;
+        grid-column-start: 1;
+    }
+
+    .addButtonMobile {
+        grid-row-start: 2;
+        grid-column-start: 2;
+    }
+
+    .price {
+        grid-row-start: 2;
+        grid-column-start: 3;
+    }
+}
+
+.productSkuContainer {
+    cursor: pointer;
+}
+
+.productSkuContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.productSkuContainer img {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}
+
+.productSkuContainer a:hover {
+    color: var(--b2bstore-global-color-orange);
+    font-weight: bold;
+}
+
+.copiedText {
+    color: var(--b2bstore-global-color-orange);
+    font-weight: bold;
+}

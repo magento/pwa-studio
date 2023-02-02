@@ -1,0 +1,37 @@
+.root {
+    composes: col-end-4 from global;
+    composes: col-start-3 from global;
+    composes: inline-block from global;
+    composes: mt-1 from global;
+    composes: relative from global;
+    composes: row-end-4 from global;
+    composes: row-start-1 from global;
+}
+
+.dropdown {
+    composes: absolute from global;
+    composes: bg-body from global;
+    composes: grid from global;
+    composes: items-center from global;
+    composes: right-5 from global;
+    composes: top-0 from global;
+    composes: z-dropdown from global;
+    box-shadow: 0 0 1px rgb(0, 0, 0, 0.2);
+    transition: 256ms ease-out;
+    transform: scale(0);
+    transform-origin: 100% 0;
+    display: none !important;
+}
+
+.dropdown_active {
+    composes: dropdown;
+    display: block !important;
+    composes: absolute from global;
+    transform: scale(1);
+    transition: 250ms var(--venia-global-anim-bounce);
+}
+
+.kebab {
+    composes: bg-white from global;
+    composes: border-0 from global;
+}

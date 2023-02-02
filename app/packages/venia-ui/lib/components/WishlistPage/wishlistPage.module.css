@@ -1,0 +1,35 @@
+.root {
+    composes: gap-y-xs from global;
+    composes: grid from global;
+    composes: pl-sm from global;
+    composes: pr-sm from global;
+    composes: py-md from global;
+
+    composes: lg_gap-y-[1rem] from global;
+    composes: lg_px-md from global;
+}
+
+.heading {
+    composes: font-bold from global;
+    font-family: var(--b2bstore-font-family);
+    composes: justify-self-center from global;
+    /* composes: pb-xs from global; */
+
+    composes: lg_pb-xs from global;
+}
+
+.errorContainer {
+    composes: justify-self-center from global;
+}
+
+.fetchError {
+    composes: border-l-4 from global;
+    composes: border-solid from global;
+    composes: border-error from global;
+    composes: font-semibold from global;
+    composes: pl-xs from global;
+    composes: pr-0 from global;
+    composes: py-2.5 from global;
+    composes: text-error from global;
+    composes: text-sm from global;
+}

@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`#useSuggestedCategory returns valid destination 1`] = `"/search.html?query=bar&category_id%5Bfilter%5D=foo%2C1"`;

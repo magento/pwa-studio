@@ -1,0 +1,168 @@
+/* CUSTOM STYLES */
+.infoContainer {
+    margin-bottom: 15px;
+}
+.info {
+    font-size: 11px;
+}
+
+.footerLogo {
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--b2bstore-global-color-gray);
+}
+
+.nullDiv {
+    border-right: 2px solid var(--b2bstore-global-color-gray);
+}
+.label {
+    color: var(--b2bstore-global-color-black);
+}
+
+.branding {
+    display: flex;
+    justify-content: space-between;
+    height: 76px;
+    align-items: center;
+    padding: 0px 88px 0px 88px;
+    width: 100%;
+}
+
+.copyrightContainer,
+.socialMediaContainer {
+    display: flex;
+    align-items: center;
+}
+
+.socialMediaB2bLogoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.b2bLogoContainer {
+    margin-left: 36px;
+}
+
+.logos {
+    margin-right: 10px;
+}
+
+@media (max-width: 960px) {
+    .nullDiv {
+        display: none;
+    }
+    .branding {
+        padding: 0px 22px 0px 22px;
+    }
+}
+
+@media (max-width: 414px) {
+    .branding {
+        padding: 0px 22px 0px 22px;
+        flex-direction: column;
+    }
+}
+
+/* DEFAULT STYLES */
+.root {
+    composes: border-t-2 from global;
+    composes: border-solid from global;
+    composes: border-light from global;
+    composes: gap-y-16 from global;
+    composes: grid from global;
+    composes: leading-normal from global;
+    composes: max-w-site from global;
+    composes: min-h-[15rem] from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: pt-16 from global;
+    composes: text-sm from global;
+    composes: text-subtle from global;
+    composes: w-full from global;
+    background-color: var(--b2bstore-background-color);
+}
+
+.links {
+    composes: gap-x-md from global;
+    composes: gap-y-lg from global;
+    composes: grid from global;
+    composes: grid-cols-6 from global;
+    composes: grid-flow-row-dense from global;
+    composes: px-xs from global;
+
+    composes: xs_px-md from global;
+    composes: lg_gap-x-sm from global;
+    composes: lg_gap-y-md from global;
+    composes: lg_grid-cols-12 from global;
+}
+
+.linkGroup {
+    composes: col-span-3 from global;
+    composes: content-start from global;
+    composes: gap-xs from global;
+    composes: grid from global;
+
+    composes: xs_col-span-2 from global;
+}
+
+.linkItem {
+    composes: first_text-colorDefault from global;
+    composes: first_font-semibold from global;
+}
+
+.callout {
+    composes: col-span-3 from global;
+    composes: leading-normal from global;
+    composes: max-w-[20rem] from global;
+    composes: text-sm from global;
+
+    composes: xs_col-span-6 from global;
+    composes: xs_mx-auto from global;
+    composes: sm_col-span-3 from global;
+}
+
+.calloutHeading {
+    composes: font-semibold from global;
+    composes: text-colorDefault from global;
+    composes: text-sm from global;
+}
+
+.calloutBody {
+    composes: mx-0 from global;
+    composes: my-xs from global;
+}
+
+.socialLinks {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-start from global;
+}
+
+.legal {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    grid-area: c;
+
+    composes: lg_justify-end from global;
+}
+
+.copyright {
+    grid-area: b;
+    composes: text-center from global;
+}
+
+.logoContainer {
+    grid-area: a;
+    composes: mt-10 from global;
+
+    composes: lg_mt-0 from global;
+}
+
+.logo {
+    height: var(--height);
+    width: var(--width);
+}

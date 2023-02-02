@@ -1,7 +1,0 @@
-.filterButton {
-    composes: root_lowPriority from '../Button/button.module.css';
-
-    composes: min-w-[6.25rem] from global;
-
-    composes: lg_hidden from global;
-}

@@ -1,6 +1,0 @@
-# Some fixture code breaks linting
-__fixtures__
-# Minified build assets
-dist
-# Devdocs is a separate project
-pwa-devdocs

@@ -1,0 +1,39 @@
+{
+  "name": "@magento/babel-preset-peregrine",
+  "version": "1.2.2-beta.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Babel configuration common to progressive web projects build with Peregrine",
+  "main": "index.js",
+  "scripts": {
+    "clean": " "
+  },
+  "repository": "github:magento/pwa-studio",
+  "author": "Adobe Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "bugs": {
+    "url": "https://github.com/magento/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/babel-preset-peregrine#readme",
+  "peerDependencies": {
+    "@babel/core": "~7.15.0",
+    "@babel/plugin-proposal-class-properties": "~7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "~7.14.7",
+    "@babel/plugin-proposal-optional-chaining": "~7.16.0",
+    "@babel/plugin-syntax-dynamic-import": "~7.8.3",
+    "@babel/plugin-syntax-jsx": "~7.2.0",
+    "@babel/plugin-transform-react-jsx": "~7.14.9",
+    "@babel/plugin-transform-runtime": "~7.4.4",
+    "@babel/preset-env": "~7.16.0",
+    "@babel/runtime": "~7.15.3",
+    "babel-plugin-dynamic-import-node": "~2.3.3",
+    "babel-plugin-graphql-tag": "~2.0.0",
+    "babel-plugin-react-remove-properties": "~0.3.0",
+    "react-refresh": "~0.8.3"
+  },
+  "engines": {
+    "node": ">=14.x",
+    "yarn": ">=1.12.0"
+  }
+}

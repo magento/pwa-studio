@@ -1,0 +1,99 @@
+/* Breadcrumbs */
+.root {
+    --whitespace-start: 1rem;
+    --whitespace-end: 10px;
+
+    composes: h-auto from global;
+    padding-left: var(--whitespace-start);
+    padding-top: var(--whitespace-start);
+    padding-bottom: var(--whitespace-end); /* Allow space for focus ring */
+    margin-bottom: calc(-1 * var(--whitespace-end)); /* Prevent focus ring space affecting the rest of the UI */
+    font-size: 0.875rem;
+
+    /* Permanent height to prevent pop-in. */
+    height: calc(0.875rem + var(--whitespace-start) + var(--whitespace-end));
+
+    /* Show ellipses when overflowing. */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text {
+    padding: 0.25rem;
+}
+
+.divider {
+    composes: text;
+}
+
+.link {
+    composes: text;
+    text-decoration: underline;
+}
+
+.currentPage {
+    composes: text;
+}
+
+/* Buttons */
+.switchViewButtonContainer {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.allCoursesButton {
+    composes: root_highPriority from '../../Button/button.module.css';
+    width: 280px;
+}
+
+.inProgressButton {
+    composes: root_highPriorityInv from '../../Button/button.module.css';
+    width: 280px;
+}
+
+.emptyUserCoursesAdviceContainer {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.emptyUserCoursesAdviceText {
+    text-align: center;
+}
+
+.noCoursesImage {
+    width: 100px;
+}
+
+/* Catalog */
+.container {
+    display: grid;
+    padding: 0 1rem 2rem 1rem;
+    row-gap: 2rem;
+}
+
+.bodyContainer {
+    display: grid;
+    row-gap: 2rem;
+}
+
+.pageTitle {
+    justify-self: center;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.courseContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+}

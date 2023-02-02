@@ -1,0 +1,17 @@
+.root {
+    composes: root from './tile.module.css';
+}
+
+.root:focus {
+    box-shadow: 0 0 4px 2px rgb(var(--color-brand-dark) / var(--tw-bg-opacity));
+    border-radius: 0.5rem;
+}
+
+.icon {
+    composes: root from '../Icon/icon.module.css';
+}
+
+.icon_disabled {
+    composes: icon;
+    --stroke: rgb(var(--venia-global-color-text-hint));
+}

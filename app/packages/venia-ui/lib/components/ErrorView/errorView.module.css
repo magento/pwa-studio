@@ -1,0 +1,48 @@
+.root {
+    background: var(--backroundImageUrl);
+    /* two column grid because the "hangers" are on the right side of the page */
+    /* TODO @TW: review */
+    composes: bg-cover from global;
+    margin-top: 5%;
+    composes: p-xs from global;
+    border: 2px solid rgb(var(--venia-global-color-gray-600));
+}
+
+.content {
+    composes: text-center from global;
+    color: rgb(var(--venia-global-color-text));
+}
+
+.header,
+.message {
+    margin-bottom: 40px;
+}
+
+.header {
+    margin-top: 2rem;
+    composes: font-semibold from global;
+    font-size: var(--venia-global-fontSize-1000);
+}
+
+.message {
+    composes: leading-tight from global;
+    /* add a little space so the button is centered below the message */
+
+    composes: sm_pb-0 from global;
+}
+
+.actionsContainer {
+    width: 40%;
+    margin: 0 auto;
+}
+
+@media (max-width: 639px) {
+    .root {
+        background-image: var(--mobileBackgroundImageUrl);
+        /* two row grid because the "hangers" are on the top of the page */
+    }
+
+    .content {
+        align-content: start;
+    }
+}

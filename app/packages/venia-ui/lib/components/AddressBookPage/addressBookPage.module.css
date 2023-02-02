@@ -1,0 +1,49 @@
+.root {
+    composes: max-w-site from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
+    composes: px-sm from global;
+    composes: py-md from global;
+
+    composes: lg_px-lg from global;
+}
+
+.heading {
+    composes: capitalize from global;
+    composes: font-bold from global;
+    composes: leading-tight from global;
+    composes: mb-md from global;
+    composes: text-center from global;
+    font-family: var(--b2bstore-font-family-Lato);
+}
+
+.content {
+    composes: gap-xs from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    grid-auto-rows: minmax(6rem, max-content);
+
+    composes: sm_grid-cols-2 from global;
+
+    composes: lg_grid-cols-3 from global;
+}
+
+.addButton {
+    composes: font-semibold from global;
+    composes: rounded-md from global;
+    composes: text-brand-dark from global;
+    composes: text-sm from global;
+    transition: border-color 0ms var(--venia-global-anim-standard);
+    color: rgb(var(--venia-global-color-text));
+    border: 2px dashed var(--b2bstore-fieldInput-border-color);
+}
+
+.addButton:focus {
+    outline: none;
+    box-shadow: -6px 6px rgba(var( --b2bstore-global-color-orange-alpha), 0.3);
+}
+
+.addButton:hover {
+    border-color: var(--b2bstore-background-color-hover);
+    color: var(--b2bstore-global-color-orange);
+}

@@ -1,0 +1,10 @@
+.root {
+    composes: root from '../clickable.module.css';
+    composes: font-semibold from global;
+    composes: leading-tight from global;
+    composes: max-w-full from global;
+    composes: underline from global;
+    composes: hover_text-colorDefault from global;
+
+    color: var(--b2bstore-global-color-orange);
+}

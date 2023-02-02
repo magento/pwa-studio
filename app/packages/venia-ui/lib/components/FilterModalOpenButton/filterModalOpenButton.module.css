@@ -1,0 +1,13 @@
+.filterButton {
+    composes: root_lowPriority from '../Button/button.module.css';
+
+    composes: min-w-[6.25rem] from global;
+
+    
+}
+
+@media (min-width: 1023px){
+    .filterButton{
+        visibility: hidden;
+    }
+}

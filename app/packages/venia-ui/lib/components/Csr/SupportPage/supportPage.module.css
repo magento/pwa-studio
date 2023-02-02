@@ -1,0 +1,279 @@
+/***** Breadcrumbs *****/
+.root {
+    --whitespace-start: 1rem;
+    --whitespace-end: 10px;
+
+    composes: h-auto from global;
+    /* padding-left: var(--whitespace-start); */
+    padding-top: var(--whitespace-start);
+    padding-bottom: var(--whitespace-end); /* Allow space for focus ring */
+    margin-bottom: calc(-1 * var(--whitespace-end)); /* Prevent focus ring space affecting the rest of the UI */
+    font-size: 0.875rem;
+
+    /* Permanent height to prevent pop-in. */
+    height: calc(0.875rem + var(--whitespace-start) + var(--whitespace-end));
+
+    /* Show ellipses when overflowing. */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text {
+    padding: 0.25rem;
+}
+
+.divider {
+    composes: text;
+}
+
+.link {
+    composes: text;
+    text-decoration: underline;
+}
+
+.currentPage {
+    composes: text;
+}
+/***** end Breadcrumbs *****/
+
+/***** Search bar *****/
+.search {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    width: 100%;
+    max-width: 22rem;
+    height: 44px;
+}
+
+.searchButton {
+    composes: root_highPriority from '../../Button/button.module.css';
+    min-width: 5rem;
+    width: 5rem;
+    height: 44px;
+}
+
+.submitIcon {
+    color: white;
+}
+/***** end Search bar *****/
+
+/***** Buttons *****/
+.primaryButton {
+    composes: root_highPriority from '../../Button/button.module.css';
+    width: 280px;
+}
+
+.primaryButtonInv {
+    composes: root_highPriorityInv from '../../Button/button.module.css';
+    width: 280px;
+}
+
+.createTicketButton {
+    composes: primaryButton;
+    width: fit-content;
+    text-transform: uppercase;
+}
+
+.loadMoreButton {
+    composes: primaryButton;
+    width: fit-content;
+    text-transform: uppercase;
+    margin: 0 auto;
+}
+/***** end Buttons *****/
+
+/***** Advices *****/
+.emptyTicketsAdviceContainer {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.emptyTicketsAdviceText {
+    text-align: center;
+}
+
+.emptyTicketsAdviceImage {
+    width: 100px;
+}
+/***** end Advices *****/
+
+/***** Tickets page *****/
+.container {
+    display: grid;
+    padding: 0 1rem 2rem 1rem;
+    row-gap: 2rem;
+}
+
+.bodyContainer {
+    display: grid;
+    row-gap: 2rem;
+}
+
+.ticketsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: auto;
+}
+
+.pageTitle {
+    justify-self: center;
+    font-weight: bold;
+    font-size: 25px;
+}
+/***** end Tickets Page *****/
+
+/****** Legend ******/
+.legendDesktopContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.legendMobileContainer {
+    min-width: 25px;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translate(0px, -50%);
+}
+
+.legendItem {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    min-width: 150px;
+    /* justify-content: center; */
+    gap: 10px;
+}
+
+.legendDesktopIcon {
+    width: 25px;
+}
+
+.legendMobileIcon {
+    width: 25px;
+}
+
+/***** end Legend  *****/
+
+/***** actionsHeader *****/
+.actionsDesktopContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.actionsDesktopRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.SortFilterContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.actionsMobileContainer {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.actionsMobileFirstRow {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.actionsMobileSecondRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.actionsMobileThirdRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+@media (max-width: 350px) {
+    .actionsMobileSecondRow {
+        gap: 15px;
+    }
+}
+
+/***** end actionsHeader *****/
+
+@media (max-width: 630px) {
+    .pageTitle {
+        display: none;
+    }
+    .actionsDesktopContainer {
+        display: none;
+    }
+
+    .actionsMobileContainer {
+        display: flex;
+    }
+
+    .searchButton {
+        min-width: 40px;
+        width: 40px;
+    }
+}
+
+/***** toast notification *****/
+.successToastContainer {
+    /* Position */
+    bottom: 20px;
+    position: fixed;
+    right: 50%;
+    transform: translate(50%, 0);
+    z-index: 9999;
+
+    /* Content distribution */
+    align-items: center;
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    justify-content: space-between;
+
+    /* Box  */
+    background-color: #c9f0d4;
+    border-radius: 5px;
+    max-width: 400px;
+    padding: 25px;
+    width: 100%;
+}
+
+.errorToastContainer {
+    composes: successToastContainer;
+    background-color: #ffdfdb;
+}
+
+.toastCloseIcon {
+    height: 15px;
+}
+
+/***** end toast notification *****/

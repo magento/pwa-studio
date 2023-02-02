@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`can be aborted 1`] = `"Aborted"`;
-
-exports[`multicasts can be manually aborted 1`] = `"Aborted"`;
-
-exports[`throws an error if .run() has not been called 1`] = `"M2ApiRequest#getResponse() called before M2ApiRequest#run(), so no promise exists yet"`;

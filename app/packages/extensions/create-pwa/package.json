@@ -1,0 +1,45 @@
+{
+  "name": "@magento/create-pwa",
+  "version": "2.3.3-beta.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Create a PWA Studio app with a single command.",
+  "main": "./lib/index.js",
+  "bin": "./bin/create-pwa",
+  "scripts": {
+    "build": " ",
+    "build:ci": " ",
+    "build:dev": " ",
+    "clean": " ",
+    "test": " "
+  },
+  "repository": "github:magento/pwa-studio",
+  "keywords": [
+    "magento",
+    "pwa",
+    "create-pwa",
+    "create-pwa-app",
+    "pwa-studio"
+  ],
+  "author": "Adobe Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "bugs": {
+    "url": "https://github.com/magento/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/create-pwa#readme",
+  "dependencies": {
+    "@magento/pwa-buildpack": "11.4.1-beta.2",
+    "@magento/venia-concept": "12.7.0-beta.2",
+    "chalk": "^2.4.2",
+    "change-case": "^3.1.0",
+    "compression": "~1.7.4",
+    "execa": "^1.0.0",
+    "git-user-info": "^1.0.1",
+    "inquirer": "^8.2.0",
+    "is-invalid-path": "^1.0.2",
+    "is-valid-npm-name": "^0.0.4",
+    "node-fetch": "~2.6.1",
+    "webpack": "~4.46.0"
+  }
+}
