@@ -7,6 +7,7 @@ import { useCartContext } from '../../context/cart';
 
 import mergeOperations from '../../util/shallowMerge';
 
+import createCartMutation from '../CartPage/cartPage.gql';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
 
 import CheckoutError from './CheckoutError';
@@ -68,7 +69,6 @@ export const useCheckoutPage = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { setNoProduct } = useNoReorderProductContext();
     const {
-        createCartMutation,
         getCheckoutDetailsQuery,
         getCustomerQuery,
         getOrderDetailsQuery,

@@ -5,19 +5,12 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
-const isCheckoutReady = checkout => {
-    const {
-        billingAddress,
-        paymentData,
-        shippingAddress,
-        shippingMethod
-    } = checkout;
+import createCartMutation from '../CartPage/cartPage.gql';
 
-    const objectsHaveData = [
-        billingAddress,
-        paymentData,
-        shippingAddress
-    ].every(data => {
+const isCheckoutReady = checkout => {
+    const { billingAddress, paymentData, shippingAddress, shippingMethod } = checkout;
+
+    const objectsHaveData = [billingAddress, paymentData, shippingAddress].every(data => {
         return !!data && !isObjectEmpty(data);
     });
 
@@ -27,18 +20,12 @@ const isCheckoutReady = checkout => {
 };
 
 export const useFlow = props => {
-    const { createCartMutation, onSubmitError, setStep } = props;
+    const { onSubmitError, setStep } = props;
     const [fetchCartId] = useMutation(createCartMutation);
     const [cartState] = useCartContext();
     const [
         checkoutState,
-        {
-            beginCheckout,
-            cancelCheckout,
-            submitOrder,
-            submitPaymentMethodAndBillingAddress,
-            submitShippingMethod
-        }
+        { beginCheckout, cancelCheckout, submitOrder, submitPaymentMethodAndBillingAddress, submitShippingMethod }
     ] = useCheckoutContext();
 
     const handleBeginCheckout = useCallback(async () => {

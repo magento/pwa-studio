@@ -5,14 +5,6 @@ import { OrderConfirmationPageFragment } from './OrderConfirmationPage/orderConf
 
 import { SET_PAYMENT_METHOD_ON_CART } from './PaymentInformation/paymentMethods.gql';
 
-export const CREATE_CART = gql`
-    # This mutation will return a masked cart id. If a bearer token is provided for
-    # a logged in user it will return the cart id for that user.
-    mutation createCart {
-        cartId: createEmptyCart
-    }
-`;
-
 export const PLACE_ORDER = gql`
     mutation placeOrder($cartId: String!) {
         placeOrder(input: { cart_id: $cartId }) {
@@ -56,7 +48,6 @@ export const GET_CUSTOMER = gql`
 `;
 
 export default {
-    createCartMutation: CREATE_CART,
     getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
     getCustomerQuery: GET_CUSTOMER,
     getOrderDetailsQuery: GET_ORDER_DETAILS,

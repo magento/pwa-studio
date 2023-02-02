@@ -8,6 +8,7 @@ import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
 
+import createCartMutation from '../CartPage/cartPage.gql';
 import DEFAULT_OPERATIONS from './signIn.gql';
 import { useEventingContext } from '../../context/eventing';
 
@@ -20,7 +21,7 @@ export const useSignIn = props => {
     const { getCartDetailsQuery, setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { createCartMutation, getCustomerQuery, mergeCartsMutation, signInMutation } = operations;
+    const { getCustomerQuery, mergeCartsMutation, signInMutation } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);

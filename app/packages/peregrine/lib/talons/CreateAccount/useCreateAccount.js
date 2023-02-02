@@ -8,10 +8,11 @@ import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
+import createCartMutation from '../CartPage//cartPage.gql';
 import DEFAULT_OPERATIONS from './createAccount.gql';
 import { useEventingContext } from '../../context/eventing';
 
-import doCsrLogin from   '@magento/peregrine/lib/RestApi/Csr/auth/login';
+import doCsrLogin from '@magento/peregrine/lib/RestApi/Csr/auth/login';
 import doLmsLogin from '@magento/peregrine/lib/RestApi/Lms/auth/login';
 
 import { useModulesContext } from '../../context/modulesProvider';
@@ -38,7 +39,6 @@ export const useCreateAccount = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         createAccountMutation,
-        createCartMutation,
         getCartDetailsQuery,
         getCustomerQuery,
         mergeCartsMutation,

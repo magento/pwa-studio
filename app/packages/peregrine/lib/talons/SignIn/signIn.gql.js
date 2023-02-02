@@ -21,12 +21,6 @@ export const SIGN_IN = gql`
     }
 `;
 
-export const CREATE_CART = gql`
-    mutation CreateCartAfterSignIn {
-        cartId: createEmptyCart
-    }
-`;
-
 export const MERGE_CARTS = gql`
     mutation MergeCartsAfterSignIn(
         $sourceCartId: String!
@@ -48,7 +42,6 @@ export const MERGE_CARTS = gql`
 `;
 
 export default {
-    createCartMutation: CREATE_CART,
     getCustomerQuery: GET_CUSTOMER,
     mergeCartsMutation: MERGE_CARTS,
     signInMutation: SIGN_IN

@@ -3,7 +3,8 @@ import { useMutation, useApolloClient, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { GET_CART_DETAILS } from '@magento/peregrine/lib/talons/CreateAccount/createAccount.gql';
-import { SAVE_CART, CREATE_CART, MP_SAVE_CART_CONFIG } from './savedCarts.gql';
+import createCartMutation from '@magento/peregrine/lib/talons/CartPage/cartPage.gql';
+import { SAVE_CART, MP_SAVE_CART_CONFIG } from './savedCarts.gql';
 import { useHistory } from 'react-router-dom';
 import { clearCartDataFromCache } from '@magento/peregrine/lib/Apollo/clearCartDataFromCache';
 
@@ -20,7 +21,7 @@ export const useSavedCart = () => {
 
     const [{ cartId }, { getCartDetails, createCart }] = useCartContext();
 
-    const [fetchCartId] = useMutation(CREATE_CART);
+    const [fetchCartId] = useMutation(createCartMutation);
 
     const history = useHistory();
 
