@@ -36,7 +36,7 @@ const PriceAlert = props => {
             '  Kindly notice that the back-in-stock email will be delivered only one time, and your email address will not be shared or published with anyone else.'
     });
     const notifyMeText = formatMessage({
-        id: 'productAlerts.notifyMeText',
+        id: 'productAlert.NotifyMe',
         defaultMessage: 'Notify me'
     });
     // confirmTranslationId

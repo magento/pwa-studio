@@ -1,15 +1,12 @@
 import React from 'react';
-import { useStyle } from '@magento/venia-ui/lib/classify';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
 import Field from '@magento/venia-ui/lib/components/Field';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
-import defaultClasses from './stockAlert.module.css';
 import { useIntl } from 'react-intl';
 
 const StockAlert = ({ onCancel, isOpen, onConfirm, formProps, isUserSignIn }) => {
     const { formatMessage } = useIntl();
-    const classes = useStyle(defaultClasses);
     const confirmButton = formatMessage({
         id: 'global.confirmButton',
         defaultMessage: 'Confirm'

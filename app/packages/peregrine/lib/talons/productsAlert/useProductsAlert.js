@@ -20,10 +20,9 @@ const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 export const useProductsAlert = props => {
     const selectProductSku = props?.selectProductSku;
-    console.log('selectProductSku', selectProductSku);
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
-    const [formEmail, setFormEmail] = useState();
+    const [formEmail] = useState();
     const formProps = {
         initialValues: formEmail
     };
@@ -125,7 +124,7 @@ export const useProductsAlert = props => {
                     message: (
                         <FormattedMessage
                             id="productAlert.deleted"
-                            defaultMessage="The product alert deleted successfully"
+                            defaultMessage="The product alert has been successfully removed"
                         />
                     ),
                     timeout: 5000

@@ -20,13 +20,13 @@ const AlertTable = props => {
     };
     const thumbnailElement = thumbnail =>
         thumbnail ? <Image {...thumbnailProps} resource={thumbnail} /> : <PlaceholderImage {...thumbnailProps} />;
-        
+
     const tableHeader = [
         <FormattedMessage id={'savedCartsView.productImage'} defaultMessage={'Image'} />,
-        <FormattedMessage id={'productAlert.productName'} defaultMessage={'Product Name'} />,
-        <FormattedMessage id={'rmaPage.sku'} defaultMessage={'SKU'} />,
+        <FormattedMessage id={'orderItems.productName'} defaultMessage={'Product Name'} />,
+        <FormattedMessage id={'compareProducts.sku'} defaultMessage={'SKU'} />,
         <FormattedMessage id={'productAlert.subscribedOn'} defaultMessage={'Subscribed On'} />,
-        <FormattedMessage id={'productAlert.actions'} defaultMessage={'Actions'} />
+        <FormattedMessage id={'wishlistMoreActionsDialog.title'} defaultMessage={'Actions'} />
     ];
 
     const tableRows = items?.map(req => {
@@ -40,7 +40,7 @@ const AlertTable = props => {
             },
             {
                 dataLable: formatMessage({
-                    id: 'productAlert.productName',
+                    id: 'orderItems.productName',
                     defaultMessage: 'Product Name'
                 }),
                 value: req?.product_data?.name
@@ -48,10 +48,10 @@ const AlertTable = props => {
 
             {
                 dataLable: formatMessage({
-                    id: 'productAlert.alertStatus',
-                    defaultMessage: 'Alert Status'
+                    id: 'compareProducts.sku',
+                    defaultMessage: 'SKU'
                 }),
-                value: `${req.status}`
+                value: req?.product_data?.sku
             },
             {
                 dataLable: formatMessage({
@@ -63,12 +63,12 @@ const AlertTable = props => {
 
             {
                 dataLable: formatMessage({
-                    id: 'global.delete',
+                    id: 'global.deleteButton',
                     defaultMessage: 'Delete'
                 }),
                 value: (
                     <a href onClick={() => submitDeleteAlert(req.subscriber_id)} className={classes.actionBtn}>
-                        <FormattedMessage id={'global.delete'} defaultMessage="Delete" />
+                        <FormattedMessage id={'global.deleteButton'} defaultMessage="Delete" />
                     </a>
                 )
             }

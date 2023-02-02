@@ -64,7 +64,7 @@ const CusotmerAlertPage = () => {
                     pageControl={stockPaginationControl}
                 />
                 <h3>
-                    <FormattedMessage id={'productAlert.alertForStockChange'} defaultMessage="Alert For Stock Change" />
+                    <FormattedMessage id={'productAlert.alertForPriceChange'} defaultMessage="Alert For Stock Change" />
                 </h3>
                 <AlertTable submitDeleteAlert={submitDeleteAlert} items={product_price?.items} />
                 <Pagination
