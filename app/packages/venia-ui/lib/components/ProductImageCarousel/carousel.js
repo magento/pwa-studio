@@ -76,11 +76,38 @@ const ProductImageCarousel = props => {
             return generateUrl(currentImage.file, 'image-product')(IMAGE_WIDTH, 800);
         }
     }, [generateUrl, currentImage, IMAGE_WIDTH]);
+
     let image;
     if (currentImage.file) {
         image = <ReactImageZoom zoomWidth={500} img={src} zoomStyle={'z-index: 1'} />;
     } else {
         image = (
+            <Image
+                alt={altText}
+                classes={{
+                    image: classes.currentImage_placeholder,
+                    root: classes.imageContainer
+                }}
+                src={transparentPlaceholder}
+            />
+        );
+    }
+
+    let imageNoZoom;
+    if (currentImage.file) {
+        imageNoZoom = (
+            <Image
+                alt={altText}
+                classes={{
+                    image: classes.currentImage,
+                    root: classes.imageContainer
+                }}
+                resource={currentImage.file}
+                width={IMAGE_WIDTH}
+            />
+        );
+    } else {
+        imageNoZoom = (
             <Image
                 alt={altText}
                 classes={{
@@ -115,7 +142,10 @@ const ProductImageCarousel = props => {
                 >
                     <Icon classes={chevronClasses} src={ChevronLeftIcon} size={40} />
                 </AriaButton>
-                {image}
+                <div className={classes.imageZoomContainer}>{image}</div>
+
+                <div className={classes.imageNoZoomContainer}>{imageNoZoom}</div>
+
                 <AriaButton
                     className={classes.nextButton}
                     onPress={activeItemIndex >= sortedImages.length - 1 ? null : handleNext}
