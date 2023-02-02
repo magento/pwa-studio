@@ -2,7 +2,7 @@ version: "3"
 services:
   pwa:
     image: node:14.18.1
-
+    container_name: b2bstore
     tty: true
 
     volumes:

@@ -8,14 +8,21 @@
 
 #### Table of Contents
 
-- [📢 What is B2BStore?](#-what-is-b2b-store)
-- [🛒 Supported Platforms](#-supported-platforms)
-- [🔧 Supported Services](#-supported-services)
-- [⭐ B2B Store features](#-b2b-store-features)
-- [📸 Screenshoots](#-screenshoots)
-- [✅ Requirements](#-requirements)
-- [⚙️ Installation](#%EF%B8%8F-installation)
-- [🙌🏼 How to contribute](#-how-to-contribute)
+- [B2B Store, the fork of PWA Studio](#b2b-store-the-fork-of-pwa-studio)
+      - [Table of Contents](#table-of-contents)
+  - [📢 What is B2B Store?](#-what-is-b2b-store)
+  - [🛒 Supported Platforms](#-supported-platforms)
+  - [🔧 Supported Services](#-supported-services)
+  - [⭐ B2B Store features](#-b2b-store-features)
+  - [📸 Screenshoots](#-screenshoots)
+  - [✅ Requirements](#-requirements)
+  - [⚙️ Installation](#️-installation)
+  - [🛠️ Integrations](#️-integrations)
+  - [ **Magento integration** (Ecommerce Platform)](#magento-integration-ecommerce-platform)
+  - [ **Zammad integration** (Ticketing System)](#zammad-integration-ticketing-system)
+  - [ **Moodle integration** (Learning Management System)](#moodle-integration-learning-management-system)
+  - [ **Amazon Connect integration** (Chatbot)](#amazon-connect-integration-chatbot)
+  - [🙌🏼 How to contribute](#-how-to-contribute)
 
 </br>
 
@@ -201,13 +208,13 @@ docker-compose up -d
 5. Execute the following command to enter the container:
 
 ```
-docker exec -it b2bstore-pwa-1 bash
+docker exec -it b2bstore bash
 ```
 
 6. Inside the container, execute the following command to install the dependencies and start B2B Store (development mode):
 
 ```
-cd app; yarn; yarn watch:all
+yarn; yarn watch:all
 ```
 
 7. Now your B2B Store is running, you can see it in the following URL: <a href="http://localhost:10000" target="_blank">http://localhost:10000</a>
