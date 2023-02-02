@@ -10,8 +10,13 @@ import defaultClasses from './simpleProductB2C.module.css';
 import Breadcrumbs from '@magento/venia-ui/lib/components/Breadcrumbs';
 import Options from '../CustomProductOptions/options';
 import Button from '../../Button';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import NotifyPrice from '../../ProductsAlert/NotifyPrice';
+import PriceAlert from '../../ProductsAlert/PriceAlertModal/priceAlert';
 
 const SimpleProductB2C = props => {
+    const productsAlert = useProductsAlert();
+    const { isStockModalOpened, handleOpendStockModal, handleCloseModal } = productsAlert;
     const classes = useStyle(defaultClasses, props.classes);
     const {
         simpleProductData,
@@ -65,6 +70,7 @@ const SimpleProductB2C = props => {
                         />
                         <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
+                    <NotifyPrice handleOpendStockModal={handleOpendStockModal} />
                 </section>
                 <section className={classes.actions}>
                     <Button
@@ -97,8 +103,13 @@ const SimpleProductB2C = props => {
                     <strong>{simpleProductData.sku}</strong>
                 </section>
             </Form>
+            <PriceAlert
+                isOpen={isStockModalOpened}
+                onCancel={handleCloseModal}
+                selectedVarient={simpleProductData?.sku}
+            />
         </Fragment>
     );
 };
-
+//
 export default SimpleProductB2C;

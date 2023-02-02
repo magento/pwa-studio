@@ -16,6 +16,9 @@ import copyToClipboard from '../icons/copyToClipboard.png';
 import { useAddToQuote } from '@magento/peregrine/lib/talons/QuickOrderForm/useAddToQuote';
 import ConfirmationModal from '../../../RequestQuote/ConfirmationModal';
 import PlaceholderImage from '../../../Image/placeholderImage';
+import NotifyPrice from '../../../ProductsAlert/NotifyPrice';
+import PriceAlert from '../../../ProductsAlert/PriceAlertModal/priceAlert';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
 
 const ProductItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -30,6 +33,8 @@ const ProductItem = props => {
         errors
     } = props;
     const [copied, setCopied] = useState(false);
+    const productsAlert = useProductsAlert();
+    const { isStockModalOpened, handleOpendStockModal, handleCloseModal } = productsAlert;
 
     const { handleAddCofigItemBySku } = useAddToQuote();
 
@@ -130,12 +135,17 @@ const ProductItem = props => {
     );
 
     const priceTag = (
-        <span className={classes.indexFixed}>
-            <Price
-                currencyCode={variant.product.price.regularPrice.amount.currency}
-                value={variant.product.price.minimalPrice.amount.value}
-            />
-        </span>
+        <div className={classes.priceContainer}>
+            <span className={classes.indexFixed}>
+                <Price
+                    currencyCode={variant.product.price.regularPrice.amount.currency}
+                    value={variant.product.price.minimalPrice.amount.value}
+                />
+            </span>
+            <div className={classes.notifyPrice}>
+                <NotifyPrice handleOpendStockModal={handleOpendStockModal} />
+            </div>
+        </div>
     );
 
     const stockStatus =
@@ -175,7 +185,7 @@ const ProductItem = props => {
         });
         return tempCategoriesKeyValueList;
     };
-    // str.substring(str.length - n)
+
     const lastDigitsOfSku = variant.product.sku.substring(variant.product.sku.length - 7);
 
     const productItemDesktop = (
@@ -285,6 +295,11 @@ const ProductItem = props => {
     return (
         <div>
             {productItemDesktop} {productItemMobile}
+            <PriceAlert
+                isOpen={isStockModalOpened}
+                onCancel={handleCloseModal}
+                selectedVarient={variant?.product?.sku}
+            />
         </div>
     );
 };

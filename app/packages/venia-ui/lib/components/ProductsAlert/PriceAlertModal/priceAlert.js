@@ -1,25 +1,21 @@
 import React from 'react';
-import { useStyle } from '@magento/venia-ui/lib/classify';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
 import Field from '@magento/venia-ui/lib/components/Field';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
-import defaultClasses from './priceAlert.module.css';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Form } from 'informed';
+import { useIntl } from 'react-intl';
 import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
-import Button from '../../Button';
 
 const PriceAlert = props => {
-    const { onCancel, isOpen, onConfirm, selectedVarient } = props;
+    const { onCancel, isOpen, selectedVarient } = props;
 
     const talonProps = useProductsAlert({
         initialValues: props.initialValues || {},
-        selectProductSku: selectedVarient?.product?.sku
+        selectProductSku: selectedVarient?.product?.sku || selectedVarient,
+        selectProductB2B: selectedVarient
     });
     const { handleSubmitPriceAlert, formProps, setFormApi, isUserSignIn } = talonProps;
     const { formatMessage } = useIntl();
-    const classes = useStyle(defaultClasses);
 
     const modalTitle = formatMessage({
         id: 'productAlerts.priceAlertModal',
@@ -35,22 +31,17 @@ const PriceAlert = props => {
         defaultMessage:
             '  Kindly notice that the back-in-stock email will be delivered only one time, and your email address will not be shared or published with anyone else.'
     });
-    const notifyMeText = formatMessage({
-        id: 'productAlert.NotifyMe',
-        defaultMessage: 'Notify me'
-    });
-    // confirmTranslationId
     return (
         <>
             <Dialog
                 getApi={setFormApi}
                 formProps={formProps}
-                confirmTranslationId={'global.save'}
+                confirmTranslationId={'productAlerts.notifyMeText'}
                 onCancel={onCancel}
                 onConfirm={handleSubmitPriceAlert}
                 isOpen={isOpen}
                 title={modalTitle}
-                confirmText={notifyMeText}
+                confirmText={'Notify me'}
             >
                 <p>{modalTextInfo}</p>
                 <hr />

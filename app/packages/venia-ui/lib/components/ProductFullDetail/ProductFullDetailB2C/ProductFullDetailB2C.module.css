@@ -228,6 +228,11 @@
     text-decoration-line: line-through;
 }
 
+.notifyContainer {
+    margin-top: 0.5rem;
+    color: red;
+}
+
 @media (max-width: 959px) {
     .imageCarousel,
     .imageCarousel div div div {

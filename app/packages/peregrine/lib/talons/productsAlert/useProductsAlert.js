@@ -20,6 +20,7 @@ const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 export const useProductsAlert = props => {
     const selectProductSku = props?.selectProductSku;
+    const selectedProductB2B = props?.selectProductB2B;
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
     const [formEmail] = useState();
@@ -66,22 +67,32 @@ export const useProductsAlert = props => {
 
     const handleSubmitPriceAlert = useCallback(
         async apiValue => {
-            console.log('apiValue', apiValue);
             try {
                 if (isSignedIn) {
                     await submitCustomerPriceAlert({
                         variables: {
-                            productSku: selectProductSku
+                            productSku: process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku
                         }
                     });
                 } else {
                     await submiGuestPriceAlert({
                         variables: {
-                            productSku: selectProductSku,
+                            productSku: process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku,
                             email: apiValue?.email
                         }
                     });
                 }
+
+                addToast({
+                    type: 'success',
+                    message: (
+                        <FormattedMessage
+                            id="productAlert.requestProductAlert"
+                            defaultMessage="The product alert was send successfully"
+                        />
+                    ),
+                    timeout: 5000
+                });
             } catch (error) {
                 console.log({ error });
             }

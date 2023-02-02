@@ -104,6 +104,9 @@
     color: var(--b2bstore-global-color-orange);
     font-weight: bold;
 }
+.priceContainer {
+    display: flex;
+}
 
 @media (max-width: 1250px) {
     .indexMobileSku {
@@ -131,6 +134,12 @@
 
 /* Tablet */
 @media (max-width: 980px) {
+    .priceContainer {
+        display: block;
+    }
+    .notifyPrice {
+        text-align: center;
+    }
     .productItemContainerDesktop {
         display: none;
     }
@@ -247,9 +256,8 @@
     min-width: auto;
 }
 
-.placeholderContainer{
+.placeholderContainer {
     composes: relative from global;
-
 }
 .placeholder {
     composes: bg-transparent from global;

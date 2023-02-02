@@ -13,9 +13,14 @@ import inStock from '../icons/inStock.svg';
 import outOfStock from '../icons/outOfStock.svg';
 import copyToClipboard from '../icons/copyToClipboard.png';
 import QuantityStepper from '../../../QuantityStepper';
+import NotifyPrice from '../../../ProductsAlert/NotifyPrice';
+import PriceAlert from '../../../ProductsAlert/PriceAlertModal/priceAlert';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
 
 const ItemsTable = props => {
     const classes = useStyle(defaultClasses, props.classes);
+    const productsAlert = useProductsAlert();
+    const { isStockModalOpened, handleOpendStockModal, handleCloseModal } = productsAlert;
 
     const { simpleProductData, errors, handleAddToCart, aggregations, tempTotalPrice, handleQuantityChange } = props;
 
@@ -53,12 +58,17 @@ const ItemsTable = props => {
     );
 
     const priceTag = (
-        <span className={classes.indexFixed}>
-            <Price
-                currencyCode={simpleProductData.price.regularPrice.amount.currency}
-                value={simpleProductData.price.minimalPrice.amount.value}
-            />
-        </span>
+        <div className={classes.priceContainer}>
+            <span className={classes.indexFixed}>
+                <Price
+                    currencyCode={simpleProductData.price.regularPrice.amount.currency}
+                    value={simpleProductData.price.minimalPrice.amount.value}
+                />
+            </span>
+            <div className={classes.notifyPrice}>
+                <NotifyPrice handleOpendStockModal={handleOpendStockModal} />
+            </div>
+        </div>
     );
 
     const stockStatus =
@@ -206,6 +216,11 @@ const ItemsTable = props => {
     return (
         <div className={classes.productsTableContainer}>
             {productItemDesktop} {productItemMobile}
+            <PriceAlert
+                isOpen={isStockModalOpened}
+                onCancel={handleCloseModal}
+                selectedVarient={simpleProductData?.sku}
+            />
         </div>
     );
 };

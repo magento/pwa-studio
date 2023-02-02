@@ -140,6 +140,14 @@ const ProductFullDetailB2C = props => {
                         <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
                     <NotifyPrice handleOpendStockModal={handleOpendStockModal} />
+                    {!selectedVarient && (
+                        <div className={classes.notifyContainer}>
+                            <FormattedMessage
+                                id={'notifyAlert'}
+                                defaultMessage={'To notify, select all the options for the product'}
+                            />
+                        </div>
+                    )}
                 </section>
                 <section className={classes.actions}>
                     {cartActionContent}
@@ -161,7 +169,9 @@ const ProductFullDetailB2C = props => {
                 </section>
                 {pageBuilderAttributes}
             </Form>
-            <PriceAlert isOpen={isStockModalOpened} onCancel={handleCloseModal} selectedVarient={selectedVarient} />
+            {selectedVarient && (
+                <PriceAlert isOpen={isStockModalOpened} onCancel={handleCloseModal} selectedVarient={selectedVarient} />
+            )}
         </Fragment>
     );
 };

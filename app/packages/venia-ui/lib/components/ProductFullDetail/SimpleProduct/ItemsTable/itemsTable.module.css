@@ -140,11 +140,20 @@
         margin-bottom: 0px;
     }
 }
+.priceContainer {
+    display: flex;
+}
 
 /* Tablet */
-@media (max-device-width: 980px) {
+@media (max-width: 980px) {
+    .priceContainer {
+        display: block;
+    }
     .productItemContainerDesktop {
         display: none;
+    }
+    .notifyPrice {
+        text-align: center;
     }
 
     .productItemContainerMobile {
@@ -157,7 +166,7 @@
     }
 }
 
-@media (max-device-width: 580px) {
+@media (max-width: 580px) {
     .productItemContainerDesktop {
         display: none;
     }
