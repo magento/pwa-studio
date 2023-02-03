@@ -9,37 +9,28 @@ export const useItemsReview = props => {
     const [showAllItems, setShowAllItems] = useState(false);
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
-    const { getItemsInCart, getConfigurableThumbnailSource } = operations;
+    const { getItemsInCartQuery, getConfigurableThumbnailSource } = operations;
 
     const [{ cartId }] = useCartContext();
 
-    const { data: configurableThumbnailSourceData } = useQuery(
-        getConfigurableThumbnailSource,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const { data: configurableThumbnailSourceData } = useQuery(getConfigurableThumbnailSource, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     const configurableThumbnailSource = useMemo(() => {
         if (configurableThumbnailSourceData) {
-            return configurableThumbnailSourceData.storeConfig
-                .configurable_thumbnail_source;
+            return configurableThumbnailSourceData.storeConfig.configurable_thumbnail_source;
         }
     }, [configurableThumbnailSourceData]);
 
-    const [
-        fetchItemsInCart,
-        { data: queryData, error, loading }
-    ] = useLazyQuery(getItemsInCart, {
+    const [fetchItemsInCart, { data: queryData, error, loading }] = useLazyQuery(getItemsInCartQuery, {
         fetchPolicy: 'cache-and-network'
     });
 
     // If static data was provided, use that instead of query data.
     const data = props.data || queryData;
 
-    const setShowAllItemsFlag = useCallback(() => setShowAllItems(true), [
-        setShowAllItems
-    ]);
+    const setShowAllItemsFlag = useCallback(() => setShowAllItems(true), [setShowAllItems]);
 
     useEffect(() => {
         if (cartId && !props.data) {
