@@ -2,30 +2,7 @@ import { gql } from '@apollo/client';
 
 import { CheckoutPageFragment } from './checkoutPageFragments.gql';
 import { OrderConfirmationPageFragment } from './OrderConfirmationPage/orderConfirmationPageFragments.gql';
-
 import { SET_PAYMENT_METHOD_ON_CART } from './PaymentInformation/paymentMethods.gql';
-
-export const PLACE_ORDER = gql`
-    mutation placeOrder($cartId: String!) {
-        placeOrder(input: { cart_id: $cartId }) {
-            order {
-                order_number
-            }
-        }
-    }
-`;
-
-// A query to fetch order details _right_ before we submit, so that we can pass
-// data to the order confirmation page.
-export const GET_ORDER_DETAILS = gql`
-    query getOrderDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...OrderConfirmationPageFragment
-        }
-    }
-    ${OrderConfirmationPageFragment}
-`;
 
 export const GET_CHECKOUT_DETAILS = gql`
     query GetCheckoutDetails($cartId: String!) {
@@ -43,6 +20,28 @@ export const GET_CUSTOMER = gql`
         customer {
             default_shipping
             firstname
+        }
+    }
+`;
+
+// A query to fetch order details _right_ before we submit, so that we can pass
+// data to the order confirmation page.
+export const GET_ORDER_DETAILS = gql`
+    query GetOrderDetails($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            ...OrderConfirmationPageFragment
+        }
+    }
+    ${OrderConfirmationPageFragment}
+`;
+
+export const PLACE_ORDER = gql`
+    mutation PlaceOrder($cartId: String!) {
+        placeOrder(input: { cart_id: $cartId }) {
+            order {
+                order_number
+            }
         }
     }
 `;
