@@ -28,7 +28,7 @@ export const GET_ORDER_DETAILS = gql`
 `;
 
 export const GET_CHECKOUT_DETAILS = gql`
-    query getCheckoutDetails($cartId: String!) {
+    query GetCheckoutDetails($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             ...CheckoutPageFragment
