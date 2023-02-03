@@ -8,21 +8,15 @@
 
 #### Table of Contents
 
-- [B2B Store, the fork of PWA Studio](#b2b-store-the-fork-of-pwa-studio)
-      - [Table of Contents](#table-of-contents)
-  - [📢 What is B2B Store?](#-what-is-b2b-store)
-  - [🛒 Supported Platforms](#-supported-platforms)
-  - [🔧 Supported Services](#-supported-services)
-  - [⭐ B2B Store features](#-b2b-store-features)
-  - [📸 Screenshoots](#-screenshoots)
-  - [✅ Requirements](#-requirements)
-  - [⚙️ Installation](#️-installation)
-  - [🛠️ Integrations](#️-integrations)
-  - [ **Magento integration** (Ecommerce Platform)](#magento-integration-ecommerce-platform)
-  - [ **Zammad integration** (Ticketing System)](#zammad-integration-ticketing-system)
-  - [ **Moodle integration** (Learning Management System)](#moodle-integration-learning-management-system)
-  - [ **Amazon Connect integration** (Chatbot)](#amazon-connect-integration-chatbot)
-  - [🙌🏼 How to contribute](#-how-to-contribute)
+- [📢 What is B2B Store?](#-what-is-b2b-store)
+- [🛒 Supported Platforms](#-supported-platforms)
+- [🔧 Supported Services](#-supported-services)
+- [⭐ B2B Store features](#-b2b-store-features)
+- [📸 Screenshoots](#-screenshoots)
+- [✅ Requirements](#-requirements)
+- [⚙️ Installation](#️-installation)
+- [🛠️ Integrations](#️-integrations)
+- [🙌🏼 How to contribute](#-how-to-contribute)
 
 </br>
 
