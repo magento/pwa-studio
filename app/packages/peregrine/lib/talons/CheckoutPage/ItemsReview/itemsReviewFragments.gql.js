@@ -9,6 +9,9 @@ export const ItemsReviewFragment = gql`
             uid
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             product {
+                categories {
+                    name
+                }
                 uid
                 sku
                 name

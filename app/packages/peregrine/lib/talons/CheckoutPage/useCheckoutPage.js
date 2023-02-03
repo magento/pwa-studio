@@ -5,10 +5,9 @@ import { useEventingContext } from '../../context/eventing';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
-import mergeOperations from '../../util/shallowMerge';
-
-import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
 
 import CheckoutError from './CheckoutError';
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
@@ -289,8 +288,13 @@ export const useCheckoutPage = props => {
                     id: orderId,
                     revenue: cart.prices.subtotal_excluding_tax.value,
                     quantity: String(cart.total_quantity),
-                    shipping: cart.shipping_addresses[0].selected_shipping_method.amount.value,
-                    tax: cart.prices.applied_taxes.reduce((acc, tax) => acc + tax.amount.value, 0)
+                    shipping: cart.shipping_addresses[0]?.selected_shipping_method?.amount.value,
+                    tax: cart.prices.applied_taxes.reduce((acc, tax) => {
+                        if (tax && tax?.amount) {
+                            return acc + tax.amount.value;
+                        }
+                        return acc;
+                    }, 0)
                 });
                 cart?.items.map(product => {
                     ReactGA.plugin.execute('ecommerce', 'addItem', {

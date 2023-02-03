@@ -28,7 +28,7 @@ const DENIED_MINI_CART_ROUTES = ['/checkout'];
  *  }
  */
 export const useCartTrigger = () => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS);
     const { getItemCountQuery } = operations;
 
     const [{ cartId }] = useCartContext();
