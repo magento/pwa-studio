@@ -31,7 +31,7 @@ export const GET_CMS_DYNAMIC_BLOCKS = gql`
 `;
 
 export const GET_SALES_RULES_DATA = gql`
-    query SalesRulesDataQuery($cartId: String!) {
+    query GetSalesRulesData($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
