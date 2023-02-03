@@ -13,7 +13,7 @@ export const GET_WISHLIST_CONFIG = gql`
 `;
 
 const GET_PRODUCT_LISTING = gql`
-    query getProductListing($cartId: String!) {
+    query GetProductListing($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             ...ProductListingFragment

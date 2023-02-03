@@ -31,10 +31,7 @@ export const useProductListing = (props = {}) => {
     const [{ cartId }] = useCartContext();
     const [activeEditItem, setActiveEditItem] = useState(null);
 
-    const [
-        fetchProductListing,
-        { called, data, error, loading }
-    ] = useLazyQuery(getProductListingQuery, {
+    const [fetchProductListing, { called, data, error, loading }] = useLazyQuery(getProductListingQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
