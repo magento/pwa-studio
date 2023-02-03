@@ -5,6 +5,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
+import DEFAULT_OPERATIONS from './cartTrigger.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 /**
  * Routes to hide the mini cart on.
  */
@@ -24,17 +27,14 @@ const DENIED_MINI_CART_ROUTES = ['/checkout'];
  *      setMiniCartIsOpen: Function
  *  }
  */
-export const useCartTrigger = props => {
-    const {
-        queries: { getItemCountQuery }
-    } = props;
+export const useCartTrigger = () => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getItemCountQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const history = useHistory();
     const location = useLocation();
-    const [isHidden, setIsHidden] = useState(() =>
-        DENIED_MINI_CART_ROUTES.includes(location.pathname)
-    );
+    const [isHidden, setIsHidden] = useState(() => DENIED_MINI_CART_ROUTES.includes(location.pathname));
 
     const {
         elementRef: miniCartRef,

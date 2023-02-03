@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 import { CartTriggerFragment } from '@magento/peregrine/lib/talons/Header/cartTriggerFragments.gql';
 
-export const GET_ITEM_COUNT_QUERY = gql`
-    query getItemCount($cartId: String!) {
+export const GET_ITEM_COUNT = gql`
+    query GetItemCount($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             ...CartTriggerFragment
@@ -11,3 +11,7 @@ export const GET_ITEM_COUNT_QUERY = gql`
     }
     ${CartTriggerFragment}
 `;
+
+export default {
+    getItemCountQuery: GET_ITEM_COUNT
+};
