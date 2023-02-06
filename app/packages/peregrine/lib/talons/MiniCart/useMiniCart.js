@@ -3,16 +3,17 @@ import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
-import { deriveErrorMessage } from '../../util/deriveErrorMessage';
-import mergeOperations from '../../util/shallowMerge';
-import DEFAULT_OPERATIONS from './miniCart.gql';
 import { useEventingContext } from '../../context/eventing';
+import { deriveErrorMessage } from '../../util/deriveErrorMessage';
+
+import DEFAULT_OPERATIONS from './miniCart.gql';
+import mergeOperations from '../../util/shallowMerge';
 
 /**
  *
  * @param {Boolean} props.isOpen - True if the mini cart is open
  * @param {Function} props.setIsOpen - Function to toggle the mini cart
- * @param {DocumentNode} props.operations.miniCartQuery - Query to fetch mini cart data
+ * @param {DocumentNode} props.operations.getMiniCartQuery - Query to fetch mini cart data
  * @param {DocumentNode} props.operations.removeItemMutation - Mutation to remove an item from cart
  *
  * @returns {
@@ -33,12 +34,12 @@ export const useMiniCart = props => {
     const [, { dispatch }] = useEventingContext();
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { removeItemMutation, miniCartQuery, getStoreConfigQuery } = operations;
+    const { removeItemMutation, getMiniCartQuery, getStoreConfigQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const history = useHistory();
 
-    const { data: miniCartData, loading: miniCartLoading } = useQuery(miniCartQuery, {
+    const { data: miniCartData, loading: miniCartLoading } = useQuery(getMiniCartQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: { cartId },

@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
+
 import { CartTriggerFragment } from '@magento/venia-ui/lib/components/Header/cartTriggerFragments.gql';
-import { MiniCartFragment } from '@magento/venia-ui/lib/components/MiniCart/miniCart.gql';
+import { MiniCartFragment } from '@magento/peregrine/lib/talons/MiniCart/miniCartFragments.gql';
 
 export const ADD_CONFIGURABLE_MUTATION = gql`
     mutation addConfigurableProductToCart($cartId: String!, $quantity: Float!, $sku: String!, $parentSku: String!) {
