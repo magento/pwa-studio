@@ -47,7 +47,7 @@ const GalleryItem = props => {
     const { storeConfig, filterState, pageBuilder } = props;
     const { configurable_options, stock_status } = props.item;
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
-
+    
     const classes = useStyle(defaultClasses, props.classes);
 
     const [, { addToast }] = useToasts();
@@ -146,6 +146,7 @@ const GalleryItem = props => {
             urlSuffix={productUrlSuffix}
             quantity={quantity}
             handleOpendStockModal={handleOpendStockModal}
+            isProductAlertEnabled={item?.mp_product_alert}
         />
     ) : (
         <div className={classes.unavailableContainer}>
