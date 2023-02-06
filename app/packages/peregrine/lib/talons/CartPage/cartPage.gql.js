@@ -103,10 +103,29 @@ export const REMOVE_ITEM_FROM_CART = gql`
     ${AvailableShippingMethodsCartFragment}
 `;
 
+export const UPDATE_CART_ITEMS = gql`
+    mutation UpdateCartItems($cartId: String!, $itemId: ID!, $quantity: Float!) {
+        updateCartItems(input: { cart_id: $cartId, cart_items: [{ cart_item_uid: $itemId, quantity: $quantity }] }) {
+            cart {
+                id
+                available_payment_methods {
+                    code
+                    title
+                }
+                ...CartPageFragment
+                ...AvailableShippingMethodsCartFragment
+            }
+        }
+    }
+    ${CartPageFragment}
+    ${AvailableShippingMethodsCartFragment}
+`;
+
 export default {
     IsUserAuthedQuery: IS_USER_AUTHED,
     createCartMutation: CREATE_CART,
     getCartDetailsQuery: GET_CART_DETAILS,
     mergeCartsMutation: MERGE_CARTS,
-    removeItemFromCartMutation: REMOVE_ITEM_FROM_CART
+    removeItemFromCartMutation: REMOVE_ITEM_FROM_CART,
+    updateCartItemsMutation: UPDATE_CART_ITEMS
 };

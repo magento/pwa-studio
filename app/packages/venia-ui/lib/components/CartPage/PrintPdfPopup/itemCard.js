@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 
 import defaultClasses from './itemCard.module.css';
 import { usePdfPopupProduct } from '@magento/peregrine/lib/talons/CartPage/PdfPopupProduct/usePdfPopupProduct';
-import { gql } from '@apollo/client';
-
-import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
-import { AvailableShippingMethodsCartFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql.js';
 
 const ItemCard = props => {
     const { item, tooglePrice } = props;
@@ -13,9 +9,6 @@ const ItemCard = props => {
     const [currency, setCurrency] = useState(item.prices.price.currency);
 
     const talonProps = usePdfPopupProduct({
-        operations: {
-            updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
-        },
         ...props
     });
     const { product } = talonProps;
@@ -54,18 +47,3 @@ const ItemCard = props => {
 };
 
 export default ItemCard;
-
-export const UPDATE_QUANTITY_MUTATION = gql`
-    mutation updateItemQuantity($cartId: String!, $itemId: ID!, $quantity: Float!) {
-        updateCartItems(input: { cart_id: $cartId, cart_items: [{ cart_item_uid: $itemId, quantity: $quantity }] })
-            @connection(key: "updateCartItems") {
-            cart {
-                id
-                ...CartPageFragment
-                ...AvailableShippingMethodsCartFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${AvailableShippingMethodsCartFragment}
-`;

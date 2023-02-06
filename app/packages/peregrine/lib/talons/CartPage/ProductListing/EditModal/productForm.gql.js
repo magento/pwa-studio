@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import { ProductFormFragment } from './productFormFragment.gql';
 
@@ -54,23 +55,8 @@ const UPDATE_CONFIGURABLE_OPTIONS = gql`
     ${CartPageFragment}
 `;
 
-const UPDATE_QUANTITY = gql`
-    mutation UpdateCartItemQuantity($cartId: String!, $cartItemId: ID!, $quantity: Float!) {
-        updateCartItems(
-            input: { cart_id: $cartId, cart_items: [{ cart_item_uid: $cartItemId, quantity: $quantity }] }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
 export default {
     getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
     getConfigurableThumbnailSourceQuery: GET_CONFIGURABLE_THUMBNAIL_SOURCE,
-    updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS,
-    updateQuantityMutation: UPDATE_QUANTITY
+    updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS
 };

@@ -38,7 +38,7 @@ export const useProduct = props => {
     const [, { dispatch }] = useEventingContext();
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
-    const { removeItemFromCartMutation, updateItemQuantityMutation, getStoreConfigQuery } = operations;
+    const { removeItemFromCartMutation, updateCartItemsMutation, getStoreConfigQuery } = operations;
 
     const { formatMessage } = useIntl();
 
@@ -68,7 +68,7 @@ export const useProduct = props => {
     const [
         updateItemQuantity,
         { loading: updateItemLoading, error: updateError, called: updateItemCalled }
-    ] = useMutation(updateItemQuantityMutation);
+    ] = useMutation(updateCartItemsMutation);
 
     const [{ cartId }] = useCartContext();
 
@@ -249,7 +249,7 @@ const flattenProduct = (item, configurableThumbnailSource, storeUrlSuffix) => {
  * @typedef {Object} ProductMutations
  *
  * @property {GraphQLDocument} removeItemFromCartMutation Mutation for removing an item in a cart
- * @property {GraphQLDocument} updateItemQuantityMutation Mutation for updating the item quantity in a cart
+ * @property {GraphQLDocument} updateCartItemsMutation Mutation for updating the item quantity in a cart
  *
  * @see [product.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/product.js}
  * to see the mutations used in Venia

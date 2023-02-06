@@ -6,8 +6,9 @@ import { getOutOfStockVariantsWithInitialSelection } from '@magento/peregrine/li
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './productForm.gql';
+import CART_OPERATIONS from '../../cartPage.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
  * This talon contains logic for a product edit form.
@@ -26,7 +27,7 @@ import DEFAULT_OPERATIONS from './productForm.gql';
  * @param {function} props.setIsCartUpdating Function for setting the updating state for the shopping cart.
  * @param {function} props.setVariantPrice Function for setting the variant price on a product.
  * @param {GraphQLDocument} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
- * @param {GraphQLDocument} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
+ * @param {GraphQLDocument} props.updateCartItemsMutation GraphQL mutation for updating the quantity of a product in a cart.
  * @param {function} props.setActiveEditItem Function for setting the actively editing item.
  *
  * @return {ProductFormTalonProps}
@@ -47,13 +48,13 @@ function deriveOptionSelectionsFromProduct(cartItem) {
 }
 
 export const useProductForm = props => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
 
     const {
         getConfigurableThumbnailSourceQuery,
         getConfigurableOptionsQuery,
         updateConfigurableOptionsMutation,
-        updateQuantityMutation
+        updateCartItemsMutation
     } = operations;
 
     const { cartItem, setIsCartUpdating, setVariantPrice, setActiveEditItem } = props;
@@ -87,7 +88,7 @@ export const useProductForm = props => {
     const [
         updateItemQuantity,
         { called: updateQuantityCalled, error: updateQuantityError, loading: updateQuantityLoading }
-    ] = useMutation(updateQuantityMutation);
+    ] = useMutation(updateCartItemsMutation);
 
     const [
         updateConfigurableOptions,

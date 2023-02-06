@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Heart } from 'react-feather';
-import { gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
@@ -18,9 +17,6 @@ import Quantity from './quantity';
 
 import defaultClasses from './product.module.css';
 
-import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
-import { AvailableShippingMethodsCartFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql.js';
-
 const IMAGE_SIZE = 100;
 
 const HeartIcon = <Icon size={16} src={Heart} />;
@@ -30,9 +26,6 @@ const Product = props => {
 
     const { formatMessage } = useIntl();
     const talonProps = useProduct({
-        operations: {
-            updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
-        },
         ...props
     });
 
@@ -150,17 +143,3 @@ const Product = props => {
 };
 
 export default Product;
-
-export const UPDATE_QUANTITY_MUTATION = gql`
-    mutation updateItemQuantity($cartId: String!, $itemId: ID!, $quantity: Float!) {
-        updateCartItems(input: { cart_id: $cartId, cart_items: [{ cart_item_uid: $itemId, quantity: $quantity }] }) {
-            cart {
-                id
-                ...CartPageFragment
-                ...AvailableShippingMethodsCartFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${AvailableShippingMethodsCartFragment}
-`;

@@ -14,7 +14,6 @@ import { useStyle } from '../../classify';
 import defaultClasses from './cartOptions.module.css';
 
 import { ADD_CONFIGURABLE_MUTATION, ADD_SIMPLE_MUTATION } from '../ProductFullDetail/productFullDetail.gql';
-import { REMOVE_ITEM_MUTATION, UPDATE_ITEM_MUTATION } from './cartOptions.gql';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -38,9 +37,7 @@ const CartOptions = props => {
         addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
         cartItem,
         configItemu,
-        endEditItem,
-        removeItemMutation: REMOVE_ITEM_MUTATION,
-        updateItemMutation: UPDATE_ITEM_MUTATION
+        endEditItem
     });
 
     const {

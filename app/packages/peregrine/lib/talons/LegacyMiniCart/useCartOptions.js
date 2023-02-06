@@ -30,13 +30,11 @@ export const useCartOptions = props => {
         addSimpleProductToCartMutation,
         cartItem,
         configItem,
-        endEditItem,
-        removeItemMutation,
-        updateItemMutation
+        endEditItem
     } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { createCartMutation, getCartDetailsQuery } = operations;
+    const { createCartMutation, getCartDetailsQuery, removeItemFromCartMutation, updateCartItemsMutation } = operations;
 
     const { configurable_options: cartItemOptions, product, quantity: qty } = cartItem;
     const { name, price } = product;
@@ -49,8 +47,8 @@ export const useCartOptions = props => {
     const [addConfigurableProductToCart] = useMutation(addConfigurableProductToCartMutation);
     const [addSimpleProductToCart] = useMutation(addSimpleProductToCartMutation);
     const [fetchCartId] = useMutation(createCartMutation);
-    const [removeItem] = useMutation(removeItemMutation);
-    const [updateItem] = useMutation(updateItemMutation);
+    const [removeItem] = useMutation(removeItemFromCartMutation);
+    const [updateItem] = useMutation(updateCartItemsMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const initialOptionSelections = useMemo(() => {
