@@ -5,24 +5,14 @@ import { ShippingInformationFragment } from '../shippingInformationFragments.gql
 import { ShippingMethodsCheckoutFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
 import { AvailablePaymentMethodsFragment } from '../../PaymentInformation/paymentInformation.gql';
 
-export const SET_GUEST_SHIPPING_MUTATION = gql`
-    mutation SetGuestShipping(
-        $cartId: String!
-        $email: String!
-        $address: CartAddressInput!
-    ) {
+export const SET_GUEST_SHIPPING = gql`
+    mutation SetGuestShipping($cartId: String!, $email: String!, $address: CartAddressInput!) {
         setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
             cart {
                 id
             }
         }
-
-        setShippingAddressesOnCart(
-            input: {
-                cart_id: $cartId
-                shipping_addresses: [{ address: $address }]
-            }
-        ) {
+        setShippingAddressesOnCart(input: { cart_id: $cartId, shipping_addresses: [{ address: $address }] }) {
             cart {
                 id
                 ...ShippingInformationFragment
@@ -47,6 +37,6 @@ export const GET_EMAIL_AVAILABLE_QUERY = gql`
 `;
 
 export default {
-    setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION,
+    setGuestShippingMutation: SET_GUEST_SHIPPING,
     getEmailAvailableQuery: GET_EMAIL_AVAILABLE_QUERY
 };

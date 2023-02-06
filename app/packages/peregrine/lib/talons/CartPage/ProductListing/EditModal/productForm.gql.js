@@ -15,65 +15,6 @@ const GET_CONFIGURABLE_OPTIONS = gql`
     ${ProductFormFragment}
 `;
 
-const UPDATE_QUANTITY_MUTATION = gql`
-    mutation UpdateCartItemQuantity(
-        $cartId: String!
-        $cartItemId: ID!
-        $quantity: Float!
-    ) {
-        updateCartItems(
-            input: {
-                cart_id: $cartId
-                cart_items: [
-                    { cart_item_uid: $cartItemId, quantity: $quantity }
-                ]
-            }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
-const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
-    mutation UpdateConfigurableOptions(
-        $cartId: String!
-        $cartItemId: ID!
-        $parentSku: String!
-        $variantSku: String!
-        $quantity: Float!
-    ) {
-        addConfigurableProductsToCart(
-            input: {
-                cart_id: $cartId
-                cart_items: [
-                    {
-                        data: { quantity: $quantity, sku: $variantSku }
-                        parent_sku: $parentSku
-                    }
-                ]
-            }
-        ) {
-            cart {
-                id
-            }
-        }
-
-        removeItemFromCart(
-            input: { cart_id: $cartId, cart_item_uid: $cartItemId }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
 const GET_CONFIGURABLE_THUMBNAIL_SOURCE = gql`
     query getConfigurableThumbnailSource {
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
@@ -84,9 +25,52 @@ const GET_CONFIGURABLE_THUMBNAIL_SOURCE = gql`
     }
 `;
 
+const UPDATE_CONFIGURABLE_OPTIONS = gql`
+    mutation UpdateConfigurableOptions(
+        $cartId: String!
+        $cartItemId: ID!
+        $parentSku: String!
+        $variantSku: String!
+        $quantity: Float!
+    ) {
+        addConfigurableProductsToCart(
+            input: {
+                cart_id: $cartId
+                cart_items: [{ data: { quantity: $quantity, sku: $variantSku }, parent_sku: $parentSku }]
+            }
+        ) {
+            cart {
+                id
+            }
+        }
+
+        removeItemFromCart(input: { cart_id: $cartId, cart_item_uid: $cartItemId }) {
+            cart {
+                id
+                ...CartPageFragment
+            }
+        }
+    }
+    ${CartPageFragment}
+`;
+
+const UPDATE_QUANTITY = gql`
+    mutation UpdateCartItemQuantity($cartId: String!, $cartItemId: ID!, $quantity: Float!) {
+        updateCartItems(
+            input: { cart_id: $cartId, cart_items: [{ cart_item_uid: $cartItemId, quantity: $quantity }] }
+        ) {
+            cart {
+                id
+                ...CartPageFragment
+            }
+        }
+    }
+    ${CartPageFragment}
+`;
+
 export default {
-    getConfigurableThumbnailSourceQuery: GET_CONFIGURABLE_THUMBNAIL_SOURCE,
     getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
-    updateQuantityMutation: UPDATE_QUANTITY_MUTATION,
-    updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS_MUTATION
+    getConfigurableThumbnailSourceQuery: GET_CONFIGURABLE_THUMBNAIL_SOURCE,
+    updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS,
+    updateQuantityMutation: UPDATE_QUANTITY
 };
