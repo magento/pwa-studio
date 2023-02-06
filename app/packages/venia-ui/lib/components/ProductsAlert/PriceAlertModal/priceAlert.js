@@ -4,20 +4,15 @@ import Dialog from '@magento/venia-ui/lib/components/Dialog';
 import Field from '@magento/venia-ui/lib/components/Field';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { useIntl } from 'react-intl';
-import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 import defaultClasses from './priceAlert.module.css';
 import { useStyle } from '../../../classify';
 
 const PriceAlert = props => {
+    const { onCancel, isOpen, selectedVarient, formProps, setFormApi, onConfirm: handleSubmitPriceAlert } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const { onCancel, isOpen, selectedVarient } = props;
+    const [{ isSignedIn }] = useUserContext();
 
-    const talonProps = useProductsAlert({
-        initialValues: props.initialValues || {},
-        selectProductSku: selectedVarient?.product?.sku || selectedVarient,
-        selectProductB2B: selectedVarient
-    });
-    const { handleSubmitPriceAlert, formProps, setFormApi, isUserSignIn } = talonProps;
     const { formatMessage } = useIntl();
 
     const modalTitle = formatMessage({
@@ -49,13 +44,13 @@ const PriceAlert = props => {
                 <hr />
                 <p>{modalTextInfo}</p>
 
-                {!isUserSignIn && (
+                {!isSignedIn && (
                     <Field id="priceAlertFormEmail">
                         <TextInput
                             id="priceAlertFormEmail"
                             data-cy="priceAlertFormEmail-email"
                             field="email"
-                            validate={!isUserSignIn && isRequired}
+                            validate={!isSignedIn && isRequired}
                         />
                     </Field>
                 )}

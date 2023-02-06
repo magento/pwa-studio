@@ -64,45 +64,57 @@ export const useProductsAlert = props => {
     }, [customersAlertsItems]);
 
     const handleOpendStockModal = () => setisStockModalOpened(true);
+
     const handleOpenPriceModal = () => setOpenPriceModal(true);
+
     const handleCloseModal = () => {
         setisStockModalOpened(false);
         setOpenPriceModal(false);
     };
 
+    const addedSuccsessfully = () =>
+        addToast({
+            type: 'success',
+            message: (
+                <FormattedMessage
+                    id="productAlert.requestProductAlert"
+                    defaultMessage="The product alert was send successfully"
+                />
+            ),
+            timeout: 5000
+        });
     const handleSubmitPriceAlert = useCallback(
         async apiValue => {
             try {
+                const sku = itemSku || (process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku);
                 if (isSignedIn) {
                     await submitCustomerPriceAlert({
                         variables: {
-                            productSku: process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku
+                            productSku: sku
                         }
                     });
+                    handleCloseModal();
                 } else {
                     await submiGuestPriceAlert({
                         variables: {
-                            productSku: process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku,
+                            productSku: sku,
                             email: apiValue?.email
                         }
                     });
+                    handleCloseModal();
                 }
 
-                addToast({
-                    type: 'success',
-                    message: (
-                        <FormattedMessage
-                            id="productAlert.requestProductAlert"
-                            defaultMessage="The product alert was send successfully"
-                        />
-                    ),
-                    timeout: 5000
-                });
+                addedSuccsessfully();
             } catch (error) {
-                console.log({ error });
+                return addToast({
+                    type: 'error',
+                    icon: errorIcon,
+                    message: error.message,
+                    timeout: 6000
+                });
             }
         },
-        [submitCustomerPriceAlert, submiGuestPriceAlert, isSignedIn, selectProductSku]
+        [submitCustomerPriceAlert, submiGuestPriceAlert, isSignedIn, selectProductSku, itemSku]
     );
 
     const submitStockAlert = useCallback(
@@ -115,6 +127,8 @@ export const useProductsAlert = props => {
                             productSku: sku
                         }
                     });
+                    addedSuccsessfully();
+                    handleCloseModal();
                 } else {
                     await submiGuestStockAlert({
                         variables: {
@@ -122,20 +136,16 @@ export const useProductsAlert = props => {
                             email: apiValue?.email
                         }
                     });
-
-                    addToast({
-                        type: 'success',
-                        message: (
-                            <FormattedMessage
-                                id="productAlert.requestProductAlert"
-                                defaultMessage="The product alert was send successfully"
-                            />
-                        ),
-                        timeout: 5000
-                    });
+                    addedSuccsessfully();
+                    handleCloseModal();
                 }
             } catch (error) {
-                console.log({ error });
+                return addToast({
+                    type: 'error',
+                    icon: errorIcon,
+                    message: error.message,
+                    timeout: 6000
+                });
             }
         },
         [submiGuestStockAlert, isSignedIn, submitCustomerStockAlert, selectedProductB2B, itemSku]

@@ -3,6 +3,10 @@ export const GET_SIMPLE_PRODUCT = gql`
     query getSimpleProduct($sku: String!) {
         products(search: $sku, filter: { sku: { eq: $sku } }) {
             items {
+                mp_product_alert {
+                    mp_productalerts_price_alert
+                    mp_productalerts_stock_notify
+                }
                 name
                 media_gallery_entries {
                     file

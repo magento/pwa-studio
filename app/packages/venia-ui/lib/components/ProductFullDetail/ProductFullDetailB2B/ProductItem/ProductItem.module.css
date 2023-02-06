@@ -133,6 +133,10 @@
     }
 }
 
+.notifyPrice {
+    display: flex;
+    align-items: center;
+}
 /* Tablet */
 @media (max-width: 980px) {
     .priceContainer {
@@ -253,6 +257,10 @@
     justify-content: space-around;
 }
 
+.stockAddContainer div > button {
+    min-width: 92px;
+    width: 92px;
+}
 .requestBtn button {
     min-width: auto;
 }

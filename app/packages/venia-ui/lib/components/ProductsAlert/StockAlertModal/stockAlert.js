@@ -12,7 +12,6 @@ const StockAlert = props => {
     const [{ isSignedIn }] = useUserContext();
     const { onCancel, isOpen, selectedVarient, formProps, onConfirm: submitStockAlert } = props;
 
-    console.log('selectedVarient', selectedVarient);
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 

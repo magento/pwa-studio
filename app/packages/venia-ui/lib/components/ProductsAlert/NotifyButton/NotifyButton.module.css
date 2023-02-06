@@ -20,8 +20,6 @@
 }
 
 .text {
-    composes: hidden from global;
-
     composes: xs_inline from global;
 }
 

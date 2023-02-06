@@ -21,16 +21,21 @@ import NotifyButton from '../../../ProductsAlert/NotifyButton/NotifyButton';
 
 const ItemsTable = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const productsAlert = useProductsAlert();
+
+    const { simpleProductData, errors, handleAddToCart, aggregations, tempTotalPrice, handleQuantityChange } = props;
+
+    const productAlertStatus = simpleProductData?.mp_product_alert;
+    const productsAlert = useProductsAlert({ ItemSku: simpleProductData?.sku });
     const {
         isStockModalOpened,
         handleOpendStockModal,
         handleCloseModal,
         handleOpenPriceModal,
-        openPriceModal
+        openPriceModal,
+        formProps,
+        submitStockAlert,
+        handleSubmitPriceAlert
     } = productsAlert;
-
-    const { simpleProductData, errors, handleAddToCart, aggregations, tempTotalPrice, handleQuantityChange } = props;
 
     const [copied, setCopied] = useState(false);
 
@@ -73,17 +78,24 @@ const ItemsTable = props => {
                     value={simpleProductData.price.minimalPrice.amount.value}
                 />
             </span>
-            <div className={classes.notifyPrice}>
-                <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
-            </div>
+            {productAlertStatus?.mp_productalerts_price_alert && (
+                <div className={classes.notifyPrice}>
+                    <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                </div>
+            )}
         </div>
     );
 
-    const stockStatus = simpleProductData.stock_status === 'IN_STOCK' && (
-        <div className={classes.inStockContainer}>
-            <img src={inStock} alt="inStock" />
-        </div>
-    );
+    const stockStatus =
+        simpleProductData?.stock_status === 'IN_STOCK' ? (
+            <div className={classes.inStockContainer}>
+                <img src={inStock} alt="inStock" />
+            </div>
+        ) : (
+            <div className={classes.outStockContainer}>
+                <img src={outOfStock} alt="outOfStock" />
+            </div>
+        );
 
     const addToCartButton = (
         <Button
@@ -103,7 +115,15 @@ const ItemsTable = props => {
             />
         </Button>
     );
-
+    const stockButton =
+        simpleProductData?.stock_status === 'OUT_OF_STOCK' && productAlertStatus?.mp_productalerts_stock_notify ? (
+            <NotifyButton
+                handleOpendStockModal={handleOpendStockModal}
+                productStatus={simpleProductData?.stock_status}
+            />
+        ) : (
+            addToCartButton
+        );
     const lastDigitsOfSku = simpleProductData.sku.substring(simpleProductData.sku.length - 7);
 
     const productItemDesktop = (
@@ -148,14 +168,8 @@ const ItemsTable = props => {
                 {priceTag}
                 <span className={classes.indexFixed}>{tempTotalPrice}</span>
                 <div className={classes.stockAddContainer}>
-                    {simpleProductData?.stock_status === 'OUT_OF_STOCK' && (
-                        <NotifyButton
-                            handleOpendStockModal={handleOpendStockModal}
-                            productStatus={simpleProductData?.stock_status}
-                        />
-                    )}
                     {stockStatus}
-                    {addToCartButton}
+                    {stockButton}
                 </div>
             </div>
         </div>
@@ -223,7 +237,7 @@ const ItemsTable = props => {
                         />
                     </Form>
 
-                    {addToCartButton}
+                    {stockButton}
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </section>
             </div>
@@ -233,10 +247,18 @@ const ItemsTable = props => {
     return (
         <div className={classes.productsTableContainer}>
             {productItemDesktop} {productItemMobile}
-            <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} selectedVarient={simpleProductData?.sku} />
+            <PriceAlert
+                isOpen={openPriceModal}
+                formProps={formProps}
+                onConfirm={handleSubmitPriceAlert}
+                onCancel={handleCloseModal}
+                selectedVarient={simpleProductData?.sku}
+            />
             <StockAlert
                 isOpen={isStockModalOpened}
+                onConfirm={submitStockAlert}
                 onCancel={handleCloseModal}
+                formProps={formProps}
                 selectedVarient={simpleProductData?.sku}
             />
         </div>

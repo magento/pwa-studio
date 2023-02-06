@@ -265,3 +265,8 @@
 .totalPriceContainer div {
     width: max-content;
 }
+
+.priceContainer div{
+    display: flex;
+    align-items: center;
+}

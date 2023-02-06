@@ -35,18 +35,20 @@ const ProductItem = props => {
         errors
     } = props;
     const [copied, setCopied] = useState(false);
-    const productsAlert = useProductsAlert();
+    const productAlertStatus = variant?.product?.mp_product_alert;
+    const productsAlert = useProductsAlert({ ItemSku: variant?.product?.sku });
     const {
         isStockModalOpened,
         handleOpendStockModal,
         handleCloseModal,
         handleOpenPriceModal,
         openPriceModal,
-        isUserSignIn
+        formProps,
+        submitStockAlert,
+        handleSubmitPriceAlert
     } = productsAlert;
 
     const { handleAddCofigItemBySku } = useAddToQuote();
-
     const copyText = () => {
         navigator.clipboard.writeText(variant.product.sku);
         setCopied(true);
@@ -151,18 +153,24 @@ const ProductItem = props => {
                     value={variant.product.price.minimalPrice.amount.value}
                 />
             </span>
-            <div className={classes.notifyPrice}>
-                <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+            {productAlertStatus?.mp_productalerts_price_alert && (
+                <div className={classes.notifyPrice}>
+                    <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                </div>
+            )}
+        </div>
+    );
+
+    const stockStatus =
+        variant.product.stock_status === 'IN_STOCK' ? (
+            <div className={classes.inStockContainer}>
+                <img src={inStock} alt="inStock" />
             </div>
-        </div>
-    );
-
-    const stockStatus = variant.product.stock_status === 'IN_STOCK' && (
-        <div className={classes.inStockContainer}>
-            <img src={inStock} alt="inStock" />
-        </div>
-    );
-
+        ) : (
+            <div className={classes.outStockContainer}>
+                <img src={outOfStock} alt="outOfStock" />
+            </div>
+        );
     const addToCartButton = (
         <Button
             className={classes.buttonAddToCart}
@@ -182,6 +190,15 @@ const ProductItem = props => {
         </Button>
     );
 
+    const stockButton =
+        variant?.product?.stock_status === 'OUT_OF_STOCK' && productAlertStatus?.mp_productalerts_stock_notify ? (
+            <NotifyButton
+                handleOpendStockModal={handleOpendStockModal}
+                productStatus={variant?.product?.stock_status}
+            />
+        ) : (
+            addToCartButton
+        );
     const categoriesKeyValue = () => {
         const tempCategoriesKeyValueList = [];
         categoriesName.map((categoryName, i) => {
@@ -230,14 +247,8 @@ const ProductItem = props => {
                     />
                 </span>
                 <div className={classes.stockAddContainer}>
-                    {variant?.product?.stock_status === 'OUT_OF_STOCK' && (
-                        <NotifyButton
-                            handleOpendStockModal={handleOpendStockModal}
-                            productStatus={variant?.product?.stock_status}
-                        />
-                    )}
                     {stockStatus}
-                    {variant.product.price.minimalPrice.amount.value ? addToCartButton : requestQuoteButton}
+                    {variant.product.price.minimalPrice.amount.value ? stockButton : requestQuoteButton}
                 </div>
             </div>
             <ConfirmationModal
@@ -262,15 +273,6 @@ const ProductItem = props => {
                         <small className={classes.skuTextMobile}>{variant.product.sku}</small>
                         <div className={classes.stockStatusContainer}>
                             <div>{stockStatusText}:</div>
-
-                            <div className={classes.stockStatusCircle}>
-                                {variant?.product?.stock_status === 'OUT_OF_STOCK' && (
-                                    <NotifyButton
-                                        handleOpendStockModal={handleOpendStockModal}
-                                        productStatus={variant?.product?.stock_status}
-                                    />
-                                )}
-                            </div>
                             <div className={classes.stockStatusCircle}>{stockStatus}</div>
                         </div>
                         <h2>{priceTag}</h2>
@@ -303,7 +305,7 @@ const ProductItem = props => {
                     </div>
                     <div className={classes.productItemBodyOperations}>
                         {quantitySelector(2)}
-                        {variant.product.price.minimalPrice.amount.value ? addToCartButton : requestQuoteButton}
+                        {variant.product.price.minimalPrice.amount.value ? stockButton : requestQuoteButton}
                     </div>
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </div>
@@ -314,11 +316,17 @@ const ProductItem = props => {
     return (
         <div>
             {productItemDesktop} {productItemMobile}
-            <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} selectedVarient={variant?.product?.sku} />
+            <PriceAlert
+                formProps={formProps}
+                isOpen={openPriceModal}
+                onConfirm={handleSubmitPriceAlert}
+                onCancel={handleCloseModal}
+            />
             <StockAlert
                 isOpen={isStockModalOpened}
+                onConfirm={submitStockAlert}
+                formProps={formProps}
                 onCancel={handleCloseModal}
-                selectedVarient={variant?.product?.sku}
             />
         </div>
     );
