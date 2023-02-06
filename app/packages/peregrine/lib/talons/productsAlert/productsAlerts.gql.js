@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const subscriberOutput = gql`
-    fragment subscriberOutput on MpMageplazaSubscriberOutput {
+    fragment subscriberOutput on MpSubscriberOutput {
         customer_email
         customer_group
         customer_id
@@ -99,8 +99,8 @@ export const SUBMIT_CUSTOMER_PRICE_ALERT = gql`
 `;
 
 export const SUBMIT_GUEST_PRICE_ALERT = gql`
-    mutation MpProductAlertCustomerNotifyPriceDrops($productSku: String!, $email: String!) {
-        MpProductAlertCustomerNotifyPriceDrops(input: { productSku: $productSku, email: $email }) {
+    mutation MpProductAlertNotifyPriceDrops($productSku: String!, $email: String!) {
+        MpProductAlertNotifyPriceDrops(input: { productSku: $productSku, email: $email }) {
             ...subscriberOutput
         }
     }
@@ -118,7 +118,7 @@ export const SUBMIT_CUSTOMER_STOCK_ALERT = gql`
 
 export const SUBMIT_GUEST_STOCK_ALERT = gql`
     mutation MpProductAlertNotifyInStock($productSku: String!, $email: String!) {
-        MpProductAlertCustomerNotifyPriceDrops(input: { productSku: $productSku, email: $email }) {
+        MpProductAlertNotifyInStock(input: { productSku: $productSku, email: $email }) {
             ...subscriberOutput
         }
     }

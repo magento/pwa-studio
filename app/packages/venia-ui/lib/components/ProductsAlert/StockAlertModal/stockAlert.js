@@ -6,18 +6,12 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { useIntl } from 'react-intl';
 import defaultClasses from './stockAlert.module.css';
 import { useStyle } from '../../../classify';
-import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const StockAlert = props => {
-    const { onCancel, isOpen, selectedVarient } = props;
+    const [{ isSignedIn }] = useUserContext();
+    const { onCancel, isOpen, selectedVarient, formProps, onConfirm: submitStockAlert } = props;
 
-    const talonProps = useProductsAlert({
-        initialValues: props.initialValues || {},
-        selectProductSku: selectedVarient?.product?.sku || selectedVarient,
-        selectProductB2B: selectedVarient
-    });
-
-    const { submitStockAlert, formProps, isUserSignIn } = talonProps;
     console.log('selectedVarient', selectedVarient);
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
@@ -50,9 +44,9 @@ const StockAlert = props => {
             >
                 <hr />
                 <p>{modalTextInfo}</p>
-                {!isUserSignIn && (
+                {!isSignedIn && (
                     <Field id="email">
-                        <TextInput field="email" validate={!isUserSignIn && isRequired} data-cy="email" />
+                        <TextInput field="email" validate={!isSignedIn && isRequired} data-cy="email" />
                     </Field>
                 )}
                 <p>{modalFooterText}</p>

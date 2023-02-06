@@ -21,6 +21,7 @@ const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 export const useProductsAlert = props => {
     const selectProductSku = props?.selectProductSku;
     const selectedProductB2B = props?.selectProductB2B;
+    const itemSku = props?.ItemSku;
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
     const [formEmail] = useState();
@@ -107,16 +108,17 @@ export const useProductsAlert = props => {
     const submitStockAlert = useCallback(
         async apiValue => {
             try {
+                const sku = itemSku || (process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku);
                 if (isSignedIn) {
                     await submitCustomerStockAlert({
                         variables: {
-                            productSku: process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku
+                            productSku: sku
                         }
                     });
                 } else {
                     await submiGuestStockAlert({
                         variables: {
-                            productSku: process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku,
+                            productSku: sku,
                             email: apiValue?.email
                         }
                     });
@@ -136,13 +138,12 @@ export const useProductsAlert = props => {
                 console.log({ error });
             }
         },
-        [submiGuestStockAlert, isSignedIn, submitCustomerStockAlert, selectedProductB2B]
+        [submiGuestStockAlert, isSignedIn, submitCustomerStockAlert, selectedProductB2B, itemSku]
     );
 
     const submitDeleteAlert = useCallback(
         async id => {
             try {
-                console.log({ id });
                 await submiDeleteAlertAPI({
                     variables: {
                         id
