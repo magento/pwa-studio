@@ -1,11 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useMutation, useQuery } from '@apollo/client';
+
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
-
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
-import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CartPage/ProductListing/product.gql';
+
+import DEFAULT_OPERATIONS from '../ProductListing/product.gql';
+import CART_OPERATIONS from '../cartPage.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
@@ -33,8 +35,8 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 export const usePdfPopupProduct = props => {
     const { item, wishlistConfig } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { removeItemMutation, updateItemQuantityMutation, getStoreConfigQuery } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+    const { removeItemFromCartMutation, updateItemQuantityMutation, getStoreConfigQuery } = operations;
 
     const { formatMessage } = useIntl();
 
@@ -59,7 +61,7 @@ export const usePdfPopupProduct = props => {
     const [
         removeItemFromCart,
         { called: removeItemCalled, error: removeItemError, loading: removeItemLoading }
-    ] = useMutation(removeItemMutation);
+    ] = useMutation(removeItemFromCartMutation);
 
     const [
         updateItemQuantity,
@@ -181,7 +183,7 @@ const flattenProduct = (item, configurableThumbnailSource, storeUrlSuffix) => {
  *
  * @typedef {Object} ProductMutations
  *
- * @property {GraphQLDocument} removeItemMutation Mutation for removing an item in a cart
+ * @property {GraphQLDocument} removeItemFromCartMutation Mutation for removing an item in a cart
  * @property {GraphQLDocument} updateItemQuantityMutation Mutation for updating the item quantity in a cart
  *
  * @see [product.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/product.js}

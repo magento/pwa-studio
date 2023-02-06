@@ -1,7 +1,9 @@
 import { gql } from '@apollo/client';
 
+import { AvailableShippingMethodsCartFragment } from './PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql.js';
 import { CartPageFragment } from './cartPageFragments.gql';
 import { CheckoutPageFragment } from '../CheckoutPage/checkoutPageFragments.gql';
+import { MiniCartFragment } from '../MiniCart/miniCartFragments.gql';
 
 export const IS_USER_AUTHED = gql`
     query IsUserAuthed($cartId: String!) {
@@ -81,9 +83,30 @@ export const MERGE_CARTS = gql`
     ${CheckoutPageFragment}
 `;
 
+export const REMOVE_ITEM_FROM_CART = gql`
+    mutation RemoveItemFromCart($cartId: String!, $itemId: ID!) {
+        removeItemFromCart(input: { cart_id: $cartId, cart_item_uid: $itemId }) {
+            cart {
+                id
+                available_payment_methods {
+                    code
+                    title
+                }
+                ...MiniCartFragment
+                ...CartPageFragment
+                ...AvailableShippingMethodsCartFragment
+            }
+        }
+    }
+    ${MiniCartFragment}
+    ${CartPageFragment}
+    ${AvailableShippingMethodsCartFragment}
+`;
+
 export default {
     IsUserAuthedQuery: IS_USER_AUTHED,
     createCartMutation: CREATE_CART,
     getCartDetailsQuery: GET_CART_DETAILS,
-    mergeCartsMutation: MERGE_CARTS
+    mergeCartsMutation: MERGE_CARTS,
+    removeItemFromCartMutation: REMOVE_ITEM_FROM_CART
 };

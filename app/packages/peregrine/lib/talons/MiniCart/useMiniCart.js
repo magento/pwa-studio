@@ -7,6 +7,7 @@ import { useEventingContext } from '../../context/eventing';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
 import DEFAULT_OPERATIONS from './miniCart.gql';
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
 import mergeOperations from '../../util/shallowMerge';
 
 /**
@@ -14,7 +15,7 @@ import mergeOperations from '../../util/shallowMerge';
  * @param {Boolean} props.isOpen - True if the mini cart is open
  * @param {Function} props.setIsOpen - Function to toggle the mini cart
  * @param {DocumentNode} props.operations.getMiniCartQuery - Query to fetch mini cart data
- * @param {DocumentNode} props.operations.removeItemMutation - Mutation to remove an item from cart
+ * @param {DocumentNode} props.operations.removeItemFromCartMutation - Mutation to remove an item from cart
  *
  * @returns {
  *      closeMiniCart: Function,
@@ -33,8 +34,8 @@ export const useMiniCart = props => {
     const { isOpen, setIsOpen } = props;
     const [, { dispatch }] = useEventingContext();
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { removeItemMutation, getMiniCartQuery, getStoreConfigQuery } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+    const { removeItemFromCartMutation, getMiniCartQuery, getStoreConfigQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const history = useHistory();
@@ -64,7 +65,7 @@ export const useMiniCart = props => {
     }, [storeConfigData]);
 
     const [removeItem, { loading: removeItemLoading, called: removeItemCalled, error: removeItemError }] = useMutation(
-        removeItemMutation
+        removeItemFromCartMutation
     );
 
     const totalQuantity = useMemo(() => {

@@ -31,7 +31,6 @@ const Product = props => {
     const { formatMessage } = useIntl();
     const talonProps = useProduct({
         operations: {
-            removeItemMutation: REMOVE_ITEM_MUTATION,
             updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
         },
         ...props
@@ -48,23 +47,11 @@ const Product = props => {
         isProductUpdating
     } = talonProps;
 
-    const {
-        currency,
-        image,
-        name,
-        options,
-        quantity,
-        stockStatus,
-        unitPrice,
-        urlKey,
-        urlSuffix
-    } = product;
+    const { currency, image, name, options, quantity, stockStatus, unitPrice, urlKey, urlSuffix } = product;
 
     const classes = useStyle(defaultClasses, props.classes);
 
-    const itemClassName = isProductUpdating
-        ? classes.item_disabled
-        : classes.item;
+    const itemClassName = isProductUpdating ? classes.item_disabled : classes.item;
 
     const editItemSection = isEditable ? (
         <Section
@@ -81,10 +68,7 @@ const Product = props => {
         />
     ) : null;
 
-    const itemLink = useMemo(
-        () => resourceUrl(`/${urlKey}${urlSuffix || ''}`),
-        [urlKey, urlSuffix]
-    );
+    const itemLink = useMemo(() => resourceUrl(`/${urlKey}${urlSuffix || ''}`), [urlKey, urlSuffix]);
 
     const stockStatusMessage =
         stockStatus === 'OUT_OF_STOCK'
@@ -98,11 +82,7 @@ const Product = props => {
         <li className={classes.root} data-cy="Product-root">
             <span className={classes.errorText}>{errorMessage}</span>
             <div className={itemClassName}>
-                <Link
-                    to={itemLink}
-                    className={classes.imageContainer}
-                    data-cy="Product-imageContainer"
-                >
+                <Link to={itemLink} className={classes.imageContainer} data-cy="Product-imageContainer">
                     <Image
                         alt={name}
                         classes={{
@@ -127,20 +107,11 @@ const Product = props => {
                     />
                     <span className={classes.price} data-cy="Product-price">
                         <Price currencyCode={currency} value={unitPrice} />
-                        <FormattedMessage
-                            id={'product.price'}
-                            defaultMessage={' ea.'}
-                        />
+                        <FormattedMessage id={'product.price'} defaultMessage={' ea.'} />
                     </span>
-                    <span className={classes.stockStatusMessage}>
-                        {stockStatusMessage}
-                    </span>
+                    <span className={classes.stockStatusMessage}>{stockStatusMessage}</span>
                     <div className={classes.quantity}>
-                        <Quantity
-                            itemId={item.id}
-                            initialValue={quantity}
-                            onChange={handleUpdateItemQuantity}
-                        />
+                        <Quantity itemId={item.id} initialValue={quantity} onChange={handleUpdateItemQuantity} />
                     </div>
                 </div>
                 <Kebab
@@ -180,34 +151,9 @@ const Product = props => {
 
 export default Product;
 
-export const REMOVE_ITEM_MUTATION = gql`
-    mutation removeItem($cartId: String!, $itemId: ID!) {
-        removeItemFromCart(
-            input: { cart_id: $cartId, cart_item_uid: $itemId }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-                ...AvailableShippingMethodsCartFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${AvailableShippingMethodsCartFragment}
-`;
-
 export const UPDATE_QUANTITY_MUTATION = gql`
-    mutation updateItemQuantity(
-        $cartId: String!
-        $itemId: ID!
-        $quantity: Float!
-    ) {
-        updateCartItems(
-            input: {
-                cart_id: $cartId
-                cart_items: [{ cart_item_uid: $itemId, quantity: $quantity }]
-            }
-        ) {
+    mutation updateItemQuantity($cartId: String!, $itemId: ID!, $quantity: Float!) {
+        updateCartItems(input: { cart_id: $cartId, cart_items: [{ cart_item_uid: $itemId, quantity: $quantity }] }) {
             cart {
                 id
                 ...CartPageFragment

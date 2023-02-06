@@ -4,8 +4,10 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
-import DEFAULT_OPERATIONS from './product.gql';
 import { useEventingContext } from '../../../context/eventing';
+
+import DEFAULT_OPERATIONS from './product.gql';
+import CART_OPERATIONS from '../cartPage.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
@@ -31,21 +33,12 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
  */
 
 export const useProduct = props => {
-    const {
-        item,
-        setActiveEditItem,
-        setIsCartUpdating,
-        wishlistConfig
-    } = props;
+    const { item, setActiveEditItem, setIsCartUpdating, wishlistConfig } = props;
 
     const [, { dispatch }] = useEventingContext();
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const {
-        removeItemMutation,
-        updateItemQuantityMutation,
-        getStoreConfigQuery
-    } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+    const { removeItemFromCartMutation, updateItemQuantityMutation, getStoreConfigQuery } = operations;
 
     const { formatMessage } = useIntl();
 
@@ -65,28 +58,16 @@ export const useProduct = props => {
         }
     }, [storeConfigData]);
 
-    const flatProduct = flattenProduct(
-        item,
-        configurableThumbnailSource,
-        storeUrlSuffix
-    );
+    const flatProduct = flattenProduct(item, configurableThumbnailSource, storeUrlSuffix);
 
     const [
         removeItemFromCart,
-        {
-            called: removeItemCalled,
-            error: removeItemError,
-            loading: removeItemLoading
-        }
-    ] = useMutation(removeItemMutation);
+        { called: removeItemCalled, error: removeItemError, loading: removeItemLoading }
+    ] = useMutation(removeItemFromCartMutation);
 
     const [
         updateItemQuantity,
-        {
-            loading: updateItemLoading,
-            error: updateError,
-            called: updateItemCalled
-        }
+        { loading: updateItemLoading, error: updateError, called: updateItemCalled }
     ] = useMutation(updateItemQuantityMutation);
 
     const [{ cartId }] = useCartContext();
@@ -102,12 +83,7 @@ export const useProduct = props => {
         } else {
             return false;
         }
-    }, [
-        updateItemCalled,
-        removeItemCalled,
-        removeItemLoading,
-        updateItemLoading
-    ]);
+    }, [updateItemCalled, removeItemCalled, removeItemLoading, updateItemLoading]);
 
     useEffect(() => {
         if (item.errors) {
@@ -117,8 +93,7 @@ export const useProduct = props => {
 
     const derivedErrorMessage = useMemo(() => {
         return (
-            (displayError &&
-                deriveErrorMessage([updateError, removeItemError])) ||
+            (displayError && deriveErrorMessage([updateError, removeItemError])) ||
             deriveErrorMessage([...(item.errors || [])]) ||
             ''
         );
@@ -142,12 +117,10 @@ export const useProduct = props => {
             });
 
             const selectedOptionsLabels =
-                item.configurable_options?.map(
-                    ({ option_label, value_label }) => ({
-                        attribute: option_label,
-                        value: value_label
-                    })
-                ) || null;
+                item.configurable_options?.map(({ option_label, value_label }) => ({
+                    attribute: option_label,
+                    value: value_label
+                })) || null;
 
             dispatch({
                 type: 'CART_REMOVE_ITEM',
@@ -180,12 +153,10 @@ export const useProduct = props => {
                 });
 
                 const selectedOptions =
-                    item.configurable_options?.map(
-                        ({ option_label, value_label }) => ({
-                            attribute: option_label,
-                            value: value_label
-                        })
-                    ) || null;
+                    item.configurable_options?.map(({ option_label, value_label }) => ({
+                        attribute: option_label,
+                        value: value_label
+                    })) || null;
 
                 dispatch({
                     type: quantity ? 'CART_UPDATE_ITEM' : 'CART_REMOVE_ITEM',
@@ -225,9 +196,7 @@ export const useProduct = props => {
         item: {
             quantity: item.quantity,
             selected_options: item.configurable_options
-                ? item.configurable_options.map(
-                      option => option.configurable_product_option_value_uid
-                  )
+                ? item.configurable_options.map(option => option.configurable_product_option_value_uid)
                 : [],
             sku: item.product.sku
         },
@@ -247,28 +216,16 @@ export const useProduct = props => {
 };
 
 const flattenProduct = (item, configurableThumbnailSource, storeUrlSuffix) => {
-    const {
-        configurable_options: options = [],
-        prices,
-        product,
-        quantity
-    } = item;
+    const { configurable_options: options = [], prices, product, quantity } = item;
 
     const configured_variant = configuredVariant(options, product);
 
     const { price } = prices;
     const { value: unitPrice, currency } = price;
 
-    const {
-        name,
-        small_image,
-        stock_status: stockStatus,
-        url_key: urlKey
-    } = product;
+    const { name, small_image, stock_status: stockStatus, url_key: urlKey } = product;
     const { url: image } =
-        configurableThumbnailSource === 'itself' && configured_variant
-            ? configured_variant.small_image
-            : small_image;
+        configurableThumbnailSource === 'itself' && configured_variant ? configured_variant.small_image : small_image;
 
     return {
         currency,
@@ -291,7 +248,7 @@ const flattenProduct = (item, configurableThumbnailSource, storeUrlSuffix) => {
  *
  * @typedef {Object} ProductMutations
  *
- * @property {GraphQLDocument} removeItemMutation Mutation for removing an item in a cart
+ * @property {GraphQLDocument} removeItemFromCartMutation Mutation for removing an item in a cart
  * @property {GraphQLDocument} updateItemQuantityMutation Mutation for updating the item quantity in a cart
  *
  * @see [product.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/product.js}

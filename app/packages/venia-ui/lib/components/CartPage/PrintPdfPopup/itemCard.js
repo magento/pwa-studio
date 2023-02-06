@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import defaultClasses from './itemCard.module.css';
-import { usePdfPopupProduct } from '../PdfPopupProduct/usePdfPopupProduct';
+import { usePdfPopupProduct } from '@magento/peregrine/lib/talons/CartPage/PdfPopupProduct/usePdfPopupProduct';
 import { gql } from '@apollo/client';
 
 import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
@@ -14,7 +14,6 @@ const ItemCard = props => {
 
     const talonProps = usePdfPopupProduct({
         operations: {
-            removeItemMutation: REMOVE_ITEM_MUTATION,
             updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
         },
         ...props
@@ -55,20 +54,6 @@ const ItemCard = props => {
 };
 
 export default ItemCard;
-
-export const REMOVE_ITEM_MUTATION = gql`
-    mutation removeItem($cartId: String!, $itemId: ID!) {
-        removeItemFromCart(input: { cart_id: $cartId, cart_item_uid: $itemId }) @connection(key: "removeItemFromCart") {
-            cart {
-                id
-                ...CartPageFragment
-                ...AvailableShippingMethodsCartFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${AvailableShippingMethodsCartFragment}
-`;
 
 export const UPDATE_QUANTITY_MUTATION = gql`
     mutation updateItemQuantity($cartId: String!, $itemId: ID!, $quantity: Float!) {
