@@ -25,8 +25,5 @@ export const GET_SUMMARY_DATA = gql`
 `;
 
 export default {
-    queries: {
-        getBraintreeSummaryData: GET_SUMMARY_DATA
-    },
-    mutations: {}
+    getSummaryDataForBraintreeQuery: GET_SUMMARY_DATA
 };
