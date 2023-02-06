@@ -49,23 +49,8 @@ export const SIGN_IN = gql`
     }
 `;
 
-export const MERGE_CARTS = gql`
-    mutation MergeCartsAfterAccountCreation($sourceCartId: String!, $destinationCartId: String!) {
-        mergeCarts(source_cart_id: $sourceCartId, destination_cart_id: $destinationCartId) {
-            id
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
-            items {
-                uid
-            }
-            ...CheckoutPageFragment
-        }
-    }
-    ${CheckoutPageFragment}
-`;
-
 export default {
     createAccountMutation: CREATE_ACCOUNT,
     getCustomerQuery: GET_CUSTOMER,
-    mergeCartsMutation: MERGE_CARTS,
     signInMutation: SIGN_IN
 };

@@ -21,7 +21,7 @@ export const useSignIn = props => {
     const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
-    
+
     const {
         getCustomerQuery,
         mergeCartsMutation,

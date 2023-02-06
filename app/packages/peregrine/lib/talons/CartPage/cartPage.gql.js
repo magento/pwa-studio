@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
+
 import { CartPageFragment } from './cartPageFragments.gql';
+import { CheckoutPageFragment } from '../CheckoutPage/checkoutPageFragments.gql';
 
 export const IS_USER_AUTHED = gql`
     query IsUserAuthed($cartId: String!) {
@@ -66,8 +68,22 @@ export const GET_CART_DETAILS = gql`
     ${CartPageFragment}
 `;
 
+export const MERGE_CARTS = gql`
+    mutation MergeCarts($sourceCartId: String!, $destinationCartId: String!) {
+        mergeCarts(source_cart_id: $sourceCartId, destination_cart_id: $destinationCartId) {
+            id
+            items {
+                uid
+            }
+            ...CheckoutPageFragment
+        }
+    }
+    ${CheckoutPageFragment}
+`;
+
 export default {
     IsUserAuthedQuery: IS_USER_AUTHED,
     createCartMutation: CREATE_CART,
-    getCartDetailsQuery: GET_CART_DETAILS
+    getCartDetailsQuery: GET_CART_DETAILS,
+    mergeCartsMutation: MERGE_CARTS
 };
