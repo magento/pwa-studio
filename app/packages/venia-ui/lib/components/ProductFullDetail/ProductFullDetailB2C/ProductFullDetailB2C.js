@@ -16,12 +16,21 @@ import defaultClasses from './ProductFullDetailB2C.module.css';
 import noImage from './icons/product-package-cancelled.svg';
 import NotifyPrice from '../../ProductsAlert/NotifyPrice';
 import PriceAlert from '../../ProductsAlert/PriceAlertModal/priceAlert';
+import NotifyButton from '../../ProductsAlert/NotifyButton/NotifyButton';
+import StockAlert from '../../ProductsAlert/StockAlertModal/stockAlert';
+import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
 
 const ProductFullDetailB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
     const productsAlert = useProductsAlert();
-    const { isStockModalOpened, handleOpendStockModal, handleCloseModal } = productsAlert;
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal
+    } = productsAlert;
 
     const {
         breadcrumbs,
@@ -37,7 +46,8 @@ const ProductFullDetailB2C = props => {
         tempTotalPrice,
         cartActionContent,
         customAttributes,
-        selectedVarient
+        selectedVarient,
+        isOutOfStockProduct
     } = props;
 
     const customAttributesDetails = useMemo(() => {
@@ -139,7 +149,13 @@ const ProductFullDetailB2C = props => {
                         />
                         <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
-                    <NotifyPrice handleOpendStockModal={handleOpendStockModal} />
+                    <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                    {selectedVarient?.product?.stock_status === 'OUT_OF_STOCK' && (
+                        <NotifyButton
+                            handleOpendStockModal={handleOpendStockModal}
+                            productStatus={selectedVarient?.product?.stock_status}
+                        />
+                    )}
                     {!selectedVarient && (
                         <div className={classes.notifyContainer}>
                             <FormattedMessage
@@ -170,7 +186,7 @@ const ProductFullDetailB2C = props => {
                 {pageBuilderAttributes}
             </Form>
             {selectedVarient && (
-                <PriceAlert isOpen={isStockModalOpened} onCancel={handleCloseModal} selectedVarient={selectedVarient} />
+                <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} selectedVarient={selectedVarient} />
             )}
         </Fragment>
     );

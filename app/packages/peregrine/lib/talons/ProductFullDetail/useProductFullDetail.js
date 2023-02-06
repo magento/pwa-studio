@@ -91,6 +91,20 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
     }
     return stock_status === OUT_OF_STOCK_CODE;
 };
+
+const getIsOutOfStockProduct = product => {
+    const { variants } = product;
+
+    const outOfStockVariants = [];
+
+    for (let index = 0; index < variants.length; index++) {
+        if (variants[index].product.stock_status === 'OUT_OF_STOCK') {
+            outOfStockVariants.push(variants[index]);
+        }
+    }
+
+    return outOfStockVariants;
+};
 const getIsAllOutOfStock = product => {
     const { stock_status, variants } = product;
     const isConfigurable = isProductConfigurable(product);
@@ -301,6 +315,8 @@ export const useProductFullDetail = props => {
         optionCodes,
         optionSelections
     ]);
+
+    const isOutOfStockProduct = useMemo(() => getIsOutOfStockProduct(product), [product]);
 
     const isOutOfStockProductDisplayed = useMemo(() => {
         let totalVariants = 1;
@@ -600,6 +616,7 @@ export const useProductFullDetail = props => {
         isAddConfigurableLoading,
         cartId,
         derivedOptionSelectionsKey,
-        selectedVarient
+        selectedVarient,
+        isOutOfStockProduct
     };
 };

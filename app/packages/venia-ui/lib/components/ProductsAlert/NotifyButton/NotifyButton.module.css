@@ -24,3 +24,7 @@
 
     composes: xs_inline from global;
 }
+
+.outStockContainer {
+    cursor: pointer;
+}

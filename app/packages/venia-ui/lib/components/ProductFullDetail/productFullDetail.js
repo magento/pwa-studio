@@ -63,7 +63,8 @@ const ProductFullDetail = props => {
         cartId,
         customAttributes,
         setOptionSelections,
-        selectedVarient
+        selectedVarient,
+        isOutOfStockProduct
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -337,6 +338,9 @@ const ProductFullDetail = props => {
             wishlistButtonProps={wishlistButtonProps}
             customAttributes={customAttributes}
             selectedVarient={selectedVarient}
+            isOutOfStockProduct={isOutOfStockProduct}
+            isEverythingOutOfStock={isEverythingOutOfStock}
+            outOfStockVariants={outOfStockVariants}
         />
     );
 };

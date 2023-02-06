@@ -1,17 +1,10 @@
-import React from 'react';
 import { bool, func, number, oneOfType, shape, string } from 'prop-types';
-
+import React from 'react';
 import { useStyle } from '../../classify';
 import defaultClasses from './tile.module.css';
 import { useTile } from '@magento/peregrine/lib/talons/ProductOptions/useTile';
 
-const getClassName = (
-    name,
-    isSelected,
-    hasFocus,
-    isOptionOutOfStock,
-    isEverythingOutOfStock
-) =>
+const getClassName = (name, isSelected, hasFocus, isOptionOutOfStock, isEverythingOutOfStock) =>
     `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}${
         isEverythingOutOfStock || isOptionOutOfStock ? '_outOfStock' : ''
     }`;
@@ -33,16 +26,7 @@ const Tile = props => {
 
     const { handleClick } = talonProps;
     const classes = useStyle(defaultClasses, props.classes);
-    const className =
-        classes[
-            getClassName(
-                'root',
-                isSelected,
-                hasFocus,
-                isOptionOutOfStock,
-                isEverythingOutOfStock
-            )
-        ];
+    const className = classes[getClassName('root', isSelected, hasFocus, isOptionOutOfStock, isEverythingOutOfStock)];
 
     return (
         <button

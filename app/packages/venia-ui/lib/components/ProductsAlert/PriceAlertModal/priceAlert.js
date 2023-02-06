@@ -5,8 +5,11 @@ import Field from '@magento/venia-ui/lib/components/Field';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { useIntl } from 'react-intl';
 import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import defaultClasses from './priceAlert.module.css';
+import { useStyle } from '../../../classify';
 
 const PriceAlert = props => {
+    const classes = useStyle(defaultClasses, props.classes);
     const { onCancel, isOpen, selectedVarient } = props;
 
     const talonProps = useProductsAlert({
@@ -43,17 +46,19 @@ const PriceAlert = props => {
                 title={modalTitle}
                 confirmText={'Notify me'}
             >
-                <p>{modalTextInfo}</p>
                 <hr />
+                <p>{modalTextInfo}</p>
 
-                <Field id="priceAlertFormEmail">
-                    <TextInput
-                        id="priceAlertFormEmail"
-                        data-cy="priceAlertFormEmail-email"
-                        field="email"
-                        validate={!isUserSignIn && isRequired}
-                    />
-                </Field>
+                {!isUserSignIn && (
+                    <Field id="priceAlertFormEmail">
+                        <TextInput
+                            id="priceAlertFormEmail"
+                            data-cy="priceAlertFormEmail-email"
+                            field="email"
+                            validate={!isUserSignIn && isRequired}
+                        />
+                    </Field>
+                )}
 
                 <p>{modalFooterText}</p>
             </Dialog>

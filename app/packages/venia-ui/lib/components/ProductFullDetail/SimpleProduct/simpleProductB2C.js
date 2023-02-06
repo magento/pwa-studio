@@ -16,7 +16,13 @@ import PriceAlert from '../../ProductsAlert/PriceAlertModal/priceAlert';
 
 const SimpleProductB2C = props => {
     const productsAlert = useProductsAlert();
-    const { isStockModalOpened, handleOpendStockModal, handleCloseModal } = productsAlert;
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal
+    } = productsAlert;
     const classes = useStyle(defaultClasses, props.classes);
     const {
         simpleProductData,
@@ -70,7 +76,7 @@ const SimpleProductB2C = props => {
                         />
                         <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
-                    <NotifyPrice handleOpendStockModal={handleOpendStockModal} />
+                    <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
                 </section>
                 <section className={classes.actions}>
                     <Button
@@ -103,11 +109,7 @@ const SimpleProductB2C = props => {
                     <strong>{simpleProductData.sku}</strong>
                 </section>
             </Form>
-            <PriceAlert
-                isOpen={isStockModalOpened}
-                onCancel={handleCloseModal}
-                selectedVarient={simpleProductData?.sku}
-            />
+            <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} selectedVarient={simpleProductData?.sku} />
         </Fragment>
     );
 };

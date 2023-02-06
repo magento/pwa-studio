@@ -19,6 +19,8 @@ import PlaceholderImage from '../../../Image/placeholderImage';
 import NotifyPrice from '../../../ProductsAlert/NotifyPrice';
 import PriceAlert from '../../../ProductsAlert/PriceAlertModal/priceAlert';
 import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import NotifyButton from '../../../ProductsAlert/NotifyButton/NotifyButton';
+import StockAlert from '../../../ProductsAlert/StockAlertModal/stockAlert';
 
 const ProductItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -34,7 +36,14 @@ const ProductItem = props => {
     } = props;
     const [copied, setCopied] = useState(false);
     const productsAlert = useProductsAlert();
-    const { isStockModalOpened, handleOpendStockModal, handleCloseModal } = productsAlert;
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal,
+        isUserSignIn
+    } = productsAlert;
 
     const { handleAddCofigItemBySku } = useAddToQuote();
 
@@ -143,21 +152,16 @@ const ProductItem = props => {
                 />
             </span>
             <div className={classes.notifyPrice}>
-                <NotifyPrice handleOpendStockModal={handleOpendStockModal} />
+                <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
             </div>
         </div>
     );
 
-    const stockStatus =
-        variant.product.stock_status === 'IN_STOCK' ? (
-            <div className={classes.inStockContainer}>
-                <img src={inStock} alt="inStock" />
-            </div>
-        ) : (
-            <div className={classes.outStockContainer}>
-                <img src={outOfStock} alt="outOfStock" />
-            </div>
-        );
+    const stockStatus = variant.product.stock_status === 'IN_STOCK' && (
+        <div className={classes.inStockContainer}>
+            <img src={inStock} alt="inStock" />
+        </div>
+    );
 
     const addToCartButton = (
         <Button
@@ -226,6 +230,12 @@ const ProductItem = props => {
                     />
                 </span>
                 <div className={classes.stockAddContainer}>
+                    {variant?.product?.stock_status === 'OUT_OF_STOCK' && (
+                        <NotifyButton
+                            handleOpendStockModal={handleOpendStockModal}
+                            productStatus={variant?.product?.stock_status}
+                        />
+                    )}
                     {stockStatus}
                     {variant.product.price.minimalPrice.amount.value ? addToCartButton : requestQuoteButton}
                 </div>
@@ -252,6 +262,15 @@ const ProductItem = props => {
                         <small className={classes.skuTextMobile}>{variant.product.sku}</small>
                         <div className={classes.stockStatusContainer}>
                             <div>{stockStatusText}:</div>
+
+                            <div className={classes.stockStatusCircle}>
+                                {variant?.product?.stock_status === 'OUT_OF_STOCK' && (
+                                    <NotifyButton
+                                        handleOpendStockModal={handleOpendStockModal}
+                                        productStatus={variant?.product?.stock_status}
+                                    />
+                                )}
+                            </div>
                             <div className={classes.stockStatusCircle}>{stockStatus}</div>
                         </div>
                         <h2>{priceTag}</h2>
@@ -295,7 +314,8 @@ const ProductItem = props => {
     return (
         <div>
             {productItemDesktop} {productItemMobile}
-            <PriceAlert
+            <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} selectedVarient={variant?.product?.sku} />
+            <StockAlert
                 isOpen={isStockModalOpened}
                 onCancel={handleCloseModal}
                 selectedVarient={variant?.product?.sku}

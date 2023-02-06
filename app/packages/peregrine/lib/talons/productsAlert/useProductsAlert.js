@@ -28,11 +28,11 @@ export const useProductsAlert = props => {
         initialValues: formEmail
     };
 
-    const ItemSku = props?.ItemSku;
     const [, { addToast }] = useToasts();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isStockModalOpened, setisStockModalOpened] = useState(false);
+    const [openPriceModal, setOpenPriceModal] = useState(false);
     const [stockPageControl, setStockPageControl] = useState({});
     const [priceControlPage, setPriceControlPage] = useState({});
 
@@ -63,7 +63,11 @@ export const useProductsAlert = props => {
     }, [customersAlertsItems]);
 
     const handleOpendStockModal = () => setisStockModalOpened(true);
-    const handleCloseModal = () => setisStockModalOpened(false);
+    const handleOpenPriceModal = () => setOpenPriceModal(true);
+    const handleCloseModal = () => {
+        setisStockModalOpened(false);
+        setOpenPriceModal(false);
+    };
 
     const handleSubmitPriceAlert = useCallback(
         async apiValue => {
@@ -103,21 +107,36 @@ export const useProductsAlert = props => {
     const submitStockAlert = useCallback(
         async apiValue => {
             try {
-                console.log({ apiValue, ItemSku });
                 if (isSignedIn) {
                     await submitCustomerStockAlert({
                         variables: {
-                            productSku: ItemSku
+                            productSku: process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku
                         }
                     });
                 } else {
-                    await submiGuestStockAlert();
+                    await submiGuestStockAlert({
+                        variables: {
+                            productSku: process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku,
+                            email: apiValue?.email
+                        }
+                    });
+
+                    addToast({
+                        type: 'success',
+                        message: (
+                            <FormattedMessage
+                                id="productAlert.requestProductAlert"
+                                defaultMessage="The product alert was send successfully"
+                            />
+                        ),
+                        timeout: 5000
+                    });
                 }
             } catch (error) {
                 console.log({ error });
             }
         },
-        [submiGuestStockAlert, isSignedIn, submitCustomerStockAlert, ItemSku]
+        [submiGuestStockAlert, isSignedIn, submitCustomerStockAlert, selectedProductB2B]
     );
 
     const submitDeleteAlert = useCallback(
@@ -176,6 +195,8 @@ export const useProductsAlert = props => {
         priceControlPage,
         setPriceControlPage,
         handleCloseModal,
-        setFormApi
+        setFormApi,
+        handleOpenPriceModal,
+        openPriceModal
     };
 };

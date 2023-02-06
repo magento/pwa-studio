@@ -8,7 +8,7 @@ import Icon from '../../Icon';
 import Tippy from '@tippyjs/react';
 
 const NotifyPrice = props => {
-    const { handleOpendStockModal } = props;
+    const { handleOpenPriceModal } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     const iconB2B = (
@@ -19,14 +19,14 @@ const NotifyPrice = props => {
                 </ul>
             }
         >
-            <div className={classes.iconContainer} onClick={handleOpendStockModal}>
+            <div className={classes.iconContainer} onClick={handleOpenPriceModal}>
                 <Icon src={Bell} size={14} />
             </div>
         </Tippy>
     );
 
     const buttonAlertPrice = (
-        <Button className={classes.root} onPress={handleOpendStockModal} type="button">
+        <Button className={classes.root} onPress={handleOpenPriceModal} type="button">
             <span className={classes.textButton}>
                 <FormattedMessage id="productAlert.NotifyPrice" defaultMessage="Notify me when the price drops" />
             </span>

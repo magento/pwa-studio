@@ -16,11 +16,19 @@ import QuantityStepper from '../../../QuantityStepper';
 import NotifyPrice from '../../../ProductsAlert/NotifyPrice';
 import PriceAlert from '../../../ProductsAlert/PriceAlertModal/priceAlert';
 import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import StockAlert from '../../../ProductsAlert/StockAlertModal/stockAlert';
+import NotifyButton from '../../../ProductsAlert/NotifyButton/NotifyButton';
 
 const ItemsTable = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const productsAlert = useProductsAlert();
-    const { isStockModalOpened, handleOpendStockModal, handleCloseModal } = productsAlert;
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal
+    } = productsAlert;
 
     const { simpleProductData, errors, handleAddToCart, aggregations, tempTotalPrice, handleQuantityChange } = props;
 
@@ -66,21 +74,16 @@ const ItemsTable = props => {
                 />
             </span>
             <div className={classes.notifyPrice}>
-                <NotifyPrice handleOpendStockModal={handleOpendStockModal} />
+                <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
             </div>
         </div>
     );
 
-    const stockStatus =
-        simpleProductData.stock_status === 'IN_STOCK' ? (
-            <div className={classes.inStockContainer}>
-                <img src={inStock} alt="inStock" />
-            </div>
-        ) : (
-            <div className={classes.outStockContainer}>
-                <img src={outOfStock} alt="outOfStock" />
-            </div>
-        );
+    const stockStatus = simpleProductData.stock_status === 'IN_STOCK' && (
+        <div className={classes.inStockContainer}>
+            <img src={inStock} alt="inStock" />
+        </div>
+    );
 
     const addToCartButton = (
         <Button
@@ -145,6 +148,12 @@ const ItemsTable = props => {
                 {priceTag}
                 <span className={classes.indexFixed}>{tempTotalPrice}</span>
                 <div className={classes.stockAddContainer}>
+                    {simpleProductData?.stock_status === 'OUT_OF_STOCK' && (
+                        <NotifyButton
+                            handleOpendStockModal={handleOpendStockModal}
+                            productStatus={simpleProductData?.stock_status}
+                        />
+                    )}
                     {stockStatus}
                     {addToCartButton}
                 </div>
@@ -161,6 +170,14 @@ const ItemsTable = props => {
                         <small className={classes.skuTextMobile}>{simpleProductData.sku}</small>
                         <div className={classes.stockStatusContainer}>
                             <div>{stockStatusText}:</div>
+                            <div className={classes.stockStatusCircle}>
+                                {simpleProductData?.stock_status === 'OUT_OF_STOCK' && (
+                                    <NotifyButton
+                                        handleOpendStockModal={handleOpendStockModal}
+                                        productStatus={simpleProductData?.stock_status}
+                                    />
+                                )}
+                            </div>
                             <div className={classes.stockStatusCircle}>{stockStatus}</div>
                         </div>
                         <h2>{priceTag}</h2>
@@ -216,7 +233,8 @@ const ItemsTable = props => {
     return (
         <div className={classes.productsTableContainer}>
             {productItemDesktop} {productItemMobile}
-            <PriceAlert
+            <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} selectedVarient={simpleProductData?.sku} />
+            <StockAlert
                 isOpen={isStockModalOpened}
                 onCancel={handleCloseModal}
                 selectedVarient={simpleProductData?.sku}
