@@ -3,6 +3,7 @@ services:
   pwa:
     image: node:14.18.1
     container_name: b2bstore
+    working_dir: /app
     tty: true
 
     volumes:
