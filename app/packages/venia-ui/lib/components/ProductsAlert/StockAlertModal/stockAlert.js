@@ -10,7 +10,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const StockAlert = props => {
     const [{ isSignedIn }] = useUserContext();
-    const { onCancel, isOpen, selectedVarient, formProps, onConfirm: submitStockAlert } = props;
+    const { onCancel, isOpen, formProps, onConfirm: submitStockAlert } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();

@@ -4,10 +4,8 @@ import Tile from './tile';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './tileList.module.css';
-import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
 
 const TileList = props => {
-    const productsAlert = useProductsAlert();
     const {
         getItemKey,
         selectedValue = {},

@@ -105,6 +105,7 @@
 
 .totalPrice {
     margin-left: 30px;
+    margin-bottom: 20px;
 }
 .formErrors {
     composes: section;
@@ -231,6 +232,24 @@
 .notifyContainer {
     margin-top: 0.5rem;
     color: red;
+    text-align: center;
+}
+
+.selectB2cProduct {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+
+.notifySelect {
+    margin-bottom: 2rem;
+}
+
+.notifyButton {
+    text-align: center;
+}
+.notifyPriceContainer {
+    text-align: center;
 }
 
 @media (max-width: 959px) {

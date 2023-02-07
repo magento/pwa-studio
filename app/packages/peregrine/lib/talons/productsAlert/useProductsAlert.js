@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useState, useEffect, useRef } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React, { useCallback, useState, useEffect, useRef, useMemo } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useQuery, useMutation } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -19,15 +19,19 @@ import {
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 export const useProductsAlert = props => {
-    const selectProductSku = props?.selectProductSku;
-    const selectedProductB2B = props?.selectProductB2B;
+    const { formatMessage } = useIntl();
+    const selectProductSku = props?.selectedVarient?.product?.sku;
+    const simpleProductB2CSku = props?.simpleProductData?.sku;
     const itemSku = props?.ItemSku;
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
     const [formEmail] = useState();
+    const [selectedOptionB2C, setSelectedOptionB2C] = useState('');
+
     const formProps = {
         initialValues: formEmail
     };
+    const outOfStockProducts = props?.isOutOfStockProduct;
 
     const [, { addToast }] = useToasts();
 
@@ -47,6 +51,24 @@ export const useProductsAlert = props => {
     const [submitCustomerStockAlert] = useMutation(SUBMIT_CUSTOMER_STOCK_ALERT);
     const [submiGuestStockAlert] = useMutation(SUBMIT_GUEST_STOCK_ALERT);
     const [submiDeleteAlertAPI] = useMutation(SUBMIT_DELETE_ALERT);
+    const selectTitle = formatMessage({
+        id: 'productAlerts.pleaseSelect',
+        defaultMessage: 'Notify me about the product availability '
+    });
+
+    const outStockProductsSku = useMemo(() => {
+        const handleOutStockProducts = () => {
+            const productSku = outOfStockProducts?.map(item => {
+                return {
+                    value: item?.product?.sku,
+                    label: item?.product?.name
+                };
+            });
+
+            if (productSku) return [{ value: selectTitle, label: selectTitle }, ...productSku];
+        };
+        return handleOutStockProducts();
+    }, [outOfStockProducts, selectTitle]);
 
     useEffect(() => {
         if (customersAlertsItems) {
@@ -85,8 +107,8 @@ export const useProductsAlert = props => {
         });
     const handleSubmitPriceAlert = useCallback(
         async apiValue => {
+            const sku = itemSku || selectedOptionB2C || simpleProductB2CSku || selectProductSku;
             try {
-                const sku = itemSku || (process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku);
                 if (isSignedIn) {
                     await submitCustomerPriceAlert({
                         variables: {
@@ -114,13 +136,24 @@ export const useProductsAlert = props => {
                 });
             }
         },
-        [submitCustomerPriceAlert, submiGuestPriceAlert, isSignedIn, selectProductSku, itemSku]
+        [
+            submitCustomerPriceAlert,
+            submiGuestPriceAlert,
+            isSignedIn,
+            selectProductSku,
+            simpleProductB2CSku,
+            selectedOptionB2C,
+            itemSku
+        ]
     );
 
+    const handleChangeProductSku = useCallback(e => {
+        setSelectedOptionB2C(e);
+    }, []);
     const submitStockAlert = useCallback(
         async apiValue => {
             try {
-                const sku = itemSku || (process.env.IS_B2B === 'true' ? selectedProductB2B : selectProductSku);
+                const sku = itemSku || selectedOptionB2C || simpleProductB2CSku || selectProductSku;
                 if (isSignedIn) {
                     await submitCustomerStockAlert({
                         variables: {
@@ -148,7 +181,15 @@ export const useProductsAlert = props => {
                 });
             }
         },
-        [submiGuestStockAlert, isSignedIn, submitCustomerStockAlert, selectedProductB2B, itemSku]
+        [
+            submiGuestStockAlert,
+            isSignedIn,
+            submitCustomerStockAlert,
+            itemSku,
+            selectedOptionB2C,
+            selectProductSku,
+            simpleProductB2CSku
+        ]
     );
 
     const submitDeleteAlert = useCallback(
@@ -208,6 +249,9 @@ export const useProductsAlert = props => {
         handleCloseModal,
         setFormApi,
         handleOpenPriceModal,
-        openPriceModal
+        openPriceModal,
+        outStockProductsSku,
+        handleChangeProductSku,
+        selectedOptionB2C
     };
 };

@@ -13,16 +13,10 @@ import Button from '../../Button';
 import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
 import NotifyPrice from '../../ProductsAlert/NotifyPrice';
 import PriceAlert from '../../ProductsAlert/PriceAlertModal/priceAlert';
+import NotifyButton from '../../ProductsAlert/NotifyButton/NotifyButton';
+import StockAlert from '../../ProductsAlert/StockAlertModal/stockAlert';
 
 const SimpleProductB2C = props => {
-    const productsAlert = useProductsAlert();
-    const {
-        isStockModalOpened,
-        handleOpendStockModal,
-        handleCloseModal,
-        handleOpenPriceModal,
-        openPriceModal
-    } = productsAlert;
     const classes = useStyle(defaultClasses, props.classes);
     const {
         simpleProductData,
@@ -34,6 +28,19 @@ const SimpleProductB2C = props => {
         simpleProductAggregationFiltered,
         handleQuantityChange
     } = props;
+
+    const productsAlert = useProductsAlert({ simpleProductData });
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal,
+        submitStockAlert,
+        handleSubmitPriceAlert
+    } = productsAlert;
+    const productAlertStatus = simpleProductData?.mp_product_alert;
+    const stockStatus = simpleProductData?.stock_status;
 
     const cartCallToActionText =
         simpleProductData.stock_status === 'IN_STOCK' ? (
@@ -76,7 +83,20 @@ const SimpleProductB2C = props => {
                         />
                         <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
-                    <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                    {productAlertStatus?.mp_productalerts_price_alert && stockStatus === 'IN_STOCK' && (
+                        <div className={classes.notifyPriceContainer}>
+                            <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                        </div>
+                    )}
+
+                    {productAlertStatus?.mp_productalerts_stock_notify && (
+                        <div className={classes.notifyButton}>
+                            <NotifyButton
+                                handleOpendStockModal={handleOpendStockModal}
+                                simpleProductData={simpleProductData}
+                            />
+                        </div>
+                    )}
                 </section>
                 <section className={classes.actions}>
                     <Button
@@ -109,7 +129,9 @@ const SimpleProductB2C = props => {
                     <strong>{simpleProductData.sku}</strong>
                 </section>
             </Form>
-            <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} selectedVarient={simpleProductData?.sku} />
+            <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} onConfirm={handleSubmitPriceAlert} />
+
+            <StockAlert isOpen={isStockModalOpened} onCancel={handleCloseModal} onConfirm={submitStockAlert} />
         </Fragment>
     );
 };

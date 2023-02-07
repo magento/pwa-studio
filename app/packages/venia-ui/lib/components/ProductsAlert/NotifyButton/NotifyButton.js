@@ -5,11 +5,17 @@ import { useStyle } from '../../../classify';
 import { FormattedMessage } from 'react-intl';
 
 const NotifyButton = props => {
-    const { handleOpendStockModal, productStatus } = props;
+    const { handleOpendStockModal, selectedOptionB2C, simpleProductData } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     const buttonAlertStock = (
-        <Button className={classes.root} onPress={handleOpendStockModal} priority="high" type="button">
+        <Button
+            className={classes.root}
+            onPress={handleOpendStockModal}
+            priority="high"
+            type="button"
+            disabled={!selectedOptionB2C && !simpleProductData}
+        >
             <span className={classes.text}>
                 <FormattedMessage id="productAlert.NotifyMe" defaultMessage="Notify me" />
             </span>

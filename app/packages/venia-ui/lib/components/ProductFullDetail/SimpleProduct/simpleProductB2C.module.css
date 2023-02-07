@@ -233,9 +233,23 @@
     align-items: center;
 }
 
+.notifySelect {
+    margin-bottom: 2rem;
+}
+
+.notifyButton {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+
 .addToCartButton {
     composes: root_highPriority from '../../Button/button.module.css';
     width: fit-content;
+}
+.notifyPriceContainer {
+    text-align: center;
 }
 
 @media (max-width: 959px) {
@@ -243,7 +257,7 @@
         height: 500px;
     }
 
-    .imageCarousel div div  {
+    .imageCarousel div div {
         height: 450px;
     }
 
@@ -251,7 +265,7 @@
         height: 450px;
     }
 
-    .title{
+    .title {
         margin-top: 30px;
     }
 }

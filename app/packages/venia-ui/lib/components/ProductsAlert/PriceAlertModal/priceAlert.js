@@ -9,9 +9,9 @@ import defaultClasses from './priceAlert.module.css';
 import { useStyle } from '../../../classify';
 
 const PriceAlert = props => {
-    const { onCancel, isOpen, selectedVarient, formProps, setFormApi, onConfirm: handleSubmitPriceAlert } = props;
-    const classes = useStyle(defaultClasses, props.classes);
     const [{ isSignedIn }] = useUserContext();
+    const classes = useStyle(defaultClasses, props.classes);
+    const { onCancel, isOpen, formProps, onConfirm: handleSubmitPriceAlert } = props;
 
     const { formatMessage } = useIntl();
 
@@ -32,7 +32,6 @@ const PriceAlert = props => {
     return (
         <>
             <Dialog
-                getApi={setFormApi}
                 formProps={formProps}
                 confirmTranslationId={'productAlerts.notifyMeText'}
                 onCancel={onCancel}

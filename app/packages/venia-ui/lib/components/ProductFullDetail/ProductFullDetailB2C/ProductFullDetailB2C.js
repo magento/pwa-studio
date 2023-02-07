@@ -9,6 +9,7 @@ import Carousel from '@magento/venia-ui/lib/components/ProductImageCarousel';
 import QuantityStepper from '@magento/venia-ui/lib/components/QuantityStepper';
 import CustomAttributes from '@magento/venia-ui/lib/components/ProductFullDetail/CustomAttributes';
 import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import Select from '../../Select';
 
 const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
 
@@ -18,19 +19,10 @@ import NotifyPrice from '../../ProductsAlert/NotifyPrice';
 import PriceAlert from '../../ProductsAlert/PriceAlertModal/priceAlert';
 import NotifyButton from '../../ProductsAlert/NotifyButton/NotifyButton';
 import StockAlert from '../../ProductsAlert/StockAlertModal/stockAlert';
-import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
 
 const ProductFullDetailB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
-    const productsAlert = useProductsAlert();
-    const {
-        isStockModalOpened,
-        handleOpendStockModal,
-        handleCloseModal,
-        handleOpenPriceModal,
-        openPriceModal
-    } = productsAlert;
 
     const {
         breadcrumbs,
@@ -49,6 +41,22 @@ const ProductFullDetailB2C = props => {
         selectedVarient,
         isOutOfStockProduct
     } = props;
+
+    const productAlertStatus = selectedVarient?.product?.mp_product_alert;
+
+    const productsAlert = useProductsAlert({ isOutOfStockProduct, selectedVarient });
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal,
+        outStockProductsSku,
+        handleChangeProductSku,
+        selectedOptionB2C,
+        submitStockAlert,
+        handleSubmitPriceAlert
+    } = productsAlert;
 
     const customAttributesDetails = useMemo(() => {
         const list = [];
@@ -99,6 +107,11 @@ const ProductFullDetailB2C = props => {
         </section>
     ) : null;
 
+    const notifyText = !selectedVarient && (
+        <div className={classes.notifyContainer}>
+            <FormattedMessage id={'notifyAlert'} defaultMessage={'To notify, select all the options for the product'} />
+        </div>
+    );
     return (
         <Fragment>
             {breadcrumbs}
@@ -149,19 +162,30 @@ const ProductFullDetailB2C = props => {
                         />
                         <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
-                    <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
-                    {selectedVarient?.product?.stock_status === 'OUT_OF_STOCK' && (
-                        <NotifyButton
-                            handleOpendStockModal={handleOpendStockModal}
-                            productStatus={selectedVarient?.product?.stock_status}
-                        />
+                    {productAlertStatus?.mp_productalerts_price_alert && (
+                        <div className={classes.notifyPriceContainer}>
+                            <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                        </div>
                     )}
-                    {!selectedVarient && (
-                        <div className={classes.notifyContainer}>
-                            <FormattedMessage
-                                id={'notifyAlert'}
-                                defaultMessage={'To notify, select all the options for the product'}
-                            />
+
+                    {productAlertStatus?.mp_productalerts_stock_notify && (
+                        <div className={classes.selectB2cProduct}>
+                            <div className={classes.notifySelect}>
+                                <Select
+                                    initialValue={outStockProductsSku[0]}
+                                    field="selection"
+                                    items={outStockProductsSku}
+                                    onChange={e => handleChangeProductSku(e.target.value)}
+                                />
+                            </div>
+                            <div className={classes.notifyButton}>
+                                <NotifyButton
+                                    handleOpendStockModal={handleOpendStockModal}
+                                    productStatus={selectedVarient?.product?.stock_status}
+                                    selectedOptionB2C={selectedOptionB2C}
+                                />
+                            </div>
+                            <>{notifyText}</>
                         </div>
                     )}
                 </section>
@@ -186,8 +210,9 @@ const ProductFullDetailB2C = props => {
                 {pageBuilderAttributes}
             </Form>
             {selectedVarient && (
-                <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} selectedVarient={selectedVarient} />
+                <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} onConfirm={handleSubmitPriceAlert} />
             )}
+            <StockAlert isOpen={isStockModalOpened} onCancel={handleCloseModal} onConfirm={submitStockAlert} />
         </Fragment>
     );
 };
