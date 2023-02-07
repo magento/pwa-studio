@@ -56,6 +56,10 @@ export const useProductsAlert = props => {
         defaultMessage: 'Notify me about the product availability '
     });
 
+    if (selectedOptionB2C === 'Notify me about the product availability ') {
+        setSelectedOptionB2C('');
+    }
+
     const outStockProductsSku = useMemo(() => {
         const handleOutStockProducts = () => {
             const productSku = outOfStockProducts?.map(item => {
