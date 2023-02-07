@@ -1,3 +1,10 @@
+# B2BStore 0.7.1
+
+## 🚨 Hotfixes    
+  - Added missing working_dir line in the docker-compose file.
+  - Update Chatbot’s script hash in Upward.
+  - Update README file.
+
 # B2BStore 0.7
 
 ## 🌟 New features
