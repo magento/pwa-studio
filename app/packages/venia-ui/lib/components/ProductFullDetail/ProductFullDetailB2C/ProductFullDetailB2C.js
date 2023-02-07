@@ -168,7 +168,7 @@ const ProductFullDetailB2C = props => {
                         </div>
                     )}
 
-                    {productAlertStatus?.mp_productalerts_stock_notify && (
+                    {productAlertStatus?.mp_productalerts_stock_notify && isOutOfStockProduct.length > 0 && (
                         <div className={classes.selectB2cProduct}>
                             <div className={classes.notifySelect}>
                                 <Select
@@ -183,6 +183,7 @@ const ProductFullDetailB2C = props => {
                                     handleOpendStockModal={handleOpendStockModal}
                                     productStatus={selectedVarient?.product?.stock_status}
                                     selectedOptionB2C={selectedOptionB2C}
+                                    disabled={!selectedOptionB2C}
                                 />
                             </div>
                             <>{notifyText}</>
