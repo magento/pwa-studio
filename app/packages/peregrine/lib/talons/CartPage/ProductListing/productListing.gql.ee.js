@@ -1,17 +1,6 @@
 import { gql } from '@apollo/client';
 import { ProductListingFragment } from './productListingFragments.gql';
 
-export const GET_WISHLIST_CONFIG = gql`
-    query GetWishlistConfigForCartPageAC {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            magento_wishlist_general_is_enabled
-            enable_multiple_wishlists
-        }
-    }
-`;
-
 const GET_PRODUCT_LISTING = gql`
     query GetProductListing($cartId: String!) {
         cart(cart_id: $cartId) {
@@ -23,6 +12,5 @@ const GET_PRODUCT_LISTING = gql`
 `;
 
 export default {
-    getWishlistConfigQuery: GET_WISHLIST_CONFIG,
     getProductListingQuery: GET_PRODUCT_LISTING
 };

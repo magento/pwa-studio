@@ -1,25 +1,14 @@
 import { useEffect, useCallback } from 'react';
-import { useQuery } from '@apollo/client';
-
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-
-import DEFAULT_OPERATIONS from './bankTransfer.gql';
+import { useStoreConfigContext } from '../../../context/storeConfigProvider';
 
 export const useBankTransfer = props => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-
-    const { getStoreConfig } = operations;
-
     const { onPaymentSuccess, resetShouldSubmit, onPaymentError, paymentMethodMutationData } = props;
     const paymentMethodMutationLoading = paymentMethodMutationData?.paymentMethodMutationLoading;
     const paymentMethodMutationError = paymentMethodMutationData?.paymentMethodMutationError;
     const paymentMethodMutationCalled = paymentMethodMutationData?.paymentMethodMutationCalled;
 
     // Getting Extra Information
-    const { data: extraInfo, loading } = useQuery(getStoreConfig, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const storeConfigData = useStoreConfigContext();
 
     /**
      * This function will be called if cant not set address.
@@ -56,8 +45,8 @@ export const useBankTransfer = props => {
     }, [onPaymentSuccess]);
 
     return {
-        loading,
-        extraInfo,
+        loading: storeConfigData === undefined,
+        extraInfo: storeConfigData,
         handleSubmitBtn,
         onBillingAddressChangedError
     };

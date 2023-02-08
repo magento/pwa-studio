@@ -16,16 +16,6 @@ const GET_CONFIGURABLE_OPTIONS = gql`
     ${ProductFormFragment}
 `;
 
-const GET_CONFIGURABLE_THUMBNAIL_SOURCE = gql`
-    query getConfigurableThumbnailSource {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            configurable_thumbnail_source
-        }
-    }
-`;
-
 const UPDATE_CONFIGURABLE_OPTIONS = gql`
     mutation UpdateConfigurableOptions(
         $cartId: String!
@@ -57,6 +47,5 @@ const UPDATE_CONFIGURABLE_OPTIONS = gql`
 
 export default {
     getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
-    getConfigurableThumbnailSourceQuery: GET_CONFIGURABLE_THUMBNAIL_SOURCE,
     updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS
 };

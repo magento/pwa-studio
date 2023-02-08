@@ -6,6 +6,7 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './storeSwitcher.gql';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 const storage = new BrowserPersistence();
 
@@ -67,7 +68,7 @@ export const useStoreSwitcher = (props = {}) => {
         });
     }, [availableRoutes]);
 
-    const { getStoreConfigData, getRouteData, getAvailableStoresData } = operations;
+    const { getRouteData, getAvailableStoresData } = operations;
     const { pathname, search: searchParams } = useLocation();
     const {
         elementRef: storeMenuRef,
@@ -76,10 +77,7 @@ export const useStoreSwitcher = (props = {}) => {
         triggerRef: storeMenuTriggerRef
     } = useDropdown();
 
-    const { data: storeConfigData } = useQuery(getStoreConfigData, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const storeConfigData = useStoreConfigContext();
 
     const fetchRouteData = useAwaitQuery(getRouteData);
 

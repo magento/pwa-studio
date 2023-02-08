@@ -2,16 +2,6 @@
 
 import { gql } from '@apollo/client';
 
-export const GET_STORE_CONFIG_DATA = gql`
-    query GetStoreConfigForCategoryList {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            category_url_suffix
-        }
-    }
-`;
-
 export const GET_CATEGORY_LIST = gql`
     query GetCategoryList($id: String!) {
         categories(filters: { category_uid: { in: [$id] } }) {
@@ -43,6 +33,5 @@ export const GET_CATEGORY_LIST = gql`
 `;
 
 export default {
-    getCategoryListQuery: GET_CATEGORY_LIST,
-    getStoreConfigQuery: GET_STORE_CONFIG_DATA
+    getCategoryListQuery: GET_CATEGORY_LIST
 };

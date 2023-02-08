@@ -1,8 +1,10 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
+
 import DEFAULT_OPERATIONS from './orderRow.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
  * @function
@@ -18,7 +20,7 @@ export const useOrderRow = props => {
 
     const { items } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getProductThumbnailsQuery, getConfigurableThumbnailSource } = operations;
+    const { getProductThumbnailsQuery } = operations;
 
     const urlKeys = useMemo(() => {
         return items.map(item => item.product_url_key).sort();
@@ -32,15 +34,13 @@ export const useOrderRow = props => {
         }
     });
 
-    const { data: configurableThumbnailSourceData } = useQuery(getConfigurableThumbnailSource, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const storeConfigData = useStoreConfigContext();
 
     const configurableThumbnailSource = useMemo(() => {
-        if (configurableThumbnailSourceData) {
-            return configurableThumbnailSourceData.storeConfig.configurable_thumbnail_source;
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.configurable_thumbnail_source;
         }
-    }, [configurableThumbnailSourceData]);
+    }, [storeConfigData]);
 
     const imagesData = useMemo(() => {
         if (data) {

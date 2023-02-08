@@ -1,20 +1,8 @@
 import { useMemo } from 'react';
-import { useQuery } from '@apollo/client';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import DEFAULT_OPERATIONS from './contactUs.gql';
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
-export default (props = {}) => {
-    const { getStoreConfigQuery } = mergeOperations(
-        DEFAULT_OPERATIONS,
-        props.operations
-    );
-
-    const { data: storeConfigData, loading: configLoading } = useQuery(
-        getStoreConfigQuery,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+export default () => {
+    const storeConfigData = useStoreConfigContext();
 
     const isEnabled = useMemo(() => {
         return !!storeConfigData?.storeConfig?.contact_enabled;
@@ -22,6 +10,6 @@ export default (props = {}) => {
 
     return {
         isEnabled,
-        isLoading: configLoading
+        isLoading: storeConfigData === undefined
     };
 };

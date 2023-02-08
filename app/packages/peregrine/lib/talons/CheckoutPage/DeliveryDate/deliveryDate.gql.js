@@ -20,17 +20,7 @@ export const SET_DELIVERY_TIME = gql`
     }
 `;
 
-export const GET_LOCALE = gql`
-    query GetLocale {
-        storeConfig {
-            store_code
-            locale
-        }
-    }
-`;
-
 export default {
     getDeliveryDateQuery: GET_DELIVERY_DATE,
-    setDeliveryTimeMutation: SET_DELIVERY_TIME,
-    getLocaleQuery: GET_LOCALE
+    setDeliveryTimeMutation: SET_DELIVERY_TIME
 };

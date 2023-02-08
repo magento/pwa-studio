@@ -4,6 +4,7 @@ import { useReducer, useMemo } from 'react';
 
 import DEFAULT_OPERATIONS from './deliveryDate.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useStoreConfigContext } from '../../../context/storeConfigProvider';
 
 const deliveryDateData = {
     mp_delivery_date: '',
@@ -30,20 +31,17 @@ function reducer(state, action) {
 export const useDeliveryDate = () => {
     const [state, dispatch] = useReducer(reducer, deliveryDateData);
 
-    const { getDeliveryDateQuery, setDeliveryTimeMutation, getLocaleQuery } = mergeOperations(DEFAULT_OPERATIONS);
+    const { getDeliveryDateQuery, setDeliveryTimeMutation } = mergeOperations(DEFAULT_OPERATIONS);
 
     const handleChange = (name, value) => {
         dispatch({ type: name, value });
     };
 
-    const { data } = useQuery(getLocaleQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const storeConfigData = useStoreConfigContext();
 
     const local = useMemo(() => {
-        return data && data.storeConfig.locale;
-    }, [data]);
+        return storeConfigData && storeConfigData.storeConfig.locale;
+    }, [storeConfigData]);
 
     const [{ cartId }] = useCartContext();
 

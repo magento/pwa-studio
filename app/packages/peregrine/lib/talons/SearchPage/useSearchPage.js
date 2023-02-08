@@ -25,26 +25,19 @@ export const useSearchPage = (props = {}) => {
 
     const {
         getFilterInputsQuery,
-        getPageSize,
         getProductFiltersBySearchQuery,
         getSearchAvailableSortMethods,
         productSearchQuery
     } = operations;
 
-    const { data: pageSizeData } = useQuery(getPageSize, {
+    const storeConfigData = useStoreConfigContext();
+
+    const [getSortMethods, { data: sortData }] = useLazyQuery(getSearchAvailableSortMethods, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const [getSortMethods, { data: sortData }] = useLazyQuery(
-        getSearchAvailableSortMethods,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
-        }
-    );
-
-    const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
+    const pageSize = storeConfigData && storeConfigData.storeConfig.grid_per_page;
 
     const sortProps = useSort({ sortFromSearch: true });
     const [currentSort] = sortProps;
@@ -85,9 +78,7 @@ export const useSearchPage = (props = {}) => {
 
         // The set looks like ["Bottoms,11", "Skirts,12"].
         // We want to return "Bottoms, Skirts", etc.
-        return [...targetCategoriesSet]
-            .map(categoryPair => categoryPair.split(',')[0])
-            .join(', ');
+        return [...targetCategoriesSet].map(categoryPair => categoryPair.split(',')[0]).join(', ');
     }, [search]);
 
     const openDrawer = useCallback(() => {
@@ -95,11 +86,9 @@ export const useSearchPage = (props = {}) => {
     }, [toggleDrawer]);
 
     // Get "allowed" filters by intersection of schema and aggregations
-    const {
-        called: introspectionCalled,
-        data: introspectionData,
-        loading: introspectionLoading
-    } = useQuery(getFilterInputsQuery);
+    const { called: introspectionCalled, data: introspectionData, loading: introspectionLoading } = useQuery(
+        getFilterInputsQuery
+    );
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
@@ -120,10 +109,7 @@ export const useSearchPage = (props = {}) => {
         totalPages
     };
 
-    const [
-        runQuery,
-        { called: searchCalled, loading: searchLoading, error, data }
-    ] = useLazyQuery(productSearchQuery, {
+    const [runQuery, { called: searchCalled, loading: searchLoading, error, data }] = useLazyQuery(productSearchQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -148,10 +134,8 @@ export const useSearchPage = (props = {}) => {
 
         if (
             prevSearch.toString() !== nextSearch.toString() ||
-            previousSort.current.sortAttribute.toString() !==
-                currentSort.sortAttribute.toString() ||
-            previousSort.current.sortDirection.toString() !==
-                currentSort.sortDirection.toString()
+            previousSort.current.sortAttribute.toString() !== currentSort.sortAttribute.toString() ||
+            previousSort.current.sortDirection.toString() !== currentSort.sortDirection.toString()
         ) {
             // The search term changed.
             setCurrentPage(1, true);
@@ -206,23 +190,11 @@ export const useSearchPage = (props = {}) => {
             });
             searched.current = true;
         }
-    }, [
-        currentPage,
-        filterTypeMap,
-        inputText,
-        runQuery,
-        pageSize,
-        search,
-        sortDirection,
-        sortAttribute,
-        dispatch
-    ]);
+    }, [currentPage, filterTypeMap, inputText, runQuery, pageSize, search, sortDirection, sortAttribute, dispatch]);
 
     // Set the total number of pages whenever the data changes.
     useEffect(() => {
-        const totalPagesFromData = data
-            ? data.products.page_info.total_pages
-            : null;
+        const totalPagesFromData = data ? data.products.page_info.total_pages : null;
 
         setTotalPages(totalPagesFromData);
 
@@ -242,13 +214,10 @@ export const useSearchPage = (props = {}) => {
     }, [inputText, getSortMethods]);
 
     // Fetch category filters for when a user is searching in a category.
-    const [getFilters, { data: filterData }] = useLazyQuery(
-        getProductFiltersBySearchQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
-        }
-    );
+    const [getFilters, { data: filterData }] = useLazyQuery(getProductFiltersBySearchQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
     useEffect(() => {
         if (inputText) {
@@ -265,16 +234,11 @@ export const useSearchPage = (props = {}) => {
     const filters = filterData ? filterData.products.aggregations : null;
 
     // Avoid showing a "empty data" state between introspection and search.
-    const loading =
-        (introspectionCalled && !searchCalled) ||
-        searchLoading ||
-        introspectionLoading;
+    const loading = (introspectionCalled && !searchCalled) || searchLoading || introspectionLoading;
 
     useScrollTopOnChange(currentPage);
 
-    const availableSortMethods = sortData
-        ? sortData.products.sort_fields.options
-        : null;
+    const availableSortMethods = sortData ? sortData.products.sort_fields.options : null;
 
     return {
         availableSortMethods,

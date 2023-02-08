@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client';
 
-import { GET_STORE_CONFIG_DATA } from '../StoreConfig/storeConfig.gql';
-
 export const GET_CMS_DYNAMIC_BLOCKS = gql`
     query GetCmsDynamicBlocks(
         $cartId: String
@@ -101,6 +99,5 @@ export const GET_PRODUCT_DETAIL_QUERY = gql`
 export default {
     getCmsDynamicBlocksQuery: GET_CMS_DYNAMIC_BLOCKS,
     getSalesRulesDataQuery: GET_SALES_RULES_DATA,
-    getStoreConfigData: GET_STORE_CONFIG_DATA,
     getProductDetailQuery: GET_PRODUCT_DETAIL_QUERY
 };

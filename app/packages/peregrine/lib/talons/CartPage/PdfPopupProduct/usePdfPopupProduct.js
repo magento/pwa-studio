@@ -1,14 +1,14 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 
-import DEFAULT_OPERATIONS from '../ProductListing/product.gql';
 import CART_OPERATIONS from '../cartPage.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useStoreConfigContext } from '../../../context/storeConfigProvider';
 
 /**
  * This talon contains logic for a product component used in a product listing component.
@@ -35,14 +35,12 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 export const usePdfPopupProduct = props => {
     const { item, wishlistConfig } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
-    const { removeItemFromCartMutation, updateCartItemsMutation, getStoreConfigQuery } = operations;
+    const operations = mergeOperations(CART_OPERATIONS, props.operations);
+    const { removeItemFromCartMutation, updateCartItemsMutation } = operations;
 
     const { formatMessage } = useIntl();
 
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const storeConfigData = useStoreConfigContext();
 
     const configurableThumbnailSource = useMemo(() => {
         if (storeConfigData) {

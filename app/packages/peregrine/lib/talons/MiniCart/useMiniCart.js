@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
 import { useEventingContext } from '../../context/eventing';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
-import DEFAULT_OPERATIONS from './miniCart.gql';
 import CART_OPERATIONS from '../CartPage/cartPage.gql';
 import mergeOperations from '../../util/shallowMerge';
 
@@ -34,8 +34,8 @@ export const useMiniCart = props => {
     const { isOpen, setIsOpen } = props;
     const [, { dispatch }] = useEventingContext();
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
-    const { removeItemFromCartMutation, getMiniCartQuery, getStoreConfigQuery } = operations;
+    const operations = mergeOperations(CART_OPERATIONS, props.operations);
+    const { removeItemFromCartMutation, getMiniCartQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const history = useHistory();
@@ -48,9 +48,7 @@ export const useMiniCart = props => {
         errorPolicy: 'all'
     });
 
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const storeConfigData = useStoreConfigContext();
 
     const configurableThumbnailSource = useMemo(() => {
         if (storeConfigData) {

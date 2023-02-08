@@ -1,7 +1,10 @@
 import React, { useMemo } from 'react';
-import { useQuery, gql } from '@apollo/client';
-export { default as HeadProvider } from './headProvider';
+
 import { Helmet } from 'react-helmet-async';
+import { useStoreConfigContext } from '../../../../peregrine/lib/context/storeConfigProvider';
+
+export { default as HeadProvider } from './headProvider';
+
 Helmet.defaultProps.defer = false;
 
 export const Link = props => {
@@ -40,26 +43,14 @@ export const Title = props => {
     );
 };
 
-const STORE_NAME_QUERY = gql`
-    query getStoreName {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            store_name
-        }
-    }
-`;
-
 export const StoreTitle = props => {
     const { children, ...tagProps } = props;
 
-    const { data: storeNameData } = useQuery(STORE_NAME_QUERY);
+    const storeConfigData = useStoreConfigContext();
 
     const storeName = useMemo(() => {
-        return storeNameData
-            ? storeNameData.storeConfig.store_name
-            : STORE_NAME;
-    }, [storeNameData]);
+        return storeConfigData ? storeConfigData.storeConfig.store_name : STORE_NAME;
+    }, [storeConfigData]);
 
     let titleText;
     if (children) {

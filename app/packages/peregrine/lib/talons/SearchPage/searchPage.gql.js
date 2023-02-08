@@ -1,15 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const GET_PAGE_SIZE = gql`
-    query getPageSize {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            grid_per_page
-        }
-    }
-`;
-
 export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
     query getProductFiltersBySearch($search: String!) {
         products(search: $search) {
@@ -35,13 +25,7 @@ export const PRODUCT_SEARCH = gql`
         $filters: ProductAttributeFilterInput!
         $sort: ProductAttributeSortInput
     ) {
-        products(
-            currentPage: $currentPage
-            pageSize: $pageSize
-            search: $inputText
-            filter: $filters
-            sort: $sort
-        ) {
+        products(currentPage: $currentPage, pageSize: $pageSize, search: $inputText, filter: $filters, sort: $sort) {
             items {
                 id
                 uid
@@ -184,7 +168,6 @@ export const GET_SEARCH_AVAILABLE_SORT_METHODS = gql`
 
 export default {
     getFilterInputsQuery: GET_FILTER_INPUTS,
-    getPageSize: GET_PAGE_SIZE,
     getProductFiltersBySearchQuery: GET_PRODUCT_FILTERS_BY_SEARCH,
     getSearchAvailableSortMethods: GET_SEARCH_AVAILABLE_SORT_METHODS,
     productSearchQuery: PRODUCT_SEARCH

@@ -14,7 +14,7 @@ import { useAddProduct } from '@magento/peregrine/lib/talons/AddProduct/useAddPr
 import {
     ADD_CONFIGURABLE_MUTATION,
     ADD_SIMPLE_MUTATION
-} from '@magento/peregrine/lib/talons/ProductFullDetail/productFullDetail.gql.ce';
+} from '@magento/peregrine/lib/talons/ProductFullDetail/productFullDetail.gql';
 
 import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
 

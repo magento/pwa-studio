@@ -1,11 +1,12 @@
 import { useEffect, useCallback } from 'react';
-import { useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 import DEFAULT_OPERATIONS from './cmsDynamicBlock.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const flatten = cartData => {
     const cartItems = cartData?.cart?.items || [];
@@ -67,13 +68,14 @@ export const useCmsDynamicBlock = props => {
     const { locations, uids, type } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCmsDynamicBlocksQuery, getProductDetailQuery, getSalesRulesDataQuery, getStoreConfigData } = operations;
+    const { getCmsDynamicBlocksQuery, getProductDetailQuery, getSalesRulesDataQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const { pathname } = useLocation();
 
+    const storeConfigData = useStoreConfigContext();
+
     // Get Product Data from cache
-    const { data: storeConfigData, loading: storeConfigLoading } = useQuery(getStoreConfigData);
     const slug = pathname.split('/').pop();
     const productUrlSuffix = storeConfigData?.storeConfig?.product_url_suffix;
     const urlKey = productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
@@ -106,7 +108,7 @@ export const useCmsDynamicBlock = props => {
     });
 
     const currentSalesRulesData = flatten(cartData);
-    const isLoading = loading || cartLoading || storeConfigLoading || productDataLoading;
+    const isLoading = loading || cartLoading || storeConfigData === undefined || productDataLoading;
     const cachedSalesRulesData = data?.dynamicBlocks?.salesRulesData;
 
     const updateSalesRulesData = useCallback(

@@ -360,9 +360,7 @@ const ContentDialog = props => {
     }
 
     if (!isEnabled) {
-        return (
-            <ErrorView message={errorViewText} />
-        );
+        return <ErrorView message={errorViewText} />;
     }
 
     return (

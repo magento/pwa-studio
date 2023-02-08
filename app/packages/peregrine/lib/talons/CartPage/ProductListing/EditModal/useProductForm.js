@@ -5,6 +5,7 @@ import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingPro
 import { getOutOfStockVariantsWithInitialSelection } from '@magento/peregrine/lib/util/getOutOfStockVariantsWithInitialSelection';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
 import DEFAULT_OPERATIONS from './productForm.gql';
 import CART_OPERATIONS from '../../cartPage.gql';
@@ -50,12 +51,7 @@ function deriveOptionSelectionsFromProduct(cartItem) {
 export const useProductForm = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
 
-    const {
-        getConfigurableThumbnailSourceQuery,
-        getConfigurableOptionsQuery,
-        updateConfigurableOptionsMutation,
-        updateCartItemsMutation
-    } = operations;
+    const { getConfigurableOptionsQuery, updateConfigurableOptionsMutation, updateCartItemsMutation } = operations;
 
     const { cartItem, setIsCartUpdating, setVariantPrice, setActiveEditItem } = props;
 
@@ -109,9 +105,7 @@ export const useProductForm = props => {
         }
     });
 
-    const { data: storeConfigData } = useQuery(getConfigurableThumbnailSourceQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const storeConfigData = useStoreConfigContext();
 
     const handleOptionSelection = useCallback(
         (optionId, selection) => {

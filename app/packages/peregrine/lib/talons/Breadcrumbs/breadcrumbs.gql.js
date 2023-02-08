@@ -1,15 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const GET_STORE_CONFIG_DATA = gql`
-    query GetStoreConfigForBreadcrumbs {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            category_url_suffix
-        }
-    }
-`;
-
 export const GET_BREADCRUMBS = gql`
     query GetBreadcrumbs($category_id: String!) {
         categories(filters: { category_uid: { in: [$category_id] } }) {
@@ -31,6 +21,5 @@ export const GET_BREADCRUMBS = gql`
 `;
 
 export default {
-    getBreadcrumbsQuery: GET_BREADCRUMBS,
-    getStoreConfigQuery: GET_STORE_CONFIG_DATA
+    getBreadcrumbsQuery: GET_BREADCRUMBS
 };

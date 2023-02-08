@@ -1,11 +1,15 @@
 import React, { useMemo } from 'react';
-import { gql, useQuery } from '@apollo/client';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
+import { gql, useQuery } from '@apollo/client';
 
-import { useStyle } from '@magento/venia-ui/lib/classify';
-import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import Carousel from './Carousel/carousel';
+import Gallery from '@magento/venia-ui/lib/components/Gallery';
+
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
+import { useStyle } from '@magento/venia-ui/lib/classify';
+
 import defaultClasses from './products.module.css';
+
 /**
  * Sort products based on the original order
  *
@@ -82,10 +86,7 @@ const Products = props => {
         paddingLeft
     };
 
-    const { data: storeConfigData } = useQuery(GET_STORE_CONFIG_DATA, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const storeConfigData = useStoreConfigContext();
 
     const productUrlSuffix = useMemo(() => {
         if (storeConfigData) {
@@ -305,16 +306,6 @@ export const GET_PRODUCTS_BY_URL_KEY = gql`
                     value_string
                 }
             }
-        }
-    }
-`;
-
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            product_url_suffix
         }
     }
 `;

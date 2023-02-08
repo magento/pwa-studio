@@ -1,9 +1,9 @@
 /* Deprecated in PWA-12.1.0*/
 
 import { useQuery } from '@apollo/client';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 import mergeOperations from '../../util/shallowMerge';
-
 import DEFAULT_OPERATIONS from './categoryList.gql';
 
 /**
@@ -18,7 +18,7 @@ export const useCategoryList = props => {
     const { id } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCategoryListQuery, getStoreConfigQuery } = operations;
+    const { getCategoryListQuery } = operations;
 
     const { loading, error, data } = useQuery(getCategoryListQuery, {
         fetchPolicy: 'cache-and-network',
@@ -29,18 +29,11 @@ export const useCategoryList = props => {
         }
     });
 
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
-
+    const storeConfigData = useStoreConfigContext();
     const storeConfig = storeConfigData ? storeConfigData.storeConfig : null;
 
     return {
-        childCategories:
-            (data &&
-                data.categories.items[0] &&
-                data.categories.items[0].children) ||
-            null,
+        childCategories: (data && data.categories.items[0] && data.categories.items[0].children) || null,
         storeConfig,
         error,
         loading

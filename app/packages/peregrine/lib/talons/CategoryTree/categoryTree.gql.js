@@ -1,15 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const GET_CATEGORY_URL_SUFFIX = gql`
-    query GetStoreConfigForCategoryTree {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            category_url_suffix
-        }
-    }
-`;
-
 export const GET_NAVIGATION_MENU = gql`
     query GetNavigationMenu($id: String!) {
         categories(filters: { category_uid: { in: [$id] } }) {
@@ -36,6 +26,5 @@ export const GET_NAVIGATION_MENU = gql`
 `;
 
 export default {
-    getNavigationMenuQuery: GET_NAVIGATION_MENU,
-    getCategoryUrlSuffixQuery: GET_CATEGORY_URL_SUFFIX
+    getNavigationMenuQuery: GET_NAVIGATION_MENU
 };

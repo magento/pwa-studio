@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
 import DEFAULT_OPERATIONS from './wishlistDialog.gql';
 
@@ -9,26 +10,26 @@ export const useWishlistDialog = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const storeConfigData = useStoreConfigContext();
 
     const { data: wishlistsData } = useQuery(operations.getWishlistsQuery, {
         fetchPolicy: 'cache-and-network'
     });
 
-    const [
-        addProductToWishlist,
-        { loading: isAddLoading, error: addProductError }
-    ] = useMutation(operations.addProductToWishlistMutation, {
-        refetchQueries: [{ query: operations.getWishlistsQuery }]
-    });
+    const [addProductToWishlist, { loading: isAddLoading, error: addProductError }] = useMutation(
+        operations.addProductToWishlistMutation,
+        {
+            refetchQueries: [{ query: operations.getWishlistsQuery }]
+        }
+    );
 
     // enable_multiple_wishlists is a string "1" or "0". See documentation here:
     // https://devdocs.magento.com/guides/v2.4/graphql/mutations/create-wishlist.html
     const canCreateWishlist = useMemo(() => {
         return (
             wishlistsData &&
-            !!wishlistsData.storeConfig.enable_multiple_wishlists &&
-            wishlistsData.storeConfig.maximum_number_of_wishlists >
-                wishlistsData.customer.wishlists.length
+            !!storeConfigData.storeConfig.enable_multiple_wishlists &&
+            storeConfigData.storeConfig.maximum_number_of_wishlists > wishlistsData.customer.wishlists.length
         );
     }, [wishlistsData]);
 

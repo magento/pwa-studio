@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
@@ -13,7 +14,7 @@ const PAGE_SIZE = 10;
 
 export const useOrderHistoryPage = (props, ...restArgs) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, restArgs.operations);
-    const { getCustomerOrdersQuery, getStoreConfigData } = operations;
+    const { getCustomerOrdersQuery } = operations;
 
     const [
         ,
@@ -40,10 +41,7 @@ export const useOrderHistoryPage = (props, ...restArgs) => {
         }
     });
 
-    const { data: storeConfigData } = useQuery(getStoreConfigData, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const storeConfigData = useStoreConfigContext();
 
     const orders = orderData ? orderData.customer.orders.items : [];
 
