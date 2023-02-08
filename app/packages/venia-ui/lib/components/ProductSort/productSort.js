@@ -16,7 +16,7 @@ const ProductSort = props => {
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
     const { formatMessage, locale } = useIntl();
-
+     
     const orderSortingList = useCallback(
         list => {
             return list.sort((a, b) => {
@@ -184,7 +184,11 @@ const ProductSort = props => {
                             id={'productSort.sortByButton'}
                             defaultMessage={'Sort by'}
                         />
-                        &nbsp;{currentSort.sortText}
+                        &nbsp;
+                        <FormattedMessage
+                        id={currentSort.sortId}
+                        defaultMessage={currentSort.sortText}
+                    />
                     </span>
                     <Icon
                         src={ArrowDown}
