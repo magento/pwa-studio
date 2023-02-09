@@ -47,7 +47,7 @@ export const useBuyLaterNotesPage = () => {
         nextFetchPolicy: 'cache-first',
         variables: {
             pageSize: pageSize,
-            currentPage: currentPage
+            currentPage: currentPage || 1
         }
     });
 
@@ -60,6 +60,7 @@ export const useBuyLaterNotesPage = () => {
             setCarts(items);
             setTotalPage(Math.ceil(total_count / pageSize));
             setIsLoading(false);
+            items.length === 0 && setCurrentPage(0);
         }
     }, [savedCartData, pageSize]);
 
