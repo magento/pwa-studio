@@ -28,7 +28,8 @@ import defaultClasses from './supportPage.module.css';
 import closeIcon from '@magento/venia-ui/lib/assets/close.svg';
 import enhancementIcon from '@magento/venia-ui/lib/assets/enhancementIcon.svg';
 import infoIcon from '@magento/venia-ui/lib/assets/infoIcon.svg';
-import emptyTicketsIcon from '@magento/venia-ui/lib/assets/noCourses.svg';
+import { EmptyIcon } from '@magento/venia-ui/lib/assets/emptyIcon';
+// import emptyIcon from '@magento/venia-ui/lib/assets/empty.svg';
 import orderIcon from '@magento/venia-ui/lib/assets/orderIcon.svg';
 import supportIcon from '@magento/venia-ui/lib/assets/supportIcon.svg';
 import TicketSort from '../TicketSort/ticketSort';
@@ -153,7 +154,10 @@ const ContentDialog = props => {
 
     const emptyTicketsMessage = (
         <div className={classes.emptyTicketsAdviceContainer}>
-            <img src={emptyTicketsIcon} className={classes.emptyTicketsAdviceImage} alt="Empty tickets icon" />
+            <div className={classes.emptyTicketsAdviceImage}>
+                <EmptyIcon />
+            </div>
+            {/* <img src={emptyIcon} className={classes.emptyTicketsAdviceImage} alt="Empty tickets icon" /> */}
             <div>
                 <p className={classes.emptyTicketsAdviceText}>{getEmptyTicketsMessage()}</p>
             </div>

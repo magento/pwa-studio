@@ -12,7 +12,7 @@ import { useCourseItem } from '@magento/peregrine/lib/talons/Lms/useCourseItem';
 import defaultClasses from './courseContent.module.css';
 
 import noImageAvailable from '@magento/venia-ui/lib/assets/noImageAvailable.svg';
-import { NoCoursesIcon } from '@magento/venia-ui/lib/assets/noCoursesIcon';
+import { EmptyIcon } from '@magento/venia-ui/lib/assets/emptyIcon';
 import ConfirmationModal from './ConfirmationModal/confirmationModal';
 
 const DELIMITER = '/';
@@ -96,7 +96,7 @@ const CourseContent = props => {
     const noExistCourse = (
         <div className={classes.noExistCourseAdviceContainer}>
             <div className={classes.noCoursesImage}>
-                <NoCoursesIcon />
+                <EmptyIcon />
             </div>
             <div>
                 <p className={classes.noExistCourseAdviceText}>

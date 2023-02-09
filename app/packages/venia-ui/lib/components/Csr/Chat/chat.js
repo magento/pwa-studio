@@ -19,7 +19,7 @@ import { useChat } from '@magento/peregrine/lib/talons/Csr/useChat';
 
 import defaultClasses from './chat.module.css';
 
-import emptyAttachmentsIcon from '@magento/venia-ui/lib/assets/noCourses.svg';
+import { EmptyIcon } from '@magento/venia-ui/lib/assets/emptyIcon';
 import doubleCheckUnread from '@magento/venia-ui/lib/assets/doubleCheckUnread.svg';
 import doubleCkeckRead from '@magento/venia-ui/lib/assets/doubleCheckRead.svg';
 import optionsIcon from '@magento/venia-ui/lib/assets/optionsIcon.svg';
@@ -174,7 +174,9 @@ const Chat = props => {
     const showEmptyAttachmentsMessage = () => {
         return (
             <div className={classes.emptyAttachmentsContainer}>
-                <img className={classes.emptyAttachmentsIcon} src={emptyAttachmentsIcon} alt="Empty attachments icon" />
+                <div className={classes.emptyAttachmentsIcon} >
+                    <EmptyIcon />
+                </div>
                 <p className={classes.emptyAttachmentsText}>{emptyAttachmentsText}</p>
             </div>
         );

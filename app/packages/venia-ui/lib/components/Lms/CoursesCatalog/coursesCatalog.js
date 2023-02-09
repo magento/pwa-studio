@@ -9,7 +9,7 @@ import ErrorView from '../../ErrorView';
 
 import CourseItem from '../CourseItem';
 import defaultClasses from './coursesCatalog.module.css';
-import noCoursesImage from '@magento/venia-ui/lib/assets/noCourses.svg';
+import { EmptyIcon } from '@magento/venia-ui/lib/assets/emptyIcon';
 
 const DELIMITER = '/';
 
@@ -64,11 +64,9 @@ const CoursesCatalog = props => {
 
     const emptyCoursesMessage = (
         <div className={classes.emptyUserCoursesAdviceContainer}>
-            <img
-                src={noCoursesImage}
-                className={classes.noCoursesImage}
-                alt="No courses icon"
-            />
+            <div className={classes.noCoursesImage} >
+                <EmptyIcon />
+            </div>
             <div>
                 <p className={classes.emptyUserCoursesAdviceText}>
                     <FormattedMessage
@@ -93,11 +91,9 @@ const CoursesCatalog = props => {
 
     const emptyUserCoursesMessage = (
         <div className={classes.emptyUserCoursesAdviceContainer}>
-            <img
-                src={noCoursesImage}
-                className={classes.noCoursesImage}
-                alt="No courses icon"
-            />
+            <div className={classes.noCoursesImage} >
+                <EmptyIcon />
+            </div>
             <div>
                 <p className={classes.emptyUserCoursesAdviceText}>
                     <FormattedMessage
