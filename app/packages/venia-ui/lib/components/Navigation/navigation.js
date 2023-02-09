@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
 import { Link } from 'react-router-dom';
@@ -39,6 +39,9 @@ const Navigation = props => {
 
     const { productsCount } = useCompareProduct();
 
+    useEffect(() => {
+        document.body.classList.toggle(classes.asideOpen, isOpen);
+    }, [isOpen]);
     const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
@@ -62,7 +65,7 @@ const Navigation = props => {
     ) : null;
 
     return (
-        <Portal>
+        <Portal >
             {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
             <FocusScope contain={isOpen} restoreFocus autoFocus>
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
