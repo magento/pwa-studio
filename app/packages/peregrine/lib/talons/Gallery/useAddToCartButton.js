@@ -6,6 +6,7 @@ import { useCartContext } from '../../context/cart';
 import operations from './addToCart.gql';
 import { ADD_CONFIGURABLE_MUTATION, GET_PARENT_SKU } from '../QuickOrderForm/addProductByCsv.gql';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import resourceUrl from '../../util/makeUrl';
 /**
  * @param {String} props.item.uid - uid of item
  * @param {String} props.item.name - name of item
@@ -81,14 +82,27 @@ export const useAddToCartButton = props => {
 
                 setIsLoading(false);
             } else if (productType === 'ConfigurableProduct') {
-                history.push(`${item.url_key}${urlSuffix || ''}`);
+                const productLink = resourceUrl(`/${item.url_key}${urlSuffix || ''}`);
+
+                history.push(productLink);
             } else {
                 console.warn('Unsupported product type unable to handle.');
             }
         } catch (error) {
             console.error(error);
         }
-    }, [addToCart, cartId, history, item.sku, item.url_key, productType, item.uid, item.name, urlSuffix, quantity]);
+    }, [
+        productType,
+        getParentSku,
+        item.sku,
+        item.parentSku,
+        item.url_key,
+        addConfigurableProductToCart,
+        cartId,
+        quantity,
+        urlSuffix,
+        history
+    ]);
 
     return {
         handleAddToCart,
