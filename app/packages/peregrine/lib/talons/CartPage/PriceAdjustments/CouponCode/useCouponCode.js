@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 import DEFAULT_OPERATIONS from './couponCode.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
  * This talon contains the logic for a coupon code form component.
@@ -26,13 +28,10 @@ import DEFAULT_OPERATIONS from './couponCode.gql';
  * import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/useCouponCode';
  */
 export const useCouponCode = props => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const {
-        getAppliedCouponsQuery,
-        applyCouponMutation,
-        removeCouponMutation
-    } = operations;
     const { setIsCartUpdating } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { applyCouponToCartMutation, getAppliedCouponsQuery, removeCouponFromCartMutation } = operations;
 
     const [{ cartId }] = useCartContext();
     const { data, error: fetchError } = useQuery(getAppliedCouponsQuery, {
@@ -44,23 +43,14 @@ export const useCouponCode = props => {
         }
     });
 
-    const [
-        applyCoupon,
-        {
-            called: applyCouponCalled,
-            error: applyError,
-            loading: applyingCoupon
-        }
-    ] = useMutation(applyCouponMutation);
+    const [applyCoupon, { called: applyCouponCalled, error: applyError, loading: applyingCoupon }] = useMutation(
+        applyCouponToCartMutation
+    );
 
     const [
         removeCoupon,
-        {
-            called: removeCouponCalled,
-            error: removeCouponError,
-            loading: removingCoupon
-        }
-    ] = useMutation(removeCouponMutation);
+        { called: removeCouponCalled, error: removeCouponError, loading: removingCoupon }
+    ] = useMutation(removeCouponFromCartMutation);
 
     const handleApplyCoupon = useCallback(
         async ({ couponCode }) => {
@@ -100,21 +90,15 @@ export const useCouponCode = props => {
             // If a coupon mutation is in flight, tell the cart.
             setIsCartUpdating(applyingCoupon || removingCoupon);
         }
-    }, [
-        applyCouponCalled,
-        applyingCoupon,
-        removeCouponCalled,
-        removingCoupon,
-        setIsCartUpdating
-    ]);
+    }, [applyCouponCalled, applyingCoupon, removeCouponCalled, removingCoupon, setIsCartUpdating]);
 
     // Create a memoized error map and toggle individual errors when they change
     const errors = useMemo(
         () =>
             new Map([
                 ['getAppliedCouponsQuery', fetchError],
-                ['applyCouponMutation', applyError],
-                ['removeCouponMutation', removeCouponError]
+                ['applyCouponToCartMutation', applyError],
+                ['removeCouponFromCartMutation', removeCouponError]
             ]),
         [applyError, fetchError, removeCouponError]
     );
@@ -137,8 +121,8 @@ export const useCouponCode = props => {
  *
  * @typedef {Object} CouponCodeMutations
  *
- * @property {GraphQLAST} applyCouponMutation Mutation for applying a coupon code to a cart.
- * @property {GraphQLAST} removeCouponMutation Mutation for removing a coupon code from a cart.
+ * @property {GraphQLAST} applyCouponToCartMutation Mutation for applying a coupon code to a cart.
+ * @property {GraphQLAST} removeCouponFromCartMutation Mutation for removing a coupon code from a cart.
  *
  * @see [CouponCode.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.js}
  * for the queries used Venia
