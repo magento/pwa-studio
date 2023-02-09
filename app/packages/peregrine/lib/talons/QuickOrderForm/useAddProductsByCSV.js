@@ -7,15 +7,21 @@ import Papa from 'papaparse';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-import { ADD_CONFIGURABLE_MUTATION, GET_PARENT_SKU, GET_PRODUCTS_BY_SKU } from './addProductByCsv.gql';
+import DEFAULT_OPERATIONS from './addProductByCsv.gql';
+import PRODUCT_OPERATIONS from '../ProductFullDetail/productFullDetail.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useAddProductsByCSV = props => {
     const { setCsvErrorType, setCsvSkuErrorList, setIsCsvDialogOpen, setProducts, success } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, PRODUCT_OPERATIONS, props.operations);
+    const { addConfigurableProductToCartMutation, getParentSkuQuery, getProductBySkuQuery } = operations;
+
     const [{ cartId }] = useCartContext();
 
-    const [addConfigurableProductToCart] = useMutation(ADD_CONFIGURABLE_MUTATION);
-    const getParentSku = useAwaitQuery(GET_PARENT_SKU);
-    const getproduct = useAwaitQuery(GET_PRODUCTS_BY_SKU);
+    const [addConfigurableProductToCart] = useMutation(addConfigurableProductToCartMutation);
+    const getParentSku = useAwaitQuery(getParentSkuQuery);
+    const getproduct = useAwaitQuery(getProductBySkuQuery);
 
     const handleCSVFile = () => {
         const input = document.createElement('input');

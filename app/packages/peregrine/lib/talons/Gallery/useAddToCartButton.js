@@ -3,7 +3,8 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '../../context/cart';
-import { ADD_CONFIGURABLE_MUTATION, GET_PARENT_SKU } from '../QuickOrderForm/addProductByCsv.gql';
+import { GET_PARENT_SKU } from '../QuickOrderForm/addProductByCsv.gql';
+import { ADD_CONFIGURABLE_MUTATION } from '../ProductFullDetail/productFullDetail.gql';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 /**
  * @param {String} props.item.uid - uid of item

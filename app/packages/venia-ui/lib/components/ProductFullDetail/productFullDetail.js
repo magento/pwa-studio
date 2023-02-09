@@ -1,7 +1,6 @@
-import React, { useMemo, Fragment, Suspense, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
-import { Form } from 'informed';
 import { Info } from 'react-feather';
 
 import { ProductOptionsShimmer } from '../ProductOptions';
@@ -11,17 +10,11 @@ import { useStyle } from '../../classify';
 
 import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
-import Carousel from '../ProductImageCarousel';
-import FormError from '../FormError';
-import QuantityStepper from '../QuantityStepper';
-import RichContent from '../RichContent/richContent';
 import Price from '@magento/venia-ui/lib/components/Price';
 import ProductFullDetailB2B from './ProductFullDetailB2B/ProductFullDetailB2B';
 import ProductFullDetailB2C from './ProductFullDetailB2C/ProductFullDetailB2C';
-import CustomAttributes from './CustomAttributes';
 import defaultClasses from '@magento/venia-ui/lib/components/ProductFullDetail/productFullDetail.module.css';
 
-const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
 const Options = React.lazy(() => import('@magento/venia-ui/lib/components/ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error
@@ -178,41 +171,6 @@ const ProductFullDetail = props => {
         }
     }
 
-    const customAttributesDetails = useMemo(() => {
-        const list = [];
-        const pagebuilder = [];
-        const skuAttribute = {
-            attribute_metadata: {
-                uid: 'attribute_sku',
-                used_in_components: ['PRODUCT_DETAILS_PAGE'],
-                ui_input: {
-                    ui_input_type: 'TEXT'
-                },
-                label: formatMessage({
-                    id: 'global.sku',
-                    defaultMessage: 'SKU'
-                })
-            },
-            entered_attribute_value: {
-                value: productDetails.sku
-            }
-        };
-        if (Array.isArray(customAttributes)) {
-            customAttributes.forEach(customAttribute => {
-                if (customAttribute.attribute_metadata.ui_input.ui_input_type === 'PAGEBUILDER') {
-                    pagebuilder.push(customAttribute);
-                } else {
-                    list.push(customAttribute);
-                }
-            });
-        }
-        list.unshift(skuAttribute);
-        return {
-            list: list,
-            pagebuilder: pagebuilder
-        };
-    }, [customAttributes, productDetails.sku, formatMessage]);
-
     const calculateTotalPrice =
         regularPriceValue == minimalPriceValue ? (
             <div>
@@ -291,20 +249,6 @@ const ProductFullDetail = props => {
             </p>
         </div>
     );
-
-    const shortDescription = productDetails.shortDescription ? (
-        <RichContent html={productDetails.shortDescription.html} />
-    ) : null;
-
-    const pageBuilderAttributes = customAttributesDetails.pagebuilder.length ? (
-        <section className={classes.detailsPageBuilder}>
-            <CustomAttributes
-                classes={{ list: classes.detailsPageBuilderList }}
-                customAttributes={customAttributesDetails.pagebuilder}
-                showLabels={false}
-            />
-        </section>
-    ) : null;
 
     return process.env.IS_B2B === 'true' ? (
         <ProductFullDetailB2B
