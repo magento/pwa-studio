@@ -23,12 +23,11 @@ const NoProductsFound = props => {
 
     const categoryItems = useMemo(() => {
         return recommendedCategories.map(category => {
-            const uri = resourceUrl(
-                `/${category.url_path}${category.url_suffix}`
-            );
+            console.log('recommendedCategories', recommendedCategories);
+            const uri = resourceUrl(`/${category.url_path}${category.url_suffix}`);
 
             return (
-                <li key={category.id} className={classes.listItem}>
+                <li key={category.uid} className={classes.listItem}>
                     <Link to={uri}>{category.name}</Link>
                 </li>
             );
