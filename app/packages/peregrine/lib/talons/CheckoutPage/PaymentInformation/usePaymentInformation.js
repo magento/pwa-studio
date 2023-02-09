@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 import DEFAULT_OPERATIONS from './paymentInformation.gql';
-import { SET_BILLING_ADDRESS } from '../BillingAddress/billingAddress.gql';
+import BILLING_ADDRESS_OPERATIONS from '../BillingAddress/billingAddress.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '../../../context/cart';
@@ -25,16 +25,17 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
 export const usePaymentInformation = props => {
     const { onSave, checkoutError, resetShouldSubmit, setCheckoutStep, shouldSubmit } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, BILLING_ADDRESS_OPERATIONS, props.operations);
     const {
         getPaymentInformationQuery,
         getPaymentNonceQuery,
+        setBillingAddressMutation,
         setFreePaymentMethodMutation
     } = operations;
+
     /**
      * Definitions
      */
-
     const [doneEditing, setDoneEditing] = useState(false);
     const [isEditModalActive, setIsEditModalActive] = useState(false);
     const [{ cartId }] = useCartContext();
@@ -44,7 +45,6 @@ export const usePaymentInformation = props => {
     /**
      * Helper Functions
      */
-
     const showEditModal = useCallback(() => {
         setIsEditModalActive(true);
     }, []);
@@ -90,7 +90,7 @@ export const usePaymentInformation = props => {
         });
     }, [cartId, client, getPaymentNonceQuery]);
 
-    const [setBillingAddress] = useMutation(SET_BILLING_ADDRESS);
+    const [setBillingAddress] = useMutation(setBillingAddressMutation);
 
     // We must wait for payment method to be set if this is the first time we
     // are hitting this component and the total is $0. If we don't wait then

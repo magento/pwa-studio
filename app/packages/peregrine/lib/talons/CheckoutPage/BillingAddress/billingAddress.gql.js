@@ -3,10 +3,8 @@ import { gql } from '@apollo/client';
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentInformation.gql';
 
-import { GET_CUSTOMER_ADDRESSES } from '../../AddressBookPage/addressBookPage.gql';
-
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
-    query getIsBillingAddressSame($cartId: String!) {
+    query GetIsBillingAddressSame($cartId: String!) {
         cart(cart_id: $cartId) @client {
             id
             isBillingAddressSame
@@ -15,7 +13,7 @@ export const GET_IS_BILLING_ADDRESS_SAME = gql`
 `;
 
 export const GET_BILLING_ADDRESS = gql`
-    query getBillingAddress($cartId: String!) {
+    query GetBillingAddress($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             billingAddress: billing_address {
@@ -39,7 +37,7 @@ export const GET_BILLING_ADDRESS = gql`
 `;
 
 export const GET_SHIPPING_ADDRESS = gql`
-    query getSelectedShippingAddress($cartId: String!) {
+    query GetSelectedShippingAddress($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             shippingAddresses: shipping_addresses {
@@ -61,7 +59,7 @@ export const GET_SHIPPING_ADDRESS = gql`
 `;
 
 export const SET_BILLING_ADDRESS = gql`
-    mutation setBillingAddress(
+    mutation SetBillingAddress(
         $cartId: String!
         $firstName: String!
         $lastName: String!
@@ -116,7 +114,7 @@ export const SET_BILLING_ADDRESS = gql`
 `;
 
 export const SET_DEFAULT_BILLING_ADDRESS = gql`
-    mutation setDefaultBillingAddress($cartId: String!, $customerAddressId: Int) {
+    mutation SetDefaultBillingAddress($cartId: String!, $customerAddressId: Int) {
         setBillingAddressOnCart(
             input: { cart_id: $cartId, billing_address: { customer_address_id: $customerAddressId } }
         ) @connection(key: "setBillingAddressOnCart") {
@@ -150,6 +148,5 @@ export default {
     getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
     getShippingAddressQuery: GET_SHIPPING_ADDRESS,
     setBillingAddressMutation: SET_BILLING_ADDRESS,
-    getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES,
     setDefaultBillingAddressMutation: SET_DEFAULT_BILLING_ADDRESS
 };

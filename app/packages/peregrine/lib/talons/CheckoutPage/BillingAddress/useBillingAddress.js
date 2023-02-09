@@ -6,6 +6,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './billingAddress.gql';
+import ADDRESS_BOOK_OPERATIONS from '../../AddressBookPage/addressBookPage.gql';
 
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { FormattedMessage } from 'react-intl';
@@ -86,7 +87,7 @@ export const getDefaultBillingAddress = customerAddressesData => {
 export const useBillingAddress = props => {
     // return function useBillingAddress(props, ...restArgs) {
     const { shouldSubmit, onBillingAddressChangedError, onBillingAddressChangedSuccess } = props;
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, ADDRESS_BOOK_OPERATIONS, props.operations);
     const [, { addToast }] = useToasts();
 
     const {

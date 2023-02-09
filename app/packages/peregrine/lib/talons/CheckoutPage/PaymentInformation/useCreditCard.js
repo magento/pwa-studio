@@ -7,6 +7,8 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import DEFAULT_OPERATIONS from './creditCard.gql';
+import BILLING_ADDRESS_OPERATIONS from '../BillingAddress/billingAddress.gql';
+import ADDRESS_BOOK_OPERATIONS from '../AddressBook/addressBook.gql';
 import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 
 /**
@@ -93,7 +95,12 @@ export const getDefaultBillingAddress = customerAddressesData => {
 export const useCreditCard = props => {
     const { onSuccess, onReady, onError, shouldSubmit, resetShouldSubmit } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        BILLING_ADDRESS_OPERATIONS,
+        ADDRESS_BOOK_OPERATIONS,
+        props.operations
+    );
 
     const {
         getBillingAddressQuery,
