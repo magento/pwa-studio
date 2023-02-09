@@ -48,5 +48,6 @@ Tree.propTypes = {
     }),
     onNavigate: func.isRequired,
     setCategoryId: func.isRequired,
-    updateCategories: func.isRequired
+    updateCategories: func.isRequired,
+    tabIndex: string
 };
