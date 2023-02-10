@@ -11,7 +11,7 @@ export const AvailablePaymentMethodsFragment = gql`
 `;
 
 export const GET_PAYMENT_INFORMATION = gql`
-    query getPaymentInformation($cartId: String!) {
+    query GetPaymentInformation($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             selected_payment_method {
@@ -38,7 +38,7 @@ export const GET_PAYMENT_INFORMATION = gql`
 `;
 
 export const GET_PAYMENT_NONCE = gql`
-    query getPaymentNonce($cartId: String!) {
+    query GetPaymentNonce($cartId: String!) {
         cart(cart_id: $cartId) @client {
             id
             paymentNonce
@@ -46,23 +46,7 @@ export const GET_PAYMENT_NONCE = gql`
     }
 `;
 
-// Sets the provided payment method object on the cart.
-export const SET_FREE_PAYMENT_METHOD_ON_CART = gql`
-    mutation setPaymentMethodOnCartForFree($cartId: String!) {
-        setPaymentMethodOnCart(input: { cart_id: $cartId, payment_method: { code: "free" } }) {
-            cart {
-                id
-                selected_payment_method {
-                    code
-                    title
-                }
-            }
-        }
-    }
-`;
-
 export default {
-    getPaymentNonceQuery: GET_PAYMENT_NONCE,
     getPaymentInformationQuery: GET_PAYMENT_INFORMATION,
-    setFreePaymentMethodMutation: SET_FREE_PAYMENT_METHOD_ON_CART
+    getPaymentNonceQuery: GET_PAYMENT_NONCE
 };

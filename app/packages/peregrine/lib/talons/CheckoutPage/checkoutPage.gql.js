@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 
 import { CheckoutPageFragment } from './checkoutPageFragments.gql';
 import { OrderConfirmationPageFragment } from './OrderConfirmationPage/orderConfirmationPageFragments.gql';
-import { SET_PAYMENT_METHOD_ON_CART } from './PaymentInformation/paymentMethods.gql';
 
 export const GET_CHECKOUT_DETAILS = gql`
     query GetCheckoutDetails($cartId: String!) {
@@ -50,6 +49,5 @@ export default {
     getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
     getCustomerQuery: GET_CUSTOMER,
     getOrderDetailsQuery: GET_ORDER_DETAILS,
-    placeOrderMutation: PLACE_ORDER,
-    setPaymentMethodOnCartMutation: SET_PAYMENT_METHOD_ON_CART
+    placeOrderMutation: PLACE_ORDER
 };

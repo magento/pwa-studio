@@ -8,6 +8,7 @@ import { useCartContext } from '../../context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
 import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import PAYMENT_METHODS_OPERATIONS from './PaymentInformation/paymentMethods.gql';
 
 import CheckoutError from './CheckoutError';
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
@@ -66,7 +67,12 @@ export const CHECKOUT_STEP = {
 export const useCheckoutPage = props => {
     const { submitDeliveryDate, deliveryDateIsActivated, submitOrderAttribute } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        CART_OPERATIONS,
+        PAYMENT_METHODS_OPERATIONS,
+        props.operations
+    );
 
     const {
         createCartMutation,

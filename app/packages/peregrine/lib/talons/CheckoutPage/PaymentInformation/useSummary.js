@@ -2,8 +2,8 @@ import { useQuery } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
 
+import DEFAULT_OPERATIONS from './paymentMethods.gql';
 import mergeOperations from '../../../util/shallowMerge';
-import DEFAULT_OPERATIONS from './summary.gql';
 
 /**
  * Talon to handle summary component in payment information section of
@@ -20,11 +20,11 @@ import DEFAULT_OPERATIONS from './summary.gql';
 
 export const useSummary = () => {
     const operations = mergeOperations(DEFAULT_OPERATIONS);
-    const { getSummaryDataQuery } = operations;
+    const { getSelectedPaymentMethodQuery } = operations;
 
     const [{ cartId }] = useCartContext();
 
-    const { data: summaryData, loading: summaryDataLoading } = useQuery(getSummaryDataQuery, {
+    const { data: summaryData, loading: summaryDataLoading } = useQuery(getSelectedPaymentMethodQuery, {
         skip: !cartId,
         variables: { cartId }
     });

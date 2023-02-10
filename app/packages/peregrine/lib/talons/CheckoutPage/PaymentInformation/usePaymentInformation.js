@@ -1,6 +1,8 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useQuery, useApolloClient, useMutation } from '@apollo/client';
+
 import DEFAULT_OPERATIONS from './paymentInformation.gql';
+import PAYMENT_METHODS_OPERATIONS from './paymentMethods.gql';
 import BILLING_ADDRESS_OPERATIONS from '../BillingAddress/billingAddress.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -18,19 +20,24 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
  * @param {DocumentNode} props.operations.getPaymentNonceQuery query to fetch and/or clear payment nonce from cache
  * @param {DocumentNode} props.operations.getPaymentInformationQuery query to fetch data to render this component
  * @param {DocumentNode} props.operations.setBillingAddressMutation mutation to set billing address on Cart
- * @param {DocumentNode} props.operations.setFreePaymentMethodMutation mutation to set free payment method on Cart
+ * @param {DocumentNode} props.operations.setPaymentMethodOnCartMutation mutation to set free payment method on Cart
  *
  * @returns {PaymentInformationTalonProps}
  */
 export const usePaymentInformation = props => {
     const { onSave, checkoutError, resetShouldSubmit, setCheckoutStep, shouldSubmit } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, BILLING_ADDRESS_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        BILLING_ADDRESS_OPERATIONS,
+        PAYMENT_METHODS_OPERATIONS,
+        props.operations
+    );
     const {
         getPaymentInformationQuery,
         getPaymentNonceQuery,
         setBillingAddressMutation,
-        setFreePaymentMethodMutation
+        setPaymentMethodOnCartMutation
     } = operations;
 
     /**
@@ -75,7 +82,9 @@ export const usePaymentInformation = props => {
         variables: { cartId }
     });
 
-    const [setFreePaymentMethod, { loading: setFreePaymentMethodLoading }] = useMutation(setFreePaymentMethodMutation);
+    const [setFreePaymentMethod, { loading: setFreePaymentMethodLoading }] = useMutation(
+        setPaymentMethodOnCartMutation
+    );
 
     const clearPaymentDetails = useCallback(() => {
         client.writeQuery({
@@ -127,7 +136,8 @@ export const usePaymentInformation = props => {
                 if (selectedPaymentMethod !== 'free') {
                     await setFreePaymentMethod({
                         variables: {
-                            cartId
+                            cartId,
+                            payment_method: { code: 'free' }
                         }
                     });
                     setDoneEditing(true);

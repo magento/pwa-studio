@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
 import { useQuery, useApolloClient, useMutation } from '@apollo/client';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
-import DEFAULT_OPERATIONS from './creditCard.gql';
-import BILLING_ADDRESS_OPERATIONS from '../BillingAddress/billingAddress.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import ADDRESS_BOOK_OPERATIONS from '../AddressBook/addressBook.gql';
-import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
+import BILLING_ADDRESS_OPERATIONS from '../BillingAddress/billingAddress.gql';
+import PAYMENT_INFORMATION_OPERATIONS from './paymentInformation.gql';
+import PAYMENT_METHODS_OPERATIONS from './paymentMethods.gql';
 
 /**
  * Maps address response data from GET_BILLING_ADDRESS and GET_SHIPPING_ADDRESS
@@ -65,7 +66,7 @@ export const getDefaultBillingAddress = customerAddressesData => {
  * @param {DocumentNode} props.operations.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
  * @param {DocumentNode} props.operations.getPaymentNonceQuery query to fetch payment nonce saved in cache
  * @param {DocumentNode} props.operations.setBillingAddressMutation mutation to update billing address on the cart
- * @param {DocumentNode} props.operations.setCreditCardDetailsOnCartMutation mutation to update payment method and payment nonce on the cart
+ * @param {DocumentNode} props.operations.setPaymentMethodOnCartMutation mutation to update payment method and payment nonce on the cart
  *
  * @returns {
  *   errors: Map<String, Error>,
@@ -96,9 +97,10 @@ export const useCreditCard = props => {
     const { onSuccess, onReady, onError, shouldSubmit, resetShouldSubmit } = props;
 
     const operations = mergeOperations(
-        DEFAULT_OPERATIONS,
-        BILLING_ADDRESS_OPERATIONS,
         ADDRESS_BOOK_OPERATIONS,
+        BILLING_ADDRESS_OPERATIONS,
+        PAYMENT_INFORMATION_OPERATIONS,
+        PAYMENT_METHODS_OPERATIONS,
         props.operations
     );
 
@@ -108,7 +110,7 @@ export const useCreditCard = props => {
         getPaymentNonceQuery,
         getShippingAddressQuery,
         setBillingAddressMutation,
-        setCreditCardDetailsOnCartMutation,
+        setPaymentMethodOnCartMutation,
         getCustomerAddressesQuery,
         setDefaultBillingAddressMutation
     } = operations;
@@ -183,7 +185,7 @@ export const useCreditCard = props => {
     const [
         updateCCDetails,
         { error: ccMutationError, called: ccMutationCalled, loading: ccMutationLoading }
-    ] = useMutation(setCreditCardDetailsOnCartMutation);
+    ] = useMutation(setPaymentMethodOnCartMutation);
 
     const shippingAddressCountry = shippingAddressData
         ? shippingAddressData.cart.shippingAddresses[0].country.code
@@ -342,8 +344,10 @@ export const useCreditCard = props => {
             updateCCDetails({
                 variables: {
                     cartId,
-                    paymentMethod: 'braintree',
-                    paymentNonce: nonce
+                    payment_method: {
+                        code: 'braintree',
+                        braintree: { payment_method_nonce: nonce, is_active_payment_token_enabler: false }
+                    }
                 }
             });
         },
@@ -585,7 +589,7 @@ export const useCreditCard = props => {
         () =>
             new Map([
                 ['setBillingAddressMutation', billingAddressMutationError],
-                ['setCreditCardDetailsOnCartMutation', ccMutationError]
+                ['setPaymentMethodOnCartMutation', ccMutationError]
             ]),
         [billingAddressMutationError, ccMutationError]
     );
