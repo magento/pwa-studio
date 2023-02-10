@@ -1,13 +1,9 @@
 {
     "palette": {
-        "--b2bstore-compareIcon-color": "#d079b4",
         "--b2bstore-inStockIcon-color": "#02a647",
         "--b2bstore-outStockIcon-color": "#e45b62",
-        "--b2bstore-shareIcon-color": "#d079b4",
-        "--b2bstore-incidenceIcon-color": "#d079b4",
 
         "--b2bstore-global-color-orange": "#d079b4",
-        "--b2bstore-global-color-orange-SVG": "#d079b4",
         "--b2bstore-global-color-gray": "#808080",
         "--b2bstore-global-color-black": "#28282b",
         "--b2bstore-background-color": "#f6f8fb",
