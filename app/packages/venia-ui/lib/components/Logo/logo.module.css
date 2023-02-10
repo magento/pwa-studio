@@ -1,0 +1,19 @@
+
+.image {
+    object-fit: contain;
+    max-height: 75px;
+}
+
+/* add breakponint */
+
+@media (max-width: 768px) {
+    .image {
+        max-height: 50px;
+    }
+}
+
+@media (max-width: 960px) {
+    .image {
+        max-height: 40px;
+    }
+}
