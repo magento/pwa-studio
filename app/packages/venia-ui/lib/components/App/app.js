@@ -21,15 +21,13 @@ import ReactGA from 'react-ga';
 
 import CookiesConsent from '../CookiesConsent';
 
-ReactGA.initialize('UA-158777378-4');
-ReactGA.plugin.require('ecommerce');
-ReactGA.pageview(window.location.pathname + window.location.search);
-
 import { AlertCircle as AlertCircleIcon, CloudOff as CloudOffIcon, Wifi as WifiIcon } from 'react-feather';
 
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
+
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;

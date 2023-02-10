@@ -17,6 +17,8 @@ import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/ut
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './productFullDetail.gql';
 
+import { useModulesContext } from '../../context/modulesProvider';
+
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
 const OUT_OF_STOCK_CODE = 'OUT_OF_STOCK';
@@ -258,6 +260,10 @@ export const useProductFullDetail = props => {
     const productType = product.__typename;
 
     const isSupportedProductType = isSupported(productType);
+
+    const { tenantConfig } = useModulesContext();
+
+    const isB2B = tenantConfig.b2bProductDetailView;
 
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
@@ -587,6 +593,7 @@ export const useProductFullDetail = props => {
         addConfigurableProductToCart,
         isAddConfigurableLoading,
         cartId,
-        derivedOptionSelectionsKey
+        derivedOptionSelectionsKey,
+        isB2B
     };
 };

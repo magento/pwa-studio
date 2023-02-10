@@ -31,7 +31,7 @@ const OrderRow = props => {
     const { grand_total: grandTotal } = total;
     const { currency, value: orderTotal } = grandTotal;
 
-    const { enabledModules } = useModulesContext();
+    const { tenantConfig } = useModulesContext();
 
     // Convert date to ISO-8601 format so Safari can also parse it
     const isoFormattedDate = orderDate.replace(' ', 'T');
@@ -132,7 +132,7 @@ const OrderRow = props => {
             <div className={[classes.orderStatusContainer, classes.orderReStatusContainer].join(' ')}>
                 <span className={classes.orderStatusBadge}>{derivedStatus}</span>
                 <OrderProgressBar status={derivedStatus} />
-                {enabledModules?.csr?.isEnabled() && (
+                {tenantConfig.csrEnabled && (
                     <div className={classes.orderIncidenciesButtonContainer}>
                         <Button
                             onClick={() => {
@@ -152,7 +152,7 @@ const OrderRow = props => {
                 {contentToggleIcon}
             </button>
             <div className={contentClass}>{orderDetails}</div>
-            {enabledModules?.csr?.isEnabled() && (
+            {tenantConfig.csrEnabled && (
                 <OrderIncidencesModal
                     isOpen={ticketModal}
                     setTicketModal={setTicketModal}

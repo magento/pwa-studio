@@ -124,10 +124,10 @@ const contentTypesConfig = {
 };
 
 const addLmsContentType = () => {
-    const { enabledModules } = useModulesContext();
+    const { tenantConfig } = useModulesContext();
     const [{ isSignedIn }] = useUserContext();
 
-    if (enabledModules?.lms?.isEnabled() && isSignedIn) {
+    if (tenantConfig.lmsEnabled && isSignedIn) {
         contentTypesConfig['pagebuilder_lms'] = {
             configAggregator: courseSliderConfigAggregator,
             component: React.lazy(() => import('./ContentTypes/CourseSlider'))

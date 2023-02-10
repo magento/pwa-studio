@@ -55,7 +55,8 @@ const ProductFullDetail = props => {
         isAddConfigurableLoading,
         cartId,
         customAttributes,
-        setOptionSelections
+        setOptionSelections,
+        isB2B
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -250,7 +251,7 @@ const ProductFullDetail = props => {
         </div>
     );
 
-    return process.env.IS_B2B === 'true' ? (
+    return isB2B ? (
         <ProductFullDetailB2B
             addConfigurableProductToCart={addConfigurableProductToCart}
             availableOptions={options}

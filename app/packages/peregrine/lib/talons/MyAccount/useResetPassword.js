@@ -21,7 +21,7 @@ import { useModulesContext } from '../../context/modulesProvider';
 export const useResetPassword = props => {
     const { mutations } = props;
 
-    const { enabledModules } = useModulesContext();
+    const { tenantConfig } = useModulesContext();
 
     const [hasCompleted, setHasCompleted] = useState(false);
     const location = useLocation();
@@ -50,7 +50,7 @@ export const useResetPassword = props => {
 
                     await handleSignIn({ email, password: newPassword });
 
-                    enabledModules?.lms?.isEnabled() && modifyLmsCustomer('', '', email, newPassword);
+                    tenantConfig.lmsEnabled && modifyLmsCustomer('', '', email, newPassword);
 
                     setHasCompleted(true);
                 }
@@ -59,7 +59,7 @@ export const useResetPassword = props => {
                 setHasCompleted(false);
             }
         },
-        [generateReCaptchaData, resetPassword, token, handleSignIn, enabledModules]
+        [generateReCaptchaData, resetPassword, token, handleSignIn, tenantConfig]
     );
 
     return {

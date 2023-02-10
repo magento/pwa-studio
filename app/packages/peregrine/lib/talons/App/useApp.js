@@ -6,6 +6,8 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { useModulesContext } from '../../context/modulesProvider';
 
+import ReactGA from 'react-ga';
+
 const dismissers = new WeakMap();
 
 // Memoize dismisser funcs to reduce re-renders from func identity change.
@@ -36,8 +38,12 @@ export const useApp = props => {
     const { handleError, handleIsOffline, handleIsOnline, markErrorHandled, renderError, unhandledErrors } = props;
     const history = useHistory();
 
-    const { applyConfig } = useModulesContext();
+    const { applyConfig, tenantConfig } = useModulesContext();
 
+    ReactGA.initialize(tenantConfig.googleAnalyticsTrackingId);
+    ReactGA.plugin.require('ecommerce');
+
+    
     const reload = useCallback(() => {
         if (process.env.NODE_ENV !== 'development') {
             history.go(0);

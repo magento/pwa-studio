@@ -49,7 +49,7 @@ export const useCreateAccount = props => {
     
     const apolloClient = useApolloClient();
 
-    const { enabledModules } = useModulesContext();
+    const { tenantConfig } = useModulesContext();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [{ cartId }, { createCart, removeCart, getCartDetails }] = useCartContext();
@@ -129,10 +129,10 @@ export const useCreateAccount = props => {
                 await setToken(token);
 
                 // LMS logic
-                enabledModules?.lms?.isEnabled() && doLmsLogin(formValues.password);
+                tenantConfig.lmsEnabled && doLmsLogin(formValues.password);
 
                 // CSR logic
-                enabledModules?.csr?.isEnabled() && doCsrLogin();
+                tenantConfig.csrEnabled && doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
@@ -177,7 +177,7 @@ export const useCreateAccount = props => {
             createAccount,
             createCart,
             dispatch,
-            enabledModules,
+            tenantConfig,
             fetchCartDetails,
             fetchCartId,
             fetchUserDetails,

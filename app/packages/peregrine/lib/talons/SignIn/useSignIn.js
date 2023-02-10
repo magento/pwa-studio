@@ -33,7 +33,7 @@ export const useSignIn = props => {
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
 
-    const { enabledModules } = useModulesContext();
+    const { tenantConfig } = useModulesContext();
 
     const [{ cartId }, { createCart, removeCart, getCartDetails }] = useCartContext();
 
@@ -80,10 +80,10 @@ export const useSignIn = props => {
                 await setToken(token);
 
                 // LMS logic
-                enabledModules?.lms.isEnabled() && doLmsLogin(password);
+                tenantConfig.lmsEnabled && doLmsLogin(password);
 
                 // CSR logic
-                enabledModules?.csr.isEnabled() && doCsrLogin();
+                tenantConfig.csrEnabled && doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
@@ -133,7 +133,7 @@ export const useSignIn = props => {
             generateReCaptchaData,
             signIn,
             setToken,
-            enabledModules,
+            tenantConfig,
             apolloClient,
             removeCart,
             createCart,

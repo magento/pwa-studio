@@ -1,6 +1,6 @@
 import { Magento2 } from '@magento/peregrine/lib/RestApi';
 
-const getEnabledModules = async() => {
+const getTenantConfig = async() => {
     const { request } = Magento2;
 
     const reply = await request('/env', {
@@ -10,4 +10,4 @@ const getEnabledModules = async() => {
     return reply;
 };
 
-export default getEnabledModules;
+export default getTenantConfig;

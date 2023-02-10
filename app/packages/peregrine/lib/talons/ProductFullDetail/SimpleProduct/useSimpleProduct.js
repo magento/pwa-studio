@@ -6,11 +6,18 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { GET_SIMPLE_PRODUCT } from '../SimpleProduct/getSimpleProduct.gql';
 import { useLocation } from 'react-router-dom';
 
+import { useModulesContext } from '../../../context/modulesProvider';
+
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct'];
 export const useSimpleProduct = (props = {}) => {
     const { formatMessage } = useIntl();
     const { search } = useLocation();
     const sku = new URLSearchParams(search).get('sku');
+
+    const { tenantConfig } = useModulesContext();
+
+    const isB2B = tenantConfig.b2bProductDetailView;
+    
 
     const { addConfigurableProductToCartMutation, productQuantity } = props;
 
@@ -101,6 +108,7 @@ export const useSimpleProduct = (props = {}) => {
         cartId,
         loading,
         fetchedData: !data ? null : data,
-        error
+        error,
+        isB2B
     };
 };

@@ -10,9 +10,9 @@ import { useModulesContext } from '../../context/modulesProvider';
 
 export const useSupportPage = () => {
     const [{ isSignedIn }] = useUserContext();
-    const { enabledModules } = useModulesContext();
+    const { tenantConfig } = useModulesContext();
 
-    const isEnabled = enabledModules?.csr?.isEnabled();
+    const isEnabled = tenantConfig.csrEnabled;
 
     // States
     const [errorToast, setErrorToast] = useState(false);

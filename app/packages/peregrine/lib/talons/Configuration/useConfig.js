@@ -5,17 +5,17 @@ import { useModules } from './useModules';
 export const useConfig = () => {
     
     const { applyStyles } = useStyle();
-    const { enabledModules, fetchEnabledModules } = useModules();
+    const { tenantConfig, fetchTenantConfig } = useModules();
 
     const applyConfig = useCallback(() => {
         applyStyles();
-        fetchEnabledModules();
-    }, [applyStyles, fetchEnabledModules]);
+        fetchTenantConfig();
+    }, [applyStyles, fetchTenantConfig]);
     
     const value = useMemo(() => ({
-        enabledModules,
-        applyConfig,
-    }), [enabledModules, applyConfig]);
+        tenantConfig,
+        applyConfig
+    }), [tenantConfig, applyConfig]);
 
     return {
         applyConfig,

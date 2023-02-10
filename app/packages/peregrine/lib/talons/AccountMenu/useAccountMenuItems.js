@@ -13,16 +13,16 @@ import { useModulesContext } from '../../context/modulesProvider';
  */
 export const useAccountMenuItems = props => {
 
-    const { enabledModules } = useModulesContext();
+    const { tenantConfig } = useModulesContext();
     const { onSignOut } = props;
 
     const handleSignOut = useCallback(() => {
-        enabledModules?.csr?.isEnabled() && doCsrLogout();
-        enabledModules?.lms?.isEnabled() && doLmsLogout();
+        tenantConfig.csrEnabled && doCsrLogout();
+        tenantConfig.lmsEnabled && doLmsLogout();
         onSignOut();
-    }, [enabledModules, onSignOut]);
+    }, [tenantConfig, onSignOut]);
 
-    console.log("from use accountMenuItems", enabledModules)
+    console.log("from use accountMenuItems", tenantConfig)
 
     const MENU_ITEMS_BASIC = [
         {
@@ -80,7 +80,7 @@ export const useAccountMenuItems = props => {
         }
     ];
 
-    if (enabledModules?.csr?.isEnabled()) {
+    if (tenantConfig.csrEnabled) {
         const csrItem = {
             name: 'Support',
             id: 'accountMenu.supportLink',
@@ -90,7 +90,7 @@ export const useAccountMenuItems = props => {
         MENU_ITEMS_PREMIUM.push(csrItem);
     }
 
-    if (enabledModules?.lms?.isEnabled()) {
+    if (tenantConfig.lmsEnabled) {
         const lmsItem = {
             name: 'Learning',
             id: 'accountMenu.learningLink',

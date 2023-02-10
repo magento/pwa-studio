@@ -1,11 +1,19 @@
 {
     "env": {
         "lms": {
-            "ENABLED": false
+            "ENABLED": true
         },
         "csr": {
-            "ENABLED": true,
-            "ENDPOINT": "http://b2b-zammad-gateway.orienteed.lan/"
-        }
+            "ENABLED": true
+        },
+        "braintree": {
+            "CHECKOUT_BRAINTREE_TOKEN": "sandbox_ykh4mj4h_dxj54rtfp99ncnhk"
+        },
+        "googleAnalytics": {
+            "GOOGLE_ANALYTICS_TRACKING_ID": "UA-158777378-4"
+        },
+        "b2b": {
+            "IS_B2B": true
+        }    
     }
 }

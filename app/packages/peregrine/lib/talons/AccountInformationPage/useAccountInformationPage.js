@@ -27,7 +27,7 @@ export const useAccountInformationPage = props => {
 
     const [{ isSignedIn }] = useUserContext();
 
-    const { enabledModules } = useModulesContext();
+    const { tenantConfig } = useModulesContext();
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerSubscriptionQuery, setNewsletterSubscriptionMutation } = operations;
@@ -250,10 +250,10 @@ export const useAccountInformationPage = props => {
                 });
 
                 // LMS logic
-                enabledModules?.lms?.isEnabled() && modifyLmsCustomer(firstname, '', email, newPassword);
+                tenantConfig.lmsEnabled && modifyLmsCustomer(firstname, '', email, newPassword);
 
                 // CSR logic
-                enabledModules?.csr?.isEnabled() && modifyCsrCustomer(firstname, '', email);
+                tenantConfig.csrEnabled && modifyCsrCustomer(firstname, '', email);
 
                 // After submission, close the form if there were no errors.
                 handleCancel(false);
@@ -267,7 +267,7 @@ export const useAccountInformationPage = props => {
                 return;
             }
         },
-        [initialValues, handleCancel, setCustomerInformation, generateReCaptchaData, changeCustomerPassword, dispatch, enabledModules]
+        [initialValues, handleCancel, setCustomerInformation, generateReCaptchaData, changeCustomerPassword, dispatch, tenantConfig]
     );
 
     const handleConfirmDialog = useCallback(

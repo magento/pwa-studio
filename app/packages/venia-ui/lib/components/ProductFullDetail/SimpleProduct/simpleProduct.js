@@ -20,7 +20,7 @@ const SimpleProduct = props => {
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         productQuantity: quantity
     });
-    const { wishlistButtonProps, errorMessage, cartId, handleAddToCart, fetchedData, loading, error } = talonProps;
+    const { wishlistButtonProps, errorMessage, cartId, handleAddToCart, fetchedData, loading, error, isB2B } = talonProps;
 
     if (loading) {
         return <FullPageLoadingIndicator />;
@@ -172,7 +172,7 @@ const SimpleProduct = props => {
         </ul>
     );
 
-    return process.env.IS_B2B === 'true' ? (
+    return isB2B ? (
         <SimpleProductB2B
             handleQuantityChange={handleQuantityChange}
             indexTable={indexTable}

@@ -192,7 +192,8 @@
                     "name": "CHECKOUT_BRAINTREE_TOKEN",
                     "type": "str",
                     "desc": "Specify a Braintree API token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.",
-                    "example": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
+                    "example": "sandbox_8yrzsvtm_s2bg8fs563crhqzk",
+                    "default": ""
                 }
             ]
         },
@@ -300,6 +301,17 @@
                     "name": "KONG_URL",
                     "type": "str",
                     "desc": "Specify the URL where the kONG is.",
+                    "default": ""
+                }
+            ]
+        },
+        {
+            "name": "Google Analytics",
+            "variables": [
+                {
+                    "name": "GOOGLE_ANALYTICS_TRACKING_ID",
+                    "type": "str",
+                    "desc": "Specify the Google Analytics TRACKING ID.",
                     "default": ""
                 }
             ]

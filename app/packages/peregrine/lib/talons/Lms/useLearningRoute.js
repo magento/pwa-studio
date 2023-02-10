@@ -8,8 +8,8 @@ import getUserCourses from '@magento/peregrine/lib/RestApi/Lms/courses/getUserCo
 
 export const useLearningRoute = () => {
     const [{ isSignedIn }] = useUserContext();
-    const { enabledModules } = useModulesContext();
-    const isEnabled = enabledModules?.lms?.isEnabled();
+    const { tenantConfig } = useModulesContext();
+    const isEnabled = tenantConfig.lmsEnabled;
 
     const [courses, setCourses] = useState();
     const [userCourses, setUserCourses] = useState();
