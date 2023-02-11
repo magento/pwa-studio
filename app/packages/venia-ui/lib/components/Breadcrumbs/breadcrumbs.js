@@ -22,19 +22,18 @@ const DELIMITER = '/';
 const Breadcrumbs = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
-    const { categoryId, currentProduct, url_keys } = props;
+    const { categoryId, currentProduct, url_keys, productSku } = props;
 
     const history = useHistory();
 
     const urlKeysHistory = history.location?.state?.urlKeys;
     const currentUrlKeys = urlKeysHistory ? urlKeysHistory : url_keys;
-
     const talonProps = useBreadcrumbs({ categoryId });
 
     const { currentCategory, currentCategoryPath, hasError, isLoading, normalizedData, handleClick } = talonProps;
 
-    const names = currentUrlKeys?.items?.map(ele => ele?.name);
-    const index = names?.indexOf(currentProduct);
+    const skus = currentUrlKeys?.items?.map(ele => ele?.sku);
+    const index = skus?.indexOf(productSku);
     const productLink = product => resourceUrl(`/${product.url_key}${product.url_suffix || ''}`);
 
     const moveToOtherProcuct = type => {

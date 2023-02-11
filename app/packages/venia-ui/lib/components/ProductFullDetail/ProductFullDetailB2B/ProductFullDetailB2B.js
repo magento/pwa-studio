@@ -242,6 +242,7 @@ const ProductFullDetailB2B = props => {
         <Fragment key={productDetails.sku}>
             <Breadcrumbs
                 categoryId={product.categories[0].uid}
+                productSku={product.sku}
                 currentProduct={product.name}
                 url_keys={filterData?.products}
             />

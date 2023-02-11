@@ -32,10 +32,10 @@ const SimpleProductB2B = props => {
         tempTotalPrice,
         handleQuantityChange
     } = props;
-
+    
     return (
         <main>
-            <Breadcrumbs categoryId={simpleProductData.categories[0].uid} currentProduct={simpleProductData.name} />
+            <Breadcrumbs productSku={simpleProductData?.sku} categoryId={simpleProductData.categories[0].uid} currentProduct={simpleProductData.name} />
             <Form className={classes.root}>
                 <section className={classes.imageCarouselContainer}>
                     <div className={classes.imageCarousel}>

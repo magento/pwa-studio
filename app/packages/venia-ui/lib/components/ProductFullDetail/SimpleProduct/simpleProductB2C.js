@@ -33,7 +33,7 @@ const SimpleProductB2C = props => {
 
     return (
         <Fragment>
-            <Breadcrumbs categoryId={simpleProductData.categories[0].uid} currentProduct={simpleProductData.name} />
+            <Breadcrumbs productSku={simpleProductData?.sku} categoryId={simpleProductData.categories[0].uid} currentProduct={simpleProductData.name} />
             <Form className={classes.root} onSubmit={handleAddToCart}>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>{simpleProductData.name}</h1>

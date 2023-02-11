@@ -123,6 +123,7 @@ const ProductFullDetail = props => {
         <Breadcrumbs
             categoryId={breadcrumbCategoryId}
             currentProduct={productDetails.name}
+            productSku={productDetails.sku}
             setOptionSelections={setOptionSelections}
         />
     ) : null;
