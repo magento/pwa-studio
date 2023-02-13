@@ -199,8 +199,10 @@ const GalleryItem = props => {
     const onChangeQty = value => setQuantity(value);
 
     const getCategoriesValuesNameByVariant = variant => {
-        return variant.attributes.map((attribute, i) => {
-            return item.configurable_options[i].values.find(value => value.value_index == attribute.value_index).label;
+        return variant.attributes.map(attribute => {
+            return item.configurable_options
+                ?.find(({ attribute_code }) => attribute_code === attribute?.code)
+                .values.find(value => value.value_index == attribute.value_index)?.label;
         });
     };
 
@@ -352,7 +354,6 @@ const GalleryItem = props => {
                             </div>
                             <div className={classes.productsSelect}>
                                 <Select
-                                    initialValue={'Item'}
                                     field={`veriants ${item.sku}`}
                                     items={[{ value: 'Item' }, ...getProductsInstance()]}
                                     onChange={onChangeVariant}
