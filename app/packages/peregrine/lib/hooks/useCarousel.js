@@ -11,7 +11,7 @@ const sortImages = (images = []) => images.filter(({ disabled }) => !disabled).s
 export const useCarousel = (images = [], startIndex = 0) => {
     const [activeItemIndex, setActiveItemIndex] = useState(startIndex);
     const [initialIndex, setInitialIndex] = useState(0);
-    const [lastIndex, setLastIndex] = useState(3);
+    const [lastIndex, setLastIndex] = useState(Math.min(images.length - 1, initialIndex + 3));
 
     const sortedImages = useMemo(() => sortImages(images), [images]);
 
@@ -37,18 +37,18 @@ export const useCarousel = (images = [], startIndex = 0) => {
     ]);
 
     useEffect(() => {
-        if (activeItemIndex > 3) {
-            setInitialIndex(prev => prev + 1);
-            setLastIndex(prev => prev + 1);
-        } else if (initialIndex > 0) {
-            setInitialIndex(prev => prev - 1);
-            setLastIndex(prev => prev - 1);
-        } else if (lastIndex >= images.length - 1) {
-            setInitialIndex(0);
-            setLastIndex(3);
-        }
-    }, [activeItemIndex, images]);
+        const maxInitialIndex = Math.max(0, images.length - 4);
+        const newInitialIndex = Math.min(maxInitialIndex, Math.max(0, activeItemIndex - 2));
 
+        setInitialIndex(newInitialIndex);
+        setLastIndex(Math.min(images.length - 1, newInitialIndex + 3));
+
+        // if (activeItemIndex + 1 == images.length - 1) {
+         
+        //     setInitialIndex(activeItemIndex - 3);
+        //     setLastIndex(activeItemIndex);
+        // }
+    }, [activeItemIndex, images]);
     const state = {
         activeItemIndex,
         sortedImages,
