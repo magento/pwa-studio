@@ -22,8 +22,7 @@ const AddressForm = props => {
         fields,
         onCancel,
         onSubmit,
-        setGuestEmailMutation: SET_GUEST_EMAIL,
-        setShippingAddressOnCartMutation: SET_SHIPPING_ADDRESS
+        setGuestEmailMutation: SET_GUEST_EMAIL
     });
 
     const { error, handleCancel, handleSubmit, initialValues, isSignedIn } = talonProps;
@@ -131,53 +130,6 @@ export const SET_GUEST_EMAIL = gql`
         setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
             cart {
                 id
-            }
-        }
-    }
-`;
-
-export const SET_SHIPPING_ADDRESS = gql`
-    mutation setShippingAddress(
-        $cartId: String!
-        $firstname: String!
-        $lastname: String!
-        $street: [String]!
-        $city: String!
-        $country_id: String!
-        $region_code: String!
-        $postcode: String!
-        $telephone: String!
-    ) {
-        setShippingAddressesOnCart(
-            input: {
-                cart_id: $cartId
-                shipping_addresses: [
-                    {
-                        address: {
-                            firstname: $firstname
-                            lastname: $lastname
-                            street: $street
-                            city: $city
-                            region: $region_code
-                            postcode: $postcode
-                            telephone: $telephone
-                            country_code: $country_id
-                            save_in_address_book: false
-                        }
-                    }
-                ]
-            }
-        ) {
-            cart {
-                id
-                shipping_addresses {
-                    available_shipping_methods {
-                        carrier_code
-                        carrier_title
-                        method_code
-                        method_title
-                    }
-                }
             }
         }
     }

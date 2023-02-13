@@ -3,6 +3,9 @@ import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 import { useMutation } from '@apollo/client';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
+import DEFAULT_OPERATIONS from '../CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql';
+import mergeOperations from '../../util/shallowMerge';
+
 /**
  * Returns values used to render an AddressForm component.
  *
@@ -17,19 +20,12 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  * }}
  */
 export const useAddressForm = props => {
-    const {
-        countries,
-        fields,
-        onCancel,
-        onSubmit,
-        setGuestEmailMutation,
-        setShippingAddressOnCartMutation
-    } = props;
+    const { countries, fields, onCancel, onSubmit, setGuestEmailMutation } = props;
 
-    const [
-        { shippingAddress, shippingAddressError },
-        { submitShippingAddress }
-    ] = useCheckoutContext();
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { setShippingAddressMutation } = operations;
+
+    const [{ shippingAddress, shippingAddressError }, { submitShippingAddress }] = useCheckoutContext();
 
     const [{ isSignedIn }] = useUserContext();
 
@@ -38,9 +34,7 @@ export const useAddressForm = props => {
         fetchPolicy: 'no-cache'
     });
 
-    const [setShippingAddressOnCart] = useMutation(
-        setShippingAddressOnCartMutation
-    );
+    const [setShippingAddressOnCart] = useMutation(setShippingAddressMutation);
 
     const values = useMemo(
         () =>
@@ -57,6 +51,7 @@ export const useAddressForm = props => {
 
     const handleSubmit = useCallback(
         async addressFormValues => {
+            console.log('useAddressForm:' + { addressFormValues });
             try {
                 await submitShippingAddress({
                     formValues: addressFormValues,
@@ -69,13 +64,7 @@ export const useAddressForm = props => {
                 console.error(error);
             }
         },
-        [
-            countries,
-            onSubmit,
-            setGuestEmail,
-            setShippingAddressOnCart,
-            submitShippingAddress
-        ]
+        [countries, onSubmit, setGuestEmail, setShippingAddressOnCart, submitShippingAddress]
     );
 
     return {

@@ -11,6 +11,7 @@ import ADDRESS_BOOK_OPERATIONS from '../AddressBook/addressBook.gql';
 import BILLING_ADDRESS_OPERATIONS from '../BillingAddress/billingAddress.gql';
 import PAYMENT_INFORMATION_OPERATIONS from './paymentInformation.gql';
 import PAYMENT_METHODS_OPERATIONS from './paymentMethods.gql';
+import SHIPPING_INFORMATION_OPERATIONS from '../ShippingInformation/shippingInformation.gql';
 
 /**
  * Maps address response data from GET_BILLING_ADDRESS and GET_SHIPPING_ADDRESS
@@ -21,7 +22,16 @@ import PAYMENT_METHODS_OPERATIONS from './paymentMethods.gql';
  */
 export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
-        const { firstName, lastName, city, postcode, phoneNumber, street, country, region } = rawAddressData;
+        const {
+            firstname: firstName,
+            lastname: lastName,
+            city,
+            postcode,
+            telephone: phoneNumber,
+            street,
+            country,
+            region
+        } = rawAddressData;
 
         return {
             firstName,
@@ -101,18 +111,19 @@ export const useCreditCard = props => {
         BILLING_ADDRESS_OPERATIONS,
         PAYMENT_INFORMATION_OPERATIONS,
         PAYMENT_METHODS_OPERATIONS,
+        SHIPPING_INFORMATION_OPERATIONS,
         props.operations
     );
 
     const {
         getBillingAddressQuery,
+        getCustomerAddressesQuery,
         getIsBillingAddressSameQuery,
         getPaymentNonceQuery,
-        getShippingAddressQuery,
+        getShippingInformationQuery,
         setBillingAddressMutation,
-        setPaymentMethodOnCartMutation,
-        getCustomerAddressesQuery,
-        setDefaultBillingAddressMutation
+        setDefaultBillingAddressMutation,
+        setPaymentMethodOnCartMutation
     } = operations;
 
     const { recaptchaLoading, generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
@@ -156,7 +167,7 @@ export const useCreditCard = props => {
         skip: !cartId,
         variables: { cartId }
     });
-    const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
+    const { data: shippingAddressData } = useQuery(getShippingInformationQuery, {
         skip: !cartId,
         variables: { cartId }
     });
@@ -188,7 +199,7 @@ export const useCreditCard = props => {
     ] = useMutation(setPaymentMethodOnCartMutation);
 
     const shippingAddressCountry = shippingAddressData
-        ? shippingAddressData.cart.shippingAddresses[0].country.code
+        ? shippingAddressData.cart.shipping_addresses[0].country.code
         : 'US';
 
     const defaultBillingAddressObject = getDefaultBillingAddress(customerAddressesData);
@@ -243,7 +254,7 @@ export const useCreditCard = props => {
      */
     const setShippingAddressAsBillingAddress = useCallback(() => {
         const shippingAddress = shippingAddressData
-            ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
+            ? mapAddressData(shippingAddressData.cart.shipping_addresses[0])
             : {};
 
         updateBillingAddress({

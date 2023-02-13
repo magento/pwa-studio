@@ -16,7 +16,7 @@ export const GET_PAYMENT_METHODS = gql`
 `;
 
 export const GET_SELECTED_PAYMENT_METHOD = gql`
-    query getSelectedPaymentMethod($cartId: String!) {
+    query GetSelectedPaymentMethod($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             selected_payment_method {
@@ -28,7 +28,7 @@ export const GET_SELECTED_PAYMENT_METHOD = gql`
 `;
 
 export const SET_PAYMENT_METHOD_ON_CART = gql`
-    mutation setPaymentMethodOnCart($cartId: String!, $payment_method: PaymentMethodInput!) {
+    mutation SetPaymentMethodOnCart($cartId: String!, $payment_method: PaymentMethodInput!) {
         setPaymentMethodOnCart(input: { cart_id: $cartId, payment_method: $payment_method }) {
             cart {
                 id

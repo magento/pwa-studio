@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 
 import { GET_CUSTOMER_ADDRESSES } from '../../AddressBook/addressBook.gql';
 import { CustomerAddressFragment } from '../../AddressBook/addressBookFragments.gql';
-import { GET_DEFAULT_SHIPPING } from '../shippingInformation.gql';
 
 export const CREATE_CUSTOMER_ADDRESS_MUTATION = gql`
     mutation CreateCustomerAddress($address: CustomerAddressInput!) {
@@ -22,10 +21,7 @@ export const CREATE_CUSTOMER_ADDRESS_MUTATION = gql`
  * Fragment will be added back after MC-33948 is resolved.
  */
 export const UPDATE_CUSTOMER_ADDRESS_MUTATION = gql`
-    mutation UpdateCustomerAddress(
-        $addressId: Int!
-        $address: CustomerAddressInput!
-    ) {
+    mutation UpdateCustomerAddress($addressId: Int!, $address: CustomerAddressInput!) {
         updateCustomerAddress(id: $addressId, input: $address) {
             id
         }
@@ -48,6 +44,5 @@ export default {
     createCustomerAddressMutation: CREATE_CUSTOMER_ADDRESS_MUTATION,
     updateCustomerAddressMutation: UPDATE_CUSTOMER_ADDRESS_MUTATION,
     getCustomerQuery: GET_CUSTOMER_QUERY,
-    getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES,
-    getDefaultShippingQuery: GET_DEFAULT_SHIPPING
+    getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES
 };

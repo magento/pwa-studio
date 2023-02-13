@@ -36,28 +36,6 @@ export const GET_BILLING_ADDRESS = gql`
     }
 `;
 
-export const GET_SHIPPING_ADDRESS = gql`
-    query GetSelectedShippingAddress($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            shippingAddresses: shipping_addresses {
-                firstName: firstname
-                lastName: lastname
-                country {
-                    code
-                }
-                street
-                city
-                region {
-                    code
-                }
-                postcode
-                phoneNumber: telephone
-            }
-        }
-    }
-`;
-
 export const SET_BILLING_ADDRESS = gql`
     mutation SetBillingAddress(
         $cartId: String!
@@ -146,7 +124,6 @@ export const SET_DEFAULT_BILLING_ADDRESS = gql`
 export default {
     getBillingAddressQuery: GET_BILLING_ADDRESS,
     getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
-    getShippingAddressQuery: GET_SHIPPING_ADDRESS,
     setBillingAddressMutation: SET_BILLING_ADDRESS,
     setDefaultBillingAddressMutation: SET_DEFAULT_BILLING_ADDRESS
 };

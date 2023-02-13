@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+
 import DEFAULT_OPERATIONS from './addressBook.gql';
+import SHIPPING_INFORMATION_OPERATIONS from '../ShippingInformation/shippingInformation.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useAppContext } from '../../../context/app';
@@ -11,12 +13,8 @@ import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 export const useAddressBook = props => {
     const { toggleActiveContent, onSuccess } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const {
-        setCustomerAddressOnCartMutation,
-        getCustomerAddressesQuery,
-        getCustomerCartAddressQuery
-    } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, SHIPPING_INFORMATION_OPERATIONS, props.operations);
+    const { getCustomerAddressesQuery, getCustomerCartAddressQuery, setDefaultAddressIdOnCartMutation } = operations;
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
@@ -28,58 +26,43 @@ export const useAddressBook = props => {
 
     const [
         setCustomerAddressOnCart,
-        {
-            error: setCustomerAddressOnCartError,
-            loading: setCustomerAddressOnCartLoading
-        }
-    ] = useMutation(setCustomerAddressOnCartMutation, {
+        { error: setCustomerAddressOnCartError, loading: setCustomerAddressOnCartLoading }
+    ] = useMutation(setDefaultAddressIdOnCartMutation, {
         onCompleted: () => {
             onSuccess();
         }
     });
 
-    const {
-        data: customerAddressesData,
-        loading: customerAddressesLoading
-    } = useQuery(getCustomerAddressesQuery, {
+    const { data: customerAddressesData, loading: customerAddressesLoading } = useQuery(getCustomerAddressesQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !isSignedIn
     });
 
-    const {
-        data: customerCartAddressData,
-        loading: customerCartAddressLoading
-    } = useQuery(getCustomerCartAddressQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        skip: !isSignedIn
-    });
-
-    const derivedErrorMessage = useMemo(
-        () => deriveErrorMessage([setCustomerAddressOnCartError]),
-        [setCustomerAddressOnCartError]
+    const { data: customerCartAddressData, loading: customerCartAddressLoading } = useQuery(
+        getCustomerCartAddressQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first',
+            skip: !isSignedIn
+        }
     );
 
-    const isLoading =
-        customerAddressesLoading ||
-        customerCartAddressLoading ||
-        setCustomerAddressOnCartLoading;
+    const derivedErrorMessage = useMemo(() => deriveErrorMessage([setCustomerAddressOnCartError]), [
+        setCustomerAddressOnCartError
+    ]);
 
-    const customerAddresses = useMemo(
-        () =>
-            (customerAddressesData &&
-                customerAddressesData.customer.addresses) ||
-            [],
-        [customerAddressesData]
-    );
+    const isLoading = customerAddressesLoading || customerCartAddressLoading || setCustomerAddressOnCartLoading;
+
+    const customerAddresses = useMemo(() => (customerAddressesData && customerAddressesData.customer.addresses) || [], [
+        customerAddressesData
+    ]);
 
     useEffect(() => {
         if (customerAddresses.length !== addressCount.current) {
             // Auto-select newly added address when count changes
             if (addressCount.current) {
-                const newestAddress =
-                    customerAddresses[customerAddresses.length - 1];
+                const newestAddress = customerAddresses[customerAddresses.length - 1];
                 setSelectedAddress(newestAddress.id);
             }
 
@@ -105,11 +88,7 @@ export const useAddressBook = props => {
 
     // GraphQL doesn't return which customer address is selected, so perform
     // a simple search to initialize this selected address value.
-    if (
-        customerAddresses.length &&
-        customerCartAddressData &&
-        !selectedAddress
-    ) {
+    if (customerAddresses.length && customerCartAddressData && !selectedAddress) {
         const { customerCart } = customerCartAddressData;
         const { shipping_addresses: shippingAddresses } = customerCart;
         if (shippingAddresses.length) {
@@ -117,10 +96,8 @@ export const useAddressBook = props => {
 
             const foundSelectedAddress = customerAddresses.find(
                 customerAddress =>
-                    customerAddress.street[0] ===
-                        primaryCartAddress.street[0] &&
-                    customerAddress.firstname ===
-                        primaryCartAddress.firstname &&
+                    customerAddress.street[0] === primaryCartAddress.street[0] &&
+                    customerAddress.firstname === primaryCartAddress.firstname &&
                     customerAddress.lastname === primaryCartAddress.lastname
             );
 
@@ -143,12 +120,7 @@ export const useAddressBook = props => {
         }
 
         toggleActiveContent();
-    }, [
-        cartId,
-        selectedAddress,
-        setCustomerAddressOnCart,
-        toggleActiveContent
-    ]);
+    }, [cartId, selectedAddress, setCustomerAddressOnCart, toggleActiveContent]);
 
     const handleCancel = useCallback(() => {
         setSelectedAddress();
