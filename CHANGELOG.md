@@ -1,12 +1,15 @@
-# B2BStore 0.7.1
 
+# B2BStore 0.7.2
+## 🚨 Hotfixes    
+  - Fixed a bug that caused the categories to not appear after sign in.
+
+# B2BStore 0.7.1
 ## 🚨 Hotfixes    
   - Added missing working_dir line in the docker-compose file.
   - Update Chatbot’s script hash in Upward.
   - Update README file.
 
 # B2BStore 0.7
-
 ## 🌟 New features
 
   - Extra order’s attributes (External order number and Comment).
