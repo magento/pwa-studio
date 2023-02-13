@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
@@ -18,6 +19,7 @@ import defaultClasses from './carousel.module.css';
 import Thumbnail from './thumbnail';
 import ReactImageZoom from 'react-image-zoom';
 import { generateUrl } from '@magento/peregrine/lib/util/imageUtils';
+import { useWindowSize } from '@magento/peregrine';
 const IMAGE_WIDTH = 640;
 
 /**
@@ -42,6 +44,8 @@ const ProductImageCarousel = props => {
         imageWidth: IMAGE_WIDTH
     });
 
+    const windowSize = useWindowSize();
+
     const {
         currentImage,
         activeItemIndex,
@@ -56,9 +60,24 @@ const ProductImageCarousel = props => {
 
     const classes = useStyle(defaultClasses, props.classes);
 
+    const isDesktop = windowSize.innerWidth >= (carouselWidth || 1023);
+
     const thumbnails = useMemo(() => {
-        return sortedImages.map((item, index) => {
-            return index >= initialIndex && index <= lastIndex ? (
+        if (isDesktop) {
+            return sortedImages.map((item, index) => {
+                return index >= initialIndex && index <= lastIndex ? (
+                    <Thumbnail
+                        key={item.uid}
+                        item={item}
+                        itemIndex={index}
+                        isActive={activeItemIndex === index}
+                        onClickHandler={handleThumbnailClick}
+                        carouselWidth={carouselWidth}
+                    />
+                ) : null;
+            });
+        } else {
+            return sortedImages.map((item, index) => (
                 <Thumbnail
                     key={item.uid}
                     item={item}
@@ -67,9 +86,9 @@ const ProductImageCarousel = props => {
                     onClickHandler={handleThumbnailClick}
                     carouselWidth={carouselWidth}
                 />
-            ) : null;
-        });
-    }, [activeItemIndex, handleThumbnailClick, sortedImages, initialIndex, lastIndex]);
+            ));
+        }
+    }, [activeItemIndex, handleThumbnailClick, sortedImages, initialIndex, lastIndex, isDesktop]);
 
     const src = useMemo(() => {
         if (currentImage.file) {
