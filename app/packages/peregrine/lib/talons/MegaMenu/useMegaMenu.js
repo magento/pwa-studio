@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import useInternalLink from '../../hooks/useInternalLink';
@@ -33,7 +34,7 @@ export const useMegaMenu = (props = {}) => {
         fetchPolicy: 'cache-and-network'
     });
 
-    const { data } = useQuery(getMegaMenuQuery);
+    const { data,refetch } = useQuery(getMegaMenuQuery);
 
     const { data: storeRequiredLogin } = useQuery(getIsRequiredLogin, {
         fetchPolicy: 'cache-and-network',
@@ -46,6 +47,10 @@ export const useMegaMenu = (props = {}) => {
         }
     }, [storeConfigData]);
 
+    useEffect(() => {
+        if (isSignedIn) refetch();
+    }, [isSignedIn]);
+    
     /**
      * Check if category should be visible on the storefront.
      *
