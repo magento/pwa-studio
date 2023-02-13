@@ -14,7 +14,7 @@ const GET_SHIPPING_METHODS = gql`
     ${ShippingMethodsCartFragment}
 `;
 
-const SET_SHIPPING_ADDRESS_MUTATION = gql`
+const SET_SHIPPING_ADDRESS = gql`
     mutation SetShippingAddress($cartId: String!, $address: CartAddressInput!) {
         setShippingAddressesOnCart(input: { cart_id: $cartId, shipping_addresses: [{ address: $address }] }) {
             cart {
@@ -32,5 +32,5 @@ const SET_SHIPPING_ADDRESS_MUTATION = gql`
 
 export default {
     getShippingMethodsQuery: GET_SHIPPING_METHODS,
-    setShippingAddressMutation: SET_SHIPPING_ADDRESS_MUTATION
+    setShippingAddressMutation: SET_SHIPPING_ADDRESS
 };
