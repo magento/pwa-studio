@@ -1,4 +1,5 @@
-import { useCallback, useMemo } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback, useEffect, useMemo } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
 import defaultOperations from '@magento/peregrine/lib/talons/Gallery/gallery.gql';
@@ -8,16 +9,22 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { GET_SIMPLE_PRODUCT } from '../SimpleProduct/getSimpleProduct.gql';
 import { useLocation } from 'react-router-dom';
 
+import { useUserContext } from '../../../context/user';
+
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct'];
 export const useSimpleProduct = (props = {}) => {
     const { formatMessage } = useIntl();
     const { search } = useLocation();
     const sku = new URLSearchParams(search).get('sku');
 
+    const [{ isSignedIn }] = useUserContext();
+
     const operations = mergeOperations(defaultOperations, props.operations);
     const { addConfigurableProductToCartMutation, productQuantity } = props;
 
-    const { data, loading, error } = useQuery(GET_SIMPLE_PRODUCT, {
+    const { data, loading, error, refetch } = useQuery(GET_SIMPLE_PRODUCT, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         variables: { sku: sku }
     });
 
@@ -34,6 +41,10 @@ export const useSimpleProduct = (props = {}) => {
         return options;
     }, [data, loading]);
 
+    useEffect(() => {
+        if (isSignedIn) refetch()
+    }, [isSignedIn])
+    
     const wishlistButtonProps = {
         buttonText: isSelected =>
             isSelected
@@ -49,21 +60,15 @@ export const useSimpleProduct = (props = {}) => {
         storeConfig: storeConfigData ? storeConfigData.storeConfig : {}
     };
 
-    const productType =
-        loading || !data
-            ? 'Simple product'
-            : data.products.items[0].__typename || 'Simple product';
+    const productType = loading || !data ? 'Simple product' : data.products.items[0].__typename || 'Simple product';
 
-    const isSupportedProductType = SUPPORTED_PRODUCT_TYPES.includes(
-        productType
-    );
+    const isSupportedProductType = SUPPORTED_PRODUCT_TYPES.includes(productType);
 
     const [{ cartId }] = useCartContext();
 
-    const [
-        addConfigurableProductToCart,
-        { error: errorAddingConfigurableProduct }
-    ] = useMutation(addConfigurableProductToCartMutation);
+    const [addConfigurableProductToCart, { error: errorAddingConfigurableProduct }] = useMutation(
+        addConfigurableProductToCartMutation
+    );
 
     const handleAddToCart = useCallback(
         async formValues => {
@@ -77,10 +82,7 @@ export const useSimpleProduct = (props = {}) => {
             if (isSupportedProductType) {
                 const variables = {
                     cartId,
-                    parentSku:
-                        payload.item.length < 1
-                            ? 'No sku'
-                            : payload.item.orParentSku,
+                    parentSku: payload.item.length < 1 ? 'No sku' : payload.item.orParentSku,
                     product: payload.item,
                     quantity: payload.quantity,
                     sku: payload.item.length < 1 ? 'No sku' : payload.item.sku
@@ -101,21 +103,12 @@ export const useSimpleProduct = (props = {}) => {
                 console.error('Unsupported product type. Cannot add to cart.');
             }
         },
-        [
-            addConfigurableProductToCart,
-            cartId,
-            isSupportedProductType,
-            data,
-            loading,
-            productType,
-            productQuantity
-        ]
+        [addConfigurableProductToCart, cartId, isSupportedProductType, data, loading, productType, productQuantity]
     );
 
-    const derivedErrorMessage = useMemo(
-        () => deriveErrorMessage([errorAddingConfigurableProduct]),
-        [errorAddingConfigurableProduct]
-    );
+    const derivedErrorMessage = useMemo(() => deriveErrorMessage([errorAddingConfigurableProduct]), [
+        errorAddingConfigurableProduct
+    ]);
 
     return {
         wishlistButtonProps,
