@@ -47,7 +47,8 @@
         "react-html-parser": "~2.0.2",
         "react-image-zoom": "~1.3.1",
         "react-to-print": "~2.14.10",
-        "tippy.js": "~6.3.7"
+        "tippy.js": "~6.3.7",
+        "google-map-react": "^2.2.0"
     },
     "devDependencies": {
         "@babel/plugin-transform-runtime": "~7.4.4",
