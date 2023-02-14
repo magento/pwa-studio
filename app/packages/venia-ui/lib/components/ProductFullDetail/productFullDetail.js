@@ -335,6 +335,7 @@ const ProductFullDetail = props => {
             tempTotalPrice={tempTotalPrice}
             wishlistButtonProps={wishlistButtonProps}
             customAttributes={customAttributes}
+            product={product}
         />
     );
 };
