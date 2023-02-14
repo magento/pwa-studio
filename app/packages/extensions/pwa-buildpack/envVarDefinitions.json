@@ -285,6 +285,17 @@
                     "default": ""
                 }
             ]
+        },
+        {
+            "name": "Store Locator ",
+            "variables": [
+                {
+                    "name": "GOOGLE_API_KEY",
+                    "type": "str",
+                    "desc": "Google API key for the store locator.",
+                    "default": ""
+                }
+            ]
         }
     ],
     "changes": []

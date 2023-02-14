@@ -8,6 +8,7 @@ import LocaleProvider from './localeProvider';
 import { NoReorderProductProvider } from '../NoReorderProductProvider/noReorderProductProvider';
 import { DownloadCsvProvider } from '../Gallery/DownloadCsvProvider/downloadCsvProvider';
 import { PrintPdfProvider } from '../CartPage/PrintPdfProvider/printPdfProvider';
+import { StoreLocatorProvider } from '../StoreLocator/StoreLocatorProvider/StoreLocatorProvider';
 /**
  * List of context providers that are required to run Venia
  *
@@ -21,7 +22,9 @@ const ContextProvider = ({ children }) => {
             <PrintPdfProvider>
                 <DownloadCsvProvider>
                     <NoReorderProductProvider>
-                        <ContextProvider>{memo}</ContextProvider>
+                        <StoreLocatorProvider>
+                            <ContextProvider>{memo}</ContextProvider>
+                        </StoreLocatorProvider>
                     </NoReorderProductProvider>
                 </DownloadCsvProvider>
             </PrintPdfProvider>
