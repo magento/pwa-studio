@@ -6,14 +6,9 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useFilterState } from './useFilterState';
-import {
-    getSearchFromState,
-    getStateFromSearch,
-    sortFiltersArray,
-    stripHtml
-} from './helpers';
+import { getSearchFromState, getStateFromSearch, sortFiltersArray, stripHtml } from './helpers';
 
-import DEFAULT_OPERATIONS from './filterModal.gql';
+import DEFAULT_OPERATIONS from '../RootComponents/Category/category.gql';
 
 const DRAWER_NAME = 'filter';
 
@@ -44,10 +39,7 @@ export const useFilterModal = props => {
 
     const { data: introspectionData } = useQuery(getFilterInputsQuery);
 
-    const attributeCodes = useMemo(
-        () => filters.map(({ attribute_code }) => attribute_code),
-        [filters]
-    );
+    const attributeCodes = useMemo(() => filters.map(({ attribute_code }) => attribute_code), [filters]);
 
     // Create a set of disabled filters.
     const DISABLED_FILTERS = useMemo(() => {
@@ -66,9 +58,7 @@ export const useFilterModal = props => {
     // that the api will understand.
     const possibleFilters = useMemo(() => {
         const nextFilters = new Set();
-        const inputFields = introspectionData
-            ? introspectionData.__type.inputFields
-            : [];
+        const inputFields = introspectionData ? introspectionData.__type.inputFields : [];
 
         // perform mapping and filtering in the same cycle
         for (const { name } of inputFields) {
@@ -105,12 +95,7 @@ export const useFilterModal = props => {
     };
 
     // iterate over filters once to set up all the collections we need
-    const [
-        filterNames,
-        filterKeys,
-        filterItems,
-        filterFrontendInput
-    ] = useMemo(() => {
+    const [filterNames, filterKeys, filterItems, filterFrontendInput] = useMemo(() => {
         const names = new Map();
         const keys = new Set();
         const frontendInput = new Map();
@@ -165,11 +150,7 @@ export const useFilterModal = props => {
     // on apply, write filter state to location
     useEffect(() => {
         if (isApplying) {
-            const nextSearch = getSearchFromState(
-                search,
-                filterKeys,
-                filterState
-            );
+            const nextSearch = getSearchFromState(search, filterKeys, filterState);
 
             // write filter state to history
             history.push({ pathname, search: nextSearch });
@@ -215,18 +196,12 @@ export const useFilterModal = props => {
     );
 
     useEffect(() => {
-        const justOpened =
-            prevDrawer.current === null && drawer === DRAWER_NAME;
-        const justClosed =
-            prevDrawer.current === DRAWER_NAME && drawer === null;
+        const justOpened = prevDrawer.current === null && drawer === DRAWER_NAME;
+        const justClosed = prevDrawer.current === DRAWER_NAME && drawer === null;
 
         // on drawer toggle, read filter state from location
         if (justOpened || justClosed) {
-            const nextState = getStateFromSearch(
-                search,
-                filterKeys,
-                filterItems
-            );
+            const nextState = getStateFromSearch(search, filterKeys, filterItems);
 
             filterApi.setItems(nextState);
         }

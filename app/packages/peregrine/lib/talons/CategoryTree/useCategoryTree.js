@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useLazyQuery } from '@apollo/client';
 
-import DEFAULT_OPERATIONS from './categoryTree.gql';
+import DEFAULT_OPERATIONS from '../RootComponents/Category/categoryContent.gql';
 import mergeOperations from '../../util/shallowMerge';
 import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
@@ -28,9 +28,9 @@ export const useCategoryTree = props => {
     const { categoryId, updateCategories } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getNavigationMenuQuery } = operations;
+    const { getCategoryDataQuery } = operations;
 
-    const [runQuery, queryResult] = useLazyQuery(getNavigationMenuQuery, {
+    const [runQuery, queryResult] = useLazyQuery(getCategoryDataQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });

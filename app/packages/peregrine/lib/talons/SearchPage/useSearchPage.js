@@ -11,6 +11,7 @@ import { useSort } from '../../hooks/useSort';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
 
 import DEFAULT_OPERATIONS from './searchPage.gql';
+import CATEGORY_OPERATIONS from '../RootComponents/Category/category.gql';
 import { useEventingContext } from '../../context/eventing';
 
 /**
@@ -21,7 +22,7 @@ import { useEventingContext } from '../../context/eventing';
  */
 export const useSearchPage = (props = {}) => {
     const [, { dispatch }] = useEventingContext();
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CATEGORY_OPERATIONS, props.operations);
 
     const {
         getFilterInputsQuery,

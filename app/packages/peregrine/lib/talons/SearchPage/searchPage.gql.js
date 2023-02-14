@@ -140,19 +140,6 @@ export const PRODUCT_SEARCH = gql`
     }
 `;
 
-export const GET_FILTER_INPUTS = gql`
-    query GetFilterInputsForSearch {
-        __type(name: "ProductAttributeFilterInput") {
-            inputFields {
-                name
-                type {
-                    name
-                }
-            }
-        }
-    }
-`;
-
 export const GET_SEARCH_AVAILABLE_SORT_METHODS = gql`
     query getSearchAvailableSortMethods($search: String!) {
         products(search: $search) {
@@ -167,7 +154,6 @@ export const GET_SEARCH_AVAILABLE_SORT_METHODS = gql`
 `;
 
 export default {
-    getFilterInputsQuery: GET_FILTER_INPUTS,
     getProductFiltersBySearchQuery: GET_PRODUCT_FILTERS_BY_SEARCH,
     getSearchAvailableSortMethods: GET_SEARCH_AVAILABLE_SORT_METHODS,
     productSearchQuery: PRODUCT_SEARCH

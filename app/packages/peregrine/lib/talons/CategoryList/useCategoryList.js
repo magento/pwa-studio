@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 import mergeOperations from '../../util/shallowMerge';
-import DEFAULT_OPERATIONS from './categoryList.gql';
+import DEFAULT_OPERATIONS from '../RootComponents/Category/categoryContent.gql';
 
 /**
  * Returns props necessary to render a CategoryList component.
@@ -18,9 +18,9 @@ export const useCategoryList = props => {
     const { id } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCategoryListQuery } = operations;
+    const { getCategoryDataQuery } = operations;
 
-    const { loading, error, data } = useQuery(getCategoryListQuery, {
+    const { loading, error, data } = useQuery(getCategoryDataQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !id,

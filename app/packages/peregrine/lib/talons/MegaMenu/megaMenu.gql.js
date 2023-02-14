@@ -1,12 +1,10 @@
 import { gql } from '@apollo/client';
 
 export const GET_MEGA_MENU = gql`
-    query getMegaMenu {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
+    query GetMegaMenu {
         categoryList {
             uid
             name
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             children {
                 uid
                 include_in_menu
@@ -14,7 +12,6 @@ export const GET_MEGA_MENU = gql`
                 category_icon
                 position
                 url_path
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 children {
                     uid
                     include_in_menu
@@ -22,7 +19,6 @@ export const GET_MEGA_MENU = gql`
                     category_icon
                     position
                     url_path
-                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     children {
                         uid
                         include_in_menu

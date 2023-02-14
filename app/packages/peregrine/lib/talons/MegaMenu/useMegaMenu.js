@@ -22,6 +22,7 @@ import { useStoreConfigContext } from '../../context/storeConfigProvider';
 export const useMegaMenu = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getMegaMenuQuery } = operations;
+
     const location = useLocation();
 
     const [{ isSignedIn }] = useUserContext();
