@@ -123,6 +123,14 @@ module.exports = [
         isEnabled: process.env.CSR_ENABLED
     },
     {
+        name: 'Store Locator',
+        pattern: '/store-locator',
+        exact: true,
+        path: '../StoreLocator'
+        // authed: true,
+        // redirectTo: '/sign-in',
+    },
+    {
         name: 'AdminPwaLogin',
         pattern: '/pwa/sign-in/:customer_token',
         path: '../AdminPwaLogin'
