@@ -25,42 +25,41 @@ const Breadcrumbs = props => {
     const { categoryId, currentProduct, url_keys, productSku } = props;
 
     const history = useHistory();
-
+    
     const urlKeysHistory = history.location?.state?.urlKeys;
     const currentUrlKeys = urlKeysHistory ? urlKeysHistory : url_keys;
     const talonProps = useBreadcrumbs({ categoryId });
 
     const { currentCategory, currentCategoryPath, hasError, isLoading, normalizedData, handleClick } = talonProps;
 
-    const skus = currentUrlKeys?.items?.map(ele => ele?.sku);
-    const index = skus?.indexOf(productSku);
     const productLink = product => resourceUrl(`/${product.url_key}${product.url_suffix || ''}`);
 
     const moveToOtherProcuct = type => {
         const configrableProducts = currentUrlKeys?.items.filter(
             ({ __typename }) => __typename === 'ConfigurableProduct'
         );
-        if (type === 'next' && index === configrableProducts?.length - 1) {
+        const configrableIndex = configrableProducts.findIndex(ele => ele.sku === productSku);
+        if (type === 'next' && configrableIndex === configrableProducts?.length - 1) {
             const product = configrableProducts[0];
             history.push({
                 pathname: productLink(product),
                 state: { urlKeys: currentUrlKeys }
             });
-        } else if (type === 'prev' && index === 0) {
+        } else if (type === 'prev' && configrableIndex === 0) {
             const product = configrableProducts[configrableProducts?.length - 1];
             history.push({
                 pathname: productLink(product),
                 state: { urlKeys: currentUrlKeys }
             });
-        } else if (index < configrableProducts?.length) {
+        } else if (configrableIndex < configrableProducts?.length) {
             if (type === 'prev') {
-                const prevProduct = configrableProducts[index - 1];
+                const prevProduct = configrableProducts[configrableIndex - 1];
                 history.push({
                     pathname: productLink(prevProduct),
                     state: { urlKeys: currentUrlKeys }
                 });
             } else if (type === 'next') {
-                const nextProduct = configrableProducts[index + 1];
+                const nextProduct = configrableProducts[configrableIndex + 1];
                 history.push({
                     pathname: productLink(nextProduct),
                     state: { urlKeys: currentUrlKeys }
