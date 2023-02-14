@@ -14,7 +14,7 @@ const QuotesToolbar = props => {
         <div className={classes.pageInfo}>
             <FormattedMessage
                 id={'quotesToolbar.quotesShowingText'}
-                defaultMessage={'Showing ' + currentPage + ' of ' + totalPage}
+                defaultMessage={'Page ' + currentPage + ' of ' + totalPage}
                 values={{
                     currentPage: currentPage,
                     totalPage: totalPage

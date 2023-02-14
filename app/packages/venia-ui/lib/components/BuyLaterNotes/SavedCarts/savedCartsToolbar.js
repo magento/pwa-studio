@@ -17,7 +17,7 @@ const SavedCartsToolbar = props => {
         <div className={classes.pageInfo}>
             <FormattedMessage
                 id={'savedCartsToolbar.cartShowingText'}
-                defaultMessage={'Showing ' + currentPage + ' of ' + totalPage}
+                defaultMessage={'Page ' + currentPage + ' of ' + totalPage}
                 values={{
                     currentPage: currentPage,
                     totalPage: totalPage
