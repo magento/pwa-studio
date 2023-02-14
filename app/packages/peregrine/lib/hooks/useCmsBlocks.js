@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
 import DEFAULT_OPERATIONS from '../talons/Cms/cmsBlock.gql';
-import mergeOperations from '../../util/shallowMerge';
+import mergeOperations from '../util/shallowMerge';
 
 export const useCmsBlock = props => {
     const { cmsBlockIdentifiers = [] } = props;
