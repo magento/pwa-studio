@@ -1,0 +1,10 @@
+.googleMapContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.googleMapContainer article {
+    width: 65%;
+    height: 500px;
+}
