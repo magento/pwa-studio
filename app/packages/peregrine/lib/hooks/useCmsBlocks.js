@@ -1,12 +1,18 @@
 import { useMemo } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+
+import DEFAULT_OPERATIONS from '../talons/Cms/cmsBlock.gql';
+import mergeOperations from '../../util/shallowMerge';
 
 export const useCmsBlock = props => {
     const { cmsBlockIdentifiers = [] } = props;
 
-    const { data: cmsBlocksData, loading: cmsBlocksLoading } = useQuery(GET_CONTACT_PAGE_CMS_BLOCKS, {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCmsBlocksQuery } = operations;
+
+    const { data: cmsBlocksData, loading: cmsBlocksLoading } = useQuery(getCmsBlocksQuery, {
         variables: {
-            cmsBlockIdentifiers
+            identifiers: cmsBlockIdentifiers
         },
         fetchPolicy: 'cache-and-network'
     });
@@ -17,14 +23,3 @@ export const useCmsBlock = props => {
 
     return { cmsBlocks, cmsBlocksLoading };
 };
-
-export const GET_CONTACT_PAGE_CMS_BLOCKS = gql`
-    query GetContactPageCmsBlocks($cmsBlockIdentifiers: [String]) {
-        cmsBlocks(identifiers: $cmsBlockIdentifiers) {
-            items {
-                content
-                identifier
-            }
-        }
-    }
-`;

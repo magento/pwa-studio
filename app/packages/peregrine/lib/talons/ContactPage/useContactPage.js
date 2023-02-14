@@ -4,10 +4,13 @@ import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfi
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './contactUs.gql';
+import CMS_BLOCK_OPERATIONS from '../Cms/cmsBlock.gql';
 
 export default props => {
-    const { cmsBlockIdentifiers = [], operations } = props;
-    const { contactMutation, getContactPageCmsBlocksQuery } = mergeOperations(DEFAULT_OPERATIONS, operations);
+    const { cmsBlockIdentifiers = [] } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CMS_BLOCK_OPERATIONS, props.operations);
+    const { contactMutation, getCmsBlocksQuery } = operations;
 
     const formApiRef = useRef(null);
 
@@ -17,7 +20,7 @@ export default props => {
 
     const storeConfigData = useStoreConfigContext();
 
-    const { data: cmsBlocksData, loading: cmsBlocksLoading } = useQuery(getContactPageCmsBlocksQuery, {
+    const { data: cmsBlocksData, loading: cmsBlocksLoading } = useQuery(getCmsBlocksQuery, {
         variables: {
             cmsBlockIdentifiers
         },
