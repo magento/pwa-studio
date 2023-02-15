@@ -13,18 +13,18 @@
 /* Responsive account chip text with ellipsis */
 .chipContainer {
     width: fit-content;
-    max-width: clamp(100px, 8vw, 150px);
+    max-width: max(100px, min(8vw, 150px));
 }
 
 @media (max-width: 1300px) {
     .chipContainer {
-        max-width: clamp(75px, 15vw, 300px);
+    max-width: max(75px, min(15vw, 300px));
     }
 }
 
 @media (max-width: 959px) {
     .chipContainer {
-        max-width: clamp(60px, 12vw, 150px);
+    max-width: max(60px, min(12vw, 150px));
     }
 }
 
