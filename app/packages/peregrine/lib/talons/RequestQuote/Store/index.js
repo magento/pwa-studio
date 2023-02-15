@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_CONFIG_DETAILS, MP_QUOTE } from '../requestQuote.gql';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 const storage = new BrowserPersistence();
-const MP_REQUEST_QUOTE_ID = 'mp_request_quote_id';
+const MP_QUOTE_ID = 'mp_QUOTE_id';
+
+import DEFAULT_OPERATIONS from '../requestQuote.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
+const operations = mergeOperations(DEFAULT_OPERATIONS);
+const { getQuoteConfigDetailsQuery, getQuoteByIdQuery } = operations;
 
 export const getConfigData = () => {
     const [isEnable, setIsEnable] = useState(false);
     const [configData, setConfigData] = useState();
 
     // Get config details
-    const { data } = useQuery(GET_CONFIG_DETAILS, {
+    const { data } = useQuery(getQuoteConfigDetailsQuery, {
         fetchPolicy: 'network-only'
     });
 
@@ -30,22 +35,22 @@ export const getConfigData = () => {
 
 // Current quote id
 export const setQuoteId = quote_id => {
-    storage.setItem(MP_REQUEST_QUOTE_ID, quote_id);
+    storage.setItem(MP_QUOTE_ID, quote_id);
 };
 
 export const deleteQuoteId = () => {
-    storage.removeItem(MP_REQUEST_QUOTE_ID);
+    storage.removeItem(MP_QUOTE_ID);
 };
 
 export const getQuoteId = () => {
-    return storage.getItem(MP_REQUEST_QUOTE_ID);
+    return storage.getItem(MP_QUOTE_ID);
 };
 
 export const getMpQuote = () => {
     const [myQuote, setMyQuote] = useState();
 
     if (getQuoteId() != undefined) {
-        const { data } = useQuery(MP_QUOTE, {
+        const { data } = useQuery(getQuoteByIdQuery, {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first',
             variables: {
