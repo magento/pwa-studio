@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useQuery } from '@apollo/client';
 import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -7,6 +8,7 @@ import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './product.gql';
 import { useEventingContext } from '../../../context/eventing';
 
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
  * controls the logic for the Product Root Component.
@@ -36,6 +38,8 @@ export const useProduct = props => {
         }
     ] = useAppContext();
 
+    const [{ isSignedIn }] = useUserContext();
+
     const { data: storeConfigData } = useQuery(getStoreConfigData, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
@@ -45,7 +49,7 @@ export const useProduct = props => {
     const productUrlSuffix = storeConfigData?.storeConfig?.product_url_suffix;
     const urlKey = productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
 
-    const { error, loading, data } = useQuery(getProductDetailQuery, {
+    const { error, loading, data ,refetch } = useQuery(getProductDetailQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !storeConfigData,
@@ -108,6 +112,10 @@ export const useProduct = props => {
         }
     }, [error, loading, product, dispatch]);
 
+    useEffect(() => {
+        if (isSignedIn) refetch()
+    }, [isSignedIn])
+    
     return {
         error,
         loading,

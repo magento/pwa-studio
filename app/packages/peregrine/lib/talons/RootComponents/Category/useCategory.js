@@ -7,13 +7,11 @@ import { useAppContext } from '../../../context/app';
 import { usePagination } from '../../../hooks/usePagination';
 import { useScrollTopOnChange } from '../../../hooks/useScrollTopOnChange';
 import { useSort } from '../../../hooks/useSort';
-import {
-    getFiltersFromSearch,
-    getFilterInput
-} from '../../../talons/FilterModal/helpers';
+import { getFiltersFromSearch, getFilterInput } from '../../../talons/FilterModal/helpers';
 
 import DEFAULT_OPERATIONS from './category.gql';
 
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
  * controls the logic for the Category Root Component.
@@ -60,6 +58,8 @@ export const useCategory = props => {
     // Keep track of the sort criteria so we can tell when they change.
     const previousSort = useRef(currentSort);
 
+    const [{ isSignedIn }] = useUserContext();
+
     const pageControl = {
         currentPage,
         setPage: setCurrentPage,
@@ -77,12 +77,7 @@ export const useCategory = props => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
-    const {
-        called: categoryCalled,
-        loading: categoryLoading,
-        error,
-        data
-    } = queryResponse;
+    const { called: categoryCalled, loading: categoryLoading, error, data } = queryResponse;
     const { search } = useLocation();
 
     const isBackgroundLoading = !!data && categoryLoading;
@@ -96,14 +91,13 @@ export const useCategory = props => {
     const previousSearch = useRef(search);
 
     // Get "allowed" filters by intersection of schema and aggregations
-    const {
-        called: introspectionCalled,
-        data: introspectionData,
-        loading: introspectionLoading
-    } = useQuery(getFilterInputsQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const { called: introspectionCalled, data: introspectionData, loading: introspectionLoading } = useQuery(
+        getFilterInputsQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
+    );
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
@@ -146,19 +140,9 @@ export const useCategory = props => {
                 sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
             }
         });
-    }, [
-        currentPage,
-        currentSort,
-        filterTypeMap,
-        id,
-        pageSize,
-        runQuery,
-        search
-    ]);
+    }, [currentPage, currentSort, filterTypeMap, id, pageSize, runQuery, search, isSignedIn]);
 
-    const totalPagesFromData = data
-        ? data.products.page_info.total_pages
-        : null;
+    const totalPagesFromData = data ? data.products.page_info.total_pages : null;
 
     useEffect(() => {
         setTotalPages(totalPagesFromData);
@@ -186,10 +170,8 @@ export const useCategory = props => {
 
         if (
             prevSearch.toString() !== nextSearch.toString() ||
-            previousSort.current.sortAttribute.toString() !==
-                currentSort.sortAttribute.toString() ||
-            previousSort.current.sortDirection.toString() !==
-                currentSort.sortDirection.toString()
+            previousSort.current.sortAttribute.toString() !== currentSort.sortAttribute.toString() ||
+            previousSort.current.sortDirection.toString() !== currentSort.sortDirection.toString()
         ) {
             // The search term changed.
             setCurrentPage(1, true);
@@ -200,20 +182,14 @@ export const useCategory = props => {
     }, [currentSort, previousSearch, search, setCurrentPage]);
 
     const categoryData = categoryLoading && !data ? null : data;
-    const categoryNotFound =
-        !categoryLoading && data && data.categories.items.length === 0;
+    const categoryNotFound = !categoryLoading && data && data.categories.items.length === 0;
     const metaDescription =
-        data &&
-        data.categories.items[0] &&
-        data.categories.items[0].meta_description
+        data && data.categories.items[0] && data.categories.items[0].meta_description
             ? data.categories.items[0].meta_description
             : '';
 
     // When only categoryLoading is involved, noProductsFound component flashes for a moment
-    const loading =
-        (introspectionCalled && !categoryCalled) ||
-        (categoryLoading && !data) ||
-        introspectionLoading;
+    const loading = (introspectionCalled && !categoryCalled) || (categoryLoading && !data) || introspectionLoading;
 
     useScrollTopOnChange(currentPage);
 
