@@ -1,13 +1,13 @@
 import { useQuery } from '@apollo/client';
 
-export const useForm = props => {
-    const { countriesQuery } = props;
+import DEFAULT_OPERATIONS from '../Country/country.gql';
+import { mergeOperations } from '@magento/peregrine/lib/util/shallowMerge';
 
-    const {
-        loading: isLoadingCountries,
-        error: countriesError,
-        data: countriesData
-    } = useQuery(countriesQuery);
+export const useForm = props => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCountriesQuery } = operations;
+
+    const { loading: isLoadingCountries, error: countriesError, data: countriesData } = useQuery(getCountriesQuery);
     const { countries } = countriesData || {};
 
     return {

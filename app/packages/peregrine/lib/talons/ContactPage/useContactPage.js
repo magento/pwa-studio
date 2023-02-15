@@ -10,11 +10,11 @@ export default props => {
     const { cmsBlockIdentifiers = [] } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, CMS_BLOCK_OPERATIONS, props.operations);
-    const { contactMutation, getCmsBlocksQuery } = operations;
+    const { submitContactFormMutation, getCmsBlocksQuery } = operations;
 
     const formApiRef = useRef(null);
 
-    const [submitForm, { data, error: contactError, loading: submitLoading }] = useMutation(contactMutation, {
+    const [submitForm, { data, error: contactError, loading: submitLoading }] = useMutation(submitContactFormMutation, {
         fetchPolicy: 'no-cache'
     });
 
@@ -58,7 +58,7 @@ export default props => {
         },
         [submitForm]
     );
-    const errors = useMemo(() => new Map([['contactMutation', contactError]]), [contactError]);
+    const errors = useMemo(() => new Map([['submitContactFormMutation', contactError]]), [contactError]);
 
     return {
         isEnabled,

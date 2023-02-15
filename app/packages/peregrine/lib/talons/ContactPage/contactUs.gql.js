@@ -9,5 +9,5 @@ export const SUBMIT_CONTACT_FORM = gql`
 `;
 
 export default {
-    contactMutation: SUBMIT_CONTACT_FORM
+    submitContactFormMutation: SUBMIT_CONTACT_FORM
 };
