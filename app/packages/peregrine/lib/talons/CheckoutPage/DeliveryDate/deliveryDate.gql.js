@@ -8,7 +8,6 @@ export const GET_DELIVERY_DATE = gql`
             deliveryDaysOff
             isEnabledDeliveryComment
             deliveryTime
-            __typename
             isEnabledHouseSecurityCode
         }
     }

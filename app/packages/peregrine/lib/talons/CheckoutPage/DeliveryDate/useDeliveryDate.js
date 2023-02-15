@@ -31,7 +31,8 @@ function reducer(state, action) {
 export const useDeliveryDate = () => {
     const [state, dispatch] = useReducer(reducer, deliveryDateData);
 
-    const { getDeliveryDateQuery, setDeliveryTimeMutation } = mergeOperations(DEFAULT_OPERATIONS);
+    const operations = mergeOperations(DEFAULT_OPERATIONS);
+    const { getDeliveryDateQuery, setDeliveryTimeMutation } = operations;
 
     const handleChange = (name, value) => {
         dispatch({ type: name, value });
