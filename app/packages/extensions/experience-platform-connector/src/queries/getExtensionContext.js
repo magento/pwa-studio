@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_EXTENSION_CONTEXT = gql`
-    query GetExtensionContext {
+    query experiencePlatformConnectorContext {
         dataServicesStorefrontInstanceContext {
             environment_id
             environment
@@ -27,5 +27,5 @@ export const GET_EXTENSION_CONTEXT = gql`
 `;
 
 export default {
-    getExtensionContextQuery: GET_EXTENSION_CONTEXT
+    getExtensionContext: GET_EXTENSION_CONTEXT
 };

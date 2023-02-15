@@ -1,14 +1,9 @@
 import { useLazyQuery } from '@apollo/client';
+import { GET_EXTENSION_CONTEXT } from '../queries/getExtensionContext.js';
 import { useEffect } from 'react';
 
-import DEFAULT_OPERATIONS from '../queries/getExtensionContext.gql';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-
 const useExtensionContext = () => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS);
-    const { getExtensionContextQuery } = operations;
-
-    const [fetchExtensionContext, { called, data, loading, error }] = useLazyQuery(getExtensionContextQuery);
+    const [fetchExtensionContext, { called, data, loading, error }] = useLazyQuery(GET_EXTENSION_CONTEXT);
 
     useEffect(() => {
         fetchExtensionContext();
