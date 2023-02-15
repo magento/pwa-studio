@@ -12,12 +12,12 @@ const SavedCartsToolbar = props => {
     const { handlePageSize, handleCurrentPage, currentPage, totalPage } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
-
+    
     const savedCartsToolbarPageInfo = (
         <div className={classes.pageInfo}>
             <FormattedMessage
                 id={'savedCartsToolbar.cartShowingText'}
-                defaultMessage={'Showing ' + currentPage + ' of ' + totalPage}
+                defaultMessage={'Page ' + currentPage + ' of ' + totalPage}
                 values={{
                     currentPage: currentPage,
                     totalPage: totalPage
@@ -58,7 +58,7 @@ const SavedCartsToolbar = props => {
         <div className={classes.root}>
             {savedCartsToolbarPageInfo}
             {savedCartsToolbarLimiter}
-            {savedCartsToolbarPages}
+            {totalPage > 0 && savedCartsToolbarPages}
         </div>
     );
 };
