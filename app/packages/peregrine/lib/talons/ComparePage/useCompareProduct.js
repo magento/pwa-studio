@@ -2,20 +2,25 @@ import { useMemo, useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { useToasts } from '@magento/peregrine';
 import { useMutation, useLazyQuery } from '@apollo/client';
-import {
-    CREATE_COMPARE_LIST,
-    GET_COMPARE_LIST_CUSTOMER,
-    DELETE_PRODUCTS_FROM_LIST
-} from './compareRequest.gql';
+
+import DEFAULT_OPERATIONS from './compareProduct.gql';
+import mergeOperations from '../../util/shallowMerge';
 
 const useCompareProduct = () => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS);
+    const {
+        createCompareListMutation,
+        deleteProductsFromCompareListMutation,
+        getCustomerCompareListQuery
+    } = operations;
+
     const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
     const [isLoading, setIsLoading] = useState(false);
     const [isAction, setIsAction] = useState(false);
-    const [createCompareList] = useMutation(CREATE_COMPARE_LIST);
-    const [deleteProductsFromList] = useMutation(DELETE_PRODUCTS_FROM_LIST);
-    const [getCustomerCompareList, { data, loading }] = useLazyQuery(GET_COMPARE_LIST_CUSTOMER, {
+    const [createCompareList] = useMutation(createCompareListMutation);
+    const [deleteProductsFromList] = useMutation(deleteProductsFromCompareListMutation);
+    const [getCustomerCompareList, { data, loading }] = useLazyQuery(getCustomerCompareListQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
