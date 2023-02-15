@@ -53,6 +53,7 @@
     display: grid;
     grid-template-columns: 1.9fr 0.2fr !important ;
     padding-left: 0.5rem;
+    align-items: center;
 }
 
 .actionsContainer:empty {

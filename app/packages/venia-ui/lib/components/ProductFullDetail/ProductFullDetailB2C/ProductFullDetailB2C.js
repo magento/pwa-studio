@@ -32,7 +32,9 @@ const ProductFullDetailB2C = props => {
         tempTotalPrice,
         cartActionContent,
         customAttributes,
-        product
+        product,
+        isOutOfStock,
+        isSimpleProductSelected
     } = props;
 
     const customAttributesDetails = useMemo(() => {
@@ -83,7 +85,10 @@ const ProductFullDetailB2C = props => {
             />
         </section>
     ) : null;
-
+    const shouldRenderPrice =
+        (!isSimpleProductSelected && product?.stock_status === 'IN_STOCK') ||
+        (isSimpleProductSelected && !isOutOfStock);
+        
     return (
         <Fragment>
             {breadcrumbs}
@@ -103,9 +108,7 @@ const ProductFullDetailB2C = props => {
                     </p> */}
                     {shortDescription}
                 </section>
-                {product?.stock_status === 'IN_STOCK' && (
-                    <article className={classes.priceContainer}> {priceRender}</article>
-                )}
+                {shouldRenderPrice && <article className={classes.priceContainer}> {priceRender}</article>}
                 <div className={classes.imageCarousel}>
                     {hasOptionsOfTheSelection ? (
                         <Carousel images={mediaGalleryEntries} carouselWidth={960} />
@@ -142,9 +145,8 @@ const ProductFullDetailB2C = props => {
                             onChange={handleQuantityChange}
                             message={errors.get('quantity')}
                         />
-                        {product?.stock_status === 'IN_STOCK' && (
-                            <article className={classes.totalPrice}>{tempTotalPrice}</article>
-                        )}
+
+                        {shouldRenderPrice && <article className={classes.totalPrice}>{tempTotalPrice}</article>}
                     </article>
                 </section>
                 <section className={classes.actions}>

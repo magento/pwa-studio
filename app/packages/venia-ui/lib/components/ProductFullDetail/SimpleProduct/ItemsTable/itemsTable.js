@@ -132,10 +132,12 @@ const ItemsTable = props => {
                         onChange={handleQuantityChange}
                     />
                 </Form>
-                {simpleProductData.stock_status === 'IN_STOCK' ? { priceTag } : <span>-</span>}
-                {simpleProductData.stock_status === 'IN_STOCK' ?
-                <span className={classes.indexFixed}>{tempTotalPrice}</span> : <span>-</span>
-            }
+                {simpleProductData.stock_status === 'IN_STOCK' ? priceTag : <span>-</span>}
+                {simpleProductData.stock_status === 'IN_STOCK' ? (
+                    <span className={classes.indexFixed}>{tempTotalPrice}</span>
+                ) : (
+                    <span>-</span>
+                )}
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
                     {addToCartButton}
