@@ -8,7 +8,6 @@ import Field from '../Field';
 import Select from '../Select';
 import TextInput from '../TextInput';
 import defaultClasses from './region.module.css';
-import { GET_REGIONS_QUERY } from './region.gql';
 
 /**
  * Form component for Region that is seeded with backend data.
@@ -32,8 +31,7 @@ const Region = props => {
         countryCodeField,
         fieldInput,
         fieldSelect,
-        optionValueKey,
-        queries: { getRegionsQuery: GET_REGIONS_QUERY }
+        optionValueKey
     });
     const { loading, regions } = talonProps;
 
@@ -46,12 +44,7 @@ const Region = props => {
 
     const regionField =
         regions.length || loading ? (
-            <Select
-                {...regionProps}
-                field={fieldSelect}
-                id={classes.root}
-                items={regions}
-            />
+            <Select {...regionProps} field={fieldSelect} id={classes.root} items={regions} />
         ) : (
             <TextInput {...regionProps} field={fieldInput} id={classes.root} />
         );

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_REGIONS_QUERY = gql`
+export const GET_REGIONS = gql`
     query GetRegions($countryCode: String!) {
         country(id: $countryCode) {
             id
@@ -12,3 +12,7 @@ export const GET_REGIONS_QUERY = gql`
         }
     }
 `;
+
+export default {
+    getRegionsQuery: GET_REGIONS
+};
