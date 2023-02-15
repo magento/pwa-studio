@@ -61,7 +61,7 @@ const QuotesToolbar = props => {
         <div className={classes.root}>
             {quotesToolbarPageInfo}
             {quotesToolbarLimiter}
-            {quotesToolbarPages}
+            {totalPage > 0 && quotesToolbarPages}
         </div>
     );
 };
