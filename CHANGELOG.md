@@ -1,3 +1,6 @@
+# B2BStore 0.7.3
+## 🚨 Hotfixes  
+  - Fixed a bug that caused a blank suffix in categories URL.
 
 # B2BStore 0.7.2
 ## 🚨 Hotfixes    
