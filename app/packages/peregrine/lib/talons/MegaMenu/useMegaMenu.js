@@ -30,11 +30,12 @@ export const useMegaMenu = (props = {}) => {
     const [subMenuState, setSubMenuState] = useState(false);
     const [disableFocus, setDisableFocus] = useState(false);
 
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
+    const { data: storeConfigData, refetch: refetchStoreConfig } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
-    const { data,refetch } = useQuery(getMegaMenuQuery);
+    const { data, refetch } = useQuery(getMegaMenuQuery);
 
     const { data: storeRequiredLogin } = useQuery(getIsRequiredLogin, {
         fetchPolicy: 'cache-and-network',
@@ -46,11 +47,13 @@ export const useMegaMenu = (props = {}) => {
             return storeConfigData.storeConfig.category_url_suffix;
         }
     }, [storeConfigData]);
-
     useEffect(() => {
-        if (isSignedIn) refetch();
+        if (isSignedIn) {
+            refetch();
+            refetchStoreConfig();
+        }
     }, [isSignedIn]);
-    
+
     /**
      * Check if category should be visible on the storefront.
      *
