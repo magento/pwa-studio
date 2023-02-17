@@ -7,7 +7,7 @@ import { useStyle } from '../../../classify';
 import defaultClasses from './filterDefault.module.css';
 
 const FilterDefault = props => {
-    const { classes: propsClasses, isSelected, item, ...restProps } = props;
+    const { classes: propsClasses, isSelected, item, onMouseDown, ...restProps } = props;
 
     const { label, value_index } = item || {};
     const classes = useStyle(defaultClasses, propsClasses);
@@ -41,6 +41,7 @@ const FilterDefault = props => {
             label={label}
             ariaLabel={ariaLabel}
             data-cy="FilterDefault-checkbox"
+            onClick={onMouseDown}
             {...restProps}
         />
     );
