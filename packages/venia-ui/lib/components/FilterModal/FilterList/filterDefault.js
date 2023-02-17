@@ -7,7 +7,13 @@ import { useStyle } from '../../../classify';
 import defaultClasses from './filterDefault.module.css';
 
 const FilterDefault = props => {
-    const { classes: propsClasses, isSelected, item, onMouseDown, ...restProps } = props;
+    const {
+        classes: propsClasses,
+        isSelected,
+        item,
+        onMouseDown,
+        ...restProps
+    } = props;
 
     const { label, value_index } = item || {};
     const classes = useStyle(defaultClasses, propsClasses);
