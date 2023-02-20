@@ -14,7 +14,7 @@ const QuantityStepper = props => {
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
-    const handleFocus = (event) => event.target.select();
+    const handleFocus = event => event.target.select();
 
     const talonProps = useQuantityStepper({
         initialValue,
