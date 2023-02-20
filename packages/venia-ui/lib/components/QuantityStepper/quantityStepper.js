@@ -14,6 +14,7 @@ const QuantityStepper = props => {
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
+    const handleFocus = (event) => event.target.select();
 
     const talonProps = useQuantityStepper({
         initialValue,
@@ -56,6 +57,7 @@ const QuantityStepper = props => {
                         id: 'quantity.input',
                         defaultMessage: 'Item Quantity'
                     })}
+                    onFocus={handleFocus}
                     data-cy="QuantityStepper-input"
                     classes={{ input: classes.input }}
                     field="quantity"
