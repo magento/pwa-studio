@@ -120,7 +120,7 @@ const SignIn = props => {
                     <Button
                         priority="high"
                         type="submit"
-                        onKeyDown={(signinHandleEnterKeyPress)}
+                        onKeyDown={signinHandleEnterKeyPress}
                         data-cy="SignInButton-root_highPriority"
                         disabled={isBusy}
                     >
