@@ -122,7 +122,7 @@ const ContentDialog = props => {
             return (
                 <FormattedMessage
                     id={'csr.emptyTicketsAdvice'}
-                    defaultMessage={"Oops... Looks like you haven't opened any tickets yet"}
+                    defaultMessage={"There are no tickets to show"}
                 />
             );
         }
