@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_ROUTE_DATA = gql`
-    query getRouteData($url: String!) {
+    query GetRouteData($url: String!) {
         route(url: $url) {
             relative_url
         }
@@ -24,6 +24,6 @@ export const GET_AVAILABLE_STORES_DATA = gql`
 `;
 
 export default {
-    getRouteData: GET_ROUTE_DATA,
-    getAvailableStoresData: GET_AVAILABLE_STORES_DATA
+    getRouteDataQuery: GET_ROUTE_DATA,
+    getAvailableStoresDataQuery: GET_AVAILABLE_STORES_DATA
 };

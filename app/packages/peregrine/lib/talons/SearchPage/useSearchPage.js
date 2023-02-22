@@ -9,6 +9,7 @@ import { useScrollTopOnChange } from '../../hooks/useScrollTopOnChange';
 import { getSearchParam } from '../../hooks/useSearchParam';
 import { useSort } from '../../hooks/useSort';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 import DEFAULT_OPERATIONS from './searchPage.gql';
 import CATEGORY_OPERATIONS from '../RootComponents/Category/category.gql';
