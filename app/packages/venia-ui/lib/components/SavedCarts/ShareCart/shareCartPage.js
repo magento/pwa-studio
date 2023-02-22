@@ -1,7 +1,7 @@
 import { shape, string } from 'prop-types';
 import { fullPageLoadingIndicator } from '../../LoadingIndicator';
 
-import { useShareCartPage } from '@magento/peregrine/lib/talons/BuyLaterNotes/useShareCartPage';
+import { useShareCartPage } from '@magento/peregrine/lib/talons/SavedCarts/useShareCartPage';
 
 const ShareCartPage = () => {
     const talonProps = useShareCartPage();

@@ -4,13 +4,13 @@ import { useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
-import { SHARE_CART } from './buyLaterNotes.gql';
+import DEFAULT_OPERATIONS from './savedCarts.gql';
 import CART_OPERATIONS from '../CartPage/cartPage.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useShareCartPage = async () => {
-    const operations = mergeOperations(CART_OPERATIONS);
-    const { getCartDetailsQuery } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS);
+    const { getCartDetailsQuery, shareSavedCartsMutation } = operations;
 
     const [isLoading, setIsLoading] = useState(true);
     const [shareCartUpadte, setShareCartUpadte] = useState(1);
@@ -21,7 +21,7 @@ export const useShareCartPage = async () => {
     const [{ cartId }, { getCartDetails }] = useCartContext();
 
     // Share Cart
-    const [getShareCart] = useMutation(SHARE_CART);
+    const [getShareCart] = useMutation(shareSavedCartsMutation);
 
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 

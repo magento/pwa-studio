@@ -101,7 +101,7 @@ module.exports = [
         exact: true,
         path: '../Lms/LearningRoute',
         authed: true,
-        redirectTo: '/sign-in',
+        redirectTo: '/sign-in'
     },
     {
         name: 'Course',
@@ -109,7 +109,7 @@ module.exports = [
         exact: true,
         path: '../Lms/LearningRoute',
         authed: true,
-        redirectTo: '/sign-in',
+        redirectTo: '/sign-in'
     },
     {
         name: 'Support',
@@ -117,7 +117,7 @@ module.exports = [
         exact: true,
         path: '../Csr/SupportPage',
         authed: true,
-        redirectTo: '/sign-in',
+        redirectTo: '/sign-in'
     },
     {
         name: 'AdminPwaLogin',
@@ -145,14 +145,14 @@ module.exports = [
         path: '../ComparePage'
     },
     {
-        name: 'BuyLaterNotes',
+        name: 'SavedCarts',
         pattern: '/mpsavecart',
-        path: '../BuyLaterNotes/SavedCarts'
+        path: '../SavedCarts'
     },
     {
-        name: 'BuyLaterNotes',
+        name: 'SavedCarts',
         pattern: '/mpsavecart/cart/share/id/:token',
-        path: '../BuyLaterNotes/ShareCart'
+        path: '../SavedCarts/ShareCart'
     },
     {
         name: 'SimpleProduct',

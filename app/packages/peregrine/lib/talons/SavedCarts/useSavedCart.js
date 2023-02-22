@@ -6,12 +6,17 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { clearCartDataFromCache } from '@magento/peregrine/lib/Apollo/clearCartDataFromCache';
 
 import CART_OPERATIONS from '../CartPage/cartPage.gql';
-import { SAVE_CART, MP_SAVE_CART_CONFIG } from './savedCarts.gql';
+import DEFAULT_OPERATIONS from './savedCarts.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useSavedCart = () => {
-    const operations = mergeOperations(CART_OPERATIONS);
-    const { createCartMutation, getCartDetailsQuery } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS);
+    const {
+        createCartMutation,
+        getConfigDetailsForSavedCartsQuery,
+        getCartDetailsQuery,
+        saveSavedCartsMutation
+    } = operations;
 
     const [isShow, setIsShow] = useState(false);
     const [buttonTitle, setButtonTitle] = useState();
@@ -29,7 +34,7 @@ export const useSavedCart = () => {
 
     const history = useHistory();
 
-    const [getMpSaveCart] = useMutation(SAVE_CART);
+    const [getMpSaveCart] = useMutation(saveSavedCartsMutation);
 
     // Popup Open
     const handleSaveCart = useCallback(() => {
@@ -40,7 +45,7 @@ export const useSavedCart = () => {
     }, []);
 
     // Getting Config details
-    const { data } = useQuery(MP_SAVE_CART_CONFIG, {
+    const { data } = useQuery(getConfigDetailsForSavedCartsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });

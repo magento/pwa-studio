@@ -2,10 +2,10 @@ import React, { useMemo } from 'react';
 import { shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import Price from '../../Price';
-import SavedCartViewTableItems from '../SavedCartViewTableItems';
+import Price from '../Price';
+import SavedCartViewTableItems from './SavedCartViewTableItems';
 
-import { DATE_FORMAT } from '@magento/peregrine/lib/talons/BuyLaterNotes/config';
+import { DATE_FORMAT } from '@magento/peregrine/lib/talons/SavedCarts/config';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './savedCartsView.module.css';

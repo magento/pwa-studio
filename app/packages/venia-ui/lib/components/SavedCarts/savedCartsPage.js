@@ -4,16 +4,16 @@ import { useIntl, FormattedMessage } from 'react-intl';
 
 import SavedCartsTable from './savedCartsTable';
 import SavedCartsToolbar from './savedCartsToolbar';
-import { StoreTitle } from '../../Head';
-import { fullPageLoadingIndicator } from '../../LoadingIndicator';
+import { StoreTitle } from '../Head';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
-import { useBuyLaterNotesPage } from '@magento/peregrine/lib/talons/BuyLaterNotes/useBuyLaterNotesPage';
+import { useSavedCartsPage } from '@magento/peregrine/lib/talons/SavedCarts/useSavedCartsPage';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
-import defaultClasses from './buyLaterNotesPage.module.css';
+import defaultClasses from './savedCartsPage.module.css';
 
-const BuyLaterNotesPage = props => {
-    const talonProps = useBuyLaterNotesPage();
+const SavedCartsPage = props => {
+    const talonProps = useSavedCartsPage();
 
     const {
         isLoading,
@@ -29,7 +29,7 @@ const BuyLaterNotesPage = props => {
 
     const { formatMessage } = useIntl();
     const PAGE_TITLE = formatMessage({
-        id: 'buyLaterNotesPage.pageTitleText',
+        id: 'savedCartsPage.pageTitleText',
         defaultMessage: 'Buy Later Notes'
     });
 
@@ -57,7 +57,7 @@ const BuyLaterNotesPage = props => {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
-                        id={'buyLaterNotesPage.emptyDataMessage'}
+                        id={'savedCartsPage.emptyDataMessage'}
                         defaultMessage={"You don't have any cart yet."}
                     />
                 </h3>
@@ -89,9 +89,9 @@ const BuyLaterNotesPage = props => {
     );
 };
 
-export default BuyLaterNotesPage;
+export default SavedCartsPage;
 
-BuyLaterNotesPage.propTypes = {
+SavedCartsPage.propTypes = {
     classes: shape({
         root: string,
         heading: string,

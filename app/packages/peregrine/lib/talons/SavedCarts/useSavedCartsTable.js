@@ -4,7 +4,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 import CART_OPERATIONS from '../CartPage/cartPage.gql';
-import { DELETE_SAVE_CART, RESTORE_SAVE_CART } from './buyLaterNotes.gql';
+import DEFAULT_OPERATIONS from './savedCarts.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
@@ -17,8 +17,8 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 export const useSavedCartsTable = props => {
     const { handleIsLoading, getSavedCarts } = props;
 
-    const operations = mergeOperations(CART_OPERATIONS, props.operations);
-    const { getCartDetailsQuery } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+    const { getCartDetailsQuery, restoreSavedCartsMutation, deleteSavedCartsMutation } = operations;
 
     const [isOpen, setIsOpen] = useState(false);
     const [copied, setCopied] = useState(false);
@@ -29,7 +29,7 @@ export const useSavedCartsTable = props => {
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     // Restore Cart
-    const [restoreSaveCart] = useMutation(RESTORE_SAVE_CART, {
+    const [restoreSaveCart] = useMutation(restoreSavedCartsMutation, {
         fetchPolicy: 'no-cache',
         variables: {
             token: token,
@@ -38,7 +38,7 @@ export const useSavedCartsTable = props => {
     });
 
     // Delete save cart
-    const [deleteSaveCart] = useMutation(DELETE_SAVE_CART, {
+    const [deleteSaveCart] = useMutation(deleteSavedCartsMutation, {
         fetchPolicy: 'no-cache',
         variables: {
             token: token

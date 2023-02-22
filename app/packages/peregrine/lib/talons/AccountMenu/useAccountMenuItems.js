@@ -12,7 +12,6 @@ import { useModulesContext } from '../../context/modulesProvider';
  * @returns {Function}  result.handleSignOut - The function to handle sign out actions.
  */
 export const useAccountMenuItems = props => {
-
     const { tenantConfig } = useModulesContext();
     const { onSignOut } = props;
 
@@ -22,7 +21,7 @@ export const useAccountMenuItems = props => {
         onSignOut();
     }, [tenantConfig, onSignOut]);
 
-    console.log("from use accountMenuItems", tenantConfig)
+    console.log('from use accountMenuItems', tenantConfig);
 
     const MENU_ITEMS_BASIC = [
         {
@@ -60,7 +59,7 @@ export const useAccountMenuItems = props => {
         },
         {
             name: 'Saved carts',
-            id: 'accountMenu.buyLaterNotes',
+            id: 'accountMenu.savedCarts',
             url: '/mpsavecart'
         },
         {
@@ -102,10 +101,7 @@ export const useAccountMenuItems = props => {
 
     return {
         handleSignOut,
-        menuItems:
-            process.env.B2BSTORE_VERSION === 'BASIC'
-                ? MENU_ITEMS_BASIC
-                : MENU_ITEMS_PREMIUM
+        menuItems: process.env.B2BSTORE_VERSION === 'BASIC' ? MENU_ITEMS_BASIC : MENU_ITEMS_PREMIUM
     };
 };
 

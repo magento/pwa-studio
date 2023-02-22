@@ -6,7 +6,7 @@ import Button from '../../Button';
 import SavedCartPopup from './savedCartPopup';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import { useSavedCart } from '@magento/peregrine/lib/talons/BuyLaterNotes/useSavedCart';
+import { useSavedCart } from '@magento/peregrine/lib/talons/SavedCarts/useSavedCart';
 
 import defaultClasses from './savedCartButton.module.css';
 

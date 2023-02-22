@@ -1,20 +1,18 @@
+import { useHistory } from 'react-router-dom';
 import { useMemo, useState, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
-import { GET_CONFIG_DETAILS, GET_SAVED_CARTS } from './buyLaterNotes.gql';
 
-const DEFAULT_PAGE_SIZE = 5;
+import DEFAULT_OPERATIONS from './savedCarts.gql';
+import mergeOperations from '../../util/shallowMerge';
+
 const DEFAULT_CURRENT_PAGE = 1;
+const DEFAULT_PAGE_SIZE = 5;
 const DEFAULT_TOTAL_PAGE = 0;
 
-/**
- * @function
- *
- * @param {Object} props
- *
- * @returns {BuyLaterNotesPage}
- */
-export const useBuyLaterNotesPage = () => {
+export const useSavedCartsPage = () => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS);
+    const { getConfigDetailsForSavedCartsQuery, getSavedCartsQuery } = operations;
+
     const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [carts, setCarts] = useState([]);
@@ -24,7 +22,7 @@ export const useBuyLaterNotesPage = () => {
     const [showCopyUrl, setShowCopyUrl] = useState(false);
 
     // Get config details
-    const { data } = useQuery(GET_CONFIG_DETAILS, {
+    const { data } = useQuery(getConfigDetailsForSavedCartsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -42,7 +40,7 @@ export const useBuyLaterNotesPage = () => {
     }, [data, history]);
 
     // Get carts details
-    const { data: savedCartData, refetch } = useQuery(GET_SAVED_CARTS, {
+    const { data: savedCartData, refetch } = useQuery(getSavedCartsQuery, {
         fetchPolicy: 'network-only',
         nextFetchPolicy: 'cache-first',
         variables: {

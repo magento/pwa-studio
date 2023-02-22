@@ -1,7 +1,13 @@
 import { gql } from '@apollo/client';
 
+export const DELETE_SAVED_CARTS = gql`
+    mutation DeleteSavedCarts($token: String!) {
+        mpSaveCartDeleteCart(token: $token)
+    }
+`;
+
 export const GET_CONFIG_DETAILS = gql`
-    query getConfigDetailsForBuyLaterNotes {
+    query GetConfigDetailsForSavedCarts {
         mpSaveCartConfigs {
             enabled
             button_title
@@ -12,7 +18,7 @@ export const GET_CONFIG_DETAILS = gql`
 `;
 
 export const GET_SAVED_CARTS = gql`
-    query getSaveCarts($pageSize: Int, $currentPage: Int) {
+    query GetSavedCarts($pageSize: Int, $currentPage: Int) {
         mpSaveCartGetCarts(currentPage: $currentPage, pageSize: $pageSize) {
             total_count
             page_info {
@@ -45,30 +51,29 @@ export const GET_SAVED_CARTS = gql`
     }
 `;
 
-export const DELETE_SAVE_CART = gql`
-    mutation deleteSaveCart($token: String!) {
-        mpSaveCartDeleteCart(token: $token)
-    }
-`;
-
-export const RESTORE_SAVE_CART = gql`
-    mutation restoreSaveCart($cartId: String!, $token: String!) {
+export const RESTORE_SAVED_CARTS = gql`
+    mutation RestoreSavedCarts($cartId: String!, $token: String!) {
         mpSaveCartRestoreCart(cart_id: $cartId, token: $token)
     }
 `;
 
-export const CART_DETAILS_QUERY = gql`
-    query getCartId($cartId: String!) {
-        cart(cart_id: $cartId) {
-            # The purpose of this query is to check that the user is authorized
-            # to query on the current cart. Just fetch "id" to keep it small.
-            id
-        }
+export const SAVE_CART = gql`
+    mutation SaveSavedCarts($cartId: String!, $cartName: String!, $description: String) {
+        o_mpSaveCart(cart_id: $cartId, cart_name: $cartName, description: $description)
     }
 `;
 
 export const SHARE_CART = gql`
-    mutation getShareCart($cartId: String!, $token: String!) {
+    mutation ShareSavedCarts($cartId: String!, $token: String!) {
         mpSaveCartShareCart(cart_id: $cartId, token: $token)
     }
 `;
+
+export default {
+    deleteSavedCartsMutation: DELETE_SAVED_CARTS,
+    getConfigDetailsForSavedCartsQuery: GET_CONFIG_DETAILS,
+    getSavedCartsQuery: GET_SAVED_CARTS,
+    restoreSavedCartsMutation: RESTORE_SAVED_CARTS,
+    saveSavedCartsMutation: SAVE_CART,
+    shareSavedCartsMutation: SHARE_CART
+};

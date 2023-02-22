@@ -17,7 +17,7 @@ import StockStatusMessage from '../StockStatusMessage';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 import PrintPdfPopup from './PrintPdfPopup';
-import SavedCartButton from '../BuyLaterNotes/SavedCartButton';
+import SavedCartButton from '../SavedCarts/SavedCartButton';
 const CheckIcon = <Icon size={20} src={Check} />;
 
 /**

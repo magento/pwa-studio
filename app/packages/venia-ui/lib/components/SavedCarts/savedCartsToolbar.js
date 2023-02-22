@@ -2,7 +2,7 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import Pagination from '../../Pagination';
+import Pagination from '../Pagination';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 

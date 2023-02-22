@@ -2,11 +2,11 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { shape, string } from 'prop-types';
 
-import Price from '../../Price';
+import Price from '../Price';
 import SavedCartsView from './savedCartsView';
 
-import { DATE_FORMAT } from '@magento/peregrine/lib/talons/BuyLaterNotes/config';
-import { useSavedCartsTable } from '@magento/peregrine/lib/talons/BuyLaterNotes/useSavedCartsTable';
+import { DATE_FORMAT } from '@magento/peregrine/lib/talons/SavedCarts/config';
+import { useSavedCartsTable } from '@magento/peregrine/lib/talons/SavedCarts/useSavedCartsTable';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './savedCartsTable.module.css';
