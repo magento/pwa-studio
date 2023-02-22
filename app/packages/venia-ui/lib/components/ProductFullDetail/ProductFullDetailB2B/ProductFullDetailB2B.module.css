@@ -10,10 +10,12 @@
         grid-template-areas:
             'images title'
             'images description'
+            'images attachments'
             'images favorites';
         grid-template-columns: 1.5625fr 1fr;
         grid-template-rows: repeat(3, min-content);
         padding: 2.5rem 3rem;
+        column-gap: .5rem;
     }
 }
 
@@ -349,4 +351,25 @@
     .imageCarousel div div div img {
         height: 400px !important;
     }
+}
+
+.attachmentWrapper {
+    composes: section;
+    grid-area: attachments;
+    padding: 1.5rem 0;
+}
+
+.attachmentWrapper a,
+.attachmentWrapper span {
+    color: var(--b2bstore-global-color-orange);
+}
+
+.attachmentWrapper  span {
+    margin-bottom: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.attachmentWrapper img {
+    height: 20px;
 }

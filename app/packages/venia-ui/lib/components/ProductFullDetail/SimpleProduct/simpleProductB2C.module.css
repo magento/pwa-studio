@@ -255,3 +255,24 @@
         margin-top: 30px;
     }
 }
+
+.attachmentWrapper {
+    grid-column: 1 / span 1;
+    grid-row: none/ span 1;
+    padding: 0.5rem 1.5rem;
+}
+
+.attachmentWrapper a,
+.attachmentWrapper span {
+    color: var(--b2bstore-global-color-orange);
+}
+
+.attachmentWrapper span {
+    margin-bottom: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.attachmentWrapper img {
+    height: 20px;
+}

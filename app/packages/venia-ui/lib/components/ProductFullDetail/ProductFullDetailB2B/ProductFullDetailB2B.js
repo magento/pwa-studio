@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-no-literals */
 import React, { Fragment, useState, Suspense, useEffect, useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
@@ -14,6 +15,13 @@ import CmsBlock from '../../CmsBlock/block';
 import { useCmsBlock } from '@magento/peregrine/lib/hooks/useCmsBlocks';
 
 const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+import { AlertTriangle, Eye } from 'react-feather';
+import { useToasts } from '@magento/peregrine';
+
+const previewIcon = <Icon src={Eye} size={20} />;
+const OfflineIcon = <Icon src={AlertTriangle} attrs={{ width: 18 }} />;
 
 import gql from 'graphql-tag';
 import { useLazyQuery } from '@apollo/client';
@@ -25,6 +33,9 @@ const ProductFullDetailB2B = props => {
     const { cmsBlocks } = useCmsBlock({
         cmsBlockIdentifiers: ['warranties-block', 'recommended-product-block']
     });
+
+    const [, { addToast }] = useToasts();
+    const { formatMessage } = useIntl();
 
     const warrantiesBlock = cmsBlocks.find(item => item.identifier === 'warranties-block')?.content;
 
@@ -45,14 +56,50 @@ const ProductFullDetailB2B = props => {
     const [selectedFilter, setSelectedFilter] = useState([]);
     const [selectedFilterCategory, setSelectedFilterCategory] = useState([]);
 
+    const [{ isSignedIn }] = useUserContext();
+    const { mp_attachments } = productDetails;
+    console.log({ mp_attachments });
+    // reutrn true if the login is requierd to see the attachment
+    const checkAttachmentLogin = note => note === 'Login required';
+
+    const loginRequiredClick = () =>
+        addToast({
+            icon: OfflineIcon,
+            type: 'error',
+            message: formatMessage({
+                id: 'productAttachemts.loginRequired',
+                defaultMessage: 'Login required'
+            }),
+            timeout: 3000
+        });
+
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize] = useState(10);
 
     const getCategoriesValuesIdByVariant = variant => {
         return variant.attributes.map(attribute => {
             return attribute.value_index;
         });
     };
+
+    const productAttachments = useMemo(
+        () =>
+            mp_attachments?.map(att => (
+                <span key={att.file_name}>
+                    <img height="20px" width="20" src={att.file_icon} alt={att.name} />
+                    {att.note === '' || (checkAttachmentLogin(att.note) && isSignedIn) ? (
+                        <a href={att.url_file} target="blank">
+                            {previewIcon}
+                        </a>
+                    ) : (
+                        <button onClick={loginRequiredClick}>{previewIcon}</button>
+                    )}
+
+                    {att.file_name}
+                </span>
+            )),
+        [mp_attachments, isSignedIn]
+    );
 
     const selectedVariants = variants => {
         const items = [];
@@ -272,6 +319,7 @@ const ProductFullDetailB2B = props => {
                     </h2>
                     <RichText content={productDetails.description} />
                 </section>
+                <section className={classes.attachmentWrapper}>{productAttachments}</section>
                 <section className={classes.favoritesButton}>
                     <Suspense fallback={null}>
                         <WishlistButton {...wishlistButtonProps} />

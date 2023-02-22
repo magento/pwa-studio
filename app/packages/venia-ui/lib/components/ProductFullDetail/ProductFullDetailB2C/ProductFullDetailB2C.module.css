@@ -159,6 +159,7 @@
     composes: section;
     grid-column: 2 / span 1;
     grid-row: fold / span 1;
+    border-width: 1px 0 0;
 }
 
 @media (min-width: 1024px) {
@@ -242,4 +243,25 @@
         width: 100%;
         height: 450px;
     }
+}
+
+.attachmentWrapper {
+    grid-column: 1 / span 1;
+    grid-row: none/ span 1;
+    padding: 0.5rem 1.5rem;
+}
+
+.attachmentWrapper a,
+.attachmentWrapper span {
+    color: var(--b2bstore-global-color-orange);
+}
+
+.attachmentWrapper span {
+    margin-bottom: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.attachmentWrapper img {
+    height: 20px;
 }
