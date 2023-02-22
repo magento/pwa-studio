@@ -3,6 +3,20 @@ export const GET_SIMPLE_PRODUCT = gql`
     query getSimpleProduct($sku: String!) {
         products(search: $sku, filter: { sku: { eq: $sku } }) {
             items {
+                mp_attachments {
+                    file_icon
+                    file_label
+                    file_name
+                    file_size
+                    group {
+                        name
+                        position
+                        value
+                    }
+                    note
+                    url_file
+                    __typename
+                }
                 name
                 media_gallery_entries {
                     file

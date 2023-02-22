@@ -2,6 +2,20 @@ import { gql } from '@apollo/client';
 
 export const ProductDetailsFragment = gql`
     fragment ProductDetailsFragment on ProductInterface {
+        mp_attachments {
+            file_icon
+            file_label
+            file_name
+            file_size
+            group {
+                name
+                position
+                value
+            }
+            note
+            url_file
+            __typename
+        }
         __typename
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         categories {
