@@ -5,12 +5,18 @@ import { bool, shape, string } from 'prop-types';
 import Checkbox from '../../Checkbox';
 import { useStyle } from '../../../classify';
 import defaultClasses from './filterDefault.module.css';
+import { useCurrencySwitcher } from '@magento/peregrine/lib/talons/Header/useCurrencySwitcher';
 
 const FilterDefault = props => {
-    const { classes: propsClasses, isSelected, item, ...restProps } = props;
-
+    const { classes: propsClasses, isSelected, item, group, ...restProps } = props;
     const { label, value_index } = item || {};
     const classes = useStyle(defaultClasses, propsClasses);
+    const {currentCurrencyCode} = useCurrencySwitcher();
+    const currencySymbolMap = {
+        USD: '$',
+        EUR: '€'
+    };
+    const newLabel = (group === 'price')? currencySymbolMap[currentCurrencyCode] + label.replace('-', " - "+currencySymbolMap[currentCurrencyCode]) : label;
     const { formatMessage } = useIntl();
 
     const ariaLabel = !isSelected
@@ -38,7 +44,7 @@ const FilterDefault = props => {
             classes={classes}
             field={`${label}-${value_index}`}
             fieldValue={!!isSelected}
-            label={label}
+            label={newLabel}
             ariaLabel={ariaLabel}
             data-cy="FilterDefault-checkbox"
             {...restProps}
