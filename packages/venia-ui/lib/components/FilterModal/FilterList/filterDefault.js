@@ -16,7 +16,7 @@ const FilterDefault = props => {
         USD: '$',
         EUR: '€'
     };
-    const newLabel = (group === 'price')? currencySymbolMap[currentCurrencyCode] + label.replace('-', " - "+currencySymbolMap[currentCurrencyCode]) : label;
+    const title = (group === 'price')? currencySymbolMap[currentCurrencyCode] + label.replace('-', " - "+currencySymbolMap[currentCurrencyCode]) : label;
     const { formatMessage } = useIntl();
 
     const ariaLabel = !isSelected
@@ -44,7 +44,7 @@ const FilterDefault = props => {
             classes={classes}
             field={`${label}-${value_index}`}
             fieldValue={!!isSelected}
-            label={newLabel}
+            label={title}
             ariaLabel={ariaLabel}
             data-cy="FilterDefault-checkbox"
             {...restProps}
