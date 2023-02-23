@@ -24,12 +24,15 @@ export const ProductListingFragment = gql`
                     variants {
                         attributes {
                             uid
+                            label
                             code
                             value_index
                         }
                         # eslint-disable-next-line @graphql-eslint/require-id-when-available
                         product {
                             uid
+                            name
+                            sku
                             stock_status
                             small_image {
                                 url
