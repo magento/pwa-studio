@@ -10,7 +10,7 @@ export const SavedPaymentsFragment = gql`
     }
 `;
 
-export const GET_SAVED_PAYMENTS_QUERY = gql`
+export const GET_SAVED_PAYMENTS = gql`
     query GetSavedPayments {
         customerPaymentTokens {
             ...SavedPaymentsFragment
@@ -20,5 +20,5 @@ export const GET_SAVED_PAYMENTS_QUERY = gql`
 `;
 
 export default {
-    getSavedPaymentsQuery: GET_SAVED_PAYMENTS_QUERY
+    getSavedPaymentsQuery: GET_SAVED_PAYMENTS
 };
