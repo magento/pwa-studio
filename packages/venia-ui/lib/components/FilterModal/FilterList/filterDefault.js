@@ -8,15 +8,25 @@ import defaultClasses from './filterDefault.module.css';
 import { useCurrencySwitcher } from '@magento/peregrine/lib/talons/Header/useCurrencySwitcher';
 
 const FilterDefault = props => {
-    const { classes: propsClasses, isSelected, item, group, ...restProps } = props;
+    const {
+        classes: propsClasses,
+        isSelected,
+        item,
+        group,
+        ...restProps
+    } = props;
     const { label, value_index } = item || {};
     const classes = useStyle(defaultClasses, propsClasses);
-    const {currentCurrencyCode} = useCurrencySwitcher();
+    const { currentCurrencyCode } = useCurrencySwitcher();
     const currencySymbolMap = {
         USD: '$',
         EUR: '€'
     };
-    const title = (group === 'price')? currencySymbolMap[currentCurrencyCode] + label.replace('-', " - "+currencySymbolMap[currentCurrencyCode]) : label;
+    const title =
+        group === 'price'
+            ? currencySymbolMap[currentCurrencyCode] +
+              label.replace('-', ' - ' + currencySymbolMap[currentCurrencyCode])
+            : label;
     const { formatMessage } = useIntl();
 
     const ariaLabel = !isSelected
