@@ -352,7 +352,7 @@
     "csr.description": "Description (max. 10000 characters)",
     "csr.dragFile": "Drag a file here",
     "csr.emptyAttachments": "No attachments yet",
-    "csr.emptyTicketsAdvice": "Oops... Looks like you haven't opened any tickets yet",
+    "csr.emptyTicketsAdvice": "There are no tickets to show",
     "csr.emptyTicketsSearchAdvice": "Oops... It seems that no tickets were found related to ''{searchText}''",
     "csr.enhacementPlaceholder": "Do you have any idea to improve B2BStore? Tell us, we are open to improve.",
     "csr.enhancement": "Enhancement",
