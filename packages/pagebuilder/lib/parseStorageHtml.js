@@ -111,7 +111,12 @@ const convertToInlineStyles = document => {
                                 css: rule.style.cssText
                             };
                         });
-                        mediaStyles[media] = styles;
+
+                        const existingMediaStyles = mediaStyles[media] ? mediaStyles[media] : [];
+                        mediaStyles[media] = [
+                            ...existingMediaStyles,
+                            ...styles
+                        ];
                     });
                 }
             });
