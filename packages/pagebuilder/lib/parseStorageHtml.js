@@ -112,7 +112,9 @@ const convertToInlineStyles = document => {
                             };
                         });
 
-                        const existingMediaStyles = mediaStyles[media] ? mediaStyles[media] : [];
+                        const existingMediaStyles = mediaStyles[media]
+                            ? mediaStyles[media]
+                            : [];
                         mediaStyles[media] = [
                             ...existingMediaStyles,
                             ...styles
