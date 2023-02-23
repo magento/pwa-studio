@@ -81,7 +81,7 @@ const ProductSort = props => {
                 id: 'sortItem.priceDesc',
                 text: formatMessage({
                     id: 'sortItem.priceDesc',
-                    defaultMessage: 'Price: High to Low'
+                    defaultMessage: 'Price: Higher to lower'
                 }),
                 attribute: 'price',
                 sortDirection: 'DESC'
@@ -90,7 +90,7 @@ const ProductSort = props => {
                 id: 'sortItem.priceAsc',
                 text: formatMessage({
                     id: 'sortItem.priceAsc',
-                    defaultMessage: 'Price: Low to High'
+                    defaultMessage: 'Price: Lower to Higher'
                 }),
                 attribute: 'price',
                 sortDirection: 'ASC'
