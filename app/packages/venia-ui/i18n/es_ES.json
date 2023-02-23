@@ -907,7 +907,7 @@
     "sortItem.createdDesc": "Creación: Más reciente",
     "sortItem.position": "Posición",
     "sortItem.positionBar": "posición",
-    "sortItem.priceAsc": "Precio: De menor a mayo",
+    "sortItem.priceAsc": "Precio: De menor a mayor",
     "sortItem.priceAscBar": "precio creciente",
     "sortItem.priceDesc": "Precio: De mayor a menor",
     "sortItem.priceDescBar": "precio decreciente",
