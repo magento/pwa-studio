@@ -279,7 +279,7 @@ export const useCheckoutPage = props => {
                 });
 
                 const orderId = data.placeOrder.order.order_number;
-                
+
                 ReactGA.plugin.execute('ecommerce', 'addTransaction', {
                     id: orderId,
                     revenue: cart.prices.subtotal_excluding_tax.value,

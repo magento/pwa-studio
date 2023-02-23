@@ -162,7 +162,7 @@ const GalleryItem = props => {
                         </ul>
                     }
                 >
-                    <img className={classes.attributeInfoIcon} src={InfoIcon} />
+                    <img className={classes.attributeInfoIcon} src={InfoIcon} alt="attributeInfoIcon" />
                 </Tippy>
             </div>
         );
@@ -309,7 +309,7 @@ const GalleryItem = props => {
                     </div>
                 ) : null}
                 <div className={classes.favIcon}>{wishlistButton}</div>
-                <div onClick={shareClick} className={classes.shareIcon}>
+                <div alt="shareClick" onClick={shareClick} className={classes.shareIcon}>
                     <img src={ShareIcon} alt="share icon" />
                 </div>
                 <div className={classes.stockIcon}>
@@ -364,9 +364,7 @@ const GalleryItem = props => {
                 </div>
             )}
             <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}`}>
-                {!price.minimalPrice?.amount.value && process.env.B2BSTORE_VERSION === 'PREMIUM'
-                    ? requestQuoteButton
-                    : addButton}
+                {addButton}
                 <button className={classes.compareIcon} onClick={addToCompare}>
                     <img src={CompareIcon} alt="compare icon" />
                 </button>

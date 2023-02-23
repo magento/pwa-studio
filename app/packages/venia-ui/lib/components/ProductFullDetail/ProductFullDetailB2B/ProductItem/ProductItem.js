@@ -71,28 +71,6 @@ const ProductItem = props => {
         }
     }, [cartId, quantity, variant, addConfigurableProductToCart, setError, product]);
 
-    const confirmRequestQuote = () => {
-        const simpleProducts = [
-            {
-                sku: variant.product.sku,
-                orParentSku: product.sku,
-                quantity
-            }
-        ];
-        handleAddCofigItemBySku(simpleProducts);
-        setIsOpen(false);
-    };
-
-    const requestQuoteButton = (
-        <Button
-            className={classes.requestButton}
-            disabled={variant.product.stock_status === 'OUT_OF_STOCK'}
-            onClick={() => setIsOpen(true)}
-            priority="high"
-        >
-            <FormattedMessage id={'productFullDetailB2B.quote'} defaultMessage={'Quote'} />
-        </Button>
-    );
 
     const stockStatusText = (
         <FormattedMessage id={'productFullDetailB2B.stockStatus'} defaultMessage={'Stock Status'} />
@@ -217,17 +195,9 @@ const ProductItem = props => {
                 </span>
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
-                    {variant.product.price.minimalPrice.amount.value ? addToCartButton : requestQuoteButton}
+                    {addToCartButton}
                 </div>
             </div>
-            <ConfirmationModal
-                isOpen={isOpen}
-                onCancel={() => setIsOpen(false)}
-                onConfirm={confirmRequestQuote}
-                product={variant}
-                quantity={quantity}
-                setQuantity={val => setQuantity(val)}
-            />
         </div>
     );
 
@@ -274,7 +244,7 @@ const ProductItem = props => {
                     </div>
                     <div className={classes.productItemBodyOperations}>
                         {quantitySelector(2)}
-                        {variant.product.price.minimalPrice.amount.value ? addToCartButton : requestQuoteButton}
+                        {addToCartButton}
                     </div>
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </div>

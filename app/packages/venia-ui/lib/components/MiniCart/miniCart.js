@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Lock as LockIcon, AlertCircle as AlertCircleIcon } from 'react-feather';
 import { bool, shape, string } from 'prop-types';
@@ -13,6 +13,8 @@ import StockStatusMessage from '../StockStatusMessage';
 import ProductList from './ProductList';
 import defaultClasses from './miniCart.module.css';
 import operations from './miniCart.gql';
+
+import ConfirmationModal from '../RequestQuote/ConfirmationModal';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -46,8 +48,16 @@ const MiniCart = React.forwardRef((props, ref) => {
         subTotal,
         totalQuantity,
         configurableThumbnailSource,
-        storeUrlSuffix
+        storeUrlSuffix,
+        SelectedVariants,
+        submitQuote
     } = talonProps;
+    const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+
+    const confirmRequestQuote = async () => {
+        await submitQuote();
+        await setIsQuoteOpen(false);
+    };
 
     const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
@@ -58,7 +68,6 @@ const MiniCart = React.forwardRef((props, ref) => {
     const isCartEmpty = !(productList && productList.length);
 
     const [, { addToast }] = useToasts();
-
     useEffect(() => {
         if (errorMessage) {
             addToast({
@@ -70,6 +79,16 @@ const MiniCart = React.forwardRef((props, ref) => {
             });
         }
     }, [addToast, errorMessage]);
+
+    const requestQuoteClick = () => setIsQuoteOpen(true);
+
+    const requestQuoteButton = (
+        <div className={classes.quoteBtn}>
+        <Button  onClick={requestQuoteClick} priority={'normal'}>
+            <FormattedMessage id={'galleryItem.Requestquote'} defaultMessage={'Request quote'} />
+        </Button>
+        </div>
+    );
 
     const header = subTotal ? (
         <Fragment>
@@ -128,6 +147,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     />
                     <FormattedMessage id={'miniCart.checkout'} defaultMessage={'CHECKOUT'} />
                 </Button>
+                {process.env.B2BSTORE_VERSION === 'PREMIUM' && requestQuoteButton}
                 <Button
                     onClick={handleEditCart}
                     priority="high"
@@ -138,6 +158,14 @@ const MiniCart = React.forwardRef((props, ref) => {
                     <FormattedMessage id={'miniCart.editCartButton'} defaultMessage={'Edit Shopping Bag'} />
                 </Button>
             </div>
+            {isQuoteOpen && (
+                <ConfirmationModal
+                    isOpen={isQuoteOpen}
+                    onCancel={() => setIsQuoteOpen(false)}
+                    onConfirm={confirmRequestQuote}
+                    products={SelectedVariants}
+                />
+            )}
         </Fragment>
     );
 
