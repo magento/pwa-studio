@@ -118,7 +118,9 @@ const SavedCartsView = props => {
         <div className={classes.tableContent}>
             <div className={classes.savedCartViewTable}>
                 {/*savedCartViewTableHead*/}
-                <label className={classes.itemsTitle}>Items</label>
+                <label className={classes.itemsTitle}>
+                    <FormattedMessage id={'orderItems.itemsHeading'} defaultMessage={'Items'} />
+                </label>
                 {savedCartViewTableItems}
                 <div className={classes.footer}>
                     {savedCartViewTableFooter}
