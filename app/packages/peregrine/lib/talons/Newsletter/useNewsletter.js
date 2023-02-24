@@ -5,7 +5,8 @@ import DEFAULT_OPERATIONS from './newsletter.gql';
 import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 export const useNewsletter = (props = {}) => {
-    const { subscribeMutation } = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { subscribeToNewsletterMutation } = operations;
 
     const formApiRef = useRef(null);
 
@@ -13,7 +14,7 @@ export const useNewsletter = (props = {}) => {
 
     const clearErrors = () => setNewsLetterError(null);
 
-    const [subscribeNewsLetter, { data, loading: subscribeLoading }] = useMutation(subscribeMutation, {
+    const [subscribeNewsLetter, { data, loading: subscribeLoading }] = useMutation(subscribeToNewsletterMutation, {
         fetchPolicy: 'no-cache',
         onError: setNewsLetterError
     });
@@ -42,7 +43,7 @@ export const useNewsletter = (props = {}) => {
         },
         [subscribeNewsLetter]
     );
-    const errors = useMemo(() => new Map([['subscribeMutation', newsLetterError]]), [newsLetterError]);
+    const errors = useMemo(() => new Map([['subscribeToNewsletterMutation', newsLetterError]]), [newsLetterError]);
 
     return {
         isEnabled,
