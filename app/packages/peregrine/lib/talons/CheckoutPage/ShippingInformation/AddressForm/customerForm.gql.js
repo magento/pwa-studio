@@ -28,21 +28,8 @@ export const UPDATE_CUSTOMER_ADDRESS_MUTATION = gql`
     }
 `;
 
-export const GET_CUSTOMER_QUERY = gql`
-    query GetCustomer {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        customer {
-            default_shipping
-            email
-            firstname
-            lastname
-        }
-    }
-`;
-
 export default {
     createCustomerAddressMutation: CREATE_CUSTOMER_ADDRESS_MUTATION,
     updateCustomerAddressMutation: UPDATE_CUSTOMER_ADDRESS_MUTATION,
-    getCustomerQuery: GET_CUSTOMER_QUERY,
     getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES
 };

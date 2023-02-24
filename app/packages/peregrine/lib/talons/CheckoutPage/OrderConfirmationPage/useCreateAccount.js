@@ -8,7 +8,9 @@ import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
 import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 import { useEventingContext } from '../../../context/eventing';
 
-import DEFAULT_OPERATIONS from './createAccount.gql';
+import DEFAULT_OPERATIONS from '../../CreateAccount/createAccount.gql';
+import SIGNIN_OPERATIONS from '../../SignIn/signIn.gql';
+import ACCOUNT_OPERATIONS from '../../AccountInformationPage/accountInformationPage.gql';
 import CART_OPERATIONS from '../../CartPage/cartPage.gql';
 
 /**
@@ -33,13 +35,19 @@ import CART_OPERATIONS from '../../CartPage/cartPage.gql';
 export const useCreateAccount = props => {
     const { initialValues = {}, onSubmit } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        CART_OPERATIONS,
+        SIGNIN_OPERATIONS,
+        ACCOUNT_OPERATIONS,
+        props.operations
+    );
 
     const {
         createAccountMutation,
         createCartMutation,
         getCartDetailsQuery,
-        getCustomerQuery,
+        getCustomerInformationQuery,
         signInMutation
     } = operations;
 
@@ -61,7 +69,7 @@ export const useCreateAccount = props => {
         fetchPolicy: 'no-cache'
     });
 
-    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerInformationQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const { generateReCaptchaData, recaptchaLoading, recaptchaWidgetProps } = useGoogleReCaptcha({

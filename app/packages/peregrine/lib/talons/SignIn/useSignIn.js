@@ -9,6 +9,7 @@ import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
 
 import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import ACCOUNT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
 import DEFAULT_OPERATIONS from './signIn.gql';
 import { useEventingContext } from '../../context/eventing';
 
@@ -20,10 +21,10 @@ import { useModulesContext } from '../../context/modulesProvider';
 export const useSignIn = props => {
     const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, ACCOUNT_OPERATIONS, props.operations);
 
     const {
-        getCustomerQuery,
+        getCustomerInformationQuery,
         mergeCartsMutation,
         signInMutation,
         getCartDetailsQuery,
@@ -52,7 +53,7 @@ export const useSignIn = props => {
 
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
-    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerInformationQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const formApiRef = useRef(null);

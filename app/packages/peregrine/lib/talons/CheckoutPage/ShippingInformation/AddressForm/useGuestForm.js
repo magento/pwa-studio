@@ -7,31 +7,21 @@ import { useCartContext } from '../../../../context/cart';
 import { useEventingContext } from '../../../../context/eventing';
 
 export const useGuestForm = props => {
-    const {
-        afterSubmit,
-        onCancel,
-        onSuccess,
-        shippingData,
-        toggleSignInContent,
-        setGuestSignInUsername
-    } = props;
+    const { afterSubmit, onCancel, onSuccess, shippingData, toggleSignInContent, setGuestSignInUsername } = props;
     const [showSignInToast, setShowSignInToast] = useState(false);
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { setGuestShippingMutation, getEmailAvailableQuery } = operations;
+    const { setGuestShippingMutation, isEmailAvailableQuery } = operations;
 
     const [{ cartId }] = useCartContext();
 
-    const [setGuestShipping, { error, loading }] = useMutation(
-        setGuestShippingMutation,
-        {
-            onCompleted: () => {
-                onSuccess();
-            }
+    const [setGuestShipping, { error, loading }] = useMutation(setGuestShippingMutation, {
+        onCompleted: () => {
+            onSuccess();
         }
-    );
+    });
 
-    const [runQuery, { data }] = useLazyQuery(getEmailAvailableQuery, {
+    const [runQuery, { data }] = useLazyQuery(isEmailAvailableQuery, {
         fetchPolicy: 'cache-and-network'
     });
 
@@ -111,10 +101,7 @@ export const useGuestForm = props => {
         [setGuestSignInUsername, toggleSignInContent]
     );
 
-    const errors = useMemo(
-        () => new Map([['setGuestShippingMutation', error]]),
-        [error]
-    );
+    const errors = useMemo(() => new Map([['setGuestShippingMutation', error]]), [error]);
 
     useEffect(() => {
         if (data) {

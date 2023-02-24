@@ -1,9 +1,17 @@
 import { gql } from '@apollo/client';
-import { PriceSummaryFragment } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/priceSummaryFragments.gql';
 
+import { AvailablePaymentMethodsFragment } from '../../PaymentInformation/paymentInformation.gql';
+import { PriceSummaryFragment } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/priceSummaryFragments.gql';
 import { ShippingInformationFragment } from '../shippingInformationFragments.gql';
 import { ShippingMethodsCheckoutFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
-import { AvailablePaymentMethodsFragment } from '../../PaymentInformation/paymentInformation.gql';
+
+export const IS_EMAIL_AVAILABLE = gql`
+    query IsEmailAvailable($email: String!) {
+        isEmailAvailable(email: $email) {
+            is_email_available
+        }
+    }
+`;
 
 export const SET_GUEST_SHIPPING = gql`
     mutation SetGuestShipping($cartId: String!, $email: String!, $address: CartAddressInput!) {
@@ -15,28 +23,20 @@ export const SET_GUEST_SHIPPING = gql`
         setShippingAddressesOnCart(input: { cart_id: $cartId, shipping_addresses: [{ address: $address }] }) {
             cart {
                 id
+                ...AvailablePaymentMethodsFragment
+                ...PriceSummaryFragment
                 ...ShippingInformationFragment
                 ...ShippingMethodsCheckoutFragment
-                ...PriceSummaryFragment
-                ...AvailablePaymentMethodsFragment
             }
         }
     }
+    ${AvailablePaymentMethodsFragment}
+    ${PriceSummaryFragment}
     ${ShippingInformationFragment}
     ${ShippingMethodsCheckoutFragment}
-    ${PriceSummaryFragment}
-    ${AvailablePaymentMethodsFragment}
-`;
-
-export const GET_EMAIL_AVAILABLE_QUERY = gql`
-    query IsEmailAvailable($email: String!) {
-        isEmailAvailable(email: $email) {
-            is_email_available
-        }
-    }
 `;
 
 export default {
-    setGuestShippingMutation: SET_GUEST_SHIPPING,
-    getEmailAvailableQuery: GET_EMAIL_AVAILABLE_QUERY
+    isEmailAvailableQuery: IS_EMAIL_AVAILABLE,
+    setGuestShippingMutation: SET_GUEST_SHIPPING
 };

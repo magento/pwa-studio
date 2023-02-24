@@ -403,14 +403,6 @@ export const GET_PRODUCTS = gql`
     }
 `;
 
-export const GET_CUSTOMER = gql`
-    query GetCustomerForQuote {
-        customer {
-            mp_quote_id
-        }
-    }
-`;
-
 export default {
     addConfigurableProductToQuoteMutation: ADD_CONFIGURABLE_PRODUCT_TO_QUOTE,
     addQuoteToCartMutation: ADD_QUOTE_TO_CART,
@@ -426,6 +418,5 @@ export default {
     submitCurrentQuoteMutation: SUBMIT_CURRENT_QUOTE,
     updateQuoteMutation: UPDATE_QUOTE,
 
-    getCustomerQuery: GET_CUSTOMER,
     getProductsQuery: GET_PRODUCTS
 };

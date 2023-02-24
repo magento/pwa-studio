@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const SIGN_OUT = gql`
-    mutation SignOutFromMenu {
+    mutation SignOut {
         revokeCustomerToken {
             result
         }

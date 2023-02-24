@@ -9,7 +9,9 @@ import { retrieveCartId } from '../../store/actions/cart';
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
 import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import SIGNIN_OPERATIONS from '../SignIn/signIn.gql';
 import DEFAULT_OPERATIONS from './createAccount.gql';
+import ACCOUNT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
 import { useEventingContext } from '../../context/eventing';
 
 import doCsrLogin from '@magento/peregrine/lib/RestApi/Csr/auth/login';
@@ -36,17 +38,23 @@ import { useModulesContext } from '../../context/modulesProvider';
 export const useCreateAccount = props => {
     const { initialValues = {}, onSubmit, onCancel } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        CART_OPERATIONS,
+        ACCOUNT_OPERATIONS,
+        SIGNIN_OPERATIONS,
+        props.operations
+    );
 
     const {
         createAccountMutation,
         createCartMutation,
         getCartDetailsQuery,
-        getCustomerQuery,
+        getCustomerInformationQuery,
         mergeCartsMutation,
         signInMutation
     } = operations;
-    
+
     const apolloClient = useApolloClient();
 
     const { tenantConfig } = useModulesContext();
@@ -71,7 +79,7 @@ export const useCreateAccount = props => {
         fetchPolicy: 'no-cache'
     });
 
-    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerInformationQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const { generateReCaptchaData, recaptchaLoading, recaptchaWidgetProps } = useGoogleReCaptcha({

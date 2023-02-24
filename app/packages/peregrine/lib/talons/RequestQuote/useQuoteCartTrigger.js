@@ -8,13 +8,14 @@ const DENIED_MINI_CART_ROUTES = ['/checkout'];
 export const AFTER_UPDATE_MY_QUOTE = 'after_update_my_QUOTE';
 
 import DEFAULT_OPERATIONS from '../RequestQuote/requestQuote.gql';
+import ACCOUNT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useQuoteCartTrigger = props => {
     const { getConfigData, getQuoteId, setQuoteId } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getQuoteByIdQuery, deleteItemFromQuoteMutation, getCustomerQuery } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, ACCOUNT_OPERATIONS, props.operations);
+    const { getQuoteByIdQuery, deleteItemFromQuoteMutation, getCustomerInformationQuery } = operations;
 
     const configData = getConfigData();
 
@@ -22,7 +23,7 @@ export const useQuoteCartTrigger = props => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [{ isSignedIn: isUserSignedIn }] = useUserContext();
-    const { data: custoemrData } = useQuery(getCustomerQuery, {
+    const { data: custoemrData } = useQuery(getCustomerInformationQuery, {
         fetchPolicy: 'network-only',
         skip: !isUserSignedIn
     });

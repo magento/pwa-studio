@@ -3,20 +3,6 @@ import { gql } from '@apollo/client';
 import { AccountInformationPageFragment } from './accountInformationPageFragment.gql';
 import { CustomerAddressBookAddressFragment } from '@magento/peregrine/lib/talons/AddressBookPage/addressBookFragments.gql';
 
-import { GET_CUSTOMER_ADDRESSES } from '@magento/peregrine/lib/talons/AddressBookPage/addressBookPage.gql';
-
-export const SET_CUSTOMER_INFORMATION = gql`
-    mutation SetCustomerInformation($customerInput: CustomerInput!) {
-        updateCustomer(input: $customerInput) {
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
-            customer {
-                ...AccountInformationPageFragment
-            }
-        }
-    }
-    ${AccountInformationPageFragment}
-`;
-
 export const CHANGE_CUSTOMER_PASSWORD = gql`
     mutation ChangeCustomerPassword($currentPassword: String!, $newPassword: String!) {
         changeCustomerPassword(
@@ -26,16 +12,6 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
             email
         }
     }
-`;
-
-export const GET_CUSTOMER_INFORMATION = gql`
-    query GetCustomerInformation {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        customer {
-            ...AccountInformationPageFragment
-        }
-    }
-    ${AccountInformationPageFragment}
 `;
 
 export const ADD_NEW_CUSTOMER_ADDRESS = gql`
@@ -49,6 +25,22 @@ export const ADD_NEW_CUSTOMER_ADDRESS = gql`
     }
 `;
 
+export const DELETE_CUSTOMER_ADDRESS = gql`
+    mutation DeleteCustomerAddressFromAddressBook($addressId: Int!) {
+        deleteCustomerAddress(id: $addressId)
+    }
+`;
+
+export const GET_CUSTOMER_INFORMATION = gql`
+    query GetCustomerInformation {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
+        customer {
+            ...AccountInformationPageFragment
+        }
+    }
+    ${AccountInformationPageFragment}
+`;
+
 export const UPDATE_CUSTOMER_ADDRESS = gql`
     mutation UpdateCustomerAddressInAddressBook($addressId: Int!, $updated_address: CustomerAddressInput!) {
         updateCustomerAddress(id: $addressId, input: $updated_address) {
@@ -59,22 +51,23 @@ export const UPDATE_CUSTOMER_ADDRESS = gql`
     ${CustomerAddressBookAddressFragment}
 `;
 
-export const DELETE_CUSTOMER_ADDRESS = gql`
-    mutation DeleteCustomerAddressFromAddressBook($addressId: Int!) {
-        deleteCustomerAddress(id: $addressId)
+export const SET_CUSTOMER_INFORMATION = gql`
+    mutation SetCustomerInformation($customerInput: CustomerInput!) {
+        updateCustomer(input: $customerInput) {
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
+            customer {
+                ...AccountInformationPageFragment
+            }
+        }
     }
+    ${AccountInformationPageFragment}
 `;
 
 export default {
-    mutations: {
-        setCustomerInformationMutation: SET_CUSTOMER_INFORMATION,
-        changeCustomerPasswordMutation: CHANGE_CUSTOMER_PASSWORD,
-        createCustomerAddressMutation: ADD_NEW_CUSTOMER_ADDRESS,
-        deleteCustomerAddressMutation: DELETE_CUSTOMER_ADDRESS,
-        updateCustomerAddressMutation: UPDATE_CUSTOMER_ADDRESS
-    },
-    queries: {
-        getCustomerInformationQuery: GET_CUSTOMER_INFORMATION,
-        getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES
-    }
+    changeCustomerPasswordMutation: CHANGE_CUSTOMER_PASSWORD,
+    createCustomerAddressMutation: ADD_NEW_CUSTOMER_ADDRESS,
+    deleteCustomerAddressMutation: DELETE_CUSTOMER_ADDRESS,
+    getCustomerInformationQuery: GET_CUSTOMER_INFORMATION,
+    setCustomerInformationMutation: SET_CUSTOMER_INFORMATION,
+    updateCustomerAddressMutation: UPDATE_CUSTOMER_ADDRESS
 };

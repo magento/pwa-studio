@@ -13,16 +13,6 @@ export const GET_CHECKOUT_DETAILS = gql`
     ${CheckoutPageFragment}
 `;
 
-export const GET_CUSTOMER = gql`
-    query GetCustomerForCheckout {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        customer {
-            default_shipping
-            firstname
-        }
-    }
-`;
-
 // A query to fetch order details _right_ before we submit, so that we can pass
 // data to the order confirmation page.
 export const GET_ORDER_DETAILS = gql`
@@ -47,7 +37,6 @@ export const PLACE_ORDER = gql`
 
 export default {
     getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
-    getCustomerQuery: GET_CUSTOMER,
     getOrderDetailsQuery: GET_ORDER_DETAILS,
     placeOrderMutation: PLACE_ORDER
 };

@@ -7,7 +7,7 @@ import { useCatalogContext } from '../../context/catalog';
 import { useStoreConfigContext } from '../../context/storeConfigProvider';
 import { useUserContext } from '../../context/user';
 
-import DEFAULT_OPERATIONS from './navigation.gql';
+import DEFAULT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
 import mergeOperations from '../../util/shallowMerge';
 
 const ancestors = {
@@ -20,12 +20,12 @@ const ancestors = {
 
 export const useNavigation = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerQuery } = operations;
+    const { getCustomerInformationQuery } = operations;
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
     const [, { getUserDetails }] = useUserContext();
-    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerInformationQuery);
 
     // request data from server
     useEffect(() => {

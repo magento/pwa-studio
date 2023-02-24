@@ -8,6 +8,7 @@ import { useCartContext } from '../../context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
 import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import ACCOUNT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
 import PAYMENT_METHODS_OPERATIONS from './PaymentInformation/paymentMethods.gql';
 
 import CheckoutError from './CheckoutError';
@@ -26,7 +27,7 @@ export const CHECKOUT_STEP = {
 /**
  *
  * @param {DocumentNode} props.operations.getCheckoutDetailsQuery query to fetch checkout details
- * @param {DocumentNode} props.operations.getCustomerQuery query to fetch customer details
+ * @param {DocumentNode} props.operations.getCustomerInformationQuery query to fetch customer details
  * @param {DocumentNode} props.operations.getOrderDetailsQuery query to fetch order details
  * @param {DocumentNode} props.operations.createCartMutation mutation to create a new cart
  * @param {DocumentNode} props.operations.placeOrderMutation mutation to place order
@@ -69,6 +70,7 @@ export const useCheckoutPage = props => {
 
     const operations = mergeOperations(
         DEFAULT_OPERATIONS,
+        ACCOUNT_OPERATIONS,
         CART_OPERATIONS,
         PAYMENT_METHODS_OPERATIONS,
         props.operations
@@ -77,7 +79,7 @@ export const useCheckoutPage = props => {
     const {
         createCartMutation,
         getCheckoutDetailsQuery,
-        getCustomerQuery,
+        getCustomerInformationQuery,
         getOrderDetailsQuery,
         placeOrderMutation,
         setPaymentMethodOnCartMutation
@@ -122,7 +124,9 @@ export const useCheckoutPage = props => {
         }
     );
 
-    const { data: customerData, loading: customerLoading } = useQuery(getCustomerQuery, { skip: !isSignedIn });
+    const { data: customerData, loading: customerLoading } = useQuery(getCustomerInformationQuery, {
+        skip: !isSignedIn
+    });
 
     const { data: checkoutData, networkStatus: checkoutQueryNetworkStatus } = useQuery(getCheckoutDetailsQuery, {
         /**
