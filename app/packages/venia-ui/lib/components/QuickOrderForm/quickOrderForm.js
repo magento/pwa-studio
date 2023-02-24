@@ -272,7 +272,7 @@ const QuickOrderForm = props => {
                                                     />
                                                 </div>
                                                 <div className={classes.priceWrapper}>
-                                                    {item.price ? (
+                                                    {item.stock_status === 'IN_STOCK' && item.price ? (
                                                         <span className={classes.priceText}>
                                                             {' '}
                                                             {item.price.minimalPrice.amount.currency === 'USD'

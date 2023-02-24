@@ -18,11 +18,7 @@ const WishlistItem = props => {
     const { minimalPrice, regularPrice } = price;
 
     const { configurable_options: configurableOptions = [], product } = item;
-    const {
-        name,
-        price_range: priceRange,
-        stock_status: stockStatus
-    } = product;
+    const { name, price_range: priceRange, stock_status: stockStatus } = product;
 
     const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
     const simpleProductLink = `/simple-product?sku=${sku}`;
@@ -51,8 +47,7 @@ const WishlistItem = props => {
                 type: 'error',
                 message: formatMessage({
                     id: 'wishlistItem.addToCartError',
-                    defaultMessage:
-                        'Something went wrong. Please refresh and try again.'
+                    defaultMessage: 'Something went wrong. Please refresh and try again.'
                 }),
                 timeout: 5000
             });
@@ -74,17 +69,14 @@ const WishlistItem = props => {
 
     const optionElements = useMemo(() => {
         return configurableOptions.map(option => {
-            const {
-                id,
-                option_label: optionLabel,
-                value_label: valueLabel
-            } = option;
+            const { id, option_label: optionLabel, value_label: valueLabel } = option;
 
             const optionString = `${optionLabel}: ${valueLabel}`;
 
             return (
                 <span className={classes.option} key={id}>
-                    {optionString}<br/>
+                    {optionString}
+                    <br />
                 </span>
             );
         });
@@ -92,10 +84,7 @@ const WishlistItem = props => {
 
     const imageProps = {
         classes: {
-            image:
-                stockStatus === 'OUT_OF_STOCK'
-                    ? classes.image_disabled
-                    : classes.image
+            image: stockStatus === 'OUT_OF_STOCK' ? classes.image_disabled : classes.image
         },
         ...talonProps.imageProps
     };
@@ -105,16 +94,10 @@ const WishlistItem = props => {
         defaultMessage: 'Remove Product from wishlist'
     });
 
-    const rootClass = isRemovalInProgress
-        ? classes.root_disabled
-        : classes.root;
+    const rootClass = isRemovalInProgress ? classes.root_disabled : classes.root;
 
     const addToCart = isSupportedProductType ? (
-        <button
-            className={classes.addToCart}
-            {...addToCartButtonProps}
-            data-cy="wishlistItem-addToCart"
-        >
+        <button className={classes.addToCart} {...addToCartButtonProps} data-cy="wishlistItem-addToCart">
             {formatMessage({
                 id: 'wishlistItem.addToCart',
                 defaultMessage: 'Add to Cart'
@@ -135,10 +118,7 @@ const WishlistItem = props => {
                 <Image {...imageProps} />
             </article>
             <div className={classes.actionWrap}>
-                <span
-                    className={classes.name}
-                    data-cy="wishlistItem-productName"
-                >
+                <span className={classes.name} data-cy="wishlistItem-productName">
                     {name}
                 </span>{' '}
                 <article className={classes.shareAndCanContainer}>
@@ -155,11 +135,8 @@ const WishlistItem = props => {
                     </button>
                 </article>
             </div>
-            <div
-                className={classes.priceContainer}
-                data-cy="wishlistItem-priceContainer"
-            >
-                <Price currencyCode={currency} value={unitPrice} />
+            <div className={classes.priceContainer} data-cy="wishlistItem-priceContainer">
+                {stockStatus === 'IN_STOCK' && <Price currencyCode={currency} value={unitPrice} />}
             </div>
             <article className={classes.optionContainer}> {optionElements}</article>
             {addToCart}
