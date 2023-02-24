@@ -7,7 +7,7 @@ import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import ADDRESS_BOOK_OPERATIONS from '../AddressBook/addressBook.gql';
+import ADDRESS_BOOK_OPERATIONS from '../../AddressBookPage/addressBookPage.gql';
 import BILLING_ADDRESS_OPERATIONS from '../BillingAddress/billingAddress.gql';
 import PAYMENT_INFORMATION_OPERATIONS from './paymentInformation.gql';
 import PAYMENT_METHODS_OPERATIONS from './paymentMethods.gql';

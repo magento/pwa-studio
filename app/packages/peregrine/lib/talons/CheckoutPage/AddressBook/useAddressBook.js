@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
-import DEFAULT_OPERATIONS from './addressBook.gql';
+import DEFAULT_OPERATIONS from '../../AddressBookPage/addressBookPage.gql';
 import SHIPPING_INFORMATION_OPERATIONS from '../ShippingInformation/shippingInformation.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 

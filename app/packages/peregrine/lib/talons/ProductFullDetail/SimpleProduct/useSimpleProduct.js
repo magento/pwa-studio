@@ -7,6 +7,7 @@ import { GET_SIMPLE_PRODUCT } from '../SimpleProduct/getSimpleProduct.gql';
 import { useLocation } from 'react-router-dom';
 
 import { useModulesContext } from '../../../context/modulesProvider';
+import { useStoreConfigContext } from '../../../context/storeConfigProvider';
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct'];
 export const useSimpleProduct = (props = {}) => {
@@ -17,7 +18,6 @@ export const useSimpleProduct = (props = {}) => {
     const { tenantConfig } = useModulesContext();
 
     const isB2B = tenantConfig.b2bProductDetailView;
-    
 
     const { addConfigurableProductToCartMutation, productQuantity } = props;
 

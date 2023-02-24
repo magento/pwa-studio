@@ -21,6 +21,7 @@ const ancestors = {
 export const useNavigation = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerInformationQuery } = operations;
+    
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();

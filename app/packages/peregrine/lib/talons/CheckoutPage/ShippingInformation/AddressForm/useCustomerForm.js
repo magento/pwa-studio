@@ -4,17 +4,17 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useEventingContext } from '../../../../context/eventing';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import DEFAULT_OPERATIONS from './customerForm.gql';
 import SHIPPING_INFORMATION_OPERATIONS from '../shippingInformation.gql';
+import ADDRESS_BOOK_OPERATIONS from '../../../AddressBookPage/addressBookPage.gql';
 import ACCOUNT_OPERATIONS from '../../../AccountInformationPage/accountInformationPage.gql';
 
 export const useCustomerForm = props => {
     const { afterSubmit, onCancel, onSuccess, shippingData } = props;
 
     const operations = mergeOperations(
-        DEFAULT_OPERATIONS,
-        SHIPPING_INFORMATION_OPERATIONS,
         ACCOUNT_OPERATIONS,
+        ADDRESS_BOOK_OPERATIONS,
+        SHIPPING_INFORMATION_OPERATIONS,
         props.operations
     );
 
