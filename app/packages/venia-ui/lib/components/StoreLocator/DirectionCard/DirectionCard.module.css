@@ -1,0 +1,29 @@
+.backContainer {
+    display: flex;
+    cursor: pointer;
+    margin: 5px 0 5px 0;
+}
+.durationContainer {
+    margin-bottom: 20px;
+}
+.cardContainer {
+    border: 1px solid var(--b2bstore-global-color-orange);
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
+    margin: 20px;
+    padding: 14px;
+}
+.instructionsContainer {
+    display: flex;
+}
+.instructionsText {
+    width: fit-content;
+}
+.instructionsText p,
+.distanceContainer p {
+    font-size: 14px;
+}
+
+.distanceContainer {
+    text-align: end;
+}
