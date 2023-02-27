@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Suspense,useMemo  } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import ItemsTable from './ItemsTable';
 import RichText from '@magento/venia-ui/lib/components/RichText';
@@ -60,13 +60,11 @@ const SimpleProductB2B = props => {
             timeout: 3000
         });
 
-    console.log({ mp_attachments });
     const productAttachments = useMemo(() => {
         const previewIcon = <Icon src={Eye} size={20} />;
         return mp_attachments?.map(att => (
             <React.Fragment key={att.file_name}>
                 <span>
-                    {console.log(att.note === '' || checkAttachmentLogin(att.note))}
                     <img height="20px" width="20" src={att.file_icon} alt={att.name} />
                     {att.note === '' || checkAttachmentLogin(att.note) ? (
                         <a href={att.url_file} target="blank">

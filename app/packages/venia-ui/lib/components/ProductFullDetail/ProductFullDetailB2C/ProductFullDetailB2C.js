@@ -46,7 +46,6 @@ const ProductFullDetailB2C = props => {
 
     const [{ isSignedIn }] = useUserContext();
     const { mp_attachments } = productDetails;
-    console.log({ mp_attachments });
     // reutrn true if the login is requierd to see the attachment
     const checkAttachmentLogin = note => note === 'Login required';
 

@@ -59,13 +59,11 @@ const SimpleProductB2C = props => {
             timeout: 3000
         });
 
-    console.log({ mp_attachments });
     const productAttachments = useMemo(() => {
         const previewIcon = <Icon src={Eye} size={20} />;
         return mp_attachments?.map(att => (
             <React.Fragment key={att.file_name}>
                 <span>
-                    {console.log(att.note === '' || checkAttachmentLogin(att.note))}
                     <img height="20px" width="20" src={att.file_icon} alt={att.name} />
                     {att.note === '' || checkAttachmentLogin(att.note) ? (
                         <a href={att.url_file} target="blank">
