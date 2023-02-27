@@ -14,7 +14,6 @@ const DirectionCard = props => {
         setResponse,
         directionSteps
     } = useStoreLocatorContext();
-    console.log('directionSteps', directionSteps);
 
     const { formatMessage } = useIntl();
     const backText = formatMessage({
@@ -40,8 +39,6 @@ const DirectionCard = props => {
     const steps = useMemo(() => {
         if (directionSteps) return directionSteps?.steps;
     }, [directionSteps]);
-
-    console.log('steps', steps);
 
     return (
         <section>

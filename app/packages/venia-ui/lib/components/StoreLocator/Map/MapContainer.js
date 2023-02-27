@@ -18,13 +18,29 @@ const MapContainer = props => {
     } = useStoreLocatorContext();
 
     const classes = useStyle(defaultClasses, props.classes);
-    const googleApiKey = process.env.GOOGLE_API_KEY;
+    const googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
     const containerStyle = {
         width: '100%',
         height: '500px'
     };
 
     const mapRef = React.useRef();
+    const directionsServiceRef = React.useRef(null);
+    const directionsRendererRef = React.useRef(null);
+
+    const directionsOptions = React.useMemo(() => {
+        return {
+            destination: {
+                lat: centerCoordinates.lat,
+                lng: centerCoordinates.lng
+            },
+            origin: {
+                lat: 20.9790646,
+                lng: 105.7854776
+            },
+            travelMode: 'DRIVING'
+        };
+    }, [centerCoordinates]);
 
     const onMapLoad = React.useCallback(map => {
         mapRef.current = map;
@@ -73,27 +89,23 @@ const MapContainer = props => {
                                 />
                             ))}
 
-                            {showDirections && (
+                            {showDirections && !directionsServiceRef.current && (
                                 <DirectionsService
-                                    options={{
-                                        destination: {
-                                            lat: centerCoordinates.lat,
-                                            lng: centerCoordinates.lng
-                                        },
-                                        origin: {
-                                            lat: 20.9790646,
-                                            lng: 105.7854776
-                                        },
-                                        travelMode: 'DRIVING'
-                                    }}
+                                    options={directionsOptions}
                                     callback={directionsCallback}
+                                    onLoad={service => {
+                                        directionsServiceRef.current = service;
+                                    }}
                                 />
                             )}
 
-                            {response !== null && showDirections && (
+                            {showDirections && response !== null && !directionsRendererRef.current && (
                                 <DirectionsRenderer
                                     options={{
                                         directions: response
+                                    }}
+                                    onLoad={renderer => {
+                                        directionsRendererRef.current = renderer;
                                     }}
                                 />
                             )}
