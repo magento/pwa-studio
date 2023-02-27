@@ -1,0 +1,39 @@
+.container {
+    margin: 0 150px;
+}
+.innerContainer {
+    display: flex;
+    height: 600px;
+    border: 1px solid var(--b2bstore-global-color-orange);
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
+}
+.cardContainer {
+    padding: 0 2rem 0 2rem;
+    width: 500px;
+}
+
+.cardContainer div {
+    margin-bottom: 20px;
+}
+
+.scrollableContainer {
+    height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.googleMapContainer {
+    width: 65%;
+}
+.textContainer {
+    padding: 5px 10px 10px 10px;
+    display: flex;
+    justify-content: center;
+    background-color: var(--b2bstore-global-color-orange);
+    border-radius: 0px 0px 8px 8px;
+    cursor: pointer;
+}
+
+.textContainer p {
+    color: white;
+}
