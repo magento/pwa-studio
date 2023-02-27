@@ -7,13 +7,7 @@ import { useStyle } from '../../../classify';
 import { useStoreLocatorContext } from '../StoreLocatorProvider/StoreLocatorProvider';
 
 const DirectionCard = props => {
-    const {
-        setShowDirections,
-        showDirections,
-        setCenterCoordinates,
-        setResponse,
-        directionSteps
-    } = useStoreLocatorContext();
+    const { setShowDirections, showDirections, setCenterCoordinates, directionSteps } = useStoreLocatorContext();
 
     const { formatMessage } = useIntl();
     const backText = formatMessage({
@@ -33,12 +27,9 @@ const DirectionCard = props => {
             lat: 20.9790643,
             lng: 105.7854772
         });
-        setResponse(null);
-    }, [setCenterCoordinates, setResponse, setShowDirections, showDirections]);
+    }, [setCenterCoordinates, setShowDirections, showDirections]);
 
-    const steps = useMemo(() => {
-        if (directionSteps) return directionSteps?.steps;
-    }, [directionSteps]);
+    const steps = directionSteps?.steps;
 
     return (
         <section>
@@ -61,7 +52,7 @@ const DirectionCard = props => {
                             .replace(/<div\s+style="font-size:0.9em">.*?<\/div>/g, '')
                             .replace(/<wbr\s*\/?>/g, '');
                         return (
-                            <div>
+                            <div key={index}>
                                 <div className={classes.instructionsContainer}>
                                     <div className={classes.instructionsText}>
                                         <p>

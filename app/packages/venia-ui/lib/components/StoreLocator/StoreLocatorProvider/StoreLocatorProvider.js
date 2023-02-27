@@ -15,7 +15,7 @@ export const StoreLocatorProvider = ({ children }) => {
         lng: 105.7854772
     });
     const [response, setResponse] = useState(null);
-
+    console.log('response', response);
     //get the stores locations
     const { data: locations, error, loading } = useQuery(MP_STORE_LOCATOR_LOCATIONS, {
         variables: {
@@ -65,11 +65,7 @@ export const StoreLocatorProvider = ({ children }) => {
     }, []);
 
     //Direction steps
-    const directionSteps = useMemo(() => {
-        if (response) {
-            return response?.routes[0]?.legs[0];
-        }
-    }, [response]);
+    const directionSteps = response?.routes[0]?.legs[0];
 
     // Page control
     const pageControl = {
