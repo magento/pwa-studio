@@ -57,10 +57,8 @@ const MapContainer = props => {
     const cardContainer = (
         <section>
             <div className={classes.scrollableContainer}>
-                {locationsItems?.map(store => (
-                    <div>
-                        <StoreCard store={store} key={`${store.latitude}-${store.longitude}`} />
-                    </div>
+                {locationsItems?.map((store, index) => (
+                    <StoreCard store={store} key={`${store.latitude}-${store.longitude}-${index}`} />
                 ))}
             </div>
             <Pagination pageControl={pageControl} />
@@ -87,9 +85,9 @@ const MapContainer = props => {
                             zoom={8}
                             onLoad={onMapLoad}
                         >
-                            {locationsItems?.map(marker => (
+                            {locationsItems?.map((marker, index) => (
                                 <Marker
-                                    key={`${marker.latitude}-${marker.longitude}`}
+                                    key={`${marker.latitude}-${marker.longitude}-${index}`}
                                     position={{ lat: +marker.latitude, lng: +marker.longitude }}
                                     // onClick={() =>
                                     //   setSelected(marker);
