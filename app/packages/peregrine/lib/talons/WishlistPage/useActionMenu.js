@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 import mergeOperations from '../../util/shallowMerge';
-import DEFAULT_OPERATIONS from './wishlist.gql';
+import DEFAULT_OPERATIONS from '../Wishlist/wishlist.gql';
 
 const dialogs = {
     NONE: 1,

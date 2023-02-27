@@ -5,31 +5,26 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-import defaultOperations from '../addToListButton.gql';
+import DEFAULT_OPERATIONS from '../../wishlist.gql';
 
 export const useSingleWishlist = props => {
     const { afterAdd, beforeAdd, item } = props;
 
-    const operations = mergeOperations(defaultOperations, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { addProductToWishlistMutation, getProductsInWishlistsQuery } = operations;
 
     const [
         addProductToWishlist,
-        {
-            data: addProductData,
-            error: errorAddingProduct,
-            loading: isAddingToWishlist
-        }
-    ] = useMutation(operations.addProductToWishlistMutation);
+        { data: addProductData, error: errorAddingProduct, loading: isAddingToWishlist }
+    ] = useMutation(addProductToWishlistMutation);
 
     const {
         client,
         data: { customerWishlistProducts }
-    } = useQuery(operations.getProductsInWishlistsQuery);
+    } = useQuery(getProductsInWishlistsQuery);
 
     const isSelected = useMemo(() => {
-        return (
-            customerWishlistProducts.includes(item.sku) || isAddingToWishlist
-        );
+        return customerWishlistProducts.includes(item.sku) || isAddingToWishlist;
     }, [customerWishlistProducts, isAddingToWishlist, item.sku]);
 
     const [showLoginToast, setShowLoginToast] = useState(0);
@@ -42,8 +37,7 @@ export const useSingleWishlist = props => {
             setShowLoginToast(current => ++current);
         } else {
             try {
-
-                console.log({item})
+                console.log({ item });
                 if (beforeAdd) {
                     await beforeAdd();
                 }
@@ -53,12 +47,9 @@ export const useSingleWishlist = props => {
                 });
 
                 client.writeQuery({
-                    query: operations.getProductsInWishlistsQuery,
+                    query: getProductsInWishlistsQuery,
                     data: {
-                        customerWishlistProducts: [
-                            ...customerWishlistProducts,
-                            item.sku
-                        ]
+                        customerWishlistProducts: [...customerWishlistProducts, item.sku]
                     }
                 });
 
@@ -77,7 +68,7 @@ export const useSingleWishlist = props => {
         customerWishlistProducts,
         isSignedIn,
         item,
-        operations.getProductsInWishlistsQuery
+        getProductsInWishlistsQuery
     ]);
 
     const loginToastProps = useMemo(() => {
@@ -86,8 +77,7 @@ export const useSingleWishlist = props => {
                 type: 'info',
                 message: formatMessage({
                     id: 'wishlist.galleryButton.loginMessage',
-                    defaultMessage:
-                        'Please sign-in to your Account to save items for later.'
+                    defaultMessage: 'Please sign-in to your Account to save items for later.'
                 }),
                 timeout: 5000
             };
@@ -102,8 +92,7 @@ export const useSingleWishlist = props => {
                 type: 'success',
                 message: formatMessage({
                     id: 'wishlist.galleryButton.successMessageGeneral',
-                    defaultMessage:
-                        'Item successfully added to your favorites list.'
+                    defaultMessage: 'Item successfully added to your favorites list.'
                 }),
                 timeout: 5000
             };
@@ -118,8 +107,7 @@ export const useSingleWishlist = props => {
                 type: 'error',
                 message: formatMessage({
                     id: 'wishlist.galleryButton.addError',
-                    defaultMessage:
-                        'Something went wrong adding the product to your wishlist.'
+                    defaultMessage: 'Something went wrong adding the product to your wishlist.'
                 }),
                 timeout: 5000
             };

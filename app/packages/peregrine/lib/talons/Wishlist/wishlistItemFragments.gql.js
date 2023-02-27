@@ -56,7 +56,7 @@ export const WishlistItemFragment = gql`
                         id
                         uid
                         small_image {
-                            url 
+                            url
                         }
                         thumbnail {
                             url

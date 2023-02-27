@@ -3,11 +3,12 @@ import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '../../util/shallowMerge';
-import defaultOperations from './wishlistItem.gql';
+import DEFAULT_OPERATIONS from '../Wishlist/wishlist.gql';
 import { useEventingContext } from '../../context/eventing';
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 import { ADD_CONFIGURABLE_MUTATION } from '../ProductFullDetail/productFullDetail.gql';
+
 const mergeSupportedProductTypes = (supportedProductTypes = []) => {
     const newSupportedProductTypes = [...SUPPORTED_PRODUCT_TYPES];
 
@@ -52,8 +53,8 @@ export const useWishlistItem = props => {
 
     const supportedProductType = SUPPORTED_PRODUCT_TYPES.includes(addProductType);
 
-    const operations = mergeOperations(defaultOperations, props.operations);
-    const { addWishlistItemToCartMutation, removeProductsFromWishlistMutation } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { addWishlistProductToCartMutation, removeProductsFromWishlistMutation } = operations;
 
     const [{ cartId }] = useCartContext();
 
@@ -91,7 +92,7 @@ export const useWishlistItem = props => {
     const [
         addWishlistItemToCart,
         { error: addWishlistItemToCartError, loading: addWishlistItemToCartLoading }
-    ] = useMutation(addWishlistItemToCartMutation, {
+    ] = useMutation(addWishlistProductToCartMutation, {
         variables: {
             cartId,
             cartItem
@@ -242,7 +243,7 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemOperations
  *
- * @property {GraphQLDocument} addWishlistItemToCartMutation Mutation to add item to the cart
+ * @property {GraphQLDocument} addWishlistProductToCartMutation Mutation to add item to the cart
  * @property {GraphQLDocument} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
  *
  * @see [`wishlistItem.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistItem.gql.js}

@@ -4,8 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 import mergeOperations from '../../util/shallowMerge';
-import DEFAULT_OPERATIONS from './createWishlist.gql';
-import WISHLIST_PAGE_OPERATIONS from './wishlistPage.gql';
+import DEFAULT_OPERATIONS from '../Wishlist/wishlist.gql';
 
 /**
  * @function
@@ -15,6 +14,7 @@ import WISHLIST_PAGE_OPERATIONS from './wishlistPage.gql';
  */
 export const useCreateWishlist = (props = { numberOfWishlists: 1 }) => {
     const { numberOfWishlists } = props;
+
     const operations = mergeOperations(DEFAULT_OPERATIONS, WISHLIST_PAGE_OPERATIONS, props.operations);
     const { createWishlistMutation, getCustomerWishlistQuery } = operations;
 

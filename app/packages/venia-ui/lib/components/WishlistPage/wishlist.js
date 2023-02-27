@@ -13,7 +13,8 @@ import defaultClasses from './wishlist.module.css';
 import ActionMenu from './actionMenu';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import defaultOperations from '@magento/peregrine/lib/talons/WishlistPage/wishlistItem.gql';
+import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/Wishlist/wishlist.gql';
+
 import { useMutation } from '@apollo/client';
 import { useToasts } from '@magento/peregrine';
 import { useReactToPrint } from 'react-to-print';
@@ -31,8 +32,9 @@ const Wishlist = props => {
     const { data, shouldRenderVisibilityToggle, isCollapsed } = props;
     const { formatMessage } = useIntl();
     const { id, items_count: itemsCount, name, visibility } = data;
-    const operations = mergeOperations(defaultOperations, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { removeProductsFromWishlistMutation } = operations;
+
     const [isRemovalInProgress, setIsRemovalInProgress] = useState(false);
     const [, { addToast }] = useToasts();
 
@@ -45,14 +47,7 @@ const Wishlist = props => {
 
     const wishlistId = id;
     const talonProps = useWishlist({ id, itemsCount, isCollapsed });
-    const {
-        handleContentToggle,
-        isOpen,
-        items,
-        isLoading,
-        isFetchingMore,
-        handleLoadMore
-    } = talonProps;
+    const { handleContentToggle, isOpen, items, isLoading, isFetchingMore, handleLoadMore } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
     const contentClass = isOpen ? classes.content : classes.content_hidden;
@@ -137,15 +132,8 @@ const Wishlist = props => {
     const loadMoreButton =
         items && items.length < itemsCount ? (
             <div>
-                <Button
-                    className={classes.loadMore}
-                    disabled={isFetchingMore}
-                    onClick={handleLoadMore}
-                >
-                    <FormattedMessage
-                    id={'wishlist.loadMore'}
-                    defaultMessage={'Load more'}
-                    />
+                <Button className={classes.loadMore} disabled={isFetchingMore} onClick={handleLoadMore}>
+                    <FormattedMessage id={'wishlist.loadMore'} defaultMessage={'Load more'} />
                 </Button>
             </div>
         ) : null;
@@ -185,13 +173,9 @@ const Wishlist = props => {
         return (
             <div className={classes.root}>
                 <div className={classes.header}>
-                {/* {wishlistName}*/} {itemsCountMessage}
+                    {/* {wishlistName}*/} {itemsCountMessage}
                     <div className={classes.buttonsContainer}>
-                        <ActionMenu
-                            id={id}
-                            name={name}
-                            visibility={visibility}
-                        />
+                        <ActionMenu id={id} name={name} visibility={visibility} />
                     </div>
                 </div>
                 <LoadingIndicator />
@@ -204,16 +188,9 @@ const Wishlist = props => {
         : classes.visibilityToggle_hidden;
 
     const buttonsContainer = id ? (
-        <div
-            className={classes.buttonsContainer}
-            data-cy="wishlist-buttonsContainer"
-        >
+        <div className={classes.buttonsContainer} data-cy="wishlist-buttonsContainer">
             <ActionMenu id={id} name={name} visibility={visibility} />
-            <button
-                className={visibilityToggleClass}
-                onClick={handleContentToggle} 
-                type="button"
-            >
+            <button className={visibilityToggleClass} onClick={handleContentToggle} type="button">
                 {contentToggleIcon}
             </button>
         </div>
@@ -239,9 +216,7 @@ const Wishlist = props => {
     return (
         <div className={classes.root} data-cy="Wishlist-root">
             <div className={classes.header}>
-                <div className={classes.itemsCountContainer}>
-                    {itemsCountMessage}
-                    </div>
+                <div className={classes.itemsCountContainer}>{itemsCountMessage}</div>
                 <button
                     className={classes.deleteItem}
                     data-cy="wishlistItem-deleteItem"

@@ -3,23 +3,25 @@ import { useQuery, useMutation } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
-import DEFAULT_OPERATIONS from './wishlistDialog.gql';
+import DEFAULT_OPERATIONS from '../wishlist.gql';
 
 export const useWishlistDialog = props => {
     const { isLoading, itemOptions, onClose, onSuccess } = props;
+
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { addProductToWishlistMutation, getWishlistsQuery } = operations;
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const storeConfigData = useStoreConfigContext();
 
-    const { data: wishlistsData } = useQuery(operations.getWishlistsQuery, {
+    const { data: wishlistsData } = useQuery(getWishlistsQuery, {
         fetchPolicy: 'cache-and-network'
     });
 
     const [addProductToWishlist, { loading: isAddLoading, error: addProductError }] = useMutation(
-        operations.addProductToWishlistMutation,
+        addProductToWishlistMutation,
         {
-            refetchQueries: [{ query: operations.getWishlistsQuery }]
+            refetchQueries: [{ query: getWishlistsQuery }]
         }
     );
 
