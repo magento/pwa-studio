@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useStyle } from '../../../classify';
 import defaultClasses from './MapContainer.module.css';
 import { GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
@@ -24,9 +24,33 @@ const MapContainer = props => {
         height: '500px'
     };
 
-    const mapRef = useRef();
+    const mapRef = React.useRef();
+    const directionsServiceRef = React.useRef(null);
+    const directionsRendererRef = React.useRef(null);
 
-    const onMapLoad = useCallback(map => {
+    const directionsOptions = React.useMemo(() => {
+        return {
+            destination: {
+                lat: centerCoordinates.lat,
+                lng: centerCoordinates.lng
+            },
+            origin: {
+                lat: 20.9790646,
+                lng: 105.7854776
+            },
+            travelMode: 'DRIVING'
+        };
+    }, [centerCoordinates]);
+
+    useEffect(() => {
+        if (directionsServiceRef.current) {
+            directionsServiceRef.current = false;
+        } else if (directionsRendererRef.current) {
+            directionsRendererRef.current = false;
+        }
+    }, [centerCoordinates]);
+
+    const onMapLoad = React.useCallback(map => {
         mapRef.current = map;
     }, []);
 
@@ -73,27 +97,23 @@ const MapContainer = props => {
                                 />
                             ))}
 
-                            {showDirections && (
+                            {showDirections && !directionsServiceRef.current && (
                                 <DirectionsService
-                                    options={{
-                                        destination: {
-                                            lat: centerCoordinates.lat,
-                                            lng: centerCoordinates.lng
-                                        },
-                                        origin: {
-                                            lat: 20.9790646,
-                                            lng: 105.7854776
-                                        },
-                                        travelMode: 'DRIVING'
-                                    }}
+                                    options={directionsOptions}
                                     callback={directionsCallback}
+                                    onLoad={service => {
+                                        directionsServiceRef.current = service;
+                                    }}
                                 />
                             )}
 
-                            {showDirections && response !== null && (
+                            {showDirections && response !== null && !directionsRendererRef.current && (
                                 <DirectionsRenderer
                                     options={{
                                         directions: response
+                                    }}
+                                    onLoad={renderer => {
+                                        directionsRendererRef.current = renderer;
                                     }}
                                 />
                             )}

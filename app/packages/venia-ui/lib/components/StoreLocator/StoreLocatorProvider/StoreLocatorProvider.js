@@ -15,8 +15,9 @@ export const StoreLocatorProvider = ({ children }) => {
         lng: 105.7854772
     });
     const [response, setResponse] = useState(null);
-    console.log('response', response);
+
     //get the stores locations
+
     const { data: locations, error, loading } = useQuery(MP_STORE_LOCATOR_LOCATIONS, {
         variables: {
             filter: {},
@@ -43,11 +44,13 @@ export const StoreLocatorProvider = ({ children }) => {
     }, [fetchedLocations, handleTotalPages, locations]);
 
     //Get only the items in the locations
+
     const locationsItems = useMemo(() => {
         if (fetchedLocations) return fetchedLocations?.MpStoreLocatorLocations?.items;
     }, [fetchedLocations]);
 
     // Handle next page
+
     const handleCurrentPage = useCallback(value => {
         setCurrentPage(value);
     }, []);
@@ -65,9 +68,11 @@ export const StoreLocatorProvider = ({ children }) => {
     }, []);
 
     //Direction steps
+
     const directionSteps = response?.routes[0]?.legs[0];
 
     // Page control
+
     const pageControl = {
         currentPage: currentPage,
         setPage: handleCurrentPage,
