@@ -31,7 +31,7 @@ export const ADD_WISHLIST_PRODUCT_TO_CART = gql`
 `;
 
 export const CREATE_WISHLIST = gql`
-    mutation createWishlist($input: CreateWishlistInput!) {
+    mutation CreateWishlist($input: CreateWishlistInput!) {
         createWishlist(input: $input) {
             wishlist {
                 id
@@ -41,7 +41,7 @@ export const CREATE_WISHLIST = gql`
 `;
 
 export const GET_PRODUCTS_IN_WISHLISTS = gql`
-    query GetProductsInWishlistsForGallery {
+    query GetProductsInWishlists {
         customerWishlistProducts @client
     }
 `;

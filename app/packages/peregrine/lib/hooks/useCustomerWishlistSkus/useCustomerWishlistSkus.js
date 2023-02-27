@@ -15,7 +15,7 @@ import WISHLIST_OPERATIONS from '../../talons/Wishlist/wishlist.gql';
  */
 export const useCustomerWishlistSkus = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, WISHLIST_OPERATIONS, props.operations);
-    const { getProductsInWishlistsQuery, getWishlistItemsQuery } = operations;
+    const { getProductsInWishlistsQuery, getWishlistProductsForLocalFieldQuery } = operations;
 
     const [{ isSignedIn }] = useUserContext();
 
@@ -26,7 +26,7 @@ export const useCustomerWishlistSkus = (props = {}) => {
         data: { customerWishlistProducts }
     } = useQuery(getProductsInWishlistsQuery);
 
-    useQuery(getWishlistItemsQuery, {
+    useQuery(getWishlistProductsForLocalFieldQuery, {
         fetchPolicy: 'cache-and-network',
         onCompleted: data => {
             const itemsToAdd = new Set();

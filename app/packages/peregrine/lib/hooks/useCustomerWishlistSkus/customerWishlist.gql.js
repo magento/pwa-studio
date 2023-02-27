@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const GET_WISHLIST_ITEMS = gql`
-    query GetWishlistItemsForLocalField($currentPage: Int!) {
+export const GET_WISHLIST_PRODUCTS_FOR_LOCAL_FIELD = gql`
+    query GetWishlistProductsForLocalField($currentPage: Int!) {
         customer {
             wishlists {
                 id
@@ -24,5 +24,5 @@ export const GET_WISHLIST_ITEMS = gql`
 `;
 
 export default {
-    getWishlistItemsQuery: GET_WISHLIST_ITEMS
+    getWishlistProductsForLocalFieldQuery: GET_WISHLIST_PRODUCTS_FOR_LOCAL_FIELD
 };
