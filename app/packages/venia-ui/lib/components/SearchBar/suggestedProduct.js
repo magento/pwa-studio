@@ -26,7 +26,6 @@ const IMAGE_WIDTH = 60;
 
 const SuggestedProduct = props => {
     const suggested_Product = props;
-    console.log({ props });
     const classes = useStyle(defaultClasses, props.classes);
     const { url_key, small_image, name, onNavigate, price, url_suffix, sku, stock_status } = props;
 
