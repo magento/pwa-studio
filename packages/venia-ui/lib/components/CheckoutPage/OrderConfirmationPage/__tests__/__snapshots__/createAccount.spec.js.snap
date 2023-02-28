@@ -60,6 +60,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -102,6 +103,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -144,6 +146,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -188,6 +191,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         >
           <button
@@ -195,6 +199,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
+            onKey={true}
             onKeyDown={[Function]}
             onKeyUp={[Function]}
             onMouseDown={[Function]}
@@ -211,6 +216,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
               className="content"
             >
               <svg
+                aria-label="View Password"
                 fill="none"
                 height={24}
                 stroke="currentColor"
@@ -387,6 +393,7 @@ exports[`CreateAccount renders errors 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -429,6 +436,7 @@ exports[`CreateAccount renders errors 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -471,6 +479,7 @@ exports[`CreateAccount renders errors 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -515,6 +524,7 @@ exports[`CreateAccount renders errors 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         >
           <button
@@ -522,6 +532,7 @@ exports[`CreateAccount renders errors 1`] = `
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
+            onKey={true}
             onKeyDown={[Function]}
             onKeyUp={[Function]}
             onMouseDown={[Function]}
@@ -538,6 +549,7 @@ exports[`CreateAccount renders errors 1`] = `
               className="content"
             >
               <svg
+                aria-label="View Password"
                 fill="none"
                 height={24}
                 stroke="currentColor"

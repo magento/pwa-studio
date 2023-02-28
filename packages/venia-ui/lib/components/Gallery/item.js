@@ -85,6 +85,7 @@ const GalleryItem = props => {
     return (
         <div data-cy="GalleryItem-root" className={classes.root} ref={itemRef}>
             <Link
+                aria-label={name}
                 onClick={handleLinkClick}
                 to={productLink}
                 className={classes.images}
