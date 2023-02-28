@@ -32,6 +32,7 @@ const CreateAccount = props => {
         handleCancel,
         handleSubmit,
         handleEnterKeyPress,
+        handleCancelKeyPress,
         isDisabled,
         initialValues,
         recaptchaWidgetProps
@@ -47,7 +48,7 @@ const CreateAccount = props => {
             type="button"
             priority="low"
             onClick={handleCancel}
-            onKeyDown={handleCancel}
+            onKeyDown={handleCancelKeyPress}
         >
             <FormattedMessage
                 id={'createAccount.cancelText'}

@@ -85,6 +85,14 @@ export const useCreateAccount = props => {
         onCancel();
     }, [onCancel]);
 
+    const handleCancelKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleCancel();
+            }
+        };
+    }, [handleCancel]);
+
     const handleSubmit = useCallback(
         async formValues => {
             setIsSubmitting(true);
@@ -180,6 +188,7 @@ export const useCreateAccount = props => {
             mergeCarts,
             getUserDetails,
             fetchUserDetails,
+            handleCancelKeyPress,
             getCartDetails,
             fetchCartDetails,
             onSubmit,
