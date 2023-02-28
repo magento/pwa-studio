@@ -13,15 +13,13 @@
     width: 500px;
 }
 
-.cardContainer div {
-    margin-bottom: 20px;
-}
-
-.scrollableContainer {
+.scrollableContainer,
+.scrollableContainerDirection {
     height: 500px;
     overflow: scroll;
     overflow-x: hidden;
 }
+
 .googleMapContainer {
     width: 65%;
 }
@@ -36,4 +34,59 @@
 
 .textContainer p {
     color: white;
+}
+
+@media (max-width: 992px) {
+    .container {
+        margin: 0 50px;
+    }
+    .innerContainer {
+        flex-direction: column;
+        height: 430px;
+        align-items: center;
+    }
+    .scrollableContainerDirection {
+        height: 415px;
+    }
+
+    .scrollableContainer {
+        height: 330px;
+    }
+    .googleMapContainer {
+        width: 100%;
+    }
+    /* .cardContainer {
+        width: 0px;
+    } */
+}
+
+@media (max-width: 992px) {
+    .container {
+        margin: 0 50px;
+    }
+    .innerContainer {
+        flex-direction: column;
+        height: 430px;
+        align-items: center;
+    }
+    .scrollableContainerDirection {
+        height: 415px;
+    }
+
+    .scrollableContainer {
+        height: 330px;
+    }
+    .googleMapContainer {
+        width: 100%;
+    }
+    /* .cardContainer {
+        width: 0px;
+    } */
+}
+
+@media (max-width: 547px) {
+    .cardContainer {
+        padding: 0px;
+        width: auto;
+    }
 }

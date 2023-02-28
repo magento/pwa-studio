@@ -73,7 +73,7 @@ const MapContainer = props => {
                         {!showDirections ? (
                             cardContainer
                         ) : (
-                            <div className={classes.scrollableContainer}>
+                            <div className={classes.scrollableContainerDirection}>
                                 <DirectionCard />
                             </div>
                         )}

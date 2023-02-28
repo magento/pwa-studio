@@ -13,7 +13,7 @@
     composes: max-w-site from global;
     composes: mx-auto from global;
     composes: my-0 from global;
-    min-height: 40rem;
+    min-height: 60rem;
 }
 
 .page_masked {

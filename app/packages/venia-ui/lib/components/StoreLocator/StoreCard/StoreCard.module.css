@@ -15,6 +15,13 @@
 .imageContainer img {
     width: 70px;
 }
+.cardInformation {
+    width: 70%;
+}
+
+.imageContainer {
+    width: 30%;
+}
 
 .cardInformation .title {
     font-weight: bold;
@@ -36,4 +43,13 @@
 
 .textContainer p {
     color: white;
+}
+
+@media (max-width: 547px) {
+    .imageContainer img {
+        width: 50px;
+    }
+    .cardInnerContainer {
+        margin: 5px;
+    }
 }

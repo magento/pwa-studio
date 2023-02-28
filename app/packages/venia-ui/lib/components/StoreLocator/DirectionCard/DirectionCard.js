@@ -20,6 +20,11 @@ const DirectionCard = props => {
         defaultMessage: 'About'
     });
 
+    const noDirectionsText = formatMessage({
+        id: 'noDirectionsText',
+        defaultMessage: 'There is no directions for this location'
+    });
+
     const classes = useStyle(defaultClasses, props.classes);
     const handleGoBack = useCallback(() => {
         setShowDirections(!showDirections);
@@ -45,30 +50,35 @@ const DirectionCard = props => {
                     <span> {directionSteps?.duration?.text} </span>
                     <hr />
                 </section>
-                <article>
-                    {steps?.map((step, index) => {
-                        const instructions = step?.instructions
-                            .replace(/<\/?b>/g, '')
-                            .replace(/<div\s+style="font-size:0.9em">.*?<\/div>/g, '')
-                            .replace(/<wbr\s*\/?>/g, '');
-                        return (
-                            <div key={index}>
-                                <div className={classes.instructionsContainer}>
-                                    <div className={classes.instructionsText}>
-                                        <p>
-                                            {index + 1}. <span>{instructions}</span>
-                                        </p>
-                                    </div>
 
-                                    <div className={classes.distanceContainer}>
-                                        <p> {step?.distance?.text}</p>
+                {steps ? (
+                    <ul className={classes.listContainer}>
+                        {steps?.map((step, index) => {
+                            const instructions = step?.instructions
+                                .replace(/<\/?b>/g, '')
+                                .replace(/<div\s+style="font-size:0.9em">.*?<\/div>/g, '')
+                                .replace(/<wbr\s*\/?>/g, '');
+                            return (
+                                <li key={index}>
+                                    <div className={classes.instructionsContainer}>
+                                        <div className={classes.instructionsText}>
+                                            <p>
+                                                <span>{instructions}</span>
+                                            </p>
+                                        </div>
+
+                                        <div className={classes.distanceContainer}>
+                                            <p> {step?.distance?.text}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <hr />
-                            </div>
-                        );
-                    })}
-                </article>
+                                    <hr />
+                                </li>
+                            );
+                        })}
+                    </ul>
+                ) : (
+                    noDirectionsText
+                )}
             </article>
         </section>
     );

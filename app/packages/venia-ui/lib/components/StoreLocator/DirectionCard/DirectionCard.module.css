@@ -1,20 +1,24 @@
 .backContainer {
     display: flex;
     cursor: pointer;
-    margin: 5px 0 5px 0;
+    margin: 10px 0 10px 0;
 }
 .durationContainer {
-    margin-bottom: 20px;
+    margin: 10px 0 10px 0;
 }
-.cardContainer {
+
+.listContainer {
+    list-style-type: decimal-leading-zero;
     border: 1px solid var(--b2bstore-global-color-orange);
     border-radius: 10px 10px 10px 10px;
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
     margin: 20px;
-    padding: 14px;
+    padding: 20px 40px 20px 40px;
 }
 .instructionsContainer {
     display: flex;
+    justify-content: space-between;
+    margin: 20px 0 20px 0;
 }
 .instructionsText {
     width: fit-content;
@@ -26,4 +30,13 @@
 
 .distanceContainer {
     text-align: end;
+}
+
+@media (max-width: 547px) {
+    .instructionsText {
+        width: fit-content;
+    }
+    .listContainer {
+        padding: 20px 20px 20px 30px;
+    }
 }
