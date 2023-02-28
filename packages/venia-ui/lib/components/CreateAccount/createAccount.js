@@ -47,6 +47,7 @@ const CreateAccount = props => {
             type="button"
             priority="low"
             onClick={handleCancel}
+            onKeyDown={handleCancel}
         >
             <FormattedMessage
                 id={'createAccount.cancelText'}
