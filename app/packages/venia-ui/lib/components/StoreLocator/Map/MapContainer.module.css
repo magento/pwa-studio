@@ -35,29 +35,13 @@
 .textContainer p {
     color: white;
 }
-
-@media (max-width: 992px) {
-    .container {
-        margin: 0 50px;
-    }
-    .innerContainer {
-        flex-direction: column;
-        height: 430px;
-        align-items: center;
-    }
-    .scrollableContainerDirection {
-        height: 415px;
-    }
-
-    .scrollableContainer {
-        height: 330px;
-    }
-    .googleMapContainer {
-        width: 100%;
-    }
-    /* .cardContainer {
-        width: 0px;
-    } */
+.dialogInfoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.iconContainer {
+    margin-right: 10px;
 }
 
 @media (max-width: 992px) {
@@ -70,18 +54,15 @@
         align-items: center;
     }
     .scrollableContainerDirection {
-        height: 415px;
+        height: 429px;
     }
 
     .scrollableContainer {
-        height: 330px;
+        height: 360px;
     }
     .googleMapContainer {
         width: 100%;
     }
-    /* .cardContainer {
-        width: 0px;
-    } */
 }
 
 @media (max-width: 547px) {
