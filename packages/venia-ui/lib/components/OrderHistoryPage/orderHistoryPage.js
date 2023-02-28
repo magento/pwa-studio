@@ -180,6 +180,7 @@ const OrderHistoryPage = props => {
                             }
                             priority={'high'}
                             type="submit"
+                            aria-label="submit"
                         >
                             {submitIcon}
                         </Button>

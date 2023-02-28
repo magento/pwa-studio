@@ -182,6 +182,7 @@ export const useWishlistItem = props => {
                         cartId,
                         sku: item.product.sku,
                         name: item.product.name,
+                        pricing: item.product.price,
                         priceTotal:
                             item.product.price_range.maximum_price.final_price
                                 .value,
