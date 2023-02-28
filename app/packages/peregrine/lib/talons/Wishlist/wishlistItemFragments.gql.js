@@ -3,7 +3,6 @@ import { gql } from '@apollo/client';
 export const WishlistItemFragment = gql`
     fragment WishlistItemFragment on WishlistItemInterface {
         id
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         product {
             uid
             orParentSku
@@ -41,16 +40,13 @@ export const WishlistItemFragment = gql`
             stock_status
             url_key
             url_suffix
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ConfigurableProduct {
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 variants {
                     attributes {
                         uid
                         code
                         value_index
                     }
-                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     product {
                         stock_status
                         id
@@ -95,7 +91,6 @@ export const WishlistItemFragment = gql`
                 }
             }
         }
-
         ... on ConfigurableWishlistItem {
             configurable_options {
                 id

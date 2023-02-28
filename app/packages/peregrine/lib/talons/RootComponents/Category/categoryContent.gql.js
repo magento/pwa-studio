@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const GET_CATEGORY_AVAILABLE_SORT_METHODS = gql`
-    query GetCategoryAvailableSortMethods($categoryIdFilter: FilterEqualTypeInput!) {
+export const GET_AVAILABLE_SORT_METHODS_BY_CATEGORY = gql`
+    query GetAvailableSortMethodsByCategory($categoryIdFilter: FilterEqualTypeInput!) {
         products(filter: { category_uid: $categoryIdFilter }) {
             sort_fields {
                 options {
@@ -49,8 +49,8 @@ export const GET_CATEGORY_DATA = gql`
     }
 `;
 
-export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
-    query GetProductFiltersByCategory($categoryIdFilter: FilterEqualTypeInput!) {
+export const GET_PRODUCT_AGGREGATIONS_FILTERED_BY_CATEGORY = gql`
+    query GetProductAggregationsFilteredByCategory($categoryIdFilter: FilterEqualTypeInput!) {
         products(filter: { category_uid: $categoryIdFilter }) {
             aggregations {
                 label
@@ -66,8 +66,24 @@ export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
     }
 `;
 
+export const GET_PRODUCT_ITEMS_FILTERED_BY_CATEGORY = gql`
+    query GetProductItemsFilteredByCategory($categoryIdFilter: FilterEqualTypeInput!) {
+        products(filter: { category_uid: $categoryIdFilter }) {
+            items {
+                id
+                uid
+                __typename
+                name
+                url_key
+                url_suffix
+            }
+        }
+    }
+`;
+
 export default {
-    getCategoryAvailableSortMethodsQuery: GET_CATEGORY_AVAILABLE_SORT_METHODS,
+    getAvailableSortMethodsByCategoryQuery: GET_AVAILABLE_SORT_METHODS_BY_CATEGORY,
     getCategoryDataQuery: GET_CATEGORY_DATA,
-    getProductFiltersByCategoryQuery: GET_PRODUCT_FILTERS_BY_CATEGORY
+    getProductAggregationsFilteredByCategoryQuery: GET_PRODUCT_AGGREGATIONS_FILTERED_BY_CATEGORY,
+    getProductItemsFilteredByCategoryQuery: GET_PRODUCT_ITEMS_FILTERED_BY_CATEGORY
 };

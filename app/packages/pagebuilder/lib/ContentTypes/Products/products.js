@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import Carousel from './Carousel/carousel';
 import Gallery from '@magento/venia-ui/lib/components/Gallery';
@@ -9,6 +9,9 @@ import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfi
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './products.module.css';
+
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './products.gql';
 
 /**
  * Sort products based on the original order
@@ -38,6 +41,9 @@ const restoreSortOrder = (urlKeys, products) => {
  * @returns {React.Element} A React component that displays a Products based on a number of products
  */
 const Products = props => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getProductsQuery } = operations;
+
     const classes = useStyle(defaultClasses, props.classes);
     const {
         appearance,
@@ -99,7 +105,7 @@ const Products = props => {
         return productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
     });
 
-    const { loading, error, data } = useQuery(GET_PRODUCTS_BY_URL_KEY, {
+    const { loading, error, data } = useQuery(getProductsQuery, {
         variables: { url_keys: urlKeys, pageSize: urlKeys.length }
     });
 
@@ -257,55 +263,3 @@ Products.propTypes = {
 };
 
 export default Products;
-
-export const GET_PRODUCTS_BY_URL_KEY = gql`
-    query getProductsByUrlKey($url_keys: [String], $pageSize: Int!) {
-        products(filter: { url_key: { in: $url_keys } }, pageSize: $pageSize) {
-            items {
-                id
-                uid
-                name
-                url_suffix
-                price_range {
-                    maximum_price {
-                        regular_price {
-                            currency
-                            value
-                        }
-                    }
-                }
-                price {
-                    regularPrice {
-                        amount {
-                            value
-                            currency
-                        }
-                    }
-                    minimalPrice {
-                        amount {
-                            currency
-                            value
-                        }
-                    }
-                }
-                sku
-                small_image {
-                    url
-                }
-                stock_status
-                __typename
-                url_key
-            }
-            total_count
-            filters {
-                name
-                filter_items_count
-                request_var
-                filter_items {
-                    label
-                    value_string
-                }
-            }
-        }
-    }
-`;

@@ -6,6 +6,7 @@ import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfi
 
 import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './product.gql';
+
 import { useEventingContext } from '../../../context/eventing';
 
 /**
@@ -29,6 +30,7 @@ export const useProduct = props => {
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getProductDetailQuery } = operations;
+
     const { pathname } = useLocation();
     const [
         ,

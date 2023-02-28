@@ -1,11 +1,7 @@
 import { gql } from '@apollo/client';
-import { CartTriggerFragment } from '../Header/cartTriggerFragments.gql';
-import { MiniCartFragment } from '../MiniCart/miniCartFragments.gql';
-const GET_PRODUCT_DETAIL = gql`
-    query GetProductDetailForATCDialog(
-        $sku: String!
-        $configurableOptionValues: [ID!]
-    ) {
+
+const GET_PRODUCT_DETAIL_FOR_ATC_DIALOG_BY_SKU = gql`
+    query GetProductDetailForATCDialogBySku($sku: String!, $configurableOptionValues: [ID!]) {
         products(filter: { sku: { eq: $sku } }) {
             items {
                 id
@@ -27,7 +23,6 @@ const GET_PRODUCT_DETAIL = gql`
                     }
                 }
                 ... on ConfigurableProduct {
-                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     configurable_options {
                         uid
                         attribute_uid
@@ -38,9 +33,7 @@ const GET_PRODUCT_DETAIL = gql`
                             uid
                         }
                     }
-                    configurable_product_options_selection(
-                        configurableOptionValueUids: $configurableOptionValues
-                    ) {
+                    configurable_product_options_selection(configurableOptionValueUids: $configurableOptionValues) {
                         media_gallery {
                             label
                             url
@@ -68,24 +61,6 @@ const GET_PRODUCT_DETAIL = gql`
     }
 `;
 
-const ADD_PRODUCT_TO_CART = gql`
-    mutation AddProductToCartFromDialog(
-        $cartId: String!
-        $cartItem: CartItemInput!
-    ) {
-        addProductsToCart(cartId: $cartId, cartItems: [$cartItem]) {
-            cart {
-                id
-                ...CartTriggerFragment
-                ...MiniCartFragment
-            }
-        }
-    }
-    ${CartTriggerFragment}
-    ${MiniCartFragment}
-`;
-
 export default {
-    addProductToCartMutation: ADD_PRODUCT_TO_CART,
-    getProductDetailQuery: GET_PRODUCT_DETAIL
+    getProductDetailQuery: GET_PRODUCT_DETAIL_FOR_ATC_DIALOG_BY_SKU
 };

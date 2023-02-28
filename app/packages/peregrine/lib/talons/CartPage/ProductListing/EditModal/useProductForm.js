@@ -7,7 +7,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
-import DEFAULT_OPERATIONS from './productForm.gql';
+import DEFAULT_OPERATIONS from '../../../ProductFullDetail/productFullDetail.gql';
 import CART_OPERATIONS from '../../cartPage.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -24,7 +24,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
  *
  * @param {Object} props
  * @param {Object} props.cartItem The cart item to configure on the form
- * @param {GraphQLDocument} props.getConfigurableOptionsQuery GraphQL query to get the configurable options for a product.
+ * @param {GraphQLDocument} props.getProductDetailForConfigurableOptionsBySkuQuery GraphQL query to get the configurable options for a product.
  * @param {function} props.setIsCartUpdating Function for setting the updating state for the shopping cart.
  * @param {function} props.setVariantPrice Function for setting the variant price on a product.
  * @param {GraphQLDocument} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
@@ -51,7 +51,11 @@ function deriveOptionSelectionsFromProduct(cartItem) {
 export const useProductForm = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
 
-    const { getConfigurableOptionsQuery, updateConfigurableOptionsMutation, updateCartItemsMutation } = operations;
+    const {
+        getProductDetailForConfigurableOptionsBySkuQuery,
+        updateConfigurableOptionsMutation,
+        updateCartItemsMutation
+    } = operations;
 
     const { cartItem, setIsCartUpdating, setVariantPrice, setActiveEditItem } = props;
 
@@ -98,7 +102,7 @@ export const useProductForm = props => {
         setIsCartUpdating(isSaving);
     }, [isSaving, setIsCartUpdating]);
 
-    const { data, error, loading } = useQuery(getConfigurableOptionsQuery, {
+    const { data, error, loading } = useQuery(getProductDetailForConfigurableOptionsBySkuQuery, {
         skip: !cartItem,
         variables: {
             sku: cartItem ? cartItem.product.sku : null

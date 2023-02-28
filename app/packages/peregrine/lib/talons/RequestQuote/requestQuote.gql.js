@@ -377,9 +377,8 @@ export const UPDATE_QUOTE = gql`
     }
 `;
 
-// TODO_B2B: remove these queries
-export const GET_PRODUCTS = gql`
-    query GetProductsForQuote($search: String) {
+export const GET_PRODUCTS_DETAILS_FOR_QUOTE_BY_SEARCH = gql`
+    query GetProductsDetailsForQuoteBySearch($search: String) {
         products(search: $search) {
             items {
                 name
@@ -417,6 +416,5 @@ export default {
     getQuoteListQuery: GET_QUOTE_LIST,
     submitCurrentQuoteMutation: SUBMIT_CURRENT_QUOTE,
     updateQuoteMutation: UPDATE_QUOTE,
-
-    getProductsQuery: GET_PRODUCTS
+    getProductsQuery: GET_PRODUCTS_DETAILS_FOR_QUOTE_BY_SEARCH
 };

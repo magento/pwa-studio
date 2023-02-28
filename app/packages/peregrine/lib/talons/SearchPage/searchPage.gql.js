@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
-    query getProductFiltersBySearch($search: String!) {
+    query GetProductFiltersBySearch($search: String!) {
         products(search: $search) {
             aggregations {
                 label
@@ -17,8 +17,8 @@ export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
     }
 `;
 
-export const PRODUCT_SEARCH = gql`
-    query ProductSearch(
+export const GET_PRODUCTS_DETAILS_BY_SEARCH = gql`
+    query GetProductsDetailsBySearch(
         $currentPage: Int = 1
         $inputText: String!
         $pageSize: Int = 6
@@ -140,8 +140,8 @@ export const PRODUCT_SEARCH = gql`
     }
 `;
 
-export const GET_SEARCH_AVAILABLE_SORT_METHODS = gql`
-    query getSearchAvailableSortMethods($search: String!) {
+export const GET_AVAILABLE_SORT_METHODS_BY_SEARCH = gql`
+    query GetAvailableSortMethodsBySearch($search: String!) {
         products(search: $search) {
             sort_fields {
                 options {
@@ -155,6 +155,6 @@ export const GET_SEARCH_AVAILABLE_SORT_METHODS = gql`
 
 export default {
     getProductFiltersBySearchQuery: GET_PRODUCT_FILTERS_BY_SEARCH,
-    getSearchAvailableSortMethods: GET_SEARCH_AVAILABLE_SORT_METHODS,
-    productSearchQuery: PRODUCT_SEARCH
+    getProductsDetailsBySearchQuery: GET_PRODUCTS_DETAILS_BY_SEARCH,
+    getAvailableSortMethodsBySearchQuery: GET_AVAILABLE_SORT_METHODS_BY_SEARCH
 };

@@ -23,16 +23,20 @@ export const useCategoryContent = props => {
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
-    const { getCategoryDataQuery, getProductFiltersByCategoryQuery, getCategoryAvailableSortMethodsQuery } = operations;
+    const {
+        getCategoryDataQuery,
+        getProductAggregationsFilteredByCategoryQuery,
+        getAvailableSortMethodsByCategoryQuery
+    } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
 
-    const [getFilters, { data: filterData }] = useLazyQuery(getProductFiltersByCategoryQuery, {
+    const [getFilters, { data: filterData }] = useLazyQuery(getProductAggregationsFilteredByCategoryQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const [getSortMethods, { data: sortData }] = useLazyQuery(getCategoryAvailableSortMethodsQuery, {
+    const [getSortMethods, { data: sortData }] = useLazyQuery(getAvailableSortMethodsByCategoryQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });

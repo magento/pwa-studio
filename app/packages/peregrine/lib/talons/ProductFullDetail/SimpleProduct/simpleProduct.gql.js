@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
+
 export const GET_SIMPLE_PRODUCT = gql`
-    query getSimpleProduct($sku: String!) {
+    query GetSimpleProduct($sku: String!) {
         products(search: $sku, filter: { sku: { eq: $sku } }) {
             items {
                 name
@@ -63,3 +64,7 @@ export const GET_SIMPLE_PRODUCT = gql`
         }
     }
 `;
+
+export default {
+    getSimpleProductQuery: GET_SIMPLE_PRODUCT
+};

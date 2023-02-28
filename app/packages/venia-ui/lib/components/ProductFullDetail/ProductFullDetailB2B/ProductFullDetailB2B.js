@@ -15,13 +15,19 @@ import { useCmsBlock } from '@magento/peregrine/lib/hooks/useCmsBlocks';
 
 const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
 
-import gql from 'graphql-tag';
+import CATEGORY_OPERATIONS from '@magento/peregrine/lib/talons/RootComponents/Category/categoryContent.gql.js';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 import { useLazyQuery } from '@apollo/client';
 import Breadcrumbs from '../../Breadcrumbs';
 import Pagination from '../../Pagination';
 
 const ProductFullDetailB2B = props => {
     const classes = useStyle(defaultClasses, props.classes);
+
+    const operations = mergeOperations(CATEGORY_OPERATIONS, props.operations);
+    const { getProductItemsFilteredByCategoryQuery } = operations;
+
     const { cmsBlocks } = useCmsBlock({
         cmsBlockIdentifiers: ['warranties-block', 'recommended-product-block']
     });
@@ -42,6 +48,7 @@ const ProductFullDetailB2B = props => {
         productDetails,
         wishlistButtonProps
     } = props;
+
     const [selectedFilter, setSelectedFilter] = useState([]);
     const [selectedFilterCategory, setSelectedFilterCategory] = useState([]);
 
@@ -70,7 +77,6 @@ const ProductFullDetailB2B = props => {
                 return null;
             }
         });
-
         return items;
     };
 
@@ -98,7 +104,8 @@ const ProductFullDetailB2B = props => {
                 .label;
         });
     };
-    const [getFilters, { data: filterData }] = useLazyQuery(GET_CATEGORY, {
+
+    const [getFilters, { data: filterData }] = useLazyQuery(getProductItemsFilteredByCategoryQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -304,18 +311,3 @@ const ProductFullDetailB2B = props => {
 };
 
 export default ProductFullDetailB2B;
-
-export const GET_CATEGORY = gql`
-    query getProductFiltersByCategory($categoryIdFilter: FilterEqualTypeInput!) {
-        products(filter: { category_uid: $categoryIdFilter }, pageSize: 50) {
-            items {
-                id
-                uid
-                __typename
-                name
-                url_key
-                url_suffix
-            }
-        }
-    }
-`;

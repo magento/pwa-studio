@@ -13,7 +13,7 @@ import { useStyle } from '../../classify';
 
 import defaultClasses from './cartOptions.module.css';
 
-import { ADD_CONFIGURABLE_MUTATION, ADD_SIMPLE_MUTATION } from '../ProductFullDetail/productFullDetail.gql';
+import { ADD_CONFIGURABLE_PRODUCT_TO_CART, ADD_SIMPLE_PRODUCT_TO_CART } from '../ProductFullDetail/productFullDetail.gql';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -33,8 +33,8 @@ const CartOptions = props => {
     const { cartItem, configItem, currencyCode, endEditItem } = props;
 
     const talonProps = useCartOptions({
-        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
-        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
+        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_PRODUCT_TO_CART,
+        addSimpleProductToCartMutation: ADD_SIMPLE_PRODUCT_TO_CART,
         cartItem,
         configItemu,
         endEditItem

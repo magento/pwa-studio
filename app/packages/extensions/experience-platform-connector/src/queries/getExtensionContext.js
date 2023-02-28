@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_EXTENSION_CONTEXT = gql`
-    query experiencePlatformConnectorContext {
+    query GetExtensionContext {
         dataServicesStorefrontInstanceContext {
             environment_id
             environment

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const GET_PARENT_SKU = gql`
-    query getParentSku($sku: String) {
+export const GET_PARENT_SKU_BY_SKU = gql`
+    query GetParentSkuBySku($sku: String) {
         products(search: $sku, filter: { sku: { eq: $sku } }) {
             items {
                 orParentSku
@@ -11,11 +11,9 @@ export const GET_PARENT_SKU = gql`
     }
 `;
 
-export const GET_PRODUCT_BY_SKU = gql`
-    query getproduct($sku: String!) {
-        # Limit results to first three.
+export const GET_PRODUCT_FOR_QUICK_ORDER_BY_SKU = gql`
+    query GetProductDetailForQuickOrderBySku($sku: String!) {
         products(search: $sku) {
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
                 orParentSku
                 id
@@ -43,6 +41,6 @@ export const GET_PRODUCT_BY_SKU = gql`
 `;
 
 export default {
-    getParentSkuQuery: GET_PARENT_SKU,
-    getProductBySkuQuery: GET_PRODUCT_BY_SKU
+    getParentSkuBySkuQuery: GET_PARENT_SKU_BY_SKU,
+    getProductBySkuQuery: GET_PRODUCT_FOR_QUICK_ORDER_BY_SKU
 };

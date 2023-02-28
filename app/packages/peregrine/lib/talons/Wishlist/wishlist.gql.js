@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client';
 
-import { CartTriggerFragment } from '@magento/peregrine/lib/talons/Header/cartTriggerFragments.gql';
-import { MiniCartFragment } from '@magento/peregrine/lib/talons/MiniCart/miniCartFragments.gql';
 import { WishlistItemFragment } from './wishlistItemFragments.gql';
 import { WishlistPageFragment } from './wishlistFragment.gql.ce';
 
@@ -14,20 +12,6 @@ export const ADD_PRODUCT_TO_WISHLIST = gql`
             }
         }
     }
-`;
-
-export const ADD_WISHLIST_PRODUCT_TO_CART = gql`
-    mutation AddWishlistProductToCart($cartId: String!, $cartItem: CartItemInput!) {
-        addProductsToCart(cartId: $cartId, cartItems: [$cartItem]) {
-            cart {
-                id
-                ...CartTriggerFragment
-                ...MiniCartFragment
-            }
-        }
-    }
-    ${CartTriggerFragment}
-    ${MiniCartFragment}
 `;
 
 export const CREATE_WISHLIST = gql`
@@ -98,7 +82,6 @@ export const UPDATE_WISHLIST = gql`
 
 export default {
     addProductToWishlistMutation: ADD_PRODUCT_TO_WISHLIST,
-    addWishlistProductToCartMutation: ADD_WISHLIST_PRODUCT_TO_CART,
     createWishlistMutation: CREATE_WISHLIST,
     getProductsInWishlistsQuery: GET_PRODUCTS_IN_WISHLISTS,
     getWishlistProductsQuery: GET_WISHLIST_PRODUCTS,

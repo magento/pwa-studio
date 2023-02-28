@@ -28,8 +28,8 @@ export const GET_CMS_DYNAMIC_BLOCKS = gql`
     }
 `;
 
-export const GET_PRODUCT_DETAIL_FOR_CMS_DYNAMIC_BLOCK = gql`
-    query getProductDetailForCmsDynamicBlock($urlKey: String!) {
+export const GET_PRODUCT_DETAIL_FOR_CMS_DYNAMIC_BLOCK_BY_URL_KEY = gql`
+    query GetProductDetailForCmsDynamicBlockByUrlKey($urlKey: String!) {
         products(filter: { url_key: { eq: $urlKey } }) {
             items {
                 uid
@@ -94,7 +94,7 @@ export const GET_SALES_RULES_DATA = gql`
 `;
 
 export default {
-    getCmsDynamicBlocksQuery: GET_PRODUCT_DETAIL_FOR_CMS_DYNAMIC_BLOCK,
-    getProductDetailQuery: GET_PRODUCT_DETAIL_QUERY,
+    getCmsDynamicBlocksQuery: GET_CMS_DYNAMIC_BLOCKS,
+    getProductDetailQuery: GET_PRODUCT_DETAIL_FOR_CMS_DYNAMIC_BLOCK_BY_URL_KEY,
     getSalesRulesDataQuery: GET_SALES_RULES_DATA
 };

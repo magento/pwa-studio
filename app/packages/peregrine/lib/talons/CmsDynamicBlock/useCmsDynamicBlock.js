@@ -79,6 +79,7 @@ export const useCmsDynamicBlock = props => {
     const slug = pathname.split('/').pop();
     const productUrlSuffix = storeConfigData?.storeConfig?.product_url_suffix;
     const urlKey = productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
+
     const { data: productData, loading: productDataLoading } = useQuery(getProductDetailQuery, {
         skip: !storeConfigData,
         variables: {

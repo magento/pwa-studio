@@ -3,7 +3,6 @@ import { gql } from '@apollo/client';
 export const ProductDetailsFragment = gql`
     fragment ProductDetailsFragment on ProductInterface {
         __typename
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         categories {
             uid
             breadcrumbs {
@@ -18,7 +17,6 @@ export const ProductDetailsFragment = gql`
         }
         id
         uid
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         media_gallery_entries {
             uid
             label
@@ -42,7 +40,6 @@ export const ProductDetailsFragment = gql`
                 }
             }
         }
-
         price_range {
             maximum_price {
                 final_price {
@@ -89,13 +86,11 @@ export const ProductDetailsFragment = gql`
             }
         }
         ... on ConfigurableProduct {
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             configurable_options {
                 attribute_code
                 attribute_id
                 uid
                 label
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 values {
                     uid
                     default_label
@@ -116,11 +111,9 @@ export const ProductDetailsFragment = gql`
                     code
                     value_index
                 }
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 product {
                     uid
                     name
-                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     media_gallery_entries {
                         uid
                         disabled

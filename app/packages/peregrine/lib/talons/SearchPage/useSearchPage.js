@@ -28,13 +28,13 @@ export const useSearchPage = (props = {}) => {
     const {
         getFilterInputsQuery,
         getProductFiltersBySearchQuery,
-        getSearchAvailableSortMethods,
-        productSearchQuery
+        getAvailableSortMethodsBySearchQuery,
+        getProductsDetailsBySearchQuery
     } = operations;
 
     const storeConfigData = useStoreConfigContext();
 
-    const [getSortMethods, { data: sortData }] = useLazyQuery(getSearchAvailableSortMethods, {
+    const [getSortMethods, { data: sortData }] = useLazyQuery(getAvailableSortMethodsBySearchQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -111,10 +111,13 @@ export const useSearchPage = (props = {}) => {
         totalPages
     };
 
-    const [runQuery, { called: searchCalled, loading: searchLoading, error, data }] = useLazyQuery(productSearchQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const [runQuery, { called: searchCalled, loading: searchLoading, error, data }] = useLazyQuery(
+        getProductsDetailsBySearchQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
+    );
 
     const isBackgroundLoading = !!data && searchLoading;
 

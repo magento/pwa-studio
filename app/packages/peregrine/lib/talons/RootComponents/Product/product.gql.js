@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 import { ProductDetailsFragment } from './productDetailFragment.gql';
 
-export const GET_PRODUCT_DETAIL_QUERY = gql`
-    query getProductDetailForProductPageProduct($urlKey: String!) {
+export const GET_PRODUCT_DETAIL_FOR_PRODUCT_PAGE_BY_URL_KEY = gql`
+    query GetProductDetailForProductPageByUrlKey($urlKey: String!) {
         products(filter: { url_key: { eq: $urlKey } }) {
             items {
                 id
@@ -16,5 +16,5 @@ export const GET_PRODUCT_DETAIL_QUERY = gql`
 `;
 
 export default {
-    getProductDetailQuery: GET_PRODUCT_DETAIL_QUERY
+    getProductDetailQuery: GET_PRODUCT_DETAIL_FOR_PRODUCT_PAGE_BY_URL_KEY
 };

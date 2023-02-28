@@ -4,10 +4,7 @@ import { AccountInformationPageFragment } from './accountInformationPageFragment
 
 export const CHANGE_CUSTOMER_PASSWORD = gql`
     mutation ChangeCustomerPassword($currentPassword: String!, $newPassword: String!) {
-        changeCustomerPassword(
-            currentPassword: $currentPassword
-            newPassword: $newPassword # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        ) {
+        changeCustomerPassword(currentPassword: $currentPassword, newPassword: $newPassword) {
             email
         }
     }
@@ -15,7 +12,6 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
 
 export const GET_CUSTOMER_INFORMATION = gql`
     query GetCustomerInformation {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
             ...AccountInformationPageFragment
         }
@@ -26,7 +22,6 @@ export const GET_CUSTOMER_INFORMATION = gql`
 export const SET_CUSTOMER_INFORMATION = gql`
     mutation SetCustomerInformation($customerInput: CustomerInput!) {
         updateCustomer(input: $customerInput) {
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             customer {
                 ...AccountInformationPageFragment
             }

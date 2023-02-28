@@ -3,11 +3,12 @@ import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '../../util/shallowMerge';
+
 import DEFAULT_OPERATIONS from '../Wishlist/wishlist.gql';
+import PRODUCT_OPERATIONS from '../ProductFullDetail/productFullDetail.gql';
 import { useEventingContext } from '../../context/eventing';
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
-import { ADD_CONFIGURABLE_MUTATION } from '../ProductFullDetail/productFullDetail.gql';
 
 const mergeSupportedProductTypes = (supportedProductTypes = []) => {
     const newSupportedProductTypes = [...SUPPORTED_PRODUCT_TYPES];
@@ -30,7 +31,6 @@ const mergeSupportedProductTypes = (supportedProductTypes = []) => {
  */
 export const useWishlistItem = props => {
     const { item, onOpenAddToCartDialog, wishlistId } = props;
-    const [addConfigurableProductToCart] = useMutation(ADD_CONFIGURABLE_MUTATION);
     const [, { dispatch }] = useEventingContext();
 
     const { configurable_options: selectedConfigurableOptions = [], id: itemId, product } = item;
@@ -49,12 +49,8 @@ export const useWishlistItem = props => {
         [props.supportedProductTypes, productType]
     );
 
-    const addProductType = item.product.__typename;
-
-    const supportedProductType = SUPPORTED_PRODUCT_TYPES.includes(addProductType);
-
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { addWishlistProductToCartMutation, removeProductsFromWishlistMutation } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, PRODUCT_OPERATIONS, props.operations);
+    const { addProductToCartMutation, removeProductsFromWishlistMutation } = operations;
 
     const [{ cartId }] = useCartContext();
 
@@ -92,7 +88,7 @@ export const useWishlistItem = props => {
     const [
         addWishlistItemToCart,
         { error: addWishlistItemToCartError, loading: addWishlistItemToCartLoading }
-    ] = useMutation(addWishlistProductToCartMutation, {
+    ] = useMutation(addProductToCartMutation, {
         variables: {
             cartId,
             cartItem
@@ -133,39 +129,23 @@ export const useWishlistItem = props => {
     const handleAddToCart = useCallback(async () => {
         if (configurableOptions.length === 0 || selectedConfigurableOptions.length === configurableOptions.length) {
             try {
-                const payload = {
-                    item: item.product,
-                    addProductType,
-                    quantity: 1
-                };
-                if (supportedProductType) {
-                    const variables = {
-                        cartId,
-                        parentSku: payload.item.orParentSku,
-                        product: payload.item,
-                        quantity: payload.quantity,
-                        sku: payload.item.sku
-                    };
-                    if (addProductType === 'SimpleProduct') {
-                        try {
-                            await addConfigurableProductToCart({
-                                variables
-                            });
-                        } catch {
-                            return;
-                        }
-                    } else if (addProductType === 'ConfigurableProduct') {
-                        return;
-                    }
-                } else {
-                    console.error('Unsupported product type. Cannot add to cart.');
-                }
+                await addWishlistItemToCart();
+
+                const selectedOptionsLabels =
+                    selectedConfigurableOptions?.length > 0
+                        ? selectedConfigurableOptions?.map(({ option_label, value_label }) => ({
+                              attribute: option_label,
+                              value: value_label
+                          }))
+                        : null;
+
                 dispatch({
                     type: 'CART_ADD_ITEM',
                     payload: {
                         cartId,
                         sku: item.product.sku,
                         name: item.product.name,
+                        pricing: item.product.price,
                         priceTotal: item.product.price_range.maximum_price.final_price.value,
                         currencyCode: item.product.price_range.maximum_price.final_price.currency,
                         discountAmount: item.product.price_range.maximum_price.discount.amount_off,
@@ -181,15 +161,12 @@ export const useWishlistItem = props => {
         }
     }, [
         addWishlistItemToCart,
-        addConfigurableProductToCart,
-        addProductType,
         cartId,
         configurableOptions.length,
         dispatch,
         item,
         onOpenAddToCartDialog,
-        selectedConfigurableOptions.length,
-        supportedProductType
+        selectedConfigurableOptions
     ]);
 
     const handleRemoveProductFromWishlist = useCallback(async () => {
@@ -243,7 +220,7 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemOperations
  *
- * @property {GraphQLDocument} addWishlistProductToCartMutation Mutation to add item to the cart
+ * @property {GraphQLDocument} addProductToCartMutation Mutation to add item to the cart
  * @property {GraphQLDocument} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
  *
  * @see [`wishlistItem.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistItem.gql.js}

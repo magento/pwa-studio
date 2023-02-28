@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
-import mergeOperations from '../../util/shallowMerge';
 import { useCartContext } from '../../context/cart';
-import defaultOperations from './addToCartDialog.gql';
+
 import { useEventingContext } from '../../context/eventing';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
+
+import DEFAULT_OPERATIONS from './addToCartDialog.gql';
+import PRODUCT_OPERATIONS from '../ProductFullDetail/productFullDetail.gql';
+import mergeOperations from '../../util/shallowMerge';
 
 export const useAddToCartDialog = props => {
     const { item, onClose } = props;
@@ -14,16 +17,15 @@ export const useAddToCartDialog = props => {
 
     const [, { dispatch }] = useEventingContext();
 
-    const operations = mergeOperations(defaultOperations, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, PRODUCT_OPERATIONS, props.operations);
+    const { addProductToCartMutation, getProductDetailQuery } = operations;
 
     const [userSelectedOptions, setUserSelectedOptions] = useState(new Map());
     const [currentImage, setCurrentImage] = useState();
     const [currentPrice, setCurrentPrice] = useState();
     const [currentDiscount, setCurrentDiscount] = useState();
     const [singleOptionSelection, setSingleOptionSelection] = useState();
-    const [multipleOptionSelections, setMultipleOptionSelections] = useState(
-        new Map()
-    );
+    const [multipleOptionSelections, setMultipleOptionSelections] = useState(new Map());
 
     const [{ cartId }] = useCartContext();
 
@@ -64,29 +66,14 @@ export const useAddToCartDialog = props => {
                 isOutOfStockProductDisplayed
             );
         }
-    }, [
-        item,
-        optionCodes,
-        singleOptionSelection,
-        multipleOptionSelections,
-        isOutOfStockProductDisplayed
-    ]);
+    }, [item, optionCodes, singleOptionSelection, multipleOptionSelections, isOutOfStockProductDisplayed]);
 
     const selectedOptionsArray = useMemo(() => {
         if (item) {
-            const existingOptionsMap = item.configurable_options.reduce(
-                (optionsMap, selectedOption) => {
-                    return optionsMap.set(
-                        selectedOption.id,
-                        selectedOption.value_id
-                    );
-                },
-                new Map()
-            );
-            const mergedOptionsMap = new Map([
-                ...existingOptionsMap,
-                ...userSelectedOptions
-            ]);
+            const existingOptionsMap = item.configurable_options.reduce((optionsMap, selectedOption) => {
+                return optionsMap.set(selectedOption.id, selectedOption.value_id);
+            }, new Map());
+            const mergedOptionsMap = new Map([...existingOptionsMap, ...userSelectedOptions]);
 
             const selectedOptions = [];
             mergedOptionsMap.forEach((selectedValueId, attributeId) => {
@@ -106,23 +93,19 @@ export const useAddToCartDialog = props => {
         return [];
     }, [item, userSelectedOptions]);
 
-    const { data, loading: isFetchingProductDetail } = useQuery(
-        operations.getProductDetailQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first',
-            variables: {
-                configurableOptionValues: selectedOptionsArray,
-                sku
-            },
-            skip: !sku
-        }
-    );
+    const { data, loading: isFetchingProductDetail } = useQuery(getProductDetailQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        variables: {
+            configurableOptionValues: selectedOptionsArray,
+            sku
+        },
+        skip: !sku
+    });
 
-    const [
-        addProductToCart,
-        { error: addProductToCartError, loading: isAddingToCart }
-    ] = useMutation(operations.addProductToCartMutation);
+    const [addProductToCart, { error: addProductToCartError, loading: isAddingToCart }] = useMutation(
+        addProductToCartMutation
+    );
 
     useEffect(() => {
         if (data) {
@@ -133,8 +116,7 @@ export const useAddToCartDialog = props => {
             } = product.configurable_product_options_selection;
 
             const currentImage =
-                selectedProductMediaGallery.length &&
-                selectedOptionsArray.length
+                selectedProductMediaGallery.length && selectedOptionsArray.length
                     ? selectedProductMediaGallery[0]
                     : product.image;
 
@@ -163,17 +145,13 @@ export const useAddToCartDialog = props => {
 
     const handleOptionSelection = useCallback(
         (optionId, value) => {
-            setUserSelectedOptions(existing =>
-                new Map(existing).set(parseInt(optionId), value)
-            );
+            setUserSelectedOptions(existing => new Map(existing).set(parseInt(optionId), value));
             // Create a new Map to keep track of user single selection with key as String
             const nextSingleOptionSelection = new Map();
             nextSingleOptionSelection.set(optionId, value);
             setSingleOptionSelection(nextSingleOptionSelection);
             // Create a new Map to keep track of multiple selections with key as String
-            const nextMultipleOptionSelections = new Map([
-                ...multipleOptionSelections
-            ]);
+            const nextMultipleOptionSelections = new Map([...multipleOptionSelections]);
             nextMultipleOptionSelections.set(optionId, value);
             setMultipleOptionSelections(nextMultipleOptionSelections);
         },
@@ -187,7 +165,7 @@ export const useAddToCartDialog = props => {
             await addProductToCart({
                 variables: {
                     cartId,
-                    cartItem: {
+                    product: {
                         quantity,
                         selected_options: selectedOptionsArray,
                         sku
@@ -198,10 +176,7 @@ export const useAddToCartDialog = props => {
             const selectedOptionsLabels =
                 selectedOptionsArray?.map((value, i) => ({
                     attribute: item.product.configurable_options[i].label,
-                    value:
-                        item.product.configurable_options[i].values.find(
-                            x => x.uid === value
-                        )?.label || null
+                    value: item.product.configurable_options[i].values.find(x => x.uid === value)?.label || null
                 })) || null;
 
             dispatch({
@@ -266,9 +241,7 @@ export const useAddToCartDialog = props => {
     const buttonProps = useMemo(() => {
         if (item) {
             return {
-                disabled:
-                    item.product?.configurable_options.length !==
-                        selectedOptionsArray.length || isAddingToCart,
+                disabled: item.product?.configurable_options.length !== selectedOptionsArray.length || isAddingToCart,
                 onClick: handleAddToCart,
                 priority: 'high'
             };

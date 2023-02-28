@@ -12,8 +12,8 @@ import defaultClasses from './suggestedProduct.module.css';
 import Button from '@magento/venia-ui/lib/components/Button';
 import { useAddProduct } from '@magento/peregrine/lib/talons/AddProduct/useAddProduct';
 import {
-    ADD_CONFIGURABLE_MUTATION,
-    ADD_SIMPLE_MUTATION
+    ADD_CONFIGURABLE_PRODUCT_TO_CART,
+    ADD_SIMPLE_PRODUCT_TO_CART
 } from '@magento/peregrine/lib/talons/ProductFullDetail/productFullDetail.gql';
 
 import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
@@ -51,8 +51,8 @@ const SuggestedProduct = props => {
     const simpleProductLink = `/simple-product?sku=${suggested_Product.sku}`;
 
     const talonProps = useAddProduct({
-        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
-        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
+        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_PRODUCT_TO_CART,
+        addSimpleProductToCartMutation: ADD_SIMPLE_PRODUCT_TO_CART,
         suggested_Product
     });
 

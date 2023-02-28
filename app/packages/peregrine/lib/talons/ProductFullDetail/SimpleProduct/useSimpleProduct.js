@@ -3,14 +3,21 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { GET_SIMPLE_PRODUCT } from '../SimpleProduct/getSimpleProduct.gql';
+import DEFAULT_OPERATIONS from './simpleProduct.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useLocation } from 'react-router-dom';
 
 import { useModulesContext } from '../../../context/modulesProvider';
 import { useStoreConfigContext } from '../../../context/storeConfigProvider';
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct'];
+
 export const useSimpleProduct = (props = {}) => {
+    const { addConfigurableProductToCartMutation, productQuantity } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getSimpleProductQuery } = operations;
+
     const { formatMessage } = useIntl();
     const { search } = useLocation();
     const sku = new URLSearchParams(search).get('sku');
@@ -19,9 +26,7 @@ export const useSimpleProduct = (props = {}) => {
 
     const isB2B = tenantConfig.b2bProductDetailView;
 
-    const { addConfigurableProductToCartMutation, productQuantity } = props;
-
-    const { data, loading, error } = useQuery(GET_SIMPLE_PRODUCT, {
+    const { data, loading, error } = useQuery(getSimpleProductQuery, {
         variables: { sku: sku }
     });
 

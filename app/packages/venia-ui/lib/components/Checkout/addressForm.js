@@ -21,8 +21,7 @@ const AddressForm = props => {
         countries,
         fields,
         onCancel,
-        onSubmit,
-        setGuestEmailMutation: SET_GUEST_EMAIL
+        onSubmit
     });
 
     const { error, handleCancel, handleSubmit, initialValues, isSignedIn } = talonProps;
@@ -124,13 +123,3 @@ AddressForm.propTypes = {
 };
 
 export default AddressForm;
-
-export const SET_GUEST_EMAIL = gql`
-    mutation setGuestEmailOnCart($cartId: String!, $email: String!) {
-        setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
-            cart {
-                id
-            }
-        }
-    }
-`;

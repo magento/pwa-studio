@@ -1,5 +1,4 @@
 import React from 'react';
-import { gql } from '@apollo/client';
 import { bool, func, shape, string } from 'prop-types';
 import { useAutocomplete } from '@magento/peregrine/lib/talons/SearchBar';
 import { useIntl } from 'react-intl';
@@ -8,61 +7,9 @@ import defaultClasses from './autocomplete.module.css';
 import { useStyle } from '../../classify';
 import Suggestions from './suggestions';
 
-const GET_AUTOCOMPLETE_RESULTS = gql`
-    query getAutocompleteResults($inputText: String!) {
-        # Limit results to first three.
-        products(search: $inputText, currentPage: 1, pageSize: 3) {
-            aggregations {
-                label
-                count
-                attribute_code
-                options {
-                    label
-                    value
-                }
-                position
-            }
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
-            items {
-                orParentSku
-                orParentUrlKey
-                id
-                uid
-                sku
-                name
-                small_image {
-                    url
-                }
-                url_key
-                url_suffix
-                price {
-                    regularPrice {
-                        amount {
-                            value
-                            currency
-                        }
-                    }
-                    minimalPrice {
-                        amount {
-                            currency
-                            value
-                        }
-                    }
-                }
-            }
-            page_info {
-                total_pages
-            }
-            total_count
-        }
-    }
-`;
 const Autocomplete = props => {
     const { setVisible, valid, visible } = props;
     const talonProps = useAutocomplete({
-        queries: {
-            getAutocompleteResults: GET_AUTOCOMPLETE_RESULTS
-        },
         valid,
         visible
     });
