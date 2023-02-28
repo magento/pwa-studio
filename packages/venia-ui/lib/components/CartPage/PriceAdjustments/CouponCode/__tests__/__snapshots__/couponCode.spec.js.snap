@@ -66,7 +66,9 @@ exports[`disables submit button on coupon entry 1`] = `
         />
       </span>
       <span />
-      <span />
+      <span
+        aria-hidden="false"
+      />
     </span>
     <p>
       
@@ -133,7 +135,9 @@ exports[`renders CouponCode input and submit button 1`] = `
         />
       </span>
       <span />
-      <span />
+      <span
+        aria-hidden="false"
+      />
     </span>
     <p>
       
@@ -199,7 +203,9 @@ exports[`renders an error message if an error occurs on code entry 1`] = `
         />
       </span>
       <span />
-      <span />
+      <span
+        aria-hidden="false"
+      />
     </span>
     <p>
       A wild GQL error appeared!
