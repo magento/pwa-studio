@@ -37,7 +37,6 @@ export const useSingleWishlist = props => {
             setShowLoginToast(current => ++current);
         } else {
             try {
-                console.log({ item });
                 if (beforeAdd) {
                     await beforeAdd();
                 }

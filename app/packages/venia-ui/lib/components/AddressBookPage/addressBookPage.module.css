@@ -44,6 +44,6 @@
 }
 
 .addButton:hover {
-    border-color: var(--b2bstore-background-color-hover);
+    border-color: var(--b2bstore-global-color-orange);
     color: var(--b2bstore-global-color-orange);
 }

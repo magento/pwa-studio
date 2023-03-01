@@ -264,6 +264,12 @@
                     "default": false
                 },
                 {
+                    "name": "CHATBOT_ENABLED",
+                    "type": "bool",
+                    "desc": "Specify if enable or not the Chatbot module.",
+                    "default": false
+                },
+                {
                     "name": "MULTITENANT_ENABLED",
                     "type": "bool",
                     "desc": "Specify if enable or not the Multitenant support.",

@@ -22,6 +22,7 @@ import { useSupportPage } from '@magento/peregrine/lib/talons/Csr/useSupportPage
 import { useSortTicket } from '@magento/peregrine/lib/talons/Csr/useSortTicket.js';
 import { useFilterTicket } from '@magento/peregrine/lib/talons/Csr/useFilterTicket.js';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useModulesContext } from '@magento/peregrine/lib/context/modulesProvider';
 
 import defaultClasses from './supportPage.module.css';
 
@@ -79,6 +80,8 @@ const ContentDialog = props => {
         tickets
     } = talonProps;
     const { formatMessage, locale } = useIntl();
+
+    const { tenantConfig } = useModulesContext();
 
     // Texts
     const supportTitle = formatMessage({ id: 'csr.supportTitle', defaultMessage: 'Support page' });
@@ -421,7 +424,7 @@ const ContentDialog = props => {
             />
             {successToast && successToastContainer}
             {errorToast && errorToastContainer}
-            <script type="text/javascript">{chatBotButton()}</script>
+            {tenantConfig.chatbotEnabled ? <script type="text/javascript">{chatBotButton()}</script> : null}
         </div>
     );
 };

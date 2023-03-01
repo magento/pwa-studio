@@ -6,6 +6,9 @@
         "csr": {
             "ENABLED": true
         },
+        "chatbot":{
+            "ENABLED": true
+        },
         "braintree": {
             "CHECKOUT_BRAINTREE_TOKEN": "sandbox_ykh4mj4h_dxj54rtfp99ncnhk"
         },

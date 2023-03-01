@@ -9,6 +9,7 @@ export const useModules = () => {
         constructor(tenantConfig) {
             this.lmsEnabled = Boolean(tenantConfig.lms?.ENABLED === 'true' || tenantConfig.lms?.ENABLED === true);
             this.csrEnabled = Boolean(tenantConfig.csr?.ENABLED === 'true' || tenantConfig.csr?.ENABLED === true);
+            this.chatbotEnabled = Boolean(tenantConfig.chatbot?.ENABLED === 'true' || tenantConfig.chatbot?.ENABLED === true);
             this.braintreeToken = tenantConfig.braintree?.CHECKOUT_BRAINTREE_TOKEN;
             this.googleAnalyticsTrackingId = tenantConfig.googleAnalytics?.GOOGLE_ANALYTICS_TRACKING_ID;
             this.b2bProductDetailView = Boolean(
@@ -24,6 +25,9 @@ export const useModules = () => {
             },
             csr: {
                 ENABLED: process.env.CSR_ENABLED
+            },
+            chatbot: {
+                ENABLED: process.env.CHATBOT_ENABLED
             },
             braintree: {
                 CHECKOUT_BRAINTREE_TOKEN: process.env.CHECKOUT_BRAINTREE_TOKEN

@@ -21,8 +21,6 @@ export const useAccountMenuItems = props => {
         onSignOut();
     }, [tenantConfig, onSignOut]);
 
-    console.log('from use accountMenuItems', tenantConfig);
-
     const MENU_ITEMS_BASIC = [
         {
             name: 'Account Information',

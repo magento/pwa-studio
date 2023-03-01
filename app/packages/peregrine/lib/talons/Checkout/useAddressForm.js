@@ -53,7 +53,6 @@ export const useAddressForm = props => {
 
     const handleSubmit = useCallback(
         async addressFormValues => {
-            console.log('useAddressForm:' + { addressFormValues });
             try {
                 await submitShippingAddress({
                     formValues: addressFormValues,

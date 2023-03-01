@@ -3,7 +3,7 @@
         "--b2bstore-inStockIcon-color": "#02a647",
         "--b2bstore-outStockIcon-color": "#e45b62",
 
-        "--b2bstore-global-color-orange": "#d079b4",
+        "--b2bstore-global-color-orange": "#e8ab00",
         "--b2bstore-global-color-gray": "#808080",
         "--b2bstore-global-color-black": "#28282b",
         "--b2bstore-background-color": "#f6f8fb",
@@ -14,7 +14,6 @@
         "--b2bstore-font-color": "#676f71",
         "--b2bstore-footerFont-color": "#0c0c0c",
         "--b2bstore-fieldInput-border-color": "#d1d5db",
-        "--b2bstore-background-color-hover": "#ffc82f",
 
         "--venia-global-color-blue-700": "31 57 255",
         "--venia-global-color-gray-50": "255 255 255",
@@ -94,6 +93,7 @@
         "--venia-global-maxWidth": "1440px"
     },
     "unused": {
+        "--b2bstore-background-color-hover": "#69D8FB",
         "--venia-global-color-blue-100": "194 200 255",
         "--venia-global-color-blue-400": "61 132 255",
         "--venia-global-color-blue-500": "51 109 255",
