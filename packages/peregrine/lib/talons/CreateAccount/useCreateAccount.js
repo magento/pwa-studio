@@ -188,7 +188,6 @@ export const useCreateAccount = props => {
             mergeCarts,
             getUserDetails,
             fetchUserDetails,
-            handleCancelKeyPress,
             getCartDetails,
             fetchCartDetails,
             onSubmit,
@@ -218,6 +217,7 @@ export const useCreateAccount = props => {
         errors,
         handleCancel,
         handleSubmit,
+        handleCancelKeyPress,
         initialValues: sanitizedInitialValues,
         isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
         recaptchaWidgetProps
