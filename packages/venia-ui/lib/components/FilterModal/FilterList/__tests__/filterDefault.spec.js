@@ -1,11 +1,15 @@
 import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
-
+import { useCurrencySwitcher } from '@magento/peregrine/lib/talons/Header/useCurrencySwitcher';
 import Checkbox from '../../../Checkbox';
 import FilterDefault from '../filterDefault';
 
 jest.mock('../../../Checkbox', () => props => <mock-Checkbox {...props} />);
+
+jest.mock('@magento/peregrine/lib/talons/Header/useCurrencySwitcher', () => ({
+    useCurrencySwitcher: jest.fn()
+}));
 
 const mockLabel = 'Item Label';
 
@@ -20,6 +24,16 @@ const givenDefaultValues = () => {
         isSelected: false,
         item: null
     };
+};
+
+const talonProps = {
+    handleSwitchCurrency: jest.fn(),
+    availableCurrencies: ['USD', 'EUR'],
+    currentCurrencyCode: 'EUR',
+    currencyMenuRef: {},
+    currencyMenuTriggerRef: {},
+    currencyMenuIsOpen: false,
+    handleTriggerClick: jest.fn()
 };
 
 const givenWithItem = () => {
@@ -42,6 +56,7 @@ const givenWithSelectedItem = () => {
 describe('#FilterDefault', () => {
     beforeEach(() => {
         givenDefaultValues();
+        useCurrencySwitcher.mockReturnValueOnce(talonProps);
     });
 
     it('renders without item', () => {
