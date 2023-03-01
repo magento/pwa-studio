@@ -1,6 +1,7 @@
 import React, { useState, useContext, useMemo, useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 import { MP_STORE_LOCATOR_LOCATIONS } from '@magento/peregrine/lib/talons/StoreLocator/storeLocator.gql';
+import useLocalStorage from '../useLocalStorage/useLocalStorage';
 
 const StoreLocatorContext = React.createContext();
 
@@ -11,10 +12,11 @@ export const StoreLocatorProvider = ({ children }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [showDirections, setShowDirections] = useState(false);
     const [centerCoordinates, setCenterCoordinates] = useState({
-        lat: 20.9790643,
-        lng: 105.7854772
+        lat: 0,
+        lng: 0
     });
     const [response, setResponse] = useState(null);
+    const [favoriteStores, setFavoriteStores] = useLocalStorage('favoriteStores', {});
 
     //get the stores locations
 
@@ -93,7 +95,9 @@ export const StoreLocatorProvider = ({ children }) => {
                 directionsCallback,
                 response,
                 setResponse,
-                directionSteps
+                directionSteps,
+                favoriteStores,
+                setFavoriteStores
             }}
         >
             {children}

@@ -22,6 +22,9 @@
 .imageContainer {
     width: 30%;
 }
+.cardInformation {
+    padding-top: 10px;
+}
 
 .cardInformation .title {
     font-weight: bold;
@@ -43,6 +46,19 @@
 
 .textContainer p {
     color: white;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.star {
+    cursor: pointer;
+}
+
+.star img {
+    width: 20px;
 }
 
 @media (max-width: 547px) {

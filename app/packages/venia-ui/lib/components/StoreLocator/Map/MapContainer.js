@@ -28,7 +28,9 @@ const MapContainer = props => {
     } = useStoreLocatorContext();
     const [openInfoDialog, setOpenInfoDialog] = useState(false);
     const [markerPosition, setMarkerPosition] = useState({});
+
     const [storeInfo, setStoreInfo] = useState({});
+
     const classes = useStyle(defaultClasses, props.classes);
     const googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
     const containerStyle = {
@@ -48,10 +50,10 @@ const MapContainer = props => {
     const directionsRendererRef = React.useRef(null);
 
     const handleOpenInfoStoreDialogue = useCallback(
-        (lat, lng, street, city, country) => {
+        (lat, lng, street, city, country, name) => {
             setMarkerPosition({ lat: lat, lng: lng });
             setOpenInfoDialog(!openInfoDialog);
-            setStoreInfo({ street: street, city: city, country: country });
+            setStoreInfo({ street: street, city: city, country: country, name: name });
         },
         [openInfoDialog]
     );
@@ -84,7 +86,7 @@ const MapContainer = props => {
 
     const cardContainer = (
         <section>
-            {locationsItems.length === 0 ? (
+            {locationsItems?.length === 0 ? (
                 noStoresText
             ) : (
                 <>
@@ -116,7 +118,7 @@ const MapContainer = props => {
                         <GoogleMap
                             mapContainerStyle={containerStyle}
                             center={centerCoordinates}
-                            zoom={8}
+                            zoom={1}
                             onLoad={onMapLoad}
                         >
                             {locationsItems?.map((marker, index) => (
@@ -129,7 +131,8 @@ const MapContainer = props => {
                                             +marker.longitude,
                                             marker.street,
                                             marker.city,
-                                            marker.country
+                                            marker.country,
+                                            marker.name
                                         )
                                     }
                                 />
@@ -161,14 +164,19 @@ const MapContainer = props => {
                                     onCloseClick={() => setOpenInfoDialog(!openInfoDialog)}
                                 >
                                     <section className={classes.dialogInfoContainer}>
-                                        <article className={classes.iconContainer}>
-                                            <Icon src={MapPin} size={24} />
+                                        <article className={classes.infoStoreName}>
+                                            <p>{storeInfo.name}</p>
                                         </article>
-                                        <div>
-                                            <span>{storeInfo.street} </span>
-                                            <span>{storeInfo.city} </span>
-                                            <span>{storeInfo.country}</span>
-                                        </div>
+                                        <section className={classes.dialogIconAndLocation}>
+                                            <article className={classes.iconContainer}>
+                                                <Icon src={MapPin} size={24} />
+                                            </article>
+                                            <div>
+                                                <span>{storeInfo.street} </span>
+                                                <span>{storeInfo.city} </span>
+                                                <span>{storeInfo.country}</span>
+                                            </div>
+                                        </section>
                                     </section>
                                 </InfoWindow>
                             )}

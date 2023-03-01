@@ -35,13 +35,19 @@
 .textContainer p {
     color: white;
 }
-.dialogInfoContainer {
+.dialogIconAndLocation {
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 .iconContainer {
     margin-right: 10px;
+}
+
+.infoStoreName {
+    margin: 0 0 10px 20px;
+}
+.dialogInfoContainer article p {
+    font-weight: bold;
 }
 
 @media (max-width: 992px) {
