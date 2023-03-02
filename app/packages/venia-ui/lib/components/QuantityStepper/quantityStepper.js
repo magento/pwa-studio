@@ -10,7 +10,7 @@ import { Message } from '../Field';
 import defaultClasses from './quantityStepper.module.css';
 
 const QuantityStepper = props => {
-    const { initialValue, itemId, label, min, onChange, message, fieldName = 'quantity' } = props;
+    const { initialValue, itemId, label, min, onChange, message, fieldName = 'quantity', textProps } = props;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
@@ -66,6 +66,7 @@ const QuantityStepper = props => {
                     min={min}
                     onBlur={handleBlur}
                     pattern="[0-9]*"
+                   {...textProps}
                 />
                 <button
                     aria-label={formatMessage({
