@@ -1,4 +1,3 @@
-
 .root {
     align-content: start;
     display: grid;
@@ -52,9 +51,13 @@
 
 .actionsContainer {
     display: grid;
-    grid-template-columns: 1.9fr 0.2fr !important ;
+    grid-template-columns: auto;
     padding-left: 0.5rem;
     align-items: center;
+}
+
+.multibaleActions {
+    grid-template-columns: 1.9fr 0.2fr;
 }
 
 .actionsContainer:empty {

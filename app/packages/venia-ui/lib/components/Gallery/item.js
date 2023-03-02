@@ -23,6 +23,8 @@ import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGallery
 import { useStyle } from '../../classify';
 import { useToasts } from '@magento/peregrine';
 
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+
 import defaultClasses from './item.module.css';
 
 import CompareIcon from './Icons/compare.svg';
@@ -44,6 +46,8 @@ const GalleryItem = props => {
     const { storeConfig, filterState, pageBuilder } = props;
     const { configurable_options, stock_status } = props.item;
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
+
+    const [{ isSignedIn }] = useUserContext();
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -371,13 +375,18 @@ const GalleryItem = props => {
                     )}
                 </div>
             )}
-            <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}`}>
+            <div
+                className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer} ${isSignedIn &&
+                    classes.multibaleActions}`}
+            >
                 {!price.minimalPrice?.amount.value && process.env.B2BSTORE_VERSION === 'PREMIUM'
                     ? requestQuoteButton
                     : addButton}
-                <button className={classes.compareIcon} onClick={addToCompare}>
-                    <img src={CompareIcon} alt="compare icon" />
-                </button>
+                {isSignedIn && (
+                    <button className={classes.compareIcon} onClick={addToCompare}>
+                        <img src={CompareIcon} alt="compare icon" />
+                    </button>
+                )}
                 <ConfirmationModal
                     isOpen={isOpen}
                     onCancel={() => setIsOpen(false)}
