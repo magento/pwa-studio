@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_SUMMARY_DATA = gql`
-    query GetSummaryDataForBraintree($cartId: String!) {
+    query GetSummaryData($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             isBillingAddressSame @client
@@ -25,5 +25,5 @@ export const GET_SUMMARY_DATA = gql`
 `;
 
 export default {
-    getSummaryDataForBraintreeQuery: GET_SUMMARY_DATA
+    getSummaryDataQuery: GET_SUMMARY_DATA
 };

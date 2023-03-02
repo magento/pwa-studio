@@ -51,10 +51,10 @@ const mapBillingAddressData = rawBillingAddressData => {
 export const useBraintreeSummary = () => {
     const operations = mergeOperations(DEFAULT_OPERATIONS);
 
-    const { getSummaryDataForBraintreeQuery } = operations;
+    const { getSummaryDataQuery } = operations;
 
     const [{ cartId }] = useCartContext();
-    const { data: summaryData, loading: isLoading } = useQuery(getSummaryDataForBraintreeQuery, {
+    const { data: summaryData, loading: isLoading } = useQuery(getSummaryDataQuery, {
         skip: !cartId,
         variables: { cartId }
     });
