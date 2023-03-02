@@ -7,11 +7,11 @@ import defaultOperations from './addToCartDialog.gql';
 import { useEventingContext } from '../../context/eventing';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
+import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 
 export const useAddToCartDialog = props => {
     const { item, onClose } = props;
     const sku = item && item.product?.sku;
-
     const [, { dispatch }] = useEventingContext();
 
     const operations = mergeOperations(defaultOperations, props.operations);
@@ -21,9 +21,7 @@ export const useAddToCartDialog = props => {
     const [currentPrice, setCurrentPrice] = useState();
     const [currentDiscount, setCurrentDiscount] = useState();
     const [singleOptionSelection, setSingleOptionSelection] = useState();
-    const [multipleOptionSelections, setMultipleOptionSelections] = useState(
-        new Map()
-    );
+    const [multipleOptionSelections, setMultipleOptionSelections] = useState(new Map());
 
     const [{ cartId }] = useCartContext();
 
@@ -37,6 +35,11 @@ export const useAddToCartDialog = props => {
         return optionCodeMap;
     }, [item]);
 
+    const selectedVariant = findMatchingVariant({
+        variants: item.product.variants,
+        optionCodes,
+        optionSelections: multipleOptionSelections
+    });
     // Check if display out of stock products option is selected in the Admin Dashboard
     const isOutOfStockProductDisplayed = useMemo(() => {
         if (item) {
@@ -64,29 +67,14 @@ export const useAddToCartDialog = props => {
                 isOutOfStockProductDisplayed
             );
         }
-    }, [
-        item,
-        optionCodes,
-        singleOptionSelection,
-        multipleOptionSelections,
-        isOutOfStockProductDisplayed
-    ]);
+    }, [item, optionCodes, singleOptionSelection, multipleOptionSelections, isOutOfStockProductDisplayed]);
 
     const selectedOptionsArray = useMemo(() => {
         if (item) {
-            const existingOptionsMap = item.configurable_options.reduce(
-                (optionsMap, selectedOption) => {
-                    return optionsMap.set(
-                        selectedOption.id,
-                        selectedOption.value_id
-                    );
-                },
-                new Map()
-            );
-            const mergedOptionsMap = new Map([
-                ...existingOptionsMap,
-                ...userSelectedOptions
-            ]);
+            const existingOptionsMap = item.configurable_options?.reduce((optionsMap, selectedOption) => {
+                return optionsMap.set(selectedOption.id, selectedOption.value_id);
+            }, new Map());
+            const mergedOptionsMap = new Map([...existingOptionsMap, ...userSelectedOptions]);
 
             const selectedOptions = [];
             mergedOptionsMap.forEach((selectedValueId, attributeId) => {
@@ -106,23 +94,19 @@ export const useAddToCartDialog = props => {
         return [];
     }, [item, userSelectedOptions]);
 
-    const { data, loading: isFetchingProductDetail } = useQuery(
-        operations.getProductDetailQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first',
-            variables: {
-                configurableOptionValues: selectedOptionsArray,
-                sku
-            },
-            skip: !sku
-        }
-    );
+    const { data, loading: isFetchingProductDetail } = useQuery(operations.getProductDetailQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        variables: {
+            configurableOptionValues: selectedOptionsArray,
+            sku
+        },
+        skip: !sku
+    });
 
-    const [
-        addProductToCart,
-        { error: addProductToCartError, loading: isAddingToCart }
-    ] = useMutation(operations.addProductToCartMutation);
+    const [addProductToCart, { error: addProductToCartError, loading: isAddingToCart }] = useMutation(
+        operations.addProductToCartMutation
+    );
 
     useEffect(() => {
         if (data) {
@@ -133,8 +117,7 @@ export const useAddToCartDialog = props => {
             } = product.configurable_product_options_selection;
 
             const currentImage =
-                selectedProductMediaGallery.length &&
-                selectedOptionsArray.length
+                selectedProductMediaGallery.length && selectedOptionsArray.length
                     ? selectedProductMediaGallery[0]
                     : product.image;
 
@@ -163,23 +146,18 @@ export const useAddToCartDialog = props => {
 
     const handleOptionSelection = useCallback(
         (optionId, value) => {
-            setUserSelectedOptions(existing =>
-                new Map(existing).set(parseInt(optionId), value)
-            );
+            setUserSelectedOptions(existing => new Map(existing).set(parseInt(optionId), value));
             // Create a new Map to keep track of user single selection with key as String
             const nextSingleOptionSelection = new Map();
             nextSingleOptionSelection.set(optionId, value);
             setSingleOptionSelection(nextSingleOptionSelection);
             // Create a new Map to keep track of multiple selections with key as String
-            const nextMultipleOptionSelections = new Map([
-                ...multipleOptionSelections
-            ]);
+            const nextMultipleOptionSelections = new Map([...multipleOptionSelections]);
             nextMultipleOptionSelections.set(optionId, value);
             setMultipleOptionSelections(nextMultipleOptionSelections);
         },
         [multipleOptionSelections]
     );
-
     const handleAddToCart = useCallback(async () => {
         try {
             const quantity = 1;
@@ -198,10 +176,7 @@ export const useAddToCartDialog = props => {
             const selectedOptionsLabels =
                 selectedOptionsArray?.map((value, i) => ({
                     attribute: item.product.configurable_options[i].label,
-                    value:
-                        item.product.configurable_options[i].values.find(
-                            x => x.uid === value
-                        )?.label || null
+                    value: item.product.configurable_options[i].values.find(x => x.uid === value)?.label || null
                 })) || null;
 
             dispatch({
@@ -267,13 +242,14 @@ export const useAddToCartDialog = props => {
         if (item) {
             return {
                 disabled:
-                    item.product?.configurable_options.length !==
-                        selectedOptionsArray.length || isAddingToCart,
+                    item.product?.configurable_options.length !== selectedOptionsArray.length ||
+                    isAddingToCart ||
+                    selectedVariant?.product.stock_status === 'OUT_OF_STOCK',
                 onClick: handleAddToCart,
                 priority: 'high'
             };
         }
-    }, [handleAddToCart, isAddingToCart, item, selectedOptionsArray.length]);
+    }, [handleAddToCart, isAddingToCart, item, selectedOptionsArray.length, selectedVariant]);
 
     return {
         buttonProps,
@@ -283,6 +259,7 @@ export const useAddToCartDialog = props => {
         outOfStockVariants,
         imageProps,
         isFetchingProductDetail,
-        priceProps
+        priceProps,
+        selectedVariant
     };
 };

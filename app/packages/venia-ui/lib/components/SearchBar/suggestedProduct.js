@@ -27,7 +27,7 @@ const IMAGE_WIDTH = 60;
 const SuggestedProduct = props => {
     const suggested_Product = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const { url_key, small_image, name, onNavigate, price, url_suffix, sku } = props;
+    const { url_key, small_image, name, onNavigate, price, url_suffix, sku, stock_status } = props;
 
     const [copied, setCopied] = useState(false);
 
@@ -111,20 +111,22 @@ const SuggestedProduct = props => {
                 </Button>
             ) : null}
             {suggested_Product.__typename !== 'SimpleProduct' && <div className={classes.hideMobile} />}
-            <span className={classes.price}>
-                <Price
-                    currencyCode={
-                        price.minimalPrice.amount.currency != null
-                            ? price.minimalPrice.amount.currency
-                            : price.regularPrice.amount.currency
-                    }
-                    value={
-                        price.minimalPrice.amount.value != null
-                            ? price.minimalPrice.amount.value
-                            : price.regularPrice.amount.value
-                    }
-                />
-            </span>
+            {stock_status === 'IN_STOCK' && (
+                <span className={classes.price}>
+                    <Price
+                        currencyCode={
+                            price.minimalPrice.amount.currency != null
+                                ? price.minimalPrice.amount.currency
+                                : price.regularPrice.amount.currency
+                        }
+                        value={
+                            price.minimalPrice.amount.value != null
+                                ? price.minimalPrice.amount.value
+                                : price.regularPrice.amount.value
+                        }
+                    />
+                </span>
+            )}
         </div>
     );
 };

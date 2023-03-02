@@ -25,9 +25,9 @@ const AddToCartDialog = props => {
         outOfStockVariants,
         imageProps,
         isFetchingProductDetail,
-        priceProps
+        priceProps,
+        selectedVariant
     } = talonProps;
-
     const classes = useStyle(defaultClasses, props.classes);
 
     const imageComponent = useMemo(
@@ -40,10 +40,7 @@ const AddToCartDialog = props => {
         [classes.image, imageProps]
     );
 
-    const priceComponent = useMemo(
-        () => (priceProps ? <Price {...priceProps} /> : null),
-        [priceProps]
-    );
+    const priceComponent = useMemo(() => (priceProps ? <Price {...priceProps} /> : null), [priceProps]);
 
     const dialogContent = useMemo(() => {
         if (item) {
@@ -51,10 +48,10 @@ const AddToCartDialog = props => {
                 <div className={classes.root}>
                     {imageComponent}
                     <div className={classes.detailsContainer}>
-                        <span className={classes.name}>
-                            {item.product.name}
-                        </span>
-                        <span className={classes.price}>{priceComponent}</span>
+                        <span className={classes.name}>{item.product.name}</span>
+                        {selectedVariant?.product.stock_status === 'IN_STOCK' && (
+                            <span className={classes.price}>{priceComponent}</span>
+                        )}
                         <Options
                             {...configurableOptionProps}
                             classes={{
@@ -64,10 +61,11 @@ const AddToCartDialog = props => {
                             outOfStockVariants={outOfStockVariants}
                         />
                         <Button {...buttonProps}>
-                            <FormattedMessage
-                                id="addToCartDialog.addToCart"
-                                defaultMessage="Add to Cart"
-                            />
+                            {selectedVariant?.product.stock_status === 'OUT_OF_STOCK' ? (
+                                <FormattedMessage id="productDetail.outOfStock" defaultMessage="Out of stock" />
+                            ) : (
+                                <FormattedMessage id="addToCartDialog.addToCart" defaultMessage="Add to Cart" />
+                            )}
                         </Button>
                     </div>
                 </div>
@@ -86,7 +84,8 @@ const AddToCartDialog = props => {
         imageComponent,
         item,
         priceComponent,
-        outOfStockVariants
+        outOfStockVariants,
+        selectedVariant
     ]);
 
     const titleElement = isFetchingProductDetail ? (
