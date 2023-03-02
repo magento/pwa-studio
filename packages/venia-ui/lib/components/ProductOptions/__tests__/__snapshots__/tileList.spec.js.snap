@@ -5,6 +5,7 @@ exports[`renders TileList component correctly 1`] = `
   className="root"
 >
   <button
+    aria-label="Fashion size {label}"
     className="root"
     onClick={[Function]}
     title="foo"

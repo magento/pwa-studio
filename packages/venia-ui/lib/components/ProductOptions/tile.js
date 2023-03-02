@@ -1,6 +1,6 @@
 import React from 'react';
 import { bool, func, number, oneOfType, shape, string } from 'prop-types';
-
+import { useIntl } from 'react-intl';
 import { useStyle } from '../../classify';
 import defaultClasses from './tile.module.css';
 import { useTile } from '@magento/peregrine/lib/talons/ProductOptions/useTile';
@@ -43,7 +43,21 @@ const Tile = props => {
                 isEverythingOutOfStock
             )
         ];
+    const { formatMessage } = useIntl();
 
+    const ariaLabelView = formatMessage({
+        id: 'ProductOptions.productSize',
+
+        defaultMessage: `Fashion size ${label}`
+    });
+
+    const ariaLabelSelected = formatMessage({
+        id: 'productOptions.selectedSize',
+
+        defaultMessage: `Fashion size ${label} button Selected`
+    });
+
+    const result = isSelected ? ariaLabelSelected : ariaLabelView;
     return (
         <button
             className={className}
@@ -51,6 +65,7 @@ const Tile = props => {
             title={label}
             type="button"
             data-cy="Tile-button"
+            aria-label={result}
             disabled={isEverythingOutOfStock || isOptionOutOfStock}
         >
             <span>{label}</span>
