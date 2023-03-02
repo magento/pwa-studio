@@ -16,12 +16,12 @@ const ConfirmationModal = props => {
 
     const confirmationTitleText = formatMessage({
         id: 'galleryItem.youAreAboutToReq',
-        defaultMessage: 'You are about to request a quote for '
+        defaultMessage: 'You are about to request a quote for: '
     });
 
     const confirmationBodyText = formatMessage({
         id: 'galleryItem.confirmationBody',
-        defaultMessage: 'Are you sure you want to request a quote for this product?'
+        defaultMessage: 'Are you sure you want to request a quote for this products?'
     });
 
     return (
@@ -29,15 +29,19 @@ const ConfirmationModal = props => {
             <div className={classes.confirmationModalContainer}>
                 <div className={classes.confirmationModalBodyContainer}>
                     <p className={classes.headingText}>{confirmationTitleText}</p>
-                    {products?.map(ele => (
-                        <div className={classes.productWrapper}>
-                            <span>
-                                {ele.quantity}
-                                <FormattedMessage id="galleryItem.unitsOfProducts" defaultMessage=" units" />
-                            </span>
-                            <span>{ele.name}</span>
-                        </div>
-                    ))}
+                    <ul className={classes.productsList}>
+                        {products?.map(ele => (
+                            <li key={ele.name}>
+                                <span className={classes.productWrapper}>
+                                    <span>
+                                        {ele.quantity}
+                                        <FormattedMessage id="galleryItem.unitsOfProducts" defaultMessage=" units" />
+                                    </span>
+                                    <span>{ele.name}</span>
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
                     <p className={classes.bodyText}>{confirmationBodyText}</p>
                 </div>
             </div>

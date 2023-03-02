@@ -46,7 +46,7 @@
 }
 
 .productWrapper {
-    gap: .5rem;
+    gap: 0.5rem;
     display: flex;
 }
 
@@ -67,4 +67,9 @@
     .bodyText {
         font-size: 20px;
     }
+}
+
+.productsList {
+    list-style-type: circle !important;
+
 }
