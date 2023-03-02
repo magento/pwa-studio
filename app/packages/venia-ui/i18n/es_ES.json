@@ -518,6 +518,7 @@
     "galleryItem.Requestquote": "Solicitar presupuesto",
     "galleryItem.confirmationBody": "¿Está seguro de querer solicitar un presupuesto para este producto?",
     "galleryItem.inStock": "En stock",
+    "galleryItem.Item": "Artículo",
     "galleryItem.outStock": "Agotado",
     "galleryItem.unavailableProduct": "Actualmente no disponible para la compra.",
     "galleryItem.unitsOfProducts": " unidades del producto ",

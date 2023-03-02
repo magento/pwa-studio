@@ -355,7 +355,15 @@ const GalleryItem = props => {
                             <div className={classes.productsSelect}>
                                 <Select
                                     field={`veriants ${item.sku}`}
-                                    items={[{ value: 'Item' }, ...getProductsInstance()]}
+                                    items={[
+                                        {
+                                            value: formatMessage({
+                                                id: 'galleryItem.Item',
+                                                defaultMessage: 'Item'
+                                            })
+                                        },
+                                        ...getProductsInstance()
+                                    ]}
                                     onChange={onChangeVariant}
                                 />
                             </div>
