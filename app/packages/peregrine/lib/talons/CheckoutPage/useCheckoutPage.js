@@ -126,7 +126,7 @@ export const useCheckoutPage = props => {
             cartId
         }
     });
-
+    
     const [
         updatePaymentMethod,
         {
@@ -279,7 +279,7 @@ export const useCheckoutPage = props => {
                 });
 
                 const orderId = data.placeOrder.order.order_number;
-                
+
                 ReactGA.plugin.execute('ecommerce', 'addTransaction', {
                     id: orderId,
                     revenue: cart.prices.subtotal_excluding_tax.value,
@@ -436,6 +436,7 @@ export const useCheckoutPage = props => {
         onBillingAddressChangedError,
         setCurrentSelectedPaymentMethod,
         onBillingAddressChangedSuccess,
-        paymentMethodMutationData
+        paymentMethodMutationData,
+        currentSelectedPaymentMethod 
     };
 };
