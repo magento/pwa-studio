@@ -164,6 +164,7 @@ exports[`renders configurable product with options 1`] = `
                   name="quantity"
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   pattern="[0-9]*"
                   value={1}
                 />
@@ -527,6 +528,7 @@ exports[`renders out of stock product 1`] = `
                   name="quantity"
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   pattern="[0-9]*"
                   value={2}
                 />
@@ -843,6 +845,7 @@ exports[`renders simple product correctly 1`] = `
                   name="quantity"
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   pattern="[0-9]*"
                   value={1}
                 />
