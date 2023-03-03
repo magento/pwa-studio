@@ -24,7 +24,8 @@ const MapContainer = props => {
         showDirections,
         centerCoordinates,
         directionsCallback,
-        response
+        response,
+        mapZoom
     } = useStoreLocatorContext();
     const [openInfoDialog, setOpenInfoDialog] = useState(false);
     const [markerPosition, setMarkerPosition] = useState({});
@@ -118,7 +119,7 @@ const MapContainer = props => {
                         <GoogleMap
                             mapContainerStyle={containerStyle}
                             center={centerCoordinates}
-                            zoom={1}
+                            zoom={mapZoom}
                             onLoad={onMapLoad}
                         >
                             {locationsItems?.map((marker, index) => (

@@ -18,7 +18,7 @@ const StoreCard = props => {
         setShowDirections,
         showDirections,
         setCenterCoordinates,
-        centerCoordinates,
+        setMapZoom,
         favoriteStores,
         setFavoriteStores
     } = useStoreLocatorContext();
@@ -49,14 +49,19 @@ const StoreCard = props => {
 
                 if (isCurrentStoreFavorite) {
                     setLastSelectedStore(null);
+                    setMapZoom(1);
                     return {};
                 } else {
                     setLastSelectedStore(newFavoriteStore);
+                    setCenterCoordinates({
+                        lat: +newFavoriteStore?.lat,
+                        lng: +newFavoriteStore?.lng
+                    });
                     return newFavoriteStore;
                 }
             });
         },
-        [setFavoriteStores, setLastSelectedStore]
+        [setCenterCoordinates, setFavoriteStores, setMapZoom]
     );
 
     useEffect(() => {
@@ -73,12 +78,13 @@ const StoreCard = props => {
             storedFavoriteStores.lat === currentStore.lat &&
             storedFavoriteStores.lng === currentStore.lng;
         setIsFavorite(isCurrentStoreFavorite);
+        setMapZoom(8);
         if (isCurrentStoreFavorite) {
             setLastSelectedStore(currentStore);
         } else {
             setLastSelectedStore(null);
         }
-    }, [name, latitude, longitude, setIsFavorite, setLastSelectedStore, favoriteStores]);
+    }, [name, latitude, longitude, setIsFavorite, setLastSelectedStore, favoriteStores, setMapZoom]);
 
     const isSelected =
         lastSelectedStore &&

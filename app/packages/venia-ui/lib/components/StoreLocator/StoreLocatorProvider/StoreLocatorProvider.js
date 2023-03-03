@@ -8,15 +8,17 @@ const StoreLocatorContext = React.createContext();
 export const StoreLocatorProvider = ({ children }) => {
     const [pageSize, setPageSize] = useState(5);
     const [fetchedLocations, setFetchedLocations] = useState([]);
+    const [mapZoom, setMapZoom] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [showDirections, setShowDirections] = useState(false);
+    const [favoriteStores, setFavoriteStores] = useLocalStorage('favoriteStores', {});
+
     const [centerCoordinates, setCenterCoordinates] = useState({
         lat: 0,
         lng: 0
     });
     const [response, setResponse] = useState(null);
-    const [favoriteStores, setFavoriteStores] = useLocalStorage('favoriteStores', {});
 
     //get the stores locations
 
@@ -81,6 +83,14 @@ export const StoreLocatorProvider = ({ children }) => {
         totalPages: totalPage
     };
 
+    useEffect(() => {
+        if (favoriteStores === null || Object.keys(favoriteStores).length === 0) {
+            setCenterCoordinates({ lat: 0, lng: 0 });
+        } else {
+            setCenterCoordinates({ lat: +favoriteStores?.lat, lng: +favoriteStores?.lng });
+        }
+    }, [favoriteStores]);
+
     return (
         <StoreLocatorContext.Provider
             value={{
@@ -97,7 +107,9 @@ export const StoreLocatorProvider = ({ children }) => {
                 setResponse,
                 directionSteps,
                 favoriteStores,
-                setFavoriteStores
+                setFavoriteStores,
+                mapZoom,
+                setMapZoom
             }}
         >
             {children}
