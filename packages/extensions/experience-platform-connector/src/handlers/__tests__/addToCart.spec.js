@@ -22,7 +22,9 @@ describe('handle()', () => {
     it('calls the correct sdk functions with the correct context value', () => {
         const mockSdk = {
             context: {
-                setShoppingCart: jest.fn()
+                setShoppingCart: jest.fn(),
+                setProduct: jest.fn(),
+                setChangedProducts: jest.fn()
             },
             publish: {
                 addToCart: jest.fn()
@@ -54,8 +56,13 @@ describe('handle()', () => {
                       },
                     ],
                     "name": "Johanna Skirt",
+                    "pricing": Object {
+                      "currencyCode": "USD",
+                      "regularPrice": 78,
+                    },
                     "sku": "VSK03",
                   },
+                  "quantity": 1,
                 },
               ],
               "possibleOnepageCheckout": false,
@@ -67,6 +74,9 @@ describe('handle()', () => {
               },
             }
         `);
+
+        expect(mockSdk.context.setProduct).toHaveBeenCalledTimes(1);
+        expect(mockSdk.context.setChangedProducts).toHaveBeenCalledTimes(1);
 
         expect(mockSdk.publish.addToCart).toHaveBeenCalledTimes(1);
     });

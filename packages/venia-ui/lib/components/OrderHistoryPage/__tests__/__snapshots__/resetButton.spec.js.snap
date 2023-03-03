@@ -2,7 +2,10 @@
 
 exports[`renders reset trigger 1`] = `
 <button
+  aria-hidden="false"
+  aria-label="Clear Text"
   onClick={[Function]}
+  onKeyDown={[Function]}
   type="button"
 >
   <span>
