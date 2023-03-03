@@ -45,12 +45,14 @@ const DiscountSummary = props => {
                 className={classes.individualDiscountsList}
                 data-cy="DiscountSummary-IndividualDiscount"
             >
-               <hr className={classes.individualDiscountSeparator} />
+                <hr className={classes.individualDiscountSeparator} />
                 {discountData.map(discount => {
                     if (discount.label != 'Gift Cards') {
                         return (
                             <li
-                                className={classes.individualDiscountsListLineItem}
+                                className={
+                                    classes.individualDiscountsListLineItem
+                                }
                                 key={discount.label}
                             >
                                 <span
