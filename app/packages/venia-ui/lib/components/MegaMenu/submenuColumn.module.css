@@ -8,7 +8,6 @@
 }
 
 .link {
-    composes: whitespace-nowrap from global;
 
     composes: focus_underline from global;
 
@@ -25,4 +24,38 @@
 
 .submenuChildItem {
     composes: mb-3 from global;
+}
+
+.link {
+    width: fit-content;
+    max-width: max(100px, min(8vw, 150px));
+}
+
+@media (max-width: 1300px) {
+    .link {
+        max-width: max(75px, min(15vw, 300px));
+    }
+}
+
+@media (max-width: 959px) {
+    .link {
+        max-width: max(60px, min(12vw, 150px));
+    }
+}
+
+@media (max-width: 639px) {
+    .link {
+        max-width: none;
+        padding-right: 20px;
+    }
+}
+
+.heading {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-height: initial;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-break: anywhere;
 }
