@@ -14,8 +14,10 @@ import StoreCard from '../StoreCard/StoreCard';
 import Pagination from '../../Pagination';
 import DirectionCard from '../DirectionCard/DirectionCard';
 import { useIntl } from 'react-intl';
-import { MapPin } from 'react-feather';
+import { MapPin, Menu, X as Close } from 'react-feather';
 import Icon from '../../Icon';
+import SearchModal from '../SearchModal';
+import LoadingIndicator from '../../LoadingIndicator';
 
 const MapContainer = props => {
     const {
@@ -25,7 +27,14 @@ const MapContainer = props => {
         centerCoordinates,
         directionsCallback,
         response,
-        mapZoom
+        mapZoom,
+        openSearchModal,
+        setOpenSearchModal,
+        submitSearch,
+        formProps,
+        setFormApi,
+        resetSearch,
+        locationsLoading
     } = useStoreLocatorContext();
     const [openInfoDialog, setOpenInfoDialog] = useState(false);
     const [markerPosition, setMarkerPosition] = useState({});
@@ -88,7 +97,7 @@ const MapContainer = props => {
     const cardContainer = (
         <section>
             {locationsItems?.length === 0 ? (
-                noStoresText
+                <span className={classes.noItemsText}>{noStoresText}</span>
             ) : (
                 <>
                     <div className={classes.scrollableContainer}>
@@ -101,14 +110,29 @@ const MapContainer = props => {
             )}
         </section>
     );
-    console.log('locationsItems', locationsItems);
     return (
         <LoadScript googleMapsApiKey={googleApiKey}>
             <main className={classes.container}>
                 <section className={classes.innerContainer}>
                     <article className={classes.cardContainer}>
-                        {!showDirections ? (
-                            cardContainer
+                        <div className={classes.searchBarWrapper}>
+                            <button onClick={() => setOpenSearchModal(!openSearchModal)}>
+                                <Icon src={!openSearchModal ? Menu : Close} />
+                            </button>
+                        </div>
+                        {openSearchModal ? (
+                            <SearchModal
+                                submitSearch={submitSearch}
+                                formProps={formProps}
+                                setFormApi={setFormApi}
+                                resetSearch={resetSearch}
+                            />
+                        ) : !showDirections ? (
+                            locationsLoading ? (
+                                <LoadingIndicator />
+                            ) : (
+                                cardContainer
+                            )
                         ) : (
                             <div className={classes.scrollableContainerDirection}>
                                 <DirectionCard />

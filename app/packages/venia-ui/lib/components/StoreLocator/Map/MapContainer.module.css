@@ -9,7 +9,6 @@
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
 }
 .cardContainer {
-    padding: 0 2rem 0 2rem;
     width: 500px;
 }
 
@@ -76,4 +75,9 @@
         padding: 0px;
         width: auto;
     }
+}
+
+.searchBarWrapper,
+.noItemsText {
+    margin: 10px 20px 0;
 }

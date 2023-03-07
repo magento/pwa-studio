@@ -1,12 +1,13 @@
-import React, { useState, useContext, useMemo, useEffect, useCallback } from 'react';
-import { useQuery } from '@apollo/client';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useContext, useMemo, useEffect, useCallback, useRef } from 'react';
+import { useLazyQuery } from '@apollo/client';
 import { MP_STORE_LOCATOR_LOCATIONS } from '@magento/peregrine/lib/talons/StoreLocator/storeLocator.gql';
 import useLocalStorage from '../useLocalStorage/useLocalStorage';
 
 const StoreLocatorContext = React.createContext();
 
 export const StoreLocatorProvider = ({ children }) => {
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize] = useState(5);
     const [fetchedLocations, setFetchedLocations] = useState([]);
     const [mapZoom, setMapZoom] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
@@ -20,16 +21,28 @@ export const StoreLocatorProvider = ({ children }) => {
     });
     const [response, setResponse] = useState(null);
 
+    const [openSearchModal, setOpenSearchModal] = useState(false);
     //get the stores locations
+    const [formSearch, setFormSearch] = useState();
 
-    const { data: locations, error, loading } = useQuery(MP_STORE_LOCATOR_LOCATIONS, {
+    const formProps = {
+        initialValues: formSearch
+    };
+    const formApiRef = useRef(null);
+    const setFormApi = useCallback(api => (formApiRef.current = api), []);
+    const [runQuery, queryResponse] = useLazyQuery(MP_STORE_LOCATOR_LOCATIONS, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         variables: {
             filter: {},
             pageSize: pageSize,
             currentPage: currentPage
         }
     });
-
+    const { data: locations, loading: locationsLoading } = queryResponse;
+    useEffect(() => {
+        runQuery();
+    }, []);
     //Total Count
 
     const totalCount = useMemo(() => {
@@ -91,6 +104,37 @@ export const StoreLocatorProvider = ({ children }) => {
         }
     }, [favoriteStores]);
 
+    const submitSearch = apiValue => {
+        const values = {};
+        Object.keys(apiValue).map(key => (values[key] = apiValue[key]));
+        setFormSearch(values);
+        try {
+            const filter = {};
+            Object.keys(apiValue).map(key => (filter[key] = { eq: apiValue[key] }));
+            runQuery({
+                variables: {
+                    filter,
+                    pageSize,
+                    currentPage
+                }
+            });
+            setOpenSearchModal(false);
+        } catch (error) {
+            setOpenSearchModal(false);
+        }
+    };
+    const resetSearch = useCallback(() => {
+        formApiRef.current.reset();
+        setFormSearch();
+        runQuery({
+            variables: {
+                pageSize,
+                currentPage
+            }
+        });
+        setOpenSearchModal(false);
+    }, []);
+
     return (
         <StoreLocatorContext.Provider
             value={{
@@ -109,7 +153,14 @@ export const StoreLocatorProvider = ({ children }) => {
                 favoriteStores,
                 setFavoriteStores,
                 mapZoom,
-                setMapZoom
+                setMapZoom,
+                openSearchModal,
+                setOpenSearchModal,
+                submitSearch,
+                formProps,
+                setFormApi,
+                locationsLoading,
+                resetSearch
             }}
         >
             {children}

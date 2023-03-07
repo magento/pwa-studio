@@ -1,0 +1,13 @@
+.searchBarWrapper button {
+    margin: 10px 20px 0;
+}
+
+.formContainer {
+    margin: 10px 20px 0;
+}
+
+.actionWrapper {
+    display: flex;
+    margin: 1rem 0;
+    gap: 1rem;
+}
