@@ -215,6 +215,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                   className="button_decrement"
                   disabled={false}
                   onClick={[Function]}
+                  tabindex="-1"
                   type="button"
                 >
                   <span
@@ -283,6 +284,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                   className="button_increment"
                   disabled={false}
                   onClick={[Function]}
+                  tabindex="-1"
                   type="button"
                 >
                   <span
@@ -586,6 +588,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                   className="button_decrement"
                   disabled={false}
                   onClick={[Function]}
+                  tabindex="-1"
                   type="button"
                 >
                   <span
@@ -654,6 +657,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                   className="button_increment"
                   disabled={false}
                   onClick={[Function]}
+                  tabindex="-1"
                   type="button"
                 >
                   <span

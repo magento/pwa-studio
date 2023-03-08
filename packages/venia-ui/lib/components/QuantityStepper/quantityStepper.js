@@ -49,6 +49,7 @@ const QuantityStepper = props => {
                     onClick={handleDecrement}
                     type="button"
                     data-cy="Quantity-decrementButton"
+                    tabindex="-1"
                 >
                     <Icon classes={iconClasses} src={MinusIcon} size={22} />
                 </button>
@@ -78,6 +79,7 @@ const QuantityStepper = props => {
                     onClick={handleIncrement}
                     type="button"
                     data-cy="Quantity-incrementButton"
+                    tabindex="-1"
                 >
                     <Icon classes={iconClasses} src={PlusIcon} size={20} />
                 </button>

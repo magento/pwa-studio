@@ -20,6 +20,7 @@ exports[`renders quantity correctly 1`] = `
       className="button_decrement"
       disabled={false}
       onClick={[MockFunction]}
+      tabindex="-1"
       type="button"
     >
       <span
@@ -88,6 +89,7 @@ exports[`renders quantity correctly 1`] = `
       className="button_increment"
       disabled={false}
       onClick={[MockFunction]}
+      tabindex="-1"
       type="button"
     >
       <span
