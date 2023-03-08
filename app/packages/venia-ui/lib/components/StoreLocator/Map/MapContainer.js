@@ -9,7 +9,7 @@ import {
     DirectionsRenderer,
     InfoWindow
 } from '@react-google-maps/api';
-import { useStoreLocatorContext } from '../StoreLocatorProvider/StoreLocatorProvider';
+
 import StoreCard from '../StoreCard/StoreCard';
 import Pagination from '../../Pagination';
 import DirectionCard from '../DirectionCard/DirectionCard';
@@ -20,6 +20,8 @@ import SearchModal from '../SearchModal';
 import LoadingIndicator from '../../LoadingIndicator';
 
 const MapContainer = props => {
+    const { mapProps } = props;
+
     const {
         locationsItems,
         pageControl,
@@ -35,7 +37,8 @@ const MapContainer = props => {
         setFormApi,
         resetSearch,
         locationsLoading
-    } = useStoreLocatorContext();
+    } = mapProps;
+
     const [openInfoDialog, setOpenInfoDialog] = useState(false);
     const [markerPosition, setMarkerPosition] = useState({});
 
