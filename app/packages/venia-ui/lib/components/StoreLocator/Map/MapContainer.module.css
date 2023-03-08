@@ -3,9 +3,8 @@
 }
 .innerContainer {
     display: flex;
-    height: 600px;
+    height: 640px;
     border: 1px solid var(--b2bstore-global-color-orange);
-    border-radius: 10px 10px 10px 10px;
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
 }
 .cardContainer {
@@ -48,6 +47,17 @@
 .dialogInfoContainer article p {
     font-weight: bold;
 }
+.searchContainer {
+    margin-left: 15px;
+}
+
+.searchBarWrapper {
+    display: flex;
+}
+.searchBarWrapper,
+.noItemsText {
+    margin: 10px 20px 0;
+}
 
 @media (max-width: 992px) {
     .container {
@@ -55,11 +65,11 @@
     }
     .innerContainer {
         flex-direction: column;
-        height: 430px;
+        height: 495px;
         align-items: center;
     }
     .scrollableContainerDirection {
-        height: 429px;
+        height: 489px;
     }
 
     .scrollableContainer {
@@ -70,7 +80,7 @@
     }
 }
 
-@media (max-width: 547px) {
+@media (max-width: 625px) {
     .cardContainer {
         padding: 0px;
         width: auto;

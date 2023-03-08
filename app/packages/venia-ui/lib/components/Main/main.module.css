@@ -22,13 +22,13 @@
 
 @media (min-height: 640px) {
     .page {
-        min-height: 60rem;
+        min-height: 65rem;
     }
 }
 
 @media (min-height: 768px) {
     .page {
-        min-height: 60rem;
+        min-height: 65rem;
     }
 }
 

@@ -1,0 +1,18 @@
+.searchContainer input {
+    padding: 0.5rem;
+}
+
+.searchContainer input:focus {
+    outline-color: var(--b2bstore-global-color-orange);
+}
+
+.suggestionsList {
+    position: absolute;
+    border: 1px solid var(--b2bstore-global-color-orange);
+    background-color: white;
+    width: 300px;
+}
+
+.suggestionsList li {
+    border-bottom: 1px solid var(--b2bstore-global-color-orange);
+}

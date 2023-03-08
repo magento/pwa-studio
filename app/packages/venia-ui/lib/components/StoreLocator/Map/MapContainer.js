@@ -1,13 +1,13 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useMemo } from 'react';
 import { useStyle } from '../../../classify';
 import defaultClasses from './MapContainer.module.css';
 import {
     GoogleMap,
-    LoadScript,
     Marker,
     DirectionsService,
     DirectionsRenderer,
-    InfoWindow
+    InfoWindow,
+    useLoadScript
 } from '@react-google-maps/api';
 
 import StoreCard from '../StoreCard/StoreCard';
@@ -18,6 +18,7 @@ import { MapPin, Menu, X as Close } from 'react-feather';
 import Icon from '../../Icon';
 import SearchModal from '../SearchModal';
 import LoadingIndicator from '../../LoadingIndicator';
+import Search from '../Search/Search';
 
 const MapContainer = props => {
     const { mapProps } = props;
@@ -36,7 +37,8 @@ const MapContainer = props => {
         formProps,
         setFormApi,
         resetSearch,
-        locationsLoading
+        locationsLoading,
+        searchValue
     } = mapProps;
 
     const [openInfoDialog, setOpenInfoDialog] = useState(false);
@@ -50,6 +52,11 @@ const MapContainer = props => {
         width: '100%',
         height: '500px'
     };
+    const libraries = ['places'];
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: googleApiKey,
+        libraries
+    });
 
     const { formatMessage } = useIntl();
 
@@ -97,14 +104,27 @@ const MapContainer = props => {
         mapRef.current = map;
     }, []);
 
+    const filteredLocationsItems = useMemo(() => {
+        if (!searchValue) {
+            return locationsItems;
+        }
+
+        return locationsItems.filter(
+            item =>
+                item.street.toLowerCase().includes(searchValue.toLowerCase()) ||
+                item.city.toLowerCase().includes(searchValue.toLowerCase()) ||
+                item.country.toLowerCase().includes(searchValue.toLowerCase())
+        );
+    }, [locationsItems, searchValue]);
+
     const cardContainer = (
         <section>
-            {locationsItems?.length === 0 ? (
-                <span className={classes.noItemsText}>{noStoresText}</span>
+            {filteredLocationsItems?.length === 0 ? (
+                noStoresText
             ) : (
                 <>
                     <div className={classes.scrollableContainer}>
-                        {locationsItems?.map((store, index) => (
+                        {filteredLocationsItems?.map((store, index) => (
                             <StoreCard store={store} key={`${store.latitude}-${store.longitude}-${index}`} />
                         ))}
                     </div>
@@ -113,106 +133,117 @@ const MapContainer = props => {
             )}
         </section>
     );
+
+    console.log('locationsItems', locationsItems);
+    if (loadError) return 'Error';
+    if (!isLoaded) return 'Loading...';
     return (
-        <LoadScript googleMapsApiKey={googleApiKey}>
-            <main className={classes.container}>
-                <section className={classes.innerContainer}>
-                    <article className={classes.cardContainer}>
+        <main className={classes.container}>
+            <section className={classes.innerContainer}>
+                <article className={classes.cardContainer}>
+                    {!showDirections && (
                         <div className={classes.searchBarWrapper}>
                             <button onClick={() => setOpenSearchModal(!openSearchModal)}>
                                 <Icon src={!openSearchModal ? Menu : Close} />
                             </button>
-                        </div>
-                        {openSearchModal ? (
-                            <SearchModal
-                                submitSearch={submitSearch}
-                                formProps={formProps}
-                                setFormApi={setFormApi}
-                                resetSearch={resetSearch}
-                            />
-                        ) : !showDirections ? (
-                            locationsLoading ? (
-                                <LoadingIndicator />
-                            ) : (
-                                cardContainer
-                            )
-                        ) : (
-                            <div className={classes.scrollableContainerDirection}>
-                                <DirectionCard />
+                            <div className={classes.searchContainer}>
+                                <Search />
                             </div>
+                        </div>
+                    )}
+
+                    {openSearchModal ? (
+                        <SearchModal
+                            submitSearch={submitSearch}
+                            formProps={formProps}
+                            setFormApi={setFormApi}
+                            resetSearch={resetSearch}
+                        />
+                    ) : !showDirections ? (
+                        locationsLoading ? (
+                            <LoadingIndicator />
+                        ) : (
+                            cardContainer
+                        )
+                    ) : (
+                        <div className={classes.scrollableContainerDirection}>
+                            <DirectionCard />
+                        </div>
+                    )}
+                </article>
+                <article className={classes.googleMapContainer}>
+                    <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={centerCoordinates}
+                        zoom={mapZoom}
+                        onLoad={onMapLoad}
+                        loadScriptOptions={{
+                            libraries: ['places']
+                        }}
+                    >
+                        {filteredLocationsItems?.map((marker, index) => (
+                            <Marker
+                                key={`${marker.latitude}-${marker.longitude}-${index}`}
+                                position={{ lat: +marker.latitude, lng: +marker.longitude }}
+                                onClick={() =>
+                                    handleOpenInfoStoreDialogue(
+                                        +marker.latitude,
+                                        +marker.longitude,
+                                        marker.street,
+                                        marker.city,
+                                        marker.country,
+                                        marker.name
+                                    )
+                                }
+                            />
+                        ))}
+
+                        {showDirections && !directionsServiceRef.current && (
+                            <DirectionsService
+                                options={directionsOptions}
+                                callback={directionsCallback}
+                                onLoad={service => {
+                                    directionsServiceRef.current = service;
+                                }}
+                            />
                         )}
-                    </article>
-                    <article className={classes.googleMapContainer}>
-                        <GoogleMap
-                            mapContainerStyle={containerStyle}
-                            center={centerCoordinates}
-                            zoom={mapZoom}
-                            onLoad={onMapLoad}
-                        >
-                            {locationsItems?.map((marker, index) => (
-                                <Marker
-                                    key={`${marker.latitude}-${marker.longitude}-${index}`}
-                                    position={{ lat: +marker.latitude, lng: +marker.longitude }}
-                                    onClick={() =>
-                                        handleOpenInfoStoreDialogue(
-                                            +marker.latitude,
-                                            +marker.longitude,
-                                            marker.street,
-                                            marker.city,
-                                            marker.country,
-                                            marker.name
-                                        )
-                                    }
-                                />
-                            ))}
 
-                            {showDirections && !directionsServiceRef.current && (
-                                <DirectionsService
-                                    options={directionsOptions}
-                                    callback={directionsCallback}
-                                    onLoad={service => {
-                                        directionsServiceRef.current = service;
-                                    }}
-                                />
-                            )}
-
-                            {showDirections && response !== null && !directionsRendererRef.current && (
-                                <DirectionsRenderer
-                                    options={{
-                                        directions: response
-                                    }}
-                                    onLoad={renderer => {
-                                        directionsRendererRef.current = renderer;
-                                    }}
-                                />
-                            )}
-                            {openInfoDialog && (
-                                <InfoWindow
-                                    position={{ lat: markerPosition.lat, lng: markerPosition.lng }}
-                                    onCloseClick={() => setOpenInfoDialog(!openInfoDialog)}
-                                >
-                                    <section className={classes.dialogInfoContainer}>
-                                        <article className={classes.infoStoreName}>
-                                            <p>{storeInfo.name}</p>
+                        {showDirections && response !== null && !directionsRendererRef.current && (
+                            <DirectionsRenderer
+                                options={{
+                                    directions: response
+                                }}
+                                onLoad={renderer => {
+                                    directionsRendererRef.current = renderer;
+                                }}
+                            />
+                        )}
+                        {openInfoDialog && (
+                            <InfoWindow
+                                position={{ lat: markerPosition.lat, lng: markerPosition.lng }}
+                                onCloseClick={() => setOpenInfoDialog(!openInfoDialog)}
+                            >
+                                <section className={classes.dialogInfoContainer}>
+                                    <article className={classes.infoStoreName}>
+                                        <p>{storeInfo.name}</p>
+                                    </article>
+                                    <section className={classes.dialogIconAndLocation}>
+                                        <article className={classes.iconContainer}>
+                                            <Icon src={MapPin} size={24} />
                                         </article>
-                                        <section className={classes.dialogIconAndLocation}>
-                                            <article className={classes.iconContainer}>
-                                                <Icon src={MapPin} size={24} />
-                                            </article>
-                                            <div>
-                                                <span>{storeInfo.street} </span>
-                                                <span>{storeInfo.city} </span>
-                                                <span>{storeInfo.country}</span>
-                                            </div>
-                                        </section>
+                                        <div>
+                                            <span>{storeInfo.street} </span>
+                                            <span>{storeInfo.city} </span>
+                                            <span>{storeInfo.country}</span>
+                                        </div>
                                     </section>
-                                </InfoWindow>
-                            )}
-                        </GoogleMap>
-                    </article>
-                </section>
-            </main>
-        </LoadScript>
+                                </section>
+                            </InfoWindow>
+                        )}
+                    </GoogleMap>
+                </article>
+            </section>
+        </main>
     );
 };
 

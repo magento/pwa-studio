@@ -3,6 +3,7 @@ import React, { useState, useContext, useMemo, useEffect, useCallback, useRef } 
 import { useLazyQuery } from '@apollo/client';
 import { MP_STORE_LOCATOR_LOCATIONS } from '@magento/peregrine/lib/talons/StoreLocator/storeLocator.gql';
 import useLocalStorage from '../useLocalStorage/useLocalStorage';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 const StoreLocatorContext = React.createContext();
 
@@ -14,6 +15,8 @@ export const StoreLocatorProvider = ({ children }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [showDirections, setShowDirections] = useState(false);
     const [favoriteStores, setFavoriteStores] = useLocalStorage('favoriteStores', {});
+
+    const [searchValue, setSearchValue] = useState('');
 
     const [centerCoordinates, setCenterCoordinates] = useState({
         lat: 0,
@@ -160,7 +163,9 @@ export const StoreLocatorProvider = ({ children }) => {
                 formProps,
                 setFormApi,
                 locationsLoading,
-                resetSearch
+                resetSearch,
+                searchValue,
+                setSearchValue
             }}
         >
             {children}
