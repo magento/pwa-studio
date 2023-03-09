@@ -71,6 +71,11 @@ export const useAccountMenuItems = props => {
             name: 'Favorites Lists',
             id: 'accountMenu.favoritesListsLink',
             url: '/wishlist'
+        },
+        {
+            name: '/Find Store',
+            id: 'storeLocator.findStoreText',
+            url: '/find-store'
         }
     ];
 
@@ -96,10 +101,7 @@ export const useAccountMenuItems = props => {
 
     return {
         handleSignOut,
-        menuItems:
-            process.env.B2BSTORE_VERSION === 'BASIC'
-                ? MENU_ITEMS_BASIC
-                : MENU_ITEMS_PREMIUM
+        menuItems: process.env.B2BSTORE_VERSION === 'BASIC' ? MENU_ITEMS_BASIC : MENU_ITEMS_PREMIUM
     };
 };
 

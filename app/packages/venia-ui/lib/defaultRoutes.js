@@ -124,7 +124,7 @@ module.exports = [
     },
     {
         name: 'Store Locator',
-        pattern: '/store-locator',
+        pattern: '/find-store',
         exact: true,
         path: '../StoreLocator'
         // authed: true,
