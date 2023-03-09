@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { func, number, shape, string } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
@@ -11,9 +11,17 @@ import defaultClasses from './completedView.module.css';
 import LinkButton from '../../LinkButton';
 
 const CompletedView = props => {
-    const { selectedShippingMethod, showUpdateMode } = props;
+    const { selectedShippingMethod, showUpdateMode, selectedLocation, selectStoreBatton } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
+
+    const address = useMemo(() => {
+        if (selectedLocation) {
+            const { street, city, country, state_province } = selectedLocation;
+            return street + ', ' + state_province + ' ' + city + ' ' + country;
+        }
+        return '';
+    }, [selectedLocation]);
 
     let contents;
     if (!selectedShippingMethod) {
@@ -22,9 +30,7 @@ const CompletedView = props => {
             <span className={classes.error}>
                 <FormattedMessage
                     id={'completedView.errorLoading'}
-                    defaultMessage={
-                        'Error loading selected shipping method. Please select again.'
-                    }
+                    defaultMessage={'Error loading selected shipping method. Please select again.'}
                 />
             </span>
         );
@@ -43,10 +49,31 @@ const CompletedView = props => {
         );
 
         contents = (
-            <div className={classes.contents}>
-                <span>{method_title}</span>
-                {priceElement}
-            </div>
+            <>
+                <div className={classes.wrapperContents}>
+                    <div className={classes.contents}>
+                        <span>{method_title}</span>
+                        {priceElement}
+                    </div>
+                    {selectStoreBatton}
+                </div>
+                {selectedLocation?.isSubmited && (
+                    <div className={classes.storeWrapper}>
+                        <div className={classes.storeContent}>
+                            <span>
+                                <FormattedMessage id={'storeLocation.address'} defaultMessage={'Address'} />
+                            </span>
+                            {address}
+                        </div>
+                        <div className={classes.storeContent}>
+                            <span>
+                                <FormattedMessage id={'deliveryDate.deliveryTime'} defaultMessage={'Delivery Time: '} />
+                            </span>
+                            {selectedLocation?.selectedDay}
+                        </div>
+                    </div>
+                )}
+            </>
         );
     }
 
@@ -55,26 +82,16 @@ const CompletedView = props => {
             <div className={classes.container}>
                 <span className={classes.titleContainer}>
                     <h5 className={classes.heading}>
-                        <FormattedMessage
-                            id={'completedView.shippingMethod'}
-                            defaultMessage={'Shipping Method'}
-                        />
+                        <FormattedMessage id={'completedView.shippingMethod'} defaultMessage={'Shipping Method'} />
                     </h5>
                     <LinkButton
                         className={classes.editButton}
                         onClick={showUpdateMode}
                         data-cy="CompletedView-editButton"
                     >
-                        <Icon
-                            size={16}
-                            src={EditIcon}
-                            classes={{ icon: classes.editIcon }}
-                        />
+                        <Icon size={16} src={EditIcon} classes={{ icon: classes.editIcon }} />
                         <span className={classes.editButtonText}>
-                            <FormattedMessage
-                                id={'global.editButton'}
-                                defaultMessage={'Edit'}
-                            />
+                            <FormattedMessage id={'global.editButton'} defaultMessage={'Edit'} />
                         </span>
                     </LinkButton>
                 </span>
