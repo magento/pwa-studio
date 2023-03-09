@@ -10,7 +10,7 @@ import fullStar from './assets/star-filled.svg';
 
 const StoreCard = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { state_province: state, name, street, country, images, latitude, longitude } = props?.store;
+    const { state_province: state, name, street, country, images, latitude, longitude, email } = props?.store;
     const [, setIsFavorite] = useState(false);
     const [lastSelectedStore, setLastSelectedStore] = useState(null);
 
@@ -95,7 +95,6 @@ const StoreCard = props => {
         lastSelectedStore.lng === longitude;
 
     const star = isSelected ? <img src={fullStar} alt="full star" /> : <img src={emptyStar} alt="empty star" />;
-
     const cardDetails = (
         <section className={`${classes.cardContainer} ${selectedLocation?.name === name && classes.selectedCard}`}>
             <button
@@ -113,24 +112,25 @@ const StoreCard = props => {
                         <div className={classes.title}>
                             <div className={classes.name}>{name}</div>
 
-                            <div
+                            <button
                                 className={classes.star}
                                 onClick={() => handleSetFavoriteStore(name, latitude, longitude)}
                             >
                                 {star}
-                            </div>
+                            </button>
                         </div>
                         <p>{street}</p>
                         <p>
                             {state} <span>{country}</span>
                         </p>
+                        <p>{email ? email : null}</p>
                     </article>
                 </div>
             </button>
-            <article className={classes.textContainer} onClick={handleGetDirections}>
+            <button className={classes.textContainer} onClick={handleGetDirections}>
                 <p>{locationText}</p>
                 <Icon src={ArrowRight} size={24} />
-            </article>
+            </button>
         </section>
     );
 

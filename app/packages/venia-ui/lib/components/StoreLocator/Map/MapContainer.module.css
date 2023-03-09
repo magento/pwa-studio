@@ -1,11 +1,20 @@
 .container {
     margin: 0 150px;
 }
+
+.title {
+    font-size: 25px;
+    margin-top: 25px;
+}
+
+.subTitle {
+    margin-top: 20px;
+}
 .innerContainer {
+    margin-top: 50px;
     display: flex;
-    height: 600px;
+    height: 640px;
     border: 1px solid var(--b2bstore-global-color-orange);
-    border-radius: 10px 10px 10px 10px;
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
 }
 .cardContainer {
@@ -48,6 +57,30 @@
 .dialogInfoContainer article p {
     font-weight: bold;
 }
+.searchContainer {
+    width: 100%;
+    margin-left: 20px;
+}
+
+.searchBarWrapper {
+    display: flex;
+}
+.searchBarWrapper,
+.noItemsText {
+    margin: 10px 20px 10px;
+}
+
+.navigationContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.noStoresText {
+    display: flex;
+    justify-content: center;
+}
 
 @media (max-width: 992px) {
     .container {
@@ -55,11 +88,11 @@
     }
     .innerContainer {
         flex-direction: column;
-        height: 430px;
+        height: 495px;
         align-items: center;
     }
     .scrollableContainerDirection {
-        height: 429px;
+        height: 489px;
     }
 
     .scrollableContainer {
@@ -70,14 +103,12 @@
     }
 }
 
-@media (max-width: 547px) {
+@media (max-width: 625px) {
+    .container {
+        margin: 0 20px;
+    }
     .cardContainer {
         padding: 0px;
         width: auto;
     }
-}
-
-.searchBarWrapper,
-.noItemsText {
-    margin: 10px 20px 0;
 }

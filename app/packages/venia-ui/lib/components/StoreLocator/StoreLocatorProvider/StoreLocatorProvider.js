@@ -15,6 +15,8 @@ export const StoreLocatorProvider = ({ children }) => {
     const [showDirections, setShowDirections] = useState(false);
     const [favoriteStores, setFavoriteStores] = useLocalStorage('favoriteStores', {});
 
+    const [searchValue, setSearchValue] = useState('');
+
     const [centerCoordinates, setCenterCoordinates] = useState({
         lat: 0,
         lng: 0
@@ -160,7 +162,9 @@ export const StoreLocatorProvider = ({ children }) => {
                 formProps,
                 setFormApi,
                 locationsLoading,
-                resetSearch
+                resetSearch,
+                searchValue,
+                setSearchValue
             }}
         >
             {children}
