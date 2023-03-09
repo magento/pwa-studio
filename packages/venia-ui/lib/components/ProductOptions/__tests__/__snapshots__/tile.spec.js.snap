@@ -2,7 +2,7 @@
 
 exports[`appends "_focused" to className if hasFocus is true 1`] = `
 <button
-  aria-label="Fashion size red "
+  aria-label="Fashion size {label}"
   className="root_focused"
   onClick={[Function]}
   title="red"
@@ -16,7 +16,7 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
 
 exports[`appends "_outOfStock" to className if isEverythingOutOfStock is true 1`] = `
 <button
-  aria-label="Fashion size red "
+  aria-label="Fashion size {label}"
   className="root_outOfStock"
   disabled={true}
   onClick={[Function]}
@@ -31,7 +31,7 @@ exports[`appends "_outOfStock" to className if isEverythingOutOfStock is true 1`
 
 exports[`appends "_outOfStock" to className if isOptionOutOfStock is true 1`] = `
 <button
-  aria-label="Fashion size red "
+  aria-label="Fashion size {label}"
   className="root_outOfStock"
   disabled={true}
   onClick={[Function]}
@@ -46,7 +46,7 @@ exports[`appends "_outOfStock" to className if isOptionOutOfStock is true 1`] = 
 
 exports[`appends "_selected" to className if isSelected is true 1`] = `
 <button
-  aria-label="Fashion size red Button Selected"
+  aria-label="Fashion size {label} selected"
   className="root_selected"
   onClick={[Function]}
   title="red"
@@ -60,7 +60,7 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
 
 exports[`renders a Tile correctly 1`] = `
 <button
-  aria-label="Fashion size red "
+  aria-label="Fashion size {label}"
   className="root"
   onClick={[Function]}
   title="red"

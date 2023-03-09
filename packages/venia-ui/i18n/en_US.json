@@ -498,5 +498,7 @@
     "global.cityRequired":"City Required",
     "global.stateRequired":"State Required",
     "Form.postalCode":"ZIP / Postal Code Required",
-    "Form.phonenumber":"Phone Number Required"
+    "Form.phonenumber":"Phone Number Required",
+    "ProductOptions.productSize":"Fashion size {label}",
+    "productOptions.selectedSize":"Fashion size {label} selected"
 }
