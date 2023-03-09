@@ -152,7 +152,7 @@ const GalleryItem = props => {
         const values = ele.values.map(({ default_label }) => default_label);
         return (
             <div className={classes.configurableWrapper} key={key + 'configurable_options'}>
-                <span className={classes.configrableLabel}>{ele.label} </span>{' '}
+                <span className={classes.configrableLabel}>{ele?.label} </span>{' '}
                 <Tippy
                     content={
                         <ul className={classes.list}>
@@ -197,7 +197,7 @@ const GalleryItem = props => {
         });
     };
     const onChangeQty = value => setQuantity(value);
-
+    console.log('variants', item?.variants);
     const getCategoriesValuesNameByVariant = variant => {
         return variant.attributes.map(attribute => {
             return item.configurable_options
@@ -210,9 +210,16 @@ const GalleryItem = props => {
 
     const getProductsInstance = () => {
         const instanceItem = { ...item };
+
         let variants = [...instanceItem?.variants];
+
         const filterKeys = filterState && [...filterState?.keys()];
+        // console.log('Material_estructura', filterKeys);
+
         const filterValues = filterState && [...filterState?.values()];
+
+        // console.log('valor_aluminio', filterValues);
+
         const filterValuesArray = filterValues?.map(filValue => {
             const valueArr = [];
             for (const valueObject of filValue) {
@@ -220,13 +227,22 @@ const GalleryItem = props => {
             }
             return valueArr;
         });
+
+        // console.log('code Material estructure', filterValuesArray);
+        // console.log('variants', variants);
         const newVariants = [];
         if (filterKeys && filterValues?.length) {
             variants?.map(element => {
                 const valueAttributes = element?.attributes?.map(({ value_index }) => value_index);
+
+                // console.log('valueAttributes', valueAttributes);
+
                 const filter = filterValuesArray?.map(valArray =>
                     valArray.map(value => valueAttributes?.includes(parseInt(value)))
                 );
+
+                // console.log('value of the attibute exist?', filter);
+
                 if (filter.map(filArray => filArray?.includes(true)).every(ele => ele === true))
                     newVariants.push(element);
             });
@@ -239,18 +255,18 @@ const GalleryItem = props => {
             parentSku: item.sku,
             value:
                 '....' +
-                variant.product.sku.slice(variants[0].product.sku.length - 6) +
+                variant.product.sku.slice(variants[0].product.sku?.length - 6) +
                 ' ' +
                 getCategoriesValuesNameByVariant(variant).join(' - ')
         }));
     };
     const customAttributes = () =>
         custom_attributes?.slice(0, 3).map(({ attribute_metadata, selected_attribute_options }) => {
-            let labelValue = selected_attribute_options.attribute_option[0].label;
-            labelValue.length > 15 ? (labelValue = labelValue.slice(0, 15) + '...') : labelValue;
+            let labelValue = selected_attribute_options.attribute_option[0]?.label;
+            labelValue?.length > 15 ? (labelValue = labelValue.slice(0, 15) + '...') : labelValue;
             return (
                 <div className={classes.customAttributes}>
-                    <span>{attribute_metadata.label}:</span>
+                    <span>{attribute_metadata?.label}:</span>
                     <span>{labelValue}</span>
                 </div>
             );
