@@ -10,7 +10,7 @@ import fullStar from './assets/star-filled.svg';
 
 const StoreCard = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { state_province: state, name, street, country, images, latitude, longitude } = props?.store;
+    const { state_province: state, name, street, country, images, latitude, longitude, email } = props?.store;
     const [isFavorite, setIsFavorite] = useState(false);
     const [lastSelectedStore, setLastSelectedStore] = useState(null);
 
@@ -112,6 +112,7 @@ const StoreCard = props => {
                     <p>
                         {state} <span>{country}</span>
                     </p>
+                    <p>{email ? email : null}</p>
                 </article>
             </section>
             <article className={classes.textContainer} onClick={handleGetDirections}>

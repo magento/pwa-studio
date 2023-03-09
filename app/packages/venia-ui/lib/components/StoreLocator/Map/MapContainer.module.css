@@ -1,7 +1,17 @@
 .container {
     margin: 0 150px;
 }
+
+.title {
+    font-size: 25px;
+    margin-top: 25px;
+}
+
+.subTitle {
+    margin-top: 20px;
+}
 .innerContainer {
+    margin-top: 50px;
     display: flex;
     height: 640px;
     border: 1px solid var(--b2bstore-global-color-orange);
@@ -48,7 +58,8 @@
     font-weight: bold;
 }
 .searchContainer {
-    margin-left: 15px;
+    width: 100%;
+    margin-left: 20px;
 }
 
 .searchBarWrapper {
@@ -56,7 +67,19 @@
 }
 .searchBarWrapper,
 .noItemsText {
-    margin: 10px 20px 0;
+    margin: 10px 20px 10px;
+}
+
+.navigationContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.noStoresText {
+    display: flex;
+    justify-content: center;
 }
 
 @media (max-width: 992px) {
@@ -81,13 +104,11 @@
 }
 
 @media (max-width: 625px) {
+    .container {
+        margin: 0 20px;
+    }
     .cardContainer {
         padding: 0px;
         width: auto;
     }
-}
-
-.searchBarWrapper,
-.noItemsText {
-    margin: 10px 20px 0;
 }

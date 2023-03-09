@@ -14,11 +14,13 @@ import StoreCard from '../StoreCard/StoreCard';
 import Pagination from '../../Pagination';
 import DirectionCard from '../DirectionCard/DirectionCard';
 import { useIntl } from 'react-intl';
-import { MapPin, Menu, X as Close } from 'react-feather';
+import { MapPin, Menu, X as Close, Navigation } from 'react-feather';
 import Icon from '../../Icon';
 import SearchModal from '../SearchModal';
 import LoadingIndicator from '../../LoadingIndicator';
 import Search from '../Search/Search';
+import Geocode from 'react-geocode';
+import ErrorView from '../../ErrorView';
 
 const MapContainer = props => {
     const { mapProps } = props;
@@ -38,7 +40,8 @@ const MapContainer = props => {
         setFormApi,
         resetSearch,
         locationsLoading,
-        searchValue
+        searchValue,
+        setSearchValue
     } = mapProps;
 
     const [openInfoDialog, setOpenInfoDialog] = useState(false);
@@ -48,9 +51,11 @@ const MapContainer = props => {
 
     const classes = useStyle(defaultClasses, props.classes);
     const googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
+    Geocode.setApiKey(googleApiKey);
+
     const containerStyle = {
         width: '100%',
-        height: '500px'
+        height: '562px'
     };
     const libraries = ['places'];
     const { isLoaded, loadError } = useLoadScript({
@@ -65,6 +70,16 @@ const MapContainer = props => {
         defaultMessage: 'There are no store available'
     });
 
+    const findStoreText = formatMessage({
+        id: 'findStoreText',
+        defaultMessage: 'Find a store'
+    });
+
+    const findTextSubtitle = formatMessage({
+        id: 'findText',
+        defaultMessage: ' Find the nearest store to get your favorite stuff.'
+    });
+
     const mapRef = React.useRef();
     const directionsServiceRef = React.useRef(null);
     const directionsRendererRef = React.useRef(null);
@@ -77,6 +92,34 @@ const MapContainer = props => {
         },
         [openInfoDialog]
     );
+
+    const getActualLocation = () => {
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        const success = async pos => {
+            const crd = pos.coords;
+
+            Geocode.fromLatLng(crd.latitude, crd.longitude).then(
+                response => {
+                    const address = response.results[0].formatted_address;
+                    setSearchValue(address);
+                },
+                error => {
+                    console.error(error);
+                }
+            );
+        };
+
+        const error = err => {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        };
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+    };
 
     const directionsOptions = React.useMemo(() => {
         return {
@@ -120,7 +163,9 @@ const MapContainer = props => {
     const cardContainer = (
         <section>
             {filteredLocationsItems?.length === 0 ? (
-                noStoresText
+                <div className={classes.noStoresText}>
+                    <p>{noStoresText}</p>
+                </div>
             ) : (
                 <>
                     <div className={classes.scrollableContainer}>
@@ -135,10 +180,13 @@ const MapContainer = props => {
     );
 
     console.log('locationsItems', locationsItems);
-    if (loadError) return 'Error';
-    if (!isLoaded) return 'Loading...';
+    if (loadError) return <ErrorView />;
+    if (!isLoaded) return <LoadingIndicator />;
+
     return (
         <main className={classes.container}>
+            <article className={classes.title}>{findStoreText}</article>
+            <article className={classes.subTitle}> {findTextSubtitle}</article>
             <section className={classes.innerContainer}>
                 <article className={classes.cardContainer}>
                     {!showDirections && (
@@ -148,6 +196,9 @@ const MapContainer = props => {
                             </button>
                             <div className={classes.searchContainer}>
                                 <Search />
+                            </div>
+                            <div className={classes.navigationContainer} onClick={() => getActualLocation()}>
+                                <Icon src={Navigation} />
                             </div>
                         </div>
                     )}

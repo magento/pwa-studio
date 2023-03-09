@@ -3,7 +3,6 @@ import React, { useState, useContext, useMemo, useEffect, useCallback, useRef } 
 import { useLazyQuery } from '@apollo/client';
 import { MP_STORE_LOCATOR_LOCATIONS } from '@magento/peregrine/lib/talons/StoreLocator/storeLocator.gql';
 import useLocalStorage from '../useLocalStorage/useLocalStorage';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 const StoreLocatorContext = React.createContext();
 

@@ -2,12 +2,12 @@ import React from 'react';
 import { useStyle } from '../../../classify';
 import defaultClasses from './Search.module.css';
 import { useStoreLocatorContext } from '../StoreLocatorProvider/StoreLocatorProvider';
-
+import { useIntl } from 'react-intl';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 const Search = props => {
     const { searchValue, setSearchValue, setCenterCoordinates, setMapZoom } = useStoreLocatorContext();
-
+    const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
     const {
         ready,
@@ -21,6 +21,10 @@ const Search = props => {
         setSearchValue(e.target.value);
         setValue(e.target.value);
     };
+    const placeholderText = formatMessage({
+        id: 'Search for a location',
+        defaultMessage: 'Search for a location'
+    });
 
     const handleSuggestionSelect = async address => {
         clearSuggestions();
@@ -40,7 +44,7 @@ const Search = props => {
                 value={searchValue}
                 onChange={handleSearchChange}
                 disabled={!ready}
-                placeholder="Search for a location"
+                placeholder={placeholderText}
                 className={classes.searchInput}
             />
             {status === 'OK' && (

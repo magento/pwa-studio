@@ -13,7 +13,7 @@
     composes: max-w-site from global;
     composes: mx-auto from global;
     composes: my-0 from global;
-    min-height: 60rem;
+    min-height: 68rem;
 }
 
 .page_masked {
@@ -22,13 +22,13 @@
 
 @media (min-height: 640px) {
     .page {
-        min-height: 65rem;
+        min-height: 68rem;
     }
 }
 
 @media (min-height: 768px) {
     .page {
-        min-height: 65rem;
+        min-height: 68rem;
     }
 }
 
