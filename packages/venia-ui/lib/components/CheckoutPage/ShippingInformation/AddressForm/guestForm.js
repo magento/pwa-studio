@@ -308,7 +308,6 @@ const GuestForm = props => {
                             id: 'region.label',
                             defaultMessage: 'State'
                         })}
-                        validate={isRequired}
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
