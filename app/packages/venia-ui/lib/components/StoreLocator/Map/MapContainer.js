@@ -20,7 +20,7 @@ import SearchModal from '../SearchModal';
 import LoadingIndicator from '../../LoadingIndicator';
 
 const MapContainer = props => {
-    const { mapProps } = props;
+    const { mapProps, ...rest } = props;
 
     const {
         locationsItems,
@@ -105,7 +105,7 @@ const MapContainer = props => {
                 <>
                     <div className={classes.scrollableContainer}>
                         {locationsItems?.map((store, index) => (
-                            <StoreCard store={store} key={`${store.latitude}-${store.longitude}-${index}`} />
+                            <StoreCard {...rest} store={store} key={`${store.latitude}-${store.longitude}-${index}`} />
                         ))}
                     </div>
                     <Pagination pageControl={pageControl} />

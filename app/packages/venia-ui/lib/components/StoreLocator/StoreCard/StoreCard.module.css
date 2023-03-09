@@ -16,11 +16,12 @@
     width: 70px;
 }
 .cardInformation {
+    text-align: start;
     width: 70%;
 }
 
 .imageContainer {
-    width: 30%;
+    /* width: 30%; */
 }
 .cardInformation {
     padding-top: 10px;
@@ -68,4 +69,12 @@
     .cardInnerContainer {
         margin: 5px;
     }
+}
+
+.selectedCard{
+    border: 2px solid black ;
+}
+
+.selectBtn{
+  width: 100%;
 }

@@ -11,8 +11,10 @@ import fullStar from './assets/star-filled.svg';
 const StoreCard = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { state_province: state, name, street, country, images, latitude, longitude } = props?.store;
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [, setIsFavorite] = useState(false);
     const [lastSelectedStore, setLastSelectedStore] = useState(null);
+
+    const { selectedLocation, handleSelectLocation } = props;
 
     const {
         setShowDirections,
@@ -95,25 +97,36 @@ const StoreCard = props => {
     const star = isSelected ? <img src={fullStar} alt="full star" /> : <img src={emptyStar} alt="empty star" />;
 
     const cardDetails = (
-        <section className={classes.cardContainer}>
-            <section className={classes.cardInnerContainer}>
-                <article className={classes.imageContainer}>
-                    <img src={storeImgParse} alt={'store'} />
-                </article>
-                <article className={classes.cardInformation}>
-                    <div className={classes.title}>
-                        <div className={classes.name}>{name}</div>
+        <section className={`${classes.cardContainer} ${selectedLocation?.name === name && classes.selectedCard}`}>
+            <button
+                type="button"
+                onClick={() => {
+                    handleSelectLocation && handleSelectLocation(props?.store);
+                }}
+                className={classes.selectBtn}
+            >
+                <div className={classes.cardInnerContainer}>
+                    <article className={classes.imageContainer}>
+                        <img src={storeImgParse} alt={'store'} />
+                    </article>
+                    <article className={classes.cardInformation}>
+                        <div className={classes.title}>
+                            <div className={classes.name}>{name}</div>
 
-                        <div className={classes.star} onClick={() => handleSetFavoriteStore(name, latitude, longitude)}>
-                            {star}
+                            <div
+                                className={classes.star}
+                                onClick={() => handleSetFavoriteStore(name, latitude, longitude)}
+                            >
+                                {star}
+                            </div>
                         </div>
-                    </div>
-                    <p>{street}</p>
-                    <p>
-                        {state} <span>{country}</span>
-                    </p>
-                </article>
-            </section>
+                        <p>{street}</p>
+                        <p>
+                            {state} <span>{country}</span>
+                        </p>
+                    </article>
+                </div>
+            </button>
             <article className={classes.textContainer} onClick={handleGetDirections}>
                 <p>{locationText}</p>
                 <Icon src={ArrowRight} size={24} />
