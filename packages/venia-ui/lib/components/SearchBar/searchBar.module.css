@@ -46,6 +46,6 @@
 
 .autocomplete {
     composes: grid from global;
-    composes: relative from global;
+    /* composes: relative from global; */
     composes: z-menu from global;
 }
