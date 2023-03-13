@@ -45,17 +45,28 @@ const Tile = props => {
         ];
     const { formatMessage } = useIntl();
 
-    const ariaLabelView = formatMessage({
-        id: 'ProductOptions.productSize',
+    const ariaLabelView = formatMessage(
+        {
+            id: 'ProductOptions.productSize',
+            defaultMessage: 'Fashion size {label}'
+        },
+        { label: label }
+    );
 
-        defaultMessage: `Fashion size ${label}`
-    });
+    const ariaLabelSelected = formatMessage(
+        {
+            id: 'productOptions.selectedSize',
 
-    const ariaLabelSelected = formatMessage({
-        id: 'productOptions.selectedSize',
+            defaultMessage: 'Fashion size {label} button Selected'
+        },
 
-        defaultMessage: `Fashion size ${label} button Selected`
-    });
+        {
+            label: label
+
+            // { id: 'accountChip.chipText', defaultMessage: 'Hi, {name}' },
+            //         { name: currentUser.firstname }
+        }
+    );
 
     const result = isSelected ? ariaLabelSelected : ariaLabelView;
     return (
