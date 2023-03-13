@@ -172,6 +172,7 @@ exports[`renders configurable product with options 1`] = `
                 className="before"
               />
               <span
+                aria-hidden="false"
                 className="after"
               />
             </span>
@@ -224,6 +225,7 @@ exports[`renders configurable product with options 1`] = `
     >
       <button
         aria-expanded={false}
+        aria-label="More Options Collapsed"
         className="kebab"
         onClick={[Function]}
       >
@@ -533,6 +535,7 @@ exports[`renders out of stock product 1`] = `
                 className="before"
               />
               <span
+                aria-hidden="false"
                 className="after"
               />
             </span>
@@ -585,6 +588,7 @@ exports[`renders out of stock product 1`] = `
     >
       <button
         aria-expanded={false}
+        aria-label="More Options Collapsed"
         className="kebab"
         onClick={[Function]}
       >
@@ -847,6 +851,7 @@ exports[`renders simple product correctly 1`] = `
                 className="before"
               />
               <span
+                aria-hidden="false"
                 className="after"
               />
             </span>
@@ -899,6 +904,7 @@ exports[`renders simple product correctly 1`] = `
     >
       <button
         aria-expanded={false}
+        aria-label="More Options Collapsed"
         className="kebab"
         onClick={[Function]}
       >

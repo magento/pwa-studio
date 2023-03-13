@@ -8,6 +8,14 @@ Object {
     "discountAmount": 0,
     "name": "Shirt",
     "priceTotal": 123.45,
+    "pricing": Object {
+      "regularPrice": Object {
+        "amount": Object {
+          "currency": "USD",
+          "value": 123.45,
+        },
+      },
+    },
     "quantity": 1,
     "selectedOptions": Array [
       Object {
