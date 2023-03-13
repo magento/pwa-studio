@@ -56,16 +56,10 @@ const Tile = props => {
     const ariaLabelSelected = formatMessage(
         {
             id: 'productOptions.selectedSize',
-
             defaultMessage: 'Fashion size {label} button Selected'
         },
 
-        {
-            label: label
-
-            // { id: 'accountChip.chipText', defaultMessage: 'Hi, {name}' },
-            //         { name: currentUser.firstname }
-        }
+        { label: label }
     );
 
     const result = isSelected ? ariaLabelSelected : ariaLabelView;
