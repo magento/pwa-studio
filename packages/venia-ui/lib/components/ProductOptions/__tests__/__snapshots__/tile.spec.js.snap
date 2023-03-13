@@ -46,7 +46,7 @@ exports[`appends "_outOfStock" to className if isOptionOutOfStock is true 1`] = 
 
 exports[`appends "_selected" to className if isSelected is true 1`] = `
 <button
-  aria-label="Fashion size red selected"
+  aria-label="Fashion size red button selected"
   className="root_selected"
   onClick={[Function]}
   title="red"

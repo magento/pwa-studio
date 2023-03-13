@@ -493,5 +493,5 @@
     "Form.postalCode":"ZIP / Postal Code Required",
     "Form.phonenumber":"Phone Number Required",
     "ProductOptions.productSize":"Fashion size {label}",
-    "productOptions.selectedSize":"Fashion size {label} selected"
+    "productOptions.selectedSize":"Fashion size {label} button selected"
 }
