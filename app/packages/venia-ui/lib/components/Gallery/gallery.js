@@ -65,7 +65,7 @@ const Gallery = props => {
                     />
                 );
             }),
-        [items, storeConfig]
+        [filterState, items, pageBuilder, storeConfig]
     );
 
     return (

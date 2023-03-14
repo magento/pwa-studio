@@ -41,7 +41,7 @@ const IMAGE_WIDTHS = new Map().set(640, IMAGE_WIDTH).set(UNCONSTRAINED_SIZE_KEY,
 
 const GalleryItem = props => {
     const { handleLinkClick, item, wishlistButtonProps, isSupportedProductType } = useGalleryItem(props);
-    const { storeConfig, filterState, pageBuilder } = props;
+    const { storeConfig, pageBuilder } = props;
     const { configurable_options, stock_status } = props.item;
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
 
@@ -60,6 +60,7 @@ const GalleryItem = props => {
 
     const { handleAddCofigItemBySku } = useAddToQuote();
     const [isOpen, setIsOpen] = useState(false);
+
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;
     }
@@ -197,7 +198,7 @@ const GalleryItem = props => {
         });
     };
     const onChangeQty = value => setQuantity(value);
-    console.log('variants', item?.variants);
+
     const getCategoriesValuesNameByVariant = variant => {
         return variant.attributes.map(attribute => {
             return item.configurable_options
@@ -211,43 +212,7 @@ const GalleryItem = props => {
     const getProductsInstance = () => {
         const instanceItem = { ...item };
 
-        let variants = [...instanceItem?.variants];
-
-        const filterKeys = filterState && [...filterState?.keys()];
-        // console.log('Material_estructura', filterKeys);
-
-        const filterValues = filterState && [...filterState?.values()];
-
-        // console.log('valor_aluminio', filterValues);
-
-        const filterValuesArray = filterValues?.map(filValue => {
-            const valueArr = [];
-            for (const valueObject of filValue) {
-                valueArr.push(valueObject.value);
-            }
-            return valueArr;
-        });
-
-        // console.log('code Material estructure', filterValuesArray);
-        // console.log('variants', variants);
-        const newVariants = [];
-        if (filterKeys && filterValues?.length) {
-            variants?.map(element => {
-                const valueAttributes = element?.attributes?.map(({ value_index }) => value_index);
-
-                // console.log('valueAttributes', valueAttributes);
-
-                const filter = filterValuesArray?.map(valArray =>
-                    valArray.map(value => valueAttributes?.includes(parseInt(value)))
-                );
-
-                // console.log('value of the attibute exist?', filter);
-
-                if (filter.map(filArray => filArray?.includes(true)).every(ele => ele === true))
-                    newVariants.push(element);
-            });
-            variants = newVariants;
-        }
+        const variants = [...instanceItem?.variants];
 
         return variants.map(variant => ({
             ...variant,
@@ -394,7 +359,6 @@ const GalleryItem = props => {
                     quantity={quantity}
                     setQuantity={val => setQuantity(val)}
                 />
-                {/* {!isHomePage && wishlistButton} */}
             </div>
         </div>
     );
