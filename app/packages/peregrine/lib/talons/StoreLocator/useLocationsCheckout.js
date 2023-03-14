@@ -6,17 +6,18 @@ import defaultOperations from './storeLocator.gql';
 import { useToasts } from '@magento/peregrine';
 import { useCartContext } from '../../context/cart';
 import { useIntl } from 'react-intl';
+import oparations from '../CheckoutPage/DeliveryDate/deliveryDate.gql';
 
 export const useLocationsCheckout = () => {
     const [{ cartId }] = useCartContext();
     const [, { addToast }] = useToasts();
-    const operations = mergeOperations(defaultOperations);
+    const operations = mergeOperations(defaultOperations, oparations);
     const { formatMessage } = useIntl();
 
     const [isLocationsModalOpen, setIsLocationsModalOpen] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState();
     const [selectedDay, setSelectedDay] = useState();
-    const { getLocationsCart, submitLocation, getLocationHolidays, getStoreId } = operations;
+    const { getLocationsCart, submitLocation, getLocationHolidays, getStoreId, GET_LOCALE } = operations;
 
     const { data, loading } = useQuery(getLocationsCart, {
         variables: { cartId },
@@ -32,9 +33,18 @@ export const useLocationsCheckout = () => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
+
+    const { data: localData } = useQuery(GET_LOCALE, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const local = useMemo(() => {
+        return localData && localData.storeConfig.locale;
+    }, [localData]);
     const [handleSubmitLocation, { loading: isSubmtiting }] = useMutation(submitLocation);
 
-    const locationsData = useMemo(() => data?.MpStoreLocatorPickupLocationList, [data]);
+    // const locationsData = useMemo(() => data?.MpStoreLocatorPickupLocationList, [data]);
 
     const holidayDates = useMemo(() => {
         if (selectedLocation) {
@@ -59,7 +69,8 @@ export const useLocationsCheckout = () => {
             await handleSubmitLocation({
                 variables: {
                     locationId: selectedLocation?.location_id,
-                    timePickup: selectedDay
+                    timePickup: selectedDay,
+                    cartId
                 }
             });
             setIsLocationsModalOpen(false);
@@ -89,11 +100,12 @@ export const useLocationsCheckout = () => {
         isLocationsModalOpen,
         handleOpenLocationModal,
         loading: loading || isSubmtiting || holidaysLoading,
-        locationsData,
+        locationsData: data?.MpStoreLocatorPickupLocationList,
         submutLocation,
         selectedLocation,
         handleSelectLocation,
         holidayDates,
-        handleChangeDay
+        handleChangeDay,
+        local
     };
 };

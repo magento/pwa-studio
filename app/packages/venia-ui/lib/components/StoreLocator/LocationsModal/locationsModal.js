@@ -18,8 +18,10 @@ const LocationsModal = props => {
         selectedLocation,
         handleSelectLocation,
         handleChangeDay,
+        local,
         holidayDates = []
     } = props;
+    moment.locale(local);
     // eslint-disable-next-line no-unused-vars
     const { locationsItems, ...rest } = useStoreLocatorContext();
     const classes = useStyle(defaultClasses);
@@ -70,7 +72,7 @@ const LocationsModal = props => {
             onConfirm={onConfirm}
             shouldDisableConfirmButton={!date || !selectedLocation}
             title={formatMessage({
-                id: 'storeLocation.SelectStore',
+                id: 'storeLocator.SelectStore',
                 defaultMessage: 'Select Store'
             })}
         >
@@ -78,7 +80,7 @@ const LocationsModal = props => {
                 <div className={classes.InputWrapper}>
                     <Field
                         label={formatMessage({
-                            id: 'storeLocation.address',
+                            id: 'storeLocator.address',
                             defaultMessage: 'Address'
                         })}
                     >
@@ -87,7 +89,7 @@ const LocationsModal = props => {
                     <div>
                         <Field
                             label={formatMessage({
-                                id: 'storeLocation.selectDay',
+                                id: 'storeLocator.selectDay',
                                 defaultMessage: 'Select Day'
                             })}
                         >
@@ -97,7 +99,7 @@ const LocationsModal = props => {
                                 showTimeSelect
                                 onChange={handleDateChange}
                                 // dayClassName={disabledDate}
-                                // locale={local}
+                                locale={local}
                                 className={classes.datePicker}
                                 dateFormat={moment(date).format('L')}
                                 minDate={new Date()}

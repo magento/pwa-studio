@@ -66,8 +66,8 @@ export const GET_STOREID = gql`
 `;
 
 const SUBMIT_LOCATION = gql`
-    mutation SaveLocationMpStoreLocator($locationId: String!, $timePickup: String!) {
-        SaveLocationMpStoreLocator(input: { locationId: $locationId, timePickup: $timePickup })
+    mutation SaveLocationMpStoreLocator($locationId: String!, $timePickup: String!, $cartId: String) {
+        SaveLocationMpStoreLocator(input: { locationId: $locationId, timePickup: $timePickup, cartId: $cartId })
     }
 `;
 export default {

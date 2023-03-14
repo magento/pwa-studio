@@ -42,7 +42,9 @@ const MapContainer = props => {
         resetSearch,
         locationsLoading,
         searchValue,
-        setSearchValue
+        setSearchValue,
+        selectedLocation,
+        setSelectedLocation
     } = mapProps;
 
     const history = useHistory();
@@ -68,7 +70,7 @@ const MapContainer = props => {
     const { formatMessage } = useIntl();
 
     const noStoresText = formatMessage({
-        id: 'noStoresText',
+        id: 'storeLocator.noStoresText',
         defaultMessage: 'There are no store available'
     });
 
@@ -78,7 +80,7 @@ const MapContainer = props => {
     });
 
     const findTextSubtitle = formatMessage({
-        id: 'findText',
+        id: 'storeLocator.findText',
         defaultMessage: 'Find the nearest store to get your favorite stuff.'
     });
 
@@ -172,7 +174,12 @@ const MapContainer = props => {
                 <>
                     <div className={classes.scrollableContainer}>
                         {filteredLocationsItems?.map((store, index) => (
-                            <StoreCard store={store} key={`${store.latitude}-${store.longitude}-${index}`} {...rest} />
+                            <StoreCard
+                                setLocationDetails={setSelectedLocation}
+                                store={store}
+                                key={`${store.latitude}-${store.longitude}-${index}`}
+                                {...rest}
+                            />
                         ))}
                     </div>
                     <Pagination pageControl={pageControl} />
@@ -223,7 +230,7 @@ const MapContainer = props => {
                         )
                     ) : (
                         <div className={classes.scrollableContainerDirection}>
-                            <DirectionCard />
+                            <DirectionCard locationDetails={selectedLocation} />
                         </div>
                     )}
                 </article>

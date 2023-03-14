@@ -28,7 +28,7 @@ const initializingContents = (
 );
 
 const ShippingMethod = props => {
-    const { onSave, onSuccess, pageIsUpdating, setPageIsUpdating } = props;
+    const { onSave, onSuccess, pageIsUpdating, setPageIsUpdating, checkoutStep } = props;
 
     const talonProps = useShippingMethod({
         onSave,
@@ -57,20 +57,22 @@ const ShippingMethod = props => {
         selectedLocation,
         handleSelectLocation,
         holidayDates,
-        handleChangeDay
+        handleChangeDay,
+        local
     } = locationsProps;
     const classes = useStyle(defaultClasses, props.classes);
 
     let contents;
-
     const selectStoreBatton = useMemo(
         () =>
-            selectedShippingMethod?.method_code === 'mpstorepickup' && locationsData?.items.length > 0 ? (
+            selectedShippingMethod?.method_code === 'mpstorepickup' &&
+            locationsData?.items.length > 0 &&
+            checkoutStep < 4 ? (
                 <button className={classes.selectStoreBtn} onClick={handleOpenLocationModal}>
-                    <FormattedMessage id={'storeLocation.SelectStore'} defaultMessage={'Select Store'} />
+                    <FormattedMessage id={'storeLocator.SelectStore'} defaultMessage={'Select Store'} />
                 </button>
             ) : null,
-        [selectedShippingMethod]
+        [selectedShippingMethod,locationsData]
     );
     if (displayState === displayStates.DONE) {
         const updateFormInitialValues = {
@@ -107,6 +109,7 @@ const ShippingMethod = props => {
                         handleSelectLocation={handleSelectLocation}
                         holidayDates={holidayDates}
                         handleChangeDay={handleChangeDay}
+                        local={local}
                     />
                 )}
             </Fragment>
