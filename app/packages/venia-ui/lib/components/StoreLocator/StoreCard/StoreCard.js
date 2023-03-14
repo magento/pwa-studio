@@ -14,7 +14,7 @@ const StoreCard = props => {
     const [, setIsFavorite] = useState(false);
     const [lastSelectedStore, setLastSelectedStore] = useState(null);
 
-    const { selectedLocation, handleSelectLocation } = props;
+    const { selectedLocation, handleSelectLocation, setLocationDetails } = props;
 
     const {
         setShowDirections,
@@ -28,17 +28,20 @@ const StoreCard = props => {
     const { formatMessage } = useIntl();
 
     const locationText = formatMessage({
-        id: 'getDirections',
+        id: 'storeLocator.getDirections',
         defaultMessage: 'Get directions'
     });
 
     const handleGetDirections = useCallback(() => {
+        if (setLocationDetails) {
+            setLocationDetails({ ...props?.store });
+        }
         setShowDirections(!showDirections);
         setCenterCoordinates({
             lat: +latitude,
             lng: +longitude
         });
-    }, [latitude, longitude, setCenterCoordinates, setShowDirections, showDirections]);
+    }, [latitude, longitude, setCenterCoordinates, setShowDirections, showDirections, setLocationDetails, props]);
 
     const handleSetFavoriteStore = useCallback(
         (name, lat, lng) => {

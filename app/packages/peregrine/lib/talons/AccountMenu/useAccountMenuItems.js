@@ -73,7 +73,7 @@ export const useAccountMenuItems = props => {
             url: '/wishlist'
         },
         {
-            name: '/Find Store',
+            name: 'Find a Store',
             id: 'storeLocator.findStoreText',
             url: '/find-store'
         }

@@ -11,7 +11,6 @@ const Search = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const {
         ready,
-        value,
         suggestions: { status, data },
         setValue,
         clearSuggestions
@@ -22,8 +21,8 @@ const Search = props => {
         setValue(e.target.value);
     };
     const placeholderText = formatMessage({
-        id: 'Search for a location',
-        defaultMessage: 'Search for a location'
+        id: 'storeLocator.searchForLocation',
+        defaultMessage: 'Search for location'
     });
 
     const handleSuggestionSelect = async address => {
