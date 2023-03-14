@@ -3,7 +3,15 @@ const canHandle = event => event.type === 'PRODUCT_PAGE_VIEW';
 const handle = (sdk, event) => {
     const { payload } = event;
 
-    const { name, id, currency_code, price_range, sku, url_key } = payload;
+    const {
+        name,
+        id,
+        currency_code,
+        price_range,
+        price,
+        sku,
+        url_key
+    } = payload;
 
     const pageContext = {
         pageType: 'PDP',
@@ -25,6 +33,7 @@ const handle = (sdk, event) => {
         sku,
         pricing: {
             currencyCode: currency_code,
+            regularPrice: price?.regularPrice?.amount.value,
             maximalPrice: price_range.maximum_price.final_price
         },
         canonicalUrl: url_key
