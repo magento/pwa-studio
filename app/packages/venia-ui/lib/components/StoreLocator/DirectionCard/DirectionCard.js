@@ -1,6 +1,6 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { ArrowLeft } from 'react-feather';
+import { ArrowLeft, MapPin } from 'react-feather';
 import Icon from '../../Icon';
 import defaultClasses from './DirectionCard.module.css';
 import { useStyle } from '../../../classify';
@@ -8,17 +8,22 @@ import { useStoreLocatorContext } from '../StoreLocatorProvider/StoreLocatorProv
 
 const DirectionCard = props => {
     const { setShowDirections, showDirections, setCenterCoordinates, directionSteps } = useStoreLocatorContext();
-
+    const { locationDetails } = props;
     const { formatMessage } = useIntl();
     const backText = formatMessage({
-        id: 'goBack',
+        id: 'notFound.goBack',
         defaultMessage: 'Go back'
     });
+    const storeImgParse = JSON.parse(locationDetails?.images)[0]?.file;
+    console.log({ locationDetails });
 
-    const aboutText = formatMessage({
-        id: 'aboutText',
-        defaultMessage: 'About'
-    });
+    const address = useMemo(() => {
+        if (locationDetails) {
+            const { street, city, country, state_province } = locationDetails;
+            return street + ', ' + state_province + ' ' + city + ' ' + country;
+        }
+        return '';
+    }, [locationDetails]);
 
     const noDirectionsText = formatMessage({
         id: 'noDirectionsText',
@@ -38,17 +43,14 @@ const DirectionCard = props => {
 
     return (
         <section>
-            <section className={classes.backContainer} onClick={handleGoBack}>
+            <button className={classes.backContainer} onClick={handleGoBack}>
                 <Icon src={ArrowLeft} size={24} />
                 <article>{backText}</article>
-            </section>
+            </button>
             <hr />
             <article className={classes.cardContainer}>
                 <section className={classes.durationContainer}>
-                    <span>{directionSteps?.distance?.text}</span>
-                    <span> {aboutText} </span>
-                    <span> {directionSteps?.duration?.text} </span>
-                    <hr />
+                    <span>{locationDetails?.name}</span>
                 </section>
 
                 {steps ? (
@@ -79,6 +81,14 @@ const DirectionCard = props => {
                 ) : (
                     noDirectionsText
                 )}
+                <span className={classes.addressText}>
+                    <Icon src={MapPin} size={24} />
+                    {address}
+                </span>
+                <div className={classes.imgWrapper}>
+
+                <img src={storeImgParse} alt={'store'} />
+                </div>
             </article>
         </section>
     );
