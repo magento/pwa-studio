@@ -38,7 +38,6 @@
 .indexMobileName,
 .indexMobileSku {
     text-align: center;
-    width: 100%;
 }
 
 .inStock,
@@ -81,6 +80,8 @@
     text-align: center;
     width: 100%;
     margin-bottom: -26px;
+    display: flex;
+    justify-content: center;
 }
 
 .indexFixedCategory {
@@ -146,9 +147,6 @@
 
 /* Tablet */
 @media (max-width: 980px) {
-    .priceContainer {
-        display: block;
-    }
     .productItemContainerDesktop {
         display: none;
     }
@@ -208,7 +206,7 @@
     align-content: center;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    width: 50%;
 }
 
 .productItemBodyInformation {
@@ -251,6 +249,7 @@
     padding: 10px 0px 0px 0px;
     gap: 5px;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .stockAddContainer {
@@ -269,4 +268,9 @@
 .priceContainer div{
     display: flex;
     align-items: center;
+}
+
+.stockBtnWrapper button {
+    font-size: 14px;
+    height: 40px;
 }
