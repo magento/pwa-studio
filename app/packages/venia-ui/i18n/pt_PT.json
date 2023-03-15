@@ -742,6 +742,8 @@
     "productAlert.myProductAlerts": "Os meus alertas de produto",
     "productAlert.NotifyMe": "Notifiquem-me",
     "productAlert.NotifyPrice": "Notifique-me quando o preço cai",
+    "productAlerts.noProductStock": "Não há itens na sua lista de alertas de estado de stock.",
+    "productAlerts.noProductPrice": "Não há itens na sua lista de preços",
     "productAlert.subscribedOn": "Subscrevidos em",
     "productAlerts.infoText": "Subscrever Alertas de Mudança de Preços agora! Registe o seu endereço de correio electrónico para ser o primeiro a saber quando o nosso produto tem alguma alteração no preço. Está sempre actualizado para obter a bondade do preço do produto!",
     "productAlerts.modalFooterText": " Note, por favor, que o e-mail back-in-stock será entregue apenas uma vez, e o seu endereço de e-mail não será partilhado ou publicado com mais ninguém.",

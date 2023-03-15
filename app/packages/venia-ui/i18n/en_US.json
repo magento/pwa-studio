@@ -743,6 +743,8 @@
     "productAlert.myProductAlerts": "My Product Alerts",
     "productAlert.NotifyMe": "Notify me",
     "productAlert.NotifyPrice": "Notify me when the price drops",
+    "productAlerts.noProductStock": "There are no items in your stock status alerts list.",
+    "productAlerts.noProductPrice": "There are no items in your price alerts list.",
     "productAlert.subscribedOn": "Subscribed On",
     "productAlerts.infoText": "Subscribe Price-Change Alerts now! Register your email address to be the first to know when our product has any changes in price. You are always updated to get product pricing goodness!",
     "productAlerts.modalFooterText": "  Kindly notice that the back-in-stock email will be delivered only one time, and your email address will not be shared or published with anyone else.",

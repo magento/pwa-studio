@@ -16,12 +16,12 @@ const CusotmerAlertPage = () => {
         setStockPageControl,
         stockPageControl,
         priceControlPage,
-        setPriceControlPage
+        setPriceControlPage,
+        local
     } = useProductsAlert();
     const classes = useStyle(defaultClasses);
     const out_of_stock = customersAlertsItems?.out_of_stock;
     const product_price = customersAlertsItems?.product_price;
-
     if (loading || !customersAlertsItems) {
         return <FullPageLoadingIndicator />;
     }
@@ -37,7 +37,7 @@ const CusotmerAlertPage = () => {
     const pricePaginationControl = {
         currentPage: priceControlPage?.currentPage,
         setPage: val =>
-        setPriceControlPage(prev => {
+            setPriceControlPage(prev => {
                 return { ...prev, currentPage: val };
             }),
         totalPages: priceControlPage.totalPages
@@ -56,22 +56,36 @@ const CusotmerAlertPage = () => {
                         defaultMessage="Alerts For Stock Change"
                     />
                 </h3>
-                <AlertTable submitDeleteAlert={submitDeleteAlert} items={out_of_stock?.items} />
+                {out_of_stock?.items?.length > 0 ? (
+                    <>
+                        <AlertTable submitDeleteAlert={submitDeleteAlert} items={out_of_stock?.items} local={local} />
+                        <Pagination class="productsTable" pageControl={stockPaginationControl} />
+                    </>
+                ) : (
+                    <span>
+                        <FormattedMessage
+                            id={'productAlert.noProductStock'}
+                            defaultMessage="There are no items in your stock status alerts list."
+                        />
+                    </span>
+                )}
 
-                <Pagination
-                    // classes={{ root: classes.paginationB2B }}
-                    class="productsTable"
-                    pageControl={stockPaginationControl}
-                />
                 <h3>
                     <FormattedMessage id={'productAlert.alertForPriceChange'} defaultMessage="Alert For Stock Change" />
                 </h3>
-                <AlertTable submitDeleteAlert={submitDeleteAlert} items={product_price?.items} />
-                <Pagination
-                    // classes={{ root: classes.paginationB2B }}
-                    class="productsTable"
-                    pageControl={pricePaginationControl}
-                />
+                {product_price?.items?.length > 0 ? (
+                    <>
+                        <AlertTable submitDeleteAlert={submitDeleteAlert} items={product_price?.items} local={local} />
+                        <Pagination class="productsTable" pageControl={pricePaginationControl} />
+                    </>
+                ) : (
+                    <span>
+                        <FormattedMessage
+                            id={'productAlert.noProductPrice'}
+                            defaultMessage="There are no items in your price slerts list."
+                        />
+                    </span>
+                )}
             </div>
         </div>
     );
