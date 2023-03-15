@@ -10,25 +10,14 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const StockAlert = props => {
     const [{ isSignedIn }] = useUserContext();
-    const { onCancel, isOpen, formProps, onConfirm: submitStockAlert } = props;
-
+    const { onCancel, isOpen, formProps, onConfirm: submitStockAlert, alertConfig } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
-
-    const modalTitle = formatMessage({
-        id: 'productAlerts.stockAlertModal',
-        defaultMessage: `Stay tuned for any updates on this product's availability!`
-    });
 
     const modalTextInfo = formatMessage({
         id: 'productAlerts.infoText',
         defaultMessage:
             'Subscribe  for product availability. Register your email address to be the first to know when our product has any changes in availability. You are always updated to get product availability!'
-    });
-    const modalFooterText = formatMessage({
-        id: 'productAlerts.modalFooterText',
-        defaultMessage:
-            '  Kindly notice that the availability email will be delivered only one time, and your email address will not be shared or published with anyone else.'
     });
     return (
         <>
@@ -39,16 +28,16 @@ const StockAlert = props => {
                 onConfirm={submitStockAlert}
                 isOpen={isOpen}
                 confirmText={'Notify me'}
-                title={modalTitle}
+                title={alertConfig?.popup_setting?.heading_text}
             >
                 <hr />
-                <p>{modalTextInfo}</p>
+                <p className={classes.textInfo}>{modalTextInfo}</p>
                 {!isSignedIn && (
                     <Field id="email">
-                        <TextInput field="email" validate={!isSignedIn && isRequired} data-cy="email" />
+                        <TextInput placeholder={alertConfig?.popup_setting?.place_holder} field="email" validate={!isSignedIn && isRequired} data-cy="email" />
                     </Field>
                 )}
-                <p>{modalFooterText}</p>
+                <p className={classes.textInfo}>{alertConfig?.popup_setting?.footer_content}</p>
             </Dialog>
         </>
     );

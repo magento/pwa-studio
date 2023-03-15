@@ -55,7 +55,8 @@ const ProductFullDetailB2C = props => {
         handleChangeProductSku,
         selectedOptionB2C,
         submitStockAlert,
-        handleSubmitPriceAlert
+        handleSubmitPriceAlert,
+        alertConfig
     } = productsAlert;
 
     const customAttributesDetails = useMemo(() => {
@@ -211,9 +212,19 @@ const ProductFullDetailB2C = props => {
                 {pageBuilderAttributes}
             </Form>
             {selectedVarient && (
-                <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} onConfirm={handleSubmitPriceAlert} />
+                <PriceAlert
+                    isOpen={openPriceModal}
+                    onCancel={handleCloseModal}
+                    onConfirm={handleSubmitPriceAlert}
+                    alertConfig={alertConfig?.price_alert}
+                />
             )}
-            <StockAlert isOpen={isStockModalOpened} onCancel={handleCloseModal} onConfirm={submitStockAlert} />
+            <StockAlert
+                alertConfig={alertConfig?.stock_alert}
+                isOpen={isStockModalOpened}
+                onCancel={handleCloseModal}
+                onConfirm={submitStockAlert}
+            />
         </Fragment>
     );
 };

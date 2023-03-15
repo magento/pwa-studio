@@ -37,7 +37,8 @@ const SimpleProductB2C = props => {
         handleOpenPriceModal,
         openPriceModal,
         submitStockAlert,
-        handleSubmitPriceAlert
+        handleSubmitPriceAlert,
+        alertConfig
     } = productsAlert;
     const productAlertStatus = simpleProductData?.mp_product_alert;
     const stockStatus = simpleProductData?.stock_status;
@@ -129,9 +130,19 @@ const SimpleProductB2C = props => {
                     <strong>{simpleProductData.sku}</strong>
                 </section>
             </Form>
-            <PriceAlert isOpen={openPriceModal} onCancel={handleCloseModal} onConfirm={handleSubmitPriceAlert} />
+            <PriceAlert
+                isOpen={openPriceModal}
+                onCancel={handleCloseModal}
+                onConfirm={handleSubmitPriceAlert}
+                alertConfig={alertConfig?.price_alert}
+            />
 
-            <StockAlert isOpen={isStockModalOpened} onCancel={handleCloseModal} onConfirm={submitStockAlert} />
+            <StockAlert
+                isOpen={isStockModalOpened}
+                onCancel={handleCloseModal}
+                onConfirm={submitStockAlert}
+                alertConfig={alertConfig?.stock_alert}
+            />
         </Fragment>
     );
 };

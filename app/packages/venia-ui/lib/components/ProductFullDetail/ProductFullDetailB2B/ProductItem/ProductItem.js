@@ -45,7 +45,8 @@ const ProductItem = props => {
         openPriceModal,
         formProps,
         submitStockAlert,
-        handleSubmitPriceAlert
+        handleSubmitPriceAlert,
+        alertConfig
     } = productsAlert;
 
     const { handleAddCofigItemBySku } = useAddToQuote();
@@ -192,10 +193,12 @@ const ProductItem = props => {
 
     const stockButton =
         variant?.product?.stock_status === 'OUT_OF_STOCK' && productAlertStatus?.mp_productalerts_stock_notify ? (
-            <NotifyButton
-                handleOpendStockModal={handleOpendStockModal}
-                productStatus={variant?.product?.stock_status}
-            />
+            <div className={classes.stockBtnWrapper}>
+                <NotifyButton
+                    handleOpendStockModal={handleOpendStockModal}
+                    productStatus={variant?.product?.stock_status}
+                />
+            </div>
         ) : (
             addToCartButton
         );
@@ -321,12 +324,14 @@ const ProductItem = props => {
                 isOpen={openPriceModal}
                 onConfirm={handleSubmitPriceAlert}
                 onCancel={handleCloseModal}
+                alertConfig={alertConfig?.price_alert}
             />
             <StockAlert
                 isOpen={isStockModalOpened}
                 onConfirm={submitStockAlert}
                 formProps={formProps}
                 onCancel={handleCloseModal}
+                alertConfig={alertConfig?.stock_alert}
             />
         </div>
     );

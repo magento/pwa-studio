@@ -47,7 +47,7 @@ const GalleryItem = props => {
     const { storeConfig, filterState, pageBuilder } = props;
     const { configurable_options, stock_status } = props.item;
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
-    
+
     const classes = useStyle(defaultClasses, props.classes);
 
     const [, { addToast }] = useToasts();
@@ -68,7 +68,8 @@ const GalleryItem = props => {
         setisStockModalOpened,
         submitStockAlert,
         handleOpendStockModal,
-        isUserSignIn
+        isUserSignIn,
+        alertConfig
     } = productsAlert;
 
     const { handleAddCofigItemBySku } = useAddToQuote();
@@ -398,6 +399,7 @@ const GalleryItem = props => {
                     onConfirm={submitStockAlert}
                     formProps={formProps}
                     isUserSignIn={isUserSignIn}
+                    alertConfig={alertConfig?.stock_alert}
                 />
                 {/* {!isHomePage && wishlistButton} */}
             </div>

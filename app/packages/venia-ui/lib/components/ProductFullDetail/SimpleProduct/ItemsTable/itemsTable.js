@@ -34,7 +34,8 @@ const ItemsTable = props => {
         openPriceModal,
         formProps,
         submitStockAlert,
-        handleSubmitPriceAlert
+        handleSubmitPriceAlert,
+        alertConfig
     } = productsAlert;
 
     const [copied, setCopied] = useState(false);
@@ -117,10 +118,12 @@ const ItemsTable = props => {
     );
     const stockButton =
         simpleProductData?.stock_status === 'OUT_OF_STOCK' && productAlertStatus?.mp_productalerts_stock_notify ? (
-            <NotifyButton
-                handleOpendStockModal={handleOpendStockModal}
-                productStatus={simpleProductData?.stock_status}
-            />
+            <div className={classes.stockBtnWrapper}>
+                <NotifyButton
+                    handleOpendStockModal={handleOpendStockModal}
+                    productStatus={simpleProductData?.stock_status}
+                />
+            </div>
         ) : (
             addToCartButton
         );
@@ -184,14 +187,6 @@ const ItemsTable = props => {
                         <small className={classes.skuTextMobile}>{simpleProductData.sku}</small>
                         <div className={classes.stockStatusContainer}>
                             <div>{stockStatusText}:</div>
-                            <div className={classes.stockStatusCircle}>
-                                {simpleProductData?.stock_status === 'OUT_OF_STOCK' && (
-                                    <NotifyButton
-                                        handleOpendStockModal={handleOpendStockModal}
-                                        productStatus={simpleProductData?.stock_status}
-                                    />
-                                )}
-                            </div>
                             <div className={classes.stockStatusCircle}>{stockStatus}</div>
                         </div>
                         <h2>{priceTag}</h2>
@@ -236,7 +231,7 @@ const ItemsTable = props => {
                             onChange={handleQuantityChange}
                         />
                     </Form>
-
+                    <br />
                     {stockButton}
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </section>
@@ -253,6 +248,7 @@ const ItemsTable = props => {
                 onConfirm={handleSubmitPriceAlert}
                 onCancel={handleCloseModal}
                 selectedVarient={simpleProductData?.sku}
+                alertConfig={alertConfig?.price_alert}
             />
             <StockAlert
                 isOpen={isStockModalOpened}
@@ -260,6 +256,7 @@ const ItemsTable = props => {
                 onCancel={handleCloseModal}
                 formProps={formProps}
                 selectedVarient={simpleProductData?.sku}
+                alertConfig={alertConfig?.stock_alert}
             />
         </div>
     );

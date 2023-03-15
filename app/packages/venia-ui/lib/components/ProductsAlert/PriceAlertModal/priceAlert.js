@@ -11,7 +11,8 @@ import { useStyle } from '../../../classify';
 const PriceAlert = props => {
     const [{ isSignedIn }] = useUserContext();
     const classes = useStyle(defaultClasses, props.classes);
-    const { onCancel, isOpen, formProps, onConfirm: handleSubmitPriceAlert } = props;
+    const { onCancel, isOpen, formProps, onConfirm: handleSubmitPriceAlert, alertConfig } = props;
+    console.log({ alertConfig });
 
     const { formatMessage } = useIntl();
 
@@ -38,14 +39,15 @@ const PriceAlert = props => {
                 onConfirm={handleSubmitPriceAlert}
                 isOpen={isOpen}
                 title={modalTitle}
-                confirmText={'Notify me'}
+                confirmText={alertConfig?.popup_setting?.heading_text}
             >
                 <hr />
-                <p>{modalTextInfo}</p>
+                <p className={classes.textInfo}>{modalTextInfo}</p>
 
                 {!isSignedIn && (
                     <Field id="priceAlertFormEmail">
                         <TextInput
+                            placeholder={alertConfig?.popup_setting?.place_holder}
                             id="priceAlertFormEmail"
                             data-cy="priceAlertFormEmail-email"
                             field="email"
@@ -54,7 +56,7 @@ const PriceAlert = props => {
                     </Field>
                 )}
 
-                <p>{modalFooterText}</p>
+                <p className={classes.textInfo}>{alertConfig?.popup_setting?.footer_content}</p>
             </Dialog>
         </>
     );

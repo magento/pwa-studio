@@ -130,3 +130,37 @@ export const SUBMIT_DELETE_ALERT = gql`
         MpProductAlertSubscriberDelete(input: { id: $id })
     }
 `;
+
+export const GET_CONFIG_ALERTS = gql`
+    query MpProductAlertsConfigs {
+        MpProductAlertsConfigs {
+            price_alert {
+                popup_setting {
+                    button_text
+                    description
+                    footer_content
+                    heading_text
+                    place_holder
+                }
+            }
+            stock_alert {
+                popup_setting {
+                    button_text
+                    description
+                    footer_content
+                    heading_text
+                    place_holder
+                }
+            }
+        }
+    }
+`;
+export default {
+    GET_CUSTOMERS_ALERTS,
+    SUBMIT_CUSTOMER_PRICE_ALERT,
+    SUBMIT_GUEST_PRICE_ALERT,
+    SUBMIT_CUSTOMER_STOCK_ALERT,
+    SUBMIT_GUEST_STOCK_ALERT,
+    SUBMIT_DELETE_ALERT,
+    GET_CONFIG_ALERTS
+};

@@ -5,28 +5,45 @@ import { useQuery, useMutation } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useToasts } from '../../Toasts';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import deliveryDateOpration from '../CheckoutPage/DeliveryDate/deliveryDate.gql';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 
-import {
-    SUBMIT_CUSTOMER_PRICE_ALERT,
-    GET_CUSTOMERS_ALERTS,
-    SUBMIT_GUEST_PRICE_ALERT,
-    SUBMIT_CUSTOMER_STOCK_ALERT,
-    SUBMIT_GUEST_STOCK_ALERT,
-    SUBMIT_DELETE_ALERT
-} from './productsAlerts.gql';
+import DEFAULT_OPERATIONS from './productsAlerts.gql';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 export const useProductsAlert = props => {
     const { formatMessage } = useIntl();
     const selectProductSku = props?.selectedVarient?.product?.sku;
+    const {
+        SUBMIT_CUSTOMER_PRICE_ALERT,
+        GET_CUSTOMERS_ALERTS,
+        SUBMIT_GUEST_PRICE_ALERT,
+        SUBMIT_CUSTOMER_STOCK_ALERT,
+        SUBMIT_GUEST_STOCK_ALERT,
+        SUBMIT_DELETE_ALERT,
+        GET_CONFIG_ALERTS,
+        GET_LOCALE
+    } = mergeOperations(DEFAULT_OPERATIONS, deliveryDateOpration);
     const simpleProductB2CSku = props?.simpleProductData?.sku;
     const itemSku = props?.ItemSku;
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
     const [formEmail] = useState();
     const [selectedOptionB2C, setSelectedOptionB2C] = useState('');
+
+    const { data: alertConfig } = useQuery(GET_CONFIG_ALERTS, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+    const { data: storeData } = useQuery(GET_LOCALE, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+    const local = useMemo(() => {
+        return storeData && storeData.storeConfig.locale;
+    }, [storeData]);
 
     const formProps = {
         initialValues: formEmail
@@ -256,6 +273,8 @@ export const useProductsAlert = props => {
         openPriceModal,
         outStockProductsSku,
         handleChangeProductSku,
-        selectedOptionB2C
+        selectedOptionB2C,
+        local,
+        alertConfig: alertConfig?.MpProductAlertsConfigs
     };
 };
