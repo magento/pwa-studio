@@ -31,11 +31,21 @@ const MegaMenu = props => {
         elementRef: mainNavRef
     });
 
-    const navWidth = mainNavRef.current ? mainNavRef.current.offsetWidth : null;
-
     useEffect(() => {
-        if (navWidth) setMainNavWidth(navWidth);
-    }, [navWidth]);
+        const handleResize = () => {
+            const navWidth = mainNavRef.current ? mainNavRef.current.offsetWidth : null;
+
+            setMainNavWidth(navWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    });
 
     const items = megaMenuData.children
         ? megaMenuData.children.map(category => {
