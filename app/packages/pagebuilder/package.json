@@ -41,11 +41,11 @@
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
-    "react": "~17.0.1",
-    "react-dom": "~17.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-slick": "~0.28.0",
     "react-tabs": "~3.0.0",
-    "react-test-renderer": "~17.0.1"
+    "react-test-renderer": "^18.2.0"
   },
   "peerDependencies": {
     "@apollo/client": "~3.5.0",
@@ -56,7 +56,7 @@
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
-    "react": "~17.0.1",
+    "react": "^18.2.0",
     "react-slick": "~0.28.0",
     "react-tabs": "~3.1.0"
   },
