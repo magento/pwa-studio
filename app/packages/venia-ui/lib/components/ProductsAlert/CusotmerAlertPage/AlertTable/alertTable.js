@@ -8,9 +8,10 @@ import PlaceholderImage from '../../../Image/placeholderImage';
 import defaultClasses from './alertTable.module.css';
 
 const AlertTable = props => {
-    const { items, submitDeleteAlert } = props;
+    const { items, submitDeleteAlert, local } = props;
     const classes = useStyle(defaultClasses);
     const { formatMessage } = useIntl();
+    moment.locale(local);
 
     const thumbnailProps = {
         alt: 'product',
@@ -36,7 +37,8 @@ const AlertTable = props => {
                     id: 'savedCartsView.productImage',
                     defaultMessage: 'Image'
                 }),
-                value: thumbnailElement(req?.product_data?.product_image_url)
+                value: thumbnailElement(req?.product_data?.product_image_url),
+                classes:classes.imgWrapper
             },
             {
                 dataLable: formatMessage({
@@ -58,7 +60,7 @@ const AlertTable = props => {
                     id: 'productAlert.subscribedOn',
                     defaultMessage: 'Subscribed On'
                 }),
-                value: moment(req.subscribe_created_at).format('LLL')
+                value: moment(new Date(req.subscribe_created_at)).format('L')
             },
 
             {
