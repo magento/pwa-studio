@@ -11,27 +11,24 @@ export const useIsInViewport = props => {
         if (!elementRef || !elementRef.current || !intersectionObserver) {
             setIsInViewport(true);
 
-            return null;
+            return () => {};
         }
 
         // Prevent init if already rendered once
         if (isInViewport && renderOnce) {
-            return null;
+            return () => {};
         }
 
         const htmlElement = elementRef.current;
-        const elementObserver = new IntersectionObserver(
-            (entries, observer) => {
-                const isIntersecting =
-                    entries.some(entry => entry.isIntersecting) === true;
-                setIsInViewport(isIntersecting);
+        const elementObserver = new IntersectionObserver((entries, observer) => {
+            const isIntersecting = entries.some(entry => entry.isIntersecting) === true;
+            setIsInViewport(isIntersecting);
 
-                // Stop observing if already rendered once
-                if (isIntersecting && renderOnce) {
-                    observer.unobserve(htmlElement);
-                }
+            // Stop observing if already rendered once
+            if (isIntersecting && renderOnce) {
+                observer.unobserve(htmlElement);
             }
-        );
+        });
 
         elementObserver.observe(htmlElement);
 
