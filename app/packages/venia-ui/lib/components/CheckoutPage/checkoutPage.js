@@ -110,7 +110,8 @@ const CheckoutPage = props => {
         onBillingAddressChangedError,
         setCurrentSelectedPaymentMethod,
         onBillingAddressChangedSuccess,
-        paymentMethodMutationData
+        paymentMethodMutationData,
+        currentSelectedPaymentMethod
     } = talonProps;
     const [, { addToast }] = useToasts();
 
@@ -268,7 +269,9 @@ const CheckoutPage = props => {
                     priority="high"
                     className={classes.review_order_button}
                     data-cy="CheckoutPage-reviewOrderButton"
-                    disabled={reviewOrderButtonClicked || isUpdating || !isPaymentAvailable}
+                    disabled={
+                        reviewOrderButtonClicked || isUpdating || !isPaymentAvailable || !currentSelectedPaymentMethod
+                    }
                 >
                     <FormattedMessage id={'checkoutPage.reviewOrder'} defaultMessage={'Review Order'} />
                 </Button>
