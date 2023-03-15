@@ -16,9 +16,11 @@ import copyToClipboard from '../icons/copyToClipboard.png';
 import { useAddToQuote } from '@magento/peregrine/lib/talons/QuickOrderForm/useAddToQuote';
 import ConfirmationModal from '../../../RequestQuote/ConfirmationModal';
 import PlaceholderImage from '../../../Image/placeholderImage';
+import { useFormState } from 'informed';
 
 const ProductItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
+    const { values } = useFormState();
 
     const {
         product,
@@ -42,8 +44,6 @@ const ProductItem = props => {
         }, 1000);
     };
 
-    const [quantity, setQuantity] = useState(1);
-
     const [error, setError] = useState('');
 
     const [isOpen, setIsOpen] = useState(false);
@@ -51,14 +51,10 @@ const ProductItem = props => {
         setTimeout(() => setError(''), 10000);
     }, [error]);
 
-    const handleQuantityChange = tempQuantity => {
-        setQuantity(tempQuantity);
-    };
-
     const handleAddProductToCart = useCallback(async () => {
         const variables = {
             cartId,
-            quantity: quantity,
+            quantity: values[(variant?.product.uid)],
             sku: variant.product.sku,
             parentSku: product.sku
         };
@@ -69,14 +65,14 @@ const ProductItem = props => {
         } catch {
             setError('Error');
         }
-    }, [cartId, quantity, variant, addConfigurableProductToCart, setError, product]);
+    }, [cartId, values, variant, addConfigurableProductToCart, setError, product]);
 
     const confirmRequestQuote = () => {
         const simpleProducts = [
             {
                 sku: variant.product.sku,
                 orParentSku: product.sku,
-                quantity
+                quantity: values[(variant?.product.uid)]
             }
         ];
         handleAddCofigItemBySku(simpleProducts);
@@ -118,13 +114,13 @@ const ProductItem = props => {
 
     const nameTag = <p>{product.name + ' ' + categoriesValuesName.join(' - ')}</p>;
 
-    const quantitySelector = (id = 1) => (
+    const quantitySelector = () => (
         <div className={classes.quantity}>
             <QuantityStepper
-                fieldName={`${variant.product.sku}-${id}`}
+                fieldName={variant.product.uid}
                 classes={{ root: classes.quantityRoot }}
                 min={1}
-                onChange={handleQuantityChange}
+                textProps={{ initialValue: 1 }}
             />
         </div>
     );
@@ -212,7 +208,7 @@ const ProductItem = props => {
                 <span className={classes.indexFixed}>
                     <Price
                         currencyCode={variant.product.price.regularPrice.amount.currency}
-                        value={variant.product.price.minimalPrice.amount.value * quantity || 0}
+                        value={variant.product.price.minimalPrice.amount.value * values[(variant?.product.uid)] || 0}
                     />
                 </span>
                 <div className={classes.stockAddContainer}>
@@ -225,8 +221,7 @@ const ProductItem = props => {
                 onCancel={() => setIsOpen(false)}
                 onConfirm={confirmRequestQuote}
                 product={variant}
-                quantity={quantity}
-                setQuantity={val => setQuantity(val)}
+                quantity={values[(variant?.product.uid)]}
             />
         </div>
     );
@@ -267,7 +262,9 @@ const ProductItem = props => {
                             <span className={classes.indexFixed}>
                                 <Price
                                     currencyCode={variant.product.price.regularPrice.amount.currency}
-                                    value={variant.product.price.minimalPrice.amount.value * quantity}
+                                    value={
+                                        variant.product.price.minimalPrice.amount.value * values[(variant?.product.uid)]
+                                    }
                                 />
                             </span>
                         </div>
