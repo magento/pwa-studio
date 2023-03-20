@@ -162,7 +162,7 @@ const GalleryItem = props => {
                         </ul>
                     }
                 >
-                    <img className={classes.attributeInfoIcon} src={InfoIcon} />
+                    <img className={classes.attributeInfoIcon} src={InfoIcon} alt='InfoIcon' />
                 </Tippy>
             </div>
         );
@@ -359,7 +359,7 @@ const GalleryItem = props => {
                                         {
                                             value: formatMessage({
                                                 id: 'galleryItem.Item',
-                                                defaultMessage: 'Item'
+                                                defaultMessage: 'Select an item'
                                             })
                                         },
                                         ...getProductsInstance()
