@@ -13,23 +13,16 @@ veniaResponse:
         # that passes the request through to the backing Magento server.
         - matches: request.url.pathname
           pattern: '^/(lms)(/|$)'
-        #   if: env.MULTITENANT_ENABLED == 'false'
           use: lmsProxy
-        # - matches: request.url.pathname
-        #   pattern: '^/(lms)(/|$)'
-        #   if: env.MULTITENANT_ENABLED == 'true'
-        #   use: s3Proxy
         - matches: request.url.pathname
           pattern: '^/(csr)(/|$)'
-        #   if: env.MULTITENANT_ENABLED == 'false'
           use: csrProxy
-        # - matches: request.url.pathname
-        #   pattern: '^/(csr)(/|$)'
-        #   if: env.MULTITENANT_ENABLED == 'true'
-        #   use: s3Proxy
+        - matches: request.url.pathname
+          pattern: '^/(api)(/|$)'
+          use: kongProxy
         - matches: request.url.pathname
           pattern: '^/(css|env|logo)(/|$)'
-          use: s3Proxy
+          use: kongProxy
         - matches: request.url.pathname
           pattern: '^/(graphql|rest|media)(/|$)'
           use: veniaProxy
@@ -139,7 +132,7 @@ csrProxy:
     #     default:
     #         inline: true
 
-s3Proxy:
+kongProxy:
     resolver: proxy
     target: env.KONG_URL
 
