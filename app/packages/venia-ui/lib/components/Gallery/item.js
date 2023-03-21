@@ -163,7 +163,7 @@ const GalleryItem = props => {
                         </ul>
                     }
                 >
-                    <img className={classes.attributeInfoIcon} src={InfoIcon} />
+                    <img className={classes.attributeInfoIcon} src={InfoIcon} alt='InfoIcon' />
                 </Tippy>
             </div>
         );
@@ -336,7 +336,15 @@ const GalleryItem = props => {
                             <div className={classes.productsSelect}>
                                 <Select
                                     field={`veriants ${item.sku}`}
-                                    items={[{ value: 'Item' }, ...getProductsInstance()]}
+                                    items={[
+                                        {
+                                            value: formatMessage({
+                                                id: 'galleryItem.Item',
+                                                defaultMessage: 'Select an item'
+                                            })
+                                        },
+                                        ...getProductsInstance()
+                                    ]}
                                     onChange={onChangeVariant}
                                 />
                             </div>
