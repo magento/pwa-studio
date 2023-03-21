@@ -4,7 +4,7 @@
         "forceConsistentCasingInFileNames": true,
         "incremental": true,
         "isolatedModules": true,
-        "module": "ES6",
+        "module": "ESNext",
         "moduleResolution": "node",
         "noImplicitReturns": true,
         "noUnusedLocals": false,
