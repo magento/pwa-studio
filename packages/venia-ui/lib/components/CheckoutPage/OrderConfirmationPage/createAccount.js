@@ -80,7 +80,7 @@ const CreateAccount = props => {
                 <FormattedMessage
                     id={'checkoutPage.setAPasswordAndSave'}
                     defaultMessage={
-                        'Set a password and save your information for next time in one easy step!'
+                        'Set a password and save your information for next time in one easy step TEST!'
                     }
                 />
             </p>
