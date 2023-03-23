@@ -71,9 +71,9 @@
     "babel-plugin-graphql-tag": "~2.0.0",
     "babel-plugin-react-remove-properties": "~0.3.0",
     "identity-obj-proxy": "~3.0.0",
-    "react": "~17.0.1",
+    "react": "^18.2.0",
     "react-intl": "~5.20.0",
-    "react-test-renderer": "~17.0.1",
+    "react-test-renderer": "^18.2.0",
     "redux": "~4.0.1"
   },
   "peerDependencies": {
@@ -84,7 +84,7 @@
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.33.3",
     "graphql": "~15.5.0",
-    "react": "~17.0.1",
+    "react": "^18.2.0",
     "react-intl": "~5.20.0",
     "react-redux": "~7.2.2",
     "react-router-dom": "~5.2.0",
