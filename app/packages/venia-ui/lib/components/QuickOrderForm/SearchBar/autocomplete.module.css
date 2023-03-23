@@ -31,7 +31,7 @@
     top: 2.25rem;
     transition-property: opacity, transform, visibility;
     z-index: 2;
-    max-height: 75vh;
+    max-height: 300px;
     overflow: auto;
 }
 

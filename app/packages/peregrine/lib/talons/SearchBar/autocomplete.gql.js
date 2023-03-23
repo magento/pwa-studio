@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 const GET_AUTOCOMPLETE_RESULTS = gql`
     query GetAutocompleteResults($inputText: String!) {
         # Limit results to first three
-        products(search: $inputText, currentPage: 1, pageSize: 3) {
+        products(search: $inputText, currentPage: 1, pageSize: 20) {
             aggregations {
                 label
                 count
