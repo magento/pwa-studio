@@ -18,7 +18,6 @@ const handleHtmlContentClick = (history, event) => {
         event.preventDefault();
 
         const eventOrigin = event.view.location.origin;
-
         const {
             origin: linkOrigin,
             pathname: path,
