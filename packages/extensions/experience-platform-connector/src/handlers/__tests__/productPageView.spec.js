@@ -39,6 +39,7 @@ describe('handle()', () => {
               "pricing": Object {
                 "currencyCode": "USD",
                 "maximalPrice": 40,
+                "regularPrice": 40,
               },
               "productId": "234d",
               "sku": "343g3434t",

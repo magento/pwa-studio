@@ -2,7 +2,10 @@
 
 exports[`renders children when supplied 1`] = `
 <button
-  onClick={[MockFunction]}
+  aria-hidden="false"
+  aria-label="Close"
+  onClick={[Function]}
+  onKeyDown={[Function]}
   type="button"
 >
   Unit test child element
@@ -11,7 +14,10 @@ exports[`renders children when supplied 1`] = `
 
 exports[`renders the correct tree 1`] = `
 <button
-  onClick={[MockFunction]}
+  aria-hidden="false"
+  aria-label="Close"
+  onClick={[Function]}
+  onKeyDown={[Function]}
   type="button"
 />
 `;
