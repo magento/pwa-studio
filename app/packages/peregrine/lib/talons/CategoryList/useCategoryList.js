@@ -29,7 +29,7 @@ export const useCategoryList = props => {
         }
     });
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
     const storeConfig = storeConfigData ? storeConfigData.storeConfig : null;
 
     return {

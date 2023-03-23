@@ -50,7 +50,7 @@ export const useActionMenu = (props = {}) => {
         updateWishlistMutation
     );
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const shouldRender = useMemo(() => {
         let multipleWishlistEnabled = false;

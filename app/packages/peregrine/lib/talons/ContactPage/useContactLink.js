@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
 export default () => {
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const isEnabled = useMemo(() => {
         return !!storeConfigData?.storeConfig?.contact_enabled;

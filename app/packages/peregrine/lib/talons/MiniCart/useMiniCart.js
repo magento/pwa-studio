@@ -48,7 +48,7 @@ export const useMiniCart = props => {
         errorPolicy: 'all'
     });
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const configurableThumbnailSource = useMemo(() => {
         if (storeConfigData) {

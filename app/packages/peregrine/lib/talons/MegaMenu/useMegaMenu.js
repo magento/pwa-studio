@@ -31,7 +31,7 @@ export const useMegaMenu = (props = {}) => {
     const [subMenuState, setSubMenuState] = useState(false);
     const [disableFocus, setDisableFocus] = useState(false);
 
-    const storeConfigData = useStoreConfigContext();
+    const { data: storeConfigData, refetch } = useStoreConfigContext();
 
     const { data } = useQuery(getMegaMenuQuery);
 
@@ -40,6 +40,12 @@ export const useMegaMenu = (props = {}) => {
             return storeConfigData.storeConfig.category_url_suffix;
         }
     }, [storeConfigData]);
+
+    useEffect(() => {
+        if (isSignedIn) {
+            refetch();
+        }
+    }, [isSignedIn, refetch]);
 
     /**
      * Check if category should be visible on the storefront.

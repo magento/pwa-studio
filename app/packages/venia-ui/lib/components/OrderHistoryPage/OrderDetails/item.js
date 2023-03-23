@@ -24,7 +24,7 @@ const Item = props => {
         thumbnail
     } = props;
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
     const { productURLSuffix } = storeConfigData;
     const itemLink = `${product_url_key}${productURLSuffix}`;
 

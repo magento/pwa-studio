@@ -6,7 +6,7 @@ import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfi
  */
 
 export const useFooter = () => {
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     return {
         copyrightText: storeConfigData && storeConfigData.storeConfig && storeConfigData.storeConfig.copyright

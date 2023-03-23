@@ -40,7 +40,7 @@ export const usePdfPopupProduct = props => {
 
     const { formatMessage } = useIntl();
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const configurableThumbnailSource = useMemo(() => {
         if (storeConfigData) {

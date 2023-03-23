@@ -39,7 +39,7 @@ export const useProduct = props => {
         }
     ] = useAppContext();
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const slug = pathname.split('/').pop();
     const productUrlSuffix = storeConfigData?.storeConfig?.product_url_suffix;

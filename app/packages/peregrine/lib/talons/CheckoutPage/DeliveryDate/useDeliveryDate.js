@@ -38,7 +38,7 @@ export const useDeliveryDate = () => {
         dispatch({ type: name, value });
     };
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const local = useMemo(() => {
         return storeConfigData && storeConfigData.storeConfig.locale;

@@ -41,7 +41,7 @@ export const useOrderHistoryPage = (props, ...restArgs) => {
         }
     });
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const orders = orderData ? orderData.customer.orders.items : [];
 

@@ -5,7 +5,7 @@ import { useCustomerWishlistSkus } from '@magento/peregrine/lib/hooks/useCustome
  * This is a duplicate of @magento/peregrine/lib/talons/Gallery/useGallery.js
  */
 export const useCarousel = () => {
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     useCustomerWishlistSkus();
 

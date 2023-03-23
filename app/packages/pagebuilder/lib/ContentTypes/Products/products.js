@@ -92,7 +92,7 @@ const Products = props => {
         paddingLeft
     };
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const productUrlSuffix = useMemo(() => {
         if (storeConfigData) {

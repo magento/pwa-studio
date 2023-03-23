@@ -39,7 +39,7 @@ export const useCategory = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCategoryQuery, getFilterInputsQuery } = operations;
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
     const pageSize = storeConfigData && storeConfigData.storeConfig.grid_per_page;
 
     const [paginationValues, paginationApi] = usePagination();

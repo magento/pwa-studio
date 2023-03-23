@@ -73,7 +73,7 @@ export const useCmsDynamicBlock = props => {
     const [{ cartId }] = useCartContext();
     const { pathname } = useLocation();
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     // Get Product Data from cache
     const slug = pathname.split('/').pop();

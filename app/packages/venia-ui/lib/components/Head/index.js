@@ -46,7 +46,7 @@ export const Title = props => {
 export const StoreTitle = props => {
     const { children, ...tagProps } = props;
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const storeName = useMemo(() => {
         return storeConfigData ? storeConfigData.storeConfig.store_name : STORE_NAME;

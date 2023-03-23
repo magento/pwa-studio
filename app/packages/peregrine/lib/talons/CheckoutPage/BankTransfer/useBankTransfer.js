@@ -8,7 +8,7 @@ export const useBankTransfer = props => {
     const paymentMethodMutationCalled = paymentMethodMutationData?.paymentMethodMutationCalled;
 
     // Getting Extra Information
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     /**
      * This function will be called if cant not set address.

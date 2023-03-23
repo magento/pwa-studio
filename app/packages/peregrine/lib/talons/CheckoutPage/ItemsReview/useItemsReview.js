@@ -15,7 +15,7 @@ export const useItemsReview = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const configurableThumbnailSource = useMemo(() => {
         if (storeConfigData) {

@@ -18,7 +18,7 @@ export default props => {
         fetchPolicy: 'no-cache'
     });
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const { data: cmsBlocksData, loading: cmsBlocksLoading } = useQuery(getCmsBlocksQuery, {
         variables: {

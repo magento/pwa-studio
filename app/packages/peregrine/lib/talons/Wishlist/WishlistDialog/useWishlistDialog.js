@@ -12,7 +12,7 @@ export const useWishlistDialog = props => {
     const { addProductToWishlistMutation, getWishlistsQuery } = operations;
 
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const { data: wishlistsData } = useQuery(getWishlistsQuery, {
         fetchPolicy: 'cache-and-network'

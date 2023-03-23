@@ -109,7 +109,7 @@ export const useProductForm = props => {
         }
     });
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const handleOptionSelection = useCallback(
         (optionId, selection) => {

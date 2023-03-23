@@ -37,7 +37,7 @@ export const useProductListing = (props = {}) => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
     const wishlistConfig = storeConfigData ? storeConfigData.storeConfig : {};
 
     useEffect(() => {

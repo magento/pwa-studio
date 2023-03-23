@@ -30,7 +30,7 @@ export const useSimpleProduct = (props = {}) => {
         variables: { sku: sku }
     });
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const wishlistItemOptions = useMemo(() => {
         const options = {

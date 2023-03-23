@@ -269,7 +269,7 @@ export const useProductFullDetail = props => {
     const [{ isSignedIn }] = useUserContext();
     const { formatMessage } = useIntl();
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const [
         addConfigurableProductToCart,

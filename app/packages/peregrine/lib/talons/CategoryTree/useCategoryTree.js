@@ -36,7 +36,7 @@ export const useCategoryTree = props => {
     });
     const { data } = queryResult;
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
     const categoryUrlSuffix = storeConfigData?.storeConfig?.category_url_suffix;
 
     // fetch categories

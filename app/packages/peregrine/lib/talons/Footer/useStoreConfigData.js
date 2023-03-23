@@ -1,7 +1,7 @@
 import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
 export const useStoreConfigData = () => {
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     return {
         storeConfigData

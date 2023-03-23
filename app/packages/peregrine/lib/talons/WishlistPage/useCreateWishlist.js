@@ -23,7 +23,7 @@ export const useCreateWishlist = (props = { numberOfWishlists: 1 }) => {
 
     const [createWishlist, { error: createWishlistError, loading }] = useMutation(createWishlistMutation);
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const shouldRender = useMemo(() => {
         return (

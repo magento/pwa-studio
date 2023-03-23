@@ -10,7 +10,7 @@ import { useStoreConfigContext } from '../../../context/storeConfigProvider';
  * @return {GiftOptionsSectionProps}
  */
 export const useGiftOptionsSection = () => {
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const storeConfig = storeConfigData || {};
 

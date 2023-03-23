@@ -46,7 +46,7 @@ export const useBreadcrumbs = props => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const categoryUrlSuffix = useMemo(() => {
         if (storeConfigData) {

@@ -78,7 +78,7 @@ export const useStoreSwitcher = (props = {}) => {
         triggerRef: storeMenuTriggerRef
     } = useDropdown();
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const fetchRouteData = useAwaitQuery(getRouteDataQuery);
 

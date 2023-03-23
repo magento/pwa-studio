@@ -32,7 +32,7 @@ export const useSearchPage = (props = {}) => {
         getProductsDetailsBySearchQuery
     } = operations;
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const [getSortMethods, { data: sortData }] = useLazyQuery(getAvailableSortMethodsBySearchQuery, {
         fetchPolicy: 'cache-and-network',

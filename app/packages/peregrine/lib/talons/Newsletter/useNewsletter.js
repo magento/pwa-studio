@@ -19,7 +19,7 @@ export const useNewsletter = (props = {}) => {
         onError: setNewsLetterError
     });
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const isEnabled = useMemo(() => {
         return !!storeConfigData?.storeConfig?.newsletter_enabled;

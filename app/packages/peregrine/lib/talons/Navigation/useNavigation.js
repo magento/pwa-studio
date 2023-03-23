@@ -33,7 +33,7 @@ export const useNavigation = (props = {}) => {
         getUserDetails({ fetchUserDetails });
     }, [fetchUserDetails, getUserDetails]);
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const rootCategoryId = useMemo(() => {
         if (storeConfigData) {

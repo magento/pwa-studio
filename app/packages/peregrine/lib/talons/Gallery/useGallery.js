@@ -5,7 +5,7 @@ import { useCustomerWishlistSkus } from '../../hooks/useCustomerWishlistSkus/use
 export const useGallery = () => {
     useCustomerWishlistSkus();
 
-    const storeConfigData = useStoreConfigContext();
+        const { data: storeConfigData } = useStoreConfigContext();
     const storeConfig = storeConfigData ? storeConfigData.storeConfig : null;
 
     return {

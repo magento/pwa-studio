@@ -6,7 +6,7 @@ import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfi
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
 
-    const data = useStoreConfigContext();
+    const { data } = useStoreConfigContext();
 
     const language = useMemo(() => {
         return data && data.storeConfig.locale ? toReactIntl(data.storeConfig.locale) : DEFAULT_LOCALE;
