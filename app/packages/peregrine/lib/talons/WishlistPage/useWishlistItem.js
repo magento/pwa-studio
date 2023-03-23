@@ -91,7 +91,7 @@ export const useWishlistItem = props => {
     ] = useMutation(addProductToCartMutation, {
         variables: {
             cartId,
-            cartItem
+            product: cartItem
         }
     });
 
