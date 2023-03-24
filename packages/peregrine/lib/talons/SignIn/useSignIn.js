@@ -81,6 +81,7 @@ export const useSignIn = props => {
                     },
                     ...recaptchaData
                 });
+                
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
 
