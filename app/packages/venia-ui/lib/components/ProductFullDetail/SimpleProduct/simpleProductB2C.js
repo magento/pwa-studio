@@ -38,7 +38,9 @@ const SimpleProductB2C = props => {
                 <section className={classes.title}>
                     <h1 className={classes.productName}>{simpleProductData.name}</h1>
                 </section>
-                <article className={classes.priceContainer}> {priceRender}</article>
+                {simpleProductData.stock_status === 'IN_STOCK' && (
+                    <article className={classes.priceContainer}> {priceRender}</article>
+                )}
                 <section className={classes.imageCarousel}>
                     <Carousel images={simpleProductData.media_gallery_entries} carouselWidth={960} />
                 </section>
@@ -63,7 +65,9 @@ const SimpleProductB2C = props => {
                             min={1}
                             onChange={handleQuantityChange}
                         />
-                        <article className={classes.totalPrice}>{tempTotalPrice}</article>
+                        {simpleProductData.stock_status === 'IN_STOCK' && (
+                            <article className={classes.totalPrice}>{tempTotalPrice}</article>
+                        )}
                     </article>
                 </section>
                 <section className={classes.actions}>

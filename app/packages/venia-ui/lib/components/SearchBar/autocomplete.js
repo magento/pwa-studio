@@ -27,6 +27,7 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                 stock_status
                 orParentSku
                 orParentUrlKey
+                stock_status
                 id
                 uid
                 sku

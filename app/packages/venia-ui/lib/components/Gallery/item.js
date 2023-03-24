@@ -295,10 +295,14 @@ const GalleryItem = props => {
                     </div>
                 )}
                 <div className={classes.productPrice}>
-                    <span>
-                        <FormattedMessage id={'galleryItem.yourPrice'} defaultMessage={'Your price:'} /> &nbsp;
-                    </span>
-                    {priceRender}
+                    {stock_status === 'IN_STOCK' && (
+                        <>
+                            <span>
+                                <FormattedMessage id={'galleryItem.yourPrice'} defaultMessage={'Your price:'} /> &nbsp;
+                            </span>
+                            {priceRender}
+                        </>
+                    )}
                 </div>
             </div>
             {!pageBuilder && (

@@ -11,7 +11,7 @@ import WishlistGalleryButton from '../Wishlist/AddToListButton';
 import defaultClasses from './ProductCard.module.css';
 
 const ProductCard = ({ item, deleteProduct }) => {
-    const { name, price_range } = item.product;
+    const { name, price_range, stock_status } = item.product;
     const { minimum_price } = price_range;
     const { final_price, regular_price } = minimum_price;
     const classes = useStyle(defaultClasses);
@@ -51,7 +51,7 @@ const ProductCard = ({ item, deleteProduct }) => {
                 </button>
             </div>
             <div className={classes.priceContainer} data-cy="compareProducts-priceContainer">
-                {price}
+                {stock_status === 'IN_STOCK' && price}
             </div>
             <div className={classes.actionsContainer}>
                 {addToCart}

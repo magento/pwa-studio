@@ -249,13 +249,14 @@ const ProductFullDetailB2B = props => {
             <Form className={classes.root}>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>{productDetails.name}</h1>
-                    <article className={classes.innerPrice}>
-                        <h2 className={classes.fromPrice}>
-                            <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
-                        </h2>
-
-                        <span className={classes.priceNumber}>{priceRender}</span>
-                    </article>
+                    {product?.stock_status === 'IN_STOCK' && (
+                        <article className={classes.innerPrice}>
+                            <h2 className={classes.fromPrice}>
+                                <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
+                            </h2>
+                            <span className={classes.priceNumber}>{priceRender}</span>
+                        </article>
+                    )}
                 </section>
                 <section className={classes.imageCarouselContainer}>
                     <div className={classes.imageCarousel}>

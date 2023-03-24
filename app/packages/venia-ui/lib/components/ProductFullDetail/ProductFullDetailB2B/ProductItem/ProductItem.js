@@ -31,7 +31,6 @@ const ProductItem = props => {
     } = props;
     const [copied, setCopied] = useState(false);
 
-
     const copyText = () => {
         navigator.clipboard.writeText(variant.product.sku);
         setCopied(true);
@@ -62,7 +61,6 @@ const ProductItem = props => {
             setError('Error');
         }
     }, [cartId, values, variant, addConfigurableProductToCart, setError, product]);
-
 
     const stockStatusText = (
         <FormattedMessage id={'productFullDetailB2B.stockStatus'} defaultMessage={'Stock Status'} />
@@ -178,13 +176,17 @@ const ProductItem = props => {
                     })}
                 </div>
                 {quantitySelector(1)}
-                {priceTag}
-                <span className={classes.indexFixed}>
-                    <Price
-                        currencyCode={variant.product.price.regularPrice.amount.currency}
-                        value={variant.product.price.minimalPrice.amount.value * values[(variant?.product.uid)] || 0}
-                    />
-                </span>
+                {variant?.product.stock_status === 'IN_STOCK' ? priceTag : <span>-</span>}
+                {variant?.product.stock_status === 'IN_STOCK' ? (
+                    <span className={classes.indexFixed}>
+                        <Price
+                            currencyCode={variant.product.price.regularPrice.amount.currency}
+                            value={variant.product.price.minimalPrice.amount.value * values[(variant?.product.uid)]}
+                        />
+                    </span>
+                ) : (
+                    <span>-</span>
+                )}
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
                     {addToCartButton}
@@ -206,7 +208,7 @@ const ProductItem = props => {
                             <div>{stockStatusText}:</div>
                             <div className={classes.stockStatusCircle}>{stockStatus}</div>
                         </div>
-                        <h2>{priceTag}</h2>
+                        {variant?.product.stock_status === 'IN_STOCK' && <h2>{priceTag}</h2>}
                     </div>
                 </div>
 
@@ -222,20 +224,22 @@ const ProductItem = props => {
                     })}
                 </div>
                 <div className={classes.actionsContainer}>
-                    <div className={classes.totalPriceContainer}>
-                        <div> {totalPriceText}:</div>
-                        <div className={classes.totalWrapper}>
-                            {' '}
-                            <span className={classes.indexFixed}>
-                                <Price
-                                    currencyCode={variant.product.price.regularPrice.amount.currency}
-                                    value={
-                                        variant.product.price.minimalPrice.amount.value * values[(variant?.product.uid)]
-                                    }
-                                />
-                            </span>
+                    {variant?.product.stock_status === 'IN_STOCK' && (
+                        <div className={classes.totalPriceContainer}>
+                            <div> {totalPriceText}:</div>
+                            <div className={classes.totalWrapper}>
+                                <span className={classes.indexFixed}>
+                                    <Price
+                                        currencyCode={variant.product.price.regularPrice.amount.currency}
+                                        value={
+                                            variant.product.price.minimalPrice.amount.value *
+                                            values[(variant?.product.uid)]
+                                        }
+                                    />
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    )}
                     <div className={classes.productItemBodyOperations}>
                         {quantitySelector(2)}
                         {addToCartButton}

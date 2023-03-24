@@ -295,7 +295,10 @@ export const useProductFullDetail = props => {
         () => getHasOptionsOfTheSelection(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
     );
-
+    const isSimpleProductSelected = useMemo(() => !Array.from(optionSelections.values()).includes(undefined), [
+        optionSelections
+    ]);
+    
     const isOutOfStock = useMemo(() => getIsOutOfStock(product, optionCodes, optionSelections), [
         product,
         optionCodes,
@@ -585,6 +588,7 @@ export const useProductFullDetail = props => {
         addConfigurableProductToCart,
         isAddConfigurableLoading,
         cartId,
-        derivedOptionSelectionsKey
+        derivedOptionSelectionsKey,
+        isSimpleProductSelected
     };
 };

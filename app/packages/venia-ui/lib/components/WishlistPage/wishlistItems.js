@@ -10,16 +10,12 @@ const WishlistItems = React.forwardRef((props, ref) => {
     const { items, wishlistId } = props;
 
     const talonProps = useWishlistItems();
-    const {
-        activeAddToCartItem,
-        handleCloseAddToCartDialog,
-        handleOpenAddToCartDialog
-    } = talonProps;
+    const { activeAddToCartItem, handleCloseAddToCartDialog, handleOpenAddToCartDialog } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
 
     const itemElements = useMemo(() => {
-        return items.map(item => {
+        return items?.map(item => {
             return (
                 <WishlistItem
                     ref={ref}
@@ -37,10 +33,7 @@ const WishlistItems = React.forwardRef((props, ref) => {
             <div className={classes.root} ref={ref}>
                 {itemElements}
             </div>
-            <AddToCartDialog
-                item={activeAddToCartItem}
-                onClose={handleCloseAddToCartDialog}
-            />
+            {activeAddToCartItem && <AddToCartDialog item={activeAddToCartItem} onClose={handleCloseAddToCartDialog} />}
         </Fragment>
     );
 });

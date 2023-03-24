@@ -214,6 +214,7 @@
     display: flex;
     font-weight: 600;
     font-size: 18px;
+    height: 32px;
 }
 
 .configurableOptions {

@@ -44,13 +44,15 @@ const SimpleProductB2B = props => {
                 </section>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>{simpleProductData.name}</h1>
-                    <article className={classes.innerPrice}>
-                        <h2 className={classes.fromPrice}>
-                            <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
-                        </h2>
+                    {simpleProductData?.stock_status === 'IN_STOCK' && (
+                        <article className={classes.innerPrice}>
+                            <h2 className={classes.fromPrice}>
+                                <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
+                            </h2>
 
-                        <span className={classes.priceNumber}>{priceRender}</span>
-                    </article>
+                            <span className={classes.priceNumber}>{priceRender}</span>
+                        </article>
+                    )}
                 </section>
                 <section className={classes.description}>
                     <h2 className={classes.descriptionTitle}>

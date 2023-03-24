@@ -32,6 +32,7 @@
     font-size: var(--venia-typography-detail-XL-fontSize);
     font-weight: 600;
     font-size: 18px;
+    height: 27px;
 }
 
 .image {

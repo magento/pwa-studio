@@ -49,6 +49,7 @@ export const WishlistItemFragment = gql`
                         uid
                         code
                         value_index
+                        label
                     }
                     # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     product {
