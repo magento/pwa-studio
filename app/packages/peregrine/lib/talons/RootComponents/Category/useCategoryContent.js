@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
@@ -30,34 +30,26 @@ export const useCategoryContent = props => {
     } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
+    const [items, setItems] = useState([]);
 
-    const [getFilters, { data: filterData }] = useLazyQuery(
-        getProductFiltersByCategoryQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
-        }
-    );
+    const [getFilters, { data: filterData }] = useLazyQuery(getProductFiltersByCategoryQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
-    const [getSortMethods, { data: sortData }] = useLazyQuery(
-        getCategoryAvailableSortMethodsQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
-        }
-    );
+    const [getSortMethods, { data: sortData }] = useLazyQuery(getCategoryAvailableSortMethodsQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
-    const { data: categoryData, loading: categoryLoading } = useQuery(
-        getCategoryContentQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first',
-            skip: !categoryId,
-            variables: {
-                id: categoryId
-            }
+    const { data: categoryData, loading: categoryLoading } = useQuery(getCategoryContentQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !categoryId,
+        variables: {
+            id: categoryId
         }
-    );
+    });
 
     const [, { dispatch }] = useEventingContext();
 
@@ -85,23 +77,22 @@ export const useCategoryContent = props => {
         }
     }, [categoryId, getSortMethods]);
 
+    useEffect(() => {
+        if (data) {
+            const itemsData = data ? data.products.items : placeholderItems;
+            setItems(itemsData);
+        }
+    }, [data, placeholderItems]);
+
     const filters = filterData ? filterData.products.aggregations : null;
-    const items = data ? data.products.items : placeholderItems;
-    const totalPagesFromData = data
-        ? data.products.page_info.total_pages
-        : null;
+
+    const totalPagesFromData = data ? data.products.page_info.total_pages : null;
     const totalCount = data ? data.products.total_count : null;
     const categoryName =
-        categoryData && categoryData.categories.items.length
-            ? categoryData.categories.items[0].name
-            : null;
+        categoryData && categoryData.categories.items.length ? categoryData.categories.items[0].name : null;
     const categoryDescription =
-        categoryData && categoryData.categories.items.length
-            ? categoryData.categories.items[0].description
-            : null;
-    const availableSortMethods = sortData
-        ? sortData.products.sort_fields.options
-        : null;
+        categoryData && categoryData.categories.items.length ? categoryData.categories.items[0].description : null;
+    const availableSortMethods = sortData ? sortData.products.sort_fields.options : null;
 
     useEffect(() => {
         if (!categoryLoading && categoryData.categories.items.length > 0) {

@@ -60,7 +60,7 @@ export const useQuotes = () => {
         fetchPolicy: 'network-only',
         variables: {
             pageSize: pageSize,
-            currentPage: currentPage
+            currentPage: currentPage || 1
         }
     });
 
@@ -80,6 +80,7 @@ export const useQuotes = () => {
             setQuotes(items);
             setTotalPage(total_pages);
             setIsLoading(false);
+            items.length === 0 && setCurrentPage(0);
         }
     }, [quoteList, loading]);
 

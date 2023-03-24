@@ -1,12 +1,13 @@
 import { ContactLink } from '../ContactPage';
 
 const accountLinks = new Map()
-    .set('How to buy', null)
-    .set('Payment methods', null)
+    .set('How to buy', '/howtoorder')
+    .set('Payment methods', '/paymentmethods')
     .set('Order and pick up', null)
     .set('Order with delivery', null)
     .set('Shopping over the phone', null)
-    .set('Returns', null);
+    .set('Returns', null)
+    .set('Mobile Experience', '/mobileexperience');
 
 const helpLinks = new Map()
     .set('Help', null)
@@ -16,7 +17,7 @@ const helpLinks = new Map()
     })
     .set('Online Help', null)
     .set('Our Commitments', null)
-    .set('Give feedback', null);
+    .set('Give feedback', 'givefeedback');
 
 const servicesLinks = new Map()
     .set('Services', null)
@@ -28,11 +29,11 @@ const servicesLinks = new Map()
     .set('Additional services', null);
 
 const aboutLinks = new Map()
-    .set('About us', null)
+    .set('About us', 'company')
     .set('Press Office', null)
     .set('For suppliers', null)
     .set('Regulations', null)
-    .set('Privacy Policy', null)
+    .set('Privacy Policy', 'privacypolicy')
     .set('Cookies', null)
     .set('Personal Data Request', null);
 

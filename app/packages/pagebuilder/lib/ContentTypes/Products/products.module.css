@@ -30,6 +30,12 @@
     grid-template-columns: repeat(4, 1fr);
 }
 
+@media (min-width: 640px) and (max-width: 900px) {
+    .galleryItems {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 640px) {
     .galleryItems {
         grid-template-columns: repeat(1, 1fr);

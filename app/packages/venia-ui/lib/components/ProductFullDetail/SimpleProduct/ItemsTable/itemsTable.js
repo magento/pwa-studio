@@ -132,8 +132,12 @@ const ItemsTable = props => {
                         onChange={handleQuantityChange}
                     />
                 </Form>
-                {priceTag}
-                <span className={classes.indexFixed}>{tempTotalPrice}</span>
+                {simpleProductData.stock_status === 'IN_STOCK' ? priceTag : <span>-</span>}
+                {simpleProductData.stock_status === 'IN_STOCK' ? (
+                    <span className={classes.indexFixed}>{tempTotalPrice}</span>
+                ) : (
+                    <span>-</span>
+                )}
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
                     {addToCartButton}
@@ -153,7 +157,7 @@ const ItemsTable = props => {
                             <div>{stockStatusText}:</div>
                             <div className={classes.stockStatusCircle}>{stockStatus}</div>
                         </div>
-                        <h2>{priceTag}</h2>
+                        {simpleProductData.stock_status === 'IN_STOCK' && <h2>{priceTag}</h2>}
                     </article>
                 </section>
 
@@ -180,13 +184,15 @@ const ItemsTable = props => {
                     </div>
                 </section>
                 <section className={classes.actionsContainer}>
-                    <article className={classes.totalPriceContainer}>
-                        <div> {totalPriceText}:</div>
-                        <div className={classes.totalWrapper}>
-                            {' '}
-                            <span className={classes.indexFixed}>{tempTotalPrice}</span>
-                        </div>
-                    </article>
+                    {simpleProductData.stock_status === 'IN_STOCK' && (
+                        <article className={classes.totalPriceContainer}>
+                            <div> {totalPriceText}:</div>
+                            <div className={classes.totalWrapper}>
+                                {' '}
+                                <span className={classes.indexFixed}>{tempTotalPrice}</span>
+                            </div>
+                        </article>
+                    )}
                     <Form className={classes.productItemBodyOperations}>
                         <QuantityStepper
                             fieldName={`${simpleProductData.sku}_2`}

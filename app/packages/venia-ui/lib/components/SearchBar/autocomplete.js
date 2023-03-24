@@ -24,8 +24,10 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
             }
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
+                stock_status
                 orParentSku
                 orParentUrlKey
+                stock_status
                 id
                 uid
                 sku

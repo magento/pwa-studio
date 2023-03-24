@@ -51,8 +51,13 @@
 
 .actionsContainer {
     display: grid;
-    grid-template-columns: 1.9fr 0.2fr !important ;
+    grid-template-columns: auto;
     padding-left: 0.5rem;
+    align-items: center;
+}
+
+.multibaleActions {
+    grid-template-columns: 1.9fr 0.2fr;
 }
 
 .actionsContainer:empty {
@@ -124,7 +129,7 @@
 
 .favIcon {
     position: absolute;
-    left: 80%;
+    left: 75%;
     bottom: 10%;
     cursor: pointer;
     opacity: 3;
@@ -209,6 +214,7 @@
     display: flex;
     font-weight: 600;
     font-size: 18px;
+    height: 32px;
 }
 
 .configurableOptions {

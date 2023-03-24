@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { useCartContext } from '../../context/cart';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './cartPage.gql';
 
+import { useHistory } from 'react-router-dom';
+import { useAddToQuote } from '../QuickOrderForm/useAddToQuote';
 /**
  * This talon contains logic for a cart page component.
  * It performs effects and returns prop data for rendering the component.
@@ -24,12 +26,18 @@ import DEFAULT_OPERATIONS from './cartPage.gql';
  */
 export const useCartPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCartDetailsQuery } = operations;
+    const { getCartDetailsQuery, removeItemMutation } = operations;
+    
+    const history = useHistory();
+    const [removeItem] = useMutation(removeItemMutation);
 
     const [{ cartId }] = useCartContext();
 
     const [isCartUpdating, setIsCartUpdating] = useState(false);
     const [wishlistSuccessProps, setWishlistSuccessProps] = useState(null);
+
+    const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+    const { handleAddCofigItemBySku } = useAddToQuote();
 
     const [fetchCartDetails, { called, data, loading }] = useLazyQuery(getCartDetailsQuery, {
         fetchPolicy: 'cache-and-network',
@@ -62,6 +70,62 @@ export const useCartPage = (props = {}) => {
 
     const [isCsvDialogOpen, setIsCsvDialogOpen] = useState(false);
 
+    const arrayCompare = (_arr1, _arr2) => {
+        if (!Array.isArray(_arr1) || !Array.isArray(_arr2) || _arr1.length !== _arr2.length) {
+            return false;
+        }
+
+        // .concat() to not mutate arguments
+        const arr1 = _arr1.concat().sort();
+        const arr2 = _arr2.concat().sort();
+
+        for (let i = 0; i < arr1.length; i++) {
+            if (arr1[i] !== arr2[i]) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    const selectedVariants = useMemo(
+        () =>
+            cartItems.length > 0 &&
+            cartItems?.map(confgItem => {
+                const selectedOption = confgItem.configurable_options.map(
+                    ({ configurable_product_option_value_uid }) => configurable_product_option_value_uid
+                );
+                const selectedVariant = confgItem?.product.variants.find(varEle => {
+                    const variantOption = varEle.attributes.map(({ uid }) => uid);
+                    return arrayCompare(selectedOption, variantOption);
+                });
+                return {
+                    name: selectedVariant?.product?.name,
+                    sku: selectedVariant?.product?.sku,
+                    orParentSku: confgItem.product?.sku,
+                    quantity: confgItem.quantity
+                };
+            }),
+        [cartItems]
+    );
+
+    const submitQuote = useCallback(async () => {
+        try {
+            await handleAddCofigItemBySku(selectedVariants);
+            cartItems.forEach(async ({ uid }) => {
+                await removeItem({
+                    variables: {
+                        cartId,
+                        itemId: uid
+                    }
+                });
+                history.push('/mprequestforquote/customer/quotes');
+            });
+        } catch (error) {
+            const err = error.toString();
+            throw err;
+        }
+    }, [cartId, cartItems, selectedVariants, handleAddCofigItemBySku, removeItem]);
+
     const handleCancelCsvDialog = useCallback(() => {
         setIsCsvDialogOpen(false);
     }, []);
@@ -81,7 +145,11 @@ export const useCartPage = (props = {}) => {
         setCsvSkuErrorList,
         isCsvDialogOpen,
         setIsCsvDialogOpen,
-        handleCancelCsvDialog
+        handleCancelCsvDialog,
+        isQuoteOpen,
+        setIsQuoteOpen,
+        selectedVariants,
+        submitQuote
     };
 };
 

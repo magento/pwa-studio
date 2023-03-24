@@ -56,6 +56,6 @@ Leaf.propTypes = {
         text: string
     }),
     onNavigate: func.isRequired,
-    tabIndex: func.isRequired,
+    tabIndex: string,
     categoryUrlSuffix: string
 };

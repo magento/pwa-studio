@@ -9,9 +9,7 @@ import Carousel from '@magento/venia-ui/lib/components/ProductImageCarousel';
 import QuantityStepper from '@magento/venia-ui/lib/components/QuantityStepper';
 import CustomAttributes from '@magento/venia-ui/lib/components/ProductFullDetail/CustomAttributes';
 
-const WishlistButton = React.lazy(() =>
-    import('@magento/venia-ui/lib/components/Wishlist/AddToListButton')
-);
+const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
 
 import defaultClasses from './ProductFullDetailB2C.module.css';
 import noImage from './icons/product-package-cancelled.svg';
@@ -33,7 +31,10 @@ const ProductFullDetailB2C = props => {
         handleQuantityChange,
         tempTotalPrice,
         cartActionContent,
-        customAttributes
+        customAttributes,
+        product,
+        isOutOfStock,
+        isSimpleProductSelected
     } = props;
 
     const customAttributesDetails = useMemo(() => {
@@ -57,10 +58,7 @@ const ProductFullDetailB2C = props => {
         };
         if (Array.isArray(customAttributes)) {
             customAttributes.forEach(customAttribute => {
-                if (
-                    customAttribute.attribute_metadata.ui_input
-                        .ui_input_type === 'PAGEBUILDER'
-                ) {
+                if (customAttribute.attribute_metadata.ui_input.ui_input_type === 'PAGEBUILDER') {
                     pagebuilder.push(customAttribute);
                 } else {
                     list.push(customAttribute);
@@ -87,20 +85,16 @@ const ProductFullDetailB2C = props => {
             />
         </section>
     ) : null;
-
+    const shouldRenderPrice =
+        (!isSimpleProductSelected && product?.stock_status === 'IN_STOCK') ||
+        (isSimpleProductSelected && !isOutOfStock);
+        
     return (
         <Fragment>
             {breadcrumbs}
-            <Form
-                className={classes.root}
-                data-cy="ProductFullDetail-root"
-                onSubmit={handleAddToCart}
-            >
+            <Form className={classes.root} data-cy="ProductFullDetail-root" onSubmit={handleAddToCart}>
                 <section className={classes.title}>
-                    <h1
-                        className={classes.productName}
-                        data-cy="ProductFullDetail-productName"
-                    >
+                    <h1 className={classes.productName} data-cy="ProductFullDetail-productName">
                         {productDetails.name}
                     </h1>
                     {/* <p
@@ -114,20 +108,13 @@ const ProductFullDetailB2C = props => {
                     </p> */}
                     {shortDescription}
                 </section>
-                <article className={classes.priceContainer}>
-                    {' '}
-                    {priceRender}
-                </article>
+                {shouldRenderPrice && <article className={classes.priceContainer}> {priceRender}</article>}
                 <div className={classes.imageCarousel}>
                     {hasOptionsOfTheSelection ? (
-                        <Carousel images={mediaGalleryEntries}  carouselWidth={960} />
+                        <Carousel images={mediaGalleryEntries} carouselWidth={960} />
                     ) : (
                         <div className={classes.noImageContainer}>
-                            <img
-                                className={classes.noImage}
-                                src={noImage}
-                                alt="NoImage"
-                            />
+                            <img className={classes.noImage} src={noImage} alt="NoImage" />
                         </div>
                     )}
                 </div>
@@ -145,18 +132,10 @@ const ProductFullDetailB2C = props => {
                     }}
                     errors={errors.get('form') || []}
                 />
-                <section className={classes.options}>
-                    {availableOptions}
-                </section>
+                <section className={classes.options}>{availableOptions}</section>
                 <section className={classes.quantity}>
-                    <span
-                        data-cy="ProductFullDetail-quantityTitle"
-                        className={classes.quantityTitle}
-                    >
-                        <FormattedMessage
-                            id={'global.quantity'}
-                            defaultMessage={'Quantity'}
-                        />
+                    <span data-cy="ProductFullDetail-quantityTitle" className={classes.quantityTitle}>
+                        <FormattedMessage id={'global.quantity'} defaultMessage={'Quantity'} />
                     </span>
                     <article className={classes.quantityTotalPrice}>
                         <QuantityStepper
@@ -166,9 +145,8 @@ const ProductFullDetailB2C = props => {
                             onChange={handleQuantityChange}
                             message={errors.get('quantity')}
                         />
-                        <article className={classes.totalPrice}>
-                            {tempTotalPrice}
-                        </article>
+
+                        {shouldRenderPrice && <article className={classes.totalPrice}>{tempTotalPrice}</article>}
                     </article>
                 </section>
                 <section className={classes.actions}>
@@ -178,10 +156,7 @@ const ProductFullDetailB2C = props => {
                     </Suspense>
                 </section>
                 <section className={classes.description}>
-                    <span
-                        data-cy="ProductFullDetail-descriptionTitle"
-                        className={classes.descriptionTitle}
-                    >
+                    <span data-cy="ProductFullDetail-descriptionTitle" className={classes.descriptionTitle}>
                         <FormattedMessage
                             id={'productFullDetail.productDescription'}
                             defaultMessage={'Product Description'}
@@ -190,9 +165,7 @@ const ProductFullDetailB2C = props => {
                     <RichContent html={productDetails.description} />
                 </section>
                 <section className={classes.details}>
-                    <CustomAttributes
-                        customAttributes={customAttributesDetails.list}
-                    />
+                    <CustomAttributes customAttributes={customAttributesDetails.list} />
                 </section>
                 {pageBuilderAttributes}
             </Form>

@@ -6,8 +6,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { string, number, shape } from 'prop-types';
 
 import AddToCartButton from './addToCartButton';
-import Button from '@magento/venia-ui/lib/components/Button';
-import ConfirmationModal from '../RequestQuote/ConfirmationModal';
 import GalleryItemShimmer from './item.shimmer';
 import Image from '../Image';
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -18,10 +16,11 @@ import WishlistGalleryButton from '../Wishlist/AddToListButton';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import useCompareProduct from '@magento/peregrine/lib/talons/ComparePage/useCompareProduct';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
-import { useAddToQuote } from '@magento/peregrine/lib/talons/QuickOrderForm/useAddToQuote.js';
 import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
 import { useStyle } from '../../classify';
 import { useToasts } from '@magento/peregrine';
+
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import defaultClasses from './item.module.css';
 
@@ -41,16 +40,17 @@ const IMAGE_WIDTHS = new Map().set(640, IMAGE_WIDTH).set(UNCONSTRAINED_SIZE_KEY,
 
 const GalleryItem = props => {
     const { handleLinkClick, item, wishlistButtonProps, isSupportedProductType } = useGalleryItem(props);
-    const { storeConfig, filterState, pageBuilder } = props;
+    const { storeConfig, pageBuilder } = props;
     const { configurable_options, stock_status } = props.item;
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
+
+    const [{ isSignedIn }] = useUserContext();
 
     const classes = useStyle(defaultClasses, props.classes);
 
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
     const { location } = useHistory();
-    const history = useHistory();
     const isHomePage = location.pathname === '/';
     const [quantity, setQuantity] = useState(1);
     const [selectedVeriant, setSelectedVeriant] = useState();
@@ -58,8 +58,6 @@ const GalleryItem = props => {
     const compareProps = useCompareProduct();
     const { addProductsToCompare } = compareProps;
 
-    const { handleAddCofigItemBySku } = useAddToQuote();
-    const [isOpen, setIsOpen] = useState(false);
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;
     }
@@ -97,29 +95,7 @@ const GalleryItem = props => {
 
     const wishlistButton = wishlistButtonProps ? <WishlistGalleryButton {...wishlistButtonProps} /> : null;
 
-    const requestQuoteClick = () => {
-        if (selectedVeriant?.parentSku) {
-            setIsOpen(true);
-        } else return history.push(productLink);
-    };
-    const confirmRequestQuote = () => {
-        const simpleProducts = [
-            {
-                sku: selectedVeriant.product.sku,
-                orParentSku: selectedVeriant.parentSku,
-                quantity
-            }
-        ];
-        handleAddCofigItemBySku(simpleProducts);
-        setIsOpen(false);
-    };
-    const requestQuoteButton = (
-        <div className={classes.requestBtn}>
-            <Button disabled={item.stock_status === 'OUT_OF_STOCK'} onClick={requestQuoteClick} priority="high">
-                <FormattedMessage id={'galleryItem.Requestquote'} defaultMessage={'Request quote'} />
-            </Button>
-        </div>
-    );
+
     const addButton = isSupportedProductType ? (
         <AddToCartButton
             item={
@@ -152,7 +128,7 @@ const GalleryItem = props => {
         const values = ele.values.map(({ default_label }) => default_label);
         return (
             <div className={classes.configurableWrapper} key={key + 'configurable_options'}>
-                <span className={classes.configrableLabel}>{ele.label} </span>{' '}
+                <span className={classes.configrableLabel}>{ele?.label} </span>{' '}
                 <Tippy
                     content={
                         <ul className={classes.list}>
@@ -162,7 +138,7 @@ const GalleryItem = props => {
                         </ul>
                     }
                 >
-                    <img className={classes.attributeInfoIcon} src={InfoIcon} />
+                    <img className={classes.attributeInfoIcon} src={InfoIcon} alt='InfoIcon' />
                 </Tippy>
             </div>
         );
@@ -199,8 +175,10 @@ const GalleryItem = props => {
     const onChangeQty = value => setQuantity(value);
 
     const getCategoriesValuesNameByVariant = variant => {
-        return variant.attributes.map((attribute, i) => {
-            return item.configurable_options[i].values.find(value => value.value_index == attribute.value_index).label;
+        return variant.attributes.map(attribute => {
+            return item.configurable_options
+                ?.find(({ attribute_code }) => attribute_code === attribute?.code)
+                .values.find(value => value.value_index == attribute.value_index)?.label;
         });
     };
 
@@ -208,28 +186,8 @@ const GalleryItem = props => {
 
     const getProductsInstance = () => {
         const instanceItem = { ...item };
-        let variants = [...instanceItem?.variants];
-        const filterKeys = filterState && [...filterState?.keys()];
-        const filterValues = filterState && [...filterState?.values()];
-        const filterValuesArray = filterValues?.map(filValue => {
-            const valueArr = [];
-            for (const valueObject of filValue) {
-                valueArr.push(valueObject.value);
-            }
-            return valueArr;
-        });
-        const newVariants = [];
-        if (filterKeys && filterValues?.length) {
-            variants?.map(element => {
-                const valueAttributes = element?.attributes?.map(({ value_index }) => value_index);
-                const filter = filterValuesArray?.map(valArray =>
-                    valArray.map(value => valueAttributes?.includes(parseInt(value)))
-                );
-                if (filter.map(filArray => filArray?.includes(true)).every(ele => ele === true))
-                    newVariants.push(element);
-            });
-            variants = newVariants;
-        }
+
+        const variants = [...instanceItem?.variants];
 
         return variants.map(variant => ({
             ...variant,
@@ -237,18 +195,18 @@ const GalleryItem = props => {
             parentSku: item.sku,
             value:
                 '....' +
-                variant.product.sku.slice(variants[0].product.sku.length - 6) +
+                variant.product.sku.slice(variants[0].product.sku?.length - 6) +
                 ' ' +
                 getCategoriesValuesNameByVariant(variant).join(' - ')
         }));
     };
     const customAttributes = () =>
         custom_attributes?.slice(0, 3).map(({ attribute_metadata, selected_attribute_options }) => {
-            let labelValue = selected_attribute_options.attribute_option[0].label;
-            labelValue.length > 15 ? (labelValue = labelValue.slice(0, 15) + '...') : labelValue;
+            let labelValue = selected_attribute_options.attribute_option[0]?.label;
+            labelValue?.length > 15 ? (labelValue = labelValue.slice(0, 15) + '...') : labelValue;
             return (
                 <div className={classes.customAttributes}>
-                    <span>{attribute_metadata.label}:</span>
+                    <span>{attribute_metadata?.label}:</span>
                     <span>{labelValue}</span>
                 </div>
             );
@@ -307,7 +265,7 @@ const GalleryItem = props => {
                     </div>
                 ) : null}
                 <div className={classes.favIcon}>{wishlistButton}</div>
-                <div onClick={shareClick} className={classes.shareIcon}>
+                <div alt="shareClick" onClick={shareClick} className={classes.shareIcon}>
                     <img src={ShareIcon} alt="share icon" />
                 </div>
                 <div className={classes.stockIcon}>
@@ -337,10 +295,14 @@ const GalleryItem = props => {
                     </div>
                 )}
                 <div className={classes.productPrice}>
-                    <span>
-                        <FormattedMessage id={'galleryItem.yourPrice'} defaultMessage={'Your price:'} /> &nbsp;
-                    </span>
-                    {priceRender}
+                    {stock_status === 'IN_STOCK' && (
+                        <>
+                            <span>
+                                <FormattedMessage id={'galleryItem.yourPrice'} defaultMessage={'Your price:'} /> &nbsp;
+                            </span>
+                            {priceRender}
+                        </>
+                    )}
                 </div>
             </div>
             {!pageBuilder && (
@@ -352,9 +314,16 @@ const GalleryItem = props => {
                             </div>
                             <div className={classes.productsSelect}>
                                 <Select
-                                    initialValue={'Item'}
                                     field={`veriants ${item.sku}`}
-                                    items={[{ value: 'Item' }, ...getProductsInstance()]}
+                                    items={[
+                                        {
+                                            value: formatMessage({
+                                                id: 'galleryItem.Item',
+                                                defaultMessage: 'Select an item'
+                                            })
+                                        },
+                                        ...getProductsInstance()
+                                    ]}
                                     onChange={onChangeVariant}
                                 />
                             </div>
@@ -362,22 +331,14 @@ const GalleryItem = props => {
                     )}
                 </div>
             )}
-            <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}`}>
-                {!price.minimalPrice?.amount.value && process.env.B2BSTORE_VERSION === 'PREMIUM'
-                    ? requestQuoteButton
-                    : addButton}
-                <button className={classes.compareIcon} onClick={addToCompare}>
-                    <img src={CompareIcon} alt="compare icon" />
-                </button>
-                <ConfirmationModal
-                    isOpen={isOpen}
-                    onCancel={() => setIsOpen(false)}
-                    onConfirm={confirmRequestQuote}
-                    product={selectedVeriant}
-                    quantity={quantity}
-                    setQuantity={val => setQuantity(val)}
-                />
-                {/* {!isHomePage && wishlistButton} */}
+            <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer} ${isSignedIn &&
+                    classes.multibaleActions}`}>
+                {addButton}
+                {isSignedIn && (
+                    <button className={classes.compareIcon} onClick={addToCompare}>
+                        <img src={CompareIcon} alt="compare icon" />
+                    </button>
+                )}
             </div>
         </div>
     );

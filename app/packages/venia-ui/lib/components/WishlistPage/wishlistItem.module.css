@@ -34,6 +34,7 @@
 .priceContainer {
     composes: text-colorDefault from global;
     font-size: var(--venia-typography-detail-XL-fontSize);
+    height: 27px;
 }
 
 .optionsContainer {

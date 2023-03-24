@@ -13,12 +13,12 @@ import inStock from '../icons/inStock.svg';
 import outOfStock from '../icons/outOfStock.svg';
 import copyToClipboard from '../icons/copyToClipboard.png';
 
-import { useAddToQuote } from '@magento/peregrine/lib/talons/QuickOrderForm/useAddToQuote';
-import ConfirmationModal from '../../../RequestQuote/ConfirmationModal';
 import PlaceholderImage from '../../../Image/placeholderImage';
+import { useFormState } from 'informed';
 
 const ProductItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
+    const { values } = useFormState();
 
     const {
         product,
@@ -31,8 +31,6 @@ const ProductItem = props => {
     } = props;
     const [copied, setCopied] = useState(false);
 
-    const { handleAddCofigItemBySku } = useAddToQuote();
-
     const copyText = () => {
         navigator.clipboard.writeText(variant.product.sku);
         setCopied(true);
@@ -42,23 +40,16 @@ const ProductItem = props => {
         }, 1000);
     };
 
-    const [quantity, setQuantity] = useState(1);
-
     const [error, setError] = useState('');
 
-    const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         setTimeout(() => setError(''), 10000);
     }, [error]);
 
-    const handleQuantityChange = tempQuantity => {
-        setQuantity(tempQuantity);
-    };
-
     const handleAddProductToCart = useCallback(async () => {
         const variables = {
             cartId,
-            quantity: quantity,
+            quantity: values[(variant?.product.uid)],
             sku: variant.product.sku,
             parentSku: product.sku
         };
@@ -69,30 +60,7 @@ const ProductItem = props => {
         } catch {
             setError('Error');
         }
-    }, [cartId, quantity, variant, addConfigurableProductToCart, setError, product]);
-
-    const confirmRequestQuote = () => {
-        const simpleProducts = [
-            {
-                sku: variant.product.sku,
-                orParentSku: product.sku,
-                quantity
-            }
-        ];
-        handleAddCofigItemBySku(simpleProducts);
-        setIsOpen(false);
-    };
-
-    const requestQuoteButton = (
-        <Button
-            className={classes.requestButton}
-            disabled={variant.product.stock_status === 'OUT_OF_STOCK'}
-            onClick={() => setIsOpen(true)}
-            priority="high"
-        >
-            <FormattedMessage id={'productFullDetailB2B.quote'} defaultMessage={'Quote'} />
-        </Button>
-    );
+    }, [cartId, values, variant, addConfigurableProductToCart, setError, product]);
 
     const stockStatusText = (
         <FormattedMessage id={'productFullDetailB2B.stockStatus'} defaultMessage={'Stock Status'} />
@@ -118,13 +86,13 @@ const ProductItem = props => {
 
     const nameTag = <p>{product.name + ' ' + categoriesValuesName.join(' - ')}</p>;
 
-    const quantitySelector = (id = 1) => (
+    const quantitySelector = () => (
         <div className={classes.quantity}>
             <QuantityStepper
-                fieldName={`${variant.product.sku}-${id}`}
+                fieldName={variant.product.uid}
                 classes={{ root: classes.quantityRoot }}
                 min={1}
-                onChange={handleQuantityChange}
+                textProps={{ initialValue: 1 }}
             />
         </div>
     );
@@ -208,26 +176,22 @@ const ProductItem = props => {
                     })}
                 </div>
                 {quantitySelector(1)}
-                {priceTag}
-                <span className={classes.indexFixed}>
-                    <Price
-                        currencyCode={variant.product.price.regularPrice.amount.currency}
-                        value={variant.product.price.minimalPrice.amount.value * quantity || 0}
-                    />
-                </span>
+                {variant?.product.stock_status === 'IN_STOCK' ? priceTag : <span>-</span>}
+                {variant?.product.stock_status === 'IN_STOCK' ? (
+                    <span className={classes.indexFixed}>
+                        <Price
+                            currencyCode={variant.product.price.regularPrice.amount.currency}
+                            value={variant.product.price.minimalPrice.amount.value * values[(variant?.product.uid)]}
+                        />
+                    </span>
+                ) : (
+                    <span>-</span>
+                )}
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
-                    {variant.product.price.minimalPrice.amount.value ? addToCartButton : requestQuoteButton}
+                    {addToCartButton}
                 </div>
             </div>
-            <ConfirmationModal
-                isOpen={isOpen}
-                onCancel={() => setIsOpen(false)}
-                onConfirm={confirmRequestQuote}
-                product={variant}
-                quantity={quantity}
-                setQuantity={val => setQuantity(val)}
-            />
         </div>
     );
 
@@ -244,7 +208,7 @@ const ProductItem = props => {
                             <div>{stockStatusText}:</div>
                             <div className={classes.stockStatusCircle}>{stockStatus}</div>
                         </div>
-                        <h2>{priceTag}</h2>
+                        {variant?.product.stock_status === 'IN_STOCK' && <h2>{priceTag}</h2>}
                     </div>
                 </div>
 
@@ -260,21 +224,25 @@ const ProductItem = props => {
                     })}
                 </div>
                 <div className={classes.actionsContainer}>
-                    <div className={classes.totalPriceContainer}>
-                        <div> {totalPriceText}:</div>
-                        <div className={classes.totalWrapper}>
-                            {' '}
-                            <span className={classes.indexFixed}>
-                                <Price
-                                    currencyCode={variant.product.price.regularPrice.amount.currency}
-                                    value={variant.product.price.minimalPrice.amount.value * quantity}
-                                />
-                            </span>
+                    {variant?.product.stock_status === 'IN_STOCK' && (
+                        <div className={classes.totalPriceContainer}>
+                            <div> {totalPriceText}:</div>
+                            <div className={classes.totalWrapper}>
+                                <span className={classes.indexFixed}>
+                                    <Price
+                                        currencyCode={variant.product.price.regularPrice.amount.currency}
+                                        value={
+                                            variant.product.price.minimalPrice.amount.value *
+                                            values[(variant?.product.uid)]
+                                        }
+                                    />
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    )}
                     <div className={classes.productItemBodyOperations}>
                         {quantitySelector(2)}
-                        {variant.product.price.minimalPrice.amount.value ? addToCartButton : requestQuoteButton}
+                        {addToCartButton}
                     </div>
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </div>

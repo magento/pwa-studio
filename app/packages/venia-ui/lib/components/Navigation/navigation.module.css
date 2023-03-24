@@ -33,6 +33,7 @@
     /* TODO @TW: review (B6) */
     /* composes: visible from global; */
     visibility: visible;
+    overflow-y: auto !important;
 }
 
 .header {
@@ -58,6 +59,10 @@
     /* TODO @TW: review (B6) */
     /* composes: visible from global; */
     visibility: visible;
+}
+
+.asideOpen {
+    overflow: hidden;
 }
 
 .body_masked {

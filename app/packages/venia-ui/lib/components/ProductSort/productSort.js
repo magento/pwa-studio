@@ -16,7 +16,7 @@ const ProductSort = props => {
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
     const { formatMessage, locale } = useIntl();
-
+     
     const orderSortingList = useCallback(
         list => {
             return list.sort((a, b) => {
@@ -81,7 +81,7 @@ const ProductSort = props => {
                 id: 'sortItem.priceDesc',
                 text: formatMessage({
                     id: 'sortItem.priceDesc',
-                    defaultMessage: 'Price: High to Low'
+                    defaultMessage: 'Price: Higher to lower'
                 }),
                 attribute: 'price',
                 sortDirection: 'DESC'
@@ -90,7 +90,7 @@ const ProductSort = props => {
                 id: 'sortItem.priceAsc',
                 text: formatMessage({
                     id: 'sortItem.priceAsc',
-                    defaultMessage: 'Price: Low to High'
+                    defaultMessage: 'Price: Lower to Higher'
                 }),
                 attribute: 'price',
                 sortDirection: 'ASC'
@@ -184,7 +184,11 @@ const ProductSort = props => {
                             id={'productSort.sortByButton'}
                             defaultMessage={'Sort by'}
                         />
-                        &nbsp;{currentSort.sortText}
+                        &nbsp;
+                        <FormattedMessage
+                        id={currentSort.sortId}
+                        defaultMessage={currentSort.sortText}
+                    />
                     </span>
                     <Icon
                         src={ArrowDown}

@@ -13,6 +13,7 @@ import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
 import DEFAULT_OPERATIONS from './searchPage.gql';
 import { useEventingContext } from '../../context/eventing';
 
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 /**
  * Return props necessary to render a SearchPage component.
  *
@@ -43,6 +44,8 @@ export const useSearchPage = (props = {}) => {
             nextFetchPolicy: 'cache-first'
         }
     );
+
+    const [{ isSignedIn }] = useUserContext();
 
     const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 
@@ -215,7 +218,8 @@ export const useSearchPage = (props = {}) => {
         search,
         sortDirection,
         sortAttribute,
-        dispatch
+        dispatch,
+        isSignedIn
     ]);
 
     // Set the total number of pages whenever the data changes.

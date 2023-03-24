@@ -20,6 +20,8 @@ import PrintPdfPopup from './PrintPdfPopup';
 import SavedCartButton from '../BuyLaterNotes/SavedCartButton';
 const CheckIcon = <Icon size={20} src={Check} />;
 
+import ConfirmationModal from '../RequestQuote/ConfirmationModal';
+import operations from './../MiniCart/miniCart.gql';
 /**
  * Structural page component for the shopping cart.
  * This is the main component used in the `/cart` route in Venia.
@@ -38,7 +40,7 @@ const CheckIcon = <Icon size={20} src={Check} />;
  * import CartPage from "@magento/venia-ui/lib/components/CartPage";
  */
 const CartPage = props => {
-    const talonProps = useCartPage();
+    const talonProps = useCartPage({operations});
     const [openPopup, setOpenPopup] = useState(false);
 
     const componentRef = useRef();
@@ -54,13 +56,30 @@ const CartPage = props => {
         onAddToWishlistSuccess,
         setIsCartUpdating,
         shouldShowLoadingIndicator,
-        wishlistSuccessProps
+        wishlistSuccessProps,
+        isQuoteOpen,
+        setIsQuoteOpen,
+        selectedVariants,
+        submitQuote
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
     const isPremium = process.env.B2BSTORE_VERSION === 'PREMIUM';
+
+    const requestQuoteButton = (
+        <div className={classes.quoteBtn}>
+            <Button onClick={() => setIsQuoteOpen(true)} priority={'normal'}>
+                <FormattedMessage id={'galleryItem.Requestquote'} defaultMessage={'Request quote'} />
+            </Button>
+        </div>
+    );
+
+    const confirmRequestQuote = async () => {
+        await submitQuote();
+        await setIsQuoteOpen(false);
+    };
 
     useEffect(() => {
         if (wishlistSuccessProps) {
@@ -124,6 +143,7 @@ const CartPage = props => {
                         {priceSummary}
                         <div className={classes.additionalOptionsContainer}>
                             {hasItems && isPremium ? <SavedCartButton /> : null}
+                            {hasItems && isPremium && requestQuoteButton}
                             {hasItems ? printPdfButton : null}
                         </div>
                     </div>
@@ -134,6 +154,14 @@ const CartPage = props => {
                     handleClosePopup={handleClosePopup}
                     handlePrint={handlePrint}
                 />
+                {isQuoteOpen && (
+                    <ConfirmationModal
+                        isOpen={isQuoteOpen}
+                        onCancel={() => setIsQuoteOpen(false)}
+                        onConfirm={confirmRequestQuote}
+                        products={selectedVariants}
+                    />
+                )}
             </div>
         </div>
     );

@@ -12,8 +12,7 @@ const IMAGE_WIDTH = 60;
 
 const SuggestedProduct = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { small_image, name, onNavigate, price } = props;
-
+    const { small_image, name, onNavigate, price, stock_status } = props;
     const handleClick = useCallback(() => {
         if (typeof onNavigate === 'function') {
             onNavigate(props);
@@ -35,7 +34,12 @@ const SuggestedProduct = props => {
                 />
                 <span className={classes.name}>{name}</span>
                 <span data-cy="SuggestedProduct-price" className={classes.price}>
-                    <Price currencyCode={price.minimalPrice.amount.currency} value={price.minimalPrice.amount.value} />
+                    {stock_status === 'IN_STOCK' && (
+                        <Price
+                            currencyCode={price.minimalPrice.amount.currency}
+                            value={price.minimalPrice.amount.value}
+                        />
+                    )}
                 </span>
             </div>
         </>

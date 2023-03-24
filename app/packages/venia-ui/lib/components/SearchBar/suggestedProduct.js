@@ -27,7 +27,7 @@ const IMAGE_WIDTH = 60;
 const SuggestedProduct = props => {
     const suggested_Product = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const { url_key, small_image, name, onNavigate, price, url_suffix, sku } = props;
+    const { url_key, small_image, name, onNavigate, price, url_suffix, sku, stock_status } = props;
 
     const [copied, setCopied] = useState(false);
 
@@ -89,9 +89,17 @@ const SuggestedProduct = props => {
                 <Button
                     className={classes.addButton}
                     onClick={handleAddToCart}
-                    disabled={price?.minimalPrice?.amount?.value === -1 || price?.regularPrice?.amount?.value === -1}
+                    disabled={
+                        price?.minimalPrice?.amount?.value === -1 ||
+                        price?.regularPrice?.amount?.value === -1 ||
+                        stock_status === 'OUT_OF_STOCK'
+                    }
                 >
-                    <FormattedMessage id={'productFullDetail.cartAction'} defaultMessage={'Add to Cart'} />
+                    {stock_status === 'OUT_OF_STOCK' ? (
+                        <FormattedMessage id={'galleryItem.outStock'} defaultMessage={'Out of stock'} />
+                    ) : (
+                        <FormattedMessage id={'productFullDetail.cartAction'} defaultMessage={'Add to Cart'} />
+                    )}
                 </Button>
             ) : null}
 
@@ -111,20 +119,22 @@ const SuggestedProduct = props => {
                 </Button>
             ) : null}
             {suggested_Product.__typename !== 'SimpleProduct' && <div className={classes.hideMobile} />}
-            <span className={classes.price}>
-                <Price
-                    currencyCode={
-                        price.minimalPrice.amount.currency != null
-                            ? price.minimalPrice.amount.currency
-                            : price.regularPrice.amount.currency
-                    }
-                    value={
-                        price.minimalPrice.amount.value != null
-                            ? price.minimalPrice.amount.value
-                            : price.regularPrice.amount.value
-                    }
-                />
-            </span>
+            {stock_status === 'IN_STOCK' && (
+                <span className={classes.price}>
+                    <Price
+                        currencyCode={
+                            price.minimalPrice.amount.currency != null
+                                ? price.minimalPrice.amount.currency
+                                : price.regularPrice.amount.currency
+                        }
+                        value={
+                            price.minimalPrice.amount.value != null
+                                ? price.minimalPrice.amount.value
+                                : price.regularPrice.amount.value
+                        }
+                    />
+                </span>
+            )}
         </div>
     );
 };

@@ -22,7 +22,7 @@ function DropzoneComponent(props) {
 
     const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
         onDrop,
-        accept: 'image/*'
+        accept: { 'image/jpeg': ['.jpg', '.jpeg'], 'image/png': ['.png'] }
     });
 
     const style = useMemo(
@@ -48,6 +48,7 @@ function DropzoneComponent(props) {
 export default DropzoneComponent;
 
 const baseStyle = {
+    cursor: 'pointer',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

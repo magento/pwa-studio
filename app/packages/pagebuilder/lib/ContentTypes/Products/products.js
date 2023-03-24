@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useMemo } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 
@@ -6,6 +7,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import Carousel from './Carousel/carousel';
 import defaultClasses from './products.module.css';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 /**
  * Sort products based on the original order
  *
@@ -82,6 +84,8 @@ const Products = props => {
         paddingLeft
     };
 
+    const [{ isSignedIn }] = useUserContext();
+
     const { data: storeConfigData } = useQuery(GET_STORE_CONFIG_DATA, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
@@ -98,9 +102,15 @@ const Products = props => {
         return productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
     });
 
-    const { loading, error, data } = useQuery(GET_PRODUCTS_BY_URL_KEY, {
+    const { loading, error, data, refetch } = useQuery(GET_PRODUCTS_BY_URL_KEY, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         variables: { url_keys: urlKeys, pageSize: urlKeys.length }
     });
+
+    useEffect(() => {
+        if (isSignedIn) refetch();
+    }, [isSignedIn]);
 
     if (loading) return null;
 
