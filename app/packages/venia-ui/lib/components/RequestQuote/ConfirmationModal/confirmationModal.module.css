@@ -10,8 +10,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    height: 160px;
-    gap:1rem;
+    gap: 1rem;
     justify-content: center;
 }
 
@@ -31,7 +30,7 @@
     text-align: center;
 }
 
-.qtyBody{
+.qtyBody {
     gap: 1rem;
     height: 2rem;
     display: flex;
@@ -44,6 +43,11 @@
 .qtyField input,
 .productsSelect {
     border: 1px solid #eaecee;
+}
+
+.productWrapper {
+    gap: 0.5rem;
+    display: flex;
 }
 
 @media (max-width: 959px) {
@@ -63,4 +67,9 @@
     .bodyText {
         font-size: 20px;
     }
+}
+
+.productsList {
+    list-style-type: circle !important;
+
 }

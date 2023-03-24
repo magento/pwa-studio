@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -7,6 +7,8 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './miniCart.gql';
 import { useEventingContext } from '../../context/eventing';
+
+import { useAddToQuote } from '../QuickOrderForm/useAddToQuote';
 
 /**
  *
@@ -31,6 +33,8 @@ import { useEventingContext } from '../../context/eventing';
 export const useMiniCart = props => {
     const { isOpen, setIsOpen } = props;
     const [, { dispatch }] = useEventingContext();
+    
+    const { handleAddCofigItemBySku } = useAddToQuote();
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { removeItemMutation, miniCartQuery, getStoreConfigQuery } = operations;
@@ -83,6 +87,64 @@ export const useMiniCart = props => {
             return miniCartData?.cart?.items;
         }
     }, [miniCartData, miniCartLoading]);
+
+    const arrayCompare = (_arr1, _arr2) => {
+        if (!Array.isArray(_arr1) || !Array.isArray(_arr2) || _arr1.length !== _arr2.length) {
+            return false;
+        }
+
+        // .concat() to not mutate arguments
+        const arr1 = _arr1.concat().sort();
+        const arr2 = _arr2.concat().sort();
+
+        for (let i = 0; i < arr1.length; i++) {
+            if (arr1[i] !== arr2[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+    const SelectedVariants = useMemo(
+        () =>
+            productList?.map(confgItem => {
+                const selectedOption = confgItem.configurable_options.map(
+                    ({ configurable_product_option_value_uid }) => configurable_product_option_value_uid
+                );
+                const selectedVariant = confgItem.product.variants.find(varEle => {
+                    const variantOption = varEle.attributes.map(({ uid }) => uid);
+                    return arrayCompare(selectedOption, variantOption);
+                });
+                return {
+                    name: selectedVariant.product.name,
+                    sku: selectedVariant.product.sku,
+                    orParentSku: confgItem.product.sku,
+                    quantity: confgItem.quantity
+                };
+            }),
+        [productList]
+    );
+
+    const submitQuote = useCallback(async () => {
+       
+        try {
+            await handleAddCofigItemBySku(SelectedVariants);
+            productList.forEach(async ({ uid }) => {
+                await removeItem({
+                    variables: {
+                        cartId,
+                        itemId: uid
+                    }
+                });
+            });
+            setIsOpen(false);
+            history.push('/mprequestforquote/customer/quotes');
+
+        } catch (error) {
+            const err = error.toString();
+            throw err;
+        }
+    }, [cartId, productList, SelectedVariants, handleAddCofigItemBySku, setIsOpen, removeItem]);
 
     const closeMiniCart = useCallback(() => {
         setIsOpen(false);
@@ -160,6 +222,8 @@ export const useMiniCart = props => {
         subTotal,
         totalQuantity,
         configurableThumbnailSource,
-        storeUrlSuffix
+        storeUrlSuffix,
+        SelectedVariants,
+        submitQuote
     };
 };

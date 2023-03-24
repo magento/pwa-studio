@@ -6,8 +6,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { string, number, shape } from 'prop-types';
 
 import AddToCartButton from './addToCartButton';
-import Button from '@magento/venia-ui/lib/components/Button';
-import ConfirmationModal from '../RequestQuote/ConfirmationModal';
 import GalleryItemShimmer from './item.shimmer';
 import Image from '../Image';
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -18,7 +16,6 @@ import WishlistGalleryButton from '../Wishlist/AddToListButton';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import useCompareProduct from '@magento/peregrine/lib/talons/ComparePage/useCompareProduct';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
-import { useAddToQuote } from '@magento/peregrine/lib/talons/QuickOrderForm/useAddToQuote.js';
 import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
 import { useStyle } from '../../classify';
 import { useToasts } from '@magento/peregrine';
@@ -54,16 +51,12 @@ const GalleryItem = props => {
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
     const { location } = useHistory();
-    const history = useHistory();
     const isHomePage = location.pathname === '/';
     const [quantity, setQuantity] = useState(1);
     const [selectedVeriant, setSelectedVeriant] = useState();
 
     const compareProps = useCompareProduct();
     const { addProductsToCompare } = compareProps;
-
-    const { handleAddCofigItemBySku } = useAddToQuote();
-    const [isOpen, setIsOpen] = useState(false);
 
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;
@@ -102,29 +95,7 @@ const GalleryItem = props => {
 
     const wishlistButton = wishlistButtonProps ? <WishlistGalleryButton {...wishlistButtonProps} /> : null;
 
-    const requestQuoteClick = () => {
-        if (selectedVeriant?.parentSku) {
-            setIsOpen(true);
-        } else return history.push(productLink);
-    };
-    const confirmRequestQuote = () => {
-        const simpleProducts = [
-            {
-                sku: selectedVeriant.product.sku,
-                orParentSku: selectedVeriant.parentSku,
-                quantity
-            }
-        ];
-        handleAddCofigItemBySku(simpleProducts);
-        setIsOpen(false);
-    };
-    const requestQuoteButton = (
-        <div className={classes.requestBtn}>
-            <Button disabled={item.stock_status === 'OUT_OF_STOCK'} onClick={requestQuoteClick} priority="high">
-                <FormattedMessage id={'galleryItem.Requestquote'} defaultMessage={'Request quote'} />
-            </Button>
-        </div>
-    );
+
     const addButton = isSupportedProductType ? (
         <AddToCartButton
             item={
@@ -294,7 +265,7 @@ const GalleryItem = props => {
                     </div>
                 ) : null}
                 <div className={classes.favIcon}>{wishlistButton}</div>
-                <div onClick={shareClick} className={classes.shareIcon}>
+                <div alt="shareClick" onClick={shareClick} className={classes.shareIcon}>
                     <img src={ShareIcon} alt="share icon" />
                 </div>
                 <div className={classes.stockIcon}>
@@ -356,26 +327,14 @@ const GalleryItem = props => {
                     )}
                 </div>
             )}
-            <div
-                className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer} ${isSignedIn &&
-                    classes.multibaleActions}`}
-            >
-                {!price.minimalPrice?.amount.value && process.env.B2BSTORE_VERSION === 'PREMIUM'
-                    ? requestQuoteButton
-                    : addButton}
+            <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer} ${isSignedIn &&
+                    classes.multibaleActions}`}>
+                {addButton}
                 {isSignedIn && (
                     <button className={classes.compareIcon} onClick={addToCompare}>
                         <img src={CompareIcon} alt="compare icon" />
                     </button>
                 )}
-                <ConfirmationModal
-                    isOpen={isOpen}
-                    onCancel={() => setIsOpen(false)}
-                    onConfirm={confirmRequestQuote}
-                    product={selectedVeriant}
-                    quantity={quantity}
-                    setQuantity={val => setQuantity(val)}
-                />
             </div>
         </div>
     );
