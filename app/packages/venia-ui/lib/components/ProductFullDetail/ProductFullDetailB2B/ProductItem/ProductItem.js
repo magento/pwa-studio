@@ -30,6 +30,7 @@ const ProductItem = props => {
         errors
     } = props;
     const [copied, setCopied] = useState(false);
+    const [isItemDisabled, setIsItemDisabled] = useState(false);
 
     const copyText = () => {
         navigator.clipboard.writeText(variant.product.sku);
@@ -47,6 +48,7 @@ const ProductItem = props => {
     }, [error]);
 
     const handleAddProductToCart = useCallback(async () => {
+        setIsItemDisabled(true);
         const variables = {
             cartId,
             quantity: values[(variant?.product.uid)],
@@ -57,6 +59,7 @@ const ProductItem = props => {
             await addConfigurableProductToCart({
                 variables
             });
+            setIsItemActive(false);
         } catch {
             setError('Error');
         }
@@ -123,7 +126,8 @@ const ProductItem = props => {
             onClick={handleAddProductToCart}
             disabled={
                 variant.product.stock_status === 'OUT_OF_STOCK' ||
-                variant.product.price?.minimalPrice?.amount?.value === -1
+                variant.product.price?.minimalPrice?.amount?.value === -1 ||
+                isItemDisabled
             }
         >
             <Icon
@@ -161,8 +165,9 @@ const ProductItem = props => {
                         </div>
                     ) : (
                         <div className={classes.productSkuContainer}>
-                            <a onClick={copyText}>...{lastDigitsOfSku}</a>
-                            <img src={copyToClipboard} alt="copyToClipboard" onClick={copyText} />
+                            <button onClick={copyText}>
+                                ...{lastDigitsOfSku} <img src={copyToClipboard} alt="copyToClipboard" />
+                            </button>
                         </div>
                     )}
                 </p>

@@ -20,7 +20,16 @@ const SimpleProduct = props => {
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         productQuantity: quantity
     });
-    const { wishlistButtonProps, errorMessage, cartId, handleAddToCart, fetchedData, loading, error } = talonProps;
+    const {
+        wishlistButtonProps,
+        errorMessage,
+        cartId,
+        handleAddToCart,
+        fetchedData,
+        loading,
+        error,
+        isAddConfigurableLoading
+    } = talonProps;
 
     if (loading) {
         return <FullPageLoadingIndicator />;
@@ -184,6 +193,7 @@ const SimpleProduct = props => {
             simpleProductData={simpleProductData}
             simpleProductAggregation={simpleProductAggregationFiltered}
             tempTotalPrice={tempTotalPrice}
+            isAddConfigurableLoading={isAddConfigurableLoading}
         />
     ) : (
         <SimpleProductB2C
@@ -195,6 +205,7 @@ const SimpleProduct = props => {
             tempTotalPrice={tempTotalPrice}
             wishlistButton={wishlistButton}
             simpleProductAggregationFiltered={simpleProductAggregationFiltered}
+            isAddConfigurableLoading={isAddConfigurableLoading}
         />
     );
 };

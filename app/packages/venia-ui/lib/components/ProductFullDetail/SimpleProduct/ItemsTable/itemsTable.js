@@ -17,7 +17,15 @@ import QuantityStepper from '../../../QuantityStepper';
 const ItemsTable = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
-    const { simpleProductData, errors, handleAddToCart, aggregations, tempTotalPrice, handleQuantityChange } = props;
+    const {
+        simpleProductData,
+        errors,
+        handleAddToCart,
+        aggregations,
+        tempTotalPrice,
+        handleQuantityChange,
+        isAddConfigurableLoading
+    } = props;
 
     const [copied, setCopied] = useState(false);
 
@@ -78,7 +86,8 @@ const ItemsTable = props => {
             onClick={handleAddToCart}
             disabled={
                 simpleProductData.stock_status === 'OUT_OF_STOCK' ||
-                simpleProductData.price?.minimalPrice?.amount?.value === -1
+                simpleProductData.price?.minimalPrice?.amount?.value === -1 ||
+                isAddConfigurableLoading
             }
         >
             <Icon
@@ -106,8 +115,10 @@ const ItemsTable = props => {
                         </div>
                     ) : (
                         <div className={classes.productSkuContainer}>
-                            <p onClick={copyText}>...{lastDigitsOfSku}</p>
-                            <img src={copyToClipboard} alt="copyToClipboard" onClick={copyText} />
+                            <button onClick={copyText}>
+                                ...{lastDigitsOfSku}
+                                <img src={copyToClipboard} alt="copyToClipboard" />
+                            </button>
                         </div>
                     )}
                 </div>

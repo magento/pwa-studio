@@ -21,7 +21,8 @@ const SimpleProductB2C = props => {
         tempTotalPrice,
         wishlistButton,
         simpleProductAggregationFiltered,
-        handleQuantityChange
+        handleQuantityChange,
+        isAddConfigurableLoading
     } = props;
 
     const cartCallToActionText =
@@ -33,7 +34,11 @@ const SimpleProductB2C = props => {
 
     return (
         <Fragment>
-            <Breadcrumbs productSku={simpleProductData?.sku} categoryId={simpleProductData.categories[0].uid} currentProduct={simpleProductData.name} />
+            <Breadcrumbs
+                productSku={simpleProductData?.sku}
+                categoryId={simpleProductData.categories[0].uid}
+                currentProduct={simpleProductData.name}
+            />
             <Form className={classes.root} onSubmit={handleAddToCart}>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>{simpleProductData.name}</h1>
@@ -76,7 +81,8 @@ const SimpleProductB2C = props => {
                         type="submit"
                         disabled={
                             simpleProductData.price?.minimalPrice?.amount?.value === -1 ||
-                            simpleProductData.price?.regularPrice?.amount?.value === -1
+                            simpleProductData.price?.regularPrice?.amount?.value === -1 ||
+                            isAddConfigurableLoading
                         }
                     >
                         {cartCallToActionText}

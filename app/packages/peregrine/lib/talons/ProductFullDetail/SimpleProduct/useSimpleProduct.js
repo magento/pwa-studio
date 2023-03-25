@@ -42,9 +42,9 @@ export const useSimpleProduct = (props = {}) => {
     }, [data, loading]);
 
     useEffect(() => {
-        if (isSignedIn) refetch()
-    }, [isSignedIn])
-    
+        if (isSignedIn) refetch();
+    }, [isSignedIn]);
+
     const wishlistButtonProps = {
         buttonText: isSelected =>
             isSelected
@@ -66,45 +66,42 @@ export const useSimpleProduct = (props = {}) => {
 
     const [{ cartId }] = useCartContext();
 
-    const [addConfigurableProductToCart, { error: errorAddingConfigurableProduct }] = useMutation(
-        addConfigurableProductToCartMutation
-    );
+    const [
+        addConfigurableProductToCart,
+        { error: errorAddingConfigurableProduct, loading: isAddConfigurableLoading }
+    ] = useMutation(addConfigurableProductToCartMutation);
 
-    const handleAddToCart = useCallback(
-        async formValues => {
-            const { quantity } = formValues;
-            const payload = {
-                item: loading || !data ? [] : data.products.items[0],
-                productType,
-                quantity: productQuantity
+    const handleAddToCart = useCallback(async () => {
+        const payload = {
+            item: loading || !data ? [] : data.products.items[0],
+            productType,
+            quantity: productQuantity
+        };
+
+        if (isSupportedProductType) {
+            const variables = {
+                cartId,
+                parentSku: payload.item.length < 1 ? 'No sku' : payload.item.orParentSku,
+                product: payload.item,
+                quantity: payload.quantity,
+                sku: payload.item.length < 1 ? 'No sku' : payload.item.sku
             };
 
-            if (isSupportedProductType) {
-                const variables = {
-                    cartId,
-                    parentSku: payload.item.length < 1 ? 'No sku' : payload.item.orParentSku,
-                    product: payload.item,
-                    quantity: payload.quantity,
-                    sku: payload.item.length < 1 ? 'No sku' : payload.item.sku
-                };
-
-                if (productType === 'SimpleProduct') {
-                    try {
-                        await addConfigurableProductToCart({
-                            variables
-                        });
-                    } catch {
-                        return;
-                    }
-                } else if (productType === 'ConfigurableProduct') {
+            if (productType === 'SimpleProduct') {
+                try {
+                    await addConfigurableProductToCart({
+                        variables
+                    });
+                } catch {
                     return;
                 }
-            } else {
-                console.error('Unsupported product type. Cannot add to cart.');
+            } else if (productType === 'ConfigurableProduct') {
+                return;
             }
-        },
-        [addConfigurableProductToCart, cartId, isSupportedProductType, data, loading, productType, productQuantity]
-    );
+        } else {
+            console.error('Unsupported product type. Cannot add to cart.');
+        }
+    }, [addConfigurableProductToCart, cartId, isSupportedProductType, data, loading, productType, productQuantity]);
 
     const derivedErrorMessage = useMemo(() => deriveErrorMessage([errorAddingConfigurableProduct]), [
         errorAddingConfigurableProduct
@@ -117,6 +114,7 @@ export const useSimpleProduct = (props = {}) => {
         cartId,
         loading,
         fetchedData: !data ? null : data,
-        error
+        error,
+        isAddConfigurableLoading
     };
 };
