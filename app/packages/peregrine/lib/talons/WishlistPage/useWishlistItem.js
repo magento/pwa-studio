@@ -50,7 +50,11 @@ export const useWishlistItem = props => {
     );
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, PRODUCT_OPERATIONS, props.operations);
-    const { addProductToCartMutation, removeProductsFromWishlistMutation } = operations;
+    const {
+        addProductToCartMutation,
+        addConfigurableProductToCartMutation,
+        removeProductsFromWishlistMutation
+    } = operations;
 
     const [{ cartId }] = useCartContext();
 
@@ -85,6 +89,15 @@ export const useWishlistItem = props => {
         return item;
     }, [configurableOptions, selectedConfigurableOptions, sku]);
 
+    const [addWishlistSimpleProductToCart] = useMutation(addConfigurableProductToCartMutation, {
+        variables: {
+            cartId,
+            quantity: 1.0,
+            sku: item.product.sku,
+            parentSku: item.product.orParentSku
+        }
+    });
+
     const [
         addWishlistItemToCart,
         { error: addWishlistItemToCartError, loading: addWishlistItemToCartLoading }
@@ -109,7 +122,7 @@ export const useWishlistItem = props => {
                 id: `CustomerWishlist:${wishlistId}`,
                 fields: {
                     items_v2: (cachedItems, { readField, Remove }) => {
-                        for (var i = 0; i < cachedItems.items.length; i++) {
+                        for (let i = 0; i < cachedItems.items.length; i++) {
                             if (readField('id', item) === itemId) {
                                 return Remove;
                             }
@@ -129,7 +142,11 @@ export const useWishlistItem = props => {
     const handleAddToCart = useCallback(async () => {
         if (configurableOptions.length === 0 || selectedConfigurableOptions.length === configurableOptions.length) {
             try {
-                await addWishlistItemToCart();
+                if (item.product.__typename === 'SimpleProduct') {
+                    await addWishlistSimpleProductToCart();
+                } else {
+                    await addWishlistItemToCart();
+                }
 
                 const selectedOptionsLabels =
                     selectedConfigurableOptions?.length > 0
@@ -161,6 +178,7 @@ export const useWishlistItem = props => {
         }
     }, [
         addWishlistItemToCart,
+        addWishlistSimpleProductToCart,
         cartId,
         configurableOptions.length,
         dispatch,
