@@ -5,12 +5,17 @@ import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const DENIED_MINI_CART_ROUTES = ['/checkout'];
-export const AFTER_UPDATE_MY_REQUEST_QUOTE = 'after_update_my_request_quote';
+export const AFTER_UPDATE_MY_QUOTE = 'after_update_my_QUOTE';
 
-import { MP_QUOTE, DELETE_ITEM_FROM_MP_QUOTE, GET_CUSTOMER } from '../RequestQuote/requestQuote.gql';
+import DEFAULT_OPERATIONS from '../RequestQuote/requestQuote.gql';
+import ACCOUNT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useQuoteCartTrigger = props => {
     const { getConfigData, getQuoteId, setQuoteId } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, ACCOUNT_OPERATIONS, props.operations);
+    const { getQuoteByIdQuery, deleteItemFromQuoteMutation, getCustomerInformationQuery } = operations;
 
     const configData = getConfigData();
 
@@ -18,7 +23,7 @@ export const useQuoteCartTrigger = props => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [{ isSignedIn: isUserSignedIn }] = useUserContext();
-    const { data: custoemrData } = useQuery(GET_CUSTOMER, {
+    const { data: custoemrData } = useQuery(getCustomerInformationQuery, {
         fetchPolicy: 'network-only',
         skip: !isUserSignedIn
     });
@@ -43,7 +48,7 @@ export const useQuoteCartTrigger = props => {
     const hideQuoteCartTrigger = DENIED_MINI_CART_ROUTES.includes(history.location.pathname);
 
     // Get Mp Quote
-    const { data } = useQuery(MP_QUOTE, {
+    const { data } = useQuery(getQuoteByIdQuery, {
         fetchPolicy: 'network-only',
         variables: {
             quote_id: getQuoteId()
@@ -51,7 +56,7 @@ export const useQuoteCartTrigger = props => {
     });
 
     // Delete Mp Quote Item
-    const [deleteItemFromMpQuote] = useMutation(DELETE_ITEM_FROM_MP_QUOTE);
+    const [deleteItemFromMpQuote] = useMutation(deleteItemFromQuoteMutation);
 
     useEffect(() => {
         if (data != undefined) {
@@ -64,7 +69,7 @@ export const useQuoteCartTrigger = props => {
 
     useState(() => {
         window.addEventListener(
-            AFTER_UPDATE_MY_REQUEST_QUOTE,
+            AFTER_UPDATE_MY_QUOTE,
             async function(event) {
                 setIsLoading(true);
                 await setMyQuote(event.detail);

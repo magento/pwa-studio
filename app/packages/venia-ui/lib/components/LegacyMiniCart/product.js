@@ -1,18 +1,19 @@
 import React, { useMemo } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
 
-import Price from '@magento/venia-ui/lib/components/Price';
-import { useProduct } from '@magento/peregrine/lib/talons/LegacyMiniCart/useProduct';
-import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
-
-import { useStyle } from '../../classify';
 import Image from '../Image';
-import { REMOVE_ITEM_MUTATION } from './cartOptions.gql';
 import Kebab from './kebab';
-import defaultClasses from './product.module.css';
+import Price from '@magento/venia-ui/lib/components/Price';
 import ProductOptions from './productOptions';
 import Section from './section';
-import { gql } from '@apollo/client';
+
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
+import { useProduct } from '@magento/peregrine/lib/talons/LegacyMiniCart/useProduct';
+import { useStyle } from '../../classify';
+
+import defaultClasses from './product.module.css';
+
+import { REMOVE_ITEM_MUTATION } from './cartOptions.gql';
 
 const QUANTITY_OPERATOR = '×';
 
@@ -23,8 +24,6 @@ const Product = props => {
 
     const talonProps = useProduct({
         beginEditItem,
-        createCartMutation: CREATE_CART_MUTATION,
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         item,
         removeItemMutation: REMOVE_ITEM_MUTATION
     });
@@ -70,35 +69,17 @@ const Product = props => {
             <div className={classes.quantity}>
                 <div className={classes.quantityRow}>
                     <span>{productQuantity}</span>
-                    <span className={classes.quantityOperator}>
-                        {QUANTITY_OPERATOR}
-                    </span>
+                    <span className={classes.quantityOperator}>{QUANTITY_OPERATOR}</span>
                     <span className={classes.price}>
-                        <Price
-                            currencyCode={currencyCode}
-                            value={productPrice}
-                        />
+                        <Price currencyCode={currencyCode} value={productPrice} />
                     </span>
                 </div>
             </div>
             {mask}
             <Kebab>
-                <Section
-                    text="Add to favorites"
-                    onClick={handleFavoriteItem}
-                    icon="Heart"
-                    isFilled={isFavorite}
-                />
-                <Section
-                    text="Edit item"
-                    onClick={handleEditItem}
-                    icon="Edit2"
-                />
-                <Section
-                    text="Remove item"
-                    onClick={handleRemoveItem}
-                    icon="Trash"
-                />
+                <Section text="Add to favorites" onClick={handleFavoriteItem} icon="Heart" isFilled={isFavorite} />
+                <Section text="Edit item" onClick={handleEditItem} icon="Edit2" />
+                <Section text="Remove item" onClick={handleRemoveItem} icon="Trash" />
             </Kebab>
         </li>
     );
@@ -119,56 +100,3 @@ Product.propTypes = {
 };
 
 export default Product;
-
-export const CREATE_CART_MUTATION = gql`
-    mutation CreateCartWithProduct {
-        cartId: createEmptyCart
-    }
-`;
-
-export const GET_CART_DETAILS_QUERY = gql`
-    query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            items {
-                uid
-                prices {
-                    price {
-                        value
-                    }
-                }
-                product {
-                    id
-                    name
-                    sku
-                    small_image {
-                        url
-                        label
-                    }
-                    price {
-                        regularPrice {
-                            amount {
-                                value
-                            }
-                        }
-                    }
-                }
-                quantity
-                ... on ConfigurableCartItem {
-                    configurable_options {
-                        id
-                        option_label
-                        value_id
-                        value_label
-                    }
-                }
-            }
-            prices {
-                grand_total {
-                    value
-                    currency
-                }
-            }
-        }
-    }
-`;

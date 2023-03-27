@@ -1,19 +1,11 @@
-import { useQuery } from '@apollo/client';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 import { useCustomerWishlistSkus } from '../../hooks/useCustomerWishlistSkus/useCustomerWishlistSkus';
 
-import mergeOperations from '../../util/shallowMerge';
-import defaultOperations from './gallery.gql';
-
-export const useGallery = (props = {}) => {
-    const operations = mergeOperations(defaultOperations, props.operations);
-
+export const useGallery = () => {
     useCustomerWishlistSkus();
 
-    const { data: storeConfigData } = useQuery(operations.getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
-
+        const { data: storeConfigData } = useStoreConfigContext();
     const storeConfig = storeConfigData ? storeConfigData.storeConfig : null;
 
     return {

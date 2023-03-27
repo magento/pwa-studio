@@ -3,9 +3,11 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
 import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './product.gql';
+
 import { useEventingContext } from '../../../context/eventing';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -29,7 +31,8 @@ export const useProduct = props => {
     const { mapProduct } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getStoreConfigData, getProductDetailQuery } = operations;
+    const { getProductDetailQuery } = operations;
+
     const { pathname } = useLocation();
     const [
         ,
@@ -39,17 +42,13 @@ export const useProduct = props => {
     ] = useAppContext();
 
     const [{ isSignedIn }] = useUserContext();
-
-    const { data: storeConfigData } = useQuery(getStoreConfigData, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const { data: storeConfigData } = useStoreConfigContext();
 
     const slug = pathname.split('/').pop();
     const productUrlSuffix = storeConfigData?.storeConfig?.product_url_suffix;
     const urlKey = productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
 
-    const { error, loading, data ,refetch } = useQuery(getProductDetailQuery, {
+    const { error, loading, data, refetch } = useQuery(getProductDetailQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !storeConfigData,
@@ -70,9 +69,7 @@ export const useProduct = props => {
         // display OOS items, the items array will be empty.
 
         // Only return the product that we queried for.
-        const product = data.products.items.find(
-            item => item.url_key === urlKey
-        );
+        const product = data.products.items.find(item => item.url_key === urlKey);
 
         if (!product) {
             return null;
@@ -96,14 +93,10 @@ export const useProduct = props => {
                     id: product.id,
                     name: product.name,
                     sku: product.sku,
-                    currency_code:
-                        product?.price_range?.maximum_price?.final_price
-                            ?.currency,
+                    currency_code: product?.price_range?.maximum_price?.final_price?.currency,
                     price_range: {
                         maximum_price: {
-                            final_price:
-                                product?.price_range?.maximum_price?.final_price
-                                    ?.value
+                            final_price: product?.price_range?.maximum_price?.final_price?.value
                         }
                     },
                     url_key: product.url_key
@@ -113,9 +106,9 @@ export const useProduct = props => {
     }, [error, loading, product, dispatch]);
 
     useEffect(() => {
-        if (isSignedIn) refetch()
-    }, [isSignedIn])
-    
+        if (isSignedIn) refetch();
+    }, [isSignedIn]);
+
     return {
         error,
         loading,

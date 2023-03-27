@@ -1,9 +1,10 @@
 import { useState, useCallback, useMemo } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
-import mergeOperations from '../../util/shallowMerge';
+import { useMutation } from '@apollo/client';
 
-import DEFAULT_OPERATIONS from './createWishlist.gql';
-import WISHLIST_PAGE_OPERATIONS from './wishlistPage.gql';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
+
+import mergeOperations from '../../util/shallowMerge';
+import DEFAULT_OPERATIONS from '../Wishlist/wishlist.gql';
 
 /**
  * @function
@@ -13,37 +14,22 @@ import WISHLIST_PAGE_OPERATIONS from './wishlistPage.gql';
  */
 export const useCreateWishlist = (props = { numberOfWishlists: 1 }) => {
     const { numberOfWishlists } = props;
-    const operations = mergeOperations(
-        DEFAULT_OPERATIONS,
-        WISHLIST_PAGE_OPERATIONS,
-        props.operations
-    );
-    const {
-        createWishlistMutation,
-        getCustomerWishlistQuery,
-        getMultipleWishlistsEnabledQuery
-    } = operations;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, WISHLIST_PAGE_OPERATIONS, props.operations);
+    const { createWishlistMutation, getCustomerWishlistQuery } = operations;
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [displayError, setDisplayError] = useState(false);
-    const [
-        createWishlist,
-        { error: createWishlistError, loading }
-    ] = useMutation(createWishlistMutation);
 
-    const { data: storeConfigData } = useQuery(
-        getMultipleWishlistsEnabledQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
-        }
-    );
+    const [createWishlist, { error: createWishlistError, loading }] = useMutation(createWishlistMutation);
+
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const shouldRender = useMemo(() => {
         return (
             (storeConfigData &&
                 storeConfigData.storeConfig.enable_multiple_wishlists === '1' &&
-                numberOfWishlists <
-                    storeConfigData.storeConfig.maximum_number_of_wishlists) ||
+                numberOfWishlists < storeConfigData.storeConfig.maximum_number_of_wishlists) ||
             false
         );
     }, [storeConfigData, numberOfWishlists]);
@@ -84,10 +70,7 @@ export const useCreateWishlist = (props = { numberOfWishlists: 1 }) => {
     );
 
     const errors = useMemo(
-        () =>
-            displayError
-                ? new Map([['createWishlistMutation', createWishlistError]])
-                : new Map(),
+        () => (displayError ? new Map([['createWishlistMutation', createWishlistError]]) : new Map()),
         [createWishlistError, displayError]
     );
 

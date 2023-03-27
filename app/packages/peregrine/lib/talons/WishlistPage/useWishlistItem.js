@@ -3,11 +3,13 @@ import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '../../util/shallowMerge';
-import defaultOperations from './wishlistItem.gql';
+
+import DEFAULT_OPERATIONS from '../Wishlist/wishlist.gql';
+import PRODUCT_OPERATIONS from '../ProductFullDetail/productFullDetail.gql';
 import { useEventingContext } from '../../context/eventing';
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
-import { ADD_CONFIGURABLE_MUTATION } from '../ProductFullDetail/productFullDetail.gql.ce';
+
 const mergeSupportedProductTypes = (supportedProductTypes = []) => {
     const newSupportedProductTypes = [...SUPPORTED_PRODUCT_TYPES];
 
@@ -29,16 +31,9 @@ const mergeSupportedProductTypes = (supportedProductTypes = []) => {
  */
 export const useWishlistItem = props => {
     const { item, onOpenAddToCartDialog, wishlistId } = props;
-    const [addConfigurableProductToCart] = useMutation(
-        ADD_CONFIGURABLE_MUTATION
-    );
     const [, { dispatch }] = useEventingContext();
 
-    const {
-        configurable_options: selectedConfigurableOptions = [],
-        id: itemId,
-        product
-    } = item;
+    const { configurable_options: selectedConfigurableOptions = [], id: itemId, product } = item;
 
     const {
         configurable_options: configurableOptions = [],
@@ -50,22 +45,14 @@ export const useWishlistItem = props => {
     const { label: imageLabel, url: imageURL } = image;
 
     const isSupportedProductType = useMemo(
-        () =>
-            mergeSupportedProductTypes(props.supportedProductTypes).includes(
-                productType
-            ),
+        () => mergeSupportedProductTypes(props.supportedProductTypes).includes(productType),
         [props.supportedProductTypes, productType]
     );
 
-    const addProductType = item.product.__typename;
-
-    const supportedProductType = SUPPORTED_PRODUCT_TYPES.includes(
-        addProductType
-    );
-
-    const operations = mergeOperations(defaultOperations, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, PRODUCT_OPERATIONS, props.operations);
     const {
-        addWishlistItemToCartMutation,
+        addProductToCartMutation,
+        addConfigurableProductToCartMutation,
         removeProductsFromWishlistMutation
     } = operations;
 
@@ -73,10 +60,7 @@ export const useWishlistItem = props => {
 
     const [isRemovalInProgress, setIsRemovalInProgress] = useState(false);
 
-    const [
-        removeProductFromWishlistError,
-        setRemoveProductFromWishlistError
-    ] = useState(null);
+    const [removeProductFromWishlistError, setRemoveProductFromWishlistError] = useState(null);
 
     const cartItem = useMemo(() => {
         const item = {
@@ -85,28 +69,17 @@ export const useWishlistItem = props => {
         };
 
         // Merge in additional input variables for configurable items
-        if (
-            selectedConfigurableOptions.length &&
-            selectedConfigurableOptions.length === configurableOptions.length
-        ) {
-            const selectedOptionsArray = selectedConfigurableOptions.map(
-                selectedOption => {
-                    // TODO: Use configurable_product_option_uid for ConfigurableWishlistItem when available in 2.4.5
-                    const {
-                        id: attributeId,
-                        value_id: selectedValueId
-                    } = selectedOption;
-                    const configurableOption = configurableOptions.find(
-                        option => option.attribute_id_v2 === attributeId
-                    );
-                    const configurableOptionValue = configurableOption.values.find(
-                        optionValue =>
-                            optionValue.value_index === selectedValueId
-                    );
+        if (selectedConfigurableOptions.length && selectedConfigurableOptions.length === configurableOptions.length) {
+            const selectedOptionsArray = selectedConfigurableOptions.map(selectedOption => {
+                // TODO: Use configurable_product_option_uid for ConfigurableWishlistItem when available in 2.4.5
+                const { id: attributeId, value_id: selectedValueId } = selectedOption;
+                const configurableOption = configurableOptions.find(option => option.attribute_id_v2 === attributeId);
+                const configurableOptionValue = configurableOption.values.find(
+                    optionValue => optionValue.value_index === selectedValueId
+                );
 
-                    return configurableOptionValue.uid;
-                }
-            );
+                return configurableOptionValue.uid;
+            });
 
             Object.assign(item, {
                 selected_options: selectedOptionsArray
@@ -116,107 +89,83 @@ export const useWishlistItem = props => {
         return item;
     }, [configurableOptions, selectedConfigurableOptions, sku]);
 
-    const [
-        addWishlistItemToCart,
-        {
-            error: addWishlistItemToCartError,
-            loading: addWishlistItemToCartLoading
-        }
-    ] = useMutation(addWishlistItemToCartMutation, {
+    const [addWishlistSimpleProductToCart] = useMutation(addConfigurableProductToCartMutation, {
         variables: {
             cartId,
-            cartItem
+            quantity: 1.0,
+            sku: item.product.sku,
+            parentSku: item.product.orParentSku
         }
     });
 
-    const [removeProductsFromWishlist] = useMutation(
-        removeProductsFromWishlistMutation,
-        {
-            update: cache => {
-                // clean up for cache fav product on category page
-                cache.modify({
-                    id: 'ROOT_QUERY',
-                    fields: {
-                        customerWishlistProducts: cachedProducts =>
-                            cachedProducts.filter(
-                                productSku => productSku !== sku
-                            )
-                    }
-                });
-
-                cache.modify({
-                    id: `CustomerWishlist:${wishlistId}`,
-                    fields: {
-                        items_v2: (cachedItems, { readField, Remove }) => {
-                            for (var i = 0; i < cachedItems.items.length; i++) {
-                                if (readField('id', item) === itemId) {
-                                    return Remove;
-                                }
-                            }
-
-                            return cachedItems;
-                        }
-                    }
-                });
-            },
-            variables: {
-                wishlistId: wishlistId,
-                wishlistItemsId: [itemId]
-            }
+    const [
+        addWishlistItemToCart,
+        { error: addWishlistItemToCartError, loading: addWishlistItemToCartLoading }
+    ] = useMutation(addProductToCartMutation, {
+        variables: {
+            cartId,
+            product: cartItem
         }
-    );
+    });
+
+    const [removeProductsFromWishlist] = useMutation(removeProductsFromWishlistMutation, {
+        update: cache => {
+            // clean up for cache fav product on category page
+            cache.modify({
+                id: 'ROOT_QUERY',
+                fields: {
+                    customerWishlistProducts: cachedProducts => cachedProducts.filter(productSku => productSku !== sku)
+                }
+            });
+
+            cache.modify({
+                id: `CustomerWishlist:${wishlistId}`,
+                fields: {
+                    items_v2: (cachedItems, { readField, Remove }) => {
+                        for (let i = 0; i < cachedItems.items.length; i++) {
+                            if (readField('id', item) === itemId) {
+                                return Remove;
+                            }
+                        }
+
+                        return cachedItems;
+                    }
+                }
+            });
+        },
+        variables: {
+            wishlistId: wishlistId,
+            wishlistItemsId: [itemId]
+        }
+    });
 
     const handleAddToCart = useCallback(async () => {
-        if (
-            configurableOptions.length === 0 ||
-            selectedConfigurableOptions.length === configurableOptions.length
-        ) {
+        if (configurableOptions.length === 0 || selectedConfigurableOptions.length === configurableOptions.length) {
             try {
-                
-                const payload = {
-                    item: item.product,
-                    addProductType,
-                    quantity: 1
-                };
-                if (supportedProductType) {
-                    const variables = {
-                        cartId,
-                        parentSku: payload.item.orParentSku,
-                        product: payload.item,
-                        quantity: payload.quantity,
-                        sku: payload.item.sku
-                    };
-                    if (addProductType === 'SimpleProduct') {
-                        try {
-                            await addConfigurableProductToCart({
-                                variables
-                            });
-                        } catch {
-                            return;
-                        }
-                    } else if (addProductType === 'ConfigurableProduct') {
-                        return;
-                    }
+                if (item.product.__typename === 'SimpleProduct') {
+                    await addWishlistSimpleProductToCart();
                 } else {
-                    console.error(
-                        'Unsupported product type. Cannot add to cart.'
-                    );
+                    await addWishlistItemToCart();
                 }
+
+                const selectedOptionsLabels =
+                    selectedConfigurableOptions?.length > 0
+                        ? selectedConfigurableOptions?.map(({ option_label, value_label }) => ({
+                              attribute: option_label,
+                              value: value_label
+                          }))
+                        : null;
+
                 dispatch({
                     type: 'CART_ADD_ITEM',
                     payload: {
                         cartId,
                         sku: item.product.sku,
                         name: item.product.name,
-                        priceTotal:
-                            item.product.price_range.maximum_price.final_price
-                                .value,
-                        currencyCode:
-                            item.product.price_range.maximum_price.final_price
-                                .currency,
-                        discountAmount:
-                            item.product.price_range.maximum_price.discount
-                                .amount_off,
+                        pricing: item.product.price,
+                        priceTotal: item.product.price_range.maximum_price.final_price.value,
+                        currencyCode: item.product.price_range.maximum_price.final_price.currency,
+                        discountAmount: item.product.price_range.maximum_price.discount.amount_off,
                         selectedOptions: selectedOptionsLabels,
                         quantity: 1
                     }
@@ -229,15 +178,13 @@ export const useWishlistItem = props => {
         }
     }, [
         addWishlistItemToCart,
-        addConfigurableProductToCart,
-        addProductType,
+        addWishlistSimpleProductToCart,
         cartId,
         configurableOptions.length,
         dispatch,
         item,
         onOpenAddToCartDialog,
-        selectedConfigurableOptions.length,
-        supportedProductType
+        selectedConfigurableOptions
     ]);
 
     const handleRemoveProductFromWishlist = useCallback(async () => {
@@ -291,7 +238,7 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemOperations
  *
- * @property {GraphQLDocument} addWishlistItemToCartMutation Mutation to add item to the cart
+ * @property {GraphQLDocument} addProductToCartMutation Mutation to add item to the cart
  * @property {GraphQLDocument} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
  *
  * @see [`wishlistItem.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistItem.gql.js}

@@ -6,6 +6,7 @@ import { useStyle } from '../../classify';
 import defaultClasses from './compareProducts.module.css';
 import LoadingIndicator from '../LoadingIndicator';
 import ProductsTable from './ProductsTable';
+
 const CompareProducts = () => {
     const talonProps = useCompareProduct();
     const { productsItems, deleteProduct, isLoading, productsCount } = talonProps;

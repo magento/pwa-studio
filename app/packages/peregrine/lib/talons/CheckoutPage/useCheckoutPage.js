@@ -5,9 +5,11 @@ import { useEventingContext } from '../../context/eventing';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
-import mergeOperations from '../../util/shallowMerge';
-
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import ACCOUNT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
+import PAYMENT_METHODS_OPERATIONS from './PaymentInformation/paymentMethods.gql';
 
 import CheckoutError from './CheckoutError';
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
@@ -25,7 +27,7 @@ export const CHECKOUT_STEP = {
 /**
  *
  * @param {DocumentNode} props.operations.getCheckoutDetailsQuery query to fetch checkout details
- * @param {DocumentNode} props.operations.getCustomerQuery query to fetch customer details
+ * @param {DocumentNode} props.operations.getCustomerInformationQuery query to fetch customer details
  * @param {DocumentNode} props.operations.getOrderDetailsQuery query to fetch order details
  * @param {DocumentNode} props.operations.createCartMutation mutation to create a new cart
  * @param {DocumentNode} props.operations.placeOrderMutation mutation to place order
@@ -65,16 +67,25 @@ export const CHECKOUT_STEP = {
  */
 export const useCheckoutPage = props => {
     const { submitDeliveryDate, deliveryDateIsActivated, submitOrderAttribute } = props;
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { setNoProduct } = useNoReorderProductContext();
+
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        ACCOUNT_OPERATIONS,
+        CART_OPERATIONS,
+        PAYMENT_METHODS_OPERATIONS,
+        props.operations
+    );
+
     const {
         createCartMutation,
         getCheckoutDetailsQuery,
-        getCustomerQuery,
+        getCustomerInformationQuery,
         getOrderDetailsQuery,
         placeOrderMutation,
         setPaymentMethodOnCartMutation
     } = operations;
+
+    const { setNoProduct } = useNoReorderProductContext();
 
     const { generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
         currentForm: 'PLACE_ORDER',
@@ -113,7 +124,9 @@ export const useCheckoutPage = props => {
         }
     );
 
-    const { data: customerData, loading: customerLoading } = useQuery(getCustomerQuery, { skip: !isSignedIn });
+    const { data: customerData, loading: customerLoading } = useQuery(getCustomerInformationQuery, {
+        skip: !isSignedIn
+    });
 
     const { data: checkoutData, networkStatus: checkoutQueryNetworkStatus } = useQuery(getCheckoutDetailsQuery, {
         /**
@@ -141,6 +154,7 @@ export const useCheckoutPage = props => {
         paymentMethodMutationCalled,
         paymentMethodMutationLoading
     };
+
     const onBillingAddressChangedSuccess = useCallback(() => {
         updatePaymentMethod({
             variables: { cartId, payment_method: currentSelectedPaymentMethod }

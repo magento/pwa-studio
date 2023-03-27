@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_PAYMENT_METHODS = gql`
-    query getPaymentMethods($cartId: String!) {
+    query GetPaymentMethods($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             available_payment_methods {
@@ -15,14 +15,21 @@ export const GET_PAYMENT_METHODS = gql`
     }
 `;
 
+export const GET_SELECTED_PAYMENT_METHOD = gql`
+    query GetSelectedPaymentMethod($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            selected_payment_method {
+                code
+                title
+            }
+        }
+    }
+`;
+
 export const SET_PAYMENT_METHOD_ON_CART = gql`
-    mutation setPaymentMethodOnCart(
-        $cartId: String!
-        $paymentMethod: PaymentMethodInput!
-    ) {
-        setPaymentMethodOnCart(
-            input: { cart_id: $cartId, payment_method: $paymentMethod }
-        ) {
+    mutation SetPaymentMethodOnCart($cartId: String!, $payment_method: PaymentMethodInput!) {
+        setPaymentMethodOnCart(input: { cart_id: $cartId, payment_method: $payment_method }) {
             cart {
                 id
                 selected_payment_method {
@@ -36,5 +43,6 @@ export const SET_PAYMENT_METHOD_ON_CART = gql`
 
 export default {
     getPaymentMethodsQuery: GET_PAYMENT_METHODS,
+    getSelectedPaymentMethodQuery: GET_SELECTED_PAYMENT_METHOD,
     setPaymentMethodOnCartMutation: SET_PAYMENT_METHOD_ON_CART
 };

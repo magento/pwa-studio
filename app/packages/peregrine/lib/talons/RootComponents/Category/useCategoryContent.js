@@ -24,25 +24,25 @@ export const useCategoryContent = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const {
-        getCategoryContentQuery,
-        getProductFiltersByCategoryQuery,
-        getCategoryAvailableSortMethodsQuery
+        getCategoryDataQuery,
+        getProductAggregationsFilteredByCategoryQuery,
+        getAvailableSortMethodsByCategoryQuery
     } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
     const [items, setItems] = useState([]);
 
-    const [getFilters, { data: filterData }] = useLazyQuery(getProductFiltersByCategoryQuery, {
+    const [getFilters, { data: filterData }] = useLazyQuery(getProductAggregationsFilteredByCategoryQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const [getSortMethods, { data: sortData }] = useLazyQuery(getCategoryAvailableSortMethodsQuery, {
+    const [getSortMethods, { data: sortData }] = useLazyQuery(getAvailableSortMethodsByCategoryQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const { data: categoryData, loading: categoryLoading } = useQuery(getCategoryContentQuery, {
+    const { data: categoryData, loading: categoryLoading } = useQuery(getCategoryDataQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !categoryId,
@@ -85,7 +85,6 @@ export const useCategoryContent = props => {
     }, [data, placeholderItems]);
 
     const filters = filterData ? filterData.products.aggregations : null;
-
     const totalPagesFromData = data ? data.products.page_info.total_pages : null;
     const totalCount = data ? data.products.total_count : null;
     const categoryName =

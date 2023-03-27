@@ -3,11 +3,16 @@ import { useIntl } from 'react-intl';
 import { useApolloClient } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { GET_PRODUCTS_IN_WISHLISTS } from './addToListButton.gql';
 import { useSingleWishlist } from './helpers/useSingleWishlist';
+
+import DEFAULT_OPERATIONS from '../wishlist.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useAddToListButton = props => {
     const { afterAdd, beforeAdd, item, storeConfig } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getProductsInWishlistsQuery } = operations;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [successToastName, setSuccessToastName] = useState();
@@ -35,12 +40,7 @@ export const useAddToListButton = props => {
         }
 
         return singleButtonProps;
-    }, [
-        singleWishlistProps.buttonProps,
-        storeConfig.enable_multiple_wishlists,
-        isSignedIn,
-        beforeAdd
-    ]);
+    }, [singleWishlistProps.buttonProps, storeConfig.enable_multiple_wishlists, isSignedIn, beforeAdd]);
 
     const handleModalClose = useCallback(
         (success, additionalData) => {
@@ -49,12 +49,9 @@ export const useAddToListButton = props => {
             // only set item added true if someone calls handleModalClose(true)
             if (success === true) {
                 apolloClient.writeQuery({
-                    query: GET_PRODUCTS_IN_WISHLISTS,
+                    query: getProductsInWishlistsQuery,
                     data: {
-                        customerWishlistProducts: [
-                            ...singleWishlistProps.customerWishlistProducts,
-                            item.sku
-                        ]
+                        customerWishlistProducts: [...singleWishlistProps.customerWishlistProducts, item.sku]
                     }
                 });
 
@@ -65,12 +62,7 @@ export const useAddToListButton = props => {
                 }
             }
         },
-        [
-            afterAdd,
-            apolloClient,
-            item.sku,
-            singleWishlistProps.customerWishlistProducts
-        ]
+        [afterAdd, apolloClient, item.sku, singleWishlistProps.customerWishlistProducts]
     );
 
     const modalProps = useMemo(() => {
@@ -83,13 +75,7 @@ export const useAddToListButton = props => {
         }
 
         return null;
-    }, [
-        handleModalClose,
-        isModalOpen,
-        isSignedIn,
-        item,
-        storeConfig.enable_multiple_wishlists
-    ]);
+    }, [handleModalClose, isModalOpen, isSignedIn, item, storeConfig.enable_multiple_wishlists]);
 
     const successToastProps = useMemo(() => {
         if (successToastName) {
@@ -98,8 +84,7 @@ export const useAddToListButton = props => {
                 message: formatMessage(
                     {
                         id: 'wishlist.galleryButton.successMessageNamed',
-                        defaultMessage:
-                            'Item successfully added to the "{wishlistName}" list.'
+                        defaultMessage: 'Item successfully added to the "{wishlistName}" list.'
                     },
                     {
                         wishlistName: successToastName
@@ -110,11 +95,7 @@ export const useAddToListButton = props => {
         }
 
         return singleWishlistProps.successToastProps;
-    }, [
-        singleWishlistProps.successToastProps,
-        formatMessage,
-        successToastName
-    ]);
+    }, [singleWishlistProps.successToastProps, formatMessage, successToastName]);
 
     return {
         ...singleWishlistProps,

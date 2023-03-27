@@ -4,6 +4,9 @@ import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../../context/cart';
 
+import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CheckoutPage/ShippingMethod/shippingMethod.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 /**
  * Contains logic for a component that renders a radio selector for shipping.
  * It performs effects and returns props data used for rendering that component.
@@ -27,26 +30,22 @@ import { useCartContext } from '../../../../context/cart';
  * import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
  */
 export const useShippingRadios = props => {
-    const {
-        setIsCartUpdating,
-        selectedShippingMethod,
-        shippingMethods,
-        mutations: { setShippingMethodMutation }
-    } = props;
+    const { setIsCartUpdating, selectedShippingMethod, shippingMethods } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { setShippingMethodMutation } = operations;
+
     const shippingMethodFieldApi = useFieldApi('method');
 
-    const [
-        setShippingMethod,
-        { called: setShippingMethodCalled, loading: setShippingMethodLoading }
-    ] = useMutation(setShippingMethodMutation);
+    const [setShippingMethod, { called: setShippingMethodCalled, loading: setShippingMethodLoading }] = useMutation(
+        setShippingMethodMutation
+    );
 
     const [{ cartId }] = useCartContext();
 
     const formattedShippingMethods = shippingMethods.map(shippingMethod => ({
         ...shippingMethod,
-        serializedValue: `${shippingMethod.carrier_code}|${
-            shippingMethod.method_code
-        }`
+        serializedValue: `${shippingMethod.carrier_code}|${shippingMethod.method_code}`
     }));
 
     useEffect(() => {
@@ -54,16 +53,10 @@ export const useShippingRadios = props => {
         if (!currentMethod) {
             const defaultFirstMethod = formattedShippingMethods[0];
             if (defaultFirstMethod) {
-                shippingMethodFieldApi.setValue(
-                    defaultFirstMethod.serializedValue
-                );
+                shippingMethodFieldApi.setValue(defaultFirstMethod.serializedValue);
             }
         }
-    }, [
-        formattedShippingMethods,
-        selectedShippingMethod,
-        shippingMethodFieldApi
-    ]);
+    }, [formattedShippingMethods, selectedShippingMethod, shippingMethodFieldApi]);
 
     const handleShippingSelection = useCallback(
         value => {

@@ -2,22 +2,17 @@ import { gql } from '@apollo/client';
 
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { ShippingInformationFragment } from '../ShippingInformation/shippingInformationFragments.gql';
-
 import {
     AvailableShippingMethodsCheckoutFragment,
     SelectedShippingMethodCheckoutFragment
 } from './shippingMethodFragments.gql';
 
 export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
-    query getSelectedAndAvailableShippingMethods($cartId: String!) {
+    query GetSelectedAndAvailableShippingMethods($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             ...AvailableShippingMethodsCheckoutFragment
             ...SelectedShippingMethodCheckoutFragment
-            # We include the following fragments to avoid extra requeries
-            # after this mutation completes. This all comes down to not
-            # having ids for shipping address objects. With ids we could
-            # merge results.
             ...ShippingInformationFragment
         }
     }
@@ -27,13 +22,8 @@ export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
 `;
 
 export const SET_SHIPPING_METHOD = gql`
-    mutation SetShippingMethod(
-        $cartId: String!
-        $shippingMethod: ShippingMethodInput!
-    ) {
-        setShippingMethodsOnCart(
-            input: { cart_id: $cartId, shipping_methods: [$shippingMethod] }
-        ) {
+    mutation SetShippingMethod($cartId: String!, $shippingMethod: ShippingMethodInput!) {
+        setShippingMethodsOnCart(input: { cart_id: $cartId, shipping_methods: [$shippingMethod] }) {
             cart {
                 id
                 # If this mutation causes "free" to become available we need to know.
@@ -41,24 +31,20 @@ export const SET_SHIPPING_METHOD = gql`
                     code
                     title
                 }
-                ...SelectedShippingMethodCheckoutFragment
-                ...PriceSummaryFragment
-                # We include the following fragments to avoid extra requeries
-                # after this mutation completes. This all comes down to not
-                # having ids for shipping address objects. With ids we could
-                # merge results.
-                ...ShippingInformationFragment
                 ...AvailableShippingMethodsCheckoutFragment
+                ...PriceSummaryFragment
+                ...SelectedShippingMethodCheckoutFragment
+                ...ShippingInformationFragment
             }
         }
     }
     ${AvailableShippingMethodsCheckoutFragment}
-    ${SelectedShippingMethodCheckoutFragment}
     ${PriceSummaryFragment}
+    ${SelectedShippingMethodCheckoutFragment}
     ${ShippingInformationFragment}
 `;
 
 export default {
-    setShippingMethodMutation: SET_SHIPPING_METHOD,
-    getSelectedAndAvailableShippingMethodsQuery: GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS
+    getSelectedAndAvailableShippingMethodsQuery: GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS,
+    setShippingMethodMutation: SET_SHIPPING_METHOD
 };

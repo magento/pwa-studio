@@ -1,17 +1,22 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import {
-    MP_QUOTE,
-    DELETE_CURRENT_QUOTE,
-    SUBMIT_CURRENT_QUOTE,
-    GET_CONFIG_DETAILS
-} from '../RequestQuote/requestQuote.gql';
-import { AFTER_UPDATE_MY_REQUEST_QUOTE } from './useQuoteCartTrigger';
-import { deleteQuoteId } from '../RequestQuote/Store';
+import { AFTER_UPDATE_MY_QUOTE } from './useQuoteCartTrigger';
+import { deleteQuoteId } from './Store';
+
+import DEFAULT_OPERATIONS from '../RequestQuote/requestQuote.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useQuoteCartPage = props => {
     const { getQuoteId } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS);
+    const {
+        getQuoteByIdQuery,
+        deleteCurrentQuoteMutation,
+        submitCurrentQuoteMutation,
+        getQuoteConfigDetailsQuery
+    } = operations;
 
     const [myQuote, setMyQuote] = useState({});
     const [submittedQuoteId, setSubmittedQuoteId] = useState(0);
@@ -21,7 +26,7 @@ export const useQuoteCartPage = props => {
     const history = useHistory();
 
     // Get config details
-    const { loading: configLoading, data: configData } = useQuery(GET_CONFIG_DETAILS, {
+    const { loading: configLoading, data: configData } = useQuery(getQuoteConfigDetailsQuery, {
         fetchPolicy: 'network-only'
     });
     useMemo(() => {
@@ -31,13 +36,13 @@ export const useQuoteCartPage = props => {
     }, [configData, configLoading, history]);
 
     // Delete Current Quote Mutation
-    const [deleteCurrentQuote] = useMutation(DELETE_CURRENT_QUOTE);
+    const [deleteCurrentQuote] = useMutation(deleteCurrentQuoteMutation);
 
     // Submit Current Quote Mutation
-    const [submitCurrentQuote] = useMutation(SUBMIT_CURRENT_QUOTE);
+    const [submitCurrentQuote] = useMutation(submitCurrentQuoteMutation);
 
     // Get Mp Quote
-    const { data, loading } = useQuery(MP_QUOTE, {
+    const { data, loading } = useQuery(getQuoteByIdQuery, {
         fetchPolicy: 'network-only',
         variables: {
             quote_id: getQuoteId()
@@ -54,7 +59,7 @@ export const useQuoteCartPage = props => {
 
     useState(() => {
         window.addEventListener(
-            AFTER_UPDATE_MY_REQUEST_QUOTE,
+            AFTER_UPDATE_MY_QUOTE,
             async function(event) {
                 await setMyQuote(event.detail);
             },
@@ -65,7 +70,7 @@ export const useQuoteCartPage = props => {
     const handleDeleteQuote = useCallback(async () => {
         await deleteCurrentQuote();
         await deleteQuoteId();
-        await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_REQUEST_QUOTE, { detail: {} }));
+        await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_QUOTE, { detail: {} }));
     }, [deleteCurrentQuote]);
 
     const handleSubmitQuoteBtn = useCallback(async () => {
@@ -73,7 +78,7 @@ export const useQuoteCartPage = props => {
             data: { mpQuoteSubmit }
         } = await submitCurrentQuote();
         await deleteQuoteId();
-        await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_REQUEST_QUOTE, { detail: {} }));
+        await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_QUOTE, { detail: {} }));
         await history.push('/mprequestforquote/quoteCart/success/' + mpQuoteSubmit);
     }, [submitCurrentQuote, history]);
 

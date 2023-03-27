@@ -18,6 +18,12 @@ veniaResponse:
           pattern: '^/(csr)(/|$)'
           use: csrProxy
         - matches: request.url.pathname
+          pattern: '^/(api)(/|$)'
+          use: kongProxy
+        - matches: request.url.pathname
+          pattern: '^/(css|env|logo)(/|$)'
+          use: kongProxy
+        - matches: request.url.pathname
           pattern: '^/(graphql|rest|media)(/|$)'
           use: veniaProxy
         - matches: request.url.pathname
@@ -42,15 +48,15 @@ staticFromRoot:
                         - matches: env.NODE_ENV
                           pattern: 'production'
                           use:
-                            inline: public, max-age=604800
+                              inline: public, max-age=604800
                     default:
                         inline: no-cache, no-store, must-revalidate
         body:
             resolver: file
             parse:
-              inline: text
+                inline: text
             encoding:
-              inline: binary
+                inline: binary
             file:
                 resolver: template
                 engine: mustache
@@ -98,70 +104,74 @@ veniaProxy:
     # which is not a major concern for this one origin, especially if
     # containerized. Clients which require trust may proxy through UPWARD.
     ignoreSSLErrors:
-      when:
-          - matches: env.NODE_ENV
-            pattern: 'production'
-            use:
-              inline: false
-      default:
-        inline: true
+        when:
+            - matches: env.NODE_ENV
+              pattern: 'production'
+              use:
+                  inline: false
+        default:
+            inline: true
 
 lmsProxy:
-  resolver: proxy
-  target: env.LMS_URL
-  # A local Magento install may have SSH configured and untrusted,
-  # which is not a major concern for this one origin, especially if
-  # containerized. Clients which require trust may proxy through UPWARD.
-  # ignoreSSLErrors:
-  #     default:
-  #         inline: true
+    resolver: proxy
+    target: env.LMS_URL
+    # A local Magento install may have SSH configured and untrusted,
+    # which is not a major concern for this one origin, especially if
+    # containerized. Clients which require trust may proxy through UPWARD.
+    # ignoreSSLErrors:
+    #     default:
+    #         inline: true
 
 csrProxy:
-  resolver: proxy
-  target: env.CSR_URL
-  # A local Magento install may have SSH configured and untrusted,
-  # which is not a major concern for this one origin, especially if
-  # containerized. Clients which require trust may proxy through UPWARD.
-  # ignoreSSLErrors:
-  #     default:
-  #         inline: true
+    resolver: proxy
+    target: env.CSR_URL
+    # A local Magento install may have SSH configured and untrusted,
+    # which is not a major concern for this one origin, especially if
+    # containerized. Clients which require trust may proxy through UPWARD.
+    # ignoreSSLErrors:
+    #     default:
+    #         inline: true
+
+kongProxy:
+    resolver: proxy
+    target: env.KONG_URL
 
 # Page type data for initial render
 veniaPageType:
-  resolver: inline
-  inline:
-    data:
-      resolver: computed
-      type:
-        resolver: inline
-        inline: pageType
-      additional:
-        - type: product
-          fetch: '__typename,id'
-        - type: cms_page
-          fetch: 'identifier'
-        - type: category
-          fetch: 'uid'
+    resolver: inline
+    inline:
+        data:
+            resolver: computed
+            type:
+                resolver: inline
+                inline: pageType
+            additional:
+                - type: product
+                  fetch: '__typename,id'
+                - type: cms_page
+                  fetch: 'identifier'
+                - type: category
+                  fetch: 'uid'
 
 # Nonce for page type inline script
 veniaPageTypeNonce:
-  resolver: inline
-  inline:
-    nonce:
-      resolver: computed
-      type:
-        resolver: inline
-        inline: pageTypeNonce
+    resolver: inline
+    inline:
+        nonce:
+            resolver: computed
+            type:
+                resolver: inline
+                inline: pageTypeNonce
 
 # Webpack chunks to preload on page based on page type
 veniaWebpackChunks:
-  resolver: inline
-  inline:
-    scripts:
-      resolver: computed
-      type:
-        resolver: inline
-        inline: webpackChunks
+    resolver: inline
+    inline:
+        scripts:
+            resolver: computed
+            type:
+                resolver: inline
+                inline: webpackChunks
 
 # The veniaAppShell object resolves to a response that returns server-side
 # rendered HTML containing the PWA application shell.
@@ -183,18 +193,17 @@ veniaAppShell:
                 cache-control:
                     inline: s-maxage=60
         body:
-          resolver: template
-          engine: mustache
-          provide:
-            pageType: veniaPageType.data
-            pageTypeNonce: veniaPageTypeNonce.nonce
-            webpackChunks: veniaWebpackChunks.scripts
-          template:
-            resolver: file
-            file:
-              resolver: inline
-              inline: './index.html'
-
+            resolver: template
+            engine: mustache
+            provide:
+                pageType: veniaPageType.data
+                pageTypeNonce: veniaPageTypeNonce.nonce
+                webpackChunks: veniaWebpackChunks.scripts
+            template:
+                resolver: file
+                file:
+                    resolver: inline
+                    inline: './index.html'
 
 # The veniaStatic object is a DirectoryResolver that allows access to the files
 # inside the project's compiled './dist' directory.

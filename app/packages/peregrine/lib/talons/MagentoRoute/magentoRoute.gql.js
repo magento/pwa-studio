@@ -9,12 +9,10 @@ export const RESOLVE_URL = gql`
             ... on CmsPage {
                 identifier
             }
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ProductInterface {
                 uid
                 __typename
             }
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on CategoryInterface {
                 uid
             }

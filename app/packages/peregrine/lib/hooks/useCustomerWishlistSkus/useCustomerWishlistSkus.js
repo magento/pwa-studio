@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { useUserContext } from '../../context/user';
-import mergeOperations from '../../util/shallowMerge';
 
-import defaultOperations from './customerWishlist.gql.ee';
+import mergeOperations from '../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './customerWishlist.gql';
+import WISHLIST_OPERATIONS from '../../talons/Wishlist/wishlist.gql';
 
 /**
  * A hook that queries for products in a customer's wishlists and maintains a
@@ -13,7 +14,9 @@ import defaultOperations from './customerWishlist.gql.ee';
  * @returns {undefined}
  */
 export const useCustomerWishlistSkus = (props = {}) => {
-    const operations = mergeOperations(defaultOperations, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, WISHLIST_OPERATIONS, props.operations);
+    const { getProductsInWishlistsQuery, getWishlistProductsForLocalFieldQuery } = operations;
+
     const [{ isSignedIn }] = useUserContext();
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -21,9 +24,9 @@ export const useCustomerWishlistSkus = (props = {}) => {
     const {
         client,
         data: { customerWishlistProducts }
-    } = useQuery(operations.getProductsInWishlistsQuery);
+    } = useQuery(getProductsInWishlistsQuery);
 
-    useQuery(operations.getWishlistItemsQuery, {
+    useQuery(getWishlistProductsForLocalFieldQuery, {
         fetchPolicy: 'cache-and-network',
         onCompleted: data => {
             const itemsToAdd = new Set();
@@ -47,12 +50,9 @@ export const useCustomerWishlistSkus = (props = {}) => {
 
             if (itemsToAdd.size) {
                 client.writeQuery({
-                    query: operations.getProductsInWishlistsQuery,
+                    query: getProductsInWishlistsQuery,
                     data: {
-                        customerWishlistProducts: [
-                            ...customerWishlistProducts,
-                            ...itemsToAdd
-                        ]
+                        customerWishlistProducts: [...customerWishlistProducts, ...itemsToAdd]
                     }
                 });
             }

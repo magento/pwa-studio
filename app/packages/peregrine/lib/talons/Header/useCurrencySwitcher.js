@@ -14,7 +14,7 @@ const storage = new BrowserPersistence();
 /**
  * The useCurrencySwitcher talon complements the CurrencySwitcher component.
  *
- * @param {*} props.operations the currency switcher data getCurrencyQuery
+ * @param {*} props.operations the currency switcher data getCurrencyDataQuery
  * @param {*} props.typePolicies customization of the apollo cache's behavior for 'current_currency_code' field
  *
  * @returns {Array}     talonProps.availableCurrencies - List of available currency codes.
@@ -30,11 +30,11 @@ export const useCurrencySwitcher = (props = {}) => {
     const { typePolicies = CUSTOM_TYPES } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCurrencyQuery } = operations;
+    const { getCurrencyDataQuery } = operations;
 
     useTypePolicies(typePolicies);
 
-    const { data: currencyData } = useQuery(getCurrencyQuery, {
+    const { data: currencyData } = useQuery(getCurrencyDataQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });

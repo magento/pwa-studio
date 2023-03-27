@@ -2,35 +2,38 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
-import defaultOperations from '@magento/peregrine/lib/talons/Gallery/gallery.gql';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import DEFAULT_OPERATIONS from './simpleProduct.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import { GET_SIMPLE_PRODUCT } from '../SimpleProduct/getSimpleProduct.gql';
 import { useLocation } from 'react-router-dom';
 
 import { useUserContext } from '../../../context/user';
+import { useModulesContext } from '../../../context/modulesProvider';
+import { useStoreConfigContext } from '../../../context/storeConfigProvider';
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct'];
+
 export const useSimpleProduct = (props = {}) => {
+    const { addConfigurableProductToCartMutation, productQuantity } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getSimpleProductQuery } = operations;
+
     const { formatMessage } = useIntl();
     const { search } = useLocation();
     const sku = new URLSearchParams(search).get('sku');
-
     const [{ isSignedIn }] = useUserContext();
 
-    const operations = mergeOperations(defaultOperations, props.operations);
-    const { addConfigurableProductToCartMutation, productQuantity } = props;
+    const { tenantConfig } = useModulesContext();
 
-    const { data, loading, error, refetch } = useQuery(GET_SIMPLE_PRODUCT, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
+    const isB2B = tenantConfig.b2bProductDetailView;
+
+    const { data, loading, error } = useQuery(getSimpleProductQuery, {
         variables: { sku: sku }
     });
 
-    const { data: storeConfigData } = useQuery(operations.getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const { data: storeConfigData } = useStoreConfigContext();
 
     const wishlistItemOptions = useMemo(() => {
         const options = {
@@ -117,6 +120,7 @@ export const useSimpleProduct = (props = {}) => {
         cartId,
         loading,
         fetchedData: !data ? null : data,
-        error
+        error,
+        isB2B
     };
 };

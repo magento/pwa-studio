@@ -1,14 +1,19 @@
 import { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/client';
 
-export const useEditItem = props => {
-    const { item, query } = props;
+import DEFAULT_OPERATIONS from '../ProductFullDetail/productFullDetail.gql.js';
+import mergeOperations from '../../util/shallowMerge';
 
-    const [runQuery, queryResult] = useLazyQuery(query);
+export const useEditItem = props => {
+    const { item } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getProductDetailForConfigurableOptionsBySkuQuery } = operations;
+
+    const [runQuery, queryResult] = useLazyQuery(getProductDetailForConfigurableOptionsBySkuQuery);
     const { data, error, loading } = queryResult;
 
-    const itemHasOptions =
-        item.configurable_options && item.configurable_options.length > 0;
+    const itemHasOptions = item.configurable_options && item.configurable_options.length > 0;
 
     // Run the query once on mount and again whenever the
     // item being edited changes.

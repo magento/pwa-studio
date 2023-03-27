@@ -16,7 +16,8 @@ import { bool, func, shape, string } from 'prop-types';
 import defaultClasses from './braintreeDropin.module.css';
 import { useStyle } from '../../classify';
 
-const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
+import { useModulesContext } from '@magento/peregrine/lib/context/modulesProvider';
+
 const CONTAINER_ID = 'braintree-dropin-container';
 const errorText =
     'There was an error loading payment options. Please try again later.';
@@ -32,6 +33,9 @@ const BraintreeDropin = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const [isError, setIsError] = useState(false);
     const [dropinInstance, setDropinInstance] = useState();
+    const { tenantConfig } = useModulesContext();
+
+    const authorization = tenantConfig.braintreeToken;
 
     useEffect(() => {
         let didClose = false;

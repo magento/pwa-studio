@@ -3,10 +3,8 @@ import { gql } from '@apollo/client';
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentInformation.gql';
 
-import { CustomerAddressBookAddressFragment } from '../../AddressBookPage/addressBookFragments.gql';
-
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
-    query getIsBillingAddressSame($cartId: String!) {
+    query GetIsBillingAddressSame($cartId: String!) {
         cart(cart_id: $cartId) @client {
             id
             isBillingAddressSame
@@ -15,7 +13,7 @@ export const GET_IS_BILLING_ADDRESS_SAME = gql`
 `;
 
 export const GET_BILLING_ADDRESS = gql`
-    query getBillingAddress($cartId: String!) {
+    query GetBillingAddress($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             billingAddress: billing_address {
@@ -38,39 +36,16 @@ export const GET_BILLING_ADDRESS = gql`
     }
 `;
 
-export const GET_SHIPPING_ADDRESS = gql`
-    query getSelectedShippingAddress($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            shippingAddresses: shipping_addresses {
-                firstName: firstname
-                lastName: lastname
-                country {
-                    code
-                }
-                street
-                city
-                region {
-                    code
-                }
-                postcode
-                phoneNumber: telephone
-            }
-        }
-    }
-`;
-
 export const SET_BILLING_ADDRESS = gql`
-    mutation setBillingAddress(
+    mutation SetBillingAddress(
         $cartId: String!
         $firstName: String!
         $lastName: String!
-        $street1: String!
-        $street2: String
+        $street: [String]!
         $city: String!
-        $region: String!
-        $postcode: String!
-        $country: String!
+        $regionCode: String!
+        $postCode: String!
+        $countryCode: String!
         $phoneNumber: String!
     ) {
         setBillingAddressOnCart(
@@ -80,11 +55,11 @@ export const SET_BILLING_ADDRESS = gql`
                     address: {
                         firstname: $firstName
                         lastname: $lastName
-                        street: [$street1, $street2]
+                        street: $street
                         city: $city
-                        region: $region
-                        postcode: $postcode
-                        country_code: $country
+                        region: $regionCode
+                        postcode: $postCode
+                        country_code: $countryCode
                         telephone: $phoneNumber
                         save_in_address_book: false
                     }
@@ -117,15 +92,9 @@ export const SET_BILLING_ADDRESS = gql`
 `;
 
 export const SET_DEFAULT_BILLING_ADDRESS = gql`
-    mutation setDefaultBillingAddress(
-        $cartId: String!
-        $customerAddressId: Int
-    ) {
+    mutation SetDefaultBillingAddress($cartId: String!, $customerAddressId: Int) {
         setBillingAddressOnCart(
-            input: {
-                cart_id: $cartId
-                billing_address: { customer_address_id: $customerAddressId }
-            }
+            input: { cart_id: $cartId, billing_address: { customer_address_id: $customerAddressId } }
         ) @connection(key: "setBillingAddressOnCart") {
             cart {
                 id
@@ -152,28 +121,9 @@ export const SET_DEFAULT_BILLING_ADDRESS = gql`
     ${AvailablePaymentMethodsFragment}
 `;
 
-export const GET_CUSTOMER_ADDRESSES = gql`
-    query GetCustomerAddressesForAddressBook {
-        customer {
-            id
-            addresses {
-                id
-                ...CustomerAddressBookAddressFragment
-            }
-        }
-        countries {
-            id
-            full_name_locale
-        }
-    }
-    ${CustomerAddressBookAddressFragment}
-`;
-
 export default {
     getBillingAddressQuery: GET_BILLING_ADDRESS,
     getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
-    getShippingAddressQuery: GET_SHIPPING_ADDRESS,
     setBillingAddressMutation: SET_BILLING_ADDRESS,
-    getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES,
     setDefaultBillingAddressMutation: SET_DEFAULT_BILLING_ADDRESS
 };

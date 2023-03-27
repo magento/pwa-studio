@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const SET_ORDER_ATTRIBUTES = gql`
-    mutation customAttributeQuoteSave($masked_id: String!, $comment: String, $external_order_number: String) {
+    mutation SetOrderAttributes($masked_id: String!, $comment: String, $external_order_number: String) {
         customAttributeQuoteSave(
             masked_id: $masked_id
             comment: $comment
@@ -14,4 +14,6 @@ const SET_ORDER_ATTRIBUTES = gql`
     }
 `;
 
-export default { setOrderAttributes: SET_ORDER_ATTRIBUTES };
+export default {
+    setOrderAttributesQuery: SET_ORDER_ATTRIBUTES
+};

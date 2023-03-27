@@ -12,12 +12,12 @@ import SearchBar from './SearchBar';
 
 import { useStyle } from '../../classify';
 import { useToasts } from '@magento/peregrine/lib/Toasts/useToasts';
-import { useAddProductsByCSV } from '@magento/peregrine/lib/talons/QuickOrderForm/useAddProductsByCSV';
+import { useQuickOrderForm } from '@magento/peregrine/lib/talons/QuickOrderForm/useQuickOrderForm';
 import { useAddToQuote } from '@magento/peregrine/lib/talons/QuickOrderForm/useAddToQuote';
 
 import defaultClasses from './quickOrderForm.module.css';
 
-import fastCart from './Icons/fastCart.svg';
+import fastCart from '@magento/venia-ui/lib/assets/fastCart.svg';
 
 const initialArray = [{ name: '', quantity: 1 }];
 
@@ -46,7 +46,7 @@ const QuickOrderForm = props => {
 
     // Talons
     const { handleAddCofigItemBySku, isLoading: isLoadingAddQuote } = useAddToQuote();
-    const { handleAddProductsToCart, handleCSVFile } = useAddProductsByCSV({
+    const { handleAddProductsToCart, handleCSVFile } = useQuickOrderForm({
         quickOrder: true,
         setCsvErrorType: () => displayMessage('warning', warningMsg),
         setCsvSkuErrorList: () => displayMessage('warning', warningMsg),

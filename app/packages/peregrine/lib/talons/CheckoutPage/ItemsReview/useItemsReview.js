@@ -1,7 +1,9 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
+import { useStoreConfigContext } from '../../../context/storeConfigProvider';
+
 import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './itemsReview.gql';
 
@@ -9,37 +11,26 @@ export const useItemsReview = props => {
     const [showAllItems, setShowAllItems] = useState(false);
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
-    const { getItemsInCart, getConfigurableThumbnailSource } = operations;
+    const { getItemsInCartQuery } = operations;
 
     const [{ cartId }] = useCartContext();
 
-    const { data: configurableThumbnailSourceData } = useQuery(
-        getConfigurableThumbnailSource,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const configurableThumbnailSource = useMemo(() => {
-        if (configurableThumbnailSourceData) {
-            return configurableThumbnailSourceData.storeConfig
-                .configurable_thumbnail_source;
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.configurable_thumbnail_source;
         }
-    }, [configurableThumbnailSourceData]);
+    }, [storeConfigData]);
 
-    const [
-        fetchItemsInCart,
-        { data: queryData, error, loading }
-    ] = useLazyQuery(getItemsInCart, {
+    const [fetchItemsInCart, { data: queryData, error, loading }] = useLazyQuery(getItemsInCartQuery, {
         fetchPolicy: 'cache-and-network'
     });
 
     // If static data was provided, use that instead of query data.
     const data = props.data || queryData;
 
-    const setShowAllItemsFlag = useCallback(() => setShowAllItems(true), [
-        setShowAllItems
-    ]);
+    const setShowAllItemsFlag = useCallback(() => setShowAllItems(true), [setShowAllItems]);
 
     useEffect(() => {
         if (cartId && !props.data) {
