@@ -18,10 +18,10 @@ const handleHtmlContentClick = (history, event) => {
         event.preventDefault();
 
         const eventOrigin = event.view.location.origin;
-
         const {
             origin: linkOrigin,
             pathname: path,
+            search: query,
             target: tabTarget,
             href
         } = target;
@@ -29,7 +29,11 @@ const handleHtmlContentClick = (history, event) => {
         if (tabTarget && globalThis.open) {
             globalThis.open(href, '_blank');
         } else if (linkOrigin === eventOrigin) {
-            history.push(path);
+            if (query) {
+                history.push(path + query);
+            } else {
+                history.push(path);
+            }
         } else {
             globalThis.location.assign(href);
         }

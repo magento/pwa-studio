@@ -28,21 +28,24 @@
   dependencies:
     apollo-link "~1.2.13"
 
-"@adobe/magento-storefront-event-collector@~1.1.13":
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/@adobe/magento-storefront-event-collector/-/magento-storefront-event-collector-1.1.13.tgz#8382c4d9bb3675315fdd4dd7a9a04a658804c399"
-  integrity sha512-vYVRNoWGMTwOsQI2ZDPemf/9vDitJq3jzGE1GwnQ8gyLvk/tWfcK1OOPqnaWCTBtsmFQNX/dga35UxztJCo++w==
+"@adobe/magento-storefront-event-collector@~1.1.19":
+  version "1.1.19"
+  resolved "https://registry.yarnpkg.com/@adobe/magento-storefront-event-collector/-/magento-storefront-event-collector-1.1.19.tgz#268666e8d28ced5c5e67ce50e4750a6c37b771c0"
+  integrity sha512-o6exbKwtQt7A29M8pLqYLcVJhZvULfrKV3XRuV9IB2/2lAzsARHZF5bHtVbIu63ump6x9/wr712IxaxdXenctQ==
   dependencies:
     "@adobe/adobe-client-data-layer" "^2.0.2"
     "@adobe/alloy" "^2.9.0"
+    "@adobe/magento-storefront-events-sdk" "*"
     "@snowplow/browser-plugin-link-click-tracking" "^3.0.2"
     "@snowplow/browser-plugin-performance-timing" "^3.0.1"
     "@snowplow/browser-tracker" "^3.0.1"
 
-"@adobe/magento-storefront-events-sdk@~1.1.13":
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/@adobe/magento-storefront-events-sdk/-/magento-storefront-events-sdk-1.1.13.tgz#31c8777216f5563f3213ce9886ca7614639f9768"
-  integrity sha512-Y5SpXBz5RtV8Gi6IzZYWze1zSRJ4KRaIf8/aGpdPhakzmQQKZMtu69CIw94ZlXvljrRWLCRf+bkIoyM8KCMRmw==
+"@adobe/magento-storefront-events-sdk@*", "@adobe/magento-storefront-events-sdk@~1.1.19":
+  version "1.1.19"
+  resolved "https://registry.yarnpkg.com/@adobe/magento-storefront-events-sdk/-/magento-storefront-events-sdk-1.1.19.tgz#7632b873c4e913505d6176384618017315999a77"
+  integrity sha512-N/FEN5kEUvLvrjVf+xjZkkOKIP+dD9D++CBwBVbpwpRwsMzVhDAJA0txfquesa/bVQIPf8MlJ43jdEoyH9/RJg==
+  dependencies:
+    "@adobe/adobe-client-data-layer" "^2.0.2"
 
 "@adobe/reactor-cookie@^1.0.0":
   version "1.1.0"
