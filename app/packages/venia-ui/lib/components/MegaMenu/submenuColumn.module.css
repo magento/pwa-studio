@@ -8,7 +8,6 @@
 }
 
 .link {
-    composes: whitespace-nowrap from global;
 
     composes: focus_underline from global;
 
