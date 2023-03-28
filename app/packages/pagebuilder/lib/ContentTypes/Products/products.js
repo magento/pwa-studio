@@ -109,7 +109,7 @@ const Products = props => {
         return productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
     });
 
-    const { loading, error, data } = useQuery(getProductsQuery, {
+    const { loading, error, data, refetch } = useQuery(getProductsQuery, {
         variables: { url_keys: urlKeys, pageSize: urlKeys.length }
     });
 
