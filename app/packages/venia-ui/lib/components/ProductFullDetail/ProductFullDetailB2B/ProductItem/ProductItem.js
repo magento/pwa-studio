@@ -59,7 +59,7 @@ const ProductItem = props => {
             await addConfigurableProductToCart({
                 variables
             });
-            setIsItemActive(false);
+            setIsItemDisabled(false);
         } catch {
             setError('Error');
         }
