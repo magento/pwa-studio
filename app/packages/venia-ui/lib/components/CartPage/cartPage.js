@@ -21,7 +21,6 @@ import SavedCartButton from '../SavedCarts/SavedCartButton';
 const CheckIcon = <Icon size={20} src={Check} />;
 
 import ConfirmationModal from '../RequestQuote/ConfirmationModal';
-import operations from './../MiniCart/miniCart.gql';
 /**
  * Structural page component for the shopping cart.
  * This is the main component used in the `/cart` route in Venia.
@@ -40,7 +39,7 @@ import operations from './../MiniCart/miniCart.gql';
  * import CartPage from "@magento/venia-ui/lib/components/CartPage";
  */
 const CartPage = props => {
-    const talonProps = useCartPage({operations});
+    const talonProps = useCartPage();
     const [openPopup, setOpenPopup] = useState(false);
 
     const componentRef = useRef();
