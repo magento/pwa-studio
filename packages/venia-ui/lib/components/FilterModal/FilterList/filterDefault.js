@@ -14,6 +14,7 @@ const FilterDefault = props => {
         isSelected,
         item,
         group,
+        onMouseDown,
         ...restProps
     } = props;
 
@@ -63,6 +64,7 @@ const FilterDefault = props => {
             label={piceLabel || label}
             ariaLabel={ariaLabel}
             data-cy="FilterDefault-checkbox"
+            onClick={onMouseDown}
             {...restProps}
         />
     );
