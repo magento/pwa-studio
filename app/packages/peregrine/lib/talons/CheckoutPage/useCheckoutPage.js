@@ -162,7 +162,7 @@ export const useCheckoutPage = props => {
     }, [updatePaymentMethod, cartId, currentSelectedPaymentMethod]);
 
     const cartItems = useMemo(() => {
-        return (checkoutData && checkoutData.cart.items) || [];
+        return (checkoutData && checkoutData?.cart?.items) || [];
     }, [checkoutData]);
 
     /**
@@ -413,7 +413,7 @@ export const useCheckoutPage = props => {
 
     return {
         activeContent,
-        availablePaymentMethods: checkoutData ? checkoutData.cart.available_payment_methods : null,
+        availablePaymentMethods: checkoutData ? checkoutData.cart?.available_payment_methods : null,
         cartItems,
         checkoutStep,
         customer,
@@ -421,7 +421,7 @@ export const useCheckoutPage = props => {
         guestSignInUsername,
         handlePlaceOrder,
         hasError: !!checkoutError,
-        isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
+        isCartEmpty: !(checkoutData && checkoutData.cart?.total_quantity),
         isGuestCheckout: !isSignedIn,
         isLoading,
         isUpdating,
