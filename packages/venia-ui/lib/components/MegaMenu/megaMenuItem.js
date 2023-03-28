@@ -3,7 +3,7 @@ import { ChevronDown as ArrowDown } from 'react-feather';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 import { useMegaMenuItem } from '@magento/peregrine/lib/talons/MegaMenu/useMegaMenuItem';
 
 import { useStyle } from '../../classify';
@@ -33,6 +33,7 @@ const MegaMenuItem = props => {
     } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
+    const resourceUrl = useResourceUrl();
     const categoryUrl = resourceUrl(
         `/${category.url_path}${categoryUrlSuffix || ''}`
     );

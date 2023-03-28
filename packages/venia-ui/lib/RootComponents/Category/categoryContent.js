@@ -1,4 +1,5 @@
-import React, { Fragment, Suspense, useMemo, useRef } from 'react';
+import React, { Fragment, useMemo, useRef } from 'react';
+import loadable from '@loadable/component';
 import { FormattedMessage } from 'react-intl';
 import { array, number, shape, string } from 'prop-types';
 
@@ -23,10 +24,8 @@ import SortedByContainer, {
 import defaultClasses from './category.module.css';
 import NoProductsFound from './NoProductsFound';
 
-const FilterModal = React.lazy(() => import('../../components/FilterModal'));
-const FilterSidebar = React.lazy(() =>
-    import('../../components/FilterSidebar')
-);
+const FilterModal = loadable(() => import('../../components/FilterModal'));
+const FilterSidebar = loadable(() => import('../../components/FilterSidebar'));
 
 const CategoryContent = props => {
     const {
@@ -79,7 +78,7 @@ const CategoryContent = props => {
     ) : null;
 
     const sidebar = shouldShowFilterButtons ? (
-        <FilterSidebar filters={filters} />
+        <FilterSidebar fallback={<FilterSidebarShimmer />} filters={filters} />
     ) : shouldShowFilterShimmer ? (
         <FilterSidebarShimmer />
     ) : null;
@@ -167,9 +166,7 @@ const CategoryContent = props => {
                 </div>
                 <div className={classes.contentWrapper}>
                     <div ref={sidebarRef} className={classes.sidebar}>
-                        <Suspense fallback={<FilterSidebarShimmer />}>
-                            {shouldRenderSidebarContent ? sidebar : null}
-                        </Suspense>
+                        {shouldRenderSidebarContent ? sidebar : null}
                     </div>
                     <div className={classes.categoryContent}>
                         <div className={classes.heading}>
@@ -186,7 +183,7 @@ const CategoryContent = props => {
                             {maybeSortContainer}
                         </div>
                         {content}
-                        <Suspense fallback={null}>{filtersModal}</Suspense>
+                        {filtersModal}
                     </div>
                 </div>
             </article>

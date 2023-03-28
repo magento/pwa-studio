@@ -17,6 +17,38 @@ const esModuleInterop = function(mod) {
     return mod.default || mod;
 };
 
+// Generate arguments for loadable() import.
+// See: https://loadable-components.com/docs/babel-plugin/#transformation
+const getLoadableArgs = function(key, path) {
+    return `
+    {
+        chunkName() {
+            return '${key}'
+        },
+        isReady(props) {
+            if (typeof __webpack_modules__ !== 'undefined') {
+                return !!__webpack_modules__[this.resolve(props)]
+            }
+            return false
+        },
+        requireAsync: () =>
+            import(/* webpackChunkName: "${key}" */'${path}').then(${esModuleInterop.toString()}),
+        requireSync(props) {
+            const id = this.resolve(props)
+            if (typeof __webpack_require__ !== 'undefined') {
+                return __webpack_require__(id)
+            }
+            return eval('module.require')(id)
+        },
+        resolve() {
+            if (require.resolveWeak) {
+                return require.resolveWeak('${path}')
+            }
+            return require('path').resolve('${path}')
+        },
+    }`;
+};
+
 const extensionRE = /m?[jt]s$/;
 
 /**
@@ -160,12 +192,14 @@ class RootComponentsPlugin {
                                     pageType,
                                     variant
                                 );
-                                importerSources[
-                                    key
-                                ] = `function () { return import(/* webpackChunkName: "${key}" */'./${relative(
+                                const path = `./${relative(
                                     context,
                                     rootComponentFile
-                                )}')}`;
+                                )}`;
+                                importerSources[key] = getLoadableArgs(
+                                    key,
+                                    path
+                                );
                             });
                         }
                     })
@@ -193,8 +227,7 @@ class RootComponentsPlugin {
         // create importer function to expose to other modules
         const importer = `function importRootComponent(type, variant) {
             const importerKey = getKey(type, variant);
-            return rootComponentsMap[importerKey]()
-                .then(esModuleInterop);
+            return rootComponentsMap[importerKey];
         }`;
 
         // add shared utility functions, mapping, and importer to factory fn
@@ -206,7 +239,7 @@ class RootComponentsPlugin {
         }`;
 
         // assign factory return value, the importer function, to global
-        const wrapped = `;globalThis.fetchRootComponent = (${importerFactory})()`;
+        const wrapped = `;globalThis.fetchLoadableRootComponent = (${importerFactory})()`;
 
         return wrapped;
     }

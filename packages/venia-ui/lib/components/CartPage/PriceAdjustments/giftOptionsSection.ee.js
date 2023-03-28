@@ -1,11 +1,14 @@
-import React, { Suspense } from 'react';
+import React from 'react';
+import loadable from '@loadable/component';
 import { useIntl } from 'react-intl';
 
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { Section } from '@magento/venia-ui/lib/components/Accordion';
 import { useGiftOptionsSection } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useGiftOptionsSection';
 
-const GiftOptions = React.lazy(() => import('./GiftOptions'));
+const GiftOptions = loadable(() => import('./GiftOptions'), {
+    fallback: <LoadingIndicator />
+});
 
 const GiftOptionsSection = () => {
     const { formatMessage } = useIntl();
@@ -28,9 +31,7 @@ const GiftOptionsSection = () => {
                 defaultMessage: 'See Gift Options'
             })}
         >
-            <Suspense fallback={<LoadingIndicator />}>
-                <GiftOptions giftOptionsConfigData={giftOptionsConfigData} />
-            </Suspense>
+            <GiftOptions giftOptionsConfigData={giftOptionsConfigData} />
         </Section>
     );
 };

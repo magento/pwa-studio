@@ -1,4 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
+import loadable from '@loadable/component';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useAccountInformationPage } from '@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage';
 
@@ -11,7 +12,7 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './accountInformationPage.module.css';
 import AccountInformationPageOperations from './accountInformationPage.gql.js';
 
-const EditModal = React.lazy(() => import('./editModal'));
+const EditModal = loadable(() => import('./editModal'));
 
 const AccountInformationPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -101,19 +102,17 @@ const AccountInformationPage = props => {
                         </Button>
                     </div>
                 </div>
-                <Suspense fallback={null}>
-                    <EditModal
-                        formErrors={formErrors}
-                        initialValues={customer}
-                        isDisabled={isDisabled}
-                        isOpen={isUpdateMode}
-                        onCancel={handleCancel}
-                        onChangePassword={handleChangePassword}
-                        onSubmit={handleSubmit}
-                        shouldShowNewPassword={shouldShowNewPassword}
-                        recaptchaWidgetProps={recaptchaWidgetProps}
-                    />
-                </Suspense>
+                <EditModal
+                    formErrors={formErrors}
+                    initialValues={customer}
+                    isDisabled={isDisabled}
+                    isOpen={isUpdateMode}
+                    onCancel={handleCancel}
+                    onChangePassword={handleChangePassword}
+                    onSubmit={handleSubmit}
+                    shouldShowNewPassword={shouldShowNewPassword}
+                    recaptchaWidgetProps={recaptchaWidgetProps}
+                />
             </Fragment>
         );
     }

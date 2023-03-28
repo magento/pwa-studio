@@ -1,4 +1,5 @@
-import React, { Fragment, Suspense, useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
+import loadable from '@loadable/component';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
@@ -18,8 +19,8 @@ import { FilterSidebarShimmer } from '../FilterSidebar';
 import Shimmer from '../Shimmer';
 import { Meta, Title } from '../Head';
 
-const FilterModal = React.lazy(() => import('../FilterModal'));
-const FilterSidebar = React.lazy(() => import('../FilterSidebar'));
+const FilterModal = loadable(() => import('../FilterModal'));
+const FilterSidebar = loadable(() => import('../FilterSidebar'));
 
 const SearchPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -130,7 +131,7 @@ const SearchPage = props => {
     ) : null;
 
     const maybeSidebar = shouldShowFilterButtons ? (
-        <FilterSidebar filters={filters} />
+        <FilterSidebar fallback={<FilterSidebarShimmer />} filters={filters} />
     ) : shouldShowFilterShimmer ? (
         <FilterSidebarShimmer />
     ) : null;
@@ -194,11 +195,7 @@ const SearchPage = props => {
 
     return (
         <article className={classes.root} data-cy="SearchPage-root">
-            <div className={classes.sidebar}>
-                <Suspense fallback={<FilterSidebarShimmer />}>
-                    {maybeSidebar}
-                </Suspense>
-            </div>
+            <div className={classes.sidebar}>{maybeSidebar}</div>
             <div className={classes.searchContent}>
                 <div className={classes.heading}>
                     <div
@@ -216,7 +213,7 @@ const SearchPage = props => {
                     {maybeSortContainer}
                 </div>
                 {content}
-                <Suspense fallback={null}>{maybeFilterModal}</Suspense>
+                {maybeFilterModal}
             </div>
             <Title>{metaTitle}</Title>
             <Meta name="title" content={metaTitle} />

@@ -105,7 +105,7 @@ export const useDelayedTransition = () => {
             const { type, ...routeData } = route || {};
 
             if (type) {
-                const rootComponent = await getRootComponent(type);
+                const rootComponent = getRootComponent(type);
                 setComponentMap(prevMap =>
                     new Map(prevMap).set(currentPathname, {
                         component: rootComponent,

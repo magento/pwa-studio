@@ -29,8 +29,8 @@ export default original => props => {
             } = storefrontData;
 
             import('@adobe/magento-storefront-events-sdk').then(mse => {
-                if (!window.magentoStorefrontEvents) {
-                    window.magentoStorefrontEvents = mse;
+                if (!globalThis.magentoStorefrontEvents) {
+                    globalThis.magentoStorefrontEvents = mse;
                 }
 
                 const orgId = storefrontContext.ims_org_id;

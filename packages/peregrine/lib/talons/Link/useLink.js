@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
-import resourceUrl from '../../util/makeUrl';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from '../MagentoRoute/magentoRoute.gql';
+import { useResourceUrl } from '../../hooks/useResourceUrl';
 
 export const useLink = (props, passedOperations = {}) => {
     const { innerRef: originalRef, to } = props;
@@ -20,6 +20,7 @@ export const useLink = (props, passedOperations = {}) => {
     const [runQuery, { called: pageTypeCalled }] = useLazyQuery(
         resolveUrlQuery
     );
+    const resourceUrl = useResourceUrl();
     const linkPath = shouldPrefetch ? resourceUrl(to) : null;
 
     useEffect(() => {

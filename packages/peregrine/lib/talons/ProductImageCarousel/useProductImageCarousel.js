@@ -6,9 +6,11 @@ import {
     VALID_SERVICE_WORKER_ENVIRONMENT,
     sendMessageToSW
 } from '@magento/peregrine/lib/util/swUtils';
+import { useGlobalContext } from '../../context/global';
 
 export const useProductImageCarousel = props => {
     const { images, type, imageWidth } = props;
+    const { origin } = useGlobalContext();
     const [carouselState, carouselApi] = useCarousel(images);
     const { activeItemIndex, sortedImages } = carouselState;
     const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
@@ -30,7 +32,12 @@ export const useProductImageCarousel = props => {
             const urls = images.map(
                 ({ file }) =>
                     new URL(
-                        generateUrlFromContainerWidth(file, imageWidth, type),
+                        generateUrlFromContainerWidth(
+                            file,
+                            origin,
+                            imageWidth,
+                            type
+                        ),
                         location.origin
                     ).href
             );
@@ -43,7 +50,7 @@ export const useProductImageCarousel = props => {
                 );
             });
         }
-    }, [images, imageWidth, type]);
+    }, [images, imageWidth, type, origin]);
 
     const currentImage = sortedImages[activeItemIndex] || {};
     const altText = currentImage.label || 'image-product';

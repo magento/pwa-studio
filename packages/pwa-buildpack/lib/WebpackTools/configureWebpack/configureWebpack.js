@@ -23,6 +23,7 @@ const ModuleTransformConfig = require('../ModuleTransformConfig');
  * @property {boolean} mode - Webpack mode derived from env:
  *   'development'|'production'|'none'
  * @property {string} context - Root directory of project
+ * @property {"web"|"node"} target - Target environment type
  * @property {boolean} babelRootMode - Babel config search mode:
  *   'root'|'upward'|'upward-optional
  * @property {Object} paths - Relevant Webpack paths
@@ -99,7 +100,7 @@ function getMode(cliEnv = {}, projectConfig) {
  * @returns An array of two Webpack configurations for simultaneously building the client bundles and the ServiceWorker bundle.
  */
 async function configureWebpack(options) {
-    const { context } = options;
+    const { context, target, ssr } = options;
 
     await validateRoot(context);
 
@@ -138,7 +139,7 @@ async function configureWebpack(options) {
 
     const paths = {
         src: path.resolve(context, 'src'),
-        output: path.resolve(context, 'dist')
+        output: path.resolve(context, target === 'web' ? 'dist' : 'dist/node')
     };
 
     const isAC =
@@ -184,7 +185,9 @@ async function configureWebpack(options) {
         resolver,
         stats,
         transformRequests,
-        bus
+        bus,
+        target,
+        ssr
     };
 
     const clientConfig = await getClientConfig({

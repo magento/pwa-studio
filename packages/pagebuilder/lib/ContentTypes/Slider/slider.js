@@ -8,11 +8,13 @@ import {
     string,
     object
 } from 'prop-types';
+import loadable from '@loadable/component';
 import SlickSlider from 'react-slick';
 import defaultClasses from './slider.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
-import { jarallax } from 'jarallax';
+
+const { jarallax } = loadable.lib(() => import('jarallax'), { ssr: false });
 
 /**
  * Page Builder Slider component.

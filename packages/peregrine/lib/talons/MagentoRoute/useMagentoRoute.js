@@ -74,7 +74,7 @@ export const useMagentoRoute = (props = {}) => {
             }
 
             try {
-                const rootComponent = await getRootComponent(type);
+                const rootComponent = getRootComponent(type);
                 setComponent(pathname, {
                     component: rootComponent,
                     ...getComponentData(routeData),
@@ -136,7 +136,7 @@ export const useMagentoRoute = (props = {}) => {
             if (inlinedData) {
                 try {
                     const componentType = inlinedData.type;
-                    const rootComponent = await getRootComponent(componentType);
+                    const rootComponent = getRootComponent(componentType);
                     setComponent(pathname, {
                         component: rootComponent,
                         type: componentType,

@@ -1,10 +1,13 @@
 import React, { Suspense } from 'react';
+import loadable from '@loadable/component';
 import { useIntl } from 'react-intl';
 
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { Section } from '../../Accordion';
 
-const GiftCards = React.lazy(() => import('../GiftCards'));
+const GiftCards = loadable(() => import('../GiftCards'), {
+    fallback: <LoadingIndicator />
+});
 
 const GiftCardSection = props => {
     const { setIsCartUpdating } = props;
@@ -18,9 +21,7 @@ const GiftCardSection = props => {
                 defaultMessage: 'Apply Gift Card'
             })}
         >
-            <Suspense fallback={<LoadingIndicator />}>
-                <GiftCards setIsCartUpdating={setIsCartUpdating} />
-            </Suspense>
+            <GiftCards setIsCartUpdating={setIsCartUpdating} />
         </Section>
     );
 };

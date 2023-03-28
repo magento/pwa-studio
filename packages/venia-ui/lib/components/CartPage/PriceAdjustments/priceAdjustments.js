@@ -1,4 +1,5 @@
-import React, { Suspense } from 'react';
+import React from 'react';
+import loadable from '@loadable/component';
 import { useIntl } from 'react-intl';
 import { func } from 'prop-types';
 
@@ -9,8 +10,12 @@ import GiftCardSection from './giftCardSection';
 import GiftOptionsSection from './giftOptionsSection';
 import defaultClasses from './priceAdjustments.module.css';
 
-const CouponCode = React.lazy(() => import('./CouponCode'));
-const ShippingMethods = React.lazy(() => import('./ShippingMethods'));
+const CouponCode = loadable(() => import('./CouponCode'), {
+    fallback: <LoadingIndicator />
+});
+const ShippingMethods = loadable(() => import('./ShippingMethods'), {
+    fallback: <LoadingIndicator />
+});
 
 /**
  * PriceAdjustments is a child component of the CartPage component.
@@ -45,11 +50,7 @@ const PriceAdjustments = props => {
                         defaultMessage: 'Estimate your Shipping'
                     })}
                 >
-                    <Suspense fallback={<LoadingIndicator />}>
-                        <ShippingMethods
-                            setIsCartUpdating={setIsCartUpdating}
-                        />
-                    </Suspense>
+                    <ShippingMethods setIsCartUpdating={setIsCartUpdating} />
                 </Section>
                 <Section
                     id={'coupon_code'}
@@ -59,9 +60,7 @@ const PriceAdjustments = props => {
                         defaultMessage: 'Enter Coupon Code'
                     })}
                 >
-                    <Suspense fallback={<LoadingIndicator />}>
-                        <CouponCode setIsCartUpdating={setIsCartUpdating} />
-                    </Suspense>
+                    <CouponCode setIsCartUpdating={setIsCartUpdating} />
                 </Section>
                 <GiftCardSection setIsCartUpdating={setIsCartUpdating} />
                 <GiftOptionsSection />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { verticalAlignmentToFlex } from '../../utils';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './tabItem.module.css';
@@ -22,6 +22,7 @@ const { matchMedia } = globalThis;
  */
 const TabItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
+    const resourceUrl = useResourceUrl();
     const {
         minHeight,
         verticalAlignment,

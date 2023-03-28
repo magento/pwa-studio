@@ -16,19 +16,17 @@ import { node, object } from 'prop-types';
  * @returns {React.ReactPortal} The React portal.
  */
 const Portal = ({ children, container }) => {
-    const isServer = !globalThis.document;
-
     // a component must always call the same hooks, so no early returns
     const target = useMemo(() => {
-        return isServer
+        return IS_SERVER
             ? null
             : container instanceof HTMLElement
             ? container
             : document.getElementById('root');
-    }, [container, isServer]);
+    }, [container]);
 
     // TODO: replace direct usage of Portal with something SSR-compatible
-    return isServer ? null : createPortal(children, target);
+    return IS_SERVER ? null : createPortal(children, target);
 };
 
 export default Portal;

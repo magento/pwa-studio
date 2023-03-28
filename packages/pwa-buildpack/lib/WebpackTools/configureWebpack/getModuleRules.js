@@ -3,6 +3,7 @@
  */
 const loaderUtils = require('loader-utils');
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 /**
  * Replacement for the function `css-loader` uses to build classnames.
@@ -80,6 +81,7 @@ getModuleRules.graphql = async ({ paths, hasFlag }) => ({
  *   JavaScript files
  */
 getModuleRules.js = async ({
+    target,
     mode,
     paths,
     hasFlag,
@@ -105,7 +107,8 @@ getModuleRules.js = async ({
                 envName: mode,
                 root: paths.root,
                 rootMode: babelRootMode,
-                overrides
+                overrides,
+                caller: { target }
             }
         }
     ];
@@ -139,59 +142,69 @@ getModuleRules.js = async ({
  * @returns Rule object for Webpack `module` configuration which parses
  *   CSS files
  */
-getModuleRules.css = async ({ hasFlag, mode }) => ({
-    test: /\.css$/,
-    oneOf: [
-        {
-            test: [/\.module\.css$/, ...hasFlag('cssModules')],
-            use: [
-                {
-                    loader: 'style-loader',
-                    options: {
-                        injectType:
-                            mode === 'development'
-                                ? 'styleTag'
-                                : 'singletonStyleTag'
-                    }
-                },
-                {
-                    loader: 'css-loader',
-                    options: {
-                        importLoaders: 1,
-                        modules: {
-                            getLocalIdent,
-                            localIdentName: `[name]-[local]-[hash:base64:3]`
-                        },
-                        sourceMap: mode === 'development'
-                    }
-                },
-                'postcss-loader'
-            ]
-        },
-        {
-            use: [
-                {
-                    loader: 'style-loader',
-                    options: {
-                        injectType:
-                            mode === 'development'
-                                ? 'styleTag'
-                                : 'singletonStyleTag'
-                    }
-                },
-                {
-                    loader: 'css-loader',
-                    options: {
-                        importLoaders: 1,
-                        modules: false,
-                        sourceMap: mode === 'development'
-                    }
-                },
-                'postcss-loader'
-            ]
-        }
-    ]
-});
+getModuleRules.css = async ({ hasFlag, mode, ssr }) => {
+    const cssLoader = ssr ? MiniCssExtractPlugin.loader : 'style-loader';
+
+    return {
+        test: /\.css$/,
+        oneOf: [
+            {
+                test: [/\.module\.css$/, ...hasFlag('cssModules')],
+                use: [
+                    {
+                        loader: cssLoader,
+                        options:
+                            cssLoader === 'style-loader'
+                                ? {
+                                      injectType:
+                                          mode === 'development'
+                                              ? 'styleTag'
+                                              : 'singletonStyleTag'
+                                  }
+                                : undefined
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: {
+                                getLocalIdent,
+                                localIdentName: `[name]-[local]-[hash:base64:3]`
+                            },
+                            sourceMap: mode === 'development'
+                        }
+                    },
+                    'postcss-loader'
+                ]
+            },
+            {
+                use: [
+                    {
+                        loader: cssLoader,
+                        options:
+                            cssLoader === 'style-loader'
+                                ? {
+                                      injectType:
+                                          mode === 'development'
+                                              ? 'styleTag'
+                                              : 'singletonStyleTag'
+                                  }
+                                : undefined
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: false,
+                            sourceMap: mode === 'development'
+                        }
+                    },
+                    'postcss-loader'
+                ]
+            }
+        ]
+    };
+};
 
 /**
  * @param {Buildpack/WebpackTools~WebpackConfigHelper} helper

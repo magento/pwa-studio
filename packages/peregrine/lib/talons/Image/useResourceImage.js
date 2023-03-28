@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useGlobalContext } from '../../context/global';
 import { UNCONSTRAINED_SIZE_KEY } from './useImage';
 
 /**
@@ -26,13 +27,15 @@ export const useResourceImage = props => {
         ratio
     } = props;
 
+    const { origin } = useGlobalContext();
+
     const src = useMemo(() => {
-        return generateUrl(resource, type)(width, height);
-    }, [generateUrl, height, resource, type, width]);
+        return generateUrl(resource, type, origin)(width, height);
+    }, [generateUrl, height, origin, resource, type, width]);
 
     const srcSet = useMemo(() => {
-        return generateSrcset(resource, type, ratio);
-    }, [generateSrcset, resource, type, ratio]);
+        return generateSrcset(resource, type, ratio, origin);
+    }, [generateSrcset, resource, type, ratio, origin]);
 
     // Example: 100px
     // Example: (max-width: 640px) 50px, 100px

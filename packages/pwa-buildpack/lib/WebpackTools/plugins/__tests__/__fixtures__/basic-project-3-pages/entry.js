@@ -1,2 +1,2 @@
 // entry
-fetchRootComponent().then(console.log);
+fetchLoadableRootComponent().then(console.log);

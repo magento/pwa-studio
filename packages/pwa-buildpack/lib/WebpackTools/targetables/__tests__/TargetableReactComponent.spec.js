@@ -60,7 +60,7 @@ describe('.addJSXClassName', () => {
     });
 });
 describe('.addReactLazyImport()', () => {
-    it('adds a static import of React.lazy once and then each lazy import only once', () => {
+    it('adds a static import of @loadable once and then each lazy import only once', () => {
         const dynamicComponents = [
             CheckboxModule.addReactLazyImport(
                 './path/to/dynamic/component',

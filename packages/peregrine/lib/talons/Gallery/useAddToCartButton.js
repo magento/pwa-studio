@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '../../context/cart';
 import { useEventingContext } from '../../context/eventing';
-import resourceUrl from '../../util/makeUrl';
+import { useResourceUrl } from '../../hooks/useResourceUrl';
 import operations from './addToCart.gql';
 
 /**
@@ -45,6 +45,7 @@ export const useAddToCartButton = props => {
     const isDisabled = isLoading || !isInStock || isUnsupportedProductType;
 
     const history = useHistory();
+    const resourceUrl = useResourceUrl();
 
     const [{ cartId }] = useCartContext();
 
@@ -109,7 +110,23 @@ export const useAddToCartButton = props => {
         } catch (error) {
             console.error(error);
         }
-    }, [productType, addToCart, cartId, item, dispatch, history, urlSuffix]);
+    }, [
+        productType,
+        addToCart,
+        cartId,
+        item.uid,
+        item.name,
+        item.sku,
+        item.price_range.maximum_price.regular_price,
+        item.price_range.maximum_price.final_price.value,
+        item.price_range.maximum_price.final_price.currency,
+        item.price_range.maximum_price.discount.amount_off,
+        item.url_key,
+        dispatch,
+        resourceUrl,
+        urlSuffix,
+        history
+    ]);
 
     return {
         handleAddToCart,

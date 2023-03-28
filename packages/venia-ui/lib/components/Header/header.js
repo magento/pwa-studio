@@ -1,5 +1,6 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
+import loadable from '@loadable/component';
 import { Link, Route } from 'react-router-dom';
 
 import Logo from '../Logo';
@@ -9,7 +10,7 @@ import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
 import OnlineIndicator from './onlineIndicator';
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './header.module.css';
@@ -19,7 +20,7 @@ import MegaMenu from '../MegaMenu';
 import PageLoadingIndicator from '../PageLoadingIndicator';
 import { useIntl } from 'react-intl';
 
-const SearchBar = React.lazy(() => import('../SearchBar'));
+const SearchBar = loadable(() => import('../SearchBar'));
 
 const Header = props => {
     const {
@@ -31,6 +32,7 @@ const Header = props => {
         searchTriggerRef
     } = useHeader();
 
+    const resourceUrl = useResourceUrl();
     const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isSearchOpen ? classes.open : classes.closed;
 
@@ -45,11 +47,13 @@ const Header = props => {
         </div>
     );
     const searchBar = isSearchOpen ? (
-        <Suspense fallback={searchBarFallback}>
-            <Route>
-                <SearchBar isOpen={isSearchOpen} ref={searchRef} />
-            </Route>
-        </Suspense>
+        <Route>
+            <SearchBar
+                fallback={searchBarFallback}
+                isOpen={isSearchOpen}
+                ref={searchRef}
+            />
+        </Route>
     ) : null;
 
     const { formatMessage } = useIntl();

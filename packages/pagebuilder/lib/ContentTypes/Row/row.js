@@ -11,9 +11,9 @@ import {
     number,
     object
 } from 'prop-types';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useDetectScrollWidth } from '@magento/peregrine/lib/hooks/useDetectScrollWidth';
 import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
+import { useResourceUrl } from '@magento/peregrine';
 
 const { matchMedia } = globalThis;
 
@@ -32,8 +32,8 @@ const { matchMedia } = globalThis;
 const Row = props => {
     const backgroundElement = useRef(null);
     const [bgImageStyle, setBgImageStyle] = useState(null);
+    const resourceUrl = useResourceUrl();
     const classes = useStyle(defaultClasses, props.classes);
-
     const {
         appearance,
         verticalAlignment,
@@ -149,7 +149,7 @@ const Row = props => {
                 );
             }
         }
-    }, [backgroundSize, enableParallax, image, setBgImageStyle]);
+    }, [backgroundSize, enableParallax, image, resourceUrl, setBgImageStyle]);
 
     // Initiate jarallax for Parallax and background video
     useEffect(() => {
@@ -219,7 +219,8 @@ const Row = props => {
         videoFallbackSrc,
         videoLoop,
         videoPlayOnlyVisible,
-        videoLazyLoading
+        videoLazyLoading,
+        resourceUrl
     ]);
 
     const videoOverlay = videoOverlayColor ? (

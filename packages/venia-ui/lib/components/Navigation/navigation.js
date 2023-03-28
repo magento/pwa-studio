@@ -1,5 +1,6 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { shape, string } from 'prop-types';
+import loadable from '@loadable/component';
 import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
 
 import { useStyle } from '../../classify';
@@ -12,7 +13,9 @@ import NavHeader from './navHeader';
 import defaultClasses from './navigation.module.css';
 import { FocusScope } from 'react-aria';
 import { Portal } from '../Portal';
-const AuthModal = React.lazy(() => import('../AuthModal'));
+const AuthModal = loadable(() => import('../AuthModal'), {
+    fallback: <LoadingIndicator />
+});
 
 const Navigation = props => {
     const {
@@ -40,17 +43,15 @@ const Navigation = props => {
 
     // Lazy load the auth modal because it may not be needed.
     const authModal = hasModal ? (
-        <Suspense fallback={<LoadingIndicator />}>
-            <AuthModal
-                closeDrawer={handleClose}
-                showCreateAccount={showCreateAccount}
-                showForgotPassword={showForgotPassword}
-                showMainMenu={showMainMenu}
-                showMyAccount={showMyAccount}
-                showSignIn={showSignIn}
-                view={view}
-            />
-        </Suspense>
+        <AuthModal
+            closeDrawer={handleClose}
+            showCreateAccount={showCreateAccount}
+            showForgotPassword={showForgotPassword}
+            showMainMenu={showMainMenu}
+            showMyAccount={showMyAccount}
+            showSignIn={showSignIn}
+            view={view}
+        />
     ) : null;
 
     return (

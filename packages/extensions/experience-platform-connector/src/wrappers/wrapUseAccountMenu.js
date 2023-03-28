@@ -7,7 +7,7 @@ const wrapUseAccountMenu = useAccountMenu => {
 
         const { handleSignOut, ...restProps } = talonProps;
 
-        const sdk = window.magentoStorefrontEvents;
+        const sdk = globalThis.magentoStorefrontEvents;
 
         // Need to publish the sign out event before actually calling the original sign out
         // callback to make sure data is sent before the page refreshes

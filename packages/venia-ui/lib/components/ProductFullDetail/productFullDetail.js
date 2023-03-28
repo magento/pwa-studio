@@ -1,4 +1,5 @@
-import React, { useMemo, Fragment, Suspense } from 'react';
+import React, { useMemo, Fragment } from 'react';
+import loadable from '@loadable/component';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -19,8 +20,8 @@ import { ProductOptionsShimmer } from '../ProductOptions';
 import CustomAttributes from './CustomAttributes';
 import defaultClasses from './productFullDetail.module.css';
 
-const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
-const Options = React.lazy(() => import('../ProductOptions'));
+const WishlistButton = loadable(() => import('../Wishlist/AddToListButton'));
+const Options = loadable(() => import('../ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error
 // string but it may contain contextual info such as product id. We can use
@@ -62,14 +63,13 @@ const ProductFullDetail = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const options = isProductConfigurable(product) ? (
-        <Suspense fallback={<ProductOptionsShimmer />}>
-            <Options
-                onSelectionChange={handleSelectionChange}
-                options={product.configurable_options}
-                isEverythingOutOfStock={isEverythingOutOfStock}
-                outOfStockVariants={outOfStockVariants}
-            />
-        </Suspense>
+        <Options
+            fallback={<ProductOptionsShimmer />}
+            onSelectionChange={handleSelectionChange}
+            options={product.configurable_options}
+            isEverythingOutOfStock={isEverythingOutOfStock}
+            outOfStockVariants={outOfStockVariants}
+        />
     ) : null;
 
     const breadcrumbs = breadcrumbCategoryId ? (
@@ -288,9 +288,7 @@ const ProductFullDetail = props => {
                 </section>
                 <section className={classes.actions}>
                     {cartActionContent}
-                    <Suspense fallback={null}>
-                        <WishlistButton {...wishlistButtonProps} />
-                    </Suspense>
+                    <WishlistButton {...wishlistButtonProps} />
                 </section>
                 <section className={classes.description}>
                     <span

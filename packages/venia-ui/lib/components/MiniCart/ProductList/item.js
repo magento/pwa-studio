@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
@@ -32,9 +32,10 @@ const Item = props => {
 
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, propClasses);
+    const resourceUrl = useResourceUrl();
     const itemLink = useMemo(
         () => resourceUrl(`/${product.url_key}${storeUrlSuffix || ''}`),
-        [product.url_key, storeUrlSuffix]
+        [product.url_key, resourceUrl, storeUrlSuffix]
     );
     const stockStatusText =
         product.stock_status === 'OUT_OF_STOCK'

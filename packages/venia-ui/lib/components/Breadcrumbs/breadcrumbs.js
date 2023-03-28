@@ -4,10 +4,10 @@ import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBreadcrumbs';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '../../classify';
 import Shimmer from './breadcrumbs.shimmer';
 import defaultClasses from './breadcrumbs.module.css';
+import { useResourceUrl } from '@magento/peregrine';
 
 const DELIMITER = '/';
 /**
@@ -18,6 +18,7 @@ const DELIMITER = '/';
  */
 const Breadcrumbs = props => {
     const classes = useStyle(defaultClasses, props.classes);
+    const resourceUrl = useResourceUrl();
 
     const { categoryId, currentProduct } = props;
 
@@ -48,7 +49,13 @@ const Breadcrumbs = props => {
                 </Fragment>
             );
         });
-    }, [classes.divider, classes.link, handleClick, normalizedData]);
+    }, [
+        classes.divider,
+        classes.link,
+        handleClick,
+        normalizedData,
+        resourceUrl
+    ]);
 
     if (isLoading) {
         return <Shimmer />;

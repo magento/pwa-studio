@@ -23,7 +23,6 @@ const castDigitsToNum = str =>
     typeof str === 'string' && numRE.test(str) ? Number(str) : str;
 export default async function resolveUnknownRoute(opts) {
     const { route, apiBase, store } = opts;
-    const isServer = !globalThis.document;
 
     if (!resolveUnknownRoute.preloadDone) {
         resolveUnknownRoute.preloadDone = true;
@@ -32,7 +31,7 @@ export default async function resolveUnknownRoute(opts) {
         // or the old style (handwritten JSON in a script element).
 
         // New style:
-        const preloadAttrs = !isServer && document.body.dataset;
+        const preloadAttrs = !IS_SERVER && document.body.dataset;
         if (preloadAttrs && preloadAttrs.modelType) {
             return {
                 type: preloadAttrs.modelType,
@@ -42,7 +41,7 @@ export default async function resolveUnknownRoute(opts) {
 
         // Old style:
         const preloadScript =
-            !isServer && document.getElementById('url-resolver');
+            !IS_SERVER && document.getElementById('url-resolver');
         if (preloadScript) {
             try {
                 const preload = JSON.parse(preloadScript.textContent);
