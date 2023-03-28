@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './submenuColumn.module.css';
@@ -21,6 +21,7 @@ const SubmenuColumn = props => {
         handleCloseSubMenu
     } = props;
     const classes = useStyle(defaultClasses, props.classes);
+    const resourceUrl = useResourceUrl();
 
     const categoryUrl = resourceUrl(
         `/${category.url_path}${categoryUrlSuffix || ''}`

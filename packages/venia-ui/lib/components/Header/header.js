@@ -10,7 +10,7 @@ import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
 import OnlineIndicator from './onlineIndicator';
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './header.module.css';
@@ -32,6 +32,7 @@ const Header = props => {
         searchTriggerRef
     } = useHeader();
 
+    const resourceUrl = useResourceUrl();
     const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isSearchOpen ? classes.open : classes.closed;
 

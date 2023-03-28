@@ -10,12 +10,13 @@ import Newsletter from '../Newsletter';
 import { useStyle } from '../../classify';
 import defaultClasses from './footer.module.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 
 const Footer = props => {
     const { links } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useFooter();
+    const resourceUrl = useResourceUrl();
 
     const { copyrightText } = talonProps;
     const { formatMessage } = useIntl();

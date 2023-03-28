@@ -4,7 +4,7 @@ import { Heart } from 'react-feather';
 import { gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 import Price from '@magento/venia-ui/lib/components/Price';
 
 import { useStyle } from '../../../classify';
@@ -28,6 +28,7 @@ const HeartIcon = <Icon size={16} src={Heart} />;
 const Product = props => {
     const { item } = props;
 
+    const resourceUrl = useResourceUrl();
     const { formatMessage } = useIntl();
     const talonProps = useProduct({
         operations: {
@@ -83,7 +84,7 @@ const Product = props => {
 
     const itemLink = useMemo(
         () => resourceUrl(`/${urlKey}${urlSuffix || ''}`),
-        [urlKey, urlSuffix]
+        [resourceUrl, urlKey, urlSuffix]
     );
 
     const stockStatusMessage =

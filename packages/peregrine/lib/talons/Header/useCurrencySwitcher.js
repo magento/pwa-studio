@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { useTypePolicies } from '@magento/peregrine';
-import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { BrowserPersistence, Cookie } from '@magento/peregrine/lib/util';
 
 import mergeOperations from '../../util/shallowMerge';
 
@@ -58,6 +58,7 @@ export const useCurrencySwitcher = (props = {}) => {
             // Do nothing when currency code is not present in available currencies
             if (!availableCurrencies.includes(currencyCode)) return;
 
+            Cookie.set('store_view_currency', currencyCode);
             storage.setItem('store_view_currency', currencyCode);
 
             // Refresh the page to re-trigger the queries once currency are saved in local storage.

@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useEffect } from 'react';
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
-import resourceUrl from '../../util/makeUrl';
+import { useResourceUrl } from '../../hooks/useResourceUrl';
 
 /**
  * Return props necessary to render a SuggestedProduct component.
@@ -14,6 +14,7 @@ import resourceUrl from '../../util/makeUrl';
  */
 export const useSuggestedProduct = props => {
     const [, { dispatch }] = useEventingContext();
+    const resourceUrl = useResourceUrl();
     const {
         name,
         price,
@@ -87,6 +88,7 @@ export const useSuggestedProduct = props => {
     ]);
 
     const uri = useMemo(() => resourceUrl(`/${url_key}${url_suffix || ''}`), [
+        resourceUrl,
         url_key,
         url_suffix
     ]);

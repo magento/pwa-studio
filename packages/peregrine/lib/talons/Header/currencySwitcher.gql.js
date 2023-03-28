@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { BrowserPersistence, Cookie } from '@magento/peregrine/lib/util';
 
 const storage = new BrowserPersistence();
 
@@ -14,9 +14,12 @@ export const CUSTOM_TYPES = {
              * props or the entire query will return null.
              */
             current_currency_code: {
-                read(_, { readField }) {
+                read(_, { readField, cache }) {
                     return (
-                        storage.getItem('store_view_currency') ||
+                        (IS_BROWSER
+                            ? Cookie.get('store_view_currency') ||
+                              storage.getItem('store_view_currency')
+                            : cache.config.store_view_currency) ||
                         readField('default_display_currency_code')
                     );
                 }

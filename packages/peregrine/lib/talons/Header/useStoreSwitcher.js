@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
-import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { BrowserPersistence, Cookie } from '@magento/peregrine/lib/util';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './storeSwitcher.gql';
 
@@ -165,6 +165,14 @@ export const useStoreSwitcher = (props = {}) => {
             // Do nothing when store view is not present in available stores
             if (!availableStores.has(storeCode)) return;
 
+            Cookie.set(
+                'store_view_currency',
+                availableStores.get(storeCode).currency
+            );
+            Cookie.setItem(
+                'store_view_secure_base_media_url',
+                availableStores.get(storeCode).secure_base_media_url
+            );
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
                 'store_view_currency',

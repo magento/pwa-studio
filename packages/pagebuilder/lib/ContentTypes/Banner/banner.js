@@ -5,10 +5,10 @@ import { arrayOf, bool, oneOf, shape, string, func, object } from 'prop-types';
 import Button from '@magento/venia-ui/lib/components/Button/button';
 import resolveLinkProps from '@magento/peregrine/lib/util/resolveLinkProps';
 import { Link, useHistory } from 'react-router-dom';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useIntersectionObserver } from '@magento/peregrine/lib/hooks/useIntersectionObserver';
 import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 import handleHtmlContentClick from '../../handleHtmlContentClick';
+import { useResourceUrl } from '@magento/peregrine';
 
 const { matchMedia } = globalThis;
 const toHTML = str => ({ __html: str });
@@ -34,6 +34,7 @@ const Banner = props => {
     const [bgImageStyle, setBgImageStyle] = useState(null);
     const toggleHover = () => setHovered(!hovered);
     const intersectionObserver = useIntersectionObserver();
+    const resourceUrl = useResourceUrl();
     const {
         appearance = 'poster',
         minHeight,
@@ -177,7 +178,7 @@ const Banner = props => {
         const backgroundImage = document.createElement('img');
         backgroundImage.src = resourceImage;
         setBgImageStyle(resourceImage);
-    }, [image]);
+    }, [image, resourceUrl]);
 
     // Load image only if in viewport
     useEffect(() => {

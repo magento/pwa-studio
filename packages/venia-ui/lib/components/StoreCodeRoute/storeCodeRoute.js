@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { useGlobalContext } from '@magento/peregrine/lib/context/global';
+import { getStoreDataFromUrl } from './utils';
 
 const storage = new BrowserPersistence();
 
@@ -10,6 +12,7 @@ const storage = new BrowserPersistence();
  * and reloads the page so that they are used in the graphQL headers.
  */
 const StoreCodeRoute = () => {
+    const { url } = useGlobalContext();
     const history = useHistory();
 
     const storeCodes = [];
@@ -28,10 +31,9 @@ const StoreCodeRoute = () => {
 
     // Find the store code in the url. This will always be the first path.
     // ie `https://example.com/fr/foo/baz.html` => `fr`.
-    const regex = new RegExp(`^\/(${storeCodes.join('|')})`, 'g');
-    const { location } = globalThis;
-    const match = location && location.pathname.match(regex);
-    const storeCodeInUrl = match && match[0].replace(/\//g, '');
+    const { storeCode: storeCodeInUrl, storeCurrency } = getStoreDataFromUrl(
+        url
+    );
 
     // Determine what the current store code is using the configured basename.
     const basename = history.createHref({ pathname: '/' });
@@ -40,7 +42,11 @@ const StoreCodeRoute = () => {
     // If we find a store code in the url that is not the current one, update
     // the storage value and refresh so that we start using the new code.
     useEffect(() => {
-        if (storeCodeInUrl && storeCodeInUrl !== currentStoreCode) {
+        if (
+            !SSR_ENABLED &&
+            storeCodeInUrl &&
+            storeCodeInUrl !== currentStoreCode
+        ) {
             storage.setItem('store_view_code', storeCodeInUrl);
             storage.setItem(
                 'store_view_currency',
@@ -60,7 +66,8 @@ const StoreCodeRoute = () => {
         history,
         storeCodeInUrl,
         storeCurrencies,
-        storeSecureBaseMediaUrl
+        storeSecureBaseMediaUrl,
+        storeCurrency
     ]);
 
     return null;

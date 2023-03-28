@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
 import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 
 import { useStyle } from '../../classify';
 import Image from '../Image';
@@ -42,6 +42,7 @@ const GalleryItem = props => {
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
 
     const classes = useStyle(defaultClasses, props.classes);
+    const resourceUrl = useResourceUrl();
 
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;

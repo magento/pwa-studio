@@ -11,13 +11,27 @@ import { CACHE_PERSIST_PREFIX } from '@magento/peregrine/lib/Apollo/constants';
 import getLinks from '@magento/peregrine/lib/Apollo/links';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { getStoreDataFromUrl } from '@magento/venia-ui/lib/components/StoreCodeRoute';
 
 const storage = new BrowserPersistence();
 const urlHasStoreCode = process.env.USE_STORE_CODE_IN_URL === 'true';
 
 export const useAdapter = props => {
-    const { apiUrl, configureLinks, origin, store, styles } = props;
-    const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
+    const {
+        apiUrl,
+        configureLinks,
+        origin,
+        store,
+        styles,
+        url = globalThis.location.pathname,
+        apollo: apolloProp,
+        staticContext
+    } = props;
+    const {
+        storeCode = STORE_VIEW_CODE,
+        storeCurrency: currencyFromUrl
+    } = getStoreDataFromUrl(url);
+
     const basename = urlHasStoreCode ? `/${storeCode}` : null;
     const [initialized, setInitialized] = useState(false);
 
@@ -44,16 +58,19 @@ export const useAdapter = props => {
         });
     }, []);
 
-    const createCachePersistor = useCallback((storeCode, cache) => {
-        return IS_SERVER
-            ? null
-            : new CachePersistor({
-                  key: `${CACHE_PERSIST_PREFIX}-${storeCode}`,
-                  cache,
-                  storage: globalThis.localStorage,
-                  debug: process.env.NODE_ENV === 'development'
-              });
-    }, []);
+    const createCachePersistor = useCallback(
+        (storeCode, cache) => {
+            return IS_SERVER
+                ? apolloProp.cache || null
+                : new CachePersistor({
+                      key: `${CACHE_PERSIST_PREFIX}-${storeCode}`,
+                      cache,
+                      storage: globalThis.localStorage,
+                      debug: process.env.NODE_ENV === 'development'
+                  });
+        },
+        [apolloProp.cache]
+    );
 
     const clearCacheData = useCallback(
         async (client, cacheType) => {
@@ -111,7 +128,12 @@ export const useAdapter = props => {
 
     const apolloClient = useMemo(() => {
         const storeCode = storage.getItem('store_view_code') || 'default';
-        const client = createApolloClient(preInstantiatedCache, apolloLink);
+        const client =
+            apolloProp.client ||
+            createApolloClient(
+                apolloProp.cache || preInstantiatedCache,
+                apolloLink
+            );
         const persistor = IS_SERVER
             ? null
             : createCachePersistor(storeCode, preInstantiatedCache);
@@ -123,6 +145,8 @@ export const useAdapter = props => {
         return client;
     }, [
         apiBase,
+        apolloProp.cache,
+        apolloProp.client,
         apolloLink,
         clearCacheData,
         createApolloClient,
@@ -141,6 +165,28 @@ export const useAdapter = props => {
     const reduxProps = { store };
     const routerProps = { basename, getUserConfirmation };
     const styleProps = { initialState: styles };
+
+    if (IS_SERVER) {
+        routerProps.context = staticContext;
+
+        if (process.env.USE_STORE_CODE_IN_URL === 'true') {
+            routerProps.basename = `/${storeCode}`;
+            routerProps.location = url.replace(
+                new RegExp(`^\/${storeCode}(\/)?`),
+                '/'
+            );
+
+            // Change the currency on client if it differs from the requested
+            if (
+                cookies.store_view_currency &&
+                cookies.store_view_currency !== currencyFromUrl
+            ) {
+                routerProps.context.cookies.store_view_currency = currencyFromUrl;
+            }
+        } else {
+            routerProps.location = url;
+        }
+    }
 
     // perform blocking async work here
     useEffect(() => {
@@ -174,7 +220,7 @@ export const useAdapter = props => {
  * this module is executed, since it doesn't depend on any component props.
  * The tradeoff is that we may be creating an instance we don't end up needing.
  */
-const preInstantiatedCache = new InMemoryCache({
+export const preInstantiatedCache = new InMemoryCache({
     // POSSIBLE_TYPES is injected into the bundle by webpack at build time.
     possibleTypes: POSSIBLE_TYPES,
     typePolicies

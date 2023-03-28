@@ -3,7 +3,7 @@ import { number, string, shape } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { useNoProductsFound } from '@magento/peregrine/lib/talons/RootComponents/Category';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 
 import Image from '../../../components/Image';
 import { useStyle } from '../../../classify';
@@ -15,6 +15,7 @@ const NoProductsFound = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const { formatMessage } = useIntl();
+    const resourceUrl = useResourceUrl();
     const talonProps = useNoProductsFound({
         categoryId
     });
@@ -33,7 +34,7 @@ const NoProductsFound = props => {
                 </li>
             );
         });
-    }, [classes, recommendedCategories]);
+    }, [classes.listItem, recommendedCategories, resourceUrl]);
 
     const headerText = formatMessage({
         id: 'noProductsFound.noProductsFound',

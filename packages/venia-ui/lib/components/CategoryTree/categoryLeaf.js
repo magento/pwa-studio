@@ -3,7 +3,7 @@ import { func, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { useCategoryLeaf } from '@magento/peregrine/lib/talons/CategoryTree';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './categoryLeaf.module.css';
@@ -13,6 +13,7 @@ const Leaf = props => {
     const { name, url_path, children } = category;
     const classes = useStyle(defaultClasses, props.classes);
     const { handleClick } = useCategoryLeaf({ onNavigate });
+    const resourceUrl = useResourceUrl();
     const destination = resourceUrl(`/${url_path}${categoryUrlSuffix || ''}`);
 
     const leafLabel =

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import defaultClasses from './column.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, string, object } from 'prop-types';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 
 const { matchMedia } = globalThis;
@@ -23,6 +23,7 @@ const Column = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const [bgImageStyle, setBgImageStyle] = useState(null);
     const columnElement = useRef(null);
+    const resourceUrl = useResourceUrl();
     const {
         appearance,
         backgroundAttachment,
@@ -151,7 +152,7 @@ const Column = props => {
                 );
             }
         }
-    }, [backgroundSize, image, setBgImageStyle]);
+    }, [backgroundSize, image, resourceUrl, setBgImageStyle]);
 
     return (
         <div

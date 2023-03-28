@@ -12,6 +12,7 @@ export { useScrollLock } from './hooks/useScrollLock';
 export { useSearchParam } from './hooks/useSearchParam';
 export { useSort } from './hooks/useSort';
 export { useTypePolicies } from './hooks/useTypePolicies';
+export { useResourceUrl } from './hooks/useResourceUrl';
 
 export {
     WindowSizeContextProvider,

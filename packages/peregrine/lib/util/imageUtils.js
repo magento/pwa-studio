@@ -19,9 +19,14 @@ export const imageWidths = new Map(
     })
 );
 
-export const generateUrl = (imageURL, mediaBase) => (width, height) =>
+export const generateUrl = (
+    imageURL,
+    mediaBase,
+    origin = IS_BROWSER ? globalThis.location.origin : ''
+) => (width, height) =>
     makeUrl(imageURL, {
         type: mediaBase,
+        origin,
         width,
         height,
         fit: 'cover'
@@ -29,6 +34,7 @@ export const generateUrl = (imageURL, mediaBase) => (width, height) =>
 
 export const generateUrlFromContainerWidth = (
     imageURL,
+    origin,
     containerWidth,
     type = 'image-product',
     ratio = DEFAULT_WIDTH_TO_HEIGHT_RATIO
@@ -52,14 +58,17 @@ export const generateUrlFromContainerWidth = (
         null
     );
 
-    return generateUrl(imageURL, type)(actualWidth, actualWidth / ratio);
+    return generateUrl(imageURL, type, origin)(
+        actualWidth,
+        actualWidth / ratio
+    );
 };
 
-export const generateSrcset = (imageURL, type, ratio) => {
+export const generateSrcset = (imageURL, type, ratio, origin) => {
     if (!imageURL || !type) return '';
 
     const imageRatio = ratio || DEFAULT_WIDTH_TO_HEIGHT_RATIO;
-    const generateSrcsetUrl = generateUrl(imageURL, type);
+    const generateSrcsetUrl = generateUrl(imageURL, type, origin);
 
     return Array.from(imageWidths, ([, value]) => value)
         .map(

@@ -4,7 +4,7 @@ import { arrayOf, bool, oneOf, shape, string, number } from 'prop-types';
 import { Link } from 'react-router-dom';
 import resolveLinkProps from '@magento/peregrine/lib/util/resolveLinkProps';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useResourceUrl } from '@magento/peregrine';
 
 /**
  * Page Builder Image component.
@@ -20,6 +20,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
  */
 const Image = props => {
     const classes = useStyle(defaultClasses, props.classes);
+    const resourceUrl = useResourceUrl();
     const {
         desktopImage,
         mobileImage,
