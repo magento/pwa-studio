@@ -4,6 +4,16 @@ export const ProductDetailsFragment = gql`
     fragment ProductDetailsFragment on ProductInterface {
         __typename
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
+        mp_pickup_locations {
+            productStock
+            locationsData {
+                name
+                city
+                country
+                street
+                state_province
+            }
+        }
         categories {
             uid
             breadcrumbs {

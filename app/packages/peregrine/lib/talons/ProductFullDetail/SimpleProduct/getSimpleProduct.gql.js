@@ -3,6 +3,16 @@ export const GET_SIMPLE_PRODUCT = gql`
     query getSimpleProduct($sku: String!) {
         products(search: $sku, filter: { sku: { eq: $sku } }) {
             items {
+                mp_pickup_locations {
+                    productStock
+                    locationsData {
+                        name
+                        city
+                        country
+                        street
+                        state_province
+                    }
+                }
                 name
                 media_gallery_entries {
                     file
