@@ -44,7 +44,7 @@
     composes: lg_border-gray-500 from global;
     composes: lg_font-normal from global;
     composes: lg_normal-case from global;
-    composes: lg_rounded-md from global;
+    composes: lg_rounded-input from global;
 }
 
 .desktopText {

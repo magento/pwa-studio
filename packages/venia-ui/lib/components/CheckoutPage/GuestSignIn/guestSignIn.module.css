@@ -19,7 +19,7 @@
 .contentContainer {
     composes: border-0 from global;
     composes: p-0 from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
 
     composes: lg_border-2 from global;
     composes: lg_border-solid from global;

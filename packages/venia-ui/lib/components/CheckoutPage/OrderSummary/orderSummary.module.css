@@ -8,7 +8,7 @@
     composes: lg_border-2 from global;
     composes: lg_border-solid from global;
     composes: lg_border-subtle from global;
-    composes: lg_rounded-md from global;
+    composes: lg_rounded-box from global;
     composes: lg_mt-0 from global;
     composes: lg_p-md from global;
 }

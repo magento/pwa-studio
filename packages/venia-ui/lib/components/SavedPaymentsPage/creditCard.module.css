@@ -8,7 +8,7 @@
     composes: min-w-[20rem] from global;
     composes: px-md from global;
     composes: py-sm from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
     composes: relative from global;
     min-height: 10rem;
 }
@@ -58,7 +58,7 @@
     composes: opacity-100 from global;
     composes: px-md from global;
     composes: py-xs from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
     composes: top-0 from global;
     composes: w-full from global;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));

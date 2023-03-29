@@ -7,35 +7,35 @@
     --venia-global-anim-standard: cubic-bezier(0.4, 0, 0.2, 1);
 
     /* color */
-    --venia-global-color-blue-100: 194 200 255;
-    --venia-global-color-blue-400: 71 139 255;
+    --venia-global-color-blue-100: var(--color-blue-100);
+    --venia-global-color-blue-400: var(--color-blue-400);
     /* --venia-global-color-blue-500: 51 109 255; */
     /* --venia-global-color-blue-600: 41 84 255; */
-    --venia-global-color-blue-700: 31 57 255;
+    --venia-global-color-blue-700: var(--color-blue-700);
     /* --venia-global-color-blue-800: 23 43 196; */
-    --venia-global-color-gray-50: 255 255 255;
+    --venia-global-color-gray-50: var(--color-gray-50);
     /* --venia-global-color-gray-75: 250 250 250; */
-    --venia-global-color-gray-100: 244 245 245;
+    --venia-global-color-gray-100: var(--color-gray-100);
     /* --venia-global-color-gray-200: 234 235 235; */
-    --venia-global-color-gray-300: 161 151 145;
-    --venia-global-color-gray-400: 181 184 186;
-    --venia-global-color-gray-500: 149 154 157;
-    --venia-global-color-gray-600: 118 123 127;
-    --venia-global-color-gray-700: 84 93 99;
+    --venia-global-color-gray-300: var(--color-gray-300);
+    --venia-global-color-gray-400: var(--color-gray-400);
+    --venia-global-color-gray-500: var(--color-gray-500);
+    --venia-global-color-gray-600: var(--color-gray-600);
+    --venia-global-color-gray-700: var(--color-gray-700);
     /* --venia-global-color-gray-800: 51 63 71; */
-    --venia-global-color-gray-900: 23 32 38;
+    --venia-global-color-gray-900: var(--color-gray-900);
     --venia-global-color-gray: var(--venia-global-color-gray-100);
     --venia-global-color-gray-dark: var(--venia-global-color-gray-300);
     --venia-global-color-gray-darker: var(--venia-global-color-gray-600);
     /* --venia-global-color-green-400: 51 171 132; */
-    --venia-global-color-green-500: 45 157 120;
+    --venia-global-color-green-500: var(--color-green-600);
     /* --venia-global-color-green-600: 38 142 108; */
     /* --venia-global-color-green-700: 18 128 92; */
-    --venia-global-color-orange: 241 99 33;
-    --venia-global-color-red-400: 236 91 98;
+    --venia-global-color-orange: var(--color-orange);
+    --venia-global-color-red-400: var(--color-red-400);
     /* --venia-global-color-red-500: 227 72 80; */
     /* --venia-global-color-red-600: 215 55 63; */
-    --venia-global-color-red-700: 201 37 45;
+    --venia-global-color-red-700: var(--color-red-700);
     /* --venia-global-color-red-800: 161 30 36; */
     --venia-global-color-teal: var(--venia-global-color-blue-400);
     /* --venia-global-color-teal-dark: var(--venia-global-color-blue-600); */
@@ -84,8 +84,8 @@
     /* --venia-global-lineHeight-500: 2; */
 
     /* dimensions */
-    --venia-global-maxWidth: 1440px;
-    --venia-global-header-minHeight: 5rem;
+    --venia-global-maxWidth: theme('maxWidth.site');
+    --venia-global-header-minHeight: theme('spacing.header');
 }
 
 @media (max-width: 959px) {
@@ -97,11 +97,11 @@
 /* alias tokens */
 :global(:root) {
     /* colors */
-    --venia-brand-color-1-100: var(--venia-global-color-blue-100);
+    --venia-brand-color-1-100: var(--color-brand-100);
     /* --venia-brand-color-1-400: var(--venia-global-color-blue-400); */
     /* --venia-brand-color-1-500: var(--venia-global-color-blue-500); */
     /* --venia-brand-color-1-600: var(--venia-global-color-blue-600); */
-    --venia-brand-color-1-700: var(--venia-global-color-blue-700);
+    --venia-brand-color-1-700: var(--color-brand-700);
     /* --venia-brand-color-1-800: var(--venia-global-color-blue-800); */
 
     /* typography - heading */

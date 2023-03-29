@@ -4,7 +4,7 @@
     composes: border-subtle from global;
     composes: grid from global;
     composes: grid-cols-2 from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
 }
 
 @media (min-width: 960px) {
@@ -134,7 +134,7 @@
     composes: justify-self-start from global;
     composes: px-xs from global;
     composes: py-1 from global;
-    composes: rounded-md from global;
+    composes: rounded-badge from global;
     composes: text-2xs from global;
 }
 

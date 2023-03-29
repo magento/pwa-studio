@@ -77,7 +77,7 @@
     composes: justify-items-center from global;
     composes: mb-xs from global;
     composes: p-xs from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
     composes: row-start-1 from global;
 
     composes: lg_grid-flow-col from global;

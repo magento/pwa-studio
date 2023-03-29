@@ -44,7 +44,7 @@
     composes: border-solid from global;
     composes: border-subtle from global;
     composes: font-semibold from global;
-    composes: rounded-md from global;
+    composes: rounded-button from global;
     composes: text-brand-dark from global;
     composes: text-sm from global;
     transition: border-color 384ms var(--venia-global-anim-standard);

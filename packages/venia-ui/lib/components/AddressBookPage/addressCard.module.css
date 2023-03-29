@@ -6,7 +6,7 @@
     composes: grid from global;
     composes: p-xs from global;
     composes: relative from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
     grid-template-columns: 1fr max-content;
 
     composes: sm_px-md from global;
@@ -77,7 +77,7 @@
     composes: mb-2xs from global;
     composes: px-sm from global;
     composes: py-1.5 from global;
-    composes: rounded-md from global;
+    composes: rounded-badge from global;
     composes: text-xs from global;
     composes: w-max from global;
 }

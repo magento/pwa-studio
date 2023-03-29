@@ -16,7 +16,7 @@
     composes: min-w-full from global;
     composes: px-[15px] from global;
     composes: py-[12px] from global;
-    composes: rounded-md from global;
+    composes: rounded-input from global;
     composes: w-full from global;
     font-size: 1rem;
 }

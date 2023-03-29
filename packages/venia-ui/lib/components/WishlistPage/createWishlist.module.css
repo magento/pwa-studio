@@ -59,6 +59,6 @@
     composes: h-[6rem] from global;
     composes: items-center from global;
     composes: justify-center from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
     composes: text-brand-dark from global;
 }

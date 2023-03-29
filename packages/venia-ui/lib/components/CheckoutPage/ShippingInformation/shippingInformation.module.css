@@ -4,7 +4,7 @@
     composes: border-solid from global;
     composes: border-subtle from global;
     composes: p-md from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
 }
 
 .root_editMode {

@@ -10,7 +10,7 @@
     composes: px-5 from global;
     composes: py-xs from global;
     composes: relative from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
     composes: shadow-none from global;
     composes: text-colorDefault from global;
     transition: border-color 384ms var(--venia-global-anim-in);
@@ -67,7 +67,7 @@
     composes: mb-1 from global;
     composes: px-sm from global;
     composes: py-1.5 from global;
-    composes: rounded-md from global;
+    composes: rounded-badge from global;
     composes: text-xs from global;
     composes: w-max from global;
 }

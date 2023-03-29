@@ -36,7 +36,7 @@
     composes: inline-flex from global;
     composes: items-center from global;
     composes: justify-center from global;
-    composes: rounded-full from global;
+    composes: rounded-button from global;
     composes: w-[2rem] from global;
     stroke: rgb(var(--stroke));
 

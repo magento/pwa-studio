@@ -12,7 +12,7 @@
     composes: outline-none from global;
     composes: pointer-events-auto from global;
     composes: px-sm from global;
-    composes: rounded-full from global;
+    composes: rounded-button from global;
     composes: text-center from global;
     composes: text-sm from global;
     composes: uppercase from global;

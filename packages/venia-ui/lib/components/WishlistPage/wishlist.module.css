@@ -5,7 +5,7 @@
     composes: gap-y-md from global;
     composes: grid from global;
     composes: p-sm from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
 
     composes: md_p-md from global;
 }

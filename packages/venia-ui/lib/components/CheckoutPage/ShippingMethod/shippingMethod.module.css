@@ -5,7 +5,7 @@
     composes: grid from global;
     composes: gap-y-xs from global;
     composes: p-md from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
 }
 
 .done {

@@ -1,6 +1,6 @@
 // TODO @TW: see bottom too
 //const aspectRatioPlugin = require('@tailwindcss/aspect-ratio');
-const { getColors } = require('./lib/colors');
+const { getColors, hexToRgb } = require('./lib/colors');
 const corePlugin = require('./plugins');
 
 const colors = {
@@ -56,18 +56,16 @@ const extend = {
         success: theme('colors.green.600'),
         warning: theme('colors.yellow.500')
     }),
-    borderRadius: {
+    borderRadius: theme => ({
         // Primitive
         radius1: '4px',
         radius2: '8px',
-        radius3: '100%'
-
-        // Generic
-        // TODO @TW: review. This causes error.
-        // radiusBox: theme('borderRadius.radius2'),
-        // radiusButton: theme('borderRadius.radius1'),
-        // radiusInput: theme('borderRadius.radius1'),
-    },
+        radius3: '100%',
+        box: theme('borderRadius.md'),
+        button: theme('borderRadius.full'),
+        input: theme('borderRadius.md'),
+        badge: theme('borderRadius.md')
+    }),
     borderWidth: {
         DEFAULT: '1px'
     },
@@ -167,7 +165,8 @@ const extend = {
         lg: '3rem',
         DEFAULT: '1.5rem',
         filterSidebarWidth: '325px',
-        full: '100%'
+        full: '100%',
+        header: '5rem'
     },
     textColor: theme => ({
         colorDefault: theme('colors.gray.900'), // TODO @TW naming collision: TW puts "fontSize" + "color" under "text-" prefix
@@ -229,7 +228,32 @@ const theme = {
                 color: theme('colors.neutral.900')
             },
             root: {
-                colors
+                colors: {
+                    ...colors,
+                    blue: {
+                        100: hexToRgb(theme('colors.blue.100')),
+                        400: hexToRgb(theme('colors.blue.400')),
+                        700: hexToRgb(theme('colors.blue.700'))
+                    },
+                    gray: {
+                        50: hexToRgb(theme('colors.gray.50')),
+                        100: hexToRgb(theme('colors.gray.100')),
+                        300: hexToRgb(theme('colors.gray.300')),
+                        400: hexToRgb(theme('colors.gray.400')),
+                        500: hexToRgb(theme('colors.gray.500')),
+                        600: hexToRgb(theme('colors.gray.600')),
+                        700: hexToRgb(theme('colors.gray.700')),
+                        900: hexToRgb(theme('colors.gray.900'))
+                    },
+                    green: {
+                        600: hexToRgb(theme('colors.green.600'))
+                    },
+                    orange: hexToRgb(theme('colors.amber.500')),
+                    red: {
+                        400: hexToRgb(theme('colors.red.400')),
+                        700: hexToRgb(theme('colors.red.700')),
+                    }
+                }
             }
         }
     })
