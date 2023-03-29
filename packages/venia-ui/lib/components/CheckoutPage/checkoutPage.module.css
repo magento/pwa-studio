@@ -8,15 +8,14 @@
     composes: lg_px-lg from global;
 }
 
-/* prettier-ignore */
+
 .checkoutContent {
     composes: gap-xs from global;
     composes: grid from global;
     composes: grid-cols-1 from global;
 
     composes: lg_gap-md from global;
-    /* TODO @TW: review (B7) */
-    composes: lg_grid-cols-[2fr,1fr] from global;
+    composes: lg_grid-cols-[2fr_1fr] from global;
 }
 
 .checkoutContent_hidden {

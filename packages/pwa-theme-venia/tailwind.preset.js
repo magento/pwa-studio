@@ -2,6 +2,7 @@
 //const aspectRatioPlugin = require('@tailwindcss/aspect-ratio');
 const { getColors, hexToRgb } = require('./lib/colors');
 const corePlugin = require('./plugins');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 const colors = {
     brand: {
@@ -56,16 +57,16 @@ const extend = {
         success: theme('colors.green.600'),
         warning: theme('colors.yellow.500')
     }),
-    borderRadius: theme => ({
+    borderRadius: {
         // Primitive
         radius1: '4px',
         radius2: '8px',
         radius3: '100%',
-        box: theme('borderRadius.md'),
-        button: theme('borderRadius.full'),
-        input: theme('borderRadius.md'),
-        badge: theme('borderRadius.md')
-    }),
+        box: defaultTheme.borderRadius.md,
+        button: defaultTheme.borderRadius.full,
+        input: defaultTheme.borderRadius.md,
+        badge: defaultTheme.borderRadius.md
+    },
     borderWidth: {
         DEFAULT: '1px'
     },

@@ -1,7 +1,7 @@
 @import './tokens.module.css';
 
 :global(*) {
-    @apply box-border from global;
+    @apply box-border;
 }
 
 :global(html) {
