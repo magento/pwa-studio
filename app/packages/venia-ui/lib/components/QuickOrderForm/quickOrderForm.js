@@ -18,6 +18,7 @@ import { useAddToQuote } from '@magento/peregrine/lib/talons/QuickOrderForm/useA
 import defaultClasses from './quickOrderForm.module.css';
 
 import fastCart from '@magento/venia-ui/lib/assets/fastCart.svg';
+import Price from '../Price';
 
 const initialArray = [{ name: '', quantity: 1 }];
 
@@ -275,12 +276,12 @@ const QuickOrderForm = props => {
                                                     {item.stock_status === 'IN_STOCK' && item.price ? (
                                                         <span className={classes.priceText}>
                                                             {' '}
-                                                            {item.price.minimalPrice.amount.currency === 'USD'
-                                                                ? '$'
-                                                                : '€'}
-                                                            {(
-                                                                item.price.minimalPrice.amount.value * item.quantity
-                                                            ).toFixed(2)}
+                                                            <Price
+                                                                currencyCode={item.price.minimalPrice.amount.currency}
+                                                                value={
+                                                                    item.price.minimalPrice.amount.value * item.quantity
+                                                                }
+                                                            />
                                                         </span>
                                                     ) : (
                                                         <span className={classes.spanUnAailable}>

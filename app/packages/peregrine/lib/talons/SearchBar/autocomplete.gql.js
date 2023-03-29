@@ -18,6 +18,7 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                 __typename
                 orParentSku
                 orParentUrlKey
+                stock_status
                 id
                 uid
                 name
