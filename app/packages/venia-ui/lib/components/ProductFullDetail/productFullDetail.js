@@ -331,6 +331,7 @@ const ProductFullDetail = props => {
             hasOptionsOfTheSelection={hasOptionsOfTheSelection}
             mediaGalleryEntries={mediaGalleryEntries}
             priceRender={priceRender}
+            product={product}
             productDetails={productDetails}
             tempTotalPrice={tempTotalPrice}
             wishlistButtonProps={wishlistButtonProps}

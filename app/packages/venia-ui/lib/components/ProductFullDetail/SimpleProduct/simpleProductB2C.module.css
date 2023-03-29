@@ -255,3 +255,7 @@
         margin-top: 30px;
     }
 }
+
+.storeButtion {
+    color: var(--b2bstore-global-color-orange);
+}

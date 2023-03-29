@@ -365,3 +365,7 @@ header .productName {
         margin-top: 8rem;
     }
 }
+
+.storeButtion{
+    color: var(--b2bstore-global-color-orange);
+}

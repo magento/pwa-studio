@@ -350,3 +350,7 @@
         height: 400px !important;
     }
 }
+
+.storeButtion {
+    color: var(--b2bstore-global-color-orange);
+}

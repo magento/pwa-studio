@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import ItemsTable from './ItemsTable';
 import RichText from '@magento/venia-ui/lib/components/RichText';
@@ -9,11 +9,13 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './simpleProduct.module.css';
 import CmsBlock from '@magento/venia-ui/lib/components/CmsBlock/block';
 import { useCmsBlock } from '@magento/peregrine/lib/hooks/useCmsBlocks';
+import AvailableStore from '../../StoreLocator/AvailableStore';
 
 const SimpleProductB2B = props => {
     const { cmsBlocks } = useCmsBlock({
         cmsBlockIdentifiers: ['warranties-block', 'recommended-product-block']
     });
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
 
     const warrantiesBlock = cmsBlocks.find(item => item.identifier === 'warranties-block')?.content;
 
@@ -60,6 +62,14 @@ const SimpleProductB2B = props => {
                         />
                     </h2>
                     <RichText content={simpleProductData.description.html} />
+                {simpleProductData?.mp_pickup_locations.length > 0 && (
+                    <button onClick={() => setIsOpenStoresModal(true)} className={classes.storeButtion}>
+                        <FormattedMessage
+                            id={'storeLocator.SeeAvailablePickupStores'}
+                            defaultMessage={'See available pickup stores'}
+                        />
+                    </button>
+                )}
                 </section>
                 <section className={classes.favoritesButton}>
                     {' '}
@@ -86,6 +96,13 @@ const SimpleProductB2B = props => {
             <section>
                 <CmsBlock content={recommendedProductBlock} />
             </section>
+            {isOpenStoresModal && (
+                <AvailableStore
+                    isOpen={isOpenStoresModal}
+                    onCancel={() => setIsOpenStoresModal(false)}
+                    storesList={simpleProductData?.mp_pickup_locations}
+                />
+            )}
         </main>
     );
 };

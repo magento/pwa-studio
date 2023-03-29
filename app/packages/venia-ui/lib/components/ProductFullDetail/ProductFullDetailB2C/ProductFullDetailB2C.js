@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useMemo } from 'react';
+import React, { Fragment, Suspense, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 
@@ -9,16 +9,16 @@ import Carousel from '@magento/venia-ui/lib/components/ProductImageCarousel';
 import QuantityStepper from '@magento/venia-ui/lib/components/QuantityStepper';
 import CustomAttributes from '@magento/venia-ui/lib/components/ProductFullDetail/CustomAttributes';
 
-const WishlistButton = React.lazy(() =>
-    import('@magento/venia-ui/lib/components/Wishlist/AddToListButton')
-);
+const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
 
 import defaultClasses from './ProductFullDetailB2C.module.css';
 import noImage from './icons/product-package-cancelled.svg';
 
+import AvailableStore from '../../StoreLocator/AvailableStore';
 const ProductFullDetailB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
 
     const {
         breadcrumbs,
@@ -33,7 +33,8 @@ const ProductFullDetailB2C = props => {
         handleQuantityChange,
         tempTotalPrice,
         cartActionContent,
-        customAttributes
+        customAttributes,
+        product
     } = props;
 
     const customAttributesDetails = useMemo(() => {
@@ -57,10 +58,7 @@ const ProductFullDetailB2C = props => {
         };
         if (Array.isArray(customAttributes)) {
             customAttributes.forEach(customAttribute => {
-                if (
-                    customAttribute.attribute_metadata.ui_input
-                        .ui_input_type === 'PAGEBUILDER'
-                ) {
+                if (customAttribute.attribute_metadata.ui_input.ui_input_type === 'PAGEBUILDER') {
                     pagebuilder.push(customAttribute);
                 } else {
                     list.push(customAttribute);
@@ -91,16 +89,9 @@ const ProductFullDetailB2C = props => {
     return (
         <Fragment>
             {breadcrumbs}
-            <Form
-                className={classes.root}
-                data-cy="ProductFullDetail-root"
-                onSubmit={handleAddToCart}
-            >
+            <Form className={classes.root} data-cy="ProductFullDetail-root" onSubmit={handleAddToCart}>
                 <section className={classes.title}>
-                    <h1
-                        className={classes.productName}
-                        data-cy="ProductFullDetail-productName"
-                    >
+                    <h1 className={classes.productName} data-cy="ProductFullDetail-productName">
                         {productDetails.name}
                     </h1>
                     {/* <p
@@ -112,22 +103,31 @@ const ProductFullDetailB2C = props => {
                             value={productDetails.price.value}
                         />
                     </p> */}
+
                     {shortDescription}
                 </section>
                 <article className={classes.priceContainer}>
                     {' '}
                     {priceRender}
+                    {product?.mp_pickup_locations.length > 0 && (
+                        <button
+                            type="button"
+                            onClick={() => setIsOpenStoresModal(true)}
+                            className={classes.storeButtion}
+                        >
+                            <FormattedMessage
+                                id={'storeLocator.SeeAvailablePickupStores'}
+                                defaultMessage={'See available pickup stores'}
+                            />
+                        </button>
+                    )}
                 </article>
                 <div className={classes.imageCarousel}>
                     {hasOptionsOfTheSelection ? (
-                        <Carousel images={mediaGalleryEntries}  carouselWidth={960} />
+                        <Carousel images={mediaGalleryEntries} carouselWidth={960} />
                     ) : (
                         <div className={classes.noImageContainer}>
-                            <img
-                                className={classes.noImage}
-                                src={noImage}
-                                alt="NoImage"
-                            />
+                            <img className={classes.noImage} src={noImage} alt="NoImage" />
                         </div>
                     )}
                 </div>
@@ -145,18 +145,10 @@ const ProductFullDetailB2C = props => {
                     }}
                     errors={errors.get('form') || []}
                 />
-                <section className={classes.options}>
-                    {availableOptions}
-                </section>
+                <section className={classes.options}>{availableOptions}</section>
                 <section className={classes.quantity}>
-                    <span
-                        data-cy="ProductFullDetail-quantityTitle"
-                        className={classes.quantityTitle}
-                    >
-                        <FormattedMessage
-                            id={'global.quantity'}
-                            defaultMessage={'Quantity'}
-                        />
+                    <span data-cy="ProductFullDetail-quantityTitle" className={classes.quantityTitle}>
+                        <FormattedMessage id={'global.quantity'} defaultMessage={'Quantity'} />
                     </span>
                     <article className={classes.quantityTotalPrice}>
                         <QuantityStepper
@@ -166,9 +158,7 @@ const ProductFullDetailB2C = props => {
                             onChange={handleQuantityChange}
                             message={errors.get('quantity')}
                         />
-                        <article className={classes.totalPrice}>
-                            {tempTotalPrice}
-                        </article>
+                        <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
                 </section>
                 <section className={classes.actions}>
@@ -178,10 +168,7 @@ const ProductFullDetailB2C = props => {
                     </Suspense>
                 </section>
                 <section className={classes.description}>
-                    <span
-                        data-cy="ProductFullDetail-descriptionTitle"
-                        className={classes.descriptionTitle}
-                    >
+                    <span data-cy="ProductFullDetail-descriptionTitle" className={classes.descriptionTitle}>
                         <FormattedMessage
                             id={'productFullDetail.productDescription'}
                             defaultMessage={'Product Description'}
@@ -190,11 +177,16 @@ const ProductFullDetailB2C = props => {
                     <RichContent html={productDetails.description} />
                 </section>
                 <section className={classes.details}>
-                    <CustomAttributes
-                        customAttributes={customAttributesDetails.list}
-                    />
+                    <CustomAttributes customAttributes={customAttributesDetails.list} />
                 </section>
                 {pageBuilderAttributes}
+                {isOpenStoresModal && (
+                    <AvailableStore
+                        isOpen={isOpenStoresModal}
+                        onCancel={() => setIsOpenStoresModal(false)}
+                        storesList={product?.mp_pickup_locations}
+                    />
+                )}
             </Form>
         </Fragment>
     );

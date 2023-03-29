@@ -243,3 +243,7 @@
         height: 450px;
     }
 }
+
+.storeButtion {
+    color: var(--b2bstore-global-color-orange);
+}

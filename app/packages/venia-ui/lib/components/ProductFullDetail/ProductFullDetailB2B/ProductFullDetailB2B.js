@@ -14,7 +14,7 @@ import CmsBlock from '../../CmsBlock/block';
 import { useCmsBlock } from '@magento/peregrine/lib/hooks/useCmsBlocks';
 
 const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
-
+import AvailableStore from '../../StoreLocator/AvailableStore';
 import gql from 'graphql-tag';
 import { useLazyQuery } from '@apollo/client';
 import Breadcrumbs from '../../Breadcrumbs';
@@ -44,6 +44,7 @@ const ProductFullDetailB2B = props => {
     } = props;
     const [selectedFilter, setSelectedFilter] = useState([]);
     const [selectedFilterCategory, setSelectedFilterCategory] = useState([]);
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -255,6 +256,14 @@ const ProductFullDetailB2B = props => {
 
                         <span className={classes.priceNumber}>{priceRender}</span>
                     </article>
+                    {product?.mp_pickup_locations.length > 0 && (
+                        <button onClick={() => setIsOpenStoresModal(true)} className={classes.storeButtion}>
+                            <FormattedMessage
+                                id={'storeLocator.SeeAvailablePickupStores'}
+                                defaultMessage={'See available pickup stores'}
+                            />
+                        </button>
+                    )}
                 </section>
                 <section className={classes.imageCarouselContainer}>
                     <div className={classes.imageCarousel}>
@@ -299,6 +308,14 @@ const ProductFullDetailB2B = props => {
                 </section>
                 <section className={classes.hide}>{availableOptions}</section>
             </Form>
+
+            {isOpenStoresModal && (
+                <AvailableStore
+                    isOpen={isOpenStoresModal}
+                    onCancel={() => setIsOpenStoresModal(false)}
+                    storesList={product?.mp_pickup_locations}
+                />
+            )}
         </Fragment>
     );
 };

@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'informed';
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -11,8 +11,11 @@ import Breadcrumbs from '@magento/venia-ui/lib/components/Breadcrumbs';
 import Options from '../CustomProductOptions/options';
 import Button from '../../Button';
 
+import AvailableStore from '../../StoreLocator/AvailableStore';
+
 const SimpleProductB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
     const {
         simpleProductData,
         handleAddToCart,
@@ -38,7 +41,22 @@ const SimpleProductB2C = props => {
                 <section className={classes.title}>
                     <h1 className={classes.productName}>{simpleProductData.name}</h1>
                 </section>
-                <article className={classes.priceContainer}> {priceRender}</article>
+                <article className={classes.priceContainer}>
+                    {' '}
+                    {priceRender}
+                    {simpleProductData?.mp_pickup_locations.length > 0 && (
+                        <button
+                            type="button"
+                            onClick={() => setIsOpenStoresModal(true)}
+                            className={classes.storeButtion}
+                        >
+                            <FormattedMessage
+                                id={'storeLocator.SeeAvailablePickupStores'}
+                                defaultMessage={'See available pickup stores'}
+                            />
+                        </button>
+                    )}
+                </article>
                 <section className={classes.imageCarousel}>
                     <Carousel images={simpleProductData.media_gallery_entries} carouselWidth={960} />
                 </section>
@@ -96,6 +114,13 @@ const SimpleProductB2C = props => {
                     </span>
                     <strong>{simpleProductData.sku}</strong>
                 </section>
+                {isOpenStoresModal && (
+                    <AvailableStore
+                        isOpen={isOpenStoresModal}
+                        onCancel={() => setIsOpenStoresModal(false)}
+                        storesList={simpleProductData?.mp_pickup_locations}
+                    />
+                )}
             </Form>
         </Fragment>
     );
