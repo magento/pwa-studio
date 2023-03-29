@@ -5,7 +5,7 @@
     composes: ml-xs from global;
     /* Show ellipses when overflowing. */
     composes: overflow-hidden from global;
-    composes: overflow-ellipsis from global;
+    composes: text-ellipsis from global;
     composes: pt-[0.625rem] from global;
     composes: pb-[1rem] from global;
     composes: text-sm from global;

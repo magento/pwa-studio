@@ -14,7 +14,7 @@
 
 .trigger {
     composes: max-w-[15rem] from global;
-    composes: overflow-ellipsis from global;
+    composes: text-ellipsis from global;
     composes: overflow-hidden from global;
     composes: whitespace-nowrap from global;
 

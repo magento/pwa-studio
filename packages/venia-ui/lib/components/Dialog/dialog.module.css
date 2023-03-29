@@ -116,7 +116,7 @@
 .headerText {
     composes: capitalize from global;
     composes: leading-tight from global;
-    composes: overflow-ellipsis from global;
+    composes: text-ellipsis from global;
     composes: overflow-hidden from global;
     composes: text-subtle from global;
     composes: whitespace-nowrap from global;

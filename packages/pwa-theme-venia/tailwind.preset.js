@@ -239,21 +239,7 @@ const config = {
     // TODO @TW: see top too. Had to disable to get working locally.
     // plugins: [aspectRatioPlugin, corePlugin],
     plugins: [corePlugin],
-    theme,
-    variants: {
-        extend: {
-            backgroundColor: ['checked'],
-            backgroundImage: ['focus'],
-            borderColor: ['even'],
-            borderStyle: ['even'],
-            borderWidth: ['even', 'last'],
-            boxShadow: ['active'],
-            fontWeight: ['first'],
-            outline: ['active', 'focus'],
-            pointerEvents: ['disabled'],
-            textColor: ['disabled', 'first']
-        }
-    }
+    theme
 };
 
 module.exports = config;

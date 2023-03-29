@@ -53,7 +53,7 @@ const MiniCart = React.forwardRef((props, ref) => {
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
-    const rootClass = isOpen ? classes.root_open : classes.root;
+    const rootClass = isOpen ? classes.root_open : classes.root_closed;
     const contentsClass = isOpen ? classes.contents_open : classes.contents;
     const quantityClassName = loading
         ? classes.quantity_loading
@@ -181,6 +181,7 @@ export default MiniCart;
 MiniCart.propTypes = {
     classes: shape({
         root: string,
+        root_closed: string,
         root_open: string,
         contents: string,
         contents_open: string,
