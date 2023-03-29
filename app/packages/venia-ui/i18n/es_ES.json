@@ -918,12 +918,15 @@
     "stockStatusMessage.message": "Un artículo en tu carrito se encuentra actualmente sin stock y deberá ser eliminado para proceder.",
     "storedPayments.creditCard": "Tarjeta de crédito",
     "storedPayments.delete": "Borrar",
+    "storeLocator.about": "Acerca de",
     "storeLocator.address": "Dirección",
+    "storeLocator.availablePickupStore(s)": "Tienda(s) de recogida disponible(s)",
     "storeLocator.findStoreText": "Buscar una tienda",
     "storeLocator.findText": "Encuentra la tienda más cercana para conseguir tus cosas favoritas.",
     "storeLocator.getDirections": "Cómo llegar",
     "storeLocator.noStoresText": "No hay ninguna tienda disponible",
     "storeLocator.searchForLocation": "Buscar por ubicación",
+    "storeLocator.SeeAvailablePickupStores": "Ver tiendas de recogida disponibles",
     "storeLocator.selectDay": "Seleccionar día",
     "storeLocator.SelectStore": "Seleccionar tienda",
     "subtotalMessage": "Total parcial:",
@@ -982,6 +985,5 @@
     "wishlistPage.disabledMessage": "Lo sentimos, esta funcionalidad ha sido deshabilitada",
     "wishlistPage.fetchErrorMessage": "Algo ha salido mal. Por favor refresca la página e inténtalo de nuevo.",
     "wishlistPage.headingText": "Listas de favoritos",
-    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento",
-    "storeLocator.about": "Acerca de"
+    "wishlistPage.wishlistDisabledMessage": "La lista de deseos no está disponible en este momento"
 }
