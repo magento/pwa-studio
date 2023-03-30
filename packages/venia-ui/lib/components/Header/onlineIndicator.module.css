@@ -9,12 +9,14 @@
     grid-area: primary;
 
     composes: sm_justify-self-start from global;
-    composes: sm_ml-10 from global;
+    composes: ml-6 from global;
 }
+
 
 @media (min-width: 640px) {
     .root {
         grid-column: 3 / 4;
+       
     }
 }
 
