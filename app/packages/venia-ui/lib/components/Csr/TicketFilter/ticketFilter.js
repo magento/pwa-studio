@@ -5,7 +5,8 @@ import React, { useMemo, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { arrayOf, shape, string } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
-import filterByIcon from './Icons/filterByIcon.svg';
+import filterByIcon from '@magento/venia-ui/lib/assets/filterByIcon.svg';
+import { FilterByIcon } from '@magento/venia-ui/lib/assets/filterByIcon';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import FilterItem from './filterItem';
@@ -161,8 +162,12 @@ const TicketFilter = props => {
     };
 
     return (
-        <div ref={elementRef}>
-            <img src={filterByIcon} alt="filter" onClick={handleFilterClick} className={classes.orderByIcon} />
+        <div ref={elementRef} >
+            {/* <img src={filterByIcon} alt="filter" onClick={handleFilterClick} className={classes.orderByIcon} />
+            {filterElements} */}
+            <button className={classes.filterButton} onClick={handleFilterClick}>
+                <FilterByIcon />
+            </button>
             {filterElements}
         </div>
     );

@@ -1,10 +1,10 @@
 /* Deprecated in PWA-12.1.0*/
 
 import { useQuery } from '@apollo/client';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 import mergeOperations from '../../util/shallowMerge';
-
-import DEFAULT_OPERATIONS from './categoryList.gql';
+import DEFAULT_OPERATIONS from '../RootComponents/Category/categoryContent.gql';
 
 /**
  * Returns props necessary to render a CategoryList component.
@@ -18,9 +18,9 @@ export const useCategoryList = props => {
     const { id } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCategoryListQuery, getStoreConfigQuery } = operations;
+    const { getCategoryDataQuery } = operations;
 
-    const { loading, error, data } = useQuery(getCategoryListQuery, {
+    const { loading, error, data } = useQuery(getCategoryDataQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !id,
@@ -29,18 +29,11 @@ export const useCategoryList = props => {
         }
     });
 
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
-
+        const { data: storeConfigData } = useStoreConfigContext();
     const storeConfig = storeConfigData ? storeConfigData.storeConfig : null;
 
     return {
-        childCategories:
-            (data &&
-                data.categories.items[0] &&
-                data.categories.items[0].children) ||
-            null,
+        childCategories: (data && data.categories.items[0] && data.categories.items[0].children) || null,
         storeConfig,
         error,
         loading

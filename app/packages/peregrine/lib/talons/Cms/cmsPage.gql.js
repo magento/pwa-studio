@@ -16,5 +16,5 @@ export const GET_CMS_PAGE = gql`
 `;
 
 export default {
-    getCMSPageQuery: GET_CMS_PAGE
+    getCmsPageQuery: GET_CMS_PAGE
 };

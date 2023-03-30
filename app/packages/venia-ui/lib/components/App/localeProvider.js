@@ -1,29 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import { fromReactIntl, toReactIntl } from '../../util/formatLocale';
-import { gql, useQuery } from '@apollo/client';
-
-const GET_LOCALE = gql`
-    query getLocale {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            locale
-        }
-    }
-`;
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
-    const { data } = useQuery(GET_LOCALE, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+
+    const { data } = useStoreConfigContext();
 
     const language = useMemo(() => {
-        return data && data.storeConfig.locale
-            ? toReactIntl(data.storeConfig.locale)
-            : DEFAULT_LOCALE;
+        return data && data.storeConfig.locale ? toReactIntl(data.storeConfig.locale) : DEFAULT_LOCALE;
     }, [data]);
 
     /**
@@ -32,10 +18,7 @@ const LocaleProvider = props => {
      *
      * Please see {LocalizationPlugin} at @magento/pwa-buildpack/WebpackTools/plugins/LocalizationPlugin.js
      */
-    const fetchLocale =
-        'default' in __fetchLocaleData__
-            ? __fetchLocaleData__.default
-            : __fetchLocaleData__;
+    const fetchLocale = 'default' in __fetchLocaleData__ ? __fetchLocaleData__.default : __fetchLocaleData__;
 
     useEffect(() => {
         if (language) {
@@ -45,9 +28,7 @@ const LocaleProvider = props => {
                     setMessages(data.default);
                 })
                 .catch(error => {
-                    console.error(
-                        `Unable to load translation file. \n${error}`
-                    );
+                    console.error(`Unable to load translation file. \n${error}`);
                 });
         }
     }, [fetchLocale, language]);

@@ -28,14 +28,24 @@ export const GET_CMS_DYNAMIC_BLOCKS = gql`
     }
 `;
 
-export const GET_SALES_RULES_DATA = gql`
-    query SalesRulesDataQuery($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
+export const GET_PRODUCT_DETAIL_FOR_CMS_DYNAMIC_BLOCK_BY_URL_KEY = gql`
+    query GetProductDetailForCmsDynamicBlockByUrlKey($urlKey: String!) {
+        products(filter: { url_key: { eq: $urlKey } }) {
             items {
                 uid
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
+                url_key
+            }
+        }
+    }
+`;
+
+export const GET_SALES_RULES_DATA = gql`
+    query GetSalesRulesData($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            items {
+                uid
+
                 product {
                     uid
                     ... on PhysicalProductInterface {
@@ -43,9 +53,8 @@ export const GET_SALES_RULES_DATA = gql`
                     }
                 }
                 quantity
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
+
                 ... on ConfigurableCartItem {
-                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     configured_variant {
                         uid
                         ... on PhysicalProductInterface {
@@ -84,31 +93,8 @@ export const GET_SALES_RULES_DATA = gql`
     }
 `;
 
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            product_url_suffix
-        }
-    }
-`;
-
-export const GET_PRODUCT_DETAIL_QUERY = gql`
-    query getProductDetailForProductPage($urlKey: String!) {
-        products(filter: { url_key: { eq: $urlKey } }) {
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
-            items {
-                uid
-                url_key
-            }
-        }
-    }
-`;
-
 export default {
     getCmsDynamicBlocksQuery: GET_CMS_DYNAMIC_BLOCKS,
-    getSalesRulesDataQuery: GET_SALES_RULES_DATA,
-    getStoreConfigData: GET_STORE_CONFIG_DATA,
-    getProductDetailQuery: GET_PRODUCT_DETAIL_QUERY
+    getProductDetailQuery: GET_PRODUCT_DETAIL_FOR_CMS_DYNAMIC_BLOCK_BY_URL_KEY,
+    getSalesRulesDataQuery: GET_SALES_RULES_DATA
 };

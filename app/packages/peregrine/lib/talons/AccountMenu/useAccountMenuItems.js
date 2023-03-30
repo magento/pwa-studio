@@ -2,6 +2,8 @@ import { useCallback } from 'react';
 import doCsrLogout from '@magento/peregrine/lib/RestApi/Csr/auth/logout';
 import doLmsLogout from '@magento/peregrine/lib/RestApi/Lms/auth/logout';
 
+import { useModulesContext } from '../../context/modulesProvider';
+
 /**
  * @param {Object}      props
  * @param {Function}    props.onSignOut - A function to call when sign out occurs.
@@ -10,13 +12,14 @@ import doLmsLogout from '@magento/peregrine/lib/RestApi/Lms/auth/logout';
  * @returns {Function}  result.handleSignOut - The function to handle sign out actions.
  */
 export const useAccountMenuItems = props => {
+    const { tenantConfig } = useModulesContext();
     const { onSignOut } = props;
 
     const handleSignOut = useCallback(() => {
-        process.env.CSR_ENABLED === 'true' && doCsrLogout();
-        process.env.LMS_ENABLED === 'true' && doLmsLogout();
+        tenantConfig.csrEnabled && doCsrLogout();
+        tenantConfig.lmsEnabled && doLmsLogout();
         onSignOut();
-    }, [onSignOut]);
+    }, [tenantConfig, onSignOut]);
 
     const MENU_ITEMS_BASIC = [
         {
@@ -54,7 +57,7 @@ export const useAccountMenuItems = props => {
         },
         {
             name: 'Saved carts',
-            id: 'accountMenu.buyLaterNotes',
+            id: 'accountMenu.savedCarts',
             url: '/mpsavecart'
         },
         {
@@ -74,7 +77,7 @@ export const useAccountMenuItems = props => {
         }
     ];
 
-    if (process.env.CSR_ENABLED === 'true') {
+    if (tenantConfig.csrEnabled) {
         const csrItem = {
             name: 'Support',
             id: 'accountMenu.supportLink',
@@ -84,7 +87,7 @@ export const useAccountMenuItems = props => {
         MENU_ITEMS_PREMIUM.push(csrItem);
     }
 
-    if (process.env.LMS_ENABLED === 'true') {
+    if (tenantConfig.lmsEnabled) {
         const lmsItem = {
             name: 'Learning',
             id: 'accountMenu.learningLink',
@@ -96,10 +99,7 @@ export const useAccountMenuItems = props => {
 
     return {
         handleSignOut,
-        menuItems:
-            process.env.B2BSTORE_VERSION === 'BASIC'
-                ? MENU_ITEMS_BASIC
-                : MENU_ITEMS_PREMIUM
+        menuItems: process.env.B2BSTORE_VERSION === 'BASIC' ? MENU_ITEMS_BASIC : MENU_ITEMS_PREMIUM
     };
 };
 

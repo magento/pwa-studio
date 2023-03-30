@@ -6,7 +6,6 @@ import { useStyle } from '../../classify';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.module.css';
 import { Meta } from '../../components/Head';
-import { GET_PAGE_SIZE } from './category.gql';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 import { useIntl } from 'react-intl';
 
@@ -20,10 +19,7 @@ const Category = props => {
     const { formatMessage } = useIntl();
 
     const talonProps = useCategory({
-        id: uid,
-        queries: {
-            getPageSize: GET_PAGE_SIZE
-        }
+        id: uid
     });
 
     const {

@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useQuery } from '@apollo/client';
 
-import mergeOperations from '../../util/shallowMerge';
-import { useAppContext } from '../../context/app';
-import { useCatalogContext } from '../../context/catalog';
-import { useUserContext } from '../../context/user';
-import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import useInternalLink from '../../hooks/useInternalLink';
+import { useAppContext } from '../../context/app';
+import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+import { useCatalogContext } from '../../context/catalog';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
+import { useUserContext } from '../../context/user';
 
-import DEFAULT_OPERATIONS from './navigation.gql';
+import DEFAULT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
+import mergeOperations from '../../util/shallowMerge';
 
 const ancestors = {
     CREATE_ACCOUNT: 'SIGN_IN',
@@ -20,27 +20,26 @@ const ancestors = {
 
 export const useNavigation = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerQuery, getRootCategoryId } = operations;
+    const { getCustomerInformationQuery } = operations;
+    
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
     const [, { getUserDetails }] = useUserContext();
-    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerInformationQuery);
 
     // request data from server
     useEffect(() => {
         getUserDetails({ fetchUserDetails });
     }, [fetchUserDetails, getUserDetails]);
 
-    const { data: getRootCategoryData } = useQuery(getRootCategoryId, {
-        fetchPolicy: 'cache-and-network'
-    });
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const rootCategoryId = useMemo(() => {
-        if (getRootCategoryData) {
-            return getRootCategoryData.storeConfig.root_category_uid;
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.root_category_uid;
         }
-    }, [getRootCategoryData]);
+    }, [storeConfigData]);
 
     // extract relevant data from app state
     const { drawer } = appState;

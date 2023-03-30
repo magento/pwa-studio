@@ -1,4 +1,6 @@
 import BrowserPersistence from '../util/simplePersistence';
+import { RESOLVE_URL } from '../talons/MagentoRoute/magentoRoute.gql';
+
 /**
  * @description Given a route string, resolves with the "standard route", along
  * with the assigned Root Component (and its owning chunk) from the backend
@@ -19,8 +21,7 @@ function getRouteCacheKey(store) {
 // Some M2.3.0 GraphQL node IDs are numbers and some are strings, so explicitly
 // cast numbers if they appear to be numbers
 const numRE = /^\d+$/;
-const castDigitsToNum = str =>
-    typeof str === 'string' && numRE.test(str) ? Number(str) : str;
+const castDigitsToNum = str => (typeof str === 'string' && numRE.test(str) ? Number(str) : str);
 export default async function resolveUnknownRoute(opts) {
     const { route, apiBase, store } = opts;
     const isServer = !globalThis.document;
@@ -41,8 +42,7 @@ export default async function resolveUnknownRoute(opts) {
         }
 
         // Old style:
-        const preloadScript =
-            !isServer && document.getElementById('url-resolver');
+        const preloadScript = !isServer && document.getElementById('url-resolver');
         if (preloadScript) {
             try {
                 const preload = JSON.parse(preloadScript.textContent);
@@ -53,11 +53,7 @@ export default async function resolveUnknownRoute(opts) {
             } catch (e) {
                 // istanbul ignore next: will never happen in test
                 if (process.env.NODE_ENV === 'development') {
-                    console.error(
-                        'Unable to read preload!',
-                        preloaded.textContent,
-                        e
-                    );
+                    console.error('Unable to read preload!', preloaded.textContent, e);
                 }
             }
         }
@@ -105,17 +101,8 @@ function fetchRoute(opts) {
     // If the route is empty, request the homepage
     const route = opts.route || '/';
 
-    const query = `query ResolveURL($url: String!) {
-        urlResolver(url: $url) {
-            type
-            id
-            relative_url
-            redirectCode
-        }
-    }`;
-
     const url = new URL(opts.apiBase);
-    url.searchParams.set('query', query);
+    url.searchParams.set('query', RESOLVE_URL);
     url.searchParams.set('variables', JSON.stringify({ url: route }));
     url.searchParams.set('operationName', 'ResolveURL');
 
@@ -136,17 +123,10 @@ function fetchRoute(opts) {
         .then(res => res.json())
         .then(res => {
             if (res.errors) {
-                throw new Error(
-                    `urlResolver query failed: ${JSON.stringify(
-                        res.errors,
-                        null,
-                        2
-                    )}`
-                );
+                throw new Error(`urlResolver query failed: ${JSON.stringify(res.errors, null, 2)}`);
             }
 
-            const routes =
-                persistence.getItem(getRouteCacheKey(opts.store)) || {};
+            const routes = persistence.getItem(getRouteCacheKey(opts.store)) || {};
             routes[opts.route] = res;
             persistence.setItem(getRouteCacheKey(opts.store), routes, 86400);
             // entire route cache has a TTL of one day

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const GET_PAYMENT_CREDIT_SYSTEM_CONFIG = gql`
-    query getWebkulPaymentCreditsystemConfig {
+export const GET_WEBKUL_PAYMENT_CREDIT_SYSTEM_CONFIG = gql`
+    query GetWebkulPaymentCreditSystemConfig {
         WebkulPaymentCreditsystemConfig {
             currencysymbol
             getcurrentcode
@@ -15,20 +15,6 @@ export const GET_PAYMENT_CREDIT_SYSTEM_CONFIG = gql`
     }
 `;
 
-export const SET_PAYMENT_METHOD_ON_CART = gql`
-    mutation setPaymentMethodOnCart($cartId: String!) {
-        setPaymentMethodOnCart(input: { cart_id: $cartId, payment_method: { code: "creditsystem" } }) {
-            cart {
-                id
-                selected_payment_method {
-                    code
-                    title
-                }
-            }
-        }
-    }
-`;
-
 export default {
-    setPaymentMethodOnCartMutation: SET_PAYMENT_METHOD_ON_CART
+    getWebkulPaymentCreditSystemConfigQuery: GET_WEBKUL_PAYMENT_CREDIT_SYSTEM_CONFIG
 };

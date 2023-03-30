@@ -5,7 +5,7 @@ import buttonClasses from '@magento/venia-ui/lib/components/Button/button.module
 import useReOrderItems from '@magento/peregrine/lib/talons/OrderHistoryPage/useReOrderItems.js';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { FormattedMessage } from 'react-intl';
-import { ADD_CONFIGURABLE_MUTATION } from '@magento/peregrine/lib/talons/ProductFullDetail/productFullDetail.gql.ce';
+import { ADD_CONFIGURABLE_PRODUCT_TO_CART } from '@magento/peregrine/lib/talons/ProductFullDetail/productFullDetail.gql';
 
 const ReOrder = props => {
     const { orderNumber, order, config } = props;
@@ -14,7 +14,7 @@ const ReOrder = props => {
     const talonPropsForReOrderItems = useReOrderItems({
         order,
         config,
-        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION
+        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_PRODUCT_TO_CART
     });
     const { handleReOrderClick, isLoading } = talonPropsForReOrderItems;
 

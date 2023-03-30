@@ -1,21 +1,9 @@
-import { gql, useQuery } from '@apollo/client';
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
 export const useStoreConfigData = () => {
-    const { data: storeConfigData } = useQuery(GET_STORE_CONFIG_DATA, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+        const { data: storeConfigData } = useStoreConfigContext();
 
     return {
         storeConfigData
     };
 };
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        storeConfig {
-            is_required_login
-            store_code
-            product_url_suffix
-        }
-    }
-`;

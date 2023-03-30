@@ -6,8 +6,13 @@ import getTickets from '@magento/peregrine/lib/RestApi/Csr/tickets/getTickets';
 import getGroups from '@magento/peregrine/lib/RestApi/Csr/groups/getGroups';
 import getStates from '@magento/peregrine/lib/RestApi/Csr/tickets/ticket_states/getStates';
 
+import { useModulesContext } from '../../context/modulesProvider';
+
 export const useSupportPage = () => {
     const [{ isSignedIn }] = useUserContext();
+    const { tenantConfig } = useModulesContext();
+
+    const isEnabled = tenantConfig.csrEnabled;
 
     // States
     const [errorToast, setErrorToast] = useState(false);
@@ -130,6 +135,7 @@ export const useSupportPage = () => {
         handleLoadMore,
         handleReset,
         handleSubmit,
+        isEnabled,
         legendModal,
         numPage,
         openTicketModal,

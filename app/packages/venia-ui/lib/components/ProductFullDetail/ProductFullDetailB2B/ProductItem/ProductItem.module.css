@@ -49,10 +49,10 @@
     border-radius: 50%;
 }
 .inStock {
-    background-color: green;
+    background-color: var(--b2bstore-inStockIcon-color);
 }
 .outStock {
-    background-color: red;
+    background-color: var(--b2bstore-outStockIcon-color);
 }
 .stockStatusContainer {
     display: flex;

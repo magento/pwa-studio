@@ -26,7 +26,7 @@ The B2B Headless Frontend for your ecommerce... Boost your B2B customer journey 
 
 With our customized solution we make it possible for manufacturers to add value to their distribution chain. Our value proposition is based on a platform with the functionalities of a B2B, adapted to your needs, and that will allow you to go to market in record time.
 
-If you are interested to have our solution as a **FEaaS (Frontend as a Service)**, please <a href="https://www.b2bstore.io/contact" target="_blank">contact us</a>
+If you are interested to have our solution as a **FEaaS (Frontend as a Service)**, please <a href="https://www.b2bstore.io/en/contactus" target="_blank">contact us</a>
 
 🚀 Feel free to use our demo: <a href="https://demo.b2bstore.io/" target="_blank">https://demo.b2bstore.io/</a> 🚀
 - ✉️ Login: test@orienteed.com
@@ -193,7 +193,7 @@ git clone https://github.com/orienteed/b2bstore.git
 
 2. Copy the _.env.example_ file to _.env_.
 3. Fill _.env_ file with the required data.
-4. Run the following command to start the gateway:
+4. Run the following command to start the container:
 
 ```
 docker-compose up -d
@@ -277,7 +277,7 @@ To contribute to this project, you can do it in the following ways:
 - Suggesting enhancements.
 - Opening pull requests.
 
-If you want to know more, please <a href="https://www.b2bstore.io/contact" target="_blank">contact us</a>
+If you want to know more, please <a href="https://www.b2bstore.io/en/contactus" target="_blank">contact us</a>
 
 <hr>
 

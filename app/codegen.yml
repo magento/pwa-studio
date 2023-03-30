@@ -1,0 +1,8 @@
+overwrite: true
+schema: ['./schema.graphql', './schema2.graphql', '**/client-schema.graphql']
+documents: ['packages/**/*.gql.js', 'packages/**/*.gql.*.js']
+generates:
+    types.ts:
+        plugins:
+            - 'typescript'
+            - 'typescript-operations'

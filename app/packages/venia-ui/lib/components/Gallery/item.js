@@ -24,11 +24,11 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import defaultClasses from './item.module.css';
 
-import CompareIcon from './Icons/compare.svg';
-import InStockIcon from './Icons/inStock.svg';
-import InfoIcon from './Icons/info.svg';
-import OutStockIcon from './Icons/outStock.svg';
-import ShareIcon from './Icons/share.svg';
+import { CompareIcon } from '@magento/venia-ui/lib/assets/compareIcon';
+import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
+import InfoIcon from '@magento/venia-ui/lib/assets/info.svg';
+import { OutStockIcon } from '@magento/venia-ui/lib/assets/outStockIcon';
+import { ShareIcon } from '@magento/venia-ui/lib/assets/shareIcon';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -95,7 +95,6 @@ const GalleryItem = props => {
 
     const wishlistButton = wishlistButtonProps ? <WishlistGalleryButton {...wishlistButtonProps} /> : null;
 
-
     const addButton = isSupportedProductType ? (
         <AddToCartButton
             item={
@@ -138,7 +137,7 @@ const GalleryItem = props => {
                         </ul>
                     }
                 >
-                    <img className={classes.attributeInfoIcon} src={InfoIcon} alt='InfoIcon' />
+                    <img className={classes.attributeInfoIcon} src={InfoIcon} alt="InfoIcon" />
                 </Tippy>
             </div>
         );
@@ -149,12 +148,12 @@ const GalleryItem = props => {
             <>
                 {status === 'IN_STOCK' ? (
                     <span className={classes.inStock}>
-                        <img src={InStockIcon} alt="in stock" />
+                        <InStockIcon />
                         <FormattedMessage id={'galleryItem.inStock'} defaultMessage={'In stock'} />
                     </span>
                 ) : (
                     <span className={classes.outStock}>
-                        <img src={OutStockIcon} alt="out stock" />
+                        <OutStockIcon />
                         <FormattedMessage id={'galleryItem.outStock'} defaultMessage={'Out of stock'} />
                     </span>
                 )}
@@ -265,8 +264,8 @@ const GalleryItem = props => {
                     </div>
                 ) : null}
                 <div className={classes.favIcon}>{wishlistButton}</div>
-                <div alt="shareClick" onClick={shareClick} className={classes.shareIcon}>
-                    <img src={ShareIcon} alt="share icon" />
+                <div onClick={shareClick} className={classes.shareIcon}>
+                    <ShareIcon />
                 </div>
                 <div className={classes.stockIcon}>
                     <StockStatus status={stock_status} />
@@ -331,12 +330,14 @@ const GalleryItem = props => {
                     )}
                 </div>
             )}
-            <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer} ${isSignedIn &&
-                    classes.multibaleActions}`}>
+            <div
+                className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer} ${isSignedIn &&
+                    classes.multibaleActions}`}
+            >
                 {addButton}
                 {isSignedIn && (
                     <button className={classes.compareIcon} onClick={addToCompare}>
-                        <img src={CompareIcon} alt="compare icon" />
+                        <CompareIcon />
                     </button>
                 )}
             </div>

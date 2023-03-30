@@ -1,16 +1,23 @@
 import { useCallback, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { UPDATE_MP_QUOTE, DELETE_ITEM_FROM_MP_QUOTE } from '../requestQuote.gql';
-import { AFTER_UPDATE_MY_REQUEST_QUOTE } from '../useQuoteCartTrigger';
+import { AFTER_UPDATE_MY_QUOTE } from '../useQuoteCartTrigger';
+
+import DEFAULT_OPERATIONS from '../requestQuote.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useQuoteProduct = props => {
     const { item, setIsCartUpdating } = props;
 
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { updateQuoteMutation, deleteItemFromQuoteMutation } = operations;
+
     const [removeItem, { called: removeItemCalled, loading: removeItemLoading }] = useMutation(
-        DELETE_ITEM_FROM_MP_QUOTE
+        deleteItemFromQuoteMutation
     );
 
-    const [updateItemQuantity, { loading: updateItemLoading, called: updateItemCalled }] = useMutation(UPDATE_MP_QUOTE);
+    const [updateItemQuantity, { loading: updateItemLoading, called: updateItemCalled }] = useMutation(
+        updateQuoteMutation
+    );
 
     useEffect(() => {
         if (updateItemCalled || removeItemCalled) {
@@ -37,7 +44,7 @@ export const useQuoteProduct = props => {
                     itemId: item.id
                 }
             });
-            await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_REQUEST_QUOTE, { detail: quote }));
+            await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_QUOTE, { detail: quote }));
         } catch (err) {
             // Make sure any errors from the mutation are displayed.
         }
@@ -62,7 +69,7 @@ export const useQuoteProduct = props => {
                         }
                     }
                 });
-                await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_REQUEST_QUOTE, { detail: quote }));
+                await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_QUOTE, { detail: quote }));
             } catch (err) {
                 // Make sure any errors from the mutation are displayed.
                 setDisplayError(true);

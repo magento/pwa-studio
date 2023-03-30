@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { useCartContext } from '../../../../context/cart';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 import DEFAULT_OPERATIONS from './shippingMethods.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
  * Contains logic for a shipping method selector component.
@@ -28,6 +29,7 @@ export const useShippingMethods = (props = {}) => {
     const { getShippingMethodsQuery } = operations;
 
     const [{ cartId }] = useCartContext();
+
     const { data } = useQuery(getShippingMethodsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
@@ -74,14 +76,10 @@ export const useShippingMethods = (props = {}) => {
 
             // GraphQL has some sort order problems when updating the cart.
             // This ensures we're always ordering the result set by price.
-            formattedShippingMethods = [...shippingMethods].sort(
-                (a, b) => a.amount.value - b.amount.value
-            );
+            formattedShippingMethods = [...shippingMethods].sort((a, b) => a.amount.value - b.amount.value);
 
             if (shippingMethod) {
-                selectedShippingMethod = `${shippingMethod.carrier_code}|${
-                    shippingMethod.method_code
-                }`;
+                selectedShippingMethod = `${shippingMethod.carrier_code}|${shippingMethod.method_code}`;
             }
         }
     }

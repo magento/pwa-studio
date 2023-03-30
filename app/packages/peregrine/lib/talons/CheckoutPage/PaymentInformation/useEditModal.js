@@ -1,10 +1,11 @@
-import { useState, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
-import DEFAULT_OPERATIONS from './editModal.gql';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import { useEventingContext } from '../../../context/eventing';
+import { useState, useCallback } from 'react';
 
 import { useCartContext } from '../../../context/cart';
+import { useEventingContext } from '../../../context/eventing';
+
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './paymentMethods.gql';
 
 /**
  * Talon to handle checkout page's payment information edit modal.
@@ -42,15 +43,12 @@ export const useEditModal = props => {
      * Queries
      */
 
-    const { data: selectedPaymentMethodData } = useQuery(
-        getSelectedPaymentMethodQuery,
-        {
-            skip: !cartId,
-            variables: {
-                cartId
-            }
+    const { data: selectedPaymentMethodData } = useQuery(getSelectedPaymentMethodQuery, {
+        skip: !cartId,
+        variables: {
+            cartId
         }
-    );
+    });
     const selectedPaymentMethod = selectedPaymentMethodData
         ? selectedPaymentMethodData.cart.selected_payment_method.code
         : null;

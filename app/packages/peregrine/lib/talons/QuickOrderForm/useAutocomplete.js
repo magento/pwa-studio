@@ -2,6 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import debounce from 'lodash.debounce';
 
+import DEFAULT_OPERATIONS from '../SearchBar/autocomplete.gql';
+import mergeOperation from '../../util/shallowMerge';
+
 /**
  * @typedef { import("graphql").DocumentNode } DocumentNode
  */
@@ -9,20 +12,17 @@ import debounce from 'lodash.debounce';
 /**
  * Returns props necessary to render an Autocomplete component.
  * @param {Object} props
- * @param {DocumentNode} props.query - GraphQL query
  * @param {Boolean} props.valid - whether to run the query
  * @param {Boolean} props.visible - whether to show the element
  */
 export const useAutocomplete = props => {
-    const {
-        queries: { getAutocompleteResults },
-        valid,
-        visible
-    } = props;
+    const { valid, visible, inputText: value } = props;
 
-    const { inputText: value } = props;
+    const operations = mergeOperation(DEFAULT_OPERATIONS, props.operations);
+    const { getAutocompleteResultsQuery } = operations;
+
     // Prepare to run the queries.
-    const [runSearch, productResult] = useLazyQuery(getAutocompleteResults, {
+    const [runSearch, productResult] = useLazyQuery(getAutocompleteResultsQuery, {
         fetchPolicy: 'cache-and-network',
         variables: { search_query: value },
         nextFetchPolicy: 'cache-first'

@@ -1,8 +1,10 @@
 import { useCallback, useState, useMemo } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
-import DEFAULT_OPERATIONS from './wishlist.gql';
-import getWishlistConfigQuery from './wishlistConfig.gql';
+import { useMutation } from '@apollo/client';
+
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
+
 import mergeOperations from '../../util/shallowMerge';
+import DEFAULT_OPERATIONS from '../Wishlist/wishlist.gql';
 
 const dialogs = {
     NONE: 1,
@@ -21,12 +23,10 @@ const dialogs = {
  */
 export const useActionMenu = (props = {}) => {
     const { id } = props;
-    const operations = mergeOperations(
-        DEFAULT_OPERATIONS,
-        getWishlistConfigQuery,
-        props.operations
-    );
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerWishlistQuery, updateWishlistMutation } = operations;
+
     const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
     const [displayError, setDisplayError] = useState(false);
 
@@ -46,18 +46,11 @@ export const useActionMenu = (props = {}) => {
         setCurrentDialog(dialogs.EDIT_WISHLIST);
     }, []);
 
-    const [
-        updateWishlist,
-        { error: updateWishlistErrors, loading: isEditInProgress }
-    ] = useMutation(updateWishlistMutation);
-
-    const { data: storeConfigData } = useQuery(
-        operations.getWishlistConfigQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
-        }
+    const [updateWishlist, { error: updateWishlistErrors, loading: isEditInProgress }] = useMutation(
+        updateWishlistMutation
     );
+
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const shouldRender = useMemo(() => {
         let multipleWishlistEnabled = false;
@@ -99,10 +92,7 @@ export const useActionMenu = (props = {}) => {
         [getCustomerWishlistQuery, id, updateWishlist]
     );
 
-    const errors = useMemo(() => (displayError ? [updateWishlistErrors] : []), [
-        updateWishlistErrors,
-        displayError
-    ]);
+    const errors = useMemo(() => (displayError ? [updateWishlistErrors] : []), [updateWishlistErrors, displayError]);
 
     return {
         editFavoritesListIsOpen,

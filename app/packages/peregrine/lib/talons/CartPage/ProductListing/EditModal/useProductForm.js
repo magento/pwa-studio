@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
+import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
+import { getOutOfStockVariantsWithInitialSelection } from '@magento/peregrine/lib/util/getOutOfStockVariantsWithInitialSelection';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
+
+import DEFAULT_OPERATIONS from '../../../ProductFullDetail/productFullDetail.gql';
+import CART_OPERATIONS from '../../cartPage.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import { useCartContext } from '../../../../context/cart';
-import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
-import DEFAULT_OPERATIONS from './productForm.gql';
-import { useEventingContext } from '../../../../context/eventing';
-import { getOutOfStockVariantsWithInitialSelection } from '../../../../util/getOutOfStockVariantsWithInitialSelection';
 
 /**
  * This talon contains logic for a product edit form.
@@ -21,11 +24,11 @@ import { getOutOfStockVariantsWithInitialSelection } from '../../../../util/getO
  *
  * @param {Object} props
  * @param {Object} props.cartItem The cart item to configure on the form
- * @param {GraphQLDocument} props.getConfigurableOptionsQuery GraphQL query to get the configurable options for a product.
+ * @param {GraphQLDocument} props.getProductDetailForConfigurableOptionsBySkuQuery GraphQL query to get the configurable options for a product.
  * @param {function} props.setIsCartUpdating Function for setting the updating state for the shopping cart.
  * @param {function} props.setVariantPrice Function for setting the variant price on a product.
  * @param {GraphQLDocument} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
- * @param {GraphQLDocument} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
+ * @param {GraphQLDocument} props.updateCartItemsMutation GraphQL mutation for updating the quantity of a product in a cart.
  * @param {function} props.setActiveEditItem Function for setting the actively editing item.
  *
  * @return {ProductFormTalonProps}
@@ -46,21 +49,15 @@ function deriveOptionSelectionsFromProduct(cartItem) {
 }
 
 export const useProductForm = props => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, props.operations);
 
     const {
-        getConfigurableThumbnailSourceQuery,
-        getConfigurableOptionsQuery,
+        getProductDetailForConfigurableOptionsBySkuQuery,
         updateConfigurableOptionsMutation,
-        updateQuantityMutation
+        updateCartItemsMutation
     } = operations;
 
-    const {
-        cartItem,
-        setIsCartUpdating,
-        setVariantPrice,
-        setActiveEditItem
-    } = props;
+    const { cartItem, setIsCartUpdating, setVariantPrice, setActiveEditItem } = props;
 
     const [, { dispatch }] = useEventingContext();
 
@@ -90,51 +87,35 @@ export const useProductForm = props => {
 
     const [
         updateItemQuantity,
-        {
-            called: updateQuantityCalled,
-            error: updateQuantityError,
-            loading: updateQuantityLoading
-        }
-    ] = useMutation(updateQuantityMutation);
+        { called: updateQuantityCalled, error: updateQuantityError, loading: updateQuantityLoading }
+    ] = useMutation(updateCartItemsMutation);
 
     const [
         updateConfigurableOptions,
-        {
-            called: updateConfigurableCalled,
-            error: updateConfigurableError,
-            loading: updateConfigurableLoading
-        }
+        { called: updateConfigurableCalled, error: updateConfigurableError, loading: updateConfigurableLoading }
     ] = useMutation(updateConfigurableOptionsMutation);
 
     const isSaving =
-        (updateQuantityCalled && updateQuantityLoading) ||
-        (updateConfigurableCalled && updateConfigurableLoading);
+        (updateQuantityCalled && updateQuantityLoading) || (updateConfigurableCalled && updateConfigurableLoading);
 
     useEffect(() => {
         setIsCartUpdating(isSaving);
     }, [isSaving, setIsCartUpdating]);
 
-    const { data, error, loading } = useQuery(getConfigurableOptionsQuery, {
+    const { data, error, loading } = useQuery(getProductDetailForConfigurableOptionsBySkuQuery, {
         skip: !cartItem,
         variables: {
             sku: cartItem ? cartItem.product.sku : null
         }
     });
 
-    const { data: storeConfigData } = useQuery(
-        getConfigurableThumbnailSourceQuery,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const handleOptionSelection = useCallback(
         (optionId, selection) => {
             const nextOptionSelections = new Map([...optionSelections]);
 
-            const initialSelection = cartItem.configurable_options.find(
-                option => option.id == optionId
-            );
+            const initialSelection = cartItem.configurable_options.find(option => option.id == optionId);
 
             if (initialSelection?.value_id === selection) {
                 nextOptionSelections.delete(optionId);
@@ -146,17 +127,14 @@ export const useProductForm = props => {
 
             // Create a new Map to only keep track of user multiple selections with key as String
             // without considering initialSelection.value_id
-            const nextMultipleOptionSelections = new Map([
-                ...multipleOptionSelections
-            ]);
+            const nextMultipleOptionSelections = new Map([...multipleOptionSelections]);
             nextMultipleOptionSelections.set(optionId, selection);
             setMultipleOptionSelections(nextMultipleOptionSelections);
         },
         [cartItem, optionSelections, multipleOptionSelections]
     );
 
-    const configItem =
-        !loading && !error && data ? data.products.items[0] : null;
+    const configItem = !loading && !error && data ? data.products.items[0] : null;
 
     // Check if display out of stock products option is selected in the Admin Dashboard
     const isOutOfStockProductDisplayed = useMemo(() => {
@@ -211,21 +189,14 @@ export const useProductForm = props => {
                 isOutOfStockProductDisplayed
             );
         }
-    }, [
-        cartItem,
-        configurableOptionCodes,
-        multipleOptionSelections,
-        configItem,
-        isOutOfStockProductDisplayed
-    ]);
+    }, [cartItem, configurableOptionCodes, multipleOptionSelections, configItem, isOutOfStockProductDisplayed]);
 
     const configurableThumbnailSource = useMemo(() => {
         return storeConfigData?.storeConfig?.configurable_thumbnail_source;
     }, [storeConfigData]);
 
     useEffect(() => {
-        const variantPrice =
-            selectedVariant?.product?.price_range?.maximum_price?.final_price;
+        const variantPrice = selectedVariant?.product?.price_range?.maximum_price?.final_price;
         setVariantPrice(variantPrice);
     }, [selectedVariant, setVariantPrice]);
 
@@ -234,10 +205,7 @@ export const useProductForm = props => {
             try {
                 const quantity = formValues.quantity;
 
-                if (
-                    (selectedVariant && optionSelections.size) ||
-                    (selectedVariant && multipleOptionSelections.size)
-                ) {
+                if ((selectedVariant && optionSelections.size) || (selectedVariant && multipleOptionSelections.size)) {
                     await updateConfigurableOptions({
                         variables: {
                             cartId,
@@ -265,19 +233,15 @@ export const useProductForm = props => {
                     selectedVariant?.attributes?.map(({ value_index }, i) => {
                         const current = configItem.configurable_options[i];
                         const attribute = current.label;
-                        const value = current.values.find(
-                            x => x.value_index === value_index
-                        )?.label;
+                        const value = current.values.find(x => x.value_index === value_index)?.label;
 
                         return { attribute, value };
                     }) ||
                     // with current variant (updating only quantity)
-                    cartItem.configurable_options.map(
-                        ({ option_label, value_label }) => ({
-                            attribute: option_label,
-                            value: value_label
-                        })
-                    ) ||
+                    cartItem.configurable_options.map(({ option_label, value_label }) => ({
+                        attribute: option_label,
+                        value: value_label
+                    })) ||
                     // not applicable
                     null;
 
@@ -289,8 +253,7 @@ export const useProductForm = props => {
                         name: cartItem.product.name,
                         priceTotal: cartItem.prices.price.value,
                         currencyCode: cartItem.prices.price.currency,
-                        discountAmount:
-                            cartItem.prices.total_item_discount.value,
+                        discountAmount: cartItem.prices.total_item_discount.value,
                         selectedOptions: selectedOptionsLabels,
                         quantity
                     }

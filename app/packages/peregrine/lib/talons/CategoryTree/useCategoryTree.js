@@ -1,9 +1,9 @@
 import { useEffect, useMemo } from 'react';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
+import DEFAULT_OPERATIONS from '../RootComponents/Category/categoryContent.gql';
 import mergeOperations from '../../util/shallowMerge';
-
-import DEFAULT_OPERATIONS from './categoryTree.gql';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 /**
  * @typedef {object} CategoryNode
@@ -28,19 +28,16 @@ export const useCategoryTree = props => {
     const { categoryId, updateCategories } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getNavigationMenuQuery, getCategoryUrlSuffixQuery } = operations;
+    const { getCategoryDataQuery } = operations;
 
-    const [runQuery, queryResult] = useLazyQuery(getNavigationMenuQuery, {
+    const [runQuery, queryResult] = useLazyQuery(getCategoryDataQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
     const { data } = queryResult;
 
-    const { data: categoryUrlData } = useQuery(getCategoryUrlSuffixQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
-
-    const categoryUrlSuffix = categoryUrlData?.storeConfig?.category_url_suffix;
+        const { data: storeConfigData } = useStoreConfigContext();
+    const categoryUrlSuffix = storeConfigData?.storeConfig?.category_url_suffix;
 
     // fetch categories
     useEffect(() => {

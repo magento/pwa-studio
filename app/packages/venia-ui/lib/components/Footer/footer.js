@@ -9,7 +9,7 @@ import defaultClasses from './footer.module.css';
 import { DEFAULT_LINKS } from './sampleData';
 import Logo from '../Logo';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
-import copyrightLogo from './assets/copyright.svg';
+import copyrightLogo from '@magento/venia-ui/lib/assets/copyright.svg';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import { useStoreConfigData } from '@magento/peregrine/lib/talons/Footer/useStoreConfigData';
 

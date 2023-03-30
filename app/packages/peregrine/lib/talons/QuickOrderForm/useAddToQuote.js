@@ -3,20 +3,25 @@ import React, { useCallback, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useMutation } from '@apollo/client';
 import { useToasts } from '@magento/peregrine';
-import {
-    ADD_SIMPLE_PRODUCT_TO_MP_QUOTE,
-    ADD_CONFIG_PRODUCT_TO_MP_QUOTE,
-    SUBMIT_CURRENT_QUOTE
-} from '../RequestQuote/requestQuote.gql';
-import { AFTER_UPDATE_MY_REQUEST_QUOTE } from '../RequestQuote/useQuoteCartTrigger';
+import { AFTER_UPDATE_MY_QUOTE } from '../RequestQuote/useQuoteCartTrigger';
 import { setQuoteId } from '../RequestQuote/Store';
 
+import DEFAULT_OPERATIONS from '../RequestQuote/requestQuote.gql';
+import mergeOperations from '../../util/shallowMerge';
+
 export const useAddToQuote = () => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS);
+    const {
+        addSimpleProductToQuoteMutation,
+        addConfigurableProductToQuoteMutation,
+        submitCurrentQuoteMutation
+    } = operations;
+
     const [, { addToast }] = useToasts();
     const [isLoading, setIsLoading] = useState(false);
-    const [addSimpleProductToCart] = useMutation(ADD_SIMPLE_PRODUCT_TO_MP_QUOTE);
-    const [submitCurrentQuote] = useMutation(SUBMIT_CURRENT_QUOTE);
-    const [addConfigProductToCart] = useMutation(ADD_CONFIG_PRODUCT_TO_MP_QUOTE);
+    const [addSimpleProductToCart] = useMutation(addSimpleProductToQuoteMutation);
+    const [submitCurrentQuote] = useMutation(submitCurrentQuoteMutation);
+    const [addConfigProductToCart] = useMutation(addConfigurableProductToQuoteMutation);
 
     // Add Simple Product
     const handleAddItemBySku = useCallback(
@@ -46,7 +51,7 @@ export const useAddToQuote = () => {
                 data: { mpQuoteSubmit }
             } = await submitCurrentQuote();
             await setQuoteId(quote.entity_id);
-            await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_REQUEST_QUOTE, { detail: quote }));
+            await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_QUOTE, { detail: quote }));
             setTimeout(() => setIsLoading(false), 1000);
             addToast({
                 type: 'success',
@@ -77,7 +82,7 @@ export const useAddToQuote = () => {
             const {
                 data: {
                     addConfigurableProductsToMpQuote: { quote }
-                },
+                }
             } = await addConfigProductToCart({
                 variables
             });
@@ -85,7 +90,7 @@ export const useAddToQuote = () => {
                 data: { mpQuoteSubmit }
             } = await submitCurrentQuote();
             await setQuoteId(quote.entity_id);
-            await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_REQUEST_QUOTE, { detail: quote }));
+            await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_QUOTE, { detail: quote }));
             setTimeout(() => setIsLoading(false), 1000);
             addToast({
                 type: 'success',

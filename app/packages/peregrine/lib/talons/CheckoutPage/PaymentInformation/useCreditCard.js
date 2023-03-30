@@ -1,14 +1,17 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
 import { useQuery, useApolloClient, useMutation } from '@apollo/client';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
-
-import DEFAULT_OPERATIONS from './creditCard.gql';
-import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import ADDRESS_BOOK_OPERATIONS from '../../AddressBookPage/addressBookPage.gql';
+import BILLING_ADDRESS_OPERATIONS from '../BillingAddress/billingAddress.gql';
+import PAYMENT_INFORMATION_OPERATIONS from './paymentInformation.gql';
+import PAYMENT_METHODS_OPERATIONS from './paymentMethods.gql';
+import SHIPPING_INFORMATION_OPERATIONS from '../ShippingInformation/shippingInformation.gql';
 
 /**
  * Maps address response data from GET_BILLING_ADDRESS and GET_SHIPPING_ADDRESS
@@ -17,9 +20,18 @@ import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
  *
  * @param {ShippingCartAddress|BillingCartAddress} rawAddressData query data
  */
- export const mapAddressData = rawAddressData => {
+export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
-        const { firstName, lastName, city, postcode, phoneNumber, street, country, region } = rawAddressData;
+        const {
+            firstname: firstName,
+            lastname: lastName,
+            city,
+            postcode,
+            telephone: phoneNumber,
+            street,
+            country,
+            region
+        } = rawAddressData;
 
         return {
             firstName,
@@ -27,8 +39,7 @@ import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
             city,
             postcode,
             phoneNumber,
-            street1: street[0],
-            street2: street[1],
+            street,
             country: country.code,
             region: region.code
         };
@@ -65,7 +76,7 @@ export const getDefaultBillingAddress = customerAddressesData => {
  * @param {DocumentNode} props.operations.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
  * @param {DocumentNode} props.operations.getPaymentNonceQuery query to fetch payment nonce saved in cache
  * @param {DocumentNode} props.operations.setBillingAddressMutation mutation to update billing address on the cart
- * @param {DocumentNode} props.operations.setCreditCardDetailsOnCartMutation mutation to update payment method and payment nonce on the cart
+ * @param {DocumentNode} props.operations.setPaymentMethodOnCartMutation mutation to update payment method and payment nonce on the cart
  *
  * @returns {
  *   errors: Map<String, Error>,
@@ -82,8 +93,7 @@ export const getDefaultBillingAddress = customerAddressesData => {
  *      city: String,
  *      postcode: String,
  *      phoneNumber: String,
- *      street1: String,
- *      street2: String,
+ *      street: [String],
  *      country: String,
  *      state: String,
  *      isBillingAddressDefault: Boolean
@@ -96,27 +106,30 @@ export const getDefaultBillingAddress = customerAddressesData => {
 export const useCreditCard = props => {
     const { onSuccess, onReady, onError, shouldSubmit, resetShouldSubmit } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        ADDRESS_BOOK_OPERATIONS,
+        BILLING_ADDRESS_OPERATIONS,
+        PAYMENT_INFORMATION_OPERATIONS,
+        PAYMENT_METHODS_OPERATIONS,
+        SHIPPING_INFORMATION_OPERATIONS,
+        props.operations
+    );
 
     const {
         getBillingAddressQuery,
+        getCustomerAddressesQuery,
         getIsBillingAddressSameQuery,
         getPaymentNonceQuery,
-        getShippingAddressQuery,
+        getShippingInformationQuery,
         setBillingAddressMutation,
-        setCreditCardDetailsOnCartMutation,
-        getCustomerAddressesQuery,
-        setDefaultBillingAddressMutation
+        setDefaultBillingAddressMutation,
+        setPaymentMethodOnCartMutation
     } = operations;
 
-const {
-    recaptchaLoading,
-    generateReCaptchaData,
-    recaptchaWidgetProps
-} = useGoogleReCaptcha({
-    currentForm: 'BRAINTREE',
-    formAction: 'braintree'
-});
+    const { recaptchaLoading, generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
+        currentForm: 'BRAINTREE',
+        formAction: 'braintree'
+    });
 
     /**
      * Definitions
@@ -154,7 +167,7 @@ const {
         skip: !cartId,
         variables: { cartId }
     });
-    const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
+    const { data: shippingAddressData } = useQuery(getShippingInformationQuery, {
         skip: !cartId,
         variables: { cartId }
     });
@@ -183,10 +196,10 @@ const {
     const [
         updateCCDetails,
         { error: ccMutationError, called: ccMutationCalled, loading: ccMutationLoading }
-    ] = useMutation(setCreditCardDetailsOnCartMutation);
+    ] = useMutation(setPaymentMethodOnCartMutation);
 
     const shippingAddressCountry = shippingAddressData
-        ? shippingAddressData.cart.shippingAddresses[0].country.code
+        ? shippingAddressData.cart.shipping_addresses[0].country.code
         : 'US';
 
     const defaultBillingAddressObject = getDefaultBillingAddress(customerAddressesData);
@@ -241,7 +254,7 @@ const {
      */
     const setShippingAddressAsBillingAddress = useCallback(() => {
         const shippingAddress = shippingAddressData
-            ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
+            ? mapAddressData(shippingAddressData.cart.shipping_addresses[0])
             : {};
 
         updateBillingAddress({
@@ -288,12 +301,11 @@ const {
                 cartId,
                 firstName,
                 lastName,
-                country,
-                street1,
-                street2,
+                street: [street1, street2 || ''],
                 city,
-                region,
-                postcode,
+                regionCode: region,
+                postCode: postcode,
+                countryCode: country,
                 phoneNumber,
                 sameAsShipping: false
             }
@@ -343,8 +355,10 @@ const {
             updateCCDetails({
                 variables: {
                     cartId,
-                    paymentMethod: 'braintree',
-                    paymentNonce: nonce
+                    payment_method: {
+                        code: 'braintree',
+                        braintree: { payment_method_nonce: nonce, is_active_payment_token_enabler: false }
+                    }
                 }
             });
         },
@@ -493,12 +507,7 @@ const {
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
         }
-    }, [
-        billingAddressMutationError,
-        billingAddressMutationCalled,
-        billingAddressMutationLoading,
-        resetShouldSubmit
-    ]);
+    }, [billingAddressMutationError, billingAddressMutationCalled, billingAddressMutationLoading, resetShouldSubmit]);
 
     /**
      * Default billing address mutation has completed
@@ -591,7 +600,7 @@ const {
         () =>
             new Map([
                 ['setBillingAddressMutation', billingAddressMutationError],
-                ['setCreditCardDetailsOnCartMutation', ccMutationError]
+                ['setPaymentMethodOnCartMutation', ccMutationError]
             ]),
         [billingAddressMutationError, ccMutationError]
     );

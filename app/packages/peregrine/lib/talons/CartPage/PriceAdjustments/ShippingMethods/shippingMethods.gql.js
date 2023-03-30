@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
-import { ShippingInformationFragment } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js';
+
 import { CartPageFragment } from '../../cartPageFragments.gql';
+import { ShippingInformationFragment } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js';
 import { ShippingMethodsCartFragment } from './shippingMethodsFragments.gql';
 
 const GET_SHIPPING_METHODS = gql`
@@ -13,17 +14,9 @@ const GET_SHIPPING_METHODS = gql`
     ${ShippingMethodsCartFragment}
 `;
 
-const SET_SHIPPING_ADDRESS_MUTATION = gql`
-    mutation SetShippingAddressForEstimate(
-        $cartId: String!
-        $address: CartAddressInput!
-    ) {
-        setShippingAddressesOnCart(
-            input: {
-                cart_id: $cartId
-                shipping_addresses: [{ address: $address }]
-            }
-        ) {
+const SET_SHIPPING_ADDRESS = gql`
+    mutation SetShippingAddress($cartId: String!, $address: CartAddressInput!) {
+        setShippingAddressesOnCart(input: { cart_id: $cartId, shipping_addresses: [{ address: $address }] }) {
             cart {
                 id
                 ...CartPageFragment
@@ -39,5 +32,5 @@ const SET_SHIPPING_ADDRESS_MUTATION = gql`
 
 export default {
     getShippingMethodsQuery: GET_SHIPPING_METHODS,
-    setShippingAddressMutation: SET_SHIPPING_ADDRESS_MUTATION
+    setShippingAddressMutation: SET_SHIPPING_ADDRESS
 };

@@ -5,20 +5,17 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-import defaultOperations from './savedPaymentsPage.gql';
+import DEFAULT_OPERATIONS from './savedPaymentsPage.gql';
 
 export const normalizeTokens = responseData => {
-    const paymentTokens =
-        (responseData && responseData.customerPaymentTokens.items) || [];
+    const paymentTokens = (responseData && responseData.customerPaymentTokens.items) || [];
 
-    return paymentTokens.map(
-        ({ details, public_hash, payment_method_code }) => ({
-            // details is a stringified object.
-            details: JSON.parse(details),
-            public_hash,
-            payment_method_code
-        })
-    );
+    return paymentTokens.map(({ details, public_hash, payment_method_code }) => ({
+        // details is a stringified object.
+        details: JSON.parse(details),
+        public_hash,
+        payment_method_code
+    }));
 };
 /**
  * This talon contains logic for a saved payment page component.
@@ -35,7 +32,7 @@ export const normalizeTokens = responseData => {
  * import { useSavedPayments } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage';
  */
 export const useSavedPaymentsPage = (props = {}) => {
-    const operations = mergeOperations(defaultOperations, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getSavedPaymentsQuery } = operations;
 
     const [
@@ -46,14 +43,11 @@ export const useSavedPaymentsPage = (props = {}) => {
     ] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
 
-    const { data: savedPaymentsData, loading } = useQuery(
-        getSavedPaymentsQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first',
-            skip: !isSignedIn
-        }
-    );
+    const { data: savedPaymentsData, loading } = useQuery(getSavedPaymentsQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !isSignedIn
+    });
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {

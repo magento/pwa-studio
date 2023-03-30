@@ -8,7 +8,6 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import Icon from '../Icon';
 import defaultClasses from './accountChip.module.css';
-import { GET_CUSTOMER_DETAILS } from './accountChip.gql';
 
 /**
  * The AccountChip component shows an icon next to some text.
@@ -25,11 +24,7 @@ import { GET_CUSTOMER_DETAILS } from './accountChip.gql';
 const AccountChip = props => {
     const { fallbackText, shouldIndicateLoading } = props;
 
-    const talonProps = useAccountChip({
-        queries: {
-            getCustomerDetailsQuery: GET_CUSTOMER_DETAILS
-        }
-    });
+    const talonProps = useAccountChip();
     const { currentUser, isLoadingUserName, isUserSignedIn } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
