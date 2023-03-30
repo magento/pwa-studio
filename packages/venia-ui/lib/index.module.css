@@ -7,7 +7,7 @@
 :global(html) {
     @apply text-[100%];
     @apply font-normal;
-    @apply leading-none;
+    @apply leading-normal;
     @apply antialiased;
 }
 

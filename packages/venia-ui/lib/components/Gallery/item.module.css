@@ -45,11 +45,8 @@
     composes: grid from global;
     composes: pl-2xs from global;
     grid-template-columns: auto auto;
-}
 
-/* TODO @TW: cannot compose */
-.actionsContainer:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
 
 .name {

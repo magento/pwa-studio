@@ -28,9 +28,8 @@
     composes: leading-tight from global;
 }
 
-/* TODO @TW: cannot compose */
-.stockStatusMessageContainer:empty {
-    display: none;
+.stockStatusMessageContainer {
+    composes: empty_hidden from global;
 }
 
 .items_container {

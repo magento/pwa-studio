@@ -46,6 +46,7 @@ const extend = {
         error: theme('colors.red.400'),
         info: theme('colors.green.600'),
         input: theme('colors.gray.600'),
+        inputFocus: theme('colors.gray.700'),
         light: theme('colors.gray.100'),
         shaded: {
             10: 'rgba(0, 0, 0, 0.1)',
@@ -141,12 +142,14 @@ const extend = {
         modal: '360px',
         site: '1440px'
     },
-    minHeight: {
-        auto: 'auto'
-    },
-    minWidth: {
-        auto: 'auto'
-    },
+    minHeight: theme => ({
+        auto: 'auto',
+        4: theme('spacing.4')
+    }),
+    minWidth: theme => ({
+        auto: 'auto',
+        32: theme('spacing.32')
+    }),
     // TODO @TW: review. Use the abstracted values in code.
     opacity: {
         disabled: 50,
@@ -167,7 +170,12 @@ const extend = {
         DEFAULT: '1.5rem',
         filterSidebarWidth: '325px',
         full: '100%',
-        header: '5rem'
+        header: '5rem',
+        '7.5': '1.875rem',
+        '100vw': '100vw',
+        '75vw': '75vw',
+        '50vw': '50vw',
+        '25vw': '25vw'
     },
     textColor: theme => ({
         colorDefault: theme('colors.gray.900'), // TODO @TW naming collision: TW puts "fontSize" + "color" under "text-" prefix
@@ -201,14 +209,41 @@ const theme = {
     // Override Tailwind defaults and preset config.
     screens: {
         xs: '480px',
+        '-xs': {
+            max: '479px'
+        },
         sm: '640px',
+        '-sm': {
+            max: '639px'
+        },
         md: '800px',
+        '-md': {
+            max: '799px'
+        },
         lg: '960px',
+        '-lg': {
+            max: '959px'
+        },
         xl: '1120px',
+        '-xl': {
+            max: '1119px'
+        },
         '2xl': '1280px',
+        '-2xl': {
+            max: '-1279px'
+        },
         '3xl': '1440px',
+        '-3xl': {
+            max: '-1439px'
+        },
         '4xl': '1600px',
-        max: '1920px'
+        '-4xl': {
+            max: '1599px'
+        },
+        max: '1920px',
+        '-max': {
+            max: '1920px'
+        }
     },
     transitionDuration: {
         xs: '64ms',

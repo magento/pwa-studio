@@ -45,7 +45,7 @@
 }
 
 .categoryInfo {
-    flex-basis: 100%;
+    composes: basis-full from global;
     composes: leading-tight from global;
     composes: max-w-[75vw] from global;
     composes: mx-0 from global;
@@ -60,7 +60,7 @@
     composes: flex from global;
     composes: justify-center from global;
     composes: pb-sm from global;
-    flex-basis: 100%;
+    composes: basis-full from global;
 
     composes: lg_justify-end from global;
     composes: lg_pb-0 from global;

@@ -84,11 +84,8 @@
 
 .stockStatusMessageContainer {
     composes: col-end-span2 from global;
-}
 
-/* TODO @TW: cannot compose */
-.stockStatusMessageContainer:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
 
 .body {

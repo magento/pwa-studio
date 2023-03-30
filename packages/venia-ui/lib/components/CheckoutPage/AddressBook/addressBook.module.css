@@ -37,10 +37,9 @@
     composes: lg_row-start-1 from global;
 }
 
-@media (max-width: 479px) {
-    /* TODO @TW: cannot compose */
+@media screen(-xs) {
     .buttonContainer button {
-        min-width: 8rem;
+        @apply min-w-32;
     }
 }
 

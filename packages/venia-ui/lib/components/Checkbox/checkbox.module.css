@@ -26,6 +26,12 @@
 
     /* TODO @TW: review, replaces input:disabled. Check if working. */
     composes: disabled_cursor-not-allowed from global;
+
+    composes: active_enabled_shadow-radioActive from global;
+    composes: active_enabled_outline-0 from global;
+    
+    composes: focus_enabled_shadow-radioFocus from global;
+    composes: focus_enabled_outline-0 from global;
 }
 
 .icon {
@@ -47,22 +53,12 @@
 }
 
 /* When the input is disabled, update the cursor on the sibling label element. */
-/* TODO @TW: cannot compose */
 .input:disabled ~ .label {
-    cursor: default;
+    @apply cursor-default;
 }
 
 .input:checked:enabled + .icon {
     --stroke: var(--venia-brand-color-1-700);
-}
-
-/* TODO @TW: cannot compose, needs "checked" variant enabled. Cannot combine variants. */
-.input:active:enabled,
-.input:focus:enabled {
-    /* composes: active_shadow-radioActive from global; */
-    /* composes: focus_shadow-radioFocus from global; */
-    box-shadow: -3px 3px rgb(var(--venia-brand-color-1-100));
-    outline: none;
 }
 
 .input_shimmer {

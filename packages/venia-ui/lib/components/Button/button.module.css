@@ -30,19 +30,12 @@
     composes: disabled_text-white from global;
 
     composes: focus_shadow-inputFocus from global;
+
+    composes: hover_disabled_pointer-events-none from global;
 }
 
 .root:active {
     transition-duration: 128ms;
-}
-
-/**
- * Some browsers retain the :hover state after a click, this ensures if a button becomes disabled after
- * being clicked it will be visually disabled.
- */
-.root:hover:disabled {
-    /* TODO @TW: cannot compose. This may not be possible with two variants. */
-    pointer-events: none;
 }
 
 .root_lowPriority {

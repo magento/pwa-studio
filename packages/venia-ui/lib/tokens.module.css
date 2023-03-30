@@ -84,8 +84,8 @@
     /* --venia-global-lineHeight-500: 2; */
 
     /* dimensions */
-    --venia-global-maxWidth: theme('maxWidth.site');
-    --venia-global-header-minHeight: theme('spacing.header');
+    --venia-global-maxWidth: theme(maxWidth.site);
+    --venia-global-header-minHeight: theme(spacing.header);
 }
 
 @media (max-width: 959px) {

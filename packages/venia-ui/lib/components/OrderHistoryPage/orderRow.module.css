@@ -73,6 +73,7 @@
     composes: grid from global;
     composes: overflow-hidden from global;
     composes: p-sm from global;
+    composes: max-lg_empty_hidden from global;
 
     composes: lg_border-b-0 from global;
     composes: lg_border-l from global;
@@ -150,12 +151,7 @@
     composes: hidden from global;
 }
 
-@media (max-width: 959px) {
-    /* TODO @TW: cannot compose */
-    .orderItemsContainer:empty {
-        display: none;
-    }
-
+@media screen(-lg) {
     .orderNumberContainer {
         grid-column: 1 / span 2;
         grid-row: 1;

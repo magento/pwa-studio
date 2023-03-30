@@ -20,11 +20,7 @@
 .errorText {
     composes: leading-normal from global;
     composes: text-error from global;
-}
-
-/* TODO @TW: cannot compose */
-.errorText:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
 
 .imageContainer {
@@ -114,11 +110,8 @@
     composes: text-error from global;
     composes: text-sm from global;
     grid-area: stock;
-}
 
-/* TODO @TW: cannot compose */
-.stockStatusMessage:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
 
 .addToListButton {

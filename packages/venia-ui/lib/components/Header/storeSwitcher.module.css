@@ -95,17 +95,16 @@
         grid-column: 2;
     }
 
-    /* TODO @TW: cannot compose */
     .root:last-child .menu {
-        right: 1rem;
-        left: auto;
+        @apply right-4;
+        @apply left-auto;
     }
 
     .menu {
-        transform: translate3d(0, 8px, 0);
+        @apply translate-y-2;
     }
 
     .menu_open {
-        transform: translate3d(0, -4px, 0);
+        @apply -translate-y-1;
     }
 }

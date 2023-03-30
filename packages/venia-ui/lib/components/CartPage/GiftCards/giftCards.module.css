@@ -41,24 +41,17 @@
 .card_input_container {
 }
 
-/* TODO @TW: cannot compose */
 .card_input_container_error input {
-    /* composes: border-error from global; */
-    border-color: rgb(var(--venia-global-color-red-400));
+    @apply border-error;
 }
 
-/* TODO @TW: cannot compose */
 .card_input_container_error input:focus {
-    /* composes: border-gray-600 from global; */
-    border-color: rgb(var(--venia-global-color-gray-600));
+    @apply border-inputFocus;
 }
 
-/* TODO @TW: cannot compose */
 .card_input_container_error p {
-    /* composes: text-error from global; */
-    color: rgb(var(--venia-global-color-error));
-    /* composes: font-semibold from global; */
-    font-weight: 600;
+    @apply text-error;
+    @apply font-semibold;
 }
 
 .cards_container {

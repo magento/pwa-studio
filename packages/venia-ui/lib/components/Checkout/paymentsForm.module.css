@@ -78,7 +78,6 @@
     z-index: unset;
 }
 
-/* TODO @TW: cannot compose */
 :global .braintree-placeholder {
-    display: none;
+    @apply hidden;
 }

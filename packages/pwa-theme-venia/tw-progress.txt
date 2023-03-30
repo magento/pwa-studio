@@ -89,7 +89,7 @@ These files cannot be composed into because of global() or child selector usage:
 ✅ flex-direction
 ✅ flex-wrap
 ✅ flex
-❌ flex-basis --- not in Tailwind (may need refactor)
+✅ flex-basis
 ✅ flex-grow
 ✅ flex-shrink
 ✅ order

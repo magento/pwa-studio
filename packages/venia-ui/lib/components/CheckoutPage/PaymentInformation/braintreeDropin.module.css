@@ -5,22 +5,22 @@
     composes: text-error from global;
 }
 
-/* TODO @TW: cannot compose */
 div[data-braintree-id='card'] {
-    border: none;
+    @apply border-0;
 }
 
-/* TODO @TW: cannot compose */
 div[data-braintree-id='card-sheet-header'] {
-    display: none;
+    @apply hidden;
 }
 
-/* TODO @TW: cannot compose */
 div[class*='braintree-sheet__content--form'] {
     /**
       This is needed to override padding on the dropin
       component. If we use padding-top instead it just
       overrides the padding-top not whole padding.
     */
-    padding: 1rem 0 0 0;
+    @apply pt-4;
+    @apply pr-0;
+    @apply pb-0;
+    @apply pl-0;
 }

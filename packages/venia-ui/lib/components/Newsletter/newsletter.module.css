@@ -16,25 +16,19 @@
     composes: relative from global;
 }
 
-/* TODO @TW: cannot compose */
 .form input {
-    /* TODO @TW: review */
-    padding-right: calc(1.875rem * var(--iconsAfter) + 5.625rem);
+    padding-right: calc(theme(spacing[7.5]) * var(--iconsAfter) + theme(spacing[2.5]) + theme(spacing[20]));
 }
 
-@media (max-width: 799px) {
-    /* TODO @TW: cannot compose */
+@media screen(-md) {
     .form input {
-        /* TODO @TW: review */
-        padding-right: calc(1.875rem * var(--iconsAfter) + 0.625rem);
+        padding-right: calc(theme(spacing[7.5]) * var(--iconsAfter) + theme(spacing[2.5]));
     }
 }
 
-/* TODO @TW: cannot compose */
 .form label {
-    position: absolute;
-    z-index: -1;
-    /* composes: z-behind from global; */
+    @apply absolute;
+    @apply z-behind;
 }
 
 .buttonsContainer {

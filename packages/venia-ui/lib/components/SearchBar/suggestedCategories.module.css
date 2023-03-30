@@ -5,9 +5,6 @@
     composes: gap-3 from global;
     composes: grid from global;
     composes: pt-3 from global;
-}
 
-/* TODO @TW: cannot compose */
-.root:empty {
-    display: none;
+    composes: empty_hidden from global;
 }

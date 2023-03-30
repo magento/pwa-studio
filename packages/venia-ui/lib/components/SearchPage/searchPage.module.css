@@ -10,7 +10,7 @@
 }
 
 .headerButtons {
-    flex-basis: 100%;
+    composes: basis-full from global;
     composes: flex from global;
     composes: justify-center from global;
     composes: mx-0 from global;
@@ -42,12 +42,7 @@
     composes: mt-10 from global;
 
     composes: lg_m-0 from global;
-}
-
-@media (min-width: 960px) {
-    .searchInfo {
-        flex-basis: 100%;
-    }
+    composes: lg_basis-full from global;
 }
 
 .totalPages {

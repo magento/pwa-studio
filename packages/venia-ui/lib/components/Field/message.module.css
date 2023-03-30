@@ -6,11 +6,7 @@
     composes: px-0.5 from global;
     composes: text-colorDefault from global;
     composes: text-sm from global;
-}
-
-/* TODO @TW: cannot compose */
-.root:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
 
 .root_error {

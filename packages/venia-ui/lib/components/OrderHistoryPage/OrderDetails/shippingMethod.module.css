@@ -8,9 +8,8 @@
     composes: pb-1.5 from global;
 }
 
-/* TODO @TW: cannot compose */
-.method:empty {
-    display: none;
+.method {
+    composes: empty_hidden from global;
 }
 
 .tracking {

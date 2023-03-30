@@ -1,8 +1,8 @@
-.root:empty {
-    display: none;
+.root {
+    composes: empty_hidden from global;
 }
 
 .root_inline {
     composes: root;
-    display: inline-block;
+    @apply inline-block;
 }

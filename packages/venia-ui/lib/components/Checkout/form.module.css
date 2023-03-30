@@ -31,11 +31,7 @@
     /* The ::first-letter pseudo element below only works on block elements */
     composes: block from global;
     composes: lowercase from global;
-}
-
-/* TODO @TW: cannot compose */
-.paymentDisplaySecondary::first-letter {
-    composes: uppercase from global;
+    composes: first-letter_uppercase from global;
 }
 
 @keyframes enter {

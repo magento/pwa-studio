@@ -125,14 +125,11 @@ ul.navigation::-webkit-scrollbar {
 
 .panel {
     min-height: inherit;
+    composes: !empty_hidden from global;
 }
 
 .panelSelected {
     display: block;
-}
-
-.panel:empty {
-    display: none !important; /* Necessary because of inline styles; to be fixed in MC-18326 */
 }
 
 .content {
