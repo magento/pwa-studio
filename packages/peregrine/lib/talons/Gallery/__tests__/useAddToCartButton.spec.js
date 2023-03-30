@@ -74,6 +74,10 @@ const defaultProps = {
                     value: 99,
                     currency: 'USD'
                 },
+                regular_price: {
+                    value: 99,
+                    currency: 'USD'
+                },
                 discount: {
                     amount_off: 10
                 }

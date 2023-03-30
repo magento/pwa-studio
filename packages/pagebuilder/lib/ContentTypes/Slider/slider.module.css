@@ -125,16 +125,6 @@
     display: none;
 }
 
-.root :global .slick-prev,
-.root :global .slick-next {
-    opacity: 0;
-    transition: 0.3s;
-}
-.root:hover :global .slick-prev,
-.root:hover :global .slick-next {
-    opacity: 1;
-}
-
 .root :global .slick-prev {
     left: 1.6rem;
 }
@@ -160,6 +150,7 @@
     font-size: 0;
     height: 40px;
     line-height: 0;
+    opacity: 1;
     outline: none;
     padding: 0;
     position: absolute;
@@ -167,6 +158,12 @@
     transform: translate(0, -50%);
     width: 40px;
     z-index: 101;
+}
+
+.root :global .slick-prev:focus-visible,
+.root :global .slick-next:focus-visible {
+    outline: auto;
+    outline: -webkit-focus-ring-color auto 1px;
 }
 
 .root :global .slick-dots {

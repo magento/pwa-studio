@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormApi } from 'informed';
+import { useIntl } from 'react-intl';
 import { func } from 'prop-types';
 import { X as ClearIcon } from 'react-feather';
 
@@ -19,8 +20,18 @@ const ResetButton = props => {
             onReset();
         }
     };
-
-    return <Trigger action={handleReset}>{clearIcon}</Trigger>;
+    const { formatMessage } = useIntl();
+    return (
+        <Trigger
+            action={handleReset}
+            addLabel={formatMessage({
+                id: 'global.clearText',
+                defaultMessage: 'Clear Text'
+            })}
+        >
+            {clearIcon}
+        </Trigger>
+    );
 };
 
 export default ResetButton;
