@@ -68,7 +68,7 @@ const Header = props => {
                     <div className={classes.primaryActions}>
                         <NavTrigger />
                     </div>
-                  
+
                     <Link
                         aria-label={title}
                         to={resourceUrl('/')}
@@ -91,9 +91,9 @@ const Header = props => {
                 <PageLoadingIndicator absolute />
             </header>
             <OnlineIndicator
-                        hasBeenOffline={hasBeenOffline}
-                        isOnline={isOnline}
-                    />
+                hasBeenOffline={hasBeenOffline}
+                isOnline={isOnline}
+            />
         </Fragment>
     );
 };

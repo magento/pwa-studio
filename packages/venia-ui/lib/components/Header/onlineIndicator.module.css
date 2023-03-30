@@ -12,11 +12,9 @@
     composes: ml-6 from global;
 }
 
-
 @media (min-width: 640px) {
     .root {
         grid-column: 3 / 4;
-       
     }
 }
 
