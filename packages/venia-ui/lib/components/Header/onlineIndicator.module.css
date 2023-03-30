@@ -7,7 +7,6 @@
     composes: ml-18 from global;
     composes: w-[3rem] from global;
     grid-area: primary;
-
     composes: sm_justify-self-start from global;
     composes: ml-6 from global;
 }
