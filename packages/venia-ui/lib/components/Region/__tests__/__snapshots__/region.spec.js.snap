@@ -50,6 +50,7 @@ exports[`renders disabled dropdown while loading 1`] = `
         className="before"
       />
       <span
+        aria-hidden="false"
         className="after"
       >
         <span
@@ -139,6 +140,7 @@ exports[`renders dropdown with regions 1`] = `
         className="before"
       />
       <span
+        aria-hidden="false"
         className="after"
       >
         <span
@@ -211,6 +213,7 @@ exports[`renders input with no regions 1`] = `
         className="before"
       />
       <span
+        aria-hidden="false"
         className="after"
       />
     </span>

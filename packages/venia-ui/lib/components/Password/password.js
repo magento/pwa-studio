@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, bool, shape, func } from 'prop-types';
 import { Eye, EyeOff } from 'react-feather';
-
+import { useIntl } from 'react-intl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { usePassword } from '@magento/peregrine/lib/talons/Password/usePassword';
 
@@ -27,13 +27,35 @@ const Password = props => {
     const { handleBlur, togglePasswordVisibility, visible } = talonProps;
     const classes = useStyle(defaultClasses, propClasses);
 
+    const handleKeypress = e => {
+        if (e.code == 'Enter') {
+            togglePasswordVisibility;
+        }
+    };
+    const { formatMessage } = useIntl();
+    const hidePassword = formatMessage({
+        id: 'password.hide',
+        defaultMessage: 'Hide Password'
+    });
+    const viewPassword = formatMessage({
+        id: 'password.view',
+        defaultMessage: 'View Password'
+    });
+    const speak = visible ? hidePassword : viewPassword;
+
     const passwordButton = (
         <Button
             className={classes.passwordButton}
             onClick={togglePasswordVisibility}
+            onKeyDown={handleKeypress}
+            onKey
             type="button"
         >
-            {visible ? <Eye /> : <EyeOff />}
+            {visible ? (
+                <Eye aria-label={speak} />
+            ) : (
+                <EyeOff aria-label={speak} />
+            )}
         </Button>
     );
 
