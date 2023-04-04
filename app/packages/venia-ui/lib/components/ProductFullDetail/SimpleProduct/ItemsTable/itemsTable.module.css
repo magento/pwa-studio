@@ -112,6 +112,10 @@
     font-weight: bold;
 }
 
+.productSkuContainer button {
+    display: flex;
+}
+
 .copiedText {
     color: var(--b2bstore-global-color-orange);
     font-weight: bold;

@@ -90,6 +90,11 @@
     justify-content: center;
     align-items: center;
 }
+
+.productSkuContainer button {
+    display: flex;
+}
+
 .productSkuContainer img {
     width: 20px;
     height: 20px;
@@ -247,9 +252,8 @@
     min-width: auto;
 }
 
-.placeholderContainer{
+.placeholderContainer {
     composes: relative from global;
-
 }
 .placeholder {
     composes: bg-transparent from global;

@@ -30,12 +30,17 @@ const SimpleProductB2B = props => {
         simpleProductData,
         simpleProductAggregation,
         tempTotalPrice,
-        handleQuantityChange
+        handleQuantityChange,
+        isAddConfigurableLoading
     } = props;
-    
+
     return (
         <main>
-            <Breadcrumbs productSku={simpleProductData?.sku} categoryId={simpleProductData.categories[0].uid} currentProduct={simpleProductData.name} />
+            <Breadcrumbs
+                productSku={simpleProductData?.sku}
+                categoryId={simpleProductData.categories[0].uid}
+                currentProduct={simpleProductData.name}
+            />
             <Form className={classes.root}>
                 <section className={classes.imageCarouselContainer}>
                     <div className={classes.imageCarousel}>
@@ -83,6 +88,7 @@ const SimpleProductB2B = props => {
                     aggregations={simpleProductAggregation}
                     tempTotalPrice={tempTotalPrice}
                     handleQuantityChange={handleQuantityChange}
+                    isAddConfigurableLoading={isAddConfigurableLoading}
                 />
             </div>
             <section>
