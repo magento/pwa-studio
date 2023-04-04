@@ -8,7 +8,9 @@
     composes: rounded-md from global;
     border-width: 2px;
 }
-
+.heading {
+    font-weight: bold;
+}
 .datePicker {
     composes: input from '../../TextInput/textInput.module.css';
 }
