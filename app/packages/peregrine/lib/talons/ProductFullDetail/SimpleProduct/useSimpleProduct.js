@@ -33,7 +33,7 @@ export const useSimpleProduct = (props = {}) => {
         variables: { sku: sku }
     });
 
-    const { data: storeConfigData } = useStoreConfigContext();
+    const { data: storeConfigData, refetch } = useStoreConfigContext();
 
     const wishlistItemOptions = useMemo(() => {
         const options = {
