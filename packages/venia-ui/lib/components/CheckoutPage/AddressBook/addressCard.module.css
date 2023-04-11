@@ -26,8 +26,8 @@
 .root_selected {
     composes: root;
 
-    composes: border-brand-dark from global;
-    composes: cursor-default from global;
+    @apply border-brand-dark;
+    @apply cursor-default;
 }
 
 .root_updated {

@@ -44,7 +44,7 @@
 .dialogHeaderText {
     composes: headerText from '../Dialog/dialog.module.css';
 
-    composes: overflow-visible from global;
+    @apply overflow-visible;
 }
 
 .titleContainer {

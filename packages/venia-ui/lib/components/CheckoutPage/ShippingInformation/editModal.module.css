@@ -28,13 +28,13 @@
     composes: lg_top-[5vh] from global;
 }
 
-@media (max-width: 959px) {
+@media screen(-lg) {
     .root {
         transform: translate3d(100%, 0, 0);
     }
 }
 
-@media (min-width: 960px) {
+@media screen(lg) {
     /* TODO @TW: review */
     .root {
         left: calc(50% - 370px);
@@ -44,7 +44,7 @@
 .root_open {
     composes: root;
 
-    composes: opacity-100 from global;
+    @apply opacity-100;
     composes: shadow-modal from global;
     transform: scale(1);
     transition-duration: 224ms;
@@ -55,7 +55,7 @@
     visibility: visible;
 }
 
-@media (max-width: 959px) {
+@media screen(-lg) {
     .root_open {
         composes: root;
 

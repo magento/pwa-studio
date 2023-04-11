@@ -84,7 +84,7 @@
 .applyLabel {
     composes: label from '../../Field/field.module.css';
 
-    composes: hidden from global;
+    @apply hidden;
 
-    composes: lg_block from global;
+    @apply lg_block;
 }

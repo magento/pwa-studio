@@ -16,7 +16,7 @@
 .root_active {
     composes: root;
 
-    composes: border-brand-dark from global;
+    @apply border-brand-dark;
 }
 
 .title {
@@ -43,7 +43,7 @@
 .deleteButton {
     composes: root from '../LinkButton/linkButton.module.css';
 
-    composes: no-underline from global;
+    @apply no-underline;
 }
 
 .deleteConfirmationContainer {
@@ -61,34 +61,28 @@
     composes: rounded-box from global;
     composes: top-0 from global;
     composes: w-full from global;
+    composes: visible from global;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     transform: scaleX(1);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-global-anim-in);
     transition-property: opacity, transform, visibility;
-
-    /* TODO @TW: review (B6) */
-    /* composes: visible from global; */
-    visibility: visible;
 }
 
 .deleteConfirmationContainer_hidden {
     composes: deleteConfirmationContainer;
 
-    composes: opacity-0 from global;
+    @apply opacity-0;
+    @apply invisible;
     transform: scaleX(0);
     transition-delay: 0s, 192ms, 0s;
     transition-timing-function: var(--venia-global-anim-out);
-
-    /* TODO @TW: review (B6) */
-    /* composes: invisible from global; */
-    visibility: hidden;
 }
 
 .confirmDeleteButton {
     composes: root_normalPriorityNegative from '../Button/button.module.css';
 
-    composes: bg-white from global;
+    @apply bg-white;
     composes: order-1 from global;
     composes: order-first from global;
 }
@@ -96,7 +90,7 @@
 .cancelDeleteButton {
     composes: root_lowPriority from '../Button/button.module.css';
 
-    composes: bg-white from global;
+    @apply bg-white;
 }
 
 .deleteText {

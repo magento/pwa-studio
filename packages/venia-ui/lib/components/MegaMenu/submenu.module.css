@@ -9,18 +9,18 @@
     composes: right-0 from global;
     composes: top-full from global;
     box-shadow: 0 3px rgb(var(--venia-global-color-gray-100));
+
+    composes: before_content-empty from global;
+    composes: before_h-2.5 from global;
+    composes: before_left-0 from global;
+    composes: before_pointer-events-none from global;
+    composes: before_absolute from global;
+    composes: before_right-0 from global;
+    composes: before_top-0 from global;
 }
 
-/* TODO @TW: cannot compose */
 .submenu::before {
     box-shadow: inset 0 2px rgb(var(--venia-global-color-gray-100));
-    content: '';
-    height: 10px;
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    top: 0;
 }
 
 .submenu_inactive {

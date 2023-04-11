@@ -46,7 +46,7 @@
 .confirmDeleteButton {
     composes: root_normalPriorityNegative from '../Button/button.module.css';
 
-    composes: bg-white from global;
+    @apply bg-white;
     composes: order-first from global;
     composes: sm_order-1 from global;
 }
@@ -54,7 +54,7 @@
 .cancelDeleteButton {
     composes: root_lowPriority from '../Button/button.module.css';
 
-    composes: bg-white from global;
+    @apply bg-white;
 }
 
 .contentContainer {
@@ -93,7 +93,8 @@
 .linkButton {
     composes: root from '../LinkButton/linkButton.module.css';
 
-    composes: no-underline from global;
+    @apply no-underline;
+    @apply hover_underline;
 }
 
 .editButton {

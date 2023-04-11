@@ -21,7 +21,7 @@
 .checkoutContent_hidden {
     composes: checkoutContent;
 
-    composes: hidden from global;
+    @apply hidden;
 }
 
 .heading_container {
@@ -38,7 +38,7 @@
 .cartLink {
     composes: root from '../LinkButton/linkButton.module.css';
 
-    composes: text-inherit from global;
+    @apply text-inherit;
 }
 
 .stepper_heading {
@@ -59,10 +59,10 @@
 
 .payment_information_heading {
     composes: stepper_heading;
-    composes: border-b-0 from global;
+    @apply border-b-0;
 
     /* On mobile, order summary has a top border, so avoid doubling up. */
-    composes: lg_border-b from global;
+    @apply lg_border-b;
 }
 
 .signInContainer {
@@ -91,10 +91,10 @@
 .signInButton {
     composes: root_normalPriority from '../Button/button.module.css';
 
-    composes: min-h-auto from global;
-    composes: min-w-auto from global;
-    composes: px-md from global;
-    composes: py-1 from global;
+    @apply min-h-auto;
+    @apply min-w-auto;
+    @apply px-md;
+    @apply py-1;
 }
 
 .empty_cart_container {

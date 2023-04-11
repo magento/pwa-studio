@@ -16,10 +16,7 @@
     composes: root;
 
     composes: z-dropdown from global;
-
-    /* TODO @TW: review (B6) */
-    /* composes: grid from global; */
-    display: grid;
+    @apply grid;
 }
 
 .form {

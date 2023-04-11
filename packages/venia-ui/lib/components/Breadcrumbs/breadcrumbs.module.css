@@ -10,7 +10,6 @@
     composes: pb-[1rem] from global;
     composes: text-sm from global;
     composes: whitespace-nowrap from global;
-    composes: -mb-[1rem] from global;
 }
 
 .text {

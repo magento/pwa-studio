@@ -9,7 +9,7 @@
 .root_hidden {
     composes: root;
 
-    composes: hidden from global;
+    @apply hidden;
 }
 
 .header {
@@ -30,26 +30,26 @@
 .signInRoot {
     composes: root from '../../SignIn/signIn.module.css';
 
-    composes: px-0 from global;
-    composes: py-xs from global;
+    @apply px-0;
+    @apply py-xs;
 
-    composes: lg_p-0 from global;
+    @apply lg_p-0;
 }
 
 .forgotPasswordRoot {
     composes: root from '../../ForgotPassword/forgotPassword.module.css';
 
-    composes: px-0 from global;
-    composes: py-xs from global;
+    @apply px-0;
+    @apply py-xs;
 
-    composes: lg_p-0 from global;
+    @apply lg_p-0;
 }
 
 .createAccountRoot {
     composes: root from '../../CreateAccount/createAccount.module.css';
 
-    composes: px-0 from global;
-    composes: py-xs from global;
+    @apply px-0;
+    @apply py-xs;
 
-    composes: lg_p-0 from global;
+    @apply lg_p-0;
 }

@@ -11,13 +11,10 @@
     composes: top-0 from global;
     composes: w-full from global;
     composes: z-dialog from global;
+    composes: invisible from global;
     transform: translate3d(-50%, 0, 0);
     transition: opacity 192ms var(--venia-global-anim-out),
         visibility 192ms var(--venia-global-anim-out), left 0s 192ms;
-
-    /* TODO @TW: review (B6) */
-    /* composes: invisible from global; */
-    visibility: hidden;
 
     composes: lg_right-auto from global;
 }
@@ -25,14 +22,11 @@
 .root_open {
     composes: root;
 
-    composes: left-auto from global;
-    composes: opacity-100 from global;
+    @apply left-auto;
+    @apply opacity-100;
+    @apply visible;
 
-    composes: lg_left-1/2 from global;
-
-    /* TODO @TW: review (B6) */
-    /* composes: visible from global; */
-    visibility: visible;
+    @apply lg_left-1/2;
 
     /* It animates to being open. */
     transition: opacity 224ms var(--venia-global-anim-in),

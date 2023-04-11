@@ -38,7 +38,7 @@
     /* TODO @TW: review (C2). This is fragile to extend. */
     composes: root_lowPriority from '../../components/Button/button.module.css';
 
-    composes: min-w-[6.26rem] from global;
+    @apply min-w-[6.26rem];
 
     composes: lg_border-2 from global;
     composes: lg_border-gray-500 from global;

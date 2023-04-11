@@ -69,8 +69,8 @@
 .loadMore {
     composes: root_lowPriority from '../Button/button.module.css';
 
-    composes: block from global;
-    composes: min-w-[20rem] from global;
+    @apply block;
+    @apply min-w-[20rem];
     composes: mx-auto from global;
     composes: my-md from global;
 }

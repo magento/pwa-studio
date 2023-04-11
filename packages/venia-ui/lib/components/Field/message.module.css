@@ -12,6 +12,6 @@
 .root_error {
     composes: root;
 
-    composes: font-semibold from global;
-    composes: text-error from global;
+    @apply font-semibold;
+    @apply text-error;
 }

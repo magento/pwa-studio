@@ -35,6 +35,7 @@
     composes: shadow-menu from global;
     composes: top-auto from global;
     composes: z-menu from global;
+    composes: invisible from global;
     transform: translate3d(0, 8px, 0);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-global-anim-out);
@@ -59,15 +60,12 @@
 .menu_open {
     composes: menu;
 
-    composes: opacity-100 from global;
+    @apply opacity-100;
     composes: p-0 from global;
+    @apply visible;
     transform: translate3d(0, 4px, 0);
     transition-duration: 224ms;
     transition-timing-function: var(--venia-global-anim-in);
-
-    /* TODO @TW: review (B6) */
-    /* composes: visible from global; */
-    visibility: visible;
 }
 
 .menuItem {
@@ -87,15 +85,12 @@
 .root:last-child:not(:only-child) {
     @apply pl-0;
     @apply grid-flow-col;
-}
 
-.root:last-child:not(:only-child)::before {
-    @apply border-l;
-    @apply border-solid;
-    @apply border-subtle;
-    @apply h-4;
-    @apply w-4;
-    content: '';
+    @apply before_border-l;
+    @apply before_border-solid;
+    @apply before_border-base;
+    @apply before_h-4;
+    @apply before_w-4;
 }
 
 @media screen(-sm) {

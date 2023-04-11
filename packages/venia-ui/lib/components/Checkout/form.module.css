@@ -4,8 +4,8 @@
 .body {
     composes: body from './flow.module.css';
 
-    composes: gap-0 from global;
-    composes: p-0 from global;
+    @apply gap-0;
+    @apply p-0;
 }
 
 .footer {

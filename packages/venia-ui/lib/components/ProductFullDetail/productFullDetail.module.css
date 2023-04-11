@@ -55,8 +55,7 @@
     composes: grid from global;
     composes: items-center from global;
     composes: leading-normal from global;
-    composes: px-sm from global;
-    composes: py-xs from global;
+    @apply py-xs;
     grid-area: title;
 }
 
@@ -170,7 +169,7 @@
 }
 
 .related {
-    composes: border-b-0 from global;
+    @apply border-b-0;
     composes: section;
     grid-column: 1 / span 2;
 }

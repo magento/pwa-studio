@@ -24,7 +24,8 @@ const extend = {
         stretch: 'stretch'
     },
     animation: {
-        spin: 'spin 1920ms linear infinite'
+        spin: 'spin 1920ms linear infinite',
+        shimmer: 'shimmer 1s linear infinite forwards'
     },
     backgroundColor: theme => ({
         body: '#FFF',
@@ -39,9 +40,20 @@ const extend = {
         swatch: theme('colors.gray.100'),
         'swatch-selected': `linear-gradient(-45deg, rgba(0, 0, 0, 0.2), transparent), ${theme(
             'colors.gray.100'
-        )}`
+        )}`,
+        shimmer: `linear-gradient(
+            to right,
+            ${theme('colors.gray.50/0')} 0%,
+            ${theme('colors.gray.50')} 40%,
+            ${theme('colors.gray.50/0')} 80%,
+            ${theme('colors.gray.50/0')} 100%
+        )`
+    }),
+    backgroundSize: theme => ({
+        maxSite: `${theme('maxWidth.site')} 100%`
     }),
     borderColor: theme => ({
+        currentColor: 'currentColor',
         button: theme('colors.gray.600'),
         error: theme('colors.red.400'),
         info: theme('colors.green.600'),
@@ -54,6 +66,8 @@ const extend = {
             20: 'rgba(0, 0, 0, 0.2)'
         },
         strong: theme('colors.gray.800'),
+        swatch: theme('colors.gray.400'),
+        base: theme('colors.gray.400'),
         subtle: theme('colors.gray.300'),
         success: theme('colors.green.600'),
         warning: theme('colors.yellow.500')
@@ -83,6 +97,9 @@ const extend = {
         thin: `0 1px ${theme('colors.gray.300')}`
     }),
     colors: getColors(colors),
+    content: {
+        'empty': ''
+    },
     flex: {
         textInput: '0 0 100%'
     },
@@ -90,19 +107,19 @@ const extend = {
         sans: ['Muli', 'sans-serif'],
         serif: ['Source Serif Pro', 'serif']
     },
-    fontSize: {
-        '2xs': '0.6875rem', // 11px
-        xs: '0.75rem', // 12px
-        sm: '0.875rem', // 14px
-        base: '1rem', // 16px
-        lg: '1.25rem', // 18px
-        xl: '1.5rem', // 24px
-        '2xl': '2.125rem', // 34px
-        '3xl': '3rem', // 48px
-        '4xl': '3.75rem', // 60px
-        '5xl': '6rem', // 96px
+    fontSize: theme => ({
+        '2xs': ['0.6875rem', '1.5'], // 11px
+        xs: ['0.75rem', '1.5'], // 12px
+        sm: ['0.875rem', '1.5'], // 14px
+        base: ['1rem', '1.5'], // 16px
+        lg: ['1.25rem', '1.5'], // 18px
+        xl: ['1.5rem', '1.5'], // 24px
+        '2xl': ['2.125rem', '1.5'], // 34px
+        '3xl': ['3rem', '1.5'], // 48px
+        '4xl': ['3.75rem', '1.5'], // 60px
+        '5xl': ['6rem', '1'], // 96px
         inherit: 'inherit'
-    },
+    }),
     fontWeight: {
         DEFAULT: '300'
     },
@@ -131,6 +148,16 @@ const extend = {
     },
     justifyContent: {
         stretch: 'stretch'
+    },
+    keyframes: {
+        shimmer: {
+            '0%': {
+                transform: 'translateX(-100%)'
+            },
+            '100%': {
+                transform: 'translateX(100%)'
+            }
+        }
     },
     lineHeight: {
         DEFAULT: '1.5'
@@ -183,9 +210,11 @@ const extend = {
         subtle: theme('colors.gray.600'),
         DEFAULT: theme('colors.gray.900')
     }),
-    width: {
-        fit: 'fit-content'
-    },
+    width: theme => ({
+        fit: 'fit-content',
+        swatch: '3.875rem',
+        maxSite: theme('maxWidth.site')
+    }),
     zIndex: {
         behind: '-1',
         surface: '1',

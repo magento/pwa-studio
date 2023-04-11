@@ -37,7 +37,7 @@
     composes: text-center from global;
     composes: top-2/4 from global;
     composes: z-mask from global;
-    transform: translateY(-50%);
+    composes: -translate-y-1/2 from global;
 }
 
 .dataError {

@@ -8,7 +8,7 @@
 .body {
     composes: body from './flow.module.css';
 
-    composes: h-[30rem] from global;
+    @apply h-[30rem];
 }
 
 .footer {

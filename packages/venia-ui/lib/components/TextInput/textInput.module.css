@@ -7,7 +7,7 @@
 .input_error {
     composes: input from '../Field/field.module.css';
 
-    composes: border-error from global;
+    @apply border-error;
 }
 
 .input_shimmer {

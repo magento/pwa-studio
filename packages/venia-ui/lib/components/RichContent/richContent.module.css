@@ -4,143 +4,136 @@
 .root h4,
 .root h5,
 .root h6 {
-    margin-bottom: 0.5rem;
-    line-height: 1.25;
+    @apply mb-2;
+    @apply leading-tight;
 }
 
 .root h1 {
-    margin-top: 0.75rem;
-    font-size: 1.875rem;
-    font-weight: 400;
+    @apply mt-3;
+    @apply text-3xl/tight;
+    @apply font-normal;
 }
 
 .root h2 {
-    margin-top: 1rem;
-    font-size: 1.5rem;
-    font-weight: 400;
+    @apply mt-4;
+    @apply text-2xl/tight;
+    @apply font-normal;
 }
 
 .root h3 {
-    margin-top: 1rem;
-    font-size: 1.25rem;
-    font-weight: 400;
+    @apply mt-4;
+    @apply text-xl/tight;
+    @apply font-normal;
 }
 
 .root h4 {
-    margin-top: 1rem;
-    font-size: 1.125rem;
-    font-weight: 600;
+    @apply mt-4;
+    @apply text-lg/tight;
+    @apply font-semibold;
 }
 
 .root h5 {
-    margin-top: 1rem;
-    font-size: 1rem;
-    font-weight: 600;
+    @apply mt-4;
+    @apply text-base/tight;
+    @apply font-semibold;
 }
 
 .root h6 {
-    margin-top: 1rem;
-    font-size: 0.875rem;
-    font-weight: 600;
+    @apply mt-4;
+    @apply text-sm/tight;
+    @apply font-semibold;
 }
 
 .root p {
-    margin-bottom: 1rem;
-    line-height: 1.5;
+    @apply mb-4;
+    @apply leading-normal;
 }
 
 .root p:last-child {
-    margin-bottom: 0;
+    @apply mb-0;
 }
 
 .root img {
-    max-width: 100%;
-    margin: 1rem 0;
+    @apply max-w-full;
+    @apply my-4;
+    @apply mx-0;
 }
 
 .root ol,
 .root ul {
-    padding-left: 1.5rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1.5;
+    @apply pl-6;
+    @apply my-4;
+    @apply leading-normal;
 }
 
 .root p + ol,
 .root p + ul {
-    margin-top: 0;
+    @apply mt-0;
 }
 
-/* TODO @TW: cannot compose */
 .root ol {
-    /* composes: list-decimal from global; */
-    list-style-type: decimal;
+    @apply list-decimal;
 }
 
-/* TODO @TW: cannot compose */
 .root ul {
-    /* composes: list-disc from global; */
-    list-style-type: disc;
+    @apply list-disc
 }
 
 .root a {
-    text-decoration: underline;
+    @apply underline;
 }
 
 .root blockquote {
-    margin: 1rem 0;
-    font-size: 1.25rem;
-    font-style: italic;
+    @apply my-4;
+    @apply mx-0;
+    @apply text-xl;
+    @apply italic;
 }
 
 .root table {
-    width: 100%;
-    text-align: left;
+    @apply w-full;
+    @apply text-left;
 }
 
 .root pre {
-    padding: 1rem;
-    /* composes: border from global; */
-    /* composes: border-solid from global; */
-    /* composes: border-subtle from global; */
-    border: 1px solid rgb(var(--venia-global-color-border));
-    /* composes: bg-gray-900 from global; */
-    background: rgb(var(--venia-global-color-gray));
+    @apply p-4;
+    @apply border;
+    @apply border-solid;
+    @apply border-subtle;
+    @apply bg-gray-900;
 }
 
 .root :global .cms-content-important {
-    padding: 1rem;
-    /* composes: border from global; */
-    /* composes: border-solid from global; */
-    /* composes: border-subtle from global; */
-    border: 1px solid rgb(var(--venia-global-color-border));
-    /* composes: bg-gray-900 from global; */
-    background: rgb(var(--venia-global-color-gray));
-    font-size: 1.125rem;
+    @apply p-4;
+    @apply border;
+    @apply border-solid;
+    @apply border-subtle;
+    @apply bg-gray-900;
+    @apply text-lg;
 }
 
-@media (min-width: 800px) {
+@media screen(md) {
     .root h1 {
-        font-size: 3rem;
+        @apply text-5xl/tight;
     }
 
     .root h2 {
-        font-size: 2.25rem;
+        @apply text-4xl/tight;
     }
 
     .root h3 {
-        font-size: 1.875rem;
+        @apply text-3xl/tight;
     }
 
     .root h4 {
-        font-size: 1.5rem;
+        @apply text-2xl/tight;
     }
 
     .root h5 {
-        font-size: 1.125rem;
+        @apply text-lg/tight;
     }
 
     .root h6 {
-        font-size: 1rem;
+        @apply text-base/tight;
     }
 }

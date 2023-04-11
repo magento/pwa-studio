@@ -25,8 +25,8 @@
     /* --venia-global-color-gray-800: 51 63 71; */
     --venia-global-color-gray-900: var(--color-gray-900);
     --venia-global-color-gray: var(--venia-global-color-gray-100);
-    --venia-global-color-gray-dark: var(--venia-global-color-gray-300);
-    --venia-global-color-gray-darker: var(--venia-global-color-gray-600);
+    --venia-global-color-gray-dark: var(--venia-global-color-gray-400);
+    --venia-global-color-gray-darker: var(--venia-global-color-gray-700);
     /* --venia-global-color-green-400: 51 171 132; */
     --venia-global-color-green-500: var(--color-green-600);
     /* --venia-global-color-green-600: 38 142 108; */

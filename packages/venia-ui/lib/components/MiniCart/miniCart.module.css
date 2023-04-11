@@ -106,7 +106,7 @@
 .quantity_loading {
     composes: quantity;
 
-    composes: opacity-50 from global;
+    @apply opacity-50;
 }
 
 .price {
@@ -118,9 +118,9 @@
 }
 
 .price_loading {
-    composes: quantity;
+    composes: price;
 
-    composes: opacity-50 from global;
+    @apply opacity-50;
 }
 
 .footer {
@@ -143,8 +143,8 @@
 .checkoutButton {
     composes: root_highPriority from '../Button/button.module.css';
 
-    composes: bg-brand-dark from global;
-    composes: border-0 from global;
+    @apply bg-brand-dark;
+    @apply border-0;
     composes: font-bold from global;
     composes: m-auto from global;
     composes: w-[10rem] from global;
