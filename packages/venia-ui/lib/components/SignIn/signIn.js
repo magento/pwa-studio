@@ -37,6 +37,7 @@ const SignIn = props => {
         errors,
         handleCreateAccount,
         handleEnterKeyPress,
+        signinHandleEnterKeyPress,
         handleForgotPassword,
         handleSubmit,
         isBusy,
@@ -119,6 +120,7 @@ const SignIn = props => {
                     <Button
                         priority="high"
                         type="submit"
+                        onKeyDown={signinHandleEnterKeyPress}
                         data-cy="SignInButton-root_highPriority"
                         disabled={isBusy}
                     >

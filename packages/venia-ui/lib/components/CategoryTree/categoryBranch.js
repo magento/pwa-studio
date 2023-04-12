@@ -46,5 +46,5 @@ Branch.propTypes = {
         text: string
     }),
     setCategoryId: func.isRequired,
-    tabIndex: func.isRequired
+    tabIndex: string
 };
