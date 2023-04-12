@@ -740,6 +740,7 @@
     "productAlert.alertForPriceChange": "Alerts For Price Change",
     "productAlert.alertForStockChange": "Alerts For Stock Change",
     "productAlert.deleted": "The product alert deleted successfully",
+    "productAlerts.enterEmail": "Enter your email to get notified",
     "productAlert.myProductAlerts": "My Product Alerts",
     "productAlert.NotifyMe": "Notify me",
     "productAlert.NotifyPrice": "Notify me when the price drops",

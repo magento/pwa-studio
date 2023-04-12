@@ -739,6 +739,7 @@
     "productAlert.alertForPriceChange": "Alertas de cambio de precios",
     "productAlert.alertForStockChange": "Alertas de cambio de existencias",
     "productAlert.deleted": "La alerta de producto se ha eliminado correctamente",
+    "productAlerts.enterEmail": "Introduzca su correo electrónico para recibir notificaciones",
     "productAlert.myProductAlerts": "Mis alertas de productos",
     "productAlert.NotifyMe": "Notificarme",
     "productAlert.NotifyPrice": "Notifíqueme cuando baje el precio",
