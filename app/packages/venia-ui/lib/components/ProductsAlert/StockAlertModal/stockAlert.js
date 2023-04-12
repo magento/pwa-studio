@@ -23,18 +23,28 @@ const StockAlert = props => {
         <>
             <Dialog
                 formProps={formProps}
-                confirmTranslationId={'productAlerts.notifyMeText'}
                 onCancel={onCancel}
                 onConfirm={submitStockAlert}
                 isOpen={isOpen}
-                confirmText={'Notify me'}
+                confirmTextButton={alertConfig?.popup_setting?.button_text}
                 title={alertConfig?.popup_setting?.heading_text}
             >
                 <hr />
                 <p className={classes.textInfo}>{modalTextInfo}</p>
                 {!isSignedIn && (
-                    <Field id="email">
-                        <TextInput placeholder={alertConfig?.popup_setting?.place_holder} field="email" validate={!isSignedIn && isRequired} data-cy="email" />
+                    <Field
+                        id="email"
+                        label={formatMessage({
+                            id: 'productAlerts.enterEmail',
+                            defaultMessage: 'Enter your email to get notified'
+                        })}
+                    >
+                        <TextInput
+                            placeholder={alertConfig?.popup_setting?.place_holder}
+                            field="email"
+                            validate={!isSignedIn && isRequired}
+                            data-cy="email"
+                        />
                     </Field>
                 )}
                 <p className={classes.textInfo}>{alertConfig?.popup_setting?.footer_content}</p>

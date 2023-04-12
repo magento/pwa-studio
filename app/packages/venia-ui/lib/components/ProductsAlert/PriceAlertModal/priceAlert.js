@@ -12,40 +12,35 @@ const PriceAlert = props => {
     const [{ isSignedIn }] = useUserContext();
     const classes = useStyle(defaultClasses, props.classes);
     const { onCancel, isOpen, formProps, onConfirm: handleSubmitPriceAlert, alertConfig } = props;
-    console.log({ alertConfig });
 
     const { formatMessage } = useIntl();
 
-    const modalTitle = formatMessage({
-        id: 'productAlerts.priceAlertModal',
-        defaultMessage: `Stay tuned for any updates on this product's price!`
-    });
     const modalTextInfo = formatMessage({
         id: 'productAlerts.infoText',
         defaultMessage:
             'Subscribe Price-Change Alerts now! Register your email address to be the first to know when our product has any changes in price. You are always updated to get product pricing goodness!'
     });
-    const modalFooterText = formatMessage({
-        id: 'productAlerts.modalFooterText',
-        defaultMessage:
-            '  Kindly notice that the back-in-stock email will be delivered only one time, and your email address will not be shared or published with anyone else.'
-    });
     return (
         <>
             <Dialog
                 formProps={formProps}
-                confirmTranslationId={'productAlerts.notifyMeText'}
                 onCancel={onCancel}
                 onConfirm={handleSubmitPriceAlert}
                 isOpen={isOpen}
-                title={modalTitle}
-                confirmText={alertConfig?.popup_setting?.heading_text}
+                title={alertConfig?.popup_setting.heading_text}
+                confirmTextButton={alertConfig?.popup_setting?.button_text}
             >
                 <hr />
                 <p className={classes.textInfo}>{modalTextInfo}</p>
 
                 {!isSignedIn && (
-                    <Field id="priceAlertFormEmail">
+                    <Field
+                        id="priceAlertFormEmail"
+                        label={formatMessage({
+                            id: 'productAlerts.enterEmail',
+                            defaultMessage: 'Enter your email to get notified'
+                        })}
+                    >
                         <TextInput
                             placeholder={alertConfig?.popup_setting?.place_holder}
                             id="priceAlertFormEmail"
