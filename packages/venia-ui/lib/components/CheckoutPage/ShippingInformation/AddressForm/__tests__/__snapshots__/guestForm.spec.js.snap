@@ -51,6 +51,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -106,6 +107,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -153,6 +155,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -209,6 +212,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -263,6 +267,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -310,6 +315,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -369,6 +375,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -416,6 +423,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -510,6 +518,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -565,6 +574,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -612,6 +622,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -668,6 +679,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -722,6 +734,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -769,6 +782,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -828,6 +842,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -875,6 +890,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -965,6 +981,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1012,6 +1029,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1059,6 +1077,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1115,6 +1134,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1169,6 +1189,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1216,6 +1237,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1275,6 +1297,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1322,6 +1345,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1438,6 +1462,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1485,6 +1510,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1532,6 +1558,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1588,6 +1615,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1642,6 +1670,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1689,6 +1718,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1748,6 +1778,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1795,6 +1826,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>

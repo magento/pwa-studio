@@ -57,6 +57,7 @@ exports[`renders an AddressForm component 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -102,6 +103,7 @@ exports[`renders an AddressForm component 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -147,6 +149,7 @@ exports[`renders an AddressForm component 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -192,6 +195,7 @@ exports[`renders an AddressForm component 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -237,6 +241,7 @@ exports[`renders an AddressForm component 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -282,6 +287,7 @@ exports[`renders an AddressForm component 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -327,6 +333,7 @@ exports[`renders an AddressForm component 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -372,6 +379,7 @@ exports[`renders an AddressForm component 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -491,6 +499,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -536,6 +545,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -581,6 +591,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -626,6 +637,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -671,6 +683,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -716,6 +729,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -761,6 +775,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -806,6 +821,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>

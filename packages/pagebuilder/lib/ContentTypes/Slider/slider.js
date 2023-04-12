@@ -74,6 +74,7 @@ const Slider = props => {
         paddingLeft
     };
     const jarallaxInstances = {};
+
     const sliderSettings = {
         dots: showDots,
         arrows: showArrows,
@@ -88,7 +89,6 @@ const Slider = props => {
         autoplaySpeed,
         fade
     };
-
     // Override classes on banner to ensure min height is respected
     Children.map(children, (child, index) => {
         if (child.props && child.props.data) {

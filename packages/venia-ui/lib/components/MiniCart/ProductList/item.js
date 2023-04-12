@@ -52,6 +52,16 @@ const Item = props => {
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
     const configured_variant = configuredVariant(configurable_options, product);
 
+    const minicartButtonDeleted = formatMessage({
+        id: 'global.deletedButton',
+        defaultMessage: 'Item Deleted'
+    });
+    const miniCartButton = formatMessage({
+        id: 'global.deleteButton',
+        defaultMessage: 'Delete'
+    });
+    const buttonStatus = isDeleting ? minicartButtonDeleted : miniCartButton;
+
     return (
         <div className={rootClass} data-cy="MiniCart-Item-root">
             <Link
@@ -113,6 +123,7 @@ const Item = props => {
                 className={classes.deleteButton}
                 disabled={isDeleting}
                 data-cy="MiniCart-Item-deleteButton"
+                aria-label={buttonStatus}
             >
                 <Icon
                     size={16}

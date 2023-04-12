@@ -1,5 +1,6 @@
 import React from 'react';
 import { node, shape, string } from 'prop-types';
+import { useIntl } from 'react-intl';
 import { MoreVertical as MoreVerticalIcon } from 'react-feather';
 
 import { useStyle } from '../../classify';
@@ -14,6 +15,18 @@ const Kebab = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
 
+    const { formatMessage } = useIntl();
+    const ariaLabelExpanded = formatMessage({
+        id: 'LegacyMiniCart.buttonExpanded',
+        defaultMessage: 'More Options Expanded'
+    });
+    const ariaLabelCollapsed = formatMessage({
+        id: 'LegacyMiniCart.buttonCollapsed',
+        defaultMessage: 'More Options Collapsed'
+    });
+
+    const result = isOpen ? ariaLabelExpanded : ariaLabelCollapsed;
+
     return (
         <div className={classes.root}>
             <button
@@ -21,6 +34,7 @@ const Kebab = props => {
                 className={classes.kebab}
                 data-cy="Kebab-button"
                 onClick={handleKebabClick}
+                aria-label={result}
                 ref={kebabRef}
             >
                 <Icon src={MoreVerticalIcon} />
