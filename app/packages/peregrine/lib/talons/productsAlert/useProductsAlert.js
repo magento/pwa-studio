@@ -96,12 +96,12 @@ export const useProductsAlert = props => {
             const stockAlert = customersAlertsItems?.customer?.mp_product_alert?.out_of_stock;
             const priceAlert = customersAlertsItems?.customer?.mp_product_alert?.product_price;
             setStockPageControl({
-                currentPage: stockAlert.pageInfo.currentPage,
-                totalPages: Math.ceil(stockAlert.total_count / stockAlert.pageInfo.pageSize)
+                currentPage: stockAlert?.pageInfo?.currentPage,
+                totalPages: Math.ceil(stockAlert.total_count / stockAlert?.pageInfo?.pageSize)
             });
             setPriceControlPage({
-                currentPage: priceAlert.pageInfo.currentPage,
-                totalPages: Math.ceil(priceAlert.total_count / priceAlert.pageInfo.pageSize)
+                currentPage: priceAlert?.pageInfo?.currentPage,
+                totalPages: Math.ceil(priceAlert.total_count / priceAlert?.pageInfo?.pageSize)
             });
         }
     }, [customersAlertsItems]);

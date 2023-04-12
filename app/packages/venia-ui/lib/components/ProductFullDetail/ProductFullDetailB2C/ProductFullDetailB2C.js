@@ -163,33 +163,35 @@ const ProductFullDetailB2C = props => {
                         />
                         <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
-                    {productAlertStatus?.mp_productalerts_price_alert && (
+                    {productAlertStatus?.mp_productalerts_price_alert && process.env.B2BSTORE_VERSION === 'PREMIUM' && (
                         <div className={classes.notifyPriceContainer}>
                             <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
                         </div>
                     )}
 
-                    {productAlertStatus?.mp_productalerts_stock_notify && isOutOfStockProduct.length > 0 && (
-                        <div className={classes.selectB2cProduct}>
-                            <div className={classes.notifySelect}>
-                                <Select
-                                    initialValue={outStockProductsSku[0]}
-                                    field="selection"
-                                    items={outStockProductsSku}
-                                    onChange={e => handleChangeProductSku(e.target.value)}
-                                />
+                    {productAlertStatus?.mp_productalerts_stock_notify &&
+                        isOutOfStockProduct.length > 0 &&
+                        process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                            <div className={classes.selectB2cProduct}>
+                                <div className={classes.notifySelect}>
+                                    <Select
+                                        initialValue={outStockProductsSku[0]}
+                                        field="selection"
+                                        items={outStockProductsSku}
+                                        onChange={e => handleChangeProductSku(e.target.value)}
+                                    />
+                                </div>
+                                <div className={classes.notifyButton}>
+                                    <NotifyButton
+                                        handleOpendStockModal={handleOpendStockModal}
+                                        productStatus={selectedVarient?.product?.stock_status}
+                                        selectedOptionB2C={selectedOptionB2C}
+                                        disabled={!selectedOptionB2C}
+                                    />
+                                </div>
+                                <>{notifyText}</>
                             </div>
-                            <div className={classes.notifyButton}>
-                                <NotifyButton
-                                    handleOpendStockModal={handleOpendStockModal}
-                                    productStatus={selectedVarient?.product?.stock_status}
-                                    selectedOptionB2C={selectedOptionB2C}
-                                    disabled={!selectedOptionB2C}
-                                />
-                            </div>
-                            <>{notifyText}</>
-                        </div>
-                    )}
+                        )}
                 </section>
                 <section className={classes.actions}>
                     {cartActionContent}

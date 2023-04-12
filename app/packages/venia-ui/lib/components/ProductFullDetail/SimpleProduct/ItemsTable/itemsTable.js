@@ -79,7 +79,7 @@ const ItemsTable = props => {
                     value={simpleProductData.price.minimalPrice.amount.value}
                 />
             </span>
-            {productAlertStatus?.mp_productalerts_price_alert && (
+            {productAlertStatus?.mp_productalerts_price_alert && process.env.B2BSTORE_VERSION === 'PREMIUM' && (
                 <div className={classes.notifyPrice}>
                     <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
                 </div>
@@ -117,7 +117,9 @@ const ItemsTable = props => {
         </Button>
     );
     const stockButton =
-        simpleProductData?.stock_status === 'OUT_OF_STOCK' && productAlertStatus?.mp_productalerts_stock_notify ? (
+        simpleProductData?.stock_status === 'OUT_OF_STOCK' &&
+        productAlertStatus?.mp_productalerts_stock_notify &&
+        process.env.B2BSTORE_VERSION === 'PREMIUM' ? (
             <div className={classes.stockBtnWrapper}>
                 <NotifyButton
                     handleOpendStockModal={handleOpendStockModal}

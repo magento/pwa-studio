@@ -84,13 +84,15 @@ const SimpleProductB2C = props => {
                         />
                         <article className={classes.totalPrice}>{tempTotalPrice}</article>
                     </article>
-                    {productAlertStatus?.mp_productalerts_price_alert && stockStatus === 'IN_STOCK' && (
-                        <div className={classes.notifyPriceContainer}>
-                            <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
-                        </div>
-                    )}
+                    {productAlertStatus?.mp_productalerts_price_alert &&
+                        stockStatus === 'IN_STOCK' &&
+                        process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                            <div className={classes.notifyPriceContainer}>
+                                <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                            </div>
+                        )}
 
-                    {productAlertStatus?.mp_productalerts_stock_notify && (
+                    {productAlertStatus?.mp_productalerts_stock_notify && process.env.B2BSTORE_VERSION === 'PREMIUM' && (
                         <div className={classes.notifyButton}>
                             <NotifyButton
                                 handleOpendStockModal={handleOpendStockModal}

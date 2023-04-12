@@ -154,7 +154,7 @@ const ProductItem = props => {
                     value={variant.product.price.minimalPrice.amount.value}
                 />
             </span>
-            {productAlertStatus?.mp_productalerts_price_alert && (
+            {productAlertStatus?.mp_productalerts_price_alert && process.env.B2BSTORE_VERSION === 'PREMIUM' && (
                 <div className={classes.notifyPrice}>
                     <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
                 </div>
@@ -192,7 +192,9 @@ const ProductItem = props => {
     );
 
     const stockButton =
-        variant?.product?.stock_status === 'OUT_OF_STOCK' && productAlertStatus?.mp_productalerts_stock_notify ? (
+        variant?.product?.stock_status === 'OUT_OF_STOCK' &&
+        productAlertStatus?.mp_productalerts_stock_notify &&
+        process.env.B2BSTORE_VERSION === 'PREMIUM' ? (
             <div className={classes.stockBtnWrapper}>
                 <NotifyButton
                     handleOpendStockModal={handleOpendStockModal}
