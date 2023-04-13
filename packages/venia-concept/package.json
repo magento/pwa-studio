@@ -55,6 +55,7 @@
     "@magento/pagebuilder": "~7.4.2",
     "@magento/peregrine": "~12.6.0",
     "@magento/pwa-theme-venia": "~1.4.0",
+    "@magento/experience-platform-connector": "1.0.3-rc.1",
     "@magento/upward-security-headers": "~1.0.11",
     "@magento/venia-ui": "~9.7.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",

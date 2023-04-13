@@ -259,7 +259,7 @@ async function getClientConfig(opts) {
                             ecma: 8
                         },
                         compress: {
-                            drop_console: true
+                            drop_console: false
                         },
                         output: {
                             ecma: 7,
