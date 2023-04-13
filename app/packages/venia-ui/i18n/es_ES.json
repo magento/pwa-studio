@@ -432,6 +432,7 @@
     "customerForm.loading": "Recuperando los datos de cliente…",
     "deliveryDate.commentDate": "Comentario: ",
     "deliveryDate.deliveryDate": "Fecha de entrega: ",
+    "deliveryDate.deliveryDateHeader": "Fecha de entrega",
     "deliveryDate.deliveryTime": "Tiempo de entrega: ",
     "deliveryDate.houseSecurityCode": "Código de seguridad de la casa: ",
     "deliveryDate.phone": "Teléfono",
