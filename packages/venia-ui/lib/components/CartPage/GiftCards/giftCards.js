@@ -53,6 +53,7 @@ const GiftCards = props => {
         errorLoadingGiftCards,
         errorRemovingCard,
         giftCardsData,
+        handleEnterKeyPress,
         isLoadingGiftCards,
         isApplyingCard,
         isCheckingBalance,
@@ -150,7 +151,7 @@ const GiftCards = props => {
     const containerClass = shouldDisplayCardError
         ? classes.card_input_container_error
         : classes.card_input_container;
-
+    ;
     const cardEntryContents = (
         <div className={classes.card}>
             <Field
@@ -191,6 +192,7 @@ const GiftCards = props => {
                     data-cy="GiftCards-apply"
                     disabled={isApplyingCard}
                     onClick={applyGiftCard}
+                    onKeyDown={handleEnterKeyPress}
                 >
                     <FormattedMessage
                         id={'giftCards.apply'}
