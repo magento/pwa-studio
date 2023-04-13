@@ -28,10 +28,10 @@
   dependencies:
     apollo-link "~1.2.13"
 
-"@adobe/magento-storefront-event-collector@~1.1.19":
-  version "1.1.19"
-  resolved "https://registry.yarnpkg.com/@adobe/magento-storefront-event-collector/-/magento-storefront-event-collector-1.1.19.tgz#268666e8d28ced5c5e67ce50e4750a6c37b771c0"
-  integrity sha512-o6exbKwtQt7A29M8pLqYLcVJhZvULfrKV3XRuV9IB2/2lAzsARHZF5bHtVbIu63ump6x9/wr712IxaxdXenctQ==
+"@adobe/magento-storefront-event-collector@~1.3.1":
+  version "1.3.1"
+  resolved "https://artifactory.corp.adobe.com/artifactory/api/npm/npm-adobe-platform-release/@adobe/magento-storefront-event-collector/-/magento-storefront-event-collector-1.3.1.tgz#e6aacd90313018738de01e59a2d2ce6a3dffeb2c"
+  integrity sha512-MCUpWy1rX1i/ddYtUOSV6smpaAnJSzcOFhAdxtBtjeDMUuh2Je/tokC91l391TRcRb+nubY0LKbr2xyvZc72Vw==
   dependencies:
     "@adobe/adobe-client-data-layer" "^2.0.2"
     "@adobe/alloy" "^2.9.0"
