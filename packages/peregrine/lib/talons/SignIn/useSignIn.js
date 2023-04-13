@@ -29,6 +29,7 @@ export const useSignIn = props => {
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
+    const [forgetPasswordFlag,setForgetPasswordFlag] = useState(false);
 
     const [
         { cartId },
@@ -148,13 +149,21 @@ export const useSignIn = props => {
 
     const handleForgotPassword = useCallback(() => {
         const { current: formApi } = formApiRef;
-
         if (formApi) {
             setDefaultUsername(formApi.getValue('email'));
         }
-
         showForgotPassword();
+        setForgetPasswordFlag(true);
     }, [setDefaultUsername, showForgotPassword]);
+
+    const forgotPasswordHandleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleForgotPassword();
+            }
+        };
+        setForgetPasswordFlag(true);
+    }, [handleForgotPassword]);
 
     const handleCreateAccount = useCallback(() => {
         const { current: formApi } = formApiRef;
@@ -193,6 +202,8 @@ export const useSignIn = props => {
 
     return {
         errors,
+        forgetPasswordFlag,
+        forgotPasswordHandleEnterKeyPress,
         handleCreateAccount,
         handleEnterKeyPress,
         signinHandleEnterKeyPress,

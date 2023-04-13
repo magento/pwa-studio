@@ -35,6 +35,8 @@ const SignIn = props => {
 
     const {
         errors,
+        forgetPasswordFlag,
+        forgotPasswordHandleEnterKeyPress,
         handleCreateAccount,
         handleEnterKeyPress,
         signinHandleEnterKeyPress,
@@ -107,12 +109,16 @@ const SignIn = props => {
                         classes={forgotPasswordClasses}
                         type="button"
                         onClick={handleForgotPassword}
+                        onKeyDown={forgotPasswordHandleEnterKeyPress}
                         data-cy="SignIn-forgotPasswordButton"
                     >
-                        <FormattedMessage
+                        {forgetPasswordFlag ? <FormattedMessage
+                            id={'forgotPassword.recoverPasswordText'}
+                            defaultMessage={'Forgot Password?'}
+                        />  : <FormattedMessage
                             id={'signIn.forgotPasswordText'}
                             defaultMessage={'Forgot Password?'}
-                        />
+                        /> }
                     </LinkButton>
                 </div>
                 <GoogleRecaptcha {...recaptchaWidgetProps} />
