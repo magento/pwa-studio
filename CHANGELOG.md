@@ -66,19 +66,19 @@ Your project may not depend on some packages listed in this table.
 | `venia-sample-language-packs`          | **0.0.13***    |
 | `venia-sample-payments-checkmo`        | **0.0.11***    |
 | `pagebuilder`                          | **8.1.0***     |
-| `peregrine`                            | **13.1.0***    |
+| `peregrine`                            | **13.0.1***    |
 | `pwa-buildpack`                        | 11.4.1         |
 | `pwa-theme-venia`                      | 1.4.0          |
 | `upward-js`                            | 5.3.2          |
-| `upward-spec`                          | 5.3.1          |
+| `upward-spec`                          | 5.2.1          |
 | `venia-concept`                        | **13.1.0***    |
 | `venia-ui`                             | **10.1.0***    |
-| `magento2-pwa`                         | 0.3.0          |
-| `magento2-pwa-commerce`                | 0.0.2          |
-| `magento-venia-sample-data-modules`    | 0.0.3          |
-| `magento-venia-sample-data-modules-ee` | 0.0.2          |
-| `magento2-upward-connector`            | 2.0.1          |
-| `upward-php`                           | 2.0.1          |
+| `magento2-pwa`                         | **0.5.0***          |
+| `magento2-pwa-commerce`                | **0.0.3***          |
+| `magento-venia-sample-data-modules`    | **0.0.4***          |
+| `magento-venia-sample-data-modules-ee` | **0.0.3***          |
+| `magento2-upward-connector`            | **2.0.2***          |
+| `upward-php`                           | **2.0.2***          |
 
 [4]: https://github.com/magento-commerce/venia-sample-data-modules-ee/pull/4
 [25]: https://github.com/magento-commerce/venia-sample-data-modules/pull/25
