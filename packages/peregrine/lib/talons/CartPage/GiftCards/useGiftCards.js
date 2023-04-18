@@ -154,7 +154,7 @@ export const useGiftCards = props => {
                 applyGiftCard();
             }
         };
-        }, [applyGiftCard]);
+    }, [applyGiftCard]);
 
     const shouldDisplayCardBalance =
         mostRecentAction === actions.CHECK_BALANCE &&
