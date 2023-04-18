@@ -46,6 +46,7 @@ exports[`renders form when shouldShowNewPassword is false 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -91,6 +92,7 @@ exports[`renders form when shouldShowNewPassword is false 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -136,6 +138,7 @@ exports[`renders form when shouldShowNewPassword is false 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -183,6 +186,7 @@ exports[`renders form when shouldShowNewPassword is false 1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           >
             <button
@@ -190,6 +194,7 @@ exports[`renders form when shouldShowNewPassword is false 1`] = `
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
+              onKey={true}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               onMouseDown={[Function]}
@@ -206,6 +211,7 @@ exports[`renders form when shouldShowNewPassword is false 1`] = `
                 className="content"
               >
                 <svg
+                  aria-label="View Password"
                   fill="none"
                   height={24}
                   stroke="currentColor"
@@ -315,6 +321,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -360,6 +367,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -405,6 +413,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -452,6 +461,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           >
             <button
@@ -459,6 +469,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
+              onKey={true}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               onMouseDown={[Function]}
@@ -475,6 +486,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
                 className="content"
               >
                 <svg
+                  aria-label="View Password"
                   fill="none"
                   height={24}
                   stroke="currentColor"
@@ -542,6 +554,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           >
             <button
@@ -549,6 +562,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
+              onKey={true}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               onMouseDown={[Function]}
@@ -565,6 +579,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
                 className="content"
               >
                 <svg
+                  aria-label="View Password"
                   fill="none"
                   height={24}
                   stroke="currentColor"

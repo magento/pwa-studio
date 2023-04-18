@@ -79,6 +79,12 @@ export const useAddToCartButton = props => {
                         cartId,
                         sku: item.sku,
                         name: item.name,
+                        pricing: {
+                            regularPrice: {
+                                amount:
+                                    item.price_range.maximum_price.regular_price
+                            }
+                        },
                         priceTotal:
                             item.price_range.maximum_price.final_price.value,
                         currencyCode:
