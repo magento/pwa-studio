@@ -114,6 +114,7 @@ exports[`Should disable delete icon while loading 1`] = `
     
   </span>
   <button
+    aria-label="Item Deleted"
     className="deleteButton"
     disabled={true}
     onClick={[Function]}
@@ -272,6 +273,7 @@ exports[`Should render correctly 1`] = `
     
   </span>
   <button
+    aria-label="Delete"
     className="deleteButton"
     disabled={false}
     onClick={[Function]}
@@ -430,6 +432,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
     
   </span>
   <button
+    aria-label="Delete"
     className="deleteButton"
     disabled={false}
     onClick={[Function]}
@@ -588,6 +591,7 @@ exports[`Should render correctly with out of stock product 1`] = `
     Out-of-stock
   </span>
   <button
+    aria-label="Delete"
     className="deleteButton"
     disabled={false}
     onClick={[Function]}
