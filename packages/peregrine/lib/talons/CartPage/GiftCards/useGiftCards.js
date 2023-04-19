@@ -117,7 +117,6 @@ export const useGiftCards = props => {
         };
     }, [checkGiftCardBalance]);
 
-
     const removeGiftCard = useCallback(
         async giftCardCode => {
             setMostRecentAction(actions.REMOVE);
