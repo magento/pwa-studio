@@ -45,17 +45,24 @@ export const usePaymentMethods = props => {
     const handlePaymentMethodSelection = useCallback(
         element => {
             const value = element.target.value;
-
-            setPaymentMethod({
-                variables: {
-                    cartId,
-                    paymentMethod: {
-                        code: value,
+            
+            const paymentMethodData = 
+                (value == 'braintree')
+                ? {    
+                    code: value,
                         braintree: {
                             payment_method_nonce: value,
                             is_active_payment_token_enabler: false
                         }
                     }
+                : {
+                    code: value
+                }
+            
+            setPaymentMethod({
+                variables: {
+                    cartId,
+                    paymentMethod: paymentMethodData
                 }
             });
         },
