@@ -15,6 +15,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
         accountMenuIsOpen,
         setAccountMenuIsOpen
     });
+    
     const {
         view,
         username,
