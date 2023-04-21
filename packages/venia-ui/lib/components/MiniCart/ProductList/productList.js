@@ -13,7 +13,8 @@ const ProductList = props => {
         classes: propClasses,
         closeMiniCart,
         configurableThumbnailSource,
-        storeUrlSuffix
+        storeUrlSuffix,
+        totalQuantity
     } = props;
     const classes = useStyle(defaultClasses, propClasses);
 
@@ -27,6 +28,7 @@ const ProductList = props => {
                     handleRemoveItem={handleRemoveItem}
                     configurableThumbnailSource={configurableThumbnailSource}
                     storeUrlSuffix={storeUrlSuffix}
+                    totalQuantity={totalQuantity}
                 />
             ));
         }

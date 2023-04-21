@@ -116,6 +116,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     id={'miniCart.emptyMessage'}
                     defaultMessage={'There are no items in your cart.'}
                 />
+                <span hidden role="status" aria-hidden='false' aria-live="polite">There are no items in your cart.</span>
             </div>
         </div>
     ) : (
@@ -129,6 +130,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     closeMiniCart={closeMiniCart}
                     configurableThumbnailSource={configurableThumbnailSource}
                     storeUrlSuffix={storeUrlSuffix}
+                    totalQuantity={totalQuantity}
                 />
             </div>
             <div className={classes.footer}>

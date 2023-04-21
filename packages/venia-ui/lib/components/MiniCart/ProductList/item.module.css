@@ -64,3 +64,9 @@
     grid-column: 3 / span 1;
     grid-row: 1 / span 1;
 }
+
+.hide {
+    visibility: hidden;
+    max-width: 1px;
+    max-height: 1px;
+}
