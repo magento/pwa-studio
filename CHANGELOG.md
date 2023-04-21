@@ -4,25 +4,25 @@
 _This changelog only contains release notes for PWA Studio and Venia 13.1.0_  
 _For older release notes, see_ [PWA Studio releases][].
 
-## Additions and improvements
+## Highlights
 
-- PWA Studio now supports PHP 8.2. GitHub PRs: [4][], [25][], [34][], [5][], [20][], [10][]
-- The chosen payment method now persists throughout the user's session. GitHub PR: [3969][]
+- **PHP 8.2 support** — PWA Studio now supports PHP 8.2. GitHub PRs: [4][], [25][], [34][], [5][], [20][], [10][]
+- **Payment method persists** — The chosen payment method now persists throughout the user's session. GitHub PR: [3969][]
+- **Node 18 support** — PWA Studio now supports Node 18.0,0+. GitHub PR: [172][]
 
-## Bug/story fixes
+## Additional fixes
 
--  Bug: [4028][] — Add support for Page Builder column-line content type
--  Bug: [35][] — Earlier while applying filter on categories the page was crashing with an error message , which is now fixed and filter is applied successfully.
--  Bug: [4053][] — Earlier the filter was not being applied if it was clicked on text lable , which is now fixed and the full line is responsive for selection.
--  Bug: [172][] — Earlier node 18 was not supported with pwa installation , which is now fixed and working.
--  Bug: [4059][] — Earlier the url was not updated properly as per the htlm code is created using page builder which is now fixed and working as expected.
--  Bug: [4061][] — Earlier null requests was observed on network tab while refreshing the venia home page , which is now fixed and no null requests are observed.
--  Bug: [4066][] — Earlier the fashion size was not being announced as selected by screen reader if it was selected , which is now fixed and announcing appropriate size which is selected.
--  Bug: [4049][] — Earlier cancel button which is beside create account was not responding through keyboard , which is now fixed and responding.
--  Bug: [4064][] — When the button "sign in" is pressed by the keyboard, nothing happens. but now it is fixed and working fine.
--  Bug: [26][] — Fixed Venia sample data deployment on cloud for PHP 8.2
--  Bug: [4052][] — Earlier Additional Giftcard Link was appearing in discounted array section, which is now fixed and line has been disaapered.
--  Story: [36][] — Updated Zend libraries to respective laminas. 
+- Story: [36][] — Updated Zend libraries to respective laminas.
+- Bug: [4028][] — Fixed support for Page Builder column-line content type
+- Bug: [35][] — Fixed an issue that crashed the Categories page when applying a filter.
+- Bug: [4053][] — Fixed an issue that prevented a filter from being applied to the text label.
+- Bug: [4059][] — Fixed an issue where the URL was not updated properly in Page Builder.
+- Bug: [4061][] — Fixed null-network requests that occurred when refreshing the Venia home page.
+- Bug: [4066][] — Fixed fashion-size value to be read by screen readers.
+- Bug: [4049][] —Fixed keyboard access for the Cancel button adjacent to the Create Account button.
+- Bug: [4064][] — Fixed keyboard access to the Sign in button.
+- Bug: [26][] — Fixed Venia sample data cloud deployment with PHP 8.2.
+- Bug: [4052][] — Fixed an issue that caused the Additional Giftcard link to appear in the discounted section.
 
 ## 13.1.0 Lighthouse scores
 
