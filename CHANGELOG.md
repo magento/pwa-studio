@@ -9,6 +9,21 @@ _For older release notes, see_ [PWA Studio releases][].
 - PWA Studio now supports PHP 8.2. GitHub PRs: [4][], [25][], [34][], [5][], [20][], [10][]
 - The chosen payment method now persists throughout the user's session. GitHub PR: [3969][]
 
+## Bug/story fixes
+
+-  Bug: [4028][] — Add support for Page Builder column-line content type
+-  Bug: [35][] — Earlier while applying filter on categories the page was crashing with an error message , which is now fixed and filter is applied successfully.
+-  Bug: [4053][] — Earlier the filter was not being applied if it was clicked on text lable , which is now fixed and the full line is responsive for selection.
+-  Bug: [172][] — Earlier node 18 was not supported with pwa installation , which is now fixed and working.
+-  Bug: [4059][] — Earlier the url was not updated properly as per the htlm code is created using page builder which is now fixed and working as expected.
+-  Bug: [4061][] — Earlier null requests was observed on network tab while refreshing the venia home page , which is now fixed and no null requests are observed.
+-  Bug: [4066][] — Earlier the fashion size was not being announced as selected by screen reader if it was selected , which is now fixed and announcing appropriate size which is selected.
+-  Bug: [4049][] — Earlier cancel button which is beside create account was not responding through keyboard , which is now fixed and responding.
+-  Bug: [4064][] — When the button "sign in" is pressed by the keyboard, nothing happens. but now it is fixed and working fine.
+-  Bug: [26][] — Fixed Venia sample data deployment on cloud for PHP 8.2
+-  Bug: [4052][] — Earlier Additional Giftcard Link was appearing in discounted array section, which is now fixed and line has been disaapered.
+-  Story: [36][] — Updated Zend libraries to respective laminas. 
+
 ## 13.1.0 Lighthouse scores
 
 With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 13.1.0 release of these pages on desktop and mobile devices.
@@ -89,4 +104,16 @@ Your project may not depend on some packages listed in this table.
 [20]: https://github.com/magento-commerce/magento2-upward-connector/pull/20
 [10]: https://github.com/magento-commerce/upward-php/pull/10
 [3969]: https://github.com/magento/pwa-studio/pull/3969
+[4028]: https://github.com/magento/pwa-studio/pull/4028
+[35]: https://github.com/magento-commerce/magento2-pwa/pull/35
+[4053]: https://github.com/magento/pwa-studio/pull/4053
+[172]: https://github.com/AdobeDocs/commerce-pwa-studio/pull/172
+[4059]: https://github.com/magento/pwa-studio/pull/4059
+[4061]: https://github.com/magento/pwa-studio/pull/4061
+[4066]: https://github.com/magento/pwa-studio/pull/4066
+[4049]: https://github.com/magento/pwa-studio/pull/4049
+[4064]: https://github.com/magento/pwa-studio/pull/4064
+[26]: https://github.com/magento-commerce/venia-sample-data-modules/pull/26
+[4052]: https://github.com/magento/pwa-studio/pull/4052
+[36]: https://github.com/magento-commerce/magento2-pwa/pull/36
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
