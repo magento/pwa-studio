@@ -116,7 +116,14 @@ const MiniCart = React.forwardRef((props, ref) => {
                     id={'miniCart.emptyMessage'}
                     defaultMessage={'There are no items in your cart.'}
                 />
-                <span hidden role="status" aria-hidden='false' aria-live="polite">There are no items in your cart.</span>
+                <span
+                    hidden
+                    role="status"
+                    aria-hidden="false"
+                    aria-live="polite"
+                >
+                    There are no items in your cart.
+                </span>
             </div>
         </div>
     ) : (
