@@ -37,7 +37,8 @@ const ProductList = props => {
         handleRemoveItem,
         closeMiniCart,
         configurableThumbnailSource,
-        storeUrlSuffix
+        storeUrlSuffix,
+        totalQuantity
     ]);
 
     return (
