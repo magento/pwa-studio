@@ -64,7 +64,7 @@ const MiniCart = React.forwardRef((props, ref) => {
 
     const [, { addToast }] = useToasts();
 
-    const announceMiniCartCount = "There are no items in your cart.";
+    const announceMiniCartCount = 'There are no items in your cart.';
 
     useEffect(() => {
         if (errorMessage) {
