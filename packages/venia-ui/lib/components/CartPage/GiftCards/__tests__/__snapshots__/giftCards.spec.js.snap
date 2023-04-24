@@ -62,6 +62,9 @@ exports[`it renders correctly when it has cards 1`] = `
               className="root"
             />
           </div>
+          <span
+            aria-live="polite"
+          />
         </div>
         <div
           className="root"
@@ -303,6 +306,9 @@ exports[`it renders correctly with no cards 1`] = `
               className="root"
             />
           </div>
+          <span
+            aria-live="polite"
+          />
         </div>
         <div
           className="root"
