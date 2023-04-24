@@ -95,9 +95,9 @@ const GiftCards = props => {
 
     const cardEntryErrorMessage = shouldDisplayCardError
         ? formatMessage({
-              id: 'giftCards.errorInvalid',
-              defaultMessage: 'Invalid card. Please try again.'
-          })
+            id: 'giftCards.errorInvalid',
+            defaultMessage: 'Invalid card. Please try again.'
+        })
         : null;
 
     let appliedGiftCards = null;
@@ -133,24 +133,32 @@ const GiftCards = props => {
         );
     }
 
-    const cardBalance = shouldDisplayCardBalance && (
-        <div className={classes.balance}>
-            <span className={classes.price}>
-                <FormattedMessage
-                    id={'giftCards.balance'}
-                    defaultMessage={'Balance: '}
-                />
-                <Price
-                    value={checkBalanceData.balance.value}
-                    currencyCode={checkBalanceData.balance.currency}
-                />
-            </span>
-        </div>
-    );
-
     const containerClass = shouldDisplayCardError
         ? classes.card_input_container_error
         : classes.card_input_container;
+
+    const cardBalance = shouldDisplayCardBalance && (
+        <div className={classes.balance}>
+            {checkBalanceData
+                ?
+                <span className={classes.price}>
+                    <FormattedMessage
+                        id={'giftCards.balance'}
+                        defaultMessage={'Balance: '}
+                    />
+                    <Price
+                        value={checkBalanceData.balance.value}
+                        currencyCode={checkBalanceData.balance.currency}
+                    />
+                </span>
+                :
+                <span className={classes.invalid_card_error}>
+                    {cardEntryErrorMessage}
+                </span>
+            }
+        </div>
+    );
+
 
     const cardEntryContents = (
         <div className={classes.card}>
@@ -172,7 +180,7 @@ const GiftCards = props => {
                         field="card"
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
-                        message={cardEntryErrorMessage}
+                        // message={cardEntryErrorMessage}
                         placeholder={formatMessage({
                             id: 'giftCards.cardEntry',
                             defaultMessage: 'Enter card number'
@@ -180,7 +188,11 @@ const GiftCards = props => {
                         validate={isRequired}
                     />
                 </div>
-                {cardBalance}
+                <span
+                    aria-live="polite"
+                >
+                    {cardBalance}
+                </span>
             </Field>
             <Field
                 classes={{

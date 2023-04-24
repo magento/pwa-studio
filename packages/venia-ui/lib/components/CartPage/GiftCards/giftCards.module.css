@@ -41,6 +41,10 @@
 .card_input_container {
 }
 
+.invalid_card_error {
+    color: red;
+}
+
 /* TODO @TW: cannot compose */
 .card_input_container_error input {
     /* composes: border-error from global; */
