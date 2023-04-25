@@ -40,10 +40,17 @@
     "@snowplow/browser-plugin-performance-timing" "^3.0.1"
     "@snowplow/browser-tracker" "^3.0.1"
 
-"@adobe/magento-storefront-events-sdk@*", "@adobe/magento-storefront-events-sdk@~1.1.19":
+"@adobe/magento-storefront-events-sdk@*":
   version "1.1.19"
   resolved "https://registry.yarnpkg.com/@adobe/magento-storefront-events-sdk/-/magento-storefront-events-sdk-1.1.19.tgz#7632b873c4e913505d6176384618017315999a77"
   integrity sha512-N/FEN5kEUvLvrjVf+xjZkkOKIP+dD9D++CBwBVbpwpRwsMzVhDAJA0txfquesa/bVQIPf8MlJ43jdEoyH9/RJg==
+  dependencies:
+    "@adobe/adobe-client-data-layer" "^2.0.2"
+
+"@adobe/magento-storefront-events-sdk@~1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@adobe/magento-storefront-events-sdk/-/magento-storefront-events-sdk-1.3.1.tgz#efe9e5898462ef8d6b360af483919566dfadf69e"
+  integrity sha512-Ky8iovqTpaCnMPcm7ZMZAPlGsLhOnbUCNiWX13JeFKqo+T+kRoipHfDzlNiWaYmRdys1QOODn7xpoROynwUVRg==
   dependencies:
     "@adobe/adobe-client-data-layer" "^2.0.2"
 
