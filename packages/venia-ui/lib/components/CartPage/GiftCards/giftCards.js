@@ -186,8 +186,7 @@ const GiftCards = props => {
                         validate={isRequired}
                     />
                 </div>
-                <span aria-live="polite"
-                >{cardBalance}</span>
+                <span aria-live="polite">{cardBalance}</span>
             </Field>
             <Field
                 classes={{
