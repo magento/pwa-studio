@@ -54,6 +54,7 @@ exports[`it renders correctly when it has cards 1`] = `
                 className="before"
               />
               <span
+                aria-hidden="false"
                 className="after"
               />
             </span>
@@ -295,6 +296,7 @@ exports[`it renders correctly with no cards 1`] = `
                 className="before"
               />
               <span
+                aria-hidden="false"
                 className="after"
               />
             </span>

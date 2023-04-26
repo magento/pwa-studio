@@ -47,31 +47,35 @@ const DiscountSummary = props => {
             >
                 <hr className={classes.individualDiscountSeparator} />
                 {discountData.map(discount => {
-                    return (
-                        <li
-                            className={classes.individualDiscountsListLineItem}
-                            key={discount.label}
-                        >
-                            <span
-                                className={classes.lineItemLabel}
-                                data-cy="DiscountSummary-IndividualDiscount-Label"
+                    if (discount.label != 'Gift Cards') {
+                        return (
+                            <li
+                                className={
+                                    classes.individualDiscountsListLineItem
+                                }
+                                key={discount.label}
                             >
-                                <span data-cy="DiscountSummary-IndividualDiscount-DiscountLabel">
-                                    {discount.label}
+                                <span
+                                    className={classes.lineItemLabel}
+                                    data-cy="DiscountSummary-IndividualDiscount-Label"
+                                >
+                                    <span data-cy="DiscountSummary-IndividualDiscount-DiscountLabel">
+                                        {discount.label}
+                                    </span>
                                 </span>
-                            </span>
-                            <span
-                                data-cy="DiscountSummary-IndividualDiscount-DiscountValue"
-                                className={classes.price}
-                            >
-                                {MINUS_SYMBOL}
-                                <Price
-                                    value={discount.amount.value}
-                                    currencyCode={discount.amount.currency}
-                                />
-                            </span>
-                        </li>
-                    );
+                                <span
+                                    data-cy="DiscountSummary-IndividualDiscount-DiscountValue"
+                                    className={classes.price}
+                                >
+                                    {MINUS_SYMBOL}
+                                    <Price
+                                        value={discount.amount.value}
+                                        currencyCode={discount.amount.currency}
+                                    />
+                                </span>
+                            </li>
+                        );
+                    }
                 })}
                 <hr className={classes.individualDiscountSeparator} />
             </ul>

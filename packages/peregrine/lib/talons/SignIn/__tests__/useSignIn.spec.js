@@ -131,6 +131,7 @@ test('returns correct shape', () => {
             "shouldRender": false,
           },
           "setFormApi": [Function],
+          "signinHandleEnterKeyPress": [Function],
         }
     `);
 });
