@@ -64,7 +64,15 @@ exports[`it renders correctly when it has cards 1`] = `
           </div>
           <span
             aria-live="polite"
-          />
+          >
+            <div
+              className="balance"
+            >
+              <span
+                className="invalid_card_error"
+              />
+            </div>
+          </span>
         </div>
         <div
           className="root"
@@ -308,7 +316,15 @@ exports[`it renders correctly with no cards 1`] = `
           </div>
           <span
             aria-live="polite"
-          />
+          >
+            <div
+              className="balance"
+            >
+              <span
+                className="invalid_card_error"
+              />
+            </div>
+          </span>
         </div>
         <div
           className="root"
