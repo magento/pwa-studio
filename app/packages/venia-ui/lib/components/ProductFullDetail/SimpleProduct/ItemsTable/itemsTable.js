@@ -187,6 +187,7 @@ const ItemsTable = props => {
                             <span className={classes.indexFixed}>{tempTotalPrice}</span>
                         </div>
                     </article>
+                    <div className={classes.productItemOperations}>
                     <Form className={classes.productItemBodyOperations}>
                         <QuantityStepper
                             fieldName={`${simpleProductData.sku}_2`}
@@ -195,8 +196,8 @@ const ItemsTable = props => {
                             onChange={handleQuantityChange}
                         />
                     </Form>
-
                     {addToCartButton}
+                    </div>
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </section>
             </div>

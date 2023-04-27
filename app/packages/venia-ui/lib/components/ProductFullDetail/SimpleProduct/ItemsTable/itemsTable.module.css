@@ -70,7 +70,6 @@
 .totalPriceContainer {
     display: flex;
     margin-bottom: 5px;
-    width: 100%;
 }
 
 .totalWrapper {
@@ -184,6 +183,7 @@
     display: flex;
     flex-direction: row;
     border-bottom: solid rgb(var(--venia-global-color-border));
+    gap: .5rem;
 }
 
 .productItemHeaderTextMobile {
@@ -199,7 +199,6 @@
     align-content: center;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
 }
 
 .productItemBodyInformation {
@@ -242,6 +241,8 @@
     padding: 10px 0px 0px 0px;
     gap: 5px;
     width: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .stockAddContainer {
@@ -255,4 +256,14 @@
 
 .totalPriceContainer div {
     width: max-content;
+}
+
+.productItemOperations{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
 }

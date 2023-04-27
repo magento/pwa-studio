@@ -67,7 +67,7 @@ const SimpleProductB2B = props => {
                 <span>
                     <img height="20px" width="20" src={att.file_icon} alt={att.name} />
                     {att.note === '' || checkAttachmentLogin(att.note) ? (
-                        <a href={att.url_file} target="blank">
+                        <a href={att.url_file} target="_blank">
                             {previewIcon}
                         </a>
                     ) : (
