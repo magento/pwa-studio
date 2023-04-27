@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { func, shape, string } from 'prop-types';
@@ -25,13 +25,9 @@ const ShippingForm = props => {
         handleOnSubmit,
         handleZipChange,
         handleOnSubmitKeyPress,
-        isSetShippingLoading,
+        isSetShippingLoading
     } = talonProps;
     const { formatMessage } = useIntl();
-    const ref = useRef();
-   const handleClick = (e) => {
-    this.btn.click();
-      }
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -58,7 +54,6 @@ const ShippingForm = props => {
                 className={classes.root}
                 initialValues={selectedShippingFields}
                 onSubmit={handleOnSubmit}
-                
             >
                 <Country
                     data-cy="ShippingMethods-ShippingForm-country"
