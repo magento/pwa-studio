@@ -137,6 +137,15 @@ export const useShippingForm = props => {
         [cartId, setShippingAddress]
     );
 
+
+    const handleOnSubmitKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleOnSubmit();
+            }
+        };
+    }, [handleOnSubmit]);
+    
     const errors = useMemo(
         () =>
             new Map([
@@ -149,6 +158,7 @@ export const useShippingForm = props => {
         errors,
         handleOnSubmit,
         handleZipChange,
+        handleOnSubmitKeyPress,
         isSetShippingLoading
     };
 };

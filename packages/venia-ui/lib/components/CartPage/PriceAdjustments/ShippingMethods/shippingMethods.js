@@ -32,7 +32,8 @@ const ShippingMethods = props => {
         selectedShippingFields,
         selectedShippingMethod,
         shippingMethods,
-        showForm
+        showForm,
+        showFormOnEnter
     } = useShippingMethods();
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -74,6 +75,7 @@ const ShippingMethods = props => {
             }}
             data-cy="ShippingMethods-estimateButton"
             onClick={showForm}
+            onKeyDown={showFormOnEnter}
         >
             <FormattedMessage
                 id={'shippingMethods.estimateButton'}

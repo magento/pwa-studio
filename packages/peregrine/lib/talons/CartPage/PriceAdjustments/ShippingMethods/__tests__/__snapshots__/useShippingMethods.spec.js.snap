@@ -31,6 +31,7 @@ Object {
     },
   ],
   "showForm": [Function],
+  "showFormOnEnter": [Function],
 }
 `;
 
@@ -46,6 +47,7 @@ Object {
   "selectedShippingMethod": null,
   "shippingMethods": Array [],
   "showForm": [Function],
+  "showFormOnEnter": [Function],
 }
 `;
 
@@ -80,5 +82,6 @@ Object {
     },
   ],
   "showForm": [Function],
+  "showFormOnEnter": [Function],
 }
 `;

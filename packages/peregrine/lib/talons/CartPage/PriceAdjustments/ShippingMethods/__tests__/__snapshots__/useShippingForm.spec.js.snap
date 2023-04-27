@@ -51,6 +51,7 @@ Object {
     "setShippingAddressMutation" => undefined,
   },
   "handleOnSubmit": [Function],
+  "handleOnSubmitKeyPress": [Function],
   "handleZipChange": [Function],
   "isSetShippingLoading": false,
 }
@@ -62,6 +63,7 @@ Object {
     "setShippingAddressMutation" => "Apollo Error",
   },
   "handleOnSubmit": [Function],
+  "handleOnSubmitKeyPress": [Function],
   "handleZipChange": [Function],
   "isSetShippingLoading": true,
 }
