@@ -58,7 +58,7 @@ const Submenu = props => {
     return (
         <div className={subMenuClassname}>
             <div
-                className={classes.submenuItems}
+                className={`${classes.submenuItems} ${items?.length === 1 && classes.centerItem}`}
                 style={{ minWidth: mainNavWidth + PADDING_OFFSET }}
             >
                 {subMenus}
