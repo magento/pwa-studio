@@ -98,7 +98,7 @@
 
 .carouselContainer > div {
     grid-area: 1 / 1 / 2 / 4;
-    margin: 0 auto;
+    margin: 0 1rem;
 }
 
 .carouselContainer > div div:nth-child(3) {
