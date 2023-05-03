@@ -15,7 +15,7 @@
         grid-template-columns: 1.5625fr 1fr;
         grid-template-rows: repeat(3, min-content);
         padding: 2.5rem 3rem;
-        column-gap: .5rem;
+        column-gap: 0.5rem;
     }
 }
 
@@ -364,10 +364,14 @@
     color: var(--b2bstore-global-color-orange);
 }
 
-.attachmentWrapper  span {
-    margin-bottom: 0.8rem;
+.attachmentWrapper span {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
+}
+
+.attachmentWrapper > span {
+    margin: 0.5rem 0;
 }
 
 .attachmentWrapper img {

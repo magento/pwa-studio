@@ -268,9 +268,13 @@
 }
 
 .attachmentWrapper span {
-    margin-bottom: 0.8rem;
     display: flex;
     gap: 0.5rem;
+    align-items: center;
+}
+
+.attachmentWrapper > span {
+    margin: 0.5rem 0;
 }
 
 .attachmentWrapper img {
