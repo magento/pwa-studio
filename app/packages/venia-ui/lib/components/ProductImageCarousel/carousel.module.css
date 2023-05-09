@@ -116,6 +116,10 @@
     .imageZoomContainer {
         display: none;
     }
+
+    .thumbnailList{
+        height: 20px !important;
+    }
 }
 
 @media (min-width: 960px) {

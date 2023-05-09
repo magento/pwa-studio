@@ -15,7 +15,6 @@ import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
 import { OutStockIcon } from '@magento/venia-ui/lib/assets/outStockIcon';
 import copyToClipboard from '@magento/venia-ui/lib/assets/copyToClipboard.png';
 
-
 const ItemsTable = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -206,16 +205,17 @@ const ItemsTable = props => {
                             </div>
                         </article>
                     )}
-                    <Form className={classes.productItemBodyOperations}>
-                        <QuantityStepper
-                            fieldName={`${simpleProductData.sku}_2`}
-                            classes={{ root: classes.quantityRoot }}
-                            min={1}
-                            onChange={handleQuantityChange}
-                        />
-                    </Form>
-
-                    {addToCartButton}
+                    <div className={classes.productItemOperations}>
+                        <Form className={classes.productItemBodyOperations}>
+                            <QuantityStepper
+                                fieldName={`${simpleProductData.sku}_2`}
+                                classes={{ root: classes.quantityRoot }}
+                                min={1}
+                                onChange={handleQuantityChange}
+                            />
+                        </Form>
+                        {addToCartButton}
+                    </div>
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </section>
             </div>

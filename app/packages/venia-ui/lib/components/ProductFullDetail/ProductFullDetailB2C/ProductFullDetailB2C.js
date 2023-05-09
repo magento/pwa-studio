@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, Suspense, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
@@ -13,10 +14,19 @@ const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components
 
 import defaultClasses from './ProductFullDetailB2C.module.css';
 import noImage from '@magento/venia-ui/lib/assets/product-package-cancelled.svg';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+import { AlertTriangle, Eye } from 'react-feather';
+import { useToasts } from '@magento/peregrine';
+
+const previewIcon = <Icon src={Eye} size={20} />;
+const OfflineIcon = <Icon src={AlertTriangle} attrs={{ width: 18 }} />;
 
 const ProductFullDetailB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
+
+    const [, { addToast }] = useToasts();
 
     const {
         breadcrumbs,
@@ -37,6 +47,42 @@ const ProductFullDetailB2C = props => {
         isSimpleProductSelected
     } = props;
 
+    const [{ isSignedIn }] = useUserContext();
+    const { mp_attachments } = productDetails;
+    // reutrn true if the login is requierd to see the attachment
+    const checkAttachmentLogin = note => note === 'Login required';
+
+    const loginRequiredClick = () =>
+        addToast({
+            icon: OfflineIcon,
+            type: 'error',
+            message: formatMessage({
+                id: 'productAttachemts.loginRequired',
+                defaultMessage: 'Login required'
+            }),
+            timeout: 3000
+        });
+
+    const productAttachments = useMemo(
+        () =>
+            mp_attachments?.map(att => (
+                <>
+                    <span key={att.file_name}>
+                        <img height="20px" width="20" src={att.file_icon} alt={att.name} />
+                        {att.note === '' || (checkAttachmentLogin(att.note) && isSignedIn) ? (
+                            <a href={att.url_file} target="_blank">
+                                {previewIcon}
+                            </a>
+                        ) : (
+                            <button onClick={loginRequiredClick}>{previewIcon}</button>
+                        )}
+
+                        {att.file_name}
+                    </span>
+                </>
+            )),
+        [mp_attachments, isSignedIn]
+    );
     const customAttributesDetails = useMemo(() => {
         const list = [];
         const pagebuilder = [];
@@ -164,6 +210,8 @@ const ProductFullDetailB2C = props => {
                     </span>
                     <RichContent html={productDetails.description} />
                 </section>
+                <div className={classes.attachmentWrapper}>{productAttachments}</div>
+
                 <section className={classes.details}>
                     <CustomAttributes customAttributes={customAttributesDetails.list} />
                 </section>

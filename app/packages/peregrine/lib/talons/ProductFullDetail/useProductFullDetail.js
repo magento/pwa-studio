@@ -110,7 +110,7 @@ const getIsAllOutOfStock = product => {
     return stock_status === OUT_OF_STOCK_CODE;
 };
 
-const getMediaGalleryEntries = (product, optionCodes, optionSelections, derivedOptionSelections) => {
+const getMediaGalleryEntries = (product, optionCodes, optionSelections, ) => {
     let value = [];
     const { media_gallery_entries, variants } = product;
     const isConfigurable = isProductConfigurable(product);
@@ -481,9 +481,7 @@ export const useProductFullDetail = props => {
             selectedOptionsArray
         ]
     );
-    const optionSelectionsKeys = Array.from(optionSelections.keys());
     const derivedOptionSelectionsKey = Array.from(derivedOptionSelections.keys());
-    const iskeysEqual = derivedOptionSelectionsKey.every(ele => optionSelectionsKeys.includes(ele));
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
@@ -532,7 +530,8 @@ export const useProductFullDetail = props => {
                 amount: productPriceMinimal
             }
         },
-        sku: product.sku
+        sku: product.sku,
+        mp_attachments: product.mp_attachments
     };
 
     const derivedErrorMessage = useMemo(
