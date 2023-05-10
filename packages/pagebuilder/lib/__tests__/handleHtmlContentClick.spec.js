@@ -24,7 +24,6 @@ test('does nothing when the target is not a link', () => {
 describe('when the target is a link', () => {
     const preventDefault = jest.fn();
 
-
     test('loads the new URL if it is external', () => {
         const mockAssign = jest.fn();
 

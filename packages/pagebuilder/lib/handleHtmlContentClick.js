@@ -16,11 +16,7 @@ const handleHtmlContentClick = (history, event) => {
     // destination is internal to avoid refreshing the page
     if (target.tagName === 'A' && shouldIntercept) {
         event.preventDefault();
-        const {
-            search: query,
-            target: tabTarget,
-            href
-        } = target;
+        const { search: query, target: tabTarget, href } = target;
 
         if (tabTarget && globalThis.open) {
             if (query) {
