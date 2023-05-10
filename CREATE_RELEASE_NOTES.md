@@ -71,9 +71,9 @@ Here are the steps you need to follow to create PWA Studio release notes. :
 
    ````diff
    module.exports = {
-   +		'13.1.0': '2.4.6',
-       '13.0.0': '2.4.5',
-       '12.7.0': '2.4.5',
+   +  '13.1.0': '2.4.6',
+      '13.0.0': '2.4.5',
+      '12.7.0': '2.4.5',
    ````
 
 8. Commit and push your changes, then create a PR for approval. Example PR: https://github.com/magento/pwa-studio/pull/4080.
@@ -92,11 +92,11 @@ Here are the steps you need to follow to create PWA Studio release notes. :
      ```tree
      root
      └── packages
-     		├── buildpack
-     		├── pagebuilder
-     		├── peregrine
-     		├── pwa-buildpack
-     		└── venia-ui
+        ├── buildpack
+        ├── pagebuilder
+        ├── peregrine
+        ├── pwa-buildpack
+        └── venia-ui
      ```
 
 10. Open the `auto-generated` directory to verify the generated files:
@@ -104,13 +104,13 @@ Here are the steps you need to follow to create PWA Studio release notes. :
     ```tree
     pwa-devdocs
     └── src
-    		└── _includes
-    				└── auto-generated
-    						├── pagebuilder
-                ├── peregrine
-                ├── pwa-buildpack
-                ├── venia-ui
-                └── magento-compatibility.md
+       └── _includes
+          └── auto-generated
+             ├── pagebuilder
+             ├── peregrine
+             ├── pwa-buildpack
+             ├── venia-ui
+             └── magento-compatibility.md
     ```
 
 11. Copy the `auto-generated` directory, with all its subdirectories and files.
@@ -141,8 +141,8 @@ Here are the steps you need to follow to create PWA Studio release notes. :
    On branch release-13.1.0
    Changes to be committed:
      (use "git restore --staged <file>..." to unstage)
-   +        modified:   src/data/auto-generated/magento-compatibility.md
-   +        modified:   src/data/auto-generated/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary.md
+   +  modified:   src/data/auto-generated/magento-compatibility.md
+   +  modified:   src/data/auto-generated/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary.md
    ```
 
 5. Run `yarn dev` to build the docs locally and verify the changed files:
