@@ -105,6 +105,7 @@
 
 .totalPrice {
     margin-left: 30px;
+    margin-bottom: 20px;
 }
 .formErrors {
     composes: section;
@@ -227,6 +228,38 @@
 
 .productOldPrice {
     text-decoration-line: line-through;
+}
+
+.notifyContainer {
+    margin-top: 0.5rem;
+    color: red;
+    text-align: center;
+}
+
+.selectB2cProduct {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.notifySelect {
+    margin-bottom: 2rem;
+}
+
+.notifyButton {
+    text-align: center;
+}
+
+.notifyButton div {
+    min-height: 2.5rem;
+}
+
+.notifyButton button {
+    max-width: 100%;
+    min-width: 10rem;
+    min-height: 2.5rem;
+    width: fit-content;
 }
 
 @media (max-width: 959px) {

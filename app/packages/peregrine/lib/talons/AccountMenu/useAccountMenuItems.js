@@ -74,6 +74,11 @@ export const useAccountMenuItems = props => {
             name: 'Favorites Lists',
             id: 'accountMenu.favoritesListsLink',
             url: '/wishlist'
+        },
+        {
+            name: 'Product Alerts',
+            id: 'productAlert.myProductAlerts',
+            url: '/productsAlert'
         }
     ];
 

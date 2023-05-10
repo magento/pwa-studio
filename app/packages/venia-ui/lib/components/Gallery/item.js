@@ -21,6 +21,8 @@ import { useStyle } from '../../classify';
 import { useToasts } from '@magento/peregrine';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import StockAlertModal from '@magento/venia-ui/lib/components/ProductsAlert/StockAlertModal';
 
 import defaultClasses from './item.module.css';
 
@@ -58,6 +60,18 @@ const GalleryItem = props => {
     const compareProps = useCompareProduct();
     const { addProductsToCompare } = compareProps;
 
+    const productsAlert = useProductsAlert({ ItemSku: item.sku });
+    const {
+        formProps,
+        isStockModalOpened,
+        setisStockModalOpened,
+        submitStockAlert,
+        handleOpendStockModal,
+        isUserSignIn,
+        alertConfig
+    } = productsAlert;
+
+    const [isOpen, setIsOpen] = useState(false);
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;
     }
@@ -107,6 +121,8 @@ const GalleryItem = props => {
             }
             urlSuffix={productUrlSuffix}
             quantity={quantity}
+            handleOpendStockModal={handleOpendStockModal}
+            isProductAlertEnabled={item?.mp_product_alert}
         />
     ) : (
         <div className={classes.unavailableContainer}>
@@ -330,16 +346,22 @@ const GalleryItem = props => {
                     )}
                 </div>
             )}
-            <div
-                className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer} ${isSignedIn &&
-                    classes.multibaleActions}`}
-            >
-                {addButton}
+            <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}`}>
+            {addButton}
                 {isSignedIn && (
                     <button className={classes.compareIcon} onClick={addToCompare}>
                         <CompareIcon />
                     </button>
                 )}
+                <StockAlertModal
+                    onCancel={() => setisStockModalOpened(false)}
+                    isOpen={isStockModalOpened}
+                    onConfirm={submitStockAlert}
+                    formProps={formProps}
+                    isUserSignIn={isUserSignIn}
+                    alertConfig={alertConfig?.stock_alert}
+                />
+                {/* {!isHomePage && wishlistButton} */}
             </div>
         </div>
     );

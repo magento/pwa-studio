@@ -16,6 +16,11 @@ import { useFormState } from 'informed';
 import copyToClipboard from '@magento/venia-ui/lib/assets/copyToClipboard.png';
 import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
 import { OutStockIcon } from '@magento/venia-ui/lib/assets/outStockIcon';
+import NotifyPrice from '../../../ProductsAlert/NotifyPrice';
+import PriceAlert from '../../../ProductsAlert/PriceAlertModal/priceAlert';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import NotifyButton from '../../../ProductsAlert/NotifyButton/NotifyButton';
+import StockAlert from '../../../ProductsAlert/StockAlertModal/stockAlert';
 
 const ProductItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -31,7 +36,20 @@ const ProductItem = props => {
         errors
     } = props;
     const [copied, setCopied] = useState(false);
+    const productAlertStatus = variant?.product?.mp_product_alert;
     const [isItemDisabled, setIsItemDisabled] = useState(false);
+    const productsAlert = useProductsAlert({ ItemSku: variant?.product?.sku });
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal,
+        formProps,
+        submitStockAlert,
+        handleSubmitPriceAlert,
+        alertConfig
+    } = productsAlert;
 
     const copyText = () => {
         navigator.clipboard.writeText(variant.product.sku);
@@ -102,12 +120,19 @@ const ProductItem = props => {
     );
 
     const priceTag = (
-        <span className={classes.indexFixed}>
-            <Price
-                currencyCode={variant.product.price.regularPrice.amount.currency}
-                value={variant.product.price.minimalPrice.amount.value}
-            />
-        </span>
+        <div className={classes.priceContainer}>
+            <span className={classes.indexFixed}>
+                <Price
+                    currencyCode={variant.product.price.regularPrice.amount.currency}
+                    value={variant.product.price.minimalPrice.amount.value}
+                />
+            </span>
+            {productAlertStatus?.mp_productalerts_price_alert && process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                <div className={classes.notifyPrice}>
+                    <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                </div>
+            )}
+        </div>
     );
 
     const stockStatus =
@@ -120,7 +145,6 @@ const ProductItem = props => {
                 <OutStockIcon />
             </div>
         );
-
     const addToCartButton = (
         <Button
             className={classes.buttonAddToCart}
@@ -141,6 +165,19 @@ const ProductItem = props => {
         </Button>
     );
 
+    const stockButton =
+        variant?.product?.stock_status === 'OUT_OF_STOCK' &&
+        productAlertStatus?.mp_productalerts_stock_notify &&
+        process.env.B2BSTORE_VERSION === 'PREMIUM' ? (
+            <div className={classes.stockBtnWrapper}>
+                <NotifyButton
+                    handleOpendStockModal={handleOpendStockModal}
+                    productStatus={variant?.product?.stock_status}
+                />
+            </div>
+        ) : (
+            addToCartButton
+        );
     const categoriesKeyValue = () => {
         const tempCategoriesKeyValueList = [];
         categoriesName.map((categoryName, i) => {
@@ -148,7 +185,7 @@ const ProductItem = props => {
         });
         return tempCategoriesKeyValueList;
     };
-    // str.substring(str.length - n)
+
     const lastDigitsOfSku = variant.product.sku.substring(variant.product.sku.length - 7);
 
     const productItemDesktop = (
@@ -195,7 +232,7 @@ const ProductItem = props => {
                 )}
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
-                    {addToCartButton}
+                    {stockButton}
                 </div>
             </div>
         </div>
@@ -248,7 +285,7 @@ const ProductItem = props => {
                     )}
                     <div className={classes.productItemBodyOperations}>
                         {quantitySelector(2)}
-                        {addToCartButton}
+                        {stockButton}
                     </div>
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </div>
@@ -259,6 +296,20 @@ const ProductItem = props => {
     return (
         <div>
             {productItemDesktop} {productItemMobile}
+            <PriceAlert
+                formProps={formProps}
+                isOpen={openPriceModal}
+                onConfirm={handleSubmitPriceAlert}
+                onCancel={handleCloseModal}
+                alertConfig={alertConfig?.price_alert}
+            />
+            <StockAlert
+                isOpen={isStockModalOpened}
+                onConfirm={submitStockAlert}
+                formProps={formProps}
+                onCancel={handleCloseModal}
+                alertConfig={alertConfig?.stock_alert}
+            />
         </div>
     );
 };

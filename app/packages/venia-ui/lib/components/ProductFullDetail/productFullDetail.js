@@ -57,7 +57,9 @@ const ProductFullDetail = props => {
         customAttributes,
         setOptionSelections,
         isSimpleProductSelected,
-        isB2B
+        isB2B,
+        selectedVarient,
+        isOutOfStockProduct
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -285,6 +287,10 @@ const ProductFullDetail = props => {
             product={product}
             isOutOfStock={isOutOfStock}
             isSimpleProductSelected={isSimpleProductSelected}
+            selectedVarient={selectedVarient}
+            isOutOfStockProduct={isOutOfStockProduct}
+            isEverythingOutOfStock={isEverythingOutOfStock}
+            outOfStockVariants={outOfStockVariants}
         />
     );
 };

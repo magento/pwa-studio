@@ -233,6 +233,17 @@
     align-items: center;
 }
 
+.notifySelect {
+    margin-bottom: 2rem;
+}
+
+.notifyButton {
+    max-width: 100%;
+    min-width: 10rem;
+    min-height: 2.5rem;
+    width: fit-content;
+}
+
 .addToCartButton {
     composes: root_highPriority from '../../Button/button.module.css';
     width: fit-content;
@@ -243,7 +254,7 @@
         height: 500px;
     }
 
-    .imageCarousel div div  {
+    .imageCarousel div div {
         height: 450px;
     }
 
@@ -251,7 +262,7 @@
         height: 450px;
     }
 
-    .title{
+    .title {
         margin-top: 30px;
     }
 }
@@ -279,4 +290,11 @@
 
 .attachmentWrapper img {
     height: 20px;
+}
+
+.actions button {
+    max-width: 100%;
+    min-width: 10rem;
+    min-height: 2.5rem;
+    width: fit-content;
 }

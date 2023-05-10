@@ -22,7 +22,8 @@
     justify-items: center;
     align-content: center;
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
+    padding: .5rem 0px;
 }
 
 .productItemContainerMobile {
@@ -39,7 +40,6 @@
 .indexMobileName,
 .indexMobileSku {
     text-align: center;
-    width: 100%;
 }
 
 .inStock,
@@ -58,6 +58,7 @@
     display: flex;
 }
 .stockStatusCircle {
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,6 +110,9 @@
     color: var(--b2bstore-global-color-orange);
     font-weight: bold;
 }
+.priceContainer {
+    display: flex !important;
+}
 
 @media (max-width: 1250px) {
     .indexMobileSku {
@@ -134,8 +138,18 @@
     }
 }
 
+.notifyPrice {
+    display: flex;
+    align-items: center;
+}
 /* Tablet */
 @media (max-width: 980px) {
+    .priceContainer {
+        display: block;
+    }
+    .notifyPrice {
+        text-align: center;
+    }
     .productItemContainerDesktop {
         display: none;
     }
@@ -177,7 +191,7 @@
     display: flex;
     flex-direction: row;
     border-bottom: solid rgb(var(--venia-global-color-border));
-    gap: .5rem;
+    gap: 0.7rem;
 }
 
 .productItemHeaderTextMobile {
@@ -249,6 +263,10 @@
     justify-content: space-around;
 }
 
+.stockAddContainer div > button {
+    min-width: 92px;
+    width: 92px;
+}
 .requestBtn button {
     min-width: auto;
 }
@@ -267,4 +285,9 @@
     composes: placeholder;
 
     composes: bg-transparent from global;
+}
+
+.stockBtnWrapper button {
+    font-size: 14px;
+    height: 40px;
 }

@@ -1,0 +1,17 @@
+.contentContainer {
+    margin: 1rem 5%;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.alertTable h3 {
+    margin: 2.5rem 0 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+}

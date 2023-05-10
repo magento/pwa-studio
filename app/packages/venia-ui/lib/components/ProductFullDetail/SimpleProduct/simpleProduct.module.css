@@ -7,7 +7,7 @@
     justify-content: start;
 }
 
-@media (min-device-width: 959px) {
+@media (min-width: 959px) {
     .root {
         border-bottom: 1px solid #e5e5e5;
         align-items: start;
@@ -43,12 +43,10 @@
 .title {
     margin-top: 90px;
     align-items: center;
-    /* display: grid; */
     grid-area: title;
     grid-gap: 1rem;
     grid-template-columns: 1fr max-content;
     line-height: 1.5;
-    /* padding: 1rem 1.5rem; */
 }
 
 .innerPrice {
@@ -59,7 +57,7 @@
 .innerPrice .priceNumber {
     margin-left: 10px;
 }
-@media (max-device-width: 959px) {
+@media (max-width: 959px) {
     .title {
         padding: 1.5rem;
     }
@@ -70,7 +68,7 @@ header .productName {
     font-weight: 600;
 }
 
-@media (min-device-width: 959px) {
+@media (min-width: 959px) {
     .productName {
         font-size: 1.3125rem;
         font-weight: 700;
@@ -92,7 +90,7 @@ header .productName {
     margin: 0 auto;
 }
 
-@media (min-device-width: 960) {
+@media (min-width: 960) {
     .imageCarousel {
         /* max-width: 50%; */
         margin: 0 auto;
@@ -113,13 +111,11 @@ header .productName {
     grid-area: description;
 }
 
-@media (min-device-width: 959px) {
+@media (min-width: 959px) {
     .description {
         align-self: stretch;
         border-top-width: 1px;
         margin: 0;
-        /* padding-left: 1.5rem;
-        padding-right: 1.5rem; */
     }
 
     .attachmentWrapper {
@@ -132,7 +128,6 @@ header .productName {
 }
 
 .quantityRoot {
-    /* composes: root from '@magento/venia-ui/lib/components/CartPage/ProductListing/quantity.module.css'; */
     grid-template-columns: auto 4rem auto;
     justify-content: start;
 }
@@ -155,7 +150,7 @@ header .productName {
     padding-bottom: 2.5rem;
 }
 
-@media (min-device-width: 959px) {
+@media (min-width: 959px) {
     .b2cContent {
         align-self: stretch;
         border-top-width: 1px;
@@ -172,7 +167,6 @@ header .productName {
 
 /* Original PDP */
 .fromPrice {
-    /* text-align: center; */
     display: flex;
 }
 
@@ -260,7 +254,7 @@ header .productName {
     width: clamp(90px, 10vw, 120px);
 }
 
-@media (max-device-width: 1250px) {
+@media (max-width: 1250px) {
     .indexMobileSku {
         display: none;
     }
@@ -279,52 +273,52 @@ header .productName {
 }
 
 /* Tablet and mobile */
-@media (max-device-width: 980px) {
+@media (max-width: 980px) {
     .productItemContainer {
         display: none;
     }
 
     .productsTableContainer {
         display: grid;
-        /* grid-template-columns: repeat(2, 1fr); */
+
         gap: 10px;
         margin: 30px;
     }
 }
 
-@media (max-device-width: 580px) {
+@media (max-width: 580px) {
     .productItemContainer {
         display: none;
     }
 
     .productsTableContainer {
         display: grid;
-        /* grid-template-columns: repeat(1, 1fr); */
+
         gap: 10px;
     }
 }
 
 /* Tablet and mobile */
-@media (max-device-width: 980px) {
+@media (max-width: 980px) {
     .productItemContainer {
         display: none;
     }
 
     .productsTableContainer {
         display: grid;
-        /* grid-template-columns: repeat(2, 1fr); */
+
         gap: 10px;
     }
 }
 
-@media (max-device-width: 580px) {
+@media (max-width: 580px) {
     .productItemContainer {
         display: none;
     }
 
     .productsTableContainer {
         display: grid;
-        /* grid-template-columns: repeat(1, 1fr); */
+
         gap: 10px;
     }
 }
@@ -335,7 +329,7 @@ header .productName {
     color: '#666666';
 }
 
-@media (max-device-width: 580px) {
+@media (max-width: 580px) {
     .imageCarousel div {
         height: 450px;
     }
@@ -353,7 +347,7 @@ header .productName {
     }
 }
 
-@media (max-device-width: 959px) {
+@media (max-width: 959px) {
     .imageCarousel div {
         height: 500px;
     }

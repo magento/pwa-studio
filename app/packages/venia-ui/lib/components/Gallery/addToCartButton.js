@@ -7,9 +7,10 @@ import Icon from '../Icon';
 import Button from '../Button';
 import { useStyle } from '../../classify';
 import defaultClasses from './addToCartButton.module.css';
+import NotifyButton from '../ProductsAlert/NotifyButton';
 
 const AddToCartButton = props => {
-    const { item, urlSuffix } = props;
+    const { item, urlSuffix, handleOpendStockModal, isProductAlertEnabled } = props;
     const talonProps = useAddToCartButton({
         item,
         urlSuffix,
@@ -63,8 +64,15 @@ const AddToCartButton = props => {
             </span>
         </Button>
     );
+    
+    const outOfStockBtn =
+        process.env.B2BSTORE_VERSION === 'PREMIUM' && isProductAlertEnabled?.mp_productalerts_stock_notify ? (
+            <NotifyButton handleOpendStockModal={handleOpendStockModal} />
+        ) : (
+            buttonOutOfStock
+        );
 
-    return isInStock ? buttonInStock : buttonOutOfStock;
+    return isInStock ? buttonInStock : outOfStockBtn;
 };
 
 export default AddToCartButton;

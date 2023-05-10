@@ -38,7 +38,6 @@
 .indexMobileName,
 .indexMobileSku {
     text-align: center;
-    width: 100%;
 }
 
 .inStock,
@@ -80,6 +79,8 @@
     text-align: center;
     width: 100%;
     margin-bottom: -26px;
+    display: flex;
+    justify-content: center;
 }
 
 .indexFixedCategory {
@@ -143,11 +144,17 @@
         margin-bottom: 0px;
     }
 }
+.priceContainer {
+    display: flex;
+}
 
 /* Tablet */
-@media (max-device-width: 980px) {
+@media (max-width: 980px) {
     .productItemContainerDesktop {
         display: none;
+    }
+    .notifyPrice {
+        text-align: center;
     }
 
     .productItemContainerMobile {
@@ -160,7 +167,7 @@
     }
 }
 
-@media (max-device-width: 580px) {
+@media (max-width: 580px) {
     .productItemContainerDesktop {
         display: none;
     }
@@ -203,6 +210,7 @@
     align-content: center;
     align-items: center;
     justify-content: space-between;
+    width: 50%;
 }
 
 .productItemBodyInformation {
@@ -270,4 +278,16 @@
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
+}
+
+.priceContainer div{
+    display: flex;
+    align-items: center;
+}
+
+.stockBtnWrapper button {
+    font-size: 14px;
+    width: 5rem;
+    height: 40px;
+    min-width: 5rem;
 }

@@ -57,7 +57,8 @@ const Dialog = props => {
         shouldShowButtons = true,
         shouldUnmountOnHide,
         shouldUseButtonsArray = false,
-        title
+        title,
+        confirmTextButton
     } = props;
 
     // Prevent the page from scrolling in the background
@@ -118,7 +119,7 @@ const Dialog = props => {
                     priority="high"
                     type="submit"
                 >
-                    <FormattedMessage id={confirmTranslationId} defaultMessage={confirmText} />
+                    {!confirmTextButton ? <FormattedMessage id={confirmTranslationId} defaultMessage={confirmText} /> : confirmTextButton}
                 </Button>
             </div>
         ) : null;

@@ -10,6 +10,11 @@ import defaultClasses from './simpleProductB2C.module.css';
 import Breadcrumbs from '@magento/venia-ui/lib/components/Breadcrumbs';
 import Options from '../CustomProductOptions/options';
 import Button from '../../Button';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import NotifyPrice from '../../ProductsAlert/NotifyPrice';
+import PriceAlert from '../../ProductsAlert/PriceAlertModal/priceAlert';
+import NotifyButton from '../../ProductsAlert/NotifyButton/NotifyButton';
+import StockAlert from '../../ProductsAlert/StockAlertModal/stockAlert';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useToasts } from '@magento/peregrine';
@@ -38,6 +43,19 @@ const SimpleProductB2C = props => {
     const [{ isSignedIn }] = useUserContext();
 
     const { mp_attachments } = simpleProductData;
+    const productsAlert = useProductsAlert({ simpleProductData });
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal,
+        submitStockAlert,
+        handleSubmitPriceAlert,
+        alertConfig
+    } = productsAlert;
+    const productAlertStatus = simpleProductData?.mp_product_alert;
+    const stockStatus = simpleProductData?.stock_status;
 
     const cartCallToActionText =
         simpleProductData.stock_status === 'IN_STOCK' ? (
@@ -124,19 +142,38 @@ const SimpleProductB2C = props => {
                             <article className={classes.totalPrice}>{tempTotalPrice}</article>
                         )}
                     </article>
+                    {productAlertStatus?.mp_productalerts_price_alert &&
+                        stockStatus === 'IN_STOCK' &&
+                        process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                            <div className={classes.notifyPriceContainer}>
+                                <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                            </div>
+                        )}
                 </section>
                 <section className={classes.actions}>
-                    <Button
-                        className={classes.addToCartButton}
-                        type="submit"
-                        disabled={
-                            simpleProductData.price?.minimalPrice?.amount?.value === -1 ||
-                            simpleProductData.price?.regularPrice?.amount?.value === -1 ||
-                            isAddConfigurableLoading
-                        }
-                    >
-                        {cartCallToActionText}
-                    </Button>
+                    {productAlertStatus?.mp_productalerts_stock_notify &&
+                    stockStatus !== 'IN_STOCK' &&
+                    process.env.B2BSTORE_VERSION === 'PREMIUM' ? (
+                        <div className={classes.notifyButton}>
+                            <NotifyButton
+                                handleOpendStockModal={handleOpendStockModal}
+                                simpleProductData={simpleProductData}
+                            />
+                        </div>
+                    ) : (
+                        <Button
+                            className={classes.addToCartButton}
+                            type="submit"
+                            disabled={
+                                simpleProductData.price?.minimalPrice?.amount?.value === -1 ||
+                                simpleProductData.price?.regularPrice?.amount?.value === -1 ||
+                                isAddConfigurableLoading
+                            }
+                        >
+                            {cartCallToActionText}
+                        </Button>
+                    )}
+
                     <section className={classes.favoritesButton}>
                         <Suspense fallback={null}>{wishlistButton}</Suspense>
                     </section>
@@ -158,8 +195,21 @@ const SimpleProductB2C = props => {
                     <strong>{simpleProductData.sku}</strong>
                 </section>
             </Form>
+            <PriceAlert
+                isOpen={openPriceModal}
+                onCancel={handleCloseModal}
+                onConfirm={handleSubmitPriceAlert}
+                alertConfig={alertConfig?.price_alert}
+            />
+
+            <StockAlert
+                isOpen={isStockModalOpened}
+                onCancel={handleCloseModal}
+                onConfirm={submitStockAlert}
+                alertConfig={alertConfig?.stock_alert}
+            />
         </Fragment>
     );
 };
-
+//
 export default SimpleProductB2C;

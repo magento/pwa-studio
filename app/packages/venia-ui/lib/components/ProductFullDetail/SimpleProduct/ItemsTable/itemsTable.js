@@ -10,6 +10,11 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 import defaultClasses from './itemsTable.module.css';
 import Button from '../../../Button';
 import QuantityStepper from '../../../QuantityStepper';
+import NotifyPrice from '../../../ProductsAlert/NotifyPrice';
+import PriceAlert from '../../../ProductsAlert/PriceAlertModal/priceAlert';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import StockAlert from '../../../ProductsAlert/StockAlertModal/stockAlert';
+import NotifyButton from '../../../ProductsAlert/NotifyButton/NotifyButton';
 
 import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
 import { OutStockIcon } from '@magento/venia-ui/lib/assets/outStockIcon';
@@ -27,6 +32,20 @@ const ItemsTable = props => {
         handleQuantityChange,
         isAddConfigurableLoading
     } = props;
+
+    const productAlertStatus = simpleProductData?.mp_product_alert;
+    const productsAlert = useProductsAlert({ ItemSku: simpleProductData?.sku });
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal,
+        formProps,
+        submitStockAlert,
+        handleSubmitPriceAlert,
+        alertConfig
+    } = productsAlert;
 
     const [copied, setCopied] = useState(false);
 
@@ -62,16 +81,23 @@ const ItemsTable = props => {
     );
 
     const priceTag = (
-        <span className={classes.indexFixed}>
-            <Price
-                currencyCode={simpleProductData.price.regularPrice.amount.currency}
-                value={simpleProductData.price.minimalPrice.amount.value}
-            />
-        </span>
+        <div className={classes.priceContainer}>
+            <span className={classes.indexFixed}>
+                <Price
+                    currencyCode={simpleProductData.price.regularPrice.amount.currency}
+                    value={simpleProductData.price.minimalPrice.amount.value}
+                />
+            </span>
+            {productAlertStatus?.mp_productalerts_price_alert && process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                <div className={classes.notifyPrice}>
+                    <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                </div>
+            )}
+        </div>
     );
 
     const stockStatus =
-        simpleProductData.stock_status === 'IN_STOCK' ? (
+        simpleProductData?.stock_status === 'IN_STOCK' ? (
             <div className={classes.inStockContainer}>
                 <InStockIcon />
             </div>
@@ -100,7 +126,20 @@ const ItemsTable = props => {
             />
         </Button>
     );
-
+    const stockButton =
+        simpleProductData?.stock_status === 'OUT_OF_STOCK' &&
+        productAlertStatus?.mp_productalerts_stock_notify &&
+        process.env.B2BSTORE_VERSION === 'PREMIUM' ? (
+            <div className={classes.stockBtnWrapper}>
+                <NotifyButton
+                    handleOpendStockModal={handleOpendStockModal}
+                    productStatus={simpleProductData?.stock_status}
+                />
+                {/* {addToCartButton} */}
+            </div>
+        ) : (
+            addToCartButton
+        );
     const lastDigitsOfSku = simpleProductData.sku.substring(simpleProductData.sku.length - 7);
 
     const productItemDesktop = (
@@ -152,7 +191,7 @@ const ItemsTable = props => {
                 )}
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
-                    {addToCartButton}
+                    {stockButton}
                 </div>
             </div>
         </div>
@@ -214,7 +253,8 @@ const ItemsTable = props => {
                                 onChange={handleQuantityChange}
                             />
                         </Form>
-                        {addToCartButton}
+                        <br />
+                        {stockButton}
                     </div>
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </section>
@@ -225,6 +265,22 @@ const ItemsTable = props => {
     return (
         <div className={classes.productsTableContainer}>
             {productItemDesktop} {productItemMobile}
+            <PriceAlert
+                isOpen={openPriceModal}
+                formProps={formProps}
+                onConfirm={handleSubmitPriceAlert}
+                onCancel={handleCloseModal}
+                selectedVarient={simpleProductData?.sku}
+                alertConfig={alertConfig?.price_alert}
+            />
+            <StockAlert
+                isOpen={isStockModalOpened}
+                onConfirm={submitStockAlert}
+                onCancel={handleCloseModal}
+                formProps={formProps}
+                selectedVarient={simpleProductData?.sku}
+                alertConfig={alertConfig?.stock_alert}
+            />
         </div>
     );
 };

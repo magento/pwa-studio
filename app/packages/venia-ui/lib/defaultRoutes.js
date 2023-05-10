@@ -150,6 +150,14 @@ module.exports = [
         path: '../SavedCarts'
     },
     {
+        name: 'Products Alert',
+        pattern: '/productsAlert',
+        path: '../ProductsAlert/CusotmerAlertPage',
+        authed: true,
+        redirectTo: '/sign-in',
+        isEnabled: process.env.B2BSTORE_VERSION === 'PREMIUM'&&'true'
+    },
+    {
         name: 'SavedCarts',
         pattern: '/mpsavecart/cart/share/id/:token',
         path: '../SavedCarts/ShareCart'

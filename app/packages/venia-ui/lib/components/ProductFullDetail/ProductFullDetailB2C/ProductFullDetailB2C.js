@@ -9,6 +9,8 @@ import RichContent from '@magento/venia-ui/lib/components/RichContent';
 import Carousel from '@magento/venia-ui/lib/components/ProductImageCarousel';
 import QuantityStepper from '@magento/venia-ui/lib/components/QuantityStepper';
 import CustomAttributes from '@magento/venia-ui/lib/components/ProductFullDetail/CustomAttributes';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import Select from '../../Select';
 
 const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
 
@@ -21,6 +23,10 @@ import { useToasts } from '@magento/peregrine';
 
 const previewIcon = <Icon src={Eye} size={20} />;
 const OfflineIcon = <Icon src={AlertTriangle} attrs={{ width: 18 }} />;
+import NotifyPrice from '../../ProductsAlert/NotifyPrice';
+import PriceAlert from '../../ProductsAlert/PriceAlertModal/priceAlert';
+import NotifyButton from '../../ProductsAlert/NotifyButton/NotifyButton';
+import StockAlert from '../../ProductsAlert/StockAlertModal/stockAlert';
 
 const ProductFullDetailB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -44,8 +50,28 @@ const ProductFullDetailB2C = props => {
         customAttributes,
         product,
         isOutOfStock,
-        isSimpleProductSelected
+        isSimpleProductSelected,
+        selectedVarient,
+        isOutOfStockProduct
     } = props;
+    
+    const productAlertStatus = selectedVarient?.product?.mp_product_alert;
+
+    const productsAlert = useProductsAlert({ isOutOfStockProduct, selectedVarient });
+
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal,
+        outStockProductsSku,
+        handleChangeProductSku,
+        selectedOptionB2C,
+        submitStockAlert,
+        handleSubmitPriceAlert,
+        alertConfig
+    } = productsAlert;
 
     const [{ isSignedIn }] = useUserContext();
     const { mp_attachments } = productDetails;
@@ -135,6 +161,12 @@ const ProductFullDetailB2C = props => {
         (!isSimpleProductSelected && product?.stock_status === 'IN_STOCK') ||
         (isSimpleProductSelected && !isOutOfStock);
         
+
+    const notifyText = !selectedVarient && (
+        <div className={classes.notifyContainer}>
+            <FormattedMessage id={'notifyAlert'} defaultMessage={'To notify, select all the options for the product'} />
+        </div>
+    );
     return (
         <Fragment>
             {breadcrumbs}
@@ -143,15 +175,7 @@ const ProductFullDetailB2C = props => {
                     <h1 className={classes.productName} data-cy="ProductFullDetail-productName">
                         {productDetails.name}
                     </h1>
-                    {/* <p
-                        data-cy="ProductFullDetail-productPrice"
-                        className={classes.productPrice}
-                    >
-                        <Price
-                            currencyCode={productDetails.price.currency}
-                            value={productDetails.price.value}
-                        />
-                    </p> */}
+
                     {shortDescription}
                 </section>
                 {shouldRenderPrice && <article className={classes.priceContainer}> {priceRender}</article>}
@@ -194,6 +218,35 @@ const ProductFullDetailB2C = props => {
 
                         {shouldRenderPrice && <article className={classes.totalPrice}>{tempTotalPrice}</article>}
                     </article>
+                    {productAlertStatus?.mp_productalerts_price_alert && process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                        <div className={classes.notifyPriceContainer}>
+                            <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                        </div>
+                    )}
+
+                    {productAlertStatus?.mp_productalerts_stock_notify &&
+                        isOutOfStockProduct.length > 0 &&
+                        process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                            <div className={classes.selectB2cProduct}>
+                                <div className={classes.notifySelect}>
+                                    <Select
+                                        initialValue={outStockProductsSku[0]}
+                                        field="selection"
+                                        items={outStockProductsSku}
+                                        onChange={e => handleChangeProductSku(e.target.value)}
+                                    />
+                                </div>
+                                <div className={classes.notifyButton}>
+                                    <NotifyButton
+                                        handleOpendStockModal={handleOpendStockModal}
+                                        productStatus={selectedVarient?.product?.stock_status}
+                                        selectedOptionB2C={selectedOptionB2C}
+                                        disabled={!selectedOptionB2C}
+                                    />
+                                </div>
+                                <>{notifyText}</>
+                            </div>
+                        )}
                 </section>
                 <section className={classes.actions}>
                     {cartActionContent}
@@ -210,13 +263,28 @@ const ProductFullDetailB2C = props => {
                     </span>
                     <RichContent html={productDetails.description} />
                 </section>
+                {productAttachments?.length > 0 &&
                 <div className={classes.attachmentWrapper}>{productAttachments}</div>
-
+                }
                 <section className={classes.details}>
                     <CustomAttributes customAttributes={customAttributesDetails.list} />
                 </section>
                 {pageBuilderAttributes}
             </Form>
+            {selectedVarient && (
+                <PriceAlert
+                    isOpen={openPriceModal}
+                    onCancel={handleCloseModal}
+                    onConfirm={handleSubmitPriceAlert}
+                    alertConfig={alertConfig?.price_alert}
+                />
+            )}
+            <StockAlert
+                alertConfig={alertConfig?.stock_alert}
+                isOpen={isStockModalOpened}
+                onCancel={handleCloseModal}
+                onConfirm={submitStockAlert}
+            />
         </Fragment>
     );
 };

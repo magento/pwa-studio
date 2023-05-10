@@ -17,6 +17,11 @@ export const ProductDetailsFragment = gql`
             __typename
         }
         __typename
+        mp_product_alert {
+            mp_productalerts_price_alert
+            mp_productalerts_stock_notify
+        }
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         categories {
             uid
             breadcrumbs {
@@ -128,6 +133,11 @@ export const ProductDetailsFragment = gql`
                 product {
                     uid
                     name
+                    mp_product_alert {
+                        mp_productalerts_price_alert
+                        mp_productalerts_stock_notify
+                    }
+                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     media_gallery_entries {
                         uid
                         disabled

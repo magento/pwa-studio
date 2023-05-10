@@ -326,7 +326,9 @@ const ProductFullDetailB2B = props => {
                     </h2>
                     <RichText content={productDetails.description} />
                 </section>
-                <section className={classes.attachmentWrapper}>{productAttachments}</section>
+                {productAttachments?.length > 0 && (
+                    <section className={classes.attachmentWrapper}>{productAttachments}</section>
+                )}
                 <section className={classes.favoritesButton}>
                     <Suspense fallback={null}>
                         <WishlistButton {...wishlistButtonProps} />

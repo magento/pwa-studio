@@ -18,6 +18,10 @@ export const GET_SIMPLE_PRODUCT = gql`
                     url_file
                     __typename
                 }
+                mp_product_alert {
+                    mp_productalerts_price_alert
+                    mp_productalerts_stock_notify
+                }
                 name
                 media_gallery_entries {
                     file

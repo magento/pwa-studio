@@ -117,7 +117,9 @@ const SimpleProductB2B = props => {
                     </h2>
                     <RichText content={simpleProductData.description.html} />
                 </section>
+                {productAttachments?.length > 0 &&
                 <div className={classes.attachmentWrapper}>{productAttachments}</div>
+                }
                 <section className={classes.favoritesButton}>
                     {' '}
                     <Suspense fallback={null}>{wishlistButton}</Suspense>

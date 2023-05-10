@@ -14,6 +14,11 @@ export const ProductsFragment = gql`
         items {
             id
             uid
+            mp_product_alert {
+                mp_productalerts_price_alert
+                mp_productalerts_stock_notify
+                __typename
+            }
             ... on ConfigurableProduct {
                 configurable_options {
                     attribute_code
@@ -42,6 +47,11 @@ export const ProductsFragment = gql`
                         value_index
                     }
                     product {
+                        mp_product_alert {
+                            mp_productalerts_price_alert
+                            mp_productalerts_stock_notify
+                            __typename
+                        }
                         stock_status
                         uid
                         name
