@@ -18,7 +18,7 @@ const TextInput = props => {
     } = props;
     const fieldState = useFieldState(field);
     const classes = useStyle(defaultClasses, propClasses);
-    const inputClass = fieldState.error ? classes.input_error : classes.input;
+    var inputClass = fieldState.error ? classes.input_error : classes.input;
 
     if (field == 'region[region]') {
         inputClass += ' required={false}';
