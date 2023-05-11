@@ -20,6 +20,10 @@ const TextInput = props => {
     const classes = useStyle(defaultClasses, propClasses);
     const inputClass = fieldState.error ? classes.input_error : classes.input;
 
+    if (field == 'region[region]') {
+        inputClass += ' required={false}';
+    }
+
     return (
         <Fragment>
             <FieldIcons after={after} before={before}>
