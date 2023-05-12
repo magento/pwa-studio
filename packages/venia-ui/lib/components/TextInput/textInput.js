@@ -20,14 +20,14 @@ const TextInput = props => {
     const classes = useStyle(defaultClasses, propClasses);
     var inputClass = fieldState.error ? classes.input_error : classes.input;
 
-    if (field == 'region[region]') {
-        inputClass += ' required={false}';
+    if(field=="region[region]") {
+        inputClass+=" required={false}"
     }
-
+    
     return (
         <Fragment>
             <FieldIcons after={after} before={before}>
-                <InformedText {...rest} className={inputClass} field={field} />
+                <InformedText className={inputClass} field={field} />
             </FieldIcons>
             <Message fieldState={fieldState}>{message}</Message>
         </Fragment>
