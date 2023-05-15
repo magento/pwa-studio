@@ -924,6 +924,7 @@
     "storeLocator.findStoreText": "Encontrar uma loja",
     "storeLocator.findText": "Encontre a loja mais próxima para obter o seu material favorito.",
     "storeLocator.getDirections": "Obter direcções",
+    "storeLocator.noDirectionsText": "Não existem direcções para este local",
     "storeLocator.noStoresText": "Não há nenhuma loja disponível",
     "storeLocator.searchForLocation": "Pesquisa de localização",
     "storeLocator.SeeAvailablePickupStores": "Ver as lojas de recolha disponíveis",

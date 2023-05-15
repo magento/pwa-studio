@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
-import { useIntl } from 'react-intl';
-import { ArrowLeft, MapPin } from 'react-feather';
+import { useIntl, FormattedMessage } from 'react-intl';
+import { ArrowLeft, MapPin, CornerUpRight } from 'react-feather';
 import Icon from '../../Icon';
 import defaultClasses from './DirectionCard.module.css';
 import { useStyle } from '../../../classify';
@@ -15,7 +15,6 @@ const DirectionCard = props => {
         defaultMessage: 'Go back'
     });
     const storeImgParse = JSON.parse(locationDetails?.images)[0]?.file;
-    console.log({ locationDetails });
 
     const address = useMemo(() => {
         if (locationDetails) {
@@ -26,7 +25,7 @@ const DirectionCard = props => {
     }, [locationDetails]);
 
     const noDirectionsText = formatMessage({
-        id: 'noDirectionsText',
+        id: 'storeLocator.noDirectionsText',
         defaultMessage: 'There is no directions for this location'
     });
 
@@ -49,6 +48,18 @@ const DirectionCard = props => {
             </button>
             <hr />
             <article className={classes.cardContainer}>
+                <div className={classes.cardHeader}>
+                    <Icon
+                        src={CornerUpRight}
+                        size={55}
+                        classes={{
+                            root: classes.mapPin
+                        }}
+                    />
+                    <span>
+                        <FormattedMessage id={'storeLocator.GetDirections'} defaultMessage={'Get Directions'} />
+                    </span>
+                </div>
                 <section className={classes.durationContainer}>
                     <span>{locationDetails?.name}</span>
                 </section>
@@ -86,8 +97,7 @@ const DirectionCard = props => {
                     {address}
                 </span>
                 <div className={classes.imgWrapper}>
-
-                <img src={storeImgParse} alt={'store'} />
+                    <img src={storeImgParse} alt={'store'} />
                 </div>
             </article>
         </section>

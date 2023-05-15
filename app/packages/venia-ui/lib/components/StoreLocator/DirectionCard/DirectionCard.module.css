@@ -38,7 +38,7 @@
         width: fit-content;
     }
     .listContainer {
-        padding: 20px 20px 20px 30px;
+        padding: 20px 20px 20px 40px;
     }
 }
 
@@ -56,4 +56,19 @@
 .imgWrapper {
     border: 1px solid var(--b2bstore-global-color-orange);
     border-radius: 10px;
+}
+
+.cardHeader {
+    margin-bottom: 20px;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-bottom: 1px solid var(--b2bstore-global-color-orange);
+}
+
+.mapPin {
+    composes: root from '../../Icon/icon.module.css';
+    --stroke: var(--b2bstore-global-color-orange);
 }

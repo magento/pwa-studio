@@ -12,3 +12,9 @@
     composes: input from '../../TextInput/textInput.module.css';
     width: 250px;
 }
+
+@media (max-width: 650px) {
+.InputWrapper {
+    grid-template-columns: 1fr ;
+}
+}

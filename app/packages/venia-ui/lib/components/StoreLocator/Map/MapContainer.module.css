@@ -11,6 +11,7 @@
     margin-top: 20px;
 }
 .innerContainer {
+    gap: 1rem;
     margin-top: 50px;
     display: flex;
     height: 640px;
@@ -88,7 +89,7 @@
     }
     .innerContainer {
         flex-direction: column;
-        height: 495px;
+        height: 100%;
         align-items: center;
     }
     .scrollableContainerDirection {
@@ -108,7 +109,6 @@
         margin: 0 20px;
     }
     .cardContainer {
-        padding: 0px;
-        width: auto;
+        width: 100%;
     }
 }

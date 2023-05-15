@@ -924,6 +924,7 @@
     "storeLocator.findStoreText": "Trouver un magasin",
     "storeLocator.findText": "Trouvez le magasin le plus proche de chez vous pour acheter vos produits préférés.",
     "storeLocator.getDirections": "Obtenir un itinéraire",
+    "storeLocator.noDirectionsText": "Il n'y a pas d'indications pour ce lieu",
     "storeLocator.noStoresText": "Il n'y a pas de magasin disponible",
     "storeLocator.searchForLocation": "Recherche d'un lieu",
     "storeLocator.SeeAvailablePickupStores": "Voir les points de retrait disponibles",
