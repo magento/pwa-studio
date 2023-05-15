@@ -1,0 +1,81 @@
+.cardContainer {
+    border: 1px solid var(--b2bstore-global-color-orange);
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
+    margin: 0 20px 30px;
+}
+.cardInnerContainer {
+    display: flex;
+    margin: 0 20px;
+}
+.imageContainer {
+    height: 100px;
+    margin: 20px 10px 0 0;
+}
+.imageContainer img {
+    width: 70px;
+}
+.cardInformation {
+    text-align: start;
+    width: 70%;
+}
+
+.imageContainer {
+    /* width: 30%; */
+}
+.cardInformation {
+    padding-top: 10px;
+}
+
+.cardInformation .title {
+    font-weight: bold;
+    font-size: 14px;
+}
+.cardInformation p {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.textContainer {
+    padding: 5px 10px 10px 10px;
+    display: flex;
+    justify-content: center;
+    background-color: var(--b2bstore-global-color-orange);
+    border-radius: 0px 0px 8px 8px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.textContainer p {
+    color: white;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.star {
+    cursor: pointer;
+}
+
+.star img {
+    width: 20px;
+}
+
+@media (max-width: 547px) {
+    .imageContainer img {
+        width: 50px;
+    }
+    .cardInnerContainer {
+        margin: 5px;
+    }
+}
+
+.selectedCard {
+    border: 2px solid black;
+}
+
+.selectBtn {
+    width: 100%;
+}

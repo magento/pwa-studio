@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Suspense, useMemo } from 'react';
+import React, { Suspense, useMemo ,useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import ItemsTable from './ItemsTable';
 import RichText from '@magento/venia-ui/lib/components/RichText';
@@ -10,6 +10,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './simpleProduct.module.css';
 import CmsBlock from '@magento/venia-ui/lib/components/CmsBlock/block';
 import { useCmsBlock } from '@magento/peregrine/lib/hooks/useCmsBlocks';
+import AvailableStore from '../../StoreLocator/AvailableStore';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useToasts } from '@magento/peregrine';
@@ -24,6 +25,8 @@ const SimpleProductB2B = props => {
     });
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
+
     const warrantiesBlock = cmsBlocks.find(item => item.identifier === 'warranties-block')?.content;
 
     const recommendedProductBlock = cmsBlocks.find(item => item.identifier === 'recommended-product-block')?.content;
@@ -116,6 +119,14 @@ const SimpleProductB2B = props => {
                         />
                     </h2>
                     <RichText content={simpleProductData.description.html} />
+                {simpleProductData?.mp_pickup_locations.length > 0 && (
+                    <button onClick={() => setIsOpenStoresModal(true)} className={classes.storeButtion}>
+                        <FormattedMessage
+                            id={'storeLocator.SeeAvailablePickupStores'}
+                            defaultMessage={'See available pickup stores'}
+                        />
+                    </button>
+                )}
                 </section>
                 {productAttachments?.length > 0 &&
                 <div className={classes.attachmentWrapper}>{productAttachments}</div>
@@ -146,6 +157,13 @@ const SimpleProductB2B = props => {
             <section>
                 <CmsBlock content={recommendedProductBlock} />
             </section>
+            {isOpenStoresModal && (
+                <AvailableStore
+                    isOpen={isOpenStoresModal}
+                    onCancel={() => setIsOpenStoresModal(false)}
+                    storesList={simpleProductData?.mp_pickup_locations}
+                />
+            )}
         </main>
     );
 };

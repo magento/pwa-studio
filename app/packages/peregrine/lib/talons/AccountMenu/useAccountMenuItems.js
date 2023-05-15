@@ -79,6 +79,11 @@ export const useAccountMenuItems = props => {
             name: 'Product Alerts',
             id: 'productAlert.myProductAlerts',
             url: '/productsAlert'
+        },
+        {
+            name: 'Find a Store',
+            id: 'storeLocator.findStoreText',
+            url: '/find-store'
         }
     ];
 

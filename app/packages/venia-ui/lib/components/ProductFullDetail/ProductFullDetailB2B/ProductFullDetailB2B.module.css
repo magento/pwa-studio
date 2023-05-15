@@ -377,3 +377,7 @@
 .attachmentWrapper img {
     height: 20px;
 }
+
+.storeButtion {
+    color: var(--b2bstore-global-color-orange);
+}

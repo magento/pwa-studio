@@ -120,6 +120,14 @@ module.exports = [
         redirectTo: '/sign-in'
     },
     {
+        name: 'Store Locator',
+        pattern: '/find-store',
+        exact: true,
+        path: '../StoreLocator'
+        // authed: true,
+        // redirectTo: '/sign-in',
+    },
+    {
         name: 'AdminPwaLogin',
         pattern: '/pwa/sign-in/:customer_token',
         path: '../AdminPwaLogin'

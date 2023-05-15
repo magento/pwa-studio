@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Fragment, Suspense, useMemo } from 'react';
+import React, { Fragment, Suspense, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 
@@ -28,9 +28,11 @@ import PriceAlert from '../../ProductsAlert/PriceAlertModal/priceAlert';
 import NotifyButton from '../../ProductsAlert/NotifyButton/NotifyButton';
 import StockAlert from '../../ProductsAlert/StockAlertModal/stockAlert';
 
+import AvailableStore from '../../StoreLocator/AvailableStore';
 const ProductFullDetailB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
 
     const [, { addToast }] = useToasts();
 
@@ -54,7 +56,7 @@ const ProductFullDetailB2C = props => {
         selectedVarient,
         isOutOfStockProduct
     } = props;
-    
+
     const productAlertStatus = selectedVarient?.product?.mp_product_alert;
 
     const productsAlert = useProductsAlert({ isOutOfStockProduct, selectedVarient });
@@ -160,7 +162,6 @@ const ProductFullDetailB2C = props => {
     const shouldRenderPrice =
         (!isSimpleProductSelected && product?.stock_status === 'IN_STOCK') ||
         (isSimpleProductSelected && !isOutOfStock);
-        
 
     const notifyText = !selectedVarient && (
         <div className={classes.notifyContainer}>
@@ -178,7 +179,23 @@ const ProductFullDetailB2C = props => {
 
                     {shortDescription}
                 </section>
-                {shouldRenderPrice && <article className={classes.priceContainer}> {priceRender}</article>}
+                {shouldRenderPrice && (
+                        <article className={classes.priceContainer}>
+                            {priceRender}
+                            {product?.mp_pickup_locations.length > 0 && (
+                                <button
+                                    type="button"
+                                    onClick={() => setIsOpenStoresModal(true)}
+                                    className={classes.storeButtion}
+                                >
+                                    <FormattedMessage
+                                        id={'storeLocator.SeeAvailablePickupStores'}
+                                        defaultMessage={'See available pickup stores'}
+                                    />
+                                </button>
+                            )}
+                        </article>
+                )}
                 <div className={classes.imageCarousel}>
                     {hasOptionsOfTheSelection ? (
                         <Carousel images={mediaGalleryEntries} carouselWidth={960} />
@@ -263,13 +280,20 @@ const ProductFullDetailB2C = props => {
                     </span>
                     <RichContent html={productDetails.description} />
                 </section>
-                {productAttachments?.length > 0 &&
-                <div className={classes.attachmentWrapper}>{productAttachments}</div>
-                }
+                {productAttachments?.length > 0 && (
+                    <div className={classes.attachmentWrapper}>{productAttachments}</div>
+                )}
                 <section className={classes.details}>
                     <CustomAttributes customAttributes={customAttributesDetails.list} />
                 </section>
                 {pageBuilderAttributes}
+                {isOpenStoresModal && (
+                    <AvailableStore
+                        isOpen={isOpenStoresModal}
+                        onCancel={() => setIsOpenStoresModal(false)}
+                        storesList={product?.mp_pickup_locations}
+                    />
+                )}
             </Form>
             {selectedVarient && (
                 <PriceAlert

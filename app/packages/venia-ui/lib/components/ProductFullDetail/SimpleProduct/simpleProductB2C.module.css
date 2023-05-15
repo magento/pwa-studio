@@ -298,3 +298,7 @@
     min-height: 2.5rem;
     width: fit-content;
 }
+
+.storeButtion {
+    color: var(--b2bstore-global-color-orange);
+}

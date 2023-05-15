@@ -30,3 +30,7 @@
     composes: flex from global;
     composes: justify-center from global;
 }
+
+.selectStoreBtn {
+    color: var(--b2bstore-global-color-orange);
+}

@@ -10,6 +10,7 @@ import { DownloadCsvProvider } from '../Gallery/DownloadCsvProvider/downloadCsvP
 import { PrintPdfProvider } from '../CartPage/PrintPdfProvider/printPdfProvider';
 import { ModulesProvider } from '@magento/peregrine/lib/context/modulesProvider';
 import { StoreConfigProvider } from '@magento/peregrine/lib/context/storeConfigProvider';
+import { StoreLocatorProvider } from '../StoreLocator/StoreLocatorProvider/StoreLocatorProvider';
 /**
  * List of context providers that are required to run Venia
  *
@@ -24,7 +25,8 @@ const contextProviders = [
     ModulesProvider,
     PrintPdfProvider,
     DownloadCsvProvider,
-    NoReorderProductProvider
+    NoReorderProductProvider,
+    StoreLocatorProvider
 ];
 
 const ContextProvider = ({ children }) => {

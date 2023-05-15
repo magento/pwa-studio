@@ -346,8 +346,11 @@ const GalleryItem = props => {
                     )}
                 </div>
             )}
-            <div className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}`}>
-            {addButton}
+            <div
+                className={`${classes.actionsContainer} ${isHomePage && classes.homeActionContainer}  ${isSignedIn &&
+                    classes.multibaleActions}`}
+            >
+                {addButton}
                 {isSignedIn && (
                     <button className={classes.compareIcon} onClick={addToCompare}>
                         <CompareIcon />

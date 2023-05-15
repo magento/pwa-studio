@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useMemo } from 'react';
+import React, { Fragment, Suspense, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -23,11 +23,14 @@ import { AlertTriangle, Eye } from 'react-feather';
 
 const OfflineIcon = <Icon src={AlertTriangle} attrs={{ width: 18 }} />;
 
+import AvailableStore from '../../StoreLocator/AvailableStore';
+
 const SimpleProductB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
 
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
     const {
         simpleProductData,
         handleAddToCart,
@@ -112,7 +115,22 @@ const SimpleProductB2C = props => {
                     <h1 className={classes.productName}>{simpleProductData.name}</h1>
                 </section>
                 {simpleProductData.stock_status === 'IN_STOCK' && (
-                    <article className={classes.priceContainer}> {priceRender}</article>
+                    <article className={classes.priceContainer}>
+                        {' '}
+                        {priceRender}
+                        {simpleProductData?.mp_pickup_locations.length > 0 && (
+                            <button
+                                type="button"
+                                onClick={() => setIsOpenStoresModal(true)}
+                                className={classes.storeButtion}
+                            >
+                                <FormattedMessage
+                                    id={'storeLocator.SeeAvailablePickupStores'}
+                                    defaultMessage={'See available pickup stores'}
+                                />
+                            </button>
+                        )}
+                    </article>
                 )}
                 <section className={classes.imageCarousel}>
                     <Carousel images={simpleProductData.media_gallery_entries} carouselWidth={960} />
@@ -194,6 +212,13 @@ const SimpleProductB2C = props => {
                     </span>
                     <strong>{simpleProductData.sku}</strong>
                 </section>
+                {isOpenStoresModal && (
+                    <AvailableStore
+                        isOpen={isOpenStoresModal}
+                        onCancel={() => setIsOpenStoresModal(false)}
+                        storesList={simpleProductData?.mp_pickup_locations}
+                    />
+                )}
             </Form>
             <PriceAlert
                 isOpen={openPriceModal}

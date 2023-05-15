@@ -26,6 +26,7 @@ const OfflineIcon = <Icon src={AlertTriangle} attrs={{ width: 18 }} />;
 import CATEGORY_OPERATIONS from '@magento/peregrine/lib/talons/RootComponents/Category/categoryContent.gql.js';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
+import AvailableStore from '../../StoreLocator/AvailableStore';
 import { useLazyQuery } from '@apollo/client';
 import Breadcrumbs from '../../Breadcrumbs';
 import Pagination from '../../Pagination';
@@ -62,6 +63,7 @@ const ProductFullDetailB2B = props => {
 
     const [selectedFilter, setSelectedFilter] = useState([]);
     const [selectedFilterCategory, setSelectedFilterCategory] = useState([]);
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
 
     const [{ isSignedIn }] = useUserContext();
     const { mp_attachments } = productDetails;
@@ -303,12 +305,22 @@ const ProductFullDetailB2B = props => {
                 <section className={classes.title}>
                     <h1 className={classes.productName}>{productDetails.name}</h1>
                     {product?.stock_status === 'IN_STOCK' && (
-                        <article className={classes.innerPrice}>
-                            <h2 className={classes.fromPrice}>
-                                <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
-                            </h2>
-                            <span className={classes.priceNumber}>{priceRender}</span>
-                        </article>
+                        <>
+                            <article className={classes.innerPrice}>
+                                <h2 className={classes.fromPrice}>
+                                    <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
+                                </h2>
+                                <span className={classes.priceNumber}>{priceRender}</span>
+                            </article>
+                            {product?.mp_pickup_locations.length > 0 && (
+                                <button onClick={() => setIsOpenStoresModal(true)} className={classes.storeButtion}>
+                                    <FormattedMessage
+                                        id={'storeLocator.SeeAvailablePickupStores'}
+                                        defaultMessage={'See available pickup stores'}
+                                    />
+                                </button>
+                            )}
+                        </>
                     )}
                 </section>
                 <section className={classes.imageCarouselContainer}>
@@ -357,6 +369,14 @@ const ProductFullDetailB2B = props => {
                 </section>
                 <section className={classes.hide}>{availableOptions}</section>
             </Form>
+
+            {isOpenStoresModal && (
+                <AvailableStore
+                    isOpen={isOpenStoresModal}
+                    onCancel={() => setIsOpenStoresModal(false)}
+                    storesList={product?.mp_pickup_locations}
+                />
+            )}
         </Fragment>
     );
 };
