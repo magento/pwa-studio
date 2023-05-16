@@ -28,9 +28,7 @@ exports[`renders the correct tree 1`] = `
     >
       <span>
         <input
-          aria-label="First Name Required"
-          autoComplete="given-name"
-          id="firstName"
+          id="customer.firstname"
           name="customer.firstname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -60,9 +58,7 @@ exports[`renders the correct tree 1`] = `
     >
       <span>
         <input
-          aria-label="Last Name Required"
-          autoComplete="family-name"
-          id="lastName"
+          id="customer.lastname"
           name="customer.lastname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -92,9 +88,7 @@ exports[`renders the correct tree 1`] = `
     >
       <span>
         <input
-          aria-label="Email Required"
-          autoComplete="email"
-          id="Email"
+          id="customer.email"
           name="customer.email"
           onBlur={[Function]}
           onChange={[Function]}
@@ -124,13 +118,10 @@ exports[`renders the correct tree 1`] = `
     >
       <span>
         <input
-          aria-label="Password Required"
-          autoComplete="new-password"
-          id="Password"
+          id="password"
           name="password"
           onBlur={[Function]}
           onChange={[Function]}
-          type="password"
           value=""
         />
       </span>
@@ -279,9 +270,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
     >
       <span>
         <input
-          aria-label="First Name Required"
-          autoComplete="given-name"
-          id="firstName"
+          id="customer.firstname"
           name="customer.firstname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -311,9 +300,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
     >
       <span>
         <input
-          aria-label="Last Name Required"
-          autoComplete="family-name"
-          id="lastName"
+          id="customer.lastname"
           name="customer.lastname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -343,9 +330,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
     >
       <span>
         <input
-          aria-label="Email Required"
-          autoComplete="email"
-          id="Email"
+          id="customer.email"
           name="customer.email"
           onBlur={[Function]}
           onChange={[Function]}
@@ -375,13 +360,10 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
     >
       <span>
         <input
-          aria-label="Password Required"
-          autoComplete="new-password"
-          id="Password"
+          id="password"
           name="password"
           onBlur={[Function]}
           onChange={[Function]}
-          type="password"
           value=""
         />
       </span>

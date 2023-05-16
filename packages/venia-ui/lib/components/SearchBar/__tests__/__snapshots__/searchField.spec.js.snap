@@ -24,7 +24,6 @@ exports[`renders correctly 1`] = `
         name="search_query"
         onBlur={[Function]}
         onChange={[Function]}
-        onFocus={[MockFunction]}
         value=""
       />
     </span>

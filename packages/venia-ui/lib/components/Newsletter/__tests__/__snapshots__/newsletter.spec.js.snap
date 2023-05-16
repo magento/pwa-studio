@@ -56,7 +56,6 @@ exports[`#Newsletter display renders correctly 1`] = `
           className="input"
         >
           <input
-            autoComplete="email"
             className="input"
             id="email"
             name="email"
@@ -143,7 +142,6 @@ exports[`#Newsletter submit displays an error message if the email already subsc
           className="input"
         >
           <input
-            autoComplete="email"
             className="input"
             id="email"
             name="email"

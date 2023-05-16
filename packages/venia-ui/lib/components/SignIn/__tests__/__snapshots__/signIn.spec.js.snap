@@ -54,8 +54,6 @@ exports[`displays an error message if there is a sign in error 1`] = `
           className="input"
         >
           <input
-            aria-label="Email Required"
-            autoComplete="email"
             className="input"
             id="email"
             name="email"
@@ -98,14 +96,11 @@ exports[`displays an error message if there is a sign in error 1`] = `
           className="input"
         >
           <input
-            aria-label="Password Required"
-            autoComplete="current-password"
             className="input"
-            id="Password"
+            id="password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
-            type="password"
             value=""
           />
         </span>
@@ -186,8 +181,6 @@ exports[`renders correctly 1`] = `
           className="input"
         >
           <input
-            aria-label="Email Required"
-            autoComplete="email"
             className="input"
             id="email"
             name="email"
@@ -230,14 +223,11 @@ exports[`renders correctly 1`] = `
           className="input"
         >
           <input
-            aria-label="Password Required"
-            autoComplete="current-password"
             className="input"
-            id="Password"
+            id="password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
-            type="password"
             value=""
           />
         </span>
@@ -318,8 +308,6 @@ exports[`renders prefilled form with initial values 1`] = `
           className="input"
         >
           <input
-            aria-label="Email Required"
-            autoComplete="email"
             className="input"
             id="email"
             name="email"
@@ -362,14 +350,11 @@ exports[`renders prefilled form with initial values 1`] = `
           className="input"
         >
           <input
-            aria-label="Password Required"
-            autoComplete="current-password"
             className="input"
-            id="Password"
+            id="password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
-            type="password"
             value=""
           />
         </span>

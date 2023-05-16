@@ -116,10 +116,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="First Name Required"
               className="input"
-              disabled={false}
-              id="customer_firstname"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -164,10 +162,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="Last Name Required"
               className="input"
-              disabled={false}
-              id="customer_lastname"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -220,9 +216,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="Street Address Required"
               className="input"
-              id="customer_street0"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -276,7 +271,7 @@ Array [
           >
             <input
               className="input"
-              id="customer_street1"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -321,9 +316,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="City Required"
               className="input"
-              id="customer_city"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -379,9 +373,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="ZIP / Postal Code Required"
               className="input"
-              id="root"
+              id="postcode"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -426,9 +419,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="Phone Number Required"
               className="input"
-              id="customer_telephone"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -592,10 +584,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="First Name Required"
               className="input"
-              disabled={false}
-              id="customer_firstname"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -640,10 +630,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="Last Name Required"
               className="input"
-              disabled={false}
-              id="customer_lastname"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -696,9 +684,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="Street Address Required"
               className="input"
-              id="customer_street0"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -752,7 +739,7 @@ Array [
           >
             <input
               className="input"
-              id="customer_street1"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -797,9 +784,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="City Required"
               className="input"
-              id="customer_city"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -855,9 +841,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="ZIP / Postal Code Required"
               className="input"
-              id="root"
+              id="postcode"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -902,9 +887,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="Phone Number Required"
               className="input"
-              id="customer_telephone"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1083,7 +1067,6 @@ Array [
           >
             <input
               className="input"
-              disabled={true}
               id="email"
               name="email"
               onBlur={[Function]}
@@ -1129,10 +1112,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="First Name Required"
               className="input"
-              disabled={true}
-              id="customer_firstname"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1177,10 +1158,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="Last Name Required"
               className="input"
-              disabled={true}
-              id="customer_lastname"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1233,9 +1212,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="Street Address Required"
               className="input"
-              id="customer_street0"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1289,7 +1267,7 @@ Array [
           >
             <input
               className="input"
-              id="customer_street1"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1334,9 +1312,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="City Required"
               className="input"
-              id="customer_city"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1392,9 +1369,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="ZIP / Postal Code Required"
               className="input"
-              id="root"
+              id="postcode"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1439,9 +1415,8 @@ Array [
             className="input"
           >
             <input
-              aria-label="Phone Number Required"
               className="input"
-              id="customer_telephone"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}

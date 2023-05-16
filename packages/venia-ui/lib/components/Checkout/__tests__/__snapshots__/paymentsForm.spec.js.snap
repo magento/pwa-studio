@@ -315,7 +315,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
           >
             <input
               className="input"
-              id="street0"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}

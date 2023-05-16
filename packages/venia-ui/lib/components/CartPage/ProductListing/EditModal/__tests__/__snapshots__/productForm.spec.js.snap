@@ -254,15 +254,11 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                     className="input"
                   >
                     <input
-                      aria-label="Item Quantity"
                       className="input"
-                      id="123"
-                      inputMode="numeric"
-                      min={0}
+                      id="quantity"
                       name="quantity"
                       onBlur={[Function]}
                       onChange={[Function]}
-                      pattern="[0-9]*"
                       value={5}
                     />
                   </span>
@@ -624,15 +620,11 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                     className="input"
                   >
                     <input
-                      aria-label="Item Quantity"
                       className="input"
-                      id="123"
-                      inputMode="numeric"
-                      min={0}
+                      id="quantity"
                       name="quantity"
                       onBlur={[Function]}
                       onChange={[Function]}
-                      pattern="[0-9]*"
                       value={5}
                     />
                   </span>

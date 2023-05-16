@@ -201,12 +201,11 @@ exports[`renders input with no regions 1`] = `
       >
         <input
           className="input"
-          disabled={false}
-          id="root"
+          id="region"
           name="region"
           onBlur={[Function]}
           onChange={[Function]}
-          value="TX"
+          value=""
         />
       </span>
       <span

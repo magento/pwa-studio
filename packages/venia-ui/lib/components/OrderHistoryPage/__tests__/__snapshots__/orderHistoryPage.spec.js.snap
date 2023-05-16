@@ -53,7 +53,6 @@ exports[`renders correctly with data 1`] = `
               name="search"
               onBlur={[Function]}
               onChange={[Function]}
-              placeholder="Search by Order Number"
               value=""
             />
           </span>
@@ -245,7 +244,6 @@ exports[`renders correctly without data 1`] = `
               name="search"
               onBlur={[Function]}
               onChange={[Function]}
-              placeholder="Search by Order Number"
               value=""
             />
           </span>
@@ -424,7 +422,6 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
               name="search"
               onBlur={[Function]}
               onChange={[Function]}
-              placeholder="Search by Order Number"
               value=""
             />
           </span>
@@ -617,7 +614,6 @@ exports[`renders loading indicator 1`] = `
               name="search"
               onBlur={[Function]}
               onChange={[Function]}
-              placeholder="Search by Order Number"
               value=""
             />
           </span>
@@ -830,7 +826,6 @@ exports[`renders no orders message is orders is empty 1`] = `
               name="search"
               onBlur={[Function]}
               onChange={[Function]}
-              placeholder="Search by Order Number"
               value=""
             />
           </span>

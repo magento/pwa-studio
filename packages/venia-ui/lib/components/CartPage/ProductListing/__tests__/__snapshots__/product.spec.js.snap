@@ -156,15 +156,11 @@ exports[`renders configurable product with options 1`] = `
                 className="input"
               >
                 <input
-                  aria-label="Item Quantity"
                   className="input"
-                  id="123"
-                  inputMode="numeric"
-                  min={0}
+                  id="quantity"
                   name="quantity"
                   onBlur={[Function]}
                   onChange={[Function]}
-                  pattern="[0-9]*"
                   value={1}
                 />
               </span>
@@ -519,15 +515,11 @@ exports[`renders out of stock product 1`] = `
                 className="input"
               >
                 <input
-                  aria-label="Item Quantity"
                   className="input"
-                  id="123"
-                  inputMode="numeric"
-                  min={0}
+                  id="quantity"
                   name="quantity"
                   onBlur={[Function]}
                   onChange={[Function]}
-                  pattern="[0-9]*"
                   value={2}
                 />
               </span>
@@ -835,15 +827,11 @@ exports[`renders simple product correctly 1`] = `
                 className="input"
               >
                 <input
-                  aria-label="Item Quantity"
                   className="input"
-                  id="123"
-                  inputMode="numeric"
-                  min={0}
+                  id="quantity"
                   name="quantity"
                   onBlur={[Function]}
                   onChange={[Function]}
-                  pattern="[0-9]*"
                   value={1}
                 />
               </span>

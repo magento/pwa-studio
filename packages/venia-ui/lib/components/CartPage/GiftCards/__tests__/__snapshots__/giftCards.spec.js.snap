@@ -41,12 +41,10 @@ exports[`it renders correctly when it has cards 1`] = `
               >
                 <input
                   className="input"
-                  disabled={false}
                   id="card"
                   name="card"
                   onBlur={[Function]}
                   onChange={[Function]}
-                  placeholder="Enter card number"
                   value=""
                 />
               </span>
@@ -283,12 +281,10 @@ exports[`it renders correctly with no cards 1`] = `
               >
                 <input
                   className="input"
-                  disabled={false}
                   id="card"
                   name="card"
                   onBlur={[Function]}
                   onChange={[Function]}
-                  placeholder="Enter card number"
                   value=""
                 />
               </span>

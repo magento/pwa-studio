@@ -172,13 +172,11 @@ exports[`renders form when shouldShowNewPassword is false 1`] = `
             className="input"
           >
             <input
-              autoComplete="current-password"
               className="input"
               id="password"
               name="password"
               onBlur={[Function]}
               onChange={[Function]}
-              type="password"
               value=""
             />
           </span>
@@ -447,13 +445,11 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
             className="input"
           >
             <input
-              autoComplete="current-password"
               className="input"
               id="password"
               name="password"
               onBlur={[Function]}
               onChange={[Function]}
-              type="password"
               value=""
             />
           </span>
@@ -546,7 +542,6 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
               name="newPassword"
               onBlur={[Function]}
               onChange={[Function]}
-              type="password"
               value=""
             />
           </span>

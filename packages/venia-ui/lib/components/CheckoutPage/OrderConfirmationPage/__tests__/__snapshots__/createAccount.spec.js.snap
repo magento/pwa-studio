@@ -46,8 +46,6 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="input"
         >
           <input
-            aria-label="First Name Required"
-            autoComplete="given-name"
             className="input"
             id="customer.firstname"
             name="customer.firstname"
@@ -89,8 +87,6 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="input"
         >
           <input
-            aria-label="Last Name Required"
-            autoComplete="family-name"
             className="input"
             id="customer.lastname"
             name="customer.lastname"
@@ -132,8 +128,6 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="input"
         >
           <input
-            aria-label="Email Required"
-            autoComplete="email"
             className="input"
             id="customer.email"
             name="customer.email"
@@ -176,14 +170,11 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           className="input"
         >
           <input
-            aria-label="Password Required"
-            autoComplete="new-password"
             className="input"
             id="password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
-            type="password"
             value=""
           />
         </span>
@@ -379,8 +370,6 @@ exports[`CreateAccount renders errors 1`] = `
           className="input"
         >
           <input
-            aria-label="First Name Required"
-            autoComplete="given-name"
             className="input"
             id="customer.firstname"
             name="customer.firstname"
@@ -422,8 +411,6 @@ exports[`CreateAccount renders errors 1`] = `
           className="input"
         >
           <input
-            aria-label="Last Name Required"
-            autoComplete="family-name"
             className="input"
             id="customer.lastname"
             name="customer.lastname"
@@ -465,8 +452,6 @@ exports[`CreateAccount renders errors 1`] = `
           className="input"
         >
           <input
-            aria-label="Email Required"
-            autoComplete="email"
             className="input"
             id="customer.email"
             name="customer.email"
@@ -509,14 +494,11 @@ exports[`CreateAccount renders errors 1`] = `
           className="input"
         >
           <input
-            aria-label="Password Required"
-            autoComplete="new-password"
             className="input"
             id="password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
-            type="password"
             value=""
           />
         </span>
