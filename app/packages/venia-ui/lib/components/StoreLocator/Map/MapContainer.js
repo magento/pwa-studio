@@ -23,9 +23,12 @@ import Search from '../Search/Search';
 import Geocode from 'react-geocode';
 import ErrorView from '../../ErrorView';
 
+import { useModulesContext } from '@magento/peregrine/lib/context/modulesProvider';
+
 const MapContainer = props => {
     const { mapProps, ...rest } = props;
 
+    const { tenantConfig } = useModulesContextt();
     const {
         locationsItems,
         pageControl,
@@ -54,7 +57,7 @@ const MapContainer = props => {
     const [storeInfo, setStoreInfo] = useState({});
 
     const classes = useStyle(defaultClasses, props.classes);
-    const googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
+    const googleApiKey = tenantConfig.googleMap;
     Geocode.setApiKey(googleApiKey);
 
     const containerStyle = {

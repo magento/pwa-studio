@@ -37,6 +37,9 @@ export const useModules = () => {
             },
             b2b: {
                 IS_B2B: process.env.IS_B2B
+            },
+            googleMap:{
+                GoogleMapApiKey: process.env.GOOGLE_MAPS_API_KEY
             }
         };
 
