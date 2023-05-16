@@ -19,7 +19,8 @@ const TextInput = props => {
     } = props;
     const fieldState = useFieldState(field);
     const classes = useStyle(defaultClasses, propClasses);
-    var inputClass = fieldState.error || regionError ? classes.input_error : classes.input;
+    var inputClass =
+        fieldState.error || regionError ? classes.input_error : classes.input;
 
     return (
         <Fragment>

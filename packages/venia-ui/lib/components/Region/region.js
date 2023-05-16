@@ -55,7 +55,12 @@ const Region = props => {
                 items={regions}
             />
         ) : (
-            <TextInput {...regionProps} field={fieldInput} id={classes.root} regionError={regionError} />
+            <TextInput
+                {...regionProps}
+                field={fieldInput}
+                id={classes.root}
+                regionError={regionError}
+            />
         );
 
     return (

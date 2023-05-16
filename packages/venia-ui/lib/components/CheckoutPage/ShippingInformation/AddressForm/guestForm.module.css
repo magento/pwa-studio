@@ -37,9 +37,9 @@
 }
 
 .regionError {
-    color:brown;
-    font-weight:600;
- }
+    color: brown;
+    font-weight: 600;
+}
 
 @media (max-width: 959px) {
     .firstname {

@@ -126,11 +126,16 @@ const GuestForm = props => {
         }
     }, [addToast, formatMessage, showSignInToast, handleToastAction]);
 
-
-    const createErrorMessage = JSON.stringify(errors.get('createCustomerAddressMutation'));
-    const updateErrorMessage = JSON.stringify(errors.get('updateCustomerAddressMutation'));
-    const errorMessage = "region_id is required for the specified country code";
-    const regionError = createErrorMessage?.includes(errorMessage) || updateErrorMessage?.includes(errorMessage);
+    const createErrorMessage = JSON.stringify(
+        errors.get('createCustomerAddressMutation')
+    );
+    const updateErrorMessage = JSON.stringify(
+        errors.get('updateCustomerAddressMutation')
+    );
+    const errorMessage = 'region_id is required for the specified country code';
+    const regionError =
+        createErrorMessage?.includes(errorMessage) ||
+        updateErrorMessage?.includes(errorMessage);
 
     return (
         <Fragment>
@@ -319,12 +324,11 @@ const GuestForm = props => {
                         optionValueKey={'id'}
                         data-cy="GuestForm-region"
                         aria-label={formatMessage({
-                            id: 'global.stateRequ\ired',
+                            id: 'global.stateRequired',
                             defaultMessage: 'State Required'
                         })}
                     />
-                     {regionError
-                        ?
+                    {regionError ? (
                         <Message>
                             <div className={classes.regionError}>
                                 <FormattedMessage
@@ -333,8 +337,9 @@ const GuestForm = props => {
                                 />
                             </div>
                         </Message>
-                        : ""
-                    }
+                    ) : (
+                        ''
+                    )}
                 </div>
                 <div className={classes.postcode}>
                     <Postcode

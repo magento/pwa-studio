@@ -99,18 +99,18 @@ const CustomerForm = props => {
 
     const submitButtonText = !hasDefaultShipping
         ? formatMessage({
-            id: 'global.saveAndContinueButton',
-            defaultMessage: 'Save and Continue'
-        })
+              id: 'global.saveAndContinueButton',
+              defaultMessage: 'Save and Continue'
+          })
         : isUpdate
-            ? formatMessage({
-                id: 'global.updateButton',
-                defaultMessage: 'Update'
-            })
-            : formatMessage({
-                id: 'global.addButton',
-                defaultMessage: 'Add'
-            });
+        ? formatMessage({
+              id: 'global.updateButton',
+              defaultMessage: 'Update'
+          })
+        : formatMessage({
+              id: 'global.addButton',
+              defaultMessage: 'Add'
+          });
     const submitButtonProps = {
         disabled: isSaving,
         priority: !hasDefaultShipping ? 'normal' : 'high',
@@ -134,10 +134,16 @@ const CustomerForm = props => {
         <Text type="hidden" field="default_shipping" initialValue={true} />
     );
 
-    const createErrorMessage = JSON.stringify(errors.get('createCustomerAddressMutation'));
-    const updateErrorMessage = JSON.stringify(errors.get('updateCustomerAddressMutation'));
-    const errorMessage = "region_id is required for the specified country code";
-    const regionError = createErrorMessage?.includes(errorMessage) || updateErrorMessage?.includes(errorMessage);
+    const createErrorMessage = JSON.stringify(
+        errors.get('createCustomerAddressMutation')
+    );
+    const updateErrorMessage = JSON.stringify(
+        errors.get('updateCustomerAddressMutation')
+    );
+    const errorMessage = 'region_id is required for the specified country code';
+    const regionError =
+        createErrorMessage?.includes(errorMessage) ||
+        updateErrorMessage?.includes(errorMessage);
 
     // errors
     return (
@@ -276,8 +282,7 @@ const CustomerForm = props => {
                             defaultMessage: 'State Required'
                         })}
                     />
-                    {regionError
-                        ?
+                    {regionError ? (
                         <Message>
                             <div className={classes.regionError}>
                                 <FormattedMessage
@@ -286,8 +291,9 @@ const CustomerForm = props => {
                                 />
                             </div>
                         </Message>
-                        : ""
-                    }
+                    ) : (
+                        ''
+                    )}
                 </div>
 
                 <div className={classes.postcode}>
@@ -331,7 +337,7 @@ const CustomerForm = props => {
                     </Button>
                 </div>
             </Form>
-        </Fragment >
+        </Fragment>
     );
 };
 
