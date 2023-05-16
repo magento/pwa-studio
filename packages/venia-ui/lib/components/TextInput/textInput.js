@@ -20,12 +20,12 @@ const TextInput = props => {
     const fieldState = useFieldState(field);
     const classes = useStyle(defaultClasses, propClasses);
     const inputClass =
-    fieldState.error || regionError ? classes.input_error : classes.input;
+        fieldState.error || regionError ? classes.input_error : classes.input;
 
     return (
         <Fragment>
             <FieldIcons after={after} before={before}>
-                <InformedText className={inputClass} field={field} />
+                <InformedText {...rest} className={inputClass} field={field} />
             </FieldIcons>
             <Message fieldState={fieldState}>{message}</Message>
         </Fragment>
