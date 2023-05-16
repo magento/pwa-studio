@@ -12,13 +12,15 @@ const TextInput = props => {
         after,
         before,
         classes: propClasses,
+        regionError,
         field,
         message,
         ...rest
     } = props;
     const fieldState = useFieldState(field);
     const classes = useStyle(defaultClasses, propClasses);
-    const inputClass = fieldState.error ? classes.input_error : classes.input;
+    var inputClass =
+        fieldState.error || regionError ? classes.input_error : classes.input;
 
     return (
         <Fragment>

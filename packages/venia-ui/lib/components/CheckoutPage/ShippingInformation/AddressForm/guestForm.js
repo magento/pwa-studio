@@ -126,6 +126,17 @@ const GuestForm = props => {
         }
     }, [addToast, formatMessage, showSignInToast, handleToastAction]);
 
+    const createErrorMessage = JSON.stringify(
+        errors.get('createCustomerAddressMutation')
+    );
+    const updateErrorMessage = JSON.stringify(
+        errors.get('updateCustomerAddressMutation')
+    );
+    const errorMessage = 'region_id is required for the specified country code';
+    const regionError =
+        createErrorMessage?.includes(errorMessage) ||
+        updateErrorMessage?.includes(errorMessage);
+
     return (
         <Fragment>
             <FormError errors={Array.from(errors.values())} />
@@ -308,7 +319,6 @@ const GuestForm = props => {
                             id: 'region.label',
                             defaultMessage: 'State'
                         })}
-                        validate={isRequired}
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
@@ -318,6 +328,18 @@ const GuestForm = props => {
                             defaultMessage: 'State Required'
                         })}
                     />
+                    {regionError ? (
+                        <Message>
+                            <div className={classes.regionError}>
+                                <FormattedMessage
+                                    id={'validation.isRequired'}
+                                    defaultMessage={'isRequired'}
+                                />
+                            </div>
+                        </Message>
+                    ) : (
+                        ''
+                    )}
                 </div>
                 <div className={classes.postcode}>
                     <Postcode
