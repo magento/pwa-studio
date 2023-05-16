@@ -428,6 +428,7 @@
     "customerForm.loading": "Fetching Customer Details...",
     "deliveryDate.commentDate": "Comment: ",
     "deliveryDate.deliveryDate": "Delivery Date: ",
+    "deliveryDate.deliveryDateHeader": "Delivery Date",
     "deliveryDate.deliveryTime": "Delivery Time: ",
     "deliveryDate.houseSecurityCode": "House Security Code: ",
     "deliveryDate.phone": "Phone",

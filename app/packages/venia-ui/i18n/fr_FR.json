@@ -426,6 +426,7 @@
     "customerForm.loading": "Récupération des détails du client ...",
     "deliveryDate.commentDate": "Commentaire: ",
     "deliveryDate.deliveryDate": "Date de livraison: ",
+    "deliveryDate.deliveryDateHeader": "Date de livraison",
     "deliveryDate.deliveryTime": "Délai de livraison: ",
     "deliveryDate.houseSecurityCode": "Code de sécurité de la maison: ",
     "deliveryDate.phone": "Téléphoner",
