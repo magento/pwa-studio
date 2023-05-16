@@ -18,6 +18,7 @@ import { GET_REGIONS_QUERY } from './region.gql';
 const Region = props => {
     const {
         classes: propClasses,
+        regionError,
         countryCodeField,
         fieldInput,
         fieldSelect,
@@ -47,13 +48,14 @@ const Region = props => {
     const regionField =
         regions.length || loading ? (
             <Select
+                regionError={regionError}
                 {...regionProps}
                 field={fieldSelect}
                 id={classes.root}
                 items={regions}
             />
         ) : (
-            <TextInput {...regionProps} field={fieldInput} id={classes.root} />
+            <TextInput {...regionProps} field={fieldInput} id={classes.root} regionError={regionError} />
         );
 
     return (

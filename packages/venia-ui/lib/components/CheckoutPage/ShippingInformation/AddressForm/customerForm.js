@@ -99,18 +99,18 @@ const CustomerForm = props => {
 
     const submitButtonText = !hasDefaultShipping
         ? formatMessage({
-              id: 'global.saveAndContinueButton',
-              defaultMessage: 'Save and Continue'
-          })
+            id: 'global.saveAndContinueButton',
+            defaultMessage: 'Save and Continue'
+        })
         : isUpdate
-        ? formatMessage({
-              id: 'global.updateButton',
-              defaultMessage: 'Update'
-          })
-        : formatMessage({
-              id: 'global.addButton',
-              defaultMessage: 'Add'
-          });
+            ? formatMessage({
+                id: 'global.updateButton',
+                defaultMessage: 'Update'
+            })
+            : formatMessage({
+                id: 'global.addButton',
+                defaultMessage: 'Add'
+            });
     const submitButtonProps = {
         disabled: isSaving,
         priority: !hasDefaultShipping ? 'normal' : 'high',
@@ -134,6 +134,12 @@ const CustomerForm = props => {
         <Text type="hidden" field="default_shipping" initialValue={true} />
     );
 
+    const createErrorMessage = JSON.stringify(errors.get('createCustomerAddressMutation'));
+    const updateErrorMessage = JSON.stringify(errors.get('updateCustomerAddressMutation'));
+    const errorMessage = "region_id is required for the specified country code";
+    const regionError = createErrorMessage?.includes(errorMessage) || updateErrorMessage?.includes(errorMessage);
+
+    // errors
     return (
         <Fragment>
             <FormError errors={Array.from(errors.values())} />
@@ -257,9 +263,10 @@ const CustomerForm = props => {
                         />
                     </Field>
                 </div>
+
                 <div className={classes.region}>
                     <Region
-                        validate={isRequired}
+                        regionError={regionError}
                         data-cy="CustomerForm-region"
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
@@ -269,7 +276,20 @@ const CustomerForm = props => {
                             defaultMessage: 'State Required'
                         })}
                     />
+                    {regionError
+                        ?
+                        <Message>
+                            <div className={classes.regionError}>
+                                <FormattedMessage
+                                    id={'validation.isRequired'}
+                                    defaultMessage={'isRequired'}
+                                />
+                            </div>
+                        </Message>
+                        : ""
+                    }
                 </div>
+
                 <div className={classes.postcode}>
                     <Postcode
                         validate={isRequired}
@@ -311,7 +331,7 @@ const CustomerForm = props => {
                     </Button>
                 </div>
             </Form>
-        </Fragment>
+        </Fragment >
     );
 };
 

@@ -18,6 +18,7 @@ const Select = props => {
     const {
         before,
         classes: propClasses,
+        regionError,
         field,
         items,
         message,
@@ -25,7 +26,7 @@ const Select = props => {
     } = props;
     const fieldState = useFieldState(field);
     const classes = useStyle(defaultClasses, propClasses);
-    const inputClass = fieldState.error ? classes.input_error : classes.input;
+    const inputClass = fieldState.error || regionError ? classes.input_error : classes.input;
 
     const options = items.map(
         ({ disabled = null, hidden = null, label, value, key = value }) => (
