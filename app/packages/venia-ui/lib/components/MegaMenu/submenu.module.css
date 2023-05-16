@@ -42,3 +42,8 @@
     composes: ml-auto from global;
     composes: mr-auto from global;
 }
+
+.centerItem {
+    composes: flex from global;
+    justify-content: center !important;
+}
