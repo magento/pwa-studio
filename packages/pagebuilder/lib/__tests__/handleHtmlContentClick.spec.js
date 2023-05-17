@@ -82,6 +82,6 @@ describe('when the target is a link', () => {
 
         expect(preventDefault).toHaveBeenCalled();
         expect(mockHistoryPush).not.toHaveBeenCalled();
-        expect(mockOpen).toHaveBeenCalledWith(event.target.href, '_blank');
+        expect(mockOpen).toHaveBeenCalledWith(event.target.href);
     });
 });
