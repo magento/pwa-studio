@@ -57,7 +57,7 @@ const MapContainer = props => {
     const [storeInfo, setStoreInfo] = useState({});
 
     const classes = useStyle(defaultClasses, props.classes);
-    const googleApiKey = tenantConfig.googleMap;
+    const googleApiKey = tenantConfig?.GoogleMapApiKey;
     Geocode.setApiKey(googleApiKey);
 
     const containerStyle = {
