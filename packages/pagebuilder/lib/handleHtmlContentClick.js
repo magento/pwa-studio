@@ -20,9 +20,9 @@ const handleHtmlContentClick = (history, event) => {
 
         if (tabTarget && globalThis.open) {
             if (query) {
-                globalThis.open(href + query, '_blank');
+                globalThis.open(href + query);
             } else {
-                globalThis.open(href, '_blank');
+                globalThis.open(href);
             }
         } else {
             globalThis.location.assign(href);
