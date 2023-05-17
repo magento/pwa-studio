@@ -50,6 +50,7 @@ const GiftCards = props => {
         applyGiftCard,
         checkBalanceData,
         checkGiftCardBalance,
+        checkGiftCardBalanceKeyPress,
         errorLoadingGiftCards,
         errorRemovingCard,
         giftCardsData,
@@ -202,6 +203,7 @@ const GiftCards = props => {
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
                 onClick={checkGiftCardBalance}
+                onKeyDown={checkGiftCardBalanceKeyPress}
             >
                 <FormattedMessage
                     id={'giftCards.checkBalance'}
