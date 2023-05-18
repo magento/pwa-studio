@@ -47,3 +47,8 @@
         box-shadow: 0 0 0 1px white;
     }
 }
+@media (max-width: 959px) {
+    .root > div {
+        height: 12px !important;
+    }
+}
