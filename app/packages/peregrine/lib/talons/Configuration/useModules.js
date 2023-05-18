@@ -14,7 +14,8 @@ export const useModules = () => {
             this.googleAnalyticsTrackingId = tenantConfig.googleAnalytics?.GOOGLE_ANALYTICS_TRACKING_ID;
             this.b2bProductDetailView = Boolean(
                 tenantConfig.b2b?.IS_B2B === 'true' || tenantConfig.b2b?.IS_B2B === true
-            );
+                );
+            this.GoogleMapApiKey = tenantConfig.googleMap?.GOOGLE_MAPS_API_KEY;
         }
     }
 
@@ -37,6 +38,9 @@ export const useModules = () => {
             },
             b2b: {
                 IS_B2B: process.env.IS_B2B
+            },
+            googleMap:{
+                GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY
             }
         };
 
