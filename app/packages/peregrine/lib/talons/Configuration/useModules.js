@@ -12,7 +12,7 @@ export const useModules = () => {
             this.chatbotEnabled = Boolean(tenantConfig.chatbot?.ENABLED === 'true' || tenantConfig.chatbot?.ENABLED === true);
             this.braintreeToken = tenantConfig.braintree?.CHECKOUT_BRAINTREE_TOKEN;
             this.googleAnalyticsTrackingId = tenantConfig.googleAnalytics?.GOOGLE_ANALYTICS_TRACKING_ID;
-            this.googleMap = Boolean(
+            this.b2bProductDetailView = Boolean(
                 tenantConfig.b2b?.IS_B2B === 'true' || tenantConfig.b2b?.IS_B2B === true
                 );
             this.GoogleMapApiKey = tenantConfig.googleMap?.GOOGLE_MAPS_API_KEY;
