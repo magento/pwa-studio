@@ -107,7 +107,6 @@ const CouponCode = props => {
                         onKeyDown={() => {
                             handleRemoveCouponOnEnter(code);
                         }}
-
                     >
                         <FormattedMessage
                             id={'couponCode.removeButton'}
@@ -133,7 +132,6 @@ const CouponCode = props => {
                 data-cy="CouponCode-form"
                 className={formClass}
                 onSubmit={handleApplyCoupon}
-                
             >
                 <Field
                     id="couponCode"

@@ -86,7 +86,6 @@ export const useCouponCode = props => {
         };
     }, [handleApplyCoupon]);
 
-
     const handleRemoveCoupon = useCallback(
         async couponCode => {
             try {
