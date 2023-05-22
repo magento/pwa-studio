@@ -54,6 +54,7 @@ const GiftCards = props => {
         errorLoadingGiftCards,
         errorRemovingCard,
         giftCardsData,
+        handleEnterKeyPress,
         isLoadingGiftCards,
         isApplyingCard,
         isCheckingBalance,
@@ -198,6 +199,7 @@ const GiftCards = props => {
                     data-cy="GiftCards-apply"
                     disabled={isApplyingCard}
                     onClick={applyGiftCard}
+                    onKeyDown={handleEnterKeyPress}
                 >
                     <FormattedMessage
                         id={'giftCards.apply'}
