@@ -263,8 +263,13 @@ const QuickOrderForm = props => {
                                                     <QuantityStepper
                                                         min={1}
                                                         value={item.quantity}
-                                                        onChange={e => onChangeQty(e, key)}
                                                         fieldName={`quantity-${key}`}
+                                                        textProps={{
+                                                            onChange(e) {
+                                                                onChangeQty(e.target.value, key);
+                                                            },
+                                                            disabled: !item?.price
+                                                        }}
                                                         classes={{
                                                             button_increment: classes.disable,
                                                             button_decrement: classes.disable,

@@ -203,3 +203,8 @@
         justify-content: space-between;
     }
 }
+
+.inputQtyQuick input:disabled {
+    pointer-events: none;
+    background: #e7e7e7;
+}
