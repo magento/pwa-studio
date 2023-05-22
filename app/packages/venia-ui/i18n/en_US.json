@@ -283,6 +283,7 @@
     "couponCode.enterCode": "Enter code",
     "couponCode.errorContainer": "Something went wrong. Please refresh and try again.",
     "couponCode.removeButton": "Remove",
+    "courseSlider.emptyCoursesMessage": "There are no courses available",
     "courseSlider.learnOurProducts": "Learn our products",
     "courseSlider.showAllCourses": "Show all courses",
     "createAccount.cancelText": "Cancel",

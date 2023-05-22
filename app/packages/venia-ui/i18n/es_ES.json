@@ -281,6 +281,7 @@
     "couponCode.enterCode": "Introduce el código",
     "couponCode.errorContainer": "Algo ha salido mal. Por favor, actualiza la página e inténtalo de nuevo.",
     "couponCode.removeButton": "Eliminar",
+    "courseSlider.emptyCoursesMessage": "No hay cursos disponibles",
     "courseSlider.learnOurProducts": "Conozca nuestros productos",
     "courseSlider.showAllCourses": "Mostrar todos los cursos",
     "createAccount.cancelText": "Cancelar",

@@ -36,8 +36,10 @@ const CourseSlider = ({ bannerType, categoryId }) => {
         18: 15
     };
 
-    // TODO_B2B: Customize no courses message
-    const emptyCoursesMessage = 'There are no courses available';
+    const emptyCoursesMessage = formatMessage({
+        id: 'courseSlider.emptyCoursesMessage',
+        defaultMessage: 'There are no courses available'
+    });
 
     useEffect(() => {
         switch (bannerType) {

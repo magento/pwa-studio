@@ -281,6 +281,7 @@
     "couponCode.enterCode": "Entrer le code",
     "couponCode.errorContainer": "Un problème est survenu. Veuillez actualiser et réessayer.",
     "couponCode.removeButton": "Retirer",
+    "courseSlider.emptyCoursesMessage": "Il n'y a pas de cours disponibles",
     "courseSlider.learnOurProducts": "Découvrez nos produits",
     "courseSlider.showAllCourses": "Afficher tous les cours",
     "createAccount.cancelText": "Annuler",
