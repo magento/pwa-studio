@@ -1,7 +1,6 @@
 const canHandle = event => event.type === 'USER_SIGN_OUT';
 
-const handle = (sdk) => {
-
+const handle = sdk => {
     sdk.context.setShopper({
         shopperId: 'guest'
     });
