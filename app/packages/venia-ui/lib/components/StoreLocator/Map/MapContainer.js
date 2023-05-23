@@ -23,12 +23,20 @@ import Search from '../Search/Search';
 import Geocode from 'react-geocode';
 import ErrorView from '../../ErrorView';
 
+import { toReactIntl } from '../../../util/formatLocale';
 import { useModulesContext } from '@magento/peregrine/lib/context/modulesProvider';
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
 
 const MapContainer = props => {
     const { mapProps, ...rest } = props;
 
-    const { tenantConfig } = useModulesContextt();
+    const { data } = useStoreConfigContext();
+
+    const language = useMemo(() => {
+        return data && data.storeConfig.locale ? toReactIntl(data.storeConfig.locale) : DEFAULT_LOCALE;
+    }, [data])
+    ;
+    const { tenantConfig } = useModulesContext();
     const {
         locationsItems,
         pageControl,
@@ -67,7 +75,8 @@ const MapContainer = props => {
     const libraries = ['places'];
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: googleApiKey,
-        libraries
+        libraries,
+        language
     });
 
     const { formatMessage } = useIntl();
