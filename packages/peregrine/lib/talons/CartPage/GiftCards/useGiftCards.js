@@ -109,6 +109,14 @@ export const useGiftCards = props => {
         });
     }, [formApi, checkCardBalance]);
 
+    const checkGiftCardBalanceKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                checkGiftCardBalance();
+            }
+        };
+    }, [checkGiftCardBalance]);
+
     const removeGiftCard = useCallback(
         async giftCardCode => {
             setMostRecentAction(actions.REMOVE);
@@ -163,6 +171,7 @@ export const useGiftCards = props => {
         checkBalanceData:
             balanceResult.data && balanceResult.data.giftCardAccount,
         checkGiftCardBalance,
+        checkGiftCardBalanceKeyPress,
         errorLoadingGiftCards: Boolean(appliedCardsResult.error),
         errorRemovingCard: Boolean(removeCardResult.error),
         giftCardsData:

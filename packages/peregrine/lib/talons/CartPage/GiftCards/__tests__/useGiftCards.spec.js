@@ -117,6 +117,7 @@ test('it returns the proper shape', () => {
         applyGiftCard: expect.any(Function),
         checkBalanceData: expect.any(Object),
         checkGiftCardBalance: expect.any(Function),
+        checkGiftCardBalanceKeyPress: expect.any(Function),
         errorLoadingGiftCards: expect.any(Boolean),
         errorRemovingCard: expect.any(Boolean),
         giftCardsData: expect.any(Array),
