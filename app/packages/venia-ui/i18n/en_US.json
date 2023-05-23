@@ -951,6 +951,7 @@
     "storeLocator.getDirections": "Get directions",
     "storeLocator.noDirectionsText": "There is no directions for this location",
     "storeLocator.noStoresText": "There are no store available",
+    "storeLocator.reset": "Reset",
     "storeLocator.searchForLocation": "Search for location",
     "storeLocator.SeeAvailablePickupStores": "See available pickup stores",
     "storeLocator.selectDay": "Select Day",

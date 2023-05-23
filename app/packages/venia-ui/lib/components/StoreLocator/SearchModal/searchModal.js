@@ -46,7 +46,7 @@ const SearchModal = props => {
                             <FormattedMessage id={'searchTrigger.search'} defaultMessage={'Search'} />
                         </Button>{' '}
                         <Button priority="high" type="button" onClick={resetSearch}>
-                            <FormattedMessage id={'searchLocator.reset'} defaultMessage={'Reset'} />
+                            <FormattedMessage id={'storeLocator.reset'} defaultMessage={'Reset'} />
                         </Button>
                     </div>
                 </Form>
