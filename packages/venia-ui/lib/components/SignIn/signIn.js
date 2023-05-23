@@ -39,6 +39,7 @@ const SignIn = props => {
         handleEnterKeyPress,
         signinHandleEnterKeyPress,
         handleForgotPassword,
+        forgotPasswordHandleEnterKeyPress,
         handleSubmit,
         isBusy,
         setFormApi,
@@ -107,6 +108,7 @@ const SignIn = props => {
                         classes={forgotPasswordClasses}
                         type="button"
                         onClick={handleForgotPassword}
+                        onKeyDown={forgotPasswordHandleEnterKeyPress}
                         data-cy="SignIn-forgotPasswordButton"
                     >
                         <FormattedMessage

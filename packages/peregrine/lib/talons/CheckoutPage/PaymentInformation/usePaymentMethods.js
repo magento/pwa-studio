@@ -46,16 +46,23 @@ export const usePaymentMethods = props => {
         element => {
             const value = element.target.value;
 
+            const paymentMethodData =
+                value == 'braintree'
+                    ? {
+                          code: value,
+                          braintree: {
+                              payment_method_nonce: value,
+                              is_active_payment_token_enabler: false
+                          }
+                      }
+                    : {
+                          code: value
+                      };
+
             setPaymentMethod({
                 variables: {
                     cartId,
-                    paymentMethod: {
-                        code: value,
-                        braintree: {
-                            payment_method_nonce: value,
-                            is_active_payment_token_enabler: false
-                        }
-                    }
+                    paymentMethod: paymentMethodData
                 }
             });
         },
