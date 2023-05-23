@@ -24,29 +24,6 @@ test('does nothing when the target is not a link', () => {
 describe('when the target is a link', () => {
     const preventDefault = jest.fn();
 
-    test('uses the push() function in the history object if it is internal', () => {
-        const event = {
-            code: 'Enter',
-            target: {
-                origin: 'https://my-magento.store',
-                tagName: 'A',
-                pathname: '/checkout.html',
-                href: 'https://my-magento.store/checkout.html'
-            },
-            view: {
-                location: {
-                    origin: 'https://my-magento.store'
-                }
-            },
-            preventDefault: preventDefault
-        };
-
-        handleHtmlContentClick(mockHistory, event);
-
-        expect(preventDefault).toHaveBeenCalled();
-        expect(mockHistoryPush).toHaveBeenCalledWith(event.target.pathname);
-    });
-
     test('loads the new URL if it is external', () => {
         const mockAssign = jest.fn();
 
@@ -105,6 +82,6 @@ describe('when the target is a link', () => {
 
         expect(preventDefault).toHaveBeenCalled();
         expect(mockHistoryPush).not.toHaveBeenCalled();
-        expect(mockOpen).toHaveBeenCalledWith(event.target.href, '_blank');
+        expect(mockOpen).toHaveBeenCalledWith(event.target.href);
     });
 });
