@@ -156,6 +156,13 @@ export const useGiftCards = props => {
         removeCardLoading,
         setIsCartUpdating
     ]);
+    const handleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                applyGiftCard();
+            }
+        };
+    }, [applyGiftCard]);
 
     const shouldDisplayCardBalance =
         mostRecentAction === actions.CHECK_BALANCE &&
@@ -178,6 +185,7 @@ export const useGiftCards = props => {
             (appliedCardsResult.data &&
                 appliedCardsResult.data.cart.applied_gift_cards) ||
             [],
+        handleEnterKeyPress,
         isLoadingGiftCards: appliedCardsResult.loading,
         isApplyingCard: applyCardLoading,
         isCheckingBalance: balanceResult.loading,
