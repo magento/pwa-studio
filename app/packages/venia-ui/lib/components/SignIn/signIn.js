@@ -11,7 +11,6 @@ import Button from '../Button';
 import Field from '../Field';
 import TextInput from '../TextInput';
 import defaultClasses from './signIn.module.css';
-import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 import LinkButton from '../LinkButton';
 import Password from '../Password';
 import FormError from '../FormError/formError';
@@ -28,7 +27,6 @@ const SignIn = props => {
 
     const { formatMessage } = useIntl();
     const talonProps = useSignIn({
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword

@@ -8,11 +8,16 @@ import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import SIGNIN_OPERATIONS from '../SignIn/signIn.gql';
 import DEFAULT_OPERATIONS from './createAccount.gql';
+import ACCOUNT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
 import { useEventingContext } from '../../context/eventing';
 
-import doCsrLogin from   '@magento/peregrine/lib/RestApi/Csr/auth/login';
+import doCsrLogin from '@magento/peregrine/lib/RestApi/Csr/auth/login';
 import doLmsLogin from '@magento/peregrine/lib/RestApi/Lms/auth/login';
+
+import { useModulesContext } from '../../context/modulesProvider';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -33,16 +38,27 @@ import doLmsLogin from '@magento/peregrine/lib/RestApi/Lms/auth/login';
 export const useCreateAccount = props => {
     const { initialValues = {}, onSubmit, onCancel } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        CART_OPERATIONS,
+        ACCOUNT_OPERATIONS,
+        SIGNIN_OPERATIONS,
+        props.operations
+    );
+
     const {
         createAccountMutation,
         createCartMutation,
         getCartDetailsQuery,
-        getCustomerQuery,
+        getCustomerInformationQuery,
         mergeCartsMutation,
         signInMutation
     } = operations;
+
     const apolloClient = useApolloClient();
+
+    const { tenantConfig } = useModulesContext();
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [{ cartId }, { createCart, removeCart, getCartDetails }] = useCartContext();
     const [{ isGettingDetails }, { getUserDetails, setToken }] = useUserContext();
@@ -63,7 +79,7 @@ export const useCreateAccount = props => {
         fetchPolicy: 'no-cache'
     });
 
-    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerInformationQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const { generateReCaptchaData, recaptchaLoading, recaptchaWidgetProps } = useGoogleReCaptcha({
@@ -121,10 +137,10 @@ export const useCreateAccount = props => {
                 await setToken(token);
 
                 // LMS logic
-                process.env.LMS_ENABLED === 'true' && doLmsLogin(formValues.password);
+                tenantConfig.lmsEnabled && doLmsLogin(formValues.password);
 
                 // CSR logic
-                process.env.CSR_ENABLED === 'true' && doCsrLogin();
+                tenantConfig.csrEnabled && doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
@@ -169,6 +185,7 @@ export const useCreateAccount = props => {
             createAccount,
             createCart,
             dispatch,
+            tenantConfig,
             fetchCartDetails,
             fetchCartId,
             fetchUserDetails,

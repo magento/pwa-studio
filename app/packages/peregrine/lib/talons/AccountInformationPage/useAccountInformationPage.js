@@ -10,24 +10,34 @@ import modifyCsrCustomer from '@magento/peregrine/lib/RestApi/Csr/users/modifyCu
 
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from '../../talons/CommunicationsPage/communicationsPage.gql.js';
+import ACCOUNT_OPERATIONS from './accountInformationPage.gql';
+import ADDRESS_BOOK_OPERATIONS from '../../talons/AddressBookPage/addressBookPage.gql';
+import { useModulesContext } from '../../context/modulesProvider';
 
 export const useAccountInformationPage = props => {
-    const {
-        mutations: {
-            setCustomerInformationMutation,
-            changeCustomerPasswordMutation,
-            createCustomerAddressMutation,
-            deleteCustomerAddressMutation,
-            updateCustomerAddressMutation
-        },
-        queries: { getCustomerInformationQuery, getCustomerAddressesQuery },
-        afterSubmit
-    } = props;
+    const { afterSubmit } = props;
 
     const [{ isSignedIn }] = useUserContext();
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerSubscriptionQuery, setNewsletterSubscriptionMutation } = operations;
+    const { tenantConfig } = useModulesContext();
+
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        ACCOUNT_OPERATIONS,
+        ADDRESS_BOOK_OPERATIONS,
+        props.operations
+    );
+    const {
+        getCustomerSubscriptionQuery,
+        setNewsletterSubscriptionMutation,
+        setCustomerInformationMutation,
+        changeCustomerPasswordMutation,
+        createCustomerAddressMutation,
+        deleteCustomerAddressMutation,
+        updateCustomerAddressMutation,
+        getCustomerInformationQuery,
+        getCustomerAddressesQuery
+    } = operations;
 
     const { data: subscriptionData, error: subscriptionDataError } = useQuery(getCustomerSubscriptionQuery, {
         skip: !isSignedIn
@@ -247,10 +257,10 @@ export const useAccountInformationPage = props => {
                 });
 
                 // LMS logic
-                process.env.LMS_ENABLED === 'true' && modifyLmsCustomer(firstname, '', email, newPassword);
+                tenantConfig.lmsEnabled && modifyLmsCustomer(firstname, '', email, newPassword);
 
                 // CSR logic
-                process.env.CSR_ENABLED === 'true' && modifyCsrCustomer(firstname, '', email);
+                tenantConfig.csrEnabled && modifyCsrCustomer(firstname, '', email);
 
                 // After submission, close the form if there were no errors.
                 handleCancel(false);
@@ -264,7 +274,15 @@ export const useAccountInformationPage = props => {
                 return;
             }
         },
-        [initialValues, handleCancel, setCustomerInformation, generateReCaptchaData, changeCustomerPassword, dispatch]
+        [
+            initialValues,
+            handleCancel,
+            setCustomerInformation,
+            generateReCaptchaData,
+            changeCustomerPassword,
+            dispatch,
+            tenantConfig
+        ]
     );
 
     const handleConfirmDialog = useCallback(

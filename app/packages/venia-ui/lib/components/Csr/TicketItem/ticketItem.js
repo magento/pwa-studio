@@ -11,11 +11,13 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './ticketItem.module.css';
 
-import supportIcon from '../SupportPage/Icons/supportIcon.svg';
-import enhancementIcon from '../SupportPage/Icons/enhancementIcon.svg';
-import orderIcon from '../SupportPage/Icons/orderIcon.svg';
-import messageIcon from './Icons/messageIcon.svg';
-import closeIcon from './Icons/closeIcon.svg';
+import supportIcon from '@magento/venia-ui/lib/assets/supportIcon.svg';
+import enhancementIcon from '@magento/venia-ui/lib/assets/enhancementIcon.svg';
+import orderIcon from '@magento/venia-ui/lib/assets/orderIcon.svg';
+import closeIcon from '@magento/venia-ui/lib/assets/close.svg';
+
+import { MessageIcon } from '@magento/venia-ui/lib/assets/messageIcon';
+// import messageIcon from '@magento/venia-ui/lib/assets/messageIcon.svg';
 
 import { useTicketItem } from '@magento/peregrine/lib/talons/Csr/useTicketItem.js';
 
@@ -131,11 +133,21 @@ const TicketItem = props => {
                     }
                     className={classes.messageContainer}
                 >
-                    <img
+                    {/* <img
                         src={openedChat[0] === ticket.number ? closeIcon : messageIcon}
                         className={openedChat[0] === ticket.number ? classes.closeIcon : classes.messageIcon}
                         alt="Message icon"
-                    />
+                    /> */}
+
+                    {/* show an icon if the chat is open */}
+                    {openedChat[0] === ticket.number ? (
+                        // <div className={classes.closeIcon}>{closeIcon}</div>
+                        <img src={closeIcon} className = {classes.closeIcon} alt='Icon'/>
+                    ) : (
+                        <div className={classes.messageIcon}>
+                            <MessageIcon />
+                        </div>
+                    )}
                 </div>
             </div>
             {openedChat[0] === ticket.number && chatView}
@@ -189,11 +201,18 @@ const TicketItem = props => {
                         }
                         className={classes.messageContainer}
                     >
-                        <img
+                        {/* <img
                             src={openedChat[0] === ticket.number ? closeIcon : messageIcon}
                             className={openedChat[0] === ticket.number ? classes.closeIcon : classes.messageIcon}
                             alt="Message icon"
-                        />
+                        /> */}
+                        {openedChat[0] === ticket.number ? (
+                            <div className={classes.closeIcon}>{closeIcon}</div>
+                        ) : (
+                            <div className={classes.messageIcon}>
+                                <MessageIcon />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

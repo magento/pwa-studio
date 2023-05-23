@@ -2,18 +2,8 @@ import { gql } from '@apollo/client';
 
 import { ProductDetailsFragment } from './productDetailFragment.gql';
 
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            product_url_suffix
-        }
-    }
-`;
-
-export const GET_PRODUCT_DETAIL_QUERY = gql`
-    query getProductDetailForProductPage($urlKey: String!) {
+export const GET_PRODUCT_DETAIL_FOR_PRODUCT_PAGE_BY_URL_KEY = gql`
+    query GetProductDetailForProductPageByUrlKey($urlKey: String!) {
         products(filter: { url_key: { eq: $urlKey } }) {
             items {
                 id
@@ -26,6 +16,5 @@ export const GET_PRODUCT_DETAIL_QUERY = gql`
 `;
 
 export default {
-    getStoreConfigData: GET_STORE_CONFIG_DATA,
-    getProductDetailQuery: GET_PRODUCT_DETAIL_QUERY
+    getProductDetailQuery: GET_PRODUCT_DETAIL_FOR_PRODUCT_PAGE_BY_URL_KEY
 };

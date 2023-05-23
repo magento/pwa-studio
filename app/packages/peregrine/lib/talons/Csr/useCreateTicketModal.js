@@ -6,12 +6,17 @@ import { getOrderPrice } from '../../util/orderPrice';
 
 import createTicket from '../../RestApi/Csr/tickets/createTicket';
 
-import { GET_CUSTOMER_ORDERS, GET_IMAGE_BY_SKU } from './createTicketModal.gql';
+import DEFAULT_OPERATIONS from './createTicketModal.gql';
+import mergeOperations from '../../util/shallowMerge';
 
 export const useCreateTicketModal = props => {
     const { orderBy, setTicketModal, setTickets, setTicketCount, setErrorToast, setSuccessToast } = props;
-    const fetchCustomerOrders = useAwaitQuery(GET_CUSTOMER_ORDERS);
-    const fetchProductImage = useAwaitQuery(GET_IMAGE_BY_SKU);
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCustomerOrdersForCsrQuery, getImageBySkuQuery } = operations;
+
+    const fetchCustomerOrders = useAwaitQuery(getCustomerOrdersForCsrQuery);
+    const fetchProductImage = useAwaitQuery(getImageBySkuQuery);
     const { formatMessage, locale } = useIntl();
 
     // Translations

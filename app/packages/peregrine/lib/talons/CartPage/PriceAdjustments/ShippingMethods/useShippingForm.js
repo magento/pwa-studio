@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useMemo } from 'react';
 import { useApolloClient, useMutation } from '@apollo/client';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { useCartContext } from '../../../../context/cart';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 import DEFAULT_OPERATIONS from './shippingMethods.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
  * GraphQL currently requires a complete address before it will return
@@ -46,7 +47,7 @@ export const MOCKED_ADDRESS = {
  */
 export const useShippingForm = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { setShippingAddressMutation, getShippingMethodsQuery } = operations;
+    const { getShippingMethodsQuery, setShippingAddressMutation } = operations;
     const { selectedValues, setIsCartUpdating } = props;
 
     const [{ cartId }] = useCartContext();
@@ -54,11 +55,7 @@ export const useShippingForm = props => {
 
     const [
         setShippingAddress,
-        {
-            called: isSetShippingAddressCalled,
-            error: errorSettingShippingAddress,
-            loading: isSetShippingLoading
-        }
+        { called: isSetShippingAddressCalled, error: errorSettingShippingAddress, loading: isSetShippingLoading }
     ] = useMutation(setShippingAddressMutation);
 
     useEffect(() => {
@@ -91,9 +88,7 @@ export const useShippingForm = props => {
 
                 if (shippingAddresses.length) {
                     const primaryAddress = shippingAddresses[0];
-                    const {
-                        available_shipping_methods: availableMethods
-                    } = primaryAddress;
+                    const { available_shipping_methods: availableMethods } = primaryAddress;
                     if (availableMethods.length) {
                         apolloClient.writeQuery({
                             query: getShippingMethodsQuery,
@@ -137,13 +132,9 @@ export const useShippingForm = props => {
         [cartId, setShippingAddress]
     );
 
-    const errors = useMemo(
-        () =>
-            new Map([
-                ['setShippingAddressMutation', errorSettingShippingAddress]
-            ]),
-        [errorSettingShippingAddress]
-    );
+    const errors = useMemo(() => new Map([['setShippingAddressMutation', errorSettingShippingAddress]]), [
+        errorSettingShippingAddress
+    ]);
 
     return {
         errors,

@@ -1,0 +1,20 @@
+.InputWrapper {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    margin: 1rem 0;
+}
+.mapWrapper > main {
+    margin: 0 !important;
+}
+
+.datePicker {
+    composes: input from '../../TextInput/textInput.module.css';
+    width: 250px;
+}
+
+@media (max-width: 650px) {
+.InputWrapper {
+    grid-template-columns: 1fr ;
+}
+}

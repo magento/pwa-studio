@@ -38,7 +38,7 @@ veniaSecurityHeaders:
             pattern: '.*\.php$'
             use:
               inline: "
-                script-src http: https: {{ backend }}{{#pageTypeNonce}} 'nonce-{{ pageTypeNonce }}'{{/pageTypeNonce}};
+                script-src http: https: {{ backend }} {{#pageTypeNonce}} 'nonce-{{ pageTypeNonce }}'{{/pageTypeNonce}};
                 style-src 'self' blob: https: 'unsafe-inline' {{ backend }};
                 img-src data: http: https: blob:;
                 object-src 'none';

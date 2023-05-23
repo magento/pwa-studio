@@ -3,10 +3,13 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '../../context/cart';
-import operations from './addToCart.gql';
-import { ADD_CONFIGURABLE_MUTATION, GET_PARENT_SKU } from '../QuickOrderForm/addProductByCsv.gql';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import resourceUrl from '../../util/makeUrl';
+
+import DEFAULT_OPERATIONS from '../QuickOrderForm/quickOrderForm.gql';
+import PRODUCT_OPERATIONS from '../ProductFullDetail/productFullDetail.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 /**
  * @param {String} props.item.uid - uid of item
  * @param {String} props.item.name - name of item
@@ -27,9 +30,12 @@ const UNSUPPORTED_PRODUCT_TYPES = ['VirtualProduct', 'BundleProduct', 'GroupedPr
 export const useAddToCartButton = props => {
     const { item, urlSuffix, quantity } = props;
 
+    const operations = mergeOperations(DEFAULT_OPERATIONS, PRODUCT_OPERATIONS, props.operations);
+    const { addConfigurableProductToCartMutation, getParentSkuBySkuQuery } = operations;
+
     const [isLoading, setIsLoading] = useState(false);
 
-    const getParentSku = useAwaitQuery(GET_PARENT_SKU);
+    const getParentSku = useAwaitQuery(getParentSkuBySkuQuery);
 
     const isInStock = item.stock_status === 'IN_STOCK';
     const productType = item.__typename;
@@ -40,9 +46,7 @@ export const useAddToCartButton = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const [addToCart] = useMutation(operations.ADD_ITEM);
-
-    const [addConfigurableProductToCart] = useMutation(ADD_CONFIGURABLE_MUTATION);
+    const [addConfigurableProductToCart] = useMutation(addConfigurableProductToCartMutation);
 
     const handleAddToCart = useCallback(async () => {
         try {
@@ -63,23 +67,6 @@ export const useAddToCartButton = props => {
                         parentSku: item.parentSku || parentSku
                     }
                 });
-
-                // await addToCart({  NOTE : USE addConfigurableProductToCart method
-                //     variables: {
-                //         cartId,
-                //         cartItem: {
-                //             quantity: quantity || 1,
-                //             entered_options: [
-                //                 {
-                //                     uid: item.uid,
-                //                     value: item.name
-                //                 }
-                //             ],
-                //             sku: item.sku
-                //         }
-                //     }
-                // });
-
                 setIsLoading(false);
             } else if (productType === 'ConfigurableProduct') {
                 const productLink = resourceUrl(`/${item.url_key}${urlSuffix || ''}`);
@@ -92,16 +79,16 @@ export const useAddToCartButton = props => {
             console.error(error);
         }
     }, [
-        productType,
-        getParentSku,
-        item.sku,
-        item.parentSku,
-        item.url_key,
         addConfigurableProductToCart,
         cartId,
+        getParentSku,
+        history,
+        item.parentSku,
+        item.sku,
+        item.url_key,
+        productType,
         quantity,
-        urlSuffix,
-        history
+        urlSuffix
     ]);
 
     return {

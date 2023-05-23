@@ -218,7 +218,7 @@ const QuotesView = props => {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
-                        id={'buyLaterNotesPage.emptyDataMessage'}
+                        id={'savedCartsPage.emptyDataMessage'}
                         defaultMessage={"You don't have any items yet."}
                     />
                 </h3>

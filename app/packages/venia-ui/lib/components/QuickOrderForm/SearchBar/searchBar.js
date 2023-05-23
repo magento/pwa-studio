@@ -30,7 +30,6 @@ const SearchBar = React.forwardRef((props, ref) => {
     return (
         <div className={rootClassName} data-cy="SearchBar-root" ref={ref}>
             <div ref={containerRef} className={classes.containerSearchbar}>
-                <Form autoComplete="off" className={classes.form} initialValues={initialValues} onSubmit={handleSubmit}>
                     <div className={classes.autocomplete}>
                         <Autocomplete
                             setVisible={setIsAutoCompleteOpen}
@@ -55,7 +54,6 @@ const SearchBar = React.forwardRef((props, ref) => {
                             })}
                         />
                     </div>
-                </Form>
             </div>
         </div>
     );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { gql } from '@apollo/client';
 import { bool, func, shape, string } from 'prop-types';
 import { useAutocomplete } from '@magento/peregrine/lib/talons/QuickOrderForm/useAutocomplete';
 import { useIntl } from 'react-intl';
@@ -8,81 +7,9 @@ import defaultClasses from './autocomplete.module.css';
 import Suggestions from './suggestions';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
-const GET_AUTOCOMPLETE_RESULTS = gql`
-    query getAutocompleteResults($inputText: String!) {
-        # Limit results to first three.
-        products(search: $inputText, currentPage: 1) {
-            aggregations {
-                label
-                count
-                attribute_code
-                options {
-                    label
-                    value
-                }
-                position
-            }
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
-            items {
-                __typename
-                orParentSku
-                orParentUrlKey
-                stock_status
-                id
-                uid
-                name
-                sku
-                small_image {
-                    url
-                }
-                url_key
-                url_suffix
-                price {
-                    regularPrice {
-                        amount {
-                            value
-                            currency
-                        }
-                    }
-                    minimalPrice {
-                        amount {
-                            currency
-                            value
-                        }
-                    }
-                }
-                custom_attributes {
-                    entered_attribute_value {
-                        value
-                    }
-                    attribute_metadata {
-                        __typename
-                        label
-                    }
-                    selected_attribute_options {
-                        __typename
-                        attribute_option {
-                            label
-                            is_default
-                        }
-                    }
-                }
-            }
-
-            page_info {
-                total_pages
-            }
-            total_count
-        }
-    }
-`;
-
 const Autocomplete = props => {
     const { setVisible, valid, visible, handleSearchClick, value } = props;
     const talonProps = useAutocomplete({
-        queries: {
-            getAutocompleteResults: GET_AUTOCOMPLETE_RESULTS
-        },
         inputText: value,
         valid,
         visible

@@ -9,15 +9,43 @@ import Image from '@magento/venia-ui/lib/components/Image';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import defaultClasses from './itemsTable.module.css';
 import Button from '../../../Button';
-import inStock from '../icons/inStock.svg';
-import outOfStock from '../icons/outOfStock.svg';
-import copyToClipboard from '../icons/copyToClipboard.png';
 import QuantityStepper from '../../../QuantityStepper';
+import NotifyPrice from '../../../ProductsAlert/NotifyPrice';
+import PriceAlert from '../../../ProductsAlert/PriceAlertModal/priceAlert';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import StockAlert from '../../../ProductsAlert/StockAlertModal/stockAlert';
+import NotifyButton from '../../../ProductsAlert/NotifyButton/NotifyButton';
+
+import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
+import { OutStockIcon } from '@magento/venia-ui/lib/assets/outStockIcon';
+import copyToClipboard from '@magento/venia-ui/lib/assets/copyToClipboard.png';
 
 const ItemsTable = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
-    const { simpleProductData, errors, handleAddToCart, aggregations, tempTotalPrice, handleQuantityChange } = props;
+    const {
+        simpleProductData,
+        errors,
+        handleAddToCart,
+        aggregations,
+        tempTotalPrice,
+        handleQuantityChange,
+        isAddConfigurableLoading
+    } = props;
+
+    const productAlertStatus = simpleProductData?.mp_product_alert;
+    const productsAlert = useProductsAlert({ ItemSku: simpleProductData?.sku });
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal,
+        formProps,
+        submitStockAlert,
+        handleSubmitPriceAlert,
+        alertConfig
+    } = productsAlert;
 
     const [copied, setCopied] = useState(false);
 
@@ -53,22 +81,29 @@ const ItemsTable = props => {
     );
 
     const priceTag = (
-        <span className={classes.indexFixed}>
-            <Price
-                currencyCode={simpleProductData.price.regularPrice.amount.currency}
-                value={simpleProductData.price.minimalPrice.amount.value}
-            />
-        </span>
+        <div className={classes.priceContainer}>
+            <span className={classes.indexFixed}>
+                <Price
+                    currencyCode={simpleProductData.price.regularPrice.amount.currency}
+                    value={simpleProductData.price.minimalPrice.amount.value}
+                />
+            </span>
+            {productAlertStatus?.mp_productalerts_price_alert && process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                <div className={classes.notifyPrice}>
+                    <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                </div>
+            )}
+        </div>
     );
 
     const stockStatus =
-        simpleProductData.stock_status === 'IN_STOCK' ? (
+        simpleProductData?.stock_status === 'IN_STOCK' ? (
             <div className={classes.inStockContainer}>
-                <img src={inStock} alt="inStock" />
+                <InStockIcon />
             </div>
         ) : (
             <div className={classes.outStockContainer}>
-                <img src={outOfStock} alt="outOfStock" />
+                <OutStockIcon />
             </div>
         );
 
@@ -78,7 +113,8 @@ const ItemsTable = props => {
             onClick={handleAddToCart}
             disabled={
                 simpleProductData.stock_status === 'OUT_OF_STOCK' ||
-                simpleProductData.price?.minimalPrice?.amount?.value === -1
+                simpleProductData.price?.minimalPrice?.amount?.value === -1 ||
+                isAddConfigurableLoading
             }
         >
             <Icon
@@ -90,7 +126,20 @@ const ItemsTable = props => {
             />
         </Button>
     );
-
+    const stockButton =
+        simpleProductData?.stock_status === 'OUT_OF_STOCK' &&
+        productAlertStatus?.mp_productalerts_stock_notify &&
+        process.env.B2BSTORE_VERSION === 'PREMIUM' ? (
+            <div className={classes.stockBtnWrapper}>
+                <NotifyButton
+                    handleOpendStockModal={handleOpendStockModal}
+                    productStatus={simpleProductData?.stock_status}
+                />
+                {/* {addToCartButton} */}
+            </div>
+        ) : (
+            addToCartButton
+        );
     const lastDigitsOfSku = simpleProductData.sku.substring(simpleProductData.sku.length - 7);
 
     const productItemDesktop = (
@@ -106,8 +155,10 @@ const ItemsTable = props => {
                         </div>
                     ) : (
                         <div className={classes.productSkuContainer}>
-                            <p onClick={copyText}>...{lastDigitsOfSku}</p>
-                            <img src={copyToClipboard} alt="copyToClipboard" onClick={copyText} />
+                            <button onClick={copyText}>
+                                ...{lastDigitsOfSku}
+                                <img src={copyToClipboard} alt="copyToClipboard" />
+                            </button>
                         </div>
                     )}
                 </div>
@@ -140,7 +191,7 @@ const ItemsTable = props => {
                 )}
                 <div className={classes.stockAddContainer}>
                     {stockStatus}
-                    {addToCartButton}
+                    {stockButton}
                 </div>
             </div>
         </div>
@@ -193,16 +244,18 @@ const ItemsTable = props => {
                             </div>
                         </article>
                     )}
-                    <Form className={classes.productItemBodyOperations}>
-                        <QuantityStepper
-                            fieldName={`${simpleProductData.sku}_2`}
-                            classes={{ root: classes.quantityRoot }}
-                            min={1}
-                            onChange={handleQuantityChange}
-                        />
-                    </Form>
-
-                    {addToCartButton}
+                    <div className={classes.productItemOperations}>
+                        <Form className={classes.productItemBodyOperations}>
+                            <QuantityStepper
+                                fieldName={`${simpleProductData.sku}_2`}
+                                classes={{ root: classes.quantityRoot }}
+                                min={1}
+                                onChange={handleQuantityChange}
+                            />
+                        </Form>
+                        <br />
+                        {stockButton}
+                    </div>
                     {error != '' && <p style={{ color: '#f00' }}>{errors.get('quantity')}</p>}
                 </section>
             </div>
@@ -212,6 +265,22 @@ const ItemsTable = props => {
     return (
         <div className={classes.productsTableContainer}>
             {productItemDesktop} {productItemMobile}
+            <PriceAlert
+                isOpen={openPriceModal}
+                formProps={formProps}
+                onConfirm={handleSubmitPriceAlert}
+                onCancel={handleCloseModal}
+                selectedVarient={simpleProductData?.sku}
+                alertConfig={alertConfig?.price_alert}
+            />
+            <StockAlert
+                isOpen={isStockModalOpened}
+                onConfirm={submitStockAlert}
+                onCancel={handleCloseModal}
+                formProps={formProps}
+                selectedVarient={simpleProductData?.sku}
+                alertConfig={alertConfig?.stock_alert}
+            />
         </div>
     );
 };

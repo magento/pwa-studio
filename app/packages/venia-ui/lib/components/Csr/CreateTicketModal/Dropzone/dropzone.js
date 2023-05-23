@@ -10,8 +10,8 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './dropzone.module.css';
 
-import plusIcon from './Icons/plus.svg';
-import closeIcon from './Icons/close.svg';
+import { PlusIcon } from '@magento/venia-ui/lib/assets/plusIcon';
+import closeIcon from '@magento/venia-ui/lib/assets/close.svg';
 
 const MAX_FILE_SIZE = 10000000;
 const MAX_FILES_ACCEPTED = 6;
@@ -138,7 +138,7 @@ const Dropzone = props => {
             <input {...getInputProps({})} />
             {filesUploaded.length === 0 ? (
                 <>
-                    <img src={plusIcon} alt="Add" />
+                    <PlusIcon />
                     <p className={classes.dropzonePlaceholder}>{dragFileText}</p>
                 </>
             ) : (

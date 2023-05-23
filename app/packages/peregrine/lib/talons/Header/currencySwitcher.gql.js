@@ -15,18 +15,15 @@ export const CUSTOM_TYPES = {
              */
             current_currency_code: {
                 read(_, { readField }) {
-                    return (
-                        storage.getItem('store_view_currency') ||
-                        readField('default_display_currency_code')
-                    );
+                    return storage.getItem('store_view_currency') || readField('default_display_currency_code');
                 }
             }
         }
     }
 };
 
-export const GET_CURRENCY = gql`
-    query getCurrencyData {
+export const GET_CURRENCY_DATA = gql`
+    query GetCurrencyData {
         currency {
             current_currency_code @client
             default_display_currency_code
@@ -36,5 +33,5 @@ export const GET_CURRENCY = gql`
 `;
 
 export default {
-    getCurrencyQuery: GET_CURRENCY
+    getCurrencyDataQuery: GET_CURRENCY_DATA
 };

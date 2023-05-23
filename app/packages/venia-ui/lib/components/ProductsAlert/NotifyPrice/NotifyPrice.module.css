@@ -1,0 +1,16 @@
+.root {
+    outline: none;
+}
+
+.textButton {
+    color: var(--b2bstore-global-color-orange);
+    margin-top: 2rem;
+}
+.textButton:hover {
+    text-decoration: underline var(--b2bstore-global-color-orange) 2px;
+}
+
+.iconContainer {
+    margin-left: 5px;
+    cursor: pointer;
+}

@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 
 import Dialog from '../../Dialog';
 import Dropzone from '../CreateTicketModal/Dropzone/dropzone';
-import notFoundImage from '../CreateTicketModal/Icons/notFound.svg';
+import notFoundIcon from '@magento/venia-ui/lib/assets/notFound.svg';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import Select from '@magento/venia-ui/lib/components/Select';
 import TextArea from '@magento/venia-ui/lib/components/TextArea';
@@ -88,7 +88,7 @@ const OrderIncidencesModal = props => {
         return (
             <div className={classes.orderItemContainer}>
                 <img
-                    src={Object.values(imagesData)[0]?.thumbnail?.url || notFoundImage}
+                    src={Object.values(imagesData)[0]?.thumbnail?.url || notFoundIcon}
                     className={classes.orderItemImage}
                     alt="Order product"
                 />

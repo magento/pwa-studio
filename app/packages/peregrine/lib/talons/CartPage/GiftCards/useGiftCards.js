@@ -40,8 +40,8 @@ export const useGiftCards = props => {
     const {
         getAppliedGiftCardsQuery,
         getGiftCardBalanceQuery,
-        applyGiftCardMutation,
-        removeGiftCardMutation
+        applyGiftCardToCartMutation,
+        removeGiftCardFromCartMutation
     } = operations;
 
     const { setIsCartUpdating } = props;
@@ -63,17 +63,14 @@ export const useGiftCards = props => {
         variables: { cartId }
     });
 
-    const [checkCardBalance, balanceResult] = useLazyQuery(
-        getGiftCardBalanceQuery,
-        {
-            // For security, always fetch this from the network and never cache the
-            // result.
-            fetchPolicy: 'no-cache'
-        }
-    );
+    const [checkCardBalance, balanceResult] = useLazyQuery(getGiftCardBalanceQuery, {
+        // For security, always fetch this from the network and never cache the
+        // result.
+        fetchPolicy: 'no-cache'
+    });
 
-    const [applyCard, applyCardResult] = useMutation(applyGiftCardMutation);
-    const [removeCard, removeCardResult] = useMutation(removeGiftCardMutation);
+    const [applyCard, applyCardResult] = useMutation(applyGiftCardToCartMutation);
+    const [removeCard, removeCardResult] = useMutation(removeGiftCardFromCartMutation);
 
     /*
      *  useState hooks.
@@ -127,31 +124,17 @@ export const useGiftCards = props => {
         [cartId, removeCard]
     );
 
-    const {
-        called: applyCardCalled,
-        loading: applyCardLoading
-    } = applyCardResult;
-    const {
-        called: removeCardCalled,
-        loading: removeCardLoading
-    } = removeCardResult;
+    const { called: applyCardCalled, loading: applyCardLoading } = applyCardResult;
+    const { called: removeCardCalled, loading: removeCardLoading } = removeCardResult;
 
     useEffect(() => {
         if (applyCardCalled || removeCardCalled) {
             // If a gift card mutation is in flight, tell the cart.
             setIsCartUpdating(applyCardLoading || removeCardLoading);
         }
-    }, [
-        applyCardCalled,
-        applyCardLoading,
-        removeCardCalled,
-        removeCardLoading,
-        setIsCartUpdating
-    ]);
+    }, [applyCardCalled, applyCardLoading, removeCardCalled, removeCardLoading, setIsCartUpdating]);
 
-    const shouldDisplayCardBalance =
-        mostRecentAction === actions.CHECK_BALANCE &&
-        Boolean(balanceResult.data);
+    const shouldDisplayCardBalance = mostRecentAction === actions.CHECK_BALANCE && Boolean(balanceResult.data);
 
     // We should only display the last card error if the most recent action was apply or check and they had an error
     const shouldDisplayCardError =
@@ -160,15 +143,11 @@ export const useGiftCards = props => {
 
     return {
         applyGiftCard,
-        checkBalanceData:
-            balanceResult.data && balanceResult.data.giftCardAccount,
+        checkBalanceData: balanceResult.data && balanceResult.data.giftCardAccount,
         checkGiftCardBalance,
         errorLoadingGiftCards: Boolean(appliedCardsResult.error),
         errorRemovingCard: Boolean(removeCardResult.error),
-        giftCardsData:
-            (appliedCardsResult.data &&
-                appliedCardsResult.data.cart.applied_gift_cards) ||
-            [],
+        giftCardsData: (appliedCardsResult.data && appliedCardsResult.data.cart.applied_gift_cards) || [],
         isLoadingGiftCards: appliedCardsResult.loading,
         isApplyingCard: applyCardLoading,
         isCheckingBalance: balanceResult.loading,
@@ -186,8 +165,8 @@ export const useGiftCards = props => {
  *
  * @typedef {Object} GiftCardsMutations
  *
- * @property {GraphQLAST} applyGiftCardMutation The mutation used to apply a gift card to the cart.
- * @property {GraphQLAST} removeGiftCardMutation The mutation used to remove a gift card from the cart.
+ * @property {GraphQLAST} applyGiftCardToCartMutation The mutation used to apply a gift card to the cart.
+ * @property {GraphQLAST} removeGiftCardFromCartMutation The mutation used to remove a gift card from the cart.
  *
  * @see [`giftCardQueries.ee.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/CartPage/GiftCards/giftCardQueries.gql.ee.js}
  * for queries used in Venia

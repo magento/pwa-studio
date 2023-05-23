@@ -3,6 +3,9 @@ import { useMutation } from '@apollo/client';
 
 import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha';
 
+import DEFAULT_OPERATIONS from './forgotPassword.gql';
+import mergeOperations from '../../util/shallowMerge';
+
 /**
  * Returns props necessary to render a ForgotPassword form.
  *
@@ -17,21 +20,19 @@ import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCapt
  * import { useForgotPassword } from '@magento/peregrine/lib/talons/ForgotPassword/useForgotPassword.js';
  */
 export const useForgotPassword = props => {
-    const { onCancel, mutations } = props;
+    const { onCancel } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { requestPasswordResetEmailMutation } = operations;
 
     const [hasCompleted, setCompleted] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState(null);
 
-    const [
-        requestResetEmail,
-        { error: requestResetEmailError, loading: isResettingPassword }
-    ] = useMutation(mutations.requestPasswordResetEmailMutation);
+    const [requestResetEmail, { error: requestResetEmailError, loading: isResettingPassword }] = useMutation(
+        requestPasswordResetEmailMutation
+    );
 
-    const {
-        recaptchaLoading,
-        generateReCaptchaData,
-        recaptchaWidgetProps
-    } = useGoogleReCaptcha({
+    const { recaptchaLoading, generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
         currentForm: 'CUSTOMER_FORGOT_PASSWORD',
         formAction: 'forgotPassword'
     });

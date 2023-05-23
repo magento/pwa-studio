@@ -7,22 +7,12 @@ import { useStyle } from '../../classify';
 import Field from '../Field';
 import Select from '../Select';
 import defaultClasses from './country.module.css';
-import { GET_COUNTRIES_QUERY } from './country.gql';
 
 const Country = props => {
-    const talonProps = useCountry({
-        queries: {
-            getCountriesQuery: GET_COUNTRIES_QUERY
-        }
-    });
+    const talonProps = useCountry();
     const { countries, loading } = talonProps;
-    const {
-        classes: propClasses,
-        field,
-        label,
-        translationId,
-        ...inputProps
-    } = props;
+
+    const { classes: propClasses, field, label, translationId, ...inputProps } = props;
     const { formatMessage } = useIntl();
 
     const classes = useStyle(defaultClasses, propClasses);

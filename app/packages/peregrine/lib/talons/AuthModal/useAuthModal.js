@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useUserContext } from '../../context/user';
-import DEFAULT_OPERATIONS from './authModal.gql';
+import DEFAULT_OPERATIONS from '../Header/accountMenu.gql';
 import { useEventingContext } from '../../context/eventing';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
@@ -34,15 +34,7 @@ const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
  * }}
  */
 export const useAuthModal = props => {
-    const {
-        closeDrawer,
-        showCreateAccount,
-        showForgotPassword,
-        showMainMenu,
-        showMyAccount,
-        showSignIn,
-        view
-    } = props;
+    const { closeDrawer, showCreateAccount, showForgotPassword, showMainMenu, showMyAccount, showSignIn, view } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { signOutMutation } = operations;

@@ -6,9 +6,9 @@ import Dialog from '../../../ConfirmationDialog';
 
 import defaultClasses from './legendModal.module.css';
 
-import supportIcon from '../Icons/supportIcon.svg';
-import enhancementIcon from '../Icons/enhancementIcon.svg';
-import orderIcon from '../Icons/orderIcon.svg';
+import supportIcon from '@magento/venia-ui/lib/assets/supportIcon.svg';
+import enhancementIcon from '@magento/venia-ui/lib/assets/enhancementIcon.svg';
+import orderIcon from '@magento/venia-ui/lib/assets/orderIcon.svg';
 
 const LegendModal = props => {
     const { isOpen, onConfirm } = props;

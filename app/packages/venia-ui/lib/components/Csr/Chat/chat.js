@@ -19,12 +19,12 @@ import { useChat } from '@magento/peregrine/lib/talons/Csr/useChat';
 
 import defaultClasses from './chat.module.css';
 
-import emptyAttachmentsIcon from '../../Lms/CoursesCatalog/Icons/noCourses.svg';
-import doubleCheckUnread from './Icons/doubleCheckUnread.svg';
-import doubleCkeckRead from './Icons/doubleCheckRead.svg';
-import optionsIcon from './Icons/optionsIcon.svg';
-import sendCommentIcon from './Icons/sendCommentIcon.svg';
-import closeIcon from './Icons/close.svg';
+import { EmptyIcon } from '@magento/venia-ui/lib/assets/emptyIcon';
+import doubleCheckUnread from '@magento/venia-ui/lib/assets/doubleCheckUnread.svg';
+import doubleCkeckRead from '@magento/venia-ui/lib/assets/doubleCheckRead.svg';
+import optionsIcon from '@magento/venia-ui/lib/assets/optionsIcon.svg';
+import sendCommentIcon from '@magento/venia-ui/lib/assets/sendCommentIcon.svg';
+import closeIcon from '@magento/venia-ui/lib/assets/close.svg';
 import { Smile as EmojiPickerIcon } from 'react-feather';
 
 import EmojiPicker, { Categories } from 'emoji-picker-react';
@@ -174,7 +174,9 @@ const Chat = props => {
     const showEmptyAttachmentsMessage = () => {
         return (
             <div className={classes.emptyAttachmentsContainer}>
-                <img className={classes.emptyAttachmentsIcon} src={emptyAttachmentsIcon} alt="Empty attachments icon" />
+                <div className={classes.emptyAttachmentsIcon} >
+                    <EmptyIcon />
+                </div>
                 <p className={classes.emptyAttachmentsText}>{emptyAttachmentsText}</p>
             </div>
         );

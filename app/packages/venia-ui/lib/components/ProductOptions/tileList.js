@@ -24,9 +24,7 @@ const TileList = props => {
                 let isOptionOutOfStock;
                 if (outOfStockVariants && outOfStockVariants.length > 0) {
                     const flatOutOfStockArray = outOfStockVariants.flat();
-                    isOptionOutOfStock = flatOutOfStockArray.includes(
-                        item.value_index
-                    );
+                    isOptionOutOfStock = flatOutOfStockArray.includes(item.value_index);
                 }
 
                 return (
@@ -40,14 +38,7 @@ const TileList = props => {
                     />
                 );
             }),
-        [
-            getItemKey,
-            selectedValue.label,
-            items,
-            onSelectionChange,
-            isEverythingOutOfStock,
-            outOfStockVariants
-        ]
+        [getItemKey, selectedValue.label, items, onSelectionChange, isEverythingOutOfStock, outOfStockVariants]
     );
 
     return <div className={classes.root}>{tiles}</div>;

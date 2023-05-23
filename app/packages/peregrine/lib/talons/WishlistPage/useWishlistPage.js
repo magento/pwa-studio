@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-import defaultOperations from './wishlistPage.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from '../Wishlist/wishlist.gql';
 
 /**
  * @function
@@ -12,12 +12,12 @@ import defaultOperations from './wishlistPage.gql';
  * @returns {WishlistPageProps}
  */
 export const useWishlistPage = (props = {}) => {
-    const operations = mergeOperations(defaultOperations, props.operations);
-    const { getCustomerWishlistQuery } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getWishlistsQuery } = operations;
 
     const [{ isSignedIn }] = useUserContext();
 
-    const { data, error, loading } = useQuery(getCustomerWishlistQuery, {
+    const { data, error, loading } = useQuery(getWishlistsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !isSignedIn
@@ -28,7 +28,7 @@ export const useWishlistPage = (props = {}) => {
     }, [data]);
 
     const errors = useMemo(() => {
-        return new Map([['getCustomerWishlistQuery', error]]);
+        return new Map([['getWishlistsQuery', error]]);
     }, [error]);
 
     return {
@@ -48,7 +48,7 @@ export const useWishlistPage = (props = {}) => {
  *
  * @typedef {Object} WishlistQueries
  *
- * @property {GraphQLDocument} getCustomerWishlistQuery Query to get customer wish lists
+ * @property {GraphQLDocument} getWishlistsQuery Query to get customer wish lists
  *
  * @see [`wishlistPage.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistPage.gql.js}
  * for queries used in Venia

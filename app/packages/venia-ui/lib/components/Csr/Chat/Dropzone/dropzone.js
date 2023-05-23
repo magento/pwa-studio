@@ -10,7 +10,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './dropzone.module.css';
 
-import attachFilesIcon from './Icons/attachFiles.svg';
+import attachFilesIcon from '@magento/venia-ui/lib/assets/attachFiles.svg';
 
 const MAX_FILE_SIZE = 10000000;
 const MAX_FILES_ACCEPTED = 6;

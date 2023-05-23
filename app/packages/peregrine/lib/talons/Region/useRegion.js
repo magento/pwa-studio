@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { useQuery } from '@apollo/client';
 import { useFieldApi } from 'informed';
+import { useQuery } from '@apollo/client';
+
 import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
+
+import DEFAULT_OPERATIONS from './region.gql';
+import mergeOperations from '../../util/shallowMerge';
 
 /**
  * The useRegion talon handles logic for:
@@ -14,17 +18,18 @@ import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInforme
  * @param {string} props.fieldInput - the reference field path for free form text input Defaults to "region".
  * @param {string} props.fieldSelect - the reference field path for selectable list of regions. Defaults to "region".
  * @param {string} props.optionValueKey - the key used to get the value for the field. Defaults to "code"
- * @param {GraphQLAST} props.queries.getRegionsQuery - query to fetch regions for a country.
  *
  * @return {RegionTalonProps}
  */
 export const useRegion = props => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getRegionsQuery } = operations;
+
     const {
         countryCodeField = 'country',
         fieldInput = 'region',
         fieldSelect = 'region',
-        optionValueKey = 'code',
-        queries: { getRegionsQuery }
+        optionValueKey = 'code'
     } = props;
 
     const hasInitialized = useRef(false);
@@ -46,8 +51,7 @@ export const useRegion = props => {
         if (country && !loading) {
             if (hasInitialized.current) {
                 regionInputFieldApi.exists() && regionInputFieldApi.setValue();
-                regionSelectFieldApi.exists() &&
-                    regionSelectFieldApi.setValue();
+                regionSelectFieldApi.exists() && regionSelectFieldApi.setValue();
             } else {
                 hasInitialized.current = true;
             }

@@ -38,7 +38,6 @@
 .indexMobileName,
 .indexMobileSku {
     text-align: center;
-    width: 100%;
 }
 
 .inStock,
@@ -49,11 +48,11 @@
 }
 
 .inStock {
-    background-color: green;
+    background-color: var(--b2bstore-inStockIcon-color);
 }
 
 .outStock {
-    background-color: red;
+    background-color: var(--b2bstore-outStockIcon-color);
 }
 
 .stockStatusContainer {
@@ -70,7 +69,6 @@
 .totalPriceContainer {
     display: flex;
     margin-bottom: 5px;
-    width: 100%;
 }
 
 .totalWrapper {
@@ -81,6 +79,8 @@
     text-align: center;
     width: 100%;
     margin-bottom: -26px;
+    display: flex;
+    justify-content: center;
 }
 
 .indexFixedCategory {
@@ -112,6 +112,10 @@
     font-weight: bold;
 }
 
+.productSkuContainer button {
+    display: flex;
+}
+
 .copiedText {
     color: var(--b2bstore-global-color-orange);
     font-weight: bold;
@@ -140,11 +144,17 @@
         margin-bottom: 0px;
     }
 }
+.priceContainer {
+    display: flex;
+}
 
 /* Tablet */
-@media (max-device-width: 980px) {
+@media (max-width: 980px) {
     .productItemContainerDesktop {
         display: none;
+    }
+    .notifyPrice {
+        text-align: center;
     }
 
     .productItemContainerMobile {
@@ -157,7 +167,7 @@
     }
 }
 
-@media (max-device-width: 580px) {
+@media (max-width: 580px) {
     .productItemContainerDesktop {
         display: none;
     }
@@ -184,6 +194,7 @@
     display: flex;
     flex-direction: row;
     border-bottom: solid rgb(var(--venia-global-color-border));
+    gap: .5rem;
 }
 
 .productItemHeaderTextMobile {
@@ -199,7 +210,6 @@
     align-content: center;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
 }
 
 .productItemBodyInformation {
@@ -242,6 +252,8 @@
     padding: 10px 0px 0px 0px;
     gap: 5px;
     width: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .stockAddContainer {
@@ -255,4 +267,26 @@
 
 .totalPriceContainer div {
     width: max-content;
+}
+
+.productItemOperations{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.priceContainer div{
+    display: flex;
+    align-items: center;
+}
+
+.stockBtnWrapper button {
+    font-size: 14px;
+    width: 5rem;
+    height: 40px;
+    min-width: 5rem;
 }

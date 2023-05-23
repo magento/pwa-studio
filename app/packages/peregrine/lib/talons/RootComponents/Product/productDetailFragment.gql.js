@@ -2,8 +2,36 @@ import { gql } from '@apollo/client';
 
 export const ProductDetailsFragment = gql`
     fragment ProductDetailsFragment on ProductInterface {
+        mp_attachments {
+            file_icon
+            file_label
+            file_name
+            file_size
+            group {
+                name
+                position
+                value
+            }
+            note
+            url_file
+            __typename
+        }
         __typename
+        mp_product_alert {
+            mp_productalerts_price_alert
+            mp_productalerts_stock_notify
+        }
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
+        mp_pickup_locations {
+            productStock
+            locationsData {
+                name
+                city
+                country
+                street
+                state_province
+            }
+        }
         categories {
             uid
             breadcrumbs {
@@ -18,7 +46,6 @@ export const ProductDetailsFragment = gql`
         }
         id
         uid
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         media_gallery_entries {
             uid
             label
@@ -42,7 +69,6 @@ export const ProductDetailsFragment = gql`
                 }
             }
         }
-
         price_range {
             maximum_price {
                 final_price {
@@ -89,13 +115,11 @@ export const ProductDetailsFragment = gql`
             }
         }
         ... on ConfigurableProduct {
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             configurable_options {
                 attribute_code
                 attribute_id
                 uid
                 label
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 values {
                     uid
                     default_label
@@ -116,10 +140,13 @@ export const ProductDetailsFragment = gql`
                     code
                     value_index
                 }
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 product {
                     uid
                     name
+                    mp_product_alert {
+                        mp_productalerts_price_alert
+                        mp_productalerts_stock_notify
+                    }
                     # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     media_gallery_entries {
                         uid

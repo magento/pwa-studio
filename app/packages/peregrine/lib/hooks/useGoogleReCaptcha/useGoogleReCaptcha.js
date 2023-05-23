@@ -25,22 +25,18 @@ const GOOGLE_RECAPTCHA_URL = 'https://www.google.com/recaptcha/api.js';
  */
 export const useGoogleReCaptcha = props => {
     const operations = mergeOperations(defaultOperations, props.operations);
+    const { getReCaptchaV3ConfigQuery } = operations;
+
     const { currentForm, formAction } = props;
 
-    const {
-        data: configData,
-        error: configError,
-        loading: configLoading
-    } = useQuery(operations.getReCaptchaV3ConfigQuery, {
+    const { data: configData, error: configError, loading: configLoading } = useQuery(getReCaptchaV3ConfigQuery, {
         fetchPolicy: 'cache-and-network'
     });
 
     if (!globalThis['recaptchaCallbacks']) {
         globalThis['recaptchaCallbacks'] = {};
     }
-    const [apiIsReady, setApiIsReady] = useState(
-        globalThis.hasOwnProperty('grecaptcha')
-    );
+    const [apiIsReady, setApiIsReady] = useState(globalThis.hasOwnProperty('grecaptcha'));
     const [isGenerating, setIsGenerating] = useState(false);
     const [widgetId, setWidgetId] = useState(null);
 
@@ -55,18 +51,14 @@ export const useGoogleReCaptcha = props => {
     }, []);
 
     const recaptchaBadge =
-        configData?.recaptchaV3Config?.badge_position &&
-        configData.recaptchaV3Config.badge_position.length > 0
+        configData?.recaptchaV3Config?.badge_position && configData.recaptchaV3Config.badge_position.length > 0
             ? configData.recaptchaV3Config.badge_position
             : 'bottomright';
     const recaptchaKey = configData?.recaptchaV3Config?.website_key;
     const recaptchaLang = configData?.recaptchaV3Config?.language_code;
     const activeForms = configData?.recaptchaV3Config?.forms || [];
     const isEnabled =
-        !(configError instanceof Error) &&
-        recaptchaKey &&
-        recaptchaKey.length > 0 &&
-        activeForms.includes(currentForm);
+        !(configError instanceof Error) && recaptchaKey && recaptchaKey.length > 0 && activeForms.includes(currentForm);
 
     // Determine which type of badge should be loaded
     const isInline = recaptchaBadge === 'inline';
@@ -77,10 +69,7 @@ export const useGoogleReCaptcha = props => {
     scriptUrl.searchParams.append('badge', recaptchaBadge);
 
     // Render separate widgets with GoogleReCaptcha component when inline
-    scriptUrl.searchParams.append(
-        'render',
-        isInline ? 'explicit' : recaptchaKey
-    );
+    scriptUrl.searchParams.append('render', isInline ? 'explicit' : recaptchaKey);
     scriptUrl.searchParams.append('onload', 'onloadRecaptchaCallback');
 
     if (recaptchaLang && recaptchaLang.length > 0) {
@@ -92,18 +81,12 @@ export const useGoogleReCaptcha = props => {
     const status = useScript(!apiIsReady && isEnabled ? scriptUrl : null);
 
     // Wait for config to be loaded and script to be ready
-    const isLoading =
-        configLoading || (isEnabled && !apiIsReady && status !== 'ready');
+    const isLoading = configLoading || (isEnabled && !apiIsReady && status !== 'ready');
 
     // Render inline widget manually
     useEffect(() => {
         // Only render if container is set and API is available
-        if (
-            inlineContainer !== null &&
-            isInline &&
-            apiIsReady &&
-            widgetId === null
-        ) {
+        if (inlineContainer !== null && isInline && apiIsReady && widgetId === null) {
             // Avoid loading twice if already rendered
             if ('widgetId' in inlineContainer.dataset) {
                 setWidgetId(inlineContainer.dataset.widgetId);
@@ -124,9 +107,7 @@ export const useGoogleReCaptcha = props => {
         globalThis['recaptchaCallbacks'][formAction] = () => {
             // Update non inline styles
             if (!isInline) {
-                const floatingBadge = document.getElementsByClassName(
-                    'grecaptcha-badge'
-                );
+                const floatingBadge = document.getElementsByClassName('grecaptcha-badge');
 
                 if (floatingBadge && floatingBadge.length > 0) {
                     floatingBadge[0].style.zIndex = 999;
@@ -152,12 +133,9 @@ export const useGoogleReCaptcha = props => {
             try {
                 setIsGenerating(true);
 
-                const token = await globalThis.grecaptcha.execute(
-                    isInline ? widgetId : recaptchaKey,
-                    {
-                        action: formAction
-                    }
-                );
+                const token = await globalThis.grecaptcha.execute(isInline ? widgetId : recaptchaKey, {
+                    action: formAction
+                });
 
                 const result = {
                     // TODO: Use Apollo Link middleware when solution is found

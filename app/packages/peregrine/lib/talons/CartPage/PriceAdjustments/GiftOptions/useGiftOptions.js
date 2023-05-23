@@ -3,10 +3,10 @@ import { useMutation, useQuery } from '@apollo/client';
 import debounce from 'lodash.debounce';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
 import DEFAULT_OPERATIONS from './giftOptions.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
  * This talon contains the logic for a gift options component.
@@ -29,19 +29,12 @@ import DEFAULT_OPERATIONS from './giftOptions.gql';
  */
 export const useGiftOptions = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { setGiftOptionsOnCartMutation, getGiftOptionsQuery } = operations;
+    const { getGiftOptionsQuery, setGiftOptionsOnCartMutation } = operations;
 
     const [{ cartId }] = useCartContext();
 
-    const [
-        setGiftOptionsOnCart,
-        { error: setGiftOptionsOnCartError }
-    ] = useMutation(setGiftOptionsOnCartMutation);
-    const {
-        data: getGiftOptionsData,
-        error: getGiftOptionsError,
-        loading
-    } = useQuery(getGiftOptionsQuery, {
+    const [setGiftOptionsOnCart, { error: setGiftOptionsOnCartError }] = useMutation(setGiftOptionsOnCartMutation);
+    const { data: getGiftOptionsData, error: getGiftOptionsError, loading } = useQuery(getGiftOptionsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !cartId,
@@ -83,11 +76,7 @@ export const useGiftOptions = (props = {}) => {
             cardTo: cart?.gift_message?.to || '',
             cardMessage: cart?.gift_message?.message || ''
         }),
-        [
-            cart?.gift_message?.from,
-            cart?.gift_message?.message,
-            cart?.gift_message?.to
-        ]
+        [cart?.gift_message?.from, cart?.gift_message?.message, cart?.gift_message?.to]
     );
 
     const printedCardPrice = cart?.prices?.gift_options?.printed_card || {};
@@ -107,12 +96,8 @@ export const useGiftOptions = (props = {}) => {
                 await setGiftOptionsOnCart({
                     variables: {
                         cartId,
-                        giftReceiptIncluded: formApi.getValue(
-                            'includeGiftReceipt'
-                        ),
-                        printedCardIncluded: formApi.getValue(
-                            'includePrintedCard'
-                        )
+                        giftReceiptIncluded: formApi.getValue('includeGiftReceipt'),
+                        printedCardIncluded: formApi.getValue('includePrintedCard')
                     }
                 });
 
@@ -153,12 +138,8 @@ export const useGiftOptions = (props = {}) => {
                             message: ''
                         },
                         // Mutation requires both options to be provided
-                        giftReceiptIncluded: formApi.getValue(
-                            'includeGiftReceipt'
-                        ),
-                        printedCardIncluded: formApi.getValue(
-                            'includePrintedCard'
-                        )
+                        giftReceiptIncluded: formApi.getValue('includeGiftReceipt'),
+                        printedCardIncluded: formApi.getValue('includePrintedCard')
                     }
                 });
 
@@ -190,12 +171,8 @@ export const useGiftOptions = (props = {}) => {
                                 message: formApi.getValue('cardMessage')
                             },
                             // Mutation requires both options to be provided
-                            giftReceiptIncluded: formApi.getValue(
-                                'includeGiftReceipt'
-                            ),
-                            printedCardIncluded: formApi.getValue(
-                                'includePrintedCard'
-                            )
+                            giftReceiptIncluded: formApi.getValue('includeGiftReceipt'),
+                            printedCardIncluded: formApi.getValue('includePrintedCard')
                         }
                     });
 
@@ -265,22 +242,19 @@ export const useGiftOptions = (props = {}) => {
     };
 
     const cardToProps = {
-        disabled:
-            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
+        disabled: !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         field: 'cardTo',
         validate: isRequired
     };
 
     const cardFromProps = {
-        disabled:
-            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
+        disabled: !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         field: 'cardFrom',
         validate: isRequired
     };
 
     const cardMessageProps = {
-        disabled:
-            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
+        disabled: !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         field: 'cardMessage',
         validate: isRequired
     };
@@ -291,24 +265,21 @@ export const useGiftOptions = (props = {}) => {
     };
 
     const editGiftMessageButtonProps = {
-        disabled:
-            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
+        disabled: !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         priority: 'normal',
         type: 'button',
         onClick: handleToggleGiftMessageResult
     };
 
     const cancelGiftMessageButtonProps = {
-        disabled:
-            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
+        disabled: !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         priority: 'low',
         type: 'button',
         onClick: handleToggleGiftMessageResult
     };
 
     const saveGiftMessageButtonProps = {
-        disabled:
-            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
+        disabled: !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         priority: 'normal',
         type: 'button',
         onClick: handleUpdateGiftMessage

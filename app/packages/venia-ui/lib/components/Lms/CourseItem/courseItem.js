@@ -10,8 +10,8 @@ import { useCourseItem } from '@magento/peregrine/lib/talons/Lms/useCourseItem';
 
 import defaultClasses from './courseItem.module.css';
 
-import noImageAvailable from './Icons/noImageAvailable.svg';
-import lockIcon from './Icons/lock.svg';
+import noImageAvailable from '@magento/venia-ui/lib/assets/noImageAvailable.svg';
+import { LockIcon } from '@magento/venia-ui/lib/assets/lockIcon';
 
 const CourseItem = props => {
     const { data, isProgressCourse, isProgressTab } = props;
@@ -111,7 +111,9 @@ const CourseItem = props => {
                             )
                         ) : (
                             <>
-                                <img src={lockIcon} className={classes.iconStyle} alt="Lock icon" />
+                                <div className={classes.iconStyle}>
+                                    <LockIcon />
+                                </div>
                                 {signInFirstText}
                             </>
                         )}

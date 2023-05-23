@@ -16,7 +16,7 @@ import { Portal } from '../Portal';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import QuickOrderForm from '../QuickOrderForm';
 import useCompareProduct from '@magento/peregrine/lib/talons/ComparePage/useCompareProduct';
-import CompareIcon from '../Header/icons/compare.svg';
+import CompareIcon from '../../assets/compare.svg';
 const AuthModal = React.lazy(() => import('../AuthModal'));
 
 const Navigation = props => {
@@ -65,7 +65,7 @@ const Navigation = props => {
     ) : null;
 
     return (
-        <Portal >
+        <Portal>
             {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
             <FocusScope contain={isOpen} restoreFocus autoFocus>
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}

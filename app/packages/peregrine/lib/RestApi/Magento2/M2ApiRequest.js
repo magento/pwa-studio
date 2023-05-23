@@ -22,10 +22,7 @@ const withDefaultHeaders = headerAdditions => {
                 });
                 /* istanbul ignore next: should never happen, trivial to test*/
             } else {
-                console.warn(
-                    'Could not use headers object supplied to M2ApiRequest',
-                    headerAdditions
-                );
+                console.warn('Could not use headers object supplied to M2ApiRequest', headerAdditions);
             }
         } else {
             for (const [name, value] of Object.entries(headerAdditions)) {
@@ -66,7 +63,8 @@ class M2ApiRequest {
             headers: withDefaultHeaders(
                 new Headers({
                     authorization: signin_token ? `Bearer ${signin_token}` : '',
-                    'api-authorization': signin_token ? signin_token : ''
+                    'api-authorization': signin_token ? signin_token : '',
+                    ...opts.headers
                 })
             )
         };
@@ -92,9 +90,7 @@ class M2ApiRequest {
      */
     getResponse() {
         if (!this._promise) {
-            throw new Error(
-                'M2ApiRequest#getResponse() called before M2ApiRequest#run(), so no promise exists yet'
-            );
+            throw new Error('M2ApiRequest#getResponse() called before M2ApiRequest#run(), so no promise exists yet');
         }
         if (this._isMulticastable()) {
             return this._promise.then(res => res.clone());

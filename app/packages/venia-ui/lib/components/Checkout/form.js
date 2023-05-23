@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
-import { gql } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { useToasts } from '@magento/peregrine';
@@ -29,7 +28,7 @@ const Form = props => {
     const [, { addToast }] = useToasts();
     const [editing, setEditing] = useState(null);
 
-    const talonProps = useForm({ countriesQuery: GET_ALL_COUNTRIES });
+    const talonProps = useForm();
     const { countries, hasError, isLoading } = talonProps;
 
     useEffect(() => {
@@ -48,12 +47,7 @@ const Form = props => {
     if (isLoading) return loadingIndicator;
 
     const child = editing ? (
-        <EditableForm
-            countries={countries}
-            editing={editing}
-            setEditing={setEditing}
-            {...props}
-        />
+        <EditableForm countries={countries} editing={editing} setEditing={setEditing} {...props} />
     ) : (
         <Overview classes={classes} {...props} setEditing={setEditing} />
     );
@@ -69,16 +63,3 @@ Form.propTypes = {
 };
 
 export default Form;
-
-const GET_ALL_COUNTRIES = gql`
-    query getAllCountries {
-        countries {
-            available_regions {
-                code
-                id
-                name
-            }
-            id
-        }
-    }
-`;

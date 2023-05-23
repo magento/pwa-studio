@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { PriceSummaryFragment } from './priceSummaryFragments.gql';
 
 const GET_PRICE_SUMMARY = gql`
-    query getPriceSummary($cartId: String!) {
+    query GetPriceSummary($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             ...PriceSummaryFragment

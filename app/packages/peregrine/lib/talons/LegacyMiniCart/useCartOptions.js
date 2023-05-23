@@ -7,6 +7,9 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '../../util/appendOptionsToPayload';
 import { isProductConfigurable } from '../../util/isProductConfigurable';
 
+import DEFAULT_OPERATIONS from '../CartPage/cartPage.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 const isItemMissingOptions = (cartItem, configItem, numSelections) => {
     // Non-configurable products can't be missing options
     if (cartItem.product_type !== 'configurable') {
@@ -27,18 +30,13 @@ export const useCartOptions = props => {
         addSimpleProductToCartMutation,
         cartItem,
         configItem,
-        createCartMutation,
-        endEditItem,
-        getCartDetailsQuery,
-        removeItemMutation,
-        updateItemMutation
+        endEditItem
     } = props;
 
-    const {
-        configurable_options: cartItemOptions,
-        product,
-        quantity: qty
-    } = cartItem;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { createCartMutation, getCartDetailsQuery, removeItemFromCartMutation, updateCartItemsMutation } = operations;
+
+    const { configurable_options: cartItemOptions, product, quantity: qty } = cartItem;
     const { name, price } = product;
     const { regularPrice } = price;
     const { amount } = regularPrice;
@@ -46,15 +44,11 @@ export const useCartOptions = props => {
 
     const [, { updateItemInCart }] = useCartContext();
 
-    const [addConfigurableProductToCart] = useMutation(
-        addConfigurableProductToCartMutation
-    );
-    const [addSimpleProductToCart] = useMutation(
-        addSimpleProductToCartMutation
-    );
+    const [addConfigurableProductToCart] = useMutation(addConfigurableProductToCartMutation);
+    const [addSimpleProductToCart] = useMutation(addSimpleProductToCartMutation);
     const [fetchCartId] = useMutation(createCartMutation);
-    const [removeItem] = useMutation(removeItemMutation);
-    const [updateItem] = useMutation(updateItemMutation);
+    const [removeItem] = useMutation(removeItemFromCartMutation);
+    const [updateItem] = useMutation(updateCartItemsMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const initialOptionSelections = useMemo(() => {
@@ -69,9 +63,7 @@ export const useCartOptions = props => {
         return result;
     }, [cartItemOptions]);
 
-    const [optionSelections, setOptionSelections] = useState(
-        initialOptionSelections
-    );
+    const [optionSelections, setOptionSelections] = useState(initialOptionSelections);
 
     const [quantity, setQuantity] = useState(initialQuantity);
 
@@ -147,11 +139,7 @@ export const useCartOptions = props => {
         [setQuantity]
     );
 
-    const isMissingOptions = isItemMissingOptions(
-        cartItem,
-        configItem,
-        optionSelections.size
-    );
+    const isMissingOptions = isItemMissingOptions(cartItem, configItem, optionSelections.size);
 
     const optionsChanged = useMemo(() => {
         for (const [key, val] of initialOptionSelections) {

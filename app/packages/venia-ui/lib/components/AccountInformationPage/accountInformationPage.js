@@ -11,7 +11,6 @@ import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 import defaultClasses from './accountInformationPage.module.css';
-import AccountInformationPageOperations from './accountInformationPage.gql.js';
 
 import Icon from '../Icon';
 import LinkButton from '../LinkButton';
@@ -43,7 +42,6 @@ const AccountInformationPage = props => {
     //
 
     const talonProps = useAccountInformationPage({
-        ...AccountInformationPageOperations,
         afterSubmit
     });
 

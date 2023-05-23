@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-no-literals */
 import React, { Fragment, useState, Suspense, useEffect, useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
@@ -14,17 +15,34 @@ import CmsBlock from '../../CmsBlock/block';
 import { useCmsBlock } from '@magento/peregrine/lib/hooks/useCmsBlocks';
 
 const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+import { AlertTriangle, Eye } from 'react-feather';
+import { useToasts } from '@magento/peregrine';
 
-import gql from 'graphql-tag';
+const previewIcon = <Icon src={Eye} size={20} />;
+const OfflineIcon = <Icon src={AlertTriangle} attrs={{ width: 18 }} />;
+
+import CATEGORY_OPERATIONS from '@magento/peregrine/lib/talons/RootComponents/Category/categoryContent.gql.js';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
+import AvailableStore from '../../StoreLocator/AvailableStore';
 import { useLazyQuery } from '@apollo/client';
 import Breadcrumbs from '../../Breadcrumbs';
 import Pagination from '../../Pagination';
 
 const ProductFullDetailB2B = props => {
     const classes = useStyle(defaultClasses, props.classes);
+
+    const operations = mergeOperations(CATEGORY_OPERATIONS, props.operations);
+    const { getProductItemsFilteredByCategoryQuery } = operations;
+
     const { cmsBlocks } = useCmsBlock({
         cmsBlockIdentifiers: ['warranties-block', 'recommended-product-block']
     });
+
+    const [, { addToast }] = useToasts();
+    const { formatMessage } = useIntl();
 
     const warrantiesBlock = cmsBlocks.find(item => item.identifier === 'warranties-block')?.content;
 
@@ -42,17 +60,54 @@ const ProductFullDetailB2B = props => {
         productDetails,
         wishlistButtonProps
     } = props;
+
     const [selectedFilter, setSelectedFilter] = useState([]);
     const [selectedFilterCategory, setSelectedFilterCategory] = useState([]);
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
+
+    const [{ isSignedIn }] = useUserContext();
+    const { mp_attachments } = productDetails;
+    // reutrn true if the login is requierd to see the attachment
+    const checkAttachmentLogin = note => note === 'Login required';
+
+    const loginRequiredClick = () =>
+        addToast({
+            icon: OfflineIcon,
+            type: 'error',
+            message: formatMessage({
+                id: 'productAttachemts.loginRequired',
+                defaultMessage: 'Login required'
+            }),
+            timeout: 3000
+        });
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize] = useState(10);
 
     const getCategoriesValuesIdByVariant = variant => {
         return variant.attributes.map(attribute => {
             return attribute.value_index;
         });
     };
+
+    const productAttachments = useMemo(
+        () =>
+            mp_attachments?.map(att => (
+                <span key={att.file_name}>
+                    <img height="20px" width="20" src={att.file_icon} alt={att.name} />
+                    {att.note === '' || (checkAttachmentLogin(att.note) && isSignedIn) ? (
+                        <a href={att.url_file} target="_blank">
+                            {previewIcon}
+                        </a>
+                    ) : (
+                        <button onClick={loginRequiredClick}>{previewIcon}</button>
+                    )}
+
+                    {att.file_name}
+                </span>
+            )),
+        [mp_attachments, isSignedIn]
+    );
 
     const selectedVariants = variants => {
         const items = [];
@@ -70,7 +125,6 @@ const ProductFullDetailB2B = props => {
                 return null;
             }
         });
-
         return items;
     };
 
@@ -98,7 +152,8 @@ const ProductFullDetailB2B = props => {
                 .label;
         });
     };
-    const [getFilters, { data: filterData }] = useLazyQuery(GET_CATEGORY, {
+
+    const [getFilters, { data: filterData }] = useLazyQuery(getProductItemsFilteredByCategoryQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -250,12 +305,22 @@ const ProductFullDetailB2B = props => {
                 <section className={classes.title}>
                     <h1 className={classes.productName}>{productDetails.name}</h1>
                     {product?.stock_status === 'IN_STOCK' && (
-                        <article className={classes.innerPrice}>
-                            <h2 className={classes.fromPrice}>
-                                <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
-                            </h2>
-                            <span className={classes.priceNumber}>{priceRender}</span>
-                        </article>
+                        <>
+                            <article className={classes.innerPrice}>
+                                <h2 className={classes.fromPrice}>
+                                    <FormattedMessage id={'productFullDetailB2B.fromPrice'} defaultMessage={'From '} />
+                                </h2>
+                                <span className={classes.priceNumber}>{priceRender}</span>
+                            </article>
+                            {product?.mp_pickup_locations.length > 0 && (
+                                <button onClick={() => setIsOpenStoresModal(true)} className={classes.storeButtion}>
+                                    <FormattedMessage
+                                        id={'storeLocator.SeeAvailablePickupStores'}
+                                        defaultMessage={'See available pickup stores'}
+                                    />
+                                </button>
+                            )}
+                        </>
                     )}
                 </section>
                 <section className={classes.imageCarouselContainer}>
@@ -273,6 +338,9 @@ const ProductFullDetailB2B = props => {
                     </h2>
                     <RichText content={productDetails.description} />
                 </section>
+                {productAttachments?.length > 0 && (
+                    <section className={classes.attachmentWrapper}>{productAttachments}</section>
+                )}
                 <section className={classes.favoritesButton}>
                     <Suspense fallback={null}>
                         <WishlistButton {...wishlistButtonProps} />
@@ -301,23 +369,16 @@ const ProductFullDetailB2B = props => {
                 </section>
                 <section className={classes.hide}>{availableOptions}</section>
             </Form>
+
+            {isOpenStoresModal && (
+                <AvailableStore
+                    isOpen={isOpenStoresModal}
+                    onCancel={() => setIsOpenStoresModal(false)}
+                    storesList={product?.mp_pickup_locations}
+                />
+            )}
         </Fragment>
     );
 };
 
 export default ProductFullDetailB2B;
-
-export const GET_CATEGORY = gql`
-    query getProductFiltersByCategory($categoryIdFilter: FilterEqualTypeInput!) {
-        products(filter: { category_uid: $categoryIdFilter }, pageSize: 50) {
-            items {
-                id
-                uid
-                __typename
-                name
-                url_key
-                url_suffix
-            }
-        }
-    }
-`;

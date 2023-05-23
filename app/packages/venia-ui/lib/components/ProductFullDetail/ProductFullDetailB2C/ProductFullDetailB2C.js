@@ -1,4 +1,5 @@
-import React, { Fragment, Suspense, useMemo } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { Fragment, Suspense, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 
@@ -8,15 +9,32 @@ import RichContent from '@magento/venia-ui/lib/components/RichContent';
 import Carousel from '@magento/venia-ui/lib/components/ProductImageCarousel';
 import QuantityStepper from '@magento/venia-ui/lib/components/QuantityStepper';
 import CustomAttributes from '@magento/venia-ui/lib/components/ProductFullDetail/CustomAttributes';
+import { useProductsAlert } from '@magento/peregrine/lib/talons/productsAlert/useProductsAlert';
+import Select from '../../Select';
 
 const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
 
 import defaultClasses from './ProductFullDetailB2C.module.css';
-import noImage from './icons/product-package-cancelled.svg';
+import noImage from '@magento/venia-ui/lib/assets/product-package-cancelled.svg';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+import { AlertTriangle, Eye } from 'react-feather';
+import { useToasts } from '@magento/peregrine';
 
+const previewIcon = <Icon src={Eye} size={20} />;
+const OfflineIcon = <Icon src={AlertTriangle} attrs={{ width: 18 }} />;
+import NotifyPrice from '../../ProductsAlert/NotifyPrice';
+import PriceAlert from '../../ProductsAlert/PriceAlertModal/priceAlert';
+import NotifyButton from '../../ProductsAlert/NotifyButton/NotifyButton';
+import StockAlert from '../../ProductsAlert/StockAlertModal/stockAlert';
+
+import AvailableStore from '../../StoreLocator/AvailableStore';
 const ProductFullDetailB2C = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
+    const [isOpenStoresModal, setIsOpenStoresModal] = useState(false);
+
+    const [, { addToast }] = useToasts();
 
     const {
         breadcrumbs,
@@ -34,9 +52,65 @@ const ProductFullDetailB2C = props => {
         customAttributes,
         product,
         isOutOfStock,
-        isSimpleProductSelected
+        isSimpleProductSelected,
+        selectedVarient,
+        isOutOfStockProduct
     } = props;
 
+    const productAlertStatus = selectedVarient?.product?.mp_product_alert;
+
+    const productsAlert = useProductsAlert({ isOutOfStockProduct, selectedVarient });
+
+    const {
+        isStockModalOpened,
+        handleOpendStockModal,
+        handleCloseModal,
+        handleOpenPriceModal,
+        openPriceModal,
+        outStockProductsSku,
+        handleChangeProductSku,
+        selectedOptionB2C,
+        submitStockAlert,
+        handleSubmitPriceAlert,
+        alertConfig
+    } = productsAlert;
+
+    const [{ isSignedIn }] = useUserContext();
+    const { mp_attachments } = productDetails;
+    // reutrn true if the login is requierd to see the attachment
+    const checkAttachmentLogin = note => note === 'Login required';
+
+    const loginRequiredClick = () =>
+        addToast({
+            icon: OfflineIcon,
+            type: 'error',
+            message: formatMessage({
+                id: 'productAttachemts.loginRequired',
+                defaultMessage: 'Login required'
+            }),
+            timeout: 3000
+        });
+
+    const productAttachments = useMemo(
+        () =>
+            mp_attachments?.map(att => (
+                <>
+                    <span key={att.file_name}>
+                        <img height="20px" width="20" src={att.file_icon} alt={att.name} />
+                        {att.note === '' || (checkAttachmentLogin(att.note) && isSignedIn) ? (
+                            <a href={att.url_file} target="_blank">
+                                {previewIcon}
+                            </a>
+                        ) : (
+                            <button onClick={loginRequiredClick}>{previewIcon}</button>
+                        )}
+
+                        {att.file_name}
+                    </span>
+                </>
+            )),
+        [mp_attachments, isSignedIn]
+    );
     const customAttributesDetails = useMemo(() => {
         const list = [];
         const pagebuilder = [];
@@ -88,7 +162,12 @@ const ProductFullDetailB2C = props => {
     const shouldRenderPrice =
         (!isSimpleProductSelected && product?.stock_status === 'IN_STOCK') ||
         (isSimpleProductSelected && !isOutOfStock);
-        
+
+    const notifyText = !selectedVarient && (
+        <div className={classes.notifyContainer}>
+            <FormattedMessage id={'notifyAlert'} defaultMessage={'To notify, select all the options for the product'} />
+        </div>
+    );
     return (
         <Fragment>
             {breadcrumbs}
@@ -97,18 +176,26 @@ const ProductFullDetailB2C = props => {
                     <h1 className={classes.productName} data-cy="ProductFullDetail-productName">
                         {productDetails.name}
                     </h1>
-                    {/* <p
-                        data-cy="ProductFullDetail-productPrice"
-                        className={classes.productPrice}
-                    >
-                        <Price
-                            currencyCode={productDetails.price.currency}
-                            value={productDetails.price.value}
-                        />
-                    </p> */}
+
                     {shortDescription}
                 </section>
-                {shouldRenderPrice && <article className={classes.priceContainer}> {priceRender}</article>}
+                {shouldRenderPrice && (
+                        <article className={classes.priceContainer}>
+                            {priceRender}
+                            {product?.mp_pickup_locations.length > 0 && (
+                                <button
+                                    type="button"
+                                    onClick={() => setIsOpenStoresModal(true)}
+                                    className={classes.storeButtion}
+                                >
+                                    <FormattedMessage
+                                        id={'storeLocator.SeeAvailablePickupStores'}
+                                        defaultMessage={'See available pickup stores'}
+                                    />
+                                </button>
+                            )}
+                        </article>
+                )}
                 <div className={classes.imageCarousel}>
                     {hasOptionsOfTheSelection ? (
                         <Carousel images={mediaGalleryEntries} carouselWidth={960} />
@@ -148,6 +235,35 @@ const ProductFullDetailB2C = props => {
 
                         {shouldRenderPrice && <article className={classes.totalPrice}>{tempTotalPrice}</article>}
                     </article>
+                    {productAlertStatus?.mp_productalerts_price_alert && process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                        <div className={classes.notifyPriceContainer}>
+                            <NotifyPrice handleOpenPriceModal={handleOpenPriceModal} />
+                        </div>
+                    )}
+
+                    {productAlertStatus?.mp_productalerts_stock_notify &&
+                        isOutOfStockProduct.length > 0 &&
+                        process.env.B2BSTORE_VERSION === 'PREMIUM' && (
+                            <div className={classes.selectB2cProduct}>
+                                <div className={classes.notifySelect}>
+                                    <Select
+                                        initialValue={outStockProductsSku[0]}
+                                        field="selection"
+                                        items={outStockProductsSku}
+                                        onChange={e => handleChangeProductSku(e.target.value)}
+                                    />
+                                </div>
+                                <div className={classes.notifyButton}>
+                                    <NotifyButton
+                                        handleOpendStockModal={handleOpendStockModal}
+                                        productStatus={selectedVarient?.product?.stock_status}
+                                        selectedOptionB2C={selectedOptionB2C}
+                                        disabled={!selectedOptionB2C}
+                                    />
+                                </div>
+                                <>{notifyText}</>
+                            </div>
+                        )}
                 </section>
                 <section className={classes.actions}>
                     {cartActionContent}
@@ -164,11 +280,35 @@ const ProductFullDetailB2C = props => {
                     </span>
                     <RichContent html={productDetails.description} />
                 </section>
+                {productAttachments?.length > 0 && (
+                    <div className={classes.attachmentWrapper}>{productAttachments}</div>
+                )}
                 <section className={classes.details}>
                     <CustomAttributes customAttributes={customAttributesDetails.list} />
                 </section>
                 {pageBuilderAttributes}
+                {isOpenStoresModal && (
+                    <AvailableStore
+                        isOpen={isOpenStoresModal}
+                        onCancel={() => setIsOpenStoresModal(false)}
+                        storesList={product?.mp_pickup_locations}
+                    />
+                )}
             </Form>
+            {selectedVarient && (
+                <PriceAlert
+                    isOpen={openPriceModal}
+                    onCancel={handleCloseModal}
+                    onConfirm={handleSubmitPriceAlert}
+                    alertConfig={alertConfig?.price_alert}
+                />
+            )}
+            <StockAlert
+                alertConfig={alertConfig?.stock_alert}
+                isOpen={isStockModalOpened}
+                onCancel={handleCloseModal}
+                onConfirm={submitStockAlert}
+            />
         </Fragment>
     );
 };

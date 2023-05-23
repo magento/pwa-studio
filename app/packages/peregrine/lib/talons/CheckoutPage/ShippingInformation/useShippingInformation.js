@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import DEFAULT_OPERATIONS from './shippingInformation.gql';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
+import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
-import { useUserContext } from '../../../context/user';
-import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
 import { useEventingContext } from '../../../context/eventing';
+import { useUserContext } from '../../../context/user';
+
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './shippingInformation.gql';
 
 export const useShippingInformation = props => {
     const { onSave, toggleActiveContent } = props;
@@ -21,36 +23,27 @@ export const useShippingInformation = props => {
     const [hasUpdate, setHasUpdate] = useState(false);
     const hasLoadedData = useRef(false);
 
-    const {
-        setDefaultAddressOnCartMutation,
-        getDefaultShippingQuery,
-        getShippingInformationQuery
-    } = operations;
+    const { setDefaultAddressIdOnCartMutation, getDefaultShippingQuery, getShippingInformationQuery } = operations;
 
-    const {
-        data: shippingInformationData,
-        loading: getShippingInformationLoading
-    } = useQuery(getShippingInformationQuery, {
-        skip: !cartId,
-        variables: {
-            cartId
+    const { data: shippingInformationData, loading: getShippingInformationLoading } = useQuery(
+        getShippingInformationQuery,
+        {
+            skip: !cartId,
+            variables: {
+                cartId
+            }
         }
+    );
+
+    const { data: defaultShippingData, loading: getDefaultShippingLoading } = useQuery(getDefaultShippingQuery, {
+        skip: !isSignedIn
     });
 
-    const {
-        data: defaultShippingData,
-        loading: getDefaultShippingLoading
-    } = useQuery(getDefaultShippingQuery, { skip: !isSignedIn });
+    const [setDefaultAddressOnCart, { loading: setDefaultAddressLoading }] = useMutation(
+        setDefaultAddressIdOnCartMutation
+    );
 
-    const [
-        setDefaultAddressOnCart,
-        { loading: setDefaultAddressLoading }
-    ] = useMutation(setDefaultAddressOnCartMutation);
-
-    const isLoading =
-        getShippingInformationLoading ||
-        getDefaultShippingLoading ||
-        setDefaultAddressLoading;
+    const isLoading = getShippingInformationLoading || getDefaultShippingLoading || setDefaultAddressLoading;
 
     const shippingData = useMemo(() => {
         let filteredData;
@@ -64,19 +57,12 @@ export const useShippingInformation = props => {
                         primaryAddress[field] = '';
                     }
 
-                    if (
-                        field === 'street' &&
-                        primaryAddress[field][0] === MOCKED_ADDRESS[field][0]
-                    ) {
+                    if (field === 'street' && primaryAddress[field][0] === MOCKED_ADDRESS[field][0]) {
                         primaryAddress[field] = [''];
                     }
                 }
 
-                const {
-                    region_id,
-                    label: region,
-                    code: region_code
-                } = primaryAddress.region;
+                const { region_id, label: region, code: region_code } = primaryAddress.region;
 
                 primaryAddress.region = {
                     region_code,
@@ -127,12 +113,7 @@ export const useShippingInformation = props => {
     }, [hasLoadedData, shippingData]);
 
     useEffect(() => {
-        if (
-            shippingInformationData &&
-            !doneEditing &&
-            cartId &&
-            defaultShippingData
-        ) {
+        if (shippingInformationData && !doneEditing && cartId && defaultShippingData) {
             const { customer } = defaultShippingData;
             const { default_shipping: defaultAddressId } = customer;
             if (defaultAddressId) {
@@ -144,13 +125,7 @@ export const useShippingInformation = props => {
                 });
             }
         }
-    }, [
-        cartId,
-        doneEditing,
-        defaultShippingData,
-        setDefaultAddressOnCart,
-        shippingInformationData
-    ]);
+    }, [cartId, doneEditing, defaultShippingData, setDefaultAddressOnCart, shippingInformationData]);
 
     const handleEditShipping = useCallback(() => {
         if (isSignedIn) {

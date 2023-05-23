@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, func, oneOfType, shape, string } from 'prop-types';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import { useStyle } from '../../classify';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
@@ -34,22 +34,14 @@ const CmsBlockGroup = props => {
     if (!Array.isArray(items) || !items.length) {
         return (
             <div>
-                <FormattedMessage
-                    id={'cmsBlock.noBlocks'}
-                    defaultMessage={'There are no blocks to display'}
-                />
+                <FormattedMessage id={'cmsBlock.noBlocks'} defaultMessage={'There are no blocks to display'} />
             </div>
         );
     }
 
     const BlockChild = typeof children === 'function' ? children : Block;
     const blocks = items.map((item, index) => (
-        <BlockChild
-            key={item.identifier}
-            className={classes.block}
-            index={index}
-            {...item}
-        />
+        <BlockChild key={item.identifier} className={classes.block} index={index} {...item} />
     ));
 
     return (
@@ -70,14 +62,3 @@ CmsBlockGroup.propTypes = {
 };
 
 export default CmsBlockGroup;
-
-export const GET_CMS_BLOCKS = gql`
-    query cmsBlocks($identifiers: [String]!) {
-        cmsBlocks(identifiers: $identifiers) {
-            items {
-                content
-                identifier
-            }
-        }
-    }
-`;

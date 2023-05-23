@@ -1,0 +1,74 @@
+.backContainer {
+    display: flex;
+    cursor: pointer;
+    margin: 10px 20px;
+}
+.durationContainer span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.listContainer {
+    list-style-type: decimal-leading-zero;
+    border: 1px solid var(--b2bstore-global-color-orange);
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
+    margin: 20px 0;
+    padding: 20px 40px 20px 40px;
+}
+.instructionsContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 20px 0;
+}
+.instructionsText {
+    width: fit-content;
+}
+.instructionsText p,
+.distanceContainer p {
+    font-size: 14px;
+}
+
+.distanceContainer {
+    text-align: end;
+}
+
+@media (max-width: 547px) {
+    .instructionsText {
+        width: fit-content;
+    }
+    .listContainer {
+        padding: 20px 20px 20px 40px;
+    }
+}
+
+.cardContainer {
+    margin: 10px 20px;
+}
+
+.addressText {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.imgWrapper {
+    border: 1px solid var(--b2bstore-global-color-orange);
+    border-radius: 10px;
+}
+
+.cardHeader {
+    margin-bottom: 20px;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-bottom: 1px solid var(--b2bstore-global-color-orange);
+}
+
+.mapPin {
+    composes: root from '../../Icon/icon.module.css';
+    --stroke: var(--b2bstore-global-color-orange);
+}

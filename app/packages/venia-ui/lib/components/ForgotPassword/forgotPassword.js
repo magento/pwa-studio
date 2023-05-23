@@ -9,8 +9,6 @@ import { useStyle } from '../../classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
 
-import forgotPasswordOperations from './forgotPassword.gql';
-
 import defaultClasses from './forgotPassword.module.css';
 
 const ForgotPassword = props => {
@@ -18,8 +16,7 @@ const ForgotPassword = props => {
 
     const { formatMessage } = useIntl();
     const talonProps = useForgotPassword({
-        onCancel,
-        ...forgotPasswordOperations
+        onCancel
     });
 
     const {
@@ -35,23 +32,16 @@ const ForgotPassword = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const INSTRUCTIONS = formatMessage({
         id: 'forgotPassword.instructions',
-        defaultMessage:
-            'Please enter the email address associated with this account.'
+        defaultMessage: 'Please enter the email address associated with this account.'
     });
     const children = hasCompleted ? (
         <FormSubmissionSuccessful email={forgotPasswordEmail} />
     ) : (
         <Fragment>
             <span data-cy="ForgotPassword-title" className={classes.title}>
-                <FormattedMessage
-                    id={'forgotPassword.recoverPasswordText'}
-                    defaultMessage={'Recover Password'}
-                />
+                <FormattedMessage id={'forgotPassword.recoverPasswordText'} defaultMessage={'Recover Password'} />
             </span>
-            <p
-                data-cy="ForgotPassword-instructions"
-                className={classes.instructions}
-            >
+            <p data-cy="ForgotPassword-instructions" className={classes.instructions}>
                 {INSTRUCTIONS}
             </p>
             <ForgotPasswordForm

@@ -1,28 +1,34 @@
 import { useCallback, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import DEFAULT_OPERATIONS from './customerForm.gql';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 import { useEventingContext } from '../../../../context/eventing';
+
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import SHIPPING_INFORMATION_OPERATIONS from '../shippingInformation.gql';
+import ADDRESS_BOOK_OPERATIONS from '../../../AddressBookPage/addressBookPage.gql';
+import ACCOUNT_OPERATIONS from '../../../AccountInformationPage/accountInformationPage.gql';
 
 export const useCustomerForm = props => {
     const { afterSubmit, onCancel, onSuccess, shippingData } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        ACCOUNT_OPERATIONS,
+        ADDRESS_BOOK_OPERATIONS,
+        SHIPPING_INFORMATION_OPERATIONS,
+        props.operations
+    );
 
     const {
         createCustomerAddressMutation,
         updateCustomerAddressMutation,
-        getCustomerQuery,
+        getCustomerInformationQuery,
         getCustomerAddressesQuery,
         getDefaultShippingQuery
     } = operations;
 
     const [
         createCustomerAddress,
-        {
-            error: createCustomerAddressError,
-            loading: createCustomerAddressLoading
-        }
+        { error: createCustomerAddressError, loading: createCustomerAddressLoading }
     ] = useMutation(createCustomerAddressMutation, {
         onCompleted: () => {
             onSuccess();
@@ -31,22 +37,16 @@ export const useCustomerForm = props => {
 
     const [
         updateCustomerAddress,
-        {
-            error: updateCustomerAddressError,
-            loading: updateCustomerAddressLoading
-        }
+        { error: updateCustomerAddressError, loading: updateCustomerAddressLoading }
     ] = useMutation(updateCustomerAddressMutation, {
         onCompleted: () => {
             onSuccess();
         }
     });
 
-    const { data: customerData, loading: getCustomerLoading } = useQuery(
-        getCustomerQuery
-    );
+    const { data: customerData, loading: getCustomerLoading } = useQuery(getCustomerInformationQuery);
 
-    const isSaving =
-        createCustomerAddressLoading || updateCustomerAddressLoading;
+    const isSaving = createCustomerAddressLoading || updateCustomerAddressLoading;
 
     // Simple heuristic to indicate form was submitted prior to this render
     const isUpdate = !!shippingData.city;
@@ -59,8 +59,7 @@ export const useCustomerForm = props => {
         country: countryCode
     };
 
-    const hasDefaultShipping =
-        !!customerData && !!customerData.customer.default_shipping;
+    const hasDefaultShipping = !!customerData && !!customerData.customer.default_shipping;
 
     // For first time creation pre-fill the form with Customer data
     if (!isUpdate && !getCustomerLoading && !hasDefaultShipping) {
@@ -133,10 +132,7 @@ export const useCustomerForm = props => {
                         variables: {
                             address: customerAddress
                         },
-                        refetchQueries: [
-                            { query: getCustomerAddressesQuery },
-                            { query: getDefaultShippingQuery }
-                        ]
+                        refetchQueries: [{ query: getCustomerAddressesQuery }, { query: getDefaultShippingQuery }]
                     });
                     dispatchEvent('ADD', customerAddress);
                 }

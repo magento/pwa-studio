@@ -1,23 +1,29 @@
 import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useIntl } from 'react-intl';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useEventingContext } from '../../context/eventing';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
+import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
+import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/util/isSupportedProductType';
-import { deriveErrorMessage } from '../../util/deriveErrorMessage';
+
 import mergeOperations from '../../util/shallowMerge';
-import defaultOperations from './productFullDetail.gql';
-import { useEventingContext } from '../../context/eventing';
-import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
+import DEFAULT_OPERATIONS from './productFullDetail.gql';
+
+import { useModulesContext } from '../../context/modulesProvider';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
 const OUT_OF_STOCK_CODE = 'OUT_OF_STOCK';
 const IN_STOCK_CODE = 'IN_STOCK';
+
 const deriveOptionCodesFromProduct = product => {
     // If this is a simple product it has no option codes.
     if (!isProductConfigurable(product)) {
@@ -91,6 +97,20 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
     }
     return stock_status === OUT_OF_STOCK_CODE;
 };
+
+const getIsOutOfStockProduct = product => {
+    const { variants } = product;
+
+    const outOfStockVariants = [];
+
+    for (let index = 0; index < variants.length; index++) {
+        if (variants[index].product.stock_status === 'OUT_OF_STOCK') {
+            outOfStockVariants.push(variants[index]);
+        }
+    }
+
+    return outOfStockVariants;
+};
 const getIsAllOutOfStock = product => {
     const { stock_status, variants } = product;
     const isConfigurable = isProductConfigurable(product);
@@ -104,7 +124,7 @@ const getIsAllOutOfStock = product => {
     return stock_status === OUT_OF_STOCK_CODE;
 };
 
-const getMediaGalleryEntries = (product, optionCodes, optionSelections, derivedOptionSelections) => {
+const getMediaGalleryEntries = (product, optionCodes, optionSelections, ) => {
     let value = [];
     const { media_gallery_entries, variants } = product;
     const isConfigurable = isProductConfigurable(product);
@@ -249,19 +269,21 @@ export const useProductFullDetail = props => {
     const [, { dispatch }] = useEventingContext();
     const hasDeprecatedOperationProp = !!(addConfigurableProductToCartMutation || addSimpleProductToCartMutation);
 
-    const operations = mergeOperations(defaultOperations, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const productType = product.__typename;
 
     const isSupportedProductType = isSupported(productType);
 
+    const { tenantConfig } = useModulesContext();
+
+    const isB2B = tenantConfig.b2bProductDetailView;
+
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
     const { formatMessage } = useIntl();
 
-    const { data: storeConfigData } = useQuery(operations.getWishlistConfigQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const { data: storeConfigData } = useStoreConfigContext();
 
     const [
         addConfigurableProductToCart,
@@ -298,12 +320,14 @@ export const useProductFullDetail = props => {
     const isSimpleProductSelected = useMemo(() => !Array.from(optionSelections.values()).includes(undefined), [
         optionSelections
     ]);
-    
+
     const isOutOfStock = useMemo(() => getIsOutOfStock(product, optionCodes, optionSelections), [
         product,
         optionCodes,
         optionSelections
     ]);
+
+    const isOutOfStockProduct = useMemo(() => getIsOutOfStockProduct(product), [product]);
 
     const isOutOfStockProductDisplayed = useMemo(() => {
         let totalVariants = 1;
@@ -473,9 +497,7 @@ export const useProductFullDetail = props => {
             selectedOptionsArray
         ]
     );
-    const optionSelectionsKeys = Array.from(optionSelections.keys());
     const derivedOptionSelectionsKey = Array.from(derivedOptionSelections.keys());
-    const iskeysEqual = derivedOptionSelectionsKey.every(ele => optionSelectionsKeys.includes(ele));
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
@@ -524,7 +546,8 @@ export const useProductFullDetail = props => {
                 amount: productPriceMinimal
             }
         },
-        sku: product.sku
+        sku: product.sku,
+        mp_attachments: product.mp_attachments
     };
 
     const derivedErrorMessage = useMemo(
@@ -560,6 +583,20 @@ export const useProductFullDetail = props => {
         storeConfig: storeConfigData ? storeConfigData.storeConfig : {}
     };
 
+    const selectedVarient = useMemo(() => {
+        const allKeysHaveDefinedValues = ![...optionSelections.entries()].some(([, value]) => value === undefined);
+
+        if (allKeysHaveDefinedValues) {
+            const item = findMatchingVariant({
+                optionCodes,
+                optionSelections,
+                variants: product.variants
+            });
+            return item;
+        }
+        return;
+    }, [optionSelections, optionCodes, product]);
+
     return {
         breadcrumbCategoryId,
         errorMessage: derivedErrorMessage,
@@ -589,6 +626,9 @@ export const useProductFullDetail = props => {
         isAddConfigurableLoading,
         cartId,
         derivedOptionSelectionsKey,
-        isSimpleProductSelected
+        isSimpleProductSelected,
+        isB2B,
+        selectedVarient,
+        isOutOfStockProduct
     };
 };

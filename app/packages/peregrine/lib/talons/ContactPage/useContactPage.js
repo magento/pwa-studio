@@ -1,41 +1,31 @@
 import { useCallback, useRef, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
+
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './contactUs.gql';
+import CMS_BLOCK_OPERATIONS from '../Cms/cmsBlock.gql';
 
 export default props => {
-    const { cmsBlockIdentifiers = [], operations } = props;
-    const {
-        contactMutation,
-        getStoreConfigQuery,
-        getContactPageCmsBlocksQuery
-    } = mergeOperations(DEFAULT_OPERATIONS, operations);
+    const { cmsBlockIdentifiers = [] } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CMS_BLOCK_OPERATIONS, props.operations);
+    const { submitContactFormMutation, getCmsBlocksQuery } = operations;
 
     const formApiRef = useRef(null);
 
-    const [
-        submitForm,
-        { data, error: contactError, loading: submitLoading }
-    ] = useMutation(contactMutation, {
+    const [submitForm, { data, error: contactError, loading: submitLoading }] = useMutation(submitContactFormMutation, {
         fetchPolicy: 'no-cache'
     });
 
-    const { data: storeConfigData, loading: configLoading } = useQuery(
-        getStoreConfigQuery,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+        const { data: storeConfigData } = useStoreConfigContext();
 
-    const { data: cmsBlocksData, loading: cmsBlocksLoading } = useQuery(
-        getContactPageCmsBlocksQuery,
-        {
-            variables: {
-                cmsBlockIdentifiers
-            },
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const { data: cmsBlocksData, loading: cmsBlocksLoading } = useQuery(getCmsBlocksQuery, {
+        variables: {
+            cmsBlockIdentifiers
+        },
+        fetchPolicy: 'cache-and-network'
+    });
 
     const isEnabled = useMemo(() => {
         return !!storeConfigData?.storeConfig?.contact_enabled;
@@ -68,9 +58,7 @@ export default props => {
         },
         [submitForm]
     );
-    const errors = useMemo(() => new Map([['contactMutation', contactError]]), [
-        contactError
-    ]);
+    const errors = useMemo(() => new Map([['submitContactFormMutation', contactError]]), [contactError]);
 
     return {
         isEnabled,
@@ -78,7 +66,7 @@ export default props => {
         errors,
         handleSubmit,
         isBusy: submitLoading,
-        isLoading: configLoading && cmsBlocksLoading,
+        isLoading: storeConfigData === undefined && cmsBlocksLoading,
         setFormApi,
         response: data && data.contactUs
     };

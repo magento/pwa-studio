@@ -1,4 +1,6 @@
-@import './tokens.module.css';
+/* @media (--multitenant: false) {
+    @import './tokens.module.css';
+} */
 
 :global(*) {
     box-sizing: border-box;

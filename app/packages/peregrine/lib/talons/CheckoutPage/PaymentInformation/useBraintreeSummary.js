@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { useCartContext } from '../../../context/cart';
 
 import mergeOperations from '../../../util/shallowMerge';
-import defaultOperations from './braintreeSummary.gql';
+import DEFAULT_OPERATIONS from './braintreeSummary.gql';
 
 const mapBillingAddressData = rawBillingAddressData => {
     if (rawBillingAddressData) {
@@ -23,8 +23,6 @@ const mapBillingAddressData = rawBillingAddressData => {
 
 /**
  * Talon for the braintree summary view.
- *
- * @param {DocumentNode} props.operations operations used by this summary component
  *
  * @returns {
  *   billingAddress: {
@@ -50,26 +48,20 @@ const mapBillingAddressData = rawBillingAddressData => {
  *   isLoading: Boolean,
  * }
  */
-export const useBraintreeSummary = (props = {}) => {
-    const operations = mergeOperations(defaultOperations, props.operations);
-    const { getBraintreeSummaryData } = operations.queries;
+export const useBraintreeSummary = () => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS);
+
+    const { getSummaryDataQuery } = operations;
 
     const [{ cartId }] = useCartContext();
-    const { data: summaryData, loading: isLoading } = useQuery(
-        getBraintreeSummaryData,
-        {
-            skip: !cartId,
-            variables: { cartId }
-        }
-    );
+    const { data: summaryData, loading: isLoading } = useQuery(getSummaryDataQuery, {
+        skip: !cartId,
+        variables: { cartId }
+    });
 
-    const billingAddress = summaryData
-        ? mapBillingAddressData(summaryData.cart.billingAddress)
-        : {};
+    const billingAddress = summaryData ? mapBillingAddressData(summaryData.cart.billingAddress) : {};
 
-    const isBillingAddressSame = summaryData
-        ? summaryData.cart.isBillingAddressSame
-        : true;
+    const isBillingAddressSame = summaryData ? summaryData.cart.isBillingAddressSame : true;
 
     const paymentNonce = summaryData ? summaryData.cart.paymentNonce : null;
 

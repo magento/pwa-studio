@@ -1,18 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            store_name
-            store_group_name
-        }
-    }
-`;
-
 export const GET_ROUTE_DATA = gql`
-    query getRouteData($url: String!) {
+    query GetRouteData($url: String!) {
         route(url: $url) {
             relative_url
         }
@@ -20,8 +9,7 @@ export const GET_ROUTE_DATA = gql`
 `;
 
 export const GET_AVAILABLE_STORES_DATA = gql`
-    query getAvailableStoresData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
+    query GetAvailableStoresData {
         availableStores {
             default_display_currency_code
             locale
@@ -36,7 +24,6 @@ export const GET_AVAILABLE_STORES_DATA = gql`
 `;
 
 export default {
-    getStoreConfigData: GET_STORE_CONFIG_DATA,
-    getRouteData: GET_ROUTE_DATA,
-    getAvailableStoresData: GET_AVAILABLE_STORES_DATA
+    getRouteDataQuery: GET_ROUTE_DATA,
+    getAvailableStoresDataQuery: GET_AVAILABLE_STORES_DATA
 };

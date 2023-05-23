@@ -101,8 +101,7 @@ module.exports = [
         exact: true,
         path: '../Lms/LearningRoute',
         authed: true,
-        redirectTo: '/sign-in',
-        isEnabled: process.env.LMS_INVENTADO
+        redirectTo: '/sign-in'
     },
     {
         name: 'Course',
@@ -110,8 +109,7 @@ module.exports = [
         exact: true,
         path: '../Lms/LearningRoute',
         authed: true,
-        redirectTo: '/sign-in',
-        isEnabled: process.env.LMS_ENABLED
+        redirectTo: '/sign-in'
     },
     {
         name: 'Support',
@@ -119,8 +117,15 @@ module.exports = [
         exact: true,
         path: '../Csr/SupportPage',
         authed: true,
-        redirectTo: '/sign-in',
-        isEnabled: process.env.CSR_ENABLED
+        redirectTo: '/sign-in'
+    },
+    {
+        name: 'Store Locator',
+        pattern: '/find-store',
+        exact: true,
+        path: '../StoreLocator'
+        // authed: true,
+        // redirectTo: '/sign-in',
     },
     {
         name: 'AdminPwaLogin',
@@ -148,14 +153,22 @@ module.exports = [
         path: '../ComparePage'
     },
     {
-        name: 'BuyLaterNotes',
+        name: 'SavedCarts',
         pattern: '/mpsavecart',
-        path: '../BuyLaterNotes/SavedCarts'
+        path: '../SavedCarts'
     },
     {
-        name: 'BuyLaterNotes',
+        name: 'Products Alert',
+        pattern: '/productsAlert',
+        path: '../ProductsAlert/CusotmerAlertPage',
+        authed: true,
+        redirectTo: '/sign-in',
+        isEnabled: process.env.B2BSTORE_VERSION === 'PREMIUM'&&'true'
+    },
+    {
+        name: 'SavedCarts',
         pattern: '/mpsavecart/cart/share/id/:token',
-        path: '../BuyLaterNotes/ShareCart'
+        path: '../SavedCarts/ShareCart'
     },
     {
         name: 'SimpleProduct',

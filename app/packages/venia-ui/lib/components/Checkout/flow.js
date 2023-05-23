@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { func, shape, string } from 'prop-types';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
-import { gql } from '@apollo/client';
 
 import { useToasts } from '@magento/peregrine';
 import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
@@ -28,14 +27,12 @@ const Flow = props => {
         addToast({
             type: 'error',
             icon: ErrorIcon,
-            message:
-                'Something went wrong submitting your order! Try again later.',
+            message: 'Something went wrong submitting your order! Try again later.',
             timeout: 7000
         });
     }, [addToast]);
 
     const talonProps = useFlow({
-        createCartMutation: CREATE_CART_MUTATION,
         onSubmitError,
         setStep: props.setStep
     });
@@ -70,10 +67,7 @@ const Flow = props => {
         case 'cart': {
             child = (
                 <div className={classes.footer}>
-                    <CheckoutButton
-                        disabled={checkoutDisabled}
-                        onClick={handleBeginCheckout}
-                    />
+                    <CheckoutButton disabled={checkoutDisabled} onClick={handleBeginCheckout} />
                 </div>
             );
             break;
@@ -86,10 +80,8 @@ const Flow = props => {
                 cart: cartState,
                 checkout: checkoutState,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
-                hasShippingAddress:
-                    !!shippingAddress && !isObjectEmpty(shippingAddress),
-                hasShippingMethod:
-                    !!shippingMethod && !isObjectEmpty(shippingMethod),
+                hasShippingAddress: !!shippingAddress && !isObjectEmpty(shippingAddress),
+                hasShippingMethod: !!shippingMethod && !isObjectEmpty(shippingMethod),
                 isSubmitting,
                 paymentData,
                 ready: isReady,
@@ -125,9 +117,3 @@ Flow.propTypes = {
 };
 
 export default Flow;
-
-export const CREATE_CART_MUTATION = gql`
-    mutation createCart {
-        cartId: createEmptyCart
-    }
-`;

@@ -26,10 +26,10 @@ import { useAddToQuote } from '../QuickOrderForm/useAddToQuote';
  */
 export const useCartPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCartDetailsQuery, removeItemMutation } = operations;
-    
+    const { getCartDetailsQuery, removeItemFromCartMutation } = operations;
+
     const history = useHistory();
-    const [removeItem] = useMutation(removeItemMutation);
+    const [removeItem] = useMutation(removeItemFromCartMutation);
 
     const [{ cartId }] = useCartContext();
 

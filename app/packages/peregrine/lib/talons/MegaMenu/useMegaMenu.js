@@ -9,6 +9,7 @@ import { useUserContext } from '../../context/user';
 
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './megaMenu.gql';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 /**
  * The useMegaMenu talon complements the MegaMenu component.
@@ -21,7 +22,8 @@ import DEFAULT_OPERATIONS from './megaMenu.gql';
  */
 export const useMegaMenu = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getMegaMenuQuery, getStoreConfigQuery, getIsRequiredLogin } = operations;
+    const { getMegaMenuQuery } = operations;
+
     const location = useLocation();
 
     const [{ isSignedIn }] = useUserContext();
@@ -30,23 +32,16 @@ export const useMegaMenu = (props = {}) => {
     const [subMenuState, setSubMenuState] = useState(false);
     const [disableFocus, setDisableFocus] = useState(false);
 
-    const { data: storeConfigData, refetch: refetchStoreConfig } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const { data: storeConfigData, refetch: refetchStoreConfig } = useStoreConfigContext();
 
     const { data, refetch } = useQuery(getMegaMenuQuery);
-
-    const { data: storeRequiredLogin } = useQuery(getIsRequiredLogin, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
 
     const categoryUrlSuffix = useMemo(() => {
         if (storeConfigData) {
             return storeConfigData.storeConfig.category_url_suffix;
         }
     }, [storeConfigData]);
+
     useEffect(() => {
         if (isSignedIn) {
             refetch();
@@ -119,14 +114,14 @@ export const useMegaMenu = (props = {}) => {
     const megaMenuData = useMemo(() => {
         let isRequiredLogin = false;
 
-        if (storeRequiredLogin) {
-            const { is_required_login } = storeRequiredLogin['storeConfig'];
+        if (storeConfigData) {
+            const { is_required_login } = storeConfigData.storeConfig;
             isRequiredLogin = is_required_login === '1';
         }
 
         if (!isSignedIn && isRequiredLogin) return {};
         return data ? processData(data.categoryList[0]) : {};
-    }, [data, processData, isSignedIn, storeRequiredLogin]);
+    }, [data, processData, isSignedIn, storeConfigData]);
 
     const findActiveCategory = useCallback(
         (pathname, category) => {

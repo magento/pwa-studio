@@ -1,13 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useMemo } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 
-import { useStyle } from '@magento/venia-ui/lib/classify';
-import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import Carousel from './Carousel/carousel';
+import Gallery from '@magento/venia-ui/lib/components/Gallery';
+
+import { useStoreConfigContext } from '@magento/peregrine/lib/context/storeConfigProvider';
+import { useStyle } from '@magento/venia-ui/lib/classify';
+
 import defaultClasses from './products.module.css';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './products.gql';
+
 /**
  * Sort products based on the original order
  *
@@ -36,6 +43,9 @@ const restoreSortOrder = (urlKeys, products) => {
  * @returns {React.Element} A React component that displays a Products based on a number of products
  */
 const Products = props => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getProductsQuery } = operations;
+
     const classes = useStyle(defaultClasses, props.classes);
     const {
         appearance,
@@ -86,10 +96,7 @@ const Products = props => {
 
     const [{ isSignedIn }] = useUserContext();
 
-    const { data: storeConfigData } = useQuery(GET_STORE_CONFIG_DATA, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    const { data: storeConfigData } = useStoreConfigContext();
 
     const productUrlSuffix = useMemo(() => {
         if (storeConfigData) {
@@ -102,9 +109,7 @@ const Products = props => {
         return productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
     });
 
-    const { loading, error, data, refetch } = useQuery(GET_PRODUCTS_BY_URL_KEY, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
+    const { loading, error, data, refetch } = useQuery(getProductsQuery, {
         variables: { url_keys: urlKeys, pageSize: urlKeys.length }
     });
 
@@ -266,65 +271,3 @@ Products.propTypes = {
 };
 
 export default Products;
-
-export const GET_PRODUCTS_BY_URL_KEY = gql`
-    query getProductsByUrlKey($url_keys: [String], $pageSize: Int!) {
-        products(filter: { url_key: { in: $url_keys } }, pageSize: $pageSize) {
-            items {
-                id
-                uid
-                name
-                url_suffix
-                price_range {
-                    maximum_price {
-                        regular_price {
-                            currency
-                            value
-                        }
-                    }
-                }
-                price {
-                    regularPrice {
-                        amount {
-                            value
-                            currency
-                        }
-                    }
-                    minimalPrice {
-                        amount {
-                            currency
-                            value
-                        }
-                    }
-                }
-                sku
-                small_image {
-                    url
-                }
-                stock_status
-                __typename
-                url_key
-            }
-            total_count
-            filters {
-                name
-                filter_items_count
-                request_var
-                filter_items {
-                    label
-                    value_string
-                }
-            }
-        }
-    }
-`;
-
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            product_url_suffix
-        }
-    }
-`;

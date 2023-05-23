@@ -1,9 +1,12 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { useStyle } from '../../classify';
-import Image from '../Image';
-import logo from './B2BStoreLogo.svg';
+import defaultLogo from './B2BStoreLogo.svg';
+
+import defaultClasses from './logo.module.css';
+import getLogo from '@magento/peregrine/lib/RestApi/Configuration/getLogo';
 
 /**
  * A component that renders a logo in the header.
@@ -16,14 +19,27 @@ import logo from './B2BStoreLogo.svg';
  */
 const Logo = props => {
     const { height, width } = props;
-    const classes = useStyle({}, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
+
+    const [logo, setLogo] = useState(null);
+
+    useEffect(() => {
+        if (process.env.MULTITENANT_ENABLED === 'false') {
+            setLogo(defaultLogo);
+        } else {
+            const getLogoFrom = async () => {
+                const response = await getLogo();
+                const blob = await response.blob();
+                setLogo(URL.createObjectURL(blob));
+            };
+            getLogoFrom();
+        }
+    }, []);
 
     const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
 
-    return (
-        <Image classes={{ image: classes.logo }} height={height} src={logo} alt={title} title={title} width={width} />
-    );
+    return <img src={logo} alt={""} className={classes.image} />;
 };
 
 /**

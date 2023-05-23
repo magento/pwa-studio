@@ -1,0 +1,72 @@
+.dialog {
+    /* It sets maximum sizes so its body can handle overflow. */
+    composes: h-full from global;
+    composes: max-h-full from global;
+    /* Minimum keeps a 16:9 aspect ratio and is 40rem x 22.5rem.  */
+    composes: min-h-[360px] from global;
+    /* composes: w-[640px] from global; */
+
+    /* composes: bg-white from global; */
+    composes: grid from global;
+    composes: grid-rows-autoFirst from global;
+    composes: max-w-modal from global;
+    composes: overflow-hidden from global;
+    composes: pointer-events-auto from global;
+    composes: rounded-md from global;
+    composes: shadow-dialog from global;
+    composes: z-dialog from global;
+
+    composes: lg_max-h-modal from global;
+    composes: lg_max-w-full from global;
+
+    /* Custom */
+    background-color: var(--b2bstore-background-color);
+    width: clamp(900px, 70vw, 1200px);
+}
+
+.dialog {
+    width: clamp(300px, 90vw, 900px);
+    width: 360px;
+}
+
+.header {
+    /* The Header is itself a grid container for its children. */
+    composes: gap-x-xs from global;
+    composes: grid from global;
+    composes: grid-cols-autoLast from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+
+    /* Custom */
+    margin: 20px 20px 30px;
+    height: auto;
+    padding: 0;
+}
+@media (max-width: 480px) {
+    .dialog {
+        /* Custom */
+        max-width: none;
+        width: 100vw;
+        min-height: fit-content;
+        height: fit-content;
+        margin-top: auto;
+    }
+}
+.contents {
+    padding: 0 20px;
+}
+
+.storeRow {
+    margin-bottom: 20px;
+}
+
+.nameWrapper {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.addressText {
+    font-size: 1rem;
+}

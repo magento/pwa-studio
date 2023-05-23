@@ -11,17 +11,18 @@ import defaultClasses from './courseModuleContent.module.css';
 
 import markAsDone from '@magento/peregrine/lib/RestApi/Lms/completion/markAsDone';
 
-import audioIcon from './Icons/audio.svg';
-import checkFillIcon from './Icons/checkFill.svg';
-import checkNoFillIcon from './Icons/checkNoFill.svg';
-import downloadIcon from './Icons/download.svg';
-import fileIcon from './Icons/file.svg';
-import imageIcon from './Icons/image.svg';
-import notFoundIcon from './Icons/notFound.svg';
-import pdfIcon from './Icons/pdf.svg';
-import urlIcon from './Icons/url.svg';
-import videoIcon from './Icons/video.svg';
-import viewIcon from './Icons/view.svg';
+import audioIcon from '@magento/venia-ui/lib/assets/audio.svg';
+import checkFillIcon from '@magento/venia-ui/lib/assets/checkFill.svg';
+import checkNoFillIcon from '@magento/venia-ui/lib/assets/checkNoFill.svg';
+import fileIcon from '@magento/venia-ui/lib/assets/file.svg';
+import imageIcon from '@magento/venia-ui/lib/assets/image.svg';
+import notFoundIcon from '@magento/venia-ui/lib/assets/notFound.svg';
+import pdfIcon from '@magento/venia-ui/lib/assets/pdf.svg';
+import urlIcon from '@magento/venia-ui/lib/assets/url.svg';
+import videoIcon from '@magento/venia-ui/lib/assets/video.svg';
+
+import { ViewIcon } from '@magento/venia-ui/lib/assets/viewIcon';
+import { DownloadIcon } from '@magento/venia-ui/lib/assets/downloadIcon';
 
 const CourseModuleContent = props => {
     const { courseModule, isEnrolled, setMarkAsDoneListQty, white } = props;
@@ -118,14 +119,14 @@ const CourseModuleContent = props => {
                     return (
                         <div className={classes.courseContentContainerLeft}>
                             <button title={viewText} className={classes.actionIcons} onClick={() => handleOpenPopUp()}>
-                                <img src={viewIcon} alt="View" />
+                                <ViewIcon />
                             </button>
                             <button
                                 title={downloadText}
                                 className={classes.actionIcons}
                                 onClick={() => handleDownload()}
                             >
-                                <img src={downloadIcon} alt="Download" />
+                                <DownloadIcon />
                             </button>
                             {markAsDoneButton()}
                         </div>

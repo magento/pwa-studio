@@ -3,10 +3,12 @@ import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
-import { deriveErrorMessage } from '../../util/deriveErrorMessage';
-import mergeOperations from '../../util/shallowMerge';
-import DEFAULT_OPERATIONS from './miniCart.gql';
 import { useEventingContext } from '../../context/eventing';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
+import { deriveErrorMessage } from '../../util/deriveErrorMessage';
+
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import mergeOperations from '../../util/shallowMerge';
 
 import { useAddToQuote } from '../QuickOrderForm/useAddToQuote';
 
@@ -14,8 +16,8 @@ import { useAddToQuote } from '../QuickOrderForm/useAddToQuote';
  *
  * @param {Boolean} props.isOpen - True if the mini cart is open
  * @param {Function} props.setIsOpen - Function to toggle the mini cart
- * @param {DocumentNode} props.operations.miniCartQuery - Query to fetch mini cart data
- * @param {DocumentNode} props.operations.removeItemMutation - Mutation to remove an item from cart
+ * @param {DocumentNode} props.operations.getMiniCartQuery - Query to fetch mini cart data
+ * @param {DocumentNode} props.operations.removeItemFromCartMutation - Mutation to remove an item from cart
  *
  * @returns {
  *      closeMiniCart: Function,
@@ -36,13 +38,13 @@ export const useMiniCart = props => {
     
     const { handleAddCofigItemBySku } = useAddToQuote();
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { removeItemMutation, miniCartQuery, getStoreConfigQuery } = operations;
+    const operations = mergeOperations(CART_OPERATIONS, props.operations);
+    const { removeItemFromCartMutation, getMiniCartQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const history = useHistory();
 
-    const { data: miniCartData, loading: miniCartLoading } = useQuery(miniCartQuery, {
+    const { data: miniCartData, loading: miniCartLoading } = useQuery(getMiniCartQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: { cartId },
@@ -50,9 +52,7 @@ export const useMiniCart = props => {
         errorPolicy: 'all'
     });
 
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const configurableThumbnailSource = useMemo(() => {
         if (storeConfigData) {
@@ -67,7 +67,7 @@ export const useMiniCart = props => {
     }, [storeConfigData]);
 
     const [removeItem, { loading: removeItemLoading, called: removeItemCalled, error: removeItemError }] = useMutation(
-        removeItemMutation
+        removeItemFromCartMutation
     );
 
     const totalQuantity = useMemo(() => {

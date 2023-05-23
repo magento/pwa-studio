@@ -84,9 +84,9 @@ const MiniCart = React.forwardRef((props, ref) => {
 
     const requestQuoteButton = (
         <div className={classes.quoteBtn}>
-        <Button  onClick={requestQuoteClick} priority={'normal'}>
-            <FormattedMessage id={'galleryItem.Requestquote'} defaultMessage={'Request quote'} />
-        </Button>
+            <Button onClick={requestQuoteClick} priority={'normal'}>
+                <FormattedMessage id={'galleryItem.Requestquote'} defaultMessage={'Request quote'} />
+            </Button>
         </div>
     );
 

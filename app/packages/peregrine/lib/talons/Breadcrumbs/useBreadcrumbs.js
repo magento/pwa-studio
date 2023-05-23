@@ -5,6 +5,7 @@ import useInternalLink from '../../hooks/useInternalLink';
 import mergeOperations from '../../util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './breadcrumbs.gql';
+import { useStoreConfigContext } from '../../context/storeConfigProvider';
 
 // Just incase the data is unsorted, lets sort it.
 const sortCrumbs = (a, b) => a.category_level > b.category_level;
@@ -37,7 +38,7 @@ export const useBreadcrumbs = props => {
     const { categoryId } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getBreadcrumbsQuery, getStoreConfigQuery } = operations;
+    const { getBreadcrumbsQuery } = operations;
 
     const { data, loading, error } = useQuery(getBreadcrumbsQuery, {
         variables: { category_id: categoryId },
@@ -45,9 +46,7 @@ export const useBreadcrumbs = props => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
+        const { data: storeConfigData } = useStoreConfigContext();
 
     const categoryUrlSuffix = useMemo(() => {
         if (storeConfigData) {
@@ -66,10 +65,7 @@ export const useBreadcrumbs = props => {
                     .map(category => ({
                         category_level: category.category_level,
                         text: category.category_name,
-                        path: getPath(
-                            category.category_url_path,
-                            categoryUrlSuffix
-                        )
+                        path: getPath(category.category_url_path, categoryUrlSuffix)
                     }))
                     .sort(sortCrumbs)
             );
@@ -79,16 +75,11 @@ export const useBreadcrumbs = props => {
     const { setShimmerType } = useInternalLink('category');
 
     return {
-        currentCategory:
-            (data &&
-                data.categories.items.length &&
-                data.categories.items[0].name) ||
-            '',
+        currentCategory: (data && data.categories.items.length && data.categories.items[0].name) || '',
         currentCategoryPath:
             (data &&
                 data.categories.items.length &&
-                `${data.categories.items[0].url_path}${categoryUrlSuffix ||
-                    ''}`) ||
+                `${data.categories.items[0].url_path}${categoryUrlSuffix || ''}`) ||
             '#',
         isLoading: loading,
         hasError: !!error,

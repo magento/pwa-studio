@@ -6,9 +6,12 @@ import { useUserContext } from '../../../context/user';
 import { useCartContext } from '../../../context/cart';
 import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
 import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
-
-import DEFAULT_OPERATIONS from './createAccount.gql';
 import { useEventingContext } from '../../../context/eventing';
+
+import DEFAULT_OPERATIONS from '../../CreateAccount/createAccount.gql';
+import SIGNIN_OPERATIONS from '../../SignIn/signIn.gql';
+import ACCOUNT_OPERATIONS from '../../AccountInformationPage/accountInformationPage.gql';
+import CART_OPERATIONS from '../../CartPage/cartPage.gql';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -32,20 +35,25 @@ import { useEventingContext } from '../../../context/eventing';
 export const useCreateAccount = props => {
     const { initialValues = {}, onSubmit } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        CART_OPERATIONS,
+        SIGNIN_OPERATIONS,
+        ACCOUNT_OPERATIONS,
+        props.operations
+    );
+
     const {
         createAccountMutation,
         createCartMutation,
         getCartDetailsQuery,
-        getCustomerQuery,
+        getCustomerInformationQuery,
         signInMutation
     } = operations;
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
-    const [
-        { isGettingDetails },
-        { getUserDetails, setToken }
-    ] = useUserContext();
+    const [{ isGettingDetails }, { getUserDetails, setToken }] = useUserContext();
 
     const [, { dispatch }] = useEventingContext();
 
@@ -53,25 +61,18 @@ export const useCreateAccount = props => {
 
     // For create account and sign in mutations, we don't want to cache any
     // personally identifiable information (PII). So we set fetchPolicy to 'no-cache'.
-    const [createAccount, { error: createAccountError }] = useMutation(
-        createAccountMutation,
-        {
-            fetchPolicy: 'no-cache'
-        }
-    );
+    const [createAccount, { error: createAccountError }] = useMutation(createAccountMutation, {
+        fetchPolicy: 'no-cache'
+    });
 
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
 
-    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerInformationQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
-    const {
-        generateReCaptchaData,
-        recaptchaLoading,
-        recaptchaWidgetProps
-    } = useGoogleReCaptcha({
+    const { generateReCaptchaData, recaptchaLoading, recaptchaWidgetProps } = useGoogleReCaptcha({
         currentForm: 'CUSTOMER_CREATE',
         formAction: 'createAccount'
     });
@@ -171,11 +172,7 @@ export const useCreateAccount = props => {
     }, [initialValues]);
 
     const errors = useMemo(
-        () =>
-            new Map([
-                ['createAccountQuery', createAccountError],
-                ['signInMutation', signInError]
-            ]),
+        () => new Map([['createAccountQuery', createAccountError], ['signInMutation', signInError]]),
         [createAccountError, signInError]
     );
 

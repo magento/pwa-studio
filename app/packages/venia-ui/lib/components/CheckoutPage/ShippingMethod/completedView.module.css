@@ -45,3 +45,13 @@
     composes: grid-cols-1 from global;
     composes: grid-flow-col from global;
 }
+
+.wrapperContents,
+.storeContent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.storeWrapper {
+    margin: 1rem 0;
+}

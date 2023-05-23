@@ -6,6 +6,8 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './billingAddress.gql';
+import ADDRESS_BOOK_OPERATIONS from '../../AddressBookPage/addressBookPage.gql';
+import SHIPPING_INFORMATION_OPERATIONS from '../ShippingInformation/shippingInformation.gql';
 
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { FormattedMessage } from 'react-intl';
@@ -22,7 +24,16 @@ const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
  */
 export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
-        const { firstName, lastName, city, postcode, phoneNumber, street, country, region } = rawAddressData;
+        const {
+            firstname: firstName,
+            lastname: lastName,
+            city,
+            postcode,
+            telephone: phoneNumber,
+            street,
+            country,
+            region
+        } = rawAddressData;
 
         return {
             firstName,
@@ -30,8 +41,7 @@ export const mapAddressData = rawAddressData => {
             city,
             postcode,
             phoneNumber,
-            street1: street[0],
-            street2: street[1],
+            street,
             country: country.code,
             region: region.code
         };
@@ -62,7 +72,7 @@ export const getDefaultBillingAddress = customerAddressesData => {
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onBillingAddressChangedError callback to invoke when an error was thrown while setting the billing address
  * @param {Function} props.onBillingAddressChangedSuccess callback to invoke when address was sucessfully set
- * @param {DocumentNode} props.operations.getShippingAddressQuery query to fetch shipping address from cache
+ * @param {DocumentNode} props.operations.getShippingInformationQuery query to fetch shipping address from cache
  * @param {DocumentNode} props.operations.getBillingAddressQuery query to fetch billing address from cache
  * @param {DocumentNode} props.operations.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
  * @param {DocumentNode} props.operations.setBillingAddressMutation mutation to update billing address on the cart
@@ -76,8 +86,7 @@ export const getDefaultBillingAddress = customerAddressesData => {
  *      city: String,
  *      postcode: String,
  *      phoneNumber: String,
- *      street1: String,
- *      street2: String,
+ *      street: [String],
  *      country: String,
  *      state: String,
  *      isBillingAddressSame: Boolean
@@ -88,15 +97,20 @@ export const getDefaultBillingAddress = customerAddressesData => {
 export const useBillingAddress = props => {
     // return function useBillingAddress(props, ...restArgs) {
     const { shouldSubmit, onBillingAddressChangedError, onBillingAddressChangedSuccess } = props;
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        ADDRESS_BOOK_OPERATIONS,
+        SHIPPING_INFORMATION_OPERATIONS,
+        props.operations
+    );
     const [, { addToast }] = useToasts();
 
     const {
         getBillingAddressQuery,
-        getShippingAddressQuery,
-        getIsBillingAddressSameQuery,
-        setBillingAddressMutation,
         getCustomerAddressesQuery,
+        getIsBillingAddressSameQuery,
+        getShippingInformationQuery,
+        setBillingAddressMutation,
         setDefaultBillingAddressMutation
     } = operations;
 
@@ -112,7 +126,7 @@ export const useBillingAddress = props => {
         skip: !isSignedIn
     });
 
-    const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
+    const { data: shippingAddressData } = useQuery(getShippingInformationQuery, {
         skip: !cartId,
         variables: { cartId }
     });
@@ -145,7 +159,7 @@ export const useBillingAddress = props => {
     ] = useMutation(setDefaultBillingAddressMutation);
 
     const shippingAddressCountry = shippingAddressData
-        ? shippingAddressData.cart?.shippingAddresses[0]?.country.code
+        ? shippingAddressData.cart?.shipping_addresses[0]?.country.code
         : 'US';
 
     const defaultBillingAddressObject = getDefaultBillingAddress(customerAddressesData);
@@ -212,7 +226,7 @@ export const useBillingAddress = props => {
      */
     const setShippingAddressAsBillingAddress = useCallback(() => {
         const shippingAddress = shippingAddressData?.cart
-            ? mapAddressData(shippingAddressData.cart?.shippingAddresses[0])
+            ? mapAddressData(shippingAddressData.cart?.shipping_addresses[0])
             : {};
 
         updateBillingAddress({
@@ -261,17 +275,16 @@ export const useBillingAddress = props => {
                 cartId,
                 firstName,
                 lastName,
-                country,
-                street1,
-                street2: street2 || '',
+                street: [street1, street2 || ''],
                 city,
-                region,
-                postcode,
+                regionCode: region,
+                postCode: postcode,
+                countryCode: country,
                 phoneNumber,
                 sameAsShipping: false
             }
         })
-            .then(res => console.log(res, 'useMutation22'))
+            .then(res => console.log(res, 'useMutation'))
             .catch(err =>
                 addToast({
                     type: 'error',

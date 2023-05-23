@@ -233,6 +233,17 @@
     align-items: center;
 }
 
+.notifySelect {
+    margin-bottom: 2rem;
+}
+
+.notifyButton {
+    max-width: 100%;
+    min-width: 10rem;
+    min-height: 2.5rem;
+    width: fit-content;
+}
+
 .addToCartButton {
     composes: root_highPriority from '../../Button/button.module.css';
     width: fit-content;
@@ -243,7 +254,7 @@
         height: 500px;
     }
 
-    .imageCarousel div div  {
+    .imageCarousel div div {
         height: 450px;
     }
 
@@ -251,7 +262,43 @@
         height: 450px;
     }
 
-    .title{
+    .title {
         margin-top: 30px;
     }
+}
+
+.attachmentWrapper {
+    grid-column: 1 / span 1;
+    grid-row: none/ span 1;
+    padding: 0.5rem 1.5rem;
+}
+
+.attachmentWrapper a,
+.attachmentWrapper span {
+    color: var(--b2bstore-global-color-orange);
+}
+
+.attachmentWrapper span {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.attachmentWrapper > span {
+    margin: 0.5rem 0;
+}
+
+.attachmentWrapper img {
+    height: 20px;
+}
+
+.actions button {
+    max-width: 100%;
+    min-width: 10rem;
+    min-height: 2.5rem;
+    width: fit-content;
+}
+
+.storeButtion {
+    color: var(--b2bstore-global-color-orange);
 }

@@ -181,7 +181,7 @@ const DeliveryDateForm = props => {
                     ) : (
                         <div className={classes.root}>
                             <h5 className={classes.heading}>
-                                <FormattedMessage id={'deliveryDate.deliveryDate'} defaultMessage={'Delivery Date'} />
+                                <FormattedMessage id={'deliveryDate.deliveryDateHeader'} defaultMessage={'Delivery Dat'} />
                             </h5>
                             {deliveryDateData.mp_delivery_date !== '' && (
                                 <div>

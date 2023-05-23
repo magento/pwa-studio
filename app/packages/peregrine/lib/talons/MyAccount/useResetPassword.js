@@ -4,9 +4,9 @@ import { useMutation } from '@apollo/client';
 
 import { useGoogleReCaptcha } from '@magento/peregrine/lib/hooks/useGoogleReCaptcha';
 
-import { GET_CART_DETAILS_QUERY } from '@magento/venia-ui/lib/components/SignIn/signIn.gql.js';
 import { useSignIn } from '../SignIn/useSignIn';
 import modifyLmsCustomer from '@magento/peregrine/lib/RestApi/Lms/users/modifyCustomer';
+import { useModulesContext } from '../../context/modulesProvider';
 
 /**
  * Returns props necessary to render a ResetPassword form.
@@ -21,6 +21,8 @@ import modifyLmsCustomer from '@magento/peregrine/lib/RestApi/Lms/users/modifyCu
 export const useResetPassword = props => {
     const { mutations } = props;
 
+    const { tenantConfig } = useModulesContext();
+
     const [hasCompleted, setHasCompleted] = useState(false);
     const location = useLocation();
     const [resetPassword, { error: resetPasswordErrors, loading }] = useMutation(mutations.resetPasswordMutation);
@@ -30,9 +32,7 @@ export const useResetPassword = props => {
         formAction: 'resetPassword'
     });
 
-    const { handleSubmit: handleSignIn } = useSignIn({
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY
-    });
+    const { handleSubmit: handleSignIn } = useSignIn();
 
     const searchParams = useMemo(() => new URLSearchParams(location.search), [location]);
     const token = searchParams.get('token');
@@ -50,7 +50,7 @@ export const useResetPassword = props => {
 
                     await handleSignIn({ email, password: newPassword });
 
-                    process.env.LMS_ENABLED === 'true' && modifyLmsCustomer('', '', email, newPassword);
+                    tenantConfig.lmsEnabled && modifyLmsCustomer('', '', email, newPassword);
 
                     setHasCompleted(true);
                 }
@@ -59,7 +59,7 @@ export const useResetPassword = props => {
                 setHasCompleted(false);
             }
         },
-        [generateReCaptchaData, resetPassword, token, handleSignIn]
+        [generateReCaptchaData, resetPassword, token, handleSignIn, tenantConfig]
     );
 
     return {

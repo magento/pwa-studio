@@ -105,6 +105,7 @@
 
 .totalPrice {
     margin-left: 30px;
+    margin-bottom: 20px;
 }
 .formErrors {
     composes: section;
@@ -159,6 +160,7 @@
     composes: section;
     grid-column: 2 / span 1;
     grid-row: fold / span 1;
+    border-width: 1px 0 0;
 }
 
 @media (min-width: 1024px) {
@@ -228,6 +230,38 @@
     text-decoration-line: line-through;
 }
 
+.notifyContainer {
+    margin-top: 0.5rem;
+    color: red;
+    text-align: center;
+}
+
+.selectB2cProduct {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.notifySelect {
+    margin-bottom: 2rem;
+}
+
+.notifyButton {
+    text-align: center;
+}
+
+.notifyButton div {
+    min-height: 2.5rem;
+}
+
+.notifyButton button {
+    max-width: 100%;
+    min-width: 10rem;
+    min-height: 2.5rem;
+    width: fit-content;
+}
+
 @media (max-width: 959px) {
     .imageCarousel,
     .imageCarousel div div div {
@@ -242,4 +276,33 @@
         width: 100%;
         height: 450px;
     }
+}
+
+.attachmentWrapper {
+    grid-column: 1 / span 1;
+    grid-row: none/ span 1;
+    padding: 0.5rem 1.5rem;
+}
+
+.attachmentWrapper a,
+.attachmentWrapper span {
+    color: var(--b2bstore-global-color-orange);
+}
+
+.attachmentWrapper span {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.attachmentWrapper > span {
+    margin: 0.5rem 0;
+}
+
+.attachmentWrapper img {
+    height: 20px;
+}
+
+.storeButtion {
+    color: var(--b2bstore-global-color-orange);
 }

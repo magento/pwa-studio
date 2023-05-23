@@ -5,7 +5,6 @@ import { shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { useToasts } from '@magento/peregrine/lib/Toasts';
-import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage.js';
 
 import { useStyle } from '../../classify';
@@ -17,7 +16,6 @@ import TextInput from '../TextInput';
 
 import defaultClasses from './orderHistoryPage.module.css';
 import OrderRow from './orderRow';
-import gql from 'graphql-tag';
 import { useNoReorderProductContext } from '../NoReorderProductProvider/noReorderProductProvider';
 
 import ResetButton from './resetButton';
@@ -34,11 +32,9 @@ const searchIcon = <Icon src={SearchIcon} size={24} />;
 
 const OrderHistoryPage = props => {
     const { loadingProduct } = useNoReorderProductContext();
-    const talonProps = useOrderHistoryPage({
-        operations: {
-            getStoreConfigData: GET_STORE_CONFIG_DATA
-        }
-    });
+
+    const talonProps = useOrderHistoryPage();
+
     const {
         address,
         errorMessage,
@@ -192,35 +188,33 @@ const OrderHistoryPage = props => {
 
     return (
         <>
-            <OrderHistoryContextProvider>
-                <div className={classes.root}>
-                    <StoreTitle>{PAGE_TITLE}</StoreTitle>
-                    <h1 className={classes.heading}>{PAGE_TITLE}</h1>
-                    <div className={classes.filterRow}>
-                        <span className={classes.pageInfo}>{pageInfoLabel}</span>
-                        <Form className={classes.search} onSubmit={handleSubmit}>
-                            <TextInput
-                                after={resetButtonElement}
-                                before={searchIcon}
-                                field="search"
-                                id={classes.search}
-                                placeholder={SEARCH_PLACE_HOLDER}
-                            />
-                            <Button
-                                className={classes.searchButton}
-                                disabled={isBackgroundLoading || isLoadingWithoutData}
-                                priority={'high'}
-                                type="submit"
-                            >
-                                {submitIcon}
-                            </Button>
-                        </Form>
-                    </div>
-                    {loadingProduct ? <LoadingIndicator /> : pageContents}
-
-                    {loadMoreButton}
+            <div className={classes.root}>
+                <StoreTitle>{PAGE_TITLE}</StoreTitle>
+                <h1 className={classes.heading}>{PAGE_TITLE}</h1>
+                <div className={classes.filterRow}>
+                    <span className={classes.pageInfo}>{pageInfoLabel}</span>
+                    <Form className={classes.search} onSubmit={handleSubmit}>
+                        <TextInput
+                            after={resetButtonElement}
+                            before={searchIcon}
+                            field="search"
+                            id={classes.search}
+                            placeholder={SEARCH_PLACE_HOLDER}
+                        />
+                        <Button
+                            className={classes.searchButton}
+                            disabled={isBackgroundLoading || isLoadingWithoutData}
+                            priority={'high'}
+                            type="submit"
+                        >
+                            {submitIcon}
+                        </Button>
+                    </Form>
                 </div>
-            </OrderHistoryContextProvider>
+                {loadingProduct ? <LoadingIndicator /> : pageContents}
+
+                {loadMoreButton}
+            </div>
             {successToast && successToastContainer}
             {errorToast && errorToastContainer}
         </>
@@ -241,13 +235,3 @@ OrderHistoryPage.propTypes = {
         loadMoreButton: string
     })
 };
-export const GET_STORE_CONFIG_DATA = gql`
-    query getStoreConfigData {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            id
-            store_code
-            product_url_suffix
-        }
-    }
-`;

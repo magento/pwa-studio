@@ -1,0 +1,18 @@
+.actionBtn {
+    color: #e8aa00;
+    cursor: pointer;
+}
+
+.imgWrapper {
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+@media (max-width: 700px) {
+    .imgWrapper {
+        height: 135px;
+        margin-top: 0;
+    }
+}

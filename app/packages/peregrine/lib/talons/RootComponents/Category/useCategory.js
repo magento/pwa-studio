@@ -10,6 +10,7 @@ import { useSort } from '../../../hooks/useSort';
 import { getFiltersFromSearch, getFilterInput } from '../../../talons/FilterModal/helpers';
 
 import DEFAULT_OPERATIONS from './category.gql';
+import { useStoreConfigContext } from '../../../context/storeConfigProvider';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 /**
@@ -34,19 +35,13 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  * @returns {number}    result.pageSize - Category total pages.
  */
 export const useCategory = props => {
-    const {
-        id,
-        queries: { getPageSize }
-    } = props;
+    const { id } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCategoryQuery, getFilterInputsQuery } = operations;
 
-    const { data: pageSizeData } = useQuery(getPageSize, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
-    const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
+        const { data: storeConfigData } = useStoreConfigContext();
+    const pageSize = storeConfigData && storeConfigData.storeConfig.grid_per_page;
 
     const [paginationValues, paginationApi] = usePagination();
     const { currentPage, totalPages } = paginationValues;

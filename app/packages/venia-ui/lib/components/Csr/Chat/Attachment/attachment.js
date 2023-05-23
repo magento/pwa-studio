@@ -10,14 +10,14 @@ import getTicketAttachment from '@magento/peregrine/lib/RestApi/Csr/tickets/tick
 
 import defaultClasses from './attachment.module.css';
 
-import audioIcon from './Icons/audio.svg';
-import csvIcon from './Icons/csv.svg';
-import fileIcon from './Icons/file.svg';
-import imageIcon from './Icons/image.svg';
-import pdfIcon from './Icons/pdf.svg';
-import textIcon from './Icons/text.svg';
-import videoIcon from './Icons/video.svg';
-import zipIcon from './Icons/zip.svg';
+import audioIcon from '@magento/venia-ui/lib/assets/audio.svg';
+import csvIcon from '@magento/venia-ui/lib/assets/csv.svg';
+import fileIcon from '@magento/venia-ui/lib/assets/file.svg';
+import imageIcon from '@magento/venia-ui/lib/assets/image.svg';
+import pdfIcon from '@magento/venia-ui/lib/assets/pdf.svg';
+import textIcon from '@magento/venia-ui/lib/assets/text.svg';
+import videoIcon from '@magento/venia-ui/lib/assets/video.svg';
+import zipIcon from '@magento/venia-ui/lib/assets/zip.svg';
 
 const Attachment = props => {
     const { fileId, filename, size, date, mimetype, articleId, ticketId } = props;

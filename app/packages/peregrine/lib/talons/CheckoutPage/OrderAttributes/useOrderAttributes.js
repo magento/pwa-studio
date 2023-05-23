@@ -25,7 +25,9 @@ function reducer(state, action) {
 export const useOrderAttributes = () => {
     const [state, dispatch] = useReducer(reducer, orderAttributesData);
     const [{ cartId }] = useCartContext();
-    const { setOrderAttributes } = mergeOperations(DEFAULT_OPERATIONS);
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS);
+    const { setOrderAttributesQuery } = operations;
 
     const handleChangeOrderAttribute = (name, value) => {
         dispatch({ type: name, value });
@@ -35,7 +37,7 @@ export const useOrderAttributes = () => {
         return Object.keys(state).some(ele => state[ele]);
     }, [state]);
 
-    const [customAttributeQuoteSave] = useMutation(setOrderAttributes);
+    const [customAttributeQuoteSave] = useMutation(setOrderAttributesQuery);
 
     const submitOrderAttribute = async () => {
         await customAttributeQuoteSave({

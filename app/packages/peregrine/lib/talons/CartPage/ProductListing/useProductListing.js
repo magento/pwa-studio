@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useCartContext } from '../../../context/cart';
 import DEFAULT_OPERATIONS from './productListing.gql';
+import { useStoreConfigContext } from '../../../context/storeConfigProvider';
 
 /**
  * This talon contains logic for a component that renders a list of products for a cart.
@@ -26,21 +27,17 @@ import DEFAULT_OPERATIONS from './productListing.gql';
  */
 export const useProductListing = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getWishlistConfigQuery, getProductListingQuery } = operations;
+    const { getProductListingQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const [activeEditItem, setActiveEditItem] = useState(null);
 
-    const [
-        fetchProductListing,
-        { called, data, error, loading }
-    ] = useLazyQuery(getProductListingQuery, {
+    const [fetchProductListing, { called, data, error, loading }] = useLazyQuery(getProductListingQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const { data: storeConfigData } = useQuery(getWishlistConfigQuery);
-
+        const { data: storeConfigData } = useStoreConfigContext();
     const wishlistConfig = storeConfigData ? storeConfigData.storeConfig : {};
 
     useEffect(() => {

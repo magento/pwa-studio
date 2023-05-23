@@ -19,10 +19,11 @@ export const useCmsPage = props => {
     const { identifier } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCMSPageQuery } = operations;
+    const { getCmsPageQuery } = operations;
+
     const [, { dispatch }] = useEventingContext();
 
-    const { loading, data } = useQuery(getCMSPageQuery, {
+    const { loading, data } = useQuery(getCmsPageQuery, {
         variables: {
             identifier: identifier
         },

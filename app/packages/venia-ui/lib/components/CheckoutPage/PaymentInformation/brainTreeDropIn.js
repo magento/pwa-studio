@@ -17,7 +17,7 @@ import { bool, func, shape, string } from 'prop-types';
 import defaultClasses from './braintreeDropin.module.css';
 import { useStyle } from '../../../classify';
 
-const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
+import { useModulesContext } from '@magento/peregrine/lib/context/modulesProvider';
 
 /**
  * This BraintreeDropin component has two purposes which lend to its
@@ -40,6 +40,10 @@ const BraintreeDropin = props => {
     const [isError, setIsError] = useState(false);
     const [dropinInstance, setDropinInstance] = useState();
     const { formatMessage } = useIntl();
+
+    const { tenantConfig } = useModulesContext();
+
+    const authorization = tenantConfig.braintreeToken;
 
     const createDropinInstance = useCallback(async () => {
         const { default: dropIn } = await import('braintree-web-drop-in');

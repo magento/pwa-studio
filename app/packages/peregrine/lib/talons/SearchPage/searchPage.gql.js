@@ -1,17 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const GET_PAGE_SIZE = gql`
-    query getPageSize {
-        # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        storeConfig {
-            store_code
-            grid_per_page
-        }
-    }
-`;
-
 export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
-    query getProductFiltersBySearch($search: String!) {
+    query GetProductFiltersBySearch($search: String!) {
         products(search: $search) {
             aggregations {
                 label
@@ -27,21 +17,15 @@ export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
     }
 `;
 
-export const PRODUCT_SEARCH = gql`
-    query ProductSearch(
+export const GET_PRODUCTS_DETAILS_BY_SEARCH = gql`
+    query GetProductsDetailsBySearch(
         $currentPage: Int = 1
         $inputText: String!
         $pageSize: Int = 6
         $filters: ProductAttributeFilterInput!
         $sort: ProductAttributeSortInput
     ) {
-        products(
-            currentPage: $currentPage
-            pageSize: $pageSize
-            search: $inputText
-            filter: $filters
-            sort: $sort
-        ) {
+        products(currentPage: $currentPage, pageSize: $pageSize, search: $inputText, filter: $filters, sort: $sort) {
             items {
                 id
                 uid
@@ -156,21 +140,8 @@ export const PRODUCT_SEARCH = gql`
     }
 `;
 
-export const GET_FILTER_INPUTS = gql`
-    query GetFilterInputsForSearch {
-        __type(name: "ProductAttributeFilterInput") {
-            inputFields {
-                name
-                type {
-                    name
-                }
-            }
-        }
-    }
-`;
-
-export const GET_SEARCH_AVAILABLE_SORT_METHODS = gql`
-    query getSearchAvailableSortMethods($search: String!) {
+export const GET_AVAILABLE_SORT_METHODS_BY_SEARCH = gql`
+    query GetAvailableSortMethodsBySearch($search: String!) {
         products(search: $search) {
             sort_fields {
                 options {
@@ -183,9 +154,7 @@ export const GET_SEARCH_AVAILABLE_SORT_METHODS = gql`
 `;
 
 export default {
-    getFilterInputsQuery: GET_FILTER_INPUTS,
-    getPageSize: GET_PAGE_SIZE,
     getProductFiltersBySearchQuery: GET_PRODUCT_FILTERS_BY_SEARCH,
-    getSearchAvailableSortMethods: GET_SEARCH_AVAILABLE_SORT_METHODS,
-    productSearchQuery: PRODUCT_SEARCH
+    getProductsDetailsBySearchQuery: GET_PRODUCTS_DETAILS_BY_SEARCH,
+    getAvailableSortMethodsBySearchQuery: GET_AVAILABLE_SORT_METHODS_BY_SEARCH
 };

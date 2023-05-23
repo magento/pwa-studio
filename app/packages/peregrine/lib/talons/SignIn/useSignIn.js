@@ -8,20 +8,33 @@ import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
 
+import CART_OPERATIONS from '../CartPage/cartPage.gql';
+import ACCOUNT_OPERATIONS from '../AccountInformationPage/accountInformationPage.gql';
 import DEFAULT_OPERATIONS from './signIn.gql';
 import { useEventingContext } from '../../context/eventing';
 
 import doCsrLogin from '@magento/peregrine/lib/RestApi/Csr/auth/login.js';
 import doLmsLogin from '@magento/peregrine/lib/RestApi/Lms/auth/login.js';
 
-export const useSignIn = props => {
-    const { getCartDetailsQuery, setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+import { useModulesContext } from '../../context/modulesProvider';
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { createCartMutation, getCustomerQuery, mergeCartsMutation, signInMutation } = operations;
+export const useSignIn = props => {
+    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, CART_OPERATIONS, ACCOUNT_OPERATIONS, props.operations);
+
+    const {
+        getCustomerInformationQuery,
+        mergeCartsMutation,
+        signInMutation,
+        getCartDetailsQuery,
+        createCartMutation
+    } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
+
+    const { tenantConfig } = useModulesContext();
 
     const [{ cartId }, { createCart, removeCart, getCartDetails }] = useCartContext();
 
@@ -40,7 +53,7 @@ export const useSignIn = props => {
 
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
-    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerInformationQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const formApiRef = useRef(null);
@@ -68,10 +81,10 @@ export const useSignIn = props => {
                 await setToken(token);
 
                 // LMS logic
-                process.env.LMS_ENABLED === 'true' && doLmsLogin(password);
+                tenantConfig.lmsEnabled && doLmsLogin(password);
 
                 // CSR logic
-                process.env.CSR_ENABLED === 'true' && doCsrLogin();
+                tenantConfig.csrEnabled && doCsrLogin();
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
@@ -117,20 +130,21 @@ export const useSignIn = props => {
             }
         },
         [
-            apolloClient,
             cartId,
-            createCart,
-            dispatch,
-            fetchCartDetails,
-            fetchCartId,
-            fetchUserDetails,
             generateReCaptchaData,
-            getCartDetails,
-            getUserDetails,
-            mergeCarts,
-            removeCart,
+            signIn,
             setToken,
-            signIn
+            tenantConfig,
+            apolloClient,
+            removeCart,
+            createCart,
+            fetchCartId,
+            mergeCarts,
+            getUserDetails,
+            fetchUserDetails,
+            dispatch,
+            getCartDetails,
+            fetchCartDetails
         ]
     );
 
