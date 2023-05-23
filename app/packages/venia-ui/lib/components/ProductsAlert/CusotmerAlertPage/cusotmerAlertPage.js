@@ -64,7 +64,7 @@ const CusotmerAlertPage = () => {
                 ) : (
                     <span>
                         <FormattedMessage
-                            id={'productAlert.noProductStock'}
+                            id={'productAlerts.noProductStock'}
                             defaultMessage="There are no items in your stock status alerts list."
                         />
                     </span>
@@ -81,8 +81,8 @@ const CusotmerAlertPage = () => {
                 ) : (
                     <span>
                         <FormattedMessage
-                            id={'productAlert.noProductPrice'}
-                            defaultMessage="There are no items in your price slerts list."
+                            id={'productAlerts.noProductPrice'}
+                            defaultMessage="There are no items in your price alerts list."
                         />
                     </span>
                 )}
