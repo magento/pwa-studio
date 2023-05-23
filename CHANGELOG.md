@@ -1,3 +1,17 @@
+# B2BStore 0.9
+## 🪄 Enhancements
+  - Product Alerts extension from Mageplaza
+  - Store locator and pickup extension from Mageplaza 
+  - Product Attachments extension from Mageplaza
+## 🛠 Bug fixes
+  - Checkout - “Delivery Date” placed in bold
+  - PDP simple product in mobile mode had a scroll , now is centered
+  - Carrousel images in PDP is now working fine on iPhone devices
+  - Subcategory is now centered when there is only one in the menu
+  - Carousel dots clickable zone at the correct height on mobile view
+  - LMS not throwing an exception after closing media dialog anymore
+  - Quick Order form adds correctly the requested quantity
+
 # B2BStore 0.8
 ## 🪄 Enhancements
   - Landing pages associated to footer.
