@@ -1,13 +1,11 @@
 const canHandle = event => event.type === 'USER_SIGN_OUT';
 
-const handle = (sdk, event) => {
-    const { payload } = event;
+const handle = (sdk) => {
 
     sdk.context.setShopper({
         shopperId: 'guest'
     });
 
-    // const { firstname, lastname, email } = payload;
     const accountContext = {
         firstName: '',
         lastName: '',
