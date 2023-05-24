@@ -21,7 +21,6 @@ const handle = sdk => {
     };
 
     sdk.context.setShoppingCart(cartContext);
-
     sdk.context.setAccount(accountContext);
 
     sdk.publish.signOut();
