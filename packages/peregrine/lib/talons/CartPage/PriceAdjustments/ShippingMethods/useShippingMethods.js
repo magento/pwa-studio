@@ -39,6 +39,13 @@ export const useShippingMethods = (props = {}) => {
 
     const [isShowingForm, setIsShowingForm] = useState(false);
     const showForm = useCallback(() => setIsShowingForm(true), []);
+    const showFormOnEnter = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                showForm();
+            }
+        };
+    }, [showForm]);
 
     useEffect(() => {
         if (data && data.cart.shipping_addresses.length) {
@@ -92,7 +99,8 @@ export const useShippingMethods = (props = {}) => {
         selectedShippingFields,
         selectedShippingMethod,
         shippingMethods: formattedShippingMethods,
-        showForm
+        showForm,
+        showFormOnEnter
     };
 };
 
@@ -123,4 +131,5 @@ export const useShippingMethods = (props = {}) => {
  * @property {String} selectedShippingMethod A serialized string of <inlineCode>${carrier-code}\|${method-code}</inlineCode>, eg. <inlineCode>usps\|priority</inlineCode>.
  * @property {Array<Object>} shippingMethods A list of available shipping methods based on the primary shipping address
  * @property {function} showForm A function that sets the `isShowingForm` value to true.
+ * @property {function} showFormOnEnter A function that sets the `isShowingForm` value to true.
  */
