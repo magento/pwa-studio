@@ -16,23 +16,13 @@ const handleHtmlContentClick = (history, event) => {
     // destination is internal to avoid refreshing the page
     if (target.tagName === 'A' && shouldIntercept) {
         event.preventDefault();
-
-        const eventOrigin = event.view.location.origin;
-        const {
-            origin: linkOrigin,
-            pathname: path,
-            search: query,
-            target: tabTarget,
-            href
-        } = target;
+        const { search: query, target: tabTarget, href } = target;
 
         if (tabTarget && globalThis.open) {
-            globalThis.open(href, '_blank');
-        } else if (linkOrigin === eventOrigin) {
             if (query) {
-                history.push(path + query);
+                globalThis.open(href + query);
             } else {
-                history.push(path);
+                globalThis.open(href);
             }
         } else {
             globalThis.location.assign(href);
