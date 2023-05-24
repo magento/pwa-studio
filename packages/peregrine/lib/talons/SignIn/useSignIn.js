@@ -156,6 +156,14 @@ export const useSignIn = props => {
         showForgotPassword();
     }, [setDefaultUsername, showForgotPassword]);
 
+    const forgotPasswordHandleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleForgotPassword();
+            }
+        };
+    }, [handleForgotPassword]);
+
     const handleCreateAccount = useCallback(() => {
         const { current: formApi } = formApiRef;
 
@@ -197,6 +205,7 @@ export const useSignIn = props => {
         handleEnterKeyPress,
         signinHandleEnterKeyPress,
         handleForgotPassword,
+        forgotPasswordHandleEnterKeyPress,
         handleSubmit,
         isBusy: isGettingDetails || isSigningIn || recaptchaLoading,
         setFormApi,
