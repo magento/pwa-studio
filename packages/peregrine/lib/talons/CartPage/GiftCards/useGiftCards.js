@@ -109,6 +109,14 @@ export const useGiftCards = props => {
         });
     }, [formApi, checkCardBalance]);
 
+    const checkGiftCardBalanceKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                checkGiftCardBalance();
+            }
+        };
+    }, [checkGiftCardBalance]);
+
     const removeGiftCard = useCallback(
         async giftCardCode => {
             setMostRecentAction(actions.REMOVE);
@@ -148,6 +156,13 @@ export const useGiftCards = props => {
         removeCardLoading,
         setIsCartUpdating
     ]);
+    const handleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                applyGiftCard();
+            }
+        };
+    }, [applyGiftCard]);
 
     const shouldDisplayCardBalance =
         mostRecentAction === actions.CHECK_BALANCE &&
@@ -163,12 +178,14 @@ export const useGiftCards = props => {
         checkBalanceData:
             balanceResult.data && balanceResult.data.giftCardAccount,
         checkGiftCardBalance,
+        checkGiftCardBalanceKeyPress,
         errorLoadingGiftCards: Boolean(appliedCardsResult.error),
         errorRemovingCard: Boolean(removeCardResult.error),
         giftCardsData:
             (appliedCardsResult.data &&
                 appliedCardsResult.data.cart.applied_gift_cards) ||
             [],
+        handleEnterKeyPress,
         isLoadingGiftCards: appliedCardsResult.loading,
         isApplyingCard: applyCardLoading,
         isCheckingBalance: balanceResult.loading,
