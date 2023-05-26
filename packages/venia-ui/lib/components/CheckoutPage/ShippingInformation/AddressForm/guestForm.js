@@ -127,10 +127,10 @@ const GuestForm = props => {
     }, [addToast, formatMessage, showSignInToast, handleToastAction]);
 
     const createErrorMessage = JSON.stringify(
-        errors.get('createCustomerAddressMutation')
+        errors.get('setGuestShippingMutation')
     );
     const updateErrorMessage = JSON.stringify(
-        errors.get('updateCustomerAddressMutation')
+        errors.get('setGuestShippingMutation')
     );
     const errorMessage = 'region_id is required for the specified country code';
     const regionError =
