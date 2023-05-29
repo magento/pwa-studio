@@ -1,73 +1,27 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Redirect,
-    Route,
-    Switch,
-    useParams
-} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useLearningRoute } from '@magento/peregrine/lib/talons/Lms/useLearningRoute';
 
-import CourseContent from '../CourseContent';
 import CoursesCatalog from '../CoursesCatalog';
 
 const LearningRoute = () => {
     const [{ isSignedIn }] = useUserContext();
     const talonProps = useLearningRoute();
-    const {
-        buttonSelected,
-        setSelectedButton,
-        courses,
-        isEnabled,
-        userCourses,
-        userCoursesIdList,
-        setUserCoursesIdList,
-        setMarkAsDoneListQty
-    } = talonProps;
+    const { buttonSelected, setSelectedButton, courses, isEnabled, userCourses, userCoursesIdList } = talonProps;
 
     return isSignedIn ? (
-        <Router>
-            <Switch>
-                <Route path="/:lang*/learning">
-                    <CoursesCatalog
-                        buttonSelected={buttonSelected}
-                        setSelectedButton={setSelectedButton}
-                        courses={courses}
-                        userCourses={userCourses}
-                        userCoursesIdList={userCoursesIdList}
-                        isEnabled={isEnabled}
-                    />
-                </Route>
-                <Route path="/:lang*/course/:courseId">
-                    <CourseMiddleware
-                        userCoursesIdList={userCoursesIdList}
-                        setUserCoursesIdList={setUserCoursesIdList}
-                        setMarkAsDoneListQty={setMarkAsDoneListQty}
-                    />
-                </Route>
-            </Switch>
-        </Router>
+        <CoursesCatalog
+            buttonSelected={buttonSelected}
+            setSelectedButton={setSelectedButton}
+            courses={courses}
+            userCourses={userCourses}
+            userCoursesIdList={userCoursesIdList}
+            isEnabled={isEnabled}
+        />
     ) : (
         <Redirect to={'/sign-in'} />
-    );
-};
-
-const CourseMiddleware = props => {
-    const {
-        userCoursesIdList,
-        setUserCoursesIdList,
-        setMarkAsDoneListQty
-    } = props;
-    const { courseId } = useParams();
-    return (
-        <CourseContent
-            courseId={courseId}
-            userCoursesIdList={userCoursesIdList}
-            setUserCoursesIdList={setUserCoursesIdList}
-            setMarkAsDoneListQty={setMarkAsDoneListQty}
-        />
     );
 };
 
