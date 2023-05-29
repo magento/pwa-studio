@@ -15,10 +15,12 @@ import noImageAvailable from '@magento/venia-ui/lib/assets/noImageAvailable.svg'
 import { EmptyIcon } from '@magento/venia-ui/lib/assets/emptyIcon';
 import ConfirmationModal from './ConfirmationModal/confirmationModal';
 
+import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
+
 const DELIMITER = '/';
 
 const CourseContent = props => {
-    const { courseId, userCoursesIdList, setUserCoursesIdList, setMarkAsDoneListQty } = props;
+    const { courseId, userCoursesIdList, setUserCoursesIdList, setMarkAsDoneListQty, courses } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const {
         courseContent,
@@ -117,7 +119,9 @@ const CourseContent = props => {
             </Button>
         </div>
     );
-
+    if (!courses) {
+        return <LoadingIndicator />;
+    }
     return (
         <div className={classes.container}>
             {breadcrumbs}
@@ -185,7 +189,14 @@ const CourseContent = props => {
                                                     setSectionSelected(section);
                                                 }}
                                             >
-                                                {section}
+                                                {section === 'Descripción' ? (
+                                                    <FormattedMessage
+                                                        id={'compareProducts.Description'}
+                                                        defaultMessage={'Description'}
+                                                    />
+                                                ) : (
+                                                    section
+                                                )}
                                             </button>
                                         );
                                     })}
@@ -212,8 +223,12 @@ const CourseContent = props => {
                                     )
                                 ) : (
                                     <div className={classes.courseSectionModuleActive}>
-                                        {/* TODO_B2B: Translations */}
-                                        <h1 className={classes.sectionTitle}>Características y objetivos del curso</h1>
+                                        <h1 className={classes.sectionTitle}>
+                                            <FormattedMessage
+                                                id={'lms.CourseCharacteristicsAndObjectives'}
+                                                defaultMessage={'Course characteristics and objectives'}
+                                            />
+                                        </h1>
                                         <div className={classes.courseSectionContainer}>
                                             <span className={classes.moduleSummary}>{moduleSelected}</span>
                                         </div>
