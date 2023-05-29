@@ -603,6 +603,7 @@
     "lms.confirmationUnsubBody": "Êtes-vous sûr de vouloir vous désinscrire du cours?",
     "lms.confirmationUnsubTitle": "Vous êtes sur le point de vous désinscrire de {courseName}",
     "lms.content": "Teneur",
+    "lms.CourseCharacteristicsAndObjectives": "Caractéristiques et objectifs du cours",
     "lms.done": "Fait",
     "lms.download": "Télécharger",
     "lms.emptyAllCoursesAdvice": "Oups... on dirait que nous n'avons publié aucun cours",

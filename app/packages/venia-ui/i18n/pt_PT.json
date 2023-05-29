@@ -602,6 +602,7 @@
     "lms.confirmationUnsubBody": "Tem certeza de que deseja cancelar a inscrição no curso?",
     "lms.confirmationUnsubTitle": "Você está prestes a cancelar a assinatura de {courseName}",
     "lms.content": "Contente",
+    "lms.CourseCharacteristicsAndObjectives": "Características e objectivos do curso",
     "lms.done": "Feito",
     "lms.download": "Baixar",
     "lms.emptyAllCoursesAdvice": "Opa... parece que não publicamos nenhum curso",
