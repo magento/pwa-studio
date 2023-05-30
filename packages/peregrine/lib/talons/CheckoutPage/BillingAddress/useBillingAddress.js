@@ -94,7 +94,7 @@ export const useBillingAddress = props => {
     const { validate: validateBillingAddressForm } = useFormApi();
     const [{ cartId }] = useCartContext();
 
-    var { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
+    const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
         skip: !cartId,
         variables: { cartId }
     });
@@ -200,7 +200,7 @@ export const useBillingAddress = props => {
      * information from the form.
      */
     const setBillingAddress = useCallback(() => {
-        var {
+        const {
             firstName,
             lastName,
             country,
@@ -211,9 +211,6 @@ export const useBillingAddress = props => {
             postcode,
             phoneNumber
         } = formState.values;
-        if (region == null) {
-            region = '';
-        }
 
         updateBillingAddress({
             variables: {
