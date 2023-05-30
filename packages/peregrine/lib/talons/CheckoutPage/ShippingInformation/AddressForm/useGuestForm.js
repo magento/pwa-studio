@@ -60,7 +60,7 @@ export const useGuestForm = props => {
 
     const handleSubmit = useCallback(
         async formValues => {
-            const { country, email, region, ...address } = formValues;
+            const { country, email, ...address } = formValues;
             try {
                 await setGuestShipping({
                     variables: {
@@ -71,7 +71,7 @@ export const useGuestForm = props => {
                             // Cleans up the street array when values are null or undefined
                             street: address.street.filter(e => e),
                             // region_id is used for field select and region is used for field input
-                            region: region.region_id || region.region,
+                            // region: region.region_id || region.region,
                             country_code: country
                         }
                     }

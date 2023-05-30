@@ -94,7 +94,7 @@ export const useBillingAddress = props => {
     const { validate: validateBillingAddressForm } = useFormApi();
     const [{ cartId }] = useCartContext();
 
-    const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
+    var { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
         skip: !cartId,
         variables: { cartId }
     });
@@ -178,9 +178,13 @@ export const useBillingAddress = props => {
      * shipping address.
      */
     const setShippingAddressAsBillingAddress = useCallback(() => {
-        const shippingAddress = shippingAddressData
+        var shippingAddress = shippingAddressData
             ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
             : {};
+
+        if (shippingAddress.region == null) {
+            shippingAddress.region = '';
+        }
 
         updateBillingAddress({
             variables: {
@@ -196,7 +200,7 @@ export const useBillingAddress = props => {
      * information from the form.
      */
     const setBillingAddress = useCallback(() => {
-        const {
+        var {
             firstName,
             lastName,
             country,
@@ -207,6 +211,9 @@ export const useBillingAddress = props => {
             postcode,
             phoneNumber
         } = formState.values;
+        if (region == null) {
+            region = '';
+        }
 
         updateBillingAddress({
             variables: {
