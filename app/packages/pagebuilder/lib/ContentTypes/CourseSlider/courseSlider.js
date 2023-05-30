@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useIntl } from 'react-intl';
@@ -53,60 +54,73 @@ const CourseSlider = ({ bannerType, categoryId }) => {
                     });
                     break;
                 } else {
-                    getCourses().then(courseResponse => {
+                    getCourses()
+                        .then(courseResponse => {
+                            courseResponse = courseResponse.sort(() => {
+                                return Math.random() - 0.5;
+                            });
+                            setCourseData(courseResponse.slice(0, 4));
+                        })
+                        .catch(() => setCourseData('err'));
+                    break;
+                }
+            case 'latest':
+                getCourses()
+                    .then(courseResponse => {
+                        setCourseData(courseResponse.slice(courseResponse.length - 4));
+                    })
+                    .catch(() => setCourseData('err'));
+                break;
+            default:
+                getCourses()
+                    .then(courseResponse => {
                         courseResponse = courseResponse.sort(() => {
                             return Math.random() - 0.5;
                         });
                         setCourseData(courseResponse.slice(0, 4));
-                    });
-                    break;
-                }
-            case 'latest':
-                getCourses().then(courseResponse => {
-                    setCourseData(courseResponse.slice(courseResponse.length - 4));
-                });
-                break;
-            default:
-                getCourses().then(courseResponse => {
-                    courseResponse = courseResponse.sort(() => {
-                        return Math.random() - 0.5;
-                    });
-                    setCourseData(courseResponse.slice(0, 4));
-                });
+                    })
+                    .catch(() => setCourseData('err'));
                 break;
         }
     }, [bannerType, categoryId]);
 
+    if (setCourseData === 'err') {
+        return;
+    }
     return (
-        <section className={classes.courseSliderContainer}>
-            <header className={classes.courseSliderHeaderContainer}>
-                <h1 className={classes.headerTitle}>{learnOurProductsText}</h1>
-                <Link className={classes.courseSliderHeaderLinkContainer} to="/learning">
-                    <span className={classes.linkText}>{showAllCoursesText}</span>
-                    <ArrowRightIcon />
-                </Link>
-            </header>
-            <aside>
-                {courseData === undefined ? (
-                    <LoadingIndicator />
-                ) : courseData.length !== 0 ? (
-                    <div className={classes.courseSliderBodyContainer}>
-                        {courseData.map(course => {
-                            return (
-                                <CourseItem
-                                    key={course.id}
-                                    data={course}
-                                    isProgressCourse={false}
-                                    isProgressTab={false}
-                                />
-                            );
-                        })}
-                    </div>
-                ) : (
-                    emptyCoursesMessage
-                )}
-            </aside>
-        </section>
+        <>
+            {courseData === 'err' ? null : (
+                <section className={classes.courseSliderContainer}>
+                    <header className={classes.courseSliderHeaderContainer}>
+                        <h1 className={classes.headerTitle}>{learnOurProductsText}</h1>
+                        <Link className={classes.courseSliderHeaderLinkContainer} to="/learning">
+                            <span className={classes.linkText}>{showAllCoursesText}</span>
+                            <ArrowRightIcon />
+                        </Link>
+                    </header>
+                    <aside>
+                        {courseData === undefined ? (
+                            <LoadingIndicator />
+                        ) : courseData.length !== 0 ? (
+                            <div className={classes.courseSliderBodyContainer}>
+                                {courseData.map(course => {
+                                    return (
+                                        <CourseItem
+                                            key={course.id}
+                                            data={course}
+                                            isProgressCourse={false}
+                                            isProgressTab={false}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            emptyCoursesMessage
+                        )}
+                    </aside>
+                </section>
+            )}
+        </>
     );
 };
 
