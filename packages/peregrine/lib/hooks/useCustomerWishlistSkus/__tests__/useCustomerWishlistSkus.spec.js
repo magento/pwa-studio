@@ -36,7 +36,6 @@ const renderHookWithProviders = ({
     });
 };
 
-
 test('pre-caches wishlist items', async () => {
     const { waitForNextUpdate } = renderHookWithProviders();
 
