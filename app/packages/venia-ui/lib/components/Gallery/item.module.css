@@ -57,7 +57,7 @@
 }
 
 .multibaleActions {
-    grid-template-columns: 1.9fr 0.2fr;
+    grid-template-columns: 1.9fr 0.2fr !important;
 }
 
 .actionsContainer:empty {
