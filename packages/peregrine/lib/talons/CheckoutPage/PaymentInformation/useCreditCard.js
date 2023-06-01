@@ -234,7 +234,7 @@ export const useCreditCard = props => {
      * shipping address.
      */
     const setShippingAddressAsBillingAddress = useCallback(() => {
-        const shippingAddress = shippingAddressData
+        var shippingAddress = shippingAddressData
             ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
             : {};
 
