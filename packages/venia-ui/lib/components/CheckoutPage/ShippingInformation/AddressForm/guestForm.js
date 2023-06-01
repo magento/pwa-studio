@@ -126,16 +126,12 @@ const GuestForm = props => {
         }
     }, [addToast, formatMessage, showSignInToast, handleToastAction]);
 
-    const createErrorMessage = JSON.stringify(
-        errors.get('createCustomerAddressMutation')
+    const shippingAddressError = JSON.stringify(
+        errors.get('setGuestShippingMutation')
     );
-    const updateErrorMessage = JSON.stringify(
-        errors.get('updateCustomerAddressMutation')
-    );
-    const errorMessage = 'region_id is required for the specified country code';
-    const regionError =
-        createErrorMessage?.includes(errorMessage) ||
-        updateErrorMessage?.includes(errorMessage);
+
+    const errorMessage = 'Region is required';
+    const regionError = shippingAddressError?.includes(errorMessage);
 
     return (
         <Fragment>
@@ -315,6 +311,7 @@ const GuestForm = props => {
                 </div>
                 <div className={classes.region}>
                     <Region
+                        regionError={regionError}
                         autoComplete={formatMessage({
                             id: 'region.label',
                             defaultMessage: 'State'
