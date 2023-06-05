@@ -238,9 +238,8 @@ export const useCreditCard = props => {
             ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
             : {};
 
-        if (shippingAddress.region == null) {
-            shippingAddress.region = '';
-        }
+        shippingAddress.region =
+            shippingAddress.region == null ? '' : shippingAddress.region;
 
         updateBillingAddress({
             variables: {
