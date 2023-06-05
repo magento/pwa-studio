@@ -1,3 +1,7 @@
+# B2BStore 0.9.1
+## 🚨 Hotfixes  
+  - Fixed a bug in the store locator page
+
 # B2BStore 0.9
 ## 🪄 Enhancements
   - Product Alerts extension from Mageplaza
