@@ -947,6 +947,7 @@
     "storeLocator.getDirections": "Obtenir un itinéraire",
     "storeLocator.noDirectionsText": "Il n'y a pas d'indications pour ce lieu",
     "storeLocator.noStoresText": "Il n'y a pas de magasin disponible",
+    "storeLocator.reset": "Remise à zéro",
     "storeLocator.searchForLocation": "Recherche d'un lieu",
     "storeLocator.SeeAvailablePickupStores": "Voir les points de retrait disponibles",
     "storeLocator.selectDay": "Sélectionner le jour",
