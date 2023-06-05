@@ -35,13 +35,6 @@ const SearchBar = React.forwardRef((props, ref) => {
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
                 >
-                    <div className={classes.autocomplete}>
-                        <Autocomplete
-                            setVisible={setIsAutoCompleteOpen}
-                            valid={valid}
-                            visible={isAutoCompleteOpen}
-                        />
-                    </div>
                     <div className={classes.search}>
                         <SearchField
                             addLabel={formatMessage({
@@ -52,6 +45,13 @@ const SearchBar = React.forwardRef((props, ref) => {
                             onChange={handleChange}
                             onFocus={handleFocus}
                         />
+                        <div className={classes.autocomplete}>
+                            <Autocomplete
+                                setVisible={setIsAutoCompleteOpen}
+                                valid={valid}
+                                visible={isAutoCompleteOpen}
+                            />
+                        </div>
                     </div>
                 </Form>
             </div>

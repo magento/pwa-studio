@@ -24,7 +24,7 @@ export default {
                     thumbnail: {
                         __typename: 'ProductImage',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/p/vp08-rn_main_2.jpg'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/p/vp08-rn_main_2.jpg'
                     }
                 },
                 prices: {
@@ -77,7 +77,7 @@ export default {
                     thumbnail: {
                         __typename: 'ProductImage',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va09-br_main_2.jpg'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va09-br_main_2.jpg'
                     }
                 },
                 prices: {
@@ -121,7 +121,7 @@ export default {
                     thumbnail: {
                         __typename: 'ProductImage',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va22-si_main.jpg'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va22-si_main.jpg'
                     }
                 },
                 prices: {
