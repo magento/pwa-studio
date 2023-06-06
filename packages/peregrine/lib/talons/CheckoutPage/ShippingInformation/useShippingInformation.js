@@ -97,7 +97,7 @@ export const useShippingInformation = props => {
     // Simple heuristic to check shipping data existed prior to this render.
     // On first submission, when we have data, we should tell the checkout page
     // so that we set the next step correctly.
-    const doneEditing = !!shippingData && !!shippingData.city;
+    const doneEditing = !!shippingData && !!shippingData.city && isSignedIn;
     const [, { dispatch }] = useEventingContext();
 
     useEffect(() => {

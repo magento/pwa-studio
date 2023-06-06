@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useMutation, useLazyQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './guestForm.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '../../../../context/cart';
 import { useEventingContext } from '../../../../context/eventing';
 
@@ -37,11 +37,17 @@ export const useGuestForm = props => {
 
     const { country } = shippingData;
     const { code: countryCode } = country;
+    const [{ isSignedIn }] = useUserContext();
 
-    const initialValues = {
-        ...shippingData,
-        country: countryCode
-    };
+    let initialValues = {};
+    if (isSignedIn) {
+        initialValues = {
+            ...shippingData,
+            country: countryCode
+        };
+    } else {
+        initialValues = {};
+    }
 
     // Simple heuristic to indicate form was submitted prior to this render
     const isUpdate = !!shippingData.city;

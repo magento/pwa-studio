@@ -35,6 +35,10 @@ jest.mock('@magento/peregrine/lib/context/eventing', () => ({
     useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
+jest.mock('@magento/peregrine/lib/context/user', () => ({
+    useUserContext: jest.fn(() => [{ isSignedIn: false }])
+}));
+
 const Component = props => {
     const talonProps = useGuestForm(props);
     return <i talonProps={talonProps} />;

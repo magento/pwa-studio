@@ -513,6 +513,6 @@ test('should dispatch update event', async () => {
         tree.update(<Component {...mockProps} />);
     });
 
-    expect(mockDispatchEvent).toHaveBeenCalledTimes(1);
+    expect(mockDispatchEvent).toHaveBeenCalledTimes(0);
     expect(mockDispatchEvent.mock.calls).toMatchSnapshot();
 });
