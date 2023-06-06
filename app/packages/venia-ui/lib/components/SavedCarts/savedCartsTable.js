@@ -10,6 +10,8 @@ import { useSavedCartsTable } from '@magento/peregrine/lib/talons/SavedCarts/use
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './savedCartsTable.module.css';
+import InfoIcon from '@magento/venia-ui/lib/assets/info.svg';
+import Tippy from '@tippyjs/react';
 
 const SavedCartTable = props => {
     const { cart, handleIsLoading, getSavedCarts, showCopyUrl } = props;
@@ -77,11 +79,26 @@ const SavedCartTable = props => {
     );
 
     // Format Date
-    const formattedDate = new Date(created_at.replace(/-/g, "/")).toLocaleDateString(undefined, DATE_FORMAT);
+    const formattedDate = new Date(created_at.replace(/-/g, '/')).toLocaleDateString(undefined, DATE_FORMAT);
 
     const cartItems = useMemo(() => {
         return items.map(item => {
-            return <div key={item.cart_item_id}>{item.product_name}</div>;
+            const { attribute_labels_and_values } = item;
+            return (
+                <div className={classes.productAttribute}>
+                    <div key={item.cart_item_id}>{item.product_name}</div>
+                    <Tippy
+                        content={attribute_labels_and_values?.map(({ label, value }) => (
+                            <div key={label + item.product_name}>
+                                <span>{label + ': '}</span>
+                                <span>{value} </span>
+                            </div>
+                        ))}
+                    >
+                        <img className={classes.attributeInfoIcon} src={InfoIcon} alt="InfoIcon" />
+                    </Tippy>
+                </div>
+            );
         });
     }, [items]);
 

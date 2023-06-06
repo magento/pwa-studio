@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -11,11 +11,24 @@ import defaultClasses from '../savedCartsView.module.css';
 
 const SavedCartViewTableItems = props => {
     const {
-        item: { product_name, image, price, qty, subtotal_converted }
+        item: { product_name, image, price, qty, subtotal_converted, attribute_labels_and_values }
     } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
 
+    const attribute = useMemo(
+        () =>
+            attribute_labels_and_values?.map(({ label, value }) => (
+                <div key={label + product_name}>
+                    <span>{label + ': '}</span>
+                    <span>{value} </span>
+                </div>
+            )),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [attribute_labels_and_values]
+    );
+
+    console.log({ attribute_labels_and_values });
     return (
         <div className={classes.savedCartViewTableRow}>
             <div className={classes.productImage}>
@@ -23,8 +36,11 @@ const SavedCartViewTableItems = props => {
                     <Image alt={product_name} src={image} width={48} />
                 </span>
             </div>
-            <div className={classes.productName}>
-                <span className={classes.productNameValue}>{product_name}</span>
+            <div className={classes.productData}>
+                <div className={classes.productName}>
+                    <span className={classes.productNameValue}>{product_name}</span>
+                </div>
+                {attribute}
             </div>
             <div className={classes.productPriceContainer}>
                 <div className={classes.productPriceContent}>

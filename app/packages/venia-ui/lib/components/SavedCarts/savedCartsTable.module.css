@@ -138,3 +138,11 @@
         margin-right: 5px;
     }
 }
+
+.productAttribute {
+    display: flex;
+}
+
+.productAttribute > div {
+    margin-right: 1rem;
+}

@@ -113,7 +113,6 @@
     font-family: var(--venia-global-fontFamily-sansSerif);
 }
 
-.productName,
 .productSku,
 .productImage,
 .productPrice,
@@ -123,8 +122,7 @@
 }
 
 .productName {
-    position: relative;
-    top: 30%;
+    margin: 1rem 0;
 }
 
 .productSku,
@@ -239,6 +237,12 @@
     .productSubtotalMobileLabel,
     .productNameMobileLabel {
     }
+}
+
+.productData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 @media (max-width: 560px) {
