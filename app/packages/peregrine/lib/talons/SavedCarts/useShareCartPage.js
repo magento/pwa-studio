@@ -27,8 +27,8 @@ export const useShareCartPage = async () => {
 
     const handleShareCart = useCallback(async () => {
         const token = url[5];
-        if (shareCartUpadte == 1) {
-            const {
+        if (shareCartUpadte == 1 && cartId) {
+        const {
                 data: { mpSaveCartShareCart }
             } = await getShareCart({
                 fetchPolicy: 'no-cache',
@@ -45,18 +45,21 @@ export const useShareCartPage = async () => {
                 });
                 setIsLoading(false);
                 history.push('/cart');
+                 setShareCartUpadte(2);
             }
         }
     }, [getCartDetails, cartId, fetchCartDetails, shareCartUpadte, url, getShareCart, history]);
 
     useEffect(() => {
-        if (!url[5]) {
-            setIsLoading(false);
-            history.push('/cart');
-        } else {
-            handleShareCart();
-            setShareCartUpadte(2);
-        }
+        const shareCart = async () => {
+            if (!url[5]) {
+                setIsLoading(false);
+                history.push('/cart');
+            } else {
+                await handleShareCart();
+            }
+        };
+        shareCart();
     }, [url, handleShareCart, history]);
 
     return {
