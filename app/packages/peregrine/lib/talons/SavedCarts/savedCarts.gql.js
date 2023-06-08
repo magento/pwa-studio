@@ -45,6 +45,11 @@ export const GET_SAVED_CARTS = gql`
                     qty
                     sku
                     subtotal_converted
+                    attribute_labels_and_values {
+                        label
+                        value
+                        __typename
+                    }
                 }
             }
         }
