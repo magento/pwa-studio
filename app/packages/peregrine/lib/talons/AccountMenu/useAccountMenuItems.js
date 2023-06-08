@@ -1,8 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import doCsrLogout from '@magento/peregrine/lib/RestApi/Csr/auth/logout';
 import doLmsLogout from '@magento/peregrine/lib/RestApi/Lms/auth/logout';
 
 import { useModulesContext } from '../../context/modulesProvider';
+import getUserCourses from '@magento/peregrine/lib/RestApi/Lms/courses/getUserCourses';
+import { useUserContext } from '../../context/user';
 
 /**
  * @param {Object}      props
@@ -15,11 +17,22 @@ export const useAccountMenuItems = props => {
     const { tenantConfig } = useModulesContext();
     const { onSignOut } = props;
 
+    const [isValidLms, setIsValidLms] = useState(false);
+    const [{ isSignedIn }] = useUserContext();
+
     const handleSignOut = useCallback(() => {
         tenantConfig.csrEnabled && doCsrLogout();
         tenantConfig.lmsEnabled && doLmsLogout();
         onSignOut();
     }, [tenantConfig, onSignOut]);
+
+    useEffect(() => {
+        if (isSignedIn) {
+            getUserCourses()
+                .then(() => setIsValidLms(true))
+                .catch(() => setIsValidLms(false));
+        }
+    }, [isSignedIn]);
 
     const MENU_ITEMS_BASIC = [
         {
@@ -97,7 +110,7 @@ export const useAccountMenuItems = props => {
         MENU_ITEMS_PREMIUM.push(csrItem);
     }
 
-    if (tenantConfig.lmsEnabled) {
+    if (tenantConfig.lmsEnabled && isValidLms) {
         const lmsItem = {
             name: 'Learning',
             id: 'accountMenu.learningLink',
