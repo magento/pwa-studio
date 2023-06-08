@@ -6,7 +6,7 @@
     composes: px-xs from global;
     composes: py-0 from global;
     composes: w-full from global;
-    
+
     @apply hidden;
 }
 

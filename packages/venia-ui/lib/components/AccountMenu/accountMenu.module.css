@@ -30,7 +30,7 @@
     transition: opacity 224ms var(--venia-global-anim-in),
         visibility 224ms var(--venia-global-anim-in), left 0s;
 
-    @apply visible
+    @apply visible;
 }
 
 .contents {
