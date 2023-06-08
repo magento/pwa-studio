@@ -133,6 +133,8 @@ GOOD PATTERN (only variants in JSX, not "root"):
 .root_closed { composes: root; }
 .root_open { composes: root; }
 
+Possible alternative fix is to use Tailwind's @apply directive though composition is prefered
+
 
 // ----------------------------------------------
 // B7. Prettier mangles TW2 arbitrary values syntax

@@ -6,10 +6,8 @@
     composes: px-xs from global;
     composes: py-0 from global;
     composes: w-full from global;
-
-    /* TODO @TW: review (B6) */
-    /* composes: hidden from global; */
-    display: none;
+    
+    @apply hidden;
 }
 
 .root_open {

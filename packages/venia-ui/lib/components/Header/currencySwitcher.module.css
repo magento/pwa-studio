@@ -41,9 +41,7 @@
     transition-timing-function: var(--venia-global-anim-out);
     transition-property: opacity, transform, visibility;
 
-    /* TODO @TW: review (B6) */
-    /* composes: invisible from global; */
-    visibility: hidden;
+    @apply invisible;
 
     composes: sm_bottom-auto from global;
     composes: sm_left-auto from global;

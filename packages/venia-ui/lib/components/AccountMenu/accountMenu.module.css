@@ -19,9 +19,7 @@
     composes: root;
 
     composes: left-[-100vw] from global;
-    /* TODO @TW: review (B6) */
-    /* composes: invisible from global; */
-    visibility: hidden;
+    @apply invisible;
 }
 
 .root_open {
@@ -32,9 +30,7 @@
     transition: opacity 224ms var(--venia-global-anim-in),
         visibility 224ms var(--venia-global-anim-in), left 0s;
 
-    /* TODO @TW: review (B6) */
-    /* composes: visible from global; */
-    visibility: visible;
+    @apply visible
 }
 
 .contents {
