@@ -132,7 +132,7 @@
     composes: lg_top-[6rem] from global;
 }
 
-@media (min-width: 960px) {
+@media screen(lg) {
     .summaryContainer {
         grid-column: 2 / span 1;
         grid-row: 2 / span 3;

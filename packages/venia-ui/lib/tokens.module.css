@@ -88,7 +88,7 @@
     --venia-global-header-minHeight: theme(spacing.header);
 }
 
-@media (max-width: 959px) {
+@media screen(-lg) {
     :global(:root) {
         --venia-global-header-minHeight: 3.5rem;
     }

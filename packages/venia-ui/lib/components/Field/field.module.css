@@ -47,4 +47,5 @@
     composes: font-normal from global;
     composes: text-sm from global;
     composes: text-subtle from global;
+    composes: leading-none from global;
 }

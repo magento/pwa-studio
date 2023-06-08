@@ -84,7 +84,7 @@
  * Mobile-specific styles.
  */
 
-@media (max-width: 639px) {
+@media screen(-sm) {
     .root:only-child {
         grid-column: 2;
     }

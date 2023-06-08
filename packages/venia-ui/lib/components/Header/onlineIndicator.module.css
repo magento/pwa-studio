@@ -12,13 +12,13 @@
     composes: sm_ml-10 from global;
 }
 
-@media (min-width: 640px) {
+@media screen(sm) {
     .root {
         grid-column: 3 / 4;
     }
 }
 
-@media (min-width: 960px) {
+@media screen(lg) {
     .root {
         grid-column: 2 / 3;
     }

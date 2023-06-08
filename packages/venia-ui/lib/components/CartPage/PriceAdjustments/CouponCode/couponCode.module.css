@@ -7,7 +7,7 @@
 }
 
 /* on mobile... */
-@media (max-width: 959px) {
+@media screen(-lg) {
     .entryForm,
     .entryFormError {
         /* switch to rows. */

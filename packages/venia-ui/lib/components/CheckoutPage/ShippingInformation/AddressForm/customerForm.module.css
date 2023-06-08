@@ -42,7 +42,7 @@
     composes: p-xs from global;
 }
 
-@media (max-width: 959px) {
+@media screen(-lg) {
     .firstname {
         grid-column: 1 / span 2;
     }

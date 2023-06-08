@@ -167,7 +167,7 @@
  * dialogs slide out from the right.
  */
 
-@media (max-width: 959px) {
+@media screen(-lg) {
     .root {
         /* The Dialog starts off-screen on the right. */
         transform: translate3d(100%, 0, 0);

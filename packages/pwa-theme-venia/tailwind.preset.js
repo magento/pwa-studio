@@ -245,17 +245,35 @@ const theme = {
         '-sm': {
             max: '639px'
         },
+        hsm: {
+            raw: '(min-height: 640px)'
+        },
+        '-hsm': {
+            raw: '(max-height: 639px)'
+        },
         md: '800px',
         '-md': {
             max: '799px'
+        },
+        hmd: {
+            raw: '(min-height: 800px)'
+        },
+        '-hmd': {
+            raw: '(max-height: 799px)'
         },
         lg: '960px',
         '-lg': {
             max: '959px'
         },
-        xl: '1120px',
+        hlg: {
+            raw: '(min-height: 960px)'
+        },
+        '-hlg': {
+            raw: '(max-height: 959px)'
+        },
+        xl: '1024px',
         '-xl': {
-            max: '1119px'
+            max: '1023px'
         },
         '2xl': '1280px',
         '-2xl': {

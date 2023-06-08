@@ -20,7 +20,7 @@
     composes: md_gap-y-2xs from global;
 }
 
-@media (max-width: 799px) {
+@media screen(-md) {
     .header {
         grid-template-rows: 1fr 1fr;
     }

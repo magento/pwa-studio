@@ -51,7 +51,7 @@
     composes: sm_top-md from global;
 }
 
-@media (min-width: 640px) {
+@media screen(sm) {
     .menu {
         transform: translate3d(0, -8px, 0);
     }

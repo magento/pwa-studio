@@ -8,7 +8,7 @@
         'thumbs';
 }
 
-@media (min-width: 960px) {
+@media screen(lg) {
     .root {
         grid-template-areas: 'thumbs main';
         /* These values are mirrored in JS for image sizes. Keep them in sync. */

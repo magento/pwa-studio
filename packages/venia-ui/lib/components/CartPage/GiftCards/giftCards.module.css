@@ -30,7 +30,7 @@
     composes: lg_grid-cols-autoLast from global;
 }
 
-@media (min-width: 960px) {
+@media screen(lg) {
     .card {
         grid-template-areas:
             'card_entry apply_button'

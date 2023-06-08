@@ -7,7 +7,7 @@
     composes: rounded-box from global;
 }
 
-@media (min-width: 960px) {
+@media screen(lg) {
     .root {
         grid-template-columns:
             minmax(9rem, 1fr) minmax(9rem, 1fr) minmax(9rem, 1fr)

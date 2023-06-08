@@ -35,7 +35,8 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/venia-concept#readme",
   "dependencies": {
-    "@magento/pwa-buildpack": "~11.4.1"
+    "@magento/pwa-buildpack": "~11.4.1",
+    "@magento/venia-sample-payments-checkmo": "0.0.10"
   },
   "devDependencies": {
     "@adobe/apollo-link-mutation-queue": "~1.0.2",

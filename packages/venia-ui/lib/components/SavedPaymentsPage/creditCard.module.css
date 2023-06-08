@@ -99,7 +99,7 @@
     composes: xs_lg_block from global;
 }
 
-@media (max-width: 479px) {
+@media screen(-xs) {
     .deleteConfirmationContainer {
         transform: scaleY(1);
     }
