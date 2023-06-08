@@ -143,7 +143,7 @@ export const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
 /** GetFilterInput helpers below. */
 const getValueFromFilterString = keyValueString =>
-    keyValueString.split(DELIMITER)[1];
+    keyValueString.split(DELIMITER).pop();
 
 /**
  * Converts a set of values to a range filter
