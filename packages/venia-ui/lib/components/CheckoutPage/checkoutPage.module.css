@@ -8,7 +8,6 @@
     composes: lg_px-lg from global;
 }
 
-
 .checkoutContent {
     composes: gap-xs from global;
     composes: grid from global;

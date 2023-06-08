@@ -98,7 +98,7 @@ const extend = {
     }),
     colors: getColors(colors),
     content: {
-        'empty': ''
+        empty: ''
     },
     flex: {
         textInput: '0 0 100%'
@@ -107,7 +107,7 @@ const extend = {
         sans: ['Muli', 'sans-serif'],
         serif: ['Source Serif Pro', 'serif']
     },
-    fontSize: theme => ({
+    fontSize: {
         '2xs': ['0.6875rem', '1.5'], // 11px
         xs: ['0.75rem', '1.5'], // 12px
         sm: ['0.875rem', '1.5'], // 14px
@@ -119,7 +119,7 @@ const extend = {
         '4xl': ['3.75rem', '1.5'], // 60px
         '5xl': ['6rem', '1'], // 96px
         inherit: 'inherit'
-    }),
+    },
     fontWeight: {
         DEFAULT: '300'
     },
@@ -334,7 +334,7 @@ const theme = {
                     orange: hexToRgb(theme('colors.amber.500')),
                     red: {
                         400: hexToRgb(theme('colors.red.400')),
-                        700: hexToRgb(theme('colors.red.700')),
+                        700: hexToRgb(theme('colors.red.700'))
                     }
                 }
             }

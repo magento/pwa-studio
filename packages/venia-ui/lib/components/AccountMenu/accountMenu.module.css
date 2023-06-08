@@ -7,7 +7,7 @@
     composes: top-full from global;
     composes: z-menu from global;
     composes: -translate-x-1/2 from global;
-    
+
     transition: opacity 192ms var(--venia-global-anim-out),
         visibility 192ms var(--venia-global-anim-out),
         /* Adding delay to move container off the screen after previous transitions happened */

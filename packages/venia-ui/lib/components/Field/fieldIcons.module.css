@@ -15,8 +15,12 @@
 }
 
 .input > input {
-    padding-left: calc(theme(spacing[7.5]) * var(--iconsBefore) + theme(spacing[2.5]));
-    padding-right: calc(theme(spacing[7.5]) * var(--iconsAfter) + theme(spacing[2.5]));
+    padding-left: calc(
+        theme(spacing[7.5]) * var(--iconsBefore) + theme(spacing[2.5])
+    );
+    padding-right: calc(
+        theme(spacing[7.5]) * var(--iconsAfter) + theme(spacing[2.5])
+    );
 }
 
 .before,

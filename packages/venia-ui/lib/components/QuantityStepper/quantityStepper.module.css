@@ -43,7 +43,7 @@
 .button:disabled,
 .button:disabled:hover {
     --stroke: rgb(var(--venia-global-color-gray-400));
-    @apply border-base
+    @apply border-base;
 }
 
 .button_decrement {

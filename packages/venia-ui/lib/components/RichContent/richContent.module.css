@@ -76,7 +76,7 @@
 }
 
 .root ul {
-    @apply list-disc
+    @apply list-disc;
 }
 
 .root a {
