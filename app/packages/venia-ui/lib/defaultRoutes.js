@@ -105,9 +105,9 @@ module.exports = [
     },
     {
         name: 'Course',
-        pattern: '/course',
+        pattern: '/course/:courseId',
         exact: true,
-        path: '../Lms/LearningRoute',
+        path: '../Lms/LearningRoute/CourseMiddleware',
         authed: true,
         redirectTo: '/sign-in'
     },

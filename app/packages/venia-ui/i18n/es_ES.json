@@ -604,6 +604,7 @@
     "lms.confirmationUnsubBody": "¿Seguro que quieres darte de baja del curso?",
     "lms.confirmationUnsubTitle": "Estás a punto de darte de baja de {courseName}",
     "lms.content": "Contenido",
+    "lms.CourseCharacteristicsAndObjectives": "Características y objetivos del curso",
     "lms.done": "Hecho",
     "lms.download": "Descargar",
     "lms.emptyAllCoursesAdvice": "Ups... parece que no hemos publicado ningún curso",
