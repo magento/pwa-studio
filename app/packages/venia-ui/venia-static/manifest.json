@@ -1,6 +1,6 @@
 {
-    "name": "Venia",
-    "short_name": "Venia",
+    "name": "B2BStore",
+    "short_name": "B2BStore",
     "start_url": "/",
     "theme_color": "#1F39FF",
     "display": "standalone",
