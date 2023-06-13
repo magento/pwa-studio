@@ -6,6 +6,7 @@ import { useQuotes } from '@magento/peregrine/lib/talons/RequestQuote/useQuotes'
 import Price from '@magento/venia-ui/lib/components/Price';
 import QuotesView from '../quotesView';
 import defaultClasses from './quotesRow.module.css';
+import moment from 'moment';
 export const DATE_FORMAT = {
     month: 'short',
     day: 'numeric',
@@ -19,6 +20,8 @@ const QuotesTable = props => {
     const { quote, handleCancelQuote, handleQuoteToCart } = props;
 
     const { created_at, entity_id, expired_at, quote_currency_code, status, subtotal } = quote;
+    const localDate = moment.utc(created_at).local();
+    const localcreatedAt = localDate.format('M/DD/YYYY, h:mm:ss A');
 
     const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useQuotes();
@@ -26,12 +29,14 @@ const QuotesTable = props => {
     const contentClass = isOpen ? classes.content : classes.content_collapsed;
 
     // Format Date
-    const createdAt = new Date(created_at?.replace(/-/g, '/')).toLocaleDateString(undefined, DATE_FORMAT);
-    let expiredAt;
+    // const createdAt = new Date(created_at?.replace(/-/g, '/')).toLocaleDateString(undefined, DATE_FORMAT);
+    let localExpireddAt;
     if (expired_at == undefined || expired_at == null || expired_at == '') {
-        expiredAt = null;
+        localExpireddAt = null;
     } else {
-        expiredAt = new Date(expired_at?.replace(/-/g, '/')).toLocaleDateString(undefined, DATE_FORMAT);
+        const expiredLocalDate = moment.utc(expired_at).local();
+        localExpireddAt = expiredLocalDate.format('M/DD/YYYY, h:mm:ss A');
+        // const expiredAt = new Date(expired_at?.replace(/-/g, '/')).toLocaleDateString(undefined, DATE_FORMAT);
     }
 
     const entityId = useMemo(() => {
@@ -77,13 +82,13 @@ const QuotesTable = props => {
                 <span className={classes.quotesSubmitDateLabel}>
                     <FormattedMessage id={'quotesTable.quotesSubmitDateText'} defaultMessage={'Submitted Date'} />
                 </span>
-                <span className={classes.quotesSubmitDateValue}>{createdAt}</span>
+                <span className={classes.quotesSubmitDateValue}>{localcreatedAt}</span>
             </div>
             <div className={classes.quotesExpiredDate}>
                 <span className={classes.quotesExpiredDateLabel}>
                     <FormattedMessage id={'quotesTable.quotesExpiredDateText'} defaultMessage={'Expired Date'} />
                 </span>
-                <span className={classes.quotesExpiredDateValue}>{expiredAt}</span>
+                <span className={classes.quotesExpiredDateValue}>{localExpireddAt}</span>
             </div>
             <div className={classes.quotesTotal}>
                 <span className={classes.quotesTotalLabel}>
