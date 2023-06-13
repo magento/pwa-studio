@@ -34,7 +34,7 @@ export const useOrderRow = props => {
         }
     });
 
-        const { data: storeConfigData } = useStoreConfigContext();
+    const { data: storeConfigData } = useStoreConfigContext();
 
     const configurableThumbnailSource = useMemo(() => {
         if (storeConfigData) {
@@ -48,7 +48,12 @@ export const useOrderRow = props => {
             const mappedImagesData = {};
             items.forEach(item => {
                 const product = data.products.items.find(element => item.product_url_key === element.url_key);
-                if (configurableThumbnailSource === 'itself' && product.variants && product.variants.length > 0) {
+                if (
+                    configurableThumbnailSource === 'itself' &&
+                    product &&
+                    product.variants &&
+                    product.variants.length > 0
+                ) {
                     const foundVariant = product.variants.find(variant => {
                         return variant.product.sku === item.product_sku;
                     });
