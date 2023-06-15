@@ -6,7 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
-The 13.0 release of PWA Studio provides customers with many accessibility improvements for keyboard and screen-reader access, as well as several bug fixes. Full details are described below.
+The 13.2.0 release of PWA Studio provides customers with many accessibility improvements for keyboard and screen-reader access, as well as several bug fixes. Full details are described below.
 
 ## Accessibility Updates
 
