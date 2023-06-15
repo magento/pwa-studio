@@ -16,14 +16,14 @@ The 13.0 release of PWA Studio provides customers with many accessibility improv
 -  Story: [4112][] — Enter Coupon Code > Button is working with keyboard Enter key press.
 -  Story: [4094][] — Apply Gift Card > Link Check Balance button is working now with Enter key press.
 -  Story: [4111][] — Estimate your Shipping > Button is working with keyboard Enter key press.
--  Story: [4104][] — The screen reader now reads the appropriate message as expected when a shopper clicks Return to  apply a gift card on the cart page without entering a gift card number.
--  Story: [4104][] — System was getting crashed with unexpected error when pressed Retrun button with invalid Gift card number but now fixed and working without any issue.
+-  bug: [4104][] — The screen reader now reads the appropriate message as expected when a shopper clicks Return to  apply a gift card on the cart page without entering a gift card number.
+-  bug: [4104][] — System was getting crashed with unexpected error when pressed Retrun button with invalid Gift card number but now fixed and working without any issue.
 
-## Bug fixes
+## Additional fixes
 
--  Bug: [4086][] — Updated to latest @adobe/magento-storefront-event-collector.
--  Bug: [4040][] — Added Dev Container config to improve developer experience.
--  Bug: [4103][] — Updated eventing system to stay compatible with latest AEP schema.
+-  Story: [4086][] — Updated to latest @adobe/magento-storefront-event-collector.
+-  Story: [4040][] — Added Dev Container config to improve developer experience.
+-  Story: [4103][] — Updated eventing system to stay compatible with latest AEP schema.
 -  Bug: [4123][] — Edited the Magento2 Backend URL to working url.
 -  Bug: [4121][] — The 'signout' event is now captured.
 -  Bug: [4118][] — PWA Scaffolding Tool uses old version.
