@@ -23,8 +23,8 @@ The 13.0 release of PWA Studio provides customers with many accessibility improv
 
 -  Bug: [4086][] — Updated to latest @adobe/magento-storefront-event-collector.
 -  Bug: [4040][] — Added Dev Container config to improve developer experience.
--  Bug: [4103,4086][] — Updated eventing system to stay compatible with latest AEP schema.
--  Bug: [4123, 134][] — Edited the Magento2 Backend URL to working url.
+-  Bug: [4103][] — Updated eventing system to stay compatible with latest AEP schema.
+-  Bug: [4123][] — Edited the Magento2 Backend URL to working url.
 -  Bug: [4121][] — The 'signout' event is now captured.
 -  Bug: [4118][] — PWA Scaffolding Tool uses old version.
 -  Bug: [4084][] — useLink operations empty object destructuring.
