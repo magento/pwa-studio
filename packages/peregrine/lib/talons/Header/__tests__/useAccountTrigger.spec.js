@@ -12,6 +12,16 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
     })
 }));
 
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = {
+        isSignedIn: true
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
 const defaultProps = {
     VIEWS: {
         SIGNIN: 'SIGNIN',

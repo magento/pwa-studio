@@ -7,7 +7,10 @@ exports[`renders the correct tree 1`] = `
       Shopping Cart
     </h2>
     <button
+      aria-hidden="false"
+      aria-label="Close"
       onClick={[Function]}
+      onKeyDown={[Function]}
       type="button"
     >
       <span>

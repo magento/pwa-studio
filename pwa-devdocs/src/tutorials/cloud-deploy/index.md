@@ -226,9 +226,9 @@ variables, such as `CONFIG__DEFAULT__WEB__UPWARD__PATH` and `MAGENTO_BACKEND_URL
 [environment variables]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
 [project setup]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
 
-[magento pwa studio]: http://pwastudio.io
+[magento pwa studio]: https://developer.adobe.com/commerce/pwa-studio/
 [`@magento/venia-concept`]: https://www.npmjs.com/package/@magento/venia-concept
-[venia storefront]: https://pwastudio.io/venia-pwa-concept/
+[venia storefront]: https://developer.adobe.com/commerce/pwa-studio/guides/storefront-architecture/
 [create a `package.json`]: https://docs.npmjs.com/cli/init
 
 [magento2-upward-connector]: https://github.com/magento/magento2-upward-connector

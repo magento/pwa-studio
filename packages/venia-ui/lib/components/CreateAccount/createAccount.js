@@ -31,6 +31,8 @@ const CreateAccount = props => {
         errors,
         handleCancel,
         handleSubmit,
+        handleEnterKeyPress,
+        handleCancelKeyPress,
         isDisabled,
         initialValues,
         recaptchaWidgetProps
@@ -46,6 +48,7 @@ const CreateAccount = props => {
             type="button"
             priority="low"
             onClick={handleCancel}
+            onKeyDown={handleCancelKeyPress}
         >
             <FormattedMessage
                 id={'createAccount.cancelText'}
@@ -60,6 +63,7 @@ const CreateAccount = props => {
             disabled={isDisabled}
             type="submit"
             priority="high"
+            onKeyDown={handleEnterKeyPress}
             data-cy="CreateAccount-submitButton"
         >
             <FormattedMessage
@@ -99,6 +103,10 @@ const CreateAccount = props => {
                     mask={value => value && value.trim()}
                     maskOnBlur={true}
                     data-cy="customer-firstname"
+                    aria-label={formatMessage({
+                        id: 'global.firstNameRequired',
+                        defaultMessage: 'First Name Required'
+                    })}
                 />
             </Field>
             <Field
@@ -117,6 +125,10 @@ const CreateAccount = props => {
                     mask={value => value && value.trim()}
                     maskOnBlur={true}
                     data-cy="customer-lastname"
+                    aria-label={formatMessage({
+                        id: 'global.lastNameRequired',
+                        defaultMessage: 'Last Name Required'
+                    })}
                 />
             </Field>
             <Field
@@ -135,6 +147,10 @@ const CreateAccount = props => {
                     mask={value => value && value.trim()}
                     maskOnBlur={true}
                     data-cy="customer-email"
+                    aria-label={formatMessage({
+                        id: 'global.emailRequired',
+                        defaultMessage: 'Email Required'
+                    })}
                 />
             </Field>
             <Password
@@ -155,6 +171,10 @@ const CreateAccount = props => {
                 mask={value => value && value.trim()}
                 maskOnBlur={true}
                 data-cy="password"
+                aria-label={formatMessage({
+                    id: 'global.passwordRequired',
+                    defaultMessage: 'Password Required'
+                })}
             />
             <div className={classes.subscribe}>
                 <Checkbox

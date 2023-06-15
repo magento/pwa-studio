@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
-import useIntersectionObserver from '../useIntersectionObserver';
+import { useIntersectionObserver } from '../useIntersectionObserver';
 
 const log = jest.fn();
 

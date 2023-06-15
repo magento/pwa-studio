@@ -41,6 +41,7 @@ exports[`renders a disabled dropdown while loading 1`] = `
         className="before"
       />
       <span
+        aria-hidden="false"
         className="after"
       >
         <span
@@ -130,6 +131,7 @@ exports[`renders dropdown with country data 1`] = `
         className="before"
       />
       <span
+        aria-hidden="false"
         className="after"
       >
         <span

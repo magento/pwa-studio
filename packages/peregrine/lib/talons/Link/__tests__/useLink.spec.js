@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { act, create } from 'react-test-renderer';
 import { useLazyQuery } from '@apollo/client';
-import useLink from '../useLink';
-import useIntersectionObserver from '../../../hooks/useIntersectionObserver';
+import { useLink } from '../useLink';
+import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
 
 jest.mock('react', () => {
     const react = jest.requireActual('react');
@@ -34,7 +34,9 @@ jest.mock('../../../util/makeUrl', () =>
     })
 );
 
-jest.mock('../../../hooks/useIntersectionObserver');
+jest.mock('../../../hooks/useIntersectionObserver', () => ({
+    useIntersectionObserver: jest.fn()
+}));
 
 const mockIntersectionObserve = jest.fn();
 const mockIntersectionUnobserve = jest.fn();
@@ -74,7 +76,7 @@ const givenEmptyProps = () => {
 
 const givenValidProps = () => {
     props = {
-        prefetchType: true,
+        shouldPrefetch: true,
         innerRef: { current: 'foo' },
         to: '/bar.html'
     };
@@ -84,7 +86,7 @@ const givenFalsePrefetch = () => {
     givenValidProps();
     props = {
         ...props,
-        prefetchType: false
+        shouldPrefetch: false
     };
 };
 
@@ -173,7 +175,7 @@ describe('#useLink does not run query when', () => {
         expect(mockRunQuery).not.toHaveBeenCalled();
     });
 
-    test('should prefetch is false', async () => {
+    test('prefetch flag is false', async () => {
         givenFalsePrefetch();
 
         await act(() => {

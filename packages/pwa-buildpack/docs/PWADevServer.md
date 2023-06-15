@@ -2,4 +2,4 @@
 
 Documentation content has been moved to the [PWADevServer][] page in the PWA devdocs site.
 
-[PWADevServer]: https://pwastudio.io/pwa-buildpack/reference/pwa-dev-server/
+[PWADevServer]: https://developer.adobe.com/commerce/pwa-studio/api/buildpack/webpack/dev-server/

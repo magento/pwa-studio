@@ -497,6 +497,7 @@ export const useProductFullDetail = props => {
                             cartId,
                             sku: product.sku,
                             name: product.name,
+                            pricing: product.price,
                             priceTotal: productPrice.final_price.value,
                             currencyCode: productPrice.final_price.currency,
                             discountAmount: productPrice.discount.amount_off,

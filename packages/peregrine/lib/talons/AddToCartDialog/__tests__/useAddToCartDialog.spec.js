@@ -111,6 +111,14 @@ const mockItem = {
     configurable_options: [{ id: 1, value_id: 'red-id' }],
     product: {
         name: 'Shirt',
+        price: {
+            regularPrice: {
+                amount: {
+                    value: 123.45,
+                    currency: 'USD'
+                }
+            }
+        },
         configurable_options: [
             {
                 label: 'Color',

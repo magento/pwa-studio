@@ -43,11 +43,11 @@ jest.mock('@apollo/client', () => {
     };
 });
 
-jest.mock('../../../hooks/useInternalLink', () =>
-    jest.fn(() => ({
+jest.mock('../../../hooks/useInternalLink', () => ({
+    useInternalLink: jest.fn(() => ({
         setShimmerType: jest.fn()
     }))
-);
+}));
 
 const storeConfigResponse = {
     data: {

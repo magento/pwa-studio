@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
-import useInternalLink from '../../hooks/useInternalLink';
+import { useInternalLink } from '../../hooks/useInternalLink';
 
 import mergeOperations from '../../util/shallowMerge';
 

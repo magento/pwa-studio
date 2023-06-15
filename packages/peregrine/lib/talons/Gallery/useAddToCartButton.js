@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '../../context/cart';
 import { useEventingContext } from '../../context/eventing';
+import resourceUrl from '../../util/makeUrl';
 import operations from './addToCart.gql';
 
 /**
@@ -78,6 +79,12 @@ export const useAddToCartButton = props => {
                         cartId,
                         sku: item.sku,
                         name: item.name,
+                        pricing: {
+                            regularPrice: {
+                                amount:
+                                    item.price_range.maximum_price.regular_price
+                            }
+                        },
                         priceTotal:
                             item.price_range.maximum_price.final_price.value,
                         currencyCode:
@@ -91,7 +98,11 @@ export const useAddToCartButton = props => {
 
                 setIsLoading(false);
             } else if (productType === 'ConfigurableProduct') {
-                history.push(`${item.url_key}${urlSuffix || ''}`);
+                const productLink = resourceUrl(
+                    `/${item.url_key}${urlSuffix || ''}`
+                );
+
+                history.push(productLink);
             } else {
                 console.warn('Unsupported product type unable to handle.');
             }

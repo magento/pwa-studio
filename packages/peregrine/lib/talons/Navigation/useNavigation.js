@@ -6,7 +6,7 @@ import { useAppContext } from '../../context/app';
 import { useCatalogContext } from '../../context/catalog';
 import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
-import useInternalLink from '../../hooks/useInternalLink';
+import { useInternalLink } from '../../hooks/useInternalLink';
 
 import DEFAULT_OPERATIONS from './navigation.gql';
 

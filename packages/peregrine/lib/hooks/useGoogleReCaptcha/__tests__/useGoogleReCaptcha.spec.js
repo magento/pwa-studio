@@ -11,7 +11,7 @@ import { useGoogleReCaptcha } from '../useGoogleReCaptcha';
 jest.mock('@magento/peregrine/lib/hooks/useScript', () => {
     return {
         __esModule: true,
-        default: jest.fn().mockImplementation(() => {
+        useScript: jest.fn().mockImplementation(() => {
             return 'ready';
         })
     };

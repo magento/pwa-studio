@@ -116,6 +116,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="First Name Required"
               className="input"
               disabled={false}
               id="customer_firstname"
@@ -129,6 +130,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -162,6 +164,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Last Name Required"
               className="input"
               disabled={false}
               id="customer_lastname"
@@ -175,6 +178,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -187,6 +191,7 @@ Array [
       className="country"
     >
       <Country
+        aria-label="Country Required"
         validate={[Function]}
       />
     </div>
@@ -215,6 +220,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Street Address Required"
               className="input"
               id="customer_street0"
               name="street[0]"
@@ -227,6 +233,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -280,6 +287,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -313,6 +321,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="City Required"
               className="input"
               id="customer_city"
               name="city"
@@ -325,6 +334,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -337,6 +347,7 @@ Array [
       className="region"
     >
       <Region
+        aria-label="State Required"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -368,6 +379,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="ZIP / Postal Code Required"
               className="input"
               id="root"
               name="postcode"
@@ -380,6 +392,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -413,6 +426,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Phone Number Required"
               className="input"
               id="customer_telephone"
               name="telephone"
@@ -425,6 +439,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -577,6 +592,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="First Name Required"
               className="input"
               disabled={false}
               id="customer_firstname"
@@ -590,6 +606,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -623,6 +640,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Last Name Required"
               className="input"
               disabled={false}
               id="customer_lastname"
@@ -636,6 +654,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -648,6 +667,7 @@ Array [
       className="country"
     >
       <Country
+        aria-label="Country Required"
         validate={[Function]}
       />
     </div>
@@ -676,6 +696,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Street Address Required"
               className="input"
               id="customer_street0"
               name="street[0]"
@@ -688,6 +709,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -741,6 +763,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -774,6 +797,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="City Required"
               className="input"
               id="customer_city"
               name="city"
@@ -786,6 +810,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -798,6 +823,7 @@ Array [
       className="region"
     >
       <Region
+        aria-label="State Required"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -829,6 +855,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="ZIP / Postal Code Required"
               className="input"
               id="root"
               name="postcode"
@@ -841,6 +868,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -874,6 +902,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Phone Number Required"
               className="input"
               id="customer_telephone"
               name="telephone"
@@ -886,6 +915,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1065,6 +1095,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1098,6 +1129,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="First Name Required"
               className="input"
               disabled={true}
               id="customer_firstname"
@@ -1111,6 +1143,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1144,6 +1177,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Last Name Required"
               className="input"
               disabled={true}
               id="customer_lastname"
@@ -1157,6 +1191,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1169,6 +1204,7 @@ Array [
       className="country"
     >
       <Country
+        aria-label="Country Required"
         validate={[Function]}
       />
     </div>
@@ -1197,6 +1233,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Street Address Required"
               className="input"
               id="customer_street0"
               name="street[0]"
@@ -1209,6 +1246,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1262,6 +1300,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1295,6 +1334,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="City Required"
               className="input"
               id="customer_city"
               name="city"
@@ -1307,6 +1347,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1319,6 +1360,7 @@ Array [
       className="region"
     >
       <Region
+        aria-label="State Required"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -1350,6 +1392,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="ZIP / Postal Code Required"
               className="input"
               id="root"
               name="postcode"
@@ -1362,6 +1405,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -1395,6 +1439,7 @@ Array [
             className="input"
           >
             <input
+              aria-label="Phone Number Required"
               className="input"
               id="customer_telephone"
               name="telephone"
@@ -1407,6 +1452,7 @@ Array [
             className="before"
           />
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>

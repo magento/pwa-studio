@@ -17,6 +17,7 @@ export const GET_PRODUCT_THUMBNAILS_BY_URL_KEY = gql`
             items {
                 uid
                 sku
+                name
                 thumbnail {
                     label
                     url
@@ -29,6 +30,7 @@ export const GET_PRODUCT_THUMBNAILS_BY_URL_KEY = gql`
                         product {
                             sku
                             uid
+                            name
                             thumbnail {
                                 label
                                 url

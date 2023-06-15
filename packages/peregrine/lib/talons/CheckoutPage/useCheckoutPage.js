@@ -40,6 +40,7 @@ export const CHECKOUT_STEP = {
  *  customer: Object,
  *  error: ApolloError,
  *  handlePlaceOrder: Function,
+ *  handlePlaceOrderEnterKeyPress: Function,
  *  hasError: Boolean,
  *  isCartEmpty: Boolean,
  *  isGuestCheckout: Boolean,
@@ -60,6 +61,7 @@ export const CHECKOUT_STEP = {
  *  scrollShippingMethodIntoView: Function,
  *  resetReviewOrderButtonClicked: Function,
  *  handleReviewOrder: Function,
+ *  handleReviewOrderEnterKeyPress: Function,
  *  reviewOrderButtonClicked: Boolean,
  *  toggleAddressBookContent: Function,
  *  toggleSignInContent: Function,
@@ -182,6 +184,14 @@ export const useCheckoutPage = (props = {}) => {
         setReviewOrderButtonClicked(true);
     }, []);
 
+    const handleReviewOrderEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleReviewOrder();
+            }
+        };
+    }, [handleReviewOrder]);
+
     const resetReviewOrderButtonClicked = useCallback(() => {
         setReviewOrderButtonClicked(false);
     }, []);
@@ -240,6 +250,14 @@ export const useCheckoutPage = (props = {}) => {
         setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
     }, [cartId, getOrderDetails]);
+
+    const handlePlaceOrderEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handlePlaceOrder();
+            }
+        };
+    }, [handlePlaceOrder]);
 
     const [, { dispatch }] = useEventingContext();
 
@@ -377,6 +395,7 @@ export const useCheckoutPage = (props = {}) => {
         error: checkoutError,
         guestSignInUsername,
         handlePlaceOrder,
+        handlePlaceOrderEnterKeyPress,
         hasError: !!checkoutError,
         isCartEmpty: !(checkoutData && checkoutData?.cart?.total_quantity),
         isGuestCheckout: !isSignedIn,
@@ -401,6 +420,7 @@ export const useCheckoutPage = (props = {}) => {
         scrollShippingMethodIntoView,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
+        handleReviewOrderEnterKeyPress,
         reviewOrderButtonClicked,
         recaptchaWidgetProps,
         toggleAddressBookContent,

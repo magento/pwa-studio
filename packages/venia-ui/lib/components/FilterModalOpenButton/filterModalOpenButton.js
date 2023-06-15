@@ -1,6 +1,6 @@
 import React from 'react';
 import { shape, string, array } from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Button from '../Button';
 import { useStyle } from '../../classify';
 import defaultClasses from './filterModalOpenButton.module.css';
@@ -10,7 +10,12 @@ const FilterModalOpenButton = props => {
     const { filters, classes: propsClasses } = props;
     const classes = useStyle(defaultClasses, propsClasses);
     const { handleOpen } = useFilterModal({ filters });
-
+    const handleKeypress = e => {
+        if (e.code == 'Enter') {
+            handleOpen;
+        }
+    };
+    const { formatMessage } = useIntl();
     return (
         <Button
             priority={'low'}
@@ -19,9 +24,14 @@ const FilterModalOpenButton = props => {
             }}
             data-cy="FilterModalOpenButton-button"
             onClick={handleOpen}
+            onKeyDown={handleKeypress}
             type="button"
             aria-live="polite"
             aria-busy="false"
+            aria-label={formatMessage({
+                id: 'filterModalOpenButton.ariaLabel',
+                defaultMessage: 'Filter Button for Filter Options'
+            })}
         >
             <FormattedMessage
                 id={'productList.filter'}

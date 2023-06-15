@@ -5,6 +5,7 @@ exports[`it renders Venia price adjustments 1`] = `
   <div>
     <div>
       <button
+        aria-expanded={false}
         onClick={[Function]}
         type="button"
       >
@@ -37,6 +38,7 @@ exports[`it renders Venia price adjustments 1`] = `
     </div>
     <div>
       <button
+        aria-expanded={false}
         onClick={[Function]}
         type="button"
       >

@@ -25,21 +25,29 @@ const AccountTrigger = props => {
         accountMenuRef,
         accountMenuTriggerRef,
         setAccountMenuIsOpen,
-        handleTriggerClick
+        handleTriggerClick,
+        isUserSignedIn
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = accountMenuIsOpen ? classes.root_open : classes.root;
     const { formatMessage } = useIntl();
 
+    const ariaLabelMyMenu = formatMessage({
+        id: 'accountTrigger.ariaLabelMyMenu',
+        defaultMessage: 'Toggle My Account Menu'
+    });
+    const ariaLabelSignIn = formatMessage({
+        id: 'accountTrigger.ariaLabelSignIn',
+        defaultMessage: 'Sign In'
+    });
+    const ariaLabel = isUserSignedIn ? ariaLabelMyMenu : ariaLabelSignIn;
     return (
         <Fragment>
             <div className={rootClassName} ref={accountMenuTriggerRef}>
                 <button
-                    aria-label={formatMessage({
-                        id: 'accountTrigger.ariaLabel',
-                        defaultMessage: 'Toggle My Account Menu'
-                    })}
+                    aria-label={ariaLabel}
+                    aria-expanded={accountMenuIsOpen}
                     className={classes.trigger}
                     onClick={handleTriggerClick}
                     data-cy="AccountTrigger-trigger"

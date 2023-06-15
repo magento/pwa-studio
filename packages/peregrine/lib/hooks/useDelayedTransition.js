@@ -14,7 +14,7 @@ import { getRootComponent } from '../talons/MagentoRoute/helpers';
 
 const DELAY_MESSAGE_PREFIX = 'DELAY:';
 
-const useDelayedTransition = () => {
+export const useDelayedTransition = () => {
     const { pathname } = useLocation();
     const history = useHistory();
     const client = useApolloClient();
@@ -123,5 +123,3 @@ const useDelayedTransition = () => {
         };
     }, [client, resolveUrlQuery, setComponentMap, setPageLoading]);
 };
-
-export default useDelayedTransition;

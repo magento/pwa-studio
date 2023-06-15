@@ -1,6 +1,6 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import useInternalLink from '../../hooks/useInternalLink';
+import { useInternalLink } from '../../hooks/useInternalLink';
 
 import { useQuery } from '@apollo/client';
 import { useEventListener } from '../../hooks/useEventListener';

@@ -32,6 +32,14 @@ jest.mock('@apollo/client', () => {
                         id: 1,
                         name: 'Karena Halter Dress',
                         url_key: 'karena-halter-dress',
+                        price: {
+                            regularPrice: {
+                                amount: {
+                                    value: '100',
+                                    currency: 'USD'
+                                }
+                            }
+                        },
                         price_range: {
                             maximum_price: {
                                 final_price: {

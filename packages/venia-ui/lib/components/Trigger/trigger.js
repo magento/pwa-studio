@@ -1,6 +1,6 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { func, node, shape, string } from 'prop-types';
-
 import { useStyle } from '../../classify';
 import defaultClasses from './trigger.module.css';
 
@@ -16,21 +16,46 @@ import defaultClasses from './trigger.module.css';
  */
 const Trigger = props => {
     const {
+        addLabel,
         action,
         children,
-        ariaLabel,
         classes: propClasses,
         ...restProps
     } = props;
-
     const classes = useStyle(defaultClasses, propClasses);
+
+    const { formatMessage } = useIntl();
+    const arialabelClear = formatMessage({
+        id: 'global.clearText',
+        defaultMessage: 'Clear Text'
+    });
+
+    const arialabelClose = formatMessage({
+        id: 'global.close',
+        defaultMessage: 'Close'
+    });
+
+    let resultedLabel = addLabel ? arialabelClear : arialabelClose;
+
+    const handleKeypress = () => {
+        action();
+        resultedLabel = '';
+    };
+
+    const changeAction = e => {
+        if (e.keyCode === 13) {
+            action();
+        }
+    };
 
     return (
         <button
             className={classes.root}
             type="button"
-            onClick={action}
-            aria-label={ariaLabel}
+            onClick={handleKeypress}
+            onKeyDown={changeAction}
+            aria-hidden="false"
+            aria-label={resultedLabel}
             {...restProps}
         >
             {children}

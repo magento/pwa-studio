@@ -101,7 +101,6 @@ const FilterSidebar = props => {
             className={classes.root}
             ref={filterRef}
             data-cy="FilterSidebar-root"
-            aria-live="polite"
             aria-busy="false"
         >
             <div className={classes.body}>

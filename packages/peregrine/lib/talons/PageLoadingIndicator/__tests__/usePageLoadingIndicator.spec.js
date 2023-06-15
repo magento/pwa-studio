@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, create } from 'react-test-renderer';
 import { useAppContext } from '../../../context/app';
-import usePageLoadingIndicator from '../usePageLoadingIndicator';
+import { usePageLoadingIndicator } from '../usePageLoadingIndicator';
 
 jest.mock('../../../context/app', () => {
     return {

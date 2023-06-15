@@ -63,6 +63,7 @@ exports[`Edit Mode renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -116,6 +117,7 @@ exports[`Edit Mode renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -161,6 +163,7 @@ exports[`Edit Mode renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -214,6 +217,7 @@ exports[`Edit Mode renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -267,6 +271,7 @@ exports[`Edit Mode renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -312,6 +317,7 @@ exports[`Edit Mode renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -375,6 +381,7 @@ exports[`Edit Mode renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -505,6 +512,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -558,6 +566,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -603,6 +612,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -656,6 +666,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -709,6 +720,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -754,6 +766,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -817,6 +830,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -942,6 +956,7 @@ exports[`renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -995,6 +1010,7 @@ exports[`renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1040,6 +1056,7 @@ exports[`renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1093,6 +1110,7 @@ exports[`renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1146,6 +1164,7 @@ exports[`renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1191,6 +1210,7 @@ exports[`renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1254,6 +1274,7 @@ exports[`renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1384,6 +1405,7 @@ exports[`renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1437,6 +1459,7 @@ exports[`renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1482,6 +1505,7 @@ exports[`renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1535,6 +1559,7 @@ exports[`renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1588,6 +1613,7 @@ exports[`renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1633,6 +1659,7 @@ exports[`renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -1696,6 +1723,7 @@ exports[`renders correctly with errors 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>

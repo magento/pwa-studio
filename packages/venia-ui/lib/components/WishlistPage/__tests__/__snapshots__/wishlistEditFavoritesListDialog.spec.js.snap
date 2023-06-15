@@ -71,6 +71,7 @@ exports[`renders correctly when closed 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -155,6 +156,7 @@ exports[`renders correctly when edit is in progress 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -239,6 +241,7 @@ exports[`renders correctly when opened 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>
@@ -327,6 +330,7 @@ exports[`renders correctly with error 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>

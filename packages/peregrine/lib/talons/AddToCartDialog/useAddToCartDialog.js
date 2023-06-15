@@ -210,6 +210,7 @@ export const useAddToCartDialog = props => {
                     cartId,
                     sku: item.product.sku,
                     name: item.product.name,
+                    pricing: item.product.price,
                     priceTotal: currentPrice.value,
                     currencyCode: currentPrice.currency,
                     discountAmount: currentDiscount.amount_off,

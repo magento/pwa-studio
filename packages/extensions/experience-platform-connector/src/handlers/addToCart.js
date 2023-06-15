@@ -6,6 +6,7 @@ const handle = (sdk, event) => {
     const {
         cartId,
         currencyCode,
+        pricing,
         priceTotal,
         quantity,
         name,
@@ -35,14 +36,22 @@ const handle = (sdk, event) => {
                 product: {
                     name: name,
                     sku: sku,
-                    configurableOptions: configurableOptions
+                    configurableOptions: configurableOptions,
+                    pricing: {
+                        regularPrice:
+                            pricing?.regularPrice?.amount.value || priceTotal,
+                        currencyCode:
+                            pricing?.regularPrice?.amount.currency ||
+                            currencyCode
+                    }
                 },
                 prices: {
                     price: {
                         value: priceTotal,
                         currency: currencyCode
                     }
-                }
+                },
+                quantity: quantity
             }
         ],
         possibleOnepageCheckout: false,
@@ -50,7 +59,9 @@ const handle = (sdk, event) => {
         giftWrappingSelected: false
     };
 
+    sdk.context.setProduct(cartItemContext.items[0]);
     sdk.context.setShoppingCart(cartItemContext);
+    sdk.context.setChangedProducts({ items: cartItemContext.items });
     sdk.publish.addToCart();
 };
 

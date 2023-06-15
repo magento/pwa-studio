@@ -6,7 +6,7 @@ import Button from '@magento/venia-ui/lib/components/Button/button';
 import resolveLinkProps from '@magento/peregrine/lib/util/resolveLinkProps';
 import { Link, useHistory } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
-import useIntersectionObserver from '@magento/peregrine/lib/hooks/useIntersectionObserver';
+import { useIntersectionObserver } from '@magento/peregrine/lib/hooks/useIntersectionObserver';
 import { useMediaQuery } from '@magento/peregrine/lib/hooks/useMediaQuery';
 import handleHtmlContentClick from '../../handleHtmlContentClick';
 
@@ -160,7 +160,7 @@ const Banner = props => {
     ]);
     /* eslint-enable react-hooks/exhaustive-deps */
 
-    if (image) {
+    if (image && bgImageStyle) {
         wrapperStyles.backgroundImage = `url(${bgImageStyle})`;
         wrapperStyles.backgroundSize = backgroundSize;
         wrapperStyles.backgroundPosition = backgroundPosition;

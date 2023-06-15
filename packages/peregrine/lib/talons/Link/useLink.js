@@ -1,16 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import resourceUrl from '../../util/makeUrl';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from '../MagentoRoute/magentoRoute.gql';
 
-const useLink = (props, passedOperations = {}) => {
+export const useLink = (props, passedOperations = {}) => {
     const { innerRef: originalRef, to } = props;
     const shouldPrefetch = props.prefetchType || props.shouldPrefetch;
-    const operations = shouldPrefetch
-        ? mergeOperations(DEFAULT_OPERATIONS, passedOperations)
-        : {};
+    const operations = mergeOperations(DEFAULT_OPERATIONS, passedOperations);
 
     const intersectionObserver = useIntersectionObserver();
     const { resolveUrlQuery } = operations;
@@ -65,5 +63,3 @@ const useLink = (props, passedOperations = {}) => {
         ref: elementRef
     };
 };
-
-export default useLink;

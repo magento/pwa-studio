@@ -18,14 +18,21 @@ jest.mock(
     }
 );
 
+const mockSetPaymentMethodOnCartMutation = jest.fn();
+
 jest.mock('@apollo/client', () => {
     return {
+        useMutation: jest.fn(() => [
+            mockSetPaymentMethodOnCartMutation,
+            { loading: true }
+        ]),
         useQuery: jest.fn().mockReturnValue({
             data: {
                 cart: {
                     available_payment_methods: [
                         { code: 'availablePaymentMethod' }
-                    ]
+                    ],
+                    selected_payment_method: { code: 'braintree' }
                 }
             },
             loading: false
@@ -34,8 +41,17 @@ jest.mock('@apollo/client', () => {
 });
 
 jest.mock('../paymentMethods.gql', () => ({
-    getPaymentMethodsQuery: 'paymentMethodsQuery'
+    getPaymentMethodsQuery: 'paymentMethodsQuery',
+    setPaymentMethodOnCartMutation: 'setPaymentMethod'
 }));
+
+const getPaymentMethodsQuery = 'getPaymentMethodsQuery';
+const setPaymentMethodOnCartMutation = 'setPaymentMethodOnCartMutation';
+
+const operations = {
+    getPaymentMethodsQuery,
+    setPaymentMethodOnCartMutation
+};
 
 const Component = props => {
     const talonProps = usePaymentMethods(props);
@@ -58,7 +74,9 @@ const getTalonProps = props => {
 };
 
 it('returns the correct shape', () => {
-    const { talonProps } = getTalonProps();
+    const { talonProps } = getTalonProps({
+        operations
+    });
 
     expect(talonProps).toMatchSnapshot();
 });
@@ -69,5 +87,40 @@ it('returns an empty array for availablePaymentMethods when there is no data', (
     const { talonProps } = getTalonProps();
 
     expect(talonProps.availablePaymentMethods).toEqual([]);
+    expect(talonProps.initialSelectedMethod).toBeNull();
+});
+
+it('default payment is selected when there is one available payment method', () => {
+    useQuery.mockReturnValueOnce({
+        data: {
+            cart: {
+                available_payment_methods: [{ code: 'availablePaymentMethod' }],
+                selected_payment_method: { code: null }
+            }
+        }
+    });
+
+    const { talonProps } = getTalonProps();
+
+    expect(talonProps.availablePaymentMethods.length).toEqual(1);
+    expect(talonProps.initialSelectedMethod).toEqual('availablePaymentMethod');
+});
+
+it('default payment is not selected when there is more than one available payment method', () => {
+    useQuery.mockReturnValueOnce({
+        data: {
+            cart: {
+                available_payment_methods: [
+                    { code: 'availablePaymentMethod1' },
+                    { code: 'availablePaymentMethod2' }
+                ],
+                selected_payment_method: { code: null }
+            }
+        }
+    });
+
+    const { talonProps } = getTalonProps();
+
+    expect(talonProps.availablePaymentMethods.length).toEqual(2);
     expect(talonProps.initialSelectedMethod).toBeNull();
 });

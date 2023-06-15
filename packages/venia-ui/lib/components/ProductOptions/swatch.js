@@ -40,7 +40,8 @@ const Swatch = props => {
         onClick,
         style,
         isEverythingOutOfStock,
-        isOptionOutOfStock
+        isOptionOutOfStock,
+        attributeLabel
     } = props;
 
     const talonProps = useSwatch({
@@ -83,7 +84,8 @@ const Swatch = props => {
             '--venia-swatch-bg': swatchValue
         });
     }
-
+    const selectedText = isSelected ? 'Selected' : '';
+    const ariaLabel = `${attributeLabel}'s ${selectedText} option ${label}`;
     const className =
         classes[
             getClassName(
@@ -104,6 +106,7 @@ const Swatch = props => {
             type="button"
             data-cy="Swatch-root"
             disabled={isEverythingOutOfStock || isOptionOutOfStock}
+            aria-label={ariaLabel}
         >
             {!isOptionOutOfStock && (
                 <Icon classes={{ root: checkStyle }} src={CheckIcon} />

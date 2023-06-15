@@ -16,6 +16,14 @@ Object {
     "discountAmount": 10,
     "name": "Strive Shoulder Pac",
     "priceTotal": 99,
+    "pricing": Object {
+      "regularPrice": Object {
+        "amount": Object {
+          "currency": "USD",
+          "value": 99,
+        },
+      },
+    },
     "quantity": 1,
     "selectedOptions": null,
     "sku": "97ahsf9",

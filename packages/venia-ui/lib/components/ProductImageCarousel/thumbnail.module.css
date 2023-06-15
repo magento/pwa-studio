@@ -6,7 +6,6 @@
     composes: border-solid from global;
     composes: border-strong from global;
     composes: h-[0.875rem] from global;
-    composes: outline-none from global;
     composes: rounded-full from global;
     composes: w-[0.875rem] from global;
     box-shadow: 0 0 0 1px #ffffff;

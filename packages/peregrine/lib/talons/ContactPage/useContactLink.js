@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './contactUs.gql';
 
-export default (props = {}) => {
+export const useContactLink = (props = {}) => {
     const { getStoreConfigQuery } = mergeOperations(
         DEFAULT_OPERATIONS,
         props.operations

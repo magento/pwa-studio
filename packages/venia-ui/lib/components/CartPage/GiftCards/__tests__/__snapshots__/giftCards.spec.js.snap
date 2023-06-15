@@ -54,6 +54,7 @@ exports[`it renders correctly when it has cards 1`] = `
                 className="before"
               />
               <span
+                aria-hidden="false"
                 className="after"
               />
             </span>
@@ -61,6 +62,17 @@ exports[`it renders correctly when it has cards 1`] = `
               className="root"
             />
           </div>
+          <span
+            aria-live="polite"
+          >
+            <div
+              className="balance"
+            >
+              <span
+                className="invalid_card_error"
+              />
+            </div>
+          </span>
         </div>
         <div
           className="root"
@@ -73,7 +85,6 @@ exports[`it renders correctly when it has cards 1`] = `
             disabled={false}
             onClick={[MockFunction]}
             onDragStart={[Function]}
-            onKeyDown={[Function]}
             onKeyUp={[Function]}
             onMouseDown={[Function]}
             onMouseEnter={[Function]}
@@ -100,7 +111,6 @@ exports[`it renders correctly when it has cards 1`] = `
           disabled={false}
           onClick={[MockFunction]}
           onDragStart={[Function]}
-          onKeyDown={[Function]}
           onKeyUp={[Function]}
           onMouseDown={[Function]}
           onMouseEnter={[Function]}
@@ -295,6 +305,7 @@ exports[`it renders correctly with no cards 1`] = `
                 className="before"
               />
               <span
+                aria-hidden="false"
                 className="after"
               />
             </span>
@@ -302,6 +313,17 @@ exports[`it renders correctly with no cards 1`] = `
               className="root"
             />
           </div>
+          <span
+            aria-live="polite"
+          >
+            <div
+              className="balance"
+            >
+              <span
+                className="invalid_card_error"
+              />
+            </div>
+          </span>
         </div>
         <div
           className="root"
@@ -314,7 +336,6 @@ exports[`it renders correctly with no cards 1`] = `
             disabled={false}
             onClick={[MockFunction]}
             onDragStart={[Function]}
-            onKeyDown={[Function]}
             onKeyUp={[Function]}
             onMouseDown={[Function]}
             onMouseEnter={[Function]}
@@ -341,7 +362,6 @@ exports[`it renders correctly with no cards 1`] = `
           disabled={false}
           onClick={[MockFunction]}
           onDragStart={[Function]}
-          onKeyDown={[Function]}
           onKeyUp={[Function]}
           onMouseDown={[Function]}
           onMouseEnter={[Function]}

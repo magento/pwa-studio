@@ -134,6 +134,7 @@ exports[`renders correctly 1`] = `
               className="before"
             />
             <span
+              aria-hidden="false"
               className="after"
             />
           </span>

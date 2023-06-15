@@ -8,6 +8,14 @@ Object {
     "discountAmount": 10,
     "name": "Product Name",
     "priceTotal": 99,
+    "pricing": Object {
+      "regularPrice": Object {
+        "amount": Object {
+          "currency": "USD",
+          "value": 99,
+        },
+      },
+    },
     "quantity": 1,
     "selectedOptions": null,
     "sku": "shoggoth-shirt",

@@ -69,9 +69,9 @@ This server also contains sample data for a fashion store to show the different 
 
 Other notable packages in PWA Studio include:
 
--   **[pwastudio.io][]** - Provides documentation to help guide developers towards creating a Magento PWA storefront
--   **[UPWARD][]** - A proxy-server concept that describes a highly configurable server that sits between the PWA storefront and backend services, such as Magento
--   **[PageBuilder][]** - PageBuilder extension for PWA Studio
+- **[PWA Studio docs][]** - Provides documentation to help guide developers towards creating a Magento PWA storefront
+- **[UPWARD][]** - A proxy-server concept that describes a highly configurable server that sits between the PWA storefront and backend services, such as Magento
+- **[PageBuilder][]** - PageBuilder extension for PWA Studio
 
 [tools and libraries]: {% link technologies/tools-libraries/index.md %}
 [pwa-buildpack]: {% link pwa-buildpack/index.md %}
@@ -83,9 +83,8 @@ Other notable packages in PWA Studio include:
 [set up a new storefront project]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
 [pagebuilder]: <{%link pagebuilder/index.md %}>
 
-[pwastudio.io]: https://pwastudio.io
+[pwa studio docs]: https://developer.adobe.com/commerce/pwa-studio/
 [web.dev]: https://web.dev/progressive-web-apps/
 [developers.google.com]: https://developers.google.com/web/updates/2015/12/getting-started-pwa
 [developer.mozilla.org]: https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps
 [rail]: https://web.dev/rail/
-

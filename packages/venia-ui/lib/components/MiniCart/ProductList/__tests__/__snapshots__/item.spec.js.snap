@@ -13,6 +13,7 @@ exports[`Should disable delete icon while loading 1`] = `
     >
       <img
         alt="P1"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -113,6 +114,7 @@ exports[`Should disable delete icon while loading 1`] = `
     
   </span>
   <button
+    aria-label="Item Deleted"
     className="deleteButton"
     disabled={true}
     onClick={[Function]}
@@ -154,6 +156,14 @@ exports[`Should disable delete icon while loading 1`] = `
       </svg>
     </span>
   </button>
+  <span
+    aria-hidden="false"
+    aria-live="polite"
+    className="hide"
+    role="status"
+  >
+    There is only one item left in your cart
+  </span>
 </div>
 `;
 
@@ -170,6 +180,7 @@ exports[`Should render correctly 1`] = `
     >
       <img
         alt="P1"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -270,6 +281,7 @@ exports[`Should render correctly 1`] = `
     
   </span>
   <button
+    aria-label="Delete"
     className="deleteButton"
     disabled={false}
     onClick={[Function]}
@@ -311,6 +323,14 @@ exports[`Should render correctly 1`] = `
       </svg>
     </span>
   </button>
+  <span
+    aria-hidden="false"
+    aria-live="polite"
+    className="hide"
+    role="status"
+  >
+    There is only one item left in your cart
+  </span>
 </div>
 `;
 
@@ -327,6 +347,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
     >
       <img
         alt="P1"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -427,6 +448,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
     
   </span>
   <button
+    aria-label="Delete"
     className="deleteButton"
     disabled={false}
     onClick={[Function]}
@@ -468,6 +490,14 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
       </svg>
     </span>
   </button>
+  <span
+    aria-hidden="false"
+    aria-live="polite"
+    className="hide"
+    role="status"
+  >
+    There is only one item left in your cart
+  </span>
 </div>
 `;
 
@@ -484,6 +514,7 @@ exports[`Should render correctly with out of stock product 1`] = `
     >
       <img
         alt="P1"
+        aria-hidden="true"
         className="image placeholder"
         loading="eager"
         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
@@ -584,6 +615,7 @@ exports[`Should render correctly with out of stock product 1`] = `
     Out-of-stock
   </span>
   <button
+    aria-label="Delete"
     className="deleteButton"
     disabled={false}
     onClick={[Function]}
@@ -625,5 +657,13 @@ exports[`Should render correctly with out of stock product 1`] = `
       </svg>
     </span>
   </button>
+  <span
+    aria-hidden="false"
+    aria-live="polite"
+    className="hide"
+    role="status"
+  >
+    There is only one item left in your cart
+  </span>
 </div>
 `;

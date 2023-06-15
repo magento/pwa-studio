@@ -14,6 +14,7 @@ exports[`#MegaMenu renders menu if in viewport 1`] = `
 >
   <div
     className="megaMenuItem"
+    onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
     onTouchStart={[Function]}
@@ -79,6 +80,7 @@ exports[`#MegaMenu renders menu if in viewport 1`] = `
   </div>
   <div
     className="megaMenuItem"
+    onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
     onTouchStart={[Function]}
@@ -94,6 +96,7 @@ exports[`#MegaMenu renders menu if in viewport 1`] = `
   </div>
   <div
     className="megaMenuItem"
+    onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
     onTouchStart={[Function]}

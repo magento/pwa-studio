@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './contactUs.gql';
 
-export default props => {
+export const useContactPage = props => {
     const { cmsBlockIdentifiers = [], operations } = props;
     const {
         contactMutation,

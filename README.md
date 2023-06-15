@@ -22,8 +22,11 @@ Here, you can learn PWA Studio concepts, find API reference docs, and read tutor
 Here are some popular topics to help you get started:
 
 - [PWA Studio Overview][] - A high level overview of PWA Studio and what it provides to developers
+- [PWA Studio Beginner Guide](https://www.youtube.com/watch?v=n8C87KQT-Bg)
 - [Tools and libraries][] - A list of tools and libraries developers need to be familiar with to use PWA Studio
 - [PWA Studio fundamentals][] - A series of tutorials covering common storefront development tasks
+- [PWA Studio best Practices](https://developer.adobe.com/commerce/pwa-studio/guides/best-practices/)
+
 
 ### Venia
 

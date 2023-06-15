@@ -42,6 +42,7 @@ exports[`disables save if isSaveDisabled is true 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>
@@ -145,6 +146,7 @@ exports[`renders the correct tree 1`] = `
           className="before"
         />
         <span
+          aria-hidden="false"
           className="after"
         />
       </span>

@@ -1,7 +1,7 @@
 .root {
     composes: grid from global;
     composes: p-md from global;
-    composes: pb-xs from global;
+    composes: pb-s from global;
 }
 
 .radio_group {
@@ -14,8 +14,6 @@
     composes: border-subtle from global;
     composes: pb-xs from global;
     composes: pt-xs from global;
-
-    composes: last_pt-0 from global;
 }
 
 /* TODO @TW: cannot compose */

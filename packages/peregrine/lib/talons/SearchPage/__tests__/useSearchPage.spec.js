@@ -6,6 +6,7 @@ import { getFiltersFromSearch } from '../../FilterModal/helpers';
 import { useSearchPage } from '../useSearchPage';
 import { getSearchParam } from '../../../hooks/useSearchParam';
 import { useEventingContext } from '../../../context/eventing';
+import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
 
 const log = jest.fn();
 const Component = props => {
@@ -27,6 +28,10 @@ const mockUseSort = jest
     ])
     .mockName('mockUseSort');
 const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
+
+jest.mock('@magento/peregrine/lib/talons/Header/useStoreSwitcher', () => ({
+    useStoreSwitcher: jest.fn()
+}));
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
@@ -135,6 +140,9 @@ const mockGetSearchAvailableSortMethods = jest.fn();
 
 describe('searchCategory', () => {
     test('returns the correct shape', () => {
+        useStoreSwitcher.mockReturnValueOnce({
+            currentStoreName: 'Store 1'
+        });
         useLazyQuery.mockReturnValueOnce([
             mockGetSearchAvailableSortMethods,
             { data: mockAvailableSortMethods }
@@ -149,6 +157,9 @@ describe('searchCategory', () => {
             mockGetSearchAvailableSortMethods,
             { data: mockAvailableSortMethods }
         ]);
+        useStoreSwitcher.mockReturnValueOnce({
+            currentStoreName: 'Store 1'
+        });
         getFiltersFromSearch.mockReturnValueOnce(new Map());
         // Act.
         createTestInstance(<Component {...initialProps} />);
@@ -162,6 +173,9 @@ describe('searchCategory', () => {
             mockGetSearchAvailableSortMethods,
             { data: mockAvailableSortMethods }
         ]);
+        useStoreSwitcher.mockReturnValueOnce({
+            currentStoreName: 'Store 1'
+        });
         const map = new Map().set('not_category_id', 'unit test');
         getFiltersFromSearch.mockReturnValueOnce(map);
         // Act.
@@ -176,6 +190,9 @@ describe('searchCategory', () => {
             mockGetSearchAvailableSortMethods,
             { data: mockAvailableSortMethods }
         ]);
+        useStoreSwitcher.mockReturnValueOnce({
+            currentStoreName: 'Store 1'
+        });
         const map = new Map().set('category_id', new Set(['Bottoms,11']));
         getFiltersFromSearch.mockReturnValueOnce(map);
         // Act.
@@ -190,6 +207,9 @@ describe('searchCategory', () => {
             mockGetSearchAvailableSortMethods,
             { data: mockAvailableSortMethods }
         ]);
+        useStoreSwitcher.mockReturnValueOnce({
+            currentStoreName: 'Store 1'
+        });
         const map = new Map().set(
             'category_id',
             new Set(['Bottoms,11', 'Skirts,12'])
@@ -207,7 +227,8 @@ describe('searchCategory', () => {
             {
                 sortText: 'Changed',
                 sortAttribute: 'relevance',
-                sortDirection: 'DESC'
+                sortDirection: 'DESC',
+                currentStoreName: 'Store 1'
             },
             0
         ],
@@ -216,7 +237,8 @@ describe('searchCategory', () => {
             {
                 sortText: 'Best Match',
                 sortAttribute: 'Changed',
-                sortDirection: 'DESC'
+                sortDirection: 'DESC',
+                currentStoreName: 'Store 1'
             },
             1
         ],
@@ -225,7 +247,8 @@ describe('searchCategory', () => {
             {
                 sortText: 'Best Match',
                 sortAttribute: 'relevance',
-                sortDirection: 'Changed'
+                sortDirection: 'Changed',
+                currentStoreName: 'Store 1'
             },
             1
         ]
@@ -234,18 +257,25 @@ describe('searchCategory', () => {
         'Changing %s current page to 1.',
         (description, sortParams, expected) => {
             mockUseSort.mockReturnValueOnce([sortParams, jest.fn()]);
+            useStoreSwitcher.mockReturnValueOnce({
+                currentStoreName: 'Store 1'
+            });
             useLazyQuery.mockReturnValueOnce([
                 mockGetSearchAvailableSortMethods,
                 { data: mockAvailableSortMethods }
             ]);
             const tree = createTestInstance(<Component {...initialProps} />);
             act(() => {
+                useStoreSwitcher.mockReturnValueOnce({
+                    currentStoreName: 'Store 1'
+                });
                 useLazyQuery.mockReturnValueOnce([
                     mockGetSearchAvailableSortMethods,
                     { data: mockAvailableSortMethods }
                 ]);
                 tree.update(<Component {...initialProps} />);
             });
+
             expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
         }
     );
@@ -254,6 +284,9 @@ describe('searchCategory', () => {
             mockGetSearchAvailableSortMethods,
             { data: mockAvailableSortMethods }
         ]);
+        useStoreSwitcher.mockReturnValueOnce({
+            currentStoreName: 'Store 1'
+        });
         mockUseSort.mockReturnValueOnce([
             {
                 sortText: 'Best Match',
@@ -269,6 +302,9 @@ describe('searchCategory', () => {
                 mockGetSearchAvailableSortMethods,
                 { data: mockAvailableSortMethods }
             ]);
+            useStoreSwitcher.mockReturnValueOnce({
+                currentStoreName: 'Store 1'
+            });
             tree.update(<Component {...initialProps} />);
         });
         expect(mockSetCurrentPage).toHaveBeenCalledWith(1, true);
@@ -283,6 +319,9 @@ describe('searchCategory', () => {
             mockGetSearchAvailableSortMethods,
             { data: mockAvailableSortMethods }
         ]);
+        useStoreSwitcher.mockReturnValueOnce({
+            currentStoreName: 'Store 1'
+        });
         mockUseSort.mockReturnValueOnce([
             {
                 sortText: 'Sort Text',

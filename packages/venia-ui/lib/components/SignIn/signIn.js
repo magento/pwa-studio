@@ -36,7 +36,10 @@ const SignIn = props => {
     const {
         errors,
         handleCreateAccount,
+        handleEnterKeyPress,
+        signinHandleEnterKeyPress,
         handleForgotPassword,
+        forgotPasswordHandleEnterKeyPress,
         handleSubmit,
         isBusy,
         setFormApi,
@@ -77,6 +80,10 @@ const SignIn = props => {
                         field="email"
                         validate={isRequired}
                         data-cy="email"
+                        aria-label={formatMessage({
+                            id: 'global.emailRequired',
+                            defaultMessage: 'Email Required'
+                        })}
                     />
                 </Field>
                 <Password
@@ -91,12 +98,17 @@ const SignIn = props => {
                     autoComplete="current-password"
                     isToggleButtonHidden={false}
                     data-cy="password"
+                    aria-label={formatMessage({
+                        id: 'global.passwordRequired',
+                        defaultMessage: 'Password Required'
+                    })}
                 />
                 <div className={classes.forgotPasswordButtonContainer}>
                     <LinkButton
                         classes={forgotPasswordClasses}
                         type="button"
                         onClick={handleForgotPassword}
+                        onKeyDown={forgotPasswordHandleEnterKeyPress}
                         data-cy="SignIn-forgotPasswordButton"
                     >
                         <FormattedMessage
@@ -110,6 +122,7 @@ const SignIn = props => {
                     <Button
                         priority="high"
                         type="submit"
+                        onKeyDown={signinHandleEnterKeyPress}
                         data-cy="SignInButton-root_highPriority"
                         disabled={isBusy}
                     >
@@ -123,6 +136,7 @@ const SignIn = props => {
                         type="button"
                         onClick={handleCreateAccount}
                         data-cy="CreateAccount-initiateButton"
+                        onKeyDown={handleEnterKeyPress}
                     >
                         <FormattedMessage
                             id={'signIn.createAccountText'}

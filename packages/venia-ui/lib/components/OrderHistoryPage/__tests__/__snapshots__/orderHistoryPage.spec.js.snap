@@ -90,6 +90,7 @@ exports[`renders correctly with data 1`] = `
             </span>
           </span>
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -97,6 +98,7 @@ exports[`renders correctly with data 1`] = `
           className="root"
         />
         <button
+          aria-label="submit"
           className="searchButton"
           disabled={false}
           onClick={[Function]}
@@ -280,6 +282,7 @@ exports[`renders correctly without data 1`] = `
             </span>
           </span>
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -287,6 +290,7 @@ exports[`renders correctly without data 1`] = `
           className="root"
         />
         <button
+          aria-label="submit"
           className="searchButton"
           disabled={false}
           onClick={[Function]}
@@ -457,11 +461,15 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
             </span>
           </span>
           <span
+            aria-hidden="false"
             className="after"
           >
             <button
+              aria-hidden="false"
+              aria-label="Clear Text"
               className="root"
               onClick={[Function]}
+              onKeyDown={[Function]}
               type="button"
             >
               <span
@@ -500,6 +508,7 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
           className="root"
         />
         <button
+          aria-label="submit"
           className="searchButton"
           disabled={false}
           onClick={[Function]}
@@ -645,6 +654,7 @@ exports[`renders loading indicator 1`] = `
             </span>
           </span>
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -652,6 +662,7 @@ exports[`renders loading indicator 1`] = `
           className="root"
         />
         <button
+          aria-label="submit"
           className="searchButton"
           disabled={true}
           onClick={[Function]}
@@ -856,6 +867,7 @@ exports[`renders no orders message is orders is empty 1`] = `
             </span>
           </span>
           <span
+            aria-hidden="false"
             className="after"
           />
         </span>
@@ -863,6 +875,7 @@ exports[`renders no orders message is orders is empty 1`] = `
           className="root"
         />
         <button
+          aria-label="submit"
           className="searchButton"
           disabled={false}
           onClick={[Function]}

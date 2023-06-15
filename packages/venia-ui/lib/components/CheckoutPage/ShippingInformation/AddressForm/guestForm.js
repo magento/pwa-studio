@@ -153,6 +153,10 @@ const GuestForm = props => {
                             id="email"
                             data-cy="GuestForm-email"
                             validate={isRequired}
+                            aria-label={formatMessage({
+                                id: 'global.emailRequired',
+                                defaultMessage: 'Email Required'
+                            })}
                             onBlur={() =>
                                 handleValidateEmail(
                                     formApiRef.current.getValue('email')
@@ -185,6 +189,10 @@ const GuestForm = props => {
                             id="firstname"
                             data-cy="GuestForm-firstName"
                             validate={isRequired}
+                            aria-label={formatMessage({
+                                id: 'global.firstNameRequired',
+                                defaultMessage: 'First Name Required'
+                            })}
                         />
                     </Field>
                 </div>
@@ -205,6 +213,10 @@ const GuestForm = props => {
                             id="lastname"
                             data-cy="GuestForm-lastName"
                             validate={isRequired}
+                            aria-label={formatMessage({
+                                id: 'global.lastNameRequired',
+                                defaultMessage: 'Last Name Required'
+                            })}
                         />
                     </Field>
                 </div>
@@ -216,6 +228,10 @@ const GuestForm = props => {
                         })}
                         validate={isRequired}
                         data-cy="GuestForm-country"
+                        aria-label={formatMessage({
+                            id: 'global.countryRequired',
+                            defaultMessage: 'Country Required'
+                        })}
                     />
                 </div>
                 <div className={classes.street0}>
@@ -235,6 +251,10 @@ const GuestForm = props => {
                             id="street0"
                             data-cy="GuestForm-street0"
                             validate={isRequired}
+                            aria-label={formatMessage({
+                                id: 'global.streetAddressRequired',
+                                defaultMessage: 'Street Address Required'
+                            })}
                         />
                     </Field>
                 </div>
@@ -275,6 +295,10 @@ const GuestForm = props => {
                             id="city"
                             data-cy="GuestForm-city"
                             validate={isRequired}
+                            aria-label={formatMessage({
+                                id: 'global.cityRequired',
+                                defaultMessage: 'City Required'
+                            })}
                         />
                     </Field>
                 </div>
@@ -289,6 +313,10 @@ const GuestForm = props => {
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
                         data-cy="GuestForm-region"
+                        aria-label={formatMessage({
+                            id: 'global.stateRequired',
+                            defaultMessage: 'State Required'
+                        })}
                     />
                 </div>
                 <div className={classes.postcode}>
@@ -299,6 +327,10 @@ const GuestForm = props => {
                         })}
                         validate={isRequired}
                         data-cy="GuestForm-postcode"
+                        aria-label={formatMessage({
+                            id: 'global.postalCodeRequired',
+                            defaultMessage: 'ZIP / Postal Code Required'
+                        })}
                     />
                 </div>
                 <div className={classes.telephone}>
@@ -318,6 +350,10 @@ const GuestForm = props => {
                             id="telephone"
                             data-cy="GuestForm-telephone"
                             validate={isRequired}
+                            aria-label={formatMessage({
+                                id: 'global.phonenumberRequired',
+                                defaultMessage: 'Phone Number Required'
+                            })}
                         />
                     </Field>
                 </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useMutation, useQuery } from '@apollo/client';
-import useContactPage from '../useContactPage';
+import { useContactPage } from '../useContactPage';
 
 /*
  * Mocks.

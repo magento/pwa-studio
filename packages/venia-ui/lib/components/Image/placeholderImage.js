@@ -50,6 +50,7 @@ const PlaceholderImage = props => {
     return (
         <SimpleImage
             loading="eager"
+            aria-hidden="true"
             height={height}
             width={width}
             {...rest}

@@ -19,7 +19,9 @@ jest.mock('../../Navigation', () => 'Navigation');
 jest.mock('../../Routes', () => 'Routes');
 jest.mock('../../ToastContainer', () => 'ToastContainer');
 jest.mock('@magento/peregrine/lib/hooks/useDelayedTransition', () => {
-    return jest.fn();
+    return {
+        useDelayedTransition: jest.fn()
+    };
 });
 
 const mockAddToast = jest.fn();

@@ -27,7 +27,8 @@ const Item = props => {
         prices,
         closeMiniCart,
         configurableThumbnailSource,
-        storeUrlSuffix
+        storeUrlSuffix,
+        totalQuantity
     } = props;
 
     const { formatMessage } = useIntl();
@@ -51,6 +52,21 @@ const Item = props => {
 
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
     const configured_variant = configuredVariant(configurable_options, product);
+
+    const minicartButtonDeleted = formatMessage({
+        id: 'global.deletedButton',
+        defaultMessage: 'Item Deleted'
+    });
+    const miniCartButton = formatMessage({
+        id: 'global.deleteButton',
+        defaultMessage: 'Delete'
+    });
+    const buttonStatus = isDeleting ? minicartButtonDeleted : miniCartButton;
+
+    const announceCartCount =
+        totalQuantity > 1
+            ? 'There are ' + totalQuantity + ' items left in your cart'
+            : 'There is only one item left in your cart';
 
     return (
         <div className={rootClass} data-cy="MiniCart-Item-root">
@@ -113,6 +129,7 @@ const Item = props => {
                 className={classes.deleteButton}
                 disabled={isDeleting}
                 data-cy="MiniCart-Item-deleteButton"
+                aria-label={buttonStatus}
             >
                 <Icon
                     size={16}
@@ -122,6 +139,14 @@ const Item = props => {
                     }}
                 />
             </button>
+            <span
+                className={classes.hide}
+                role="status"
+                aria-hidden="false"
+                aria-live="polite"
+            >
+                {announceCartCount}
+            </span>
         </div>
     );
 };

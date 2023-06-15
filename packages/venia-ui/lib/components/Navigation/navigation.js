@@ -36,7 +36,7 @@ const Navigation = props => {
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
-    const tabindex = isOpen ? '0' : '-1';
+    const tabIndex = isOpen ? '0' : '-1';
 
     // Lazy load the auth modal because it may not be needed.
     const authModal = hasModal ? (
@@ -72,7 +72,7 @@ const Navigation = props => {
                             onNavigate={handleClose}
                             setCategoryId={setCategoryId}
                             updateCategories={catalogActions.updateCategories}
-                            tabindex={tabindex}
+                            tabIndex={tabIndex}
                         />
                     </div>
                     <div className={classes.footer}>

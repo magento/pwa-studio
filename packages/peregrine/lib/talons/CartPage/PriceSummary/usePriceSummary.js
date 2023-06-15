@@ -68,8 +68,17 @@ export const usePriceSummary = (props = {}) => {
         history.push('/checkout');
     }, [history]);
 
+    const handleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleProceedToCheckout();
+            }
+        };
+    }, [handleProceedToCheckout]);
+
     return {
         handleProceedToCheckout,
+        handleEnterKeyPress,
         hasError: !!error,
         hasItems: data && !!data.cart.items.length,
         isCheckout,
@@ -111,6 +120,7 @@ export const usePriceSummary = (props = {}) => {
  * @typedef {Object} PriceSummaryTalonProps
  *
  * @property {function} handleProceedToCheckout Callback function which navigates the browser to the checkout
+ * * @property {function} handleEnterKeyPress Callback function which navigates the browser to the checkout at the press of enter key
  * @property {boolean} hasError True if a GraphQL query returns an error. False otherwise.
  * @property {boolean} hasItems True if the cart has any items. False otherwise.
  * @property {boolean} isLoading True while the GraphQL query is still in flight. False otherwise.

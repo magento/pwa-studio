@@ -11,11 +11,13 @@ const clearIcon = <Icon src={ClearIcon} size={24} />;
 const searchIcon = <Icon src={SearchIcon} size={24} />;
 
 const SearchField = props => {
-    const { isSearchOpen, onChange, onFocus } = props;
+    const { isSearchOpen, onChange, onFocus, addLabel } = props;
     const { inputRef, resetForm, value } = useSearchField({ isSearchOpen });
 
     const resetButton = value ? (
-        <Trigger action={resetForm}>{clearIcon}</Trigger>
+        <Trigger action={resetForm} addLabel={addLabel}>
+            {clearIcon}
+        </Trigger>
     ) : null;
 
     return (

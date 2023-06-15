@@ -3,15 +3,12 @@
 exports[`renders if \`items\` is an array of objects 1`] = `
 <div
   aria-busy="false"
-  aria-live="polite"
   className="root"
 >
   <div
     className="items"
   >
     <div
-      aria-busy="false"
-      aria-live="polite"
       className="root"
     >
       <div
@@ -19,6 +16,7 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       >
         <img
           alt="Test Product 1"
+          aria-hidden="true"
           className="image placeholder_layoutOnly"
           height={375}
           loading="eager"
@@ -106,8 +104,6 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       </div>
     </div>
     <div
-      aria-busy="false"
-      aria-live="polite"
       className="root"
     >
       <div
@@ -115,6 +111,7 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       >
         <img
           alt="Test Product 2"
+          aria-hidden="true"
           className="image placeholder_layoutOnly"
           height={375}
           loading="eager"
@@ -208,7 +205,6 @@ exports[`renders if \`items\` is an array of objects 1`] = `
 exports[`renders if \`items\` is an empty array 1`] = `
 <div
   aria-busy="false"
-  aria-live="polite"
   className="root"
 >
   <div

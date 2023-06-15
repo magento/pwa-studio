@@ -51,6 +51,14 @@ const baseProps = {
             sku: 'shoggoth-shirt',
             stock_status: 'IN_STOCK',
             name: 'Product Name',
+            price: {
+                regularPrice: {
+                    amount: {
+                        value: 99,
+                        currency: 'USD'
+                    }
+                }
+            },
             price_range: {
                 maximum_price: {
                     final_price: {

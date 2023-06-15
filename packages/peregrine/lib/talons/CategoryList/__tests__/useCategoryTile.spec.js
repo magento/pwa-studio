@@ -30,11 +30,11 @@ const props = {
 
 const log = jest.fn();
 
-jest.mock('../../../hooks/useInternalLink', () =>
-    jest.fn(() => ({
+jest.mock('../../../hooks/useInternalLink', () => ({
+    useInternalLink: jest.fn(() => ({
         setShimmerType: jest.fn()
     }))
-);
+}));
 
 const Component = props => {
     const talonProps = useCategoryTile(props);

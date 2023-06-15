@@ -70,6 +70,7 @@ const Option = props => {
                 onSelectionChange={handleSelectionChange}
                 isEverythingOutOfStock={isEverythingOutOfStock}
                 outOfStockVariants={outOfStockVariants}
+                attributeLabel={label}
             />
             <dl className={classes.selection}>
                 <dt

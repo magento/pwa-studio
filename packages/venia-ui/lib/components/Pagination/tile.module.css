@@ -5,7 +5,6 @@
     composes: flex from global;
     composes: items-center from global;
     composes: justify-center from global;
-    composes: outline-none from global;
     composes: relative from global;
     composes: rounded-sm from global;
     min-height: 2rem;
