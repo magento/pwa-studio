@@ -91,6 +91,7 @@ const ProductForm = props => {
                     }}
                     errors={Array.from(errors.values())}
                     scrollOnError={false}
+                    allowErrorMessages={true}
                 />
                 <ProductDetail
                     item={cartItem}
