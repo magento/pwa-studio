@@ -20,6 +20,7 @@ export const GET_PRODUCT_FOR_QUICK_ORDER_BY_SKU = gql`
                 uid
                 name
                 sku
+                stock_status
                 price {
                     minimalPrice {
                         amount {

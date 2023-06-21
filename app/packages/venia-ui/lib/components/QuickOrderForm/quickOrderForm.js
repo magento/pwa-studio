@@ -262,7 +262,7 @@ const QuickOrderForm = props => {
                                                 <div className={classes.inputQtyQuick}>
                                                     <QuantityStepper
                                                         min={1}
-                                                        value={item.quantity}
+                                                        initialValue={item.quantity}
                                                         fieldName={`quantity-${key}`}
                                                         textProps={{
                                                             onChange(e) {
@@ -284,7 +284,8 @@ const QuickOrderForm = props => {
                                                             <Price
                                                                 currencyCode={item.price.minimalPrice.amount.currency}
                                                                 value={
-                                                                    item.price.minimalPrice.amount.value * item.quantity
+                                                                    item.price.minimalPrice.amount.value *
+                                                                    Number(item.quantity)
                                                                 }
                                                             />
                                                         </span>
