@@ -27,13 +27,14 @@ export const useShippingInformation = props => {
         getShippingInformationQuery
     } = operations;
 
-    const {
+    let {
         data: shippingInformationData,
         loading: getShippingInformationLoading
     } = useQuery(getShippingInformationQuery, {
         skip: !cartId,
         variables: {
-            cartId
+            cartId,
+            isSignedIn
         }
     });
 
@@ -52,11 +53,37 @@ export const useShippingInformation = props => {
         getDefaultShippingLoading ||
         setDefaultAddressLoading;
 
+        console.log(shippingInformationData);
+        if ( shippingInformationData) {
+        const { cart } = shippingInformationData;
+        const { email } = cart;
+         if ( email!==null){
+            const newelemt = email.split('_')
+            console.log(newelemt);
+            if (newelemt[1]!=="Guest-user" && !isSignedIn){
+                shippingInformationData={cart:{id:"35454545",email:null,shipping_addresses:[],__typename:"cart"}}
+            }
+
+         }
+       
+    }
+        // if (!isSignedIn ) {
+        //     //customer data or guest data not clear to identify from data 
+        //     //For guest user make the customer data undefined 
+        //     shippingInformationData=undefined
+        // }
+       // let trail;
+    // if (!isSignedIn && shippingInformationData.cart.email===null){
+    //         trail = shippingInformationData
+    //     }
+    //console.log(trail);
+    console.log(shippingInformationData);
     const shippingData = useMemo(() => {
         let filteredData;
-        if (shippingInformationData) {
+        if ( shippingInformationData) {
             const { cart } = shippingInformationData;
             const { email, shipping_addresses: shippingAddresses } = cart;
+            //console.log(email);
             if (shippingAddresses.length) {
                 const primaryAddress = { ...shippingAddresses[0] };
                 for (const field in MOCKED_ADDRESS) {
@@ -94,6 +121,9 @@ export const useShippingInformation = props => {
         return filteredData;
     }, [shippingInformationData]);
 
+   
+
+    //console.log(shippingData,isSignedIn);
     // Simple heuristic to check shipping data existed prior to this render.
     // On first submission, when we have data, we should tell the checkout page
     // so that we set the next step correctly.

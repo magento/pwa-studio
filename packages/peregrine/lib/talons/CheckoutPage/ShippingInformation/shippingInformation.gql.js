@@ -9,6 +9,7 @@ export const GET_SHIPPING_INFORMATION = gql`
     query GetShippingInformation($cartId: String!) {
         cart(cart_id: $cartId) {
             id
+           
             ...ShippingInformationFragment
         }
     }

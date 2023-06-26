@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useMutation, useLazyQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './guestForm.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '../../../../context/cart';
 import { useEventingContext } from '../../../../context/eventing';
 
@@ -57,14 +57,21 @@ export const useGuestForm = props => {
             });
         }
     }, [isUpdate, cartId, dispatch]);
-
+    const [{ isSignedIn }] = useUserContext();
     const handleSubmit = useCallback(
         async formValues => {
-            const { country, email, region, ...address } = formValues;
+            console.log(formValues,isSignedIn);
+            let { country, email, region, ...address } = formValues;
+            //address={Guest_user:true,...address}
+            // console.log(address.street.push(true));
+            email= email+"_Guest-user"
+            //console.log(email+"Guest_user");
+            //email=[email,true]
             try {
                 await setGuestShipping({
                     variables: {
                         cartId,
+                        // isSignedIn,
                         email,
                         address: {
                             ...address,
@@ -72,7 +79,8 @@ export const useGuestForm = props => {
                             street: address.street.filter(e => e),
                             // region_id is used for field select and region is used for field input
                             region: region.region_id || region.region,
-                            country_code: country
+                            country_code: country,
+                           
                         }
                     }
                 });
