@@ -41,10 +41,7 @@ const AccountChip = props => {
                   id: 'Hi' + currentUser.firstname,
                   defaultMessage: 'Hi' + currentUser.firstname
               })
-            : formatMessage({
-                  id: 'accountTrigger.ariaLabelMyMenu',
-                  defaultMessage: 'Toggle My Account Menu'
-              });
+            : '';
 
     const ariaLabel = isUserSignedIn ? ariaLabelMyMenu : '';
 
