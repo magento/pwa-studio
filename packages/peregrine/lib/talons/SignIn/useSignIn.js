@@ -144,7 +144,8 @@ export const useSignIn = props => {
             fetchUserDetails,
             getCartDetails,
             fetchCartDetails,
-            dispatch
+            dispatch,
+            handleTriggerClick
         ]
     );
 

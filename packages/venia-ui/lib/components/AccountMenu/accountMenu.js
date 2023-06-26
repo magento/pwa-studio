@@ -10,7 +10,11 @@ import ForgotPassword from '../ForgotPassword';
 import defaultClasses from './accountMenu.module.css';
 
 const AccountMenu = React.forwardRef((props, ref) => {
-    const { handleTriggerClick, accountMenuIsOpen, setAccountMenuIsOpen } = props;
+    const {
+        handleTriggerClick,
+        accountMenuIsOpen,
+        setAccountMenuIsOpen
+    } = props;
     const talonProps = useAccountMenu({
         accountMenuIsOpen,
         setAccountMenuIsOpen
