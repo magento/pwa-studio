@@ -35,17 +35,15 @@ const AccountChip = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
-    var ariaLabelMyMenu = '';
-    currentUser != null
-        ? (ariaLabelMyMenu = formatMessage({
-              id: 'accountTrigger.ariaLabelMyMenu',
-              defaultMessage:
-                  'Hi' + currentUser.firstname + 'Toggle My Account Menu'
+    const ariaLabelMyMenu = (currentUser != null
+        ? (formatMessage({
+              id: 'Hi' + currentUser.firstname,
+              defaultMessage: 'Hi' + currentUser.firstname
           }))
-        : (ariaLabelMyMenu = formatMessage({
+        : (formatMessage({
               id: 'accountTrigger.ariaLabelMyMenu',
               defaultMessage: 'Toggle My Account Menu'
-          }));
+          })));
 
     const ariaLabel = isUserSignedIn ? ariaLabelMyMenu : '';
 

@@ -63,6 +63,7 @@ const AccountTrigger = props => {
             </div>
             <Suspense fallback={null}>
                 <AccountMenu
+                    handleTriggerClick={handleTriggerClick}
                     ref={accountMenuRef}
                     accountMenuIsOpen={accountMenuIsOpen}
                     setAccountMenuIsOpen={setAccountMenuIsOpen}
