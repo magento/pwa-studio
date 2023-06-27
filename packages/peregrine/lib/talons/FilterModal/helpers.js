@@ -149,24 +149,42 @@ const getValueFromFilterString = keyValueString =>
  * Converts a set of values to a range filter
  * @param {Set} values
  */
+// Range should always only be a single string. In the event we received
+// multiple, just return the first.
+// const toRangeFilter = values => {
+//     const rangeString = getValueFromFilterString(Array.from(values)[0]);
+
+//     const [from, to] = rangeString.split('_');
+//     const rangeFilter = {
+//         from,
+//         to
+//     };
+
+//     if (rangeFilter.from === '*') {
+//         delete rangeFilter.from;
+//     }
+//     if (rangeFilter.to === '*') {
+//         delete rangeFilter.to;
+//     }
+//     return rangeFilter;
+// };
+
+// -------------------------------------------- new rangeFilter
 const toRangeFilter = values => {
-    // Range should always only be a single string. In the event we received
-    // multiple, just return the first.
-    const rangeString = getValueFromFilterString(Array.from(values)[0]);
+    const priceFilterArray = Array.from(values).map(getValueFromFilterString);
+    console.log(priceFilterArray, "priceFilterArray");
 
-    const [from, to] = rangeString.split('_');
-    const rangeFilter = {
-        from,
-        to
-    };
-
-    if (rangeFilter.from === '*') {
-        delete rangeFilter.from;
-    }
-    if (rangeFilter.to === '*') {
-        delete rangeFilter.to;
-    }
-    return rangeFilter;
+    const rangeArray = priceFilterArray.map((val) => {
+        return val.split('_');
+    });
+    console.log(rangeArray, "rangeArray");
+    
+    const rangeString = rangeArray.map((el) => {
+        return {from: el[0], to: el[1]}; 
+    });
+    console.log(rangeString, "rangeString");
+    
+    return rangeString;
 };
 
 /**
