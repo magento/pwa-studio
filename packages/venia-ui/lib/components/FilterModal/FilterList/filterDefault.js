@@ -5,20 +5,37 @@ import { bool, shape, string } from 'prop-types';
 import Checkbox from '../../Checkbox';
 import { useStyle } from '../../../classify';
 import defaultClasses from './filterDefault.module.css';
+import { useCurrencySwitcher } from '@magento/peregrine/lib/talons/Header/useCurrencySwitcher';
+import patches from '@magento/peregrine/lib/util/intlPatches';
 
 const FilterDefault = props => {
     const {
         classes: propsClasses,
         isSelected,
         item,
+        group,
         onMouseDown,
         ...restProps
     } = props;
 
     const { label, value_index } = item || {};
     const classes = useStyle(defaultClasses, propsClasses);
-    const { formatMessage } = useIntl();
-
+    const { formatMessage, locale } = useIntl();
+    const { currentCurrencyCode } = useCurrencySwitcher();
+    const parts = patches.toParts.call(
+        new Intl.NumberFormat(locale, {
+            style: 'currency',
+            currencyDisplay: 'symbol',
+            currency: currentCurrencyCode
+        }),
+        0
+    );
+    const symbol = parts.find(part => part.type === 'currency').value;
+    const priceValue = (group === 'price' && label.split('-')) || [];
+    const piceLabel =
+        (!!priceValue.length &&
+            `${symbol + priceValue[0]} - ${symbol + priceValue[1]}`) ||
+        false;
     const ariaLabel = !isSelected
         ? formatMessage(
               {
@@ -44,7 +61,7 @@ const FilterDefault = props => {
             classes={classes}
             field={`${label}-${value_index}`}
             fieldValue={!!isSelected}
-            label={label}
+            label={piceLabel || label}
             ariaLabel={ariaLabel}
             data-cy="FilterDefault-checkbox"
             onClick={onMouseDown}

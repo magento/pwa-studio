@@ -53,6 +53,7 @@ const FilterItem = props => {
             onMouseDown={handleClick}
             onKeyDown={handleKeyDown}
             title={title}
+            group={group}
             value={value}
         />
     );
