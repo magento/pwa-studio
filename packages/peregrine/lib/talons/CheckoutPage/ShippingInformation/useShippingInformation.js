@@ -31,7 +31,7 @@ export const useShippingInformation = props => {
         data: shippingInformationData,
         loading: getShippingInformationLoading
     } = useQuery(getShippingInformationQuery, {
-        skip: !cartId,
+        skip: !isSignedIn,
         variables: {
             cartId
         }
