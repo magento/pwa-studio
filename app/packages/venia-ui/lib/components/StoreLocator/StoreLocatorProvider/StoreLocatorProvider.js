@@ -42,9 +42,9 @@ export const StoreLocatorProvider = ({ children }) => {
         }
     });
     const { data: locations, loading: locationsLoading } = queryResponse;
-    useEffect(() => {
-        runQuery();
-    }, []);
+    // useEffect(() => {
+    //     runQuery();
+    // }, []);
     //Total Count
 
     const totalCount = useMemo(() => {

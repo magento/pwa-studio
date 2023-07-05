@@ -118,7 +118,7 @@ const SimpleProductB2C = props => {
                     <article className={classes.priceContainer}>
                         {' '}
                         {priceRender}
-                        {simpleProductData?.mp_pickup_locations.length > 0 && (
+                        {simpleProductData?.mp_pickup_locations?.length > 0 && (
                             <button
                                 type="button"
                                 onClick={() => setIsOpenStoresModal(true)}

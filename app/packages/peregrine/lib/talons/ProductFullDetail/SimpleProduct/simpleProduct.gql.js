@@ -22,16 +22,16 @@ export const GET_SIMPLE_PRODUCT = gql`
                     mp_productalerts_price_alert
                     mp_productalerts_stock_notify
                 }
-                mp_pickup_locations {
-                    productStock
-                    locationsData {
-                        name
-                        city
-                        country
-                        street
-                        state_province
-                    }
-                }
+                # mp_pickup_locations {
+                #     productStock
+                #     locationsData {
+                #         name
+                #         city
+                #         country
+                #         street
+                #         state_province
+                #     }
+                # }
                 name
                 media_gallery_entries {
                     file
