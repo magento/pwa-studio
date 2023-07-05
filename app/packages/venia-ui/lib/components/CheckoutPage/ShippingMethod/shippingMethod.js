@@ -18,8 +18,8 @@ import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
 import defaultClasses from './shippingMethod.module.css';
 
-import { useLocationsCheckout } from '@magento/peregrine/lib/talons/StoreLocator/useLocationsCheckout';
-import LocationsModal from '../../StoreLocator/LocationsModal';
+// import { useLocationsCheckout } from '@magento/peregrine/lib/talons/StoreLocator/useLocationsCheckout';
+// import LocationsModal from '../../StoreLocator/LocationsModal';
 
 const initializingContents = (
     <LoadingIndicator>
@@ -36,7 +36,7 @@ const ShippingMethod = props => {
         setPageIsUpdating
     });
 
-    const locationsProps = useLocationsCheckout();
+    // const locationsProps = useLocationsCheckout();
 
     const {
         displayState,
@@ -49,31 +49,31 @@ const ShippingMethod = props => {
         shippingMethods,
         showUpdateMode
     } = talonProps;
-    const {
-        locationsData,
-        handleOpenLocationModal,
-        isLocationsModalOpen,
-        submutLocation,
-        selectedLocation,
-        handleSelectLocation,
-        holidayDates,
-        handleChangeDay,
-        local
-    } = locationsProps;
+    // const {
+    //     locationsData,
+    //     handleOpenLocationModal,
+    //     isLocationsModalOpen,
+    //     submutLocation,
+    //     selectedLocation,
+    //     handleSelectLocation,
+    //     holidayDates,
+    //     handleChangeDay,
+    //     local
+    // } = locationsProps;
     const classes = useStyle(defaultClasses, props.classes);
 
     let contents;
-    const selectStoreBatton = useMemo(
-        () =>
-            selectedShippingMethod?.method_code === 'mpstorepickup' &&
-            locationsData?.items.length > 0 &&
-            checkoutStep < 4 ? (
-                <button className={classes.selectStoreBtn} onClick={handleOpenLocationModal}>
-                    <FormattedMessage id={'storeLocator.SelectStore'} defaultMessage={'Select Store'} />
-                </button>
-            ) : null,
-        [selectedShippingMethod,locationsData]
-    );
+    // const selectStoreBatton = useMemo(
+    //     () =>
+    //         selectedShippingMethod?.method_code === 'mpstorepickup' &&
+    //         locationsData?.items.length > 0 &&
+    //         checkoutStep < 4 ? (
+    //             <button className={classes.selectStoreBtn} onClick={handleOpenLocationModal}>
+    //                 <FormattedMessage id={'storeLocator.SelectStore'} defaultMessage={'Select Store'} />
+    //             </button>
+    //         ) : null,
+    //     [selectedShippingMethod,locationsData]
+    // );
     if (displayState === displayStates.DONE) {
         const updateFormInitialValues = {
             shipping_method: selectedShippingMethod.serializedValue
@@ -85,8 +85,8 @@ const ShippingMethod = props => {
                     <CompletedView
                         selectedShippingMethod={selectedShippingMethod}
                         showUpdateMode={showUpdateMode}
-                        selectStoreBatton={selectStoreBatton}
-                        selectedLocation={selectedLocation}
+                        // selectStoreBatton={selectStoreBatton}
+                        // selectedLocation={selectedLocation}
                     />
                 </div>
                 <UpdateModal
@@ -99,7 +99,7 @@ const ShippingMethod = props => {
                     pageIsUpdating={pageIsUpdating}
                     shippingMethods={shippingMethods}
                 />
-                {isLocationsModalOpen && (
+                {/* {isLocationsModalOpen && (
                     <LocationsModal
                         isOpen={isLocationsModalOpen}
                         onCancel={handleOpenLocationModal}
@@ -111,7 +111,7 @@ const ShippingMethod = props => {
                         handleChangeDay={handleChangeDay}
                         local={local}
                     />
-                )}
+                )} */}
             </Fragment>
         );
     } else {
