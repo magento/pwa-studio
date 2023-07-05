@@ -22,16 +22,16 @@ export const ProductDetailsFragment = gql`
             mp_productalerts_stock_notify
         }
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        mp_pickup_locations {
-            productStock
-            locationsData {
-                name
-                city
-                country
-                street
-                state_province
-            }
-        }
+        # mp_pickup_locations {
+        #     productStock
+        #     locationsData {
+        #         name
+        #         city
+        #         country
+        #         street
+        #         state_province
+        #     }
+        # }
         categories {
             uid
             breadcrumbs {

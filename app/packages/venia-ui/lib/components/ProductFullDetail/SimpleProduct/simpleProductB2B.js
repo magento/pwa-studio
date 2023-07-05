@@ -119,7 +119,7 @@ const SimpleProductB2B = props => {
                         />
                     </h2>
                     <RichText content={simpleProductData.description.html} />
-                {simpleProductData?.mp_pickup_locations.length > 0 && (
+                {simpleProductData?.mp_pickup_locations?.length > 0 && (
                     <button onClick={() => setIsOpenStoresModal(true)} className={classes.storeButtion}>
                         <FormattedMessage
                             id={'storeLocator.SeeAvailablePickupStores'}

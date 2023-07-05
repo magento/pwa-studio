@@ -312,7 +312,7 @@ const ProductFullDetailB2B = props => {
                                 </h2>
                                 <span className={classes.priceNumber}>{priceRender}</span>
                             </article>
-                            {product?.mp_pickup_locations.length > 0 && (
+                            {product?.mp_pickup_locations?.length > 0 && (
                                 <button onClick={() => setIsOpenStoresModal(true)} className={classes.storeButtion}>
                                     <FormattedMessage
                                         id={'storeLocator.SeeAvailablePickupStores'}

@@ -182,7 +182,7 @@ const ProductFullDetailB2C = props => {
                 {shouldRenderPrice && (
                         <article className={classes.priceContainer}>
                             {priceRender}
-                            {product?.mp_pickup_locations.length > 0 && (
+                            {product?.mp_pickup_locations?.length > 0 && (
                                 <button
                                     type="button"
                                     onClick={() => setIsOpenStoresModal(true)}

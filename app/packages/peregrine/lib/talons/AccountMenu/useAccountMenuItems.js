@@ -93,11 +93,11 @@ export const useAccountMenuItems = props => {
             id: 'productAlert.myProductAlerts',
             url: '/productsAlert'
         },
-        {
-            name: 'Find a Store',
-            id: 'storeLocator.findStoreText',
-            url: '/find-store'
-        }
+        // {
+        //     name: 'Find a Store',
+        //     id: 'storeLocator.findStoreText',
+        //     url: '/find-store'
+        // }
     ];
 
     if (tenantConfig.csrEnabled) {
