@@ -11,7 +11,6 @@ import Button from '../../../Button';
 import defaultClasses from './ProductItem.module.css';
 
 import PlaceholderImage from '../../../Image/placeholderImage';
-import { useFormState } from 'informed';
 
 import copyToClipboard from '@magento/venia-ui/lib/assets/copyToClipboard.png';
 import { InStockIcon } from '@magento/venia-ui/lib/assets/inStockIcon';
@@ -24,7 +23,11 @@ import StockAlert from '../../../ProductsAlert/StockAlertModal/stockAlert';
 
 const ProductItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { values } = useFormState();
+
+    const [quantity, setQuantity] = useState(1);
+    const handleQuantityChange = tempQuantity => {
+        setQuantity(tempQuantity);
+    };
 
     const {
         product,
@@ -70,7 +73,7 @@ const ProductItem = props => {
         setIsItemDisabled(true);
         const variables = {
             cartId,
-            quantity: values[(variant?.product.uid)],
+            quantity,
             sku: variant.product.sku,
             parentSku: product.sku
         };
@@ -82,7 +85,7 @@ const ProductItem = props => {
         } catch {
             setError('Error');
         }
-    }, [cartId, values, variant, addConfigurableProductToCart, setError, product]);
+    }, [cartId, quantity, variant, addConfigurableProductToCart, setError, product]);
 
     const stockStatusText = (
         <FormattedMessage id={'productFullDetailB2B.stockStatus'} defaultMessage={'Stock Status'} />
@@ -108,13 +111,14 @@ const ProductItem = props => {
 
     const nameTag = <p>{product.name + ' ' + categoriesValuesName.join(' - ')}</p>;
 
-    const quantitySelector = () => (
+    const quantitySelector = (id = 1) => (
         <div className={classes.quantity}>
             <QuantityStepper
-                fieldName={variant.product.uid}
+                fieldName={`${variant.product.sku}-${id}`}
                 classes={{ root: classes.quantityRoot }}
                 min={1}
-                textProps={{ initialValue: 1 }}
+                isPDP={true}
+                onChange={e => handleQuantityChange(e?.target?.value || e)}
             />
         </div>
     );
@@ -224,7 +228,7 @@ const ProductItem = props => {
                     <span className={classes.indexFixed}>
                         <Price
                             currencyCode={variant.product.price.regularPrice.amount.currency}
-                            value={variant.product.price.minimalPrice.amount.value * values[(variant?.product.uid)]}
+                            value={variant.product.price.minimalPrice.amount.value * quantity}
                         />
                     </span>
                 ) : (
@@ -274,10 +278,7 @@ const ProductItem = props => {
                                 <span className={classes.indexFixed}>
                                     <Price
                                         currencyCode={variant.product.price.regularPrice.amount.currency}
-                                        value={
-                                            variant.product.price.minimalPrice.amount.value *
-                                            values[(variant?.product.uid)]
-                                        }
+                                        value={variant.product.price.minimalPrice.amount.value * quantity}
                                     />
                                 </span>
                             </div>
