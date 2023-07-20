@@ -803,7 +803,7 @@
     "quantity.input": "Item Quantity",
     "quickOrder.AddedToCartSuccessfully": "Added to cart successfully",
     "quickOrder.AddToCart": "Add to cart",
-    "quickOrder.addToQuote": "Added to quote successfully",
+    "quickOrder.addToQuote": "Quote #{id} submitted successfully! Total: {total} {currency}. Items: {items}. Customer Email: {email}. Thank you!",
     "quickOrder.CreateOrder": "Create Order",
     "quickOrder.DownloadYourSampleFile": "Download your sample file",
     "quickOrder.emptyItems": "No items found",

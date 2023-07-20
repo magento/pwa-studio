@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useCallback, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import {  useIntl } from 'react-intl';
 import { useMutation } from '@apollo/client';
 import { useToasts } from '@magento/peregrine';
 import { AFTER_UPDATE_MY_QUOTE } from '../RequestQuote/useQuoteCartTrigger';
@@ -10,6 +10,7 @@ import DEFAULT_OPERATIONS from '../RequestQuote/requestQuote.gql';
 import mergeOperations from '../../util/shallowMerge';
 
 export const useAddToQuote = () => {
+    const { formatMessage } = useIntl();
     const operations = mergeOperations(DEFAULT_OPERATIONS);
     const {
         addSimpleProductToQuoteMutation,
@@ -53,13 +54,27 @@ export const useAddToQuote = () => {
             await setQuoteId(quote.entity_id);
             await window.dispatchEvent(new CustomEvent(AFTER_UPDATE_MY_QUOTE, { detail: quote }));
             setTimeout(() => setIsLoading(false), 1000);
+          
             addToast({
                 type: 'success',
-                message: <FormattedMessage id="quickOrder.addToQuote" defaultMessage="Added to quote successfully" />,
+                message: formatMessage(
+                    {
+                        id: 'quickOrder.addToQuote',
+                        defaultMessage:
+                            'Quote #{id} submitted successfully! Total: {total} {currency}. Items: {items}. Customer Email: {email}. Thank you!'
+                    },
+                    {
+                        id: 'quote.entity_id',
+                        total: 'quote.subtotal',
+                        currency: 'quote.entity_id',
+                        items: 'quote.items_count',
+                        email: 'quote.customer_email'
+                    }
+                ),
                 timeout: 5000
             });
         },
-        [addSimpleProductToCart, addToast, submitCurrentQuote]
+        [addSimpleProductToCart, addToast, formatMessage, submitCurrentQuote]
     );
 
     const handleAddCofigItemBySku = useCallback(
@@ -94,11 +109,24 @@ export const useAddToQuote = () => {
             setTimeout(() => setIsLoading(false), 1000);
             addToast({
                 type: 'success',
-                message: <FormattedMessage id="quickOrder.addToQuote" defaultMessage="Added to quote successfully" />,
-                timeout: 5000
+                message: formatMessage(
+                    {
+                        id: 'quickOrder.addToQuote',
+                        defaultMessage:
+                            'Quote #{id} submitted successfully! Total: {total} {currency}. Items: {items}. Customer Email: {email}. Thank you!'
+                    },
+                    {
+                        id: quote.entity_id,
+                        total: quote.subtotal,
+                        currency: quote.quote_currency_code,
+                        items: quote.items_count,
+                        email: quote.customer_email
+                    }
+                ),
+                timeout: 8000
             });
         },
-        [addConfigProductToCart, addToast, submitCurrentQuote]
+        [addConfigProductToCart, formatMessage, addToast, submitCurrentQuote]
     );
     return { handleAddItemBySku, handleAddCofigItemBySku, isLoading };
 };
