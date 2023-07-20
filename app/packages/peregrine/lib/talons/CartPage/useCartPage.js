@@ -35,6 +35,7 @@ export const useCartPage = (props = {}) => {
 
     const [isCartUpdating, setIsCartUpdating] = useState(false);
     const [wishlistSuccessProps, setWishlistSuccessProps] = useState(null);
+    const [isSubmitQuoteDisabled, setIsSubmitQuoteDisabled] = useState(false);
 
     const [isQuoteOpen, setIsQuoteOpen] = useState(false);
     const { handleAddCofigItemBySku } = useAddToQuote();
@@ -110,18 +111,21 @@ export const useCartPage = (props = {}) => {
 
     const submitQuote = useCallback(async () => {
         try {
+            setIsSubmitQuoteDisabled(true);
             await handleAddCofigItemBySku(selectedVariants);
-            cartItems.forEach(async ({ uid }) => {
+            await cartItems.forEach(async ({ uid }) => {
                 await removeItem({
                     variables: {
                         cartId,
                         itemId: uid
                     }
                 });
-                history.push('/mprequestforquote/customer/quotes');
             });
+            history.push('/mprequestforquote/customer/quotes');
+            setIsSubmitQuoteDisabled(false);
         } catch (error) {
             const err = error.toString();
+            setIsSubmitQuoteDisabled(false);
             throw err;
         }
     }, [cartId, cartItems, selectedVariants, handleAddCofigItemBySku, removeItem]);
@@ -149,7 +153,8 @@ export const useCartPage = (props = {}) => {
         isQuoteOpen,
         setIsQuoteOpen,
         selectedVariants,
-        submitQuote
+        submitQuote,
+        isSubmitQuoteDisabled
     };
 };
 
