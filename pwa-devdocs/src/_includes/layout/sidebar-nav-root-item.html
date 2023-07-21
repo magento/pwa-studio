@@ -1,0 +1,31 @@
+
+{% if page.toc-group == "overview" %}
+    {% assign toc = site.data.overview %}
+
+{% elsif page.toc-group == "buildpack-api" %}
+    {% assign toc = site.data.buildpack-api %}
+
+{% elsif page.toc-group == "peregrine-api" %}
+    {% assign toc = site.data.peregrine-api %}
+
+{% elsif page.toc-group == "venia-api" %}
+    {% assign toc = site.data.venia-api %}
+
+{% elsif page.toc-group == "pagebuilder" %}
+    {% assign toc = site.data.pagebuilder %}
+
+{% elsif page.toc-group == "product-recs" %}
+    {% assign toc = site.data.product-recs %}
+
+{% elsif page.toc-group == "peregrine" %}
+    {% assign toc = site.data.peregrine %}
+
+{% elsif page.toc-group == "venia-pwa-concept" %}
+    {% assign toc = site.data.venia-pwa-concept %}
+
+{% elsif page.toc-group == "tutorials" %}
+    {% assign toc = site.data.tutorials %}
+
+{% endif %}
+
+{% include layout/toc.html %}

@@ -1,0 +1,56 @@
+title: Tutorials
+
+entries:
+    - label: Getting Started
+      url: /tutorials/
+      entries:
+
+          - label: Setup your project
+            url: /tutorials/pwa-studio-fundamentals/project-setup/
+
+          - label: Explore the project structure
+            url: /tutorials/pwa-studio-fundamentals/project-structure/
+
+    - label: Basic modifications
+      entries:
+
+          - label: Enable SASS or LESS support
+            url: /tutorials/enable-sass-less-support/
+
+          - label: Add a static route
+            url: /tutorials/pwa-studio-fundamentals/add-a-static-route/
+
+          - label: Modify the site footer
+            url: /tutorials/pwa-studio-fundamentals/modify-site-footer/
+
+    - label: Target interception
+      url: /tutorials/intercept-a-target/
+      entries:
+
+          - label: Modify talon results
+            url: /tutorials/intercept-a-target/modify-talon-results/
+
+          - label: Add a new environment variable
+            url: /tutorials/intercept-a-target/add-new-environment-variable/
+
+          - label: Change static assets directory
+            url: /tutorials/intercept-a-target/change-static-assets-directory/
+
+    - label: Modify code with Targetables 
+      url: /tutorials/targetables/
+      entries:
+
+    - label: Extension development
+      url: /tutorials/extension-development/
+      entries:
+
+          - label: Create a tag list extension
+            url: /tutorials/extension-development/taglist/
+
+    - label: Production deployments
+      url: /tutorials/pwa-studio-fundamentals/production-launch-checklist/
+      entries:
+
+          - label: Deploy to Magento Cloud
+            url: /tutorials/cloud-deploy/
+

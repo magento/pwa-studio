@@ -1,0 +1,55 @@
+<script>
+  var baseUrl = "{{ site.baseurl }}";
+  var algolia = {
+    id : "{{ site.algolia.application_id}}",
+    index: "{{ site.algolia.index_name}}",
+    key: "{{ site.algolia.api_key}}"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://developer.adobe.com/commerce/pwa-studio"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "Commerce User Guide",
+      name: "merchdocs",
+      baseUrl: "https://docs.magento.com/user-guide"
+    },
+    {
+      label: "MBI User Guide",
+      name: "merchdocs-mbi",
+      baseUrl: "https://docs.magento.com/mbi"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+{% if site.environment == "public" %}
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','{{ site.google.gtm }}');</script>
+<!-- End Google Tag Manager -->
+
+{% endif %}

@@ -1,0 +1,24 @@
+<!-- Main Navigation -->
+<ul class="nav-main spectrum-Tabs spectrum-Tabs--horizontal" role="menubar">
+{% for entry in site.data.top-nav %}
+  {% if entry.children %}
+  <li class="nav-main-item spectrum-Tabs-item" tabindex="0" role="menuitem" aria-haspopup="true">
+    <span class="spectrum-Tabs-itemLabel" tabindex="-1">{{entry.label}}</span>
+    <div class="nav-popup spectrum-Popover">
+      <ul class="spectrum-Menu">
+        {% for subsection in entry.children %}
+        <li class="spectrum-Menu-item" role="menuitem">
+          <a class="spectrum-Menu-itemLabel" href="{{site.baseurl}}{{subsection.url}}">{{subsection.label}}</a>
+        </li> 
+        {% endfor %}
+      </ul>
+    </div>
+  </li>
+
+  {% else %}
+  <li class="menuitem spectrum-Tabs-item {% if page.url contains entry.url %}is-selected{% endif %}">
+    <a class="spectrum-Tabs-itemLabel" href="{{site.baseurl}}{{entry.url}}">{{entry.label}}</a>
+  </li>
+  {% endif %}
+{% endfor %}
+</ul>

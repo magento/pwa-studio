@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>planned</title>
+    <defs>
+        <circle id="path-1" cx="9" cy="9" r="8"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="planned" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <use id="Oval" stroke="#6E6E6E" mask="url(#mask-2)" stroke-width="3" stroke-dasharray="3,2" xlink:href="#path-1"></use>
+        <path d="M10.0127955,8.71223268 L10.0127955,4.4672053 C10.0127955,4.20917494 9.78750566,4 9.5095966,4 L8.50319887,4 C8.22528981,4 8,4.20917494 8,4.4672053 L8,9.41304064 C8,9.53694106 8.05306263,9.65575719 8.14743727,9.74335479 L10.9688733,12.3629749 C11.0631895,12.4506422 11.1911515,12.5 11.324609,12.5 C11.4580664,12.5 11.5860869,12.4509099 11.6805072,12.3633393 L11.6808997,12.3629749 L12.3526702,11.7387886 C12.5491099,11.556345 12.5491099,11.2606039 12.3526702,11.0781603 L10.1602327,9.04207963 C10.0659813,8.95459654 10.0129573,8.83597118 10.0127955,8.71223268 Z" id="Path" fill="#6E6E6E" fill-rule="nonzero"></path>
+    </g>
+</svg>

@@ -1,0 +1,47 @@
+- label: Overview
+  children:
+      - label: PWA Studio overview
+        url: /technologies/overview/
+
+      - label: Frequently Asked Questions
+        url: /frequently-asked-questions/
+      
+      - label: Storefront architecture
+        url: /technologies/storefront-architecture/
+      
+      - label: Basic concepts
+        url: /technologies/basic-concepts/
+
+      - label: PWA Buildpack
+        url: /pwa-buildpack/
+
+      - label: Peregrine
+        url: /peregrine/
+
+      - label: Venia storefront concept
+        url: /venia-pwa-concept/
+
+      - label: UPWARD
+        url: /technologies/upward/
+
+- label: Tutorials
+  url: /tutorials/
+
+- label: API Reference
+  children:
+      - label: PWA Buildpack
+        url: /pwa-buildpack/reference/buildpack-cli/
+      
+      - label: Peregrine API
+        url: /peregrine/reference/targets/
+
+      - label: Venia UI API
+        url: /venia-ui/reference/targets/
+
+- label: Integrations
+  children:
+      - label: Page Builder
+        url: /pagebuilder/
+      - label: Product Recommendations
+        url: /product-recs/
+        

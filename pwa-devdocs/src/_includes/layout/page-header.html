@@ -1,0 +1,16 @@
+<!-- page-header -->
+<section class="page-intro">
+	
+	<h1 class="page-title">{{ page.title }}</h1>
+
+	{% if page.subtitle %}
+  <h2 class="page-subtitle no_toc">{{ page.subtitle }}</h2>
+	{% endif %}
+	
+	{% include layout/github-links.html %}
+
+  {% include layout/edition-callout.html %}
+
+  {% include layout/pre-release-banner.html %}
+
+</section>

@@ -1,0 +1,32 @@
+
+<div class="menu-section">
+    <div class="toc-entry">
+        <h4 class="guide-title">{{toc.title}}</h4>
+    </div>
+
+    <ul class="table-of-contents spectrum-SideNav spectrum-SideNav--multiLevel" >
+    {% for entry in toc.entries %}
+        <li class="spectrum-SideNav-item {% if entry.url == page.url %}is-selected{% endif %}">
+            {% if entry.url %}
+            <a href="{{ site.baseurl }}{{ entry.url }}" class="spectrum-SideNav-itemLink {% if entry.css-classes %}{{entry.css-classes}}{% endif %} {% if entry.entries.size > 0 %}parent{% endif %}">{{ entry.label }}</a>
+            {% else %}
+            <span class="spectrum-SideNav-itemLink">{{ entry.label }}</span>
+            {% endif %}
+
+            {% if entry.entries.size > 0 %}
+            <ul class="spectrum-SideNav">
+            {% for entry2 in entry.entries %}
+                <li class="spectrum-SideNav-item {% if entry2.url == page.url %}is-selected{% endif %}">
+                    {% if entry2.url %}
+                    <a href="{{ site.baseurl }}{{ entry2.url }}" class="spectrum-SideNav-itemLink {% if entry2.css-classes %} {{entry2.css-classes}}{% endif %} {% if entry2.entries.size > 0 %}parent{% endif %}">{{ entry2.label }}</a>
+                    {% else %}
+                    <span class="spectrum-SideNav-heading">{{ entry2.label }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,23 @@
+- title: Overview
+  content: Learn about Magento's PWA Studio and the tools it provides.
+  url: /technologies/overview/
+ 
+- title: Getting Started
+  content: Follow this step-by-step tutorial for setting up your storefront project.
+  url: /tutorials/
+
+- title: Basic Concepts
+  content: Read up on the patterns and concepts used in PWA Studio.
+  url: /technologies/basic-concepts/
+
+- title: Theme vs Storefront
+  content: Learn the differences between a Magento theme and a PWA Studio storefront.
+  url: /technologies/theme-vs-storefront/
+   
+- title: Contribute
+  content: Read the Contribution Guidelines to find out how you can help develop this project.
+  url: /technologies/contribute/
+  
+- title: Release notes
+  content: Read about new features and changes in the latest PWA Studio release.
+  url: /releases/

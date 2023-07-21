@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>partial</title>
+    <g id="partial" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Canvas" opacity="0" fill-rule="nonzero" x="0" y="0" width="18" height="18"></rect>
+        <path d="M9,1.75 C11.0020322,1.75 12.8145322,2.56148389 14.1265242,3.87347584 C15.4385161,5.18546778 16.25,6.99796778 16.25,9 C16.25,11.0020322 15.4385161,12.8145322 14.1265242,14.1265242 C12.8145322,15.4385161 11.0020322,16.25 9,16.25 C6.99796778,16.25 5.18546778,15.4385161 3.87347584,14.1265242 C2.56148389,12.8145322 1.75,11.0020322 1.75,9 C1.75,6.99796778 2.56148389,5.18546778 3.87347584,3.87347584 C5.18546778,2.56148389 6.99796778,1.75 9,1.75 Z" id="Path" stroke="#6E6E6E" stroke-width="1.5" fill="#FFFFFF" fill-rule="nonzero"></path>
+        <path d="M9,17 C13.5,17 17,13.5 17,9 C7,9 1.66666667,9 1,9 C1,13.5 4.5,17 9,17 Z" id="Oval" fill="#6E6E6E"></path>
+    </g>
+</svg>

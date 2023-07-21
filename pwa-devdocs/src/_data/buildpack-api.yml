@@ -1,0 +1,119 @@
+title: PWA Buildpack API
+entries:
+    - label: Extension points
+      entries:
+          - label: Targets
+            url: /pwa-buildpack/reference/targets/
+          - label: EnvVarDefinitions
+            url: /pwa-buildpack/reference/environment-variables/definitions-api/
+          - label: Transform Requests
+            url: /pwa-buildpack/reference/transform-requests/
+          # # TODO: when i document this
+          # - label: WrapEsmLoader
+          #   url: /pwa-buildpack/reference/webpack-tools/loaders/wrap-esm-loader/
+
+    - label: Targetables
+      entries:
+
+        - label: TargetableModule
+          url: /pwa-buildpack/reference/targetables/TargetableModule/
+
+        - label: TargetableESModule
+          url: /pwa-buildpack/reference/targetables/TargetableESModule/
+
+        - label: TargetableESModuleArray
+          url: /pwa-buildpack/reference/targetables/TargetableESModuleArray/
+
+        - label: TargetableESModuleObject
+          url: /pwa-buildpack/reference/targetables/TargetableESModuleObject/
+
+        - label: TargetableReactComponent
+          url: /pwa-buildpack/reference/targetables/TargetableReactComponent/
+
+        - label: TargetableSet
+          url: /pwa-buildpack/reference/targetables/TargetableSet/
+
+        - label: SingleImportStatement
+          url: /pwa-buildpack/reference/targetables/SingleImportStatement/
+
+
+    - label: Extension framework
+      entries:
+          - label: BuildBus
+            url: /pwa-buildpack/reference/extension-framework/
+            entries:
+          - label: Target
+            url: /pwa-buildpack/reference/extension-framework/target/
+          - label: TargetProvider
+            url: /pwa-buildpack/reference/extension-framework/targetprovider/
+          # # TODO: when i document this
+          # - label: BuildBusPlugin
+          #   url: /pwa-buildpack/reference/webpack-tools/plugins/buildbusplugin
+
+
+    - label: Command line interface
+      entries:
+          - label: Using the CLI
+            url: /pwa-buildpack/reference/buildpack-cli/
+
+          - label: Create custom origin
+            url: /pwa-buildpack/reference/buildpack-cli/create-custom-origin/
+
+          - label: Create environment file
+            url: /pwa-buildpack/reference/buildpack-cli/create-env-file/
+
+          - label: Create project
+            url: /pwa-buildpack/reference/buildpack-cli/create-project/
+
+          - label: Load environment file
+            url: /pwa-buildpack/reference/buildpack-cli/load-env/
+
+    - label: Developer utilities
+      entries:
+          - label: loadEnvironment
+            url: /pwa-buildpack/reference/buildpack-cli/load-env/#programmatic-api
+
+          - label: createDotEnvFile
+            url: /pwa-buildpack/reference/buildpack-cli/load-env/#programmatic-api
+
+          - label: getEnvVarDefinitions
+            url: /pwa-buildpack/reference/environment-variables/definitions-api/
+          # # TODO: when I document this
+          #
+          # - label: configureHost
+          #   url: /pwa-buildpack/reference/utilities/configurehost
+          #
+          # - label: addImgOptMiddleware
+          #   url: /pwa-buildpack/reference/utilities/addimgoptmiddleware/
+
+    - label: Webpack tools
+      entries:
+          - label: configureWebpack
+            url: /pwa-buildpack/reference/configure-webpack
+
+          - label: MagentoResolver
+            url: /pwa-buildpack/reference/magento-resolver/
+
+          - label: MagentoRootComponentsPlugin
+            url: /pwa-buildpack/reference/root-components-plugin/
+
+          - label: PWADevServer
+            url: /pwa-buildpack/reference/pwa-dev-server/
+
+          - label: ServiceWorkerPlugin
+            url: /pwa-buildpack/reference/serviceworker-plugin/
+          # # TODO: when I document this
+          #
+          # - label: UpwardIncludePlugin
+          #   url: /pwa-buildpack/reference/webpack-tools/upward-include-plugin
+          #
+          # - label: UpwardDevServerPlugin
+          #   url: /pwa-buildpack/reference/webpack-tools/upward-dev-server-plugin
+
+    - label: Environment configuration
+      entries:
+          - label: Variable definition API
+            url: /pwa-buildpack/reference/environment-variables/definitions-api/
+
+          - label: Core variable definitions
+            url: /pwa-buildpack/reference/environment-variables/core-definitions/

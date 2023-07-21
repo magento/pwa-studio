@@ -1,0 +1,99 @@
+title: Magento PWA Documentation
+description: Everything you need to build a Magento PWA.
+
+source: src
+
+theme: devdocs
+logo: Magento PWA Docs
+
+plugins:
+  - jekyll-redirect-from
+
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
+      github_link: true
+      feedback_link: true
+      github_repo: "https://github.com/magento/pwa-studio/"
+      github_files: "https://github.com/magento/pwa-studio/tree/develop/"
+  -
+    scope:
+      path: "technologies"
+    values:
+      toc-group: "overview"
+  -
+    scope:
+      path: "pwa-buildpack"
+    values:
+      toc-group: "overview"
+  -
+    scope:
+      path: "frequently-asked-questions"
+    values:
+      toc-group: "overview"
+
+  -
+    scope:
+      path: "pwa-buildpack/reference"
+    values:
+      toc-group: "buildpack-api"
+      
+  -
+    scope:
+      path: "pagebuilder"
+    values:
+      toc-group: "pagebuilder"
+
+  -
+    scope:
+      path: "product-recs"
+    values:
+      toc-group: "product-recs"
+
+  -
+    scope:
+      path: "peregrine"
+    values:
+      toc-group: "overview"
+
+  -
+    scope:
+      path: "peregrine/reference"
+    values:
+      toc-group: "peregrine-api"
+
+  -
+    scope:
+      path: "venia-pwa-concept"
+    values:
+      toc-group: "overview"
+  -
+    scope:
+      path: "venia-ui/reference"
+    values:
+      toc-group: "venia-api"
+  -
+    scope:
+      path: "tutorials"
+    values:
+      toc-group: "tutorials" 
+
+algolia:
+  application_id: 'E642SEDTHL'
+  index_name: 'pwa-devdocs'
+  api_key: 'd2d0f33ab73e291ef8d88d8b565e754c'
+  lazy_update: true
+  excluded_files:
+    - vagrant
+    - common
+    - js
+    - i
+    - schemas
+    - static
+
+google:
+  gtm: GTM-KRCLXBB
