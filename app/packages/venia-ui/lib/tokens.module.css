@@ -1,6 +1,8 @@
 /* global tokens */
 :global(:root) {
     /* B2BStore */
+    --b2bstore-inStockIcon-color: #02a647;
+    --b2bstore-outStockIcon-color: #e45b62;
     /* colors */
     /* --b2bstore-global-color-orange: #e8ab00; */
     --b2bstore-global-color-gray: #808080;
