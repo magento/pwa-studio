@@ -2,11 +2,11 @@
 :global(:root) {
     /* B2BStore */
     /* colors */
-    --b2bstore-global-color-orange: #e8ab00;
+    /* --b2bstore-global-color-orange: #e8ab00; */
     --b2bstore-global-color-gray: #808080;
     --b2bstore-global-color-black: #28282b;
     --b2bstore-background-color: #f6f8fb;
-    --b2bstore-global-color-orange-alpha: 232, 171, 0;
+    /* --b2bstore-global-color-orange-alpha: 232, 171, 0; */
     --b2bstore-global-color-gray-alpha: 128, 128, 128;
     --b2bstore-global-color-black-alpha: 40, 40, 43;
     /* fonts */
