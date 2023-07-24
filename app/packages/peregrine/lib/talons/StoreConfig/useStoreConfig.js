@@ -8,8 +8,8 @@ export const useStoreConfig = () => {
     const { getStoreConfigQuery } = operations;
 
     const { data, refetch } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
+        fetchPolicy: 'no-cache'
+
     });
 
     return {
