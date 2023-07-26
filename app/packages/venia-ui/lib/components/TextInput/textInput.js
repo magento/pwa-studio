@@ -24,7 +24,7 @@ const TextInput = props => {
                 {supportEmoji ? (
                     <input {...inputRest} className={inputClass} />
                 ) : (
-                    <InformedText {...rest} className={inputClass} field={field} />
+                    <InformedText {...rest} className={inputClass} field={field}  />
                 )}
             </FieldIcons>
             <Message fieldState={fieldState}>{message}</Message>
