@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Facebook, Instagram, Youtube } from 'react-feather';
+import { Twitter, Linkedin, Youtube } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import Newsletter from '../Newsletter';
@@ -79,13 +79,19 @@ const Footer = props => {
                 <div className={classes.socialMediaB2bLogoContainer}>
                     <ul className={classes.socialMediaContainer}>
                         <li className={classes.logos}>
-                            <Facebook size={20} />
+                            <a target="_blank" href="https://twitter.com/orienteed">
+                                <Twitter size={20} />
+                            </a>
                         </li>
                         <li className={classes.logos}>
-                            <Instagram size={20} />
+                            <a target="_blank" href="https://www.linkedin.com/company/orienteed/">
+                                <Linkedin size={20} />
+                            </a>
                         </li>
                         <li className={classes.logos}>
-                            <Youtube size={20} />
+                            <a target="_blank" href="https://www.youtube.com/@orienteed">
+                                <Youtube size={20} />
+                            </a>
                         </li>
                     </ul>
 
