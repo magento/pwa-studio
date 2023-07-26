@@ -801,7 +801,7 @@
     "quantity.input": "Quantité d'article",
     "quickOrder.AddedToCartSuccessfully": "Ajouté au panier avec succès",
     "quickOrder.AddToCart": "Ajouter au panier",
-    "quickOrder.addToQuote": "Ajouté au devis avec succès",
+    "quickOrder.addToQuote": "Devis #{id} soumis avec succès ! Total : {total} {currency}. Articles : {items}. Email du client : {email}. Merci !",
     "quickOrder.CreateOrder": "Créer une commande",
     "quickOrder.DownloadYourSampleFile": "Téléchargez votre fichier d'échantillons",
     "quickOrder.emptyItems": "Aucun élément trouvé",

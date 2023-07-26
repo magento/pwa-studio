@@ -50,7 +50,8 @@ const MiniCart = React.forwardRef((props, ref) => {
         configurableThumbnailSource,
         storeUrlSuffix,
         SelectedVariants,
-        submitQuote
+        submitQuote,
+        isSubmitQuoteDisabled
     } = talonProps;
     const [isQuoteOpen, setIsQuoteOpen] = useState(false);
 
@@ -164,6 +165,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     onCancel={() => setIsQuoteOpen(false)}
                     onConfirm={confirmRequestQuote}
                     products={SelectedVariants}
+                    isDisabled={isSubmitQuoteDisabled}
                 />
             )}
         </Fragment>

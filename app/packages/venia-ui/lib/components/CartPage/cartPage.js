@@ -59,7 +59,8 @@ const CartPage = props => {
         isQuoteOpen,
         setIsQuoteOpen,
         selectedVariants,
-        submitQuote
+        submitQuote,
+        isSubmitQuoteDisabled
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -159,6 +160,7 @@ const CartPage = props => {
                         onCancel={() => setIsQuoteOpen(false)}
                         onConfirm={confirmRequestQuote}
                         products={selectedVariants}
+                        isDisabled={isSubmitQuoteDisabled}
                     />
                 )}
             </div>

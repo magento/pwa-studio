@@ -800,7 +800,7 @@
     "quantity.input": "Quantidade de produto",
     "quickOrder.AddedToCartSuccessfully": "Adicionado ao carrinho com sucesso",
     "quickOrder.AddToCart": "Adicionar ao carrinho",
-    "quickOrder.addToQuote": "Adicionado para citar com sucesso",
+    "quickOrder.addToQuote": "Cotação #{id} submetida com sucesso! Total: {total} {currency}. Itens: {items}. E-mail do cliente: {email}. Obrigado!",
     "quickOrder.CreateOrder": "Criar ordem",
     "quickOrder.DownloadYourSampleFile": "Descarregue o seu ficheiro de amostra",
     "quickOrder.emptyItems": "Nenhum artigo encontrado items found",

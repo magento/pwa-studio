@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -35,7 +35,8 @@ import { useAddToQuote } from '../QuickOrderForm/useAddToQuote';
 export const useMiniCart = props => {
     const { isOpen, setIsOpen } = props;
     const [, { dispatch }] = useEventingContext();
-    
+
+    const [isSubmitQuoteDisabled, setIsSubmitQuoteDisabled] = useState(false);
     const { handleAddCofigItemBySku } = useAddToQuote();
 
     const operations = mergeOperations(CART_OPERATIONS, props.operations);
@@ -126,8 +127,8 @@ export const useMiniCart = props => {
     );
 
     const submitQuote = useCallback(async () => {
-       
         try {
+            setIsSubmitQuoteDisabled(true);
             await handleAddCofigItemBySku(SelectedVariants);
             productList.forEach(async ({ uid }) => {
                 await removeItem({
@@ -139,9 +140,10 @@ export const useMiniCart = props => {
             });
             setIsOpen(false);
             history.push('/mprequestforquote/customer/quotes');
-
+            setIsSubmitQuoteDisabled(false);
         } catch (error) {
             const err = error.toString();
+            setIsSubmitQuoteDisabled(false);
             throw err;
         }
     }, [cartId, productList, SelectedVariants, handleAddCofigItemBySku, setIsOpen, removeItem]);
@@ -224,6 +226,7 @@ export const useMiniCart = props => {
         configurableThumbnailSource,
         storeUrlSuffix,
         SelectedVariants,
-        submitQuote
+        submitQuote,
+        isSubmitQuoteDisabled
     };
 };

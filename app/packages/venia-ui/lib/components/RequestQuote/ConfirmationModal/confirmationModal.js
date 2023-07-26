@@ -7,7 +7,7 @@ import Dialog from '../../ConfirmationDialog';
 import defaultClasses from './confirmationModal.module.css';
 
 const ConfirmationModal = props => {
-    const { isOpen, onCancel, onConfirm, products } = props;
+    const { isOpen, onCancel, onConfirm, products, isDisabled } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
@@ -25,7 +25,13 @@ const ConfirmationModal = props => {
     });
 
     return (
-        <Dialog title={modalTitleText} isOpen={isOpen} onCancel={onCancel} onConfirm={onConfirm}>
+        <Dialog
+            title={modalTitleText}
+            isOpen={isOpen}
+            onCancel={onCancel}
+            onConfirm={onConfirm}
+            shouldDisableConfirmButton={isDisabled}
+        >
             <div className={classes.confirmationModalContainer}>
                 <div className={classes.confirmationModalBodyContainer}>
                     <p className={classes.headingText}>{confirmationTitleText}</p>
