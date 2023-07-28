@@ -14,13 +14,17 @@ export const useModules = () => {
             this.googleAnalyticsTrackingId = tenantConfig.googleAnalytics?.GOOGLE_ANALYTICS_TRACKING_ID;
             this.b2bProductDetailView = Boolean(tenantConfig.b2b?.IS_B2B === 'true' || tenantConfig.b2b?.IS_B2B === true);
             this.GoogleMapApiKey = tenantConfig.googleMap?.GOOGLE_MAPS_API_KEY;
-            this.downloadCsv = Boolean(tenantConfig.downloadCsv?.DOWNLOAD_CSV === 'true' || tenantConfig.downloadCsv?.DOWNLOAD_CSV === true);
-            this.quickCart = Boolean(tenantConfig.quickCart?.QUICK_CART === 'true' || tenantConfig.quickCart?.QUICK_CART === true);
-            this.requestForQuote = Boolean(tenantConfig.requestForQuote?.REQUEST_FOR_QUOTE === 'true' || tenantConfig.requestForQuote?.REQUEST_FOR_QUOTE === true);
-            this.stockVisibility = Boolean(tenantConfig.stockVisibility?.STOCK_VISIBILITY === 'true' || tenantConfig.stockVisibility?.STOCK_VISIBILITY === true);
-            this.addToCartFromSearch = Boolean(tenantConfig.addToCartFromSearch?.ADD_TO_CART_FROM_SEARCH === 'true' || tenantConfig.addToCartFromSearch?.ADD_TO_CART_FROM_SEARCH === true);
-            this.productComparator = Boolean(tenantConfig.productComparator?.PRODUCT_COMPARATOR === 'true' || tenantConfig.productComparator?.PRODUCT_COMPARATOR === true);
-            this.printPdfOfTheCart = Boolean(tenantConfig.printPdfOfTheCart?.PRINT_PDF_OF_THE_CART === 'true' || tenantConfig.printPdfOfTheCart?.PRINT_PDF_OF_THE_CART === true);
+
+            this.backendTechnology = tenantConfig.backendTechnology?.BACKEND_TECHNOLOGY;
+            this.bigcommerceChannelId = tenantConfig.backendTechnology?.BIGCOMMERCE_CHANNEL_ID;
+            
+            this.downloadCsv = Boolean(tenantConfig.features?.DOWNLOAD_CSV === 'true' || tenantConfig.features?.DOWNLOAD_CSV === true);
+            this.quickCart = Boolean(tenantConfig.features?.QUICK_CART === 'true' || tenantConfig.features?.QUICK_CART === true);
+            this.requestForQuote = Boolean(tenantConfig.features?.REQUEST_FOR_QUOTE === 'true' || tenantConfig.features?.REQUEST_FOR_QUOTE === true);
+            this.stockVisibility = Boolean(tenantConfig.features?.STOCK_VISIBILITY === 'true' || tenantConfig.features?.STOCK_VISIBILITY === true);
+            this.addToCartFromSearch = Boolean(tenantConfig.features?.ADD_TO_CART_FROM_SEARCH === 'true' || tenantConfig.features?.ADD_TO_CART_FROM_SEARCH === true);
+            this.productComparator = Boolean(tenantConfig.features?.PRODUCT_COMPARATOR === 'true' || tenantConfig.features?.PRODUCT_COMPARATOR === true);
+            this.printPdfOfTheCart = Boolean(tenantConfig.features?.PRINT_PDF_OF_THE_CART === 'true' || tenantConfig.features?.PRINT_PDF_OF_THE_CART === true);
         }
     }
 
