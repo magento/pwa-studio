@@ -274,6 +274,48 @@
                     "type": "bool",
                     "desc": "Specify if enable or not the Multitenant support.",
                     "default": false
+                },
+                {
+                    "name": "DOWNLOAD_CSV",
+                    "type": "bool",
+                    "desc": "Specify if enable or not the download csv button.",
+                    "default": false
+                },
+                {
+                    "name": "QUICK_CART",
+                    "type": "bool",
+                    "desc": "Specify if enable or not the quick cart button.",
+                    "default": false
+                },
+                {
+                    "name": "REQUEST_FOR_QUOTE",
+                    "type": "bool",
+                    "desc": "Specify if enable or not the request for quote button.",
+                    "default": false
+                },
+                {
+                    "name": "STOCK_VISIBILITY",
+                    "type": "bool",
+                    "desc": "Specify if enable or not the stock visibility button.",
+                    "default": false
+                },
+                {
+                    "name": "ADD_TO_CART_FROM_SEARCH",
+                    "type": "bool",
+                    "desc": "Specify if enable or not the add to cart from search button.",
+                    "default": false
+                },
+                {
+                    "name": "PRODUCT_COMPARATOR",
+                    "type": "bool",
+                    "desc": "Specify if enable or not the product comparator button.",
+                    "default": false
+                },
+                {
+                    "name": "PRINT_PDF_OF_THE_CART",
+                    "type": "bool",
+                    "desc": "Specify if enable or not the print pdf cart button.",
+                    "default": false
                 }
             ]
         },
@@ -328,6 +370,23 @@
                     "name": "GOOGLE_MAPS_API_KEY",
                     "type": "str",
                     "desc": "Google API key for the store locator map."
+                }
+            ]
+        },
+        {
+            "name": "adapters variables",
+            "variables": [
+                {
+                    "name": "BACKEND_TECHNOLOGY",
+                    "type": "str",
+                    "desc": "Specify the backend technology to use.",
+                    "default": "magento"
+                },
+                {
+                    "name": "BIGCOMMERCE_CHANNEL_ID",
+                    "type": "str",
+                    "desc": "Specify the BigCommerce channel id.",
+                    "default": 1
                 }
             ]
         }
