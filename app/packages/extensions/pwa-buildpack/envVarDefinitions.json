@@ -384,7 +384,7 @@
                 },
                 {
                     "name": "BIGCOMMERCE_CHANNEL_ID",
-                    "type": "str",
+                    "type": "num",
                     "desc": "Specify the BigCommerce channel id.",
                     "default": 1
                 }
