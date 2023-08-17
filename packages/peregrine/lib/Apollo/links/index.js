@@ -51,6 +51,7 @@ const getLinks = apiBase => {
 
     // preserve this array order, it's important
     // as the terminating link, `httpLink` must be last
+
     const links = new Map()
         .set('MUTATION_QUEUE', mutationQueueLink)
         .set('RETRY', retryLink)
