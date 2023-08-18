@@ -723,6 +723,7 @@
     "pagination.prevPage": "move to the previous page",
     "personalPrices": "Personal Prices",
     "postcode.label": "ZIP / Postal Code",
+    "postcode.invalid": "Invalid postcode for the selected country",
     "priceAdjustments.couponCode": "Enter Coupon Code",
     "priceAdjustments.giftOptions": "See Gift Options",
     "priceAdjustments.shippingMethod": "Estimate your Shipping",

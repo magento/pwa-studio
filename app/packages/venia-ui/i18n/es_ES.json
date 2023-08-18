@@ -723,6 +723,7 @@
     "pagination.prevPage": "Página anterior",
     "personalPrices": "Precios personales",
     "postcode.label": "Código Postal",
+    "postcode.invalid": "Código postal no válido para el país seleccionado",
     "priceAdjustments.couponCode": "Introduce código promocional",
     "priceAdjustments.giftOptions": "Ver las opciones de regalo",
     "priceAdjustments.shippingMethod": "Calcular su envío",

@@ -721,6 +721,7 @@
     "pagination.prevPage": "Ir a pagina anterior",
     "personalPrices": "Preços pessoais",
     "postcode.label": "Codigo Postal",
+    "postcode.invalid": "Código postal inválido para o país selecionado",
     "priceAdjustments.couponCode": "Introduzir o codigo promocional",
     "priceAdjustments.giftOptions": "Ver opções de prenda",
     "priceAdjustments.shippingMethod": "Simular o envio",

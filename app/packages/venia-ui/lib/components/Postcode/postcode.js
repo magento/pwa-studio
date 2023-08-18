@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
-import { usePostcode } from '@magento/peregrine/lib/talons/Postcode/usePostcode';
+import { usePostcode } from '../../../../peregrine/lib/talons/Postcode/usePostcode';
 
 import { useStyle } from '../../classify';
 import Field from '../Field';
@@ -26,20 +26,27 @@ const Postcode = props => {
             defaultMessage: 'ZIP / Postal Code'
         });
 
-    usePostcode({ fieldInput });
+      const errorMessage = formatMessage({
+        id: 'postcode.invalid',
+      })
+
+    const { warning } = usePostcode({ fieldInput });
 
     return (
+      <>
         <Field
-            id={classes.root}
-            label={fieldLabel}
-            classes={{ root: classes.root }}
+          id={classes.root}
+          label={fieldLabel}
+          classes={{ root: classes.root }}
         >
-            <TextInput
-                {...postcodeProps}
-                field={fieldInput}
-                id={classes.root}
-            />
+          <TextInput
+            {...postcodeProps}
+            field={fieldInput}
+            id={classes.root}
+          />
         </Field>
+        {warning && <div className={classes.warning}>{errorMessage}</div>}
+      </>
     );
 };
 
@@ -56,3 +63,4 @@ Postcode.propTypes = {
     fieldInput: string,
     label: string
 };
+

@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+import { validatePostcode } from '@magento/venia-ui/lib/util/formValidators';
 
 import { useEventingContext } from '../../../../context/eventing';
 
@@ -108,15 +109,16 @@ export const useCustomerForm = props => {
     const handleSubmit = useCallback(
         async formValues => {
             // eslint-disable-next-line no-unused-vars
-            const { country, email, ...address } = formValues;
+            const { country, email, postcode, ...address } = formValues;
             try {
                 const customerAddress = {
                     ...address,
                     // Cleans up the street array when values are null or undefined
                     street: address.street.filter(e => e),
-                    country_code: country
+                    country_code: country,
+                    postcode: postcode
                 };
-
+                if(!validatePostcode(postcode, country)) return
                 if (isUpdate) {
                     const { id: addressId } = shippingData;
                     await updateCustomerAddress({

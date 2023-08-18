@@ -722,6 +722,7 @@
     "pagination.prevPage": "passer à la page précédente",
     "personalPrices": "Tarifs personnels",
     "postcode.label": "ZIP / Code Postal",
+    "postcode.invalid": "Code postal non valide pour le pays sélectionné",
     "priceAdjustments.couponCode": "Entrer le code promotionnel",
     "priceAdjustments.giftOptions": "Voir les options de cadeaux",
     "priceAdjustments.shippingMethod": "Estimez votre expédition",

@@ -9,6 +9,7 @@ import DEFAULT_OPERATIONS from './billingAddress.gql';
 import ADDRESS_BOOK_OPERATIONS from '../../AddressBookPage/addressBookPage.gql';
 import SHIPPING_INFORMATION_OPERATIONS from '../ShippingInformation/shippingInformation.gql';
 
+import { validatePostcode } from '@magento/venia-ui/lib/util/formValidators';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { FormattedMessage } from 'react-intl';
 import { useToasts } from '@magento/peregrine';
@@ -269,7 +270,9 @@ export const useBillingAddress = props => {
             postcode,
             phoneNumber
         } = formState.values;
-
+        if (!validatePostcode(postcode, country)) {
+            throw new Error("Invalid postcode")
+        }
         updateBillingAddress({
             variables: {
                 cartId,

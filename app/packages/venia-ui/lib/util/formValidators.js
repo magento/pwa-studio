@@ -1,3 +1,5 @@
+import { postcodeValidator } from "postcode-validator";
+
 /**
  * @fileoverview This file houses functions that can be used for
  * validation of form fields.
@@ -160,4 +162,11 @@ export const isNotEqualToField = (value, values, fieldKey) => {
         value: fieldKey
     };
     return value !== values[fieldKey] ? SUCCESS : message;
+};
+
+export const validatePostcode = (postcode, countryCode) => {
+    if (!postcodeValidator(postcode, countryCode)) {
+        return false;
+    }
+    return true;
 };
