@@ -51,7 +51,7 @@ const getLinks = apiBase => {
 
     // preserve this array order, it's important
     // as the terminating link, `httpLink` must be last
-    if(gqlCacheLink) {
+    if (gqlCacheLink) { 
         const links = new Map()
             .set('MUTATION_QUEUE', mutationQueueLink)
             .set('RETRY', retryLink)
@@ -59,7 +59,9 @@ const getLinks = apiBase => {
             .set('STORE', storeLink)
             .set('ERROR', errorLink)
             .set('HTTP', httpLink);
-    } else {
+        
+        return links;
+    } else { console.log('fffds');
         const links = new Map()
             .set('MUTATION_QUEUE', mutationQueueLink)
             .set('RETRY', retryLink)
@@ -67,8 +69,9 @@ const getLinks = apiBase => {
             .set('STORE', storeLink)
             .set('ERROR', errorLink)
             .set('HTTP', httpLink);
+        return links;
     }
-    return links;
+    
 };
 
 export default getLinks;
