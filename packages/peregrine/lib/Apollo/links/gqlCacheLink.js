@@ -45,7 +45,7 @@ export class MagentoGQLCacheLink extends ApolloLink {
     
             const responseCacheId = response.headers.get(CACHE_ID_HEADER);
 
-            if (responseCacheId && response.headers.get('X-Cache') == 'HIT, HIT') {
+            if (responseCacheId && response.headers.get('X-Cache') != 'MISS, MISS') {
                 this.setCacheId(responseCacheId);
             }
 
