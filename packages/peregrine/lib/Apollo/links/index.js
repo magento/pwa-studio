@@ -51,21 +51,21 @@ const getLinks = apiBase => {
 
     // preserve this array order, it's important
     // as the terminating link, `httpLink` must be last
-    if (gqlCacheLink) { 
+    if ( !gqlCacheLink ) { 
         const links = new Map()
             .set('MUTATION_QUEUE', mutationQueueLink)
             .set('RETRY', retryLink)
-            .set('GQL_CACHE', gqlCacheLink)
+            .set('AUTH', authLink)
             .set('STORE', storeLink)
             .set('ERROR', errorLink)
             .set('HTTP', httpLink);
         
         return links;
-    } else { console.log('fffds');
+    } else { 
         const links = new Map()
             .set('MUTATION_QUEUE', mutationQueueLink)
             .set('RETRY', retryLink)
-            .set('AUTH', authLink)
+            .set('GQL_CACHE', gqlCacheLink)
             .set('STORE', storeLink)
             .set('ERROR', errorLink)
             .set('HTTP', httpLink);
