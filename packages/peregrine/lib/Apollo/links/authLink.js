@@ -30,7 +30,7 @@ export class MagentoGQLCacheLink extends ApolloLink {
             const context = operation.getContext();
             const { response } = context;
 
-            if (response.headers.get('Pragma') == 'no-cache') {
+            if (response.headers.get('Pragma') == 'cache') {
                 this.settoken(null);
             }
 
