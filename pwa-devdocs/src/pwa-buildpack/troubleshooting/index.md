@@ -102,7 +102,7 @@ ${User}\AppData\Local\devcert
 If you leave the `yarn watch` process running for an extended amount of time, it runs out of memory and shows an error.
 The solution is to restart the watch process and make sure it does not run for an extended amount of time.
 
-[create an issue]: https://github.com/magento/pwa-buildpack/issues
+[create an issue]: https://github.com/magento/pwa-buildpack/issues (build pack repo don't exist)
 [Slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2/team/UAFV915FB/
 [host file]: https://en.wikipedia.org/wiki/Hosts_(file)
 [manually edit your hostfile]: https://support.rackspace.com/how-to/modify-your-hosts-file/
