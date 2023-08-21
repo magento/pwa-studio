@@ -23,7 +23,7 @@ export class MagentoGQLCacheLink extends ApolloLink {
         storage.setItem(LOCAL_STORAGE_KEY, value);
     }
 
-    request(operation, forward) { console.log(this.#cacheId);
+    request(operation, forward) {
         // Attach the cache header to each outgoing request.
         operation.setContext(previousContext => {
             const { headers } = previousContext;
@@ -45,7 +45,7 @@ export class MagentoGQLCacheLink extends ApolloLink {
 
             const responseCacheId = response.headers.get(CACHE_ID_HEADER);
 
-            if (responseCacheId && response.headers.get('X-Cache') != 'MISS, MISS') {
+            if (responseCacheId) {
                 this.setCacheId(responseCacheId);
             }
 
