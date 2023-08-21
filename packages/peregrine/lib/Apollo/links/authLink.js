@@ -2,15 +2,15 @@ import { ApolloLink } from '@apollo/client';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
 const storage = new BrowserPersistence();
-
+const token = storage.getItem('signin_token') || null;
 export class MagentoGQLCacheLink extends ApolloLink {
     // The token get reinstantiated on refresh.
     // If we have an existing token value from a previous browsing session, use it.
-    token = storage.getItem('signin_token') || null;
+   
 
     // reset token 
     settoken(value) { 
-        this.token = value;
+        token = value;
     }
 
     request(operation, forward) {
@@ -20,18 +20,18 @@ export class MagentoGQLCacheLink extends ApolloLink {
             return {
                 headers: {
                     ...headers,
-                    authorization: this.token ? `Bearer ${this.token}` : ''
+                    authorization: token ? `Bearer ${token}` : ''
                 }
             };
         });
 
         // Update the token from each response.
-        const updateToken = data => {
+        const updateToken = data => { console.log(token);
             const context = operation.getContext();
             const { response } = context;
 
-            if (response.headers.get('Pragma') == 'cache') {
-                this.settoken('');
+            if (response.headers.get('Pragma') != 'no-cache') {
+                this.settoken(null);
             }
 
             // Purposefully don't modify the result,
