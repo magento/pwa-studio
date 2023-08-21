@@ -9,7 +9,7 @@ export class MagentoGQLCacheLink extends ApolloLink {
     token = storage.getItem('signin_token') || null;
 
     // reset token 
-    settoken(value) {
+    settoken(value) { 
         this.token = value;
     }
 
@@ -31,7 +31,7 @@ export class MagentoGQLCacheLink extends ApolloLink {
             const { response } = context;
 
             if (response.headers.get('Pragma') == 'cache') {
-                this.settoken(null);
+                this.settoken('');
             }
 
             // Purposefully don't modify the result,
