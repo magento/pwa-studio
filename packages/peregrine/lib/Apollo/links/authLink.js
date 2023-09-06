@@ -27,9 +27,10 @@ export class MagentoGQLCacheLink extends ApolloLink {
             const { response } = context;
 
             
-            if (response.headers.get('Pragma') == 'cache') {
+            if (response.headers.get('Pragma') == 'cache') { console.log('cache');
                 token = null;
             }
+            console.log(token);
             // Purposefully don't modify the result,
             // no other link needs to know about the cache id.
             return data;
