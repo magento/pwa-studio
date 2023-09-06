@@ -16,7 +16,8 @@ export class MagentoGQLCacheLink extends ApolloLink {
             return {
                 headers: {
                     ...headers,
-                    authorization: token ? `Bearer ${token}` : ''
+                    authorization: token ? `Bearer ${token}` : '',
+                    TTd: token
                 }
             };
         });
