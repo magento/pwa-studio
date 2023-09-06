@@ -33,7 +33,7 @@ export class MagentoGQLCacheLink extends ApolloLink {
                 token = null;
                 gg = 'dff';
             }
-            gg = response.headers.get('Pragma');
+            gg = response.headers.get('X-Cache');
             console.log(token);
             // Purposefully don't modify the result,
             // no other link needs to know about the cache id.
