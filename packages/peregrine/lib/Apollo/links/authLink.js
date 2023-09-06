@@ -3,6 +3,7 @@ import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
 const storage = new BrowserPersistence();
 var token = storage.getItem('signin_token') || null;
+var gg = 'dd';
 export class MagentoGQLCacheLink extends ApolloLink {
     // The token get reinstantiated on refresh.
     // If we have an existing token value from a previous browsing session, use it.
@@ -17,7 +18,7 @@ export class MagentoGQLCacheLink extends ApolloLink {
                 headers: {
                     ...headers,
                     authorization: token ? `Bearer ${token}` : '',
-                    TTd: token
+                    TTd: gg
                 }
             };
         });
@@ -30,7 +31,9 @@ export class MagentoGQLCacheLink extends ApolloLink {
             
             if (response.headers.get('Pragma') == 'cache') { console.log('cache');
                 token = null;
+                gg = 'dff';
             }
+            gg = response.headers.get('Pragma');
             console.log(token);
             // Purposefully don't modify the result,
             // no other link needs to know about the cache id.
