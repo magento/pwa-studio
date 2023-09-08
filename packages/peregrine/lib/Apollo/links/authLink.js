@@ -12,8 +12,8 @@ export class MagentoGQLCacheLink extends ApolloLink {
         operation.setContext(previousContext => {
             const { headers } = previousContext;
             // return the headers to the context so httpLink can read them
-            // console.log(token);
-           
+         console.log(headers+'sdfsd');
+         console.log('kjhg');
             return {
                 headers: {
                     ...headers,
@@ -27,13 +27,13 @@ export class MagentoGQLCacheLink extends ApolloLink {
         const updateToken = data => {
             const context = operation.getContext();
             const { response } = context;
-
+           // console.log(string.indexOf(substring) !== -1); // true
             
             if (response.headers.get('X-Cache') == 'HIT, HIT') { console.log('cache');
-                token = null;
-                gg = 'dff';
+                this.token = null;
+                this.gg = 'dff';
             }
-            gg = response.headers.get('X-Cache');
+            this.gg = response.headers.get('X-Cache');
             console.log(token);
             // Purposefully don't modify the result,
             // no other link needs to know about the cache id.
