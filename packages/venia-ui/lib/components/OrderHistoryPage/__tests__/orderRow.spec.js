@@ -156,7 +156,7 @@ const imagesData = [
         sku: 'VA03',
         thumbnail: {
             url:
-                'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
+                'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
         },
         url_key: 'valeria-two-layer-tank',
         url_suffix: '.html'
@@ -166,7 +166,7 @@ const imagesData = [
         sku: 'VP08',
         thumbnail: {
             url:
-                'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
+                'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
         },
         url_key: 'chloe-silk-shell',
         url_suffix: '.html'
@@ -176,7 +176,7 @@ const imagesData = [
         sku: 'VSW09',
         thumbnail: {
             url:
-                'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
+                'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
         },
         url_key: 'helena-cardigan',
         url_suffix: '.html'

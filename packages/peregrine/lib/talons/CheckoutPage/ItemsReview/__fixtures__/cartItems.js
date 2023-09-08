@@ -10,7 +10,7 @@ export default {
                     name: 'Jillian Top',
                     thumbnail: {
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg',
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg',
                         __typename: 'ProductImage'
                     },
                     __typename: 'ConfigurableProduct'
@@ -41,7 +41,7 @@ export default {
                     name: 'Juno Sweater',
                     thumbnail: {
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg',
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg',
                         __typename: 'ProductImage'
                     },
                     __typename: 'ConfigurableProduct'
@@ -72,7 +72,7 @@ export default {
                     name: 'Angelina Tank Dress',
                     thumbnail: {
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg',
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg',
                         __typename: 'ProductImage'
                     },
                     __typename: 'ConfigurableProduct'

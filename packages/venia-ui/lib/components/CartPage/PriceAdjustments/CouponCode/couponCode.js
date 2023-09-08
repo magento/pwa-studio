@@ -52,7 +52,9 @@ const CouponCode = props => {
         data,
         errors,
         handleApplyCoupon,
+        handleApplyCouponOnEnter,
         handleRemoveCoupon,
+        handleRemoveCouponOnEnter,
         removingCoupon
     } = talonProps;
     const { formatMessage } = useIntl();
@@ -101,6 +103,9 @@ const CouponCode = props => {
                         data-cy="CouponCode-removeCouponButton"
                         onClick={() => {
                             handleRemoveCoupon(code);
+                        }}
+                        onKeyDown={() => {
+                            handleRemoveCouponOnEnter(code);
                         }}
                     >
                         <FormattedMessage
@@ -154,6 +159,7 @@ const CouponCode = props => {
                         disabled={applyingCoupon}
                         priority={'normal'}
                         type={'submit'}
+                        onKeyDown={handleApplyCouponOnEnter}
                     >
                         <FormattedMessage
                             id={'couponCode.apply'}

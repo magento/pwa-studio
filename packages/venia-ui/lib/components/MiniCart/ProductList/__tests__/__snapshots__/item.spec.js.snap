@@ -156,6 +156,14 @@ exports[`Should disable delete icon while loading 1`] = `
       </svg>
     </span>
   </button>
+  <span
+    aria-hidden="false"
+    aria-live="polite"
+    className="hide"
+    role="status"
+  >
+    There is only one item left in your cart
+  </span>
 </div>
 `;
 
@@ -315,6 +323,14 @@ exports[`Should render correctly 1`] = `
       </svg>
     </span>
   </button>
+  <span
+    aria-hidden="false"
+    aria-live="polite"
+    className="hide"
+    role="status"
+  >
+    There is only one item left in your cart
+  </span>
 </div>
 `;
 
@@ -474,6 +490,14 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
       </svg>
     </span>
   </button>
+  <span
+    aria-hidden="false"
+    aria-live="polite"
+    className="hide"
+    role="status"
+  >
+    There is only one item left in your cart
+  </span>
 </div>
 `;
 
@@ -633,5 +657,13 @@ exports[`Should render correctly with out of stock product 1`] = `
       </svg>
     </span>
   </button>
+  <span
+    aria-hidden="false"
+    aria-live="polite"
+    className="hide"
+    role="status"
+  >
+    There is only one item left in your cart
+  </span>
 </div>
 `;
