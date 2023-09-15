@@ -11,6 +11,7 @@ export const useFilterBlock = props => {
         if (group == 'price') {
             return params.get('price[filter]') ? true : false;
         }
+        
         return items.some(item => {
             return filterState && filterState.has(item);
         });
