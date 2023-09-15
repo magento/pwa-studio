@@ -34,11 +34,6 @@ jest.mock('@magento/peregrine/lib/talons/FilterModal', () => ({
 }));
 
 jest.mock('react-router-dom', () => ({
-    useHistory: jest.fn(),
-    useLocation: jest.fn()
-}));
-
-jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
     useLocation: jest.fn(() => ({ pathname: '', search: '' }))
 }));
