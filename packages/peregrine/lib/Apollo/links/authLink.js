@@ -7,6 +7,7 @@ var gg = 'dd';
 export class MagentoGQLCacheLink extends ApolloLink {
     // The token get reinstantiated on refresh.
     // If we have an existing token value from a previous browsing session, use it.
+
     
     request(operation, forward) {
         operation.setContext(previousContext => {
