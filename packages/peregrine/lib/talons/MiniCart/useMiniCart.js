@@ -8,6 +8,7 @@ import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './miniCart.gql';
 import { useEventingContext } from '../../context/eventing';
 
+
 /**
  *
  * @param {Boolean} props.isOpen - True if the mini cart is open
