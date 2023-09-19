@@ -182,15 +182,10 @@ export const useFilterSidebar = props => {
     }, [handleClose]);
 
     const handleReset = useCallback(() => {
-        // preserve all existing params
-        const params = new URLSearchParams(search);
-        if (params.get('price[filter]')) {
-            params.delete('price[filter]');
-        }
-        history.replace({ search: params.toString() });
-        filterApi.clear();
-        setIsApplying(true);
-    }, [filterApi, setIsApplying, history, search]);
+        // filterApi.clear();
+        // setIsApplying(true);
+        history.replace({ search: 'page=1' });
+    }, [history]);
 
     const handleKeyDownActions = useCallback(
         event => {

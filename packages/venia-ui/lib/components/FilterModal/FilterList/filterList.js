@@ -8,7 +8,7 @@ import { useStyle } from '../../../classify';
 import FilterItem from './filterItem';
 import defaultClasses from './filterList.module.css';
 import FilterItemRadioGroup from './filterItemRadioGroup';
-// import Slider from '@material-ui/core/slider';
+import Slider from '@material-ui/core/slider';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const labels = new WeakMap();
@@ -92,14 +92,14 @@ const FilterList = props => {
         if (name == 'Price') {
             return (
                 <div className={classes.root}>
-                    {/* <Slider
+                    <Slider
                         value={value}
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         aria-labelledby="range-slider"
                         min={minRange}
                         max={maxRange}
-                    /> */}
+                    />
                 </div>
             );
         } else {
