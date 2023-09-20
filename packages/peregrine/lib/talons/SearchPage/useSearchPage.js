@@ -37,12 +37,12 @@ export const useSearchPage = (props = {}) => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const  [getSearchTermMethod,{data:SearchTerm } ]  = useLazyQuery(
+    const [getSearchTermMethod, { data: SearchTerm }] = useLazyQuery(
         getSearchTermData
-        );
+    );
 
-    if (SearchTerm !==undefined && SearchTerm.redirect!==null){
-        const [...redirectData]= [SearchTerm]
+    if (SearchTerm !== undefined && SearchTerm.redirect !== null) {
+        const [...redirectData] = [SearchTerm];
         window.location.replace(redirectData[0].searchTerm.redirect);
     }
 

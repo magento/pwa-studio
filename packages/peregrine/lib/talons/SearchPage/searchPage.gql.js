@@ -29,10 +29,10 @@ export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
 
 export const GET_SEARCH_TERM_DATA = gql`
     query getSearchTermData($search: String) {
-        searchTerm(Search : $search) {
-                query_text 
-                redirect 
-                popularity
+        searchTerm(Search: $search) {
+            query_text
+            redirect
+            popularity
         }
     }
 `;
@@ -116,7 +116,7 @@ export const GET_SEARCH_AVAILABLE_SORT_METHODS = gql`
 export default {
     getFilterInputsQuery: GET_FILTER_INPUTS,
     getPageSize: GET_PAGE_SIZE,
-    getSearchTermData:GET_SEARCH_TERM_DATA,
+    getSearchTermData: GET_SEARCH_TERM_DATA,
     getProductFiltersBySearchQuery: GET_PRODUCT_FILTERS_BY_SEARCH,
     getSearchAvailableSortMethods: GET_SEARCH_AVAILABLE_SORT_METHODS,
     productSearchQuery: PRODUCT_SEARCH
