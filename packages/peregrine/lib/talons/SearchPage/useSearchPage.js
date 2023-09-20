@@ -37,13 +37,16 @@ export const useSearchPage = (props = {}) => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const [getSearchTermMethod, { data: SearchTerm }] = useLazyQuery(
+    const [getSearchTermMethod, { data: SearchTermQueryData }] = useLazyQuery(
         getSearchTermData
     );
 
-    if (SearchTerm !== undefined && SearchTerm.redirect !== null) {
-        const [...redirectData] = [SearchTerm];
-        window.location.replace(redirectData[0].searchTerm.redirect);
+    if (SearchTermQueryData !== undefined) {
+        const [...redirectData] = [SearchTermQueryData];
+        const redirectUrl = redirectData[0].searchTerm;
+        if (redirectUrl !== null ) {
+            window.location.replace(redirectUrl.redirect);
+        }
     }
 
     const [getSortMethods, { data: sortData }] = useLazyQuery(
