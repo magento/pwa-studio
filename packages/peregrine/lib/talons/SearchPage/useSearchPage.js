@@ -26,6 +26,7 @@ export const useSearchPage = (props = {}) => {
     const {
         getFilterInputsQuery,
         getPageSize,
+        getSearchTermData,
         getProductFiltersBySearchQuery,
         getSearchAvailableSortMethods,
         productSearchQuery
@@ -35,6 +36,15 @@ export const useSearchPage = (props = {}) => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
+
+    const  [getSearchTermMethod,{data:SearchTerm } ]  = useLazyQuery(
+        getSearchTermData
+        );
+
+    if (SearchTerm !==undefined && SearchTerm.redirect!==null){
+        const [...redirectData]= [SearchTerm]
+        window.location.replace(redirectData[0].searchTerm.redirect);
+    }
 
     const [getSortMethods, { data: sortData }] = useLazyQuery(
         getSearchAvailableSortMethods,
@@ -230,6 +240,16 @@ export const useSearchPage = (props = {}) => {
             setTotalPages(null);
         };
     }, [data, setTotalPages]);
+
+    useEffect(() => {
+        if (inputText) {
+            getSearchTermMethod({
+                variables: {
+                    search: inputText
+                }
+            });
+        }
+    }, [inputText, getSearchTermMethod]);
 
     useEffect(() => {
         if (inputText) {
