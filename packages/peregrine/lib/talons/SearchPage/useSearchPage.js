@@ -43,9 +43,9 @@ export const useSearchPage = (props = {}) => {
 
     if (SearchTermQueryData !== undefined) {
         const [...redirectData] = [SearchTermQueryData];
-        const redirectUrl = redirectData[0].searchTerm;
-        if (redirectUrl !== null ) {
-            window.location.replace(redirectUrl.redirect);
+        const redirectUrl = redirectData[0].searchTerm?.redirect;
+        if (redirectUrl !== null) {
+            window.location.replace(redirectUrl);
         }
     }
 
@@ -296,7 +296,7 @@ export const useSearchPage = (props = {}) => {
     useScrollTopOnChange(currentPage);
 
     const availableSortMethods = sortData
-        ? sortData.products.sort_fields.options
+        ? sortData.products.sort_fields?.options
         : null;
 
     return {
