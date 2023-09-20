@@ -273,6 +273,8 @@ export const useSearchPage = (props = {}) => {
         }
     );
 
+
+    
     useEffect(() => {
         if (inputText) {
             getFilters({
