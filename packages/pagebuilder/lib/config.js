@@ -5,6 +5,8 @@ import columnConfigAggregator from './ContentTypes/Column/configAggregator';
 import Column from './ContentTypes/Column';
 import columnGroupConfigAggregator from './ContentTypes/ColumnGroup/configAggregator';
 import ColumnGroup from './ContentTypes/ColumnGroup';
+import columnLineConfigAggregator from './ContentTypes/ColumnLine/configAggregator';
+import ColumnLine from './ContentTypes/ColumnLine';
 import imageConfigAggregator from './ContentTypes/Image/configAggregator';
 import { ImageShimmer } from './ContentTypes/Image';
 import headingConfigAggregator from './ContentTypes/Heading/configAggregator';
@@ -42,6 +44,10 @@ const contentTypesConfig = {
     'column-group': {
         configAggregator: columnGroupConfigAggregator,
         component: ColumnGroup
+    },
+    'column-line': {
+        configAggregator: columnLineConfigAggregator,
+        component: ColumnLine
     },
     image: {
         configAggregator: imageConfigAggregator,

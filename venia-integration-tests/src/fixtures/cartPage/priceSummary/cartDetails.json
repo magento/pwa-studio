@@ -16,11 +16,11 @@
                         "sku": "VP01",
                         "url_key": "selena-pants",
                         "thumbnail": {
-                            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_2.jpg",
+                            "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_2.jpg",
                             "__typename": "ProductImage"
                         },
                         "small_image": {
-                            "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_2.jpg",
+                            "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_2.jpg",
                             "__typename": "ProductImage"
                         },
                         "stock_status": "IN_STOCK",
@@ -39,7 +39,7 @@
                                 "product": {
                                     "uid": "Nzkw",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -60,7 +60,7 @@
                                 "product": {
                                     "uid": "Nzg2",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -81,7 +81,7 @@
                                 "product": {
                                     "uid": "Nzgy",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -102,7 +102,7 @@
                                 "product": {
                                     "uid": "Nzc4",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -123,7 +123,7 @@
                                 "product": {
                                     "uid": "Nzg5",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -144,7 +144,7 @@
                                 "product": {
                                     "uid": "Nzg1",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -165,7 +165,7 @@
                                 "product": {
                                     "uid": "Nzgx",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -186,7 +186,7 @@
                                 "product": {
                                     "uid": "Nzc3",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -207,7 +207,7 @@
                                 "product": {
                                     "uid": "Nzkx",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -228,7 +228,7 @@
                                 "product": {
                                     "uid": "Nzg3",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -249,7 +249,7 @@
                                 "product": {
                                     "uid": "Nzgz",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -270,7 +270,7 @@
                                 "product": {
                                     "uid": "Nzc5",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -291,7 +291,7 @@
                                 "product": {
                                     "uid": "Nzky",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-la_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -312,7 +312,7 @@
                                 "product": {
                                     "uid": "Nzg4",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-ll_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -333,7 +333,7 @@
                                 "product": {
                                     "uid": "Nzg0",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-mt_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"
@@ -354,7 +354,7 @@
                                 "product": {
                                     "uid": "Nzgw",
                                     "small_image": {
-                                        "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
+                                        "url": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/p/vp01-rn_main_1.jpg",
                                         "__typename": "ProductImage"
                                     },
                                     "__typename": "SimpleProduct"

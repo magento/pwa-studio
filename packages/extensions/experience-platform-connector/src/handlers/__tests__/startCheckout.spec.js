@@ -86,7 +86,7 @@ describe('handle()', () => {
                   },
                   "product": Object {
                     "canonicalUrl": undefined,
-                    "mainImageUrl": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/p/vp08-rn_main_2.jpg",
+                    "mainImageUrl": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/p/vp08-rn_main_2.jpg",
                     "name": "Bella Eyelet Capris",
                     "pricing": Object {
                       "currencyCode": "USD",
@@ -128,7 +128,7 @@ describe('handle()', () => {
                   },
                   "product": Object {
                     "canonicalUrl": undefined,
-                    "mainImageUrl": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va09-br_main_2.jpg",
+                    "mainImageUrl": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va09-br_main_2.jpg",
                     "name": "Thin Leather Braided Belt",
                     "pricing": Object {
                       "currencyCode": "USD",
@@ -163,7 +163,7 @@ describe('handle()', () => {
                   },
                   "product": Object {
                     "canonicalUrl": undefined,
-                    "mainImageUrl": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va22-si_main.jpg",
+                    "mainImageUrl": "https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va22-si_main.jpg",
                     "name": "Silver Amor Bangle Set",
                     "pricing": Object {
                       "currencyCode": "USD",

@@ -24,6 +24,7 @@ const ShippingForm = props => {
         errors,
         handleOnSubmit,
         handleZipChange,
+        handleOnSubmitKeyPress,
         isSetShippingLoading
     } = talonProps;
     const { formatMessage } = useIntl();
@@ -77,6 +78,7 @@ const ShippingForm = props => {
                         disabled={isSetShippingLoading}
                         priority="normal"
                         type="submit"
+                        onKeyDown={handleOnSubmitKeyPress}
                     >
                         {shippingStatusMessage}
                     </Button>

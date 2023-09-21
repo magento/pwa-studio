@@ -37,7 +37,9 @@ const SignIn = props => {
         errors,
         handleCreateAccount,
         handleEnterKeyPress,
+        signinHandleEnterKeyPress,
         handleForgotPassword,
+        forgotPasswordHandleEnterKeyPress,
         handleSubmit,
         isBusy,
         setFormApi,
@@ -106,6 +108,7 @@ const SignIn = props => {
                         classes={forgotPasswordClasses}
                         type="button"
                         onClick={handleForgotPassword}
+                        onKeyDown={forgotPasswordHandleEnterKeyPress}
                         data-cy="SignIn-forgotPasswordButton"
                     >
                         <FormattedMessage
@@ -119,6 +122,7 @@ const SignIn = props => {
                     <Button
                         priority="high"
                         type="submit"
+                        onKeyDown={signinHandleEnterKeyPress}
                         data-cy="SignInButton-root_highPriority"
                         disabled={isBusy}
                     >

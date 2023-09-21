@@ -28,7 +28,7 @@ jest.mock('inquirer', () => ({
         author: 'Gooston <gooston@goosemail.com>',
         template: '@magento/venia-concept@8.0.0',
         backendUrl:
-            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/',
+            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/',
         backendEdition: 'AC',
         braintreeToken: 'sandbox_8yrzsvtm_s2bg8fs563crhqzk',
         npmClient: 'yarn',
@@ -65,7 +65,7 @@ beforeAll(() => {
                         description:
                             'Magento 2.3.3 with Venia sample data installed',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/'
                     },
                     {
                         name: '2.3.4-venia-cloud',
@@ -221,14 +221,14 @@ test('should execute buildpack with answers provided', async () => {
     await createPWA();
 
     expect(execa.shell.mock.calls[0][0]).toMatchInlineSnapshot(
-        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --backend-edition \\"AC\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
+        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/\\" --backend-edition \\"AC\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
     );
 });
 
 test('should not include customBackendUrl in shell script', async () => {
     inquirer.prompt.mockResolvedValueOnce({
         customBackendUrl:
-            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/',
+            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/',
         directory: 'test',
         name: 'test',
         author: 'Gooston <gooston@goosemail.com>',
@@ -242,7 +242,7 @@ test('should not include customBackendUrl in shell script', async () => {
     await createPWA();
 
     expect(execa.shell.mock.calls[0][0]).toMatchInlineSnapshot(
-        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --backend-edition \\"AC\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
+        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/\\" --backend-edition \\"AC\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
     );
 });
 

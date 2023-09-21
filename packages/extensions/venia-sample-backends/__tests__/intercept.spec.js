@@ -33,7 +33,7 @@ test('should call onFail if backend is inactive', async () => {
                         description:
                             'Magento 2.3.3 with Venia sample data installed',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/'
                     },
                     {
                         name: '2.3.4-venia-cloud',

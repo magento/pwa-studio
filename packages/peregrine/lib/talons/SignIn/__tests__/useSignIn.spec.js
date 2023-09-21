@@ -121,6 +121,7 @@ test('returns correct shape', () => {
             "getUserDetailsQuery" => "getDetails error from redux",
             "signInMutation" => undefined,
           },
+          "forgotPasswordHandleEnterKeyPress": [Function],
           "handleCreateAccount": [Function],
           "handleEnterKeyPress": [Function],
           "handleForgotPassword": [Function],
@@ -131,6 +132,7 @@ test('returns correct shape', () => {
             "shouldRender": false,
           },
           "setFormApi": [Function],
+          "signinHandleEnterKeyPress": [Function],
         }
     `);
 });

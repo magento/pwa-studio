@@ -85,6 +85,14 @@ export const useCreateAccount = props => {
         onCancel();
     }, [onCancel]);
 
+    const handleCancelKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleCancel();
+            }
+        };
+    }, [handleCancel]);
+
     const handleSubmit = useCallback(
         async formValues => {
             setIsSubmitting(true);
@@ -167,6 +175,7 @@ export const useCreateAccount = props => {
                 setIsSubmitting(false);
             }
         },
+
         [
             cartId,
             generateReCaptchaData,
@@ -209,6 +218,7 @@ export const useCreateAccount = props => {
         errors,
         handleCancel,
         handleSubmit,
+        handleCancelKeyPress,
         initialValues: sanitizedInitialValues,
         isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
         recaptchaWidgetProps

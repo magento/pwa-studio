@@ -48,6 +48,16 @@ export const useMagentoRoute = (props = {}) => {
     const { data, error, loading } = queryResult;
     const { route } = data || {};
 
+    // redirect to external url
+    useEffect(() => {
+        if (route) {
+            const external_URL = route.relative_url;
+            if (external_URL && external_URL.startsWith('http')) {
+                window.location.replace(external_URL);
+            }
+        }
+    }, [route]);
+
     useEffect(() => {
         if (initialized.current || !getInlinedPageData()) {
             runQuery({

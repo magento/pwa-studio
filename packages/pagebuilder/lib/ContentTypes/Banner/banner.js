@@ -160,7 +160,7 @@ const Banner = props => {
     ]);
     /* eslint-enable react-hooks/exhaustive-deps */
 
-    if (image) {
+    if (image && bgImageStyle) {
         wrapperStyles.backgroundImage = `url(${bgImageStyle})`;
         wrapperStyles.backgroundSize = backgroundSize;
         wrapperStyles.backgroundPosition = backgroundPosition;
