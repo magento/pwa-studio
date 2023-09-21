@@ -11,6 +11,10 @@ export const ADD_PRODUCT_TO_CART = gql`
                 ...CartTriggerFragment
                 ...MiniCartFragment
             }
+            user_errors {
+                code
+                message
+            }
         }
     }
     ${CartTriggerFragment}
