@@ -100,10 +100,7 @@ export const useCategory = props => {
         called: introspectionCalled,
         data: introspectionData,
         loading: introspectionLoading
-    } = useQuery(getFilterInputsQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
+    } = useQuery(getFilterInputsQuery);
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
