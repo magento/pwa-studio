@@ -457,10 +457,10 @@ Now, when you start your storefront application and navigate to a product page, 
 
 ## Live example
 
-You can see this extension running live in this [CodeSandbox instance][] or you can check out the source repository in the [`taglist-extension-tutorial`][] branch in the **magento-devdocs/pwa-studio-code-sandbox** GitHub project.
+You can see this extension running live in this [CodeSandbox instance][] or you can check out the source repository in the [`taglist-extension-tutorial`][] branch in the **commerce-docs/pwa-studio-code-sandbox** GitHub project.
 
 ```html
-<iframe src="https://codesandbox.io/embed/github/magento-devdocs/pwa-studio-code-sandbox/tree/taglist-extension-tutorial/?fontsize=12&hidenavigation=1&module=%2Fextensions%2FtagList%2Fpackage.json&moduleview=1&theme=dark"
+<iframe src="https://codesandbox.io/embed/github/commerce-docs/pwa-studio-code-sandbox/tree/taglist-extension-tutorial/?fontsize=12&hidenavigation=1&module=%2Fextensions%2FtagList%2Fpackage.json&moduleview=1&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
      title="dev-sandbox"
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
@@ -472,5 +472,5 @@ You can see this extension running live in this [CodeSandbox instance][] or you 
 [targets and targetables]: <{%link pwa-buildpack/extensibility-framework/index.md %}>
 
 [productdetailsfragment]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/RootComponents/Product/productDetailFragment.gql.js
-[`taglist-extension-tutorial`]: https://github.com/magento-devdocs/pwa-studio-code-sandbox/tree/taglist-extension-tutorial
-[codesandbox instance]: https://codesandbox.io/s/github/magento-devdocs/pwa-studio-code-sandbox/tree/taglist-extension-tutorial/
+[`taglist-extension-tutorial`]: https://github.com/commerce-docs/pwa-studio-code-sandbox/tree/taglist-extension-tutorial
+[codesandbox instance]: https://codesandbox.io/s/github/commerce-docs/pwa-studio-code-sandbox/tree/taglist-extension-tutorial/
