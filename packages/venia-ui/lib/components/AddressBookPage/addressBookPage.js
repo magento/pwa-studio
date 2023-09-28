@@ -90,16 +90,27 @@ const AddressBookPage = props => {
         return fullPageLoadingIndicator;
     }
 
+    const addressBookPageMessage =
+        formatMessage(
+            {
+                id: 'addressBookPage.addAddressMessage',
+                defaultMessage:
+                    'You have added {count} address in your address book.'
+            },
+            { count: customerAddresses.length }
+        );
+
     return (
         <div className={classes.root}>
             <StoreTitle>{PAGE_TITLE}</StoreTitle>
-            <h1
+            <div
                 aria-live="polite"
                 className={classes.heading}
                 data-cy="AddressBookPage-heading"
             >
                 {PAGE_TITLE}
-            </h1>
+                <div aria-live="polite"  aria-label={addressBookPageMessage} ></div>
+            </div>
             <div className={classes.content} data-cy="AddressBookPage-content">
                 {addressBookElements}
                 <LinkButton
