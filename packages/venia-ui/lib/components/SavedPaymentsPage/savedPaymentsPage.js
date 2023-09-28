@@ -48,18 +48,20 @@ const SavedPaymentsPage = props => {
         defaultMessage: 'Saved Payments'
     });
 
-    const savedPaymentsMessage =useMemo(() => {
+    const savedPaymentsMessage = useMemo(() => {
         if (!savedPayments.length) {
             return formatMessage({
                 id: 'savedPaymentsPage.noSavedPayments',
                 defaultMessage: 'You have no saved payments.'
             });
         } else {
-            return formatMessage({
-                id: 'savedPaymentsPage.Message',
-                defaultMessage: 'You have {count} saved payments.'
-            },
-            { count: savedPayments.length });
+            return formatMessage(
+                {
+                    id: 'savedPaymentsPage.Message',
+                    defaultMessage: 'You have {count} saved payments.'
+                },
+                { count: savedPayments.length }
+            );
         }
     }, [savedPayments, formatMessage]);
 
@@ -72,7 +74,7 @@ const SavedPaymentsPage = props => {
             <StoreTitle>{title}</StoreTitle>
             <div aria-live="polite" className={classes.heading}>
                 {title}
-                <div aria-live="polite"  aria-label={savedPaymentsMessage} ></div>
+                <div aria-live="polite" aria-label={savedPaymentsMessage} />
             </div>
             <div className={classes.content}>{savedPaymentElements}</div>
             <div className={classes.noPayments}>{noSavedPayments}</div>

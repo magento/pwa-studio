@@ -57,15 +57,13 @@ const OrderHistoryPage = props => {
         defaultMessage: 'Search by Order Number'
     });
 
-    const ordersCountMessage =
-        formatMessage(
-            {
-                id: 'orderHistoryPage.ordersCount',
-                defaultMessage:
-                    'You have {count} orders in your history.'
-            },
-            { count: orders.length }
-        );
+    const ordersCountMessage = formatMessage(
+        {
+            id: 'orderHistoryPage.ordersCount',
+            defaultMessage: 'You have {count} orders in your history.'
+        },
+        { count: orders.length }
+    );
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -173,9 +171,9 @@ const OrderHistoryPage = props => {
                 <StoreTitle>{PAGE_TITLE}</StoreTitle>
                 <div aria-live="polite" className={classes.heading}>
                     {PAGE_TITLE}
-                    <div aria-live="polite"  aria-label={ordersCountMessage} ></div>
+                    <div aria-live="polite" aria-label={ordersCountMessage} />
                 </div>
-                
+
                 <div className={classes.filterRow}>
                     <span className={classes.pageInfo}>{pageInfoLabel}</span>
                     <Form className={classes.search} onSubmit={handleSubmit}>

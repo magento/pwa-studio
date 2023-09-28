@@ -90,15 +90,14 @@ const AddressBookPage = props => {
         return fullPageLoadingIndicator;
     }
 
-    const addressBookPageMessage =
-        formatMessage(
-            {
-                id: 'addressBookPage.addAddressMessage',
-                defaultMessage:
-                    'You have added {count} address in your address book.'
-            },
-            { count: customerAddresses.length }
-        );
+    const addressBookPageMessage = formatMessage(
+        {
+            id: 'addressBookPage.addAddressMessage',
+            defaultMessage:
+                'You have added {count} address in your address book.'
+        },
+        { count: customerAddresses.length }
+    );
 
     return (
         <div className={classes.root}>
@@ -109,7 +108,7 @@ const AddressBookPage = props => {
                 data-cy="AddressBookPage-heading"
             >
                 {PAGE_TITLE}
-                <div aria-live="polite"  aria-label={addressBookPageMessage} ></div>
+                <div aria-live="polite" aria-label={addressBookPageMessage} />
             </div>
             <div className={classes.content} data-cy="AddressBookPage-content">
                 {addressBookElements}
