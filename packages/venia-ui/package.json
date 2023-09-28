@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/venia-ui#readme",
   "dependencies": {
+    "@material-ui/core": "~4.12.4",
     "informed": "~3.29.0",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
