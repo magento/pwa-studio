@@ -25,14 +25,15 @@ export const useAdapter = props => {
         styles,
         url = globalThis.location.pathname,
         apollo: apolloProp,
-        staticContext
+        staticContext,
+        cookies
     } = props;
     const {
-        storeCode = STORE_VIEW_CODE,
+        storeCode: storeCodeFromUrl = STORE_VIEW_CODE,
         storeCurrency: currencyFromUrl
     } = getStoreDataFromUrl(url);
 
-    const basename = urlHasStoreCode ? `/${storeCode}` : null;
+    const basename = urlHasStoreCode ? `/${storeCodeFromUrl}` : null;
     const [initialized, setInitialized] = useState(false);
 
     const apiBase = useMemo(
@@ -74,7 +75,10 @@ export const useAdapter = props => {
 
     const clearCacheData = useCallback(
         async (client, cacheType) => {
-            const storeCode = storage.getItem('store_view_code') || 'default';
+            const storeCode =
+                storage.getItem('store_view_code') ||
+                storeCodeFromUrl ||
+                'default';
 
             // Clear current store
             if (cacheType === 'cart') {
@@ -123,17 +127,25 @@ export const useAdapter = props => {
                 }
             }
         },
-        [apolloLink, createApolloClient, createCachePersistor]
+        [apolloLink, createApolloClient, createCachePersistor, storeCodeFromUrl]
     );
 
     const apolloClient = useMemo(() => {
-        const storeCode = storage.getItem('store_view_code') || 'default';
+        const storeCode = IS_SERVER
+            ? storeCodeFromUrl
+            : storage.getItem('store_view_code') ||
+              storeCodeFromUrl ||
+              'default';
+
+        const cache = apolloProp.cache || preInstantiatedCache;
+
+        if (IS_SERVER) {
+            cache.policies.addTypePolicies(typePolicies);
+            cache.policies.addPossibleTypes(POSSIBLE_TYPES);
+        }
+
         const client =
-            apolloProp.client ||
-            createApolloClient(
-                apolloProp.cache || preInstantiatedCache,
-                apolloLink
-            );
+            apolloProp.client || createApolloClient(cache, apolloLink);
         const persistor = IS_SERVER
             ? null
             : createCachePersistor(storeCode, preInstantiatedCache);
@@ -144,13 +156,14 @@ export const useAdapter = props => {
 
         return client;
     }, [
-        apiBase,
-        apolloProp.cache,
+        storeCodeFromUrl,
         apolloProp.client,
-        apolloLink,
-        clearCacheData,
+        apolloProp.cache,
         createApolloClient,
-        createCachePersistor
+        apolloLink,
+        createCachePersistor,
+        apiBase,
+        clearCacheData
     ]);
 
     const getUserConfirmation = useCallback(async (message, callback) => {
@@ -170,9 +183,9 @@ export const useAdapter = props => {
         routerProps.context = staticContext;
 
         if (process.env.USE_STORE_CODE_IN_URL === 'true') {
-            routerProps.basename = `/${storeCode}`;
+            routerProps.basename = `/${storeCodeFromUrl}`;
             routerProps.location = url.replace(
-                new RegExp(`^\/${storeCode}(\/)?`),
+                new RegExp(`^\/${storeCodeFromUrl}(\/)?`),
                 '/'
             );
 

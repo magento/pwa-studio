@@ -7,7 +7,7 @@ import { useDelayedTransition } from '@magento/peregrine/lib/hooks/useDelayedTra
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import globalCSS from '../../index.module.css';
-import { HeadProvider, StoreTitle } from '../Head';
+import { StoreTitle } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
 import Navigation from '../Navigation';
@@ -92,17 +92,17 @@ const App = props => {
 
     if (renderError) {
         return (
-            <HeadProvider>
+            <React.Fragment>
                 <StoreTitle />
                 <Main isMasked={true} />
                 <Mask isActive={true} />
                 <ToastContainer />
-            </HeadProvider>
+            </React.Fragment>
         );
     }
 
     return (
-        <HeadProvider>
+        <React.Fragment>
             <StoreTitle />
             <Main isMasked={hasOverlay}>
                 <Routes />
@@ -114,7 +114,7 @@ const App = props => {
             />
             <Navigation />
             <ToastContainer />
-        </HeadProvider>
+        </React.Fragment>
     );
 };
 

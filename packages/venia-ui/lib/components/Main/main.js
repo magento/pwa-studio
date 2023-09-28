@@ -19,8 +19,8 @@ const Main = props => {
     return (
         <main className={rootClass}>
             <Header />
-            <div className={pageClass}>{children}</div>
-            <Footer />
+            {/* <div className={pageClass}>{children}</div> */}
+            {/* <Footer /> */}
         </main>
     );
 };

@@ -95,7 +95,7 @@ const Header = props => {
                     </div>
                 </div>
                 {searchBar}
-                <PageLoadingIndicator absolute />
+                {IS_BROWSER && <PageLoadingIndicator absolute />}
             </header>
         </Fragment>
     );

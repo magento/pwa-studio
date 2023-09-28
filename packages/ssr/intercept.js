@@ -1,4 +1,4 @@
-const ServerModuleOverridePlugin = require('./lib/ServerModuleOverridePlugin');
+const ServerModuleOverridePlugin = require('./lib/plugins/ServerModuleOverridePlugin');
 
 module.exports = targets => {
     targets.of('@magento/pwa-buildpack').specialFeatures.tap(flags => {

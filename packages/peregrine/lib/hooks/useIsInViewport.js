@@ -5,7 +5,7 @@ import { useIntersectionObserver } from '@magento/peregrine/lib/hooks/useInterse
 export const useIsInViewport = props => {
     const { elementRef, renderOnce = true } = props;
     const intersectionObserver = useIntersectionObserver();
-    const [isInViewport, setIsInViewport] = useState(false);
+    const [isInViewport, setIsInViewport] = useState(IS_SERVER);
 
     useEffect(() => {
         if (!elementRef || !elementRef.current || !intersectionObserver) {

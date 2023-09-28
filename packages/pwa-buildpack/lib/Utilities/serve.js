@@ -2,6 +2,9 @@ const loadEnvironment = require('../Utilities/loadEnvironment');
 const path = require('path');
 const { existsSync, readFileSync } = require('fs');
 const compression = require('compression');
+const { middleware: SSRMidleware } = require('@magento/ssr');
+const cookieParser = require('cookie-parser');
+const { isDevServer } = require('../util/process');
 
 module.exports = async function serve(dirname) {
     const config = await loadEnvironment(dirname);
@@ -38,6 +41,11 @@ module.exports = async function serve(dirname) {
                             threshold: 0
                         })
                     );
+                }
+
+                if (process.env.SSR_ENABLED !== 'false' && !isDevServer()) {
+                    app.use(cookieParser());
+                    app.use(SSRMidleware);
                 }
             }
         }

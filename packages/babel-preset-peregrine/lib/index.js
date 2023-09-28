@@ -15,7 +15,8 @@ const plugins = [
     ['@babel/plugin-syntax-dynamic-import'],
     ['@babel/plugin-syntax-jsx'],
     ['@babel/plugin-transform-react-jsx'],
-    ['babel-plugin-graphql-tag']
+    ['babel-plugin-graphql-tag'],
+    ['@loadable/babel-plugin']
 ];
 
 const nodeTarget = 'node 10';

@@ -9,6 +9,12 @@ const { createDOM, InMemoryCache } = require('./Utilities');
 const { isDocument, buildHTML } = require('./utils');
 require('./utils/shim');
 
+const React = require('react');
+// Suppress useLayoutEffect since it's not SSR compatible
+React.useLayoutEffect = () => void 0;
+React.Suspense = props =>
+    React.createElement(React.Fragment, null, props.children);
+
 // TODO: Minify HTML
 // const { minify } = require('html-minifier');
 // const minifyHtml = data => minify(data, { collapseWhitespace: true, minifyCSS: true });
@@ -42,27 +48,22 @@ module.exports = ({
     });
 
     const { url } = req;
-    let shouldSSR = true;
-    let isError = false;
-    let content = '';
 
     // Context object for StaticRouter
     const staticContext = {
         status: 200,
-        apollo: {
-            client: null,
-            // TODO: Find out why Babel couldn't compile it properly when imported
-            // and why we have to precompile to ssr/lib/Utilities/InMemoryCache.js
-            cache: new InMemoryCache({
-                // Add store_view_currency to cache config in order to read it in custom type policy 'read' function
-                ...(req.cookies || {})
-            })
-        },
         cookies: {},
-        linkTags: ''
+        linkTags: '',
+        apollo: {
+            client: null
+        }
     };
     // Context object for Helmet
     const helmetContext = {};
+
+    let shouldSSR = true;
+    let isError = false;
+    let content = '';
 
     try {
         // Allow or disallow SSR depending on the request url.
@@ -81,6 +82,14 @@ module.exports = ({
                         cookies: req.cookies,
                         staticContext,
                         helmetContext,
+                        apollo: {
+                            // TODO: Find out why Babel couldn't compile it properly when imported
+                            // and why we have to precompile to ssr/lib/Utilities/InMemoryCache.js
+                            cache: new InMemoryCache({
+                                // Add store_view_currency to cache config in order to read it in custom type policy 'read' function
+                                ...(req.cookies || {})
+                            })
+                        },
                         // Use it for simulated browser API's (e.g. DOMParser) on server. Note: Do not assign it to global.
                         dom: createDOM(
                             template,

@@ -169,7 +169,7 @@ export const useStoreSwitcher = (props = {}) => {
                 'store_view_currency',
                 availableStores.get(storeCode).currency
             );
-            Cookie.setItem(
+            Cookie.set(
                 'store_view_secure_base_media_url',
                 availableStores.get(storeCode).secure_base_media_url
             );
