@@ -134,6 +134,18 @@ const CustomerForm = props => {
         <Text type="hidden" field="default_shipping" initialValue={true} />
     );
 
+    const createErrorMessage = JSON.stringify(
+        errors.get('createCustomerAddressMutation')
+    );
+    const updateErrorMessage = JSON.stringify(
+        errors.get('updateCustomerAddressMutation')
+    );
+    const errorMessage = 'region_id is required for the specified country code';
+    const regionError =
+        createErrorMessage?.includes(errorMessage) ||
+        updateErrorMessage?.includes(errorMessage);
+
+    // errors
     return (
         <Fragment>
             <FormError errors={Array.from(errors.values())} />
@@ -257,9 +269,10 @@ const CustomerForm = props => {
                         />
                     </Field>
                 </div>
+
                 <div className={classes.region}>
                     <Region
-                        validate={isRequired}
+                        regionError={regionError}
                         data-cy="CustomerForm-region"
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
@@ -269,7 +282,20 @@ const CustomerForm = props => {
                             defaultMessage: 'State Required'
                         })}
                     />
+                    {regionError ? (
+                        <Message>
+                            <div className={classes.regionError}>
+                                <FormattedMessage
+                                    id={'validation.isRequired'}
+                                    defaultMessage={'isRequired'}
+                                />
+                            </div>
+                        </Message>
+                    ) : (
+                        ''
+                    )}
                 </div>
+
                 <div className={classes.postcode}>
                     <Postcode
                         validate={isRequired}
