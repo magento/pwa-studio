@@ -7,7 +7,7 @@
     composes: px-3 from global;
     composes: py-5 from global;
     composes: right-0 from global;
-    composes: top-full from global;
+    top: 80px;
     box-shadow: 0 3px rgb(var(--venia-global-color-gray-100));
 }
 
