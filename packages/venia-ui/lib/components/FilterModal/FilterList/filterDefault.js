@@ -12,6 +12,7 @@ const FilterDefault = props => {
         classes: propsClasses,
         isSelected,
         item,
+        onMouseDown,
         group,
         ...restProps
     } = props;
