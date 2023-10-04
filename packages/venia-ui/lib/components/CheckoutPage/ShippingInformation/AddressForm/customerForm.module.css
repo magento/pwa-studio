@@ -43,6 +43,13 @@
 }
 
 @media screen(-lg) {
+
+.regionError {
+    color: brown;
+    font-weight: 600;
+}
+
+
     .firstname {
         grid-column: 1 / span 2;
     }
