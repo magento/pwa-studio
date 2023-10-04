@@ -81,6 +81,7 @@ export const useSignIn = props => {
                     },
                     ...recaptchaData
                 });
+
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
 
@@ -155,6 +156,14 @@ export const useSignIn = props => {
         showForgotPassword();
     }, [setDefaultUsername, showForgotPassword]);
 
+    const forgotPasswordHandleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleForgotPassword();
+            }
+        };
+    }, [handleForgotPassword]);
+
     const handleCreateAccount = useCallback(() => {
         const { current: formApi } = formApiRef;
 
@@ -173,6 +182,14 @@ export const useSignIn = props => {
         };
     }, [handleCreateAccount]);
 
+    const signinHandleEnterKeyPress = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleSubmit();
+            }
+        };
+    }, [handleSubmit]);
+
     const errors = useMemo(
         () =>
             new Map([
@@ -186,7 +203,9 @@ export const useSignIn = props => {
         errors,
         handleCreateAccount,
         handleEnterKeyPress,
+        signinHandleEnterKeyPress,
         handleForgotPassword,
+        forgotPasswordHandleEnterKeyPress,
         handleSubmit,
         isBusy: isGettingDetails || isSigningIn || recaptchaLoading,
         setFormApi,

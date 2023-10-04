@@ -15,6 +15,7 @@ const FilterDefault = props => {
         group,
         ...restProps
     } = props;
+
     const { label, value_index } = item || {};
     const classes = useStyle(defaultClasses, propsClasses);
     const { currentCurrencyCode } = useCurrencySwitcher();
@@ -57,6 +58,7 @@ const FilterDefault = props => {
             label={title}
             ariaLabel={ariaLabel}
             data-cy="FilterDefault-checkbox"
+            onClick={onMouseDown}
             {...restProps}
         />
     );

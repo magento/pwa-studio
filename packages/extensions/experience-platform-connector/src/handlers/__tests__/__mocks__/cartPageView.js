@@ -15,12 +15,12 @@ export default {
                     thumbnail: {
                         __typename: 'ProductImage',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_2.jpg'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_2.jpg'
                     },
                     small_image: {
                         __typename: 'ProductImage',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_2.jpg'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_2.jpg'
                     },
                     stock_status: 'IN_STOCK',
                     variants: [
@@ -42,7 +42,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-kh_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-kh_main_1.jpg'
                                 }
                             }
                         },
@@ -64,7 +64,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_1.jpg'
                                 }
                             }
                         },
@@ -86,7 +86,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-pe_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-pe_main_1.jpg'
                                 }
                             }
                         },
@@ -108,7 +108,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-rn_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-rn_main_1.jpg'
                                 }
                             }
                         },
@@ -130,7 +130,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-kh_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-kh_main_1.jpg'
                                 }
                             }
                         },
@@ -152,7 +152,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_1.jpg'
                                 }
                             }
                         },
@@ -174,7 +174,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-pe_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-pe_main_1.jpg'
                                 }
                             }
                         },
@@ -196,7 +196,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-rn_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-rn_main_1.jpg'
                                 }
                             }
                         },
@@ -218,7 +218,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-kh_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-kh_main_1.jpg'
                                 }
                             }
                         },
@@ -240,7 +240,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_1.jpg'
                                 }
                             }
                         },
@@ -262,7 +262,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-pe_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-pe_main_1.jpg'
                                 }
                             }
                         },
@@ -284,7 +284,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-rn_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-rn_main_1.jpg'
                                 }
                             }
                         },
@@ -306,7 +306,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-kh_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-kh_main_1.jpg'
                                 }
                             }
                         },
@@ -328,7 +328,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-ll_main_1.jpg'
                                 }
                             }
                         },
@@ -350,7 +350,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-pe_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-pe_main_1.jpg'
                                 }
                             }
                         },
@@ -372,7 +372,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-rn_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/s/vsk02-rn_main_1.jpg'
                                 }
                             }
                         }
@@ -431,12 +431,12 @@ export default {
                     thumbnail: {
                         __typename: 'ProductImage',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va17-si_main.jpg'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va17-si_main.jpg'
                     },
                     small_image: {
                         __typename: 'ProductImage',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va17-si_main.jpg'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va17-si_main.jpg'
                     },
                     stock_status: 'IN_STOCK'
                 },
@@ -471,12 +471,12 @@ export default {
                     thumbnail: {
                         __typename: 'ProductImage',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_2.jpg'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_2.jpg'
                     },
                     small_image: {
                         __typename: 'ProductImage',
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_2.jpg'
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_2.jpg'
                     },
                     stock_status: 'IN_STOCK',
                     variants: [
@@ -498,7 +498,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-kh_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-kh_main_1.jpg'
                                 }
                             }
                         },
@@ -520,7 +520,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_1.jpg'
                                 }
                             }
                         },
@@ -542,7 +542,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ly_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ly_main_1.jpg'
                                 }
                             }
                         },
@@ -564,7 +564,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-pe_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-pe_main_1.jpg'
                                 }
                             }
                         },
@@ -586,7 +586,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-kh_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-kh_main_1.jpg'
                                 }
                             }
                         },
@@ -608,7 +608,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_1.jpg'
                                 }
                             }
                         },
@@ -630,7 +630,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ly_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ly_main_1.jpg'
                                 }
                             }
                         },
@@ -652,7 +652,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-pe_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-pe_main_1.jpg'
                                 }
                             }
                         },
@@ -674,7 +674,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-kh_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-kh_main_1.jpg'
                                 }
                             }
                         },
@@ -696,7 +696,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_1.jpg'
                                 }
                             }
                         },
@@ -718,7 +718,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ly_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ly_main_1.jpg'
                                 }
                             }
                         },
@@ -740,7 +740,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-pe_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-pe_main_1.jpg'
                                 }
                             }
                         },
@@ -762,7 +762,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-kh_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-kh_main_1.jpg'
                                 }
                             }
                         },
@@ -784,7 +784,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ll_main_1.jpg'
                                 }
                             }
                         },
@@ -806,7 +806,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ly_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-ly_main_1.jpg'
                                 }
                             }
                         },
@@ -828,7 +828,7 @@ export default {
                                 small_image: {
                                     __typename: 'ProductImage',
                                     url:
-                                        'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-pe_main_1.jpg'
+                                        'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va04-pe_main_1.jpg'
                                 }
                             }
                         }

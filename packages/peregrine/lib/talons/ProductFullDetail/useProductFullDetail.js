@@ -289,7 +289,11 @@ export const useProductFullDetail = props => {
 
     const [
         addProductToCart,
-        { error: errorAddingProductToCart, loading: isAddProductLoading }
+        {
+            data: addToCartResponseData,
+            error: errorAddingProductToCart,
+            loading: isAddProductLoading
+        }
     ] = useMutation(operations.addProductToCartMutation);
 
     const breadcrumbCategoryId = useMemo(
@@ -556,12 +560,14 @@ export const useProductFullDetail = props => {
             deriveErrorMessage([
                 errorAddingSimpleProduct,
                 errorAddingConfigurableProduct,
-                errorAddingProductToCart
+                errorAddingProductToCart,
+                ...(addToCartResponseData?.addProductsToCart?.user_errors || [])
             ]),
         [
             errorAddingConfigurableProduct,
             errorAddingProductToCart,
-            errorAddingSimpleProduct
+            errorAddingSimpleProduct,
+            addToCartResponseData
         ]
     );
 

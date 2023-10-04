@@ -37,7 +37,7 @@ export default {
                     name: 'Bella Eyelet Capris',
                     thumbnail: {
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/p/vp08-rn_main_2.jpg',
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/p/vp08-rn_main_2.jpg',
                         __typename: 'ProductImage'
                     },
                     __typename: 'ConfigurableProduct'
@@ -89,7 +89,7 @@ export default {
                     name: 'Thin Leather Braided Belt',
                     thumbnail: {
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va09-br_main_2.jpg',
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va09-br_main_2.jpg',
                         __typename: 'ProductImage'
                     },
                     __typename: 'ConfigurableProduct'
@@ -132,7 +132,7 @@ export default {
                     name: 'Silver Amor Bangle Set',
                     thumbnail: {
                         url:
-                            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va22-si_main.jpg',
+                            'https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/609faca36a4bc16a754bc2f43c184970/v/a/va22-si_main.jpg',
                         __typename: 'ProductImage'
                     },
                     __typename: 'SimpleProduct'

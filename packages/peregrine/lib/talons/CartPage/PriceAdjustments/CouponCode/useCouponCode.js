@@ -78,6 +78,13 @@ export const useCouponCode = props => {
         },
         [applyCoupon, cartId]
     );
+    const handleApplyCouponOnEnter = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleApplyCoupon();
+            }
+        };
+    }, [handleApplyCoupon]);
 
     const handleRemoveCoupon = useCallback(
         async couponCode => {
@@ -94,6 +101,14 @@ export const useCouponCode = props => {
         },
         [cartId, removeCoupon]
     );
+
+    const handleRemoveCouponOnEnter = useCallback(() => {
+        event => {
+            if (event.key === 'Enter') {
+                handleRemoveCoupon();
+            }
+        };
+    }, [handleRemoveCoupon]);
 
     useEffect(() => {
         if (applyCouponCalled || removeCouponCalled) {
@@ -124,7 +139,9 @@ export const useCouponCode = props => {
         data,
         errors,
         handleApplyCoupon,
+        handleApplyCouponOnEnter,
         handleRemoveCoupon,
+        handleRemoveCouponOnEnter,
         removingCoupon
     };
 };
@@ -167,6 +184,8 @@ export const useCouponCode = props => {
  * @property {String} errorMessage If GraphQL error occurs, this value is set.
  * @property {Object} fetchError The error data object returned by a GraphQL query.
  * @property {function} handleApplyCoupon Function to call for handling the application of a coupon code to a cart.
+ * @property {function} handleApplyCouponOnEnter Function to call for handling the application of a coupon code to a cart on enter key Press.
  * @property {function} handleRemoveCoupon Function to call for handling the removal of a coupon code from a cart
+ * @property {function} handleRemoveCouponOnEnter Function to call for handling the removal of a coupon code from a cart on enter key press.
  * @property {boolean} removingCoupon True if a coupon code is currently being removed. False otherwise.
  */

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a ColumnLine component 1`] = `
+<div
+  style={
+    Object {
+      "display": undefined,
+    }
+  }
+/>
+`;
+
+exports[`renders a ColumnLine component with all props configured 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+    }
+  }
+/>
+`;
