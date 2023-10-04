@@ -160,12 +160,7 @@ const Row = props => {
         if (enableParallax && bgImageStyle && backgroundType !== 'video') {
             ({ jarallax } = require('jarallax'));
             parallaxElement = backgroundElement.current;
-            jarallax(parallaxElement, {
-                speed: parallaxSpeed,
-                imgSize: backgroundSize,
-                imgPosition: backgroundPosition,
-                imgRepeat: backgroundRepeat
-            });
+            jarallax(parallaxElement, 'destroy');
         }
 
         if (backgroundType === 'video') {
