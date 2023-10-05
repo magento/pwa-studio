@@ -5,12 +5,16 @@ exports[`renders correctly when there are existing saved payments 1`] = `
   className="root"
 >
   Title
-  <h1
+  <div
     aria-live="polite"
     className="heading"
   >
     Saved Payments
-  </h1>
+    <div
+      aria-label="You have 1 saved payments."
+      aria-live="polite"
+    />
+  </div>
   <div
     className="content"
   >
@@ -37,12 +41,16 @@ exports[`renders correctly when there are no existing saved payments 1`] = `
   className="root"
 >
   Title
-  <h1
+  <div
     aria-live="polite"
     className="heading"
   >
     Saved Payments
-  </h1>
+    <div
+      aria-label="You have no saved payments."
+      aria-live="polite"
+    />
+  </div>
   <div
     className="content"
   />
