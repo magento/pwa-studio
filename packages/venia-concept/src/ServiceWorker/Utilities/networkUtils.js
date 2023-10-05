@@ -1,7 +1,8 @@
 /**
  * isFastNetwork uses the navigator API to tell if a connection
  * is fast or not. It returns true if the connection is 4g which
- * is same for 4g, LTE and WiFi.
+ * is same for 4g, LTE and WiFi. And if the Save-Data preference
+ * isn't turned on.
  *
  * The new navigator API will have a more granular distribution
  * for different types of connections once it is published.
@@ -9,7 +10,7 @@
  * @returns {boolean}
  */
 export const isFastNetwork = () => {
-    if (navigator.connection && 'effectiveType' in navigator.connection) {
+    if (navigator.connection && 'effectiveType' in navigator.connection && !navigator.connection.saveData) {
         return navigator.connection.effectiveType === '4g';
     } else {
         /**
