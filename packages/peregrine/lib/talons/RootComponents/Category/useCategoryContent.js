@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect,useState,createContext } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
 import { useEventingContext } from '../../../context/eventing';
-
+import { useFilterState } from '../../FilterModal/useFilterState';
+// pwa-studio/packages/peregrine/lib/talons/FilterModal/useFilterState.js
+//pwa-studio/packages/peregrine/lib/talons/RootComponents/FilterModal/useFilterState
 import DEFAULT_OPERATIONS from './categoryContent.gql';
+
 
 /**
  * Returns props necessary to render the categoryContent component.
@@ -22,7 +25,8 @@ export const useCategoryContent = props => {
     const { categoryId, data, pageSize = 6 } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-
+  
+    //console.log(state);
     const {
         getCategoryContentQuery,
         getProductFiltersByCategoryQuery,
@@ -30,7 +34,15 @@ export const useCategoryContent = props => {
     } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
+    
+    const [filterOptions, setFilterOptions] = useState();
+    // const [queryData,setQueryData]=useState([]);
 
+   
+    console.log(filterOptions  ,"final options");
+
+
+    
     const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersByCategoryQuery,
         {
@@ -39,6 +51,7 @@ export const useCategoryContent = props => {
         }
     );
 
+    //console.log(filterData);
     const [getSortMethods, { data: sortData }] = useLazyQuery(
         getCategoryAvailableSortMethodsQuery,
         {
@@ -61,22 +74,90 @@ export const useCategoryContent = props => {
 
     const [, { dispatch }] = useEventingContext();
 
+    
+    // useEffect(()=>{
+    
+    //     console.log("only when it was working");
+    // },[filterState])
+
     useEffect(() => {
+        let fashionColor='';
+        let fashionMaterial='';
+        let fashionSize='';
+        let fashionStyle='';
+        let hasVideo='';
+        let priceValue="";
+        //{from: "40" to: "59"}
+        if (filterOptions){
+            for (const [group, items] of filterOptions) {
+
+                if (group==="fashion_color"){
+                    const[item]=items
+                    // console.log(items,"items");
+                    // console.log(item,"item");
+                    fashionColor=item.value;
+                }
+                if (group==="fashion_material"){
+                    const[item]=items
+                    fashionMaterial=item.value;
+                }
+                if (group==="fashion_size"){
+                    const[item]=items
+                    fashionSize=item.value;
+                }
+                if (group==="fashion_style"){
+                    const[item]=items
+                    fashionStyle=item.value;
+                }
+                
+                if (group==="has_video"){
+                    const[item]=items
+                    hasVideo=item.value;
+                }
+                if (group==="price"){
+                    const[item]=items
+                    priceValue=item.value;
+                }
+
+        }
+        //console.log(priceValue);
+    }
+    console.log(fashionColor);
         if (categoryId) {
             getFilters({
                 variables: {
                     categoryIdFilter: {
                         eq: categoryId
                     }
+                   ,
+                    fashionColorFilter:{
+                        eq:fashionColor
+                    },
+                    fashionMaterialFilter:{
+                        eq:fashionMaterial
+                    },
+                    fashionSizeFilter:{
+                        eq:fashionSize
+                    },
+                    fashionStyleFilter:{
+                        eq:fashionStyle
+                    },
+                    hasVideoFilter:{
+                        eq:hasVideo
+                    },
+                    hasVideoFilter:{
+                        eq:priceValue
+                    }
                 }
             });
         }
-    }, [categoryId, getFilters]);
+    
+    }, [categoryId, filterOptions, getFilters]);
 
     useEffect(() => {
         if (categoryId) {
             getSortMethods({
-                variables: {
+                variables: { 
                     categoryIdFilter: {
                         in: categoryId
                     }
@@ -85,6 +166,7 @@ export const useCategoryContent = props => {
         }
     }, [categoryId, getSortMethods]);
 
+    //console.log(filterData);
     const filters = filterData ? filterData.products.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
     const totalPagesFromData = data
@@ -120,6 +202,8 @@ export const useCategoryContent = props => {
     return {
         availableSortMethods,
         categoryName,
+        filterOptions,
+        setFilterOptions,
         categoryDescription,
         filters,
         items,

@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useMemo, useRef } from 'react';
+import React, { Fragment, Suspense, useMemo, useRef,createContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, number, shape, string } from 'prop-types';
 
@@ -27,7 +27,7 @@ const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 const FilterSidebar = React.lazy(() =>
     import('../../components/FilterSidebar')
 );
-
+export const FilterContext = createContext();
 const CategoryContent = props => {
     const {
         categoryId,
@@ -38,7 +38,7 @@ const CategoryContent = props => {
         pageSize
     } = props;
     const [currentSort] = sortProps;
-
+    
     const talonProps = useCategoryContent({
         categoryId,
         data,
@@ -49,6 +49,8 @@ const CategoryContent = props => {
         availableSortMethods,
         categoryName,
         categoryDescription,
+        filterOptions,
+        setFilterOptions,
         filters,
         items,
         totalCount,
@@ -79,7 +81,9 @@ const CategoryContent = props => {
     ) : null;
 
     const sidebar = shouldShowFilterButtons ? (
+        <FilterContext.Provider value={[filterOptions,setFilterOptions]}>
         <FilterSidebar filters={filters} />
+         </FilterContext.Provider>
     ) : shouldShowFilterShimmer ? (
         <FilterSidebarShimmer />
     ) : null;

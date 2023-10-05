@@ -1,8 +1,9 @@
-import React, { useMemo, useCallback, useRef } from 'react';
+import React, { useMemo, useCallback, useRef,useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, number } from 'prop-types';
 import { useFilterSidebar } from '@magento/peregrine/lib/talons/FilterSidebar';
 
+import { FilterContext } from "../../RootComponents/Category/categoryContent";
 import { useStyle } from '../../classify';
 import LinkButton from '../LinkButton';
 import CurrentFilters from '../FilterModal/CurrentFilters';
@@ -32,6 +33,11 @@ const FilterSidebar = props => {
     const filterRef = useRef();
     const classes = useStyle(defaultClasses, props.classes);
 
+    const filterValue= useContext(FilterContext);
+    
+    const[filterOptions,setFilterOptions]=filterValue;
+    //console.log(setFilterOptions,"Filter option should be function");
+
     const handleApplyFilter = useCallback(
         (...args) => {
             const filterElement = filterRef.current;
@@ -54,7 +60,12 @@ const FilterSidebar = props => {
         () =>
             Array.from(filterItems, ([group, items], iteration) => {
                 const blockState = filterState.get(group);
+                console.log(filterState);
                 const groupName = filterNames.get(group);
+                if(setFilterOptions){
+                    setFilterOptions(filterState);
+                }
+                
                 const frontendInput = filterFrontendInput.get(group);
                 return (
                     <FilterBlock
