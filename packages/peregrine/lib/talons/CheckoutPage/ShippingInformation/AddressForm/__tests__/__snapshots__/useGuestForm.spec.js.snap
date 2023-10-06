@@ -9,11 +9,7 @@ Object {
       "firstname": "Philip",
       "lastname": "Fry",
       "postcode": "10019",
-      "region": Object {
-        "region": "New York",
-        "region_code": "NY",
-        "region_id": 12,
-      },
+      "region": 12,
       "street": Array [
         "3000 57th Street",
         "Suite 200",
@@ -37,11 +33,7 @@ Object {
       "firstname": "Philip",
       "lastname": "Fry",
       "postcode": "10019",
-      "region": Object {
-        "region": "New York",
-        "region_code": "NY",
-        "region_id": 12,
-      },
+      "region": 12,
       "street": Array [
         "3000 57th Street",
       ],
