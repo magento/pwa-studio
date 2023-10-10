@@ -8,6 +8,7 @@ import LinkButton from '../LinkButton';
 import CurrentFilters from '../FilterModal/CurrentFilters';
 import FilterBlock from '../FilterModal/filterBlock';
 import defaultClasses from './filterSidebar.module.css';
+import { useLocation } from 'react-router-dom';
 
 const SCROLL_OFFSET = 150;
 
@@ -31,6 +32,32 @@ const FilterSidebar = props => {
 
     const filterRef = useRef();
     const classes = useStyle(defaultClasses, props.classes);
+    const location = useLocation();
+
+    //adding the price filter values to the filterstate
+    const priceFilters = Array.from(filterItems, ([group]) => {
+        if (group == 'price') {
+            // preserve all existing params
+            const params = new URLSearchParams(location.search);
+            const uniqueKeys = new Set(params.keys());
+            // iterate over existing param keys
+            for (const key of uniqueKeys) {
+                // if a key matches a known filter, add its items to the next state
+                if (key == 'price[filter]') {
+                    const value = params.get('price[filter]');
+                    const item = {
+                        title: value.split(',')[0],
+                        value: value.split(',')[1]
+                    };
+                    const filterVar = new Set();
+                    filterVar.add(item);
+
+                    //to display the price filter value after selecting the filter
+                    filterState.set('price', new Set(filterVar));
+                }
+            }
+        }
+    });
 
     const handleApplyFilter = useCallback(
         (...args) => {
@@ -115,6 +142,7 @@ const FilterSidebar = props => {
                         />
                     </h2>
                 </div>
+                {priceFilters}
                 <CurrentFilters
                     filterApi={filterApi}
                     filterNames={filterNames}
