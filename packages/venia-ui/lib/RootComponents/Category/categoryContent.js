@@ -1,4 +1,10 @@
-import React, { Fragment, Suspense, useMemo, useRef,createContext } from 'react';
+import React, {
+    Fragment,
+    Suspense,
+    useMemo,
+    useRef,
+    createContext
+} from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, number, shape, string } from 'prop-types';
 
@@ -38,7 +44,7 @@ const CategoryContent = props => {
         pageSize
     } = props;
     const [currentSort] = sortProps;
-    
+
     const talonProps = useCategoryContent({
         categoryId,
         data,
@@ -81,9 +87,11 @@ const CategoryContent = props => {
     ) : null;
 
     const sidebar = shouldShowFilterButtons ? (
-        <FilterContext.Provider value={[filterOptions,setFilterOptions]}>
-        <FilterSidebar filters={filters} />
-         </FilterContext.Provider>
+        <FilterSidebar
+            filters={filters}
+            setFilterOptions={setFilterOptions}
+            filterOptions
+        />
     ) : shouldShowFilterShimmer ? (
         <FilterSidebarShimmer />
     ) : null;
