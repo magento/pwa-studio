@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/create-pwa#readme",
   "dependencies": {
-    "@magento/pwa-buildpack": "~11.4.2",
+    "@magento/pwa-buildpack": "11.4.3-alpha.1",
     "@magento/venia-concept": "~13.2.0",
     "chalk": "^2.4.2",
     "change-case": "^3.1.0",
