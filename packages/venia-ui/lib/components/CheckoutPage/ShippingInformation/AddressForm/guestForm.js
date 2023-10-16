@@ -126,6 +126,13 @@ const GuestForm = props => {
         }
     }, [addToast, formatMessage, showSignInToast, handleToastAction]);
 
+    const shippingAddressError = JSON.stringify(
+        errors.get('setGuestShippingMutation')
+    );
+
+    const errorMessage = 'Region is required';
+    const regionError = shippingAddressError?.includes(errorMessage);
+
     return (
         <Fragment>
             <FormError errors={Array.from(errors.values())} />
@@ -304,11 +311,11 @@ const GuestForm = props => {
                 </div>
                 <div className={classes.region}>
                     <Region
+                        regionError={regionError}
                         autoComplete={formatMessage({
                             id: 'region.label',
                             defaultMessage: 'State'
                         })}
-                        validate={isRequired}
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
@@ -318,6 +325,18 @@ const GuestForm = props => {
                             defaultMessage: 'State Required'
                         })}
                     />
+                    {regionError ? (
+                        <Message>
+                            <div className={classes.regionError}>
+                                <FormattedMessage
+                                    id={'validation.isRequired'}
+                                    defaultMessage={'isRequired'}
+                                />
+                            </div>
+                        </Message>
+                    ) : (
+                        ''
+                    )}
                 </div>
                 <div className={classes.postcode}>
                     <Postcode

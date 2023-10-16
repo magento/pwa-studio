@@ -26,6 +26,7 @@ export const useSearchPage = (props = {}) => {
     const {
         getFilterInputsQuery,
         getPageSize,
+        getSearchTermData,
         getProductFiltersBySearchQuery,
         getSearchAvailableSortMethods,
         productSearchQuery
@@ -35,6 +36,18 @@ export const useSearchPage = (props = {}) => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
+
+    const [getSearchTermMethod, { data: SearchTermQueryData }] = useLazyQuery(
+        getSearchTermData
+    );
+
+    if (SearchTermQueryData !== undefined) {
+        const [...redirectData] = [SearchTermQueryData];
+        const redirectUrl = redirectData[0].searchTerm?.redirect;
+        if (redirectUrl !== null) {
+            window.location.replace(redirectUrl);
+        }
+    }
 
     const [getSortMethods, { data: sortData }] = useLazyQuery(
         getSearchAvailableSortMethods,
@@ -233,6 +246,16 @@ export const useSearchPage = (props = {}) => {
 
     useEffect(() => {
         if (inputText) {
+            getSearchTermMethod({
+                variables: {
+                    search: inputText
+                }
+            });
+        }
+    }, [inputText, getSearchTermMethod]);
+
+    useEffect(() => {
+        if (inputText) {
             getSortMethods({
                 variables: {
                     search: inputText
@@ -273,7 +296,7 @@ export const useSearchPage = (props = {}) => {
     useScrollTopOnChange(currentPage);
 
     const availableSortMethods = sortData
-        ? sortData.products.sort_fields.options
+        ? sortData.products.sort_fields?.options
         : null;
 
     return {

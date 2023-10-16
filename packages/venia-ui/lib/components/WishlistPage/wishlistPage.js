@@ -79,13 +79,22 @@ const WishlistPage = props => {
         );
     }
 
+    const wishlistMessage = formatMessage(
+        {
+            id: 'wishlist.itemsMessage',
+            defaultMessage: 'You have {count} items in your wishlist.'
+        },
+        { count: wishlists[0].items_count }
+    );
+
     return (
         <div className={classes.root} data-cy="Wishlist-root">
-            <h1
+            <div
                 aria-live="polite"
                 className={classes.heading}
                 data-cy="WishlistPage-heading"
             >
+                <div aria-live="polite" aria-label={wishlistMessage} />
                 <FormattedMessage
                     values={{ count: wishlists.length }}
                     id={'wishlistPage.headingText'}
@@ -93,7 +102,7 @@ const WishlistPage = props => {
                         '{count, plural, one {Favorites List} other {Favorites Lists}}'
                     }
                 />
-            </h1>
+            </div>
             {content}
         </div>
     );
