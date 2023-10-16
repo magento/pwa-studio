@@ -51,6 +51,7 @@
     "redux-thunk": "~2.3.0",
     "uuid": "~8.3.2"
   },
+  
   "devDependencies": {
     "@apollo/client": "~3.5.0",
     "@babel/cli": "~7.2.3",
