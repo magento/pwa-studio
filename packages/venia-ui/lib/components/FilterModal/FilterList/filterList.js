@@ -8,7 +8,7 @@ import { useStyle } from '../../../classify';
 import FilterItem from './filterItem';
 import defaultClasses from './filterList.module.css';
 import FilterItemRadioGroup from './filterItemRadioGroup';
-import slider from '@material-ui/core/slider';
+import Slider from '@material-ui/core/slider';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const labels = new WeakMap();
@@ -92,7 +92,7 @@ const FilterList = props => {
         if (name == 'Price') {
             return (
                 <div className={classes.root}>
-                    <slider
+                    <Slider
                         value={value}
                         onChange={handleChange}
                         valueLabelDisplay="auto"
