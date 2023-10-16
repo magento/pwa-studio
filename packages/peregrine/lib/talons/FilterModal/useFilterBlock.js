@@ -23,14 +23,8 @@ export const useFilterBlock = props => {
     }, [hasSelected, initialOpen]);
 
     const handleClick = useCallback(() => {
-        const params = new URLSearchParams(location.search);
-        if (initialOpen == false && group == 'price') {
-            params.get('price[filter]')
-                ? setExpanded(true)
-                : setExpanded(false);
-        }
         setExpanded(value => !value);
-    }, [setExpanded, group, initialOpen, location.search]);
+    }, [setExpanded]);
 
     return {
         handleClick,
