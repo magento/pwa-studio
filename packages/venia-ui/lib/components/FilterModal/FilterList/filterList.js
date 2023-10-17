@@ -8,7 +8,7 @@ import { useStyle } from '../../../classify';
 import FilterItem from './filterItem';
 import defaultClasses from './filterList.module.css';
 import FilterItemRadioGroup from './filterItemRadioGroup';
-import Slider from '@material-ui/core/slider';
+import Slider from '@material-ui/core/Slider';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const labels = new WeakMap();
