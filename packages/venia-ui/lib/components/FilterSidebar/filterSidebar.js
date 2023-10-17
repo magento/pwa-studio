@@ -17,7 +17,7 @@ const SCROLL_OFFSET = 150;
  * @param {Object} props.filters - filters to display
  */
 const FilterSidebar = props => {
-    const { filters, filterCountToOpen } = props;
+    const { filters, filterCountToOpen,setFilterOptions } = props;
     const talonProps = useFilterSidebar({ filters });
     const {
         filterApi,
@@ -49,6 +49,12 @@ const FilterSidebar = props => {
         },
         [handleApply, filterRef]
     );
+
+    useEffect(()=>{
+        if(filterState){
+            setFilterOptions(filterState);
+        }
+    },[filterState])
 
     const filtersList = useMemo(
         () =>

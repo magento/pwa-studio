@@ -3,14 +3,28 @@ import { gql } from '@apollo/client';
 export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
     query getProductFiltersByCategory(
         $categoryIdFilter: FilterEqualTypeInput!
+        $fashionColorFilter: FilterEqualTypeInput!
+        $fashionMaterialFilter: FilterEqualTypeInput!
+        $fashionSizeFilter: FilterEqualTypeInput!
+        $fashionStyleFilter: FilterEqualTypeInput!
+        $hasVideoFilter:FilterEqualTypeInput!
+        $fashionPriceFilter:FilterRangeTypeInput!
     ) {
-        products(filter: { category_uid: $categoryIdFilter }) {
+        products(filter: { category_uid: $categoryIdFilter,
+            fashion_color:$fashionColorFilter,
+            fashion_material:$fashionMaterialFilter,
+            fashion_size:$fashionSizeFilter,
+            fashion_style:$fashionStyleFilter,
+            has_video:$hasVideoFilter,
+            price:$fashionPriceFilter
+         }) {
             aggregations {
                 label
                 count
                 attribute_code
                 options {
                     label
+                    count
                     value
                 }
                 position

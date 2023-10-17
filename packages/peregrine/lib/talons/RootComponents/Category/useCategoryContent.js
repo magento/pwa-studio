@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
@@ -29,6 +29,7 @@ export const useCategoryContent = props => {
         getCategoryAvailableSortMethodsQuery
     } = operations;
 
+    const [filterOptions, setFilterOptions] = useState();
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
 
     const [getFilters, { data: filterData }] = useLazyQuery(
@@ -62,16 +63,79 @@ export const useCategoryContent = props => {
     const [, { dispatch }] = useEventingContext();
 
     useEffect(() => {
+        let fashionColor='';
+        let fashionMaterial='';
+        let fashionSize='';
+        let fashionStyle='';
+        let hasVideo='';
+        let priceValue={
+            from:"",
+            to:''
+        }
+      
+        //{from: "40" to: "59"}
+        console.log(filterData);
+        if (filterOptions){
+            for (const [group, items] of filterOptions) {
+
+                if (group==="fashion_color"){
+                    const[item]=items
+                    // console.log(items,"items");
+                    // console.log(item,"item");
+                    fashionColor=item.value;
+                }
+                if (group==="fashion_material"){
+                    const[item]=items
+                    fashionMaterial=item.value;
+                }
+                if (group==="fashion_size"){
+                    const[item]=items
+                    fashionSize=item.value;
+                }
+                if (group==="fashion_style"){
+                    const[item]=items
+                    fashionStyle=item.value;
+                }
+
+                if (group==="has_video"){
+                    const[item]=items
+                    hasVideo=item.value;
+                }
+                if (group==="price"){
+                    const[item]=items
+                    //const filterarray = item?.value.split("_")
+                    // priceValue.from=filterarray[0];
+                    // priceValue.to=filterarray[1];
+                 
+                }
+            }
+        }
         if (categoryId) {
             getFilters({
                 variables: {
                     categoryIdFilter: {
                         eq: categoryId
-                    }
+                    },
+                    fashionColorFilter:{
+                        eq:fashionColor
+                    },
+                    fashionMaterialFilter:{
+                        eq:fashionMaterial
+                    },
+                    fashionSizeFilter:{
+                        eq:fashionSize
+                    },
+                    fashionStyleFilter:{
+                        eq:fashionStyle
+                    },
+                    hasVideoFilter:{
+                        eq:hasVideo
+                    },
+                    fashionPriceFilter:priceValue
                 }
             });
         }
-    }, [categoryId, getFilters]);
+    }, [categoryId,filterOptions, getFilters]);
 
     useEffect(() => {
         if (categoryId) {
@@ -122,6 +186,8 @@ export const useCategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
+        filterOptions,
+        setFilterOptions,
         items,
         totalCount,
         totalPagesFromData
