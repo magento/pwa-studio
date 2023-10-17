@@ -5,7 +5,7 @@ Array [
   <div>
     <button
       aria-expanded={false}
-      aria-label="Toggle mini cart. You have 100 items in your cart."
+      aria-label="Toggle mini cart. You have 0 items in your cart."
       onClick={[Function]}
     >
       <span>
@@ -34,14 +34,11 @@ Array [
           />
         </svg>
       </span>
-      <span>
-        99+
-      </span>
     </button>
   </div>,
   <button
     aria-expanded={false}
-    aria-label="Toggle mini cart. You have 100 items in your cart."
+    aria-label="Toggle mini cart. You have 0 items in your cart."
     onClick={[Function]}
   >
     <span>
@@ -69,9 +66,6 @@ Array [
           d="M16 10a4 4 0 0 1-8 0"
         />
       </svg>
-    </span>
-    <span>
-      99+
     </span>
   </button>,
   <require('../MiniCart')
@@ -86,7 +80,7 @@ Array [
   <div>
     <button
       aria-expanded={false}
-      aria-label="Toggle mini cart. You have 10 items in your cart."
+      aria-label="Toggle mini cart. You have 0 items in your cart."
       onClick={[Function]}
     >
       <span>
@@ -115,14 +109,11 @@ Array [
           />
         </svg>
       </span>
-      <span>
-        10
-      </span>
     </button>
   </div>,
   <button
     aria-expanded={false}
-    aria-label="Toggle mini cart. You have 10 items in your cart."
+    aria-label="Toggle mini cart. You have 0 items in your cart."
     onClick={[Function]}
   >
     <span>
@@ -150,9 +141,6 @@ Array [
           d="M16 10a4 4 0 0 1-8 0"
         />
       </svg>
-    </span>
-    <span>
-      10
     </span>
   </button>,
   <require('../MiniCart')

@@ -89,7 +89,8 @@ const initialProps = {
     getCartDetailsQuery: 'getCartDetailsQuery',
     setDefaultUsername: jest.fn(),
     showCreateAccount: jest.fn(),
-    showForgotPassword: jest.fn()
+    showForgotPassword: jest.fn(),
+    handleTriggerClick: jest.fn()
 };
 
 const clearCacheData = jest.fn();

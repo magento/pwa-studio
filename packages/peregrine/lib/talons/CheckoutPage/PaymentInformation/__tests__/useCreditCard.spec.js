@@ -1095,6 +1095,7 @@ describe('missing data', () => {
             Object {
               "variables": Object {
                 "cartId": "123",
+                "region": "",
                 "sameAsShipping": true,
               },
             }
