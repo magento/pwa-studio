@@ -74,7 +74,7 @@ export const useCategoryContent = props => {
         }
       
         //{from: "40" to: "59"}
-        console.log(filterData);
+        
         if (filterOptions){
             for (const [group, items] of filterOptions) {
 
