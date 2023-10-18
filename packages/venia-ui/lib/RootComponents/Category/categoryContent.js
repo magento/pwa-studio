@@ -50,7 +50,6 @@ const CategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
-        filterOptions,
         setFilterOptions,
         items,
         totalCount,

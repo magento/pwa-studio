@@ -7,17 +7,20 @@ export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
         $fashionMaterialFilter: FilterEqualTypeInput!
         $fashionSizeFilter: FilterEqualTypeInput!
         $fashionStyleFilter: FilterEqualTypeInput!
-        $hasVideoFilter:FilterEqualTypeInput!
-        $fashionPriceFilter:FilterRangeTypeInput!
+        $hasVideoFilter: FilterEqualTypeInput!
+        $fashionPriceFilter: FilterRangeTypeInput!
     ) {
-        products(filter: { category_uid: $categoryIdFilter,
-            fashion_color:$fashionColorFilter,
-            fashion_material:$fashionMaterialFilter,
-            fashion_size:$fashionSizeFilter,
-            fashion_style:$fashionStyleFilter,
-            has_video:$hasVideoFilter,
-            price:$fashionPriceFilter
-         }) {
+        products(
+            filter: {
+                category_uid: $categoryIdFilter
+                fashion_color: $fashionColorFilter
+                fashion_material: $fashionMaterialFilter
+                fashion_size: $fashionSizeFilter
+                fashion_style: $fashionStyleFilter
+                has_video: $hasVideoFilter
+                price: $fashionPriceFilter
+            }
+        ) {
             aggregations {
                 label
                 count

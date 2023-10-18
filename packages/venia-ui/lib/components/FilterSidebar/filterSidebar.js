@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useRef } from 'react';
+import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, number } from 'prop-types';
 import { useFilterSidebar } from '@magento/peregrine/lib/talons/FilterSidebar';
@@ -17,7 +17,7 @@ const SCROLL_OFFSET = 150;
  * @param {Object} props.filters - filters to display
  */
 const FilterSidebar = props => {
-    const { filters, filterCountToOpen,setFilterOptions } = props;
+    const { filters, filterCountToOpen, setFilterOptions } = props;
     const talonProps = useFilterSidebar({ filters });
     const {
         filterApi,
@@ -50,11 +50,11 @@ const FilterSidebar = props => {
         [handleApply, filterRef]
     );
 
-    useEffect(()=>{
-        if(filterState){
+    useEffect(() => {
+        if (filterState) {
             setFilterOptions(filterState);
         }
-    },[filterState])
+    }, [filterState, setFilterOptions]);
 
     const filtersList = useMemo(
         () =>
