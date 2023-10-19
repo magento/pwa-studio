@@ -45,12 +45,12 @@ const CommunicationsPage = props => {
     return (
         <div className={classes.root}>
             <StoreTitle>{title}</StoreTitle>
-            <h1 className={classes.title}>
+            <div className={classes.title}>
                 <FormattedMessage
                     id={'communicationsPage.communicationsText'}
                     defaultMessage={'Communications'}
                 />
-            </h1>
+            </div>
             <p>
                 <FormattedMessage
                     id={'communicationsPage.optInText'}

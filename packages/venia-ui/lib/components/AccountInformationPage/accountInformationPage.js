@@ -126,7 +126,7 @@ const AccountInformationPage = props => {
                     defaultMessage: 'Account Information'
                 })}
             </StoreTitle>
-            <h1
+            <div
                 aria-live="polite"
                 className={classes.title}
                 data-cy="AccountInformationPage-title"
@@ -135,7 +135,7 @@ const AccountInformationPage = props => {
                     id={'accountInformationPage.accountInformation'}
                     defaultMessage={'Account Information'}
                 />
-            </h1>
+            </div>
             {errorMessage ? errorMessage : pageContent}
         </div>
     );
