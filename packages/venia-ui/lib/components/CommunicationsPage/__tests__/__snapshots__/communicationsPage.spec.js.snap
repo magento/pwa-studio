@@ -5,14 +5,14 @@ exports[`renders empty form without data 1`] = `
   className="root"
 >
   Communications
-  <h1
+  <div
     className="title"
   >
     <mock-FormattedMessage
       defaultMessage="Communications"
       id="communicationsPage.communicationsText"
     />
-  </h1>
+  </div>
   <p>
     <mock-FormattedMessage
       defaultMessage="We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
@@ -114,14 +114,14 @@ exports[`renders form error 1`] = `
   className="root"
 >
   Communications
-  <h1
+  <div
     className="title"
   >
     <mock-FormattedMessage
       defaultMessage="Communications"
       id="communicationsPage.communicationsText"
     />
-  </h1>
+  </div>
   <p>
     <mock-FormattedMessage
       defaultMessage="We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
@@ -223,14 +223,14 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
   className="root"
 >
   Communications
-  <h1
+  <div
     className="title"
   >
     <mock-FormattedMessage
       defaultMessage="Communications"
       id="communicationsPage.communicationsText"
     />
-  </h1>
+  </div>
   <p>
     <mock-FormattedMessage
       defaultMessage="We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
@@ -334,14 +334,14 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
   className="root"
 >
   Communications
-  <h1
+  <div
     className="title"
   >
     <mock-FormattedMessage
       defaultMessage="Communications"
       id="communicationsPage.communicationsText"
     />
-  </h1>
+  </div>
   <p>
     <mock-FormattedMessage
       defaultMessage="We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."

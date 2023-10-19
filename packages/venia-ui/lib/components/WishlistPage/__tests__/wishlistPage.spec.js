@@ -29,7 +29,7 @@ test('renders general fetch error', () => {
                 { graphQLErrors: [{ message: 'Ruh roh!' }] }
             ]
         ]),
-        wishlists: []
+        wishlists: [{ id: 1, name: 'Favorites', items_count: 1 }]
     });
 
     const tree = createTestInstance(<WishlistPage />);
@@ -49,7 +49,7 @@ test('renders disabled feature error', () => {
                 }
             ]
         ]),
-        wishlists: []
+        wishlists: [{ id: 1, name: 'Favorites', items_count: 1 }]
     });
 
     const tree = createTestInstance(<WishlistPage />);
@@ -60,7 +60,10 @@ test('renders disabled feature error', () => {
 test('renders wishlist data', () => {
     useWishlistPage.mockReturnValue({
         errors: new Map(),
-        wishlists: [{ id: 1, name: 'Favorites' }, { id: 2, name: 'Registry' }]
+        wishlists: [
+            { id: 1, name: 'Favorites', items_count: 1 },
+            { id: 2, name: 'Registry', items_count: 2 }
+        ]
     });
 
     const tree = createTestInstance(<WishlistPage />);
@@ -71,7 +74,7 @@ test('renders wishlist data', () => {
 test('renders a single wishlist without visibility toggle', () => {
     useWishlistPage.mockReturnValue({
         errors: new Map(),
-        wishlists: [{ id: 1, name: 'Favorites' }]
+        wishlists: [{ id: 1, name: 'Favorites', items_count: 1 }]
     });
 
     const tree = createTestInstance(<WishlistPage />);
@@ -82,7 +85,7 @@ test('renders a single wishlist without visibility toggle', () => {
 test('empty single wishlist', () => {
     useWishlistPage.mockReturnValue({
         errors: new Map(),
-        wishlists: []
+        wishlists: [{ items_count: 5 }]
     });
 
     const tree = createTestInstance(<WishlistPage />);

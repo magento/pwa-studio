@@ -10,7 +10,11 @@ import ForgotPassword from '../ForgotPassword';
 import defaultClasses from './accountMenu.module.css';
 
 const AccountMenu = React.forwardRef((props, ref) => {
-    const { accountMenuIsOpen, setAccountMenuIsOpen } = props;
+    const {
+        handleTriggerClick,
+        accountMenuIsOpen,
+        setAccountMenuIsOpen
+    } = props;
     const talonProps = useAccountMenu({
         accountMenuIsOpen,
         setAccountMenuIsOpen
@@ -69,6 +73,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
         default: {
             dropdownContents = (
                 <SignIn
+                    handleTriggerClick={handleTriggerClick}
                     classes={{
                         modal_active: classes.loading
                     }}
