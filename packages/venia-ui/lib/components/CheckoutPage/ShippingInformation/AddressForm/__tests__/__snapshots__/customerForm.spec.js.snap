@@ -351,8 +351,8 @@ Array [
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
-        validate={[Function]}
       />
+      
     </div>
     <div
       className="postcode"
@@ -827,8 +827,8 @@ Array [
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
-        validate={[Function]}
       />
+      
     </div>
     <div
       className="postcode"
@@ -1364,8 +1364,8 @@ Array [
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
-        validate={[Function]}
       />
+      
     </div>
     <div
       className="postcode"

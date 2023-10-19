@@ -6,12 +6,16 @@ exports[`renders correctly with data 1`] = `
     className="root"
   >
     Title
-    <h1
+    <div
       aria-live="polite"
       className="heading"
     >
       Order History
-    </h1>
+      <div
+        aria-label="You have 3 orders in your history"
+        aria-live="polite"
+      />
+    </div>
     <div
       className="filterRow"
     >
@@ -209,12 +213,16 @@ exports[`renders correctly without data 1`] = `
     className="root"
   >
     Title
-    <h1
+    <div
       aria-live="polite"
       className="heading"
     >
       Order History
-    </h1>
+      <div
+        aria-label="You have 0 orders in your history"
+        aria-live="polite"
+      />
+    </div>
     <div
       className="filterRow"
     >
@@ -388,12 +396,16 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
     className="root"
   >
     Title
-    <h1
+    <div
       aria-live="polite"
       className="heading"
     >
       Order History
-    </h1>
+      <div
+        aria-label="You have 0 orders in your history"
+        aria-live="polite"
+      />
+    </div>
     <div
       className="filterRow"
     >
@@ -581,12 +593,16 @@ exports[`renders loading indicator 1`] = `
     className="root"
   >
     Title
-    <h1
+    <div
       aria-live="polite"
       className="heading"
     >
       Order History
-    </h1>
+      <div
+        aria-label="You have 0 orders in your history"
+        aria-live="polite"
+      />
+    </div>
     <div
       className="filterRow"
     >
@@ -794,12 +810,16 @@ exports[`renders no orders message is orders is empty 1`] = `
     className="root"
   >
     Title
-    <h1
+    <div
       aria-live="polite"
       className="heading"
     >
       Order History
-    </h1>
+      <div
+        aria-label="You have 0 orders in your history"
+        aria-live="polite"
+      />
+    </div>
     <div
       className="filterRow"
     >

@@ -12,8 +12,13 @@
   "repository": "github:magento/pwa-studio",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
+<<<<<<< HEAD
     "@magento/peregrine": "~13.1.1",
     "@magento/pwa-buildpack": "~11.4.2",
+=======
+    "@magento/peregrine": "13.2.1-beta.1",
+    "@magento/pwa-buildpack": "11.4.3-beta.1",
+>>>>>>> origin/release/13.3
     "react": "~17.0.1"
   },
   "pwa-studio": {

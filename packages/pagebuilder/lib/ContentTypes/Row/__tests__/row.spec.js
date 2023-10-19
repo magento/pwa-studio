@@ -38,12 +38,7 @@ test('render row with parallax initializes Jarallax', () => {
         }
     });
 
-    expect(mockJarallax).toHaveBeenCalledWith(true, {
-        speed: 0.75,
-        imgPosition: 'center center',
-        imgRepeat: 'repeat',
-        imgSize: 'cover'
-    });
+    expect(mockJarallax).toHaveBeenCalledWith(true, 'destroy');
 });
 
 test('render row with parallax initializes JarallaxVideo', () => {
@@ -99,15 +94,7 @@ test('row unmount causes Jarallax to be destroyed', () => {
     });
 
     expect(mockJarallax.mock.calls).toEqual([
-        [
-            true,
-            {
-                speed: 0.75,
-                imgPosition: 'top left',
-                imgRepeat: 'no-repeat',
-                imgSize: 'contain'
-            }
-        ],
+        [true, 'destroy'],
         [true, 'destroy']
     ]);
 });

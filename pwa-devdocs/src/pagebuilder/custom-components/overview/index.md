@@ -41,6 +41,6 @@ After you have met these prerequisites, you are ready to begin creating your cus
 
 [use these instructions]: <{% link venia-pwa-concept/setup/index.md %}>
 
-[download and install the pagebuilderquote module]: https://github.com/magento-devdocs/pagebuilder-examples/tree/master/Example/PageBuilderQuote
+[download and install the pagebuilderquote module]: https://github.com/commerce-docs/pagebuilder-examples/tree/master/Quote/Custom
 
-[github pagebuilder-examples repo]: https://github.com/magento-devdocs/pagebuilder-examples/tree/master/Example/PageBuilderQuote
+[github pagebuilder-examples repo]: https://github.com/commerce-docs/pagebuilder-examples/tree/master/Quote/Custom
