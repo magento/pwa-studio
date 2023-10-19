@@ -2,12 +2,7 @@
 
 exports[`searchCategory returns the correct shape 1`] = `
 Object {
-  "availableSortMethods": Array [
-    Object {
-      "label": "Position",
-      "value": "position",
-    },
-  ],
+  "availableSortMethods": undefined,
   "currentStoreName": "Store 1",
   "data": Object {
     "products": Object {

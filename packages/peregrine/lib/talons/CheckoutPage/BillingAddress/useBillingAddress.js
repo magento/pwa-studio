@@ -178,9 +178,12 @@ export const useBillingAddress = props => {
      * shipping address.
      */
     const setShippingAddressAsBillingAddress = useCallback(() => {
-        const shippingAddress = shippingAddressData
+        var shippingAddress = shippingAddressData
             ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
             : {};
+
+        shippingAddress.region =
+            shippingAddress.region == null ? '' : shippingAddress.region;
 
         updateBillingAddress({
             variables: {

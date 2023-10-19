@@ -131,7 +131,7 @@ The following table is a summary of general skills needed for PWA storefront dev
 [jQuery]: https://jquery.com/
 [Less]: http://lesscss.org/
 [CSS]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/css-topics/css-overview.html
-[Magento UI library]: https://magento-devdocs.github.io/magento2-ui-library/
+[Magento UI library]: https://commerce-docs.github.io/magento2-ui-library/
 [Magento layouts]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/layouts/layout-overview.html
 [Magento templates]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/templates/template-overview.html
 [Magento UI components]: https://devdocs.magento.com/guides/v2.3/ui_comp_guide/bk-ui_comps.html
