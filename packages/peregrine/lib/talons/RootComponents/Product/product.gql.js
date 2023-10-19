@@ -12,19 +12,6 @@ export const GET_STORE_CONFIG_DATA = gql`
     }
 `;
 
-export const GET_PRODUCT_DETAIL_QUERY = gql`
-    query getProductDetailForProductPage($urlKey: String!) {
-        products(filter: { url_key: { eq: $urlKey } }) {
-            items {
-                id
-                uid
-                ...ProductDetailsFragment
-            }
-        }
-    }
-    ${ProductDetailsFragment}
-`;
-
 export const GET_SINGLE_PRODUCT_DETAIL_QUERY = gql`
     query getProductDetailForProductPage($sku: String!) {
         products(filter: { sku: { eq: $sku } }) {
@@ -40,6 +27,5 @@ export const GET_SINGLE_PRODUCT_DETAIL_QUERY = gql`
 
 export default {
     getStoreConfigData: GET_STORE_CONFIG_DATA,
-    getProductDetailQuery: GET_PRODUCT_DETAIL_QUERY,
     getSingleProductDetailQuery: GET_SINGLE_PRODUCT_DETAIL_QUERY
 };
