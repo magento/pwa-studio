@@ -18,8 +18,8 @@
   "devDependencies": {},
   "peerDependencies": {
     "@apollo/client": "~3.5.0",
-    "@magento/peregrine": "13.2.1-beta.2",
-    "@magento/pwa-buildpack": "11.4.3-beta.2",
+    "@magento/peregrine": "13.2.1-beta.3",
+    "@magento/pwa-buildpack": "11.4.3-beta.3",
     "react": "~17.0.1"
   },
   "pwa-studio": {
