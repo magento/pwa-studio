@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.addJSXClassName adds a classname to an element that has none 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "Status",
+    "operation": "addClassName",
+    "params": Object {
+      "className": "\\"status-class\\"",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`.addJSXClassName appends a classname to an element that has a literal one 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "span className=\\"literal-classname\\"",
+    "operation": "addClassName",
+    "params": Object {
+      "className": "classes.icon",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`.addJSXClassName appends a classname to an element that has already had this method run on it 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "span className={classes.label}",
+    "operation": "addClassName",
+    "params": Object {
+      "className": "\\"oh-you\\"",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`.addJSXClassName appends a classname to an element that has an interpolated one 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "span className={classes.label}",
+    "operation": "addClassName",
+    "params": Object {
+      "className": "\\"another-literal\\" + \\"-classname\\"",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`.addReactLazyImport() adds a static import of React.lazy once and then each lazy import only once 1`] = `
+Array [
+  Object {
+    "element": "Status",
+    "operation": "addClassName",
+    "params": Object {
+      "className": "\\"status-class\\"",
+    },
+  },
+  Object {
+    "element": "span className=\\"literal-classname\\"",
+    "operation": "addClassName",
+    "params": Object {
+      "className": "classes.icon",
+    },
+  },
+  Object {
+    "element": "span className={classes.label}",
+    "operation": "addClassName",
+    "params": Object {
+      "className": "\\"another-literal\\" + \\"-classname\\"",
+    },
+  },
+  Object {
+    "element": "span className={classes.label}",
+    "operation": "addClassName",
+    "params": Object {
+      "className": "\\"oh-you\\"",
+    },
+  },
+  Object {
+    "at": 0,
+    "insert": "import { lazy as reactLazy } from 'react';
+",
+  },
+  Object {
+    "after": "{ lazy as reactLazy } from 'react';
+",
+    "insert": "const DynamicBlerg$1 = reactLazy(() => import('./path/to/dynamic/component'));
+",
+  },
+  Object {
+    "after": "{ lazy as reactLazy } from 'react';
+",
+    "insert": "const DynamicBlerg$2 = reactLazy(() => import('./path/to/another/component'));
+",
+  },
+  Object {
+    "after": "{ lazy as reactLazy } from 'react';
+",
+    "insert": "const DynamicComponent$3 = reactLazy(() => import('./path/to/a-third/component'));
+",
+  },
+  Object {
+    "element": "span",
+    "operation": "append",
+    "params": Object {
+      "jsx": "<><DynamicBlerg$1/><DynamicBlerg$1/><DynamicBlerg$2/><DynamicComponent$3/></>",
+    },
+  },
+]
+`;
+
+exports[`JSX manipulation .appendJSX() 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "span className={classes.icon}",
+    "operation": "append",
+    "params": Object {
+      "jsx": "<AnotherEmoji />",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`JSX manipulation .insertAfterJSX() 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "<Message>",
+    "operation": "insertAfter",
+    "params": Object {
+      "jsx": "<Rakim />",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`JSX manipulation .insertBeforeJSX() 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "<Message>",
+    "operation": "insertBefore",
+    "params": Object {
+      "jsx": "<EricB and={and} />",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`JSX manipulation .prependJSX() 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "<span className={classes.icon} />",
+    "operation": "prepend",
+    "params": Object {
+      "jsx": "<AnEmoji/>",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`JSX manipulation .removeJSX() 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "AnotherEmoji",
+    "operation": "remove",
+    "params": undefined,
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`JSX manipulation .removeJSXProps() 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "label",
+    "operation": "removeProps",
+    "params": Object {
+      "global": true,
+      "props": Array [
+        "htmlFor",
+      ],
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`JSX manipulation .replaceJSX() 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "span className={classes.label}",
+    "operation": "replace",
+    "params": Object {
+      "jsx": "<i>where is label oh no</i>",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`JSX manipulation .setJSXProps() 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "Message",
+    "operation": "setProps",
+    "params": Object {
+      "global": true,
+      "props": Object {
+        "className": "\\"wildin\\"",
+      },
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`JSX manipulation .surroundJSX() 1`] = `
+Object {
+  "fileToTransform": "/path/to/Checkbox.js",
+  "options": Object {
+    "element": "label",
+    "operation": "surround",
+    "params": Object {
+      "global": true,
+      "jsx": "<fieldset></fieldset>",
+    },
+  },
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "type": "babel",
+}
+`;
+
+exports[`JSX manipulation really ties the room together 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Checkbox = Checkbox;
+
+var _react = require(\\"react\\");
+
+const _excluded = [\\"classes\\", \\"fieldState\\", \\"id\\", \\"label\\", \\"message\\"];
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== \\"function\\") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== \\"object\\" && typeof obj !== \\"function\\") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== \\"default\\" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const DynamicComponent$3 = (0, _react.lazy)(() => Promise.resolve().then(() => _interopRequireWildcard(require('./path/to/a-third/component'))));
+const DynamicBlerg$2 = (0, _react.lazy)(() => Promise.resolve().then(() => _interopRequireWildcard(require('./path/to/another/component'))));
+const DynamicBlerg$1 = (0, _react.lazy)(() => Promise.resolve().then(() => _interopRequireWildcard(require('./path/to/dynamic/component'))));
+
+function Checkbox(props) {
+  const {
+    classes,
+    fieldState,
+    id,
+    label,
+    message
+  } = props,
+        rest = _objectWithoutProperties(props, _excluded);
+
+  const {
+    value: checked
+  } = fieldState;
+  const icon = checked ? checkedIcon : uncheckedIcon;
+  return /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(\\"fieldset\\", null, /*#__PURE__*/React.createElement(\\"label\\", {
+    className: classes.root
+  }, /*#__PURE__*/React.createElement(BasicCheckbox, _extends({}, rest, {
+    className: classes.input,
+    key: NUMBER
+  })), /*#__PURE__*/React.createElement(\\"span\\", {
+    className: \\"literal-classname\\" + \\" \\" + classes.icon
+  }, icon, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DynamicBlerg$1, null), /*#__PURE__*/React.createElement(DynamicBlerg$1, null), /*#__PURE__*/React.createElement(DynamicBlerg$2, null), /*#__PURE__*/React.createElement(DynamicComponent$3, null))), /*#__PURE__*/React.createElement(\\"span\\", {
+    className: classes.label + \\" \\" + (\\"another-literal\\" + \\"-classname\\")
+  }, label))), /*#__PURE__*/React.createElement(Status, {
+    className: \\"status-class\\"
+  }), /*#__PURE__*/React.createElement(EricB, {
+    and: and
+  }), /*#__PURE__*/React.createElement(Message, {
+    fieldState: fieldState,
+    className: \\"wildin\\"
+  }, message), /*#__PURE__*/React.createElement(Rakim, null), /*#__PURE__*/React.createElement(Message, {
+    fieldState: fieldState,
+    className: \\"wildin\\"
+  }, \\"hey cool\\"));
+}"
+`;
