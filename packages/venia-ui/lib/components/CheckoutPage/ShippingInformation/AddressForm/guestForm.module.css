@@ -36,6 +36,11 @@
     composes: p-xs from global;
 }
 
+.regionError {
+    color: brown;
+    font-weight: 600;
+}
+
 @media (max-width: 959px) {
     .firstname {
         grid-column: 1 / span 2;

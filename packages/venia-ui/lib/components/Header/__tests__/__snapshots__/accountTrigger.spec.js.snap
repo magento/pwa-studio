@@ -19,6 +19,7 @@ Array [
   </div>,
   <require('../AccountMenu')
     accountMenuIsOpen={false}
+    handleTriggerClick={[MockFunction handleTriggerClick]}
   />,
 ]
 `;
