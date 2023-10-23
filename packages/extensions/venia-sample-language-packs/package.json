@@ -12,8 +12,8 @@
   "repository": "github:magento/pwa-studio",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
-    "@magento/pwa-buildpack": "11.4.3-beta.3",
-    "@magento/venia-ui": "10.3.0-beta.3"
+    "@magento/pwa-buildpack": "~11.4.3",
+    "@magento/venia-ui": "~10.3.0"
   },
   "pwa-studio": {
     "targets": {
