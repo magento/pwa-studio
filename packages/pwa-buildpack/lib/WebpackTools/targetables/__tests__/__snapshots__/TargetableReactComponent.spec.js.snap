@@ -309,6 +309,6 @@ function Checkbox(props) {
   }), /*#__PURE__*/React.createElement(Message, {
     fieldState: fieldState,
     className: \\"wildin\\"
-  }
+  })
 }"
 `;
