@@ -127,7 +127,8 @@ const Component = () => {
 
 const givenDefaultValues = () => {
     inputProps = {
-        filters: []
+        filters: [],
+        setFilterOptions: mockFilterOptions
     };
 
     mockFilterState = new Map();
