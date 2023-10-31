@@ -63,46 +63,40 @@ export const useCategoryContent = props => {
     const [, { dispatch }] = useEventingContext();
 
     useEffect(() => {
-        let fashionColor = [];
-        let fashionMaterial = [];
-        let fashionSize = [];
-        let fashionStyle = [];
-        let hasVideo = [];
+        const fashionColor = [];
+        const fashionMaterial = [];
+        const fashionSize = [];
+        const fashionStyle = [];
+        const hasVideo = [];
 
         //{from: "40" to: "59"}
 
         if (filterOptions) {
             for (const [group, items] of filterOptions) {
                 if (group === 'fashion_color') {
-                    const [item] = items;
-                    for (const item of items){
+                    for (const item of items) {
                         fashionColor.push(item.value);
                     }
                 }
                 if (group === 'fashion_material') {
-                    const [item] = items;
-
-                    for (const item of items){
+                    for (const item of items) {
                         fashionMaterial.push(item.value);
                     }
                 }
 
                 if (group === 'fashion_size') {
-                    const [item] = items;
-                   for (const item of items){
+                    for (const item of items) {
                         fashionSize.push(item.value);
                     }
                 }
                 if (group === 'fashion_style') {
-                    const [item] = items;
-                    for (const item of items){
+                    for (const item of items) {
                         fashionStyle.push(item.value);
                     }
                 }
 
                 if (group === 'has_video') {
-                    const [item] = items;
-                    for (const item of items){
+                    for (const item of items) {
                         hasVideo.push(item.value);
                     }
                 }
@@ -116,10 +110,10 @@ export const useCategoryContent = props => {
                         in: categoryId
                     },
                     fashionColorFilter: {
-                          in: fashionColor
+                        in: fashionColor
                     },
                     fashionMaterialFilter: {
-                        in: fashionMaterial 
+                        in: fashionMaterial
                     },
                     fashionSizeFilter: {
                         in: fashionSize
