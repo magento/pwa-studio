@@ -7,12 +7,14 @@ Array [
     "loc": SourceLocation {
       "end": Position {
         "column": 25,
+        "index": 25,
         "line": 1,
       },
       "filename": undefined,
       "identifierName": undefined,
       "start": Position {
         "column": 3,
+        "index": 3,
         "line": 1,
       },
     },
@@ -21,12 +23,14 @@ Array [
       "loc": SourceLocation {
         "end": Position {
           "column": 12,
+          "index": 12,
           "line": 1,
         },
         "filename": undefined,
         "identifierName": undefined,
         "start": Position {
           "column": 3,
+          "index": 3,
           "line": 1,
         },
       },
@@ -45,12 +49,14 @@ Array [
       "loc": SourceLocation {
         "end": Position {
           "column": 25,
+          "index": 25,
           "line": 1,
         },
         "filename": undefined,
         "identifierName": undefined,
         "start": Position {
           "column": 13,
+          "index": 13,
           "line": 1,
         },
       },
@@ -64,12 +70,14 @@ Array [
     "loc": SourceLocation {
       "end": Position {
         "column": 43,
+        "index": 43,
         "line": 1,
       },
       "filename": undefined,
       "identifierName": undefined,
       "start": Position {
         "column": 26,
+        "index": 26,
         "line": 1,
       },
     },
@@ -78,12 +86,14 @@ Array [
       "loc": SourceLocation {
         "end": Position {
           "column": 32,
+          "index": 32,
           "line": 1,
         },
         "filename": undefined,
         "identifierName": undefined,
         "start": Position {
           "column": 26,
+          "index": 26,
           "line": 1,
         },
       },
@@ -100,12 +110,14 @@ Array [
         "loc": SourceLocation {
           "end": Position {
             "column": 42,
+            "index": 42,
             "line": 1,
           },
           "filename": undefined,
           "identifierName": "Chordata",
           "start": Position {
             "column": 34,
+            "index": 34,
             "line": 1,
           },
         },
@@ -116,12 +128,14 @@ Array [
       "loc": SourceLocation {
         "end": Position {
           "column": 43,
+          "index": 43,
           "line": 1,
         },
         "filename": undefined,
         "identifierName": undefined,
         "start": Position {
           "column": 33,
+          "index": 33,
           "line": 1,
         },
       },
@@ -134,12 +148,14 @@ Array [
     "loc": SourceLocation {
       "end": Position {
         "column": 76,
+        "index": 76,
         "line": 1,
       },
       "filename": undefined,
       "identifierName": undefined,
       "start": Position {
         "column": 44,
+        "index": 44,
         "line": 1,
       },
     },
@@ -148,12 +164,14 @@ Array [
       "loc": SourceLocation {
         "end": Position {
           "column": 50,
+          "index": 50,
           "line": 1,
         },
         "filename": undefined,
         "identifierName": undefined,
         "start": Position {
           "column": 44,
+          "index": 44,
           "line": 1,
         },
       },
@@ -170,12 +188,14 @@ Array [
       "loc": SourceLocation {
         "end": Position {
           "column": 76,
+          "index": 76,
           "line": 1,
         },
         "filename": undefined,
         "identifierName": undefined,
         "start": Position {
           "column": 51,
+          "index": 51,
           "line": 1,
         },
       },
@@ -185,12 +205,14 @@ Array [
         "loc": SourceLocation {
           "end": Position {
             "column": 76,
+            "index": 76,
             "line": 1,
           },
           "filename": undefined,
           "identifierName": undefined,
           "start": Position {
             "column": 51,
+            "index": 51,
             "line": 1,
           },
         },
@@ -199,12 +221,14 @@ Array [
           "loc": SourceLocation {
             "end": Position {
               "column": 74,
+              "index": 74,
               "line": 1,
             },
             "filename": undefined,
             "identifierName": undefined,
             "start": Position {
               "column": 52,
+              "index": 52,
               "line": 1,
             },
           },
@@ -213,12 +237,14 @@ Array [
             "loc": SourceLocation {
               "end": Position {
                 "column": 61,
+                "index": 61,
                 "line": 1,
               },
               "filename": undefined,
               "identifierName": undefined,
               "start": Position {
                 "column": 52,
+                "index": 52,
                 "line": 1,
               },
             },
@@ -231,12 +257,14 @@ Array [
             "loc": SourceLocation {
               "end": Position {
                 "column": 74,
+                "index": 74,
                 "line": 1,
               },
               "filename": undefined,
               "identifierName": undefined,
               "start": Position {
                 "column": 62,
+                "index": 62,
                 "line": 1,
               },
             },
