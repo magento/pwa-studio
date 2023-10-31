@@ -63,15 +63,11 @@ export const useCategoryContent = props => {
     const [, { dispatch }] = useEventingContext();
 
     useEffect(() => {
-        let fashionColor = '';
-        let fashionMaterial = '';
-        let fashionSize = '';
-        let fashionStyle = '';
-        let hasVideo = '';
-        const priceValue = {
-            from: '',
-            to: ''
-        };
+        let fashionColor = [];
+        let fashionMaterial = [];
+        let fashionSize = [];
+        let fashionStyle = [];
+        let hasVideo = [];
 
         //{from: "40" to: "59"}
 
@@ -79,55 +75,61 @@ export const useCategoryContent = props => {
             for (const [group, items] of filterOptions) {
                 if (group === 'fashion_color') {
                     const [item] = items;
-                    fashionColor = item.value;
+                    for (const item of items){
+                        fashionColor.push(item.value);
+                    }
                 }
                 if (group === 'fashion_material') {
                     const [item] = items;
-                    fashionMaterial = item.value;
+
+                    for (const item of items){
+                        fashionMaterial.push(item.value);
+                    }
                 }
+
                 if (group === 'fashion_size') {
                     const [item] = items;
-                    fashionSize = item.value;
+                   for (const item of items){
+                        fashionSize.push(item.value);
+                    }
                 }
                 if (group === 'fashion_style') {
                     const [item] = items;
-                    fashionStyle = item.value;
+                    for (const item of items){
+                        fashionStyle.push(item.value);
+                    }
                 }
 
                 if (group === 'has_video') {
                     const [item] = items;
-                    hasVideo = item.value;
+                    for (const item of items){
+                        hasVideo.push(item.value);
+                    }
                 }
-                // if (group === 'price') {
-                //     const [item] = items;
-                //const filterarray = item?.value.split("_")
-                // priceValue.from=filterarray[0];
-                // priceValue.to=filterarray[1];
-                //}
             }
         }
+
         if (categoryId) {
             getFilters({
                 variables: {
                     categoryIdFilter: {
-                        eq: categoryId
+                        in: categoryId
                     },
                     fashionColorFilter: {
-                        eq: fashionColor
+                          in: fashionColor
                     },
                     fashionMaterialFilter: {
-                        eq: fashionMaterial
+                        in: fashionMaterial 
                     },
                     fashionSizeFilter: {
-                        eq: fashionSize
+                        in: fashionSize
                     },
                     fashionStyleFilter: {
-                        eq: fashionStyle
+                        in: fashionStyle
                     },
                     hasVideoFilter: {
-                        eq: hasVideo
-                    },
-                    fashionPriceFilter: priceValue
+                        in: hasVideo
+                    }
                 }
             });
         }

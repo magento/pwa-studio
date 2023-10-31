@@ -8,7 +8,7 @@ export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
         $fashionSizeFilter: FilterEqualTypeInput!
         $fashionStyleFilter: FilterEqualTypeInput!
         $hasVideoFilter: FilterEqualTypeInput!
-        $fashionPriceFilter: FilterRangeTypeInput!
+      
     ) {
         products(
             filter: {
@@ -18,7 +18,7 @@ export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
                 fashion_size: $fashionSizeFilter
                 fashion_style: $fashionStyleFilter
                 has_video: $hasVideoFilter
-                price: $fashionPriceFilter
+            
             }
         ) {
             aggregations {
