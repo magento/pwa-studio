@@ -65,8 +65,8 @@ const ResourceImage = props => {
             onError={handleError}
             onLoad={handleLoad}
             sizes={sizes}
-            src={src}
-            srcSet={srcSet}
+            src={resource}
+            srcSet={ String(className).startsWith("item-image") ? null : srcSet}
             width={width}
         />
     );
