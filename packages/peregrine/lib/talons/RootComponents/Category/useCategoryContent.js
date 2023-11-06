@@ -68,7 +68,7 @@ export const useCategoryContent = props => {
         const fashionSize = [];
         const fashionStyle = [];
         const hasVideo = [];
-        
+
         if (filterOptions) {
             for (const [group, items] of filterOptions) {
                 if (group === 'fashion_color') {
