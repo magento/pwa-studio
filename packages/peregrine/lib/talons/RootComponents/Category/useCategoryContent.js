@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useLazyQuery, useQuery, gql } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
 import { useEventingContext } from '../../../context/eventing';
@@ -29,16 +29,98 @@ export const useCategoryContent = props => {
         getCategoryAvailableSortMethodsQuery
     } = operations;
 
+    const [
+        getFiltersAttributeCode,
+        { data: filterAttributeData }
+    ] = useLazyQuery(getProductFiltersByCategoryQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    useEffect(() => {
+        if (categoryId) {
+            getFiltersAttributeCode({
+                variables: {
+                    categoryIdFilter: {
+                        eq: categoryId
+                    }
+                }
+            });
+        }
+    }, [categoryId, getFiltersAttributeCode]);
+
+    const availableFilterData = filterAttributeData
+        ? filterAttributeData.products?.aggregations
+        : null;
+    const availableFilters = availableFilterData
+        ?.map(eachitem => eachitem.attribute_code)
+        ?.sort();
+
+    // Function to generate the dynamic query based on filter parameters
+    const generateDynamicFiltersQuery = filterParams => {
+        const categoryUid = `category_uid:{eq:"${categoryId}"}`;
+        let filterConditions = Object.keys(filterParams)
+            .map(key => {
+                const condition = Array.isArray(filterParams[key])
+                    ? 'in'
+                    : 'eq';
+                const value = Array.isArray(filterParams[key])
+                    ? JSON.stringify(filterParams[key])
+                    : `"${filterParams[key]}"`;
+                return `${key}:{${condition}:${value}}`;
+            })
+            .join(',');
+
+        filterConditions = [categoryUid, filterConditions].join(',');
+
+        return gql`
+      query getProductFiltersByCategory{
+        products(
+          filter: {
+            ${filterConditions}
+          }
+        ) {
+          aggregations {
+            label
+            attribute_code
+            count
+            options {
+              label
+              value
+              count
+            }
+          }
+        }
+      }
+    `;
+    };
+
     const [filterOptions, setFilterOptions] = useState();
+
+    const selectedFilters = {};
+
+    if (filterOptions) {
+        for (const [group, items] of filterOptions) {
+            availableFilters?.map(eachitem => {
+                if (eachitem === group) {
+                    const sampleArray = [];
+                    for (const item of items) {
+                        sampleArray.push(item.value);
+                    }
+                    selectedFilters[group] = sampleArray;
+                }
+            });
+        }
+    }
+
+    const dynamicQuery = generateDynamicFiltersQuery(selectedFilters);
+
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
 
-    const [getFilters, { data: filterData }] = useLazyQuery(
-        getProductFiltersByCategoryQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
-        }
-    );
+    const [getFilters, { data: filterData }] = useLazyQuery(dynamicQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
     const [getSortMethods, { data: sortData }] = useLazyQuery(
         getCategoryAvailableSortMethodsQuery,
@@ -59,71 +141,11 @@ export const useCategoryContent = props => {
             }
         }
     );
-
     const [, { dispatch }] = useEventingContext();
 
     useEffect(() => {
-        const fashionColor = [];
-        const fashionMaterial = [];
-        const fashionSize = [];
-        const fashionStyle = [];
-        const hasVideo = [];
-
-        if (filterOptions) {
-            for (const [group, items] of filterOptions) {
-                if (group === 'fashion_color') {
-                    for (const item of items) {
-                        fashionColor.push(item.value);
-                    }
-                }
-                if (group === 'fashion_material') {
-                    for (const item of items) {
-                        fashionMaterial.push(item.value);
-                    }
-                }
-
-                if (group === 'fashion_size') {
-                    for (const item of items) {
-                        fashionSize.push(item.value);
-                    }
-                }
-                if (group === 'fashion_style') {
-                    for (const item of items) {
-                        fashionStyle.push(item.value);
-                    }
-                }
-
-                if (group === 'has_video') {
-                    for (const item of items) {
-                        hasVideo.push(item.value);
-                    }
-                }
-            }
-        }
-
         if (categoryId) {
-            getFilters({
-                variables: {
-                    categoryIdFilter: {
-                        in: categoryId
-                    },
-                    fashionColorFilter: {
-                        in: fashionColor
-                    },
-                    fashionMaterialFilter: {
-                        in: fashionMaterial
-                    },
-                    fashionSizeFilter: {
-                        in: fashionSize
-                    },
-                    fashionStyleFilter: {
-                        in: fashionStyle
-                    },
-                    hasVideoFilter: {
-                        in: hasVideo
-                    }
-                }
-            });
+            getFilters();
         }
     }, [categoryId, filterOptions, getFilters]);
 
@@ -139,7 +161,7 @@ export const useCategoryContent = props => {
         }
     }, [categoryId, getSortMethods]);
 
-    const filters = filterData ? filterData.products.aggregations : null;
+    const filters = filterData ? filterData.products?.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
