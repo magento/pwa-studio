@@ -102,7 +102,7 @@ export const useCategoryContent = props => {
     if (filterOptions) {
         for (const [group, items] of filterOptions) {
             availableFilters?.map(eachitem => {
-                if (eachitem === group) {
+                if (eachitem === group && eachitem!=='price') {
                     const sampleArray = [];
                     for (const item of items) {
                         sampleArray.push(item.value);
