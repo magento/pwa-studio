@@ -17,18 +17,14 @@ The 13.3.0 release of PWA Studio provides customers with many accessibility impr
 
 -  Story: [4173][] — Price filter is now showing currency symbol
 -  Story: [4090][] — Added additional user_errors parameter for cart addition and show error message if reported by Adobe Commerce.
--  Bug: [43][] — EAV attribute option loading Performance Issue resolved
 -  Bug: [4124][] — Region is required in PWA even if this option is disabled in Magento has been fixed
--  Bug: [41][] - System is able to navigate to layered URL based on search term
 -  Bug: [4168][] — System is able to navigate to layered URL based on search term
 -  Bug: [4133][] — User is able to access category/subcategory pages even while active search
 -  Bug: [4174][] — Error has been fixed on shipping address page to complete checkout for guest and registered user
 -  Bug: [4143][] — Duplicate Queries were fired multiple times at time of load of page but after fix applied it is resolved
--  Bug: [40][] — User is able see checkmo option when checkmo checkout configuration is done for selceted country
 -  Bug: [32][] - The system was thowing error with prex extension while adding the product to cart but after user can add product without any error with or without prex extension.
 -  Bug: [113][] — The system was thowing error with prex extension while adding the product to cart but after user can add product without any error with or without prex extension.
 -  Bug: [4135][] — Error message has been updated acording to action on Edit Item popup while updating unavailable quantity.
--  Bug: [38][] - Total number of iteam quantity is displayed as per configuration selected in backend
 -  Bug: [4149][] — Total number of iteam quantity is displayed as per configuration selected in backend
 -  Bug: [21][] — Error occurs when Runtime exception is thrown in vendor/magento/module-upward-connector/Model/PageType.php is resolved
 -  Bug: [4129][] — Image is rendered on wrong pages when parallax is used on page builder.
@@ -100,7 +96,7 @@ Your project may not depend on some packages listed in this table.
 | `upward-spec`                          | 5.2.1          |
 | `venia-concept`                        | **13.3.0***    |
 | `venia-ui`                             | **10.3.0***    |
-| `magento2-pwa`                         | **0.6.1***     |
+| `magento2-pwa`                         | **0.6.2***     |
 | `magento2-pwa-commerce`                | 0.0.3          |
 | `magento-venia-sample-data-modules`    | 0.0.4          |
 | `magento-venia-sample-data-modules-ee` | 0.0.3          |
@@ -111,17 +107,13 @@ Your project may not depend on some packages listed in this table.
 [4131]: https://github.com/magento/pwa-studio/pull/4131
 [4173]: https://github.com/magento/pwa-studio/pull/4173
 [4090]: https://github.com/magento/pwa-studio/pull/4090
-[43]: https://github.com/magento-commerce/magento2-pwa/pull/43
 [4124]: https://github.com/magento/pwa-studio/pull/4124
-[41]: https://github.com/magento-commerce/magento2-pwa/pull/41
 [4168]: https://github.com/magento/pwa-studio/pull/4168
 [4133]: https://github.com/magento/pwa-studio/pull/4133
 [4174]: https://github.com/magento/pwa-studio/pull/4174
 [4143]: https://github.com/magento/pwa-studio/pull/4143
-[40]: https://github.com/magento-commerce/magento2-pwa/pull/40
 [21]: https://github.com/magento-commerce/magento2-upward-connector/pull/21
 [4129]: https://github.com/magento/pwa-studio/pull/4129
-[38]: https://github.com/magento-commerce/magento2-pwa/pull/38
 [4149]: https://github.com/magento/pwa-studio/pull/4149
 [4135]: https://github.com/magento/pwa-studio/pull/4135
 [32]: https://github.com/magento-commerce/venia-data-collector/pull/32
