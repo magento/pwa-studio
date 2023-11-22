@@ -5,7 +5,7 @@ exports[`renders form error 1`] = `
   className="root"
 >
   Account Information
-  <h1
+  <div
     aria-live="polite"
     className="title"
   >
@@ -13,7 +13,7 @@ exports[`renders form error 1`] = `
       defaultMessage="Account Information"
       id="accountInformationPage.accountInformation"
     />
-  </h1>
+  </div>
   <p
     className="root"
   >

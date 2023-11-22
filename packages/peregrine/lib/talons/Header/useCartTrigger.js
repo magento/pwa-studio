@@ -52,7 +52,7 @@ export const useCartTrigger = props => {
         errorPolicy: 'all'
     });
 
-    const itemCount = data?.cart?.total_quantity || 0;
+    const itemCount = data?.cart?.total_summary_quantity_including_config || 0;
 
     const handleTriggerClick = useCallback(() => {
         // Open the mini cart.
