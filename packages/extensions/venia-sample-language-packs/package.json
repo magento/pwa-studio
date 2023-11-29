@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-language-packs",
-  "version": "0.1.14",
+  "version": "0.0.15",
   "publishConfig": {
     "access": "public"
   },
