@@ -57,6 +57,18 @@ export const useSearchPage = (props = {}) => {
         }
     );
 
+    const [getSearchTermMethod, { data: SearchTermQueryData }] = useLazyQuery(
+        getSearchTermData
+    );
+
+    if (SearchTermQueryData !== undefined) {
+        const [...redirectData] = [SearchTermQueryData];
+        const redirectUrl = redirectData[0].searchTerm?.redirect;
+        if (redirectUrl !== null) {
+            window.location.replace(redirectUrl);
+        }
+    }
+
     const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 
     const sortProps = useSort({ sortFromSearch: true });

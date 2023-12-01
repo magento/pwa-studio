@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState, createContext } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
 import { useEventingContext } from '../../../context/eventing';
-
+import { useFilterState } from '../../FilterModal/useFilterState';
+// pwa-studio/packages/peregrine/lib/talons/FilterModal/useFilterState.js
+//pwa-studio/packages/peregrine/lib/talons/RootComponents/FilterModal/useFilterState
 import DEFAULT_OPERATIONS from './categoryContent.gql';
+import { logMissingFieldErrors } from '@apollo/client/core/ObservableQuery';
 
 /**
  * Returns props necessary to render the categoryContent component.
@@ -30,6 +33,8 @@ export const useCategoryContent = props => {
     } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
+
+    const [filterOptions, setFilterOptions] = useState();
 
     const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersByCategoryQuery,
@@ -62,16 +67,81 @@ export const useCategoryContent = props => {
     const [, { dispatch }] = useEventingContext();
 
     useEffect(() => {
-        if (categoryId) {
+        let fashionColor = '';
+        let fashionMaterial = '';
+        let fashionSize = '';
+        let fashionStyle = '';
+        let hasVideo = '';
+        let priceValue = {
+            from: '',
+            to: ''
+        };
+        let filterIteration = true;
+
+        //{from: "40" to: "59"}
+
+        if (filterOptions) {
+            for (const [group, items] of filterOptions) {
+                if (group === 'fashion_color') {
+                    const [item] = items;
+                    fashionColor = item.value;
+                }
+                if (group === 'fashion_material') {
+                    const [item] = items;
+                    fashionMaterial = item.value;
+                }
+                if (group === 'fashion_size') {
+                    const [item] = items;
+                    fashionSize = item.value;
+                }
+                if (group === 'fashion_style') {
+                    const [item] = items;
+                    fashionStyle = item.value;
+                }
+
+                if (group === 'has_video') {
+                    const [item] = items;
+                    hasVideo = item.value;
+                }
+                if (group === 'price') {
+                    const [item] = items;
+                    filterIteration = item;
+                    const valueAdd = item?.value?.split('_');
+
+                    if (valueAdd) {
+                        priceValue.from = valueAdd[0];
+                        priceValue.to = valueAdd[1];
+                    }
+                }
+            }
+        }
+
+        if (categoryId && filterIteration) {
             getFilters({
                 variables: {
                     categoryIdFilter: {
                         eq: categoryId
-                    }
+                    },
+                    fashionColorFilter: {
+                        eq: fashionColor
+                    },
+                    fashionMaterialFilter: {
+                        eq: fashionMaterial
+                    },
+                    fashionSizeFilter: {
+                        eq: fashionSize
+                    },
+                    fashionStyleFilter: {
+                        eq: fashionStyle
+                    },
+                    hasVideoFilter: {
+                        eq: hasVideo
+                    },
+                    fashionPriceFilter: priceValue
                 }
             });
         }
-    }, [categoryId, getFilters]);
+    }, [categoryId, filterOptions, getFilters]);
 
     useEffect(() => {
         if (categoryId) {
@@ -85,6 +155,7 @@ export const useCategoryContent = props => {
         }
     }, [categoryId, getSortMethods]);
 
+    //console.log(filterData);
     const filters = filterData ? filterData.products.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
     const totalPagesFromData = data
@@ -120,6 +191,8 @@ export const useCategoryContent = props => {
     return {
         availableSortMethods,
         categoryName,
+        filterOptions,
+        setFilterOptions,
         categoryDescription,
         filters,
         items,

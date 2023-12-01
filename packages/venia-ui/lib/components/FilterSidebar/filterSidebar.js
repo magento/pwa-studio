@@ -1,8 +1,9 @@
-import React, { useMemo, useCallback, useRef } from 'react';
+import React, { useMemo, useCallback, useRef, useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, number } from 'prop-types';
 import { useFilterSidebar } from '@magento/peregrine/lib/talons/FilterSidebar';
 
+import { FilterContext } from '../../RootComponents/Category/categoryContent';
 import { useStyle } from '../../classify';
 import LinkButton from '../LinkButton';
 import CurrentFilters from '../FilterModal/CurrentFilters';
@@ -17,7 +18,12 @@ const SCROLL_OFFSET = 150;
  * @param {Object} props.filters - filters to display
  */
 const FilterSidebar = props => {
-    const { filters, filterCountToOpen } = props;
+    const {
+        filters,
+        filterCountToOpen,
+        setFilterOptions,
+        filterOptions
+    } = props;
     const talonProps = useFilterSidebar({ filters });
     const {
         filterApi,
@@ -54,7 +60,12 @@ const FilterSidebar = props => {
         () =>
             Array.from(filterItems, ([group, items], iteration) => {
                 const blockState = filterState.get(group);
+
                 const groupName = filterNames.get(group);
+                if (filterState) {
+                    setFilterOptions(filterState);
+                }
+
                 const frontendInput = filterFrontendInput.get(group);
                 return (
                     <FilterBlock
