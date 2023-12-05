@@ -100,7 +100,7 @@ Your project may not depend on some packages listed in this table.
 | `upward-spec`                          | 5.2.1          |
 | `venia-concept`                        | **13.3.0***    |
 | `venia-ui`                             | **10.3.0***    |
-| `magento2-pwa`                         | **0.6.1***     |
+| `magento2-pwa`                         | **0.6.2***     |
 | `magento2-pwa-commerce`                | 0.0.3          |
 | `magento-venia-sample-data-modules`    | 0.0.4          |
 | `magento-venia-sample-data-modules-ee` | 0.0.3          |
