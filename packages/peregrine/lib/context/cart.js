@@ -26,6 +26,9 @@ const getTotalQuantity = items =>
 
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
+    console.log(cartState,"cartstate");
+    console.log(actions,"actionns");
+    console.log(asyncActions,"Async Actions");
 
     // Make deeply nested details easier to retrieve and provide empty defaults
     const derivedDetails = useMemo(() => {
@@ -52,15 +55,53 @@ const CartContextProvider = props => {
         [actions, asyncActions]
     );
 
+
+    const resetCart = () => {
+        // actions.reset(); // Dispatch the reset action
+        //asyncActions.createCart();
+
+        //asyncActions.saveCartId()
+        console.log("Reset Cart function");
+      };
+
+    //   const resetCart = () => {
+    //     // Dispatch the saveCartId async action using redux-thunk
+    //     async (dispatch) => {
+    //       try {
+    //         //actions.reset();
+    //         await dispatch(asyncActions.createCart());
+    //         console.log("Reset Cart function");
+    //       } catch (error) {
+    //         console.error("Error resetting cart:", error);
+    //       }
+    //     };
+    //   };
+
+    // const resetCart = async () => {
+    //     try {
+    //         const { data } = await fetchCartId(); 
+    //         console.log(cartState);
+    //         //actions.reset();
+    //         // cartState.cartId=data.cartId
+    //         //const newCartId = data.createEmptyCart; 
+    //         //cartState.details.id=data.cartId
+    //         console.log(data.cartId, "This should be the new cart ID value");
+
+    //     } catch (error) {
+    //         console.error("Error resetting cart:", error);
+    //     }
+    // };
+
     const contextValue = useMemo(() => {
         const derivedCartState = {
             ...cartState,
             isEmpty: isCartEmpty(cartState),
-            derivedDetails
+            derivedDetails,
+            resetCart
         };
 
         return [derivedCartState, cartApi];
-    }, [cartApi, cartState, derivedDetails]);
+    }, [cartApi, cartState, derivedDetails,resetCart]);
 
     const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);

@@ -257,7 +257,7 @@ export const useProductFullDetail = props => {
 
     const isSupportedProductType = isSupported(productType);
 
-    const [{ cartId }] = useCartContext();
+    const [{ cartId ,resetCart}] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
     const { formatMessage } = useIntl();
 
@@ -531,6 +531,7 @@ export const useProductFullDetail = props => {
         ]
     );
 
+    console.log("working ");
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
             // We must create a new Map here so that React knows that the value
@@ -570,6 +571,15 @@ export const useProductFullDetail = props => {
             addToCartResponseData
         ]
     );
+    console.log(derivedErrorMessage ,"dervied error message");
+
+    // if (derivedErrorMessage){
+    //     resetCart();
+    //     console.log("coming to here");
+    //     //console.log(fetchCartId);
+    //     //const [{ cartId }] = useCartContext();
+    //     //console.log(cartId);
+    // }
 
     const wishlistItemOptions = useMemo(() => {
         const options = {
