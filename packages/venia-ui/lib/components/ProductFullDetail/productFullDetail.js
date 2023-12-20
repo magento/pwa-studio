@@ -106,7 +106,7 @@ const ProductFullDetail = props => {
 
         // Handle cases where a cart wasn't created properly.
         if (
-            errorMessage.includes('Variable "$cartId" got invalid value null')
+            errorMessage.includes('Variable "$cartId" got invalid value null')  || errorMessage.includes('Could not find a cart with ID')
         ) {
             errors.set('form', [
                 new Error(

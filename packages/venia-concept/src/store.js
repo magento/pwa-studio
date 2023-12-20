@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore,applyMiddleware,compose } from 'redux';
+import thunk from 'redux-thunk';
 import { enhancer, reducers } from '@magento/peregrine';
 
 // This is the connective layer between the Peregrine store and the
@@ -11,4 +12,10 @@ import { enhancer, reducers } from '@magento/peregrine';
 // export default createStore(rootReducer, rootEnhancer);
 const rootReducer = combineReducers(reducers);
 
+// const composedEnhancers = compose(
+//     applyMiddleware(thunk),
+//     enhancer
+//   );
+
+//applyMiddleware(thunk),
 export default createStore(rootReducer, enhancer);
