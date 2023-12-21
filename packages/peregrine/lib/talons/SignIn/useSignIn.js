@@ -7,6 +7,8 @@ import { useCartContext } from '../../context/cart';
 import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
+import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
+
 
 import DEFAULT_OPERATIONS from './signIn.gql';
 import { useEventingContext } from '../../context/eventing';
@@ -64,10 +66,23 @@ export const useSignIn = props => {
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
 
+
+    const {
+        elementRef: currencyMenuRef,
+        expanded: currencyMenuIsOpen,
+        setExpanded: setCurrencyMenuIsOpen,
+        triggerRef: currencyMenuTriggerRef
+    } = useDropdown();
+
+    const handleTrigger = useCallback(() => {
+        // Toggle Stores Menu.
+        setCurrencyMenuIsOpen(isOpen => !isOpen);
+    }, [setCurrencyMenuIsOpen]);
+
     const handleSubmit = useCallback(
         async ({ email, password }) => {
             setIsSigningIn(true);
-            handleTriggerClick ? handleTriggerClick() : null;
+            handleTrigger();
             try {
                 // Get source cart id (guest cart id).
                 const sourceCartId = cartId;
