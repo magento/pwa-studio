@@ -67,7 +67,7 @@ export const useSignIn = props => {
     const handleSubmit = useCallback(
         async ({ email, password }) => {
             setIsSigningIn(true);
-            handleTriggerClick();
+            handleTriggerClick ? handleTriggerClick() : null;
             try {
                 // Get source cart id (guest cart id).
                 const sourceCartId = cartId;
