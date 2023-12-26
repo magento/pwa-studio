@@ -69,8 +69,6 @@ export const useSignIn = props => {
             setIsSigningIn(true);
             handleTriggerClick ? handleTriggerClick() : null;
             try {
-              
-
                 // Get recaptchaV3 data for login
                 const recaptchaData = await generateReCaptchaData();
 
@@ -95,7 +93,6 @@ export const useSignIn = props => {
                 await createCart({
                     fetchCartId
                 });
-              
 
                 // Ensure old stores are updated with any new data.
 
@@ -120,11 +117,11 @@ export const useSignIn = props => {
 
                 setIsSigningIn(false);
             }
-              // Get source cart id (guest cart id).
-              const sourceCartId = cartId;
-             // Merge the guest cart into the customer cart.
-             const destinationCartId = await retrieveCartId();
-             await mergeCarts({
+            // Get source cart id (guest cart id).
+            const sourceCartId = cartId;
+            // Merge the guest cart into the customer cart.
+            const destinationCartId = await retrieveCartId();
+            await mergeCarts({
                 variables: {
                     destinationCartId,
                     sourceCartId
