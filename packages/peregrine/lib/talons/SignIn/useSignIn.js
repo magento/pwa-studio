@@ -129,6 +129,13 @@ export const useSignIn = props => {
 
                 setIsSigningIn(false);
             }
+             // Merge the guest cart into the customer cart.
+             await mergeCarts({
+                variables: {
+                    destinationCartId,
+                    sourceCartId
+                }
+            });
         },
         [
             cartId,
