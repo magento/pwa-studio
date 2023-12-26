@@ -72,6 +72,18 @@ const signInMock = {
     }
 };
 
+
+const initialProps = {
+    getCartDetailsQuery: 'getCartDetailsQuery',
+    setDefaultUsername: jest.fn(),
+    showCreateAccount: jest.fn(),
+    showForgotPassword: jest.fn(),
+    handleTriggerClick: jest.fn()
+};
+
+const clearCacheData = jest.fn();
+const client = { clearCacheData };
+
 const mergeCartsMock = {
     request: {
         query: defaultOperations.mergeCartsMutation,
@@ -84,17 +96,6 @@ const mergeCartsMock = {
         data: null
     }
 };
-
-const initialProps = {
-    getCartDetailsQuery: 'getCartDetailsQuery',
-    setDefaultUsername: jest.fn(),
-    showCreateAccount: jest.fn(),
-    showForgotPassword: jest.fn(),
-    handleTriggerClick: jest.fn()
-};
-
-const clearCacheData = jest.fn();
-const client = { clearCacheData };
 
 const renderHookWithProviders = ({
     renderHookOptions = { initialProps },
