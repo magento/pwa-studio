@@ -14,7 +14,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 const props = {
-    categoryId: 1,
+    categoryId: 'MQ==',
     label: 'foo',
     searchValue: 'bar'
 };
