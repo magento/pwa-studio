@@ -55,6 +55,21 @@ jest.mock('../../../hooks/useGoogleReCaptcha', () => ({
 jest.mock('@magento/peregrine/lib/context/eventing', () => ({
     useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
+const sourceCartId = 'old-cart-id';
+// Merge the guest cart into the customer cart.
+const destinationCartId = 'new-cart-id';
+const mergeCartsMock = {
+    request: {
+        query: defaultOperations.mergeCartsMutation,
+        variables: {
+            destinationCartId: destinationCartId,
+            sourceCartId: sourceCartId
+        }
+    },
+    result: {
+        data: null
+    }
+};
 
 const signInVariables = {
     email: 'fry@planetexpress.com',
@@ -84,18 +99,7 @@ const initialProps = {
 const clearCacheData = jest.fn();
 const client = { clearCacheData };
 
-const mergeCartsMock = {
-    request: {
-        query: defaultOperations.mergeCartsMutation,
-        variables: {
-            destinationCartId: 'new-cart-id',
-            sourceCartId: 'old-cart-id'
-        }
-    },
-    result: {
-        data: null
-    }
-};
+
 
 const renderHookWithProviders = ({
     renderHookOptions = { initialProps },
