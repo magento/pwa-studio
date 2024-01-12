@@ -67,7 +67,7 @@ export const useSignIn = props => {
     const handleSubmit = useCallback(
         async ({ email, password }) => {
             setIsSigningIn(true);
-            handleTriggerClick();
+            
             try {
                 // Get source cart id (guest cart id).
                 const sourceCartId = cartId;
@@ -98,14 +98,16 @@ export const useSignIn = props => {
                 });
                 const destinationCartId = await retrieveCartId();
 
-                // Merge the guest cart into the customer cart.
-                await mergeCarts({
-                    variables: {
-                        destinationCartId,
-                        sourceCartId
-                    }
-                });
-
+                if(destinationCartId != sourceCartId){
+                    // Merge the guest cart into the customer cart.
+                    await mergeCarts({
+                        variables: {
+                            destinationCartId,
+                            sourceCartId
+                        }
+                    });
+                }
+                
                 // Ensure old stores are updated with any new data.
 
                 await getUserDetails({ fetchUserDetails });
