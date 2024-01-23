@@ -126,6 +126,7 @@ test('returns correct shape', () => {
           "handleCreateAccount": [Function],
           "handleEnterKeyPress": [Function],
           "handleForgotPassword": [Function],
+          "forgotPasswordHandleEnterKeyPress": [Function],
           "handleSubmit": [Function],
           "isBusy": true,
           "recaptchaWidgetProps": Object {
@@ -199,6 +200,8 @@ test('handleForgotPassword triggers callbacks', () => {
     expect(initialProps.setDefaultUsername).toHaveBeenCalledWith(mockUsername);
     expect(initialProps.showForgotPassword).toHaveBeenCalled();
 });
+
+
 
 test('handleCreateAccount triggers callbacks', () => {
     const mockUsername = 'fry@planetexpress.com';
