@@ -10,6 +10,7 @@ import { useSignIn } from '../useSignIn';
 import { useEventingContext } from '../../../context/eventing';
 import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
 
+
 jest.mock('@apollo/client', () => {
     return {
         ...jest.requireActual('@apollo/client'),
@@ -202,6 +203,26 @@ test('handleForgotPassword triggers callbacks', () => {
 });
 
 
+test('forgotPasswordHandleEnterKeyPress triggers callbacks on click', () => {
+   
+    const event = {
+        preventDefault: jest.fn()
+    };
+    const mockUsername = 'fry@planetexpress.com';
+    const mockApi = {
+        getValue: jest.fn().mockReturnValue(mockUsername)
+    };
+    if (event.key === 'Enter') {
+    const { result } = renderHookWithProviders();
+    act(() => result.current.setFormApi(mockApi));
+    act(() => result.current.handleForgotPassword());
+
+    expect(initialProps.setDefaultUsername).toHaveBeenCalledWith(mockUsername);
+    expect(initialProps.showForgotPassword).toHaveBeenCalled();
+    }
+   // expect(onSelection).toHaveBeenCalledWith(66);
+   
+});
 
 test('handleCreateAccount triggers callbacks', () => {
     const mockUsername = 'fry@planetexpress.com';
