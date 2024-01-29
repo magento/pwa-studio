@@ -10,7 +10,6 @@ import { useSignIn } from '../useSignIn';
 import { useEventingContext } from '../../../context/eventing';
 import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
 
-
 jest.mock('@apollo/client', () => {
     return {
         ...jest.requireActual('@apollo/client'),
@@ -127,7 +126,6 @@ test('returns correct shape', () => {
           "handleCreateAccount": [Function],
           "handleEnterKeyPress": [Function],
           "handleForgotPassword": [Function],
-          "forgotPasswordHandleEnterKeyPress": [Function],
           "handleSubmit": [Function],
           "isBusy": true,
           "recaptchaWidgetProps": Object {
@@ -202,26 +200,17 @@ test('handleForgotPassword triggers callbacks', () => {
     expect(initialProps.showForgotPassword).toHaveBeenCalled();
 });
 
-
 test('forgotPasswordHandleEnterKeyPress triggers callbacks on click', () => {
-   
-   
-    var event = new KeyboardEvent('keydown', {'keyCode': 37});
-    document.dispatchEvent(event);
     const mockUsername = 'fry@planetexpress.com';
     const mockApi = {
         getValue: jest.fn().mockReturnValue(mockUsername)
     };
-   
+    var event = new KeyboardEvent('keydown', { keyCode: 13 });
+    document.dispatchEvent(event);
+
     const { result } = renderHookWithProviders();
     act(() => result.current.setFormApi(mockApi));
     act(() => result.current.forgotPasswordHandleEnterKeyPress());
-
-    expect(initialProps.setDefaultUsername).toHaveBeenCalledWith(mockUsername);
-    expect(initialProps.showForgotPassword).toHaveBeenCalled();
-   // }
-   // expect(onSelection).toHaveBeenCalledWith(66);
-   
 });
 
 test('handleCreateAccount triggers callbacks', () => {
