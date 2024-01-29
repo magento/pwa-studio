@@ -205,21 +205,21 @@ test('handleForgotPassword triggers callbacks', () => {
 
 test('forgotPasswordHandleEnterKeyPress triggers callbacks on click', () => {
    
-    const event = {
-        preventDefault: jest.fn()
-    };
+   
+    var event = new KeyboardEvent('keydown', {'keyCode': 37});
+    document.dispatchEvent(event);
     const mockUsername = 'fry@planetexpress.com';
     const mockApi = {
         getValue: jest.fn().mockReturnValue(mockUsername)
     };
-    if (event.key === 'Enter') {
+   
     const { result } = renderHookWithProviders();
     act(() => result.current.setFormApi(mockApi));
-    act(() => result.current.handleForgotPassword());
+    act(() => result.current.forgotPasswordHandleEnterKeyPress());
 
     expect(initialProps.setDefaultUsername).toHaveBeenCalledWith(mockUsername);
     expect(initialProps.showForgotPassword).toHaveBeenCalled();
-    }
+   // }
    // expect(onSelection).toHaveBeenCalledWith(66);
    
 });
