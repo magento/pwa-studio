@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrayOf, number, shape, string } from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useOrderRow } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow';
 
@@ -14,13 +14,10 @@ import defaultClasses from './orderRow.module.css';
 
 const OrderRow = props => {
     const { order } = props;
-    const { formatMessage } = useIntl();
     const {
-        invoices,
         items,
         number: orderNumber,
         order_date: orderDate,
-        shipments,
         status,
         total
     } = order;
@@ -38,9 +35,6 @@ const OrderRow = props => {
         }
     );
 
-    const hasInvoice = !!invoices.length;
-    const hasShipment = !!shipments.length;
-  
     const talonProps = useOrderRow({ items });
     const { loading, isOpen, handleContentToggle, imagesData } = talonProps;
 
@@ -66,7 +60,7 @@ const OrderRow = props => {
         ) : (
             '-'
         );
-return (
+    return (
         <li className={classes.root}>
             <div className={classes.orderNumberContainer}>
                 <span className={classes.orderNumberLabel}>
@@ -99,9 +93,7 @@ return (
                 {collapsedImageGalleryElement}
             </div>
             <div className={classes.orderStatusContainer}>
-                <span className={classes.orderStatusBadge}>
-                    {status}
-                </span>
+                <span className={classes.orderStatusBadge}>{status}</span>
                 <OrderProgressBar status={status} />
             </div>
             <button

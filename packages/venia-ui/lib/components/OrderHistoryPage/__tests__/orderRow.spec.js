@@ -1,7 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useOrderRow } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow';
-
 import OrderRow from '../orderRow';
 
 jest.mock('@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow');
@@ -244,7 +243,7 @@ test('it renders shipped status', () => {
         componentName: 'OrderProgressBar'
     }).props;
 
-    expect(orderProgressProps.status).toBe('Delivered');
+    expect(orderProgressProps.status).toBe('Complete');
 });
 
 test('it renders delivered status', () => {

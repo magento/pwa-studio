@@ -45,7 +45,7 @@ const OrderProgressBar = props => {
                 defaultMessage: 'Closed'
             }),
             0
-        ],
+        ]
     ]);
     const currentStep = statusStepMap.get(status);
 
