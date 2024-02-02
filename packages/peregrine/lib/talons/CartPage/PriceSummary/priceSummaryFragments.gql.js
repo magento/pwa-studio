@@ -37,12 +37,8 @@ export const PriceSummaryFragment = gql`
                 value
             }
         }
-        ...GiftCardSummaryFragment
-        ...GiftOptionsSummaryFragment
     }
     ${DiscountSummaryFragment}
-    ${GiftCardSummaryFragment}
-    ${GiftOptionsSummaryFragment}
     ${GrandTotalFragment}
     ${ShippingSummaryFragment}
     ${TaxSummaryFragment}

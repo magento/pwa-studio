@@ -40,29 +40,7 @@ const OrderRow = props => {
 
     const hasInvoice = !!invoices.length;
     const hasShipment = !!shipments.length;
-    let derivedStatus;
-    if (status === 'Complete') {
-        derivedStatus = formatMessage({
-            id: 'orderRow.deliveredText',
-            defaultMessage: 'Delivered'
-        });
-    } else if (hasShipment) {
-        derivedStatus = formatMessage({
-            id: 'orderRow.shippedText',
-            defaultMessage: 'Shipped'
-        });
-    } else if (hasInvoice) {
-        derivedStatus = formatMessage({
-            id: 'orderRow.readyToShipText',
-            defaultMessage: 'Ready to ship'
-        });
-    } else {
-        derivedStatus = formatMessage({
-            id: 'orderRow.processingText',
-            defaultMessage: 'Processing'
-        });
-    }
-
+  
     const talonProps = useOrderRow({ items });
     const { loading, isOpen, handleContentToggle, imagesData } = talonProps;
 
@@ -88,8 +66,7 @@ const OrderRow = props => {
         ) : (
             '-'
         );
-
-    return (
+return (
         <li className={classes.root}>
             <div className={classes.orderNumberContainer}>
                 <span className={classes.orderNumberLabel}>
@@ -123,9 +100,9 @@ const OrderRow = props => {
             </div>
             <div className={classes.orderStatusContainer}>
                 <span className={classes.orderStatusBadge}>
-                    {derivedStatus}
+                    {status}
                 </span>
-                <OrderProgressBar status={derivedStatus} />
+                <OrderProgressBar status={status} />
             </div>
             <button
                 className={classes.contentToggleContainer}
@@ -141,7 +118,6 @@ const OrderRow = props => {
 };
 
 export default OrderRow;
-
 OrderRow.propTypes = {
     classes: shape({
         root: string,
