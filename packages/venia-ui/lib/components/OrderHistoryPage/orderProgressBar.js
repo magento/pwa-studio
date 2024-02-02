@@ -10,7 +10,6 @@ const TOTAL_STEPS = 4;
 const OrderProgressBar = props => {
     const { status } = props;
     const { formatMessage } = useIntl();
-    console.log(status);
     const statusStepMap = new Map([
         [
             formatMessage({
@@ -49,7 +48,7 @@ const OrderProgressBar = props => {
         ],
     ]);
     const currentStep = statusStepMap.get(status);
-console.log(currentStep);
+
     const classes = useStyle(defaultClasses, props.classes);
 
     const stepElements = useMemo(() => {
