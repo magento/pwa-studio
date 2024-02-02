@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrayOf, number, shape, string } from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
-import { FormattedMessage , useIntl} from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useOrderRow } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow';
 
@@ -52,23 +52,21 @@ const OrderRow = props => {
             id: 'orderRow.shippedText',
             defaultMessage: 'Shipped'
         });
-        derivedProgress='Shipped';
-    } else if (status !== 'Closed' 
-                && (hasInvoice && !hasShipment) 
-                || (!hasInvoice && hasShipment) 
-        ) {
-        derivedProgress="Step2";
-    }
-    else if(status === 'Pending'){
+        derivedProgress = 'Shipped';
+    } else if (
+        (status !== 'Closed' && (hasInvoice && !hasShipment)) ||
+        (!hasInvoice && hasShipment)
+    ) {
+        derivedProgress = 'Step2';
+    } else if (status === 'Pending') {
         derivedStatus = formatMessage({
             id: 'orderRow.processingText',
             defaultMessage: 'Processing'
         });
-        derivedProgress='Step1';
-    }
-    else {
-        derivedStatus = status
-        derivedProgress=status;
+        derivedProgress = 'Step1';
+    } else {
+        derivedStatus = status;
+        derivedProgress = status;
     }
 
     const talonProps = useOrderRow({ items });
@@ -129,11 +127,10 @@ const OrderRow = props => {
                 {collapsedImageGalleryElement}
             </div>
             <div className={classes.orderStatusContainer}>
-                
                 <span className={classes.orderStatusBadge}>
                     {derivedStatus}
                 </span>
-                <OrderProgressBar status= {derivedProgress} />
+                <OrderProgressBar status={derivedProgress} />
             </div>
             <button
                 className={classes.contentToggleContainer}
