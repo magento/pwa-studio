@@ -268,7 +268,7 @@ test('it renders delivered status', () => {
     expect(orderProgressProps.status).toBe('Delivered');
 });
 
-test('it renders processing status', () => {
+test('it renders step2 status', () => {
     useOrderRow.mockReturnValue({
         loading: false,
         imagesData,
@@ -287,6 +287,28 @@ test('it renders processing status', () => {
         componentName: 'OrderProgressBar'
     }).props;
     expect(orderProgressProps.status).toBe('Step2');
+});
+
+test('it renders processing status', () => {
+    useOrderRow.mockReturnValue({
+        loading: false,
+        imagesData,
+        isOpen: false,
+        handleContentToggle: jest.fn()
+    });
+
+    const closedOrder = {
+        ...mockOrder,
+        status: 'Pending',
+        shipments: [],
+        invoices: []
+    };
+    const tree = createTestInstance(<OrderRow order={closedOrder} />);
+    const { root } = tree;
+    const orderProgressProps = root.findByProps({
+        componentName: 'OrderProgressBar'
+    }).props;
+    expect(orderProgressProps.status).toBe('Step1');
 });
 
 test('it renders with missing order information', () => {
