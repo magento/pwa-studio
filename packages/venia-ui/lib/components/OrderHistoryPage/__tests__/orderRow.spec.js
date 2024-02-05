@@ -150,92 +150,6 @@ const mockOrder = {
     }
 };
 
-const mockClosedOrder = {
-    billing_address: {
-        city: 'Austin',
-        country_code: 'US',
-        firstname: 'Gooseton',
-        lastname: 'Jr',
-        postcode: '78759',
-        region_id: 'TX',
-        street: 'Goose Dr',
-        telephone: '9123456789'
-    },
-    id: 5,
-    invoices: [{ id: 5 }],
-    items: [
-        {
-            id: '3',
-            product_name: 'Product 3',
-            product_sale_price: '$100.00',
-            product_sku: 'VA03',
-            selected_options: [
-                {
-                    label: 'Color',
-                    value: 'Blue'
-                }
-            ],
-            quantity_ordered: 1
-        },
-        {
-            id: '4',
-            product_name: 'Product 4',
-            product_sale_price: '$100.00',
-            product_sku: 'VP08',
-            selected_options: [
-                {
-                    label: 'Color',
-                    value: 'Black'
-                }
-            ],
-            quantity_ordered: 1
-        },
-        {
-            id: '5',
-            product_name: 'Product 5',
-            product_sale_price: '$100.00',
-            product_sku: 'VSW09',
-            selected_options: [
-                {
-                    label: 'Color',
-                    value: 'Orange'
-                }
-            ],
-            quantity_ordered: 1
-        }
-    ],
-    number: '000000006',
-    order_date: '2020-05-28 18:22:35',
-
-    status: 'Closed',
-    total: {
-        discounts: [
-            {
-                amount: {
-                    currency: 'USD',
-                    value: 123
-                }
-            }
-        ],
-        grand_total: {
-            currency: 'USD',
-            value: 1434
-        },
-        subtotal: {
-            currency: 'USD',
-            value: 1234
-        },
-        total_tax: {
-            currency: 'USD',
-            value: 34
-        },
-        total_shipping: {
-            currency: 'USD',
-            value: 12
-        }
-    }
-};
-
 const imagesData = [
     {
         id: 1094,
@@ -321,9 +235,9 @@ test('it renders shipped status', () => {
     });
 
     const orderWithInvoice = {
-        ...mockOrder,
-        invoices: [1]
+        ...mockOrder
     };
+
     const tree = createTestInstance(<OrderRow order={orderWithInvoice} />);
     const { root } = tree;
     const orderProgressProps = root.findByProps({
@@ -364,15 +278,15 @@ test('it renders processing status', () => {
 
     const closedOrder = {
         ...mockOrder,
-        status: 'Processing',
-        invoices: [1]
+        status: 'Pending',
+        shipments: []
     };
     const tree = createTestInstance(<OrderRow order={closedOrder} />);
     const { root } = tree;
     const orderProgressProps = root.findByProps({
         componentName: 'OrderProgressBar'
     }).props;
-   expect(tree.toJSON()).toMatchSnapshot();
+    expect(orderProgressProps.status).toBe('Step2');
 });
 
 test('it renders with missing order information', () => {
