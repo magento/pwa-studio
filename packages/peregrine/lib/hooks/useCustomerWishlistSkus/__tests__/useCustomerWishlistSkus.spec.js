@@ -48,7 +48,8 @@ test('pre-caches wishlist items', async () => {
     expect(preCacheData).toMatchInlineSnapshot(`
         Object {
           "customerWishlistProducts": Array [
-            "Dress"
+            "Dress",
+            "Shirt",
           ],
         }
     `);
