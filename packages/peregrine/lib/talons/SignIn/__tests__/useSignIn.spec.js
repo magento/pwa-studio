@@ -47,7 +47,7 @@ jest.mock('../../../context/user', () => ({
 jest.mock('../../../hooks/useGoogleReCaptcha', () => ({
     useGoogleReCaptcha: jest.fn().mockReturnValue({
         recaptchaLoading: false,
-        generateReCaptchaData: jest.fn(() => { }),
+        generateReCaptchaData: jest.fn(() => {}),
         recaptchaWidgetProps: {}
     })
 }));
@@ -231,14 +231,13 @@ test('mutation error is returned by talon', async () => {
 it('should call handleForgotPassword when Enter key is pressed', () => {
     const { result } = renderHookWithProviders();
     const { forgotPasswordHandleEnterKeyPress } = result.current;
-    const enterKeyEvent = { key: "Enter" };
+    const enterKeyEvent = { key: 'Enter' };
     renderHook(() => forgotPasswordHandleEnterKeyPress(enterKeyEvent));
 });
 
 it('should call handleEnterKeyPress when Enter key is pressed', () => {
     const { result } = renderHookWithProviders();
     const { handleEnterKeyPress } = result.current;
-    const enterKeyEvent = { key: "Enter" };
+    const enterKeyEvent = { key: 'Enter' };
     renderHook(() => handleEnterKeyPress(enterKeyEvent));
 });
-

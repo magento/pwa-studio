@@ -162,12 +162,14 @@ export const useSignIn = props => {
         showForgotPassword();
     }, [setDefaultUsername, showForgotPassword]);
 
-    const forgotPasswordHandleEnterKeyPress = useCallback((event) => {
-
-        if (event.key === 'Enter') {
-            handleForgotPassword();
-        }
-    }, [handleForgotPassword]);
+    const forgotPasswordHandleEnterKeyPress = useCallback(
+        event => {
+            if (event.key === 'Enter') {
+                handleForgotPassword();
+            }
+        },
+        [handleForgotPassword]
+    );
 
     const handleCreateAccount = useCallback(() => {
         const { current: formApi } = formApiRef;
@@ -179,19 +181,23 @@ export const useSignIn = props => {
         showCreateAccount();
     }, [setDefaultUsername, showCreateAccount]);
 
-    const handleEnterKeyPress = useCallback((event) => {
+    const handleEnterKeyPress = useCallback(
+        event => {
+            if (event.key === 'Enter') {
+                handleCreateAccount();
+            }
+        },
+        [handleCreateAccount]
+    );
 
-        if (event.key === 'Enter') {
-            handleCreateAccount();
-        }
-    }, [handleCreateAccount]);
-
-    const signinHandleEnterKeyPress = useCallback((event) => {
-
-        if (event.key === 'Enter') {
-            handleSubmit();
-        }
-    }, [handleSubmit]);
+    const signinHandleEnterKeyPress = useCallback(
+        event => {
+            if (event.key === 'Enter') {
+                handleSubmit();
+            }
+        },
+        [handleSubmit]
+    );
 
     const errors = useMemo(
         () =>
