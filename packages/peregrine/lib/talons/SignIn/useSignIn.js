@@ -162,12 +162,11 @@ export const useSignIn = props => {
         showForgotPassword();
     }, [setDefaultUsername, showForgotPassword]);
 
-    const forgotPasswordHandleEnterKeyPress = useCallback(() => {
-        event => {
-            if (event.key === 'Enter') {
-                handleForgotPassword();
-            }
-        };
+    const forgotPasswordHandleEnterKeyPress = useCallback((event) => {
+
+        if (event.key === 'Enter') {
+            handleForgotPassword();
+        }
     }, [handleForgotPassword]);
 
     const handleCreateAccount = useCallback(() => {
@@ -180,20 +179,18 @@ export const useSignIn = props => {
         showCreateAccount();
     }, [setDefaultUsername, showCreateAccount]);
 
-    const handleEnterKeyPress = useCallback(() => {
-        event => {
-            if (event.key === 'Enter') {
-                handleCreateAccount();
-            }
-        };
+    const handleEnterKeyPress = useCallback((event) => {
+
+        if (event.key === 'Enter') {
+            handleCreateAccount();
+        }
     }, [handleCreateAccount]);
 
-    const signinHandleEnterKeyPress = useCallback(() => {
-        event => {
-            if (event.key === 'Enter') {
-                handleSubmit();
-            }
-        };
+    const signinHandleEnterKeyPress = useCallback((event) => {
+
+        if (event.key === 'Enter') {
+            handleSubmit();
+        }
     }, [handleSubmit]);
 
     const errors = useMemo(
