@@ -54,7 +54,7 @@ const getLinks = apiBase => {
     const links = new Map()
         .set('MUTATION_QUEUE', mutationQueueLink)
         .set('RETRY', retryLink)
-        .set('AUTH', authLink)
+        // .set('AUTH', authLink)
         .set('GQL_CACHE', gqlCacheLink)
         .set('STORE', storeLink)
         .set('ERROR', errorLink)
