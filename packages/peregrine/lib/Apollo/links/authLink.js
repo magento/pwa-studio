@@ -11,7 +11,7 @@ export default function createAuthLink() {
         // return the headers to the context so httpLink can read them
         return {
             headers: {
-                ...headers,
+                ...headers
                 // authorization: token ? `Bearer ${token}` : ''
             }
         };
