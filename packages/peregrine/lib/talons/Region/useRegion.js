@@ -74,6 +74,14 @@ export const useRegion = props => {
             formattedRegionsData = [];
         }
     }
+    // If data is undefined or not present
+    else {
+        formattedRegionsData = [];
+    }
+    // state field label till data is loading ...
+    if (loading) {
+        formattedRegionsData = [{ label: 'Loading Regions...', value: '' }];
+    }
 
     return {
         loading,
