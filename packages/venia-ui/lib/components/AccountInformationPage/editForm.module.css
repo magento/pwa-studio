@@ -28,7 +28,7 @@
     composes: pt-xs from global;
 }
 
-@media (max-width: 959px) {
+@media screen(-lg) {
     .firstname,
     .lastname,
     .password,

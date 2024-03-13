@@ -20,5 +20,5 @@
 }
 
 .input_error {
-    composes: border-error from global;
+    @apply border-error;
 }

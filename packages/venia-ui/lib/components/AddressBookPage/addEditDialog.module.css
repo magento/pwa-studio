@@ -11,7 +11,7 @@
     composes: lg_col-end-span2 from global;
 }
 
-@media (min-width: 960px) {
+@media screen(lg) {
     .lastname,
     .country,
     .default_address_check {

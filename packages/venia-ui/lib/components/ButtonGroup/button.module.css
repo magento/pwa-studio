@@ -34,15 +34,15 @@
     transition-duration: 128ms;
 }
 
-/* TODO @TW: cannot compose */
 .root:nth-of-type(1) {
-    border-radius: 0.25rem 0 0 0.25rem;
-    margin-left: 0;
+    @apply ml-0;
+    @apply rounded-tl;
+    @apply rounded-bl;
 }
 
-/* TODO @TW: cannot compose */
 .root:nth-last-of-type(1) {
-    border-radius: 0 0.25rem 0.25rem 0;
+    @apply rounded-tr;
+    @apply rounded-br;
 }
 
 .content {

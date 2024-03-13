@@ -23,7 +23,7 @@
     composes: justify-self-start from global;
 }
 
-@media (max-width: 639px) {
+@media screen(-sm) {
     .root {
         /* Only one column in mobile view. */
         grid-template-columns: 100%;

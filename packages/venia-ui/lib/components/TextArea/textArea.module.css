@@ -1,7 +1,7 @@
 .input {
     composes: input from '../Field/field.module.css';
 
-    composes: h-auto from global;
+    @apply h-auto;
     composes: max-w-full from global;
     composes: min-w-full from global;
     composes: px-xs from global;
@@ -16,7 +16,7 @@
     composes: min-w-full from global;
     composes: px-[15px] from global;
     composes: py-[12px] from global;
-    composes: rounded-md from global;
+    composes: rounded-input from global;
     composes: w-full from global;
     font-size: 1rem;
 }

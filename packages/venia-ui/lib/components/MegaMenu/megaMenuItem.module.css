@@ -24,8 +24,7 @@
     composes: pl-2xs from global;
 }
 
-/* TODO @TW: cannot compose */
 .megaMenuItem:hover .megaMenuLink,
 .megaMenuItem:focus .megaMenuLink {
-    text-decoration: underline;
+    @apply underline;
 }

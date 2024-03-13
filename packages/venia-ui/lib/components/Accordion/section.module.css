@@ -4,21 +4,15 @@
     composes: border-subtle from global;
 }
 
-/* TODO @TW: cannot compose */
 .root:last-of-type {
-    /* composes: border-b-0 from global; */
-    border-bottom-width: 0;
+    @apply border-b-0;
 }
 
 .contents_container {
     composes: pb-sm from global;
     composes: pt-0 from global;
     composes: px-sm from global;
-}
-
-/* TODO @TW: cannot compose */
-.contents_container:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
 
 .contents_container_closed {

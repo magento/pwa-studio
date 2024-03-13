@@ -18,13 +18,13 @@
 .cancelButton {
     composes: root_lowPriority from '../Button/button.module.css';
 
-    composes: min-w-[9rem] from global;
+    @apply min-w-[9rem];
 }
 
 .confirmButton {
     composes: root_highPriority from '../Button/button.module.css';
 
-    composes: min-w-[9rem] from global;
+    @apply min-w-[9rem];
 }
 
 .contents {
@@ -59,6 +59,6 @@
     composes: h-[6rem] from global;
     composes: items-center from global;
     composes: justify-center from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
     composes: text-brand-dark from global;
 }

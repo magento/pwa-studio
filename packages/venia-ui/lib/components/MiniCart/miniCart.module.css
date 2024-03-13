@@ -1,22 +1,25 @@
 .root {
     composes: absolute from global;
     composes: h-0 from global;
-    composes: left-[-100vw] from global;
     composes: max-w-[100vw] from global;
     composes: opacity-0 from global;
     composes: overflow-visible from global;
     composes: top-full from global;
     composes: z-menu from global;
+    composes: -translate-x-1/2 from global;
     transition: opacity 192ms var(--venia-global-anim-out),
         visibility 192ms var(--venia-global-anim-out),
         /* Adding delay to move container off the screen after previous transitions happened */
             left 0s 192ms;
     width: calc(100vw - 2rem); /* TODO @TW: review */
-    transform: translate3d(-50%, 0, 0);
+}
 
-    /* TODO @TW: review (B6) */
-    /* composes: invisible from global; */
-    visibility: hidden;
+.root_closed {
+    composes: root;
+
+    composes: left-[-100vw] from global;
+
+    @apply invisible;
 }
 
 .root_open {
@@ -27,9 +30,7 @@
     transition: opacity 224ms var(--venia-global-anim-in),
         visibility 224ms var(--venia-global-anim-in), left 0s;
 
-    /* TODO @TW: review (B6) */
-    /* composes: visible from global; */
-    visibility: visible;
+    @apply visible;
 }
 
 /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
@@ -79,11 +80,8 @@
 
 .stockStatusMessageContainer {
     composes: col-end-span2 from global;
-}
 
-/* TODO @TW: cannot compose */
-.stockStatusMessageContainer:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
 
 .body {
@@ -104,7 +102,7 @@
 .quantity_loading {
     composes: quantity;
 
-    composes: opacity-50 from global;
+    @apply opacity-50;
 }
 
 .price {
@@ -116,9 +114,9 @@
 }
 
 .price_loading {
-    composes: quantity;
+    composes: price;
 
-    composes: opacity-50 from global;
+    @apply opacity-50;
 }
 
 .footer {
@@ -141,8 +139,8 @@
 .checkoutButton {
     composes: root_highPriority from '../Button/button.module.css';
 
-    composes: bg-brand-dark from global;
-    composes: border-0 from global;
+    @apply bg-brand-dark;
+    @apply border-0;
     composes: font-bold from global;
     composes: m-auto from global;
     composes: w-[10rem] from global;

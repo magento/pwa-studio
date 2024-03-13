@@ -33,7 +33,7 @@ These files cannot be composed into because of global() or child selector usage:
 // ----------------------------------------------
 // Comments
 
-🟡 TODO @TW: cannot compose --- (75)
+✅ TODO @TW: cannot compose
 ✅ TODO @TW: responsive
 🟡 TODO @TW: review --- (23)
 
@@ -89,7 +89,7 @@ These files cannot be composed into because of global() or child selector usage:
 ✅ flex-direction
 ✅ flex-wrap
 ✅ flex
-❌ flex-basis --- not in Tailwind (may need refactor)
+✅ flex-basis
 ✅ flex-grow
 ✅ flex-shrink
 ✅ order

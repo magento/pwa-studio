@@ -12,11 +12,8 @@
     composes: p-xs from global;
     composes: rounded from global;
     composes: text-sm from global;
-}
 
-/* TODO @TW: cannot compose */
-.message:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
 
 .actions {
