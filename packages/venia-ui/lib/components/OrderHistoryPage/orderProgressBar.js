@@ -13,29 +13,36 @@ const OrderProgressBar = props => {
     const statusStepMap = new Map([
         [
             formatMessage({
-                id: 'orderProgressBar.processingText',
-                defaultMessage: 'Processing'
+                id: 'orderProgressBar.newText',
+                defaultMessage: 'new'
             }),
             1
         ],
         [
             formatMessage({
-                id: 'orderProgressBar.readyToShipText',
-                defaultMessage: 'Ready to ship'
+                id: 'orderProgressBar.processingText',
+                defaultMessage: 'Progressing'
             }),
             2
         ],
         [
             formatMessage({
-                id: 'orderProgressBar.shippedText',
-                defaultMessage: 'Shipped'
+                id: 'orderProgressBar.pendingPaymentText',
+                defaultMessage: 'pending_payment'
+            }),
+            3
+        ],
+         [
+            formatMessage({
+                id: 'orderProgressBar.paymentReviewText',
+                defaultMessage: 'payment_review'
             }),
             3
         ],
         [
             formatMessage({
                 id: 'orderProgressBar.deliveredText',
-                defaultMessage: 'Delivered'
+                defaultMessage: 'complete'
             }),
             4
         ],
@@ -45,24 +52,10 @@ const OrderProgressBar = props => {
                 defaultMessage: 'Closed'
             }),
             0
-        ],
-        [
-            formatMessage({
-                id: 'orderProgressBar.step2Text',
-                defaultMessage: 'Step2'
-            }),
-            2
-        ],
-        [
-            formatMessage({
-                id: 'orderProgressBar.step1Text',
-                defaultMessage: 'Step1'
-            }),
-            1
         ]
     ]);
-    const currentStep = statusStepMap.get(status);
 
+    const currentStep = statusStepMap.get(status);
     const classes = useStyle(defaultClasses, props.classes);
 
     const stepElements = useMemo(() => {

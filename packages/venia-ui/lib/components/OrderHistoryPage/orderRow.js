@@ -15,12 +15,11 @@ import defaultClasses from './orderRow.module.css';
 const OrderRow = props => {
     const { order } = props;
     const {
-        invoices,
         items,
         number: orderNumber,
         order_date: orderDate,
-        shipments,
         status,
+        state,
         total
     } = order;
     const { grand_total: grandTotal } = total;
@@ -38,36 +37,9 @@ const OrderRow = props => {
             day: 'numeric'
         }
     );
-    const hasInvoice = !!invoices.length;
-    const hasShipment = !!shipments.length;
-
-    if (status === 'Complete') {
-        derivedStatus = formatMessage({
-            id: 'orderRow.deliveredText',
-            defaultMessage: 'Delivered'
-        });
-        derivedProgress = 'Delivered';
-    } else if (hasShipment) {
-        derivedStatus = formatMessage({
-            id: 'orderRow.shippedText',
-            defaultMessage: 'Shipped'
-        });
-        derivedProgress = 'Shipped';
-    } else if (
-        (status !== 'Closed' && (hasInvoice && !hasShipment)) ||
-        (!hasInvoice && hasShipment)
-    ) {
-        derivedProgress = 'Step2';
-    } else if (status === 'Pending') {
-        derivedStatus = formatMessage({
-            id: 'orderRow.processingText',
-            defaultMessage: 'Processing'
-        });
-        derivedProgress = 'Step1';
-    } else {
-        derivedStatus = status;
-        derivedProgress = status;
-    }
+    
+    derivedStatus = status;
+    derivedProgress = state;
 
     const talonProps = useOrderRow({ items });
     const { loading, isOpen, handleContentToggle, imagesData } = talonProps;
