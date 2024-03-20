@@ -14,7 +14,7 @@ export const useDropdown = () => {
     const triggerRef = useRef(null);
     const [expanded, setExpanded] = useState(false);
 
-    // collapse on mousedown outside of the element and trigger.
+    // collapse on mousedown or tab outside of the element and trigger.
     const maybeCollapse = useCallback(({ target }) => {
         const isOutsideElement =
             !elementRef.current || !elementRef.current.contains(target);
@@ -27,7 +27,7 @@ export const useDropdown = () => {
     }, []);
 
     // add listener to document, as an effect
-    useEventListener(globalThis.document, 'mousedown', maybeCollapse);
+    useEventListener(globalThis.document, 'click', maybeCollapse);
 
     /**
      * The object returned contains the pieces needed to add the dropdown logic to your components
