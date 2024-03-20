@@ -32,7 +32,7 @@ exports[`renders root class if not the active Thumbnail 1`] = `
       onError={[Function]}
       onLoad={[Function]}
       sizes="135px"
-      src="/media/catalog/product/thumbnail.png?auto=webp&format=png&width=135&height=170&fit=cover"
+      src="thumbnail.png"
       srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=png&width=40&height=50&fit=cover 40w,
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=80&height=100&fit=cover 80w,
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=160&height=200&fit=cover 160w,
@@ -86,7 +86,7 @@ exports[`renders the Thumbnail component correctly 1`] = `
       onError={[Function]}
       onLoad={[Function]}
       sizes="135px"
-      src="/media/catalog/product/thumbnail.png?auto=webp&format=png&width=135&height=170&fit=cover"
+      src="thumbnail.png"
       srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=png&width=40&height=50&fit=cover 40w,
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=80&height=100&fit=cover 80w,
 /media/catalog/product/thumbnail.png?auto=webp&format=png&width=160&height=200&fit=cover 160w,
