@@ -31,7 +31,7 @@ exports[`Should disable delete icon while loading 1`] = `
         onError={[Function]}
         onLoad={[Function]}
         sizes="100px"
-        src="www.venia.com/p1"
+        src="/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=100&height=125&fit=cover"
         srcSet="/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 /media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 /media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
@@ -198,7 +198,7 @@ exports[`Should render correctly 1`] = `
         onError={[Function]}
         onLoad={[Function]}
         sizes="100px"
-        src="www.venia.com/p1"
+        src="/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=100&height=125&fit=cover"
         srcSet="/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 /media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 /media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
@@ -365,7 +365,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
         onError={[Function]}
         onLoad={[Function]}
         sizes="100px"
-        src="www.venia.com/p1-variant1"
+        src="/media/catalog/product/www.venia.com/p1-variant1?auto=webp&format=pjpg&width=100&height=125&fit=cover"
         srcSet="/media/catalog/product/www.venia.com/p1-variant1?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 /media/catalog/product/www.venia.com/p1-variant1?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 /media/catalog/product/www.venia.com/p1-variant1?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
@@ -532,7 +532,7 @@ exports[`Should render correctly with out of stock product 1`] = `
         onError={[Function]}
         onLoad={[Function]}
         sizes="100px"
-        src="www.venia.com/p1"
+        src="/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=100&height=125&fit=cover"
         srcSet="/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 /media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 /media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,

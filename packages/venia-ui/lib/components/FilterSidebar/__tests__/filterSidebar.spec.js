@@ -59,6 +59,10 @@ let mockFilterState;
 
 jest.mock('../../LinkButton', () => props => <mock-LinkButton {...props} />);
 
+jest.mock('react-router-dom', () => ({
+    useLocation: jest.fn(() => ({ search: '?a=b&c=d' }))
+}));
+
 jest.mock('@magento/peregrine/lib/talons/FilterSidebar', () => ({
     useFilterSidebar: jest.fn(({ filters }) => {
         const names = new Map();

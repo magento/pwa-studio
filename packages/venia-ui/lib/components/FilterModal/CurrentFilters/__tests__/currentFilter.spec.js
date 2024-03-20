@@ -16,6 +16,11 @@ const mockOnRemove = jest.fn();
 
 jest.mock('../../../Trigger', () => props => <mock-Trigger {...props} />);
 
+jest.mock('react-router-dom', () => ({
+    useLocation: jest.fn(() => ({ search: '?a=b&c=d' })),
+    useHistory: jest.fn()
+}));
+
 let inputProps = {};
 
 const Component = () => {

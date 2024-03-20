@@ -46,6 +46,7 @@
     "watch:venia": "yarn venia run watch"
   },
   "dependencies": {
+    "@material-ui/core": "~4.12.4",
     "caniuse-lite": "~1.0.30001335"
   },
   "devDependencies": {
