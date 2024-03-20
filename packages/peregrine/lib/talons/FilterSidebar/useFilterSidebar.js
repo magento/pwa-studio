@@ -182,9 +182,10 @@ export const useFilterSidebar = props => {
     }, [handleClose]);
 
     const handleReset = useCallback(() => {
-        filterApi.clear();
-        setIsApplying(true);
-    }, [filterApi, setIsApplying]);
+        // filterApi.clear();
+        // setIsApplying(true);
+        history.replace({ search: 'page=1' });
+    }, [history]);
 
     const handleKeyDownActions = useCallback(
         event => {
