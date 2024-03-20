@@ -12,6 +12,7 @@ export const RESOLVE_URL = gql`
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ProductInterface {
                 uid
+                sku
                 __typename
             }
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
