@@ -67,10 +67,6 @@ export const useSignIn = props => {
     const handleSubmit = useCallback(
         async ({ email, password }) => {
             setIsSigningIn(true);
-          
-            if (handleTriggerClick !== undefined) {
-                handleTriggerClick();
-            }
             handleTrigger();
 
             try {
