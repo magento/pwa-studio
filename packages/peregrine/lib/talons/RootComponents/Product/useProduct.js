@@ -24,10 +24,10 @@ import { useEventingContext } from '../../../context/eventing';
  * @returns {Bool}      result.product - The product's details.
  */
 export const useProduct = props => {
-    const { mapProduct, sku } = props;
+    const { mapProduct } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getStoreConfigData, getSingleProductDetailQuery } = operations;
+    const { getStoreConfigData, getProductDetailQuery } = operations;
     const { pathname } = useLocation();
     const [
         ,
@@ -45,12 +45,12 @@ export const useProduct = props => {
     const productUrlSuffix = storeConfigData?.storeConfig?.product_url_suffix;
     const urlKey = productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
 
-    const { error, loading, data } = useQuery(getSingleProductDetailQuery, {
+    const { error, loading, data } = useQuery(getProductDetailQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !storeConfigData,
         variables: {
-            sku
+            urlKey
         }
     });
 

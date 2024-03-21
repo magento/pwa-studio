@@ -28,8 +28,7 @@ const FilterBlock = props => {
     const talonProps = useFilterBlock({
         filterState,
         items,
-        initialOpen,
-        group
+        initialOpen
     });
     const { handleClick, isExpanded } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;

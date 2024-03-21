@@ -2,11 +2,8 @@
     composes: px-xs from global;
     composes: py-0 from global;
     composes: overflow-auto from global;
-}
 
-/* TODO @TW: cannot compose */
-.root:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
 
 .item {

@@ -1,7 +1,8 @@
 // TODO @TW: see bottom too
 //const aspectRatioPlugin = require('@tailwindcss/aspect-ratio');
-const { getColors } = require('./lib/colors');
+const { getColors, hexToRgb } = require('./lib/colors');
 const corePlugin = require('./plugins');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 const colors = {
     brand: {
@@ -23,7 +24,8 @@ const extend = {
         stretch: 'stretch'
     },
     animation: {
-        spin: 'spin 1920ms linear infinite'
+        spin: 'spin 1920ms linear infinite',
+        shimmer: 'shimmer 1s linear infinite forwards'
     },
     backgroundColor: theme => ({
         body: '#FFF',
@@ -38,13 +40,25 @@ const extend = {
         swatch: theme('colors.gray.100'),
         'swatch-selected': `linear-gradient(-45deg, rgba(0, 0, 0, 0.2), transparent), ${theme(
             'colors.gray.100'
-        )}`
+        )}`,
+        shimmer: `linear-gradient(
+            to right,
+            ${theme('colors.gray.50/0')} 0%,
+            ${theme('colors.gray.50')} 40%,
+            ${theme('colors.gray.50/0')} 80%,
+            ${theme('colors.gray.50/0')} 100%
+        )`
+    }),
+    backgroundSize: theme => ({
+        maxSite: `${theme('maxWidth.site')} 100%`
     }),
     borderColor: theme => ({
+        currentColor: 'currentColor',
         button: theme('colors.gray.600'),
         error: theme('colors.red.400'),
         info: theme('colors.green.600'),
         input: theme('colors.gray.600'),
+        inputFocus: theme('colors.gray.700'),
         light: theme('colors.gray.100'),
         shaded: {
             10: 'rgba(0, 0, 0, 0.1)',
@@ -52,6 +66,8 @@ const extend = {
             20: 'rgba(0, 0, 0, 0.2)'
         },
         strong: theme('colors.gray.800'),
+        swatch: theme('colors.gray.400'),
+        base: theme('colors.gray.400'),
         subtle: theme('colors.gray.300'),
         success: theme('colors.green.600'),
         warning: theme('colors.yellow.500')
@@ -60,13 +76,11 @@ const extend = {
         // Primitive
         radius1: '4px',
         radius2: '8px',
-        radius3: '100%'
-
-        // Generic
-        // TODO @TW: review. This causes error.
-        // radiusBox: theme('borderRadius.radius2'),
-        // radiusButton: theme('borderRadius.radius1'),
-        // radiusInput: theme('borderRadius.radius1'),
+        radius3: '100%',
+        box: defaultTheme.borderRadius.md,
+        button: defaultTheme.borderRadius.full,
+        input: defaultTheme.borderRadius.md,
+        badge: defaultTheme.borderRadius.md
     },
     borderWidth: {
         DEFAULT: '1px'
@@ -83,6 +97,9 @@ const extend = {
         thin: `0 1px ${theme('colors.gray.300')}`
     }),
     colors: getColors(colors),
+    content: {
+        empty: ''
+    },
     flex: {
         textInput: '0 0 100%'
     },
@@ -91,16 +108,16 @@ const extend = {
         serif: ['Source Serif Pro', 'serif']
     },
     fontSize: {
-        '2xs': '0.6875rem', // 11px
-        xs: '0.75rem', // 12px
-        sm: '0.875rem', // 14px
-        base: '1rem', // 16px
-        lg: '1.25rem', // 18px
-        xl: '1.5rem', // 24px
-        '2xl': '2.125rem', // 34px
-        '3xl': '3rem', // 48px
-        '4xl': '3.75rem', // 60px
-        '5xl': '6rem', // 96px
+        '2xs': ['0.6875rem', '1.5'], // 11px
+        xs: ['0.75rem', '1.5'], // 12px
+        sm: ['0.875rem', '1.5'], // 14px
+        base: ['1rem', '1.5'], // 16px
+        lg: ['1.25rem', '1.5'], // 18px
+        xl: ['1.5rem', '1.5'], // 24px
+        '2xl': ['2.125rem', '1.5'], // 34px
+        '3xl': ['3rem', '1.5'], // 48px
+        '4xl': ['3.75rem', '1.5'], // 60px
+        '5xl': ['6rem', '1'], // 96px
         inherit: 'inherit'
     },
     fontWeight: {
@@ -132,6 +149,16 @@ const extend = {
     justifyContent: {
         stretch: 'stretch'
     },
+    keyframes: {
+        shimmer: {
+            '0%': {
+                transform: 'translateX(-100%)'
+            },
+            '100%': {
+                transform: 'translateX(100%)'
+            }
+        }
+    },
     lineHeight: {
         DEFAULT: '1.5'
     },
@@ -142,12 +169,14 @@ const extend = {
         modal: '360px',
         site: '1440px'
     },
-    minHeight: {
-        auto: 'auto'
-    },
-    minWidth: {
-        auto: 'auto'
-    },
+    minHeight: theme => ({
+        auto: 'auto',
+        4: theme('spacing.4')
+    }),
+    minWidth: theme => ({
+        auto: 'auto',
+        32: theme('spacing.32')
+    }),
     // TODO @TW: review. Use the abstracted values in code.
     opacity: {
         disabled: 50,
@@ -167,7 +196,13 @@ const extend = {
         lg: '3rem',
         DEFAULT: '1.5rem',
         filterSidebarWidth: '325px',
-        full: '100%'
+        full: '100%',
+        header: '5rem',
+        '7.5': '1.875rem',
+        '100vw': '100vw',
+        '75vw': '75vw',
+        '50vw': '50vw',
+        '25vw': '25vw'
     },
     textColor: theme => ({
         colorDefault: theme('colors.gray.900'), // TODO @TW naming collision: TW puts "fontSize" + "color" under "text-" prefix
@@ -175,9 +210,11 @@ const extend = {
         subtle: theme('colors.gray.600'),
         DEFAULT: theme('colors.gray.900')
     }),
-    width: {
-        fit: 'fit-content'
-    },
+    width: theme => ({
+        fit: 'fit-content',
+        swatch: '3.875rem',
+        maxSite: theme('maxWidth.site')
+    }),
     zIndex: {
         behind: '-1',
         surface: '1',
@@ -201,14 +238,59 @@ const theme = {
     // Override Tailwind defaults and preset config.
     screens: {
         xs: '480px',
+        '-xs': {
+            max: '479px'
+        },
         sm: '640px',
+        '-sm': {
+            max: '639px'
+        },
+        hsm: {
+            raw: '(min-height: 640px)'
+        },
+        '-hsm': {
+            raw: '(max-height: 639px)'
+        },
         md: '800px',
+        '-md': {
+            max: '799px'
+        },
+        hmd: {
+            raw: '(min-height: 800px)'
+        },
+        '-hmd': {
+            raw: '(max-height: 799px)'
+        },
         lg: '960px',
-        xl: '1120px',
+        '-lg': {
+            max: '959px'
+        },
+        hlg: {
+            raw: '(min-height: 960px)'
+        },
+        '-hlg': {
+            raw: '(max-height: 959px)'
+        },
+        xl: '1024px',
+        '-xl': {
+            max: '1023px'
+        },
         '2xl': '1280px',
+        '-2xl': {
+            max: '-1279px'
+        },
         '3xl': '1440px',
+        '-3xl': {
+            max: '-1439px'
+        },
         '4xl': '1600px',
-        max: '1920px'
+        '-4xl': {
+            max: '1599px'
+        },
+        max: '1920px',
+        '-max': {
+            max: '1920px'
+        }
     },
     transitionDuration: {
         xs: '64ms',
@@ -229,7 +311,32 @@ const theme = {
                 color: theme('colors.neutral.900')
             },
             root: {
-                colors
+                colors: {
+                    ...colors,
+                    blue: {
+                        100: hexToRgb(theme('colors.blue.100')),
+                        400: hexToRgb(theme('colors.blue.400')),
+                        700: hexToRgb(theme('colors.blue.700'))
+                    },
+                    gray: {
+                        50: hexToRgb(theme('colors.gray.50')),
+                        100: hexToRgb(theme('colors.gray.100')),
+                        300: hexToRgb(theme('colors.gray.300')),
+                        400: hexToRgb(theme('colors.gray.400')),
+                        500: hexToRgb(theme('colors.gray.500')),
+                        600: hexToRgb(theme('colors.gray.600')),
+                        700: hexToRgb(theme('colors.gray.700')),
+                        900: hexToRgb(theme('colors.gray.900'))
+                    },
+                    green: {
+                        600: hexToRgb(theme('colors.green.600'))
+                    },
+                    orange: hexToRgb(theme('colors.amber.500')),
+                    red: {
+                        400: hexToRgb(theme('colors.red.400')),
+                        700: hexToRgb(theme('colors.red.700'))
+                    }
+                }
             }
         }
     })
@@ -239,21 +346,7 @@ const config = {
     // TODO @TW: see top too. Had to disable to get working locally.
     // plugins: [aspectRatioPlugin, corePlugin],
     plugins: [corePlugin],
-    theme,
-    variants: {
-        extend: {
-            backgroundColor: ['checked'],
-            backgroundImage: ['focus'],
-            borderColor: ['even'],
-            borderStyle: ['even'],
-            borderWidth: ['even', 'last'],
-            boxShadow: ['active'],
-            fontWeight: ['first'],
-            outline: ['active', 'focus'],
-            pointerEvents: ['disabled'],
-            textColor: ['disabled', 'first']
-        }
-    }
+    theme
 };
 
 module.exports = config;

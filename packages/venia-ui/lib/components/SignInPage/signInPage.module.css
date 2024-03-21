@@ -17,5 +17,5 @@
     composes: lg_border-solid from global;
     composes: lg_border-subtle from global;
     composes: lg_pb-md from global;
-    composes: lg_rounded-md from global;
+    composes: lg_rounded-box from global;
 }

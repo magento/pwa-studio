@@ -32,7 +32,7 @@ const IMAGE_WIDTH = 640;
  * @returns {React.Element} React carousel component that displays a product image
  */
 const ProductImageCarousel = props => {
-    const { images, smallImage } = props;
+    const { images } = props;
     const { formatMessage } = useIntl();
     const talonProps = useProductImageCarousel({
         images,
@@ -87,7 +87,7 @@ const ProductImageCarousel = props => {
                     image: classes.currentImage_placeholder,
                     root: classes.imageContainer
                 }}
-                src={smallImage ? smallImage : transparentPlaceholder}
+                src={transparentPlaceholder}
             />
         );
     }

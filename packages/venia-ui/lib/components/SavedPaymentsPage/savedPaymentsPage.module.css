@@ -24,15 +24,13 @@
     composes: lg_text-center from global;
 }
 
-/* prettier-ignore */
 .content {
     composes: gap-xs from global;
     composes: grid from global;
     composes: grid-cols-1 from global;
     grid-auto-rows: minmax(6rem, max-content);
 
-    /* TODO @TW: review (B7) */
-    composes: lg_grid-cols-[1fr,1fr,1fr] from global;
+    composes: lg_grid-cols-[1fr_1fr_1fr] from global;
 }
 
 .noPayments {
@@ -44,7 +42,7 @@
     composes: border-solid from global;
     composes: border-subtle from global;
     composes: font-semibold from global;
-    composes: rounded-md from global;
+    composes: rounded-button from global;
     composes: text-brand-dark from global;
     composes: text-sm from global;
     transition: border-color 384ms var(--venia-global-anim-standard);

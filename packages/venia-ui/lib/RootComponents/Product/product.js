@@ -18,10 +18,9 @@ import ProductShimmer from './product.shimmer';
  */
 
 const Product = props => {
-    const { __typename: productType, sku } = props;
+    const { __typename: productType } = props;
     const talonProps = useProduct({
-        mapProduct,
-        sku
+        mapProduct
     });
 
     const { error, loading, product } = talonProps;

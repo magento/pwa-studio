@@ -35,14 +35,13 @@
     composes: shadow-menu from global;
     composes: top-auto from global;
     composes: z-menu from global;
+    composes: invisible from global;
     transform: translate3d(0, 8px, 0);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-global-anim-out);
     transition-property: opacity, transform, visibility;
 
-    /* TODO @TW: review (B6) */
-    /* composes: invisible from global; */
-    visibility: hidden;
+    @apply invisible;
 
     composes: sm_bottom-auto from global;
     composes: sm_left-auto from global;
@@ -50,7 +49,7 @@
     composes: sm_top-md from global;
 }
 
-@media (min-width: 640px) {
+@media screen(sm) {
     .menu {
         transform: translate3d(0, -8px, 0);
     }
@@ -59,15 +58,12 @@
 .menu_open {
     composes: menu;
 
-    composes: opacity-100 from global;
+    @apply opacity-100;
     composes: p-0 from global;
+    @apply visible;
     transform: translate3d(0, 4px, 0);
     transition-duration: 224ms;
     transition-timing-function: var(--venia-global-anim-in);
-
-    /* TODO @TW: review (B6) */
-    /* composes: visible from global; */
-    visibility: visible;
 }
 
 .menuItem {
@@ -84,35 +80,28 @@
     composes: mr-2xs from global;
 }
 
-/* TODO @TW: cannot compose */
 .root:last-child:not(:only-child) {
-    padding-left: 0;
-    grid-auto-flow: column;
+    @apply pl-0;
+    @apply grid-flow-col;
+
+    @apply before_border-l;
+    @apply before_border-solid;
+    @apply before_border-base;
+    @apply before_h-4;
+    @apply before_w-4;
 }
 
-/* TODO @TW: cannot compose */
-.root:last-child:not(:only-child)::before {
-    /* composes: border from global; */
-    /* composes: border-solid from global; */
-    /* composes: border-subtle from global; */
-    border-left: 1px solid rgb(var(--venia-global-color-border));
-    content: '';
-    height: 1em;
-    width: 1rem;
-}
-
-@media (max-width: 639px) {
+@media screen(-sm) {
     .root:only-child {
         grid-column: 2;
     }
 
-    /* TODO @TW: cannot compose */
     .root:last-child .menu {
-        right: 1rem;
-        left: auto;
+        @apply right-4;
+        @apply left-auto;
     }
 
     .menu_open {
-        transform: translate3d(0, -4px, 0);
+        @apply -translate-y-1;
     }
 }

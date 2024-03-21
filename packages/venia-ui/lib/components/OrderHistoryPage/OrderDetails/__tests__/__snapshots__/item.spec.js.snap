@@ -29,7 +29,7 @@ exports[`should render properly 1`] = `
         onError={[Function]}
         onLoad={[Function]}
         sizes="50px"
-        src="https://www.venia.com/product1-thumbnail.jpg"
+        src="https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=50&height=62.5&fit=cover"
         srcSet="https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
