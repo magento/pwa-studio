@@ -35,12 +35,9 @@
     composes: px-xs from global;
 }
 
-/* TODO @TW: cannot compose */
 .action button {
-    /* composes: text-sm from global; */
-    font-size: 0.875rem;
-    /* composes: no-underline from global; */
-    text-decoration: none;
+    @apply text-sm;
+    @apply no-underline;
 }
 
 .blocks {
@@ -49,10 +46,8 @@
     composes: px-xs from global;
 }
 
-/* TODO @TW: cannot compose */
 .blocks > li:last-child {
-    /* composes: border-b-2 from global; */
-    /* composes: border-solid from global; */
-    /* composes: border-subtle from global; */
-    border-bottom: 2px solid rgb(var(--venia-global-color-border));
+    @apply border-b-2;
+    @apply border-solid;
+    @apply border-subtle;
 }

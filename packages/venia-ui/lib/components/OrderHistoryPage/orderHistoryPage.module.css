@@ -55,7 +55,7 @@
     composes: root_highPriority from '../Button/button.module.css';
 
     composes: h-[2rem] from global;
-    composes: min-w-[5rem] from global;
+    @apply min-w-[5rem];
     composes: w-[5rem] from global;
 }
 

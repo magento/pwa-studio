@@ -10,10 +10,8 @@ const config = {
     presets: [venia],
     // Configure how Tailwind statically analyzes your code here.
     // Note that the Tailwind's `jit` mode doesn't actually use PurgeCSS.
-    purge: {
-        // Include paths to every file that may refer to Tailwind classnames.
-        // Classnames not found in these files will be excluded at build time.
-        content: [
+    content: {
+        files: [
             './node_modules/@magento/venia-ui/lib/**/*.module.css',
             '../venia-ui/lib/**/*.module.css',
             './src/**/*.module.css',
@@ -22,12 +20,9 @@ const config = {
         // Extract Tailwind classnames from source files.
         // Our default matcher only matches targets of CSS Modules' `composes`,
         // not classnames included directly in HTML or JS!
-        extractors: [
-            {
-                extensions: ['css'],
-                extractor: content => content.match(matcher) || []
-            }
-        ]
+        extract: {
+            css: content => content.match(matcher) || []
+        }
     },
     // Set the character Tailwind uses when prefixing classnames with variants.
     // CSS Modules doesn't like Tailwind's default `:`, so we use `_`.
@@ -48,4 +43,4 @@ module.exports = config;
  *   composes: mx-auto from global;
  * }
  */
-const matcher = /(?<=composes:.*)(\b\S+\b)(?=.*from global;)/g;
+const matcher = /(?<=composes:.*)(\S+)(?=.*from global;)/g;

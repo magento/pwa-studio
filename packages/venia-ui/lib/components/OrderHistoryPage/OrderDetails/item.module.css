@@ -8,7 +8,7 @@
     composes: lg_gap-y-1.5 from global;
 }
 
-@media (min-width: 960px) {
+@media screen(lg) {
     .root {
         grid-template-columns: auto repeat(3, 1fr) auto;
         grid-template-rows: repeat(5, auto);

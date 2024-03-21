@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
+export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
     query getProductFiltersByCategory(
         $categoryIdFilter: FilterEqualTypeInput!
     ) {
@@ -11,8 +11,9 @@ const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
                 attribute_code
                 options {
                     label
-                    count
+                    value
                 }
+                position
             }
         }
     }

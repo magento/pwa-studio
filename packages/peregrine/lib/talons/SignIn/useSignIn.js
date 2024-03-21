@@ -7,13 +7,13 @@ import { useCartContext } from '../../context/cart';
 import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
-import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 import DEFAULT_OPERATIONS from './signIn.gql';
 import { useEventingContext } from '../../context/eventing';
 
 export const useSignIn = props => {
     const {
+        handleTriggerClick,
         getCartDetailsQuery,
         setDefaultUsername,
         showCreateAccount,
@@ -64,16 +64,10 @@ export const useSignIn = props => {
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
 
-    const { setExpanded: setCurrencyMenuIsOpen } = useDropdown();
-
-    const handleTrigger = useCallback(() => {
-        // Toggle Stores Menu.
-        setCurrencyMenuIsOpen(isOpen => !isOpen);
-    }, [setCurrencyMenuIsOpen]);
-
     const handleSubmit = useCallback(
         async ({ email, password }) => {
             setIsSigningIn(true);
+          
             if (handleTriggerClick !== undefined) {
                 handleTriggerClick();
             }
@@ -109,15 +103,13 @@ export const useSignIn = props => {
                 });
                 const destinationCartId = await retrieveCartId();
 
-                if (destinationCartId != sourceCartId) {
-                    // Merge the guest cart into the customer cart.
-                    await mergeCarts({
-                        variables: {
-                            destinationCartId,
-                            sourceCartId
-                        }
-                    });
-                }
+                // Merge the guest cart into the customer cart.
+                await mergeCarts({
+                    variables: {
+                        destinationCartId,
+                        sourceCartId
+                    }
+                });
 
                 // Ensure old stores are updated with any new data.
 
@@ -158,7 +150,7 @@ export const useSignIn = props => {
             getCartDetails,
             fetchCartDetails,
             dispatch,
-            handleTrigger
+            handleTriggerClick
         ]
     );
 
