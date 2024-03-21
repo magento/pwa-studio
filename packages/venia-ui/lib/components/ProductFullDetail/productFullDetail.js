@@ -242,10 +242,7 @@ const ProductFullDetail = props => {
                 onSubmit={handleAddToCart}
             >
                 <section className={classes.imageCarousel}>
-                    <Carousel
-                        images={mediaGalleryEntries}
-                        smallImage={product.small_image}
-                    />
+                    <Carousel images={mediaGalleryEntries} />
                 </section>
                 <section className={classes.title}>
                     <h1

@@ -16,9 +16,5 @@
 .message {
     composes: mt-xs from global;
     composes: text-colorDefault from global;
-}
-
-/* TODO @TW: cannot compose */
-.message:empty {
-    display: none;
+    composes: empty_hidden from global;
 }

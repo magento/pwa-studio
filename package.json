@@ -46,7 +46,6 @@
     "watch:venia": "yarn venia run watch"
   },
   "dependencies": {
-    "@material-ui/core": "~4.12.4",
     "caniuse-lite": "~1.0.30001335"
   },
   "devDependencies": {
@@ -88,7 +87,7 @@
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
     "rimraf": "~2.6.3",
-    "tailwindcss": "~2.2.7"
+    "tailwindcss": "~3.3.0"
   },
   "optionalDependencies": {
     "bundlesize": "~0.18.1",

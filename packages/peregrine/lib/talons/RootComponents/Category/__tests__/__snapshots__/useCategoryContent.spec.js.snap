@@ -5,7 +5,6 @@ Object {
   "availableSortMethods": null,
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
-  "filterOptions": undefined,
   "filters": null,
   "items": Array [
     null,
@@ -18,7 +17,6 @@ Object {
     null,
     null,
   ],
-  "setFilterOptions": [Function],
   "totalCount": null,
   "totalPagesFromData": null,
 }
@@ -34,7 +32,6 @@ Object {
   ],
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
-  "filterOptions": undefined,
   "filters": Array [
     Object {
       "label": "Label",
@@ -50,7 +47,6 @@ Object {
       "name": "Necklace",
     },
   ],
-  "setFilterOptions": [Function],
   "totalCount": 2,
   "totalPagesFromData": 1,
 }

@@ -95,7 +95,7 @@ exports[`renders correctly with valid item data 1`] = `
         onError={[MockFunction]}
         onLoad={[MockFunction]}
         sizes="(max-width: 640px) 300px, 840px"
-        src="/foo/bar/pic.png"
+        src="/media/catalog/product/foo/bar/pic.png?auto=webp&format=png&width=100&fit=cover"
         srcSet="/media/catalog/product/foo/bar/pic.png?auto=webp&format=png&width=40&height=50&fit=cover 40w,
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=png&width=80&height=100&fit=cover 80w,
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=png&width=160&height=200&fit=cover 160w,

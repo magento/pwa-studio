@@ -37,7 +37,7 @@
 .actionsContainer {
 }
 
-@media (max-width: 639px) {
+@media screen(-sm) {
     .root {
         background-image: var(--mobileBackgroundImageUrl);
         /* two row grid because the "hangers" are on the top of the page */

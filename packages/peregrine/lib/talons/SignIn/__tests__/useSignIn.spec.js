@@ -200,19 +200,6 @@ test('handleForgotPassword triggers callbacks', () => {
     expect(initialProps.showForgotPassword).toHaveBeenCalled();
 });
 
-test('forgotPasswordHandleEnterKeyPress triggers callbacks on click', () => {
-    const mockUsername = 'fry@planetexpress.com';
-    const mockApi = {
-        getValue: jest.fn().mockReturnValue(mockUsername)
-    };
-    var event = new KeyboardEvent('keydown', { keyCode: 13 });
-    document.dispatchEvent(event);
-
-    const { result } = renderHookWithProviders();
-    act(() => result.current.setFormApi(mockApi));
-    act(() => result.current.forgotPasswordHandleEnterKeyPress());
-});
-
 test('handleCreateAccount triggers callbacks', () => {
     const mockUsername = 'fry@planetexpress.com';
     const mockApi = {

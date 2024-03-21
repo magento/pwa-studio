@@ -14,8 +14,6 @@
     composes: text-white from global;
 }
 
-/* TODO @TW: cannot compose */
 .root svg {
-    /* composes: stroke-white from global; */
-    stroke: rgb(var(--venia-global-color-gray-50));
+    @apply stroke-white;
 }

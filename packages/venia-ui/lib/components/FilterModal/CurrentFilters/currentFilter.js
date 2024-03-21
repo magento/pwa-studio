@@ -7,28 +7,18 @@ import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import Trigger from '../../Trigger';
 import defaultClasses from './currentFilter.module.css';
-import { useHistory, useLocation } from 'react-router-dom';
 
 const CurrentFilter = props => {
     const { group, item, removeItem, onRemove } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
-    const location = useLocation();
-    const history = useHistory();
 
     const handleClick = useCallback(() => {
         removeItem({ group, item });
         if (typeof onRemove === 'function') {
             onRemove(group, item);
         }
-
-        if (group == 'price') {
-            // preserve all existing params
-            const params = new URLSearchParams(location.search);
-            params.delete('price[filter]');
-            history.replace({ search: params.toString() });
-        }
-    }, [group, item, removeItem, onRemove, history, location.search]);
+    }, [group, item, removeItem, onRemove]);
 
     const ariaLabel = formatMessage(
         {

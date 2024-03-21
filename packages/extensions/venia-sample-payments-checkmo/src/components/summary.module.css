@@ -35,7 +35,7 @@
 .payment_type {
 }
 
-@media (max-width: 960px) {
+@media screen(-lg) {
     .edit_text {
         display: none;
     }

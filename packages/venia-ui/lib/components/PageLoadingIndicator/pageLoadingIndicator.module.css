@@ -34,12 +34,12 @@
 
 .indicator_loading {
     composes: indicator_off;
-    composes: opacity-100 from global;
+    @apply opacity-100;
     transform: translateX(-25%);
 }
 
 .indicator_done {
     composes: indicator_off;
-    composes: opacity-100 from global;
+    @apply opacity-100;
     transform: translateX(0%);
 }

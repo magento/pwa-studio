@@ -48,7 +48,7 @@
     composes: root_highPriority from '../Button/button.module.css';
 
     composes: justify-self-start from global;
-    composes: min-w-full from global;
+    @apply min-w-full;
     composes: mt-1 from global;
 
     composes: xs_min-w-auto from global;

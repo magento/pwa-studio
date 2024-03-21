@@ -115,7 +115,7 @@
 .input {
     composes: input from '../TextInput/textInput.module.css';
 
-    composes: max-w-sm from global;
+    @apply max-w-sm;
 }
 
 .loader,
@@ -145,9 +145,9 @@
 
 .loaderBefore,
 .loaderAfter {
+    composes: content-empty from global;
     composes: absolute from global;
     composes: top-0 from global;
-    content: '';
 }
 
 .loaderBefore {

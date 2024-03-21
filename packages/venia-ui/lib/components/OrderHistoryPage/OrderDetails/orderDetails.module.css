@@ -64,7 +64,7 @@
  * Mobile-specific styles.
  */
 
-@media (max-width: 959px) {
+@media screen(-lg) {
     .shippingInformationContainer {
         grid-row: 1 / span 1;
         grid-column: 1 / span 1;

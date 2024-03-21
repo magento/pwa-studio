@@ -50,7 +50,6 @@ const CategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
-        setFilterOptions,
         items,
         totalCount,
         totalPagesFromData
@@ -80,7 +79,7 @@ const CategoryContent = props => {
     ) : null;
 
     const sidebar = shouldShowFilterButtons ? (
-        <FilterSidebar filters={filters} setFilterOptions={setFilterOptions} />
+        <FilterSidebar filters={filters} />
     ) : shouldShowFilterShimmer ? (
         <FilterSidebarShimmer />
     ) : null;
