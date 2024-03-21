@@ -7,10 +7,10 @@ jest.mock('@apollo/client', () => ({
     __esModule: true,
     createHttpLink: jest.fn(() => 'http')
 }));
-jest.mock('@magento/peregrine/lib/Apollo/links/authLink', () => ({
-    __esModule: true,
-    default: jest.fn(() => 'auth')
-}));
+// jest.mock('@magento/peregrine/lib/Apollo/links/authLink', () => ({
+//     __esModule: true,
+//     default: jest.fn(() => 'auth')
+// }));
 jest.mock('@magento/peregrine/lib/Apollo/links/errorLink', () => ({
     __esModule: true,
     default: jest.fn(() => 'error')
