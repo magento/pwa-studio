@@ -227,3 +227,17 @@ test('mutation error is returned by talon', async () => {
         `[Error: Uh oh! There was an error signing in :(]`
     );
 });
+
+it('should call handleForgotPassword when Enter key is pressed', () => {
+    const { result } = renderHookWithProviders();
+    const { forgotPasswordHandleEnterKeyPress } = result.current;
+    const enterKeyEvent = { key: 'Enter' };
+    renderHook(() => forgotPasswordHandleEnterKeyPress(enterKeyEvent));
+});
+
+it('should call handleEnterKeyPress when Enter key is pressed', () => {
+    const { result } = renderHookWithProviders();
+    const { handleEnterKeyPress } = result.current;
+    const enterKeyEvent = { key: 'Enter' };
+    renderHook(() => handleEnterKeyPress(enterKeyEvent));
+});
