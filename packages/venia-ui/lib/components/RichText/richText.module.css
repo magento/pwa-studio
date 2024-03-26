@@ -5,15 +5,14 @@
     composes: text-sm from global;
 }
 
-/* TODO @TW: cannot compose */
 .root p {
-    margin: 0 0 1rem;
+    @apply m-0;
+    @apply mb-4;
 }
 
-/* TODO @TW: cannot compose */
 .root ul {
-    /* composes: list-disc from global; */
-    list-style-type: disc;
-    margin: 0 0 1rem;
-    padding-left: 2.5rem;
+    @apply list-disc;
+    @apply m-0;
+    @apply mb-4;
+    @apply pl-10;
 }

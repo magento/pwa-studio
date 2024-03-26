@@ -9,7 +9,7 @@ const setSearchParams = (existing, options) => {
     const { categoryId, label, searchValue } = options;
 
     params.set('query', searchValue);
-    params.set('category_uid[filter]', `${label}${DELIMITER}${categoryId}`);
+    params.set('category_id[filter]', `${label}${DELIMITER}${categoryId}`);
 
     return `${params}`;
 };

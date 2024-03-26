@@ -105,7 +105,7 @@ exports[`renders form errors 1`] = `
                     onError={[Function]}
                     onLoad={[Function]}
                     sizes="240px"
-                    src="https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg"
+                    src="https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=240&height=300&fit=cover"
                     srcSet="https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
@@ -475,7 +475,7 @@ exports[`renders form with data 1`] = `
                     onError={[Function]}
                     onLoad={[Function]}
                     sizes="240px"
-                    src="https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg"
+                    src="https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=240&height=300&fit=cover"
                     srcSet="https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,

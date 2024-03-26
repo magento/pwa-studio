@@ -15,16 +15,8 @@
     composes: justify-center from global;
 }
 
-/* TODO @TW: cannot compose */
 .label:not(:focus):not(:active) {
-    /* composes: sr-only from global; */
-    position: absolute;
-    overflow: hidden;
-    width: 1px;
-    height: 1px;
-    clip: rect(0 0 0 0);
-    clip-path: inset(100%);
-    white-space: nowrap;
+    @apply sr-only;
 }
 
 .button {
@@ -36,7 +28,7 @@
     composes: inline-flex from global;
     composes: items-center from global;
     composes: justify-center from global;
-    composes: rounded-full from global;
+    composes: rounded-button from global;
     composes: w-[2rem] from global;
     stroke: rgb(var(--stroke));
 
@@ -48,12 +40,10 @@
     border-color: rgb(var(--stroke));
 }
 
-/* TODO @TW: cannot compose */
 .button:disabled,
 .button:disabled:hover {
     --stroke: rgb(var(--venia-global-color-gray-400));
-    /* composes: border-subtle from global; */
-    border-color: rgb(var(--venia-global-color-gray-400));
+    @apply border-base;
 }
 
 .button_decrement {

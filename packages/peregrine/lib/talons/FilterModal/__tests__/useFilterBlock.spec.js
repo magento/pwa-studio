@@ -6,10 +6,6 @@ import { useFilterBlock } from '../useFilterBlock';
 
 const log = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-    useLocation: jest.fn(() => ({ search: '?a=b&c=d' }))
-}));
-
 let handleClickProp = null;
 let inputValues = {};
 

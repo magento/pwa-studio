@@ -44,19 +44,13 @@
     composes: py-0 from global;
     composes: text-center from global;
     composes: text-subtle from global;
-}
 
-/* TODO @TW: cannot compose */
-.message:empty {
-    padding: 0;
+    composes: empty_hidden from global;
 }
 
 .suggestions {
     composes: gap-2xs from global;
     composes: grid from global;
-}
 
-/* TODO @TW: cannot compose */
-.suggestions:empty {
-    display: none;
+    composes: empty_hidden from global;
 }

@@ -22,9 +22,5 @@
 }
 
 .list {
-}
-
-/* TODO @TW: cannot compose */
-.list:empty {
-    display: none;
+    composes: empty_hidden from global;
 }
