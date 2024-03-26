@@ -134,6 +134,7 @@
   "optionalDependencies": {
     "sharp": "~0.29.3"
   },
+  
   "engines": {
     "node": ">=18.x",
     "yarn": ">=1.12.0"
