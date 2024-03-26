@@ -97,6 +97,7 @@ describe('handle()', () => {
                     "productType": "ConfigurableProduct",
                     "sku": "VP08",
                     "topLevelSku": "VP08",
+                    
                   },
                   "quantity": 3,
                 },
