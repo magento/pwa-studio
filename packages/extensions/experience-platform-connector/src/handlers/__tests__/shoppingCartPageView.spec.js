@@ -85,6 +85,7 @@ describe('handle()', () => {
                   },
                   "quantity": 1,
                 },
+                
                 Object {
                   "configurableOptions": null,
                   "formattedPrice": "",
