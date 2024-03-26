@@ -96,8 +96,7 @@
   "resolutions": {
     "https-proxy-agent": "~2.2.3",
     "@graphql-tools/prisma-loader": "6.3.0"
-  },
-  
+  }, 
   "engines": {
     "node": ">=18.x",
     "yarn": ">=1.12.0"
