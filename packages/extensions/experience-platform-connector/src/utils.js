@@ -82,6 +82,7 @@ export const getFormattedProducts = products => {
                   product: {
                       name: name,
                       sku: sku,
+                      
                       topLevelSku: product.sku,
                       productType: type,
                       pricing: {
