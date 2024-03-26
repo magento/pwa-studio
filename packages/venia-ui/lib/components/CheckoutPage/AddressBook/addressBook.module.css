@@ -37,9 +37,10 @@
     composes: lg_row-start-1 from global;
 }
 
-@media screen(-xs) {
+@media (max-width: 479px) {
+    /* TODO @TW: cannot compose */
     .buttonContainer button {
-        @apply min-w-32;
+        min-width: 8rem;
     }
 }
 
@@ -65,7 +66,7 @@
     composes: border-dashed from global;
     composes: border-subtle from global;
     composes: font-semibold from global;
-    composes: rounded-button from global;
+    composes: rounded-md from global;
     composes: text-brand-dark from global;
     composes: text-sm from global;
     transition: border-color 384ms var(--venia-global-anim-standard);

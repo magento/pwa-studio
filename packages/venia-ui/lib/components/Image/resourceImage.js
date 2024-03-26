@@ -46,7 +46,7 @@ const ResourceImage = props => {
         ratio
     });
 
-    const { sizes, src, srcSet } = talonProps;
+    const { sizes, srcSet } = talonProps;
     const dimensionAttributes = {};
     if (typeof height !== 'undefined') {
         dimensionAttributes['--height'] = height + 'px';
@@ -65,8 +65,8 @@ const ResourceImage = props => {
             onError={handleError}
             onLoad={handleLoad}
             sizes={sizes}
-            src={src}
-            srcSet={srcSet}
+            src={resource}
+            srcSet={String(className).startsWith('item-image') ? null : srcSet}
             width={width}
         />
     );

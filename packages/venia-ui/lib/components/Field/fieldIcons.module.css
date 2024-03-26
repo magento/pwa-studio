@@ -14,13 +14,10 @@
     grid-row: input-start / input-end;
 }
 
+/* TODO @TW: cannot compose */
 .input > input {
-    padding-left: calc(
-        theme(spacing[7.5]) * var(--iconsBefore) + theme(spacing[2.5])
-    );
-    padding-right: calc(
-        theme(spacing[7.5]) * var(--iconsAfter) + theme(spacing[2.5])
-    );
+    padding-left: calc(1.875rem * var(--iconsBefore) + 0.625rem);
+    padding-right: calc(1.875rem * var(--iconsAfter) + 0.625rem);
 }
 
 .before,
@@ -33,7 +30,12 @@
     composes: pointer-events-none from global;
     composes: w-[2.5rem] from global;
     composes: z-foreground from global;
-    composes: empty_hidden from global;
+}
+
+/* TODO @TW: cannot compose */
+.before:empty,
+.after:empty {
+    display: none;
 }
 
 .before {
@@ -44,6 +46,8 @@
     grid-area: after;
 }
 
+/* TODO @TW: cannot compose */
 .before svg {
-    @apply stroke-gray-600;
+    /* composes: stroke-gray-600 from global; */
+    stroke: rgb(var(--venia-global-color-gray-600));
 }

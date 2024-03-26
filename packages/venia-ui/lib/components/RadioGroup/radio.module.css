@@ -41,8 +41,10 @@
     grid-area: input;
 }
 
+/* TODO @TW: cannot compose */
 .icon svg {
-    @apply stroke-gray-600;
+    /* composes: stroke-gray-600 from global; */
+    stroke: rgb(var(--venia-global-color-gray-600));
 }
 
 .label {
@@ -51,8 +53,10 @@
     grid-area: label;
 }
 
+/* TODO @TW: cannot compose */
 .input:checked + .icon svg {
-    @apply stroke-brand-base;
+    /* composes: stroke-brand-base from global; */
+    stroke: rgb(var(--venia-brand-color-1-700));
 }
 
 .input_shimmer {

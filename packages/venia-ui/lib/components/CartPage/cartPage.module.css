@@ -28,8 +28,9 @@
     composes: leading-tight from global;
 }
 
-.stockStatusMessageContainer {
-    composes: empty_hidden from global;
+/* TODO @TW: cannot compose */
+.stockStatusMessageContainer:empty {
+    display: none;
 }
 
 .items_container {
@@ -55,7 +56,7 @@
     composes: top-[5.5rem] from global; /* TODO @TW: review */
 }
 
-@media screen(-lg) {
+@media (max-width: 959px) {
     .body {
         /* Only one column in mobile view. */
         grid-template-columns: 100%;

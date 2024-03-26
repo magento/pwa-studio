@@ -14,10 +14,10 @@
 .global {
     composes: root;
 
-    @apply fixed;
-    @apply h-full;
+    composes: fixed from global;
+    composes: h-full from global;
     composes: left-0 from global;
-    @apply m-0;
+    composes: m-0 from global;
     composes: top-0 from global;
     composes: w-full from global;
 }

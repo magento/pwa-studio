@@ -20,19 +20,19 @@
     composes: page;
 }
 
-@media screen(hsm) {
+@media (min-height: 640px) {
     .page {
         min-height: 48rem;
     }
 }
 
-@media screen(hmd) {
+@media (min-height: 768px) {
     .page {
         min-height: 60rem;
     }
 }
 
-@media screen(hlg) {
+@media (min-height: 960px) {
     .page {
         min-height: 72rem;
     }

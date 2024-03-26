@@ -99,13 +99,13 @@
     composes: lg_text-left from global;
 }
 
-@media screen(-lg) {
+@media (max-width: 959px) {
     .branding {
         grid-template-areas: 'c' 'b' 'a';
     }
 }
 
-@media screen(lg) {
+@media (min-width: 960px) {
     .branding {
         grid-template-columns: minmax(200px, 1fr) auto minmax(200px, 1fr);
     }

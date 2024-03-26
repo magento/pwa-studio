@@ -20,13 +20,18 @@
     composes: absolute from global;
     composes: left-0 from global;
     composes: top-0 from global;
-    composes: visible from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
 }
 
 .notLoaded {
     composes: loaded;
 
-    @apply invisible;
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
 }
 
 .placeholder {

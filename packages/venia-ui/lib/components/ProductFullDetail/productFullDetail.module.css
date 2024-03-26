@@ -9,7 +9,7 @@
     composes: lg_py-md from global;
 }
 
-@media screen(lg) {
+@media (min-width: 960px) {
     .root {
         grid-template-areas:
             'images title'
@@ -55,7 +55,8 @@
     composes: grid from global;
     composes: items-center from global;
     composes: leading-normal from global;
-    @apply py-xs;
+    composes: px-sm from global;
+    composes: py-xs from global;
     grid-area: title;
 }
 
@@ -154,7 +155,7 @@
     list-style: none;
 }
 
-@media screen(xl) {
+@media (min-width: 1024px) {
     .details {
         align-self: stretch;
         border-top-width: 1px;
@@ -169,7 +170,7 @@
 }
 
 .related {
-    @apply border-b-0;
+    composes: border-b-0 from global;
     composes: section;
     grid-column: 1 / span 2;
 }

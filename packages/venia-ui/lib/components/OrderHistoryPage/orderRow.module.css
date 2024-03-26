@@ -4,10 +4,10 @@
     composes: border-subtle from global;
     composes: grid from global;
     composes: grid-cols-2 from global;
-    composes: rounded-box from global;
+    composes: rounded-md from global;
 }
 
-@media screen(lg) {
+@media (min-width: 960px) {
     .root {
         grid-template-columns:
             minmax(9rem, 1fr) minmax(9rem, 1fr) minmax(9rem, 1fr)
@@ -73,7 +73,6 @@
     composes: grid from global;
     composes: overflow-hidden from global;
     composes: p-sm from global;
-    composes: max-lg_empty_hidden from global;
 
     composes: lg_border-b-0 from global;
     composes: lg_border-l from global;
@@ -135,7 +134,7 @@
     composes: justify-self-start from global;
     composes: px-xs from global;
     composes: py-1 from global;
-    composes: rounded-badge from global;
+    composes: rounded-md from global;
     composes: text-2xs from global;
 }
 
@@ -151,7 +150,12 @@
     composes: hidden from global;
 }
 
-@media screen(-lg) {
+@media (max-width: 959px) {
+    /* TODO @TW: cannot compose */
+    .orderItemsContainer:empty {
+        display: none;
+    }
+
     .orderNumberContainer {
         grid-column: 1 / span 2;
         grid-row: 1;

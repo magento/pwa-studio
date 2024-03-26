@@ -1,5 +1,5 @@
 .root_active {
     composes: root_active from '../Mask/mask.module.css';
 
-    @apply opacity-25;
+    composes: opacity-25 from global;
 }

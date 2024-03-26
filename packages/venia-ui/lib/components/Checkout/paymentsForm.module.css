@@ -8,7 +8,7 @@
 .body {
     composes: body from './flow.module.css';
 
-    @apply h-[30rem];
+    composes: h-[30rem] from global;
 }
 
 .footer {
@@ -78,6 +78,7 @@
     z-index: unset;
 }
 
+/* TODO @TW: cannot compose */
 :global .braintree-placeholder {
-    @apply hidden;
+    display: none;
 }

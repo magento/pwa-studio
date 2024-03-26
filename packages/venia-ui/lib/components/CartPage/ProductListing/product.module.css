@@ -20,7 +20,11 @@
 .errorText {
     composes: leading-normal from global;
     composes: text-error from global;
-    composes: empty_hidden from global;
+}
+
+/* TODO @TW: cannot compose */
+.errorText:empty {
+    display: none;
 }
 
 .imageContainer {
@@ -49,7 +53,7 @@
     composes: sm_grid from global;
 }
 
-@media screen(sm) {
+@media (min-width: 640px) {
     .details {
         grid-area: details;
         grid-template-areas:
@@ -110,8 +114,11 @@
     composes: text-error from global;
     composes: text-sm from global;
     grid-area: stock;
+}
 
-    composes: empty_hidden from global;
+/* TODO @TW: cannot compose */
+.stockStatusMessage:empty {
+    display: none;
 }
 
 .addToListButton {
@@ -130,7 +137,7 @@
     composes: hidden from global;
 }
 
-@media screen(-sm) {
+@media (max-width: 639px) {
     .name,
     .options,
     .price,

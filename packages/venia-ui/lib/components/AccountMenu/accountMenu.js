@@ -31,9 +31,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
-    const rootClass = accountMenuIsOpen
-        ? classes.root_open
-        : classes.root_closed;
+    const rootClass = accountMenuIsOpen ? classes.root_open : classes.root;
     const contentsClass = accountMenuIsOpen
         ? classes.contents_open
         : classes.contents;
@@ -101,7 +99,6 @@ export default AccountMenu;
 AccountMenu.propTypes = {
     classes: shape({
         root: string,
-        root_closed: string,
         root_open: string,
         link: string,
         contents_open: string,

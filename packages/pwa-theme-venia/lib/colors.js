@@ -79,20 +79,4 @@ const getPropertyValueFunction = property => {
     };
 };
 
-const hexToRgb = color => {
-    if (color.indexOf('#') !== 0) {
-        return color;
-    }
-
-    return color
-        .match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i)
-        .map(value => {
-            return parseInt(value, 16);
-        })
-        .filter(value => {
-            return !isNaN(value);
-        })
-        .join(' ');
-};
-
-module.exports = { declareColors, getColors, hexToRgb };
+module.exports = { declareColors, getColors };
