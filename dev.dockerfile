@@ -30,7 +30,7 @@ RUN yarn install --frozen-lockfile
 RUN yarn run build
 
 # MULTI-STAGE BUILD
-FROM node:14.18.1-alpine
+FROM node:18-alpine
 # working directory
 WORKDIR /usr/src/app
 # node:alpine comes with a configured user and group
