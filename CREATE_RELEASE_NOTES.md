@@ -14,6 +14,7 @@ Here are the steps you need to follow to create PWA Studio release notes. :
 
 **PART 2: Docs repo tasks** (`AdobeDocs/commerce-pwa-studio`):
 
+
 1. Clone the `AdobeDocs/commerce-pwa-studio` repo.
 2. Create a `release` branch from `main`.
 3. Replace auto-generated docs.
