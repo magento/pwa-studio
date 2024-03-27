@@ -2,7 +2,7 @@
 # This file is intended to be used with ./docker-compose.yml #
 ##############################################################
 
-FROM node:14.18.1-alpine as build
+FROM node:18-alpine as build
 # working directory
 WORKDIR /usr/src/app
 
