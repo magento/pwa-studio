@@ -1,6 +1,5 @@
 import { createHttpLink } from '@apollo/client';
 
-import createAuthLink from '@magento/peregrine/lib/Apollo/links/authLink';
 import createErrorLink from '@magento/peregrine/lib/Apollo/links/errorLink';
 import createGqlCacheLink from '@magento/peregrine/lib/Apollo/links/gqlCacheLink';
 import createMutationQueueLink from '@magento/peregrine/lib/Apollo/links/mutationQueueLink';
@@ -32,7 +31,6 @@ export const customFetchToShrinkQuery = (uri, options) => {
 };
 
 const getLinks = apiBase => {
-    const authLink = createAuthLink();
     const storeLink = createStoreLink();
     const errorLink = createErrorLink();
     const retryLink = createRetryLink();
@@ -54,7 +52,6 @@ const getLinks = apiBase => {
     const links = new Map()
         .set('MUTATION_QUEUE', mutationQueueLink)
         .set('RETRY', retryLink)
-        .set('AUTH', authLink)
         .set('GQL_CACHE', gqlCacheLink)
         .set('STORE', storeLink)
         .set('ERROR', errorLink)
