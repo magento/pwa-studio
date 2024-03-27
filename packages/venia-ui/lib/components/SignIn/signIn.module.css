@@ -25,13 +25,19 @@
     composes: h-full from global;
     composes: text-center from global;
     composes: w-full from global;
-    composes: invisible from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
 }
 
 .modal_active {
     composes: modal;
     composes: opacity-90 from global;
-    @apply visible;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
 }
 
 .buttonsContainer {

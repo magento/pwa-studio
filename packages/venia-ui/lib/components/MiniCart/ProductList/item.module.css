@@ -15,7 +15,7 @@
 .root_disabled {
     composes: root;
 
-    @apply opacity-50;
+    composes: opacity-50 from global;
 }
 
 .thumbnailContainer {

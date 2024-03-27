@@ -33,7 +33,7 @@
     "react-refresh": "~0.8.3"
   },
   "engines": {
-    "node": ">=14.x",
+    "node": ">=18.x",
     "yarn": ">=1.12.0"
   }
 }

@@ -49,7 +49,7 @@
     "redux-actions": "~2.6.5"
   },
   "engines": {
-    "node": ">=14.x",
+    "node": ">=18.x",
     "yarn": ">=1.12.0"
   },
   "pwa-studio": {

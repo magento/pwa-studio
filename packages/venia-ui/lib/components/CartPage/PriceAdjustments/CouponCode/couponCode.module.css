@@ -7,7 +7,7 @@
 }
 
 /* on mobile... */
-@media screen(-lg) {
+@media (max-width: 959px) {
     .entryForm,
     .entryFormError {
         /* switch to rows. */
@@ -16,17 +16,24 @@
     }
 }
 
+/* TODO @TW: cannot compose */
 .entryFormError input {
-    @apply border-error;
+    /* composes: border-error from global; */
+    border-color: rgb(var(--venia-global-color-red-400));
 }
 
+/* TODO @TW: cannot compose */
 .entryFormError input:focus {
-    @apply border-inputFocus;
+    /* composes: border-gray-600 from global; */
+    border-color: rgb(var(--venia-global-color-gray-600));
 }
 
+/* TODO @TW: cannot compose */
 .entryFormError p {
-    @apply text-error;
-    @apply font-semibold;
+    /* composes: text-error from global; */
+    color: rgb(var(--venia-global-color-error));
+    /* composes: font-semibold from global; */
+    font-weight: 600;
 }
 
 .errorContainer {

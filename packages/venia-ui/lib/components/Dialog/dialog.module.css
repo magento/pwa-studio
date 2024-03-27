@@ -11,10 +11,13 @@
     composes: top-0 from global;
     composes: w-full from global;
     composes: z-dialog from global;
-    composes: invisible from global;
     transform: translate3d(-50%, 0, 0);
     transition: opacity 192ms var(--venia-global-anim-out),
         visibility 192ms var(--venia-global-anim-out), left 0s 192ms;
+
+    /* TODO @TW: review (B6) */
+    /* composes: invisible from global; */
+    visibility: hidden;
 
     composes: lg_right-auto from global;
 }
@@ -22,11 +25,14 @@
 .root_open {
     composes: root;
 
-    @apply left-auto;
-    @apply opacity-100;
-    @apply visible;
+    composes: left-auto from global;
+    composes: opacity-100 from global;
 
-    @apply lg_left-1/2;
+    composes: lg_left-1/2 from global;
+
+    /* TODO @TW: review (B6) */
+    /* composes: visible from global; */
+    visibility: visible;
 
     /* It animates to being open. */
     transition: opacity 224ms var(--venia-global-anim-in),
@@ -110,7 +116,7 @@
 .headerText {
     composes: capitalize from global;
     composes: leading-tight from global;
-    composes: text-ellipsis from global;
+    composes: overflow-ellipsis from global;
     composes: overflow-hidden from global;
     composes: text-subtle from global;
     composes: whitespace-nowrap from global;
@@ -167,7 +173,7 @@
  * dialogs slide out from the right.
  */
 
-@media screen(-lg) {
+@media (max-width: 959px) {
     .root {
         /* The Dialog starts off-screen on the right. */
         transform: translate3d(100%, 0, 0);

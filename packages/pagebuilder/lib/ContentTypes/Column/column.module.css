@@ -3,7 +3,7 @@
 
 @media only screen and (max-width: 768px) {
     .root {
-        @apply !bg-scroll;
-        @apply basis-full;
+        background-attachment: scroll !important;
+        flex-basis: 100%;
     }
 }

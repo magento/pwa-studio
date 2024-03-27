@@ -26,10 +26,14 @@
 
 .price {
     composes: font-semibold from global;
+}
 
-    composes: empty_bg-subtle from global;
-    composes: empty_w-16 from global;
-    composes: empty_min-h-4 from global;
+/* TODO @TW: cannot compose */
+.price:empty {
+    /* composes: bg-subtle from global; */
+    background-color: rgb(var(--venia-global-color-gray));
+    min-height: 1rem;
+    width: 4rem;
 }
 
 .optionTitle {
@@ -44,7 +48,7 @@
 .dialogHeaderText {
     composes: headerText from '../Dialog/dialog.module.css';
 
-    @apply overflow-visible;
+    composes: overflow-visible from global;
 }
 
 .titleContainer {

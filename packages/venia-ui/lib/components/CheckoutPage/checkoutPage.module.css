@@ -8,19 +8,21 @@
     composes: lg_px-lg from global;
 }
 
+/* prettier-ignore */
 .checkoutContent {
     composes: gap-xs from global;
     composes: grid from global;
     composes: grid-cols-1 from global;
 
     composes: lg_gap-md from global;
-    composes: lg_grid-cols-[2fr_1fr] from global;
+    /* TODO @TW: review (B7) */
+    composes: lg_grid-cols-[2fr,1fr] from global;
 }
 
 .checkoutContent_hidden {
     composes: checkoutContent;
 
-    @apply hidden;
+    composes: hidden from global;
 }
 
 .heading_container {
@@ -37,7 +39,7 @@
 .cartLink {
     composes: root from '../LinkButton/linkButton.module.css';
 
-    @apply text-inherit;
+    composes: text-inherit from global;
 }
 
 .stepper_heading {
@@ -58,10 +60,10 @@
 
 .payment_information_heading {
     composes: stepper_heading;
-    @apply border-b-0;
+    composes: border-b-0 from global;
 
     /* On mobile, order summary has a top border, so avoid doubling up. */
-    @apply lg_border-b;
+    composes: lg_border-b from global;
 }
 
 .signInContainer {
@@ -75,7 +77,7 @@
     composes: justify-items-center from global;
     composes: mb-xs from global;
     composes: p-xs from global;
-    composes: rounded-box from global;
+    composes: rounded-md from global;
     composes: row-start-1 from global;
 
     composes: lg_grid-flow-col from global;
@@ -90,10 +92,10 @@
 .signInButton {
     composes: root_normalPriority from '../Button/button.module.css';
 
-    @apply min-h-auto;
-    @apply min-w-auto;
-    @apply px-md;
-    @apply py-1;
+    composes: min-h-auto from global;
+    composes: min-w-auto from global;
+    composes: px-md from global;
+    composes: py-1 from global;
 }
 
 .empty_cart_container {
@@ -131,7 +133,7 @@
     composes: lg_top-[6rem] from global;
 }
 
-@media screen(lg) {
+@media (min-width: 960px) {
     .summaryContainer {
         grid-column: 2 / span 1;
         grid-row: 2 / span 3;

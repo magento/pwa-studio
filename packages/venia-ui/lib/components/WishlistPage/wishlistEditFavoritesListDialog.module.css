@@ -5,7 +5,7 @@
 .cancelButton {
     composes: root_lowPriority from '../Button/button.module.css';
 
-    @apply min-w-[9rem];
+    composes: min-w-[9rem] from global;
 }
 
 .confirmButton {
