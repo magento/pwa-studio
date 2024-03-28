@@ -235,9 +235,9 @@ test('it renders shipped status', () => {
     });
 
     const orderWithInvoice = {
-        ...mockOrder,
-        invoices: [1]
+        ...mockOrder
     };
+
     const tree = createTestInstance(<OrderRow order={orderWithInvoice} />);
     const { root } = tree;
     const orderProgressProps = root.findByProps({
@@ -266,6 +266,49 @@ test('it renders delivered status', () => {
     }).props;
 
     expect(orderProgressProps.status).toBe('Delivered');
+});
+
+test('it renders step2 status', () => {
+    useOrderRow.mockReturnValue({
+        loading: false,
+        imagesData,
+        isOpen: false,
+        handleContentToggle: jest.fn()
+    });
+
+    const closedOrder = {
+        ...mockOrder,
+        status: 'Pending',
+        shipments: []
+    };
+    const tree = createTestInstance(<OrderRow order={closedOrder} />);
+    const { root } = tree;
+    const orderProgressProps = root.findByProps({
+        componentName: 'OrderProgressBar'
+    }).props;
+    expect(orderProgressProps.status).toBe('Step2');
+});
+
+test('it renders processing status', () => {
+    useOrderRow.mockReturnValue({
+        loading: false,
+        imagesData,
+        isOpen: false,
+        handleContentToggle: jest.fn()
+    });
+
+    const closedOrder = {
+        ...mockOrder,
+        status: 'Pending',
+        shipments: [],
+        invoices: []
+    };
+    const tree = createTestInstance(<OrderRow order={closedOrder} />);
+    const { root } = tree;
+    const orderProgressProps = root.findByProps({
+        componentName: 'OrderProgressBar'
+    }).props;
+    expect(orderProgressProps.status).toBe('Step1');
 });
 
 test('it renders with missing order information', () => {

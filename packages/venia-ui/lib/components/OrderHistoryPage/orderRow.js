@@ -14,19 +14,19 @@ import defaultClasses from './orderRow.module.css';
 
 const OrderRow = props => {
     const { order } = props;
-    const { formatMessage } = useIntl();
     const {
-        invoices,
         items,
         number: orderNumber,
         order_date: orderDate,
-        shipments,
         status,
+        state,
         total
     } = order;
     const { grand_total: grandTotal } = total;
     const { currency, value: orderTotal } = grandTotal;
-
+    const { formatMessage } = useIntl();
+    let derivedStatus;
+    let derivedProgress;
     // Convert date to ISO-8601 format so Safari can also parse it
     const isoFormattedDate = orderDate.replace(' ', 'T');
     const formattedDate = new Date(isoFormattedDate).toLocaleDateString(
@@ -37,31 +37,9 @@ const OrderRow = props => {
             day: 'numeric'
         }
     );
-
-    const hasInvoice = !!invoices.length;
-    const hasShipment = !!shipments.length;
-    let derivedStatus;
-    if (status === 'Complete') {
-        derivedStatus = formatMessage({
-            id: 'orderRow.deliveredText',
-            defaultMessage: 'Delivered'
-        });
-    } else if (hasShipment) {
-        derivedStatus = formatMessage({
-            id: 'orderRow.shippedText',
-            defaultMessage: 'Shipped'
-        });
-    } else if (hasInvoice) {
-        derivedStatus = formatMessage({
-            id: 'orderRow.readyToShipText',
-            defaultMessage: 'Ready to ship'
-        });
-    } else {
-        derivedStatus = formatMessage({
-            id: 'orderRow.processingText',
-            defaultMessage: 'Processing'
-        });
-    }
+    
+    derivedStatus = status;
+    derivedProgress = state;
 
     const talonProps = useOrderRow({ items });
     const { loading, isOpen, handleContentToggle, imagesData } = talonProps;
@@ -88,7 +66,6 @@ const OrderRow = props => {
         ) : (
             '-'
         );
-
     return (
         <li className={classes.root}>
             <div className={classes.orderNumberContainer}>
@@ -125,7 +102,7 @@ const OrderRow = props => {
                 <span className={classes.orderStatusBadge}>
                     {derivedStatus}
                 </span>
-                <OrderProgressBar status={derivedStatus} />
+                <OrderProgressBar status={derivedProgress} />
             </div>
             <button
                 className={classes.contentToggleContainer}
@@ -141,7 +118,6 @@ const OrderRow = props => {
 };
 
 export default OrderRow;
-
 OrderRow.propTypes = {
     classes: shape({
         root: string,
