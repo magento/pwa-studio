@@ -7,16 +7,22 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import { useMutation } from '@apollo/client';
+import { useDispatch } from 'react-redux';
 import gql from 'graphql-tag';
+import { useApolloClient } from '@apollo/client';
 
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import actions from '../store/actions/cart/actions';
 import * as asyncActions from '../store/actions/cart/asyncActions';
+import { createCart, removeCart } from '../store/actions/cart';
 import bindActionCreators from '../util/bindActionCreators';
 import { useEventListener } from '../hooks/useEventListener';
 import BrowserPersistence from '../util/simplePersistence';
 
 const CartContext = createContext();
+
+console.log(createCart,"From the direct file");
+console.log(asyncActions.createCart,"Type 2 export");
 
 const isCartEmpty = cart =>
     !cart || !cart.details.items || cart.details.items.length === 0;
@@ -26,7 +32,12 @@ const getTotalQuantity = items =>
 
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
+    console.log(cartState,"cartstate");
+    console.log(actions,"actionns");
+    console.log(asyncActions,"Async Actions");
+    const dispatch = useDispatch();
 
+    const apolloClient = useApolloClient();
     // Make deeply nested details easier to retrieve and provide empty defaults
     const derivedDetails = useMemo(() => {
         if (isCartEmpty(cartState)) {
@@ -52,15 +63,66 @@ const CartContextProvider = props => {
         [actions, asyncActions]
     );
 
+
+    // const resetCart = () => {
+    
+    
+    //     actions.reset();
+    //         // if there isn't a cart, create one then retry this operation
+    //             try {
+    //                  dispatch(
+    //                     createCart({
+    //                         fetchCartId
+    //                     })
+    //                 );
+    //             } catch (error) {
+    //                 console.log(error);
+    //                 // If creating a cart fails, all is not lost. Return so that the
+    //                 // user can continue to at least browse the site.
+    //                 return;
+    //             }
+    //             //return thunk(...arguments);
+          
+    //     }
+    
+
+    const resetCart = async () => {
+        
+        console.log("Resetting cart... in cart.js");
+        // actions.reset();
+
+            // Clear all cart/customer data from cache and redux.
+            await apolloClient.clearCacheData(apolloClient, 'cart');
+            await apolloClient.clearCacheData(apolloClient, 'customer');
+            await removeCart();
+
+
+            //here also creating cart id
+            
+            // Create and get the customer's cart id.
+            await createCart({
+                fetchCartId
+            });
+        //await dispatch(cartApi.removeCart());
+
+   };
+
+
+
+
+
+
+
     const contextValue = useMemo(() => {
         const derivedCartState = {
             ...cartState,
             isEmpty: isCartEmpty(cartState),
-            derivedDetails
+            derivedDetails,
+            resetCart
         };
 
         return [derivedCartState, cartApi];
-    }, [cartApi, cartState, derivedDetails]);
+    }, [cartApi, cartState, derivedDetails,resetCart]);
 
     const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
@@ -82,7 +144,7 @@ const CartContextProvider = props => {
         cartApi.getCartDetails({
             fetchCartId,
             fetchCartDetails
-        });
+        }); 
     }, [cartApi, fetchCartDetails, fetchCartId]);
 
     return (

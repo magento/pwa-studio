@@ -1,8 +1,14 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useIntl } from 'react-intl';
+import gql from 'graphql-tag';
+import { useDispatch } from 'react-redux';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import {createCart} from '../../store/actions/cart/asyncActions'
+//store/actions/cart/asyncActions';
+
+
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
@@ -245,6 +251,7 @@ export const useProductFullDetail = props => {
         product
     } = props;
 
+
     const [, { dispatch }] = useEventingContext();
 
     const hasDeprecatedOperationProp = !!(
@@ -257,7 +264,7 @@ export const useProductFullDetail = props => {
 
     const isSupportedProductType = isSupported(productType);
 
-    const [{ cartId }] = useCartContext();
+    const [{ cartId,resetCart }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
     const { formatMessage } = useIntl();
 
@@ -571,11 +578,33 @@ export const useProductFullDetail = props => {
         ]
     );
 
+    // console.log(createCart,"create cart function");
+    // const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
+
+    // const resetCart = async () => {
+        
+    //     console.log("Resetting cart...");
+    //     //actions.reset();
+        
+    //     await dispatch(createCart(fetchCartId));
+
+    //     //await dispatch(asyncActions.createCart({ fetchCartId }));
+    // }
+
+    console.log(derivedErrorMessage);
+    if (derivedErrorMessage.includes('Could not find a cart with ID')){
+        dispatch(resetCart())
+        console.log("coming to here");
+        //console.log(fetchCartId);
+        //const [{ cartId }] = useCartContext();
+        //console.log(cartId);
+    }
+
     const wishlistItemOptions = useMemo(() => {
         const options = {
             quantity: 1,
             sku: product.sku
-        };
+        };   
 
         if (productType === 'ConfigurableProduct') {
             options.selected_options = selectedOptionsArray;
@@ -626,3 +655,10 @@ export const useProductFullDetail = props => {
         wishlistItemOptions
     };
 };
+
+
+const CREATE_CART_MUTATION = gql`
+    mutation createCart {
+        cartId: createEmptyCart
+    }
+`;
