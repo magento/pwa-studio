@@ -13,5 +13,5 @@
 .root_active {
     composes: root;
 
-    composes: border-currentColor from global;
+    @apply border-currentColor;
 }

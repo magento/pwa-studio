@@ -44,7 +44,7 @@
 
     composes: border-b-4 from global;
     composes: border-solid from global;
-    composes: border-info from global;
+    @apply border-info;
 }
 
 .infoToast > .icon {
@@ -56,7 +56,7 @@
 
     composes: border-b-4 from global;
     composes: border-solid from global;
-    composes: border-warning from global;
+    @apply border-warning;
 }
 
 .warningToast > .icon {
@@ -68,7 +68,7 @@
 
     composes: border-b-4 from global;
     composes: border-solid from global;
-    composes: border-error from global;
+    @apply border-error;
 }
 
 .errorToast > .icon {
@@ -80,7 +80,7 @@
 
     composes: border-b-4 from global;
     composes: border-solid from global;
-    composes: border-success from global;
+    @apply border-success;
 }
 
 .successToast > .icon {

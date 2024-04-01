@@ -16,10 +16,8 @@
     composes: pt-xs from global;
 }
 
-/* TODO @TW: cannot compose */
 .payment_method:last-of-type {
-    /* composes: border-b-0 from global; */
-    border-bottom-width: 0;
+    @apply border-b-0;
 }
 
 .radio_label {

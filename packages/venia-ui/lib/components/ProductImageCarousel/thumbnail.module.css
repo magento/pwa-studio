@@ -35,7 +35,7 @@
 }
 
 /* For desktop mode where buttons are an image... */
-@media (min-width: 960px) {
+@media screen(lg) {
     .rootSelected {
         composes: root;
 
