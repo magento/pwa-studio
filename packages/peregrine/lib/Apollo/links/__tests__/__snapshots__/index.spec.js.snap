@@ -8,5 +8,5 @@ Map {
   "STORE" => "store",
   "ERROR" => "error",
   "HTTP" => "http",
-}
+} 
 `;
