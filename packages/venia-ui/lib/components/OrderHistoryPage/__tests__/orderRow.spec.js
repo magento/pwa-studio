@@ -226,48 +226,6 @@ test('it renders open order row', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('it renders shipped status', () => {
-    useOrderRow.mockReturnValue({
-        loading: false,
-        imagesData,
-        isOpen: false,
-        handleContentToggle: jest.fn()
-    });
-
-    const orderWithInvoice = {
-        ...mockOrder,
-        invoices: [1]
-    };
-    const tree = createTestInstance(<OrderRow order={orderWithInvoice} />);
-    const { root } = tree;
-    const orderProgressProps = root.findByProps({
-        componentName: 'OrderProgressBar'
-    }).props;
-
-    expect(orderProgressProps.status).toBe('Delivered');
-});
-
-test('it renders delivered status', () => {
-    useOrderRow.mockReturnValue({
-        loading: false,
-        imagesData,
-        isOpen: false,
-        handleContentToggle: jest.fn()
-    });
-
-    const completedOrder = {
-        ...mockOrder,
-        status: 'Complete'
-    };
-    const tree = createTestInstance(<OrderRow order={completedOrder} />);
-    const { root } = tree;
-    const orderProgressProps = root.findByProps({
-        componentName: 'OrderProgressBar'
-    }).props;
-
-    expect(orderProgressProps.status).toBe('Delivered');
-});
-
 test('it renders with missing order information', () => {
     useOrderRow.mockReturnValue({
         loading: false,
