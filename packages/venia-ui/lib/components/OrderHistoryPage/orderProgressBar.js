@@ -32,7 +32,7 @@ const OrderProgressBar = props => {
             }),
             3
         ],
-         [
+        [
             formatMessage({
                 id: 'orderProgressBar.paymentReviewText',
                 defaultMessage: 'payment_review'
