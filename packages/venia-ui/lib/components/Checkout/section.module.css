@@ -35,7 +35,7 @@
     composes: justify-self-stretch from global;
     composes: leading-normal from global;
     composes: overflow-hidden from global;
-    composes: overflow-ellipsis from global;
+    composes: text-ellipsis from global;
     composes: text-sm from global;
     composes: whitespace-nowrap from global;
 }

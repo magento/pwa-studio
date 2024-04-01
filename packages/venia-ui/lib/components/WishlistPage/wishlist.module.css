@@ -5,7 +5,7 @@
     composes: gap-y-md from global;
     composes: grid from global;
     composes: p-sm from global;
-    composes: rounded-md from global;
+    composes: rounded-box from global;
 
     composes: md_p-md from global;
 }
@@ -20,7 +20,7 @@
     composes: md_gap-y-2xs from global;
 }
 
-@media (max-width: 799px) {
+@media screen(-md) {
     .header {
         grid-template-rows: 1fr 1fr;
     }
@@ -69,8 +69,8 @@
 .loadMore {
     composes: root_lowPriority from '../Button/button.module.css';
 
-    composes: block from global;
-    composes: min-w-[20rem] from global;
+    @apply block;
+    @apply min-w-[20rem];
     composes: mx-auto from global;
     composes: my-md from global;
 }

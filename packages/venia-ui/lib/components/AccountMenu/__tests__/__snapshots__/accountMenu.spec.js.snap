@@ -61,7 +61,7 @@ exports[`it renders create account component when the view is CREATE_ACCOUNT 1`]
 
 exports[`it renders empty aside element when accountMenuIsOpen is false 1`] = `
 <aside
-  className="root"
+  className="root_closed"
 >
   <div
     className="contents"

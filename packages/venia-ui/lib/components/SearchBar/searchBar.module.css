@@ -7,19 +7,14 @@
     composes: py-0 from global;
     composes: w-full from global;
 
-    /* TODO @TW: review (B6) */
-    /* composes: hidden from global; */
-    display: none;
+    @apply hidden;
 }
 
 .root_open {
     composes: root;
 
     composes: z-dropdown from global;
-
-    /* TODO @TW: review (B6) */
-    /* composes: grid from global; */
-    display: grid;
+    @apply grid;
 }
 
 .form {

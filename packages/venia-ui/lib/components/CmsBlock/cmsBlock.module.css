@@ -2,18 +2,16 @@
     composes: m-xs from global;
 }
 
-/* TODO @TW: cannot compose */
 .content h2 {
-    margin-bottom: 2rem;
-    text-align: center;
-    text-transform: uppercase;
+    @apply mb-8;
+    @apply text-center;
+    @apply uppercase;
 }
 
-/* TODO @TW: cannot compose */
 .content img {
-    display: block;
-    height: auto;
-    max-height: 100%;
-    max-width: 100%;
-    width: auto;
+    @apply block;
+    @apply h-auto;
+    @apply w-auto;
+    @apply max-h-full;
+    @apply max-w-full;
 }

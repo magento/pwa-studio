@@ -2,10 +2,10 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import store from './store';
+import './index.css';
 import app from '@magento/peregrine/lib/store/actions/app';
 import Adapter from '@magento/venia-ui/lib/components/Adapter';
 import { registerSW } from './registerSW';
-import './index.css';
 
 // server rendering differs from browser rendering
 const isServer = !globalThis.document;
