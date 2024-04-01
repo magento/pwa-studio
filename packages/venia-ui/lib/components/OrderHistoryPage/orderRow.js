@@ -36,8 +36,8 @@ const OrderRow = props => {
         }
     );
 
-    derivedStatus = status;
-    derivedProgress = state;
+    const derivedStatus = status;
+    const derivedProgress = state;
 
     const talonProps = useOrderRow({ items });
     const { loading, isOpen, handleContentToggle, imagesData } = talonProps;
