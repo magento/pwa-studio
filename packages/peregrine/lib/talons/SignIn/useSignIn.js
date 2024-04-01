@@ -68,6 +68,7 @@ export const useSignIn = props => {
         async ({ email, password }) => {
             setIsSigningIn(true);
             handleTriggerClick();
+
             try {
                 // Get source cart id (guest cart id).
                 const sourceCartId = cartId;
@@ -159,13 +160,14 @@ export const useSignIn = props => {
         showForgotPassword();
     }, [setDefaultUsername, showForgotPassword]);
 
-    const forgotPasswordHandleEnterKeyPress = useCallback(() => {
+    const forgotPasswordHandleEnterKeyPress = useCallback(
         event => {
             if (event.key === 'Enter') {
                 handleForgotPassword();
             }
-        };
-    }, [handleForgotPassword]);
+        },
+        [handleForgotPassword]
+    );
 
     const handleCreateAccount = useCallback(() => {
         const { current: formApi } = formApiRef;
@@ -177,21 +179,23 @@ export const useSignIn = props => {
         showCreateAccount();
     }, [setDefaultUsername, showCreateAccount]);
 
-    const handleEnterKeyPress = useCallback(() => {
+    const handleEnterKeyPress = useCallback(
         event => {
             if (event.key === 'Enter') {
                 handleCreateAccount();
             }
-        };
-    }, [handleCreateAccount]);
+        },
+        [handleCreateAccount]
+    );
 
-    const signinHandleEnterKeyPress = useCallback(() => {
+    const signinHandleEnterKeyPress = useCallback(
         event => {
             if (event.key === 'Enter') {
                 handleSubmit();
             }
-        };
-    }, [handleSubmit]);
+        },
+        [handleSubmit]
+    );
 
     const errors = useMemo(
         () =>

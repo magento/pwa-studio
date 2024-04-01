@@ -119,11 +119,10 @@ exports[`it does not render order details if loading is true 1`] = `
     <span
       className="orderStatusBadge"
     >
-      Delivered
+      Complete
     </span>
     <div
       componentName="OrderProgressBar"
-      status="Delivered"
     />
   </div>
   <button
@@ -278,11 +277,10 @@ exports[`it renders collapsed order row 1`] = `
     <span
       className="orderStatusBadge"
     >
-      Delivered
+      Complete
     </span>
     <div
       componentName="OrderProgressBar"
-      status="Delivered"
     />
   </div>
   <button
@@ -565,11 +563,10 @@ exports[`it renders open order row 1`] = `
     <span
       className="orderStatusBadge"
     >
-      Delivered
+      Complete
     </span>
     <div
       componentName="OrderProgressBar"
-      status="Delivered"
     />
   </div>
   <button
@@ -862,11 +859,10 @@ exports[`it renders with missing order information 1`] = `
     <span
       className="orderStatusBadge"
     >
-      Shipped
+      Received
     </span>
     <div
       componentName="OrderProgressBar"
-      status="Shipped"
     />
   </div>
   <button
