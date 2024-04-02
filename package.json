@@ -21,6 +21,7 @@
   "bugs": {
     "url": "https://github.com/magento/pwa-studio/issues"
   },
+  
   "scripts": {
     "build": "yarn venia run build",
     "build:dev": "yarn venia run build:dev",
