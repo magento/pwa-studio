@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-language-packs",
-  "version": "0.0.15",
+  "version": "0.0.15-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -13,7 +13,7 @@
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
     "@magento/pwa-buildpack": "~11.4.3",
-    "@magento/venia-ui": "~10.3.0"
+    "@magento/venia-ui": "11.3.0-alpha.5"
   },
   "pwa-studio": {
     "targets": {
