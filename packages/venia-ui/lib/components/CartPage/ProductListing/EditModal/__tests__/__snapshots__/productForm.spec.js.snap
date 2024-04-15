@@ -325,7 +325,6 @@ https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/produc
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
-              onKeyUp={[Function]}
               onMouseDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
@@ -351,7 +350,6 @@ https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/produc
               onClick={[Function]}
               onDragStart={[Function]}
               onKeyDown={[Function]}
-              onKeyUp={[Function]}
               onMouseDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
@@ -695,7 +693,6 @@ https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/produc
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
-              onKeyUp={[Function]}
               onMouseDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
@@ -721,7 +718,6 @@ https://master-7rqtwti-c5v7sxvquxwl4.eu-4.magentosite.cloud/media/catalog/produc
               onClick={[Function]}
               onDragStart={[Function]}
               onKeyDown={[Function]}
-              onKeyUp={[Function]}
               onMouseDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
@@ -834,7 +830,6 @@ exports[`renders loading indicator while options are being fetched 1`] = `
               disabled={true}
               onDragStart={[Function]}
               onKeyDown={[Function]}
-              onKeyUp={[Function]}
               onMouseDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
@@ -860,7 +855,6 @@ exports[`renders loading indicator while options are being fetched 1`] = `
               onClick={[Function]}
               onDragStart={[Function]}
               onKeyDown={[Function]}
-              onKeyUp={[Function]}
               onMouseDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}

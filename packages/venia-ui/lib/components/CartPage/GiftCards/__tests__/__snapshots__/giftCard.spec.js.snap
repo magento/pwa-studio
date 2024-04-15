@@ -30,7 +30,6 @@ Array [
     onClick={[MockFunction]}
     onDragStart={[Function]}
     onKeyDown={[Function]}
-    onKeyUp={[Function]}
     onMouseDown={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -81,7 +80,6 @@ Array [
     onClick={[MockFunction]}
     onDragStart={[Function]}
     onKeyDown={[Function]}
-    onKeyUp={[Function]}
     onMouseDown={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
