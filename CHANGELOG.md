@@ -18,7 +18,7 @@ The 14.0.0 release of PWA Studio provides customers with many accessibility impr
 -  Bug: [4207][] — yarn install broken after #4191
 -  Bug: [4235][] — Search products by category from searchBar is working according to searched text.
 -  Bug: [4180][] - Layered navigation Options are not visible when no results are available
--  Bug: [4168][] — Thumbnail Images are getting are now not hidden due to PR
+-  Bug: [4194][] — Thumbnail Images are getting are now not hidden due to PR
 -  Bug: [4221][] — Broken Sign-in following 13.3.0 is fixed
 -  Bug: [48][] — Exception causes error on PWA build  is resolved
 -  Bug: [4221][] — mergeCarts GraphQl Error is resolved
@@ -111,7 +111,7 @@ Your project may not depend on some packages listed in this table.
 [4207]: https://github.com/magento/pwa-studio/pull/4207
 [4235]: https://github.com/magento/pwa-studio/pull/4235
 [4180]: https://github.com/magento/pwa-studio/pull/4180
-[4168]: https://github.com/magento/pwa-studio/pull/4168
+[4194]: https://github.com/magento/pwa-studio/pull/4194
 [4221]: https://github.com/magento/pwa-studio/pull/4221
 [48]: https://github.com/magento-commerce/magento2-pwa/pull/48
 [4210]: https://github.com/magento/pwa-studio/pull/4210
