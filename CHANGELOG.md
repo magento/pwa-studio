@@ -1,41 +1,41 @@
-# PWA Studio Release 13.3.0
+# PWA Studio Release 14.0.0
 
 **NOTE:**
-_This changelog only contains release notes for PWA Studio and Venia 13.3.0_
+_This changelog only contains release notes for PWA Studio and Venia 14.0.0_
 _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
-The 13.3.0 release of PWA Studio provides customers with many accessibility improvements for keyboard and screen-reader access, as well as several bug fixes. Full details are described below.
+The 14.0.0 release of PWA Studio provides customers with many accessibility improvements for keyboard and screen-reader access, as well as several bug fixes. Full details are described below.
 
 ## Accessibility Updates
 
--  Bug: [4172][] — Reading wrong quantity into sub-folder of My account even when havnig atleast 1 item or more or zero has been fixed.
--  Bug: [4131][] — Once the account is created and the logged in users are announced as "Hi <username>" and the moment you press tab it highlight the area and announces as "Toggle my account menu button expanded"
+-  Bug: [4195][] — Only one folder should be remained open when navigating the control from profile to minicart or viceversa
 
 ## Additional fixes
 
--  Story: [4173][] — Price filter is now showing currency symbol
--  Story: [4090][] — Added additional user_errors parameter for cart addition and show error message if reported by Adobe Commerce.
--  Bug: [43][] — EAV attribute option loading Performance Issue resolved
--  Bug: [4124][] — Region is required in PWA even if this option is disabled in Magento has been fixed
--  Bug: [41][] - System is able to navigate to layered URL based on search term
--  Bug: [4168][] — System is able to navigate to layered URL based on search term
--  Bug: [4133][] — User is able to access category/subcategory pages even while active search
--  Bug: [4174][] — Error has been fixed on shipping address page to complete checkout for guest and registered user
--  Bug: [4143][] — Duplicate Queries were fired multiple times at time of load of page but after fix applied it is resolved
--  Bug: [40][] — User is able see checkmo option when checkmo checkout configuration is done for selceted country
--  Bug: [32][] - The system was thowing error with prex extension while adding the product to cart but after user can add product without any error with or without prex extension.
--  Bug: [113][] — The system was thowing error with prex extension while adding the product to cart but after user can add product without any error with or without prex extension.
--  Bug: [4135][] — Error message has been updated acording to action on Edit Item popup while updating unavailable quantity.
--  Bug: [38][] - Total number of iteam quantity is displayed as per configuration selected in backend
--  Bug: [4149][] — Total number of iteam quantity is displayed as per configuration selected in backend
--  Bug: [21][] — Error occurs when Runtime exception is thrown in vendor/magento/module-upward-connector/Model/PageType.php is resolved
--  Bug: [4129][] — Image is rendered on wrong pages when parallax is used on page builder.
+-  Story: [4196][] — Updated Tailwind to V3
+-  Bug: [4207][] — yarn install broken after #4191
+-  Bug: [4235][] — Search products by category from searchBar is working according to searched text.
+-  Bug: [4180][] - Layered navigation Options are not visible when no results are available
+-  Bug: [4194][] — Thumbnail Images are getting are now not hidden due to PR
+-  Bug: [4221][] — Broken Sign-in following 13.3.0 is fixed
+-  Bug: [48][] — Exception causes error on PWA build  is resolved
+-  Bug: [4221][] — mergeCarts GraphQl Error is resolved
+-  Bug: [4210][] - Version updated in extension.
+-  Bug: [22][] — PWA Upward connector throwing exception resolved
+-  Bug: [4229][] — Order statuses are decoupled from the back-end
+-  Bug: [4231][] - Unable to sign-In using TAB/ Mouse Click button from Sign in Page is resolved
+-  Bug: [49][] — PWA metapackages should support PHP8.3
+-  Bug: [28][] — Unable to complile local code with venia-sample data package in local now resolved
+-  Bug: [4183][] — Products not found using URL key is not resolved
+-  Bug: [4240][] — GraphQL cacheable requests always have "Authorization Bearer" header is now changed to only for non cached pages
+-  Bug: [4227][] — Experience platform connector extension missing parent sku is now added
 
-## 13.3.0 Lighthouse scores
 
-With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 13.3.0 release of these pages on desktop and mobile devices.
+## 14.0.0 Lighthouse scores
+
+With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 14.0.0 release of these pages on desktop and mobile devices.
 
 ### Desktop scores
 
@@ -66,7 +66,7 @@ When a user logs out, that user's local storage session persists. As a result, t
 
 ## Upgrading from a previous version
 
-Use the steps outlined in this section to update your [scaffolded project][] from 13.2.0 to 13.3.0.
+Use the steps outlined in this section to update your [scaffolded project][] from 13.3.0 to 14.0.0.
 See [Upgrading versions][] for more information about upgrading between PWA Studio versions.
 
 [scaffolded project]: https://developer.adobe.com/commerce/pwa-studio/tutorials/
@@ -75,7 +75,7 @@ See [Upgrading versions][] for more information about upgrading between PWA Stud
 ### Updated package dependencies
 
 Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
-The following table lists the latest versions of each package as of 13.3.0. The **bolded** versions with an asterisk (*) are the packages that were updated from PWA Studio 13.2.0.
+The following table lists the latest versions of each package as of 14.0.0. The **bolded** versions with an asterisk (*) are the packages that were updated from PWA Studio 13.3.0.
 
 **NOTE:**
 Your project may not depend on some packages listed in this table.
@@ -84,47 +84,45 @@ Your project may not depend on some packages listed in this table.
 
 | Package                                | Latest version |
 |----------------------------------------|----------------|
-| `babel-preset-peregrine`               | **1.2.3***     |
-| `create-pwa`                           | 2.4.5          |
-| `experience-platform-connector`        | 1.0.5          |
-| `upward-security-headers`              | 1.0.14         |
+| `babel-preset-peregrine`               | 1.2.3          |
+| `create-pwa`                           | **2.4.6***     |
+| `experience-platform-connector`        | **1.0.6***     |
+| `upward-security-headers`              | **1.0.15***    |
 | `venia-sample-backends`                | 0.0.10         |
-| `venia-sample-eventing`                | 0.0.6          |
-| `venia-sample-language-packs`          | 0.0.14         |
-| `venia-sample-payments-checkmo`        | 0.0.12         |
-| `pagebuilder`                          | **8.2.1***     |
-| `peregrine`                            | **13.2.1***    |
-| `pwa-buildpack`                        | **11.4.3***    |
-| `pwa-theme-venia`                      | 1.4.0          |
+| `venia-sample-eventing`                | **0.0.7***     |
+| `venia-sample-language-packs`          | **0.0.15***    |
+| `venia-sample-payments-checkmo`        | **0.0.13***    |
+| `pagebuilder`                          | **9.2.1***     |
+| `peregrine`                            | **14.2.1***    |
+| `pwa-buildpack`                        | 11.4.3         |
+| `pwa-theme-venia`                      | **2.4.0***     |
 | `upward-js`                            | 5.3.2          |
 | `upward-spec`                          | 5.2.1          |
-| `venia-concept`                        | **13.3.0***    |
-| `venia-ui`                             | **10.3.0***    |
-| `magento2-pwa`                         | **0.6.1***     |
-| `magento2-pwa-commerce`                | 0.0.3          |
-| `magento-venia-sample-data-modules`    | 0.0.4          |
-| `magento-venia-sample-data-modules-ee` | 0.0.3          |
-| `magento2-upward-connector`            | **2.0.3***     |
-| `upward-php`                           | 2.0.2          |
+| `venia-concept`                        | **14.0.0***    |
+| `venia-ui`                             | **11.3.0***    |
+| `magento2-pwa`                         | **0.7.2***     |
+| `magento2-pwa-commerce`                | **0.0.4***     |
+| `magento-venia-sample-data-modules`    | **0.0.5***     |
+| `magento-venia-sample-data-modules-ee` | **0.0.4***     |
+| `magento2-upward-connector`            | **2.0.4***     |
+| `upward-php`                           | **2.0.3***     |
 
-[4172]: https://github.com/magento/pwa-studio/pull/4172
-[4131]: https://github.com/magento/pwa-studio/pull/4131
-[4173]: https://github.com/magento/pwa-studio/pull/4173
-[4090]: https://github.com/magento/pwa-studio/pull/4090
-[43]: https://github.com/magento-commerce/magento2-pwa/pull/43
-[4124]: https://github.com/magento/pwa-studio/pull/4124
-[41]: https://github.com/magento-commerce/magento2-pwa/pull/41
-[4168]: https://github.com/magento/pwa-studio/pull/4168
-[4133]: https://github.com/magento/pwa-studio/pull/4133
-[4174]: https://github.com/magento/pwa-studio/pull/4174
-[4143]: https://github.com/magento/pwa-studio/pull/4143
-[40]: https://github.com/magento-commerce/magento2-pwa/pull/40
-[21]: https://github.com/magento-commerce/magento2-upward-connector/pull/21
-[4129]: https://github.com/magento/pwa-studio/pull/4129
-[38]: https://github.com/magento-commerce/magento2-pwa/pull/38
-[4149]: https://github.com/magento/pwa-studio/pull/4149
-[4135]: https://github.com/magento/pwa-studio/pull/4135
-[32]: https://github.com/magento-commerce/venia-data-collector/pull/32
-[113]: https://github.com/magento-commerce/venia-product-recommendations/pull/113
+[4196]: https://github.com/magento/pwa-studio/pull/4196
+[4207]: https://github.com/magento/pwa-studio/pull/4207
+[4235]: https://github.com/magento/pwa-studio/pull/4235
+[4180]: https://github.com/magento/pwa-studio/pull/4180
+[4194]: https://github.com/magento/pwa-studio/pull/4194
+[4221]: https://github.com/magento/pwa-studio/pull/4221
+[48]: https://github.com/magento-commerce/magento2-pwa/pull/48
+[49]: https://github.com/magento-commerce/magento2-pwa/pull/49
+[4210]: https://github.com/magento/pwa-studio/pull/4210
+[22]: https://github.com/magento-commerce/magento2-upward-connector/pull/22
+[4229]: https://github.com/magento/pwa-studio/pull/4229
+[4231]: https://github.com/magento/pwa-studio/pull/4231
+[49]: https://github.com/magento-commerce/magento2-pwa/pull/49
+[28]: https://github.com/magento-commerce/venia-sample-data-modules/pull/28
+[4183]: https://github.com/magento/pwa-studio/pull/4183
+[4240]: https://github.com/magento/pwa-studio/pull/4240
+[4227]: https://github.com/magento/pwa-studio/pull/4227
 
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
