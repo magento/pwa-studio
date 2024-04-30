@@ -26,7 +26,7 @@ The 14.0.0 release of PWA Studio provides customers with many accessibility impr
 -  Bug: [22][] — PWA Upward connector throwing exception resolved
 -  Bug: [4229][] — Order statuses are decoupled from the back-end
 -  Bug: [4231][] - Unable to sign-In using TAB/ Mouse Click button from Sign in Page is resolved
--  Bug: [49][] — PWA metapackages should support PHP8.3
+-  Bug: [48][] — PWA metapackages should support PHP8.3
 -  Bug: [28][] — Unable to complile local code with venia-sample data package in local now resolved
 -  Bug: [4183][] — Products not found using URL key is not resolved
 -  Bug: [4240][] — GraphQL cacheable requests always have "Authorization Bearer" header is now changed to only for non cached pages
@@ -118,7 +118,7 @@ Your project may not depend on some packages listed in this table.
 [22]: https://github.com/magento-commerce/magento2-upward-connector/pull/22
 [4229]: https://github.com/magento/pwa-studio/pull/4229
 [4231]: https://github.com/magento/pwa-studio/pull/4231
-[49]: https://github.com/magento/pwa-studio/pull/49
+[49]: https://github.com/magento-commerce/magento2-pwa/pull/49
 [28]: https://github.com/magento-commerce/venia-sample-data-modules/pull/28
 [4183]: https://github.com/magento/pwa-studio/pull/4183
 [4240]: https://github.com/magento/pwa-studio/pull/4240
