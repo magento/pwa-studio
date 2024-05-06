@@ -86,7 +86,9 @@ export const useSignIn = props => {
                 });
 
                 const token = signInResponse.data.generateCustomerToken.token;
-                await setToken(token);
+                const cookie_lifetime =
+                    signInResponse.data.generateCustomerToken.cookie_lifetime;
+                await setToken(token, cookie_lifetime);
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
