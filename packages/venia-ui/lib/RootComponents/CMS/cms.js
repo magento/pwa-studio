@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 
 import CMSPageShimmer from './cms.shimmer';
@@ -12,10 +12,36 @@ import defaultClasses from './cms.module.css';
 
 const CMSPage = props => {
     const { identifier } = props;
-
     const talonProps = useCmsPage({ identifier });
     const { cmsPage, shouldShowLoadingIndicator } = talonProps;
     const classes = useStyle(defaultClasses, props.classes);
+
+    useEffect(() => {
+        // Function to execute inline scripts safely
+        const executeInlineScripts = document => {
+            const scripts = document.getElementsByTagName('script');
+            for (let i = 0; i < scripts.length; i++) {
+                const scriptContent =
+                    scripts[i].textContent || scripts[i].innerText;
+                if (scriptContent) {
+                    try {
+                        // Execute script in a sandboxed environment
+                        const sandbox = {};
+                        const codeToExecute = `(function() { ${scriptContent} })();`;
+                        const executedScript = new Function(
+                            'sandbox',
+                            codeToExecute
+                        );
+                        executedScript(sandbox);
+                    } catch (error) {
+                        console.error('Error executing inline script:', error);
+                    }
+                }
+            }
+        };
+
+        executeInlineScripts(document); // Pass the document or a specific element containing the content
+    }, [shouldShowLoadingIndicator]);
 
     if (shouldShowLoadingIndicator) {
         return <CMSPageShimmer classes={classes} />;
