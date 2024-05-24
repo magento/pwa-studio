@@ -70,7 +70,10 @@ const signInMock = {
     },
     result: {
         data: {
-            generateCustomerToken: { token: authToken, customer_token_lifetime: customerTokenLifetime }
+            generateCustomerToken: {
+                token: authToken,
+                customer_token_lifetime: customerTokenLifetime
+            }
         }
     }
 };
