@@ -61,7 +61,7 @@ const signInVariables = {
     password: 'slurm is the best'
 };
 const authToken = 'auth-token-123';
-const cookieLifetime = 100;
+const customerTokenLifetime = 3600;
 
 const signInMock = {
     request: {
@@ -70,7 +70,7 @@ const signInMock = {
     },
     result: {
         data: {
-            generateCustomerToken: { token: authToken, cookie_lifetime: 100 }
+            generateCustomerToken: { token: authToken, customer_token_lifetime: customerTokenLifetime }
         }
     }
 };
@@ -159,7 +159,7 @@ test('handleSubmit triggers waterfall of operations and actions', async () => {
     await act(() => result.current.handleSubmit(signInVariables));
 
     expect(result.current.isBusy).toBe(true);
-    expect(setToken).toHaveBeenCalledWith(authToken, cookieLifetime);
+    expect(setToken).toHaveBeenCalledWith(authToken, customerTokenLifetime);
     expect(getCartDetails).toHaveBeenCalled();
     expect(getUserDetails).toHaveBeenCalled();
 

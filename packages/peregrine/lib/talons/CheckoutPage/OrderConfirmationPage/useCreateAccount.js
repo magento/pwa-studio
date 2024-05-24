@@ -117,9 +117,13 @@ export const useCreateAccount = props => {
                     ...recaptchaDataForSignIn
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
-                const cookie_lifetime =
-                    signInResponse.data.generateCustomerToken.cookie_lifetime;
-                await setToken(token, cookie_lifetime);
+                const customerTokenLifetime =
+                    signInResponse.data.generateCustomerToken
+                        .customer_token_lifetime;
+
+                await (customerTokenLifetime
+                    ? setToken(token, customerTokenLifetime)
+                    : setToken(token));
 
                 // Clear guest cart from redux.
                 await removeCart();

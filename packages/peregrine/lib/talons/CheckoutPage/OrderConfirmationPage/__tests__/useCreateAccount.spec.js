@@ -78,7 +78,7 @@ const signInVariables = {
     password: '123456'
 };
 const authToken = 'auth-token-123';
-const cookieLifetime = 100;
+const customerTokenLifetime = 3600;
 const signInMock = {
     request: {
         query: defaultOperations.signInMutation,
@@ -88,7 +88,7 @@ const signInMock = {
         data: {
             generateCustomerToken: {
                 token: authToken,
-                cookie_lifetime: cookieLifetime
+                customer_token_lifetime: customerTokenLifetime
             }
         }
     }
@@ -208,7 +208,7 @@ describe('handle submit event', () => {
             await result.current.handleSubmit(formValues);
         });
 
-        expect(mockSetToken).toHaveBeenCalledWith('auth-token-123', 100);
+        expect(mockSetToken).toHaveBeenCalledWith('auth-token-123', 3600);
         expect(createAccount).toHaveBeenCalled();
         expect(mockRemoveCart).toHaveBeenCalled();
         expect(mockCreateCart).toHaveBeenCalledWith({

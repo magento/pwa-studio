@@ -103,7 +103,7 @@ const signInMutationFn = jest.fn().mockReturnValue([
         data: {
             generateCustomerToken: {
                 token: 'customer token',
-                cookie_lifetime: 100
+                customer_token_lifetime: 3600
             }
         }
     }),
@@ -273,12 +273,12 @@ describe('handleSubmit', () => {
 
     test('should signin after account creation', async () => {
         const token = 'customertoken';
-        const cookie_lifetime = 100;
+        const customer_token_lifetime = 3600;
         const signIn = jest.fn().mockReturnValue({
             data: {
                 generateCustomerToken: {
                     token,
-                    cookie_lifetime
+                    customer_token_lifetime
                 }
             }
         });
@@ -301,7 +301,7 @@ describe('handleSubmit', () => {
                 password: defaultFormValues.password
             }
         });
-        expect(setToken).toHaveBeenCalledWith(token, cookie_lifetime);
+        expect(setToken).toHaveBeenCalledWith(token, customer_token_lifetime);
     });
 
     test('should clear cart data from cache', async () => {
