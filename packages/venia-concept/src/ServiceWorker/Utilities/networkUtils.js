@@ -10,9 +10,9 @@
  */
 export const isFastNetwork = () => {
     if (
-        navigator.connection ||
-        (navigator.connection.saveData &&
-            'effectiveType' in navigator.connection)
+        navigator.connection &&
+        navigator.connection.saveData !== undefined &&
+        navigator.connection.effectiveType !== undefined
     ) {
         return navigator.connection.effectiveType === '4g';
     } else {
