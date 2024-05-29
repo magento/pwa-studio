@@ -79,14 +79,16 @@ const Breadcrumbs = props => {
     ) : (
         <span className={classes.currentCategory}>{currentCategory}</span>
     );
-
+    console.log('currentProduct', currentProduct);
+    console.log('currentCategoryPath', currentCategoryPath);
+    console.log('currentCategoryLink', currentCategoryLink);
     const currentProductNode = currentProduct ? (
         <Fragment>
             <span className={classes.divider}>{DELIMITER}</span>
             <span className={classes.text}>{currentProduct}</span>
         </Fragment>
     ) : null;
-
+    console.log('currentProductNode', currentProductNode);
     return (
         <div className={classes.root} aria-live="polite" aria-busy="false">
             <Link className={classes.link} to="/">
