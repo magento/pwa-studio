@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, useMemo, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -31,7 +31,18 @@ const Breadcrumbs = props => {
         normalizedData,
         handleClick
     } = talonProps;
-
+    // console.log('currentCategoryPath', currentCategoryPath);
+    // console.log('currentCategory', currentCategory);
+    const [prevCategoryPath, setOldCategoryPath] = useState(currentCategoryPath);
+    console.log('currentCategoryPath', currentCategoryPath);
+    const oldCategoryPath = useRef(currentCategoryPath);
+    useEffect(() => {
+        oldCategoryPath.current = prevCategoryPath;
+        console.log('oldCategoryPath.current', oldCategoryPath.current);
+        setOldCategoryPath(currentCategoryPath)
+    }, [currentCategoryPath]);
+    // console.log(    'oldCategoryPath.current', oldCategoryPath.current);
+    // console.log(    'currentCategoryPath', currentCategoryPath);
     // For all links generate a fragment like "/ Text"
     const links = useMemo(() => {
         return normalizedData.map(({ text, path }) => {
@@ -68,6 +79,8 @@ const Breadcrumbs = props => {
     // If we have a "currentProduct" it means we're on a PDP so we want the last
     // category text to be a link. If we don't have a "currentProduct" we're on
     // a category page so it should be regular text.
+   //get store old CategoryPath 
+    console.log('oldCategoryPath.current=====', oldCategoryPath.current);
     const currentCategoryLink = currentProduct ? (
         <Link
             className={classes.link}
@@ -77,6 +90,7 @@ const Breadcrumbs = props => {
             {currentCategory}
         </Link>
     ) : (
+       
         <span className={classes.currentCategory}>{currentCategory}</span>
     );
 
