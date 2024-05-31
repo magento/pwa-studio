@@ -7,7 +7,7 @@ import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './breadcrumbs.gql';
 
 // Just incase the data is unsorted, lets sort it.
-const sortCrumbs = (a, b) => a.category_level > b.category_level;
+// const sortCrumbs = (a, b) => a.category_level > b.category_level;
 
 // Generates the path for the category.
 const getPath = (path, suffix) => {
@@ -71,7 +71,7 @@ export const useBreadcrumbs = props => {
                             categoryUrlSuffix
                         )
                     }))
-                    .sort(sortCrumbs)
+                    // .sort(sortCrumbs)
             );
         }
     }, [categoryUrlSuffix, data, loading]);
