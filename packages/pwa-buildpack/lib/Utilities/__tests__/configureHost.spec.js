@@ -227,3 +227,16 @@ test('fails after a timeout if devcert never fulfills', async () => {
     jest.useRealTimers();
     process.stdin.isTTY = oldIsTTY;
 });
+
+test('autogenerate a secure domain with unique hash that is subdomain compliant', async () => {
+    simulate.certCached().packageNameIs('-honk');
+    const { hostname } = await configureHost({
+        dir: FAKE_CWD,
+        addUniqueHash: true
+    });
+
+    /**
+     * /path/to/fake/cwd -> MD5 -> base64 -> regex = "uqom-" (dash at end is non-compliant)
+     */
+    expect(hostname).toMatchInlineSnapshot(`"honk-uqom.local.pwadev"`);
+});
