@@ -27,6 +27,7 @@ const restartDevServerOnChange = [
     'packages/pwa-buildpack/lib/**/*.js',
     'packages/upward-js/lib/**/*.js',
     'packages/venia-*/*.{js,json,yml}',
+    'packages/venia-*/i18n/*.json',
     'packages/venia-*/.env',
     'packages/venia-*/static/**/*',
     'yarn.lock'
