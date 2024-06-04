@@ -59,11 +59,9 @@ This repository includes the following packages:
 
 If you have an issue that cannot be resolved, please [create an issue][].
 
-### PWA Studio UI Kit for Adobe XD
+### PWA Studio XD Kit
 
-Adobe XD makes handoff between designers and engineers more efficient through easy-to-use collaboration tools. The [PWA Studio UI Kit][] contains a collection of templates and components compatible with Adobe Commerce.
-
-![UI Kit](https://raw.githubusercontent.com/wiki/magento/pwa-studio/images/xd-ui-kit.png)
+Adobe XD makes handoff between designers and engineers more efficient through easy-to-use collaboration tools. The [PWA Studio XD Kit][] contains a collection of templates and components compatible with Adobe Commerce.
 
 ### Join the conversation
 
