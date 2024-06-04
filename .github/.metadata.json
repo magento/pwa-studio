@@ -1,13 +1,13 @@
 {
-    "templateVersion": "0.1",
+    "templateVersion": "0.2",
     "product": {
         "name": "PWA Studio",
         "description": "A collection of tools that lets developers build complex Progressive Web Applications on top of Magento 2 stores."
     },
     "contacts": {
         "team": {
-            "name": "The Untitled Geese",
-            "DL": "Grp-Untitled-Geese",
+            "name": "Galaxy",
+            "DL": "",
             "slackChannel": "pwa"
         }
     },
