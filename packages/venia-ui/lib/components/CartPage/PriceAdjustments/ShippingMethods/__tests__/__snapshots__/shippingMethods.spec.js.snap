@@ -101,6 +101,7 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
     onClick={[Function]}
     onDragStart={[Function]}
     onKeyDown={[Function]}
+    onKeyUp={[Function]}
     onMouseDown={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
