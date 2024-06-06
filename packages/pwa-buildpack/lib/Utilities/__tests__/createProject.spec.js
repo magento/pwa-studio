@@ -1,3 +1,4 @@
+import 'setimmediate';
 jest.mock('../../util/klaw-bound-fs');
 const walk = require('../../util/klaw-bound-fs');
 const createProject = require('../createProject');
