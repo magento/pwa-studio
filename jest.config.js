@@ -4,11 +4,7 @@
  * hacks to get around some known issues in Jest configuration and coverage of
  * monorepos.
  */
- 
- global.setImmediate = jest.useRealTimers;
-
 const path = require('path');
-
 
 /**
  * `configureProject()` makes a config object for use in the `projects` array.
