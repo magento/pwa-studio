@@ -1,3 +1,4 @@
+import "setimmediate";
 const {
     buildModuleWith,
     mockBuildBus,
@@ -6,7 +7,7 @@ const {
 const declare = require('../peregrine-declare');
 const intercept = require('../peregrine-intercept');
 const targetSerializer = require('../JestPeregrineTargetSerializer');
-
+global.setImmediate;
 expect.addSnapshotSerializer(targetSerializer);
 
 test('declares an asyncseries target talons and intercepts transformModules', async () => {

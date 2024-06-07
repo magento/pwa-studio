@@ -69,7 +69,6 @@ const runCreate = async (fs, opts) => {
 };
 
 test('copies files and writes new file structure, ignoring ignores', async () => {
-    global.setImmediate; 
     const fs = mockFs({
         '/repo/packages/me/src/index.js': 'alert("index")',
         '/repo/packages/me/src/components/Fake/Fake.js': 'alert("fake")',
@@ -126,7 +125,6 @@ test('outputs custom package.json', async () => {
 });
 
 test('outputs npm package.json', async () => {
-    global.setImmediate;
     const fs = mockFs({
         '/repo/packages/me/package.json': JSON.stringify({
             browser: './browser.lol',
