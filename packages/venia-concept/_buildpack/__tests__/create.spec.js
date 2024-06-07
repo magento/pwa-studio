@@ -68,7 +68,7 @@ const runCreate = async (fs, opts) => {
 };
 
 test('copies files and writes new file structure, ignoring ignores', async () => {
-    global.setImmediate = jest.useRealTimers;
+    global.setImmediate; 
     const fs = mockFs({
         '/repo/packages/me/src/index.js': 'alert("index")',
         '/repo/packages/me/src/components/Fake/Fake.js': 'alert("fake")',
