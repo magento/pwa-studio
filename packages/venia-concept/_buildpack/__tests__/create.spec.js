@@ -1,4 +1,3 @@
-global.setImmediate = jest.useRealTimers;
 jest.mock('child_process');
 const { execSync } = require('child_process');
 
@@ -69,6 +68,7 @@ const runCreate = async (fs, opts) => {
 };
 
 test('copies files and writes new file structure, ignoring ignores', async () => {
+    global.setImmediate = jest.useRealTimers;
     const fs = mockFs({
         '/repo/packages/me/src/index.js': 'alert("index")',
         '/repo/packages/me/src/components/Fake/Fake.js': 'alert("fake")',
@@ -103,6 +103,7 @@ test('copies files and writes new file structure, ignoring ignores', async () =>
 });
 
 test('outputs custom package.json', async () => {
+    global.setImmediate = jest.useRealTimers;
     const fs = mockFs({
         '/repo/packages/me/package.json': JSON.stringify({
             browser: './browser.lol',
