@@ -4,6 +4,9 @@ const {
     mockBuildBus,
     mockTargetProvider
 } = require('@magento/pwa-buildpack');
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
 const declare = require('../peregrine-declare');
 const intercept = require('../peregrine-intercept');
 const targetSerializer = require('../JestPeregrineTargetSerializer');
