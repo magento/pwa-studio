@@ -22,7 +22,7 @@
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "scripts": {
-    "build": "yarn venia run build",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && yarn venia run build",
     "build:dev": "yarn venia run build:dev",
     "clean:all": "yarn workspaces run -s clean && rimraf ./node_modules",
     "clean:dist": "yarn workspaces run clean",
