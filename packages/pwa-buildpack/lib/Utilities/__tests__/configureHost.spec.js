@@ -10,6 +10,10 @@ const devcert = require('devcert');
 const { configureHost } = require('../');
 const execa = require('execa');
 
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
+
 const fakeCertPair = {
     key: Buffer.from('fakeKey'),
     cert: Buffer.from('fakeCert')

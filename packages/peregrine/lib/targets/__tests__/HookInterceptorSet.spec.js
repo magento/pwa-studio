@@ -13,6 +13,10 @@ const sortByFilename = (a, b) =>
     (b._talonModule.file > a._talonModule.file && -1) ||
     0;
 
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
+
 const serializeTransforms = interceptorSet => {
     return [...interceptorSet.allModules]
         .sort(sortByFilename)
