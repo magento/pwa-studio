@@ -67,7 +67,6 @@ exports[`renders a BannerShimmer component with minHeight 1`] = `
           onClick={[Function]}
           onDragStart={[Function]}
           onKeyDown={[Function]}
-          onKeyUp={[Function]}
           onMouseDown={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
