@@ -508,7 +508,6 @@ Array [
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
-        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -534,7 +533,6 @@ Array [
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
-        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -982,7 +980,6 @@ Array [
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
-        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -1008,7 +1005,6 @@ Array [
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
-        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -1478,7 +1474,6 @@ Array [
         onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
-        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
