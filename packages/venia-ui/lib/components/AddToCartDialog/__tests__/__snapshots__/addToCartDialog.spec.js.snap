@@ -72,6 +72,7 @@ exports[`renders dialog with content 1`] = `
         onClick={[MockFunction buttonProps.onClick]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
+        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}

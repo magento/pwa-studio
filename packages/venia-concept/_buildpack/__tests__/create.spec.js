@@ -1,4 +1,5 @@
 jest.mock('child_process');
+global.setImmediate;
 const { execSync } = require('child_process');
 
 const { dirname, resolve } = require('path');

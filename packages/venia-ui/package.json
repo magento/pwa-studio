@@ -90,7 +90,7 @@
     "react-redux": "~7.2.2",
     "react-router-dom": "~5.2.0",
     "redux": "~4.0.1",
-    "webpack": "~4.46.0"
+    "webpack": "~5.91.0"
   },
   "pwa-studio": {
     "targets": {

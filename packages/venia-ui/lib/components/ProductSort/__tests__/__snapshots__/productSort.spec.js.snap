@@ -10,6 +10,7 @@ exports[`renders correctly 1`] = `
     onClick={[Function]}
     onDragStart={[Function]}
     onKeyDown={[Function]}
+    onKeyUp={[Function]}
     onMouseDown={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
