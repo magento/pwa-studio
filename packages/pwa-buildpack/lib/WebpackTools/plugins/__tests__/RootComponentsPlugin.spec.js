@@ -12,6 +12,10 @@ const basic1PageProjectDir = join(
     '__fixtures__/basic-project-1-page'
 );
 
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
+
 const compile = config =>
     new Promise((resolve, reject) => {
         config.mode = 'production';

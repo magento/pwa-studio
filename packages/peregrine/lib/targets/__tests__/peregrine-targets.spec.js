@@ -1,16 +1,20 @@
 import "setimmediate";
+global.setImmediate;
+
 const {
     buildModuleWith,
     mockBuildBus,
     mockTargetProvider
 } = require('@magento/pwa-buildpack');
+
 const crypto = require("crypto");
 const crypto_orig_createHash = crypto.createHash;
 crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
+
 const declare = require('../peregrine-declare');
 const intercept = require('../peregrine-intercept');
 const targetSerializer = require('../JestPeregrineTargetSerializer');
-global.setImmediate;
+
 expect.addSnapshotSerializer(targetSerializer);
 
 test('declares an asyncseries target talons and intercepts transformModules', async () => {

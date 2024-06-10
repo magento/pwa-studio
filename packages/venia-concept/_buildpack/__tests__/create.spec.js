@@ -1,10 +1,12 @@
 import "setimmediate";
+global.setImmediate;
+
 jest.mock('child_process');
 const { execSync } = require('child_process');
 
 const { dirname, resolve } = require('path');
 const packagesRoot = resolve(__dirname, '../../../');
-global.setImmediate;
+
 const MemoryFS = require('memory-fs');
 const {
     makeCommonTasks,
