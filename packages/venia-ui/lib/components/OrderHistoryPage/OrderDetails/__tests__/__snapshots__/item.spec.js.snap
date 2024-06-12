@@ -97,6 +97,7 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     onClick={[Function]}
     onDragStart={[Function]}
     onKeyDown={[Function]}
+    onKeyUp={[Function]}
     onMouseDown={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}

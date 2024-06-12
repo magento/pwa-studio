@@ -49,6 +49,7 @@ Array [
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
+        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -74,6 +75,7 @@ Array [
         onClick={[MockFunction handleApplyAddress]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
+        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -139,6 +141,7 @@ Array [
         onClick={[MockFunction handleAddAddress]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
+        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -230,6 +233,7 @@ Array [
         onClick={[MockFunction handleCancel]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
+        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -255,6 +259,7 @@ Array [
         onClick={[MockFunction handleApplyAddress]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
+        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -284,6 +289,7 @@ Array [
         onClick={[MockFunction handleAddAddress]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
+        onKeyUp={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}

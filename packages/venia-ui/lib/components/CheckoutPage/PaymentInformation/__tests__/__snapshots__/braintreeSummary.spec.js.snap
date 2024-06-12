@@ -20,6 +20,7 @@ exports[`Should not render billing address if it is same as shipping address 1`]
       disabled={false}
       onDragStart={[Function]}
       onKeyDown={[Function]}
+      onKeyUp={[Function]}
       onMouseDown={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
@@ -138,6 +139,7 @@ exports[`Should render billing address if it is not same as shipping address 1`]
       disabled={false}
       onDragStart={[Function]}
       onKeyDown={[Function]}
+      onKeyUp={[Function]}
       onMouseDown={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
@@ -272,6 +274,7 @@ exports[`should render 1`] = `
       disabled={false}
       onDragStart={[Function]}
       onKeyDown={[Function]}
+      onKeyUp={[Function]}
       onMouseDown={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
