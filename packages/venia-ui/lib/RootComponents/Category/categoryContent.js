@@ -22,6 +22,10 @@ import SortedByContainer, {
 } from '../../components/SortedByContainer';
 import defaultClasses from './category.module.css';
 import NoProductsFound from './NoProductsFound';
+import {
+    VeniaProductRecommendations,
+    PageTypes,
+  } from "@magento/venia-product-recommendations";
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 const FilterSidebar = React.lazy(() =>
@@ -190,6 +194,7 @@ const CategoryContent = props => {
                     </div>
                 </div>
             </article>
+            <VeniaProductRecommendations pageType={PageTypes.CMS} />;
         </Fragment>
     );
 };
