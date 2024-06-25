@@ -7,24 +7,12 @@ export const useGalleryItem = (props = {}) => {
     const [, { dispatch }] = useEventingContext();
     const intersectionObserver = useIntersectionObserver();
     const { item, storeConfig } = props;
-    console.log('item gallery', item);
 
-    const finalPrice = item?.price_range?.maximum_price?.final_price?.value || item.prices.maximum.final;
+    const finalPrice = item?.price_range?.maximum_price?.final_price?.value;
     const discountAmount =
         item?.price_range?.maximum_price?.discount?.amount_off;
-        discountAmount? discountAmount: null;
     const currencyCode =
-        item?.price_range?.maximum_price?.final_price?.currency ||item.currency ;
-
-
-    // const finalPrice = item?.price_range?.maximum_price?.final_price?.value;
-    // const discountAmount =
-    //     item?.price_range?.maximum_price?.discount?.amount_off;
-
-        console.log("discountAmount",discountAmount)
-        console.log("finalPrice",finalPrice)
-    // const currencyCode =
-    //     item?.price_range?.maximum_price?.final_price?.currency;
+        item?.price_range?.maximum_price?.final_price?.currency;
 
     const handleLinkClick = useCallback(() => {
         dispatch({
@@ -92,6 +80,7 @@ export const useGalleryItem = (props = {}) => {
         intersectionObserver,
         item
     ]);
+
     const productType = item ? item.__typename : null;
 
     const isSupportedProductType = isSupported(productType);
