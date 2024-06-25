@@ -1,4 +1,4 @@
-import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/util/isSupportedProductType';
+import { isSupportedProductType as isSupported } from './isSupportedProductType';
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import { useCallback, useEffect, useRef } from 'react';
 import { useIntersectionObserver } from '@magento/peregrine/lib/hooks/useIntersectionObserver';
