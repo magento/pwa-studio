@@ -92,7 +92,7 @@ export const useGalleryItem = (props = {}) => {
         intersectionObserver,
         item
     ]);
-    const productType = item ? item.__typename !==undefined?item.__typename:item.type : null;
+    const productType = item ? item.__typename : null;
 
     const isSupportedProductType = isSupported(productType);
 
