@@ -48,7 +48,16 @@ const GalleryItem = props => {
     }
 
     // eslint-disable-next-line no-unused-vars
-    const { name, price_range, small_image, url_key, rating_summary } = item;
+    const {
+        name,
+        price_range,
+        small_image,
+        url_key,
+        rating_summary,
+        prices,
+        price,
+        currency        
+    } = item;
 
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
@@ -70,11 +79,27 @@ const GalleryItem = props => {
             </p>
         </div>
     );
+    console.log('currency', currency);
+ // fall back price if price range is unavailable
+    const currencyCode= price_range?.maximum_price?.final_price?.currency ||
+    price.regularPrice.amount.currency;
+
+    // const priceSource= price_range?.maximum_price?.final_price?.value ||
+    // prices.maximum.final;
+ const priceSource =
+        (price_range?.maximum_price?.final_price !== undefined &&
+        price_range?.maximum_price?.final_price !== null
+            ? price_range.maximum_price.final_price
+            : prices.maximum.final) ||
+        (price_range?.maximum_price?.regular_price !== undefined &&
+        price_range?.maximum_price?.regular_price !== null
+            ? price_range.maximum_price.regular_price
+            : prices.maximum.regular);
 
     // fallback to regular price when final price is unavailable
-    const priceSource =
-        price_range.maximum_price.final_price ||
-        price_range.maximum_price.regular_price;
+    // const priceSource =
+    //     price_range.maximum_price.final_price ||
+    //     price_range.maximum_price.regular_price;
 
     // Hide the Rating component until it is updated with the new look and feel (PWA-2512).
     const ratingAverage = null;
@@ -114,8 +139,8 @@ const GalleryItem = props => {
             </Link>
             <div data-cy="GalleryItem-price" className={classes.price}>
                 <Price
-                    value={priceSource.value}
-                    currencyCode={priceSource.currency}
+                    value={priceSource}
+                    currencyCode={currencyCode}
                 />
             </div>
 
