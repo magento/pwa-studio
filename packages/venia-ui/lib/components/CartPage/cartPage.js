@@ -15,8 +15,8 @@ import ProductListing from './ProductListing';
 import defaultClasses from './cartPage.module.css';
 import {
     VeniaProductRecommendations,
-    PageTypes,
-  } from "@magento/venia-product-recommendations";
+    PageTypes
+} from '@magento/venia-product-recommendations';
 const CheckIcon = <Icon size={20} src={Check} />;
 
 /**
@@ -123,7 +123,6 @@ const CartPage = props => {
             </div>
             <VeniaProductRecommendations pageType={PageTypes.CMS} />;
         </div>
-        
     );
 };
 

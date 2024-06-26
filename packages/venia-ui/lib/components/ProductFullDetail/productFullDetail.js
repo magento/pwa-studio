@@ -5,9 +5,8 @@ import { Form } from 'informed';
 import { Info } from 'react-feather';
 import {
     VeniaProductRecommendations,
-    PageTypes,
-  } from "@magento/venia-product-recommendations";
-  
+    PageTypes
+} from '@magento/venia-product-recommendations';
 
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
@@ -246,7 +245,6 @@ const ProductFullDetail = props => {
                 data-cy="ProductFullDetail-root"
                 onSubmit={handleAddToCart}
             >
-               
                 <section className={classes.imageCarousel}>
                     <Carousel images={mediaGalleryEntries} />
                 </section>
@@ -325,7 +323,6 @@ const ProductFullDetail = props => {
                     />
                 </section>
                 {pageBuilderAttributes}
-                
             </Form>
             <VeniaProductRecommendations pageType={PageTypes.CMS} />;
         </Fragment>

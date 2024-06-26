@@ -24,8 +24,8 @@ import defaultClasses from './category.module.css';
 import NoProductsFound from './NoProductsFound';
 import {
     VeniaProductRecommendations,
-    PageTypes,
-  } from "@magento/venia-product-recommendations";
+    PageTypes
+} from '@magento/venia-product-recommendations';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 const FilterSidebar = React.lazy(() =>
