@@ -49,7 +49,6 @@ test('pre-caches wishlist items', async () => {
         Object {
           "customerWishlistProducts": Array [
             "Dress",
-            "Shirt",
           ],
         }
     `);
