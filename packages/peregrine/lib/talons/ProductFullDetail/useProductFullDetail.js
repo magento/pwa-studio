@@ -144,8 +144,8 @@ const getBreadcrumbCategoryId = categories => {
     const breadcrumbSet = new Set();
     categories.forEach(({ breadcrumbs }) => {
         // breadcrumbs can be `null`...
-        (breadcrumbs || []).forEach(({ category_id }) =>
-            breadcrumbSet.add(category_id)
+        (breadcrumbs || []).forEach(({ category_uid }) =>
+            breadcrumbSet.add(category_uid)
         );
     });
 
