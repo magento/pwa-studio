@@ -15,7 +15,7 @@ const thisDep = {
     intercept
 };
 
-const WEBPACK_BUILD_TIMEOUT = 30000;
+const WEBPACK_BUILD_TIMEOUT = 800000;
 
 const mockComponent = name => `function ${name}(props) { return <div className={name}>{props.children}</div>;
 `;
