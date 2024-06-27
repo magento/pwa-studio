@@ -10,7 +10,7 @@
     "@magento/venia-drivers": "src/drivers"
   },
   "scripts": {
-    "build": "yarn run build:prod",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && yarn run build:prod",
     "build:analyze": "yarn run clean && mkdir dist && webpack -p --profile --no-progress --env.mode production --json > dist/build-stats.json && webpack-bundle-analyzer dist/build-stats.json",
     "build:debug": "node --inspect-brk ./node_modules/.bin/webpack --no-progress --env.mode development",
     "build:dev": "yarn run clean && webpack --no-progress --env.mode development",
@@ -135,7 +135,7 @@
     "sharp": "~0.29.3"
   },
   "engines": {
-    "node": ">=14.x",
+    "node": ">=18.x",
     "yarn": ">=1.12.0"
   },
   "module": "src/index.js",
