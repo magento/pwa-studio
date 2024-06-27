@@ -54,3 +54,4 @@ test('pre-caches wishlist items', async () => {
         }
     `);
 });
+
