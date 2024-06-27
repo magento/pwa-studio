@@ -3,10 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Info } from 'react-feather';
-import {
-    VeniaProductRecommendations,
-    PageTypes
-} from '@magento/venia-product-recommendations';
 
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
@@ -324,7 +320,6 @@ const ProductFullDetail = props => {
                 </section>
                 {pageBuilderAttributes}
             </Form>
-            <VeniaProductRecommendations pageType={PageTypes.CMS} />;
         </Fragment>
     );
 };
