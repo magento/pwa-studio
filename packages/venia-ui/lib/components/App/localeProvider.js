@@ -19,10 +19,17 @@ const LocaleProvider = props => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
+    let locale = data !== undefined ? data.storeConfig.locale : DEFAULT_LOCALE;
+    if (locale === 'zh_Hant_TW') {
+        locale = 'zh_TW';
+    }
+    if (locale === 'zh_Hant_TW') {
+        locale = 'zh_TW';
+    }
 
     const language = useMemo(() => {
         return data && data.storeConfig.locale
-            ? toReactIntl(data.storeConfig.locale)
+            ? toReactIntl(locale)
             : DEFAULT_LOCALE;
     }, [data]);
 
