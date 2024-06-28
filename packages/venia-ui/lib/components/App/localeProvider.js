@@ -31,7 +31,7 @@ const LocaleProvider = props => {
         return data && data.storeConfig.locale
             ? toReactIntl(locale)
             : DEFAULT_LOCALE;
-    }, [data]);
+    }, [data,locale]);
 
     /**
      * At build time, `__fetchLocaleData__` is injected as a global. Depending on the environment, this global will be
