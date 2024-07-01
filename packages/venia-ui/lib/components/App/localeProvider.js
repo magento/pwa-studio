@@ -23,15 +23,12 @@ const LocaleProvider = props => {
     if (locale === 'zh_Hant_TW') {
         locale = 'zh_TW';
     }
-    if (locale === 'zh_Hant_TW') {
-        locale = 'zh_TW';
-    }
 
     const language = useMemo(() => {
         return data && data.storeConfig.locale
             ? toReactIntl(locale)
             : DEFAULT_LOCALE;
-    }, [data,locale]);
+    }, [data, locale]);
 
     /**
      * At build time, `__fetchLocaleData__` is injected as a global. Depending on the environment, this global will be
