@@ -70,11 +70,21 @@ const GalleryItem = props => {
             </p>
         </div>
     );
+    const currencyCode =
+        price_range?.maximum_price?.final_price?.currency ||
+        item.price.regularPrice.amount.currency;
 
     // fallback to regular price when final price is unavailable
     const priceSource =
-        price_range.maximum_price.final_price ||
-        price_range.maximum_price.regular_price;
+        (price_range?.maximum_price?.final_price !== undefined &&
+        price_range?.maximum_price?.final_price !== null
+            ? price_range.maximum_price.final_price
+            : item.prices.maximum.final) ||
+        (price_range?.maximum_price?.regular_price !== undefined &&
+        price_range?.maximum_price?.regular_price !== null
+            ? price_range.maximum_price.regular_price
+            : item.prices.maximum.regular);
+    const priceSourceValue = priceSource.value || priceSource;
 
     // Hide the Rating component until it is updated with the new look and feel (PWA-2512).
     const ratingAverage = null;
@@ -112,11 +122,9 @@ const GalleryItem = props => {
             >
                 <span>{name}</span>
             </Link>
+
             <div data-cy="GalleryItem-price" className={classes.price}>
-                <Price
-                    value={priceSource.value}
-                    currencyCode={priceSource.currency}
-                />
+                <Price value={priceSourceValue} currencyCode={currencyCode} />
             </div>
 
             <div className={classes.actionsContainer}>
