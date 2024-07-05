@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { useCustomerWishlistSkus } from '../../hooks/useCustomerWishlistSkus/useCustomerWishlistSkus';
 
 import mergeOperations from '../../util/shallowMerge';
-import defaultOperations from './gallery.gql';
+import defaultOperations from './gallery.gql.ce';
 
 export const useGallery = (props = {}) => {
     const operations = mergeOperations(defaultOperations, props.operations);
