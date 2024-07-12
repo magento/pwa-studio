@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-spec",
-  "version": "5.2.1",
+  "version": "5.3.1",
   "publishConfig": {
     "access": "public"
   },
@@ -36,7 +36,7 @@
     "tape": "~4.10.1"
   },
   "engines": {
-    "node": ">=14.x",
+    "node": ">=18.x",
     "yarn": ">=1.12.0"
   }
 }

@@ -4,6 +4,7 @@ exports[`returns a map with expected keys and values 1`] = `
 Map {
   "MUTATION_QUEUE" => "mutationQueue",
   "RETRY" => "retry",
+  "AUTH" => "auth",
   "GQL_CACHE" => "gqlCache",
   "STORE" => "store",
   "ERROR" => "error",

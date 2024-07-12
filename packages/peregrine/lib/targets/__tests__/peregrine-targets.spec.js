@@ -1,3 +1,4 @@
+global.setImmediate;
 const {
     buildModuleWith,
     mockBuildBus,

@@ -29,7 +29,6 @@ exports[`renders a Receipt component correctly 1`] = `
       onClick={[MockFunction]}
       onDragStart={[Function]}
       onKeyDown={[Function]}
-      onKeyUp={[Function]}
       onMouseDown={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
