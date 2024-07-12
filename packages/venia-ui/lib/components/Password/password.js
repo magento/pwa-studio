@@ -48,7 +48,6 @@ const Password = props => {
             className={classes.passwordButton}
             onClick={togglePasswordVisibility}
             onKeyDown={handleKeypress}
-            onKey
             type="button"
         >
             {visible ? (
