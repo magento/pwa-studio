@@ -151,6 +151,7 @@ const CategoryContent = props => {
 
     return (
         <Fragment>
+            <div>
             <Breadcrumbs categoryId={categoryId} />
             <StoreTitle>{categoryName}</StoreTitle>
             <article className={classes.root} data-cy="CategoryContent-root">
@@ -190,6 +191,7 @@ const CategoryContent = props => {
                     </div>
                 </div>
             </article>
+            </div>
         </Fragment>
     );
 };
