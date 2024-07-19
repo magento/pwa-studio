@@ -101,15 +101,15 @@ const CategoryContent = props => {
 
     const categoryResultsHeading =
         totalCount > 0 ? (
-            <FormattedMessage
+         <div>  <FormattedMessage
                 id={'categoryContent.resultCount'}
                 values={{
                     count: totalCount
                 }}
                 defaultMessage={'{count} Results'}
-            />
+            /> </div> 
         ) : isLoading ? (
-            <Shimmer width={5} />
+           <Shimmer width={5} />
         ) : null;
 
     const categoryDescriptionElement = categoryDescription ? (
@@ -161,7 +161,7 @@ const CategoryContent = props => {
                             className={classes.categoryTitle}
                             data-cy="CategoryContent-categoryTitle"
                         >
-                            {categoryTitle}
+                           <div>{categoryTitle}</div> 
                         </div>
                     </h1>
                     {categoryDescriptionElement}
