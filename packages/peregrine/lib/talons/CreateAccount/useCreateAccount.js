@@ -136,8 +136,12 @@ export const useCreateAccount = props => {
                     ...recaptchaDataForSignIn
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
-                await setToken(token);
-
+                const customerTokenLifetime =
+                    signInResponse.data.generateCustomerToken
+                        .customer_token_lifetime;
+                await (customerTokenLifetime
+                    ? setToken(token, customerTokenLifetime)
+                    : setToken(token));
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
                 await apolloClient.clearCacheData(apolloClient, 'customer');

@@ -17,6 +17,7 @@ export const SIGN_IN = gql`
     mutation SignIn($email: String!, $password: String!) {
         generateCustomerToken(email: $email, password: $password) {
             token
+            customer_token_lifetime
         }
     }
 `;
