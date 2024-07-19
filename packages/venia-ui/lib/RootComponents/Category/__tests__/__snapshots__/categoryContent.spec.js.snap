@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`filter button/modal does not render if there are no filters 1`] = `
-Array [
+<div>
   <Breadcrumbs
     categoryId={42}
-  />,
-  "Title",
+  />
+  Title
   <article
     className="root"
   >
@@ -19,7 +19,9 @@ Array [
         <div
           className="categoryTitle"
         >
-          Name
+          <div>
+            Name
+          </div>
         </div>
       </h1>
     </div>
@@ -94,16 +96,16 @@ Array [
         </div>
       </div>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;
 
 exports[`filter button/modal renders when there are filters 1`] = `
-Array [
+<div>
   <Breadcrumbs
     categoryId={42}
-  />,
-  "Title",
+  />
+  Title
   <article
     className="root"
   >
@@ -117,7 +119,9 @@ Array [
         <div
           className="categoryTitle"
         >
-          Name
+          <div>
+            Name
+          </div>
         </div>
       </h1>
     </div>
@@ -206,16 +210,16 @@ Array [
         />
       </div>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;
 
 exports[`filter sidebar does not render if not in viewport 1`] = `
-Array [
+<div>
   <Breadcrumbs
     categoryId={42}
-  />,
-  "Title",
+  />
+  Title
   <article
     className="root"
   >
@@ -229,7 +233,9 @@ Array [
         <div
           className="categoryTitle"
         >
-          Name
+          <div>
+            Name
+          </div>
         </div>
       </h1>
     </div>
@@ -318,16 +324,16 @@ Array [
         />
       </div>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;
 
 exports[`filter sidebar renders when in viewport 1`] = `
-Array [
+<div>
   <Breadcrumbs
     categoryId={42}
-  />,
-  "Title",
+  />
+  Title
   <article
     className="root"
   >
@@ -341,7 +347,9 @@ Array [
         <div
           className="categoryTitle"
         >
-          Name
+          <div>
+            Name
+          </div>
         </div>
       </h1>
     </div>
@@ -438,16 +446,16 @@ Array [
         />
       </div>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;
 
 exports[`renders empty page 1`] = `
-Array [
+<div>
   <Breadcrumbs
     categoryId={42}
-  />,
-  "Title",
+  />
+  Title
   <article
     className="root"
   >
@@ -461,7 +469,9 @@ Array [
         <div
           className="categoryTitle"
         >
-          Empty Name
+          <div>
+            Empty Name
+          </div>
         </div>
       </h1>
     </div>
@@ -489,16 +499,16 @@ Array [
         />
       </div>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;
 
 exports[`renders loading indicator if no data and loading 1`] = `
-Array [
+<div>
   <Breadcrumbs
     categoryId={42}
-  />,
-  "Title",
+  />
+  Title
   <article
     className="root"
   >
@@ -512,7 +522,9 @@ Array [
         <div
           className="categoryTitle"
         >
-          Name
+          <div>
+            Name
+          </div>
         </div>
       </h1>
     </div>
@@ -558,16 +570,16 @@ Array [
         />
       </div>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;
 
 exports[`renders the correct tree 1`] = `
-Array [
+<div>
   <Breadcrumbs
     categoryId={42}
-  />,
-  "Title",
+  />
+  Title
   <article
     className="root"
   >
@@ -581,7 +593,9 @@ Array [
         <div
           className="categoryTitle"
         >
-          Name
+          <div>
+            Name
+          </div>
         </div>
       </h1>
     </div>
@@ -656,16 +670,16 @@ Array [
         </div>
       </div>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;
 
 exports[`sort button/container does not render if there are no products 1`] = `
-Array [
+<div>
   <Breadcrumbs
     categoryId={42}
-  />,
-  "Title",
+  />
+  Title
   <article
     className="root"
   >
@@ -679,7 +693,9 @@ Array [
         <div
           className="categoryTitle"
         >
-          Name
+          <div>
+            Name
+          </div>
         </div>
       </h1>
     </div>
@@ -707,16 +723,16 @@ Array [
         />
       </div>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;
 
 exports[`sort button/container renders when there are products 1`] = `
-Array [
+<div>
   <Breadcrumbs
     categoryId={42}
-  />,
-  "Title",
+  />
+  Title
   <article
     className="root"
   >
@@ -730,7 +746,9 @@ Array [
         <div
           className="categoryTitle"
         >
-          Name
+          <div>
+            Name
+          </div>
         </div>
       </h1>
     </div>
@@ -805,6 +823,6 @@ Array [
         </div>
       </div>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;
