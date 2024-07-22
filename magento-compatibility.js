@@ -35,7 +35,7 @@ module.exports = {
 };
 
 // Magento version compatibility
-var magentoVersion = '2.4.3';
+var magentoVersion = '2.4.7-p1';
 
 // React version compatibility
 var reactVersion = '17.0.2';
@@ -63,14 +63,9 @@ var forntEndDependencies = {
 
 // Back End dependencies
 var backEndDependencies = {
-    'magento/module-data-services-graphql': '^1.2',
-    'magento/module-experience-connector-graphql': '^1.1',
-    'magento/module-page-builder-product-recommendations': '^2.0',
     'magento/module-upward-connector': '^2.0.4',
-    'magento/module-visual-product-recommendations': '^2.0',
-    'magento/product-enterprise-edition': '^2.4.7-p1',
-    'magento/product-recommendations': '^6.0',
+    'magento/venia-sample-data': '^0.0.5',
+    'magento/venia-sample-data-ee': '^0.0.4',
     'magento/pwa': '^0.7.2',
-    'magento/pwa-commerce': '^0.0.4',
-    'magento/venia-sample-data': '^0.0.5'
+    'magento/pwa-commerce': '^0.0.4'
 };
