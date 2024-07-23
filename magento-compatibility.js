@@ -42,22 +42,22 @@ var reactVersion = '17.0.2';
 
 // Fornt End dependencies
 var forntEndDependencies = {
-    'babel-preset-peregrine': '1.2.3',
+    'babel-preset-peregrine': '1.3.3',
     'create-pwa': '2.4.6',
-    'experience-platform-connector': '1.0.6',
-    'upward-security-headers': '1.0.15',
-    'venia-sample-backends': '0.0.10',
-    'venia-sample-eventing': '0.0.7',
-    'venia-sample-language-packs': '0.0.15',
-    'venia-sample-payments-checkmo': '0.0.13',
-    pagebuilder: '9.2.1',
-    peregrine: '14.2.1',
-    'pwa-buildpack': '11.4.3',
+    'experience-platform-connector': '1.0.7',
+    'upward-security-headers': '1.0.16',
+    'venia-sample-backends': '0.0.11',
+    'venia-sample-eventing': '0.0.8',
+    'venia-sample-language-packs': '0.0.16',
+    'venia-sample-payments-checkmo': '0.0.14',
+    pagebuilder: '9.3.1',
+    peregrine: '14.3.1',
+    'pwa-buildpack': '11.5.3',
     'pwa-theme-venia': '2.4.0',
-    'upward-js': '5.3.2',
-    'upward-spec': '5.2.1',
-    'venia-concept': '14.0.0',
-    'venia-ui': '11.3.0'
+    'upward-js': '5.4.2',
+    'upward-spec': '5.3.1',
+    'venia-concept': '14.0.1',
+    'venia-ui': '11.4.0'
 };
 
 // Back End dependencies
