@@ -33,3 +33,38 @@ module.exports = {
     '2.1.0': '2.3.1',
     '2.0.0': '2.3.0'
 };
+
+// Magento version compatibility
+var magentoVersion = '2.4.7-p1';
+
+// React version compatibility
+var reactVersion = '17.0.2';
+
+// Fornt End dependencies
+var forntEndDependencies = {
+    '@magento/babel-preset-peregrine': '1.3.3',
+    '@magento/create-pwa': '2.4.6',
+    '@magento/experience-platform-connector': '1.0.7',
+    '@magento/upward-security-headers': '1.0.16',
+    '@magento/venia-sample-backends': '0.0.11',
+    '@magento/venia-sample-eventing': '0.0.8',
+    '@magento/venia-sample-language-packs': '0.0.16',
+    '@magento/venia-sample-payments-checkmo': '0.0.14',
+    '@magento/pagebuilder': '9.3.1',
+    '@magento/peregrine': '14.3.1',
+    '@magento/pwa-buildpack': '11.5.3',
+    '@magento/pwa-theme-venia': '2.4.0',
+    '@magento/upward-js': '5.4.2',
+    '@magento/upward-spec': '5.3.1',
+    '@magento/venia-concept': '14.0.1',
+    '@magento/venia-ui': '11.4.0'
+};
+
+// Back End dependencies
+var backEndDependencies = {
+    'magento/module-upward-connector': '^2.0.4',
+    'magento/venia-sample-data': '^0.0.5',
+    'magento/venia-sample-data-ee': '^0.0.4',
+    'magento/pwa': '^0.7.2',
+    'magento/pwa-commerce': '^0.0.4'
+};
