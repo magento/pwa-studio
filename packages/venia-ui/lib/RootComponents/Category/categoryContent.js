@@ -101,13 +101,16 @@ const CategoryContent = props => {
 
     const categoryResultsHeading =
         totalCount > 0 ? (
-            <FormattedMessage
-                id={'categoryContent.resultCount'}
-                values={{
-                    count: totalCount
-                }}
-                defaultMessage={'{count} Results'}
-            />
+            <div>
+                {' '}
+                <FormattedMessage
+                    id={'categoryContent.resultCount'}
+                    values={{
+                        count: totalCount
+                    }}
+                    defaultMessage={'{count} Results'}
+                />{' '}
+            </div>
         ) : isLoading ? (
             <Shimmer width={5} />
         ) : null;
@@ -151,45 +154,50 @@ const CategoryContent = props => {
 
     return (
         <Fragment>
-            <Breadcrumbs categoryId={categoryId} />
-            <StoreTitle>{categoryName}</StoreTitle>
-            <article className={classes.root} data-cy="CategoryContent-root">
-                <div className={classes.categoryHeader}>
-                    <h1 aria-live="polite" className={classes.title}>
-                        <div
-                            className={classes.categoryTitle}
-                            data-cy="CategoryContent-categoryTitle"
-                        >
-                            {categoryTitle}
-                        </div>
-                    </h1>
-                    {categoryDescriptionElement}
-                </div>
-                <div className={classes.contentWrapper}>
-                    <div ref={sidebarRef} className={classes.sidebar}>
-                        <Suspense fallback={<FilterSidebarShimmer />}>
-                            {shouldRenderSidebarContent ? sidebar : null}
-                        </Suspense>
-                    </div>
-                    <div className={classes.categoryContent}>
-                        <div className={classes.heading}>
+            <div>
+                <Breadcrumbs categoryId={categoryId} />
+                <StoreTitle>{categoryName}</StoreTitle>
+                <article
+                    className={classes.root}
+                    data-cy="CategoryContent-root"
+                >
+                    <div className={classes.categoryHeader}>
+                        <h1 aria-live="polite" className={classes.title}>
                             <div
-                                data-cy="CategoryContent-categoryInfo"
-                                className={classes.categoryInfo}
+                                className={classes.categoryTitle}
+                                data-cy="CategoryContent-categoryTitle"
                             >
-                                {categoryResultsHeading}
+                                <div>{categoryTitle}</div>
                             </div>
-                            <div className={classes.headerButtons}>
-                                {maybeFilterButtons}
-                                {maybeSortButton}
-                            </div>
-                            {maybeSortContainer}
-                        </div>
-                        {content}
-                        <Suspense fallback={null}>{filtersModal}</Suspense>
+                        </h1>
+                        {categoryDescriptionElement}
                     </div>
-                </div>
-            </article>
+                    <div className={classes.contentWrapper}>
+                        <div ref={sidebarRef} className={classes.sidebar}>
+                            <Suspense fallback={<FilterSidebarShimmer />}>
+                                {shouldRenderSidebarContent ? sidebar : null}
+                            </Suspense>
+                        </div>
+                        <div className={classes.categoryContent}>
+                            <div className={classes.heading}>
+                                <div
+                                    data-cy="CategoryContent-categoryInfo"
+                                    className={classes.categoryInfo}
+                                >
+                                    {categoryResultsHeading}
+                                </div>
+                                <div className={classes.headerButtons}>
+                                    {maybeFilterButtons}
+                                    {maybeSortButton}
+                                </div>
+                                {maybeSortContainer}
+                            </div>
+                            {content}
+                            <Suspense fallback={null}>{filtersModal}</Suspense>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </Fragment>
     );
 };
