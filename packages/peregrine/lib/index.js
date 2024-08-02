@@ -1,3 +1,4 @@
+import { from } from '@apollo/client';
 import * as RestApi from './RestApi';
 import * as Util from './util';
 
@@ -12,7 +13,7 @@ export { useScrollLock } from './hooks/useScrollLock';
 export { useSearchParam } from './hooks/useSearchParam';
 export { useSort } from './hooks/useSort';
 export { useTypePolicies } from './hooks/useTypePolicies';
-
+export { useExecuteScripts } from './hooks/useExecuteScripts'
 export {
     WindowSizeContextProvider,
     useWindowSize

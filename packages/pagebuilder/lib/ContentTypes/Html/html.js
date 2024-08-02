@@ -4,6 +4,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, shape, string } from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import handleHtmlContentClick from '../../handleHtmlContentClick';
+import {useExecuteScripts} from '@magento/peregrine/lib/hooks/useExecuteScripts'
 
 const toHTML = str => ({ __html: str });
 
@@ -60,12 +61,13 @@ const Html = props => {
     const clickHandler = event => {
         handleHtmlContentClick(history, event);
     };
-
+    const setRef = useExecuteScripts(html);
     return (
         <div
+            ref={setRef}
             style={dynamicStyles}
             className={[classes.root, ...cssClasses].join(' ')}
-            dangerouslySetInnerHTML={toHTML(html)}
+          //  dangerouslySetInnerHTML={toHTML(html)}
             onClick={clickHandler}
             onKeyDown={clickHandler}
             role="presentation"
