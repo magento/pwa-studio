@@ -30,14 +30,14 @@ export const useSignIn = props => {
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
-    
-    const cartContext  = useCartContext();
+
+    const cartContext = useCartContext();
     const [
         { cartId },
         { createCart, removeCart, getCartDetails }
     ] = cartContext;
 
-    const userContext  = useUserContext();
+    const userContext = useUserContext();
     const [
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
@@ -59,7 +59,7 @@ export const useSignIn = props => {
         generateReCaptchaData,
         recaptchaLoading,
         recaptchaWidgetProps
-    } = googleReCaptcha
+    } = googleReCaptcha;
 
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
@@ -239,6 +239,5 @@ export const useSignIn = props => {
         mergeCarts,
         fetchUserDetails,
         fetchCartDetails
-        
     };
 };
