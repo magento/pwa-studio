@@ -144,6 +144,10 @@
   "pwa-studio": {
     "targets": {
       "intercept": "./local-intercept.js"
-    }
+    },
+    "trusted-vendors": [
+      "@gomage"
+    ]
   }
+
 }
