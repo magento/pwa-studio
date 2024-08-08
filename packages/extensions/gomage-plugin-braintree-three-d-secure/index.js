@@ -1,1 +1,1 @@
-export {useBraintreeThreeDSecure} from './Model/useBraintreeThreeDSecure'
+export { useBraintreeThreeDSecure } from './Model/useBraintreeThreeDSecure';
