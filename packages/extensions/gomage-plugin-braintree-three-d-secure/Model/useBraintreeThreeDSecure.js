@@ -16,7 +16,7 @@ export const useBraintreeThreeDSecure = () => {
         if(!clientToken) {
             setBraintreeClientToken();
         }
-    }, []);
+    }, [setBraintreeClientToken, clientToken]);
 
     return clientToken;
 }
