@@ -3,7 +3,7 @@
  * @param targets
  */
 function localIntercept(targets) {
-    const {Targetables} = require('@magento/pwa-buildpack');
+    const { Targetables } = require('@magento/pwa-buildpack');
     const targetables = Targetables.using(targets);
 
     /**
@@ -17,8 +17,12 @@ function localIntercept(targets) {
         /**
          * import 3d secure plugin
          */
-        brainTreeDropIn.addImport('{useBraintreeThreeDSecure} from "@gomage/plugin-braintree-three-d-secure"');
-        brainTreeDropIn.addImport('{usePriceSummary} from "@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary"');
+        brainTreeDropIn.addImport(
+            '{useBraintreeThreeDSecure} from "@gomage/plugin-braintree-three-d-secure"'
+        );
+        brainTreeDropIn.addImport(
+            '{usePriceSummary} from "@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary"'
+        );
 
         /**
          * add hook for getting of client token
@@ -26,7 +30,7 @@ function localIntercept(targets) {
         brainTreeDropIn.insertAfterSource(
             'const [dropinInstance, setDropinInstance] = useState();',
             '\n const clientToken = useBraintreeThreeDSecure();' +
-            '\n const talonProps = usePriceSummary();'
+                '\n const talonProps = usePriceSummary();'
         );
         /**
          * check if exist clientToken
@@ -38,10 +42,7 @@ function localIntercept(targets) {
         /**
          * end condition of check if exist clientToken
          */
-        brainTreeDropIn.insertAfterSource(
-            'return dropinInstance;',
-            '\n}'
-        );
+        brainTreeDropIn.insertAfterSource('return dropinInstance;', '\n}');
         /**
          * setting new dependency clientToken to useCallback createDropinInstance hook
          */
@@ -49,7 +50,6 @@ function localIntercept(targets) {
             '[containerId',
             ' ,clientToken, talonProps.flatData.total.value'
         );
-
 
         /**
          * check if exist clientToken
@@ -75,14 +75,13 @@ function localIntercept(targets) {
             ' ,clientToken'
         );
 
-
         /**
          * change of value token to client Token
          */
         brainTreeDropIn.insertAfterSource(
             'const dropinInstance = await dropIn.create({\n' +
-            '            authorization',
-            ':clientToken',
+                '            authorization',
+            ':clientToken'
         );
 
         /**
@@ -90,7 +89,7 @@ function localIntercept(targets) {
          */
         brainTreeDropIn.insertAfterSource(
             'container: `#${containerId}`,',
-            '\n  threeDSecure: {amount:talonProps.flatData.total.value},',
+            '\n  threeDSecure: {amount:talonProps.flatData.total.value},'
         );
 
         /**
@@ -99,12 +98,12 @@ function localIntercept(targets) {
         brainTreeDropIn.insertBeforeSource(
             'if (isError) {',
             'useEffect(() => {\n' +
-            '        if(dropinInstance) {\n' +
-            '            dropinInstance.teardown();\n' +
-            '        }\n' +
-            '    }, [\n' +
-            '     talonProps.flatData.total.value,\n' +
-            ']);',
+                '        if(dropinInstance) {\n' +
+                '            dropinInstance.teardown();\n' +
+                '        }\n' +
+                '    }, [\n' +
+                '     talonProps.flatData.total.value,\n' +
+                ']);'
         );
     }
 }
