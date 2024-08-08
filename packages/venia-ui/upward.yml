@@ -20,6 +20,9 @@ veniaResponse:
         - matches: fileExtension
           pattern: '(js|json|png|jpg|gif|svg|ico|css|txt)'
           use: veniaStatic
+        - matches:  urlResolver.redirect_code
+          pattern: '301'
+          use: dynamicRedirect
     default: veniaAppShell
 
 # A FileResolver for serving certain files directly from document root,
@@ -195,3 +198,61 @@ veniaStaticIncludes:
     directory:
         resolver: inline
         inline: './venia-static'
+
+urlResolver: urlResolverResult.data.route
+
+urlResolverResult:
+  resolver: service
+  endpoint:
+    resolver: url
+    baseUrl: env.MAGENTO_BACKEND_URL
+    pathname:
+      inline: graphql
+  method:
+    resolver: inline
+    inline: POST
+  headers:
+    resolver: inline
+    inline:
+      'content-type': 'application/json'
+      accept: 'application/json'
+  query:
+    resolver: inline
+    inline: 'query ResolveURL($url: String!) {
+        route(url: $url) {
+          type
+          relative_url
+          redirect_code
+        }
+      }'
+  variables:
+    resolver: inline
+    inline:
+      # This is a barestring indicating a context lookup. It resolves to the
+      # `path` value in the URL query string of the request, using the builtin
+      # `request` context object.
+      url: request.url.pathname
+
+dynamicRedirect:
+    resolver: inline
+    inline:
+        status: urlResolver.redirect_code
+        headers:
+            resolver: inline
+            inline:
+                content-type:
+                    inline: text/html
+                cache-control:
+                    inline: s-maxage=60
+        body:
+          resolver: template
+          engine: mustache
+          provide:
+            pageType: veniaPageType.data
+            pageTypeNonce: veniaPageTypeNonce.nonce
+            webpackChunks: veniaWebpackChunks.scripts
+          template:
+            resolver: file
+            file:
+              resolver: inline
+              inline: './index.html'
