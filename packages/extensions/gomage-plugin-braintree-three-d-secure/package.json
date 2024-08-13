@@ -7,6 +7,10 @@
   "dependencies": {
     "braintree-web-drop-in": "~1.33.1"
   },
+
+  "scripts": {
+    "clean": " "
+  },
   "pwa-studio": {
     "targets": {
       "intercept": "./intercept.js"
