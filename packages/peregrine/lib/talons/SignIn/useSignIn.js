@@ -31,30 +31,35 @@ export const useSignIn = props => {
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
 
+    const cartContext = useCartContext();
     const [
         { cartId },
         { createCart, removeCart, getCartDetails }
-    ] = useCartContext();
+    ] = cartContext;
 
+    const userContext = useUserContext();
     const [
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
-    ] = useUserContext();
+    ] = userContext;
 
-    const [, { dispatch }] = useEventingContext();
+    const eventingContext = useEventingContext();
+    const [, { dispatch }] = eventingContext;
 
-    const [signIn, { error: signInError }] = useMutation(signInMutation, {
+    const signInMutationResult = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
+    const [signIn, { error: signInError }] = signInMutationResult;
 
+    const googleReCaptcha = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_LOGIN',
+        formAction: 'signIn'
+    });
     const {
         generateReCaptchaData,
         recaptchaLoading,
         recaptchaWidgetProps
-    } = useGoogleReCaptcha({
-        currentForm: 'CUSTOMER_LOGIN',
-        formAction: 'signIn'
-    });
+    } = googleReCaptcha;
 
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
@@ -222,6 +227,17 @@ export const useSignIn = props => {
         handleSubmit,
         isBusy: isGettingDetails || isSigningIn || recaptchaLoading,
         setFormApi,
-        recaptchaWidgetProps
+        recaptchaWidgetProps,
+        userContext,
+        cartContext,
+        eventingContext,
+        signInMutationResult,
+        googleReCaptcha,
+        isSigningIn,
+        setIsSigningIn,
+        fetchCartId,
+        mergeCarts,
+        fetchUserDetails,
+        fetchCartDetails
     };
 };
