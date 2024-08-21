@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { useRootComponents } from '../../context/rootComponents';
@@ -44,9 +44,11 @@ export const useMagentoRoute = (props = {}) => {
     const component = componentMap.get(pathname);
 
     const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery);
+    const [getRouteData, setRouteData] = useState(null);
+
     // destructure the query result
-    const { data, error, loading } = queryResult;
-    const { route } = data || {};
+    const { error, loading } = queryResult;
+    const { route } = getRouteData || {};
 
     // redirect to external url
     useEffect(() => {
@@ -59,16 +61,20 @@ export const useMagentoRoute = (props = {}) => {
     }, [route]);
 
     useEffect(() => {
-        if (initialized.current || !getInlinedPageData()) {
-            runQuery({
+        const runInitialQuery = async () => {
+            const { data } = await runQuery({
                 fetchPolicy: 'cache-and-network',
                 nextFetchPolicy: 'cache-first',
                 variables: { url: pathname }
             });
+            setRouteData(data);
             fetchedPathname.current = pathname;
+        };
+        if (initialized.current || !getInlinedPageData()) {
+            runInitialQuery();
         }
-    }, [initialized, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
-
+    }, [initialized, pathname, runQuery]); // eslint-disable-line react-hooks/exhaustive-deps
+    
     useEffect(() => {
         if (component) {
             return;
