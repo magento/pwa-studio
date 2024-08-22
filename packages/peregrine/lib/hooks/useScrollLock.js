@@ -16,7 +16,7 @@ export const useScrollLock = locked => {
         document.documentElement.dataset.scrollLock = locked || '';
         return () => {
             // Logic to set to false on unmount
-            document.documentElement.dataset.scrollLock = false; 
-          }
+            document.documentElement.dataset.scrollLock = false;
+        };
     }, [locked]);
 };
