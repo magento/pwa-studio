@@ -87,7 +87,7 @@ export const useMagentoRoute = (props = {}) => {
         return () => {
             isMounted = false; // Mark as unmounted
         };
-    }, [initialized, pathname]);
+    }, [initialized, pathname, runQuery]);
     // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {

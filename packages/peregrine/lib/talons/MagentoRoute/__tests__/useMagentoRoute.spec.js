@@ -38,11 +38,9 @@ jest.mock('@apollo/client', () => {
 const givenQueryResult = response => {
     useLazyQuery.mockReset();
     runQuery.mockReset();
-    const resolve = jest.fn().mockName('resolve');
-    const reject = jest.fn().mockName('reject');
     useLazyQuery.mockImplementation(() => {
         // Create a promise that resolves to the mocked response
-        const queryPromise = new Promise((resolve, reject) => {
+        const queryPromise = new Promise(resolve => {
             // Immediately resolve with the response
             resolve(response);
         });
