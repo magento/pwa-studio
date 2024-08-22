@@ -44,10 +44,10 @@ export const useMagentoRoute = (props = {}) => {
     const component = componentMap.get(pathname);
 
     const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery);
-    const [getRouteData, setRouteData] = useState(null);
 
     // destructure the query result
-    const { error, loading } = queryResult;
+    const { data, error, loading } = queryResult;
+    const [getRouteData, setRouteData] = useState(data);
     const { route } = getRouteData || {};
 
     // redirect to external url
@@ -61,20 +61,35 @@ export const useMagentoRoute = (props = {}) => {
     }, [route]);
 
     useEffect(() => {
+        let isMounted = true; // Track whether the component is still mounted
         const runInitialQuery = async () => {
-            const { data } = await runQuery({
-                fetchPolicy: 'cache-and-network',
-                nextFetchPolicy: 'cache-first',
-                variables: { url: pathname }
-            });
-            setRouteData(data);
-            fetchedPathname.current = pathname;
+            try {
+                const { data } = await runQuery({
+                    fetchPolicy: 'cache-and-network',
+                    nextFetchPolicy: 'cache-first',
+                    variables: { url: pathname }
+                });
+
+                if (isMounted) {
+                    setRouteData(data);
+                    fetchedPathname.current = pathname;
+                }
+            } catch (error) {
+                if (isMounted) {
+                    console.error('Error running initial query:', error);
+                }
+            }
         };
         if (initialized.current || !getInlinedPageData()) {
             runInitialQuery();
         }
-    }, [initialized, pathname, runQuery]); // eslint-disable-line react-hooks/exhaustive-deps
-    
+        // Cleanup function
+        return () => {
+            isMounted = false; // Mark as unmounted
+        };
+    }, [initialized, pathname]);
+    // eslint-disable-line react-hooks/exhaustive-deps
+
     useEffect(() => {
         if (component) {
             return;
