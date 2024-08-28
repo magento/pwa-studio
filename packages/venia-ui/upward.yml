@@ -21,7 +21,7 @@ veniaResponse:
           pattern: '(js|json|png|jpg|gif|svg|ico|css|txt)'
           use: veniaStatic
         - matches:  urlResolver.redirect_code
-          pattern: '301'
+          pattern: '(301|302)'
           use: dynamicRedirect
     default: veniaAppShell
 
