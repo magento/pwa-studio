@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useUserContext } from '../../context/user';
@@ -37,7 +37,8 @@ export const useCreateAccount = props => {
         getCartDetailsQuery,
         getCustomerQuery,
         mergeCartsMutation,
-        signInMutation
+        signInMutation,
+        getStoreConfigQuery
     } = operations;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -68,6 +69,15 @@ export const useCreateAccount = props => {
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
+
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const { minimum_password_length } = storeConfigData
+        ? storeConfigData.storeConfig
+        : null;
 
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
@@ -225,7 +235,8 @@ export const useCreateAccount = props => {
         handleCancelKeyPress,
         initialValues: sanitizedInitialValues,
         isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
-        recaptchaWidgetProps
+        recaptchaWidgetProps,
+        minimum_password_length
     };
 };
 
@@ -239,6 +250,7 @@ export const useCreateAccount = props => {
  *
  * @property {GraphQLAST} customerQuery query to fetch customer details
  * @property {GraphQLAST} getCartDetailsQuery query to get cart details
+ * @property {GraphQLAST} getStoreConfigQuery query to get store config
  */
 
 /**

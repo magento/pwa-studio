@@ -126,6 +126,15 @@ export const MERGE_CARTS = gql`
     }
     ${CheckoutPageFragment}
 `;
+export const GET_STORE_CONFIG_DATA = gql`
+    query GetStoreConfigData {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
+        storeConfig {
+            store_code
+            minimum_password_length
+        }
+    }
+`;
 
 export default {
     createAccountMutation: CREATE_ACCOUNT,
@@ -133,5 +142,6 @@ export default {
     getCartDetailsQuery: GET_CART_DETAILS,
     getCustomerQuery: GET_CUSTOMER,
     mergeCartsMutation: MERGE_CARTS,
-    signInMutation: SIGN_IN
+    signInMutation: SIGN_IN,
+    getStoreConfigQuery: GET_STORE_CONFIG_DATA
 };
