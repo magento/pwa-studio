@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useMutation, useQuery, useApolloClient } from '@apollo/client';
 import { act } from 'react-test-renderer';
 
 import { useCartContext } from '../../../context/cart';
@@ -16,9 +16,17 @@ jest.mock('@apollo/client', () => {
     return {
         ...apolloClient,
         useMutation: jest.fn().mockReturnValue([jest.fn()]),
-        useApolloClient: jest.fn()
+        useApolloClient: jest.fn(),
+        useQuery: jest.fn()
     };
 });
+// jest.mock('@apollo/client', () => {
+//     const apolloClient = jest.requireActual('@apollo/client');
+//     return {
+//         ...apolloClient,
+//         useQuery: jest.fn()
+//     };
+// });
 jest.mock('../../../../lib/hooks/useAwaitQuery', () => ({
     useAwaitQuery: jest.fn().mockReturnValue(jest.fn())
 }));
@@ -91,7 +99,16 @@ const createAccountMutation = 'createAccountMutation';
 const createCartMutation = 'createCartMutation';
 const signInMutation = 'signInMutation';
 const mergeCartsMutation = 'mergeCartsMutation';
+const getStoreConfigQuery = 'getStoreConfigQuery';
 
+const getStoreConfigQueryFn = jest.fn().mockReturnValue({
+    data: {
+        storeConfig: {
+            store_code: 'default',
+            minimum_password_length: 8
+        }
+    }
+});
 const customerQueryFn = jest.fn();
 const getCartDetailsQueryFn = jest.fn();
 const createAccountMutationFn = jest
@@ -120,6 +137,7 @@ const defaultProps = {
         getCartDetailsQuery,
         getCustomerQuery,
         mergeCartsMutation,
+        getStoreConfigQuery,
         signInMutation
     },
     initialValues: {
@@ -143,6 +161,13 @@ const defaultFormValues = {
 };
 
 beforeAll(() => {
+    useQuery.mockImplementation(query => {
+        if (query === getStoreConfigQuery) {
+            return getStoreConfigQueryFn();
+        } else {
+            return [jest.fn(), {}];
+        }
+    });
     useAwaitQuery.mockImplementation(query => {
         if (query === getCustomerQuery) {
             return customerQueryFn();

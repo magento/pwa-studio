@@ -37,6 +37,7 @@ Object {
     "userName": "gooseton",
   },
   "isDisabled": false,
+  "minimum_password_length": 8,
   "recaptchaWidgetProps": Object {},
 }
 `;
