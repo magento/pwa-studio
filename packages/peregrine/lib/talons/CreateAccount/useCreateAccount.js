@@ -75,9 +75,11 @@ export const useCreateAccount = props => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const { minimum_password_length } = storeConfigData
-        ? storeConfigData.storeConfig
-        : null;
+    const minimum_password_length = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.minimum_password_length;
+        }
+    }, [storeConfigData]);
 
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
