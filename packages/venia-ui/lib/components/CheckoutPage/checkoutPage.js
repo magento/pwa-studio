@@ -113,7 +113,7 @@ const CheckoutPage = props => {
 
     useEffect(() => {
         handleGuestCheckoutRedirect();
-    }, [history, isGuestCheckout, handleGuestCheckoutRedirect]);
+    });
 
     useEffect(() => {
         if (hasError) {
