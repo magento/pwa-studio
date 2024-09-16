@@ -51,7 +51,42 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
       Flat Rate - Fixed
     </div>
     <div>
-      <ItemsReview />
+      <ItemsReview
+        items={
+          Array [
+            Object {
+              "__typename": "ConfigurableCartItem",
+              "configurable_options": Array [
+                Object {
+                  "__typename": "SelectedConfigurableOption",
+                  "configurable_product_option_uid": 179,
+                  "configurable_product_option_value_uid": 18,
+                  "option_label": "Fashion Color",
+                  "value_label": "Peach",
+                },
+                Object {
+                  "__typename": "SelectedConfigurableOption",
+                  "configurable_product_option_uid": 182,
+                  "configurable_product_option_value_uid": 27,
+                  "option_label": "Fashion Size",
+                  "value_label": "M",
+                },
+              ],
+              "id": "29568",
+              "product": Object {
+                "__typename": "ConfigurableProduct",
+                "id": 1093,
+                "name": "Jillian Top",
+                "thumbnail": Object {
+                  "__typename": "ProductImage",
+                  "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg",
+                },
+              },
+              "quantity": 3,
+            },
+          ]
+        }
+      />
     </div>
     <div>
       <mock-FormattedMessage
@@ -67,5 +102,104 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
       lastname="Indoors"
     />
   </div>
+</div>
+`;
+
+exports[`OrderConfirmationPage renders component using location state when there are no props provided 1`] = `
+<div>
+  Title
+  <div>
+    <h2>
+      <mock-FormattedMessage
+        defaultMessage="Thank you for your order!"
+        id="checkoutPage.thankYou"
+      />
+    </h2>
+    <div>
+      <mock-FormattedMessage
+        defaultMessage="Order Number: {orderNumber}"
+        id="checkoutPage.orderNumber"
+        values={
+          Object {
+            "orderNumber": 123,
+          }
+        }
+      />
+    </div>
+    <div>
+      <mock-FormattedMessage
+        defaultMessage="Shipping Information"
+        id="global.shippingInformation"
+      />
+    </div>
+    <div>
+      <span>
+        badvirus@covid.com
+      </span>
+      <span>
+        Stuck Indoors
+      </span>
+      <span>
+        123 Stir Crazy Dr.
+      </span>
+      <span>
+        Austin, TX 91111 US
+      </span>
+    </div>
+    <div>
+      <mock-FormattedMessage
+        defaultMessage="Shipping Method"
+        id="global.shippingMethod"
+      />
+    </div>
+    <div>
+      Flat Rate - Fixed
+    </div>
+    <div>
+      <ItemsReview
+        items={
+          Array [
+            Object {
+              "__typename": "ConfigurableCartItem",
+              "configurable_options": Array [
+                Object {
+                  "__typename": "SelectedConfigurableOption",
+                  "configurable_product_option_uid": 179,
+                  "configurable_product_option_value_uid": 18,
+                  "option_label": "Fashion Color",
+                  "value_label": "Peach",
+                },
+                Object {
+                  "__typename": "SelectedConfigurableOption",
+                  "configurable_product_option_uid": 182,
+                  "configurable_product_option_value_uid": 27,
+                  "option_label": "Fashion Size",
+                  "value_label": "M",
+                },
+              ],
+              "id": "29568",
+              "product": Object {
+                "__typename": "ConfigurableProduct",
+                "id": 1093,
+                "name": "Jillian Top",
+                "thumbnail": Object {
+                  "__typename": "ProductImage",
+                  "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg",
+                },
+              },
+              "quantity": 3,
+            },
+          ]
+        }
+      />
+    </div>
+    <div>
+      <mock-FormattedMessage
+        defaultMessage="You will also receive an email with the details and we will let you know when your order has shipped."
+        id="checkoutPage.additionalText"
+      />
+    </div>
+  </div>
+  <div />
 </div>
 `;

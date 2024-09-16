@@ -30,6 +30,7 @@ Object {
     "containerElement": [Function],
     "shouldRender": false,
   },
+  "renderPage": false,
   "resetReviewOrderButtonClicked": [Function],
   "reviewOrderButtonClicked": false,
   "scrollShippingInformationIntoView": [Function],
@@ -38,6 +39,7 @@ Object {
   "setGuestSignInUsername": [Function],
   "setIsUpdating": [Function],
   "setPaymentInformationDone": [Function],
+  "setRenderPage": [Function],
   "setShippingInformationDone": [Function],
   "setShippingMethodDone": [Function],
   "shippingInformationRef": Object {

@@ -2,8 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
-import { Link } from 'react-router-dom';
-
+import { Link, useHistory } from 'react-router-dom';
 import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
     CHECKOUT_STEP,
@@ -25,8 +24,8 @@ import payments from './PaymentInformation/paymentMethodCollection';
 import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
-import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
+import OrderConfirmationPage from './OrderConfirmationPage';
 import GoogleReCaptcha from '../GoogleReCaptcha';
 
 import defaultClasses from './checkoutPage.module.css';
@@ -35,6 +34,7 @@ import ScrollAnchor from '../ScrollAnchor/scrollAnchor';
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
+    const history = useHistory();
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
     const talonProps = useCheckoutPage();
@@ -58,8 +58,8 @@ const CheckoutPage = props => {
         isGuestCheckout,
         isLoading,
         isUpdating,
-        orderDetailsData,
         orderDetailsLoading,
+        orderDetailsData,
         orderNumber,
         placeOrderLoading,
         placeOrderButtonClicked,
@@ -79,10 +79,41 @@ const CheckoutPage = props => {
         reviewOrderButtonClicked,
         recaptchaWidgetProps,
         toggleAddressBookContent,
-        toggleSignInContent
+        toggleSignInContent,
+        renderPage,
+        setRenderPage
     } = talonProps;
 
     const [, { addToast }] = useToasts();
+
+    const checkNavigationType = entries => {
+        return entries.length > 0 && entries[0].type === 'reload';
+    };
+
+    const handleGuestCheckoutRedirect = () => {
+        const guestCheckoutComplete = localStorage.getItem(
+            'guestCheckoutComplete'
+        );
+        // Safely check if performance and getEntriesByType exist
+        const navigationEntries = window?.performance?.getEntriesByType
+            ? window.performance.getEntriesByType('navigation')
+            : [];
+
+        if (
+            isGuestCheckout &&
+            guestCheckoutComplete &&
+            checkNavigationType(navigationEntries)
+        ) {
+            localStorage.removeItem('guestCheckoutComplete');
+            history.push('/');
+        } else {
+            setRenderPage(true);
+        }
+    };
+
+    useEffect(() => {
+        handleGuestCheckoutRedirect();
+    }, [history, isGuestCheckout, handleGuestCheckoutRedirect]);
 
     useEffect(() => {
         if (hasError) {
@@ -125,7 +156,7 @@ const CheckoutPage = props => {
               defaultMessage: 'Checkout'
           });
 
-    if (orderNumber && orderDetailsData) {
+    if (isGuestCheckout && orderDetailsData && orderNumber) {
         return (
             <OrderConfirmationPage
                 data={orderDetailsData}
@@ -265,7 +296,7 @@ const CheckoutPage = props => {
         const itemsReview =
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
                 <div className={classes.items_review_container}>
-                    <ItemsReview />
+                    <ItemsReview items={cartItems} />
                 </div>
             ) : null;
 
@@ -421,6 +452,8 @@ const CheckoutPage = props => {
             initialValues={{ email: guestSignInUsername }}
         />
     ) : null;
+    // Don't render anything if we are redirecting
+    if (!renderPage) return null;
 
     return (
         <div className={classes.root} data-cy="CheckoutPage-root">
