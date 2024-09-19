@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
 import { useUserContext } from '../../../context/user';
@@ -39,8 +39,7 @@ export const useCreateAccount = props => {
         createCartMutation,
         getCartDetailsQuery,
         getCustomerQuery,
-        signInMutation,
-        getStoreConfigQuery
+        signInMutation
     } = operations;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
@@ -66,23 +65,6 @@ export const useCreateAccount = props => {
         fetchPolicy: 'no-cache'
     });
 
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
-
-    const {
-        minimumPasswordLength,
-        customerAccessTokenLifetime
-    } = useMemo(() => {
-        const storeConfig = storeConfigData?.storeConfig || {};
-
-        return {
-            minimumPasswordLength: storeConfig.minimum_password_length,
-            customerAccessTokenLifetime:
-                storeConfig.customer_access_token_lifetime
-        };
-    }, [storeConfigData]);
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
@@ -135,8 +117,12 @@ export const useCreateAccount = props => {
                     ...recaptchaDataForSignIn
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
-                await (customerAccessTokenLifetime
-                    ? setToken(token, customerAccessTokenLifetime)
+                const customerTokenLifetime =
+                    signInResponse.data.generateCustomerToken
+                        .customer_token_lifetime;
+
+                await (customerTokenLifetime
+                    ? setToken(token, customerTokenLifetime)
                     : setToken(token));
 
                 // Clear guest cart from redux.
@@ -166,7 +152,6 @@ export const useCreateAccount = props => {
             }
         },
         [
-            customerAccessTokenLifetime,
             createAccount,
             createCart,
             fetchCartDetails,
@@ -215,7 +200,6 @@ export const useCreateAccount = props => {
         handleEnterKeyPress,
         isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
         initialValues: sanitizedInitialValues,
-        recaptchaWidgetProps,
-        minimumPasswordLength
+        recaptchaWidgetProps
     };
 };

@@ -63,17 +63,13 @@ export const resetPassword = ({ email }) =>
         dispatch(actions.resetPassword.receive());
     };
 
-export const setToken = (token, customerAccessTokenLifetime = 1) =>
+export const setToken = (token, customer_token_lifetime = 3600) =>
     async function thunk(...args) {
         const [dispatch] = args;
 
         // Store token in local storage.
         // TODO: Get correct token expire time from API
-        storage.setItem(
-            'signin_token',
-            token,
-            customerAccessTokenLifetime * 3600
-        );
+        storage.setItem('signin_token', token, customer_token_lifetime);
 
         // Persist in store
         dispatch(actions.setToken(token));

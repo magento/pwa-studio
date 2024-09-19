@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useUserContext } from '../../context/user';
@@ -37,8 +37,7 @@ export const useCreateAccount = props => {
         getCartDetailsQuery,
         getCustomerQuery,
         mergeCartsMutation,
-        signInMutation,
-        getStoreConfigQuery
+        signInMutation
     } = operations;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -69,24 +68,6 @@ export const useCreateAccount = props => {
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
-
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
-
-    const {
-        minimumPasswordLength,
-        customerAccessTokenLifetime
-    } = useMemo(() => {
-        const storeConfig = storeConfigData?.storeConfig || {};
-
-        return {
-            minimumPasswordLength: storeConfig.minimum_password_length,
-            customerAccessTokenLifetime:
-                storeConfig.customer_access_token_lifetime
-        };
-    }, [storeConfigData]);
 
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
@@ -155,8 +136,11 @@ export const useCreateAccount = props => {
                     ...recaptchaDataForSignIn
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
-                await (customerAccessTokenLifetime
-                    ? setToken(token, customerAccessTokenLifetime)
+                const customerTokenLifetime =
+                    signInResponse.data.generateCustomerToken
+                        .customer_token_lifetime;
+                await (customerTokenLifetime
+                    ? setToken(token, customerTokenLifetime)
                     : setToken(token));
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
@@ -197,7 +181,6 @@ export const useCreateAccount = props => {
         },
 
         [
-            customerAccessTokenLifetime,
             cartId,
             generateReCaptchaData,
             createAccount,
@@ -242,8 +225,7 @@ export const useCreateAccount = props => {
         handleCancelKeyPress,
         initialValues: sanitizedInitialValues,
         isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
-        recaptchaWidgetProps,
-        minimumPasswordLength
+        recaptchaWidgetProps
     };
 };
 
@@ -257,7 +239,6 @@ export const useCreateAccount = props => {
  *
  * @property {GraphQLAST} customerQuery query to fetch customer details
  * @property {GraphQLAST} getCartDetailsQuery query to get cart details
- * @property {GraphQLAST} getStoreConfigQuery query to get store config
  */
 
 /**

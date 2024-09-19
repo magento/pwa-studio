@@ -35,10 +35,8 @@ const CreateAccount = props => {
         handleCancelKeyPress,
         isDisabled,
         initialValues,
-        recaptchaWidgetProps,
-        minimumPasswordLength
+        recaptchaWidgetProps
     } = talonProps;
-    console.log('minimumPasswordLength==', minimumPasswordLength);
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -166,7 +164,7 @@ const CreateAccount = props => {
                 })}
                 validate={combine([
                     isRequired,
-                    [hasLengthAtLeast, minimumPasswordLength],
+                    [hasLengthAtLeast, 8],
                     validatePassword
                 ])}
                 validateOnBlur

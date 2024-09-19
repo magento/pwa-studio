@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import { CheckoutPageFragment } from '../CheckoutPage/checkoutPageFragments.gql';
-import { GET_STORE_CONFIG_DATA } from '../CreateAccount/createAccount.gql';
 
 export const GET_CUSTOMER = gql`
     query GetCustomerAfterSignIn {
@@ -18,6 +17,7 @@ export const SIGN_IN = gql`
     mutation SignIn($email: String!, $password: String!) {
         generateCustomerToken(email: $email, password: $password) {
             token
+            customer_token_lifetime
         }
     }
 `;
@@ -52,6 +52,5 @@ export default {
     createCartMutation: CREATE_CART,
     getCustomerQuery: GET_CUSTOMER,
     mergeCartsMutation: MERGE_CARTS,
-    signInMutation: SIGN_IN,
-    getStoreConfigQuery: GET_STORE_CONFIG_DATA
+    signInMutation: SIGN_IN
 };
