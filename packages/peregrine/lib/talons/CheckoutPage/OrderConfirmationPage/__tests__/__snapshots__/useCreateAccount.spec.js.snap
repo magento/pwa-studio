@@ -1,6 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`errros should render properly 1`] = `
+Map {
+  "createAccountQuery" => "Create Account Mutation Error",
+  "signInMutation" => "Sign In Mutation Error",
+}
+`;
+
 exports[`handle submit event creates an account, dispatches event, signs in, and generates a new cart 1`] = `
+Object {
+  "payload": Object {
+    "email": "bender@planet.express",
+    "firstName": "Bender",
+    "isSubscribed": false,
+    "lastName": "Rodriguez",
+  },
+  "type": "USER_CREATE_ACCOUNT",
+}
+`;
+
+exports[`handle submit event should dispatch create account event 1`] = `
+Object {
+  "payload": Object {
+    "email": "bender@planet.express",
+    "firstName": "Bender",
+    "isSubscribed": false,
+    "lastName": "Rodriguez",
+  },
+  "type": "USER_CREATE_ACCOUNT",
+}
+`;
+
+exports[`handleSubmit should dispatch create account event 1`] = `
 Object {
   "payload": Object {
     "email": "bender@planet.express",
@@ -29,6 +60,7 @@ Object {
   },
   "isDisabled": false,
   "recaptchaWidgetProps": Object {},
+  "minimumPasswordLength":8
 }
 `;
 
@@ -48,6 +80,29 @@ Object {
     },
   },
   "isDisabled": false,
+  "recaptchaWidgetProps": Object {},
+   minimumPasswordLength:8
+}
+`;
+
+exports[`should return properly 1`] = `
+Object {
+  "errors": Map {
+    "createAccountQuery" => null,
+    "signInMutation" => null,
+  },
+  "handleEnterKeyPress": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "gooston@goosemail.com",
+      "firstname": "Gooseton",
+      "lastname": "Jr",
+    },
+    "userName": "gooseton",
+  },
+  "isDisabled": false,
+  "minimumPasswordLength": 8,
   "recaptchaWidgetProps": Object {},
 }
 `;
