@@ -20,13 +20,6 @@ jest.mock('@apollo/client', () => {
         useQuery: jest.fn()
     };
 });
-// jest.mock('@apollo/client', () => {
-//     const apolloClient = jest.requireActual('@apollo/client');
-//     return {
-//         ...apolloClient,
-//         useQuery: jest.fn()
-//     };
-// });
 jest.mock('../../../../lib/hooks/useAwaitQuery', () => ({
     useAwaitQuery: jest.fn().mockReturnValue(jest.fn())
 }));
@@ -105,7 +98,8 @@ const getStoreConfigQueryFn = jest.fn().mockReturnValue({
     data: {
         storeConfig: {
             store_code: 'default',
-            minimum_password_length: 8
+            minimum_password_length: 8,
+            customer_access_token_lifetime: 1
         }
     }
 });
@@ -119,8 +113,7 @@ const signInMutationFn = jest.fn().mockReturnValue([
     jest.fn().mockReturnValue({
         data: {
             generateCustomerToken: {
-                token: 'customer token',
-                customer_token_lifetime: 3600
+                token: 'customer token'
             }
         }
     }),
@@ -298,12 +291,11 @@ describe('handleSubmit', () => {
 
     test('should signin after account creation', async () => {
         const token = 'customertoken';
-        const customer_token_lifetime = 3600;
+        const customer_token_lifetime = 1;
         const signIn = jest.fn().mockReturnValue({
             data: {
                 generateCustomerToken: {
-                    token,
-                    customer_token_lifetime
+                    token
                 }
             }
         });

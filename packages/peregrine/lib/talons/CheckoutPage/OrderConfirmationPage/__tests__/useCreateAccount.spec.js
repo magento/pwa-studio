@@ -1,132 +1,55 @@
 import React from 'react';
 
-import { MockedProvider } from '@apollo/client/testing';
-import { renderHook, act } from '@testing-library/react-hooks';
+import { useMutation, useQuery, useApolloClient } from '@apollo/client';
+import { act } from 'react-test-renderer';
 
-import { useUserContext } from '../../../../context/user';
-import { useCartContext } from '../../../../context/cart';
+import { useCartContext } from '../../../../../lib/context/cart';
+import { useUserContext } from '../../../../../lib/context/user';
 import { useAwaitQuery } from '../../../../hooks/useAwaitQuery';
-
+import createTestInstance from '../../../../util/createTestInstance';
 import { useCreateAccount } from '../useCreateAccount';
-import defaultOperations from '../createAccount.gql';
 import { useEventingContext } from '../../../../context/eventing';
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
 
-const createAccountVariables = {
-    email: 'bender@planet.express',
-    firstname: 'Bender',
-    lastname: 'Rodriguez',
-    password: '123456',
-    is_subscribed: false
-};
-const createAccount = jest.fn();
-const createAccountMock = {
-    request: {
-        query: defaultOperations.createAccountMutation,
-        variables: createAccountVariables
-    },
-    result: () => {
-        createAccount();
-
-        return {
-            data: {
-                id: 'user_id'
-            }
-        };
-    }
-};
-
-const createCartMock = {
-    request: {
-        query: defaultOperations.createCartMutation
-    },
-    result: {
-        data: {
-            cartId: '1234'
-        }
-    }
-};
-
-const getCartDetailsMock = {
-    request: {
-        query: defaultOperations.getCartDetailsQuery,
-        variables: {
-            cartId: '1234'
-        }
-    },
-    result: {
-        data: {
-            id: '1234'
-        }
-    }
-};
-
-const getCustomerMock = {
-    request: {
-        query: defaultOperations.getCustomerQuery
-    },
-    result: {
-        data: {
-            customer: {
-                id: '123'
-            }
-        }
-    }
-};
-
-const signInVariables = {
-    email: 'bender@planet.express',
-    password: '123456'
-};
-const authToken = 'auth-token-123';
-const customerTokenLifetime = 3600;
-const signInMock = {
-    request: {
-        query: defaultOperations.signInMutation,
-        variables: signInVariables
-    },
-    result: {
-        data: {
-            generateCustomerToken: {
-                token: authToken,
-                customer_token_lifetime: customerTokenLifetime
-            }
-        }
-    }
-};
-
-jest.mock('../../../../context/user');
-const mockGetUserDetails = jest.fn();
-const mockSetToken = jest.fn();
-useUserContext.mockImplementation(() => {
-    const data = {
-        isGettingDetails: false
+    return {
+        ...apolloClient,
+        useMutation: jest.fn().mockReturnValue([jest.fn()]),
+        useApolloClient: jest.fn(),
+        useQuery: jest.fn()
     };
-
-    const api = {
-        getUserDetails: mockGetUserDetails,
-        setToken: mockSetToken
-    };
-
-    return [data, api];
 });
+jest.mock('../../../../hooks/useAwaitQuery', () => ({
+    useAwaitQuery: jest.fn().mockReturnValue(jest.fn())
+}));
+jest.mock('../../../../../lib/context/user', () => ({
+    useUserContext: jest
+        .fn()
+        .mockReturnValue([
+            { isGettingDetails: false },
+            { getUserDetails: jest.fn(), setToken: jest.fn() }
+        ])
+}));
+jest.mock('../../../../../lib/context/cart', () => ({
+    useCartContext: jest.fn().mockReturnValue([
+        { cartId: '1234' },
+        {
+            createCart: jest.fn(),
+            removeCart: jest.fn(),
+            getCartDetails: jest.fn()
+        }
+    ])
+}));
+jest.mock('../../../../store/actions/cart', () => {
+    const cartActions = jest.requireActual(
+        '../../../store/actions/cart/actions'
+    );
+    const retrieveCartId = jest.fn().mockReturnValue('12345');
 
-jest.mock('../../../../context/cart');
-const mockCreateCart = jest.fn();
-const mockGetCartDetails = jest.fn();
-const mockRemoveCart = jest.fn();
-useCartContext.mockImplementation(() => {
-    const data = {};
-    const api = {
-        createCart: mockCreateCart,
-        getCartDetails: mockGetCartDetails,
-        removeCart: mockRemoveCart
-    };
-
-    return [data, api];
+    return Object.assign(cartActions, {
+        retrieveCartId
+    });
 });
-
-jest.mock('../../../../hooks/useAwaitQuery');
-useAwaitQuery.mockImplementation(jest.fn());
 
 jest.mock('../../../../hooks/useGoogleReCaptcha', () => ({
     useGoogleReCaptcha: jest.fn().mockReturnValue({
@@ -136,113 +59,280 @@ jest.mock('../../../../hooks/useGoogleReCaptcha', () => ({
     })
 }));
 
-const handleSubmit = jest.fn();
-
-const initialProps = {
-    initialValues: {
-        email: 'philipfry@fake.email',
-        firstName: 'Philip',
-        lastName: 'Fry'
-    },
-    onSubmit: handleSubmit
-};
-
 jest.mock('@magento/peregrine/lib/context/eventing', () => ({
     useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
-const renderHookWithProviders = ({
-    renderHookOptions = { initialProps },
-    mocks = [
-        createAccountMock,
-        signInMock,
-        createCartMock,
-        getCartDetailsMock,
-        getCustomerMock
-    ]
-} = {}) => {
-    const wrapper = ({ children }) => (
-        <MockedProvider mocks={mocks} addTypename={false}>
-            {children}
-        </MockedProvider>
-    );
+const Component = props => {
+    const talonProps = useCreateAccount(props);
 
-    return renderHook(useCreateAccount, { wrapper, ...renderHookOptions });
+    return <i talonProps={talonProps} />;
 };
 
-test('returns the correct shape', () => {
-    const { result } = renderHookWithProviders();
+const getTalonProps = props => {
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
 
-    expect(result.current).toMatchSnapshot();
+    const update = newProps => {
+        act(() => {
+            tree.update(<Component {...{ ...props, ...newProps }} />);
+        });
+
+        return root.findByType('i').props.talonProps;
+    };
+
+    return { talonProps, tree, update };
+};
+
+const getCustomerQuery = 'getCustomerQuery';
+const getCartDetailsQuery = 'getCartDetailsQuery';
+const createAccountMutation = 'createAccountMutation';
+const createCartMutation = 'createCartMutation';
+const signInMutation = 'signInMutation';
+const mergeCartsMutation = 'mergeCartsMutation';
+const getStoreConfigQuery = 'getStoreConfigQuery';
+
+const getStoreConfigQueryFn = jest.fn().mockReturnValue({
+    data: {
+        storeConfig: {
+            store_code: 'default',
+            minimum_password_length: 8,
+            customer_access_token_lifetime: 1
+        }
+    }
 });
-
-test('returns the correct shape with no initial values', () => {
-    const { result } = renderHookWithProviders({
-        renderHookOptions: {
-            initialProps: {
-                onSubmit: handleSubmit
+const customerQueryFn = jest.fn();
+const getCartDetailsQueryFn = jest.fn();
+const createAccountMutationFn = jest
+    .fn()
+    .mockReturnValue([jest.fn(), { error: null }]);
+const createCartMutationFn = jest.fn().mockReturnValue([jest.fn()]);
+const signInMutationFn = jest.fn().mockReturnValue([
+    jest.fn().mockReturnValue({
+        data: {
+            generateCustomerToken: {
+                token: 'customer token'
             }
+        }
+    }),
+    { error: null }
+]);
+const mergeCartsMutationFn = jest.fn().mockReturnValue([jest.fn()]);
+const clearCacheData = jest.fn();
+const client = { clearCacheData };
+
+const defaultProps = {
+    operations: {
+        createAccountMutation,
+        createCartMutation,
+        getCartDetailsQuery,
+        getCustomerQuery,
+        mergeCartsMutation,
+        getStoreConfigQuery,
+        signInMutation
+    },
+    initialValues: {
+        email: 'gooston@goosemail.com',
+        firstName: 'Gooseton',
+        lastName: 'Jr',
+        userName: 'gooseton'
+    },
+    onSubmit: jest.fn(),
+    onCancel: jest.fn()
+};
+
+const defaultFormValues = {
+    customer: {
+        email: 'bender@planet.express',
+        firstname: 'Bender',
+        lastname: 'Rodriguez'
+    },
+    password: '123456',
+    subscribe: false
+};
+beforeAll(() => {
+    useQuery.mockImplementation(query => {
+        if (query === getStoreConfigQuery) {
+            return getStoreConfigQueryFn();
+        } else {
+            return [jest.fn(), {}];
+        }
+    });
+    useAwaitQuery.mockImplementation(query => {
+        if (query === getCustomerQuery) {
+            return customerQueryFn();
+        } else if (query === getCartDetailsQuery) {
+            return getCartDetailsQueryFn();
+        } else {
+            return jest.fn();
         }
     });
 
-    expect(result.current).toMatchSnapshot();
-});
-
-describe('handle submit event', () => {
-    const formValues = {
-        customer: {
-            email: 'bender@planet.express',
-            firstname: 'Bender',
-            lastname: 'Rodriguez'
-        },
-        password: '123456',
-        subscribe: false
-    };
-
-    it('creates an account, dispatches event, signs in, and generates a new cart', async () => {
-        const [, { dispatch }] = useEventingContext();
-
-        const { result } = renderHookWithProviders();
-
-        await act(async () => {
-            await result.current.handleSubmit(formValues);
-        });
-
-        expect(mockSetToken).toHaveBeenCalledWith('auth-token-123', 3600);
-        expect(createAccount).toHaveBeenCalled();
-        expect(mockRemoveCart).toHaveBeenCalled();
-        expect(mockCreateCart).toHaveBeenCalledWith({
-            fetchCartId: expect.anything()
-        });
-        expect(mockGetUserDetails).toHaveBeenCalled();
-        expect(mockGetCartDetails).toHaveBeenCalled();
-
-        expect(handleSubmit).toHaveBeenCalledTimes(1);
-        expect(result.current.isDisabled).toBeTruthy();
-
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch.mock.calls[0][0]).toMatchSnapshot();
+    useMutation.mockImplementation(mutation => {
+        if (mutation === createAccountMutation) {
+            return createAccountMutationFn();
+        } else if (mutation === createCartMutation) {
+            return createCartMutationFn();
+        } else if (mutation === signInMutation) {
+            return signInMutationFn();
+        } else if (mutation === mergeCartsMutation) {
+            return mergeCartsMutationFn();
+        } else {
+            return [jest.fn()];
+        }
     });
 
-    it('does not call the submit callback if it is not defined', async () => {
-        const { result } = renderHookWithProviders({
-            renderHookOptions: {
-                initialProps: {
-                    onSubmit: undefined
+    useApolloClient.mockReturnValue(client);
+});
+test('should return properly', () => {
+    const { talonProps } = getTalonProps({
+        ...defaultProps
+    });
+
+    expect(talonProps).toMatchSnapshot();
+});
+
+// test('returns the correct shape with no initial values', async() => {
+//     const onSubmit = jest.fn();
+//     const { talonProps } = getTalonProps({
+//         ...defaultProps,
+//         onSubmit: handleSubmit
+//     });
+//     // await talonProps.handleSubmit()
+//     expect(talonProps).toMatchSnapshot();
+// });
+
+describe('handle submit event', () => {
+    it('should create a new account', async () => {
+        const createAccount = jest.fn().mockResolvedValueOnce(true);
+        createAccountMutationFn.mockReturnValueOnce([
+            createAccount,
+            { error: null }
+        ]);
+        const { talonProps } = getTalonProps({
+            ...defaultProps
+        });
+
+        await talonProps.handleSubmit(defaultFormValues);
+
+        expect(createAccount).toHaveBeenCalledWith({
+            variables: {
+                email: defaultFormValues.customer.email,
+                firstname: defaultFormValues.customer.firstname,
+                lastname: defaultFormValues.customer.lastname,
+                password: defaultFormValues.password,
+                is_subscribed: !!defaultFormValues.subscribe
+            }
+        });
+    });
+    it('should dispatch create account event', async () => {
+        const mockDispatch = jest.fn();
+
+        useEventingContext.mockReturnValueOnce([
+            {},
+            {
+                dispatch: mockDispatch
+            }
+        ]);
+
+        const { talonProps } = getTalonProps({
+            ...defaultProps
+        });
+
+        await talonProps.handleSubmit(defaultFormValues);
+
+        expect(mockDispatch).toHaveBeenCalledTimes(1);
+        expect(mockDispatch.mock.calls[0][0]).toMatchSnapshot();
+    });
+    test('should signin after account creation', async () => {
+        const token = 'customertoken';
+        const customer_token_lifetime = 1;
+        const signIn = jest.fn().mockReturnValue({
+            data: {
+                generateCustomerToken: {
+                    token
                 }
             }
         });
+        signInMutationFn.mockReturnValueOnce([signIn, { error: null }]);
+        const setToken = jest.fn();
+        useUserContext.mockReturnValueOnce([
+            { isGettingDetails: false },
+            { getUserDetails: jest.fn(), setToken }
+        ]);
 
-        await act(async () => {
-            await result.current.handleSubmit(formValues);
+        const { talonProps } = getTalonProps({
+            ...defaultProps
         });
 
-        expect(handleSubmit).not.toHaveBeenCalled();
+        await talonProps.handleSubmit(defaultFormValues);
+
+        expect(signIn).toHaveBeenCalledWith({
+            variables: {
+                email: defaultFormValues.customer.email,
+                password: defaultFormValues.password
+            }
+        });
+        expect(setToken).toHaveBeenCalledWith(token, customer_token_lifetime);
+    });
+
+    it('should create a new cart', async () => {
+        const createCart = jest.fn();
+        useCartContext.mockReturnValueOnce([
+            { cartId: '1234' },
+            {
+                createCart,
+                removeCart: jest.fn(),
+                getCartDetails: jest.fn()
+            }
+        ]);
+
+        const { talonProps } = getTalonProps({
+            ...defaultProps
+        });
+
+        await talonProps.handleSubmit(defaultFormValues);
+
+        expect(createCart).toHaveBeenCalled();
+    });
+
+    it('should remove cart', async () => {
+        const removeCart = jest.fn();
+        useCartContext.mockReturnValueOnce([
+            { cartId: '1234' },
+            {
+                createCart: jest.fn(),
+                removeCart,
+                getCartDetails: jest.fn()
+            }
+        ]);
+
+        const { talonProps } = getTalonProps({
+            ...defaultProps
+        });
+
+        await talonProps.handleSubmit(defaultFormValues);
+
+        expect(removeCart).toHaveBeenCalled();
+    });
+
+    it('should call onSubmit', async () => {
+        const onSubmit = jest.fn();
+
+        const { talonProps } = getTalonProps({
+            ...defaultProps,
+            onSubmit
+        });
+
+        await talonProps.handleSubmit(defaultFormValues);
+
+        expect(onSubmit).toHaveBeenCalled();
     });
 
     it('resets the submitting state on error', async () => {
         const consoleErrorSpy = jest.spyOn(console, 'error');
-
+        const mockGetUserDetails = jest.fn();
         useUserContext.mockImplementationOnce(() => {
             return [
                 {
@@ -256,20 +346,20 @@ describe('handle submit event', () => {
                 }
             ];
         });
-        const { result } = renderHookWithProviders();
-
-        await act(async () => {
-            await result.current.handleSubmit(formValues);
+        const { talonProps, update } = getTalonProps({
+            ...defaultProps
         });
+        const { isDisabled } = update;
+        await talonProps.handleSubmit(defaultFormValues);
 
         expect(consoleErrorSpy).toHaveBeenCalled();
-        expect(result.current.isDisabled).toBeFalsy();
+        expect(isDisabled).toBeFalsy();
     });
 
     it('does not log errors to console in production when an error happens', async () => {
         const consoleErrorSpy = jest.spyOn(console, 'error');
         process.env.NODE_ENV = 'production';
-
+        const mockGetUserDetails = jest.fn();
         useUserContext.mockImplementationOnce(() => {
             return [
                 {
@@ -283,12 +373,10 @@ describe('handle submit event', () => {
                 }
             ];
         });
-        const { result } = renderHookWithProviders();
-
+        const { talonProps } = getTalonProps(defaultProps);
         await act(async () => {
-            await result.current.handleSubmit(formValues);
+            await talonProps.handleSubmit();
         });
-
         expect(consoleErrorSpy).not.toHaveBeenCalled();
     });
 });

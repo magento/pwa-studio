@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha/useGoogleReCaptcha';
 import mergeOperations from '../../util/shallowMerge';
@@ -25,7 +25,8 @@ export const useSignIn = props => {
         createCartMutation,
         getCustomerQuery,
         mergeCartsMutation,
-        signInMutation
+        signInMutation,
+        getStoreConfigQuery
     } = operations;
 
     const apolloClient = useApolloClient();
@@ -61,6 +62,19 @@ export const useSignIn = props => {
         recaptchaWidgetProps
     } = googleReCaptcha;
 
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const { customerAccessTokenLifetime } = useMemo(() => {
+        const storeConfig = storeConfigData?.storeConfig || {};
+
+        return {
+            customerAccessTokenLifetime:
+                storeConfig.customer_access_token_lifetime
+        };
+    }, [storeConfigData]);
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
@@ -91,12 +105,8 @@ export const useSignIn = props => {
                 });
 
                 const token = signInResponse.data.generateCustomerToken.token;
-                const customerTokenLifetime =
-                    signInResponse.data.generateCustomerToken
-                        .customer_token_lifetime;
-
-                await (customerTokenLifetime
-                    ? setToken(token, customerTokenLifetime)
+                await (customerAccessTokenLifetime
+                    ? setToken(token, customerAccessTokenLifetime)
                     : setToken(token));
 
                 // Clear all cart/customer data from cache and redux.
@@ -143,6 +153,7 @@ export const useSignIn = props => {
             }
         },
         [
+            customerAccessTokenLifetime,
             cartId,
             generateReCaptchaData,
             signIn,
