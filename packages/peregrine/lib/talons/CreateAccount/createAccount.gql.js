@@ -45,7 +45,6 @@ export const SIGN_IN = gql`
     mutation SignInAfterCreate($email: String!, $password: String!) {
         generateCustomerToken(email: $email, password: $password) {
             token
-            customer_token_lifetime
         }
     }
 `;
@@ -132,6 +131,7 @@ export const GET_STORE_CONFIG_DATA = gql`
         storeConfig {
             store_code
             minimum_password_length
+            customer_access_token_lifetime
         }
     }
 `;

@@ -75,10 +75,17 @@ export const useCreateAccount = props => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const minimum_password_length = useMemo(() => {
-        if (storeConfigData) {
-            return storeConfigData.storeConfig.minimum_password_length;
-        }
+    const {
+        minimumPasswordLength,
+        customerAccessTokenLifetime
+    } = useMemo(() => {
+        const storeConfig = storeConfigData?.storeConfig || {};
+
+        return {
+            minimumPasswordLength: storeConfig.minimum_password_length,
+            customerAccessTokenLifetime:
+                storeConfig.customer_access_token_lifetime
+        };
     }, [storeConfigData]);
 
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
@@ -148,11 +155,8 @@ export const useCreateAccount = props => {
                     ...recaptchaDataForSignIn
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
-                const customerTokenLifetime =
-                    signInResponse.data.generateCustomerToken
-                        .customer_token_lifetime;
-                await (customerTokenLifetime
-                    ? setToken(token, customerTokenLifetime)
+                await (customerAccessTokenLifetime
+                    ? setToken(token, customerAccessTokenLifetime)
                     : setToken(token));
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
@@ -193,6 +197,7 @@ export const useCreateAccount = props => {
         },
 
         [
+            customerAccessTokenLifetime,
             cartId,
             generateReCaptchaData,
             createAccount,
@@ -238,7 +243,7 @@ export const useCreateAccount = props => {
         initialValues: sanitizedInitialValues,
         isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
         recaptchaWidgetProps,
-        minimum_password_length
+        minimumPasswordLength
     };
 };
 
