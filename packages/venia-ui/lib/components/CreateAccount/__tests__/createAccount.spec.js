@@ -14,7 +14,11 @@ jest.mock('@apollo/client', () => ({
         }
     ]),
     useQuery: jest.fn().mockImplementation(() => ({
-        data: {},
+        data: {
+            storeConfig: {
+                minimum_password_length: 8 // or whatever value is expected
+            }
+        },
         loading: false,
         error: null
     }))
