@@ -41,7 +41,7 @@ var magentoVersion = '2.4.7-p1';
 // React version compatibility
 var reactVersion = '17.0.2';
 
-// Forntend dependencies
+// Fornt end dependencies
 var forntEndDependencies = {
     '@magento/babel-preset-peregrine': '1.3.3',
     '@magento/create-pwa': '2.4.6',
