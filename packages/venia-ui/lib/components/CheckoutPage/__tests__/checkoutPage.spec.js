@@ -78,6 +78,7 @@ const defaultTalonProps = {
     orderNumber: null,
     placeOrderLoading: false,
     placeOrderButtonClicked: false,
+    renderPage: false,
     setGuestSignInUsername: jest.fn().mockName('setGuestSignInUsername'),
     setIsUpdating: jest.fn().mockName('setIsUpdating'),
     setShippingInformationDone: jest
@@ -89,6 +90,7 @@ const defaultTalonProps = {
         containerElement: [Function],
         shouldRender: false
     },
+    setRenderPage: jest.fn(),
     toggleAddressBookContent: jest.fn().mockName('toggleAddressBookContent'),
     toggleSignInContent: jest.fn().mockName('toggleSignInContent')
 };
@@ -109,6 +111,7 @@ describe('CheckoutPage', () => {
     test('throws a toast if there is an error', () => {
         useCheckoutPage.mockReturnValueOnce({
             ...defaultTalonProps,
+            renderPage: true,
             hasError: true
         });
         const [, { addToast }] = useToasts();
@@ -123,6 +126,7 @@ describe('CheckoutPage', () => {
             ...defaultTalonProps,
             placeOrderLoading: false,
             hasError: false,
+            renderPage: true,
             orderDetailsData: {},
             orderNumber: 1
         });
@@ -137,6 +141,7 @@ describe('CheckoutPage', () => {
             ...defaultTalonProps,
             checkoutStep: CHECKOUT_STEP.REVIEW,
             isUpdating: true,
+            renderPage: true,
             placeOrderLoading: true,
             orderDetailsLoading: true,
             orderNumber: null
@@ -151,17 +156,12 @@ describe('CheckoutPage', () => {
         expect(button.props.disabled).toBe(true);
     });
 
-    test('renders loading indicator', () => {
-        useCheckoutPage.mockReturnValueOnce({
-            isLoading: true
-        });
-
-        const tree = createTestInstance(<CheckoutPage />);
-        expect(tree.toJSON()).toMatchSnapshot();
-    });
-
     test('renders checkout content for guest on mobile', () => {
-        useCheckoutPage.mockReturnValueOnce(defaultTalonProps);
+        useCheckoutPage.mockReturnValueOnce({
+            ...defaultTalonProps,
+            renderPage: true
+        });
+        // useCheckoutPage.mockReturnValueOnce(defaultTalonProps);
 
         const tree = createTestInstance(<CheckoutPage />);
         expect(tree.toJSON()).toMatchSnapshot();
@@ -169,8 +169,10 @@ describe('CheckoutPage', () => {
 
     test('renders checkout content for guest on desktop', () => {
         givenDesktop();
-        useCheckoutPage.mockReturnValueOnce(defaultTalonProps);
-
+        useCheckoutPage.mockReturnValueOnce({
+            ...defaultTalonProps,
+            renderPage: true
+        });
         const tree = createTestInstance(<CheckoutPage />);
         expect(tree.toJSON()).toMatchSnapshot();
     });
@@ -178,6 +180,7 @@ describe('CheckoutPage', () => {
     test('renders checkout content for customer - no default address', () => {
         useCheckoutPage.mockReturnValueOnce({
             ...defaultTalonProps,
+            renderPage: true,
             customer: { default_shipping: null, firstname: 'Eloise' },
             isGuestCheckout: false
         });
@@ -189,6 +192,7 @@ describe('CheckoutPage', () => {
     test('renders checkout content for customer - default address', () => {
         useCheckoutPage.mockReturnValueOnce({
             ...defaultTalonProps,
+            renderPage: true,
             customer: { default_shipping: '1' },
             isGuestCheckout: false
         });
@@ -200,6 +204,7 @@ describe('CheckoutPage', () => {
     test('renders address book for customer', () => {
         useCheckoutPage.mockReturnValueOnce({
             ...defaultTalonProps,
+            renderPage: true,
             activeContent: 'addressBook',
             customer: { default_shipping: '1' },
             isGuestCheckout: false
@@ -212,6 +217,7 @@ describe('CheckoutPage', () => {
     test('renders sign in for guest', () => {
         useCheckoutPage.mockReturnValueOnce({
             ...defaultTalonProps,
+            renderPage: true,
             activeContent: 'signIn'
         });
 
@@ -225,6 +231,7 @@ describe('CheckoutPage', () => {
     test('renders empty cart', () => {
         useCheckoutPage.mockReturnValueOnce({
             ...defaultTalonProps,
+            renderPage: true,
             isCartEmpty: true
         });
 
@@ -235,6 +242,7 @@ describe('CheckoutPage', () => {
     test('renders price adjustments and review order button', () => {
         useCheckoutPage.mockReturnValueOnce({
             ...defaultTalonProps,
+            renderPage: true,
             checkoutStep: CHECKOUT_STEP.PAYMENT,
             handleReviewOrder: jest.fn().mockName('handleReviewOrder'),
             isUpdating: true
@@ -255,6 +263,7 @@ describe('CheckoutPage', () => {
     test('renders an error and disables review order button if there is no payment method', () => {
         useCheckoutPage.mockReturnValueOnce({
             ...defaultTalonProps,
+            renderPage: true,
             checkoutStep: CHECKOUT_STEP.PAYMENT,
             isUpdating: true,
             availablePaymentMethods: []

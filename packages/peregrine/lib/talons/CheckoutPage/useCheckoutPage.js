@@ -6,6 +6,7 @@ import {
     useQuery
 } from '@apollo/client';
 import { useEventingContext } from '../../context/eventing';
+import { useHistory } from 'react-router-dom';
 
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
@@ -40,7 +41,6 @@ export const CHECKOUT_STEP = {
  *  customer: Object,
  *  error: ApolloError,
  *  handlePlaceOrder: Function,
- *  handlePlaceOrderEnterKeyPress: Function,
  *  hasError: Boolean,
  *  isCartEmpty: Boolean,
  *  isGuestCheckout: Boolean,
@@ -68,6 +68,7 @@ export const CHECKOUT_STEP = {
  * }
  */
 export const useCheckoutPage = (props = {}) => {
+    const history = useHistory();
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const {
@@ -82,7 +83,6 @@ export const useCheckoutPage = (props = {}) => {
         currentForm: 'PLACE_ORDER',
         formAction: 'placeOrder'
     });
-
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
     );
@@ -249,6 +249,7 @@ export const useCheckoutPage = (props = {}) => {
         });
         setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
+        localStorage.setItem('guestCheckoutComplete', 'true');
     }, [cartId, getOrderDetails]);
 
     const handlePlaceOrderEnterKeyPress = useCallback(() => {
@@ -384,7 +385,18 @@ export const useCheckoutPage = (props = {}) => {
         reviewOrderButtonClicked
     ]);
 
+    useEffect(() => {
+        if (isSignedIn && placeOrderData) {
+            history.push('/order-confirmation', {
+                orderNumber: placeOrderData.placeOrder.order.order_number,
+                items: cartItems
+            });
+        }
+    }, [isSignedIn, placeOrderData, cartItems, history]);
+
+    const [renderPage, setRenderPage] = useState(false);
     return {
+        renderPage,
         activeContent,
         availablePaymentMethods: checkoutData
             ? checkoutData?.cart?.available_payment_methods
@@ -408,6 +420,7 @@ export const useCheckoutPage = (props = {}) => {
             null,
         placeOrderLoading,
         placeOrderButtonClicked,
+        setRenderPage,
         setCheckoutStep,
         setGuestSignInUsername,
         setIsUpdating,
