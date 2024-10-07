@@ -192,7 +192,7 @@ function getUniqueDomainAndPorts(directory, customName, addUniqueHash) {
         uniqueSubdomain: subdomain
             .toLowerCase()
             .replace(/[^a-zA-Z0-9]/g, '-')
-            .replace(/^-+/, ''),
+            .replace(/^-+|-+$/g, ''),
         ports
     };
 }
