@@ -7,6 +7,8 @@ import {
 } from '@apollo/client';
 import { useEventingContext } from '../../context/eventing';
 
+import { useHistory } from 'react-router-dom';
+
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
@@ -68,8 +70,8 @@ export const CHECKOUT_STEP = {
  * }
  */
 export const useCheckoutPage = (props = {}) => {
+    const history = useHistory();
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-
     const {
         createCartMutation,
         getCheckoutDetailsQuery,
@@ -249,6 +251,7 @@ export const useCheckoutPage = (props = {}) => {
         });
         setPlaceOrderButtonClicked(true);
         setIsPlacingOrder(true);
+        localStorage.setItem('orderCount', '1');
     }, [cartId, getOrderDetails]);
 
     const handlePlaceOrderEnterKeyPress = useCallback(() => {
@@ -383,6 +386,16 @@ export const useCheckoutPage = (props = {}) => {
         isPlacingOrder,
         reviewOrderButtonClicked
     ]);
+    useEffect(() => {
+        if (isSignedIn && placeOrderData) {
+            history.push('/order-confirmation', {
+                orderNumber: placeOrderData.placeOrder.order.order_number,
+                items: cartItems
+            });
+        } else if (!isSignedIn && placeOrderData) {
+            history.push('/checkout');
+        }
+    }, [isSignedIn, placeOrderData, cartItems, history]);
 
     return {
         activeContent,

@@ -5,7 +5,6 @@ import { useItemsReview } from '@magento/peregrine/lib/talons/CheckoutPage/Items
 
 import Item from './item';
 import ShowAllButton from './showAllButton';
-import LoadingIndicator from '../../LoadingIndicator';
 import { useStyle } from '../../../classify';
 
 import defaultClasses from './itemsReview.module.css';
@@ -19,16 +18,13 @@ const ItemsReview = props => {
 
     const classes = useStyle(defaultClasses, propClasses);
 
-    const talonProps = useItemsReview({
-        data: props.data
-    });
+    const talonProps = useItemsReview(props);
 
     const {
         items: itemsInCart,
         totalQuantity,
         showAllItems,
         setShowAllItems,
-        isLoading,
         configurableThumbnailSource
     } = talonProps;
 
@@ -44,17 +40,6 @@ const ItemsReview = props => {
     const showAllItemsFooter = !showAllItems ? (
         <ShowAllButton onClick={setShowAllItems} />
     ) : null;
-
-    if (isLoading) {
-        return (
-            <LoadingIndicator>
-                <FormattedMessage
-                    id={'checkoutPage.fetchingItemsInYourOrder'}
-                    defaultMessage={'Fetching Items in your Order'}
-                />
-            </LoadingIndicator>
-        );
-    }
 
     return (
         <div

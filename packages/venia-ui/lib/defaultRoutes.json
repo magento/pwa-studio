@@ -54,6 +54,12 @@
         "path": "../ForgotPasswordPage"
     },
     {
+        "name": "OrderConfirmation",
+        "pattern": "/order-confirmation",
+        "exact": true,
+        "path": "../CheckoutPage/OrderConfirmationPage"
+    },
+    {
         "name": "OrderHistory",
         "pattern": "/order-history",
         "exact": true,

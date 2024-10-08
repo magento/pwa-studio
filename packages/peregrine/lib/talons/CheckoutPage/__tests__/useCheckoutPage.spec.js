@@ -6,7 +6,7 @@ import {
     useQuery
 } from '@apollo/client';
 import { act } from 'react-test-renderer';
-
+import { useHistory } from 'react-router-dom';
 import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
 import createTestInstance from '../../../util/createTestInstance';
 import { useCartContext } from '../../../context/cart';
@@ -25,6 +25,11 @@ jest.mock('@apollo/client', () => {
         useApolloClient: jest.fn(),
         useMutation: jest.fn(),
         useQuery: jest.fn()
+    };
+});
+jest.mock('react-router-dom', () => {
+    return {
+        useHistory: jest.fn()
     };
 });
 
@@ -158,8 +163,10 @@ const getTalonProps = props => {
 /**
  * beforeAll
  */
-
+const mockPush = jest.fn(); // Create a mock function for push
+const mockHistory = { push: mockPush };
 beforeEach(() => {
+    useHistory.mockReturnValue(mockHistory);
     useQuery.mockImplementation(query => {
         if (query === getCheckoutDetailsQuery) {
             return getCheckoutDetailsQueryResult();
@@ -451,6 +458,7 @@ test('orderDetailsLoading should be loading status of the getOrderDetailsQuery',
 });
 
 test('orderNumber should be the order_number from the place order mutation result', () => {
+    useUserContext.mockReturnValueOnce([{ isSignedIn: false }]);
     placeOrderMutationResult.mockReturnValueOnce([
         () => {},
         {
