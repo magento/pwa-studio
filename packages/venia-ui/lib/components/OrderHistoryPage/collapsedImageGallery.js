@@ -19,7 +19,7 @@ const CollapsedImageGallery = props => {
             const baseImageElements = Object.values(items)
                 .slice(0, DISPLAY_COUNT)
                 .map((item, index) => {
-                    if (!item){
+                    if (!item) {
                         return null;
                     }
                     const { thumbnail, name } = item;
