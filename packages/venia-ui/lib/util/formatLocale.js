@@ -5,7 +5,7 @@
  * @returns {string} A locale string (e.g. `fr_FR`).
  */
 export const fromReactIntl = string => {
-    return string.replace('-', '_');
+    return string.replace(/-/g, '_');
 };
 
 /**
