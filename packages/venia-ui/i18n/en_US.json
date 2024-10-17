@@ -199,6 +199,7 @@
     "forgotPasswordPage.header": "Forgot Your Password?",
     "forgotPasswordPage.title": "Forgot Your Password?",
     "formError.errorMessage": "An error has occurred. Please check the input and try again.",
+    "formError.graphqlAuthenticationEmailNotConfirmed": "Your account is created, You must confirm your account. Please check your email for the confirmation link.",
     "formSubmissionSuccessful.recoverPasswordText": "Recover Password",
     "formSubmissionSuccessful.textMessage": "If there is an account associated with {email} you will receive an email with a link to change your password.",
     "galleryItem.unavailableProduct": "Currently unavailable for purchase.",
