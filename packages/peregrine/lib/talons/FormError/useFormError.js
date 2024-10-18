@@ -22,24 +22,8 @@ export const useFormError = props => {
         var graphqlErrorMessage;
 
         if (firstError) {
-            var category = firstError.graphQLErrors?.find(
-                extensions => extensions
-            ).extensions?.category;
-            category = category
-                ? category
-                      .split('-')
-                      .map((word, index) =>
-                          index === 0
-                              ? word
-                              : word.charAt(0).toUpperCase() + word.slice(1)
-                      )
-                      .join('')
-                : null;
-            const errorId = category
-                ? 'formError.' + category
-                : 'formError.responseError';
             graphqlErrorMessage = formatMessage({
-                id: errorId,
+                id: 'formError.responseError',
                 defaultMessage: firstError.message
             });
         }
