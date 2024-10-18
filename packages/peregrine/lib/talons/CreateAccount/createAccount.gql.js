@@ -24,6 +24,7 @@ export const CREATE_ACCOUNT = gql`
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             customer {
                 email
+                is_confirmed
             }
         }
     }

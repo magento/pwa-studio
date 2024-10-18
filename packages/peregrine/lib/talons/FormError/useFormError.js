@@ -14,7 +14,23 @@ export const useFormError = props => {
                   defaultMessage:
                       'An error has occurred. Please check the input and try again.'
               });
-        return deriveErrorMessage(errors, defaultErrorMessage);
+
+        const firstError = errors
+            .filter(error => error !== null || undefined)
+            .map(error => (Array.isArray(error) ? error[0] : error))
+            .find(message => message);
+        var graphqlErrorMessage;
+
+        if (firstError) {
+            graphqlErrorMessage = formatMessage({
+                id: 'formError.responseError',
+                defaultMessage: firstError.message
+            });
+        }
+
+        return graphqlErrorMessage
+            ? deriveErrorMessage(errors, graphqlErrorMessage)
+            : deriveErrorMessage(errors, defaultErrorMessage);
     }, [errors, formatMessage, allowErrorMessages]);
 
     return {
