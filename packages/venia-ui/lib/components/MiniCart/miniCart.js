@@ -114,18 +114,22 @@ const MiniCart = React.forwardRef((props, ref) => {
                 className={classes.emptyMessage}
                 data-cy="MiniCart-emptyMessage"
             >
+                <div>
                 <FormattedMessage
                     id={'miniCart.emptyMessage'}
                     defaultMessage={'There are no items in your cart.'}
                 />
-                <span
-                    hidden
-                    role="status"
-                    aria-hidden="false"
-                    aria-live="polite"
-                >
-                    {announceMiniCartCount}
-                </span>
+                </div>
+                <div>
+                    <span
+                        hidden
+                        role="status"
+                        aria-hidden="false"
+                        aria-live="polite"
+                    >
+                        {announceMiniCartCount}
+                    </span>
+                </div>
             </div>
         </div>
     ) : (
