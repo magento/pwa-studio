@@ -166,12 +166,16 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
       className="items_container"
     >
       <div>
-        <h3>
-          <mock-FormattedMessage
-            defaultMessage="There are no items in your cart."
-            id="cartPage.emptyCart"
-          />
-        </h3>
+        <div>
+          <h3>
+            <div>
+              <mock-FormattedMessage
+                defaultMessage="There are no items in your cart."
+                id="cartPage.emptyCart"
+              />
+            </div>
+          </h3>
+        </div>
       </div>
     </div>
     <div

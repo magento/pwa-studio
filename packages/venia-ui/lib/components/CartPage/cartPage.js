@@ -68,18 +68,17 @@ const CartPage = props => {
             fetchCartDetails={fetchCartDetails}
         />
     ) : (
-        
         <div>
-        <div>
-            <h3> 
-                <div>
-                <FormattedMessage
-                    id={'cartPage.emptyCart'}
-                    defaultMessage={'There are no items in your cart.'}
-                />
-                </div>
-            </h3>
-        </div>
+            <div>
+                <h3>
+                    <div>
+                        <FormattedMessage
+                            id={'cartPage.emptyCart'}
+                            defaultMessage={'There are no items in your cart.'}
+                        />
+                    </div>
+                </h3>
+            </div>
         </div>
     );
 
