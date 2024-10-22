@@ -11,6 +11,7 @@
   "scripts": {
     "clean": " "
   },
+  "license": "SEE LICENSE IN LICENSE.txt",
   "pwa-studio": {
     "targets": {
       "intercept": "./intercept.js"
