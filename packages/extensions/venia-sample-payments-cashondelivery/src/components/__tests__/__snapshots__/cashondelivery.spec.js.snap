@@ -1,17 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should render with mailingAddress payable 1`] = `
-<div
-  className="cod_root"
->
-  <mock-BillingAddress
-    onBillingAddressChangedError={[MockFunction]}
-    onBillingAddressChangedSuccess={[MockFunction]}
-  />
-</div>
-`;
-
-exports[`Should return correct shape 1`] = `
+exports[`Should render CashOnDelivery component correctly`] = `
 <div
   className="cod_root"
 >
