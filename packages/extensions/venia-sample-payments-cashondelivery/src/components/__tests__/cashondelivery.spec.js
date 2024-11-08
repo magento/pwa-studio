@@ -32,4 +32,4 @@ test('Should render CashOnDelivery component correctly', () => {
     const tree = createTestInstance(<CashOnDelivery />);
 
     expect(tree.toJSON()).toMatchSnapshot();
-});   
+});

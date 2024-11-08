@@ -4,7 +4,9 @@ import { createTestInstance } from '@magento/peregrine';
 import EditCod from '../editcod';
 
 jest.mock('@magento/venia-ui/lib/classify');
-jest.mock('../cashondelivery', () => props => <mock-CashOnDelivery {...props} />);
+jest.mock('../cashondelivery', () => props => (
+    <mock-CashOnDelivery {...props} />
+));
 
 const mocks = {
     onPaymentReady: jest.fn().mockName('onPaymentReady'),

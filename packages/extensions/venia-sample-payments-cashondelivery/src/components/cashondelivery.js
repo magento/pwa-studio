@@ -23,7 +23,6 @@ const CashOnDelivery = props => {
     } = useCashondelivery(props);
 
     return (
-        
         <div className={classes.cod_root}>
             <BillingAddress
                 resetShouldSubmit={props.resetShouldSubmit}

@@ -22,9 +22,7 @@ import DEFAULT_OPERATIONS from './cashondelivery.gql';
 export const useCashondelivery = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
-    const {
-        setCodPaymentMethodOnCartMutation
-    } = operations;
+    const { setCodPaymentMethodOnCartMutation } = operations;
 
     const [{ cartId }] = useCartContext();
 
