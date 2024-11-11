@@ -38,11 +38,7 @@ export const useAddToCartButton = props => {
 
     const isInStock = item.stock_status === 'IN_STOCK';
 
-    const productType = item
-        ? item.__typename !== undefined
-            ? item.__typename
-            : item.type
-        : null;
+    const productType = item.__typename;
 
     const isUnsupportedProductType = UNSUPPORTED_PRODUCT_TYPES.includes(
         productType
@@ -58,7 +54,7 @@ export const useAddToCartButton = props => {
 
     const handleAddToCart = useCallback(async () => {
         try {
-            if (productType === 'SimpleProduct' || productType === 'simple') {
+            if (productType === 'SimpleProduct') {
                 setIsLoading(true);
 
                 const quantity = 1;
@@ -103,10 +99,7 @@ export const useAddToCartButton = props => {
                 });
 
                 setIsLoading(false);
-            } else if (
-                productType === 'ConfigurableProduct' ||
-                productType === 'configurable'
-            ) {
+            } else if (productType === 'ConfigurableProduct') {
                 const productLink = resourceUrl(
                     `/${item.url_key}${urlSuffix || ''}`
                 );

@@ -46,7 +46,6 @@ const GalleryItem = props => {
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;
     }
-
     // eslint-disable-next-line no-unused-vars
     const { name, price_range, small_image, url_key, rating_summary } = item;
 
@@ -76,16 +75,10 @@ const GalleryItem = props => {
 
     // fallback to regular price when final price is unavailable
     const priceSource =
-        (price_range?.maximum_price?.final_price !== undefined &&
-        price_range?.maximum_price?.final_price !== null
-            ? price_range.maximum_price.final_price
-            : item.prices.maximum.final) ||
-        (price_range?.maximum_price?.regular_price !== undefined &&
-        price_range?.maximum_price?.regular_price !== null
-            ? price_range.maximum_price.regular_price
-            : item.prices.maximum.regular);
-    const priceSourceValue = priceSource.value || priceSource;
+        price_range.maximum_price.final_price ||
+        price_range.maximum_price.regular_price;
 
+const priceSourceValue = priceSource.value || priceSource;
     // Hide the Rating component until it is updated with the new look and feel (PWA-2512).
     const ratingAverage = null;
     // const ratingAverage = rating_summary ? (
@@ -124,7 +117,10 @@ const GalleryItem = props => {
             </Link>
 
             <div data-cy="GalleryItem-price" className={classes.price}>
-                <Price value={priceSourceValue} currencyCode={currencyCode} />
+            <Price
+                    value={priceSourceValue}
+                    currencyCode={currencyCode}
+                />
             </div>
 
             <div className={classes.actionsContainer}>
