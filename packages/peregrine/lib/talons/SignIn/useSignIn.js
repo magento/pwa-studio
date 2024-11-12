@@ -13,7 +13,6 @@ import { useEventingContext } from '../../context/eventing';
 
 export const useSignIn = props => {
     const {
-        handleTriggerClick,
         getCartDetailsQuery,
         setDefaultUsername,
         showCreateAccount,
@@ -86,7 +85,6 @@ export const useSignIn = props => {
     const handleSubmit = useCallback(
         async ({ email, password }) => {
             setIsSigningIn(true);
-            handleTriggerClick();
 
             try {
                 // Get source cart id (guest cart id).
@@ -167,8 +165,7 @@ export const useSignIn = props => {
             fetchUserDetails,
             getCartDetails,
             fetchCartDetails,
-            dispatch,
-            handleTriggerClick
+            dispatch
         ]
     );
 
