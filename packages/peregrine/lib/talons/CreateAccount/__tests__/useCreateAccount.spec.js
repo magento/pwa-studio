@@ -9,6 +9,17 @@ import { retrieveCartId } from '../../../store/actions/cart';
 import createTestInstance from '../../../util/createTestInstance';
 import { useCreateAccount } from '../useCreateAccount';
 import { useEventingContext } from '../../../context/eventing';
+import { useHistory, useLocation } from 'react-router-dom'; // Added import for useHistory and useLocation
+
+// Mocking useHistory and useLocation
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'), // Keep the other functionality intact
+
+    useHistory: jest.fn(),
+
+    useLocation: jest.fn()
+}));
 
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
@@ -186,6 +197,22 @@ beforeAll(() => {
     });
 
     useApolloClient.mockReturnValue(client);
+
+    // Mock useHistory and useLocation here if needed for specific tests
+
+    useHistory.mockReturnValue({
+        push: jest.fn() // You can mock any methods that useHistory would provide
+    });
+
+    useLocation.mockReturnValue({
+        pathname: '/mock-path',
+
+        search: '',
+
+        hash: '',
+
+        state: null
+    });
 });
 
 test('should return properly', () => {
