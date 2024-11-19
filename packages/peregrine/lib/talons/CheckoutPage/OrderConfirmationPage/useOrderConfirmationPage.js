@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useUserContext } from '../../../context/user';
+import { setUserOnOrderSuccess } from '../../../store/actions/user/asyncActions';
 import { useLazyQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './orderConfirmationPage.gql';
+import { useDispatch } from 'react-redux';
 
 export const flattenGuestCartData = data => {
     if (!data) {
@@ -34,8 +36,26 @@ export const flattenCustomerOrderData = data => {
     if (!data) {
         return;
     }
+
     const { customer } = data;
-    const order = customer.orders.items[0];
+    const order = customer?.orders?.items?.[0];
+    if (!order || !order.shipping_address) {
+        // Return an empty response if no valid order or shipping address exists
+        return;
+
+        //Below code can be uncommented in case of wanting to show the order success page with blank shipping address.
+        // return {
+        //     city: '',
+        //     country: '',
+        //     email: customer.email,
+        //     firstname: '',
+        //     lastname: '',
+        //     postcode: '',
+        //     region: '',
+        //     street: ['',''],
+        //     shippingMethod: ''
+        // };
+    }
     const { shipping_address: address } = order;
 
     return {
@@ -65,6 +85,8 @@ export const useOrderConfirmationPage = props => {
     const flatData =
         flattenGuestCartData(props.data) || flattenCustomerOrderData(queryData);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         if (props.orderNumber && !props.data) {
             const orderNumber = props.orderNumber;
@@ -74,6 +96,13 @@ export const useOrderConfirmationPage = props => {
                 }
             });
         }
+
+        dispatch(setUserOnOrderSuccess(true));
+
+        return () => {
+            // Reset the flag when leaving the page
+            dispatch(setUserOnOrderSuccess(false));
+        };
     }, [props.orderNumber, props.data, fetchOrderConfirmationDetails]);
 
     return {
