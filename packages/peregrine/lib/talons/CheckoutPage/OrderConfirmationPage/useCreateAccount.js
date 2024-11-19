@@ -183,7 +183,8 @@ export const useCreateAccount = props => {
             removeCart,
             setToken,
             signIn,
-            dispatch
+            dispatch,
+            history
         ]
     );
 

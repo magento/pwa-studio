@@ -229,7 +229,10 @@ export const useCreateAccount = props => {
             getCartDetails,
             fetchCartDetails,
             onSubmit,
-            dispatch
+            dispatch,
+            history,
+            location.pathname,
+            userOnOrderSuccess
         ]
     );
 

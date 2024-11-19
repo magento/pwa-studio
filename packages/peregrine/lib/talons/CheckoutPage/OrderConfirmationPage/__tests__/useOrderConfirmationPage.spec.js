@@ -11,7 +11,7 @@ import { useLazyQuery } from '@apollo/client';
 
 import { useUserContext } from '../../../../context/user';
 
-import { useDispatch, connect } from 'react-redux'; // Import `connect` and `useDispatch` here
+import { useDispatch } from 'react-redux'; // Import `connect` and `useDispatch` here
 
 import { setUserOnOrderSuccess } from '../../../../store/actions/user/asyncActions'; // Import `setUserOnOrderSuccess`
 

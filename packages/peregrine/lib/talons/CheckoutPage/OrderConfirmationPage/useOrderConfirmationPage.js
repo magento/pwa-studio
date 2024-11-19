@@ -103,7 +103,12 @@ export const useOrderConfirmationPage = props => {
             // Reset the flag when leaving the page
             dispatch(setUserOnOrderSuccess(false));
         };
-    }, [props.orderNumber, props.data, fetchOrderConfirmationDetails]);
+    }, [
+        props.orderNumber,
+        props.data,
+        fetchOrderConfirmationDetails,
+        dispatch
+    ]);
 
     return {
         flatData,
