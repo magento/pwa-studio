@@ -50,10 +50,12 @@ const AuthBar = props => {
             <span className={classes.contents}>
                 <AccountChip fallbackText={fallBackText} />
                 <span className={classes.signIn}>
-                    <FormattedMessage
-                        id={'authBar.signInText'}
-                        defaultMessage={'Sign In'}
-                    />
+                    <div>
+                        <FormattedMessage
+                            id={'authBar.signInText'}
+                            defaultMessage={'Sign In'}
+                        />
+                    </div>
                 </span>
             </span>
         </button>

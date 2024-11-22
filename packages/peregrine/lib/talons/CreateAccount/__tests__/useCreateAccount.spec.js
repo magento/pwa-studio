@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useMutation, useQuery, useApolloClient } from '@apollo/client';
 import { act } from 'react-test-renderer';
 
 import { useCartContext } from '../../../context/cart';
@@ -16,7 +16,8 @@ jest.mock('@apollo/client', () => {
     return {
         ...apolloClient,
         useMutation: jest.fn().mockReturnValue([jest.fn()]),
-        useApolloClient: jest.fn()
+        useApolloClient: jest.fn(),
+        useQuery: jest.fn()
     };
 });
 jest.mock('../../../../lib/hooks/useAwaitQuery', () => ({
@@ -91,7 +92,17 @@ const createAccountMutation = 'createAccountMutation';
 const createCartMutation = 'createCartMutation';
 const signInMutation = 'signInMutation';
 const mergeCartsMutation = 'mergeCartsMutation';
+const getStoreConfigQuery = 'getStoreConfigQuery';
 
+const getStoreConfigQueryFn = jest.fn().mockReturnValue({
+    data: {
+        storeConfig: {
+            store_code: 'default',
+            minimum_password_length: 8,
+            customer_access_token_lifetime: 1
+        }
+    }
+});
 const customerQueryFn = jest.fn();
 const getCartDetailsQueryFn = jest.fn();
 const createAccountMutationFn = jest
@@ -102,8 +113,7 @@ const signInMutationFn = jest.fn().mockReturnValue([
     jest.fn().mockReturnValue({
         data: {
             generateCustomerToken: {
-                token: 'customer token',
-                customer_token_lifetime: 3600
+                token: 'customer token'
             }
         }
     }),
@@ -120,6 +130,7 @@ const defaultProps = {
         getCartDetailsQuery,
         getCustomerQuery,
         mergeCartsMutation,
+        getStoreConfigQuery,
         signInMutation
     },
     initialValues: {
@@ -143,6 +154,13 @@ const defaultFormValues = {
 };
 
 beforeAll(() => {
+    useQuery.mockImplementation(query => {
+        if (query === getStoreConfigQuery) {
+            return getStoreConfigQueryFn();
+        } else {
+            return [jest.fn(), {}];
+        }
+    });
     useAwaitQuery.mockImplementation(query => {
         if (query === getCustomerQuery) {
             return customerQueryFn();
@@ -273,12 +291,11 @@ describe('handleSubmit', () => {
 
     test('should signin after account creation', async () => {
         const token = 'customertoken';
-        const customer_token_lifetime = 3600;
+        const customer_token_lifetime = 1;
         const signIn = jest.fn().mockReturnValue({
             data: {
                 generateCustomerToken: {
-                    token,
-                    customer_token_lifetime
+                    token
                 }
             }
         });

@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mutation error is returned by talon 1`] = `
+Map {
+  "getUserDetailsQuery" => "getDetails error from redux",
+  "signInMutation" => "Sign In Mutation Error",
+}
+`;
+
+exports[`returns correct shape 1`] = `
+Object {
+  "cartContext": Array [
+    Object {
+      "cartId": "1234",
+    },
+    Object {
+      "createCart": [MockFunction],
+      "getCartDetails": [MockFunction],
+      "removeCart": [MockFunction],
+    },
+  ],
+  "errors": Map {
+    "getUserDetailsQuery" => "getDetails error from redux",
+    "signInMutation" => null,
+  },
+  "eventingContext": Array [
+    Object {},
+    Object {
+      "dispatch": [MockFunction],
+    },
+  ],
+  "fetchCartDetails": [MockFunction],
+  "fetchCartId": [MockFunction],
+  "fetchUserDetails": undefined,
+  "forgotPasswordHandleEnterKeyPress": [Function],
+  "googleReCaptcha": Object {
+    "generateReCaptchaData": [Function],
+    "recaptchaLoading": undefined,
+    "recaptchaWidgetProps": Object {
+      "containerElement": [Function],
+      "shouldRender": false,
+    },
+  },
+  "handleCreateAccount": [Function],
+  "handleEnterKeyPress": [Function],
+  "handleForgotPassword": [Function],
+  "handleSubmit": [Function],
+  "isBusy": undefined,
+  "isSigningIn": false,
+  "mergeCarts": [MockFunction],
+  "recaptchaWidgetProps": Object {
+    "containerElement": [Function],
+    "shouldRender": false,
+  },
+  "setFormApi": [Function],
+  "setIsSigningIn": [Function],
+  "signInMutationResult": Array [
+    [MockFunction],
+    Object {
+      "error": null,
+    },
+  ],
+  "signinHandleEnterKeyPress": [Function],
+  "userContext": Array [
+    Object {
+      "getDetailsError": "getDetails error from redux",
+      "isGettingDetails": false,
+    },
+    Object {
+      "getUserDetails": [MockFunction],
+      "setToken": [MockFunction],
+    },
+  ],
+}
+`;

@@ -39,7 +39,19 @@ const givenQueryResult = response => {
     useLazyQuery.mockReset();
     runQuery.mockReset();
     useLazyQuery.mockImplementation(() => {
-        return [runQuery, response];
+        // Create a promise that resolves to the mocked response
+        const queryPromise = new Promise(resolve => {
+            // Immediately resolve with the response
+            resolve(response);
+        });
+
+        // Return a tuple where the first item is an async function (runQuery) and the second is the response object
+        return [
+            async () => {
+                return await queryPromise; // Return the response when the promise resolves
+            },
+            response
+        ];
     });
 };
 
@@ -243,7 +255,8 @@ describe('returns NOT_FOUND when queries come back empty', () => {
 });
 
 describe('returns REDIRECT after receiving a redirect code', () => {
-    test('redirect code 301', async () => {
+    test('redirect code 301', () => {
+        // Arrange: Set up the query result
         givenQueryResult({
             data: {
                 route: {
@@ -256,15 +269,24 @@ describe('returns REDIRECT after receiving a redirect code', () => {
             loading: false
         });
 
-        await act(() => {
-            create(<Component />);
-        });
-
-        expect(replace).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
-            isRedirect: true,
-            relativeUrl: '/foo.html'
+        // Create a new Promise to handle `act`
+        return new Promise(resolve => {
+            // Use `act` to render the component
+            act(() => {
+                // Render the component and resolve the promise
+                create(<Component />);
+                resolve();
+            });
+        }).then(() => {
+            // Assert that `replace` was called once
+            expect(replace).toHaveBeenCalledTimes(1);
+            // Assert that `log` was called once
+            expect(log).toHaveBeenCalledTimes(1);
+            // Assert that `log` was called with the expected arguments
+            expect(log).toHaveBeenNthCalledWith(1, {
+                isRedirect: true,
+                relativeUrl: '/foo.html'
+            });
         });
     });
 

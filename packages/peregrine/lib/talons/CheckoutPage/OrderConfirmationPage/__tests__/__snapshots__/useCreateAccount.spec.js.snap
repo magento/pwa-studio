@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`handle submit event creates an account, dispatches event, signs in, and generates a new cart 1`] = `
+exports[`handle submit event should dispatch create account event 1`] = `
 Object {
   "payload": Object {
     "email": "bender@planet.express",
@@ -12,42 +12,24 @@ Object {
 }
 `;
 
-exports[`returns the correct shape 1`] = `
+exports[`should return properly 1`] = `
 Object {
   "errors": Map {
-    "createAccountQuery" => undefined,
-    "signInMutation" => undefined,
+    "createAccountQuery" => null,
+    "signInMutation" => null,
   },
   "handleEnterKeyPress": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
-      "email": "philipfry@fake.email",
-      "firstname": "Philip",
-      "lastname": "Fry",
+      "email": "gooston@goosemail.com",
+      "firstname": "Gooseton",
+      "lastname": "Jr",
     },
+    "userName": "gooseton",
   },
   "isDisabled": false,
-  "recaptchaWidgetProps": Object {},
-}
-`;
-
-exports[`returns the correct shape with no initial values 1`] = `
-Object {
-  "errors": Map {
-    "createAccountQuery" => undefined,
-    "signInMutation" => undefined,
-  },
-  "handleEnterKeyPress": [Function],
-  "handleSubmit": [Function],
-  "initialValues": Object {
-    "customer": Object {
-      "email": undefined,
-      "firstname": undefined,
-      "lastname": undefined,
-    },
-  },
-  "isDisabled": false,
+  "minimumPasswordLength": 8,
   "recaptchaWidgetProps": Object {},
 }
 `;
