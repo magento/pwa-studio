@@ -42,19 +42,6 @@ export const flattenCustomerOrderData = data => {
     if (!order || !order.shipping_address) {
         // Return an empty response if no valid order or shipping address exists
         return;
-
-        //Below code can be uncommented in case of wanting to show the order success page with blank shipping address.
-        // return {
-        //     city: '',
-        //     country: '',
-        //     email: customer.email,
-        //     firstname: '',
-        //     lastname: '',
-        //     postcode: '',
-        //     region: '',
-        //     street: ['',''],
-        //     shippingMethod: ''
-        // };
     }
     const { shipping_address: address } = order;
 
