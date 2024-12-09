@@ -89,3 +89,9 @@ export const clearToken = () =>
         // Remove from store
         dispatch(actions.clearToken());
     };
+
+export const setUserOnOrderSuccess = successFlag =>
+    async function thunk(dispatch) {
+        // Dispatch the action to update the state
+        dispatch(actions.setUserOnOrderSuccess(successFlag));
+    };

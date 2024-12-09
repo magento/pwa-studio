@@ -10,6 +10,12 @@ import { retrieveCartId } from '../../store/actions/cart';
 
 import DEFAULT_OPERATIONS from './signIn.gql';
 import { useEventingContext } from '../../context/eventing';
+import { useHistory, useLocation } from 'react-router-dom';
+
+/**
+ * Routes to redirect from if used to create an account.
+ */
+const REDIRECT_FOR_ROUTES = ['/checkout', '/order-confirmation'];
 
 export const useSignIn = props => {
     const {
@@ -40,7 +46,7 @@ export const useSignIn = props => {
 
     const userContext = useUserContext();
     const [
-        { isGettingDetails, getDetailsError },
+        { isGettingDetails, getDetailsError, userOnOrderSuccess },
         { getUserDetails, setToken }
     ] = userContext;
 
@@ -82,6 +88,9 @@ export const useSignIn = props => {
 
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
+
+    const history = useHistory();
+    const location = useLocation();
 
     const handleSubmit = useCallback(
         async ({ email, password }) => {
@@ -144,6 +153,13 @@ export const useSignIn = props => {
                 });
 
                 getCartDetails({ fetchCartId, fetchCartDetails });
+
+                if (
+                    userOnOrderSuccess &&
+                    REDIRECT_FOR_ROUTES.includes(location.pathname)
+                ) {
+                    history.push('/order-history');
+                }
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -168,7 +184,10 @@ export const useSignIn = props => {
             getCartDetails,
             fetchCartDetails,
             dispatch,
-            handleTriggerClick
+            handleTriggerClick,
+            history,
+            location.pathname,
+            userOnOrderSuccess
         ]
     );
 
