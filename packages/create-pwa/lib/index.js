@@ -13,13 +13,11 @@ const defaultSampleBackends = require('@magento/pwa-buildpack/sampleBackends.jso
 
 const uniqBy = (array, property) => {
     const map = new Map();
-
     for (const element of array) {
         if (element && element.hasOwnProperty(property)) {
             map.set(element[property], element);
         }
     }
-
     return Array.from(map.values());
 };
 
@@ -32,7 +30,6 @@ const fetchSampleBackends = async () => {
             'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
         );
         const { sampleBackends } = await res.json();
-
         return sampleBackends.environments;
     } catch {
         return [];
@@ -129,14 +126,7 @@ module.exports = async () => {
             default: 'https://magento2.localhost',
             when: ({ backendUrl }) => !backendUrl
         },
-        {
-            name: 'backendEdition',
-            type: 'list',
-            message:
-                'Edition of the magento store (Adobe Commerce or Magento Open Source)',
-            choices: ['AC', 'EE', 'MOS', 'CE'],
-            default: 'AC'
-        },
+        // Removed the question for backendEdition and set it directly
         {
             name: 'braintreeToken',
             message:
@@ -163,6 +153,7 @@ module.exports = async () => {
         answers = await inquirer.prompt(questions);
 
         answers.backendUrl = answers.backendUrl || answers.customBackendUrl;
+
         const args = questions.reduce(
             (args, q) => {
                 if (q.name === 'customBackendUrl' || q.name === 'directory') {
@@ -183,6 +174,9 @@ module.exports = async () => {
             },
             ['create-project', answers.directory]
         );
+
+        // Set backendEdition directly without asking
+        args.push('--backend-edition', `"AC"`);
 
         const argsString = args.join(' ');
 
