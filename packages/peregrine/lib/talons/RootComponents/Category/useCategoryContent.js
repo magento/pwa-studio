@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
@@ -39,6 +39,30 @@ export const useCategoryContent = props => {
         }
     );
 
+    const [filterOptions, setFilterOptions] = useState();
+
+    const availableFilterData = filterData
+        ? filterData.products?.aggregations
+        : null;
+    const availableFilters = availableFilterData
+        ?.map(eachitem => eachitem.attribute_code)
+        ?.sort();
+    const selectedFilters = {};
+
+    if (filterOptions) {
+        for (const [group, items] of filterOptions) {
+            availableFilters?.map(eachitem => {
+                if (eachitem === group) {
+                    const sampleArray = [];
+                    for (const item of items) {
+                        sampleArray.push(item.value);
+                    }
+                    selectedFilters[group] = sampleArray;
+                }
+            });
+        }
+    }
+
     const [getSortMethods, { data: sortData }] = useLazyQuery(
         getCategoryAvailableSortMethodsQuery,
         {
@@ -63,11 +87,22 @@ export const useCategoryContent = props => {
 
     useEffect(() => {
         if (categoryId) {
+            let dynamicFilters = {
+                category_uid: { eq: categoryId }
+            };
+            Object.keys(selectedFilters).forEach(key => {
+                let filter = {};
+                if (key === 'price') {
+                    let [from, to] = selectedFilters[key][0].split('_');
+                    filter = { [key]: { from: from, to: to }};
+                } else  {
+                    filter = { [key]: { in: selectedFilters[key]}};
+                }
+                dynamicFilters = { ...dynamicFilters, ...filter };
+              });
             getFilters({
                 variables: {
-                    categoryIdFilter: {
-                        eq: categoryId
-                    }
+                    filters: dynamicFilters
                 }
             });
         }
@@ -122,6 +157,7 @@ export const useCategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
+        setFilterOptions,
         items,
         totalCount,
         totalPagesFromData
