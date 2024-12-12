@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "cm": "cz",
+    "clean": " ",
     "format": "npm run prettier -- --write",
     "lint": "eslint 'lib/**/*'",
     "lint:fix": "npm run lint -- --fix",
