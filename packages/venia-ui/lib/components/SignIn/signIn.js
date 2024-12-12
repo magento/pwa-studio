@@ -19,7 +19,6 @@ import GoogleRecaptcha from '../GoogleReCaptcha';
 const SignIn = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const {
-        handleTriggerClick,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
@@ -28,7 +27,6 @@ const SignIn = props => {
 
     const { formatMessage } = useIntl();
     const talonProps = useSignIn({
-        handleTriggerClick,
         getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         setDefaultUsername,
         showCreateAccount,
