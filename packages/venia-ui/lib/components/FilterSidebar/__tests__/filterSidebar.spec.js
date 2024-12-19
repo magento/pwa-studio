@@ -51,6 +51,8 @@ const mockHandleApply = jest.fn();
 
 const mockScrollTo = jest.fn();
 
+const mockFilterOptions = jest.fn();
+
 const mockGetBoundingClientRect = jest.fn();
 
 let mockFilterState;
@@ -125,7 +127,8 @@ const Component = () => {
 
 const givenDefaultValues = () => {
     inputProps = {
-        filters: []
+        filters: [],
+        setFilterOptions: mockFilterOptions
     };
 
     mockFilterState = new Map();
@@ -133,13 +136,15 @@ const givenDefaultValues = () => {
 
 const givenFilters = () => {
     inputProps = {
-        filters: mockFilters
+        filters: mockFilters,
+        setFilterOptions: mockFilterOptions
     };
 };
 
 const givenSelectedFilters = () => {
     inputProps = {
-        filters: mockFilters
+        filters: mockFilters,
+        setFilterOptions: mockFilterOptions
     };
 
     mockFilterState = new Map([['group', 'item']]);
@@ -148,7 +153,8 @@ const givenSelectedFilters = () => {
 const givenFiltersAndAmountToShow = () => {
     inputProps = {
         filters: mockFilters,
-        filterCountToOpen: mockFiltersOpenCount
+        filterCountToOpen: mockFiltersOpenCount,
+        setFilterOptions: mockFilterOptions
     };
 };
 

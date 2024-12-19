@@ -1,9 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
-    query getProductFiltersByCategory(
-        $filters: ProductAttributeFilterInput!
-    ) {
+    query getProductFiltersByCategory($filters: ProductAttributeFilterInput!) {
         products(filter: $filters) {
             aggregations {
                 label
