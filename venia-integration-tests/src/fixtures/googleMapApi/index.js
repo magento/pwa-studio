@@ -86,7 +86,9 @@ export const createGoogleMapApi = currentMapApi => {
 
                 open(map) {
                     map.infoWindowContainer.style.maxWidth = this.maxWidth;
-                    map.infoWindowContainer.innerHTML = DOMPurify.sanitize(this.content);
+                    map.infoWindowContainer.innerHTML = DOMPurify.sanitize(
+                        this.content
+                    );
                 }
 
                 close() {
