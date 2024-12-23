@@ -11,6 +11,10 @@ import { useLazyQuery } from '@apollo/client';
 
 import { useUserContext } from '../../../../context/user';
 
+import { useDispatch } from 'react-redux'; // Import `connect` and `useDispatch` here
+
+import { setUserOnOrderSuccess } from '../../../../store/actions/user/asyncActions'; // Import `setUserOnOrderSuccess`
+
 jest.mock('../../../../context/user');
 useUserContext.mockImplementation(() => {
     return [
@@ -27,6 +31,21 @@ jest.mock('@apollo/client', () => {
         useLazyQuery: jest.fn().mockReturnValue([jest.fn(), {}])
     };
 });
+
+// Mock `react-redux`'s `useDispatch` and `connect` functions
+
+jest.mock('react-redux', () => ({
+    useDispatch: jest.fn(),
+    connect: jest.fn().mockReturnValue(Component => Component) // Mock `connect` as an identity function
+}));
+
+jest.mock('../../../../store/actions/user/asyncActions', () => ({
+    setUserOnOrderSuccess: jest.fn(value => ({
+        type: 'SET_USER_ON_ORDER_SUCCESS',
+
+        payload: value
+    })) // Mock `setUserOnOrderSuccess` to return an action object
+}));
 
 const Component = props => {
     const talonProps = useOrderConfirmationPage(props);
@@ -131,6 +150,11 @@ describe('for guest', () => {
                 }
             ];
         });
+
+        const mockDispatch = jest.fn(); // Mock dispatch for this test
+
+        useDispatch.mockReturnValue(mockDispatch);
+
         const tree = createTestInstance(<Component {...DEFAULT_PROPS} />);
 
         const { root } = tree;
@@ -143,6 +167,7 @@ describe('for guest', () => {
 describe('for authenticated customers', () => {
     it('returns the correct shape', () => {
         const mockFetch = jest.fn();
+        const mockDispatch = jest.fn(); // Mock dispatch for this test
 
         useLazyQuery.mockReturnValueOnce([
             mockFetch,
@@ -153,7 +178,15 @@ describe('for authenticated customers', () => {
             }
         ]);
 
+        useDispatch.mockReturnValue(mockDispatch);
+
         const mockOrderNumber = '12345';
+
+        // Create a mock dispatch function
+
+        //const mockDispatch = jest.fn();
+
+        //useDispatch.mockReturnValue(mockDispatch);  // Mock useDispatch to return the mock function
 
         const tree = createTestInstance(
             <Component orderNumber={mockOrderNumber} />
@@ -163,6 +196,10 @@ describe('for authenticated customers', () => {
         const { talonProps } = root.findByType('i').props;
 
         expect(talonProps).toMatchSnapshot();
+
+        // Check if dispatch was called with the correct action
+
+        expect(mockDispatch).toHaveBeenCalledWith(setUserOnOrderSuccess(true));
 
         expect(mockFetch).toHaveBeenCalledWith({
             variables: { orderNumber: mockOrderNumber }
