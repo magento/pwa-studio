@@ -49,7 +49,7 @@
     "caniuse-lite": "~1.0.30001335",
     "path-to-regexp": "^8.2.0",
     "qs": "^6.13.0",
-    "setimmediate": "^1.0.5"
+    "setimmediate": "^1.0.5",
     "dompurify": "^2.3.8"
 
   },
