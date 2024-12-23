@@ -8,6 +8,8 @@ import SignIn from '../signIn';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useMutation } from '@apollo/client';
 
+import { useHistory, useLocation } from 'react-router-dom';
+
 jest.mock('@apollo/client', () => ({
     gql: jest.fn(),
     useApolloClient: jest.fn().mockImplementation(() => {}),
@@ -23,6 +25,17 @@ jest.mock('@apollo/client', () => ({
         loading: false
     }))
 }));
+
+// Mocking the react-router hooks
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+
+    useHistory: jest.fn(),
+
+    useLocation: jest.fn()
+}));
+
 jest.mock('../../../classify');
 jest.mock('../../Button', () => () => <i />);
 jest.mock('../../FormError/formError', () => 'FormError');
@@ -66,6 +79,24 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
 jest.mock('@magento/peregrine/lib/context/eventing', () => ({
     useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
+
+// Mocking useLocation and useHistory for the tests
+
+beforeEach(() => {
+    useHistory.mockReturnValue({
+        push: jest.fn() // mock any methods you need from useHistory
+    });
+
+    useLocation.mockReturnValue({
+        pathname: '/mock-path', // mock the location properties
+
+        search: '',
+
+        hash: '',
+
+        state: null
+    });
+});
 
 const props = {
     setDefaultUsername: jest.fn(),
