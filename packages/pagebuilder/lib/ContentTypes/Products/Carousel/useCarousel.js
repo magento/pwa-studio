@@ -1,7 +1,5 @@
 import { useQuery } from '@apollo/client';
 
-import { useCustomerWishlistSkus } from '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus';
-
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import defaultOperations from './carousel.gql';
 
@@ -10,8 +8,6 @@ import defaultOperations from './carousel.gql';
  */
 export const useCarousel = (props = {}) => {
     const operations = mergeOperations(defaultOperations, props.operations);
-
-    useCustomerWishlistSkus();
 
     const { data: storeConfigData } = useQuery(operations.getStoreConfigQuery, {
         fetchPolicy: 'cache-and-network'

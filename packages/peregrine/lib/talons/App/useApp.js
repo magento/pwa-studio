@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
+import { useCustomerWishlistSkus } from '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const dismissers = new WeakMap();
@@ -40,6 +41,8 @@ export const useApp = props => {
         unhandledErrors
     } = props;
     const history = useHistory();
+
+    useCustomerWishlistSkus();
 
     const reload = useCallback(() => {
         if (process.env.NODE_ENV !== 'development') {
