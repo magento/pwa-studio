@@ -16,6 +16,8 @@ After `docker/run-docker` is executed from the root of the repository, the defau
 
 ## Configure a custom domain
 
+
+
 The domain is configurable. Just set the `DEV_SERVER_HOST` key to the new domain under `docker/.env.docker`, or pass a custom .env file with the `DEV_SERVER_HOST` key set. All required fields can be found in `docker/.env.docker`. For staging and production environments, use `STAGING_SERVER_HOST`. See how to pass the custom .env file below.
 
 ## Pass custom .env file configuration through cli args (optional)
