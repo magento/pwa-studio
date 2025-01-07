@@ -45,7 +45,7 @@
     "@digitalroute/cz-conventional-changelog-for-jira": "6.0.2",
     "@magento/babel-preset-peregrine": "1.1.0",
     "@magento/peregrine": "~10.0.0",
-    "@magento/venia-concept": "10.0.0",
+    "@magento/venia-concept": "~14.1.0",
     "@magento/venia-ui": "7.0.0",
     "@testing-library/react-hooks": "5.0.3",
     "@types/jest": "26.0.20",
