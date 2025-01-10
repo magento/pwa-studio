@@ -124,15 +124,15 @@ describe('useCategoryContent tests', () => {
                 mockProductFiltersByCategoryData
             ])
             .mockReturnValueOnce([mockGetSortMethods, mockSortData]);
-            const testProps = Object.assign({}, mockProps, {
-                categoryId: 0
-            });
-            const rendered =   createTestInstance(<Component {...testProps} />);
-            const talonProps = rendered.root.findByType('i').props; 
+        const testProps = Object.assign({}, mockProps, {
+            categoryId: 0
+        });
+        const rendered = createTestInstance(<Component {...testProps} />);
+        const talonProps = rendered.root.findByType('i').props;
 
-            expect(useQuery).toHaveBeenCalled();
-            expect(useLazyQuery).toHaveBeenCalled();
-            expect(talonProps).toMatchSnapshot();
+        expect(useQuery).toHaveBeenCalled();
+        expect(useLazyQuery).toHaveBeenCalled();
+        expect(talonProps).toMatchSnapshot();
     });
 
     it('handles default category id', () => {
