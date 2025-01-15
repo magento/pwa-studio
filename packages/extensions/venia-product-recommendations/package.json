@@ -26,7 +26,7 @@
     "release": "cross-env HUSKY_SKIP_HOOKS=1 standard-version"
   },
   "peerDependencies": {
-    "@magento/peregrine": "~10.0.0",
+    "@magento/peregrine": "~14.4.1",
     "@magento/pwa-buildpack": "~9.0.0",
     "@magento/venia-ui": "~7.0.0",
     "eslint-plugin-react": "~7.21.5",
@@ -44,7 +44,7 @@
     "@babel/preset-react": "7.12.13",
     "@digitalroute/cz-conventional-changelog-for-jira": "6.0.2",
     "@magento/babel-preset-peregrine": "1.1.0",
-    "@magento/peregrine": "~10.0.0",
+    "@magento/peregrine": "~14.4.1",
     "@magento/venia-concept": "~14.1.0",
     "@magento/venia-ui": "7.0.0",
     "@testing-library/react-hooks": "5.0.3",
