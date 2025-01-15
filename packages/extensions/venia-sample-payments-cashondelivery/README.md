@@ -1,4 +1,4 @@
-# venia-sample-payments-checkmo
+# venia-sample-payments-cashondelivery
 
 This package provides the `Cash On Delivery` payment method for Venia.
 
