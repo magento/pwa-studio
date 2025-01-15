@@ -19,7 +19,6 @@ const REDIRECT_FOR_ROUTES = ['/checkout', '/order-confirmation'];
 
 export const useSignIn = props => {
     const {
-        handleTriggerClick,
         getCartDetailsQuery,
         setDefaultUsername,
         showCreateAccount,
@@ -95,7 +94,6 @@ export const useSignIn = props => {
     const handleSubmit = useCallback(
         async ({ email, password }) => {
             setIsSigningIn(true);
-            handleTriggerClick();
 
             try {
                 // Get source cart id (guest cart id).
@@ -184,7 +182,6 @@ export const useSignIn = props => {
             getCartDetails,
             fetchCartDetails,
             dispatch,
-            handleTriggerClick,
             history,
             location.pathname,
             userOnOrderSuccess
