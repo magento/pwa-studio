@@ -54,7 +54,7 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
 
                 if (existingFilter) {
                     items.add(existingFilter);
-                } else {
+                } else if (group !== 'price') {
                     console.warn(
                         `Existing filter ${value} not found in possible filters`
                     );
