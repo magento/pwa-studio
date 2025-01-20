@@ -1,20 +1,10 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import styles from './rangeSlider.module.css';
 
-const valueCSS = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1,
-    gap: '2px',
-    paddingTop: '10px'
-};
-
 const PriceRangeSlider = ({
     min,
     max,
     onChange,
-    valueStyle = valueCSS,
     width = '300px',
     trackColor = '#cecece',
     rangeColor = '#2954fe'
@@ -62,68 +52,6 @@ const PriceRangeSlider = ({
     }, [minVal, maxVal, onChange]);
 
     return (
-        // <div className="w-full flex justify-center flex-col space-y-14">
-        //   {/* Display Price Value */}
-        //   <div className="w-[300px] px-4 flex items-center justify-between gap-x-5">
-        //     <span>
-        //       {currencyText} {minVal}
-        //     </span>
-
-        //     <div className="flex-1 border-dashed border border-neutral-500 mt-1" />
-
-        //     <span>
-        //       {currencyText} {maxVal}
-        //     </span>
-        //   </div>
-
-        //   {/* Slider */}
-        //   <div className="relative" style={{ width }}>
-        //     <div className="progress"></div>
-        //     <div className="sliders-wrapper">
-        //       {/* Min slider */}
-        //       <input
-        //         type="range"
-        //         min={min}
-        //         max={max}
-        //         value={minVal}
-        //         onChange={(event) => {
-        //           const value = Math.min(Number(event.target.value), maxVal - 1);
-        //           setMinVal(value);
-        //         }}
-        //         className="thumb thumb-left"
-        //         style={{
-        //           position: 'absolute',
-        //           zIndex: 2,
-        //           width,
-        //           top: '50%',
-        //           transform: 'translateY(-50%)',
-        //           background: 'none',
-        //         }}
-        //       />
-
-        //       {/* Max slider */}
-        //       <input
-        //         type="range"
-        //         min={min}
-        //         max={max}
-        //         value={maxVal}
-        //         onChange={(event) => {
-        //           const value = Math.max(Number(event.target.value), minVal + 1);
-        //           setMaxVal(value);
-        //         }}
-        //         className="thumb thumb-right"
-        //         style={{
-        //           position: 'absolute',
-        //           zIndex: 3,
-        //           width,
-        //           top: '50%',
-        //           transform: 'translateY(-50%)',
-        //           background: 'none',
-        //         }}
-        //       />
-        //     </div>
-        //   </div>
-        // </div>
         <div className="w-full flex justify-center flex-col space-y-14">
             {/* Display Price Value */}
             <div className="w-[300px] px-4 flex justify-between gap-x-5">

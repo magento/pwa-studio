@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState, useRef } from 'react';
+import React, { Fragment, useMemo, useCallback } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
 import setValidator from '@magento/peregrine/lib/validators/set';
@@ -32,55 +32,31 @@ const FilterList = props => {
     const { formatMessage } = useIntl();
 
     if (name === 'Price') {
-        debugger;
         var minRange = Number(items[0].value.split('_')[0]);
         var maxRange = Number(items[items.length - 1].value.split('_')[1]);
     }
 
-    const [value, setValue] = useState([
-        minRange ? minRange : null,
-        maxRange ? maxRange : null
-    ]);
+    const handleChange = useCallback(
+        newValue => {
+            const test = String(search).split('&');
+            const filters = test.filter(element => {
+                return !element.includes('price');
+            });
+            const newSearch = filters.join('&');
+            const nextParams = new URLSearchParams(newSearch);
 
-    const [isSliding, setIsSliding] = useState(false); // Track whether the user is sliding
-    const sliderTimeoutRef = useRef(null);
+            const DELIMITER = ',';
+            const title = String(newValue.min) + '-' + String(newValue.max);
+            const value = String(newValue.min) + '_' + String(newValue.max);
+            nextParams.append(
+                `${group}[filter]`,
+                `${title}${DELIMITER}${value}`
+            );
 
-    const handleSliderStart = () => {
-        setIsSliding(true); // User started sliding
-        if (sliderTimeoutRef.current) {
-            clearTimeout(sliderTimeoutRef.current);
-        }
-    };
-
-    const handleSliderEnd = newValue => {
-        setIsSliding(false); // User stopped sliding
-        // Call the actual onChange only after a brief delay (debounce)
-        sliderTimeoutRef.current = setTimeout(() => {
-            handleChange(newValue);
-        }, 300); // Delay of 300ms after the user stops interacting with the slider
-    };
-
-    const handleChange = newValue => {
-        // Remove the previous price filter from the URL
-        const test = String(search).split('&');
-        const filters = test.filter(element => {
-            return !element.includes('price');
-        });
-        const newSearch = filters.join('&');
-        const nextParams = new URLSearchParams(newSearch);
-
-        // Append the new price filter range in the URL
-        const DELIMITER = ',';
-        const title = String(newValue.min) + '-' + String(newValue.max);
-        const value = String(newValue.min) + '_' + String(newValue.max);
-        nextParams.append(`${group}[filter]`, `${title}${DELIMITER}${value}`);
-
-        // Write price filter state to history
-        history.push({ pathname, search: String(nextParams) });
-
-        // Set new value to the slider when the slider stops
-        setValue(newValue);
-    };
+            history.push({ pathname, search: String(nextParams) });
+        },
+        [group, history, pathname, search]
+    );
 
     // Memoize item creation
     const itemElements = useMemo(() => {
@@ -154,13 +130,9 @@ const FilterList = props => {
         isListExpanded,
         itemCountToShow,
         onApply,
-        history,
         minRange,
         maxRange,
-        pathname,
-        search,
-        value,
-        isSliding
+        handleChange
     ]);
 
     const showMoreLessItem = useMemo(() => {
