@@ -1,5 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
+import { MemoryRouter } from 'react-router-dom';
 
 import { createTestInstance } from '@magento/peregrine';
 
@@ -161,7 +162,11 @@ describe('#FilterSidebar', () => {
     });
 
     it('renders without filters', () => {
-        createTestInstance(<Component />);
+        createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(mockFilterBlock).not.toHaveBeenCalled();
         expect(mockCurrentFilters).toHaveBeenCalled();
@@ -170,7 +175,11 @@ describe('#FilterSidebar', () => {
     it('renders with filters and no selected filters', () => {
         givenFilters();
 
-        const { root } = createTestInstance(<Component />);
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(() => root.findByType(LinkButton)).toThrow();
         expect(mockFilterBlock).toHaveBeenCalledTimes(mockFilters.length);
@@ -179,7 +188,11 @@ describe('#FilterSidebar', () => {
     it('renders with filters and selected filter', () => {
         givenSelectedFilters();
 
-        const { root } = createTestInstance(<Component />);
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(() => root.findByType(LinkButton)).not.toThrow();
         expect(mockFilterBlock).toHaveBeenCalledTimes(mockFilters.length);
@@ -188,7 +201,11 @@ describe('#FilterSidebar', () => {
     it('handles when a user applies a filter and ref is not provided', () => {
         givenSelectedFilters();
 
-        const { root } = createTestInstance(<Component />);
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         act(() => {
             root.findAllByType(FilterBlock)[0].props.onApply();
@@ -206,17 +223,22 @@ describe('#FilterSidebar', () => {
             value: mockScrollTo
         });
 
-        const { root } = createTestInstance(<Component />, {
-            createNodeMock: () => {
-                return {
-                    getBoundingClientRect: mockGetBoundingClientRect.mockReturnValue(
-                        {
-                            top: 250
-                        }
-                    )
-                };
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>,
+            {
+                createNodeMock: () => {
+                    return {
+                        getBoundingClientRect: mockGetBoundingClientRect.mockReturnValue(
+                            {
+                                top: 250
+                            }
+                        )
+                    };
+                }
             }
-        });
+        );
 
         act(() => {
             root.findAllByType(FilterBlock)[0].props.onApply();
@@ -229,7 +251,11 @@ describe('#FilterSidebar', () => {
 
     it('accepts configurable amount of open filters', () => {
         givenFiltersAndAmountToShow();
-        createTestInstance(<Component />);
+        createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(mockFilterBlock).toHaveBeenCalledTimes(mockFilters.length);
 
