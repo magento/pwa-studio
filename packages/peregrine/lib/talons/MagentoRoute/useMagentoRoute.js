@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { useRootComponents } from '../../context/rootComponents';
@@ -44,9 +44,11 @@ export const useMagentoRoute = (props = {}) => {
     const component = componentMap.get(pathname);
 
     const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery);
+
     // destructure the query result
     const { data, error, loading } = queryResult;
-    const { route } = data || {};
+    const [getRouteData, setRouteData] = useState(data);
+    const { route } = getRouteData || {};
 
     // redirect to external url
     useEffect(() => {
@@ -59,15 +61,34 @@ export const useMagentoRoute = (props = {}) => {
     }, [route]);
 
     useEffect(() => {
+        let isMounted = true; // Track whether the component is still mounted
+        const runInitialQuery = async () => {
+            try {
+                const { data } = await runQuery({
+                    fetchPolicy: 'cache-and-network',
+                    nextFetchPolicy: 'cache-first',
+                    variables: { url: pathname }
+                });
+
+                if (isMounted) {
+                    setRouteData(data);
+                    fetchedPathname.current = pathname;
+                }
+            } catch (error) {
+                if (isMounted) {
+                    console.error('Error running initial query:', error);
+                }
+            }
+        };
         if (initialized.current || !getInlinedPageData()) {
-            runQuery({
-                fetchPolicy: 'cache-and-network',
-                nextFetchPolicy: 'cache-first',
-                variables: { url: pathname }
-            });
-            fetchedPathname.current = pathname;
+            runInitialQuery();
         }
-    }, [initialized, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+        // Cleanup function
+        return () => {
+            isMounted = false; // Mark as unmounted
+        };
+    }, [initialized, pathname, runQuery]);
+    // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (component) {

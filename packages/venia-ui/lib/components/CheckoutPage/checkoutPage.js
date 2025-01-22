@@ -2,14 +2,13 @@ import React, { Fragment, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
     CHECKOUT_STEP,
     useCheckoutPage
 } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
-
 import { useStyle } from '../../classify';
 import Button from '../Button';
 import { StoreTitle } from '../Head';
@@ -25,8 +24,8 @@ import payments from './PaymentInformation/paymentMethodCollection';
 import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
-import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
+import OrderConfirmationPage from './OrderConfirmationPage';
 import GoogleReCaptcha from '../GoogleReCaptcha';
 
 import defaultClasses from './checkoutPage.module.css';
@@ -35,6 +34,7 @@ import ScrollAnchor from '../ScrollAnchor/scrollAnchor';
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
+    const history = useHistory();
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
     const talonProps = useCheckoutPage();
@@ -58,8 +58,8 @@ const CheckoutPage = props => {
         isGuestCheckout,
         isLoading,
         isUpdating,
-        orderDetailsData,
         orderDetailsLoading,
+        orderDetailsData,
         orderNumber,
         placeOrderLoading,
         placeOrderButtonClicked,
@@ -83,7 +83,15 @@ const CheckoutPage = props => {
     } = talonProps;
 
     const [, { addToast }] = useToasts();
-
+    const orderCount = localStorage.getItem('orderCount');
+    useEffect(() => {
+        if (isGuestCheckout && !orderDetailsData) {
+            if (orderCount === '1') {
+                history.push('/');
+                localStorage.setItem('orderCount', '0');
+            }
+        }
+    }, [isGuestCheckout, history, orderDetailsData, orderCount]);
     useEffect(() => {
         if (hasError) {
             const message =
@@ -125,7 +133,7 @@ const CheckoutPage = props => {
               defaultMessage: 'Checkout'
           });
 
-    if (orderNumber && orderDetailsData) {
+    if (isGuestCheckout && orderDetailsData && orderNumber) {
         return (
             <OrderConfirmationPage
                 data={orderDetailsData}
@@ -265,7 +273,7 @@ const CheckoutPage = props => {
         const itemsReview =
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
                 <div className={classes.items_review_container}>
-                    <ItemsReview />
+                    <ItemsReview items={cartItems} />
                 </div>
             ) : null;
 

@@ -24,6 +24,7 @@ export const CREATE_ACCOUNT = gql`
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             customer {
                 email
+                is_confirmed
             }
         }
     }
@@ -45,7 +46,6 @@ export const SIGN_IN = gql`
     mutation SignInAfterCreate($email: String!, $password: String!) {
         generateCustomerToken(email: $email, password: $password) {
             token
-            customer_token_lifetime
         }
     }
 `;
@@ -126,6 +126,16 @@ export const MERGE_CARTS = gql`
     }
     ${CheckoutPageFragment}
 `;
+export const GET_STORE_CONFIG_DATA = gql`
+    query GetStoreConfigData {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
+        storeConfig {
+            store_code
+            minimum_password_length
+            customer_access_token_lifetime
+        }
+    }
+`;
 
 export default {
     createAccountMutation: CREATE_ACCOUNT,
@@ -133,5 +143,6 @@ export default {
     getCartDetailsQuery: GET_CART_DETAILS,
     getCustomerQuery: GET_CUSTOMER,
     mergeCartsMutation: MERGE_CARTS,
-    signInMutation: SIGN_IN
+    signInMutation: SIGN_IN,
+    getStoreConfigQuery: GET_STORE_CONFIG_DATA
 };

@@ -4,6 +4,8 @@ import { createTestInstance } from '@magento/peregrine';
 
 import CreateAccount from '../createAccount';
 
+import { useHistory, useLocation } from 'react-router-dom';
+
 jest.mock('@apollo/client', () => ({
     gql: jest.fn(),
     useApolloClient: jest.fn().mockImplementation(() => {}),
@@ -14,10 +16,24 @@ jest.mock('@apollo/client', () => ({
         }
     ]),
     useQuery: jest.fn().mockImplementation(() => ({
-        data: {},
+        data: {
+            storeConfig: {
+                minimum_password_length: 8 // or whatever value is expected
+            }
+        },
         loading: false,
         error: null
     }))
+}));
+
+// Mocking the react-router hooks
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+
+    useHistory: jest.fn(),
+
+    useLocation: jest.fn()
 }));
 
 jest.mock('../../../util/formValidators');
@@ -52,6 +68,24 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
         .mockResolvedValue({ data: { customer: {} } });
 
     return { useAwaitQuery };
+});
+
+// Mocking useLocation and useHistory for the tests
+
+beforeEach(() => {
+    useHistory.mockReturnValue({
+        push: jest.fn() // mock any methods you need from useHistory
+    });
+
+    useLocation.mockReturnValue({
+        pathname: '/mock-path', // mock the location properties
+
+        search: '',
+
+        hash: '',
+
+        state: null
+    });
 });
 
 jest.mock('@magento/peregrine/lib/context/eventing', () => ({

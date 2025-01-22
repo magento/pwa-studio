@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 
 import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha/useGoogleReCaptcha';
 import mergeOperations from '../../util/shallowMerge';
@@ -10,10 +10,15 @@ import { retrieveCartId } from '../../store/actions/cart';
 
 import DEFAULT_OPERATIONS from './signIn.gql';
 import { useEventingContext } from '../../context/eventing';
+import { useHistory, useLocation } from 'react-router-dom';
+
+/**
+ * Routes to redirect from if used to create an account.
+ */
+const REDIRECT_FOR_ROUTES = ['/checkout', '/order-confirmation'];
 
 export const useSignIn = props => {
     const {
-        handleTriggerClick,
         getCartDetailsQuery,
         setDefaultUsername,
         showCreateAccount,
@@ -25,37 +30,56 @@ export const useSignIn = props => {
         createCartMutation,
         getCustomerQuery,
         mergeCartsMutation,
-        signInMutation
+        signInMutation,
+        getStoreConfigQuery
     } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
 
+    const cartContext = useCartContext();
     const [
         { cartId },
         { createCart, removeCart, getCartDetails }
-    ] = useCartContext();
+    ] = cartContext;
 
+    const userContext = useUserContext();
     const [
-        { isGettingDetails, getDetailsError },
+        { isGettingDetails, getDetailsError, userOnOrderSuccess },
         { getUserDetails, setToken }
-    ] = useUserContext();
+    ] = userContext;
 
-    const [, { dispatch }] = useEventingContext();
+    const eventingContext = useEventingContext();
+    const [, { dispatch }] = eventingContext;
 
-    const [signIn, { error: signInError }] = useMutation(signInMutation, {
+    const signInMutationResult = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
+    const [signIn, { error: signInError }] = signInMutationResult;
 
+    const googleReCaptcha = useGoogleReCaptcha({
+        currentForm: 'CUSTOMER_LOGIN',
+        formAction: 'signIn'
+    });
     const {
         generateReCaptchaData,
         recaptchaLoading,
         recaptchaWidgetProps
-    } = useGoogleReCaptcha({
-        currentForm: 'CUSTOMER_LOGIN',
-        formAction: 'signIn'
+    } = googleReCaptcha;
+
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
+    const { customerAccessTokenLifetime } = useMemo(() => {
+        const storeConfig = storeConfigData?.storeConfig || {};
+
+        return {
+            customerAccessTokenLifetime:
+                storeConfig.customer_access_token_lifetime
+        };
+    }, [storeConfigData]);
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
@@ -64,10 +88,12 @@ export const useSignIn = props => {
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
 
+    const history = useHistory();
+    const location = useLocation();
+
     const handleSubmit = useCallback(
         async ({ email, password }) => {
             setIsSigningIn(true);
-            handleTriggerClick();
 
             try {
                 // Get source cart id (guest cart id).
@@ -86,12 +112,8 @@ export const useSignIn = props => {
                 });
 
                 const token = signInResponse.data.generateCustomerToken.token;
-                const customerTokenLifetime =
-                    signInResponse.data.generateCustomerToken
-                        .customer_token_lifetime;
-
-                await (customerTokenLifetime
-                    ? setToken(token, customerTokenLifetime)
+                await (customerAccessTokenLifetime
+                    ? setToken(token, customerAccessTokenLifetime)
                     : setToken(token));
 
                 // Clear all cart/customer data from cache and redux.
@@ -129,6 +151,13 @@ export const useSignIn = props => {
                 });
 
                 getCartDetails({ fetchCartId, fetchCartDetails });
+
+                if (
+                    userOnOrderSuccess &&
+                    REDIRECT_FOR_ROUTES.includes(location.pathname)
+                ) {
+                    history.push('/order-history');
+                }
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -138,6 +167,7 @@ export const useSignIn = props => {
             }
         },
         [
+            customerAccessTokenLifetime,
             cartId,
             generateReCaptchaData,
             signIn,
@@ -152,7 +182,9 @@ export const useSignIn = props => {
             getCartDetails,
             fetchCartDetails,
             dispatch,
-            handleTriggerClick
+            history,
+            location.pathname,
+            userOnOrderSuccess
         ]
     );
 
@@ -222,6 +254,17 @@ export const useSignIn = props => {
         handleSubmit,
         isBusy: isGettingDetails || isSigningIn || recaptchaLoading,
         setFormApi,
-        recaptchaWidgetProps
+        recaptchaWidgetProps,
+        userContext,
+        cartContext,
+        eventingContext,
+        signInMutationResult,
+        googleReCaptcha,
+        isSigningIn,
+        setIsSigningIn,
+        fetchCartId,
+        mergeCarts,
+        fetchUserDetails,
+        fetchCartDetails
     };
 };

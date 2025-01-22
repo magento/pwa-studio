@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
 import { useUserContext } from '../../../context/user';
@@ -9,6 +9,7 @@ import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 
 import DEFAULT_OPERATIONS from './createAccount.gql';
 import { useEventingContext } from '../../../context/eventing';
+import { useHistory } from 'react-router-dom';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -39,7 +40,8 @@ export const useCreateAccount = props => {
         createCartMutation,
         getCartDetailsQuery,
         getCustomerQuery,
-        signInMutation
+        signInMutation,
+        getStoreConfigQuery
     } = operations;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
@@ -65,6 +67,23 @@ export const useCreateAccount = props => {
         fetchPolicy: 'no-cache'
     });
 
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const {
+        minimumPasswordLength,
+        customerAccessTokenLifetime
+    } = useMemo(() => {
+        const storeConfig = storeConfigData?.storeConfig || {};
+
+        return {
+            minimumPasswordLength: storeConfig.minimum_password_length,
+            customerAccessTokenLifetime:
+                storeConfig.customer_access_token_lifetime
+        };
+    }, [storeConfigData]);
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
@@ -77,6 +96,7 @@ export const useCreateAccount = props => {
         formAction: 'createAccount'
     });
 
+    const history = useHistory();
     const handleSubmit = useCallback(
         async formValues => {
             setIsSubmitting(true);
@@ -117,12 +137,8 @@ export const useCreateAccount = props => {
                     ...recaptchaDataForSignIn
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
-                const customerTokenLifetime =
-                    signInResponse.data.generateCustomerToken
-                        .customer_token_lifetime;
-
-                await (customerTokenLifetime
-                    ? setToken(token, customerTokenLifetime)
+                await (customerAccessTokenLifetime
+                    ? setToken(token, customerAccessTokenLifetime)
                     : setToken(token));
 
                 // Clear guest cart from redux.
@@ -144,6 +160,8 @@ export const useCreateAccount = props => {
                 if (onSubmit) {
                     onSubmit();
                 }
+
+                history.push('/account-information');
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -152,6 +170,7 @@ export const useCreateAccount = props => {
             }
         },
         [
+            customerAccessTokenLifetime,
             createAccount,
             createCart,
             fetchCartDetails,
@@ -164,7 +183,8 @@ export const useCreateAccount = props => {
             removeCart,
             setToken,
             signIn,
-            dispatch
+            dispatch,
+            history
         ]
     );
 
@@ -200,6 +220,7 @@ export const useCreateAccount = props => {
         handleEnterKeyPress,
         isDisabled: isSubmitting || isGettingDetails || recaptchaLoading,
         initialValues: sanitizedInitialValues,
-        recaptchaWidgetProps
+        recaptchaWidgetProps,
+        minimumPasswordLength
     };
 };

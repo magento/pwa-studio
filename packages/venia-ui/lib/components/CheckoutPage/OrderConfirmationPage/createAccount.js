@@ -65,7 +65,8 @@ const CreateAccount = props => {
         handleSubmit,
         isDisabled,
         initialValues,
-        recaptchaWidgetProps
+        recaptchaWidgetProps,
+        minimumPasswordLength
     } = talonProps;
 
     return (
@@ -155,7 +156,7 @@ const CreateAccount = props => {
                     data-cy="OrderConfirmationPage-CreateAccount-password"
                     validate={combine([
                         isRequired,
-                        [hasLengthAtLeast, 8],
+                        [hasLengthAtLeast, minimumPasswordLength],
                         validatePassword
                     ])}
                     validateOnBlur

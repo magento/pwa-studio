@@ -63,13 +63,17 @@ export const resetPassword = ({ email }) =>
         dispatch(actions.resetPassword.receive());
     };
 
-export const setToken = (token, customer_token_lifetime = 3600) =>
+export const setToken = (token, customerAccessTokenLifetime = 1) =>
     async function thunk(...args) {
         const [dispatch] = args;
 
         // Store token in local storage.
         // TODO: Get correct token expire time from API
-        storage.setItem('signin_token', token, customer_token_lifetime);
+        storage.setItem(
+            'signin_token',
+            token,
+            customerAccessTokenLifetime * 3600
+        );
 
         // Persist in store
         dispatch(actions.setToken(token));
@@ -84,4 +88,10 @@ export const clearToken = () =>
 
         // Remove from store
         dispatch(actions.clearToken());
+    };
+
+export const setUserOnOrderSuccess = successFlag =>
+    async function thunk(dispatch) {
+        // Dispatch the action to update the state
+        dispatch(actions.setUserOnOrderSuccess(successFlag));
     };
