@@ -11,7 +11,7 @@ import defaultClasses from './summary.module.css';
 /**
  * The SummaryCod component of the Cash On Delivery payment method extension.
  */
-const SummaryCod = (props) => {
+const SummaryCod = props => {
     const { onEdit } = props;
 
     const classes = useStyle(defaultClasses, props.classes);

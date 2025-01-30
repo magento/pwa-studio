@@ -16,7 +16,7 @@ jest.mock('../../talons/useCashondelivery', () => {
 
 jest.mock(
     '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress',
-    () => (props) => <mock-BillingAddress {...props} />
+    () => props => <mock-BillingAddress {...props} />
 );
 
 const useCashondeliveryReturnValue = {

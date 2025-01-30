@@ -14,7 +14,7 @@ import defaultClasses from './cashondelivery.module.css';
  * @param {Function} props.onPaymentError callback to invoke when component throws an error
  * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
  */
-const CashOnDelivery = (props) => {
+const CashOnDelivery = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const {

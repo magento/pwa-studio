@@ -19,7 +19,7 @@ import DEFAULT_OPERATIONS from './cashondelivery.gql';
  *  onBillingAddressChangedSuccess: Function
  * }
  */
-export const useCashondelivery = (props) => {
+export const useCashondelivery = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const { setCodPaymentMethodOnCartMutation } = operations;

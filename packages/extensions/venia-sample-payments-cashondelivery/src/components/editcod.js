@@ -9,7 +9,7 @@ import defaultClasses from './cashondelivery.module.css';
 /**
  * The edit view for the Cod payment method.
  */
-const EditCod = (props) => {
+const EditCod = props => {
     const {
         onPaymentReady,
         onPaymentSuccess,
