@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render CashOnDelivery component correctly`] = `
+<div
+  className="cod_root"
+>
+  <mock-BillingAddress
+    onBillingAddressChangedError={[MockFunction]}
+    onBillingAddressChangedSuccess={[MockFunction]}
+  />
+</div>
+`;
