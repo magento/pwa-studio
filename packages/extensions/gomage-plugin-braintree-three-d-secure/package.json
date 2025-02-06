@@ -1,6 +1,9 @@
 {
   "name": "@gomage/plugin-braintree-three-d-secure",
   "version": "3.94.0-alpha.4",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "GoMage Braintree 3D Secure",
   "main": "./index.js",
   "author": "GoMage",
