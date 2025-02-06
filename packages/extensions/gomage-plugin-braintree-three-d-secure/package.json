@@ -1,6 +1,6 @@
 {
   "name": "@gomage/plugin-braintree-three-d-secure",
-  "version": "0.0.1",
+  "version": "3.94.0-alpha.4",
   "publishConfig": {
     "access": "public"
   },
