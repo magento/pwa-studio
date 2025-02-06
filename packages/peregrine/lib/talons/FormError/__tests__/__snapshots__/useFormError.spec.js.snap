@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`returns concatenated error message when allowErrorMessages 1`] = `"formError.responseError"`;
+exports[`returns concatenated error message when allowErrorMessages 1`] = `"GraphQL Error 1, GraphQL Error 2"`;
 
-exports[`returns general error message 1`] = `"formError.responseError, Generic Error"`;
+exports[`returns general error message 1`] = `"formError.errorMessage, Generic Error"`;
