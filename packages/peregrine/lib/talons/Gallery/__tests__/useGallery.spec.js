@@ -15,13 +15,6 @@ import defaultOperations from '../gallery.gql';
 import mosOperations from '../gallery.gql.ce';
 import acOperations from '../gallery.gql.ee';
 
-jest.mock(
-    '../../../hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
-    () => ({
-        useCustomerWishlistSkus: jest.fn()
-    })
-);
-
 const cache = new InMemoryCache({
     typePolicies
 });
