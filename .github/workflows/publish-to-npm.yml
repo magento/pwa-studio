@@ -1,0 +1,28 @@
+name: npm-publish
+on:
+  push:
+    branches:
+      - release/14.2.0  # This will run on any "release/X.Y.Z" branch
+      - PWA-3420
+  # pull_request:
+  #   types: [closed]
+  #   branches:
+  #     - release/14.2.0
+jobs:
+  npm-publish:
+    name: npm-publish
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm install
+      - name: Publish if version has been updated
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          access: "public"
+          token: ${{ secrets.ADOBE_BOT_NPM_TOKEN }}
