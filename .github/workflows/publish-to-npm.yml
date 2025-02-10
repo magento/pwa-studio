@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd packages/extensions/adobe-plugin-braintree-three-d-secure
-          npm install --legacy-peer-deps
+          npm install --legacy-peer-deps --ignore-scripts
  
       - name: Publish package
         uses: JS-DevTools/npm-publish@v1
