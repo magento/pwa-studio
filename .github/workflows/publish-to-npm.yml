@@ -2,27 +2,31 @@ name: npm-publish
 on:
   push:
     branches:
-      - release/14.2.0  # This will run on any "release/X.Y.Z" branch
       - PWA-3420
-  # pull_request:
-  #   types: [closed]
-  #   branches:
-  #     - release/14.2.0
+ 
 jobs:
   npm-publish:
     name: npm-publish
-    #if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+ 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
+ 
+      - name: Navigate to specific package
+        run: cd packages/extensions/adobe-plugin-braintree-three-d-secure
+ 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
-      - name: Publish if version has been updated
+        run: |
+          cd packages/extensions/adobe-plugin-braintree-three-d-secure
+          npm install --legacy-peer-deps
+ 
+      - name: Publish package
         uses: JS-DevTools/npm-publish@v1
         with:
+          package: "packages/extensions/adobe-plugin-braintree-three-d-secure/package.json" # Explicitly specify the package
           access: "public"
           token: ${{ secrets.ADOBE_BOT_NPM_TOKEN }}
