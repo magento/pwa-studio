@@ -11,7 +11,7 @@ on:
 jobs:
   npm-publish:
     name: npm-publish
-    if: github.event.pull_request.merged == true
+    #if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -25,4 +25,4 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           access: "public"
-          token: ${{ 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 }}
+          token: ${{ secrets.ADOBE_BOT_NPM_TOKEN }}
