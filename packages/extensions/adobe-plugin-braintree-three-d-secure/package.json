@@ -10,8 +10,8 @@
   "dependencies": {
     "braintree-web-drop-in": "~1.43.0"
   },
-  "devDependencies": {
-    "chalk": "~2.4.2"
+  "peerDependencies": {
+    "react": "~19.0.0"
   },
   "scripts": {
     "clean": " "
