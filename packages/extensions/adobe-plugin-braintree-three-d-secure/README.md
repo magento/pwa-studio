@@ -1,6 +1,6 @@
-# GoMage Braintree 3D Secure
+# Adobe Braintree 3D Secure
 
-GoMage Braintree 3D Secure
+Adobe Braintree 3D Secure
 
 That plugin works only as a  fix bugs of PWA Studio and adds 3d secure part.
 
