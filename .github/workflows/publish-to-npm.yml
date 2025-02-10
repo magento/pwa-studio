@@ -11,7 +11,7 @@ on:
 jobs:
   npm-publish:
     name: npm-publish
-    #if: github.event.pull_request.merged == true
+    #if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
