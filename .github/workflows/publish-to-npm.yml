@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
       - name: Publish if version has been updated
         uses: JS-DevTools/npm-publish@v1
         with:
