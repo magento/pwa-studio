@@ -1,6 +1,6 @@
 {
   "name": "@adobe/plugin-braintree-three-d-secure",
-  "version": "0.0.1",
+  "version": "3.94.0",
   "publishConfig": {
     "access": "public"
   },
