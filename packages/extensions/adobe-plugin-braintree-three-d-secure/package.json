@@ -6,15 +6,14 @@
   },
   "description": "Adobe Braintree 3D Secure",
   "main": "./index.js",
-  "author": "Adobe",
-  "dependencies": {
-    "braintree-web-drop-in": "~1.43.0"
-  },
-
   "scripts": {
     "clean": " "
   },
+  "author": "Adobe",
   "license": "SEE LICENSE IN LICENSE.txt",
+  "dependencies": {
+    "braintree-web-drop-in": "~1.43.0"
+  },
   "pwa-studio": {
     "targets": {
       "intercept": "./intercept.js"
