@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { act } from 'react-test-renderer';
-
+import { MemoryRouter } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import { useFilterBlock } from '../useFilterBlock';
 
@@ -56,7 +56,11 @@ describe('#useFilterBlock', () => {
     });
 
     it('is closed by default', () => {
-        createTestInstance(<Component />);
+        createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(log).toHaveBeenCalledWith({
             handleClick: expect.any(Function),
@@ -66,7 +70,11 @@ describe('#useFilterBlock', () => {
 
     it('is open if passed initially open', () => {
         givenInitiallyOpen();
-        createTestInstance(<Component />);
+        createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(log).toHaveBeenCalledWith({
             handleClick: expect.any(Function),
@@ -76,7 +84,11 @@ describe('#useFilterBlock', () => {
 
     it('is open if items are selected', () => {
         givenSelectedItems();
-        createTestInstance(<Component />);
+        createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(log).toHaveBeenCalledWith({
             handleClick: expect.any(Function),
@@ -85,7 +97,11 @@ describe('#useFilterBlock', () => {
     });
 
     it('can toggle visibility', () => {
-        createTestInstance(<Component />);
+        createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(typeof handleClickProp).toBe('function');
 

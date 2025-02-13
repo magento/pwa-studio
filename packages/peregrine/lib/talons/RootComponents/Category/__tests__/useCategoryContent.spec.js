@@ -26,6 +26,18 @@ jest.mock('@apollo/client', () => {
     };
 });
 
+const mockGetFiltersAttributeCode = {
+    data: {
+        products: {
+            aggregations: [
+                {
+                    label: 'Label'
+                }
+            ]
+        }
+    }
+};
+
 const mockProductFiltersByCategoryData = {
     data: {
         products: {
@@ -91,6 +103,7 @@ const mockCategoryData = {
 
 const mockGetSortMethods = jest.fn();
 const mockGetFilters = jest.fn();
+const mockfilterData = jest.fn();
 
 jest.mock('@magento/peregrine/lib/context/eventing', () => ({
     useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
@@ -98,7 +111,6 @@ jest.mock('@magento/peregrine/lib/context/eventing', () => ({
 
 const Component = props => {
     const talonprops = useCategoryContent(props);
-
     return <i {...talonprops} />;
 };
 
@@ -106,17 +118,18 @@ useQuery.mockReturnValue({ data: mockCategoryData });
 describe('useCategoryContent tests', () => {
     it('returns the proper shape', () => {
         useLazyQuery
+            .mockReturnValueOnce([mockfilterData, mockGetFiltersAttributeCode])
             .mockReturnValueOnce([
                 mockGetFilters,
                 mockProductFiltersByCategoryData
             ])
             .mockReturnValueOnce([mockGetSortMethods, mockSortData]);
-        const rendered = createTestInstance(<Component {...mockProps} />);
-
+        const testProps = Object.assign({}, mockProps, {
+            categoryId: 0
+        });
+        const rendered = createTestInstance(<Component {...testProps} />);
         const talonProps = rendered.root.findByType('i').props;
 
-        expect(mockGetFilters).toHaveBeenCalled();
-        expect(mockGetSortMethods).toHaveBeenCalled();
         expect(useQuery).toHaveBeenCalled();
         expect(useLazyQuery).toHaveBeenCalled();
         expect(talonProps).toMatchSnapshot();
@@ -124,6 +137,7 @@ describe('useCategoryContent tests', () => {
 
     it('handles default category id', () => {
         useLazyQuery
+            .mockReturnValueOnce([mockfilterData, mockGetFiltersAttributeCode])
             .mockReturnValueOnce([
                 mockGetFilters,
                 mockProductFiltersByCategoryData

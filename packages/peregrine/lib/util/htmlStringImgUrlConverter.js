@@ -1,6 +1,6 @@
 import makeUrl from './makeUrl';
 import resolveLinkProps from './resolveLinkProps';
-
+import DOMPurify from 'dompurify';
 /**
  * Modifies html string images to use makeUrl as source and resolves links to use internal path.
  *
@@ -9,7 +9,7 @@ import resolveLinkProps from './resolveLinkProps';
  */
 const htmlStringImgUrlConverter = htmlString => {
     const temporaryElement = document.createElement('div');
-    temporaryElement.innerHTML = htmlString;
+    temporaryElement.innerHTML = DOMPurify.sanitize(htmlString);
     for (const imgElement of temporaryElement.getElementsByTagName('img')) {
         imgElement.src = makeUrl(imgElement.src, {
             type: 'image-wysiwyg',
