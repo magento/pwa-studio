@@ -20,20 +20,22 @@ module.exports = targets => {
     checkoutPagePaymentTypes.tap(payments =>
         payments.add({
             paymentCode: 'cashondelivery',
-            importPath: '@adobe/venia-sample-payments-cashondelivery/src/components/cashondelivery.js'
+            importPath:
+                '@adobe/venia-sample-payments-cashondelivery/src/components/cashondelivery.js'
         })
     );
     editablePaymentTypes.tap(editablePaymentTypes => {
         editablePaymentTypes.add({
             paymentCode: 'cashondelivery',
-            importPath: '@adobe/venia-sample-payments-cashondelivery/src/components/editcod.js'
-
+            importPath:
+                '@adobe/venia-sample-payments-cashondelivery/src/components/editcod.js'
         });
     });
     summaryPagePaymentTypes.tap(paymentSummaries =>
         paymentSummaries.add({
             paymentCode: 'cashondelivery',
-            importPath: '@adobe/venia-sample-payments-cashondelivery/src/components/summarycod.js'
+            importPath:
+                '@adobe/venia-sample-payments-cashondelivery/src/components/summarycod.js'
         })
     );
 };
