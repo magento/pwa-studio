@@ -1,5 +1,5 @@
 {
-  "name": "@magento/venia-sample-payments-cashondelivery",
+  "name": "@adobe/venia-sample-payments-cashondelivery",
   "version": "0.0.1",
   "publishConfig": {
     "access": "public"
