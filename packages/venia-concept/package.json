@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/venia-concept#readme",
   "dependencies": {
+    "@adobe/venia-sample-payments-cashondelivery": "~0.0.1-alpha.6",
     "@magento/pwa-buildpack": "11.5.4-alpha.6"
   },
   "devDependencies": {
