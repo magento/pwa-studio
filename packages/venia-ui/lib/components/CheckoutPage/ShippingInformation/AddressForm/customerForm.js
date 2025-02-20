@@ -97,6 +97,10 @@ const CustomerForm = props => {
         </Button>
     ) : null;
 
+    const onTouchStart = e => {
+        handleSubmit
+    };
+
     const submitButtonText = !hasDefaultShipping
         ? formatMessage({
               id: 'global.saveAndContinueButton',
@@ -332,6 +336,7 @@ const CustomerForm = props => {
                     <Button
                         {...submitButtonProps}
                         data-cy="CustomerForm-submitButton"
+                        onTouchStart={handleSubmit}
                     >
                         {submitButtonText}
                     </Button>
