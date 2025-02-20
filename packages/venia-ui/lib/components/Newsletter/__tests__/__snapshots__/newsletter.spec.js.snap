@@ -39,7 +39,7 @@ exports[`#Newsletter display renders correctly 1`] = `
     >
       <label
         className="label"
-        htmlFor="email"
+        htmlFor="emailNews"
       >
         Email
       </label>
@@ -58,7 +58,7 @@ exports[`#Newsletter display renders correctly 1`] = `
           <input
             autoComplete="email"
             className="input"
-            id="email"
+            id="emailNews"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -126,7 +126,7 @@ exports[`#Newsletter submit displays an error message if the email already subsc
     >
       <label
         className="label"
-        htmlFor="email"
+        htmlFor="emailNews"
       >
         Email
       </label>
@@ -145,7 +145,7 @@ exports[`#Newsletter submit displays an error message if the email already subsc
           <input
             autoComplete="email"
             className="input"
-            id="email"
+            id="emailNews"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}

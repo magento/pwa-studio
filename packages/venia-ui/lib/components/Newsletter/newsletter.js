@@ -96,7 +96,7 @@ const Newsletter = props => {
                 onSubmit={handleSubmit}
             >
                 <Field
-                    id="email"
+                    id="emailNews"
                     label={formatMessage({
                         id: 'global.email',
                         defaultMessage: 'Email'
@@ -105,7 +105,7 @@ const Newsletter = props => {
                     <TextInput
                         autoComplete="email"
                         field="email"
-                        id="email"
+                        id="emailNews"
                         validate={isRequired}
                     />
                 </Field>
