@@ -381,7 +381,7 @@ const GuestForm = props => {
                     <Button
                         {...submitButtonProps}
                         data-cy="GuestForm-submitButton"
-                        onTouchEnd={handleSubmit}
+                        onClick={handleSubmit}
                     >
                         {submitButtonText}
                     </Button>
