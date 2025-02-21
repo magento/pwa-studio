@@ -253,6 +253,7 @@ const CheckoutPage = props => {
             checkoutStep === CHECKOUT_STEP.PAYMENT ? (
                 <Button
                     onClick={handleReviewOrder}
+                    onTouchStart={handleReviewOrder}
                     onKeyDown={handleReviewOrderEnterKeyPress}
                     priority="high"
                     className={classes.review_order_button}

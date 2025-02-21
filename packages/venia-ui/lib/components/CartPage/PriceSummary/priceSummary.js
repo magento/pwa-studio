@@ -91,6 +91,7 @@ const PriceSummary = props => {
                 disabled={isPriceUpdating}
                 priority={'high'}
                 onClick={handleProceedToCheckout}
+                onTouchStart={handleProceedToCheckout}
                 onKeyDown={handleEnterKeyPress}
                 data-cy="PriceSummary-checkoutButton"
             >
