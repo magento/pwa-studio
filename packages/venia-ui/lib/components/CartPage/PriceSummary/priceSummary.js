@@ -94,6 +94,7 @@ const PriceSummary = props => {
                 onKeyDown={handleEnterKeyPress}
                 data-cy="PriceSummary-checkoutButton"
             >
+                
                 <FormattedMessage
                     id={'priceSummary.checkoutButton'}
                     defaultMessage={'Proceed to Checkout'}
