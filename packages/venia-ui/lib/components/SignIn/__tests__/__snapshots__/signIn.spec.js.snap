@@ -37,7 +37,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
     >
       <label
         className="label"
-        htmlFor="email"
+        htmlFor="emailSignIn"
       >
         Email address
       </label>
@@ -57,7 +57,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
             aria-label="Email Required"
             autoComplete="email"
             className="input"
-            id="email"
+            id="emailSignIn"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -169,7 +169,7 @@ exports[`renders correctly 1`] = `
     >
       <label
         className="label"
-        htmlFor="email"
+        htmlFor="emailSignIn"
       >
         Email address
       </label>
@@ -189,7 +189,7 @@ exports[`renders correctly 1`] = `
             aria-label="Email Required"
             autoComplete="email"
             className="input"
-            id="email"
+            id="emailSignIn"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -301,7 +301,7 @@ exports[`renders prefilled form with initial values 1`] = `
     >
       <label
         className="label"
-        htmlFor="email"
+        htmlFor="emailSignIn"
       >
         Email address
       </label>
@@ -321,7 +321,7 @@ exports[`renders prefilled form with initial values 1`] = `
             aria-label="Email Required"
             autoComplete="email"
             className="input"
-            id="email"
+            id="emailSignIn"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
