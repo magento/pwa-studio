@@ -50,7 +50,7 @@ const Button = props => {
             {...buttonProps}
             {...restProps}
         >
-            <span className={classes.content}>{children}</span>
+           {children}
         </button>
     );
 };
