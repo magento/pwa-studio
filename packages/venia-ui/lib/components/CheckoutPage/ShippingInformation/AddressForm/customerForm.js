@@ -6,7 +6,7 @@ import { useCustomerForm } from '@magento/peregrine/lib/talons/CheckoutPage/Ship
 
 import { useStyle } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
-import Button from '../../../ButtonTab';
+import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
 import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
