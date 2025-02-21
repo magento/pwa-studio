@@ -8,7 +8,7 @@ import { useToasts } from '@magento/peregrine';
 
 import { useStyle } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
-import Button from '../../../Button';
+import Button from '../../../ButtonTab';
 import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
 import FormError from '../../../FormError';
@@ -381,8 +381,6 @@ const GuestForm = props => {
                     <Button
                         {...submitButtonProps}
                         data-cy="GuestForm-submitButton"
-                        onTouchStart={handleSubmit}
-                        onClick={handleSubmit}
                     >
                         {submitButtonText}
                     </Button>
