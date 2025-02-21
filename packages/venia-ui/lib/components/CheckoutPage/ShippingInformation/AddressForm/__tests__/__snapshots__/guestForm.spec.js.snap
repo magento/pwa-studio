@@ -438,7 +438,7 @@ Array [
       <button
         className="root_normalPriority"
         disabled={false}
-        onClick={[Function]}
+        onClick={[MockFunction handleSubmit]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
         onMouseDown={[Function]}
@@ -451,11 +451,7 @@ Array [
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          Continue to Shipping Method
-        </span>
+        Continue to Shipping Method
       </button>
     </div>
   </form>,
@@ -904,7 +900,7 @@ Array [
       <button
         className="root_normalPriority"
         disabled={false}
-        onClick={[Function]}
+        onClick={[MockFunction handleSubmit]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
         onMouseDown={[Function]}
@@ -917,11 +913,7 @@ Array [
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          Continue to Shipping Method
-        </span>
+        Continue to Shipping Method
       </button>
     </div>
   </form>,
@@ -1371,19 +1363,15 @@ Array [
         onTouchStart={[Function]}
         type="button"
       >
-        <span
-          className="content"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Cancel"
-            id="global.cancelButton"
-          />
-        </span>
+        <mock-FormattedMessage
+          defaultMessage="Cancel"
+          id="global.cancelButton"
+        />
       </button>
       <button
         className="root_highPriority"
         disabled={true}
-        onClick={[Function]}
+        onClick={[MockFunction handleSubmit]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
         onMouseDown={[Function]}
@@ -1396,11 +1384,7 @@ Array [
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          Update
-        </span>
+        Update
       </button>
     </div>
   </form>,
@@ -1850,19 +1834,15 @@ Array [
         onTouchStart={[Function]}
         type="button"
       >
-        <span
-          className="content"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Cancel"
-            id="global.cancelButton"
-          />
-        </span>
+        <mock-FormattedMessage
+          defaultMessage="Cancel"
+          id="global.cancelButton"
+        />
       </button>
       <button
         className="root_highPriority"
         disabled={false}
-        onClick={[Function]}
+        onClick={[MockFunction handleSubmit]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
         onMouseDown={[Function]}
@@ -1875,11 +1855,7 @@ Array [
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          Update
-        </span>
+        Update
       </button>
     </div>
   </form>,

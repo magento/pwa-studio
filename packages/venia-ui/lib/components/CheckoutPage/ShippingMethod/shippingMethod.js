@@ -104,6 +104,7 @@ const ShippingMethod = props => {
                             priority="normal"
                             type="submit"
                             disabled={pageIsUpdating || isLoading}
+                            onTouchStart={handleSubmit}
                         >
                             <FormattedMessage
                                 id={'shippingMethod.continueToNextStep'}
