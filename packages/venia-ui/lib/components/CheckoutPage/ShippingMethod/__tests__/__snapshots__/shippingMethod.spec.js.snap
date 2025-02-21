@@ -107,14 +107,10 @@ exports[`it disables inputs when the page is updating 1`] = `
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Continue to Payment Information"
-            id="shippingMethod.continueToNextStep"
-          />
-        </span>
+        <mock-FormattedMessage
+          defaultMessage="Continue to Payment Information"
+          id="shippingMethod.continueToNextStep"
+        />
       </button>
     </div>
   </form>
@@ -228,14 +224,10 @@ exports[`it renders correctly 1`] = `
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Continue to Payment Information"
-            id="shippingMethod.continueToNextStep"
-          />
-        </span>
+        <mock-FormattedMessage
+          defaultMessage="Continue to Payment Information"
+          id="shippingMethod.continueToNextStep"
+        />
       </button>
     </div>
   </form>

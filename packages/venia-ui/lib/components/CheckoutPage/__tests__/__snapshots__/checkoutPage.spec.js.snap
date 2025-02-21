@@ -237,7 +237,6 @@ exports[`CheckoutPage renders an error and disables review order button if there
       onTouchCancel={[Function]}
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
-      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -890,6 +889,7 @@ Object {
   "negative": false,
   "onClick": [MockFunction handleReviewOrder],
   "onKeyDown": undefined,
+  "onTouchStart": [MockFunction handleReviewOrder],
   "priority": "high",
   "type": "button",
 }
