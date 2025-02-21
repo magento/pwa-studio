@@ -438,7 +438,7 @@ Array [
       <button
         className="root_normalPriority"
         disabled={false}
-        onClick={[MockFunction handleSubmit]}
+        onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
         onMouseDown={[Function]}
@@ -900,7 +900,7 @@ Array [
       <button
         className="root_normalPriority"
         disabled={false}
-        onClick={[MockFunction handleSubmit]}
+        onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
         onMouseDown={[Function]}
@@ -1371,7 +1371,7 @@ Array [
       <button
         className="root_highPriority"
         disabled={true}
-        onClick={[MockFunction handleSubmit]}
+        onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
         onMouseDown={[Function]}
@@ -1842,7 +1842,7 @@ Array [
       <button
         className="root_highPriority"
         disabled={false}
-        onClick={[MockFunction handleSubmit]}
+        onClick={[Function]}
         onDragStart={[Function]}
         onKeyDown={[Function]}
         onMouseDown={[Function]}

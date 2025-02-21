@@ -518,10 +518,14 @@ Array [
         onTouchStart={[Function]}
         type="button"
       >
-        <mock-FormattedMessage
-          defaultMessage="Cancel"
-          id="global.cancelButton"
-        />
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
+        </span>
       </button>
       <button
         className="root_highPriority"
@@ -536,10 +540,14 @@ Array [
         onTouchCancel={[Function]}
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
-        onTouchStart={[MockFunction handleSubmit]}
+        onTouchStart={[Function]}
         type="submit"
       >
-        Update
+        <span
+          className="content"
+        >
+          Update
+        </span>
       </button>
     </div>
   </form>,
@@ -982,10 +990,14 @@ Array [
         onTouchStart={[Function]}
         type="button"
       >
-        <mock-FormattedMessage
-          defaultMessage="Cancel"
-          id="global.cancelButton"
-        />
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
+        </span>
       </button>
       <button
         className="root_highPriority"
@@ -1000,10 +1012,14 @@ Array [
         onTouchCancel={[Function]}
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
-        onTouchStart={[MockFunction handleSubmit]}
+        onTouchStart={[Function]}
         type="submit"
       >
-        Update
+        <span
+          className="content"
+        >
+          Update
+        </span>
       </button>
     </div>
   </form>,
@@ -1465,10 +1481,14 @@ Array [
         onTouchCancel={[Function]}
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
-        onTouchStart={[MockFunction handleSubmit]}
+        onTouchStart={[Function]}
         type="submit"
       >
-        Save and Continue
+        <span
+          className="content"
+        >
+          Save and Continue
+        </span>
       </button>
     </div>
   </form>,
