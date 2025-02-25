@@ -24,6 +24,7 @@ const FilterModalOpenButton = props => {
             }}
             data-cy="FilterModalOpenButton-button"
             onClick={handleOpen}
+            onTouchStart={handleOpen}
             onKeyDown={handleKeypress}
             type="button"
             aria-live="polite"
