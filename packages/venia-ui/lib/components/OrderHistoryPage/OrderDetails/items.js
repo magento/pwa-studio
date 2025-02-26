@@ -13,7 +13,7 @@ const Items = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const itemsComponent = items.map(item => (
-        <Item key={item.id} {...item} {...imagesData[item.product_sku]} />
+        <Item key={item.id} {...item} {...imagesData[0][item.product_sku]} />
     ));
 
     return (
