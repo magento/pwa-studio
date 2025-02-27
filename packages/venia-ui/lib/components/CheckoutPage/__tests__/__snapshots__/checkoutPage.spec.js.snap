@@ -173,7 +173,7 @@ exports[`CheckoutPage renders an error and disables review order button if there
         onTouchCancel={[Function]}
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
-        onTouchStart={[Function]}
+        onTouchStart={[MockFunction toggleSignInContent]}
         type="button"
       >
         <span
@@ -537,7 +537,7 @@ exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
         onTouchCancel={[Function]}
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
-        onTouchStart={[Function]}
+        onTouchStart={[MockFunction toggleSignInContent]}
         type="button"
       >
         <span
@@ -679,7 +679,7 @@ exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
         onTouchCancel={[Function]}
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
-        onTouchStart={[Function]}
+        onTouchStart={[MockFunction toggleSignInContent]}
         type="button"
       >
         <span
