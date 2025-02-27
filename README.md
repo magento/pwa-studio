@@ -2,6 +2,8 @@
 
 # PWA Studio
 
+
+
 Magento PWA Studio is a collection of tools that lets developers build complex Progressive Web Applications on top of Magento 2 stores.
 
 ## Contributions
