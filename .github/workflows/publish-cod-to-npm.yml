@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - feature/venia-sample-payments-cashondelivery-from-latest-develop
+      - release/14.2.0
  
 jobs:
   npm-publish:
