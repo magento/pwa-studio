@@ -18,9 +18,8 @@
   },
   "author": "Adobe Commerce",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
-    "cypress": "~9.4.0",
+    "cypress": "^10.0.0",
     "cypress-grep": "~2.13.1",
     "cypress-image-snapshot": "~4.0.1",
     "danger": "^10.7.1",
