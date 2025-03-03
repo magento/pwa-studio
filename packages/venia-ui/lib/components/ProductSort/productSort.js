@@ -185,6 +185,7 @@ const ProductSort = props => {
                     root_lowPriority: classes.sortButton
                 }}
                 onClick={handleSortClick}
+                onTouchStart={handleSortClick}
                 data-cy="ProductSort-sortButton"
                 onKeyDown={handleKeypress}
                 aria-label={result}

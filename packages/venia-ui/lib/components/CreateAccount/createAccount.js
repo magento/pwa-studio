@@ -46,7 +46,7 @@ const CreateAccount = props => {
         <Button
             data-cy="CreateAccount-cancelButton"
             className={classes.cancelButton}
-            disabled={isDisabled}
+            disabled={Boolean(isDisabled)}
             type="button"
             priority="low"
             onClick={handleCancel}
@@ -62,7 +62,7 @@ const CreateAccount = props => {
     const submitButton = (
         <Button
             className={classes.submitButton}
-            disabled={isDisabled}
+            disabled={Boolean(isDisabled)}
             type="submit"
             priority="high"
             onKeyDown={handleEnterKeyPress}

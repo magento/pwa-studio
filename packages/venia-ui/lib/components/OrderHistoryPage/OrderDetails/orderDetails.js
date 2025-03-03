@@ -1,5 +1,5 @@
 import React from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
+import PropTypes, { shape, string, number, arrayOf } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { Printer } from 'react-feather';
@@ -38,6 +38,8 @@ const OrderDetails = props => {
 
     const hasTotals = total.grand_total && total.grand_total.currency;
 
+    const imagesArray = Array.isArray(imagesData) ? imagesData : [imagesData];
+
     return (
         <div className={classes.root}>
             <div className={classes.shippingInformationContainer}>
@@ -64,7 +66,7 @@ const OrderDetails = props => {
             </div>
             <div className={classes.itemsContainer}>
                 <ConditionalWrapper condition={items && items.length}>
-                    <Items data={{ imagesData, items }} />
+                    <Items data={{ imagesData: imagesArray, items }} />
                 </ConditionalWrapper>
             </div>
             <div className={classes.orderTotalContainer}>
@@ -91,8 +93,6 @@ const OrderDetails = props => {
     );
 };
 
-export default OrderDetails;
-
 OrderDetails.propTypes = {
     classes: shape({
         root: string,
@@ -105,7 +105,18 @@ OrderDetails.propTypes = {
         printButton: string,
         printLabel: string
     }),
-    imagesData: arrayOf(
+    imagesData: PropTypes.oneOfType([
+        arrayOf(
+            shape({
+                id: number,
+                sku: string,
+                thumbnail: shape({
+                    url: string
+                }),
+                url_key: string,
+                url_suffix: string
+            })
+        ),
         shape({
             id: number,
             sku: string,
@@ -115,7 +126,7 @@ OrderDetails.propTypes = {
             url_key: string,
             url_suffix: string
         })
-    ),
+    ]),
     orderData: shape({
         billing_address: shape({
             city: string,
@@ -205,3 +216,5 @@ OrderDetails.propTypes = {
         })
     })
 };
+
+export default OrderDetails;

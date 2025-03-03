@@ -10,6 +10,12 @@ import { useGoogleReCaptcha } from '../../hooks/useGoogleReCaptcha';
 
 import DEFAULT_OPERATIONS from './createAccount.gql';
 import { useEventingContext } from '../../context/eventing';
+import { useHistory, useLocation } from 'react-router-dom';
+
+/**
+ * Routes to redirect from if used to create an account.
+ */
+const REDIRECT_FOR_ROUTES = ['/checkout', '/order-confirmation'];
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -47,7 +53,7 @@ export const useCreateAccount = props => {
         { createCart, removeCart, getCartDetails }
     ] = useCartContext();
     const [
-        { isGettingDetails },
+        { isGettingDetails, userOnOrderSuccess },
         { getUserDetails, setToken }
     ] = useUserContext();
 
@@ -111,6 +117,9 @@ export const useCreateAccount = props => {
             }
         };
     }, [handleCancel]);
+
+    const history = useHistory();
+    const location = useLocation();
 
     const handleSubmit = useCallback(
         async formValues => {
@@ -188,6 +197,13 @@ export const useCreateAccount = props => {
                 if (onSubmit) {
                     onSubmit();
                 }
+
+                if (
+                    userOnOrderSuccess &&
+                    REDIRECT_FOR_ROUTES.includes(location.pathname)
+                ) {
+                    history.push('/account-information');
+                }
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -213,7 +229,10 @@ export const useCreateAccount = props => {
             getCartDetails,
             fetchCartDetails,
             onSubmit,
-            dispatch
+            dispatch,
+            history,
+            location.pathname,
+            userOnOrderSuccess
         ]
     );
 

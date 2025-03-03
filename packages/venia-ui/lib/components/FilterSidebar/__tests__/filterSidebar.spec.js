@@ -1,5 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
+import { MemoryRouter } from 'react-router-dom';
 
 import { createTestInstance } from '@magento/peregrine';
 
@@ -50,6 +51,8 @@ const mockFiltersOpenCount = 2;
 const mockHandleApply = jest.fn();
 
 const mockScrollTo = jest.fn();
+
+const mockFilterOptions = jest.fn();
 
 const mockGetBoundingClientRect = jest.fn();
 
@@ -125,7 +128,8 @@ const Component = () => {
 
 const givenDefaultValues = () => {
     inputProps = {
-        filters: []
+        filters: [],
+        setFilterOptions: mockFilterOptions
     };
 
     mockFilterState = new Map();
@@ -133,13 +137,15 @@ const givenDefaultValues = () => {
 
 const givenFilters = () => {
     inputProps = {
-        filters: mockFilters
+        filters: mockFilters,
+        setFilterOptions: mockFilterOptions
     };
 };
 
 const givenSelectedFilters = () => {
     inputProps = {
-        filters: mockFilters
+        filters: mockFilters,
+        setFilterOptions: mockFilterOptions
     };
 
     mockFilterState = new Map([['group', 'item']]);
@@ -148,7 +154,8 @@ const givenSelectedFilters = () => {
 const givenFiltersAndAmountToShow = () => {
     inputProps = {
         filters: mockFilters,
-        filterCountToOpen: mockFiltersOpenCount
+        filterCountToOpen: mockFiltersOpenCount,
+        setFilterOptions: mockFilterOptions
     };
 };
 
@@ -161,7 +168,11 @@ describe('#FilterSidebar', () => {
     });
 
     it('renders without filters', () => {
-        createTestInstance(<Component />);
+        createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(mockFilterBlock).not.toHaveBeenCalled();
         expect(mockCurrentFilters).toHaveBeenCalled();
@@ -170,7 +181,11 @@ describe('#FilterSidebar', () => {
     it('renders with filters and no selected filters', () => {
         givenFilters();
 
-        const { root } = createTestInstance(<Component />);
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(() => root.findByType(LinkButton)).toThrow();
         expect(mockFilterBlock).toHaveBeenCalledTimes(mockFilters.length);
@@ -179,7 +194,11 @@ describe('#FilterSidebar', () => {
     it('renders with filters and selected filter', () => {
         givenSelectedFilters();
 
-        const { root } = createTestInstance(<Component />);
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(() => root.findByType(LinkButton)).not.toThrow();
         expect(mockFilterBlock).toHaveBeenCalledTimes(mockFilters.length);
@@ -188,7 +207,11 @@ describe('#FilterSidebar', () => {
     it('handles when a user applies a filter and ref is not provided', () => {
         givenSelectedFilters();
 
-        const { root } = createTestInstance(<Component />);
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         act(() => {
             root.findAllByType(FilterBlock)[0].props.onApply();
@@ -206,17 +229,22 @@ describe('#FilterSidebar', () => {
             value: mockScrollTo
         });
 
-        const { root } = createTestInstance(<Component />, {
-            createNodeMock: () => {
-                return {
-                    getBoundingClientRect: mockGetBoundingClientRect.mockReturnValue(
-                        {
-                            top: 250
-                        }
-                    )
-                };
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>,
+            {
+                createNodeMock: () => {
+                    return {
+                        getBoundingClientRect: mockGetBoundingClientRect.mockReturnValue(
+                            {
+                                top: 250
+                            }
+                        )
+                    };
+                }
             }
-        });
+        );
 
         act(() => {
             root.findAllByType(FilterBlock)[0].props.onApply();
@@ -229,7 +257,11 @@ describe('#FilterSidebar', () => {
 
     it('accepts configurable amount of open filters', () => {
         givenFiltersAndAmountToShow();
-        createTestInstance(<Component />);
+        createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(mockFilterBlock).toHaveBeenCalledTimes(mockFilters.length);
 

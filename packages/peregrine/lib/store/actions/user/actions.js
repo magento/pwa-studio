@@ -1,7 +1,12 @@
 import { createActions } from 'redux-actions';
 
 const prefix = 'USER';
-const actionTypes = ['RESET', 'SET_TOKEN', 'CLEAR_TOKEN'];
+const actionTypes = [
+    'RESET',
+    'SET_TOKEN',
+    'CLEAR_TOKEN',
+    'SET_USER_ON_ORDER_SUCCESS'
+];
 
 const actionMap = {
     SIGN_IN: {

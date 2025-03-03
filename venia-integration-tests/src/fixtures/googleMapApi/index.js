@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify';
 export const createGoogleMapApi = currentMapApi => {
     return {
         maps: {
@@ -85,7 +86,9 @@ export const createGoogleMapApi = currentMapApi => {
 
                 open(map) {
                     map.infoWindowContainer.style.maxWidth = this.maxWidth;
-                    map.infoWindowContainer.innerHTML = this.content;
+                    map.infoWindowContainer.innerHTML = DOMPurify.sanitize(
+                        this.content
+                    );
                 }
 
                 close() {

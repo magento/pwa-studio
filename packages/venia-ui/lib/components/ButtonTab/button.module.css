@@ -1,0 +1,123 @@
+.root {
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: cursor-pointer from global;
+    composes: font-bold from global;
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: leading-tight from global;
+    composes: max-w-full from global;
+    composes: min-w-[10rem] from global;
+    composes: outline-none from global;
+    composes: pointer-events-auto from global;
+    composes: px-sm from global;
+    composes: rounded-button from global;
+    composes: text-center from global;
+    composes: text-sm from global;
+    composes: uppercase from global;
+    padding-top: calc(0.5rem + 1px); /* TODO @TW: review */
+    padding-bottom: calc(0.5rem - 1px); /* TODO @TW: review */
+    min-height: 2.5rem;
+    transition-duration: 256ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: var(--venia-global-anim-standard);
+
+    composes: disabled_bg-gray-400 from global;
+    composes: disabled_border-gray-400 from global;
+    composes: disabled_opacity-50 from global;
+    composes: disabled_pointer-events-none from global;
+    composes: disabled_text-white from global;
+
+    composes: focus_shadow-inputFocus from global;
+
+    composes: hover_disabled_pointer-events-none from global;
+}
+
+.root:active {
+    transition-duration: 128ms;
+}
+
+.root_lowPriority {
+    composes: root;
+
+    composes: bg-transparent from global;
+    composes: border-gray-700 from global;
+    composes: text-gray-700 from global;
+
+    composes: active_border-gray-800 from global;
+    composes: active_text-gray-800 from global;
+
+    composes: hover_border-gray-800 from global;
+    composes: hover_text-gray-800 from global;
+}
+
+.root_normalPriority {
+    composes: root;
+
+    composes: bg-transparent from global;
+    composes: border-brand-dark from global;
+    composes: text-brand-dark from global;
+
+    composes: active_border-brand-darkest from global;
+    composes: active_text-brand-darkest from global;
+
+    composes: hover_border-brand-darkest from global;
+    composes: hover_text-brand-darkest from global;
+}
+
+.root_highPriority {
+    composes: root;
+
+    composes: bg-brand-dark from global;
+    composes: border-brand-dark from global;
+    composes: text-white from global;
+
+    composes: active_bg-brand-darkest from global;
+    composes: active_border-brand-darkest from global;
+    composes: active_text-white from global;
+
+    composes: hover_bg-brand-darkest from global;
+    composes: hover_border-brand-darkest from global;
+    composes: hover_text-white from global;
+}
+
+.root_lowPriorityNegative,
+.root_normalPriorityNegative {
+    composes: root;
+
+    composes: bg-transparent from global;
+    composes: border-red-600 from global;
+    composes: text-red-600 from global;
+
+    composes: active_border-red-700 from global;
+    composes: active_text-red-700 from global;
+
+    composes: hover_border-red-700 from global;
+    composes: hover_text-red-700 from global;
+}
+
+.root_highPriorityNegative {
+    composes: root;
+
+    composes: bg-red-600 from global;
+    composes: border-red-600 from global;
+    composes: text-white from global;
+
+    composes: active_bg-red-700 from global;
+    composes: active_border-red-700 from global;
+    composes: active_text-white from global;
+
+    composes: hover_bg-red-700 from global;
+    composes: hover_border-red-700 from global;
+    composes: hover_text-white from global;
+}
+
+.content {
+    composes: gap-1.5 from global;
+    composes: grid-flow-col from global;
+    composes: inline-grid from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: justify-items-center from global;
+}
