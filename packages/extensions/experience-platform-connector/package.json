@@ -1,6 +1,6 @@
 {
   "name": "@magento/experience-platform-connector",
-  "version": "1.0.9-beta5",
+  "version": "1.0.9",
   "publishConfig": {
     "access": "public"
   },
@@ -18,8 +18,8 @@
   "devDependencies": {},
   "peerDependencies": {
     "@apollo/client": "~3.5.0",
-    "@magento/peregrine": "14.5.1-beta5",
-    "@magento/pwa-buildpack": "11.5.4-beta5",
+    "@magento/peregrine": "~14.5.1",
+    "@magento/pwa-buildpack": "~11.5.4",
     "react": "~17.0.1"
   },
   "pwa-studio": {
