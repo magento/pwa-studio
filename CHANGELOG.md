@@ -6,7 +6,8 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
-PHP 8.4 support — PWA Studio now supports PHP 8.4. GitHub PRs: 62, 7, 29, 6, 25, 12
+PHP 8.4 support — PWA Studio now supports PHP 8.4. GitHub PRs: [62], [7], [29], [6], [25], [12]
+
 The 14.2.0 release of PWA Studio provides compatibility with PREX extension and Upgradation from node 14 to 18.
 
 
@@ -95,10 +96,11 @@ Your project may not depend on some packages listed in this table.
 | `venia-sample-backends`                | **0.0.12***    |
 | `venia-sample-eventing`                | **0.0.10***    |
 | `venia-sample-language-packs`          | **0.0.18***    |
-| `venia-sample-payments-checkmo`        | 0.0.15         |
+| `venia-sample-payments-checkmo`        | **0.0.16***    |
+| `venia-sample-payments-cashondelivery` | 0.0.1          |
 | `pagebuilder`                          | **9.3.3***     |
 | `peregrine`                            | **14.5.1***    |
-| `pwa-buildpack`                        | **11.5.4 ***         |
+| `pwa-buildpack`                        | **11.5.4 ***   |
 | `pwa-theme-venia`                      | 2.4.0          |
 | `upward-js`                            | 5.4.2          |
 | `upward-spec`                          | 5.3.1          |
