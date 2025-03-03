@@ -57,7 +57,7 @@ const FilterDefault = props => {
             field={`${label}-${value_index}`}
             fieldValue={!!isSelected}
             label={title}
-            ariaLabel={ariaLabel}
+            aria-label={ariaLabel}
             data-cy="FilterDefault-checkbox"
             onClick={onMouseDown}
             {...restProps}

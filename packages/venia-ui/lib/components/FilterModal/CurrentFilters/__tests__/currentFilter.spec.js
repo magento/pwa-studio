@@ -1,5 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
+import { MemoryRouter } from 'react-router-dom';
 
 import { createTestInstance } from '@magento/peregrine';
 
@@ -19,7 +20,11 @@ jest.mock('../../../Trigger', () => props => <mock-Trigger {...props} />);
 let inputProps = {};
 
 const Component = () => {
-    return <CurrentFilter {...inputProps} />;
+    return (
+        <MemoryRouter>
+            <CurrentFilter {...inputProps} />
+        </MemoryRouter>
+    );
 };
 
 const givenDefaultValues = () => {

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { arrayOf, object, shape, string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { useStyle } from '../../classify';
 import Image from '../Image';
@@ -19,12 +19,15 @@ const CollapsedImageGallery = props => {
             const baseImageElements = Object.values(items)
                 .slice(0, DISPLAY_COUNT)
                 .map((item, index) => {
+                    if (!item) {
+                        return null;
+                    }
                     const { thumbnail, name } = item;
                     const { url } = thumbnail;
 
                     return (
                         <Image
-                            key={Object.keys(items)[index]}
+                            key={name || index}
                             alt={name}
                             src={url}
                             width={48}
@@ -55,9 +58,9 @@ const CollapsedImageGallery = props => {
 export default CollapsedImageGallery;
 
 CollapsedImageGallery.propTypes = {
-    classes: shape({
-        root: string,
-        remainderCount: string
+    classes: PropTypes.shape({
+        root: PropTypes.string,
+        remainderCount: PropTypes.string
     }),
-    items: arrayOf(object)
+    items: PropTypes.object.isRequired
 };

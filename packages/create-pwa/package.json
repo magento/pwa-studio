@@ -1,6 +1,6 @@
 {
   "name": "@magento/create-pwa",
-  "version": "2.4.6",
+  "version": "2.5.6-beta5",
   "publishConfig": {
     "access": "public"
   },
@@ -29,8 +29,8 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/create-pwa#readme",
   "dependencies": {
-    "@magento/pwa-buildpack": "~11.5.3",
-    "@magento/venia-concept": "~14.1.0",
+    "@magento/pwa-buildpack": "11.5.4-beta5",
+    "@magento/venia-concept": "14.2.0-beta5",
     "chalk": "^2.4.2",
     "change-case": "^3.1.0",
     "compression": "~1.7.4",

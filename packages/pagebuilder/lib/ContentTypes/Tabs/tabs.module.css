@@ -125,7 +125,7 @@ ul.navigation::-webkit-scrollbar {
 
 .panel {
     min-height: inherit;
-    composes: !empty_hidden from global;
+    composes: empty_hidden from global;
 }
 
 .panelSelected {

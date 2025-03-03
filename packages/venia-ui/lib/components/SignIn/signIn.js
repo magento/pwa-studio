@@ -19,7 +19,6 @@ import GoogleRecaptcha from '../GoogleReCaptcha';
 const SignIn = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const {
-        handleTriggerClick,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
@@ -28,7 +27,6 @@ const SignIn = props => {
 
     const { formatMessage } = useIntl();
     const talonProps = useSignIn({
-        handleTriggerClick,
         getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         setDefaultUsername,
         showCreateAccount,
@@ -69,14 +67,14 @@ const SignIn = props => {
                 initialValues={initialValues && initialValues}
             >
                 <Field
-                    id="email"
+                    id="emailSignIn"
                     label={formatMessage({
                         id: 'signIn.emailAddressText',
                         defaultMessage: 'Email address'
                     })}
                 >
                     <TextInput
-                        id="email"
+                        id="emailSignIn"
                         data-cy="SignIn-email"
                         autoComplete="email"
                         field="email"
@@ -126,7 +124,7 @@ const SignIn = props => {
                         type="submit"
                         onKeyDown={signinHandleEnterKeyPress}
                         data-cy="SignInButton-root_highPriority"
-                        disabled={isBusy}
+                        disabled={Boolean(isBusy)}
                     >
                         <FormattedMessage
                             id={'signIn.signInText'}

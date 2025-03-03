@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
@@ -28,6 +28,92 @@ export const useCategoryContent = props => {
         getProductFiltersByCategoryQuery,
         getCategoryAvailableSortMethodsQuery
     } = operations;
+
+    const [
+        getFiltersAttributeCode,
+        { data: filterAttributeData }
+    ] = useLazyQuery(getProductFiltersByCategoryQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    useEffect(() => {
+        if (categoryId) {
+            getFiltersAttributeCode({
+                variables: {
+                    filters: {
+                        category_uid: { eq: categoryId }
+                    }
+                }
+            });
+        }
+    }, [categoryId, getFiltersAttributeCode]);
+
+    const availableFilterData = filterAttributeData
+        ? filterAttributeData.products?.aggregations
+        : null;
+    const availableFilters = availableFilterData
+        ?.map(eachitem => eachitem.attribute_code)
+        ?.sort();
+
+    const handlePriceFilter = priceFilter => {
+        if (priceFilter && priceFilter.size > 0) {
+            for (const price of priceFilter) {
+                const [from, to] = price.value.split('_');
+                return { price: { from, to } };
+            }
+        }
+        return {};
+    };
+
+    const [filterOptions, setFilterOptions] = useState();
+
+    const selectedFilters = useMemo(() => {
+        const filters = {};
+        if (filterOptions) {
+            for (const [group, items] of filterOptions.entries()) {
+                availableFilters?.map(eachitem => {
+                    if (eachitem === group && group !== 'price') {
+                        const sampleArray = [];
+                        for (const item of items) {
+                            sampleArray.push(item.value);
+                        }
+                        filters[group] = sampleArray;
+                    }
+                });
+            }
+        }
+
+        if (filterOptions && filterOptions.has('price')) {
+            const priceFilter = filterOptions.get('price');
+            const priceRange = handlePriceFilter(priceFilter);
+            if (priceRange.price) {
+                filters.price = priceRange.price;
+            }
+        }
+
+        return filters;
+    }, [filterOptions, availableFilters]);
+
+    const dynamicQueryVariables = useMemo(() => {
+        const generateDynamicFiltersQuery = filterParams => {
+            let filterConditions = {
+                category_uid: { eq: categoryId }
+            };
+
+            Object.keys(filterParams).forEach(key => {
+                let filter = {};
+                if (key !== 'price') {
+                    filter = { [key]: { in: filterParams[key] } };
+                }
+                filterConditions = { ...filterConditions, ...filter };
+            });
+
+            return filterConditions;
+        };
+
+        return generateDynamicFiltersQuery(selectedFilters);
+    }, [selectedFilters, categoryId]);
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
 
@@ -60,18 +146,26 @@ export const useCategoryContent = props => {
     );
 
     const [, { dispatch }] = useEventingContext();
-
+    const [previousFilters, setPreviousFilters] = useState(null);
     useEffect(() => {
-        if (categoryId) {
+        if (
+            categoryId &&
+            JSON.stringify(selectedFilters) !== JSON.stringify(previousFilters)
+        ) {
             getFilters({
                 variables: {
-                    categoryIdFilter: {
-                        eq: categoryId
-                    }
+                    filters: dynamicQueryVariables
                 }
             });
+            setPreviousFilters(selectedFilters);
         }
-    }, [categoryId, getFilters]);
+    }, [
+        categoryId,
+        selectedFilters,
+        dynamicQueryVariables,
+        previousFilters,
+        getFilters
+    ]);
 
     useEffect(() => {
         if (categoryId) {
@@ -85,7 +179,7 @@ export const useCategoryContent = props => {
         }
     }, [categoryId, getSortMethods]);
 
-    const filters = filterData ? filterData.products.aggregations : null;
+    const filters = filterData ? filterData.products?.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
@@ -104,7 +198,7 @@ export const useCategoryContent = props => {
         : null;
 
     useEffect(() => {
-        if (!categoryLoading && categoryData.categories.items.length > 0) {
+        if (!categoryLoading && categoryData?.categories.items.length > 0) {
             dispatch({
                 type: 'CATEGORY_PAGE_VIEW',
                 payload: {
@@ -122,6 +216,8 @@ export const useCategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
+        filterOptions,
+        setFilterOptions,
         items,
         totalCount,
         totalPagesFromData

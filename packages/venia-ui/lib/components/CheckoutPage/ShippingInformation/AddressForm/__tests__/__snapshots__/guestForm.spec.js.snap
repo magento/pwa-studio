@@ -451,11 +451,7 @@ Array [
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          Continue to Shipping Method
-        </span>
+        Continue to Shipping Method
       </button>
     </div>
   </form>,
@@ -917,11 +913,7 @@ Array [
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          Continue to Shipping Method
-        </span>
+        Continue to Shipping Method
       </button>
     </div>
   </form>,
@@ -1371,14 +1363,10 @@ Array [
         onTouchStart={[Function]}
         type="button"
       >
-        <span
-          className="content"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Cancel"
-            id="global.cancelButton"
-          />
-        </span>
+        <mock-FormattedMessage
+          defaultMessage="Cancel"
+          id="global.cancelButton"
+        />
       </button>
       <button
         className="root_highPriority"
@@ -1396,11 +1384,7 @@ Array [
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          Update
-        </span>
+        Update
       </button>
     </div>
   </form>,
@@ -1850,14 +1834,10 @@ Array [
         onTouchStart={[Function]}
         type="button"
       >
-        <span
-          className="content"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Cancel"
-            id="global.cancelButton"
-          />
-        </span>
+        <mock-FormattedMessage
+          defaultMessage="Cancel"
+          id="global.cancelButton"
+        />
       </button>
       <button
         className="root_highPriority"
@@ -1875,11 +1855,7 @@ Array [
         onTouchStart={[Function]}
         type="submit"
       >
-        <span
-          className="content"
-        >
-          Update
-        </span>
+        Update
       </button>
     </div>
   </form>,

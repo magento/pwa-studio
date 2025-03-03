@@ -30,7 +30,8 @@ const initialState = {
     isResettingPassword: false,
     isSignedIn: isSignedIn(),
     resetPasswordError: null,
-    token: getToken()
+    token: getToken(),
+    userOnOrderSuccess: false // Add userOnOrderSuccess state
 };
 
 const reducerMap = {
@@ -46,6 +47,12 @@ const reducerMap = {
             ...state,
             isSignedIn: false,
             token: null
+        };
+    },
+    [actions.setUserOnOrderSuccess]: (state, { payload }) => {
+        return {
+            ...state,
+            userOnOrderSuccess: payload // Update the state with the new flag value
         };
     },
     [actions.getDetails.request]: state => {
