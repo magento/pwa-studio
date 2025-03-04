@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-language-packs",
-  "version": "0.0.18-beta.6",
+  "version": "0.0.18",
   "publishConfig": {
     "access": "public"
   },
@@ -12,8 +12,8 @@
   "repository": "github:magento/pwa-studio",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
-    "@magento/pwa-buildpack": "11.5.4-beta.6",
-    "@magento/venia-ui": "11.6.0-beta.6"
+    "@magento/pwa-buildpack": "~11.5.4",
+    "@magento/venia-ui": "~11.6.0"
   },
   "pwa-studio": {
     "targets": {
