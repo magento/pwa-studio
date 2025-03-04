@@ -78,7 +78,7 @@ const FilterSidebar = props => {
     );
 
     useEffect(() => {
-        if (filterState) {
+        if (filterState && setFilterOptions) {
             setFilterOptions(filterState);
         }
     }, [filterState, setFilterOptions]);
