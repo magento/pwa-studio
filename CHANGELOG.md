@@ -26,16 +26,13 @@ The 14.2.0 release of PWA Studio provides compatibility with PREX extension and 
 -  Bug: [4354][] — Fixed Shipping address error when login
 -  Bug: [4318][] — Fixed issue of system is getting crashed when selecting add to cart in case of translated language
 -  Bug: [4357][] — Upward pwa forwarding BOT request to backend
--  Bug: [162][] — Devops : pwa-scaffold-create-pwa is failing all PWA PR in code build 
 -  Bug: [4403][] — Removing code since creating problem while yarn build in local when added this extension to package.json
 however packages is published on NPM so will resolve in next release
 -  Bug: [4342][] — Resolved error when getting thumbnails on order row for deleted products
 -  Bug: [4339][] — able to see appropriate css variable on front end
 -  Bug: [4363][] —  Fixed system is thorwing Error while signin from shipping address page
--  Bug: [4358][] —  Devops : Elasticbean stak is failing all PWA PR in code build 
 -  Bug: [4341][] — Order confirmation page persists through page refreshes when authenticated also navigates to home page on refresh for guest users
 -  Bug: [4413][] — fixed unable to proceed checkout on iOS or Android Device post product added to cart
--  Bug: [68][] — CustomerGraphQLPWA module's files are not importing to latest package neither from old nor from proposed version 0.9.2
 -  Bug: [4424][] — Unable to place order in Mobile screen as well as not able to filter or sort in PLP
 
 ## 14.2.0 Lighthouse scores
@@ -130,16 +127,13 @@ Your project may not depend on some packages listed in this table.
 [4344]: https://github.com/magento/pwa-studio/pull/4344
 [4354]: https://github.com/magento/pwa-studio/pull/4354
 [4357]: https://github.com/magento/pwa-studio/pull/4357
-[162]:  https://github.com/magento-commerce/pwa-studio-cicd/pull/162
 [4386]: https://github.com/magento/pwa-studio/pull/4386
 [4403]: https://github.com/magento/pwa-studio/pull/4403
 [4342]: https://github.com/magento/pwa-studio/pull/4342
 [4339]: https://github.com/magento/pwa-studio/pull/4339
 [4363]: https://github.com/magento/pwa-studio/pull/4363
-[4358]: https://github.com/magento/pwa-studio/pull/4358
-[4358]: https://github.com/magento/pwa-studio/pull/4341
+[4341]: https://github.com/magento/pwa-studio/pull/4341
 [4413]: https://github.com/magento/pwa-studio/pull/4413
-[68]: https://github.com/magento-commerce/magento2-pwa/pull/[68]
 [4424]: https://github.com/magento/pwa-studio/pull/4424
 
 
