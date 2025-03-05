@@ -177,6 +177,7 @@ const CheckoutPage = props => {
                     className={classes.signInButton}
                     data-cy="CheckoutPage-signInButton"
                     onClick={toggleSignInContent}
+                    onTouchStart={toggleSignInContent}
                     priority="normal"
                 >
                     <FormattedMessage
@@ -253,6 +254,7 @@ const CheckoutPage = props => {
             checkoutStep === CHECKOUT_STEP.PAYMENT ? (
                 <Button
                     onClick={handleReviewOrder}
+                    onTouchStart={handleReviewOrder}
                     onKeyDown={handleReviewOrderEnterKeyPress}
                     priority="high"
                     className={classes.review_order_button}
@@ -281,6 +283,7 @@ const CheckoutPage = props => {
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
                 <Button
                     onClick={handlePlaceOrder}
+                    onTouchStart={handlePlaceOrder}
                     onKeyDown={handlePlaceOrderEnterKeyPress}
                     priority="high"
                     className={classes.place_order_button}

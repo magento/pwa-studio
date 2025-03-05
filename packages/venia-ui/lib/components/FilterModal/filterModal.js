@@ -80,7 +80,7 @@ const FilterModal = props => {
             <LinkButton
                 type="button"
                 onClick={handleReset}
-                ariaLabel={clearAllAriaLabel}
+                aria-label={clearAllAriaLabel}
                 data-cy="FilterModal-clearButton"
             >
                 <FormattedMessage

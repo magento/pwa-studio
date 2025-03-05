@@ -4,6 +4,7 @@
 
 // PWA Studio version -> Magento version.
 module.exports = {
+    '14.2.0': '2.4.7-p4',
     '14.1.0': '2.4.7-p2',
     '14.0.1': '2.4.7-beta3',
     '14.0.0': '2.4.7-beta3',
@@ -41,7 +42,7 @@ var magentoVersion = '2.4.7-p1';
 // React version compatibility
 var reactVersion = '17.0.2';
 
-// Fornt End dependencies
+// Front end dependencies
 var forntEndDependencies = {
     '@magento/babel-preset-peregrine': '1.3.3',
     '@magento/create-pwa': '2.4.6',

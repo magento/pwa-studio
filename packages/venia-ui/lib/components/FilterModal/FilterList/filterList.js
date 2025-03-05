@@ -36,8 +36,8 @@ const FilterList = props => {
         var maxRange = Number(items[items.length - 1].value.split('_')[1]);
         if (filterState !== undefined) {
             const filterArray = [...filterState];
-            var currentMinVal = Number(filterArray[0].value.split('_')[0]);
-            var currentMaxVal = Number(filterArray[0].value.split('_')[1]);
+            var currentMinVal = Number(filterArray[0]?.value?.split('_')[0]);
+            var currentMaxVal = Number(filterArray[0]?.value?.split('_')[1]);
         }
     }
 
