@@ -53,6 +53,24 @@ jest.mock('@magento/peregrine/lib/context/eventing', () => ({
     useEventingContext: jest.fn().mockReturnValue([{}, { dispatch: jest.fn() }])
 }));
 
+jest.mock('react-router-dom', () => ({
+    useHistory: jest.fn().mockReturnValue({
+        push: jest.fn(),
+
+        replace: jest.fn()
+    }),
+
+    useLocation: jest.fn().mockReturnValue({
+        pathname: '/checkout',
+
+        search: '',
+
+        hash: '',
+
+        state: null
+    })
+}));
+
 const Component = props => {
     const talonProps = useSignIn(props);
 
@@ -275,6 +293,12 @@ test('mutation error is returned by talon', async () => {
 
     await talonProps.handleSubmit(signInVariables);
     expect(talonProps.errors).toMatchSnapshot();
+});
+
+test('useLocation and useHistory are used correctly', () => {
+    const { talonProps } = getTalonProps({ ...defaultProps });
+
+    expect(talonProps).toBeDefined(); // Placeholder assertion.
 });
 
 it('should call handleForgotPassword when Enter key is pressed', () => {

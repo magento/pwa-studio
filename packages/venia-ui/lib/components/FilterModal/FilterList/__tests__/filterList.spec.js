@@ -1,4 +1,5 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 
 import { createTestInstance } from '@magento/peregrine';
 
@@ -67,7 +68,11 @@ describe('#FilterList', () => {
     });
 
     it('renders without show more button', () => {
-        const { root } = createTestInstance(<Component />);
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(root.findAllByType(FilterItem)).toHaveLength(2);
         expect(() => root.findByType('button')).toThrow();
@@ -76,7 +81,11 @@ describe('#FilterList', () => {
     it('renders with show more button', () => {
         givenShowMore();
 
-        const { root } = createTestInstance(<Component />);
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(() => root.findByType('button')).not.toThrow();
         expect(root.findByType('button').children[0]).toBe(mockShowMore);
@@ -86,7 +95,11 @@ describe('#FilterList', () => {
         givenShowMore();
         givenExpanded();
 
-        const { root } = createTestInstance(<Component />);
+        const { root } = createTestInstance(
+            <MemoryRouter>
+                <Component />
+            </MemoryRouter>
+        );
 
         expect(() => root.findByType('button')).not.toThrow();
         expect(root.findByType('button').children[0]).toBe(mockShowLess);

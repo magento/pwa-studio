@@ -9,7 +9,7 @@ import {
 } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingMethod/useShippingMethod';
 
 import { useStyle } from '../../../classify';
-import Button from '../../Button';
+import Button from '../../ButtonTab';
 import FormError from '../../FormError';
 import LoadingIndicator from '../../LoadingIndicator';
 import CompletedView from './completedView';

@@ -179,7 +179,7 @@ const CreateAccount = props => {
                 <GoogleReCaptcha {...recaptchaWidgetProps} />
                 <div className={classes.actions}>
                     <Button
-                        disabled={isDisabled}
+                        disabled={Boolean(isDisabled)}
                         type="submit"
                         className={classes.create_account_button}
                         data-cy="OrderConfirmationPage-CreateAccount-createAccountButton"

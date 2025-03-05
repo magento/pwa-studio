@@ -23,6 +23,12 @@ veniaResponse:
         - matches:  urlResolver.redirect_code
           pattern: '(301|302)'
           use: dynamicRedirect
+        - matches: request.url.pathname
+          pattern: '^/(account-information|address-book|cart|checkout|communications|sign-in|contact-us|create-account|forgot-password|order-confirmation|order-history|customer/account/createPassword|saved-payments|search\.html|wishlist)$'
+          use: veniaAppShell
+        - matches:  urlResolver.redirect_code
+          pattern: '(404)'
+          use: notFoundResponse
     default: veniaAppShell
 
 # A FileResolver for serving certain files directly from document root,
@@ -256,3 +262,27 @@ dynamicRedirect:
             file:
               resolver: inline
               inline: './index.html'
+
+notFoundResponse:
+  resolver: inline
+  inline:
+    status: urlResolver.redirect_code
+    headers:
+        resolver: inline
+        inline:
+            content-type:
+                inline: text/html
+            cache-control:
+                inline: s-maxage=60
+    body:
+      resolver: template
+      engine: mustache
+      provide:
+        pageType: veniaPageType.data
+        pageTypeNonce: veniaPageTypeNonce.nonce
+        webpackChunks: veniaWebpackChunks.scripts
+      template:
+        resolver: file
+        file:
+          resolver: inline
+          inline: './index.html'

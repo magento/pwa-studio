@@ -9,6 +9,7 @@ import { useGoogleReCaptcha } from '../../../hooks/useGoogleReCaptcha';
 
 import DEFAULT_OPERATIONS from './createAccount.gql';
 import { useEventingContext } from '../../../context/eventing';
+import { useHistory } from 'react-router-dom';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -95,6 +96,7 @@ export const useCreateAccount = props => {
         formAction: 'createAccount'
     });
 
+    const history = useHistory();
     const handleSubmit = useCallback(
         async formValues => {
             setIsSubmitting(true);
@@ -158,6 +160,8 @@ export const useCreateAccount = props => {
                 if (onSubmit) {
                     onSubmit();
                 }
+
+                history.push('/account-information');
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -179,7 +183,8 @@ export const useCreateAccount = props => {
             removeCart,
             setToken,
             signIn,
-            dispatch
+            dispatch,
+            history
         ]
     );
 

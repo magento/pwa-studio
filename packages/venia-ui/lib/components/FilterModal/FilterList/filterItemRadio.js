@@ -45,7 +45,7 @@ const FilterItemRadio = props => {
             value={value}
             onChange={handleOnchange}
             data-cy="FilterDefault-radio"
-            ariaLabel={ariaLabel}
+            aria-label={ariaLabel}
         />
     );
 

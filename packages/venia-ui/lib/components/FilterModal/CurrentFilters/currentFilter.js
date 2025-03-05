@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 import { X as Remove } from 'react-feather';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
@@ -12,13 +13,22 @@ const CurrentFilter = props => {
     const { group, item, removeItem, onRemove } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
+    const location = useLocation();
+    const history = useHistory();
 
     const handleClick = useCallback(() => {
         removeItem({ group, item });
         if (typeof onRemove === 'function') {
             onRemove(group, item);
         }
-    }, [group, item, removeItem, onRemove]);
+
+        if (group == 'price') {
+            // preserve all existing params
+            const params = new URLSearchParams(location.search);
+            params.delete('price[filter]');
+            history.replace({ search: params.toString() });
+        }
+    }, [group, item, removeItem, onRemove, history, location.search]);
 
     const ariaLabel = formatMessage(
         {
@@ -34,7 +44,7 @@ const CurrentFilter = props => {
         <span className={classes.root} data-cy="CurrentFilter-root">
             <Trigger
                 action={handleClick}
-                ariaLabel={ariaLabel}
+                aria-label={ariaLabel}
                 data-cy="CurrentFilter-trigger"
             >
                 <Icon size={20} src={Remove} />
