@@ -9,7 +9,7 @@ import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 import defaultClasses from './summary.module.css';
 
 /**
- * The SummaryCod component of the Cash On Delivery payment method extension.
+ * The SummaryCod component of the Cash On Delivery payment method extension is as follows.
  */
 const SummaryCod = props => {
     const { onEdit } = props;
