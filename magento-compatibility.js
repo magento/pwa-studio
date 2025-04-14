@@ -48,6 +48,7 @@ var forntEndDependencies = {
     '@magento/experience-platform-connector': '1.0.7',
     '@magento/upward-security-headers': '1.0.16',
     '@magento/venia-sample-backends': '0.0.11',
+    "@magento/venia-product-recommendations": '1.0.1',
     '@magento/venia-sample-eventing': '0.0.8',
     '@magento/venia-sample-language-packs': '0.0.16',
     '@magento/venia-sample-payments-checkmo': '0.0.14',
