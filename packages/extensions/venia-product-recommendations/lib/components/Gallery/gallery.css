@@ -1,0 +1,24 @@
+.root {
+  display: grid;
+  grid-template-areas:
+    'actions'
+    'items';
+  grid-template-columns: 1fr;
+  line-height: 1;
+}
+
+.items {
+  grid-template-columns: repeat(5, 1fr);
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-bottom: 60px;
+  display: grid;
+  grid-area: items;
+  grid-gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

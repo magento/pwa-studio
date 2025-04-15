@@ -35,11 +35,13 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/main/packages/venia-concept#readme",
   "dependencies": {
+    "@magento/experience-platform-connector": "~1.0.9",
     "@magento/pwa-buildpack": "~11.5.3",
     "dompurify": "~3.2.4"
   },
   "devDependencies": {
     "@adobe/apollo-link-mutation-queue": "~1.0.2",
+    "@adobe/magento-storefront-events-sdk": "~1.13.0",
     "@apollo/client": "~3.5.0",
     "@babel/core": "~7.15.0",
     "@babel/plugin-proposal-class-properties": "~7.14.5",
@@ -56,7 +58,10 @@
     "@magento/pagebuilder": "~9.3.3",
     "@magento/peregrine": "~14.5.1",
     "@magento/pwa-theme-venia": "~2.4.0",
+    "@magento/recommendations-js-sdk": "~2.0.7",
     "@magento/upward-security-headers": "~1.0.14",
+    "@magento/venia-data-collector": "~1.0.7",
+    "@magento/venia-product-recommendations": "~1.0.1",
     "@magento/venia-ui": "~11.6.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~6.3.7",

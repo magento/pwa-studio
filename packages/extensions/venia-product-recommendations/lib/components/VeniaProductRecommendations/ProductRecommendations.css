@@ -1,0 +1,11 @@
+.unitTitle {
+  text-align: center;
+  margin: 1.5em;
+  font-weight: 700;
+  font-size: 2.25rem;
+  font-family: 'Source Serif Pro';
+}
+
+.root a {
+  text-decoration: none;
+}
