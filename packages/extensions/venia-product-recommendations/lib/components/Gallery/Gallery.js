@@ -13,47 +13,47 @@ import defaultItemClasses from '!!style-loader!css-loader?modules!./item.css';
  * @params {Array} props.items an array of items to render
  */
 export const Gallery = props => {
-  const galleryClasses = mergeClasses(
-    defaultGalleryClasses,
-    props.galleryClasses,
-  );
-  const itemClasses = mergeClasses(defaultItemClasses, props.itemClasses);
+    const galleryClasses = mergeClasses(
+        defaultGalleryClasses,
+        props.galleryClasses
+    );
+    const itemClasses = mergeClasses(defaultItemClasses, props.itemClasses);
 
-  const { items } = props;
+    const { items } = props;
 
-  const galleryItems = items.map((item, index) => {
-    if (item === null) {
-      return <GalleryItem key={index} />;
-    }
-    return <GalleryItem key={item.id} item={item} classes={itemClasses} />;
-  });
+    const galleryItems = items.map((item, index) => {
+        if (item === null) {
+            return <GalleryItem key={index} />;
+        }
+        return <GalleryItem key={item.id} item={item} classes={itemClasses} />;
+    });
 
-  return (
-    <div className={galleryClasses.root}>
-      <div className={galleryClasses.items}>{galleryItems}</div>
-    </div>
-  );
+    return (
+        <div className={galleryClasses.root}>
+            <div className={galleryClasses.items}>{galleryItems}</div>
+        </div>
+    );
 };
 
 Gallery.propTypes = {
-  galleryClasses: shape({
-    filters: string,
-    items: string,
-    root: string,
-  }),
-  itemClasses: shape({
-    image: string,
-    imageContainer: string,
-    imagePlaceholder: string,
-    image_pending: string,
-    images: string,
-    images_pending: string,
-    name: string,
-    name_pending: string,
-    price: string,
-    price_pending: string,
-    root: string,
-    root_pending: string,
-  }),
-  items: array.isRequired,
+    galleryClasses: shape({
+        filters: string,
+        items: string,
+        root: string
+    }),
+    itemClasses: shape({
+        image: string,
+        imageContainer: string,
+        imagePlaceholder: string,
+        image_pending: string,
+        images: string,
+        images_pending: string,
+        name: string,
+        name_pending: string,
+        price: string,
+        price_pending: string,
+        root: string,
+        root_pending: string
+    }),
+    items: array.isRequired
 };
