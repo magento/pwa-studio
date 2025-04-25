@@ -27,6 +27,10 @@ export const GET_CATEGORY_CONTENT = gql`
                 description
                 url_key
                 url_path
+                display_mode
+                cms_block {
+                    content
+                }
             }
         }
     }
