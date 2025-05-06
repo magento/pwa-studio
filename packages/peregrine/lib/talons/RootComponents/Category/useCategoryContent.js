@@ -196,6 +196,14 @@ export const useCategoryContent = props => {
     const availableSortMethods = sortData
         ? sortData.products.sort_fields.options
         : null;
+    const categoryDisplayMode =
+        categoryData && categoryData.categories.items.length
+            ? categoryData.categories.items[0].display_mode
+            : null;
+    const cmsBlockContent =
+        categoryData && categoryData.categories.items.length
+            ? categoryData.categories.items[0].cms_block?.content
+            : null;
 
     useEffect(() => {
         if (!categoryLoading && categoryData?.categories.items.length > 0) {
@@ -220,6 +228,8 @@ export const useCategoryContent = props => {
         setFilterOptions,
         items,
         totalCount,
-        totalPagesFromData
+        totalPagesFromData,
+        categoryDisplayMode,
+        cmsBlockContent
     };
 };
