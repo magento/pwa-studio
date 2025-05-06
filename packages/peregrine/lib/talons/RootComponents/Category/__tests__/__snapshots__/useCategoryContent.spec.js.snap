@@ -4,7 +4,9 @@ exports[`useCategoryContent tests handles no data prop 1`] = `
 Object {
   "availableSortMethods": null,
   "categoryDescription": "Jewelry category",
+  "categoryDisplayMode": undefined,
   "categoryName": "Jewelry",
+  "cmsBlockContent": undefined,
   "filterOptions": undefined,
   "filters": null,
   "items": Array [
@@ -33,7 +35,9 @@ Object {
     },
   ],
   "categoryDescription": "Jewelry category",
+  "categoryDisplayMode": undefined,
   "categoryName": "Jewelry",
+  "cmsBlockContent": undefined,
   "filterOptions": undefined,
   "filters": Array [
     Object {
