@@ -3,6 +3,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const fs = require('fs');
 const { promisify } = require('util');
+const path = require('path');
 
 const {
     getMediaURL,
@@ -71,6 +72,20 @@ module.exports = async env => {
     const availableStore = availableStores.find(
         ({ store_code }) => store_code === process.env.STORE_VIEW_CODE
     );
+
+    /**
+     * Here we check the STORE_VIEW_CODE for multistore setup and generate
+     * the index.html content to have the store code in script url
+     * and placed the assets in storeview specific folder inside dist
+     */
+    if (process.env.USE_STORE_CODE_IN_URL && process.env.STORE_VIEW_CODE) {
+        const storeViewCode = process.env.STORE_VIEW_CODE;
+        config.output = {
+            ...config.output,
+            publicPath: `/${storeViewCode}/`,
+            path: path.resolve(__dirname, 'dist', storeViewCode)
+        };
+    }
 
     global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
     global.LOCALE = storeConfigData.locale.replace('_', '-');
