@@ -1,0 +1,114 @@
+.root {
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: justify-self-center from global;
+    composes: max-w-site from global;
+    composes: px-xs from global;
+    composes: py-0 from global;
+    composes: w-full from global;
+
+    @apply hidden;
+}
+
+.root_open {
+    composes: root;
+
+    composes: z-dropdown from global;
+    @apply grid;
+}
+
+.form {
+    composes: grid from global;
+    composes: items-center from global;
+    composes: justify-items-stretch from global;
+    composes: w-full from global;
+}
+
+.container {
+    composes: inline-flex from global;
+    composes: items-center from global;
+    composes: justify-center from global;
+    composes: max-w-[24rem] from global;
+    composes: pb-xs from global;
+    composes: relative from global;
+    composes: w-full from global;
+}
+
+.search {
+    composes: grid from global;
+    composes: relative from global;
+}
+
+.autocomplete {
+    composes: grid from global;
+    /* composes: relative from global; */
+    composes: z-menu from global;
+}
+
+.popover {
+    composes: absolute from global;
+    composes: bg-white from global;
+    composes: gap-3 from global;
+    composes: grid from global;
+    composes: left-0 from global;
+    composes: p-xs from global;
+    composes: rounded-b-md from global;
+    composes: rounded-t-none from global;
+    composes: shadow-inputFocus from global;
+    composes: text-sm from global;
+    composes: z-menu from global;
+    transition-property: opacity, transform, visibility;
+    top: 2.5rem;
+}
+
+.root_hidden {
+    composes: root;
+
+    composes: invisible from global;
+    composes: opacity-0 from global;
+    transform: translate3d(0, -2rem, 0);
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-global-anim-out);
+}
+
+.root_visible {
+    composes: root;
+
+    composes: opacity-100 from global;
+    composes: visible from global;
+    transform: translate3d(0, 0, 0);
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
+}
+
+.message {
+    composes: px-3 from global;
+    composes: py-0 from global;
+    composes: text-center from global;
+    composes: text-subtle from global;
+
+    composes: empty_hidden from global;
+}
+
+.suggestions {
+    composes: gap-2xs from global;
+    composes: grid from global;
+
+    composes: empty_hidden from global;
+}
+
+.product-price {
+    display: grid;
+    grid-area: product-price;
+    height: 100%;
+    justify-content: left !important;
+    width: 100%;
+}
+
+.livesearch_root .ds-sdk-add-to-cart-button button svg {
+    display: none !important;
+}
+
+/* .popover {
+
+} */

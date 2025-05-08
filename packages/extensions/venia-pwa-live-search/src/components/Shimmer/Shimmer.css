@@ -1,0 +1,82 @@
+.card {
+    width: 250px;
+    margin: 10px auto;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 20px;
+}
+@keyframes placeholderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.shimmer-animation {
+    background-color: #f6f7f8;
+    background-image: linear-gradient(
+        to right,
+        #f6f7f8 0%,
+        #edeef1 20%,
+        #f6f7f8 40%,
+        #f6f7f8 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 800px 104px;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeholderShimmer;
+    animation-timing-function: linear;
+}
+
+.loader {
+    &-shimmer {
+        &-banner {
+            height: 22rem;
+            background-size: 800px 22rem;
+            border-radius: 5px;
+            margin-bottom: 12px;
+        }
+
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        &-title {
+            height: 25px;
+            flex: 0 0 auto;
+            width: 120px;
+        }
+
+        &-rating {
+            height: 25px;
+            flex: 0 0 auto;
+            width: 70px;
+        }
+
+        &-list {
+            height: 20px;
+            width: 190px;
+            margin-bottom: 5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &-info {
+            height: 20px;
+            width: 220px;
+            margin-bottom: 5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
