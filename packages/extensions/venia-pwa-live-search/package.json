@@ -9,6 +9,9 @@
   "repository": "https://github.com/github:magento/pwa-studio",
   "license": "MIT",
   "dependencies": {
+    "@magento/pwa-buildpack": "~11.5.3",
+    "@magento/storefront-search-as-you-type": "~1.0.4",
+    "@magento/venia-ui": "~11.5.0",
     "currency-symbol-map": "^5.1.0"
   },
   "peerDependencies": {
