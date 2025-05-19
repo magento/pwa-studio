@@ -6,8 +6,8 @@
     "/lib"
   ],
   "scripts": {
-    "cm": "cz",
-    "clean": " "
+    "clean": " ",
+    "cm": "cz"
   },
   "license": "MIT",
   "dependencies": {

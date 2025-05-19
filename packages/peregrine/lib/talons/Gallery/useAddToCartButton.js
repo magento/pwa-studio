@@ -62,8 +62,8 @@ export const useAddToCartButton = props => {
                 setIsLoading(true);
 
                 const quantity = 1;
-            
-                if(item.uid) {
+
+                if (item.uid) {
                     await addToCart({
                         variables: {
                             cartId,
@@ -90,7 +90,7 @@ export const useAddToCartButton = props => {
                         }
                     });
                 }
-                
+
                 dispatch({
                     type: 'CART_ADD_ITEM',
                     payload: {
