@@ -98,9 +98,9 @@ export const shapeItem = item => {
             .split('/')
             .splice(-1)[0]
             .split('.');
-        const url_key = urlArray[0];
+        const url_key = urlArray[0]+`.${urlArray[1]}`;
         const url_suffix = `.${urlArray[1]}`;
-
+        
         const price = {
             regularPrice: {
                 amount: {

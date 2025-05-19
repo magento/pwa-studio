@@ -62,23 +62,35 @@ export const useAddToCartButton = props => {
                 setIsLoading(true);
 
                 const quantity = 1;
-
-                await addToCart({
-                    variables: {
-                        cartId,
-                        cartItem: {
-                            quantity,
-                            entered_options: [
-                                {
-                                    uid: item.uid,
-                                    value: item.name
-                                }
-                            ],
-                            sku: item.sku
+            
+                if(item.uid) {
+                    await addToCart({
+                        variables: {
+                            cartId,
+                            cartItem: {
+                                quantity,
+                                entered_options: [
+                                    {
+                                        uid: item.uid,
+                                        value: item.name
+                                    }
+                                ],
+                                sku: item.sku
+                            }
                         }
-                    }
-                });
-
+                    });
+                } else {
+                    await addToCart({
+                        variables: {
+                            cartId,
+                            cartItem: {
+                                quantity,
+                                sku: item.sku
+                            }
+                        }
+                    });
+                }
+                
                 dispatch({
                     type: 'CART_ADD_ITEM',
                     payload: {
