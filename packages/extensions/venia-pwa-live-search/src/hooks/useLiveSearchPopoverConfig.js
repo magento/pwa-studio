@@ -1,7 +1,11 @@
 import { useQuery } from '@apollo/client';
 import { GET_STORE_CONFIG_FOR_LIVE_SEARCH_POPOVER, GET_CUSTOMER_GROUP_CODE } from '../queries';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 export const useLiveSearchPopoverConfig = () => {
+
+    const [{ isSignedIn }] = useUserContext();
+
     const { data: storeData, loading: storeLoading, error: storeError } =
         useQuery(GET_STORE_CONFIG_FOR_LIVE_SEARCH_POPOVER);
 
@@ -10,6 +14,7 @@ export const useLiveSearchPopoverConfig = () => {
         loading: customerLoading,
         error: customerError
     } = useQuery(GET_CUSTOMER_GROUP_CODE, {
+        skip: !isSignedIn,
         fetchPolicy: 'cache-and-network'
     });
 
@@ -18,10 +23,27 @@ export const useLiveSearchPopoverConfig = () => {
     const baseUrl = storeConfig.base_url || '';
     const baseUrlwithoutProtocol = baseUrl.replace(/^https?:/, '');
     const customerGroupCode =
-        customerData?.customer?.group_code ||
-        'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c';
+        isSignedIn && customerData?.customer?.group_code
+            ? customerData.customer.group_code
+            : 'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c';
 
-    const configReady = !storeLoading && !customerLoading && !storeError;
+    const configReady =
+        !storeLoading &&
+        (!isSignedIn || !customerLoading) &&
+        !storeError &&
+        (!isSignedIn || !customerError) &&
+        storeConfig?.ls_environment_id; // required field
+
+    if (!configReady) {
+        return {
+            storeDetails: null,
+            storeLoading,
+            customerLoading,
+            storeError,
+            customerError,
+            configReady: false
+        };
+    }
 
     const storeDetails = {
         environmentId: storeConfig.ls_environment_id || '',
