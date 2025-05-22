@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAutocomplete } from '@magento/storefront-search-as-you-type';
+import { useAutocomplete, Popover, LiveSearch } from '@magento/storefront-search-as-you-type';
 import { Form } from 'informed';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
-import { Popover, LiveSearch } from '@magento/storefront-search-as-you-type';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from '../styles/searchBar.module.css';
 import { useLiveSearchPopoverConfig } from '../hooks/useLiveSearchPopoverConfig';
@@ -26,12 +25,17 @@ const LiveSearchPopoverLoader = () => {
         if (!storeDetails || Object.keys(storeDetails).length === 0) return null;
         return new LiveSearch(storeDetails);
     }, [JSON.stringify(storeDetails)]);
-    
+
     const {
-        performSearch,
-        minQueryLength,
-        currencySymbol
-    } = liveSearch;
+    performSearch,
+    minQueryLength,
+    currencySymbol
+} = liveSearch ? liveSearch : {
+    performSearch: () => Promise.resolve({}),
+    minQueryLength: 3,
+    currencySymbol: '$'
+};
+
 
     const {
         formProps,
@@ -47,12 +51,12 @@ const LiveSearchPopoverLoader = () => {
     const transformResults = originalResults => {
         if (!originalResults?.data?.productSearch?.items) return originalResults;
 
+        const cleanUrl = url =>
+                url?.replace(storeDetails.baseUrlwithoutProtocol, '');
+        
         const transformedItems = originalResults.data.productSearch.items.map(item => {
             const product = item.product;
             if (!product) return item;
-
-            const cleanUrl = url =>
-                url?.replace(storeDetails.baseUrlwithoutProtocol, '');
 
             return {
                 ...item,
