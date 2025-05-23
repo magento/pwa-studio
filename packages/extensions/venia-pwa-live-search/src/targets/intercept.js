@@ -4,4 +4,9 @@ module.exports = targets => {
     const targetables = Targetables.using(targets);
 
     targetables.setSpecialFeatures('esModules', 'cssModules');
+
+    targets.of('@magento/peregrine').talons.tap(talons => {
+      talons.App.useApp.wrapWith(`@magento/venia-pwa-live-search/src/wrappers/wrapUseApp`);
+      return talons;
+    });
 };
