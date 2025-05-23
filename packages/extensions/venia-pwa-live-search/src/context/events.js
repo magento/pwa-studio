@@ -8,6 +8,7 @@ it.
 */
 
 // import { ProductSearchResponse } from '../types/interface'; // You may need to convert this too or stub it as JS.
+import mse from "@adobe/commerce-events-sdk";
 
 const updateSearchInputCtx = (
     searchUnitId,
@@ -18,7 +19,8 @@ const updateSearchInputCtx = (
     currentPage,
     sort
 ) => {
-    const mse = window.magentoStorefrontEvents;
+    //const mse = window.magentoStorefrontEvents;
+    console.log("events.js file : mse = ", mse);
     if (!mse) {
         // don't break search if events are broken/not loading
         return;
