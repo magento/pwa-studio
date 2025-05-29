@@ -1,6 +1,7 @@
 import React from 'react';
 import LiveSearchPLP from '../index';
 import { useLiveSearchPLPConfig } from '../hooks/useLiveSearchPLPConfig';
+import { ResultsModifierProvider } from '../context/resultsModifierContext';
 
 export const LiveSearchPLPLoader = ({categoryId}) => {
   const { config, loading, error } = useLiveSearchPLPConfig({categoryId});
@@ -14,9 +15,14 @@ export const LiveSearchPLPLoader = ({categoryId}) => {
     return <div>Error loading Live Search configuration</div>;
   }
 
-  //console.log("config details : ", config);
+  console.log("config details : ", config);
 
-  return <LiveSearchPLP storeDetails={config} />;
+  //return <LiveSearchPLP storeDetails={config} />;
+  return (
+    <ResultsModifierProvider baseUrl={config?.baseUrl} baseUrlWithoutProtocol={config?.baseUrlwithoutProtocol}>
+      <LiveSearchPLP storeDetails={config} />
+    </ResultsModifierProvider>
+  );
 };
 
 export default LiveSearchPLPLoader;
