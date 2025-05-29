@@ -8,21 +8,36 @@
 const getProductImageURLs = (images, amount = 3, topImageUrl) => {
     const imageUrlArray = [];
     const url = new URL(window.location.href);
+    //original protocol
     const protocol = url.protocol;
 
+    //making protocol empty
+    //const protocol = '';
     // const topImageUrl = "http://master-7rqtwti-wdxwuaerh4gbm.eu-4.magentosite.cloud/media/catalog/product/3/1/31t0a-sopll._ac_.jpg";
     for (const image of images) {
         const imageUrl = image.url?.replace(/^https?:\/\//, '');
         if (imageUrl) {
-            imageUrlArray.push(`${protocol}//${imageUrl}`);
+            //original 
+            //imageUrlArray.push(`${protocol}//${imageUrl}`);
+
+            //to remove protocol
+            imageUrlArray.push(`${imageUrl}`);
         }
     }
 
     if (topImageUrl) {
-        const topImageUrlFormatted = `${protocol}//${topImageUrl.replace(
+        //original 
+        // const topImageUrlFormatted = `${protocol}//${topImageUrl.replace(
+        //     /^https?:\/\//,
+        //     ''
+        // )}`;
+
+        //to remove protocol
+        const topImageUrlFormatted = `${topImageUrl.replace(
             /^https?:\/\//,
             ''
         )}`;
+        
         const index = topImageUrlFormatted.indexOf(topImageUrlFormatted);
         if (index > -1) {
             imageUrlArray.splice(index, 1);
