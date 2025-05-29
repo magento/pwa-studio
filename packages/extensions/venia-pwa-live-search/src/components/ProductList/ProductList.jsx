@@ -7,13 +7,16 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import './product-list.css';
 
 import { Alert } from '../../components/Alert';
 import { useProducts, useStore } from '../../context';
 import { ProductItem } from '../ProductItem';
 import { classNames } from '../../utils/dom';
+import { sanitizeProducts } from '../../utils/modifyResults';
+import { useResultsModifier } from '../../context/resultsModifierContext';
+
 
 const ProductList = ({ products, numberOfColumns, showFilters }) => {
   const productsCtx = useProducts();
@@ -34,6 +37,62 @@ const ProductList = ({ products, numberOfColumns, showFilters }) => {
   const {
     config: { listview },
   } = useStore();
+
+  // const cleanUrl = (url, cleanWithProtocol = false) => {
+  //   if (!url) return url;
+  //   try {
+  //     if (cleanWithProtocol) return url.replace('http://local.magentocomposeree.com:8082', '');
+  //     return url.replace('//local.magentocomposeree.com:8082', '');
+  //   } catch {
+  //     return url;
+  //   }
+  // };
+
+  const { baseUrl, baseUrlWithoutProtocol } = useResultsModifier();
+  console.log("PROductList baseURL = ",baseUrl);
+  console.log("PROductList baseUrlWithoutProtocol = ",baseUrlWithoutProtocol);
+
+  const sanitizedProducts = useMemo(() => sanitizeProducts(products, baseUrl, baseUrlWithoutProtocol), [products]);  
+//   const sanitizedProducts = useMemo(() => {
+//   if (!products || products.length === 0) return [];
+
+//   return products.map(item => {
+//     const prod = item.product;
+//     const prodView = item.productView;
+
+//     if (!prod) return item;
+
+//     const sanitizeImage = (img, cleanWithProtocol = false) => {
+//       if (Array.isArray(img)) {
+//         return img.map(i =>
+//           i && i.url ? { ...i, url: cleanUrl(i.url, cleanWithProtocol) } : i
+//         );
+//       }
+
+//       return img && img.url ? { ...img, url: cleanUrl(img.url, cleanWithProtocol) } : img;
+//     };
+
+//     return {
+//       ...item,
+//       product: {
+//         ...prod,
+//         canonical_url: cleanUrl(prod.canonical_url),
+//         image: sanitizeImage(prod.image),
+//         small_image: sanitizeImage(prod.small_image),
+//         thumbnail: sanitizeImage(prod.thumbnail)
+//       },
+//       productView: {
+//         ...prodView,
+//         images: sanitizeImage(prodView?.images, true),
+//         url: cleanUrl(prodView?.url, true)
+//       }
+//     };
+//   });
+// }, [products]);
+
+  // console.log("sanitizedProducts = ",sanitizedProducts);
+  // console.log("products = ",JSON.stringify(products));
+  // console.log("ProductList.jsx refineProduct = ",refineProduct);
 
   const className = showFilters
     ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
@@ -74,7 +133,8 @@ const ProductList = ({ products, numberOfColumns, showFilters }) => {
       {listview && viewType === 'listview' ? (
         <div className="w-full">
           <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
-            {products?.map((product) => (
+            {sanitizedProducts?.map((product) => (
+              //console.log("listview = ", product)
               <ProductItem
                 key={product?.productView?.id}
                 item={product}
@@ -97,7 +157,8 @@ const ProductList = ({ products, numberOfColumns, showFilters }) => {
           }}
           className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-2xl xl:gap-x-8"
         >
-          {products?.map((product) => (
+          {sanitizedProducts?.map((product) => (
+            //console.log("non list view = ", product)
             <ProductItem
               key={product?.productView?.id}
               item={product}
