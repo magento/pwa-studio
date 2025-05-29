@@ -22,6 +22,8 @@ import { ImageCarousel } from '../ImageCarousel';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
 import ProductPrice from './ProductPrice';
 import { SEARCH_UNIT_ID } from '../../utils/constants';
+import { sanitizeRefinedImages } from '../../utils/modifyResults';
+import { useResultsModifier } from '../../context/resultsModifierContext';
 
 const ProductItem = ({
   item,
@@ -56,10 +58,35 @@ const ProductItem = ({
     setIsHovering(false);
   };
 
+  //function to sanitize images , TODO: move to utils later
+  // const cleanUrl = (url, cleanWithProtocol = false) => {
+  //   if (!url) return url;
+  //   try {
+  //     if (cleanWithProtocol) return url.replace('http://local.magentocomposeree.com:8082', '');
+  //     return url.replace('//local.magentocomposeree.com:8082', '');
+  //   } catch {
+  //     return url;
+  //   }
+  // };
+  //function to sanitize images , TODO: move to utils later 
+  // const sanitizeRefinedImages = (img, cleanWithProtocol = false) => {
+  //     if (Array.isArray(img)) {
+  //       return img.map(i =>
+  //         i && i.url ? { ...i, url: cleanUrl(i.url, cleanWithProtocol) } : i
+  //       );
+  //     }
+  // }
+
+  const { baseUrl, baseUrlWithoutProtocol } = useResultsModifier();
+
   const handleSelection = async (optionIds, sku) => {
     const data = await refineProduct(optionIds, sku);
     setSelectedSwatch(optionIds[0]);
-    setImagesFromRefinedProduct(data.refineProduct.images);
+    //console.log("ProductItem.jsx data.refineProduct.images = ", data.refineProduct.images);
+    //original
+    //setImagesFromRefinedProduct(data.refineProduct.images,true);
+    //workaround
+    setImagesFromRefinedProduct(sanitizeRefinedImages(data.refineProduct.images, baseUrl, baseUrlWithoutProtocol));
     setRefinedProduct(data);
     setCarouselIndex(0);
   };
