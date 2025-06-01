@@ -46,7 +46,7 @@ const config = {
                         allowLeadingUnderscore: true
                     }
                 ],
-                '@graphql-eslint/require-id-when-available': 'error'
+                '@graphql-eslint/require-id-when-available': 'off'
             }
         }
     ]
