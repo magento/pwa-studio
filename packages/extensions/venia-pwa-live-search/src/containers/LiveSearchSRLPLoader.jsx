@@ -1,6 +1,7 @@
 import React from 'react';
 import LiveSearchPLP from '../index';
 import { useLiveSearchSRLPConfig } from '../hooks/useLiveSearchSRLPConfig';
+import { ResultsModifierProvider } from '../context/resultsModifierContext';
 
 export const LiveSearchSRLPLoader = () => {
   const { config, loading, error } = useLiveSearchSRLPConfig();
@@ -16,7 +17,12 @@ export const LiveSearchSRLPLoader = () => {
 
   //console.log("config details : ", config);
 
-  return <LiveSearchPLP storeDetails={config} />;
+  //return <LiveSearchPLP storeDetails={config} />;
+  return (
+    <ResultsModifierProvider baseUrl={config?.baseUrl} baseUrlWithoutProtocol={config?.baseUrlwithoutProtocol}>
+      <LiveSearchPLP storeDetails={config} />
+    </ResultsModifierProvider>
+  );
 };
 
 export default LiveSearchSRLPLoader;
