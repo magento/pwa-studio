@@ -15,7 +15,7 @@ export const LiveSearchPLPLoader = ({categoryId}) => {
     return <div>Error loading Live Search configuration</div>;
   }
 
-  console.log("config details : ", config);
+  //console.log("config details : ", config);
 
   //return <LiveSearchPLP storeDetails={config} />;
   return (

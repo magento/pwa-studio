@@ -21,7 +21,7 @@ export const useLiveSearchPopoverConfig = () => {
     const storeConfig = storeData?.storeConfig || {};
     const currency = storeData?.currency || {};
     const baseUrl = storeConfig.base_url || '';
-    const baseUrlwithoutProtocol = baseUrl.replace(/^https?:/, '');
+    const baseUrlwithoutProtocol = baseUrl.replace(/^https?:/, '').replace(/\/$/, '');
     const customerGroupCode =
         isSignedIn && customerData?.customer?.group_code
             ? customerData.customer.group_code
