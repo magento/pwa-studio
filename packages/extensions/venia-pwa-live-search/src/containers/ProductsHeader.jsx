@@ -45,7 +45,6 @@ export const ProductsHeader = ({ facets, totalCount, screenSize }) => {
   const getSortOptions = useCallback(() => {
     setSortOptions(
       getSortOptionsfromMetadata(
-        translation,
         attributeMetadata?.sortable,
         storeCtx?.config?.displayOutOfStock,
         storeCtx?.config?.currentCategoryUrlPath,
