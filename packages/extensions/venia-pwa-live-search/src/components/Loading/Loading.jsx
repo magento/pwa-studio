@@ -21,7 +21,8 @@ export const Loading = ({ label }) => {
       }`}
     >
       <div className="ds-sdk-loading__spinner bg-gray-100 rounded-full p-xs flex w-fit my-lg outline-gray-200">
-        <LoadingIcon className="inline-block mr-xs ml-xs w-md animate-spin fill-primary" />
+        {/* <LoadingIcon className="inline-block mr-xs ml-xs w-md animate-spin fill-primary" /> */}
+        <img src={LoadingIcon} className={`inline-block mr-xs ml-xs w-md animate-spin fill-primary`} />
         <span className="ds-sdk-loading__spinner-label p-xs">{label}</span>
       </div>
     </div>
