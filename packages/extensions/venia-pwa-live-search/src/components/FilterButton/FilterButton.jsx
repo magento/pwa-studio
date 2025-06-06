@@ -20,7 +20,8 @@ export const FilterButton = ({ displayFilter, type, title }) => {
         className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm outline outline-gray-200 hover:outline-gray-800 h-[32px]"
         onClick={displayFilter}
       >
-        <AdjustmentsIcon className="w-md" />
+        {/* <AdjustmentsIcon className="w-md" /> */}
+        <img src={AdjustmentsIcon} className={`w-md`} />
         {translation.Filter.title}
       </button>
     </div>
