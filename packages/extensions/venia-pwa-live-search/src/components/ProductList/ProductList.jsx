@@ -49,8 +49,8 @@ const ProductList = ({ products, numberOfColumns, showFilters }) => {
   // };
 
   const { baseUrl, baseUrlWithoutProtocol } = useResultsModifier();
-  console.log("PROductList baseURL = ",baseUrl);
-  console.log("PROductList baseUrlWithoutProtocol = ",baseUrlWithoutProtocol);
+  //console.log("PROductList baseURL = ",baseUrl);
+  //console.log("PROductList baseUrlWithoutProtocol = ",baseUrlWithoutProtocol);
 
   const sanitizedProducts = useMemo(() => sanitizeProducts(products, baseUrl, baseUrlWithoutProtocol), [products]);  
 //   const sanitizedProducts = useMemo(() => {
