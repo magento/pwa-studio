@@ -38,6 +38,7 @@ const Facet = `
 const ProductView = `
     fragment ProductView on ProductSearchItem {
         productView {
+            id
             __typename
             sku
             name
