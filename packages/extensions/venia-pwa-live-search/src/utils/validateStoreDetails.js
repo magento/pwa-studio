@@ -9,7 +9,9 @@ const validStoreDetailsKeys = [
     'apiUrl',
     'apiKey',
     'route',
-    'searchQuery'
+    'searchQuery',
+    'baseUrl',
+    'baseUrlwithoutProtocol'
 ];
 
 export const sanitizeString = value => {
