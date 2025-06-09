@@ -20,7 +20,7 @@ const updateSearchInputCtx = (
     sort
 ) => {
     //const mse = window.magentoStorefrontEvents;
-    console.log("events.js file : mse = ", mse);
+    //console.log("events.js file : mse = ", mse);
     if (!mse) {
         // don't break search if events are broken/not loading
         return;
