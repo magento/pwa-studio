@@ -241,7 +241,7 @@ const ProductItem = ({
                   (swatches) =>
                     swatches.id === 'color' && (
                       <SwatchButtonGroup
-                        key={productView?.sku}
+                        key={`${productView?.sku}-${option.id}`}
                         isSelected={isSelected}
                         //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
                         // swatches={swatches.values ?? []}
@@ -372,7 +372,7 @@ const ProductItem = ({
         <div className="ds-sdk-product-item__product-swatch mt-sm text-sm text-primary pb-6">
           {productView?.options.map((option) => (
             <SwatchButtonGroup
-              key={productView?.sku}
+              key={`${productView?.sku}-${option.id}`}
               isSelected={isSelected}
               //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
               //swatches={option.values ?? []}
