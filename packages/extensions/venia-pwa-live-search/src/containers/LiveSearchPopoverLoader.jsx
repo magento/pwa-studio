@@ -6,6 +6,7 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from '../styles/searchBar.module.css';
 import { useLiveSearchPopoverConfig } from '../hooks/useLiveSearchPopoverConfig';
+import { Search as SearchIcon } from 'react-feather';
 
 const LiveSearchPopoverLoader = () => {
     const classes = useStyle(defaultClasses);
@@ -117,6 +118,7 @@ const LiveSearchPopoverLoader = () => {
             <div className={classes.search}>
                 <TextInput
                     id="search_query"
+                    before={<SearchIcon />}
                     field="query"
                     data-cy="SearchField-textInput"
                     {...inputProps}
