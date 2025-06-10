@@ -1338,7 +1338,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     .ease-out {
         transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
-    font-size: 1.6rem;
+    /* font-size: 1.6rem; */
     /* Colors */
     --color-body: #fff;
     --color-on-body: #222;
