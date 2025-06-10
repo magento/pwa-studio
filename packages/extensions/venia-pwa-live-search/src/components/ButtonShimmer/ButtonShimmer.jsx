@@ -7,14 +7,14 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import styles from './ButtonShimmer.css';
+import '../ButtonShimmer/ButtonShimmer.css';
 import React from 'react';
 
 export const ButtonShimmer = () => {
   return (
     <>
-      <div className={`${styles['ds-plp-facets']} ${styles['ds-plp-facets--loading']}`}>
-        <div className={`${styles['ds-plp-facets__button']} ${styles['shimmer-animation-button']}`} />
+      <div className="ds-plp-facets ds-plp-facets--loading">
+        <div className="ds-plp-facets__button shimmer-animation-button" />
       </div>
     </>
   );
