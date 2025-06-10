@@ -8,18 +8,18 @@ it.
 */
 
 import React from 'react';
-import styles from './ProductCardShimmer.css';
+import './ProductCardShimmer.css';
 
 export const ProductCardShimmer = () => {
   return (
-    <div className={`${styles['ds-sdk-product-item']} ${styles['ds-sdk-product-item--shimmer']}`}>
-      <div className={`${styles['ds-sdk-product-item__banner']} ${styles['shimmer-animation-card']}`} />
-      <div className={styles['ds-sdk-product-item__content']}>
-        <div className={styles['ds-sdk-product-item__header']}>
-          <div className={`${styles['ds-sdk-product-item__title']} ${styles['shimmer-animation-card']}`} />
+    <div className="ds-sdk-product-item ds-sdk-product-item--shimmer">
+      <div className="ds-sdk-product-item__banner shimmer-animation-card" />
+      <div className="ds-sdk-product-item__content">
+        <div className="ds-sdk-product-item__header">
+          <div className="ds-sdk-product-item__title shimmer-animation-card" />
         </div>
-        <div className={`${styles['ds-sdk-product-item__list']} ${styles['shimmer-animation-card']}`} />
-        <div className={`${styles['ds-sdk-product-item__info']} ${styles['shimmer-animation-card']}`} />
+        <div className="ds-sdk-product-item__list shimmer-animation-card" />
+        <div className="ds-sdk-product-item__info shimmer-animation-card" />
       </div>
     </div>
   );
