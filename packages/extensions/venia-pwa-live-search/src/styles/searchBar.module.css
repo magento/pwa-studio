@@ -109,6 +109,11 @@
     display: none !important;
 }
 
+.search input {
+    padding-left: calc(1.875rem * var(--iconsBefore, 0) + 0.625rem);
+    padding-right: calc(1.875rem * var(--iconsAfter, 0) + 0.625rem);
+}
+
 /* .popover {
 
 } */
