@@ -15,7 +15,7 @@ const AddToCartButton = ({ onClick }) => {
   return (
     <div className="ds-sdk-add-to-cart-button">
       <button
-        className="flex items-center justify-center text-white text-xs rounded-full h-[32px] w-full p-sm"
+        className="flex items-center justify-center text-white text-sm rounded-full h-[32px] w-full p-sm"
         style={{
           backgroundColor: '#464646'
         }}
