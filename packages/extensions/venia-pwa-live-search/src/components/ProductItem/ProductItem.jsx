@@ -312,7 +312,7 @@ const ProductItem = ({
 
   return (
     <div
-      className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1.5px] border-solid hover:shadow-lg border-offset-2 p-2"
+      className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1.5px] border-solid hover:shadow-lg border-offset-2 p-5"
       style={{
         'borderColor': '#D5D5D5',
       }}

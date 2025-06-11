@@ -1031,6 +1031,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     .p-4 {
         padding: 1rem;
     }
+    .p-5 {
+        padding: 0.8rem;
+    }
     .p-sm {
         padding: var(--spacing-sm);
     }
