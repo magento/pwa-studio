@@ -53,7 +53,7 @@ const App = () => {
     <>
       {!(displayMode === 'PAGE') &&
         (!screenSize.mobile && showFilters && productsCtx.facets.length > 0 ? (
-          <div className="ds-widgets bg-body py-2">
+          <div className="ds-widgets bg-body py-2 px-2">
             <div className="flex">
               <CategoryFilters
                 loading={productsCtx.loading}
@@ -86,7 +86,7 @@ const App = () => {
             </div>
           </div>
         ) : (
-          <div className="ds-widgets bg-body py-2">
+          <div className="ds-widgets bg-body py-2 px-2">
             <div className="flex flex-col">
               <div className="flex flex-col items-center w-full h-full">
                 <div className="justify-start w-full h-full">
