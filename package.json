@@ -55,7 +55,7 @@
   "devDependencies": {
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@graphql-cli/validate": "~2.1.0",
-    "@graphql-eslint/eslint-plugin": "~3.0.1",
+    "@graphql-eslint/eslint-plugin": "3.20.1",
     "@magento/eslint-config": "~1.5.0",
     "@types/jest": "~26.0.24",
     "autoprefixer": "~10.3.3",
@@ -79,7 +79,7 @@
     "execa": "~1.0.0",
     "figures": "~2.0.0",
     "first-run": "~2.0.0",
-    "graphql": "~15.5.0",
+    "graphql": "~16.11.0",
     "graphql-cli": "~4.1.0",
     "graphql-config": "~3.4.1",
     "graphql-tag": "~2.12.4",
