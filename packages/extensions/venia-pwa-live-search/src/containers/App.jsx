@@ -13,7 +13,7 @@ import Loading from '../components/Loading';
 import Shimmer from '../components/Shimmer';
 
 import { CategoryFilters } from '../components/CategoryFilters';
-import SelectedFilters from '../components/Facets';
+import { SelectedFilters } from '../components/Facets';
 import {
   useProducts,
   useSearch,
