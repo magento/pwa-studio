@@ -11,7 +11,8 @@ import React from 'react';
 import CloseIcon from '../../icons/plus.svg';
 
 const defaultIcon = (
-  <CloseIcon className="h-[12px] w-[12px] rotate-45 inline-block ml-sm cursor-pointer fill-gray-700" />
+  <img src={CloseIcon} className="h-[12px] w-[12px] rotate-45 inline-block ml-sm cursor-pointer fill-gray-700" />
+  // <CloseIcon className="h-[12px] w-[12px] rotate-45 inline-block ml-sm cursor-pointer fill-gray-700" />
 );
 
 export const Pill = ({ label, onClick, CTA = defaultIcon, type }) => {
