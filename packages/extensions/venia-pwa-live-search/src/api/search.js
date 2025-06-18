@@ -176,16 +176,20 @@ const getAttributeMetadata = async ({
         customerGroup: ''
     });
 
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-            query: ATTRIBUTE_METADATA_QUERY
-        })
-    });
-
-    const results = await response.json();
-    return results?.data;
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                query: ATTRIBUTE_METADATA_QUERY
+            })
+        });
+        const results = await response.json();
+        return results?.data;
+    } catch (error) {
+        console.error('Metadata fetch failed:', error);
+    }
+    
 };
 
 const refineProductSearch = async ({
