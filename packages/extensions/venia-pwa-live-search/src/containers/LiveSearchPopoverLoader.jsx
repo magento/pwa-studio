@@ -157,9 +157,6 @@ const LiveSearchPopoverLoader = () => {
                         >
                             {searchStatusMessage}
                         </label>
-                    // <div className={classes.message}>
-                    //     {searchStatusMessage}
-                    // </div>
                     )}
                     <div
                         id="search_autocomplete"
