@@ -5,6 +5,7 @@ import { Form } from 'informed';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from '../styles/searchBar.module.css';
+import autoCompleteClasses from '../styles/autocomplete.module.css';
 import { useLiveSearchPopoverConfig } from '../hooks/useLiveSearchPopoverConfig';
 import { Search as SearchIcon } from 'react-feather';
 
@@ -87,6 +88,30 @@ const LiveSearchPopoverLoader = () => {
     inputRef.current = document.getElementById('search_query');
     formRef.current = document.getElementById('search-autocomplete-form');
 
+    const getSearchStatusMessage = () => {
+        if (!searchTerm) return 'Search for a product';
+
+        if (searchTerm.length < minQueryLength) {
+            return `Search term must be at least ${minQueryLength} characters`;
+        }
+
+        if (searchLoading) {
+            return 'Fetching results...';
+        }
+
+        if (
+            searchTerm.length >= minQueryLength &&
+            !searchLoading &&
+            modifiedResults?.data?.productSearch?.items?.length === 0
+        ) {
+            return 'No results were found.';
+        }
+
+        return null;
+    };
+
+    const searchStatusMessage = getSearchStatusMessage();
+
     useEffect(() => {
         if (searchTerm.length >= minQueryLength) {
             setPopoverVisible(true);
@@ -123,12 +148,24 @@ const LiveSearchPopoverLoader = () => {
                     data-cy="SearchField-textInput"
                     {...inputProps}
                 />
-
-                <div
-                    id="search_autocomplete"
-                    className={`${classes.suggestions} ${classes.popover}`}
-                >
-                    {searchTerm &&
+                <div data-cy="Autocomplete-root" className={autoCompleteClasses.root_visible}>
+                    {searchStatusMessage && (
+                        <label
+                            id="search_query_label"
+                            data-cy="Autocomplete-message"
+                            className={classes.message}
+                        >
+                            {searchStatusMessage}
+                        </label>
+                    // <div className={classes.message}>
+                    //     {searchStatusMessage}
+                    // </div>
+                    )}
+                    <div
+                        id="search_autocomplete"
+                        className={`${classes.suggestions} ${classes.popover}`}
+                    >
+                        {searchTerm &&
                         !searchLoading &&
                         results &&
                         isPopoverVisible && (
@@ -147,6 +184,7 @@ const LiveSearchPopoverLoader = () => {
                                 searchRoute={storeDetails.searchRoute}
                             />
                         )}
+                    </div>
                 </div>
             </div>
         </Form>
