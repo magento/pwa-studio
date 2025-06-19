@@ -236,25 +236,30 @@ const ProductItem = ({
               </a>
 
               {/* Swatch */}
-              <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
-                {productView?.options?.map(
-                  (swatches) =>
-                    swatches.id === 'color' && (
-                      <SwatchButtonGroup
-                        key={`${productView?.sku}-${option.id}`}
-                        isSelected={isSelected}
-                        //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-                        // swatches={swatches.values ?? []}
-                        //work around
-                        swatches={swatches.values && swatches.values.length ? swatches.values : []}
-                        showMore={onProductClick}
-                        productUrl={productUrl}
-                        onClick={handleSelection}
-                        sku={productView?.sku}
-                      />
-                    )
-                )}
-              </div>
+              {!screenSize.mobile &&
+                productView?.options &&
+                  productView.options?.length > 0 && (
+                <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
+                  {productView?.options?.map(
+                    (swatches) =>
+                      swatches.id === 'color' && (
+                        <SwatchButtonGroup
+                          key={`${productView?.sku}-${option.id}`}
+                          isSelected={isSelected}
+                          //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
+                          // swatches={swatches.values ?? []}
+                          //work around
+                          swatches={swatches.values && swatches.values.length ? swatches.values : []}
+                          showMore={onProductClick}
+                          productUrl={productUrl}
+                          onClick={handleSelection}
+                          sku={productView?.sku}
+                        />
+                      )
+                  )}
+                </div>
+              )}
+              
             </div>
           </div>
           <div className="product-price">
@@ -368,7 +373,7 @@ const ProductItem = ({
         </div>
       </a>
 
-      {productView?.options && productView.options?.length > 0 && (
+      {!screenSize.mobile && productView?.options && productView.options?.length > 0 && (
         <div className="ds-sdk-product-item__product-swatch mt-sm text-sm text-primary pb-6">
           {productView?.options.map((option) => (
             <SwatchButtonGroup
