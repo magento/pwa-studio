@@ -19,6 +19,23 @@ export const cleanUrl = (url, cleanWithProtocol = false, baseUrl = '', baseUrlWi
   }
 };
 
+export const cleanSwatchUrl = (url, cleanWithProtocol = true, baseUrl = '', baseUrlWithoutProtocol = '') => {
+  if (!url) return url;
+
+  try {
+    if (cleanWithProtocol) {
+      if (baseUrl.endsWith('/')) {
+        const sanitizeBaseUrl = baseUrl.replace(/\/$/, '');
+        return sanitizeBaseUrl ? url.replace(sanitizeBaseUrl, '') : url;
+      }
+      return baseUrl ? url.replace(baseUrl, '') : url;
+    }
+    return baseUrlWithoutProtocol ? url.replace(baseUrlWithoutProtocol, '') : url;
+  } catch {
+    return url;
+  }
+};
+
 export const sanitizeImage = (img, cleanWithProtocol = false, baseUrl, baseUrlWithoutProtocol) => {
   if (Array.isArray(img)) {
     return img.map(i =>
@@ -30,13 +47,15 @@ export const sanitizeImage = (img, cleanWithProtocol = false, baseUrl, baseUrlWi
     : img;
 };
 
-export const sanitizeRefinedImages = (refinedImages, baseUrl, baseUrlWithoutProtocol) => {
+export const sanitizeRefinedImages = (refinedImages, baseUrl, baseUrlWithoutProtocol, areSwatchImages = false) => {
+
   if (!refinedImages || !Array.isArray(refinedImages)) return refinedImages;
 
   return refinedImages.map(img => {
     if (!img || !img.url) return img;
 
-    const cleanImageUrl = cleanUrl(img.url, false, baseUrl, baseUrlWithoutProtocol);
+    const cleanImageUrl = areSwatchImages ? cleanSwatchUrl(img.url, true, baseUrl, baseUrlWithoutProtocol) : cleanUrl(img.url, false, baseUrl, baseUrlWithoutProtocol);
+
     return {
       ...img,
       url: cleanImageUrl

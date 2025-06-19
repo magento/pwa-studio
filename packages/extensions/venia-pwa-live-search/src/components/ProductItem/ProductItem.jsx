@@ -86,7 +86,7 @@ const ProductItem = ({
     //original
     //setImagesFromRefinedProduct(data.refineProduct.images,true);
     //workaround
-    setImagesFromRefinedProduct(sanitizeRefinedImages(data.refineProduct.images, baseUrl, baseUrlWithoutProtocol));
+    setImagesFromRefinedProduct(sanitizeRefinedImages(data.refineProduct.images, baseUrl, baseUrlWithoutProtocol, true));
     setRefinedProduct(data);
     setCarouselIndex(0);
   };
