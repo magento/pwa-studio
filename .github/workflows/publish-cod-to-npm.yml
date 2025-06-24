@@ -2,7 +2,7 @@ name: npm-publish
 on:
   push:
     branches:
-      - PWA-2968-v3
+      - main
  
 jobs:
   npm-publish:
