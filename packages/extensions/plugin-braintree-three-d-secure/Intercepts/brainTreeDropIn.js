@@ -18,7 +18,7 @@ function localIntercept(targets) {
          * import 3d secure plugin
          */
         brainTreeDropIn.addImport(
-            '{useBraintreeThreeDSecure} from "@magento/plugin-braintree-three-d-secure"'
+            '{useBraintreeThreeDSecure} from "@adobe/plugin-braintree-three-d-secure"'
         );
         brainTreeDropIn.addImport(
             '{usePriceSummary} from "@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary"'
