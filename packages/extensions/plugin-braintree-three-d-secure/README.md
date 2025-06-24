@@ -1,4 +1,4 @@
-# GoMage Braintree 3D Secure
+# Braintree 3D Secure
 
 Braintree 3D Secure
 
