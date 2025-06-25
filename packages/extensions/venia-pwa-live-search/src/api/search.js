@@ -237,3 +237,4 @@ const refineProductSearch = async ({
 };
 
 export { getAttributeMetadata, getProductSearch, refineProductSearch };
+
