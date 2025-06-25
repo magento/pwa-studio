@@ -39,7 +39,9 @@ export const useLiveSearchPLPConfig = ({ categoryId }) => {
     const storeConfig = storeConfigData?.storeConfig;
     const currency = storeConfigData?.currency;
     const baseUrl = storeConfig?.base_url || '';
-    const baseUrlwithoutProtocol = baseUrl?.replace(/^https?:/, '').replace(/\/$/, '');
+    const baseUrlwithoutProtocol = baseUrl
+        ?.replace(/^https?:/, '')
+        .replace(/\/$/, '');
     const customerGroupCode =
         customerData?.customer?.group_code ||
         'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c';

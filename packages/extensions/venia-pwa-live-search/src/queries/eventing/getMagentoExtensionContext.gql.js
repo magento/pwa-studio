@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client';
 
 export const GET_MAGENTO_EXTENSION_CONTEXT = gql`
-  query magentoExtensionContext {
-    magentoExtensionContext: dataServicesMagentoExtensionContext {
-      magento_extension_version
+    query magentoExtensionContext {
+        magentoExtensionContext: dataServicesMagentoExtensionContext {
+            magento_extension_version
+        }
     }
-  }
 `;
 
 export default {
-  getMagentoExtensionContext: GET_MAGENTO_EXTENSION_CONTEXT,
+    getMagentoExtensionContext: GET_MAGENTO_EXTENSION_CONTEXT
 };

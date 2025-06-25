@@ -9,20 +9,20 @@ import mse from '@adobe/magento-storefront-events-sdk';
 import msc from '@adobe/magento-storefront-event-collector';
 
 export default function wrapUseApp(origUseApp) {
-  if (!window.magentoStorefrontEvents) {
-    window.magentoStorefrontEvents = mse;
-  }
-  msc;
+    if (!window.magentoStorefrontEvents) {
+        window.magentoStorefrontEvents = mse;
+    }
+    msc;
 
-  return function (props) {
-    useShopperContext();
-    useStorefrontInstanceContext();
-    useMagentoExtensionContext();
-    //useCart();
-    //useCustomUrl();
-    //useReferrerUrl();
-    usePageView();
+    return function(props) {
+        useShopperContext();
+        useStorefrontInstanceContext();
+        useMagentoExtensionContext();
+        //useCart();
+        //useCustomUrl();
+        //useReferrerUrl();
+        usePageView();
 
-    return origUseApp(props);
-  };
+        return origUseApp(props);
+    };
 }
