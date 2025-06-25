@@ -6,7 +6,9 @@ module.exports = targets => {
     targetables.setSpecialFeatures('esModules');
 
     targets.of('@magento/peregrine').talons.tap(talons => {
-      talons.App.useApp.wrapWith(`@magento/venia-pwa-live-search/src/wrappers/wrapUseApp`);
-      return talons;
+        talons.App.useApp.wrapWith(
+            `@magento/venia-pwa-live-search/src/wrappers/wrapUseApp`
+        );
+        return talons;
     });
 };

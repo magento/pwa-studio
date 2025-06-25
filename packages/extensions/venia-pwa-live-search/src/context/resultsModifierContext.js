@@ -10,20 +10,26 @@ it.
 import React, { createContext, useContext } from 'react';
 
 const ResultsModifierContext = createContext({
-  baseUrl: '',
-  baseUrlWithoutProtocol: ''
+    baseUrl: '',
+    baseUrlWithoutProtocol: ''
 });
 
-const ResultsModifierProvider = ({ baseUrl, baseUrlWithoutProtocol, children }) => {
-  return (
-    <ResultsModifierContext.Provider value={{ baseUrl, baseUrlWithoutProtocol }}>
-      {children}
-    </ResultsModifierContext.Provider>
-  );
+const ResultsModifierProvider = ({
+    baseUrl,
+    baseUrlWithoutProtocol,
+    children
+}) => {
+    return (
+        <ResultsModifierContext.Provider
+            value={{ baseUrl, baseUrlWithoutProtocol }}
+        >
+            {children}
+        </ResultsModifierContext.Provider>
+    );
 };
 
 const useResultsModifier = () => {
-  return useContext(ResultsModifierContext);
+    return useContext(ResultsModifierContext);
 };
 
 export { ResultsModifierProvider, useResultsModifier };

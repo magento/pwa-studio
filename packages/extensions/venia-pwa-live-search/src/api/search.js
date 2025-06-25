@@ -189,7 +189,6 @@ const getAttributeMetadata = async ({
     } catch (error) {
         console.error('Metadata fetch failed:', error);
     }
-    
 };
 
 const refineProductSearch = async ({

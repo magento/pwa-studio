@@ -1,13 +1,18 @@
 import { useQuery } from '@apollo/client';
-import { GET_STORE_CONFIG_FOR_LIVE_SEARCH_POPOVER, GET_CUSTOMER_GROUP_CODE } from '../queries';
+import {
+    GET_STORE_CONFIG_FOR_LIVE_SEARCH_POPOVER,
+    GET_CUSTOMER_GROUP_CODE
+} from '../queries';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 export const useLiveSearchPopoverConfig = () => {
-
     const [{ isSignedIn }] = useUserContext();
 
-    const { data: storeData, loading: storeLoading, error: storeError } =
-        useQuery(GET_STORE_CONFIG_FOR_LIVE_SEARCH_POPOVER);
+    const {
+        data: storeData,
+        loading: storeLoading,
+        error: storeError
+    } = useQuery(GET_STORE_CONFIG_FOR_LIVE_SEARCH_POPOVER);
 
     const {
         data: customerData,
@@ -21,7 +26,9 @@ export const useLiveSearchPopoverConfig = () => {
     const storeConfig = storeData?.storeConfig || {};
     const currency = storeData?.currency || {};
     const baseUrl = storeConfig.base_url || '';
-    const baseUrlwithoutProtocol = baseUrl.replace(/^https?:/, '').replace(/\/$/, '');
+    const baseUrlwithoutProtocol = baseUrl
+        .replace(/^https?:/, '')
+        .replace(/\/$/, '');
     const customerGroupCode =
         isSignedIn && customerData?.customer?.group_code
             ? customerData.customer.group_code
