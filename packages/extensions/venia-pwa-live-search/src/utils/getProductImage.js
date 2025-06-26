@@ -7,9 +7,9 @@
 
 const getProductImageURLs = (images, amount = 3, topImageUrl) => {
     const imageUrlArray = [];
-    const url = new URL(window.location.href);
+    //const url = new URL(window.location.href);
     //original protocol
-    const protocol = url.protocol;
+    //const protocol = url.protocol;
 
     //making protocol empty
     //const protocol = '';

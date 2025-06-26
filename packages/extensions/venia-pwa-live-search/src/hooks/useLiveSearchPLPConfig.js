@@ -8,17 +8,14 @@ import operations from '@magento/peregrine/lib/talons/Gallery/addToCart.gql';
 
 export const useLiveSearchPLPConfig = ({ categoryId }) => {
     const { getCategoryContentQuery } = CATEGORY_OPERATIONS;
-    const { data: categoryData, loading: categoryLoading } = useQuery(
-        getCategoryContentQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first',
-            //skip: !categoryId,
-            variables: {
-                id: categoryId
-            }
+    const { data: categoryData } = useQuery(getCategoryContentQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        //skip: !categoryId,
+        variables: {
+            id: categoryId
         }
-    );
+    });
 
     const {
         data: storeConfigData,
@@ -26,11 +23,9 @@ export const useLiveSearchPLPConfig = ({ categoryId }) => {
         error: errorStoreConfig
     } = useQuery(GET_STORE_CONFIG_FOR_PLP);
 
-    const {
-        data: customerData,
-        loading: loadingCustomer,
-        error: errorCustomer
-    } = useQuery(GET_CUSTOMER_GROUP_CODE);
+    const { data: customerData, loading: loadingCustomer } = useQuery(
+        GET_CUSTOMER_GROUP_CODE
+    );
 
     const loading = loadingStoreConfig || loadingCustomer;
     const error = errorStoreConfig;

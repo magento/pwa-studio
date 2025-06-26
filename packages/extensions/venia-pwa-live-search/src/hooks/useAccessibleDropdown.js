@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 const registerOpenDropdownHandlers = ({
     options,
@@ -81,32 +81,65 @@ export const useAccessibleDropdown = ({ options, value, onChange }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isFocus, setIsFocus] = useState(false);
 
-    const select = val => {
-        if (val !== null && val !== undefined) {
-            onChange && onChange(val);
-        }
-        setIsDropdownOpen(false);
-        setIsFocus(false);
-    };
+    // const select = val => {
+    //     if (val !== null && val !== undefined) {
+    //         onChange && onChange(val);
+    //     }
+    //     setIsDropdownOpen(false);
+    //     setIsFocus(false);
+    // };
 
-    const setIsDropdownOpen = v => {
-        if (v) {
-            const selected = options?.findIndex(o => o.value === value);
-            setActiveIndex(selected < 0 ? 0 : selected);
+    // const setIsDropdownOpen = v => {
+    //     if (v) {
+    //         const selected = options?.findIndex(o => o.value === value);
+    //         setActiveIndex(selected < 0 ? 0 : selected);
 
-            if (listRef.current && isSafari()) {
+    //         if (listRef.current && isSafari()) {
+    //             requestAnimationFrame(() => {
+    //                 listRef.current?.focus();
+    //             });
+    //         }
+    //     } else if (listRef.current && isSafari()) {
+    //         requestAnimationFrame(() => {
+    //             listRef.current?.previousSibling?.focus();
+    //         });
+    //     }
+
+    //     setIsDropdownOpenInternal(v);
+    // };
+
+    const setIsDropdownOpen = useCallback(
+        v => {
+            if (v) {
+                const selected = options?.findIndex(o => o.value === value);
+                setActiveIndex(selected < 0 ? 0 : selected);
+
+                if (listRef.current && isSafari()) {
+                    requestAnimationFrame(() => {
+                        listRef.current?.focus();
+                    });
+                }
+            } else if (listRef.current && isSafari()) {
                 requestAnimationFrame(() => {
-                    listRef.current?.focus();
+                    listRef.current?.previousSibling?.focus();
                 });
             }
-        } else if (listRef.current && isSafari()) {
-            requestAnimationFrame(() => {
-                listRef.current?.previousSibling?.focus();
-            });
-        }
 
-        setIsDropdownOpenInternal(v);
-    };
+            setIsDropdownOpenInternal(v);
+        },
+        [options, value]
+    );
+
+    const select = useCallback(
+        val => {
+            if (val !== null && val !== undefined) {
+                onChange && onChange(val);
+            }
+            setIsDropdownOpen(false);
+            setIsFocus(false);
+        },
+        [onChange, setIsDropdownOpen]
+    );
 
     useEffect(() => {
         if (isDropdownOpen) {
@@ -121,7 +154,14 @@ export const useAccessibleDropdown = ({ options, value, onChange }) => {
         if (isFocus) {
             return registerClosedDropdownHandlers({ setIsDropdownOpen });
         }
-    }, [isDropdownOpen, activeIndex, isFocus]);
+    }, [
+        isDropdownOpen,
+        activeIndex,
+        isFocus,
+        options,
+        select,
+        setIsDropdownOpen
+    ]);
 
     return {
         isDropdownOpen,
