@@ -8,7 +8,7 @@ it.
 */
 
 // import { ProductSearchResponse } from '../types/interface'; // You may need to convert this too or stub it as JS.
-import mse from '@adobe/commerce-events-sdk';
+import mse from '@adobe/magento-storefront-events-sdk';
 
 const updateSearchInputCtx = (
     searchUnitId,
