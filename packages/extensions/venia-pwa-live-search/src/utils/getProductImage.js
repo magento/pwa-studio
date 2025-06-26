@@ -17,7 +17,7 @@ const getProductImageURLs = (images, amount = 3, topImageUrl) => {
     for (const image of images) {
         const imageUrl = image.url?.replace(/^https?:\/\//, '');
         if (imageUrl) {
-            //original 
+            //original
             //imageUrlArray.push(`${protocol}//${imageUrl}`);
 
             //to remove protocol
@@ -26,7 +26,7 @@ const getProductImageURLs = (images, amount = 3, topImageUrl) => {
     }
 
     if (topImageUrl) {
-        //original 
+        //original
         // const topImageUrlFormatted = `${protocol}//${topImageUrl.replace(
         //     /^https?:\/\//,
         //     ''
@@ -37,7 +37,7 @@ const getProductImageURLs = (images, amount = 3, topImageUrl) => {
             /^https?:\/\//,
             ''
         )}`;
-        
+
         const index = topImageUrlFormatted.indexOf(topImageUrlFormatted);
         if (index > -1) {
             imageUrlArray.splice(index, 1);
