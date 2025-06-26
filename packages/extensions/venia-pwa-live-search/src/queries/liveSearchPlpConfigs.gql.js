@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const GET_STORE_CONFIG_FOR_PLP = gql`
     query GetStoreConfigForLiveSearchPLP {
         storeConfig {
+            id
             ls_service_api_key
             ls_environment_type
             ls_environment_id

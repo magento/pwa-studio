@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const GET_STORE_CONFIG_FOR_LIVE_SEARCH_POPOVER = gql`
     query GetStoreConfigForLiveSearchPopover {
         storeConfig {
+            id
             ls_environment_id
             website_code
             store_group_code
