@@ -1,6 +1,6 @@
-import React from 'react';
-import { createContext } from 'react';
-import { useContext, useEffect, useMemo, useState } from 'react';
+// import React from 'react';
+// import { createContext } from 'react';
+import React, { useContext, useEffect, useMemo, useState, createContext } from 'react';
 
 import { getProductSearch, refineProductSearch } from '../api/search';
 import {
