@@ -105,16 +105,28 @@ const WishlistItem = props => {
 
     return (
         <div className={rootClass} data-cy="wishlistItem-root">
-            <Image {...imageProps} />
-
-            <div className={classes.actionWrap}>
+            <a
+                href={product.url_key + '.html'}
+                className={classes.name}
+                data-cy="wishlistItem-productLink"
+            >
+                <Image {...imageProps} />
                 <span
                     className={classes.name}
                     data-cy="wishlistItem-productName"
                 >
                     {name}
-                </span>{' '}
+                </span>
+            </a>
+            <div
+                className={classes.priceContainer}
+                data-cy="wishlistItem-priceContainer"
+            >
+                <Price currencyCode={currency} value={unitPrice} />
                 <button
+                    style={{
+                        float: 'right'
+                    }}
                     className={classes.deleteItem}
                     onClick={handleRemoveProductFromWishlist}
                     aria-label={removeProductAriaLabel}
@@ -122,12 +134,6 @@ const WishlistItem = props => {
                 >
                     <Icon size={16} src={Trash2} />
                 </button>
-            </div>
-            <div
-                className={classes.priceContainer}
-                data-cy="wishlistItem-priceContainer"
-            >
-                <Price currencyCode={currency} value={unitPrice} />
             </div>
             {optionElements}
             {addToCart}
