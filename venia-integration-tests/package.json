@@ -18,7 +18,9 @@
   },
   "author": "Adobe Commerce",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "dompurify": "~3.2.6"
+  },
   "devDependencies": {
     "cypress": "~9.4.0",
     "cypress-grep": "~2.13.1",
