@@ -10,15 +10,6 @@ it.
 import { v4 as uuidv4 } from 'uuid';
 
 import { updateSearchInputCtx, updateSearchResultsCtx } from '../context';
-// import {
-//     AttributeMetadataResponse,
-//     ClientProps,
-//     MagentoHeaders,
-//     ProductSearchQuery,
-//     ProductSearchResponse,
-//     RefinedProduct,
-//     RefineProductQuery,
-//   } from '../types/interface';
 import { SEARCH_UNIT_ID } from '../utils/constants';
 import {
     ATTRIBUTE_METADATA_QUERY,
@@ -96,10 +87,6 @@ const getProductSearch = async ({
         storeViewCode,
         apiKey,
         xRequestId,
-        //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-        //customerGroup: context?.customerGroup ?? '',
-
-        //work around
         customerGroup:
             context && context.customerGroup ? context.customerGroup : ''
     });
@@ -215,10 +202,6 @@ const refineProductSearch = async ({
         storeViewCode,
         apiKey,
         xRequestId,
-        //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-        //customerGroup: context?.customerGroup ?? '',
-
-        //work around
         customerGroup:
             context && context.customerGroup ? context.customerGroup : ''
     });

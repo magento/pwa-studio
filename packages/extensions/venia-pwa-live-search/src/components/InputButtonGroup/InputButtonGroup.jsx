@@ -53,9 +53,6 @@ const InputButtonGroup = ({
         : translation.InputButtonGroup.priceRange;
       return `${currencySymbol}${from}${to}`;
     } else if (bucket.__typename === 'CategoryView') {
-      //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-      //return productsCtx.categoryPath ? bucket.name ?? bucket.title : bucket.title;
-      // workaround
       return productsCtx.categoryPath ? (bucket.name !== undefined && bucket.name !== null ? bucket.name : bucket.title) : bucket.title;
     } else if (bucket.title === BOOLEAN_YES) {
       return title;

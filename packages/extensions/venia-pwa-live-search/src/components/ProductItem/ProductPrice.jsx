@@ -26,24 +26,11 @@ const ProductPrice = ({
   let price;
 
   if ('product' in item) {
-    //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-    // price =
-    //   item?.product?.price_range?.minimum_price?.final_price ??
-    //   item?.product?.price_range?.minimum_price?.regular_price;
-
-    //workaround
     price = 
       item && item.product && item.product.price_range && item.product.price_range.minimum_price && item.product.price_range.minimum_price.final_price 
       ? item.product.price_range.minimum_price.final_price : item && item.product && item.product.price_range && item.product.price_range.minimum_price && item.product.price_range.minimum_price.regular_price 
        ? item.product.price_range.minimum_price.regular_price : undefined;
   } else {
-
-    //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-    // price =
-    //   item?.refineProduct?.priceRange?.minimum?.final ??
-    //   item?.refineProduct?.price?.final;
-
-    //workaround
     price = 
       item && item.refineProduct && item.refineProduct.priceRange && item.refineProduct.priceRange.minimum && item.refineProduct.priceRange.minimum.final 
       ? item.refineProduct.priceRange.minimum.final 

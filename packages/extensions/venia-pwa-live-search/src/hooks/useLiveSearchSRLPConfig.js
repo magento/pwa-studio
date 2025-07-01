@@ -6,18 +6,7 @@ import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import operations from '@magento/peregrine/lib/talons/Gallery/addToCart.gql';
 
 export const useLiveSearchSRLPConfig = () => {
-    // const { getCategoryContentQuery } = CATEGORY_OPERATIONS;
-    // const { data: categoryData, loading: categoryLoading } = useQuery(
-    //     getCategoryContentQuery,
-    //     {
-    //         fetchPolicy: 'cache-and-network',
-    //         nextFetchPolicy: 'cache-first',
-    //         //skip: !categoryId,
-    //         variables: {
-    //             id: categoryId
-    //         }
-    //     }
-    // );
+  
 
     const {
         data: storeConfigData,
@@ -47,11 +36,9 @@ export const useLiveSearchSRLPConfig = () => {
     const [addToCart] = useMutation(operations.ADD_ITEM);
     const [, { dispatch }] = useEventingContext();
 
-    //console.log("categoryData ==",categoryData);
     const config = {
         environmentId: storeConfig?.ls_environment_id || '',
         environmentType: storeConfig?.ls_environment_type || '',
-        //apiKey: storeConfig?.ls_service_api_key || '',
         apiKey: '',
         websiteCode: storeConfig?.website_code || '',
         storeCode: storeConfig?.store_group_code || '',
@@ -72,7 +59,6 @@ export const useLiveSearchSRLPConfig = () => {
             displayOutOfStock: storeConfig?.ls_display_out_of_stock || '',
             allowAllProducts: storeConfig?.ls_allow_all || '',
             locale: storeConfig?.ls_locale || 'en_US',
-            // refreshCart: true,
             resolveCartId: () => cartId,
             addToCart: async (sku, options, quantity) => {
                 try {
@@ -92,19 +78,6 @@ export const useLiveSearchSRLPConfig = () => {
                         payload: {
                             cartId,
                             sku: sku,
-                            // name: item.name,
-                            // pricing: {
-                            //     regularPrice: {
-                            //         amount:
-                            //             item.price_range.maximum_price.regular_price
-                            //     }
-                            // },
-                            // priceTotal:
-                            //     item.price_range.maximum_price.final_price.value,
-                            // currencyCode:
-                            //     item.price_range.maximum_price.final_price.currency,
-                            // discountAmount:
-                            //     item.price_range.maximum_price.discount.amount_off,
                             selectedOptions: null,
                             quantity
                         }
@@ -121,14 +94,6 @@ export const useLiveSearchSRLPConfig = () => {
         baseUrlwithoutProtocol
     };
     console.log('SRLP config : ', config);
-    //   const config = {
-    //     ...(storeConfigData?.storeConfig || {}),
-    //     ...(storeConfigData?.currency || {}),
-    //     customerGroupCode: customerData?.customer?.group_code ||
-    //         'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c'
-    //   };
-
-    //const config = storeDetails;
 
     return { config, loading, error };
 };

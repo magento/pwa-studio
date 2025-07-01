@@ -37,9 +37,6 @@ const App = () => {
   let title = productsCtx.categoryName || '';
   if (productsCtx.variables.phrase) {
     const text = translation.CategoryFilters.results;
-    //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-    //title = text.replace('{phrase}', `"${productsCtx.variables.phrase ?? ''}"`);
-    //workaround
     title = text.replace('{phrase}', `"${productsCtx.variables.phrase !== null && productsCtx.variables.phrase !== undefined ? productsCtx.variables.phrase : ''}"`);
 
   }
@@ -60,10 +57,6 @@ const App = () => {
                 pageLoading={productsCtx.pageLoading}
                 facets={productsCtx.facets}
                 totalCount={productsCtx.totalCount}
-                //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-                // categoryName={productsCtx.categoryName ?? ''}
-                // phrase={productsCtx.variables.phrase ?? ''}
-                //workaround
                 categoryName={productsCtx.categoryName !== null && productsCtx.categoryName !== undefined ? productsCtx.categoryName : ''}
                 phrase={productsCtx.variables.phrase !== null && productsCtx.variables.phrase !== undefined ? productsCtx.variables.phrase : ''}
                 showFilters={showFilters}

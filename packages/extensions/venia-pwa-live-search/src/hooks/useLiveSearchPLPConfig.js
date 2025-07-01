@@ -73,7 +73,6 @@ export const useLiveSearchPLPConfig = ({ categoryId }) => {
             categoryName: categoryData?.categories?.items[0]?.name,
             displayMode: '',
             locale: storeConfig?.ls_locale || 'en_US',
-            // refreshCart: true,
             resolveCartId: () => cartId,
             addToCart: async (sku, options, quantity) => {
                 try {
@@ -93,19 +92,6 @@ export const useLiveSearchPLPConfig = ({ categoryId }) => {
                         payload: {
                             cartId,
                             sku: sku,
-                            // name: item.name,
-                            // pricing: {
-                            //     regularPrice: {
-                            //         amount:
-                            //             item.price_range.maximum_price.regular_price
-                            //     }
-                            // },
-                            // priceTotal:
-                            //     item.price_range.maximum_price.final_price.value,
-                            // currencyCode:
-                            //     item.price_range.maximum_price.final_price.currency,
-                            // discountAmount:
-                            //     item.price_range.maximum_price.discount.amount_off,
                             selectedOptions: null,
                             quantity
                         }
@@ -121,15 +107,6 @@ export const useLiveSearchPLPConfig = ({ categoryId }) => {
         baseUrl,
         baseUrlwithoutProtocol
     };
-
-    //   const config = {
-    //     ...(storeConfigData?.storeConfig || {}),
-    //     ...(storeConfigData?.currency || {}),
-    //     customerGroupCode: customerData?.customer?.group_code ||
-    //         'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c'
-    //   };
-
-    //const config = storeDetails;
 
     return { config, loading, error };
 };

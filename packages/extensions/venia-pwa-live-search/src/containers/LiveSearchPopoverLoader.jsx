@@ -22,7 +22,6 @@ const LiveSearchPopoverLoader = () => {
         storeError
     } = useLiveSearchPopoverConfig();
 
-    //const liveSearch = useMemo(() => new LiveSearch(storeDetails), [storeDetails]);
     const liveSearch = useMemo(() => {
         if (!storeDetails || Object.keys(storeDetails).length === 0) return null;
         return new LiveSearch(storeDetails);

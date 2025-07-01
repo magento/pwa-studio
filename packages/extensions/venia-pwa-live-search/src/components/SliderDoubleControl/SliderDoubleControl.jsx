@@ -16,10 +16,7 @@ export const SliderDoubleControl = ({ filterData }) => {
   const preSelectedFromPrice = productsCtx.variables.filter?.find(
     obj => obj.attribute === 'price'
   )?.range?.from;
-  //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-  // const [minVal, setMinVal] = useState(preSelectedFromPrice ?? min);
-  // const [maxVal, setMaxVal] = useState(preSelectedToPrice ?? max);
-  // workaround
+
   const [minVal, setMinVal] = useState(
     preSelectedFromPrice !== null && preSelectedFromPrice !== undefined ? preSelectedFromPrice : min
   );

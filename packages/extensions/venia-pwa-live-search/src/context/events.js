@@ -7,7 +7,6 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-// import { ProductSearchResponse } from '../types/interface'; // You may need to convert this too or stub it as JS.
 import mse from '@adobe/magento-storefront-events-sdk';
 
 const updateSearchInputCtx = (
@@ -19,16 +18,11 @@ const updateSearchInputCtx = (
     currentPage,
     sort
 ) => {
-    //const mse = window.magentoStorefrontEvents;
-    //console.log("events.js file : mse = ", mse);
     if (!mse) {
         // don't break search if events are broken/not loading
         return;
     }
-    //getting this error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-    //const searchInputCtx = mse.context.getSearchInput() ?? { units: [] };
-
-    //Workaround
+  
     const searchInputResult = mse.context.getSearchInput();
     const searchInputCtx =
         searchInputResult !== null && searchInputResult !== undefined
@@ -65,10 +59,6 @@ const updateSearchResultsCtx = (searchUnitId, searchRequestId, results) => {
         return;
     }
 
-    //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-    //const searchResultsCtx = mse.context.getSearchResults() ?? { units: [] };
-
-    //workaround
     const searchResultsResult = mse.context.getSearchResults();
     const searchResultsCtx =
         searchResultsResult !== null && searchResultsResult !== undefined
@@ -104,21 +94,6 @@ const createProducts = items => {
         return [];
     }
 
-    //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-    // return items.map((item, index) => ({
-    //   name: item?.product?.name,
-    //   sku: item?.product?.sku,
-    //   url: item?.product?.canonical_url ?? '',
-    //   imageUrl: item?.productView?.images?.length
-    //     ? item?.productView?.images[0].url ?? ''
-    //     : '',
-    //   price:
-    //     item?.productView?.price?.final?.amount?.value ??
-    //     item?.product?.price_range?.minimum_price?.final_price?.value,
-    //   rank: index,
-    // }));
-
-    //workaround
     return items.map((item, index) => ({
         name: item && item.product && item.product.name,
         sku: item && item.product && item.product.sku,

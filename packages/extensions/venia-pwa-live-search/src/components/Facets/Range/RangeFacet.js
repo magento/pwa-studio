@@ -1,4 +1,3 @@
-// import { useState, useEffect } from 'react';
 import React from 'react';
 import useRangeFacet from '../../../hooks/useRangeFacet';
 import { InputButtonGroup } from '../../InputButtonGroup';

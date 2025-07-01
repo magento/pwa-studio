@@ -27,25 +27,6 @@ const CartProvider = ({ children }) => {
     const { refreshCart, resolveCartId } = useProducts();
     const { storeViewCode, config } = useStore();
 
-    //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-    // const initializeCustomerCart = async () => {
-    //   let cartId = '';
-    //   if (!resolveCartId) {
-    //     const customerResponse = await getGraphQL(
-    //       GET_CUSTOMER_CART,
-    //       {},
-    //       storeViewCode,
-    //       config?.baseUrl
-    //     );
-    //     cartId = customerResponse?.data.customerCart?.id ?? '';
-    //   } else {
-    //     cartId = (await resolveCartId()) ?? '';
-    //   }
-    //   setCart({ ...cart, cartId });
-    //   return cartId;
-    // };
-
-    //workaround
     const initializeCustomerCart = async () => {
         let cartId = '';
         if (!resolveCartId) {

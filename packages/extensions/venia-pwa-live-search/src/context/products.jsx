@@ -1,5 +1,3 @@
-// import React from 'react';
-// import { createContext } from 'react';
 import React, { useContext, useEffect, useMemo, useState, createContext } from 'react';
 
 import { getProductSearch, refineProductSearch } from '../api/search';
@@ -87,12 +85,6 @@ const ProductsContextProvider = ({ children }) => {
   const [totalCount, setTotalCount] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [facets, setFacets] = useState([]);
-  //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-  // const [categoryName, setCategoryName] = useState(
-  //   storeCtx?.config?.categoryName ?? ''
-  // );
-
-  //workaround 
   const [categoryName, setCategoryName] = useState(
     storeCtx && storeCtx.config && storeCtx.config.categoryName 
       ? storeCtx.config.categoryName 
@@ -100,26 +92,13 @@ const ProductsContextProvider = ({ children }) => {
   );
   
   const [pageSizeOptions, setPageSizeOptions] = useState([]);
-
-  //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-  // const [currencySymbol, setCurrencySymbol] = useState(
-  //   storeCtx?.config?.currencySymbol ?? ''
-  // );
-
-  //work around
+  
   const [currencySymbol, setCurrencySymbol] = useState(
     storeCtx && storeCtx.config && storeCtx.config.currencySymbol 
       ? storeCtx.config.currencySymbol 
       : ''
   );
    
-
-  //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-  // const [currencyRate, setCurrencyRate] = useState(
-  //   storeCtx?.config?.currencyRate ?? ''
-  // );
-
-  //work around 
   const [currencyRate, setCurrencyRate] = useState(
     storeCtx && storeCtx.config && storeCtx.config.currencyRate 
       ? storeCtx.config.currencyRate 

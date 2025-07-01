@@ -80,34 +80,7 @@ export const useAccessibleDropdown = ({ options, value, onChange }) => {
     const listRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [isFocus, setIsFocus] = useState(false);
-
-    // const select = val => {
-    //     if (val !== null && val !== undefined) {
-    //         onChange && onChange(val);
-    //     }
-    //     setIsDropdownOpen(false);
-    //     setIsFocus(false);
-    // };
-
-    // const setIsDropdownOpen = v => {
-    //     if (v) {
-    //         const selected = options?.findIndex(o => o.value === value);
-    //         setActiveIndex(selected < 0 ? 0 : selected);
-
-    //         if (listRef.current && isSafari()) {
-    //             requestAnimationFrame(() => {
-    //                 listRef.current?.focus();
-    //             });
-    //         }
-    //     } else if (listRef.current && isSafari()) {
-    //         requestAnimationFrame(() => {
-    //             listRef.current?.previousSibling?.focus();
-    //         });
-    //     }
-
-    //     setIsDropdownOpenInternal(v);
-    // };
-
+    
     const setIsDropdownOpen = useCallback(
         v => {
             if (v) {

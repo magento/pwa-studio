@@ -24,9 +24,6 @@ const getSortOptionsfromMetadata = (
     categoryPath,
     translation
 ) => {
-    //hooks error - need to check
-    //const translation = useTranslation(); // Use the translation here
-
     const sortOptions = categoryPath
         ? [
               {

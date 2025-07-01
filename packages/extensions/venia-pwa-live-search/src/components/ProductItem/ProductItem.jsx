@@ -58,34 +58,11 @@ const ProductItem = ({
     setIsHovering(false);
   };
 
-  //function to sanitize images , TODO: move to utils later
-  // const cleanUrl = (url, cleanWithProtocol = false) => {
-  //   if (!url) return url;
-  //   try {
-  //     if (cleanWithProtocol) return url.replace('http://local.magentocomposeree.com:8082', '');
-  //     return url.replace('//local.magentocomposeree.com:8082', '');
-  //   } catch {
-  //     return url;
-  //   }
-  // };
-  //function to sanitize images , TODO: move to utils later 
-  // const sanitizeRefinedImages = (img, cleanWithProtocol = false) => {
-  //     if (Array.isArray(img)) {
-  //       return img.map(i =>
-  //         i && i.url ? { ...i, url: cleanUrl(i.url, cleanWithProtocol) } : i
-  //       );
-  //     }
-  // }
-
   const { baseUrl, baseUrlWithoutProtocol } = useResultsModifier();
 
   const handleSelection = async (optionIds, sku) => {
     const data = await refineProduct(optionIds, sku);
     setSelectedSwatch(optionIds[0]);
-    //console.log("ProductItem.jsx data.refineProduct.images = ", data.refineProduct.images);
-    //original
-    //setImagesFromRefinedProduct(data.refineProduct.images,true);
-    //workaround
     setImagesFromRefinedProduct(sanitizeRefinedImages(data.refineProduct.images, baseUrl, baseUrlWithoutProtocol, true));
     setRefinedProduct(data);
     setCarouselIndex(0);
@@ -96,16 +73,6 @@ const ProductItem = ({
     return selected;
   };
 
-  //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-  // const productImageArray = imagesFromRefinedProduct
-  //   ? getProductImageURLs(imagesFromRefinedProduct ?? [], imageCarousel ? 3 : 1)
-  //   : getProductImageURLs(
-  //       productView.images ?? [],
-  //       imageCarousel ? 3 : 1, // number of images to display in carousel
-  //       product.image?.url ?? undefined
-  //     );
-
-  //work around
   const productImageArray = imagesFromRefinedProduct
     ? getProductImageURLs(imagesFromRefinedProduct.length ? imagesFromRefinedProduct : [], imageCarousel ? 3 : 1)
     : getProductImageURLs(
@@ -117,22 +84,12 @@ const ProductItem = ({
 
   let optimizedImageArray = [];
   
-  //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-  // if (optimizeImages) {
-  //   optimizedImageArray = generateOptimizedImages(
-  //     productImageArray,
-  //     imageBaseWidth ?? 200
-  //   );
-  // }
-
-  //work around
   if (optimizeImages) {
     optimizedImageArray = generateOptimizedImages(
       productImageArray,
       imageBaseWidth !== undefined && imageBaseWidth !== null ? imageBaseWidth : 200
     );
   }
-
 
   const discount = refinedProduct
     ? refinedProduct.refineProduct?.priceRange?.minimum?.regular?.amount
@@ -246,9 +203,6 @@ const ProductItem = ({
                         <SwatchButtonGroup
                           key={`${productView?.sku}-${option.id}`}
                           isSelected={isSelected}
-                          //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-                          // swatches={swatches.values ?? []}
-                          //work around
                           swatches={swatches.values && swatches.values.length ? swatches.values : []}
                           showMore={onProductClick}
                           productUrl={productUrl}
@@ -269,9 +223,6 @@ const ProductItem = ({
               className="!text-primary hover:no-underline hover:text-primary"
             >
               <ProductPrice
-                //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-                // item={refinedProduct ?? item}
-                //workaround
                 item={refinedProduct !== undefined && refinedProduct !== null ? refinedProduct : item}
                 isBundle={isBundle}
                 isGrouped={isGrouped}
@@ -355,9 +306,6 @@ const ProductItem = ({
                 {product.name !== null && htmlStringDecode(product.name)}
               </div>
               <ProductPrice
-                //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-                //item={refinedProduct ?? item}
-                //workaround
                 item={refinedProduct !== undefined && refinedProduct !== null ? refinedProduct : item}
                 isBundle={isBundle}
                 isGrouped={isGrouped}
@@ -379,9 +327,6 @@ const ProductItem = ({
             <SwatchButtonGroup
               key={`${productView?.sku}-${option.id}`}
               isSelected={isSelected}
-              //getting error because the nullish coalescing operator (??) isn't supported by your Babel/Webpack setup yet.
-              //swatches={option.values ?? []}
-              //workaround
               swatches={option.values && option.values.length ? option.values : []}
               showMore={onProductClick}
               productUrl={productUrl}
