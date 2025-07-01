@@ -12,7 +12,7 @@ describe('verify 404 page', () => {
         { tags: ['@e2e', '@commerce', '@open-source', '@ci'] },
         () => {
             cy.viewport(1280, 1024);
-            cy.visit(notFoundPage, { failOnStatusCode: true });
+            cy.visit(notFoundPage, { failOnStatusCode: false });
 
             assertErrorInPage();
             assertNotFoundMessage(notFoundMessage);
