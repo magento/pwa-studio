@@ -22,7 +22,7 @@ const updateSearchInputCtx = (
         // don't break search if events are broken/not loading
         return;
     }
-  
+
     const searchInputResult = mse.context.getSearchInput();
     const searchInputCtx =
         searchInputResult !== null && searchInputResult !== undefined

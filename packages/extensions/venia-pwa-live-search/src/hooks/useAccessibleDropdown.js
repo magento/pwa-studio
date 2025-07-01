@@ -80,7 +80,7 @@ export const useAccessibleDropdown = ({ options, value, onChange }) => {
     const listRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [isFocus, setIsFocus] = useState(false);
-    
+
     const setIsDropdownOpen = useCallback(
         v => {
             if (v) {

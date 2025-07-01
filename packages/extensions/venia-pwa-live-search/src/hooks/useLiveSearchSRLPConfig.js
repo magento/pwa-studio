@@ -6,8 +6,6 @@ import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import operations from '@magento/peregrine/lib/talons/Gallery/addToCart.gql';
 
 export const useLiveSearchSRLPConfig = () => {
-  
-
     const {
         data: storeConfigData,
         loading: loadingStoreConfig,
