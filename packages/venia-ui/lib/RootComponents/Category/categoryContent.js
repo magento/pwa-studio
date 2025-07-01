@@ -28,6 +28,12 @@ const FilterSidebar = React.lazy(() =>
     import('../../components/FilterSidebar')
 );
 
+const DISPLAY_MODE = {
+    PRODUCTS: 'PRODUCTS',
+    PAGE: 'PAGE',
+    PRODUCTS_AND_PAGE: 'PRODUCTS_AND_PAGE'
+};
+
 const CategoryContent = props => {
     const {
         categoryId,
@@ -53,7 +59,9 @@ const CategoryContent = props => {
         setFilterOptions,
         items,
         totalCount,
-        totalPagesFromData
+        totalPagesFromData,
+        categoryDisplayMode,
+        cmsBlockContent
     } = talonProps;
 
     const sidebarRef = useRef(null);
@@ -120,6 +128,14 @@ const CategoryContent = props => {
         <RichContent html={categoryDescription} />
     ) : null;
 
+    const shouldRenderCmsOnly = categoryDisplayMode === DISPLAY_MODE.PAGE;
+    const shouldRenderProducts =
+        categoryDisplayMode === null ||
+        categoryDisplayMode === DISPLAY_MODE.PRODUCTS ||
+        categoryDisplayMode === DISPLAY_MODE.PRODUCTS_AND_PAGE;
+    const shouldRenderCmsWithProducts =
+        categoryDisplayMode === DISPLAY_MODE.PRODUCTS_AND_PAGE;
+
     const content = useMemo(() => {
         if (!totalPagesFromData && !isLoading) {
             return <NoProductsFound categoryId={categoryId} />;
@@ -172,31 +188,42 @@ const CategoryContent = props => {
                             </div>
                         </h1>
                         {categoryDescriptionElement}
+                        {/* CMS Block always after description if shown */}
+                        {(shouldRenderCmsOnly || shouldRenderCmsWithProducts) &&
+                            cmsBlockContent && (
+                                <RichContent html={cmsBlockContent} />
+                            )}
                     </div>
-                    <div className={classes.contentWrapper}>
-                        <div ref={sidebarRef} className={classes.sidebar}>
-                            <Suspense fallback={<FilterSidebarShimmer />}>
-                                {shouldRenderSidebarContent ? sidebar : null}
-                            </Suspense>
-                        </div>
-                        <div className={classes.categoryContent}>
-                            <div className={classes.heading}>
-                                <div
-                                    data-cy="CategoryContent-categoryInfo"
-                                    className={classes.categoryInfo}
-                                >
-                                    {categoryResultsHeading}
-                                </div>
-                                <div className={classes.headerButtons}>
-                                    {maybeFilterButtons}
-                                    {maybeSortButton}
-                                </div>
-                                {maybeSortContainer}
+                    {shouldRenderProducts && (
+                        <div className={classes.contentWrapper}>
+                            <div ref={sidebarRef} className={classes.sidebar}>
+                                <Suspense fallback={<FilterSidebarShimmer />}>
+                                    {shouldRenderSidebarContent
+                                        ? sidebar
+                                        : null}
+                                </Suspense>
                             </div>
-                            {content}
-                            <Suspense fallback={null}>{filtersModal}</Suspense>
+                            <div className={classes.categoryContent}>
+                                <div className={classes.heading}>
+                                    <div
+                                        data-cy="CategoryContent-categoryInfo"
+                                        className={classes.categoryInfo}
+                                    >
+                                        {categoryResultsHeading}
+                                    </div>
+                                    <div className={classes.headerButtons}>
+                                        {maybeFilterButtons}
+                                        {maybeSortButton}
+                                    </div>
+                                    {maybeSortContainer}
+                                </div>
+                                {content}
+                                <Suspense fallback={null}>
+                                    {filtersModal}
+                                </Suspense>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </article>
             </div>
         </Fragment>

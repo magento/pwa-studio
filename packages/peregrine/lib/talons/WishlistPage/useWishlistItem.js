@@ -81,9 +81,8 @@ export const useWishlistItem = props => {
             selectedConfigurableOptions.length &&
             selectedConfigurableOptions.length === configurableOptions.length
         ) {
-            const selectedOptionsArray = selectedConfigurableOptions.map(
-                selectedOption => {
-                    // TODO: Use configurable_product_option_uid for ConfigurableWishlistItem when available in 2.4.5
+            const selectedOptionsArray = selectedConfigurableOptions
+                .map(selectedOption => {
                     const {
                         id: attributeId,
                         value_id: selectedValueId
@@ -91,18 +90,30 @@ export const useWishlistItem = props => {
                     const configurableOption = configurableOptions.find(
                         option => option.attribute_id_v2 === attributeId
                     );
-                    const configurableOptionValue = configurableOption.values.find(
-                        optionValue =>
-                            optionValue.value_index === selectedValueId
-                    );
+                    if (configurableOption) {
+                        const configurableOptionValue = configurableOption.values.find(
+                            optionValue =>
+                                optionValue.value_index === selectedValueId
+                        );
 
-                    return configurableOptionValue.uid;
-                }
-            );
+                        if (
+                            configurableOptionValue &&
+                            configurableOptionValue.uid
+                        ) {
+                            return configurableOptionValue.uid;
+                        }
+                    }
+                    return null;
+                })
+                .filter(uid => uid !== null);
 
-            Object.assign(item, {
-                selected_options: selectedOptionsArray
-            });
+            if (selectedOptionsArray.length > 0) {
+                Object.assign(item, {
+                    selected_options: selectedOptionsArray
+                });
+            } else {
+                return null;
+            }
         }
 
         return item;

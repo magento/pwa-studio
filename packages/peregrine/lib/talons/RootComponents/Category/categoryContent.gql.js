@@ -1,7 +1,9 @@
 import { gql } from '@apollo/client';
 
 export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
-    query getProductFiltersByCategory($filters: ProductAttributeFilterInput!) {
+    query getProductFiltersByCategories(
+        $filters: ProductAttributeFilterInput!
+    ) {
         products(filter: $filters) {
             aggregations {
                 label
@@ -27,13 +29,17 @@ export const GET_CATEGORY_CONTENT = gql`
                 description
                 url_key
                 url_path
+                display_mode
+                cms_block {
+                    content
+                }
             }
         }
     }
 `;
 
 export const GET_CATEGORY_AVAILABLE_SORT_METHODS = gql`
-    query getCategoryAvailableSortMethods(
+    query getCategoriesAvailableSortMethods(
         $categoryIdFilter: FilterEqualTypeInput!
     ) {
         products(filter: { category_uid: $categoryIdFilter }) {

@@ -1,0 +1,72 @@
+.ds-sdk-product-item--shimmer {
+    margin: 0.625rem auto;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 0.5rem 1.5rem;
+    padding: 1.25rem;
+    width: 22rem;
+}
+
+@keyframes placeholderShimmer {
+    0% {
+        background-position: calc(-100vw + 40px);
+    }
+    100% {
+        background-position: calc(100vw - 40px);
+    }
+}
+
+.shimmer-animation-card {
+    background-color: #f6f7f8;
+    background-image: linear-gradient(
+        to right,
+        #f6f7f8 0%,
+        #edeef1 20%,
+        #f6f7f8 40%,
+        #f6f7f8 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 100vw 4rem;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeholderShimmer;
+    animation-timing-function: linear;
+}
+
+.ds-sdk-product-item__banner {
+    height: 22rem;
+    background-size: 100vw 22rem;
+    border-radius: 0.3125rem;
+    margin-bottom: 0.75rem;
+}
+
+.ds-sdk-product-item__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3125rem;
+}
+
+.ds-sdk-product-item__title {
+    height: 2.5rem;
+    flex: 0 0 auto;
+    width: 5vw;
+}
+
+.ds-sdk-product-item__list {
+    height: 2rem;
+    width: 6vw;
+    margin-bottom: 0.3125rem;
+}
+
+.ds-sdk-product-item__list:last-child {
+    margin-bottom: 0;
+}
+
+.ds-sdk-product-item__info {
+    height: 2rem;
+    width: 7vw;
+    margin-bottom: 0.3125rem;
+}
+
+.ds-sdk-product-item__info:last-child {
+    margin-bottom: 0;
+}

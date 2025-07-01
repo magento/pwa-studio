@@ -25,77 +25,6 @@ exports[`filter button/modal does not render if there are no filters 1`] = `
         </div>
       </h1>
     </div>
-    <div
-      className="contentWrapper"
-    >
-      <div
-        className="sidebar"
-      />
-      <div
-        className="categoryContent"
-      >
-        <div
-          className="heading"
-        >
-          <div
-            className="categoryInfo"
-          />
-          <div
-            className="headerButtons"
-          >
-            <ProductSort
-              availableSortMethods={
-                Array [
-                  Object {
-                    "attribute": "sortItem.attribute",
-                    "id": "sortItem.method",
-                    "sortDirection": "ASC",
-                    "text": "sortItem.text",
-                  },
-                ]
-              }
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
-          </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
-          />
-        </div>
-        <section
-          className="gallery"
-        >
-          <Gallery
-            items={
-              Object {
-                "id": 1,
-              }
-            }
-          />
-        </section>
-        <div
-          className="pagination"
-        >
-          <Pagination
-            pageControl={Object {}}
-          />
-        </div>
-      </div>
-    </div>
   </article>
 </div>
 `;
@@ -124,91 +53,6 @@ exports[`filter button/modal renders when there are filters 1`] = `
           </div>
         </div>
       </h1>
-    </div>
-    <div
-      className="contentWrapper"
-    >
-      <div
-        className="sidebar"
-      />
-      <div
-        className="categoryContent"
-      >
-        <div
-          className="heading"
-        >
-          <div
-            className="categoryInfo"
-          />
-          <div
-            className="headerButtons"
-          >
-            <FilterModalOpenButton
-              filters={
-                Array [
-                  Object {},
-                ]
-              }
-            />
-            <ProductSort
-              availableSortMethods={
-                Array [
-                  Object {
-                    "attribute": "sortItem.attribute",
-                    "id": "sortItem.method",
-                    "sortDirection": "ASC",
-                    "text": "sortItem.text",
-                  },
-                ]
-              }
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
-          </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
-          />
-        </div>
-        <section
-          className="gallery"
-        >
-          <Gallery
-            items={
-              Object {
-                "id": 1,
-              }
-            }
-          />
-        </section>
-        <div
-          className="pagination"
-        >
-          <Pagination
-            pageControl={Object {}}
-          />
-        </div>
-        <require('../../components/FilterModal')
-          filters={
-            Array [
-              Object {},
-            ]
-          }
-        />
-      </div>
     </div>
   </article>
 </div>
@@ -239,91 +83,6 @@ exports[`filter sidebar does not render if not in viewport 1`] = `
         </div>
       </h1>
     </div>
-    <div
-      className="contentWrapper"
-    >
-      <div
-        className="sidebar"
-      />
-      <div
-        className="categoryContent"
-      >
-        <div
-          className="heading"
-        >
-          <div
-            className="categoryInfo"
-          />
-          <div
-            className="headerButtons"
-          >
-            <FilterModalOpenButton
-              filters={
-                Array [
-                  Object {},
-                ]
-              }
-            />
-            <ProductSort
-              availableSortMethods={
-                Array [
-                  Object {
-                    "attribute": "sortItem.attribute",
-                    "id": "sortItem.method",
-                    "sortDirection": "ASC",
-                    "text": "sortItem.text",
-                  },
-                ]
-              }
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
-          </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
-          />
-        </div>
-        <section
-          className="gallery"
-        >
-          <Gallery
-            items={
-              Object {
-                "id": 1,
-              }
-            }
-          />
-        </section>
-        <div
-          className="pagination"
-        >
-          <Pagination
-            pageControl={Object {}}
-          />
-        </div>
-        <require('../../components/FilterModal')
-          filters={
-            Array [
-              Object {},
-            ]
-          }
-        />
-      </div>
-    </div>
   </article>
 </div>
 `;
@@ -352,99 +111,6 @@ exports[`filter sidebar renders when in viewport 1`] = `
           </div>
         </div>
       </h1>
-    </div>
-    <div
-      className="contentWrapper"
-    >
-      <div
-        className="sidebar"
-      >
-        <require('../../components/FilterSidebar')
-          filters={
-            Array [
-              Object {},
-            ]
-          }
-        />
-      </div>
-      <div
-        className="categoryContent"
-      >
-        <div
-          className="heading"
-        >
-          <div
-            className="categoryInfo"
-          />
-          <div
-            className="headerButtons"
-          >
-            <FilterModalOpenButton
-              filters={
-                Array [
-                  Object {},
-                ]
-              }
-            />
-            <ProductSort
-              availableSortMethods={
-                Array [
-                  Object {
-                    "attribute": "sortItem.attribute",
-                    "id": "sortItem.method",
-                    "sortDirection": "ASC",
-                    "text": "sortItem.text",
-                  },
-                ]
-              }
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
-          </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
-          />
-        </div>
-        <section
-          className="gallery"
-        >
-          <Gallery
-            items={
-              Object {
-                "id": 1,
-              }
-            }
-          />
-        </section>
-        <div
-          className="pagination"
-        >
-          <Pagination
-            pageControl={Object {}}
-          />
-        </div>
-        <require('../../components/FilterModal')
-          filters={
-            Array [
-              Object {},
-            ]
-          }
-        />
-      </div>
     </div>
   </article>
 </div>
@@ -475,30 +141,6 @@ exports[`renders empty page 1`] = `
         </div>
       </h1>
     </div>
-    <div
-      className="contentWrapper"
-    >
-      <div
-        className="sidebar"
-      />
-      <div
-        className="categoryContent"
-      >
-        <div
-          className="heading"
-        >
-          <div
-            className="categoryInfo"
-          />
-          <div
-            className="headerButtons"
-          />
-        </div>
-        <NoProductsFound
-          categoryId={42}
-        />
-      </div>
-    </div>
   </article>
 </div>
 `;
@@ -527,48 +169,6 @@ exports[`renders loading indicator if no data and loading 1`] = `
           </div>
         </div>
       </h1>
-    </div>
-    <div
-      className="contentWrapper"
-    >
-      <div
-        className="sidebar"
-      />
-      <div
-        className="categoryContent"
-      >
-        <div
-          className="heading"
-        >
-          <div
-            className="categoryInfo"
-          >
-            <Shimmer
-              width={5}
-            />
-          </div>
-          <div
-            className="headerButtons"
-          >
-            <ProductSortShimmer />
-          </div>
-          <SortedByContainerShimmer />
-        </div>
-        <section
-          className="gallery"
-        >
-          <GalleryShimmer
-            items={
-              Object {
-                "id": 1,
-              }
-            }
-          />
-        </section>
-        <div
-          className="pagination"
-        />
-      </div>
     </div>
   </article>
 </div>
@@ -599,77 +199,6 @@ exports[`renders the correct tree 1`] = `
         </div>
       </h1>
     </div>
-    <div
-      className="contentWrapper"
-    >
-      <div
-        className="sidebar"
-      />
-      <div
-        className="categoryContent"
-      >
-        <div
-          className="heading"
-        >
-          <div
-            className="categoryInfo"
-          />
-          <div
-            className="headerButtons"
-          >
-            <ProductSort
-              availableSortMethods={
-                Array [
-                  Object {
-                    "attribute": "sortItem.attribute",
-                    "id": "sortItem.method",
-                    "sortDirection": "ASC",
-                    "text": "sortItem.text",
-                  },
-                ]
-              }
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
-          </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
-          />
-        </div>
-        <section
-          className="gallery"
-        >
-          <Gallery
-            items={
-              Object {
-                "id": 1,
-              }
-            }
-          />
-        </section>
-        <div
-          className="pagination"
-        >
-          <Pagination
-            pageControl={Object {}}
-          />
-        </div>
-      </div>
-    </div>
   </article>
 </div>
 `;
@@ -699,30 +228,6 @@ exports[`sort button/container does not render if there are no products 1`] = `
         </div>
       </h1>
     </div>
-    <div
-      className="contentWrapper"
-    >
-      <div
-        className="sidebar"
-      />
-      <div
-        className="categoryContent"
-      >
-        <div
-          className="heading"
-        >
-          <div
-            className="categoryInfo"
-          />
-          <div
-            className="headerButtons"
-          />
-        </div>
-        <NoProductsFound
-          categoryId={42}
-        />
-      </div>
-    </div>
   </article>
 </div>
 `;
@@ -751,77 +256,6 @@ exports[`sort button/container renders when there are products 1`] = `
           </div>
         </div>
       </h1>
-    </div>
-    <div
-      className="contentWrapper"
-    >
-      <div
-        className="sidebar"
-      />
-      <div
-        className="categoryContent"
-      >
-        <div
-          className="heading"
-        >
-          <div
-            className="categoryInfo"
-          />
-          <div
-            className="headerButtons"
-          >
-            <ProductSort
-              availableSortMethods={
-                Array [
-                  Object {
-                    "attribute": "sortItem.attribute",
-                    "id": "sortItem.method",
-                    "sortDirection": "ASC",
-                    "text": "sortItem.text",
-                  },
-                ]
-              }
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
-          </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
-          />
-        </div>
-        <section
-          className="gallery"
-        >
-          <Gallery
-            items={
-              Object {
-                "id": 1,
-              }
-            }
-          />
-        </section>
-        <div
-          className="pagination"
-        >
-          <Pagination
-            pageControl={Object {}}
-          />
-        </div>
-      </div>
     </div>
   </article>
 </div>

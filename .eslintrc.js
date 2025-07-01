@@ -29,7 +29,7 @@ const config = {
             parser: '@graphql-eslint/eslint-plugin',
             parserOptions: {
                 operations: graphQLConfig.documents,
-                schema: graphQLConfig.schema,
+                schema: './**/*.graphql',
                 schemaOptions: {
                     assumeValid: true,
                     method: 'GET'
