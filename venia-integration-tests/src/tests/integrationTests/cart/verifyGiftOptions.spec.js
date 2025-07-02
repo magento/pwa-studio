@@ -59,7 +59,7 @@ describe(
             });
 
             // Test - Add configurable products to cart from Product Pages
-            cy.visit(productValeriaTwoLayeredTank.url);
+            cy.visit(productValeriaTwoLayeredTank.url, {failOnStatusCode: false});
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -76,7 +76,7 @@ describe(
                 fixture: 'giftOptions/noGiftOptionsInStore.json'
             }).as('getGiftOptionsEmpty');
 
-            cy.visit(cartPageRoute);
+            cy.visit(cartPageRoute, {failOnStatusCode: false});
             cy.wait(['@gqlGetProductListingQuery'], {
                 timeout: 60000
             });

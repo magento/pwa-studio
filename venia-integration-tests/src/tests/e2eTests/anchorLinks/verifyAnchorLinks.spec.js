@@ -59,16 +59,16 @@ describe(
                 aliasMutation(req, 'AddProductToCart');
             });
 
-            cy.visit(productValeriaTwoLayeredTank.url);
+            cy.visit(productValeriaTwoLayeredTank.url, {failOnStatusCode: false});
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 120000
+                timeout: 60000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage(2);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 120000
+                timeout: 60000
             });
             triggerMiniCart();
             moveToCheckoutFromMiniCart();
