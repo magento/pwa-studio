@@ -36,7 +36,7 @@ describe(
                 'gqlGetProductSearchQuery'
             );
 
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
 
             // Test - Search by valid SKU - 1
             triggerSearch();

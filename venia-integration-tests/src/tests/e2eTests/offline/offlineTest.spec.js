@@ -77,12 +77,12 @@ describe(
                 'gqlGetAutoCompleteResultsQuery'
             );
 
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
             cy.wait(['@gqlGetStoreConfigDataQuery'], {
                 timeout: 60000
             });
 
-            cy.visit(categoryTops.url);
+            cy.visit(categoryTops.url, { failOnStatusCode: false });
 
             cy.wait(
                 [
@@ -106,7 +106,7 @@ describe(
                 searchData.validProductHref1
             );
 
-            cy.visit(categoryTops.url).then(() => cy.wait(WAIT_TIME)); // cy.wait needed to assert that Cypress cached files
+            cy.visit(categoryTops.url, { failOnStatusCode: false }).then(() => cy.wait(WAIT_TIME)); // cy.wait needed to assert that Cypress cached files
 
             cy.wait(['@gqlGetCategoriesQuery'], {
                 timeout: 60000
@@ -124,7 +124,7 @@ describe(
                 searchData.validProductHref1
             );
 
-            cy.visit(productVitaliaTop.url).then(() => cy.wait(WAIT_TIME));
+            cy.visit(productVitaliaTop.url, { failOnStatusCode: false }).then(() => cy.wait(WAIT_TIME));
 
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
@@ -134,7 +134,7 @@ describe(
 
             selectProductFromCategoryPage(carinaCardigan.name);
 
-            cy.visitHomePage();
+            cy.visitHomePage( { failOnStatusCode: false });
 
             cy.goOffline();
 

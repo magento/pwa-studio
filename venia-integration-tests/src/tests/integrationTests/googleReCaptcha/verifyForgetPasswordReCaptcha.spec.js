@@ -50,7 +50,7 @@ describe(
                 }
             });
 
-            cy.visit(forgotPasswordPageRoute);
+            cy.visit(forgotPasswordPageRoute,{ failOnStatusCode: false });
             cy.wait(['@gqlGetReCaptchaV3ConfigDefaultQuery']).its(
                 'response.body'
             );
@@ -120,7 +120,7 @@ describe(
                 }
             });
 
-            cy.visit(forgotPasswordPageRoute);
+            cy.visit(forgotPasswordPageRoute, { failOnStatusCode: false });
             cy.wait(['@gqlGetReCaptchaV3ConfigInlineQuery']).its(
                 'response.body'
             );

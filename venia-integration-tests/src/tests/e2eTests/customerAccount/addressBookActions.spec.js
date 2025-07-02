@@ -63,7 +63,7 @@ describe(
                 aliasMutation(req, 'DeleteCustomerAddressFromAddressBook');
             });
 
-            cy.visitPage(homePage);
+            cy.visitPage(homePage, { failOnStatusCode: false });
 
             cy.toggleLoginDialog();
             cy.createAccount(

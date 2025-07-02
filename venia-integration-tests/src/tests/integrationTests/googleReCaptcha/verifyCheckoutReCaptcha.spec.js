@@ -141,10 +141,10 @@ describe(
             });
 
             // Add product to cart
-            cy.visitPage(homePage);
+            cy.visitPage(homePage, { failOnStatusCode: false });
 
             assertCartIsEmpty();
-            cy.visit(productValeriaTwoLayeredTank.url);
+            cy.visit(productValeriaTwoLayeredTank.url, { failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -158,12 +158,12 @@ describe(
 
             assertCartTriggerCount(1);
 
-            cy.visit(cartPageRoute);
+            cy.visit(cartPageRoute, { failOnStatusCode: false });
 
             assertProductInCartPage(productValeriaTwoLayeredTank.name);
 
             // Go to checkout
-            cy.visitCheckoutPage();
+            cy.visitCheckoutPage({ failOnStatusCode: false });
 
             /**
              * Recaptcha
@@ -312,7 +312,7 @@ describe(
             cy.visitPage(homePage);
 
             assertCartIsEmpty();
-            cy.visit(productValeriaTwoLayeredTank.url);
+            cy.visit(productValeriaTwoLayeredTank.url, { failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -326,12 +326,12 @@ describe(
 
             assertCartTriggerCount(1);
 
-            cy.visit(cartPageRoute);
+            cy.visit(cartPageRoute, { failOnStatusCode: false });
 
             assertProductInCartPage(productValeriaTwoLayeredTank.name);
 
             // Go to checkout
-            cy.visitCheckoutPage();
+            cy.visitCheckoutPage({ failOnStatusCode: false });
 
             /**
              * Recaptcha

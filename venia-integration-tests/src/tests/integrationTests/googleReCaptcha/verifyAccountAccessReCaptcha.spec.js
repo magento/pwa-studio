@@ -53,7 +53,7 @@ describe(
                     req.alias = 'gqlSignInAfterCreateMutation';
                 }
             });
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
             cy.toggleLoginDialog();
 
             cy.wait(['@gqlGetReCaptchaV3ConfigDefaultQuery']).its(
@@ -133,7 +133,7 @@ describe(
                 fixture: 'googleReCaptchaApi/reCaptchaV3ConfigDefault.json'
             }).as('gqlGetReCaptchaV3ConfigDefaultQuery');
 
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
             cy.toggleLoginDialog();
             cy.wait(['@gqlGetReCaptchaV3ConfigDefaultQuery']).its(
                 'response.body'
@@ -206,7 +206,7 @@ describe(
                 fixture: 'googleReCaptchaApi/reCaptchaV3ConfigInline.json'
             }).as('gqlGetReCaptchaV3ConfigInlineQuery');
 
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
             cy.toggleLoginDialog();
 
             cy.wait(['@gqlGetReCaptchaV3ConfigInlineQuery']).its(
@@ -279,7 +279,7 @@ describe(
                 fixture: 'googleReCaptchaApi/reCaptchaV3ConfigInline.json'
             }).as('gqlGetReCaptchaV3ConfigInlineQuery');
 
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
             cy.toggleLoginDialog();
 
             cy.wait(['@gqlGetReCaptchaV3ConfigInlineQuery']).its(

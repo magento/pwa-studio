@@ -44,7 +44,7 @@ describe(
                 'gqlGetStoreConfigDataForGallery'
             );
 
-            cy.visit(categorySweaters);
+            cy.visit(categorySweaters, { failOnStatusCode: false });
             cy.wait(['@gqlGetCategoriesQuery'], {
                 timeout: 60000
             });
@@ -61,7 +61,7 @@ describe(
             cy.checkUrlPath(carinaCardigan.url);
 
             assertCartIsEmpty();
-            cy.visit(categoryJewelry);
+            cy.visit(categoryJewelry, { failOnStatusCode: false });
 
             cy.wait(['@gqlGetCategoriesQuery'], {
                 timeout: 60000

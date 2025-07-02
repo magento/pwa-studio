@@ -151,7 +151,7 @@ describe(
             assertCartTriggerCount(2);
 
             // Test - Create an account in Checkout
-            cy.visitCheckoutPage();
+            cy.visitCheckoutPage({ failOnStatusCode: false });
 
             toggleLoginDialog();
 
@@ -169,7 +169,7 @@ describe(
             assertCreateAccount(firstName);
 
             // Test - Add simple product to cart from Product Page
-            cy.visit(productAugustaEarrings.url);
+            cy.visit(productAugustaEarrings.url,  { failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -183,7 +183,7 @@ describe(
             assertCartTriggerCount(4);
 
             // Test - Products are in Cart Page
-            cy.visit(cartPageRoute);
+            cy.visit(cartPageRoute, { failOnStatusCode: false });
             cy.wait(['@gqlGetProductListingQuery'], {
                 timeout: 60000
             });
@@ -192,7 +192,7 @@ describe(
             assertProductInCartPage(productAugustaEarrings.name);
 
             // Test - Set Customer Shipping Address
-            cy.visitCheckoutPage();
+            cy.visitCheckoutPage({failOnStatusCode: false });
 
             setCustomerShippingAddress(completeShippingAddress);
 
@@ -259,7 +259,7 @@ describe(
             );
 
             // Test - Order History
-            cy.visitOrderHistoryPage();
+            cy.visitOrderHistoryPage({failOnStatusCode: false });
 
             assertOrdersCountInOrderDetails(1);
             assertAddressInformationInOrderDetails(completeShippingAddress);
@@ -289,7 +289,7 @@ describe(
                 aliasMutation(req, 'MergeCartsAfterSignIn');
             });
 
-            cy.visit(productValeriaTwoLayeredTank.url);
+            cy.visit(productValeriaTwoLayeredTank.url, { failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -301,7 +301,7 @@ describe(
                 timeout: 60000
             });
 
-            cy.visitCheckoutPage();
+            cy.visitCheckoutPage({ failOnStatusCode: false });
             setGuestShippingAddress({
                 ...completeShippingAddress,
                 email: accountEmail

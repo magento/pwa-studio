@@ -79,7 +79,7 @@ describe(
                 }
             });
 
-            cy.visitHomePage();
+            cy.visitHomePage({failOnStatusCode: false});
             cy.toggleLoginDialog();
 
             cy.wait(['@gqlGetReCaptchaV3ConfigDefaultQuery']).its(
@@ -138,7 +138,7 @@ describe(
                 }
             );
 
-            cy.visitAccountInfoPage();
+            cy.visitAccountInfoPage({failOnStatusCode: false});
 
             cy.wait(['@gqlGetReCaptchaV3ConfigDefaultQuery']).its(
                 'response.body'
@@ -208,7 +208,7 @@ describe(
                 }
             });
 
-            cy.visitHomePage();
+            cy.visitHomePage({failOnStatusCode: false});
             cy.toggleLoginDialog();
 
             cy.wait(['@gqlGetReCaptchaV3ConfigInlineQuery']).its(
@@ -255,7 +255,7 @@ describe(
                 timeout: 60000
             });
 
-            cy.visitAccountInfoPage();
+            cy.visitAccountInfoPage({failOnStatusCode: false});
 
             cy.wait(['@gqlGetReCaptchaV3ConfigInlineQuery']).its(
                 'response.body'

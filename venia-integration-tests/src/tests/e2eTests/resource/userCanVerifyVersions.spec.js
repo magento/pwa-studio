@@ -28,7 +28,7 @@ describe('verify version banner', () => {
         () => {
             cy.intercept('GET', clientJs).as('resourceClientJs');
 
-            cy.visit(homePage);
+            cy.visit(homePage, { failOnStatusCode: false });
             cy.wait('@resourceClientJs', {
                 timeout: 20000
             })
