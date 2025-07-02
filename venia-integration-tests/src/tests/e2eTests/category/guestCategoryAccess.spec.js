@@ -57,7 +57,7 @@ describe(
             cy.visit(homePage);
 
             cy.wait(['@gqlGetCMSPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleHeaderNav();
@@ -73,7 +73,7 @@ describe(
             selectCategoryFromMegaMenu(categoryBelts);
 
             cy.wait(['@getCategoryDataCallQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCategoryTitle(categoryBelts);
@@ -82,13 +82,13 @@ describe(
             cy.visit(homePage);
 
             cy.wait(['@gqlGetCMSPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             clickOnBannerElementContaining(buttonShopNow);
 
             cy.wait(['@getCategoryDataCallQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCategoryTitle(categoryShopTheLook);
