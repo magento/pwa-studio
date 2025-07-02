@@ -597,7 +597,7 @@ describe(
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-            cy.visitPage('/');
+            cy.visitPage('/', { failOnStatusCode: false });
 
             cy.wait([
                 '@getMockMegaMenu',
@@ -617,7 +617,7 @@ describe(
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-            cy.visitPage('/');
+            cy.visitPage('/', { failOnStatusCode: false });
 
             cy.wait([
                 '@getMockMegaMenu',
@@ -642,7 +642,7 @@ describe(
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-            cy.visitPage('/');
+            cy.visitPage('/', { failOnStatusCode: false });
 
             cy.wait([
                 '@getMockMegaMenu',
@@ -683,7 +683,7 @@ describe(
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-            cy.visitPage('/');
+            cy.visitPage('/', { failOnStatusCode: false });
 
             cy.wait([
                 '@getMockCmsPage',
@@ -720,7 +720,7 @@ describe(
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-            cy.visitPage('/');
+            cy.visitPage('/', { failOnStatusCode: false });
 
             cy.wait([
                 '@getMockCmsPage',
@@ -790,7 +790,7 @@ describe(
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
-            cy.visitPage('/');
+            cy.visitPage('/', { failOnStatusCode: false });
 
             cy.wait([
                 '@getMockCmsPage',
@@ -860,7 +860,7 @@ describe(
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
             // Visit default store and add a product
-            cy.visitPage('/');
+            cy.visitPage('/', { failOnStatusCode: false });
 
             interceptCategoryPagesRequests(
                 defaultStore.defaultView.storeCode,

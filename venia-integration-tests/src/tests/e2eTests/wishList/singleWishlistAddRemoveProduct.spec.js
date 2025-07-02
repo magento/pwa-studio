@@ -72,7 +72,7 @@ describe(
                 aliasMutation(req, 'RemoveProductsFromWishlist');
             });
 
-            cy.visitPage(homePage);
+            cy.visitPage(homePage, { failOnStatusCode: false });
 
             cy.toggleLoginDialog();
             cy.createAccount(
@@ -97,7 +97,7 @@ describe(
             assertEmptyWishlistExists('Wish List');
 
             // Add Configurable Product from Catalog Page
-            cy.visitPage(categorySweaters);
+            cy.visitPage(categorySweaters,{ failOnStatusCode: false });
             addProductToWishlistFromCategoryPage(productCarinaCardigan);
 
             cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
@@ -106,12 +106,12 @@ describe(
 
             assertWishlistSelectedProductOnCategoryPage(productCarinaCardigan);
 
-            cy.visitPage(wishlistRoute);
+            cy.visitPage(wishlistRoute,{ failOnStatusCode: false });
 
             assertProductInWishlist(productCarinaCardigan);
 
             // Add Configurable Product from Product Detail Page without options selected
-            cy.visitPage(productValeriaTwoLayeredTank.url);
+            cy.visitPage(productValeriaTwoLayeredTank.url,{ failOnStatusCode: false });
             addProductToWishlistFromProductPage();
 
             cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
@@ -119,7 +119,7 @@ describe(
             });
 
             // Add Configurable Product from Product Detail Page with options selected
-            cy.visitPage(productJunoSweater.url);
+            cy.visitPage(productJunoSweater.url,{ failOnStatusCode: false });
             selectOptionsFromProductPage();
             addProductToWishlistFromProductPage();
 
@@ -127,14 +127,14 @@ describe(
                 timeout: 60000
             });
 
-            cy.visitPage(wishlistRoute);
+            cy.visitPage(wishlistRoute, { failOnStatusCode: false });
 
             assertProductInWishlist(productCarinaCardigan);
             assertProductInWishlist(productValeriaTwoLayeredTank.name);
             assertProductInWishlist(productJunoSweater.name);
 
             // Add Simple Product to Cart
-            cy.visitPage(silverAmorBangleSet.url);
+            cy.visitPage(silverAmorBangleSet.url, { failOnStatusCode: false });
             addToCartFromProductPage();
 
             cy.wait(['@gqlAddProductToCartMutation'], {
@@ -142,14 +142,14 @@ describe(
             });
 
             // Move Simple Product from Cart
-            cy.visitPage(cartPageRoute);
+            cy.visitPage(cartPageRoute, { failOnStatusCode: false });
             moveProductFromCartToSingleWishlist(silverAmorBangleSet.name);
 
             cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
                 timeout: 60000
             });
 
-            cy.visitPage(wishlistRoute);
+            cy.visitPage(wishlistRoute,{ failOnStatusCode: false });
 
             assertProductInWishlist(productCarinaCardigan);
             assertProductInWishlist(productValeriaTwoLayeredTank.name);

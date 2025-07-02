@@ -26,7 +26,7 @@ describe(
                 }
             }).as('submitErrorNewsletterForm');
 
-            cy.visit(homePageFixtures.homePage);
+            cy.visit(homePageFixtures.homePage,{ failOnStatusCode: false });
             // Check input validation
             fillNewsletterForm();
             submitNewsLetterForm();

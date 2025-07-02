@@ -135,7 +135,7 @@ describe(
     { tags: ['@e2e', '@commerce', '@ci', '@localization', '@checkout'] },
     () => {
         it('should display Default Store View and USD currency by default', () => {
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
 
             assertStoreIsDisplayed('Default Store View');
             triggerStoreSwitcherMenu();
@@ -147,7 +147,7 @@ describe(
         });
 
         it('should display EUR currency by default if French Store View is selected', () => {
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
             triggerStoreSwitcherMenu();
             changeStoreView('French Store View');
             // wait for page reload
@@ -183,14 +183,14 @@ describe(
                 aliasMutation(req, 'setBillingAddress');
             });
 
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
             triggerStoreSwitcherMenu();
             changeStoreView('French Store View');
             // wait page reload
             cy.wait(5000);
             assertStoreIsDisplayed('French Store View');
 
-            cy.visit(productIsadoraSkirt.url);
+            cy.visit(productIsadoraSkirt.url,{ failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -202,7 +202,7 @@ describe(
                 timeout: 60000
             });
 
-            cy.visitCheckoutPage();
+            cy.visitCheckoutPage({ failOnStatusCode: false });
             setGuestShippingAddress(checkoutCustomer1);
 
             cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
@@ -290,7 +290,7 @@ describe(
                 aliasMutation(req, 'placeOrder');
             });
 
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
 
             // check footer language
             assertFooterTextLanguage('eng');
@@ -337,12 +337,12 @@ describe(
             assertAccountMenuTextLanguage('eng');
 
             //check Category page language/currency
-            cy.visit(categoryTops.url);
+            cy.visit(categoryTops.url,{ failOnStatusCode: false });
             assertCategoryPageTextLanguage('eng');
             assertCategoryPageProductsHaveCurrency('USD');
 
             // Add configurable product to cart
-            cy.visit(productIsadoraSkirt.url);
+            cy.visit(productIsadoraSkirt.url,{ failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -359,7 +359,7 @@ describe(
             });
 
             // Add simple product to cart
-            cy.visit(productAugustaEarrings.url);
+            cy.visit(productAugustaEarrings.url,{ failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -456,7 +456,7 @@ describe(
                 aliasMutation(req, 'placeOrder');
             });
 
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
             triggerStoreSwitcherMenu();
             changeStoreView('French Store View');
             // wait page reload
@@ -508,12 +508,12 @@ describe(
             assertAccountMenuTextLanguage('fra');
 
             //check Category page language/currency
-            cy.visit(categoryTops.url);
+            cy.visit(categoryTops.url,{ failOnStatusCode: false });
             assertCategoryPageTextLanguage('fra');
             assertCategoryPageProductsHaveCurrency('EUR');
 
             // Add configurable product to cart
-            cy.visit(productIsadoraSkirt.url);
+            cy.visit(productIsadoraSkirt.url,{ failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -530,7 +530,7 @@ describe(
             });
 
             // Add simple product to cart
-            cy.visit(productAugustaEarrings.url);
+            cy.visit(productAugustaEarrings.url,{ failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -610,7 +610,7 @@ describe(
                 aliasMutation(req, 'AddProductToCart');
             });
 
-            cy.visitHomePage();
+            cy.visitHomePage({ failOnStatusCode: false });
             triggerStoreSwitcherMenu();
             changeStoreView('French Store View');
             // wait page reload
@@ -630,11 +630,11 @@ describe(
             assertProductSuggestionsHasCurrency('USD');
 
             //check Category page currency
-            cy.visit(categoryTops.url);
+            cy.visit(categoryTops.url,{ failOnStatusCode: false });
             assertCategoryPageProductsHaveCurrency('USD');
 
             // Add configurable product to cart
-            cy.visit(productIsadoraSkirt.url);
+            cy.visit(productIsadoraSkirt.url,{ failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });

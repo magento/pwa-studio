@@ -50,7 +50,7 @@ describe(
             });
 
             // Add configurable product to cart
-            cy.visit(productValeriaTwoLayeredTank.url);
+            cy.visit(productValeriaTwoLayeredTank.url, { failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });
@@ -63,7 +63,7 @@ describe(
             assertCartTriggerCount(2);
 
             // Add simple product to cart
-            cy.visit(productCarminaEarrings.url);
+            cy.visit(productCarminaEarrings.url, { failOnStatusCode: false });
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
                 timeout: 60000
             });

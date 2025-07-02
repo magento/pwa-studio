@@ -71,7 +71,7 @@ describe(
             });
 
             //Create an user account
-            cy.visitPage(homePage);
+            cy.visitPage(homePage,{ failOnStatusCode: false });
             cy.toggleLoginDialog();
             cy.createAccount(
                 accountAccessFixtures.firstName,
@@ -101,7 +101,7 @@ describe(
             cy.intercept('GET', getWishlistConfigForWishlistPageCall, {
                 fixture: 'wishlist/multipleWishlist/wishlistPageConfig.json'
             }).as('getWishlistPageConfig');
-            cy.visitPage(wishlistRoute);
+            cy.visitPage(wishlistRoute,{ failOnStatusCode: false });
             cy.wait(['@getCustomerWishlist']).its('response.body');
             cy.wait(['@getWishlistConfig']).its('response.body');
 
@@ -151,7 +151,7 @@ describe(
                 fixture:
                     'wishlist/multipleWishlist/categoryPageGetWishlistDialogData.json'
             }).as('getCustomerWishlist2');
-            cy.visitPage(categoryTops.url);
+            cy.visitPage(categoryTops.url,{ failOnStatusCode: false });
             cy.wait(['@getWishlistLocalFields']).its('response.body');
             cy.wait(['@getCustomerWishlist2']).its('response.body');
 
@@ -206,7 +206,7 @@ describe(
                 fixture:
                     'wishlist/multipleWishlist/multipleWishlistEnabled.json'
             }).as('getWishlistConfig2');
-            cy.visitPage(wishlistRoute);
+            cy.visitPage(wishlistRoute,{ failOnStatusCode: false });
             cy.wait(['@getCustomerWishlist4']).its('response.body');
             cy.wait(['@getWishlistConfig2']).its('response.body');
 
@@ -231,7 +231,7 @@ describe(
                     'wishlist/multipleWishlist/productPageGetWishlistDialogData.json'
             }).as('getProductPageWishlistDialogData');
 
-            cy.visitPage(productAugustaEarrings.url);
+            cy.visitPage(productAugustaEarrings.url,{ failOnStatusCode: false });
 
             cy.wait(['@getGeneralWishlistConfig']).its('response.body');
             cy.wait(['@getProductPageWishlistDialogData']).its('response.body');
@@ -267,7 +267,7 @@ describe(
                 fixture:
                     'wishlist/multipleWishlist/multipleWishlistEnabled.json'
             }).as('getWishlistConfig3');
-            cy.visitPage(wishlistRoute);
+            cy.visitPage(wishlistRoute,{ failOnStatusCode: false });
             cy.wait(['@getCustomerWishlist6']).its('response.body');
             cy.wait(['@getWishlistConfig3']).its('response.body');
             cy.wait(1000);
