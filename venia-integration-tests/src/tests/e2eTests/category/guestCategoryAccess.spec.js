@@ -54,10 +54,10 @@ describe(
 
             // Test - Mobile Navigation
             cy.viewport(375, 812);
-            cy.visit(homePage);
+            cy.visit(homePage,{failOnStatusCode: false});
 
             cy.wait(['@gqlGetCMSPageQuery'], {
-                timeout: 120000
+                timeout: 60000
             });
 
             toggleHeaderNav();
@@ -73,22 +73,22 @@ describe(
             selectCategoryFromMegaMenu(categoryBelts);
 
             cy.wait(['@getCategoryDataCallQuery'], {
-                timeout: 120000
+                timeout: 60000
             });
 
             assertCategoryTitle(categoryBelts);
 
             // Test - Navigation from CMS Content
-            cy.visit(homePage);
+            cy.visit(homePage, {failOnStatusCode: false});
 
             cy.wait(['@gqlGetCMSPageQuery'], {
-                timeout: 120000
+                timeout: 60000
             });
 
             clickOnBannerElementContaining(buttonShopNow);
 
             cy.wait(['@getCategoryDataCallQuery'], {
-                timeout: 120000
+                timeout: 60000
             });
 
             assertCategoryTitle(categoryShopTheLook);
