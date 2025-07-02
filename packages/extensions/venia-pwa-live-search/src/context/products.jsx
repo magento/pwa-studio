@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState, createContext } from 'react';
+import React, { useContext, useEffect, useMemo, useState, useRef, createContext } from 'react';
 
 import { getProductSearch, refineProductSearch } from '../api/search';
 import {
@@ -18,6 +18,7 @@ import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';
 import { useTranslation } from './translation';
+import isEqual from 'lodash/isEqual';
 
 const ProductsContext = createContext({
   variables: { phrase: '' },
@@ -120,14 +121,22 @@ const ProductsContextProvider = ({ children }) => {
   const [listViewType, setListViewType] = useState('default');
 
   const variables = useMemo(() => {
+    const isCategoryPage = Boolean(storeCtx.config?.currentCategoryUrlPath);
+    const baseSort = searchCtx.sort?.length
+      ? searchCtx.sort
+      : isCategoryPage
+        ? CATEGORY_SORT_DEFAULT
+        : SEARCH_SORT_DEFAULT;
+
     return {
       phrase: searchCtx.phrase,
       filter: searchCtx.filters,
-      sort: searchCtx.sort,
+      sort: baseSort,
       context: storeCtx.context,
       pageSize,
       displayOutOfStock: storeCtx.config.displayOutOfStock,
       currentPage,
+      categoryPath
     };
   }, [
     searchCtx.phrase,
@@ -135,6 +144,7 @@ const ProductsContextProvider = ({ children }) => {
     searchCtx.sort,
     storeCtx.context,
     storeCtx.config.displayOutOfStock,
+    categoryPath,
     pageSize,
     currentPage,
   ]);
@@ -184,8 +194,24 @@ const ProductsContextProvider = ({ children }) => {
     addToCart: storeCtx.config.addToCart,
   };
 
+  const [hasInitialized, setHasInitialized] = useState(false);
+  const prevVariablesRef = useRef();
+
   useEffect(() => {
     searchProducts();
+    setHasInitialized(true);
+    prevVariablesRef.current = variables;
+  }, []);
+
+  useEffect(() => {
+    if (!hasInitialized) return;
+
+    const hasChanged = !isEqual(prevVariablesRef.current, variables);
+
+    if (hasChanged) {
+      prevVariablesRef.current = variables;
+      searchProducts();
+    }
   }, [variables]);
 
   const searchProducts = async () => {
@@ -279,10 +305,6 @@ const ProductsContextProvider = ({ children }) => {
         eq: categoryPath,
       };
       filters.push(categoryFilter);
-
-      if (variables.sort.length < 1 || variables.sort === SEARCH_SORT_DEFAULT) {
-        variables.sort = CATEGORY_SORT_DEFAULT;
-      }
     }
   };
 
