@@ -46,7 +46,6 @@
     "watch:venia": "yarn venia run watch"
   },
   "dependencies": {
-    "caniuse-lite": "~1.0.30001335",
     "dompurify": "^2.3.8",
     "path-to-regexp": "^8.2.0",
     "qs": "^6.13.0",
