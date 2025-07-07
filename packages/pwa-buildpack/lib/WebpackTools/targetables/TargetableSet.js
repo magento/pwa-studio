@@ -24,6 +24,8 @@ class TargetableSet {
     }
     /** @hideconstructor  */
     constructor(targetProvider) {
+        console.log(targetProvider);
+       
         if (!(targetProvider instanceof TargetProvider)) {
             throw new Error(
                 'Must supply a TargetProvider to a new TargetableSet.'
