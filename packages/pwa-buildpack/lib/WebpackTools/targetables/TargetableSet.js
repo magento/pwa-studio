@@ -24,7 +24,7 @@ class TargetableSet {
     }
     /** @hideconstructor  */
     constructor(targetProvider) {
-        console.log(targetProvider);
+        console.log(Object.prototype.toString.call(targetProvider));
        
         if (!(targetProvider instanceof TargetProvider)) {
             throw new Error(
