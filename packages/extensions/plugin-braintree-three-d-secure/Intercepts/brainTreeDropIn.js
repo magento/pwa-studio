@@ -176,7 +176,7 @@ BraintreeDropin.propTypes = {
     shouldRequestPaymentNonce: bool.isRequired
 };
 const BrainTreeDropInWrapper = props => {
-    if (process.env.REACT_APP_CHECKOUT_BRAINTREE_3D === 'false') {
+    if (process.env.CHECKOUT_BRAINTREE_3D === 'false') {
         return <OriginalBrainTreeDropIn {...props} />;
     }
     return <BraintreeDropin {...props} />;
