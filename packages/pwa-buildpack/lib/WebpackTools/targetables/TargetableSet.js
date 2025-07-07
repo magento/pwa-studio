@@ -24,13 +24,14 @@ class TargetableSet {
     }
     /** @hideconstructor  */
     constructor(targetProvider) {
+        console.log(targetProvider);
         console.log(Object.prototype.toString.call(targetProvider));
        
-        if (!(targetProvider instanceof TargetProvider)) {
+      /*  if (!(targetProvider instanceof TargetProvider)) {
             throw new Error(
                 'Must supply a TargetProvider to a new TargetableSet.'
             );
-        }
+        }*/
         this._targetProvider = targetProvider;
         this._builtins = targetProvider.of('@magento/pwa-buildpack');
         this._owner = targetProvider.name;
