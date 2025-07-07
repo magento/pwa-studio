@@ -1,15 +1,14 @@
-const path = require('path');
+const moduleOverridePlugin = require('./moduleOverrideWebpackPlugin');
+const componentOverrideMapping = {
+    '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/brainTreeDropIn.js':
+        './Intercepts/brainTreeDropIn.js'
+};
+module.exports = targets => {
+    targets.of('@magento/pwa-buildpack').specialFeatures.tap(flags => {
+        flags[targets.name] = { esModules: true, cssModules: true };
+    });
 
-module.exports = function intercept(pluginTarget) {
-    const buildBus = pluginTarget._parent;
-    const veniaUi = buildBus.targetProviders.get('@magento/venia-ui');
-
-    const paymentTypes = veniaUi._tapables.checkoutPagePaymentTypes;
-
-    if (paymentTypes && typeof paymentTypes === 'object') {
-        paymentTypes.brainTreeDropIn = path.resolve(
-            __dirname,
-            'Interceptors/BrainTreeDropIn.js'
-        );
-    }
+    targets.of('@magento/pwa-buildpack').webpackCompiler.tap(compiler => {
+        new moduleOverridePlugin(componentOverrideMapping).apply(compiler);
+    });
 };
