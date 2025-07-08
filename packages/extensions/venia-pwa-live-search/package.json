@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Live Search PWA Studio extension.",
   "main": "src/index.jsx",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clean": " "
   },
