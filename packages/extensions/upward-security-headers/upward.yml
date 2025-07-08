@@ -36,7 +36,7 @@ veniaSecurityHeaders:
             base-uri 'none';
             child-src 'self';
             font-src 'self' fonts.gstatic.com;
-            rame-src assets.braintreegateway.com *.google.com *.youtube.com *.youtu.be *.vimeo.com
+            frame-src *.braintreegateway.com *.google.com *.youtube.com *.youtu.be *.vimeo.com *.cardinalcommerce.com
             "
     strict-transport-security:
       inline: max-age=31536000

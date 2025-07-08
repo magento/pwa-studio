@@ -1,0 +1,32 @@
+name: npm-publish
+on:
+  push:
+    branches:
+      - main
+ 
+jobs:
+  npm-publish:
+    name: npm-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+ 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+ 
+      - name: Navigate to specific package
+        run: cd packages/extensions/plugin-braintree-three-d-secure
+ 
+      - name: Install dependencies
+        run: |
+          cd packages/extensions/plugin-braintree-three-d-secure
+          npm install --legacy-peer-deps --ignore-scripts
+ 
+      - name: Publish package
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          package: "packages/extensions/plugin-braintree-three-d-secure/package.json" # Explicitly specify the package
+          access: "public"
+          token: ${{ secrets.ADOBE_BOT_NPM_TOKEN }}
