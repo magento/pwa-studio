@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-product-recommendations",
-  "version": "1.0.2",
+  "version": "1.0.2-alpha2",
   "main": "./lib/index.js",
   "files": [
     "/lib"
