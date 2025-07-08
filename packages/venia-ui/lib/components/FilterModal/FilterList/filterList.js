@@ -32,12 +32,27 @@ const FilterList = props => {
     const { formatMessage } = useIntl();
 
     if (name === 'Price') {
-        var minRange = Number(items[0].value.split('_')[0]);
-        var maxRange = Number(items[items.length - 1].value.split('_')[1]);
+        var minRange = Infinity;
+        var maxRange = -Infinity;
+
+        items.forEach(item => {
+            const [minStr, maxStr] = item.value.split('_');
+            const min = Number(minStr);
+            const max = Number(maxStr);
+
+            if (!isNaN(min) && min < minRange) minRange = min;
+            if (!isNaN(max) && max > maxRange) maxRange = max;
+        });
+
+        var currentMinVal;
+        var currentMaxVal;
+
         if (filterState !== undefined) {
             const filterArray = [...filterState];
-            var currentMinVal = Number(filterArray[0]?.value?.split('_')[0]);
-            var currentMaxVal = Number(filterArray[0]?.value?.split('_')[1]);
+            const [currentMinStr, currentMaxStr] =
+                filterArray[0]?.value?.split('_') || [];
+            currentMinVal = Number(currentMinStr);
+            currentMaxVal = Number(currentMaxStr);
         }
     }
 

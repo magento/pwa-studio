@@ -6,6 +6,7 @@ export const WishlistItemFragment = gql`
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         product {
             uid
+            url_key
             image {
                 label
                 url
