@@ -1,6 +1,9 @@
 {
   "name": "@magento/venia-product-recommendations",
   "version": "1.0.2-alpha3",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./lib/index.js",
   "files": [
     "/lib"
