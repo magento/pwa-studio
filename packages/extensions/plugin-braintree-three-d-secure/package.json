@@ -1,12 +1,12 @@
 {
   "name": "@adobe/plugin-braintree-three-d-secure",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha5",
   "publishConfig": {
     "access": "public"
   },
   "description": "Braintree 3D Secure",
   "main": "./index.js",
-    "scripts": {
+  "scripts": {
     "clean": " "
   },
   "license": "SEE LICENSE IN LICENSE.txt",
