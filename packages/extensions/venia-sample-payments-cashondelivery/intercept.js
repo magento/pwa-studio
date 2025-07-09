@@ -21,21 +21,21 @@ module.exports = targets => {
         payments.add({
             paymentCode: 'cashondelivery',
             importPath:
-                '@adobe/venia-sample-payments-cashondelivery/src/components/cashondelivery.js'
+                '@magento/venia-sample-payments-cashondelivery/src/components/cashondelivery.js'
         })
     );
     editablePaymentTypes.tap(editablePaymentTypes => {
         editablePaymentTypes.add({
             paymentCode: 'cashondelivery',
             importPath:
-                '@adobe/venia-sample-payments-cashondelivery/src/components/editcod.js'
+                '@magento/venia-sample-payments-cashondelivery/src/components/editcod.js'
         });
     });
     summaryPagePaymentTypes.tap(paymentSummaries =>
         paymentSummaries.add({
             paymentCode: 'cashondelivery',
             importPath:
-                '@adobe/venia-sample-payments-cashondelivery/src/components/summarycod.js'
+                '@magento/venia-sample-payments-cashondelivery/src/components/summarycod.js'
         })
     );
 };
