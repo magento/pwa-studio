@@ -15,13 +15,6 @@ import defaultOperations from '../carousel.gql';
 import mosOperations from '../carousel.gql.ce';
 import acOperations from '../carousel.gql.ee';
 
-jest.mock(
-    '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
-    () => ({
-        useCustomerWishlistSkus: jest.fn()
-    })
-);
-
 const cache = new InMemoryCache({
     typePolicies
 });
