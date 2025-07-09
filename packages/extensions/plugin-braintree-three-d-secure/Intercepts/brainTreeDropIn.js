@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
-import { useBraintreeThreeDSecure } from '@adobe/plugin-braintree-three-d-secure';
+import { useBraintreeThreeDSecure } from '@magento/plugin-braintree-three-d-secure';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 
 import defaultClasses from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/braintreeDropin.module.css';

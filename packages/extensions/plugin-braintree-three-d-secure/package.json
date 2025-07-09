@@ -1,5 +1,5 @@
 {
-  "name": "@adobe/plugin-braintree-three-d-secure",
+  "name": "@magento/plugin-braintree-three-d-secure",
   "version": "1.0.1-alpha5",
   "publishConfig": {
     "access": "public"
