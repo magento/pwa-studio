@@ -86,6 +86,7 @@ module.exports = {
             }
         });
 
+
         // Make sure to provide any plugins that UI code may depend on.
         config.plugins = [
             ...config.plugins,
