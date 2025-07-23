@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-product-recommendations",
-  "version": "1.0.2-alpha9",
+  "version": "1.0.2-alpha10",
   "publishConfig": {
     "access": "public"
   },
