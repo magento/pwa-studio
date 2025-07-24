@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-security-headers",
-  "version": "1.1.18-alpha9",
+  "version": "1.1.18-alpha10",
   "publishConfig": {
     "access": "public"
   },
@@ -14,7 +14,7 @@
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
     "@magento/pwa-buildpack": "~11.5.4",
-    "@magento/venia-ui": "11.7.0-alpha9",
+    "@magento/venia-ui": "11.7.0-alpha10",
     "webpack": "~4.46.0"
   },
   "pwa-studio": {
