@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-pwa-live-search",
-  "version": "1.0.0-alpha10",
+  "version": "1.0.0-beta1",
   "description": "Live Search PWA Studio extension.",
   "main": "src/index.jsx",
   "publishConfig": {
