@@ -47,9 +47,9 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 |                | &nbsp;&nbsp;Home Page&nbsp;&nbsp; |          Product Category           |          Product Details           |          Search Results           |
 |---------------:|:---------------------------------:|:-----------------------------------:|:----------------------------------:|:---------------------------------:|
 |     **Mobile** |  ![](images/venia_page_home.png)  | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-|    Performance |     ![](images/score_70.svg)      |      ![](images/score_67.svg)       |      ![](images/score_63.svg)      |     ![](images/score_39.svg)      |
+|    Performance |     ![](images/score_70.svg)      |      ![](images/score_67.svg)       |      ![](images/score_70.svg)      |     ![](images/score_75.svg)      |
 |  Accessibility |     ![](images/score_100.svg)     |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     |
-| Best Practices |     ![](images/score_75.svg)     |      ![](images/score_75.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     |
+| Best Practices |     ![](images/score_75.svg)     |      ![](images/score_75.svg)      |     ![](images/score_75.svg)      |     ![](images/score_75.svg)     |
 |            SEO |     ![](images/score_94.svg)     |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     |
 |            PWA |    ![](images/pwa_perfect.svg)    |    ![](images/pwa_imperfect.svg)    |   ![](images/pwa_imperfect.svg)    |    ![](images/pwa_perfect.svg)    |
 
@@ -77,8 +77,6 @@ The following table lists the latest versions of each package as of 14.3.0. The 
 
 **NOTE:**
 Your project may not depend on some packages listed in this table.
-
-**[UPDATE THIS TABLE WITH THE LATEST VERSIONS OF EACH PACKAGE]**
 
 | Package                                | Latest version |
 |----------------------------------------|----------------|
