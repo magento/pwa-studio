@@ -7,7 +7,7 @@
         -->
         .lh-vars {
             --size: 60px;
-            --score: 23;
+            --score: 27;
             --full-circle: 164;
         }
 
