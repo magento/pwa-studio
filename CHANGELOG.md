@@ -13,16 +13,18 @@ The 14.3.0 release of PWA Studio provides compatibility with PREX extension and 
 
 ## Additional fixes
 
+-  Story: [4463][] — Gomage/plugin braintree three d secure
+-  Story: [4456][] — PWA multistore setup 
+-  Story: [4458][] — Prex is compatible with PWA
 -  Bug: [4454][] — Updated Docker changes to fix UI issue on PR link
 -  Bug: [4384][] — Removed unused Option in Select
 -  Bug: [27][] —   Made 3rd party vendor Mustache is compatible with PHP 8.4
 -  Bug: [4472][] — Wishlist page if we click on product image or product link is now redirecting to PDP page.
--  Story: [4463][] — Gomage/plugin braintree three d secure
+-  Bug: [4466][] - Failing PR test cases has been fixed
 -  Bug: [4506][] — Resolved internal server error in  Order History page when we click on order Search button when search field is empty
 -  Bug: [4508][] — 	Post Scafhold all commands are failing in when scafholded using "yarn create @magento/pwa" command is resolved
 -  Bug: [70][] — When we try to create account getting error is resolved
--  Story: [4456][] — PWA multistore setup 
--  Story: [4458][] — Prex is compatible with PWA
+
 
 ## 14.3.0 Lighthouse scores
 
