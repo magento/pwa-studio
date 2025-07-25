@@ -13,7 +13,7 @@ The 14.3.0 release of PWA Studio provides compatibility with PREX extension and 
 
 ## Additional fixes
 
--  Story: [4463][] — Gomage/plugin braintree three d secure
+-  Story: [4463][] — Magento/plugin braintree three d secure
 -  Story: [4456][] — PWA multistore setup 
 -  Story: [4458][] — Prex is compatible with PWA
 -  Bug: [4454][] — Updated Docker changes to fix UI issue on PR link
