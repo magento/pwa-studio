@@ -35,10 +35,10 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 |                |            Home Page            |          Product Category           |          Product Details           |          Search Results           |
 |---------------:|:-------------------------------:|:-----------------------------------:|:----------------------------------:|:---------------------------------:|
 |    **Desktop** | ![](images/venia_page_home.png) | ![](images/venia_page_category.png) | ![](images/venia_page_details.png) | ![](images/venia_page_search.png) |
-|    Performance |    ![](images/score_98.svg)     |      ![](images/score_98.svg)       |      ![](images/score_97.svg)      |     ![](images/score_70.svg)      |
+|    Performance |    ![](images/score_98.svg)     |      ![](images/score_98.svg)       |      ![](images/score_98.svg)      |     ![](images/score_70.svg)      |
 |  Accessibility |    ![](images/score_100.svg)    |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_100.svg)     |
 | Best Practices |    ![](images/score_75.svg)    |      ![](images/score_75.svg)      |     ![](images/score_75.svg)      |     ![](images/score_75.svg)     |
-|            SEO |    ![](images/score_94.svg)    |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_92.svg)     |
+|            SEO |    ![](images/score_94.svg)    |      ![](images/score_100.svg)      |     ![](images/score_100.svg)      |     ![](images/score_94.svg)     |
 |            PWA |   ![](images/pwa_perfect.svg)   |     ![](images/pwa_perfect.svg)     |    ![](images/pwa_perfect.svg)     |    ![](images/pwa_perfect.svg)     |
 
 
