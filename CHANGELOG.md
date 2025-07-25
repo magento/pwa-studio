@@ -108,11 +108,12 @@ Your project may not depend on some packages listed in this table.
 [4454]: https://github.com/magento/pwa-studio/pull/4454
 [4384]: https://github.com/magento/pwa-studio/pull/4384
 [27]:   https://github.com/magento-commerce/magento2-upward-connector/pull/27
-[4472]:   https://github.com/magento/pwa-studio/pull/4472
-[4463]:   https://github.com/magento/pwa-studio/pull/4463
-[4506]:   https://github.com/magento/pwa-studio/pull/4506
-[4508]:   https://github.com/magento/pwa-studio/pull/4508
-[70]:   hhttps://github.com/magento-commerce/magento2-pwa/pull/70
+[4466]:  https://github.com/magento/pwa-studio/pull/4466
+[4472]:  https://github.com/magento/pwa-studio/pull/4472
+[4463]:  https://github.com/magento/pwa-studio/pull/4463
+[4506]:  https://github.com/magento/pwa-studio/pull/4506
+[4508]:  https://github.com/magento/pwa-studio/pull/4508
+[70]:   https://github.com/magento-commerce/magento2-pwa/pull/70
 [4456]: https://github.com/magento/pwa-studio/pull/4456
 [4458]: https://github.com/magento/pwa-studio/pull/4458
 
