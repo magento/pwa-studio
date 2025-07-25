@@ -66,7 +66,7 @@ export const useOrderHistoryPage = (props = {}) => {
         setSearchText('');
     }, []);
 
-    const handleSubmit = useCallback(({ search }) => {
+    const handleSubmit = useCallback(({ search = '' }) => {
         setSearchText(search);
     }, []);
 

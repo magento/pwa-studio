@@ -1,0 +1,21 @@
+{
+  "name": "@magento/plugin-braintree-three-d-secure",
+  "version": "1.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Braintree 3D Secure",
+  "main": "./index.js",
+  "scripts": {
+    "clean": " "
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "dependencies": {
+    "braintree-web-drop-in": "~1.43.0"
+  },
+  "pwa-studio": {
+    "targets": {
+      "intercept": "./intercept.js"
+    }
+  }
+}
