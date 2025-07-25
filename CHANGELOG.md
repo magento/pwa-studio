@@ -10,10 +10,13 @@ PHP 8.4 support — PWA Studio now supports PHP 8.4.
 
 The 14.3.0 release of PWA Studio provides compatibility with PREX extension and Upgradation from node 18 to 20.
 
+Product Recommendation module is now part of PWA extensions
+
+Plugin braintree three d secure is released
 
 ## Additional fixes
 
--  Story: [4463][] — Magento/plugin braintree three d secure
+-  Story: [4463][] — plugin braintree three d secure
 -  Story: [4456][] — PWA multistore setup 
 -  Story: [4458][] — Prex is compatible with PWA
 -  Bug: [4454][] — Updated Docker changes to fix UI issue on PR link
