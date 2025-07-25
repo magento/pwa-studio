@@ -56,10 +56,6 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 
 ## Known issue
 
-When user create scaffolding project using command yarn create @magento/pwa, project gets created but throwing an error - "'dompurify' Module not found"
-while running either of commands (yarn watch / yarn run storybook / yarn run build / yarn start) inside the created project.
-Solution: To resolve this error add library 'dompurify' in the created project by running command 'yarn add dompurify' from the root of the project folder. Once the library is added in the project it will work as expected
-
 When a user logs out, that user's local storage session persists. As a result, the cart ID from the logged out user is retrieved and given to the _guest user_ on the computer. This causes the following error when the guest user tries to check out: `An error has occurred. Please check the input and try again.` To resolve this issue, try disabling graphql session sharing as described in the GraphQL documentation on session cookies here: https://devdocs.magento.com/guides/v2.4/graphql/authorization-tokens.html#session-cookies.
 
 ## Upgrading from a previous version
