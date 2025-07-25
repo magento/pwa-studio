@@ -7,7 +7,7 @@
         -->
         .lh-vars {
             --size: 60px;
-            --score: 70;
+            --score: 67;
             --full-circle: 164;
         }
         .lh-gauge-base {
@@ -56,6 +56,6 @@
     <g class="lh-gauge__wrapper--average lh-gauge__score">
         <circle class="lh-gauge-base" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
         <circle class="lh-gauge-arc" r="26" cx="30" cy="30" stroke-linecap="round" stroke-width="4"></circle>
-        <text x="16" y="38">70</text>
+        <text x="16" y="38">67</text>
     </g>
 </svg>
