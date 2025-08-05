@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.158 16" stroke="currentColor">
+  <g id="icon-mini-sort" transform="translate(-4 -8)">
+    <rect id="Placement_area" data-name="Placement area" width="16" height="16" transform="translate(4 8)"
+      opacity="0.004" />
+    <g id="icon" transform="translate(-290.537 -358.082)">
+      <path id="Path_38562" data-name="Path 38562" d="M309.634,376.594l-1.5,1.5-1.5-1.5" stroke-linecap="round"
+        stroke-linejoin="round" stroke-width="1.5" />
+      <line id="Line_510" data-name="Line 510" x2="6.833" transform="translate(295.537 373.59)" stroke-linecap="round"
+        stroke-linejoin="round" stroke-width="1.5" />
+      <line id="Line_511" data-name="Line 511" x2="8.121" transform="translate(295.537 369.726)" stroke-linecap="round"
+        stroke-linejoin="round" stroke-width="1.5" />
+      <line id="Line_511-2" data-name="Line 511" y2="9.017" transform="translate(308.13 369.082)" stroke-linecap="round"
+        stroke-linejoin="round" stroke-width="1.5" />
+      <line id="Line_512" data-name="Line 512" x2="5.545" transform="translate(295.537 377.455)" stroke-linecap="round"
+        stroke-linejoin="round" stroke-width="1.5" />
+    </g>
+  </g>
+</svg>
