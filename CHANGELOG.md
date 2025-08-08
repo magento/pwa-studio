@@ -90,8 +90,8 @@ Your project may not depend on some packages listed in this table.
 | `magento-venia-sample-data-modules`    | 0.0.6          |
 | `magento-venia-sample-data-modules-ee` | 0.0.6          |
 | `magento2-upward-connector`            | 2.1.5          |
-| `upward-php`                           | 2.1.4           |
-| `pwa-live-search`                      | 1.0.0           |
+| `upward-php`                           | 2.1.4          |
+| `pwa-live-search`                      | 1.0.0          |
 
 [4524]: https://github.com/magento/pwa-studio/pull/4524
 
