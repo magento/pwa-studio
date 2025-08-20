@@ -1,15 +1,14 @@
 import React, {
     createContext,
     useContext,
-    useEffect,
     useMemo,
     useCallback
 } from 'react';
 import { connect } from 'react-redux';
-import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
+//import { useMutation } from '@apollo/client';
+//import gql from 'graphql-tag';
 
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+//import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import actions from '../store/actions/cart/actions';
 import * as asyncActions from '../store/actions/cart/asyncActions';
 import bindActionCreators from '../util/bindActionCreators';
@@ -62,8 +61,8 @@ const CartContextProvider = props => {
         return [derivedCartState, cartApi];
     }, [cartApi, cartState, derivedDetails]);
 
-    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
-    const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
+    //const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
+    //const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
 
     // Storage listener to force a state update if cartId changes from another browser tab.
     const storageListener = useCallback(() => {
@@ -77,13 +76,13 @@ const CartContextProvider = props => {
 
     useEventListener(globalThis, 'storage', storageListener);
 
-    useEffect(() => {
-        // cartApi.getCartDetails initializes the cart if there isn't one.
-        cartApi.getCartDetails({
-            fetchCartId,
-            fetchCartDetails
-        });
-    }, [cartApi, fetchCartDetails, fetchCartId]);
+    // useEffect(() => {
+    //     // cartApi.getCartDetails initializes the cart if there isn't one.
+    //     cartApi.getCartDetails({
+    //         fetchCartId,
+    //         fetchCartDetails
+    //     });
+    // }, [cartApi, fetchCartDetails, fetchCartId]);
 
     return (
         <CartContext.Provider value={contextValue}>
@@ -111,18 +110,18 @@ export const useCartContext = () => useContext(CartContext);
  * queries to talons/hooks. This is an exception to the rule because it would
  * be unecessarily complex to pass these queries to the context provider.
  */
-const CREATE_CART_MUTATION = gql`
-    mutation createCart {
-        cartId: createEmptyCart
-    }
-`;
+// const CREATE_CART_MUTATION = gql`
+//     mutation createCart {
+//         cartId: createEmptyCart
+//     }
+// `;
 
-const CART_DETAILS_QUERY = gql`
-    query checkUserIsAuthed($cartId: String!) {
-        cart(cart_id: $cartId) {
-            # The purpose of this query is to check that the user is authorized
-            # to query on the current cart. Just fetch "id" to keep it small.
-            id
-        }
-    }
-`;
+// const CART_DETAILS_QUERY = gql`
+//     query checkUserIsAuthed($cartId: String!) {
+//         cart(cart_id: $cartId) {
+//             # The purpose of this query is to check that the user is authorized
+//             # to query on the current cart. Just fetch "id" to keep it small.
+//             id
+//         }
+//     }
+// `;
