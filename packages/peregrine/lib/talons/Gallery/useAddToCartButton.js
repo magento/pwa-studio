@@ -74,13 +74,10 @@ export const useAddToCartButton = props => {
 
     const history = useHistory();
 
-    //const [{ cartId }] = useCartContext();
-
     const [addToCart] = useMutation(operations.ADD_ITEM);
 
     // helper: ensure we have a valid cartId before adding
     const ensureCartId = useCallback(async () => {
-        console.log('ensureCartId is called');
         let newCartId = cartId;
         if (!newCartId) {
             console.log('No cart ID found, creating a new cart...');
@@ -105,24 +102,6 @@ export const useAddToCartButton = props => {
 
                 const quantity = 1;
                 let newCartId;
-                // let newCartId = cartId;
-                // if (!cartId) {
-                //     console.log("cart ID is not defined hence calling cart creation");
-                //     // Create cart and update cart context + localStorage
-                //     await cartApi.getCartDetails({
-                //         fetchCartId,
-                //         fetchCartDetails
-                //     });
-
-                //     // Get updated cartId from storage or context after creation
-                //     newCartId = new BrowserPersistence().getItem('cartId');
-
-                //     if (!newCartId) {
-                //         throw new Error('Failed to create a new cart');
-                //     }
-
-                //     // Now you can safely use newCartId instead of cartId
-                // }
 
                 if (item.uid) {
                     // ensure cart right before addToCart

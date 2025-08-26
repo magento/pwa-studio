@@ -415,7 +415,7 @@ export const useProductFullDetail = props => {
         return selectedOptions;
     }, [attributeIdToValuesMap, optionSelections]);
 
-    // ===== Cart creation wiring (same approach as useAddToCartButton.js) =====
+    // Cart creation wiring (same approach as useAddToCartButton.js)
     const CREATE_CART_MUTATION = gql`
         mutation createCart {
             cartId: createEmptyCart
@@ -449,7 +449,7 @@ export const useProductFullDetail = props => {
         return newCartId;
     }, [cartId, cartApi, fetchCartId, fetchCartDetails]);
 
-    // =======================================================================
+    // Cart Creation ends
 
     const handleAddToCart = useCallback(
         async formValues => {
