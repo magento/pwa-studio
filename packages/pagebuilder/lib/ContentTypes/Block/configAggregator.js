@@ -7,17 +7,17 @@ export default node => {
 
     // Sanitize the raw HTML using DOMPurify
     const sanitizedHTML = DOMPurify.sanitize(rawHTML, {
-        ADD_TAGS: ["iframe"],
+        ADD_TAGS: ['iframe'],
         ADD_ATTR: [
-          "allow",
-          "allowfullscreen",
-          "frameborder",
-          "scrolling",
-          "src",
-          "title",
-          "width",
-          "height",
-          "sandbox"
+            'allow',
+            'allowfullscreen',
+            'frameborder',
+            'scrolling',
+            'src',
+            'title',
+            'width',
+            'height',
+            'sandbox'
         ],
         ALLOWED_URI_REGEXP: /^https?:\/\//i // allow only http/https sources
     });
