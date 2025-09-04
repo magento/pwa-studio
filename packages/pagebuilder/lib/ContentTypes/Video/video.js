@@ -81,7 +81,14 @@ const Video = props => {
                     title={url}
                     frameBorder="0"
                     allowFullScreen="1"
+                    sandbox="
+                    allow-scripts
+                    allow-same-origin
+                    allow-popups
+                    allow-forms"
                     loading="lazy"
+                    allow="geolocation; microphone; camera; encrypted-media"
+                    referrerPolicy="no-referrer"
                     src={url}
                 />
             </div>
