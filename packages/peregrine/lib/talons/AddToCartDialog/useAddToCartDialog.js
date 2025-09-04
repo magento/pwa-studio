@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, gql } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useCartContext } from '../../context/cart';
@@ -7,6 +7,8 @@ import defaultOperations from './addToCartDialog.gql';
 import { useEventingContext } from '../../context/eventing';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import BrowserPersistence from '../../util/simplePersistence';
 
 export const useAddToCartDialog = props => {
     const { item, onClose } = props;
@@ -25,7 +27,51 @@ export const useAddToCartDialog = props => {
         new Map()
     );
 
-    const [{ cartId }] = useCartContext();
+    //const [{ cartId }] = useCartContext();
+
+    const [cartState, cartApi] = useCartContext();
+
+    const { cartId } = cartState;
+
+    // cart creation logic
+
+    const CREATE_CART_MUTATION = gql`
+        mutation createCart {
+            cartId: createEmptyCart
+        }
+    `;
+
+    const CART_DETAILS_QUERY = gql`
+        query checkUserIsAuthed($cartId: String!) {
+            cart(cart_id: $cartId) {
+                id
+            }
+        }
+    `;
+
+    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
+
+    const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
+
+    const ensureCartId = useCallback(async () => {
+        let newCartId = cartId;
+
+        if (!newCartId) {
+            await cartApi.getCartDetails({
+                fetchCartId,
+
+                fetchCartDetails
+            });
+
+            newCartId = new BrowserPersistence().getItem('cartId');
+
+            if (!newCartId) {
+                throw new Error('Failed to create a new cart');
+            }
+        }
+
+        return newCartId;
+    }, [cartId, cartApi, fetchCartId, fetchCartDetails]);
 
     const optionCodes = useMemo(() => {
         const optionCodeMap = new Map();
@@ -112,7 +158,9 @@ export const useAddToCartDialog = props => {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first',
             variables: {
-                configurableOptionValues: selectedOptionsArray,
+                configurableOptionValues: selectedOptionsArray.length
+                    ? selectedOptionsArray
+                    : null,
                 sku
             },
             skip: !sku
@@ -127,6 +175,7 @@ export const useAddToCartDialog = props => {
     useEffect(() => {
         if (data) {
             const product = data.products.items[0];
+            console.log('useAddToCartDialog.js - data', data);
             const {
                 media_gallery: selectedProductMediaGallery,
                 variant: selectedVariant
@@ -181,12 +230,14 @@ export const useAddToCartDialog = props => {
     );
 
     const handleAddToCart = useCallback(async () => {
+        //console.log("useAddToCartDialog.js handleAddToCart is called for ",cartId);
         try {
+            const ensuredCartId = await ensureCartId();
             const quantity = 1;
 
             await addProductToCart({
                 variables: {
-                    cartId,
+                    cartId: ensuredCartId,
                     cartItem: {
                         quantity,
                         selected_options: selectedOptionsArray,
@@ -207,7 +258,7 @@ export const useAddToCartDialog = props => {
             dispatch({
                 type: 'CART_ADD_ITEM',
                 payload: {
-                    cartId,
+                    cartId: ensuredCartId,
                     sku: item.product.sku,
                     name: item.product.name,
                     pricing: item.product.price,
@@ -225,7 +276,7 @@ export const useAddToCartDialog = props => {
         }
     }, [
         addProductToCart,
-        cartId,
+        ensureCartId,
         currentDiscount,
         currentPrice,
         dispatch,
