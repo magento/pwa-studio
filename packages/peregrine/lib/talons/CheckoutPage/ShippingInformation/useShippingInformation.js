@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
-import { useMutation, useQuery,useLazyQuery } from '@apollo/client';
+import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './shippingInformation.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -32,22 +32,18 @@ export const useShippingInformation = props => {
         loading: getShippingInformationLoading
     } = useQuery(getShippingInformationQuery, {
         skip: !cartId,
-        variables: {
-            cartId
-        }
+        variables: { cartId }
     });
 
-    /*const {
-        data: defaultShippingData,
-        loading: getDefaultShippingLoading
-    } = useQuery(getDefaultShippingQuery, { skip: !isSignedIn });*/
+    const [fetchDefaultShipping, { data: defaultShippingData, loading: getDefaultShippingLoading }] = useLazyQuery(getDefaultShippingQuery);
 
-    const [fetchShippingInfo, { data, loading, error }] = useLazyQuery(getDefaultShippingQuery);
-    
-    const [
-        setDefaultAddressOnCart,
-        { loading: setDefaultAddressLoading }
-    ] = useMutation(setDefaultAddressOnCartMutation);
+    useEffect(() => {
+        if (isSignedIn) {
+            fetchDefaultShipping();
+        }
+    }, [isSignedIn, fetchDefaultShipping]);
+
+    const [setDefaultAddressOnCart, { loading: setDefaultAddressLoading }] = useMutation(setDefaultAddressOnCartMutation);
 
     const isLoading =
         getShippingInformationLoading ||
@@ -55,59 +51,42 @@ export const useShippingInformation = props => {
         setDefaultAddressLoading;
 
     const shippingData = useMemo(() => {
-        let filteredData;
-        if (shippingInformationData) {
-            const { cart } = shippingInformationData;
-            const { email, shipping_addresses: shippingAddresses } = cart;
-            if (shippingAddresses.length) {
-                const primaryAddress = { ...shippingAddresses[0] };
-                for (const field in MOCKED_ADDRESS) {
-                    if (primaryAddress[field] === MOCKED_ADDRESS[field]) {
-                        primaryAddress[field] = '';
-                    }
+        if (!shippingInformationData) return undefined;
 
-                    if (
-                        field === 'street' &&
-                        primaryAddress[field][0] === MOCKED_ADDRESS[field][0]
-                    ) {
-                        primaryAddress[field] = [''];
-                    }
-                }
+        const { cart } = shippingInformationData;
+        const { email, shipping_addresses: shippingAddresses } = cart;
 
-                const {
-                    region_id,
-                    label: region,
-                    code: region_code
-                } = primaryAddress.region;
+        if (!shippingAddresses.length) return undefined;
 
-                primaryAddress.region = {
-                    region_code,
-                    region_id,
-                    region
-                };
+        const primaryAddress = { ...shippingAddresses[0] };
 
-                filteredData = {
-                    email,
-                    ...primaryAddress
-                };
+        for (const field in MOCKED_ADDRESS) {
+            if (primaryAddress[field] === MOCKED_ADDRESS[field]) {
+                primaryAddress[field] = '';
+            }
+
+            if (
+                field === 'street' &&
+                primaryAddress[field][0] === MOCKED_ADDRESS[field][0]
+            ) {
+                primaryAddress[field] = [''];
             }
         }
 
-        return filteredData;
+        const regionData = primaryAddress.region || {};
+        const { region_id, label: region, code: region_code } = regionData;
+
+        primaryAddress.region = { region_code, region_id, region };
+
+        return {
+            email,
+            ...primaryAddress
+        };
     }, [shippingInformationData]);
 
-    // Simple heuristic to check shipping data existed prior to this render.
-    // On first submission, when we have data, we should tell the checkout page
-    // so that we set the next step correctly.
     const doneEditing = !!shippingData && !!shippingData.city;
     const [, { dispatch }] = useEventingContext();
 
-    useEffect(() => {
-        if (isSignedIn) {
-            fetchShippingInfo();
-        }
-    }, [isSignedIn, user.id, fetchShippingInfo]);
-    
     useEffect(() => {
         if (doneEditing) {
             onSave();
@@ -116,41 +95,29 @@ export const useShippingInformation = props => {
 
     useEffect(() => {
         let updateTimer;
-        if (shippingData !== undefined) {
+
+        if (shippingData) {
             if (hasLoadedData.current) {
                 setHasUpdate(true);
-                updateTimer = setTimeout(() => {
-                    setHasUpdate(false);
-                }, 2000);
+                updateTimer = setTimeout(() => setHasUpdate(false), 2000);
             } else {
                 hasLoadedData.current = true;
             }
         }
 
-        return () => {
-            if (updateTimer) {
-                clearTimeout(updateTimer);
-            }
-        };
-    }, [hasLoadedData, shippingData]);
+        return () => clearTimeout(updateTimer);
+    }, [shippingData]);
 
     useEffect(() => {
-        if (
-            shippingInformationData &&
-            !doneEditing &&
-            cartId &&
-            defaultShippingData
-        ) {
-            const { customer } = defaultShippingData;
-            const { default_shipping: defaultAddressId } = customer;
-            if (defaultAddressId) {
-                setDefaultAddressOnCart({
-                    variables: {
-                        cartId,
-                        addressId: parseInt(defaultAddressId)
-                    }
-                });
-            }
+        const defaultAddressId = defaultShippingData?.customer?.default_shipping;
+
+        if (shippingInformationData && !doneEditing && cartId && defaultAddressId) {
+            setDefaultAddressOnCart({
+                variables: {
+                    cartId,
+                    addressId: parseInt(defaultAddressId)
+                }
+            });
         }
     }, [
         cartId,
@@ -172,9 +139,7 @@ export const useShippingInformation = props => {
         if (doneEditing && hasUpdate) {
             dispatch({
                 type: 'CHECKOUT_SHIPPING_INFORMATION_UPDATED',
-                payload: {
-                    cart_id: cartId
-                }
+                payload: { cart_id: cartId }
             });
         }
     }, [cartId, doneEditing, dispatch, hasUpdate]);
