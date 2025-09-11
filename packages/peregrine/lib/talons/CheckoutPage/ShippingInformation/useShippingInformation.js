@@ -35,7 +35,10 @@ export const useShippingInformation = props => {
         variables: { cartId }
     });
 
-    const [fetchDefaultShipping, { data: defaultShippingData, loading: getDefaultShippingLoading }] = useLazyQuery(getDefaultShippingQuery);
+    const [
+        fetchDefaultShipping,
+        { data: defaultShippingData, loading: getDefaultShippingLoading }
+    ] = useLazyQuery(getDefaultShippingQuery);
 
     useEffect(() => {
         if (isSignedIn) {
@@ -43,7 +46,10 @@ export const useShippingInformation = props => {
         }
     }, [isSignedIn, fetchDefaultShipping]);
 
-    const [setDefaultAddressOnCart, { loading: setDefaultAddressLoading }] = useMutation(setDefaultAddressOnCartMutation);
+    const [
+        setDefaultAddressOnCart,
+        { loading: setDefaultAddressLoading }
+    ] = useMutation(setDefaultAddressOnCartMutation);
 
     const isLoading =
         getShippingInformationLoading ||
@@ -109,9 +115,15 @@ export const useShippingInformation = props => {
     }, [shippingData]);
 
     useEffect(() => {
-        const defaultAddressId = defaultShippingData?.customer?.default_shipping;
+        const defaultAddressId =
+            defaultShippingData?.customer?.default_shipping;
 
-        if (shippingInformationData && !doneEditing && cartId && defaultAddressId) {
+        if (
+            shippingInformationData &&
+            !doneEditing &&
+            cartId &&
+            defaultAddressId
+        ) {
             setDefaultAddressOnCart({
                 variables: {
                     cartId,
