@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery,useLazyQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './shippingInformation.gql';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -37,11 +37,13 @@ export const useShippingInformation = props => {
         }
     });
 
-    const {
+    /*const {
         data: defaultShippingData,
         loading: getDefaultShippingLoading
-    } = useQuery(getDefaultShippingQuery, { skip: !isSignedIn });
+    } = useQuery(getDefaultShippingQuery, { skip: !isSignedIn });*/
 
+    const [fetchShippingInfo, { data, loading, error }] = useLazyQuery(getDefaultShippingQuery);
+    
     const [
         setDefaultAddressOnCart,
         { loading: setDefaultAddressLoading }
@@ -100,6 +102,12 @@ export const useShippingInformation = props => {
     const doneEditing = !!shippingData && !!shippingData.city;
     const [, { dispatch }] = useEventingContext();
 
+    useEffect(() => {
+        if (isSignedIn) {
+            fetchShippingInfo();
+        }
+    }, [isSignedIn, user.id, fetchShippingInfo]);
+    
     useEffect(() => {
         if (doneEditing) {
             onSave();
