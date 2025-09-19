@@ -1,7 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import BrowserPersistence from '../../util/simplePersistence';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './wishlistItem.gql';
 import { useEventingContext } from '../../context/eventing';
@@ -17,6 +19,20 @@ const mergeSupportedProductTypes = (supportedProductTypes = []) => {
 
     return newSupportedProductTypes;
 };
+
+const CREATE_CART_MUTATION = gql`
+    mutation createCart {
+        cartId: createEmptyCart
+    }
+`;
+
+const CART_DETAILS_QUERY = gql`
+    query getCart($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+        }
+    }
+`;
 
 /**
  * @function
@@ -61,7 +77,8 @@ export const useWishlistItem = props => {
         removeProductsFromWishlistMutation
     } = operations;
 
-    const [{ cartId }] = useCartContext();
+    //const [{ cartId }] = useCartContext();
+    const [{ cartId: existingCartId }, { getCartDetails }] = useCartContext();
 
     const [isRemovalInProgress, setIsRemovalInProgress] = useState(false);
 
@@ -119,18 +136,26 @@ export const useWishlistItem = props => {
         return item;
     }, [configurableOptions, selectedConfigurableOptions, sku]);
 
+    // const [
+    //     addWishlistItemToCart,
+    //     {
+    //         error: addWishlistItemToCartError,
+    //         loading: addWishlistItemToCartLoading
+    //     }
+    // ] = useMutation(addWishlistItemToCartMutation, {
+    //     variables: {
+    //         cartId,
+    //         cartItem
+    //     }
+    // });
+
     const [
         addWishlistItemToCart,
         {
             error: addWishlistItemToCartError,
             loading: addWishlistItemToCartLoading
         }
-    ] = useMutation(addWishlistItemToCartMutation, {
-        variables: {
-            cartId,
-            cartItem
-        }
-    });
+    ] = useMutation(addWishlistItemToCartMutation);
 
     const [removeProductsFromWishlist] = useMutation(
         removeProductsFromWishlistMutation,
@@ -169,13 +194,41 @@ export const useWishlistItem = props => {
         }
     );
 
+    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
+    const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
+
+    const ensureCartId = useCallback(async () => {
+        let newCartId = existingCartId;
+
+        if (!newCartId) {
+            await getCartDetails({
+                fetchCartId,
+                fetchCartDetails
+            });
+
+            newCartId = new BrowserPersistence().getItem('cartId');
+
+            if (!newCartId) {
+                throw new Error('Failed to create a new cart');
+            }
+        }
+        return newCartId;
+    }, [existingCartId, getCartDetails, fetchCartId, fetchCartDetails]);
+
     const handleAddToCart = useCallback(async () => {
         if (
             configurableOptions.length === 0 ||
             selectedConfigurableOptions.length === configurableOptions.length
         ) {
             try {
-                await addWishlistItemToCart();
+                const ensuredCartId = await ensureCartId();
+                //await addWishlistItemToCart();
+                await addWishlistItemToCart({
+                    variables: {
+                        cartId: ensuredCartId,
+                        cartItem
+                    }
+                });
 
                 const selectedOptionsLabels =
                     selectedConfigurableOptions?.length > 0
@@ -190,7 +243,7 @@ export const useWishlistItem = props => {
                 dispatch({
                     type: 'CART_ADD_ITEM',
                     payload: {
-                        cartId,
+                        cartId: ensuredCartId,
                         sku: item.product.sku,
                         name: item.product.name,
                         pricing: item.product.price,
@@ -215,9 +268,11 @@ export const useWishlistItem = props => {
         }
     }, [
         addWishlistItemToCart,
-        cartId,
+        //cartId,
+        cartItem,
         configurableOptions.length,
         dispatch,
+        ensureCartId,
         item,
         onOpenAddToCartDialog,
         selectedConfigurableOptions
