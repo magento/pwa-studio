@@ -98,6 +98,16 @@ export const useSignIn = props => {
             try {
                 // Get source cart id (guest cart id).
                 const sourceCartId = cartId;
+                let hasSourceItems = false;
+
+                if (sourceCartId !== null) {
+                    const { data: sourceCartData } = await fetchCartDetails({
+                        variables: { cartId: sourceCartId },
+                        fetchPolicy: 'network-only'
+                    });
+
+                    hasSourceItems = sourceCartData?.cart?.items?.length > 0;
+                }
 
                 // Get recaptchaV3 data for login
                 const recaptchaData = await generateReCaptchaData();
@@ -127,13 +137,29 @@ export const useSignIn = props => {
                 });
                 const destinationCartId = await retrieveCartId();
 
-                // Merge the guest cart into the customer cart.
-                await mergeCarts({
-                    variables: {
-                        destinationCartId,
-                        sourceCartId
-                    }
+                const { data: destCartData } = await fetchCartDetails({
+                    variables: { cartId: destinationCartId },
+                    fetchPolicy: 'network-only'
                 });
+
+                const hasDestinationItems =
+                    destCartData?.cart?.items?.length > 0;
+
+                if (sourceCartId !== null && hasSourceItems) {
+                    console.log('Merging guest cart into customer cart');
+                    // Merge the guest cart into the customer cart.
+                    await mergeCarts({
+                        variables: {
+                            destinationCartId,
+                            sourceCartId
+                        }
+                    });
+                } else if (!hasSourceItems && !hasDestinationItems) {
+                    console.log('Both carts empty → clearing local cart');
+                    // Clear all cart/customer data from cache and redux.
+                    await apolloClient.clearCacheData(apolloClient, 'cart');
+                    await removeCart();
+                }
 
                 // Ensure old stores are updated with any new data.
 
@@ -150,7 +176,9 @@ export const useSignIn = props => {
                     }
                 });
 
-                getCartDetails({ fetchCartId, fetchCartDetails });
+                if (sourceCartId !== null && hasSourceItems) {
+                    getCartDetails({ fetchCartId, fetchCartDetails });
+                }
 
                 if (
                     userOnOrderSuccess &&

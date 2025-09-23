@@ -5,6 +5,7 @@ import createTestInstance from '../../../util/createTestInstance';
 import { useUserContext } from '../../../context/user';
 import { useSignIn } from '../useSignIn';
 import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
+import { useCartContext } from '../../../../lib/context/cart';
 
 jest.mock('@apollo/client', () => {
     return {
@@ -193,6 +194,14 @@ test('should set isBusy to true', () => {
 });
 
 test('handleSubmit triggers waterfall of operations and actions', async () => {
+    useCartContext.mockReturnValueOnce([
+        { cartId: null },
+        {
+            createCart: jest.fn(),
+            removeCart: jest.fn(),
+            getCartDetails: jest.fn()
+        }
+    ]);
     const token = 'customertoken';
     const customer_token_lifetime = 1;
     const signIn = jest.fn().mockReturnValue({

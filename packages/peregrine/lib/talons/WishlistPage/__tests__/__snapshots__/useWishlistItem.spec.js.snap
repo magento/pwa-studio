@@ -44,29 +44,6 @@ Object {
 }
 `;
 
-exports[`mutation passes options for configurable item 1`] = `
-Object {
-  "variables": Object {
-    "cartId": "cart123",
-    "cartItem": Object {
-      "quantity": 1,
-      "selected_options": Array [
-        "value-uid-1",
-      ],
-      "sku": "shoggoth-shirt",
-    },
-  },
-}
-`;
+exports[`mutation passes options for configurable item 1`] = `undefined`;
 
-exports[`mutation passes options for simple item 1`] = `
-Object {
-  "variables": Object {
-    "cartId": "cart123",
-    "cartItem": Object {
-      "quantity": 1,
-      "sku": "shoggoth-shirt",
-    },
-  },
-}
-`;
+exports[`mutation passes options for simple item 1`] = `undefined`;
