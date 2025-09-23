@@ -88,17 +88,42 @@ jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
     })
 }));
 
-jest.mock('@apollo/client', () => ({
-    useMutation: jest.fn().mockImplementation(() => [
-        jest.fn().mockImplementation(() => {
-            return {
-                data: {
-                    createEmptyCart: 'cartIdFromGraphQL'
-                }
-            };
-        })
-    ])
-}));
+jest.mock('@apollo/client', () => {
+    const actual = jest.requireActual('@apollo/client');
+    return {
+        ...actual,
+        useMutation: jest.fn().mockImplementation(() => [
+            jest.fn().mockImplementation(() => {
+                return {
+                    data: {
+                        createEmptyCart: 'cartIdFromGraphQL'
+                    }
+                };
+            })
+        ])
+    };
+});
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = { isSignedIn: false, currentUser: null };
+    const api = {
+        signOut: jest.fn(),
+        getUserDetails: jest.fn()
+    };
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
+jest.mock(
+    '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
+    () => ({
+        useCustomerWishlistSkus: jest.fn(() => ({
+            customerWishlistSkus: [],
+            loading: false
+        }))
+    })
+);
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn()

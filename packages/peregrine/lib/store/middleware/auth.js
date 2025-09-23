@@ -64,11 +64,11 @@ const scheduleSignOut = store => next => action => {
             intervals.set(parsedValue, intervalId);
         }
     } else if (isSigningOut(action.type)) {
-        for (const timeoutId of timeouts) {
+        for (const [, timeoutId] of timeouts) {
             clearTimeout(timeoutId);
         }
 
-        for (const intervalId of intervals) {
+        for (const [, intervalId] of intervals) {
             clearInterval(intervalId);
         }
 
