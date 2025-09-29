@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "dompurify": "^2.3.8",
     "cypress": "~9.4.0",
     "cypress-grep": "~2.13.1",
     "cypress-image-snapshot": "~4.0.1",
