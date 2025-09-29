@@ -40,6 +40,11 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
         type: 'string',
         nargs: 1
     })
+    .option('http', {
+        default: false,
+        describe: 'Force HTTP scheme for baseUrl (use only if HTTPS is unavailable)',
+        type: 'boolean'
+    })
     .option('h', {
         alias: 'help',
         describe: 'Show run-tests help'
@@ -48,6 +53,18 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .version(false).argv;
 
 const { baseUrl, threads, update, spec, tags } = argv;
+
+// allow forcing http scheme when needed (e.g. CI cannot validate TLS chain)
+let effectiveBaseUrl = baseUrl;
+try {
+    const parsed = new URL(baseUrl);
+    if (argv.http) {
+        parsed.protocol = 'http:';
+        effectiveBaseUrl = parsed.toString();
+    }
+} catch (e) {
+    // keep original baseUrl if parsing fails
+}
 
 if (!baseUrl) {
     console.error(
@@ -82,7 +99,7 @@ const threadCount = Math.min(files.length, threads);
 const testsPerRun = files.length / threadCount;
 const dockerRuns = {};
 
-const port = new URL(baseUrl).port;
+const port = new URL(effectiveBaseUrl).port;
 
 let dockerCommand = null;
 let dockerImage = 'cypress/included:8.3.1';
@@ -92,18 +109,18 @@ if (process.env.DockerRegistry) {
 
 if (port) {
     // run docker on local instance
-    console.log(`Running tests on local instance ${baseUrl}`);
+    console.log(`Running tests on local instance ${effectiveBaseUrl}`);
 
     dockerCommand = `docker run --rm -v ${
         process.env.PWD
-    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress ${dockerImage} run --browser chrome --config baseUrl=https://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --env grepTags=${tags} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
+    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress ${dockerImage} run --browser chrome --config baseUrl=http://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --env grepTags=${tags} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
 } else {
     // run docker on remote instance
-    console.log(`Running tests on remote instance ${baseUrl}`);
+    console.log(`Running tests on remote instance ${effectiveBaseUrl}`);
 
     dockerCommand = `docker run --rm -v ${
         process.env.PWD
-    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress ${dockerImage} run --browser chrome --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --env grepTags=${tags} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
+    }:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress ${dockerImage} run --browser chrome --config baseUrl=${effectiveBaseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --env grepTags=${tags} --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true`;
 }
 
 const start = process.hrtime();
