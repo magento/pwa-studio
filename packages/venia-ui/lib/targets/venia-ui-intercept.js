@@ -13,7 +13,7 @@ const RootShimmerTypes = require('./RootShimmerTypes');
 
 module.exports = veniaTargets => {
     const { Targetables } = require('@magento/pwa-buildpack');
-    const venia = Targetables.using(veniaTargets);
+    const venia = new Targetables(veniaTargets);
 
     venia.setSpecialFeatures(
         'cssModules',
