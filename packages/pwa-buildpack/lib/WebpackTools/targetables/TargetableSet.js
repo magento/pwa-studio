@@ -26,7 +26,7 @@ class TargetableSet {
     constructor(targetProvider) {
         if (!(targetProvider instanceof TargetProvider)) {
             throw new Error(
-                'Must supply a TargetProvider to a new TargetableSet.'
+                'Must 11 supply a TargetProvider to a new TargetableSet.'
             );
         }
         this._targetProvider = targetProvider;
