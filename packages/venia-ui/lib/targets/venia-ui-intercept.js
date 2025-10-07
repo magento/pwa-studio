@@ -1,7 +1,7 @@
 /**
  * @module VeniaUI/Targets
  */
-const { Targetables } = require('@magento/pwa-buildpack');
+
 const CategoryListProductAttributes = require('./CategoryListProductAttributes');
 const RichContentRendererList = require('./RichContentRendererList');
 const makeRoutesTarget = require('./makeRoutesTarget');
@@ -12,9 +12,7 @@ const SummaryPaymentTypes = require('./SummaryPaymentTypes');
 const RootShimmerTypes = require('./RootShimmerTypes');
 
 module.exports = veniaTargets => {
-    if (!veniaTargets) {
-        throw new Error('veniaTargets not provided — check local-intercept.js');
-    }
+    const { Targetables } = require('@magento/pwa-buildpack');
     const venia = Targetables.using(veniaTargets);
 
     venia.setSpecialFeatures(
