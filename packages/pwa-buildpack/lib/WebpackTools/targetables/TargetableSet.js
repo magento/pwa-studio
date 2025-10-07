@@ -26,6 +26,7 @@ class TargetableSet {
     constructor(targetProvider) {
         console.log(targetProvider.constructor.name); console.log('ff');
         if (!(targetProvider instanceof TargetProvider)) {
+            console.log(targetProvider.constructor.name); console.log('ffooo');
             throw new Error(
                 'Must 11 supply a TargetProvider to a new TargetableSet.'
             );
