@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-backends",
-  "version": "0.0.13-alpha5",
+  "version": "0.0.13-alpha6",
   "publishConfig": {
     "access": "public"
   },
