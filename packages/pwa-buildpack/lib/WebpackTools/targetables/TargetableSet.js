@@ -24,12 +24,13 @@ class TargetableSet {
     }
     /** @hideconstructor  */
     constructor(targetProvider) {
-        const isValidTargetProvider = targetProvider instanceof TargetProvider ||
+        const isValidTargetProvider =
+            targetProvider instanceof TargetProvider ||
             (targetProvider &&
-             typeof targetProvider === 'object' &&
-             typeof targetProvider.of === 'function' &&
-             typeof targetProvider.name === 'string' &&
-             targetProvider.constructor.name === 'TargetProvider');
+                typeof targetProvider === 'object' &&
+                typeof targetProvider.of === 'function' &&
+                typeof targetProvider.name === 'string' &&
+                targetProvider.constructor.name === 'TargetProvider');
 
         if (!isValidTargetProvider) {
             throw new Error(
