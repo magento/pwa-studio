@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-pwa-live-search",
-  "version": "1.0.1-alpha10",
+  "version": "1.0.1-alpha11",
   "publishConfig": {
     "access": "public"
   },
