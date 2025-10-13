@@ -46,7 +46,6 @@ export const useCustomerWishlistSkus = (props = {}) => {
                     }
                 });
             }
-
         },
         skip: !isSignedIn,
         variables: {

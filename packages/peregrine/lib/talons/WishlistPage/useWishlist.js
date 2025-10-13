@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './wishlist.gql';
@@ -17,6 +17,7 @@ export const useWishlist = (props = {}) => {
     const [page, setPage] = useState(1);
     const [isOpen, setIsOpen] = useState(!isCollapsed);
     const [isFetchingMore, setIsFetchingMore] = useState(false);
+    const hasFetchedRef = useRef(false);
 
     const [fetchWishlistItems, queryResult] = useLazyQuery(
         operations.getCustomerWishlistItems,
@@ -30,7 +31,7 @@ export const useWishlist = (props = {}) => {
             }
         }
     );
-    const { data, error, loading, fetchMore, called } = queryResult;
+    const { data, error, loading, fetchMore } = queryResult;
 
     const handleContentToggle = () => {
         setIsOpen(currentValue => !currentValue);
@@ -92,10 +93,11 @@ export const useWishlist = (props = {}) => {
     }, [id, fetchMore, page]);
 
     useEffect(() => {
-        if (itemsCount >= 1 && isOpen === true && !called) {
+        if (itemsCount >= 1 && isOpen === true && !hasFetchedRef.current) {
+            hasFetchedRef.current = true;
             fetchWishlistItems();
         }
-    }, [itemsCount, isOpen, called]);
+    }, [itemsCount, isOpen, fetchWishlistItems]);
 
     const items = useMemo(() => {
         if (!data || !data.customer || !data.customer.wishlist_v2) {
