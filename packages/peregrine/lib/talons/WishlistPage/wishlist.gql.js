@@ -17,12 +17,12 @@ export const GET_CUSTOMER_WISHLIST = gql`
 `;
 
 export const GET_CUSTOMER_WISHLIST_ITEMS = gql`
-    query getCustomerWishlist($id: ID!, $currentPage: Int) {
+    query getCustomerWishlist($id: ID!, $currentPage: Int, $pageSize: Int) {
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
             wishlist_v2(id: $id) {
                 id
-                items_v2(currentPage: $currentPage) {
+                items_v2(currentPage: $currentPage, pageSize: $pageSize) {
                     items {
                         id
                         ...WishlistItemFragment

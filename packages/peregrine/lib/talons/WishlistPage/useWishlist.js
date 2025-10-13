@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './wishlist.gql';
@@ -17,15 +17,17 @@ export const useWishlist = (props = {}) => {
     const [page, setPage] = useState(1);
     const [isOpen, setIsOpen] = useState(!isCollapsed);
     const [isFetchingMore, setIsFetchingMore] = useState(false);
+    const hasFetchedRef = useRef(false);
 
     const [fetchWishlistItems, queryResult] = useLazyQuery(
         operations.getCustomerWishlistItems,
         {
-            fetchPolicy: 'cache-and-network',
+            fetchPolicy: 'cache-first',
             nextFetchPolicy: 'cache-first',
             variables: {
                 id,
-                currentPage: 1
+                currentPage: 1,
+                pageSize: 20
             }
         }
     );
@@ -38,27 +40,84 @@ export const useWishlist = (props = {}) => {
     const handleLoadMore = useCallback(async () => {
         setIsFetchingMore(true);
         const currentPage = page + 1;
-        await fetchMore({
-            variables: {
-                id,
-                currentPage
-            }
-        });
 
-        setPage(currentPage);
-        setIsFetchingMore(false);
+        try {
+            await fetchMore({
+                variables: {
+                    id,
+                    currentPage,
+                    pageSize: 20
+                },
+                updateQuery: (prevResult, { fetchMoreResult }) => {
+                    if (!fetchMoreResult) {
+                        return prevResult;
+                    }
+
+                    const prevWishlist = prevResult.customer.wishlist_v2;
+                    const newWishlist = fetchMoreResult.customer.wishlist_v2;
+
+                    if (prevWishlist.id !== newWishlist.id) {
+                        return prevResult;
+                    }
+
+                    const prevItems = prevWishlist.items_v2.items || [];
+                    const newItems = newWishlist.items_v2.items || [];
+
+                    const existingIds = new Set(prevItems.map(item => item.id));
+                    const uniqueNewItems = newItems.filter(
+                        item => !existingIds.has(item.id)
+                    );
+
+                    return {
+                        ...prevResult,
+                        customer: {
+                            ...prevResult.customer,
+                            wishlist_v2: {
+                                ...prevWishlist,
+                                items_v2: {
+                                    ...prevWishlist.items_v2,
+                                    items: [...prevItems, ...uniqueNewItems]
+                                }
+                            }
+                        }
+                    };
+                }
+            });
+
+            setPage(currentPage);
+        } catch (error) {
+            console.error('Error loading more wishlist items:', error);
+        } finally {
+            setIsFetchingMore(false);
+        }
     }, [id, fetchMore, page]);
 
     useEffect(() => {
-        if (itemsCount >= 1 && isOpen === true && !data) {
+        if (itemsCount >= 1 && isOpen === true && !hasFetchedRef.current) {
+            hasFetchedRef.current = true;
             fetchWishlistItems();
         }
-    }, [itemsCount, isOpen, fetchWishlistItems, data]);
+    }, [itemsCount, isOpen, fetchWishlistItems]);
 
-    const items =
-        data && data.customer.wishlist_v2.items_v2.items
-            ? data.customer.wishlist_v2.items_v2.items
-            : [];
+    const items = useMemo(() => {
+        if (!data || !data.customer || !data.customer.wishlist_v2) {
+            return [];
+        }
+
+        const allItems = data.customer.wishlist_v2.items_v2?.items || [];
+
+        const uniqueItems = [];
+        const seenIds = new Set();
+
+        for (const item of allItems) {
+            if (!seenIds.has(item.id)) {
+                seenIds.add(item.id);
+                uniqueItems.push(item);
+            }
+        }
+
+        return uniqueItems;
+    }, [data]);
 
     return {
         handleContentToggle,
