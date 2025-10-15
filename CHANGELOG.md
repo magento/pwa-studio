@@ -72,11 +72,7 @@ See [Upgrading versions][] for more information about upgrading between PWA Stud
 ### Updated package dependencies
 
 Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
-<<<<<<< HEAD
-The following table lists the latest versions of each package as of 14.3.1. The **bolded** versions with an asterisk (*) are the packages that were updated from PWA Studio 14.3.0.
-=======
 The following table lists the latest versions of each package as of 14.4.0. The **bolded** versions with an asterisk (*) are the packages that were updated from PWA Studio 14.3.1.
->>>>>>> release/14.4.0
 
 **NOTE:**
 Your project may not depend on some packages listed in this table.
@@ -101,13 +97,8 @@ Your project may not depend on some packages listed in this table.
 | `pwa-theme-venia`                      | 2.4.0          |
 | `upward-js`                            | **5.4.3***     |
 | `upward-spec`                          | 5.3.1          |
-<<<<<<< HEAD
-| `venia-concept`                        | **14.3.1***    |
-| `venia-ui`                             | 11.7.0         |
-=======
 | `venia-concept`                        | **14.4.0***    |
 | `venia-ui`                             | **11.7.1***    |
->>>>>>> release/14.4.0
 | `magento2-pwa`                         | 0.10.2         |
 | `magento2-pwa-commerce`                | 0.1.5          |
 | `magento-venia-sample-data-modules`    | 0.0.6          |
