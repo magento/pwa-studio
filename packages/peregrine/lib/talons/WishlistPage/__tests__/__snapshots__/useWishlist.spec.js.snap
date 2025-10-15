@@ -36,9 +36,6 @@ Object {
     Object {
       "name": "item1",
     },
-    Object {
-      "name": "item2",
-    },
   ],
 }
 `;
