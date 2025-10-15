@@ -202,19 +202,31 @@ export const useProductForm = props => {
 
     const outOfStockVariants = useMemo(() => {
         if (cartItem && configItem) {
-            const product = cartItem.product;
+            const product = configItem;
+            const currentSelections = new Map();
+
+            cartItem.configurable_options.forEach(option => {
+                currentSelections.set(String(option.id), option.value_id);
+            });
+
+            optionSelections.forEach((value, key) => {
+                currentSelections.set(key, value);
+            });
+
             return getOutOfStockVariantsWithInitialSelection(
                 product,
                 configurableOptionCodes,
-                multipleOptionSelections,
+                currentSelections,
                 configItem,
                 isOutOfStockProductDisplayed
             );
         }
+
+        return [];
     }, [
         cartItem,
         configurableOptionCodes,
-        multipleOptionSelections,
+        optionSelections,
         configItem,
         isOutOfStockProductDisplayed
     ]);

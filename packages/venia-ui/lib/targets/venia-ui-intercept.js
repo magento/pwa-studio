@@ -12,7 +12,7 @@ const SummaryPaymentTypes = require('./SummaryPaymentTypes');
 const RootShimmerTypes = require('./RootShimmerTypes');
 
 module.exports = veniaTargets => {
-    const venia = new Targetables(veniaTargets);
+    const venia = Targetables.using(veniaTargets);
 
     venia.setSpecialFeatures(
         'cssModules',
