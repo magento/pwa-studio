@@ -36,9 +36,12 @@ exports[`renders a Video component 1`] = `
     >
       <div>
         <iframe
+          allow="geolocation; microphone; camera; encrypted-media"
           allowFullScreen="1"
           frameBorder="0"
           loading="lazy"
+          referrerPolicy="no-referrer"
+          sandbox=" allow-scripts allow-same-origin allow-popups allow-forms"
           src="https://www.youtube.com/watch?v=N0bYol6ax8Y"
           title="https://www.youtube.com/watch?v=N0bYol6ax8Y"
         />
@@ -84,9 +87,12 @@ exports[`renders a Video component with all props configured 1`] = `
     >
       <div>
         <iframe
+          allow="geolocation; microphone; camera; encrypted-media"
           allowFullScreen="1"
           frameBorder="0"
           loading="lazy"
+          referrerPolicy="no-referrer"
+          sandbox=" allow-scripts allow-same-origin allow-popups allow-forms"
           src="https://vimeo.com/116810486"
           title="https://vimeo.com/116810486"
         />

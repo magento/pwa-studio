@@ -1,11 +1,13 @@
 import { useCallback, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '../../context/cart';
 import { useEventingContext } from '../../context/eventing';
 import resourceUrl from '../../util/makeUrl';
 import operations from './addToCart.gql';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import BrowserPersistence from '../../util/simplePersistence';
 
 /**
  * @param {String} props.item.uid - uid of item
@@ -29,12 +31,32 @@ const UNSUPPORTED_PRODUCT_TYPES = [
     'DownloadableProduct'
 ];
 
+const CREATE_CART_MUTATION = gql`
+    mutation createCart {
+        cartId: createEmptyCart
+    }
+`;
+
+const CART_DETAILS_QUERY = gql`
+    query checkUserIsAuthed($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+        }
+    }
+`;
+
 export const useAddToCartButton = props => {
     const { item, urlSuffix } = props;
 
     const [, { dispatch }] = useEventingContext();
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const [cartState, cartApi] = useCartContext();
+    const { cartId } = cartState;
+
+    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
+    const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
 
     const isInStock = item.stock_status === 'IN_STOCK';
 
@@ -52,9 +74,26 @@ export const useAddToCartButton = props => {
 
     const history = useHistory();
 
-    const [{ cartId }] = useCartContext();
-
     const [addToCart] = useMutation(operations.ADD_ITEM);
+
+    // helper: ensure we have a valid cartId before adding
+    const ensureCartId = useCallback(async () => {
+        let newCartId = cartId;
+        if (!newCartId) {
+            console.log('No cart ID found, creating a new cart...');
+            await cartApi.getCartDetails({
+                fetchCartId,
+                fetchCartDetails
+            });
+
+            newCartId = new BrowserPersistence().getItem('cartId');
+
+            if (!newCartId) {
+                throw new Error('Failed to create a new cart');
+            }
+        }
+        return newCartId;
+    }, [cartId, cartApi, fetchCartId, fetchCartDetails]);
 
     const handleAddToCart = useCallback(async () => {
         try {
@@ -62,11 +101,15 @@ export const useAddToCartButton = props => {
                 setIsLoading(true);
 
                 const quantity = 1;
+                let newCartId;
 
                 if (item.uid) {
+                    // ensure cart right before addToCart
+                    newCartId = await ensureCartId();
+
                     await addToCart({
                         variables: {
-                            cartId,
+                            cartId: newCartId,
                             cartItem: {
                                 quantity,
                                 entered_options: [
@@ -80,9 +123,12 @@ export const useAddToCartButton = props => {
                         }
                     });
                 } else {
+                    // ensure cart right before addToCart
+                    newCartId = await ensureCartId();
+
                     await addToCart({
                         variables: {
-                            cartId,
+                            cartId: newCartId,
                             cartItem: {
                                 quantity,
                                 sku: item.sku
@@ -94,7 +140,7 @@ export const useAddToCartButton = props => {
                 dispatch({
                     type: 'CART_ADD_ITEM',
                     payload: {
-                        cartId,
+                        cartId: newCartId,
                         sku: item.sku,
                         name: item.name,
                         pricing: {
@@ -130,7 +176,15 @@ export const useAddToCartButton = props => {
         } catch (error) {
             console.error(error);
         }
-    }, [productType, addToCart, cartId, item, dispatch, history, urlSuffix]);
+    }, [
+        productType,
+        addToCart,
+        item,
+        dispatch,
+        history,
+        urlSuffix,
+        ensureCartId
+    ]);
 
     return {
         handleAddToCart,

@@ -1432,7 +1432,7 @@ describe('with configurable Product With Two Option Group', () => {
     for (const option of configurableProductWithTwoOptionGroupProps.configurable_options) {
         optionCodes.set(option.attribute_id, option.attribute_code);
     }
-    test('it returns empty array if no option selected', () => {
+    test('it returns all out of stock variants if no option selected', () => {
         const singleOptionSelection = undefined;
         const optionSelections = new Map();
         optionSelections.set('179', undefined);
@@ -1505,7 +1505,7 @@ describe('with configurable Product With Three Option Group', () => {
     for (const option of configurableProductWithThreeOptionGroupProps.configurable_options) {
         optionCodes.set(option.attribute_id, option.attribute_code);
     }
-    test('it returns empty array if no option selected', () => {
+    test('it returns all out of stock variants if no option selected', () => {
         const singleOptionSelection = undefined;
         const optionSelections = new Map();
         optionSelections.set('93', undefined);
@@ -1582,7 +1582,7 @@ describe('with configurable Product With Four Option Group', () => {
     for (const option of configurableProductWithFourOptionGroupProps.configurable_options) {
         optionCodes.set(option.attribute_id, option.attribute_code);
     }
-    test('it returns empty array if no option selected', () => {
+    test('it returns all out of stock variants if no option selected', () => {
         const singleOptionSelection = undefined;
         const optionSelections = new Map();
         optionSelections.set('93', undefined);
@@ -1661,7 +1661,7 @@ describe('with configurable Product With Five Option Group', () => {
     for (const option of configurableProductWithFiveOptionGroupProps.configurable_options) {
         optionCodes.set(option.attribute_id, option.attribute_code);
     }
-    test('it returns empty array if no option selected', () => {
+    test('it returns all out of stock variants if no option selected', () => {
         const singleOptionSelection = undefined;
         const optionSelections = new Map();
         optionSelections.set('93', undefined);

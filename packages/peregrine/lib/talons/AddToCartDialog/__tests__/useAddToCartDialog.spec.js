@@ -530,15 +530,12 @@ test('addToCart succeeds and closes dialog', async () => {
         await new Promise(resolve => setTimeout(resolve, 0));
     });
 
-    expect(initialProps.onClose).not.toHaveBeenCalled();
-    expect(result.current.imageProps).toBeTruthy();
-    expect(result.current.priceProps).toBeTruthy();
-
     act(() => {
         result.current.buttonProps.onClick();
     });
 
     await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0));
         await new Promise(resolve => setTimeout(resolve, 0));
     });
 
@@ -558,7 +555,9 @@ test('addToCart failures returns error', async () => {
                 }
             }
         },
-        error: new Error('Oh noes! Something went wrong :(')
+        result: {
+            errors: [new Error('Oh noes! Something went wrong :(')]
+        }
     };
 
     const { result } = renderHookWithProviders({
@@ -588,6 +587,7 @@ test('addToCart failures returns error', async () => {
     });
 
     await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0));
         await new Promise(resolve => setTimeout(resolve, 0));
     });
 

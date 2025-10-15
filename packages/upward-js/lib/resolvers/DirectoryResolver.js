@@ -41,10 +41,34 @@ class DirectoryResolver extends AbstractResolver {
                 this.visitor.upwardPath,
                 staticOpts
             );
-            server = serveStatic(
-                path.resolve(path.dirname(this.visitor.upwardPath), directory),
-                staticOpts
+
+            const baseDir = path.resolve(
+                path.dirname(this.visitor.upwardPath),
+                directory
             );
+            server = (req, res, next) => {
+                const baseDirSegments = baseDir
+                    .split(path.sep)
+                    .filter(segment => segment);
+                const lastBaseSegment =
+                    baseDirSegments[baseDirSegments.length - 1];
+
+                if (
+                    lastBaseSegment &&
+                    req.url.startsWith(`/${lastBaseSegment}/`)
+                ) {
+                    req.url = req.url.substring(`/${lastBaseSegment}`.length);
+                    debug(
+                        `Removed redundant path segment "${lastBaseSegment}" from request URL: ${
+                            req.url
+                        }`
+                    );
+                }
+
+                const staticMiddleware = serveStatic(baseDir, staticOpts);
+                staticMiddleware(req, res, next);
+            };
+
             DirectoryResolver.servers.set(directory, server);
         }
 

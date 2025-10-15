@@ -182,10 +182,22 @@ export const useFilterSidebar = props => {
     }, [handleClose]);
 
     const handleReset = useCallback(() => {
-        //filterApi.clear();
-        //setIsApplying(true);
-        history.replace({ search: 'page=1' });
-    }, [history]);
+        filterApi.clear();
+
+        const params = new URLSearchParams(search);
+        const filterKeys = [];
+        for (const key of params.keys()) {
+            if (key.endsWith('[filter]')) {
+                filterKeys.push(key);
+            }
+        }
+        for (const key of filterKeys) {
+            params.delete(key);
+        }
+
+        const newSearch = `?${params.toString()}`;
+        history.replace({ pathname, search: newSearch });
+    }, [filterApi, search, history, pathname]);
 
     const handleKeyDownActions = useCallback(
         event => {
