@@ -6,8 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
-The 14.4.0 release of PWA Studio provides newly built package PWA Live Search
-
+The 14.4.0 release of PWA Studio provides multiple bug fixes and improvements to the cart functionality.
 
 ## Additional fixes
 
