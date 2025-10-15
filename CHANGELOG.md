@@ -13,6 +13,7 @@ The 14.3.1 release of PWA Studio provides newly built package PWA Live Search
 
 -  Story: [4524][] — Live search is built
 
+## 14.4.0 Lighthouse scores
 
 
 ## 14.3.1 Lighthouse scores
@@ -45,7 +46,11 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 
 ## Known issue
 
-When a user logs out, that user's local storage session persists. As a result, the cart ID from the logged out user is retrieved and given to the _guest user_ on the computer. This causes the following error when the guest user tries to check out: `An error has occurred. Please check the input and try again.` To resolve this issue, try disabling graphql session sharing as described in the GraphQL documentation on session cookies here: https://devdocs.magento.com/guides/v2.4/graphql/authorization-tokens.html#session-cookies.
+When a user logs out, that user's local storage session persists. As a result, the cart ID from the logged-out user is retrieved and assigned to the guest user on the same computer.
+This causes the following error when the guest user tries to check out:
+An error has occurred. Please check the input and try again. 
+
+To resolve this issue, try disabling graphql session sharing as described in the GraphQL documentation on session cookies here: https://devdocs.magento.com/guides/v2.4/graphql/authorization-tokens.html#session-cookies.
 
 ## Upgrading from a previous version
 
@@ -81,7 +86,7 @@ Your project may not depend on some packages listed in this table.
 | `peregrine`                            | **15.5.2***    |
 | `pwa-buildpack`                        | 11.5.4         |
 | `pwa-theme-venia`                      | 2.4.0          |
-| `upward-js`                            | 5.4.2          |
+| `upward-js`                            | **5.4.3***     |
 | `upward-spec`                          | 5.3.1          |
 | `venia-concept`                        | **14.3.1***    |
 | `venia-ui`                             | 11.7.0         |
