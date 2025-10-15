@@ -1,7 +1,7 @@
 {
     "name": "pwa-devdocs",
     "private": true,
-    "version": "14.4.0-beta2",
+    "version": "14.4.0-beta3",
     "description": "A documentation site for Magento PWA",
     "main": "gulpfile.js",
     "dependencies": {
