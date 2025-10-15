@@ -18,8 +18,6 @@ export const getOutOfStockVariants = (
     isOutOfStockProductDisplayed
 ) => {
     const isConfigurable = isProductConfigurable(product);
-    const singeOptionSelected =
-        singleOptionSelection && singleOptionSelection.size === 1;
     const outOfStockIndexes = [];
 
     if (isConfigurable) {
@@ -31,6 +29,14 @@ export const getOutOfStockVariants = (
         variants = isOutOfStockProductDisplayed
             ? variants
             : variantsIfOutOfStockProductsNotDisplayed;
+
+        if (!variants || variants.length === 0) {
+            return [];
+        }
+
+        if (!variants[0] || !variants[0].attributes) {
+            return [];
+        }
 
         const numberOfVariations = variants[0].attributes.length;
 
@@ -45,18 +51,14 @@ export const getOutOfStockVariants = (
             );
             return outOfStockIndex;
         } else {
-            if (singeOptionSelected) {
-                const optionsSelected =
-                    Array.from(optionSelections.values()).filter(
-                        value => !!value
-                    ).length > 1;
-                const selectedIndexes = Array.from(
-                    optionSelections.values()
-                ).flat();
+            const selectedIndexes = Array.from(
+                optionSelections.values()
+            ).filter(value => !!value);
 
+            if (selectedIndexes.length > 0) {
                 const items = findAllMatchingVariants({
                     optionCodes,
-                    singleOptionSelection,
+                    singleOptionSelection: optionSelections,
                     variants
                 });
                 const outOfStockItemsIndexes = getOutOfStockIndexes(items);
@@ -70,15 +72,14 @@ export const getOutOfStockVariants = (
                     const differentIndexes = indexes.filter(
                         num => !selectedIndexes.includes(num)
                     );
-                    if (sameIndexes.length >= optionCodes.size - 1) {
+                    if (sameIndexes.length > 0) {
                         outOfStockIndexes.push(differentIndexes);
                     }
                 }
                 // Display all possible out of stock swatches with current selections, when all groups of swatches are selected
                 if (
-                    optionsSelected &&
-                    !selectedIndexes.includes(undefined) &&
-                    selectedIndexes.length === optionCodes.size
+                    selectedIndexes.length === optionCodes.size &&
+                    !selectedIndexes.includes(undefined)
                 ) {
                     const selectedIndexesCombinations = getCombinations(
                         selectedIndexes,
@@ -96,7 +97,7 @@ export const getOutOfStockVariants = (
                             )
                         );
                         const curItems = findAllMatchingVariants({
-                            optionCodes: optionCodes,
+                            optionCodes,
                             singleOptionSelection: curOption,
                             variants: variants
                         });
@@ -107,8 +108,11 @@ export const getOutOfStockVariants = (
                     }
                     return oosIndexes;
                 }
-                return outOfStockIndexes;
+            } else {
+                return [];
             }
+
+            return outOfStockIndexes;
         }
     }
     return [];

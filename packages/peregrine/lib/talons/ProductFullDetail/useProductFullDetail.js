@@ -1,6 +1,6 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, gql } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
@@ -13,6 +13,8 @@ import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './productFullDetail.gql';
 import { useEventingContext } from '../../context/eventing';
 import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import BrowserPersistence from '../../util/simplePersistence';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -257,7 +259,9 @@ export const useProductFullDetail = props => {
 
     const isSupportedProductType = isSupported(productType);
 
-    const [{ cartId }] = useCartContext();
+    //const [{ cartId }] = useCartContext();
+    const [cartState, cartApi] = useCartContext();
+    const { cartId } = cartState;
     const [{ isSignedIn }] = useUserContext();
     const { formatMessage } = useIntl();
 
@@ -411,6 +415,42 @@ export const useProductFullDetail = props => {
         return selectedOptions;
     }, [attributeIdToValuesMap, optionSelections]);
 
+    // Cart creation wiring (same approach as useAddToCartButton.js)
+    const CREATE_CART_MUTATION = gql`
+        mutation createCart {
+            cartId: createEmptyCart
+        }
+    `;
+
+    const CART_DETAILS_QUERY = gql`
+        query checkUserIsAuthed($cartId: String!) {
+            cart(cart_id: $cartId) {
+                id
+            }
+        }
+    `;
+
+    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
+    const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
+
+    const ensureCartId = useCallback(async () => {
+        let newCartId = cartId;
+        if (!newCartId) {
+            await cartApi.getCartDetails({
+                fetchCartId,
+                fetchCartDetails
+            });
+
+            newCartId = new BrowserPersistence().getItem('cartId');
+            if (!newCartId) {
+                throw new Error('Failed to create a new cart');
+            }
+        }
+        return newCartId;
+    }, [cartId, cartApi, fetchCartId, fetchCartDetails]);
+
+    // Cart Creation ends
+
     const handleAddToCart = useCallback(
         async formValues => {
             const { quantity } = formValues;
@@ -435,7 +475,7 @@ export const useProductFullDetail = props => {
 
                 if (isSupportedProductType) {
                     const variables = {
-                        cartId,
+                        cartId, // will be replaced by ensured cart id below
                         parentSku: payload.parentSku,
                         product: payload.item,
                         quantity: payload.quantity,
@@ -484,6 +524,10 @@ export const useProductFullDetail = props => {
                 }
 
                 try {
+                    //Ensure cart exists *right before* mutation runs
+                    const ensuredCartId = await ensureCartId();
+                    variables.cartId = ensuredCartId;
+
                     await addProductToCart({ variables });
 
                     const selectedOptionsLabels =
@@ -498,7 +542,7 @@ export const useProductFullDetail = props => {
                     dispatch({
                         type: 'CART_ADD_ITEM',
                         payload: {
-                            cartId,
+                            cartId: ensuredCartId,
                             sku: product.sku,
                             name: product.name,
                             pricing: product.price,
@@ -527,7 +571,8 @@ export const useProductFullDetail = props => {
             product,
             productPrice,
             productType,
-            selectedOptionsArray
+            selectedOptionsArray,
+            ensureCartId
         ]
     );
 

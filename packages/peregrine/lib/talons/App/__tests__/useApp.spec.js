@@ -16,6 +16,13 @@ useHistory.mockImplementation(() => ({
     go: reload
 }));
 
+jest.mock(
+    '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
+    () => ({
+        useCustomerWishlistSkus: jest.fn()
+    })
+);
+
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {
         drawerClosed: false,

@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react';
 import { act } from 'react-test-renderer';
-import { useMutation } from '@apollo/client';
-
+import {
+    useMutation,
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider
+} from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 import { useWishlistItem } from '../useWishlistItem';
 import { useEventingContext } from '../../../context/eventing';
+
+const client = new ApolloClient({
+    uri: '/graphql',
+    cache: new InMemoryCache()
+});
 
 jest.mock('@apollo/client', () => {
     const ApolloClient = jest.requireActual('@apollo/client');
@@ -77,7 +86,11 @@ const baseProps = {
 };
 
 test('it returns the correct shape', () => {
-    createTestInstance(<Component {...baseProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...baseProps} />
+        </ApolloProvider>
+    );
 
     const talonProps = log.mock.calls[0][0];
 
@@ -86,7 +99,11 @@ test('it returns the correct shape', () => {
 
 test('it returns mutation response fields', () => {
     useMutation.mockReturnValue([jest.fn(), { error: {}, loading: true }]);
-    createTestInstance(<Component {...baseProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...baseProps} />
+        </ApolloProvider>
+    );
 
     const talonProps = log.mock.calls[0][0];
 
@@ -95,7 +112,11 @@ test('it returns mutation response fields', () => {
 });
 
 test('mutation passes options for simple item', () => {
-    createTestInstance(<Component {...baseProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...baseProps} />
+        </ApolloProvider>
+    );
 
     const mutationOptions = useMutation.mock.calls[0][1];
 
@@ -127,22 +148,30 @@ test('mutation passes options for configurable item', () => {
             }
         }
     };
-    createTestInstance(<Component {...configurableProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...configurableProps} />
+        </ApolloProvider>
+    );
 
     const mutationOptions = useMutation.mock.calls[0][1];
 
     expect(mutationOptions).toMatchSnapshot();
 });
 
-test('handleAddToCart callback fires mutation', () => {
+test('handleAddToCart callback fires mutation', async () => {
     const mockMutate = jest.fn();
     useMutation.mockReturnValue([mockMutate, { loading: false }]);
-    createTestInstance(<Component {...baseProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...baseProps} />
+        </ApolloProvider>
+    );
 
     const talonProps = log.mock.calls[0][0];
 
-    act(() => {
-        talonProps.addToCartButtonProps.onClick();
+    await act(async () => {
+        await talonProps.addToCartButtonProps.onClick();
     });
 
     expect(mockMutate).toHaveBeenCalled();
@@ -157,7 +186,11 @@ test('handleAddToCart callback should dispatch event', async () => {
         }
     ]);
 
-    createTestInstance(<Component {...baseProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...baseProps} />
+        </ApolloProvider>
+    );
 
     const talonProps = log.mock.calls[0][0];
 
@@ -173,7 +206,11 @@ test('handleAddToCart callback should dispatch event', async () => {
 test('handleRemoveProductFromWishlist callback fires mutation', () => {
     const mockMutate = jest.fn();
     useMutation.mockReturnValue([mockMutate, { loading: false }]);
-    createTestInstance(<Component {...baseProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...baseProps} />
+        </ApolloProvider>
+    );
 
     const talonProps = log.mock.calls[0][0];
 
@@ -198,7 +235,11 @@ test('handleRemoveProductFromWishlist callback logs error if the mutation fails'
             loading: false
         }
     ]);
-    createTestInstance(<Component {...baseProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...baseProps} />
+        </ApolloProvider>
+    );
     const talonProps = log.mock.calls[0][0];
     act(() => {
         talonProps.handleRemoveProductFromWishlist();
@@ -218,7 +259,11 @@ test('disables addToCart button when out of stock', () => {
         }
     };
 
-    createTestInstance(<Component {...outOfStockProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...outOfStockProps} />
+        </ApolloProvider>
+    );
 
     const talonProps = log.mock.calls[0][0];
 
@@ -249,7 +294,11 @@ test('fires open dialog callback if not configured', () => {
         }
     };
 
-    createTestInstance(<Component {...configurableProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...configurableProps} />
+        </ApolloProvider>
+    );
     const talonProps = log.mock.calls[0][0];
 
     act(() => {
@@ -264,7 +313,11 @@ test('test if cache clean works', () => {
     const mockMutate = jest.fn();
     useMutation.mockReturnValue([mockMutate, { loading: false }]);
 
-    createTestInstance(<Component {...baseProps} />);
+    createTestInstance(
+        <ApolloProvider client={client}>
+            <Component {...baseProps} />
+        </ApolloProvider>
+    );
 
     const { update } = useMutation.mock.calls[1][1];
     const talonProps = log.mock.calls[0][0];

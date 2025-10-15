@@ -25,7 +25,8 @@ jest.mock('@apollo/client', () => ({
         },
         loading: false,
         error: false
-    }))
+    })),
+    useApolloClient: jest.fn()
 }));
 
 jest.mock('@magento/peregrine/lib/context/user', () => {
