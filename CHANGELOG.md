@@ -10,25 +10,25 @@ The 14.4.0 release of PWA Studio provides multiple bug fixes and improvements to
 
 ## Additional fixes
 
--  Story:[4545][] — Add to Cart Button should is enhanced.
--  Bug:[4562][] — Wishlist pagination issue to display more than 2 pages is resolved
--  Bug:[4548][] — CSP nonce error for inline script is resolved
--  Bug:[4541][] — Video is properly rendered on the frontend now.
--  Bug:[310][] — Corrected all the PWA dev docs for typo and grammatical errors
--  Bug:[4505][] — fixed Select to use Peregrine's "useInformedFieldStateWrapper"
--  Bug:[4469][] — fixed Yarn invariant violation caused by "packages/pagebuilder" requesting different version of "react-tabs"
--  Bug:[4540][] — Cart Becomes Empty When Updating Configurable Products is fixed
--  Bug:[4542][] — Fixed wish list pagination issue
--  Bug:[4535][] — Removed package-lock.json
--  Bug:[4549][] — upwardPath not found error resolved
--  Bug:[4543][] — Infinite loop query GetWishlistItemsForLocalField is resolved
--  Bug:[4550][] — Invalid auth middleware clearTimeout implementation is resolved
--  Bug:[4544][] — Search Filters Reset Causes Unfiltered Search Results is resolved
+-  Story:[4545][] — The Add to Cart button has been enhanced
+-  Bug:[4562][] — The wishlist pagination issue preventing more than 2 pages from displaying has been resolved
+-  Bug:[4548][] — The CSP nonce error for inline scripts has been resolved
+-  Bug:[4541][] — Videos now render properly on the frontend.
+-  Bug:[310][] — Corrected typos and grammatical errors in all PWA developer documentation.
+-  Bug:[4505][] — Fixed the Select component to use Peregrine's useInformedFieldStateWrapper.
+-  Bug:[4469][] — Fixed a Yarn invariant violation caused by packages/pagebuilder requesting a different version of react-tabs.
+-  Bug:[4540][] — Fixed an issue where the cart became empty when updating configurable products.
+-  Bug:[4542][] — Fixed wishlist pagination issue.
+-  Bug:[4535][] — Removed package-lock.json.
+-  Bug:[4549][] — Resolved the upwardPath not found error.
+-  Bug:[4543][] — Resolved an infinite loop query in GetWishlistItemsForLocalField.
+-  Bug:[4550][] — Fixed invalid auth middleware clearTimeout implementation.
+-  Bug:[4544][] — Fixed an issue where resetting search filters caused unfiltered search results.
 
 ## 14.4.0 Lighthouse scores
 
-With each new release of PWA Studio, we perform Lighthouse audits of four Venia page types, each representing a different level of complexity. Shown below are the Lighthouse scores for the 14.4.0 release of these pages on desktop and mobile devices.
-
+With each new release of PWA Studio, we perform Lighthouse audits on four Venia page types, each representing a different level of complexity.
+Shown below are the Lighthouse scores for the 14.4.0 release of these pages on desktop and mobile devices.
 ### Desktop scores
 
 |                |            Home Page            |          Product Category           |          Product Details           |          Search Results           |
@@ -55,7 +55,11 @@ With each new release of PWA Studio, we perform Lighthouse audits of four Venia 
 
 ## Known issue
 
-When a user logs out, that user's local storage session persists. As a result, the cart ID from the logged out user is retrieved and given to the _guest user_ on the computer. This causes the following error when the guest user tries to check out: `An error has occurred. Please check the input and try again.` To resolve this issue, try disabling graphql session sharing as described in the GraphQL documentation on session cookies here: https://devdocs.magento.com/guides/v2.4/graphql/authorization-tokens.html#session-cookies.
+When a user logs out, that user's local storage session persists. As a result, the cart ID from the logged-out user is retrieved and assigned to the guest user on the same computer.
+This causes the following error when the guest user tries to check out:
+An error has occurred. Please check the input and try again. 
+
+To resolve this issue, try disabling graphql session sharing as described in the GraphQL documentation on session cookies here: https://devdocs.magento.com/guides/v2.4/graphql/authorization-tokens.html#session-cookies.
 
 ## Upgrading from a previous version
 
