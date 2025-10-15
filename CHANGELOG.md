@@ -16,13 +16,13 @@ The 14.4.0 release of PWA Studio provides newly built package PWA Live Search
 -  Bug:[4548][] — CSP nonce error for inline script is resolved
 -  Bug:[4541][] — Video is properly rendered on the frontend now.
 -  Bug:[310][] — Corrected all the PWA dev docs for typo and grammatical errors
--  Bug:[4505][] — fixed <Select> to use Peregrine's "useInformedFieldStateWrapper".
+-  Bug:[4505][] — fixed Select to use Peregrine's "useInformedFieldStateWrapper"
 -  Bug:[4469][] — fixed Yarn invariant violation caused by "packages/pagebuilder" requesting different version of "react-tabs"
 -  Bug:[4540][] — Cart Becomes Empty When Updating Configurable Products is fixed
 -  Bug:[4542][] — Fixed wish list pagination issue
 -  Bug:[4535][] — Removed package-lock.json
--  Bug:[4549][] — upwardPath not found error resolved.
--  Bug:[4543][] — Infinite loop query GetWishlistItemsForLocalField is resolved.
+-  Bug:[4549][] — upwardPath not found error resolved
+-  Bug:[4543][] — Infinite loop query GetWishlistItemsForLocalField is resolved
 -  Bug:[4550][] — Invalid auth middleware clearTimeout implementation is resolved
 -  Bug:[4544][] — Search Filters Reset Causes Unfiltered Search Results is resolved
 
