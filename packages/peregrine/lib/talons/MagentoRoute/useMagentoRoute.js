@@ -71,8 +71,8 @@ export const useMagentoRoute = (props = {}) => {
                 });
 
                 if (isMounted) {
-                    setRouteData(data);
                     fetchedPathname.current = pathname;
+                    setRouteData(data);
                 }
             } catch (error) {
                 if (isMounted) {
