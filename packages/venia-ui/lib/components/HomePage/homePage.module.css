@@ -51,11 +51,11 @@
  * Target all column groups after the slider.
  */
 :global(.venia-home-slider ~ div) {
-    display: grid !important;
+    /* display: grid !important; */
     gap: 0;
-    grid-auto-columns: 1fr;
+    /* grid-auto-columns: 1fr;
     grid-auto-flow: column;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); */
     padding: 0 1rem;
     z-index: 1;
 }
