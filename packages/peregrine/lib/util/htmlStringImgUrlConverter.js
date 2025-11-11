@@ -9,7 +9,9 @@ import DOMPurify from 'dompurify';
  */
 const htmlStringImgUrlConverter = htmlString => {
     const temporaryElement = document.createElement('div');
-    temporaryElement.innerHTML = DOMPurify.sanitize(htmlString);
+    temporaryElement.innerHTML = DOMPurify.sanitize(htmlString, {
+        ADD_ATTR: ['target']
+    });
     for (const imgElement of temporaryElement.getElementsByTagName('img')) {
         imgElement.src = makeUrl(imgElement.src, {
             type: 'image-wysiwyg',
