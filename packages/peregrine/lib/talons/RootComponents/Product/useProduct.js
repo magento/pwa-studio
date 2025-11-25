@@ -37,17 +37,20 @@ export const useProduct = props => {
     ] = useAppContext();
 
     const { data: storeConfigData } = useQuery(getStoreConfigData, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
+        fetchPolicy: 'cache-first'
     });
 
-    const slug = pathname.split('/').pop();
-    const productUrlSuffix = storeConfigData?.storeConfig?.product_url_suffix;
-    const urlKey = productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
+    const urlKey = useMemo(() => {
+        const slug = pathname.split('/').pop();
+        const productUrlSuffix =
+            storeConfigData?.storeConfig?.product_url_suffix;
+        return productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
+    }, [pathname, storeConfigData?.storeConfig?.product_url_suffix]);
 
     const { error, loading, data } = useQuery(getProductDetailQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
+        fetchPolicy: 'cache-first',
+        nextFetchPolicy: 'cache-only',
+        returnPartialData: true,
         skip: !storeConfigData,
         variables: {
             urlKey

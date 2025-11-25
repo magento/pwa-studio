@@ -268,7 +268,7 @@ export const useProductFullDetail = props => {
     const { data: storeConfigData } = useQuery(
         operations.getWishlistConfigQuery,
         {
-            fetchPolicy: 'cache-and-network'
+            fetchPolicy: 'cache-first'
         }
     );
 
