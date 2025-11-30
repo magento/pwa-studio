@@ -12,7 +12,7 @@ describe(
 
         before(() => {
             // Check store count before running any tests
-            getStoreCount().then((count) => {
+            getStoreCount().then(count => {
                 storeCount = count;
                 cy.log(`📊 Detected ${storeCount} store(s) in the system`);
             });
@@ -20,9 +20,11 @@ describe(
 
         it('Demo Test 1: Should SKIP if single store', function() {
             cy.log(`Current store count: ${storeCount}`);
-            
+
             if (storeCount <= 1) {
-                cy.log('⏭️ SKIPPED: This test requires multi-store configuration');
+                cy.log(
+                    '⏭️ SKIPPED: This test requires multi-store configuration'
+                );
                 cy.log(`⏭️ Only ${storeCount} store(s) found, need at least 2`);
                 this.skip();
                 return;
@@ -30,7 +32,7 @@ describe(
 
             cy.log('✅ Multi-store IS configured!');
             cy.log('✅ This test will run normally');
-            
+
             // Your test code here...
             cy.visitHomePage();
             expect(storeCount).to.be.greaterThan(1);
@@ -39,7 +41,7 @@ describe(
         it('Demo Test 2: Should ALWAYS run (no skip)', function() {
             cy.log('✅ This test runs regardless of store count');
             cy.log(`📊 Current store count: ${storeCount}`);
-            
+
             // This test doesn't require multi-store, so it always runs
             cy.visitHomePage();
             expect(true).to.be.true;
@@ -57,4 +59,3 @@ describe(
         });
     }
 );
-

@@ -139,16 +139,24 @@ describe(
 
         before(() => {
             // Check if multi-store is configured
-            getStoreCount().then((count) => {
+            getStoreCount().then(count => {
                 storeCount = count;
                 cy.log(`📊 Multi-Store Check: Found ${count} store(s)`);
-                
+
                 if (count <= 1) {
-                    cy.log('⚠️ WARNING: Multi-store NOT configured (only ' + count + ' store)');
-                    cy.log('⚠️ Localization tests require at least 2 store views');
+                    cy.log(
+                        '⚠️ WARNING: Multi-store NOT configured (only ' +
+                            count +
+                            ' store)'
+                    );
+                    cy.log(
+                        '⚠️ Localization tests require at least 2 store views'
+                    );
                     cy.log('⚠️ These tests will be SKIPPED');
                 } else {
-                    cy.log('✅ Multi-store IS configured (' + count + ' stores)');
+                    cy.log(
+                        '✅ Multi-store IS configured (' + count + ' stores)'
+                    );
                     cy.log('✅ Localization tests will run normally');
                 }
             });
@@ -157,8 +165,14 @@ describe(
         it('should display Default Store View and USD currency by default', function() {
             // Skip test if multi-store is not configured
             if (storeCount <= 1) {
-                cy.log('⏭️ SKIPPED: Multi-store not configured (only ' + storeCount + ' store)');
-                cy.log('⏭️ This test requires at least 2 store views to test StoreSwitcher');
+                cy.log(
+                    '⏭️ SKIPPED: Multi-store not configured (only ' +
+                        storeCount +
+                        ' store)'
+                );
+                cy.log(
+                    '⏭️ This test requires at least 2 store views to test StoreSwitcher'
+                );
                 this.skip();
                 return;
             }

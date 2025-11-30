@@ -598,12 +598,14 @@ describe(
 
         before(() => {
             // Check if multi-store is configured
-            getStoreCount().then((count) => {
+            getStoreCount().then(count => {
                 storeCount = count;
                 cy.log(`📊 Multi-Store Check: Found ${count} store(s)`);
-                
+
                 if (count <= 1) {
-                    cy.log('⚠️ Multi-store NOT configured - tests will be skipped');
+                    cy.log(
+                        '⚠️ Multi-store NOT configured - tests will be skipped'
+                    );
                 }
             });
         });
@@ -719,10 +721,12 @@ describe(
 
         before(() => {
             // Check if multi-store is configured
-            getStoreCount().then((count) => {
+            getStoreCount().then(count => {
                 storeCount = count;
                 if (count <= 1) {
-                    cy.log('⚠️ Multi-store NOT configured - store switching tests will be skipped');
+                    cy.log(
+                        '⚠️ Multi-store NOT configured - store switching tests will be skipped'
+                    );
                 }
             });
         });
@@ -928,10 +932,12 @@ describe(
 
         before(() => {
             // Check if multi-store is configured
-            getStoreCount().then((count) => {
+            getStoreCount().then(count => {
                 storeCount = count;
                 if (count <= 1) {
-                    cy.log('⚠️ Multi-store NOT configured - cart tests will be skipped');
+                    cy.log(
+                        '⚠️ Multi-store NOT configured - cart tests will be skipped'
+                    );
                 }
             });
         });
