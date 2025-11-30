@@ -24,6 +24,7 @@ import {
     miniCart as miniCartActions
 } from '../../../actions';
 import { aliasMutation } from '../../../utils/graphql-test-utils';
+import { getStoreCount } from '../../../support/multiStoreHelper';
 
 const {
     assertCurrencyIsDisplayed,
@@ -134,7 +135,34 @@ describe(
     'PWA-1415: Verify Venia Localization',
     { tags: ['@e2e', '@commerce', '@ci', '@localization', '@checkout'] },
     () => {
-        it('should display Default Store View and USD currency by default', () => {
+        let storeCount = 0;
+
+        before(() => {
+            // Check if multi-store is configured
+            getStoreCount().then((count) => {
+                storeCount = count;
+                cy.log(`📊 Multi-Store Check: Found ${count} store(s)`);
+                
+                if (count <= 1) {
+                    cy.log('⚠️ WARNING: Multi-store NOT configured (only ' + count + ' store)');
+                    cy.log('⚠️ Localization tests require at least 2 store views');
+                    cy.log('⚠️ These tests will be SKIPPED');
+                } else {
+                    cy.log('✅ Multi-store IS configured (' + count + ' stores)');
+                    cy.log('✅ Localization tests will run normally');
+                }
+            });
+        });
+
+        it('should display Default Store View and USD currency by default', function() {
+            // Skip test if multi-store is not configured
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured (only ' + storeCount + ' store)');
+                cy.log('⏭️ This test requires at least 2 store views to test StoreSwitcher');
+                this.skip();
+                return;
+            }
+
             cy.visitHomePage();
 
             assertStoreIsDisplayed('Default Store View');
@@ -146,7 +174,14 @@ describe(
             assertCurrencyIsSelected('USD');
         });
 
-        it('should display EUR currency by default if French Store View is selected', () => {
+        it('should display EUR currency by default if French Store View is selected', function() {
+            // Skip test if multi-store is not configured
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             cy.visitHomePage();
             triggerStoreSwitcherMenu();
             changeStoreView('French Store View');
@@ -158,7 +193,14 @@ describe(
             assertCurrencyIsSelected('EUR');
         });
 
-        it('should be able to place an order in French store', () => {
+        it('should be able to place an order in French store', function() {
+            // Skip test if multi-store is not configured
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             cy.intercept('GET', getSelectedAndAvailableShippingMethodsCall).as(
                 'gqlGetSelectedAndAvailableShippingMethodsQuery'
             );
@@ -260,7 +302,14 @@ describe(
             );
         });
 
-        it('should display English text and USD currency accross app if Default Store View is selected', () => {
+        it('should display English text and USD currency accross app if Default Store View is selected', function() {
+            // Skip test if multi-store is not configured
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             cy.intercept('GET', getAutocompleteResultsCall).as(
                 'gqlGetAutocompleteResultsQuery'
             );
@@ -426,7 +475,14 @@ describe(
             assertOrderConfirmationPageTextLanguage('eng');
         });
 
-        it('should display French text and EUR currency accross app if French Store View is selected', () => {
+        it('should display French text and EUR currency accross app if French Store View is selected', function() {
+            // Skip test if multi-store is not configured
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             cy.intercept('GET', getAutocompleteResultsCall).as(
                 'gqlGetAutocompleteResultsQuery'
             );
@@ -598,7 +654,14 @@ describe(
             assertOrderConfirmationPageTextLanguage('fra');
         });
 
-        it('should show USD currency across app if it is selected inside French Store View', () => {
+        it('should show USD currency across app if it is selected inside French Store View', function() {
+            // Skip test if multi-store is not configured
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             cy.intercept('GET', getAutocompleteResultsCall).as(
                 'gqlGetAutocompleteResultsQuery'
             );

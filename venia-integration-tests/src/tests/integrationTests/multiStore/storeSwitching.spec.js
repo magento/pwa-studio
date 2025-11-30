@@ -46,6 +46,7 @@ import {
     assertProductImageDisplayed
 } from '../../../assertions/miniCart';
 import { assertImageUrlContainsBaseUrl } from '../../../assertions/pageBuilder';
+import { getStoreCount } from '../../../support/multiStoreHelper';
 
 import {
     checkUserIsAuthedCall,
@@ -593,7 +594,28 @@ describe(
     'default store',
     { tags: ['@integration', '@commerce', '@ci', '@multistore'] },
     () => {
-        it('contains valid CMS Page data', () => {
+        let storeCount = 0;
+
+        before(() => {
+            // Check if multi-store is configured
+            getStoreCount().then((count) => {
+                storeCount = count;
+                cy.log(`📊 Multi-Store Check: Found ${count} store(s)`);
+                
+                if (count <= 1) {
+                    cy.log('⚠️ Multi-store NOT configured - tests will be skipped');
+                }
+            });
+        });
+
+        it('contains valid CMS Page data', function() {
+            // Skip if only 1 store
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
@@ -613,7 +635,14 @@ describe(
             assertImageUrlContainsBaseUrl();
         });
 
-        it('displays subcategories from the default root category', () => {
+        it('displays subcategories from the default root category', function() {
+            // Skip if only 1 store
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
@@ -638,7 +667,14 @@ describe(
             });
         });
 
-        it('displays assigned products', () => {
+        it('displays assigned products', function() {
+            // Skip if only 1 store
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
@@ -679,7 +715,26 @@ describe(
     'switching to another store',
     { tags: ['@integration', '@commerce', '@ci'] },
     () => {
-        it('contains valid CMS Page data specific to the different store', () => {
+        let storeCount = 0;
+
+        before(() => {
+            // Check if multi-store is configured
+            getStoreCount().then((count) => {
+                storeCount = count;
+                if (count <= 1) {
+                    cy.log('⚠️ Multi-store NOT configured - store switching tests will be skipped');
+                }
+            });
+        });
+
+        it('contains valid CMS Page data specific to the different store', function() {
+            // Skip if only 1 store
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
@@ -716,7 +771,14 @@ describe(
             assertImageUrlContainsBaseUrl();
         });
 
-        it('shows categories specific to the different store', () => {
+        it('shows categories specific to the different store', function() {
+            // Skip if only 1 store
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
@@ -786,7 +848,14 @@ describe(
             });
         });
 
-        it('shows products specific to the categories in the different store', () => {
+        it('shows products specific to the categories in the different store', function() {
+            // Skip if only 1 store
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
@@ -855,7 +924,26 @@ describe(
     'shopping cart',
     { tags: ['@integration', '@commerce', '@ci'] },
     () => {
-        it('lets users add products to cart regardless of store view', () => {
+        let storeCount = 0;
+
+        before(() => {
+            // Check if multi-store is configured
+            getStoreCount().then((count) => {
+                storeCount = count;
+                if (count <= 1) {
+                    cy.log('⚠️ Multi-store NOT configured - cart tests will be skipped');
+                }
+            });
+        });
+
+        it('lets users add products to cart regardless of store view', function() {
+            // Skip if only 1 store
+            if (storeCount <= 1) {
+                cy.log('⏭️ SKIPPED: Multi-store not configured');
+                this.skip();
+                return;
+            }
+
             interceptStoreRequests(defaultStore.defaultView.storeCode);
             interceptRouteDataRequests(defaultStore.defaultView.storeCode);
 
