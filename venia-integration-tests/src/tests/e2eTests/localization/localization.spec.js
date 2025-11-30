@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+// Note: When multi-store is not configured, some tests skip and their variables appear unused
+// Variables are kept for when multi-store IS configured
 import {
     graphqlMockedCalls as graphqlMockedCallsFixtures,
     productPage as productPageFixtures,
