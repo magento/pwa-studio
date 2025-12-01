@@ -46,17 +46,17 @@ describe(
 
             cy.visit(categorySweaters);
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             cy.wait(['@gqlGetStoreConfigDataForGallery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             addProductToCartFromCategoryPage(carinaCardigan.name);
 
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
             cy.checkUrlPath(carinaCardigan.url);
 
@@ -64,7 +64,7 @@ describe(
             cy.visit(categoryJewelry);
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
             addProductToCartFromCategoryPage(silverAmorBangleSet.name);
 

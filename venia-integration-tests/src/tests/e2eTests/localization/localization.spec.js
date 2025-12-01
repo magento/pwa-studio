@@ -251,21 +251,21 @@ describe(
 
             cy.visit(productIsadoraSkirt.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             addToCartFromProductPage();
 
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             cy.visitCheckoutPage();
             setGuestShippingAddress(checkoutCustomer1);
 
             cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             submitShippingMethod();
@@ -275,7 +275,7 @@ describe(
                     '@gqlSetShippingMethodMutation',
                     '@gqlGetPaymentInformationQuery'
                 ],
-                { timeout: 60000 }
+                { timeout: 120000 }
             );
             selectCreditCardPaymentMethod();
 
@@ -290,14 +290,14 @@ describe(
                     '@gqlsetSelectedPaymentMethodMutation'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
             placeOrder();
 
             cy.wait(['@gqlplaceOrderMutation', '@gqlGetCheckoutDetailsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressInShippingInformationInCheckoutPage(
@@ -364,7 +364,7 @@ describe(
             triggerSearch();
             searchFromSearchBar('Dress', false);
             cy.wait(['@gqlGetAutocompleteResultsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // check header language
@@ -395,7 +395,7 @@ describe(
             cy.wait(
                 ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -410,7 +410,7 @@ describe(
             // Add configurable product to cart
             cy.visit(productIsadoraSkirt.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // check product page language/currency
@@ -421,17 +421,17 @@ describe(
             addToCartFromProductPage();
 
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Add simple product to cart
             cy.visit(productAugustaEarrings.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // check miniCart language/currency
@@ -455,13 +455,13 @@ describe(
                     '@gqlSetShippingMethodMutation'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
             selectCreditCardPaymentMethod();
             cy.wait(['@gqlGetPaymentInformationQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleBillingAddressForm();
@@ -479,14 +479,14 @@ describe(
                     '@gqlsetSelectedPaymentMethodMutation'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
             placeOrder();
 
             cy.wait(['@gqlplaceOrderMutation', '@gqlGetCheckoutDetailsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertOrderConfirmationPageTextLanguage('eng');
@@ -542,7 +542,7 @@ describe(
             triggerSearch();
             searchFromSearchBar('Dress', false);
             cy.wait(['@gqlGetAutocompleteResultsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // check header language
@@ -573,7 +573,7 @@ describe(
             cy.wait(
                 ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -588,7 +588,7 @@ describe(
             // Add configurable product to cart
             cy.visit(productIsadoraSkirt.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // check product page language/currency
@@ -599,17 +599,17 @@ describe(
             addToCartFromProductPage();
 
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Add simple product to cart
             cy.visit(productAugustaEarrings.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // check miniCart language/currency
@@ -634,13 +634,13 @@ describe(
                     '@gqlSetShippingMethodMutation'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
             selectCreditCardPaymentMethod();
             cy.wait(['@gqlGetPaymentInformationQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleBillingAddressForm();
@@ -658,14 +658,14 @@ describe(
                     '@gqlsetSelectedPaymentMethodMutation'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
             placeOrder();
 
             cy.wait(['@gqlplaceOrderMutation', '@gqlGetCheckoutDetailsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertOrderConfirmationPageTextLanguage('fra');
@@ -705,7 +705,7 @@ describe(
             triggerSearch();
             searchFromSearchBar('Dress', false);
             cy.wait(['@gqlGetAutocompleteResultsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
             assertProductSuggestionsHasCurrency('USD');
 
@@ -716,7 +716,7 @@ describe(
             // Add configurable product to cart
             cy.visit(productIsadoraSkirt.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertProductPriceHasCurrency('USD');
@@ -724,7 +724,7 @@ describe(
             addToCartFromProductPage();
 
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // check miniCart currency

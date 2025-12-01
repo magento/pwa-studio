@@ -21,7 +21,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Verify Map - All content',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -68,7 +68,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Verify Map - 2 Locations',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });

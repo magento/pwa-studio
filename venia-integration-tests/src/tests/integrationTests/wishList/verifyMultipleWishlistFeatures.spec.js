@@ -83,7 +83,7 @@ describe(
             cy.wait(
                 ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 

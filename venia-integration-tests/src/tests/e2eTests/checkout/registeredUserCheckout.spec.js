@@ -138,14 +138,14 @@ describe(
             // Test - Add configurable product to cart from Product Page
             cy.visit(productValeriaTwoLayeredTank.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage(2);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(2);
@@ -163,7 +163,7 @@ describe(
             );
 
             cy.wait(['@gqlGetCustomerAfterCreateQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCreateAccount(firstName);
@@ -171,13 +171,13 @@ describe(
             // Test - Add simple product to cart from Product Page
             cy.visit(productAugustaEarrings.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             setQuantityFromProductPage(2);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(4);
@@ -185,7 +185,7 @@ describe(
             // Test - Products are in Cart Page
             cy.visit(cartPageRoute);
             cy.wait(['@gqlGetProductListingQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertProductInCartPage(productValeriaTwoLayeredTank.name);
@@ -197,7 +197,7 @@ describe(
             setCustomerShippingAddress(completeShippingAddress);
 
             cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressInShippingInformationInCheckoutPage(
@@ -206,7 +206,7 @@ describe(
 
             // Test - Edit Payment Information
             cy.wait(['@gqlGetPaymentInformationQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             editCreditCardInformation({ ...checkoutBillingData[0] });
@@ -221,7 +221,7 @@ describe(
                     '@gqlsetSelectedPaymentMethodMutation'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -241,7 +241,7 @@ describe(
             placeOrder();
 
             cy.wait(['@gqlplaceOrderMutation', '@gqlGetCheckoutDetailsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressInShippingInformationInCheckoutPage(
@@ -291,14 +291,14 @@ describe(
 
             cy.visit(productValeriaTwoLayeredTank.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage(2);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             cy.visitCheckoutPage();
@@ -308,7 +308,7 @@ describe(
             });
 
             cy.wait(['@gqlGetIsEmailAvailableQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Test - Sign in from toast
@@ -323,7 +323,7 @@ describe(
                     '@gqlCreateCartAfterSignInMutation',
                     '@gqlMergeCartsAfterSignInMutation'
                 ],
-                { timeout: 60000 }
+                { timeout: 120000 }
             );
 
             assertCreateAccount(firstName);

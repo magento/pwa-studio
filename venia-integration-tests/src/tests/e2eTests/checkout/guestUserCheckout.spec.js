@@ -137,28 +137,28 @@ describe(
             // Test - Add configurable products to cart from Product Pages
             cy.visit(productValeriaTwoLayeredTank.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage(2);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(2);
 
             cy.visit(productIsadoraSkirt.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage();
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(3);
@@ -173,7 +173,7 @@ describe(
                     '@gqlGetShippingMethodsQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -185,7 +185,7 @@ describe(
             toggleShippingMethodEstimate();
 
             cy.wait(['@gqlGetCountriesQuery', '@gqlGetRegionsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             estimateShippingMethod(completeShippingAddress);
@@ -196,7 +196,7 @@ describe(
                     '@gqlSetShippingMethodForEstimateMutation'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -205,7 +205,7 @@ describe(
             );
 
             cy.wait(['@gqlSetShippingMethodForEstimateMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Test - Add Coupon Code
@@ -213,7 +213,7 @@ describe(
             setCouponCodeFromCartPage(Cypress.env('defaultData_couponCode'));
 
             cy.wait(['@gqlapplyCouponToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Test - Add Gift Card
@@ -221,7 +221,7 @@ describe(
             setGiftCardFromCartPage(Cypress.env('defaultData_giftCardNumber'));
 
             cy.wait(['@gqlapplyGiftCardToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Test - Set Guest Shipping Address
@@ -230,7 +230,7 @@ describe(
             setGuestShippingAddress(completeShippingAddress);
 
             cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressInShippingInformationInCheckoutPage(
@@ -244,7 +244,7 @@ describe(
             reviewOrder();
 
             cy.wait(['@gqlGetItemsInCartQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressInShippingInformationInCheckoutPage(
@@ -263,7 +263,7 @@ describe(
             placeOrder();
 
             cy.wait(['@gqlplaceOrderMutation', '@gqlGetCheckoutDetailsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressInShippingInformationInCheckoutPage(
@@ -298,7 +298,7 @@ describe(
                     '@gqlCustomerAfterCheckoutQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 

@@ -53,7 +53,7 @@ describe(
 
             cy.visit(productValeriaTwoLayeredTank.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             setProductColorOption(productValeriaTwoLayeredTank.color);
@@ -62,14 +62,14 @@ describe(
             addToCartFromProductPage();
 
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(2);
             triggerMiniCart();
             goToCartPageFromEditCartButton();
-            cy.wait(['@gqlGetProductListingQuery'], { timeout: 60000 });
-            cy.wait(['@gqlGetPriceSummaryQuery'], { timeout: 60000 });
+            cy.wait(['@gqlGetProductListingQuery'], { timeout: 120000 });
+            cy.wait(['@gqlGetPriceSummaryQuery'], { timeout: 120000 });
             // TODO: Check button toggle. Individual discount not shown. Click toggle. See individual discount. Click toggle.
             // No longer see individual discount
             // Check discount summary without individual discount

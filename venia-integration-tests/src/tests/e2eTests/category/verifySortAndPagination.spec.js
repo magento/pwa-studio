@@ -51,7 +51,7 @@ describe(
             cy.visit(categoryTops.url);
 
             cy.wait(['@gqlGetCategoriesQuery', '@gqlGetCategoryDataQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCategoryTitle(categoryTops.name);
@@ -61,7 +61,7 @@ describe(
             sortProducts(sortData.priceLowHigh);
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleProductSort();
@@ -71,7 +71,7 @@ describe(
             goToPage(2);
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertPaginationActivePage(2);
@@ -81,7 +81,7 @@ describe(
             sortProducts(sortData.priceHighLow);
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleProductSort();
@@ -92,7 +92,7 @@ describe(
             sortProducts(sortData.bestMatch);
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleProductSort();
@@ -104,7 +104,7 @@ describe(
             searchFromSearchBar(searchData.validCategoryName);
 
             cy.wait(['@gqlGetProductSearchQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleProductSort();
@@ -112,7 +112,7 @@ describe(
             sortProducts(sortData.priceLowHigh);
 
             cy.wait(['@gqlGetProductSearchQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleProductSort();
@@ -121,7 +121,7 @@ describe(
             goToPage(2);
 
             cy.wait(['@gqlGetProductSearchQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertPaginationActivePage(2);

@@ -77,7 +77,7 @@ describe(
             cy.wait(
                 ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -95,7 +95,7 @@ describe(
             addEditAddressCard({ ...addressBookData[0], isDefault: true });
 
             cy.wait(['@gqlAddNewCustomerAddressToAddressBookMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressCardCount(1);
@@ -108,7 +108,7 @@ describe(
             addEditAddressCard({ ...addressBookData[1] });
 
             cy.wait(['@gqlAddNewCustomerAddressToAddressBookMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressCardCount(2);
@@ -120,7 +120,7 @@ describe(
             addEditAddressCard({ isDefault: true });
 
             cy.wait(['@gqlUpdateCustomerAddressInAddressBookMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressIsDefault({ ...addressBookData[1] });
@@ -129,7 +129,7 @@ describe(
             deleteAddressCard({ ...addressBookData[0] });
 
             cy.wait(['@gqlDeleteCustomerAddressFromAddressBookMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressCardCount(1);

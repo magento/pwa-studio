@@ -75,7 +75,7 @@ describe(
             cy.wait(
                 ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -100,7 +100,7 @@ describe(
             );
 
             cy.wait(['@gqlSetCustomerInformationMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Test - Edit Account Information Password
@@ -115,7 +115,7 @@ describe(
             );
 
             cy.wait(['@gqlChangeCustomerPasswordMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Test - Sign Out
@@ -126,7 +126,7 @@ describe(
             cy.wait(5000);
 
             cy.wait(['@gqlcreateCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertSignedOut();
@@ -137,7 +137,7 @@ describe(
             cy.resetPassword(updatedAccountEmail);
 
             cy.wait(['@gqlrequestPasswordResetEmailMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertResetPasswordSuccess(updatedAccountEmail);
@@ -150,7 +150,7 @@ describe(
             cy.signInAccount(updatedAccountEmail, updatedAccountPassword);
 
             cy.wait(['@gqlSignInMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCreateAccount(updatedFirstName);

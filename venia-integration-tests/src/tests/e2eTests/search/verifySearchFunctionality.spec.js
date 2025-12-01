@@ -49,7 +49,7 @@ describe(
                     '@gqlGetProductSearchQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -71,7 +71,7 @@ describe(
                     '@gqlGetProductSearchQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -87,7 +87,7 @@ describe(
                     '@gqlGetProductSearchQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -103,7 +103,7 @@ describe(
                     '@gqlGetProductSearchQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 

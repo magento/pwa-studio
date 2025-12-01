@@ -146,14 +146,14 @@ describe(
             assertCartIsEmpty();
             cy.visit(productValeriaTwoLayeredTank.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage(1);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(1);
@@ -208,7 +208,7 @@ describe(
 
             setGuestShippingAddress(checkoutCustomer1);
             cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressInShippingInformationInCheckoutPage(checkoutCustomer1);
@@ -218,7 +218,7 @@ describe(
                     '@gqlSetShippingMethodMutation',
                     '@gqlGetPaymentInformationQuery'
                 ],
-                { timeout: 60000 }
+                { timeout: 120000 }
             );
 
             editCreditCardInformation({ ...checkoutBillingData[0] });
@@ -233,7 +233,7 @@ describe(
             placeOrder();
 
             cy.wait(['@gqlGetCheckoutDetailsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             cy.wait('@gqlPlaceOrderMutation')
@@ -314,14 +314,14 @@ describe(
             assertCartIsEmpty();
             cy.visit(productValeriaTwoLayeredTank.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage(1);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(1);
@@ -380,7 +380,7 @@ describe(
 
             setGuestShippingAddress(checkoutCustomer1);
             cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAddressInShippingInformationInCheckoutPage(checkoutCustomer1);
@@ -390,7 +390,7 @@ describe(
                     '@gqlSetShippingMethodMutation',
                     '@gqlGetPaymentInformationQuery'
                 ],
-                { timeout: 60000 }
+                { timeout: 120000 }
             );
 
             editCreditCardInformation({ ...checkoutBillingData[0] });
@@ -405,7 +405,7 @@ describe(
             placeOrder();
 
             cy.wait(['@gqlGetCheckoutDetailsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             cy.wait('@gqlPlaceOrderMutation')

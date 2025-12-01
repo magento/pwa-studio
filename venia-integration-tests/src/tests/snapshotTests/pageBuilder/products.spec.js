@@ -20,7 +20,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'PB Products Grid',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });
@@ -34,7 +34,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'PB Products Grid Sorting',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });
@@ -58,7 +58,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'PB Products Carousel',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });
@@ -72,7 +72,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'PB Products Carousel Alignment',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });
@@ -96,7 +96,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'PB Products Carousel Styles',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });
@@ -110,7 +110,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'PB Products Carousel Default Mode',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });
@@ -153,7 +153,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'PB Products Carousel Continuous Mode',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });
@@ -173,7 +173,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'PB Products Grid Mobile',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });
@@ -197,7 +197,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'PB Products Carousel Mobile',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });

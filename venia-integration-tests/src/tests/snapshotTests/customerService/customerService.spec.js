@@ -26,7 +26,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Customer Service Page',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });

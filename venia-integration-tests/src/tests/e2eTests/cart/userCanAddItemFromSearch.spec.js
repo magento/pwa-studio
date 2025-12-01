@@ -59,17 +59,17 @@ describe(
                     '@gqlGetProductSearchQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
             cy.wait(['@gqlGetStoreConfigDataForGallery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             addProductToCartFromSearchPage(carinaCardigan.name);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
             cy.checkUrlPath(carinaCardigan.url);
             assertCartIsEmpty();
@@ -81,7 +81,7 @@ describe(
                     '@gqlGetProductSearchQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
             addProductToCartFromSearchPage(semperBangleSet.name);

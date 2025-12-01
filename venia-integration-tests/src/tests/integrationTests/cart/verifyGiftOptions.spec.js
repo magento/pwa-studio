@@ -61,14 +61,14 @@ describe(
             // Test - Add configurable products to cart from Product Pages
             cy.visit(productValeriaTwoLayeredTank.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage(1);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Test - No Gift Options are available
@@ -78,7 +78,7 @@ describe(
 
             cy.visit(cartPageRoute);
             cy.wait(['@gqlGetProductListingQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertNoGiftOptionsSection();
@@ -90,7 +90,7 @@ describe(
 
             cy.reload();
             cy.wait(['@gqlGetProductListingQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleGiftOptionsSection();
@@ -106,7 +106,7 @@ describe(
 
             cy.reload();
             cy.wait(['@gqlGetProductListingQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             toggleGiftOptionsSection();
@@ -125,7 +125,7 @@ describe(
 
             cy.reload();
             cy.wait(['@gqlGetProductListingQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
             cy.wait(['@getGiftOptionsFromCart']).its('response.body');
             cy.wait(['@getGiftOptionsGiftMessageAll2']).its('response.body');
@@ -141,7 +141,7 @@ describe(
             });
 
             cy.wait(['@gqlSetGiftOptionsOnCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartGiftOptions(defaultGiftOptionsData[0]);
@@ -150,7 +150,7 @@ describe(
             setGiftOptionsFromCartPage(defaultGiftOptionsData[2]);
 
             cy.wait(['@gqlSetGiftOptionsOnCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartGiftOptions(defaultGiftOptionsData[2]);

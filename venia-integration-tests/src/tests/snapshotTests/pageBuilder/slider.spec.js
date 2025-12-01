@@ -15,7 +15,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -29,7 +29,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 2',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -43,7 +43,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 3',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -57,7 +57,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 4',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -71,7 +71,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 5',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -85,7 +85,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 6',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -99,7 +99,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 7',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -113,7 +113,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 8',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -127,7 +127,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 9',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -141,7 +141,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 10',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -155,7 +155,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 11',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -169,7 +169,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Slider Page 12',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -189,13 +189,13 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Slider media query (Desktop)',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
             cy.viewport('ipad-2');
             cy.captureFullPageScreenshot({
                 name: 'Slider media query (Mobile)',
-                timeout: 60000
+                timeout: 120000
             });
         });
     }

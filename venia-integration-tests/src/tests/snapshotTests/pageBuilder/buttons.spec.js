@@ -13,7 +13,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Buttons Page',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });

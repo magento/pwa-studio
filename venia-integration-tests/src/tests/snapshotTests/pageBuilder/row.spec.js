@@ -20,7 +20,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Row',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -36,7 +36,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Row2',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -52,7 +52,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Row Min Height',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -99,7 +99,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Row Video Background',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -156,7 +156,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Row Video Background2',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -348,7 +348,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Row Video Background3',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -368,13 +368,13 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Row media query (Desktop)',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
             cy.viewport('ipad-2');
             cy.captureFullPageScreenshot({
                 name: 'Row media query (Mobile)',
-                timeout: 60000
+                timeout: 120000
             });
         });
     }

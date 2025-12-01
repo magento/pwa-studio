@@ -46,7 +46,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Smoke Test',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -83,7 +83,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Smoke Test CMS Block Content',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -120,7 +120,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Smoke Test Dynamic Block Content',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });

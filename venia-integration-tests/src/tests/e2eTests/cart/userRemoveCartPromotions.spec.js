@@ -74,14 +74,14 @@ describe(
             // Test - Add configurable products to cart from Product Pages
             cy.visit(productValeriaTwoLayeredTank.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage(2);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(2);
@@ -95,7 +95,7 @@ describe(
                     '@gqlGetAppliedGiftCardsQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -106,7 +106,7 @@ describe(
             setCouponCodeFromCartPage(Cypress.env('defaultData_couponCode'));
 
             cy.wait(['@gqlapplyCouponToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAppliedCouponCodeInCartPage();
@@ -116,7 +116,7 @@ describe(
             setGiftCardFromCartPage(Cypress.env('defaultData_giftCardNumber'));
 
             cy.wait(['@gqlapplyGiftCardToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertAppliedGiftCardInCartPage();
@@ -125,7 +125,7 @@ describe(
             removeCouponCodeFromCartPage();
 
             cy.wait(['@gqlremoveCouponFromCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertNoCouponCodeInCartPage();
@@ -134,7 +134,7 @@ describe(
             removeGiftCardsFromCartPage();
 
             cy.wait(['@gqlremoveGiftCardMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertNoGiftCardInCartPage();

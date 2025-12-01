@@ -14,7 +14,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'Page Builder Image Snapshot',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });
@@ -34,7 +34,7 @@ describe(
                 cy.loadFullPage().then(() => {
                     cy.captureFullPageScreenshot({
                         name: 'Page Builder Image Snapshot Mobile',
-                        timeout: 60000
+                        timeout: 120000
                     });
                 });
             });

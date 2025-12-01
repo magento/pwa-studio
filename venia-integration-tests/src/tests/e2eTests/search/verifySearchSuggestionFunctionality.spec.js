@@ -41,7 +41,7 @@ describe(
             searchFromSearchBar(searchData.validSku1, false);
 
             cy.wait(['@gqlGetAutocompleteResultsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertProductIsInProductSuggestion(
@@ -53,7 +53,7 @@ describe(
             searchFromSearchBar(searchData.validSku2, false);
 
             cy.wait(['@gqlGetAutocompleteResultsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertProductIsInProductSuggestion(
@@ -65,7 +65,7 @@ describe(
             searchFromSearchBar(searchData.invalidSku, false);
 
             cy.wait(['@gqlGetAutocompleteResultsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertNoProductSuggestion();

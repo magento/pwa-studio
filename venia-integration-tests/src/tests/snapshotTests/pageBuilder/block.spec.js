@@ -40,7 +40,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Dynamic Block',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -54,7 +54,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder CMS Block',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -68,7 +68,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder CMS Page',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });

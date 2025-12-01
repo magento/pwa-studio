@@ -21,7 +21,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'AboutUs',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });

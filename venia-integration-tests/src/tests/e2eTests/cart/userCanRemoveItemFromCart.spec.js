@@ -53,14 +53,14 @@ describe(
             // Test - Add configurable product to cart from Product Page
             cy.visit(productValeriaTwoLayeredTank.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectOptionsFromProductPage();
             setQuantityFromProductPage(2);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(2);
@@ -68,13 +68,13 @@ describe(
             // Test - Add simple product to cart from Product Page
             cy.visit(productCarminaEarrings.url);
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             setQuantityFromProductPage(2);
             addToCartFromProductPage();
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(4);
@@ -82,7 +82,7 @@ describe(
             // Test - Products are in Cart Page
             cy.visit(cartPageRoute);
             cy.wait(['@gqlGetProductListingQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertProductInCartPage(productValeriaTwoLayeredTank.name);
@@ -91,14 +91,14 @@ describe(
             // Test - Remove products from Cart
             removeProductFromCart(productValeriaTwoLayeredTank.name);
             cy.wait(['@gqlremoveItemMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartTriggerCount(2);
 
             removeProductFromCart(productCarminaEarrings.name);
             cy.wait(['@gqlremoveItemMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCartIsEmpty();

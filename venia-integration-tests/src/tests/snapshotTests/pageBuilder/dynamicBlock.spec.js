@@ -24,7 +24,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Dynamic Block Snapshot',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });

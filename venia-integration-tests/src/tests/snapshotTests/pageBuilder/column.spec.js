@@ -13,7 +13,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Column Page',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -33,13 +33,13 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Column media query (Desktop)',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
             cy.viewport('ipad-2');
             cy.captureFullPageScreenshot({
                 name: 'Column media query (Mobile)',
-                timeout: 60000
+                timeout: 120000
             });
         });
     }

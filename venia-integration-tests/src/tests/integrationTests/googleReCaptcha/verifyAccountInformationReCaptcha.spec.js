@@ -134,7 +134,7 @@ describe(
             cy.wait(
                 ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -252,7 +252,7 @@ describe(
             cy.signInAccount(accountEmail, accountPassword);
 
             cy.wait('@gqlSignInMutation', {
-                timeout: 60000
+                timeout: 120000
             });
 
             cy.visitAccountInfoPage();

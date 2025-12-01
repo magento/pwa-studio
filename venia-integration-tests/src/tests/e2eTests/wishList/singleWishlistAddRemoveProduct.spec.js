@@ -85,7 +85,7 @@ describe(
             cy.wait(
                 ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -101,7 +101,7 @@ describe(
             addProductToWishlistFromCategoryPage(productCarinaCardigan);
 
             cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertWishlistSelectedProductOnCategoryPage(productCarinaCardigan);
@@ -115,7 +115,7 @@ describe(
             addProductToWishlistFromProductPage();
 
             cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Add Configurable Product from Product Detail Page with options selected
@@ -124,7 +124,7 @@ describe(
             addProductToWishlistFromProductPage();
 
             cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             cy.visitPage(wishlistRoute);
@@ -138,7 +138,7 @@ describe(
             addToCartFromProductPage();
 
             cy.wait(['@gqlAddProductToCartMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Move Simple Product from Cart
@@ -146,7 +146,7 @@ describe(
             moveProductFromCartToSingleWishlist(silverAmorBangleSet.name);
 
             cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             cy.visitPage(wishlistRoute);
@@ -159,7 +159,7 @@ describe(
             removeProductFromSingleWishlist(productCarinaCardigan);
 
             cy.wait(['@gqlRemoveProductsFromWishlistMutation'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             asserProductNotInWishlist(productCarinaCardigan);

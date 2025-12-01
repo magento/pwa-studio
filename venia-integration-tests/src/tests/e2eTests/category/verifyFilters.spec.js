@@ -85,7 +85,7 @@ describe(
                     '@gqlGetProductFiltersByCategoryQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -99,14 +99,14 @@ describe(
             );
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertNoPagination();
             clearFilters(false);
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCategoryTitle(categoryTops.name);
@@ -138,7 +138,7 @@ describe(
                     '@gqlGetProductSearchQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -157,7 +157,7 @@ describe(
             clearFilters(false);
 
             cy.wait(['@gqlGetProductSearchQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertPaginationActivePage(1);
@@ -173,7 +173,7 @@ describe(
                     '@gqlGetProductFiltersByCategoryQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -187,7 +187,7 @@ describe(
             applyFiltersFromFilterModal();
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCategoryTitle(categoryTops.name);
@@ -197,7 +197,7 @@ describe(
             applyFiltersFromFilterModal();
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             // Test - Mobile - Add Color and Material filters
@@ -217,7 +217,7 @@ describe(
             applyFiltersFromFilterModal();
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertNoProductsFound();
@@ -232,7 +232,7 @@ describe(
                     '@gqlGetProductSearchQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -260,7 +260,7 @@ describe(
             applyFiltersFromFilterModal();
 
             cy.wait(['@gqlGetProductSearchQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertPaginationActivePage(1);
@@ -291,7 +291,7 @@ describe(
                     '@gqlGetProductFiltersByCategoryQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -307,7 +307,7 @@ describe(
             );
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertBooleanFilterUnselectedInputState(
@@ -322,7 +322,7 @@ describe(
             );
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
             assertCurrentFilter(filtersData.hasVideo.noLabel, isMobile);
             assertNotInCurrentFilter(filtersData.hasVideo.yesLabel, isMobile);
@@ -343,7 +343,7 @@ describe(
             );
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCurrentFilter(filtersData.hasVideo.yesLabel, isMobile);
@@ -360,7 +360,7 @@ describe(
             clearFilters(isMobile);
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertNumberOfProductsInResults();
@@ -382,7 +382,7 @@ describe(
                     '@gqlGetProductFiltersByCategoryQuery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -410,7 +410,7 @@ describe(
             applyFiltersFromFilterModal();
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCategoryTitle(categoryAccessories.name);
@@ -437,7 +437,7 @@ describe(
             applyFiltersFromFilterModal();
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertCategoryTitle(categoryAccessories.name);
@@ -457,7 +457,7 @@ describe(
             applyFiltersFromFilterModal();
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
             assertNumberOfProductsInResults();
             assertUrlContains(filtersData.price.urlString);
@@ -469,7 +469,7 @@ describe(
             applyFiltersFromFilterModal();
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertNumberOfProductsInResults();

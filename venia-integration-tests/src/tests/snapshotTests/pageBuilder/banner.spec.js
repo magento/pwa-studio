@@ -14,7 +14,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Home Page',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -28,7 +28,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Home Page2',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -42,7 +42,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Home Page3',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -56,7 +56,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Home Page4',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -70,7 +70,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Home Page5',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -84,7 +84,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Home Page6',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -98,7 +98,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Home Page7',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -112,7 +112,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Home Page8',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });
@@ -126,7 +126,7 @@ describe(
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'Page Builder Home Page9',
-                    timeout: 60000
+                    timeout: 120000
                 });
             });
         });

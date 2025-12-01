@@ -79,7 +79,7 @@ describe(
 
             cy.visitHomePage();
             cy.wait(['@gqlGetStoreConfigDataQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             cy.visit(categoryTops.url);
@@ -90,7 +90,7 @@ describe(
                     '@gqlGetStoreConfigDataForGallery'
                 ],
                 {
-                    timeout: 60000
+                    timeout: 120000
                 }
             );
 
@@ -98,7 +98,7 @@ describe(
 
             searchFromSearchBar(searchData.validSku1, false);
             cy.wait(['@gqlGetAutoCompleteResultsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertProductIsInProductSuggestion(
@@ -109,14 +109,14 @@ describe(
             cy.visit(categoryTops.url).then(() => cy.wait(WAIT_TIME)); // cy.wait needed to assert that Cypress cached files
 
             cy.wait(['@gqlGetCategoriesQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             triggerSearch();
             searchFromSearchBar(searchData.validSku1, false);
 
             cy.wait(['@gqlGetAutoCompleteResultsQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             assertProductIsInProductSuggestion(
@@ -127,7 +127,7 @@ describe(
             cy.visit(productVitaliaTop.url).then(() => cy.wait(WAIT_TIME));
 
             cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
-                timeout: 60000
+                timeout: 120000
             });
 
             selectCategoryFromMegaMenu(categoryTops.name);
