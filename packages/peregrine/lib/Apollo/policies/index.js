@@ -22,6 +22,9 @@ const typePolicies = {
             },
             customerWishlistProducts: {
                 read: existing => existing || []
+            },
+            products: {
+                keyArgs: ['filter', 'search', 'pageSize', 'currentPage', 'sort']
             }
         }
     },
@@ -319,7 +322,25 @@ const typePolicies = {
         keyFields: ['uid']
     },
     ConfigurableProduct: {
-        keyFields: ['uid']
+        keyFields: ['uid'],
+        fields: {
+            variants: {
+                merge(existing, incoming) {
+                    if (existing && existing.length > 0) {
+                        return existing;
+                    }
+                    return incoming || existing;
+                }
+            },
+            configurable_options: {
+                merge(existing, incoming) {
+                    if (existing && existing.length > 0) {
+                        return existing;
+                    }
+                    return incoming || existing;
+                }
+            }
+        }
     },
     BundleProduct: {
         keyFields: ['uid']

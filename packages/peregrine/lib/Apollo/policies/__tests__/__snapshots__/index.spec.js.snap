@@ -67,6 +67,14 @@ Object {
     ],
   },
   "ConfigurableProduct": Object {
+    "fields": Object {
+      "configurable_options": Object {
+        "merge": [Function],
+      },
+      "variants": Object {
+        "merge": [Function],
+      },
+    },
     "keyFields": Array [
       "uid",
     ],
@@ -147,6 +155,15 @@ Object {
       },
       "customerWishlistProducts": Object {
         "read": [Function],
+      },
+      "products": Object {
+        "keyArgs": Array [
+          "filter",
+          "search",
+          "pageSize",
+          "currentPage",
+          "sort",
+        ],
       },
     },
   },
