@@ -122,14 +122,15 @@ export const useSignIn = props => {
                 });
 
                 const token = signInResponse.data.generateCustomerToken.token;
-                await (customerAccessTokenLifetime
-                    ? setToken(token, customerAccessTokenLifetime)
-                    : setToken(token));
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
                 await apolloClient.clearCacheData(apolloClient, 'customer');
                 await removeCart();
+
+                await (customerAccessTokenLifetime
+                    ? setToken(token, customerAccessTokenLifetime)
+                    : setToken(token));
 
                 // Create and get the customer's cart id.
                 await createCart({
