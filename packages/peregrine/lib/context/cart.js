@@ -30,6 +30,7 @@ const CartContextProvider = props => {
         if (cartId && (!cartState || cartState.cartId !== cartId)) {
             asyncActions.getCartDetails(cartId);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Make deeply nested details easier to retrieve and provide empty defaults
