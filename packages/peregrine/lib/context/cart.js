@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useMemo, useCallback, useEffect } from 'react';
+import React, {
+    createContext,
+    useContext,
+    useMemo,
+    useCallback,
+    useEffect
+} from 'react';
 import { connect } from 'react-redux';
 import actions from '../store/actions/cart/actions';
 import * as asyncActions from '../store/actions/cart/asyncActions';
@@ -24,7 +30,7 @@ const CartContextProvider = props => {
         if (cartId && (!cartState || cartState.cartId !== cartId)) {
             asyncActions.getCartDetails(cartId);
         }
-    }, [])
+    }, []);
 
     // Make deeply nested details easier to retrieve and provide empty defaults
     const derivedDetails = useMemo(() => {
