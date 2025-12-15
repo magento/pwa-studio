@@ -22,7 +22,7 @@ const CartContextProvider = props => {
         const cartId = storage.getItem('cartId');
 
         if (cartId && (!cartState || cartState.cartId !== cartId)) {
-            asyncActions.loadCart(cartId);
+            asyncActions.getCartDetails(cartId);
         }
     }, [])
 
