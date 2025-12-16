@@ -196,6 +196,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
         >
           <button
             className="passwordButton"
+            data-react-aria-pressable={true}
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
@@ -208,6 +209,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
             <span
@@ -298,6 +300,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
     >
       <button
         className="create_account_button"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -310,6 +313,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span
@@ -526,6 +530,7 @@ exports[`CreateAccount renders errors 1`] = `
         >
           <button
             className="passwordButton"
+            data-react-aria-pressable={true}
             disabled={false}
             onClick={[Function]}
             onDragStart={[Function]}
@@ -538,6 +543,7 @@ exports[`CreateAccount renders errors 1`] = `
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
             <span
@@ -628,6 +634,7 @@ exports[`CreateAccount renders errors 1`] = `
     >
       <button
         className="create_account_button"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -640,6 +647,7 @@ exports[`CreateAccount renders errors 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span

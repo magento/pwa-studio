@@ -12,7 +12,7 @@ const RobotsMeta = () => {
 
     const robots =
         data?.robotsConfig?.defaultRobots;
-        
+
     if (!robots) {
         return null;
     }

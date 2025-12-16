@@ -27,6 +27,7 @@ exports[`renders delete confirmation 1`] = `
   >
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={true}
       onClick={[MockFunction toggleDeleteConfirmation]}
       onDragStart={[Function]}
@@ -95,6 +96,7 @@ exports[`renders delete confirmation 1`] = `
   >
     <button
       className="root_normalPriorityNegative"
+      data-react-aria-pressable={true}
       disabled={true}
       onClick={[MockFunction handleDeletePayment]}
       onDragStart={[Function]}
@@ -120,6 +122,7 @@ exports[`renders delete confirmation 1`] = `
     </button>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={true}
       onClick={[MockFunction toggleDeleteConfirmation]}
       onDragStart={[Function]}
@@ -196,6 +199,7 @@ exports[`should render properly 1`] = `
   >
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction toggleDeleteConfirmation]}
       onDragStart={[Function]}
@@ -208,6 +212,7 @@ exports[`should render properly 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -264,6 +269,7 @@ exports[`should render properly 1`] = `
   >
     <button
       className="root_normalPriorityNegative"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction handleDeletePayment]}
       onDragStart={[Function]}
@@ -276,6 +282,7 @@ exports[`should render properly 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -289,6 +296,7 @@ exports[`should render properly 1`] = `
     </button>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction toggleDeleteConfirmation]}
       onDragStart={[Function]}
@@ -301,6 +309,7 @@ exports[`should render properly 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span

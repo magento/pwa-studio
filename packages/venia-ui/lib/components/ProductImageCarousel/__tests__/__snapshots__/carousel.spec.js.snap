@@ -10,6 +10,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     <button
       aria-label="Previous Image"
       className="previousButton"
+      data-react-aria-pressable={true}
       onClick={[Function]}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -21,6 +22,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -68,6 +70,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     <button
       aria-label="Next Image"
       className="nextButton"
+      data-react-aria-pressable={true}
       onClick={[Function]}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -79,6 +82,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -119,6 +123,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     <button
       aria-label="Previous Image"
       className="previousButton"
+      data-react-aria-pressable={true}
       onClick={[Function]}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -130,6 +135,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -198,6 +204,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     <button
       aria-label="Next Image"
       className="nextButton"
+      data-react-aria-pressable={true}
       onClick={[Function]}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -209,6 +216,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span

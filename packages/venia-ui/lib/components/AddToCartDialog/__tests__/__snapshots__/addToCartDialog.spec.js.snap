@@ -68,6 +68,7 @@ exports[`renders dialog with content 1`] = `
       />
       <button
         className="root_normalPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[MockFunction buttonProps.onClick]}
         onDragStart={[Function]}
@@ -80,6 +81,7 @@ exports[`renders dialog with content 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="button"
       >
         <span

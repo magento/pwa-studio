@@ -27,6 +27,7 @@ exports[`renders CreateAccount component 1`] = `
     />
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction handleBackToCheckout]}
       onDragStart={[Function]}
@@ -39,6 +40,7 @@ exports[`renders CreateAccount component 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -80,6 +82,7 @@ exports[`renders ForgotPassword component 1`] = `
     />
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction handleBackToCheckout]}
       onDragStart={[Function]}
@@ -92,6 +95,7 @@ exports[`renders ForgotPassword component 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -135,6 +139,7 @@ exports[`renders SignIn component 2`] = `
     />
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction handleBackToCheckout]}
       onDragStart={[Function]}
@@ -147,6 +152,7 @@ exports[`renders SignIn component 2`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span

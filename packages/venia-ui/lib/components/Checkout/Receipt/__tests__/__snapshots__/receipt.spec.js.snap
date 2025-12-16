@@ -25,6 +25,7 @@ exports[`renders a Receipt component correctly 1`] = `
     </div>
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -37,6 +38,7 @@ exports[`renders a Receipt component correctly 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span

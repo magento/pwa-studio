@@ -143,6 +143,7 @@ Array [
   >
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={true}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -165,6 +166,7 @@ Array [
     </button>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -177,6 +179,7 @@ Array [
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -332,6 +335,7 @@ Array [
   >
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={true}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -354,6 +358,7 @@ Array [
     </button>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -366,6 +371,7 @@ Array [
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -521,6 +527,7 @@ Array [
   >
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={true}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -543,6 +550,7 @@ Array [
     </button>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -555,6 +563,7 @@ Array [
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span

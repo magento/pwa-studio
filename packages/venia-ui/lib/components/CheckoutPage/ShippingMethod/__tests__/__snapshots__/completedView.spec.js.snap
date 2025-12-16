@@ -20,6 +20,7 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
       </h5>
       <button
         className="editButton"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={false}
         onDragStart={[Function]}
@@ -32,6 +33,7 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="button"
       >
         <span
@@ -100,6 +102,7 @@ exports[`it renders correctly 1`] = `
       </h5>
       <button
         className="editButton"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={false}
         onDragStart={[Function]}
@@ -112,6 +115,7 @@ exports[`it renders correctly 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="button"
       >
         <span

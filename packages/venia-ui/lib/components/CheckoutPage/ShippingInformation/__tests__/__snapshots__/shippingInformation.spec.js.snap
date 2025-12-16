@@ -17,6 +17,7 @@ exports[`renders card state with customer data 1`] = `
     </h5>
     <button
       className="editButton"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction handleEditShipping]}
       onDragStart={[Function]}
@@ -29,6 +30,7 @@ exports[`renders card state with customer data 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -88,6 +90,7 @@ exports[`renders card state with guest data 1`] = `
     </h5>
     <button
       className="editButton"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction handleEditShipping]}
       onDragStart={[Function]}
@@ -100,6 +103,7 @@ exports[`renders card state with guest data 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span

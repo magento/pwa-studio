@@ -4,6 +4,7 @@ exports[`it does not render an icon when not passed one 1`] = `
 <li>
   <button
     aria-label="Unit Test Text"
+    data-react-aria-pressable={true}
     onClick={[Function]}
     onDragStart={[Function]}
     onKeyDown={[Function]}
@@ -15,6 +16,7 @@ exports[`it does not render an icon when not passed one 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <Icon
@@ -36,6 +38,7 @@ exports[`it does not render an icon when passed an invalid one 1`] = `
 <li>
   <button
     aria-label="Unit Test Text"
+    data-react-aria-pressable={true}
     onClick={[Function]}
     onDragStart={[Function]}
     onKeyDown={[Function]}
@@ -47,6 +50,7 @@ exports[`it does not render an icon when passed an invalid one 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <Icon
@@ -68,6 +72,7 @@ exports[`it fills the icon when isFilled is true 1`] = `
 <li>
   <button
     aria-label="Unit Test Text"
+    data-react-aria-pressable={true}
     onClick={[Function]}
     onDragStart={[Function]}
     onKeyDown={[Function]}
@@ -79,6 +84,7 @@ exports[`it fills the icon when isFilled is true 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <Icon
@@ -110,6 +116,7 @@ exports[`it renders an icon when passed a valid one 1`] = `
 <li>
   <button
     aria-label="Unit Test Text"
+    data-react-aria-pressable={true}
     onClick={[Function]}
     onDragStart={[Function]}
     onKeyDown={[Function]}
@@ -121,6 +128,7 @@ exports[`it renders an icon when passed a valid one 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <Icon

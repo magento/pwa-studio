@@ -26,6 +26,7 @@ Array [
     </span>
   </div>,
   <button
+    data-react-aria-pressable={true}
     disabled={true}
     onClick={[MockFunction]}
     onDragStart={[Function]}
@@ -76,6 +77,7 @@ Array [
     </span>
   </div>,
   <button
+    data-react-aria-pressable={true}
     disabled={false}
     onClick={[MockFunction]}
     onDragStart={[Function]}
@@ -88,6 +90,7 @@ Array [
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <span>

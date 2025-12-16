@@ -17,6 +17,7 @@ exports[`Should not render billing address if it is same as shipping address 1`]
     </h5>
     <button
       className="edit_button"
+      data-react-aria-pressable={true}
       disabled={false}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -28,6 +29,7 @@ exports[`Should not render billing address if it is same as shipping address 1`]
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -135,6 +137,7 @@ exports[`Should render billing address if it is not same as shipping address 1`]
     </h5>
     <button
       className="edit_button"
+      data-react-aria-pressable={true}
       disabled={false}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -146,6 +149,7 @@ exports[`Should render billing address if it is not same as shipping address 1`]
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -269,6 +273,7 @@ exports[`should render 1`] = `
     </h5>
     <button
       className="edit_button"
+      data-react-aria-pressable={true}
       disabled={false}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -280,6 +285,7 @@ exports[`should render 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span

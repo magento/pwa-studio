@@ -139,6 +139,7 @@ exports[`renders the correct tree 1`] = `
         aria-hidden="false"
       >
         <button
+          data-react-aria-pressable={true}
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -151,6 +152,7 @@ exports[`renders the correct tree 1`] = `
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
+          tabIndex={0}
           type="button"
         >
           <span>
@@ -224,6 +226,7 @@ exports[`renders the correct tree 1`] = `
   </div>
   <div>
     <button
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -235,6 +238,7 @@ exports[`renders the correct tree 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="submit"
     >
       <span>
@@ -387,6 +391,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
         aria-hidden="false"
       >
         <button
+          data-react-aria-pressable={true}
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -399,6 +404,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
+          tabIndex={0}
           type="button"
         >
           <span>
@@ -472,6 +478,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
   </div>
   <div>
     <button
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -483,6 +490,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="submit"
     >
       <span>

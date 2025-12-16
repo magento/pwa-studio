@@ -104,6 +104,7 @@ exports[`renders correctly with data 1`] = `
         <button
           aria-label="submit"
           className="searchButton"
+          data-react-aria-pressable={true}
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -116,6 +117,7 @@ exports[`renders correctly with data 1`] = `
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
+          tabIndex={0}
           type="submit"
         >
           <span
@@ -178,6 +180,7 @@ exports[`renders correctly with data 1`] = `
     </ul>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction loadMoreOrders]}
       onDragStart={[Function]}
@@ -190,6 +193,7 @@ exports[`renders correctly with data 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -298,6 +302,7 @@ exports[`renders correctly without data 1`] = `
         <button
           aria-label="submit"
           className="searchButton"
+          data-react-aria-pressable={true}
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -310,6 +315,7 @@ exports[`renders correctly without data 1`] = `
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
+          tabIndex={0}
           type="submit"
         >
           <span
@@ -519,6 +525,7 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
         <button
           aria-label="submit"
           className="searchButton"
+          data-react-aria-pressable={true}
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -531,6 +538,7 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
+          tabIndex={0}
           type="submit"
         >
           <span
@@ -676,6 +684,7 @@ exports[`renders loading indicator 1`] = `
         <button
           aria-label="submit"
           className="searchButton"
+          data-react-aria-pressable={true}
           disabled={true}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -892,6 +901,7 @@ exports[`renders no orders message is orders is empty 1`] = `
         <button
           aria-label="submit"
           className="searchButton"
+          data-react-aria-pressable={true}
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -904,6 +914,7 @@ exports[`renders no orders message is orders is empty 1`] = `
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
+          tabIndex={0}
           type="submit"
         >
           <span

@@ -79,6 +79,7 @@ exports[`it renders correctly 1`] = `
     >
       <button
         className="checkoutButton"
+        data-react-aria-pressable={true}
         disabled={false}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -90,6 +91,7 @@ exports[`it renders correctly 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="button"
       >
         <span
@@ -131,6 +133,7 @@ exports[`it renders correctly 1`] = `
       </button>
       <button
         className="editCartButton"
+        data-react-aria-pressable={true}
         disabled={false}
         onDragStart={[Function]}
         onKeyDown={[Function]}
@@ -142,6 +145,7 @@ exports[`it renders correctly 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="button"
       >
         <span

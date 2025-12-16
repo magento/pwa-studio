@@ -59,6 +59,7 @@ exports[`renders a default address 1`] = `
   >
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction onEdit]}
       onDragStart={[Function]}
@@ -71,6 +72,7 @@ exports[`renders a default address 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -161,6 +163,7 @@ exports[`renders a non-default address 1`] = `
   >
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction onEdit]}
       onDragStart={[Function]}
@@ -173,6 +176,7 @@ exports[`renders a non-default address 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -210,6 +214,7 @@ exports[`renders a non-default address 1`] = `
     </button>
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction onDelete]}
       onDragStart={[Function]}
@@ -222,6 +227,7 @@ exports[`renders a non-default address 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -335,6 +341,7 @@ exports[`renders an address with a middle name 1`] = `
   >
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction onEdit]}
       onDragStart={[Function]}
@@ -347,6 +354,7 @@ exports[`renders an address with a middle name 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -445,6 +453,7 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
   >
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction onEdit]}
       onDragStart={[Function]}
@@ -457,6 +466,7 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -497,6 +507,7 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
     >
       <button
         className="root_normalPriorityNegative"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[MockFunction onConfirmDelete]}
         onDragStart={[Function]}
@@ -509,6 +520,7 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="button"
       >
         <span
@@ -522,6 +534,7 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
       </button>
       <button
         className="root_lowPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[MockFunction onCancelDelete]}
         onDragStart={[Function]}
@@ -534,6 +547,7 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="button"
       >
         <span
@@ -609,6 +623,7 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
   >
     <button
       className="root_normalPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction onEdit]}
       onDragStart={[Function]}
@@ -621,6 +636,7 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -661,6 +677,7 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
     >
       <button
         className="root_normalPriorityNegative"
+        data-react-aria-pressable={true}
         disabled={true}
         onClick={[MockFunction onConfirmDelete]}
         onDragStart={[Function]}
@@ -686,6 +703,7 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
       </button>
       <button
         className="root_lowPriority"
+        data-react-aria-pressable={true}
         disabled={true}
         onClick={[MockFunction onCancelDelete]}
         onDragStart={[Function]}

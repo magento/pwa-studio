@@ -39,6 +39,7 @@ exports[`does not render a close X button in modal mode 1`] = `
           >
             <button
               className="root_lowPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -50,6 +51,7 @@ exports[`does not render a close X button in modal mode 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="reset"
             >
               <span
@@ -63,6 +65,7 @@ exports[`does not render a close X button in modal mode 1`] = `
             </button>
             <button
               className="root_highPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -75,6 +78,7 @@ exports[`does not render a close X button in modal mode 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="submit"
             >
               <span
@@ -168,6 +172,7 @@ exports[`renders a Dialog with disabled buttons 1`] = `
           >
             <button
               className="root_lowPriority"
+              data-react-aria-pressable={true}
               disabled={true}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -192,6 +197,7 @@ exports[`renders a Dialog with disabled buttons 1`] = `
             </button>
             <button
               className="root_highPriority"
+              data-react-aria-pressable={true}
               disabled={true}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -373,6 +379,7 @@ exports[`renders a basic Dialog 1`] = `
           >
             <button
               className="root_lowPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -384,6 +391,7 @@ exports[`renders a basic Dialog 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="reset"
             >
               <span
@@ -397,6 +405,7 @@ exports[`renders a basic Dialog 1`] = `
             </button>
             <button
               className="root_highPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -409,6 +418,7 @@ exports[`renders a basic Dialog 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="submit"
             >
               <span
@@ -502,6 +512,7 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
           >
             <button
               className="root_lowPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -513,6 +524,7 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="reset"
             >
               <span
@@ -526,6 +538,7 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
             </button>
             <button
               className="root_highPriority"
+              data-react-aria-pressable={true}
               disabled={true}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -635,6 +648,7 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
           >
             <button
               className="root_lowPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -646,6 +660,7 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="reset"
             >
               <span
@@ -659,6 +674,7 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
             </button>
             <button
               className="root_highPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -671,6 +687,7 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="submit"
             >
               <span
@@ -772,6 +789,7 @@ exports[`supports modifying title and button texts 1`] = `
           >
             <button
               className="root_lowPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onDragStart={[Function]}
               onKeyDown={[Function]}
@@ -783,6 +801,7 @@ exports[`supports modifying title and button texts 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="reset"
             >
               <span
@@ -796,6 +815,7 @@ exports[`supports modifying title and button texts 1`] = `
             </button>
             <button
               className="root_highPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -808,6 +828,7 @@ exports[`supports modifying title and button texts 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="submit"
             >
               <span

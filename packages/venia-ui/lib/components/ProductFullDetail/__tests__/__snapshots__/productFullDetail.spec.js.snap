@@ -106,6 +106,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
         aria-disabled={true}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={true}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -257,6 +258,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
         aria-disabled={false}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -269,6 +271,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span
@@ -444,6 +447,7 @@ exports[`it renders an error for an invalid cart 1`] = `
         aria-disabled={false}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -456,6 +460,7 @@ exports[`it renders an error for an invalid cart 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span
@@ -631,6 +636,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
         aria-disabled={false}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -643,6 +649,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span
@@ -819,6 +826,7 @@ Array [
           aria-disabled={false}
           aria-label=""
           className="root_highPriority"
+          data-react-aria-pressable={true}
           disabled={false}
           onClick={[Function]}
           onDragStart={[Function]}
@@ -831,6 +839,7 @@ Array [
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
+          tabIndex={0}
           type="submit"
         >
           <span
@@ -1003,6 +1012,7 @@ exports[`it renders correctly 1`] = `
         aria-disabled={false}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -1015,6 +1025,7 @@ exports[`it renders correctly 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span
@@ -1186,6 +1197,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
         aria-disabled={false}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -1198,6 +1210,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span
@@ -1369,6 +1382,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
         aria-disabled={false}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -1381,6 +1395,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span
@@ -1552,6 +1567,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
         aria-disabled={false}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -1564,6 +1580,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span
@@ -1739,6 +1756,7 @@ exports[`it renders form level errors 1`] = `
         aria-disabled={false}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -1751,6 +1769,7 @@ exports[`it renders form level errors 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span
@@ -1922,6 +1941,7 @@ exports[`it renders message with everything out of stock 1`] = `
         aria-disabled={true}
         aria-label="This item is currently out of stock"
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={true}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -2264,6 +2284,7 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
         aria-disabled={true}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={true}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -2447,6 +2468,7 @@ exports[`renders a WishlistButton with props 1`] = `
         aria-disabled={false}
         aria-label=""
         className="root_highPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -2459,6 +2481,7 @@ exports[`renders a WishlistButton with props 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <span

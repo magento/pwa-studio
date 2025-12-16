@@ -30,6 +30,7 @@ exports[`renders a shipping form 1`] = `
   </div>
   <div>
     <button
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -42,6 +43,7 @@ exports[`renders a shipping form 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="submit"
     >
       <span>
@@ -49,6 +51,7 @@ exports[`renders a shipping form 1`] = `
       </span>
     </button>
     <button
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -61,6 +64,7 @@ exports[`renders a shipping form 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span>
@@ -94,6 +98,7 @@ exports[`renders no initial value and no shipping methods if no availableShippin
   </div>
   <div>
     <button
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -106,6 +111,7 @@ exports[`renders no initial value and no shipping methods if no availableShippin
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="submit"
     >
       <span>
@@ -113,6 +119,7 @@ exports[`renders no initial value and no shipping methods if no availableShippin
       </span>
     </button>
     <button
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -125,6 +132,7 @@ exports[`renders no initial value and no shipping methods if no availableShippin
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span>
