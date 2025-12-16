@@ -11,8 +11,8 @@ const RobotsMeta = () => {
     }
 
     const robots =
-        data?.storeConfig?.design_search_engine_robots_default_robots;
-
+        data?.robotsConfig?.defaultRobots;
+        
     if (!robots) {
         return null;
     }
