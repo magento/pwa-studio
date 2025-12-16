@@ -11,9 +11,11 @@ import { HeadProvider, StoreTitle } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
 import Navigation from '../Navigation';
+import RobotsMeta from '../RobotsMeta/robotsMeta';
 import Routes from '../Routes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
+
 
 import {
     AlertCircle as AlertCircleIcon,
@@ -94,6 +96,7 @@ const App = props => {
         return (
             <HeadProvider>
                 <StoreTitle />
+                <RobotsMeta />
                 <Main isMasked={true} />
                 <Mask isActive={true} />
                 <ToastContainer />
@@ -104,6 +107,7 @@ const App = props => {
     return (
         <HeadProvider>
             <StoreTitle />
+            <RobotsMeta />
             <Main isMasked={hasOverlay}>
                 <Routes />
             </Main>
