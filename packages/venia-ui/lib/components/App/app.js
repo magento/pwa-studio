@@ -95,8 +95,8 @@ const App = props => {
     if (renderError) {
         return (
             <HeadProvider>
-                <StoreTitle />
                 <RobotsMeta />
+                <StoreTitle />
                 <Main isMasked={true} />
                 <Mask isActive={true} />
                 <ToastContainer />
@@ -106,8 +106,8 @@ const App = props => {
 
     return (
         <HeadProvider>
-            <StoreTitle />
             <RobotsMeta />
+            <StoreTitle />
             <Main isMasked={hasOverlay}>
                 <Routes />
             </Main>
