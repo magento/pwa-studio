@@ -16,7 +16,6 @@ import Routes from '../Routes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
 
-
 import {
     AlertCircle as AlertCircleIcon,
     CloudOff as CloudOffIcon,

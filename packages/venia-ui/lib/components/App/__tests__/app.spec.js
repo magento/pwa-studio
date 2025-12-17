@@ -3,7 +3,6 @@ import ShallowRenderer from 'react-test-renderer/shallow';
 import { useHistory } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import RobotsMeta from '../../RobotsMeta/robotsMeta';
 import Main from '../../Main';
 import Mask from '../../Mask';
 import Routes from '../../Routes';
@@ -187,11 +186,8 @@ test('renders RobotsMeta component', () => {
 
     const { root } = createTestInstance(<App {...appProps} />);
 
-    expect(
-        root.findByProps({ 'data-testid': 'robots-meta' })
-    ).toBeTruthy();
+    expect(root.findByProps({ 'data-testid': 'robots-meta' })).toBeTruthy();
 });
-
 
 test('renders a full page with onlineIndicator and routes', () => {
     const [appState, appApi] = useAppContext();

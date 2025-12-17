@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { GET_ROBOTS_CONFIG } from './robotsMeta.gql';
 
 const RobotsMeta = () => {
@@ -10,8 +10,7 @@ const RobotsMeta = () => {
         return null;
     }
 
-    const robots =
-        data?.robotsConfig?.defaultRobots;
+    const robots = data?.robotsConfig?.defaultRobots;
 
     if (!robots) {
         return null;
@@ -25,4 +24,3 @@ const RobotsMeta = () => {
 };
 
 export default RobotsMeta;
-
