@@ -28,7 +28,14 @@ export const customFetchToShrinkQuery = (uri, options) => {
 
     const resource = options.method === 'GET' ? shrinkQuery(uri) : uri;
 
-    return globalThis.fetch(resource, options);
+    // Include credentials to enable cookie-based authentication
+    // This allows session sharing between browser and PWA on iOS
+    const optionsWithCredentials = {
+        ...options,
+        credentials: 'include'
+    };
+
+    return globalThis.fetch(resource, optionsWithCredentials);
 };
 
 const getLinks = apiBase => {

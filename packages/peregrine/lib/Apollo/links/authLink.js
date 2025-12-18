@@ -1,14 +1,28 @@
 import { setContext } from '@apollo/client/link/context';
-import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import {
+    BrowserPersistence,
+    getTokenFromCookie,
+    shouldPreferCookies
+} from '@magento/peregrine/lib/util';
 
 const storage = new BrowserPersistence();
 
 export default function createAuthLink() {
     return setContext((_, { headers }) => {
-        // get the authentication token from local storage if it exists.
-        const token = storage.getItem('signin_token');
+        let token = null;
 
-        // return the headers to the context so httpLink can read them
+        // In standalone PWA mode (e.g., iOS home screen app), prefer cookies
+        // because localStorage is not shared between browser and PWA
+        if (shouldPreferCookies()) {
+            token = getTokenFromCookie();
+        }
+
+        // Fallback to localStorage (existing behavior)
+        if (!token) {
+            token = storage.getItem('signin_token');
+        }
+
+        // Return the headers to the context so httpLink can read them
         return {
             headers: {
                 ...headers,
