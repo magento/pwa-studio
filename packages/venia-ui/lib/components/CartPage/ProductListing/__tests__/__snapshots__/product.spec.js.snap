@@ -272,6 +272,7 @@ exports[`renders configurable product with options 1`] = `
           <button
             aria-label="Edit item"
             className="button"
+            data-react-aria-pressable={true}
             onClick={[Function]}
             onDragStart={[Function]}
             onKeyDown={[Function]}
@@ -283,6 +284,7 @@ exports[`renders configurable product with options 1`] = `
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
             <span
@@ -318,6 +320,7 @@ exports[`renders configurable product with options 1`] = `
           <button
             aria-label="Remove from cart"
             className="button"
+            data-react-aria-pressable={true}
             onClick={[Function]}
             onDragStart={[Function]}
             onKeyDown={[Function]}
@@ -329,6 +332,7 @@ exports[`renders configurable product with options 1`] = `
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
             <span
@@ -633,6 +637,7 @@ exports[`renders out of stock product 1`] = `
           <button
             aria-label="Remove from cart"
             className="button"
+            data-react-aria-pressable={true}
             onClick={[Function]}
             onDragStart={[Function]}
             onKeyDown={[Function]}
@@ -644,6 +649,7 @@ exports[`renders out of stock product 1`] = `
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
             <span
@@ -948,6 +954,7 @@ exports[`renders simple product correctly 1`] = `
           <button
             aria-label="Remove from cart"
             className="button"
+            data-react-aria-pressable={true}
             onClick={[Function]}
             onDragStart={[Function]}
             onKeyDown={[Function]}
@@ -959,6 +966,7 @@ exports[`renders simple product correctly 1`] = `
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
             <span

@@ -78,6 +78,7 @@ exports[`renders a PaymentsForm component 1`] = `
   >
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={true}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -100,6 +101,7 @@ exports[`renders a PaymentsForm component 1`] = `
     </button>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -112,6 +114,7 @@ exports[`renders a PaymentsForm component 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -520,6 +523,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
   >
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={true}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -542,6 +546,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     </button>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -554,6 +559,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span

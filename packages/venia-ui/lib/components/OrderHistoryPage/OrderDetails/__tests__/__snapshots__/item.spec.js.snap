@@ -93,6 +93,7 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     </span>
   </div>
   <button
+    data-react-aria-pressable={true}
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -105,6 +106,7 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <span>

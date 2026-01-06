@@ -4,6 +4,7 @@ exports[`renders a ButtonItem component 1`] = `
 <div>
   <button
     className="root_normalPriority"
+    data-react-aria-pressable={true}
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -33,6 +34,7 @@ exports[`renders a ButtonItem component 1`] = `
         "textAlign": undefined,
       }
     }
+    tabIndex={0}
     type="button"
   >
     <span
@@ -48,6 +50,7 @@ exports[`renders a ButtonItem component with all properties configured 1`] = `
 >
   <button
     className="root_normalPriority"
+    data-react-aria-pressable={true}
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -78,6 +81,7 @@ exports[`renders a ButtonItem component with all properties configured 1`] = `
         "textAlign": "left",
       }
     }
+    tabIndex={0}
     type="button"
   >
     <span

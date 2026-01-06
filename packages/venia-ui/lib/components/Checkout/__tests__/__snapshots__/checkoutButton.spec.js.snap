@@ -2,6 +2,7 @@
 
 exports[`renders a Checkout Button component 1`] = `
 <button
+  data-react-aria-pressable={true}
   disabled={false}
   onDragStart={[Function]}
   onKeyDown={[Function]}
@@ -13,6 +14,7 @@ exports[`renders a Checkout Button component 1`] = `
   onTouchEnd={[Function]}
   onTouchMove={[Function]}
   onTouchStart={[Function]}
+  tabIndex={0}
   type="button"
 >
   <span>
@@ -50,6 +52,7 @@ exports[`renders a Checkout Button component 1`] = `
 
 exports[`renders a disabled Checkout Button component 1`] = `
 <button
+  data-react-aria-pressable={true}
   disabled={true}
   onDragStart={[Function]}
   onKeyDown={[Function]}

@@ -162,6 +162,7 @@ exports[`CheckoutPage renders an error and disables review order button if there
       </span>
       <button
         className="signInButton"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[MockFunction toggleSignInContent]}
         onDragStart={[Function]}
@@ -174,6 +175,7 @@ exports[`CheckoutPage renders an error and disables review order button if there
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[MockFunction toggleSignInContent]}
+        tabIndex={0}
         type="button"
       >
         <span
@@ -228,6 +230,7 @@ exports[`CheckoutPage renders an error and disables review order button if there
     </div>
     <button
       className="review_order_button"
+      data-react-aria-pressable={true}
       disabled={true}
       onDragStart={[Function]}
       onMouseDown={[Function]}
@@ -526,6 +529,7 @@ exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
       </span>
       <button
         className="signInButton"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[MockFunction toggleSignInContent]}
         onDragStart={[Function]}
@@ -538,6 +542,7 @@ exports[`CheckoutPage renders checkout content for guest on desktop 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[MockFunction toggleSignInContent]}
+        tabIndex={0}
         type="button"
       >
         <span
@@ -668,6 +673,7 @@ exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
       </span>
       <button
         className="signInButton"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[MockFunction toggleSignInContent]}
         onDragStart={[Function]}
@@ -680,6 +686,7 @@ exports[`CheckoutPage renders checkout content for guest on mobile 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[MockFunction toggleSignInContent]}
+        tabIndex={0}
         type="button"
       >
         <span

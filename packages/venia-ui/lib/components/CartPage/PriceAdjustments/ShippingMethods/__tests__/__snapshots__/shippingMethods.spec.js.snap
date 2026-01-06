@@ -97,6 +97,7 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
   </p>
   <button
     className="root_normalPriority"
+    data-react-aria-pressable={true}
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -109,6 +110,7 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <span

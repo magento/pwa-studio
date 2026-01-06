@@ -11,6 +11,7 @@ import { HeadProvider, StoreTitle } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
 import Navigation from '../Navigation';
+import RobotsMeta from '../RobotsMeta/robotsMeta';
 import Routes from '../Routes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
@@ -93,6 +94,7 @@ const App = props => {
     if (renderError) {
         return (
             <HeadProvider>
+                <RobotsMeta />
                 <StoreTitle />
                 <Main isMasked={true} />
                 <Mask isActive={true} />
@@ -103,6 +105,7 @@ const App = props => {
 
     return (
         <HeadProvider>
+            <RobotsMeta />
             <StoreTitle />
             <Main isMasked={hasOverlay}>
                 <Routes />

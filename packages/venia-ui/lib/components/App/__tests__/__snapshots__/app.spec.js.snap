@@ -2,6 +2,9 @@
 
 exports[`displays open nav or drawer 1`] = `
 <div>
+  <div
+    data-testid="robots-meta"
+  />
   Title
   <Main
     isMasked={false}
@@ -18,6 +21,7 @@ exports[`displays open nav or drawer 1`] = `
 
 exports[`renders with renderErrors 1`] = `
 <HeadProvider>
+  <Unknown />
   <StoreTitle />
   <Main
     isMasked={true}
@@ -31,6 +35,7 @@ exports[`renders with renderErrors 1`] = `
 
 exports[`renders with unhandledErrors 1`] = `
 <HeadProvider>
+  <Unknown />
   <StoreTitle />
   <Main
     isMasked={false}

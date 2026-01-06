@@ -6,6 +6,7 @@ exports[`renders correctly 1`] = `
 >
   <button
     aria-label="Sort Button Collapsed"
+    data-react-aria-pressable={true}
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -18,6 +19,7 @@ exports[`renders correctly 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <span>

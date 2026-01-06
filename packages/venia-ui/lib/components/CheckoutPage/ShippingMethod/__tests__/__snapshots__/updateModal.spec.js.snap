@@ -158,6 +158,7 @@ exports[`it disables the submit button while loading 1`] = `
           >
             <button
               className="root_lowPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onClick={[MockFunction]}
               onDragStart={[Function]}
@@ -170,6 +171,7 @@ exports[`it disables the submit button while loading 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="reset"
             >
               <span
@@ -183,6 +185,7 @@ exports[`it disables the submit button while loading 1`] = `
             </button>
             <button
               className="root_highPriority"
+              data-react-aria-pressable={true}
               disabled={true}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -366,6 +369,7 @@ exports[`it renders correctly 1`] = `
           >
             <button
               className="root_lowPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onClick={[MockFunction]}
               onDragStart={[Function]}
@@ -378,6 +382,7 @@ exports[`it renders correctly 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="reset"
             >
               <span
@@ -391,6 +396,7 @@ exports[`it renders correctly 1`] = `
             </button>
             <button
               className="root_highPriority"
+              data-react-aria-pressable={true}
               disabled={false}
               onClick={[Function]}
               onDragStart={[Function]}
@@ -403,6 +409,7 @@ exports[`it renders correctly 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              tabIndex={0}
               type="submit"
             >
               <span

@@ -394,6 +394,7 @@ exports[`renders an AddressForm component 1`] = `
   >
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -406,6 +407,7 @@ exports[`renders an AddressForm component 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="submit"
     >
       <span
@@ -416,6 +418,7 @@ exports[`renders an AddressForm component 1`] = `
     </button>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -428,6 +431,7 @@ exports[`renders an AddressForm component 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -834,6 +838,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
   >
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[Function]}
       onDragStart={[Function]}
@@ -846,6 +851,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="submit"
     >
       <span
@@ -856,6 +862,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
     </button>
     <button
       className="root_lowPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onClick={[MockFunction]}
       onDragStart={[Function]}
@@ -868,6 +875,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span

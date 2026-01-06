@@ -193,6 +193,7 @@ exports[`should render properly 1`] = `
     />
   </div>
   <button
+    data-react-aria-pressable={true}
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -205,6 +206,7 @@ exports[`should render properly 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <span>
@@ -254,6 +256,7 @@ exports[`should render with reduced order information 1`] = `
   <div />
   <div />
   <button
+    data-react-aria-pressable={true}
     disabled={false}
     onClick={[Function]}
     onDragStart={[Function]}
@@ -266,6 +269,7 @@ exports[`should render with reduced order information 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
     <span>

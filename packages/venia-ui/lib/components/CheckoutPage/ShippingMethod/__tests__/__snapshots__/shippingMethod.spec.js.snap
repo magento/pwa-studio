@@ -93,6 +93,7 @@ exports[`it disables inputs when the page is updating 1`] = `
     >
       <button
         className="root_normalPriority"
+        data-react-aria-pressable={true}
         disabled={true}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -210,6 +211,7 @@ exports[`it renders correctly 1`] = `
     >
       <button
         className="root_normalPriority"
+        data-react-aria-pressable={true}
         disabled={false}
         onClick={[Function]}
         onDragStart={[Function]}
@@ -222,6 +224,7 @@ exports[`it renders correctly 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        tabIndex={0}
         type="submit"
       >
         <mock-FormattedMessage

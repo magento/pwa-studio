@@ -78,6 +78,7 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
   >
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={false}
       onDragStart={[Function]}
       onMouseDown={[Function]}
@@ -87,6 +88,7 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
       onTouchCancel={[Function]}
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
+      tabIndex={0}
       type="button"
     >
       <span
@@ -273,6 +275,7 @@ exports[`renders summary with loading state if query is loading 1`] = `
   >
     <button
       className="root_highPriority"
+      data-react-aria-pressable={true}
       disabled={true}
       onDragStart={[Function]}
       onMouseDown={[Function]}

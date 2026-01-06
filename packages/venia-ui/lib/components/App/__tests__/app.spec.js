@@ -3,7 +3,6 @@ import ShallowRenderer from 'react-test-renderer/shallow';
 import { useHistory } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-
 import Main from '../../Main';
 import Mask from '../../Mask';
 import Routes from '../../Routes';
@@ -14,6 +13,9 @@ jest.mock('../../Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
     StoreTitle: () => 'Title'
 }));
+jest.mock('../../RobotsMeta/robotsMeta', () => () => (
+    <div data-testid="robots-meta" />
+));
 jest.mock('../../Main', () => 'Main');
 jest.mock('../../Navigation', () => 'Navigation');
 jest.mock('../../Routes', () => 'Routes');
@@ -174,6 +176,17 @@ beforeEach(() => {
 });
 afterEach(() => {
     globalThis.location = oldWindowLocation;
+});
+
+test('renders RobotsMeta component', () => {
+    const appProps = {
+        markErrorHandled: jest.fn(),
+        unhandledErrors: []
+    };
+
+    const { root } = createTestInstance(<App {...appProps} />);
+
+    expect(root.findByProps({ 'data-testid': 'robots-meta' })).toBeTruthy();
 });
 
 test('renders a full page with onlineIndicator and routes', () => {
