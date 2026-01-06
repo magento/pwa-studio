@@ -119,6 +119,18 @@ module.exports = async env => {
         /@adobe\/adobe\-client\-data\-layer/,
         /braintree\-web\-drop\-in/
     ];
+
+    // Add extension directories to the babel-loader include paths
+    const jsRule = config.module.rules.find(
+        (rule) => rule.test && rule.test.toString().includes('jsx')
+    );
+    if (jsRule && jsRule.include) {
+        const extensionsPath = path.resolve(__dirname, '../extensions');
+        if (!jsRule.include.includes(extensionsPath)) {
+            jsRule.include.push(extensionsPath);
+        }
+    }
+
     config.plugins = [
         ...config.plugins,
         new DefinePlugin({
