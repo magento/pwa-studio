@@ -86,6 +86,21 @@ export const clearToken = () =>
         // Clear token from local storage
         storage.removeItem('signin_token');
 
+        // Clear cookie for session sharing
+        if (
+            typeof document !== 'undefined' &&
+            typeof globalThis.location !== 'undefined'
+        ) {
+            try {
+                const hostname = globalThis.location.hostname;
+                // Clear with explicit domain (iOS compatibility)
+                document.cookie = `customer_token=; path=/; domain=${hostname}; max-age=0; secure; samesite=none`;
+                document.cookie = `customer_token=; path=/; domain=${hostname}; max-age=0; secure`;
+            } catch (error) {
+                // Silently fail if cookies are not available
+            }
+        }
+
         // Remove from store
         dispatch(actions.clearToken());
     };

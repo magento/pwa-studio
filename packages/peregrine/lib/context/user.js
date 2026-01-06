@@ -5,6 +5,7 @@ import actions from '../store/actions/user/actions';
 import * as asyncActions from '../store/actions/user/asyncActions';
 import bindActionCreators from '../util/bindActionCreators';
 import BrowserPersistence from '../util/simplePersistence';
+import { getTokenFromCookie, shouldPreferCookies } from '../util/cookieHelper';
 
 const UserContext = createContext();
 
@@ -25,20 +26,35 @@ const UserContextProvider = props => {
     ]);
 
     useEffect(() => {
-        // check if the user's token is not expired
+        // Check for authentication tokens (localStorage or cookie)
         const storage = new BrowserPersistence();
-        const item = storage.getRawItem('signin_token');
+        let hasValidToken = false;
 
+        // First, check localStorage token (existing behavior)
+        const item = storage.getRawItem('signin_token');
         if (item) {
             const { ttl, timeStored } = JSON.parse(item);
             const now = Date.now();
 
-            // if the token's TTYL has expired, we need to sign out
+            // if the token's TTL has expired, we need to sign out
             if (ttl && now - timeStored > ttl * 1000) {
                 asyncActions.signOut();
+                return;
+            }
+            hasValidToken = true;
+        }
+
+        // Check for cookie token (for PWA session sharing)
+        // If we're in standalone PWA mode and have a cookie token but no localStorage token
+        if (!hasValidToken && shouldPreferCookies()) {
+            const cookieToken = getTokenFromCookie();
+            if (cookieToken && userState && !userState.isSignedIn) {
+                // Set the token in Redux so the app knows user is authenticated
+                actions.setToken(cookieToken);
+                hasValidToken = true;
             }
         }
-    }, [asyncActions]);
+    }, [asyncActions, actions, userState]);
 
     return (
         <UserContext.Provider value={contextValue}>

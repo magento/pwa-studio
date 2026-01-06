@@ -122,15 +122,40 @@ export const useSignIn = props => {
                 });
 
                 const token = signInResponse.data.generateCustomerToken.token;
+                await (customerAccessTokenLifetime
+                    ? setToken(token, customerAccessTokenLifetime)
+                    : setToken(token));
+
+                // Set cookie for iOS PWA session sharing
+                // This enables authentication to persist when user adds web app to home screen
+                if (
+                    typeof document !== 'undefined' &&
+                    typeof window !== 'undefined'
+                ) {
+                    try {
+                        const maxAge = customerAccessTokenLifetime
+                            ? customerAccessTokenLifetime * 3600
+                            : 3600;
+
+                        const hostname = window.location.hostname;
+
+                        // Set multiple cookie variations for iOS compatibility
+                        // iOS has quirks with SameSite=None on some versions
+                        // Primary: With explicit domain and SameSite=None (iOS 13+)
+                        document.cookie = `customer_token=${token}; path=/; domain=${hostname}; max-age=${maxAge}; secure; samesite=none`;
+
+                        // Fallback: Without SameSite (for older iOS versions)
+                        document.cookie = `customer_token=${token}; path=/; domain=${hostname}; max-age=${maxAge}; secure`;
+                    } catch (error) {
+                        // Silently fail if cookies are blocked
+                        // Authentication will still work via localStorage
+                    }
+                }
 
                 // Clear all cart/customer data from cache and redux.
                 await apolloClient.clearCacheData(apolloClient, 'cart');
                 await apolloClient.clearCacheData(apolloClient, 'customer');
                 await removeCart();
-
-                await (customerAccessTokenLifetime
-                    ? setToken(token, customerAccessTokenLifetime)
-                    : setToken(token));
 
                 // Create and get the customer's cart id.
                 await createCart({
