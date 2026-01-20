@@ -38,7 +38,11 @@ class Operation {
         const matcherAST = this.parser.parseElement(this.matcherText);
         this.matcherName = this._getSource(matcherAST.openingElement.name);
         this.requiredAttributes = new Map();
-        for (const { name, value } of matcherAST.openingElement.attributes) {
+        for (const attr of matcherAST.openingElement.attributes) {
+            if (attr.type === 'JSXSpreadAttribute') {
+                continue;
+            }
+            const { name, value } = attr;
             this.requiredAttributes.set(
                 this._getSource(name),
                 this._getSource(value)
@@ -70,6 +74,9 @@ class Operation {
     _matchesAttributes(attributePaths) {
         const matchMap = new Map(this.requiredAttributes);
         for (const attr of attributePaths) {
+            if (!attr.isJSXAttribute()) {
+                continue;
+            }
             const attributeName = attr.get('name').toString();
             if (!matchMap.has(attributeName)) {
                 // no requirement for this attribute, ignore

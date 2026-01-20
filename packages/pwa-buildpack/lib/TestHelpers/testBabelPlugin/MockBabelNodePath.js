@@ -41,6 +41,9 @@ class MockBabelNodePath {
     toString() {
         return this._source.slice(this.node.start, this.node.end);
     }
+    isJSXAttribute() {
+        return this.node.type === 'JSXAttribute';
+    }
 }
 
 module.exports = MockBabelNodePath;
