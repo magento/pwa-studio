@@ -43,7 +43,7 @@ class Operation {
                 continue;
             }
             const { name, value } = attr;
-            
+
             this.requiredAttributes.set(
                 this._getSource(name),
                 this._getSource(value)
