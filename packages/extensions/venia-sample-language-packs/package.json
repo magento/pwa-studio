@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-language-packs",
-  "version": "0.0.21-alpha1",
+  "version": "0.0.21-alpha2",
   "publishConfig": {
     "access": "public"
   },
@@ -13,7 +13,7 @@
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
     "@magento/pwa-buildpack": "~11.5.5",
-    "@magento/venia-ui": "11.7.2-alpha1"
+    "@magento/venia-ui": "11.7.2-alpha2"
   },
   "pwa-studio": {
     "targets": {
