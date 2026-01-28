@@ -49,6 +49,7 @@ export const useCategory = props => {
         nextFetchPolicy: 'cache-first'
     });
     const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
+    const storeConfig = pageSizeData && pageSizeData.storeConfig;
 
     const [paginationValues, paginationApi] = usePagination();
     const { currentPage, totalPages } = paginationValues;
@@ -222,6 +223,7 @@ export const useCategory = props => {
         pageControl,
         sortProps,
         pageSize,
-        categoryNotFound
+        categoryNotFound,
+        storeConfig
     };
 };

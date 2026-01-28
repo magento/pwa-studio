@@ -6,6 +6,8 @@ export const GET_PAGE_SIZE = gql`
         storeConfig {
             store_code
             grid_per_page
+            category_url_suffix
+            category_canonical_tag
         }
     }
 `;
