@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { string } from 'prop-types';
 import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product/useProduct';
 
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
-import { StoreTitle, Meta } from '@magento/venia-ui/lib/components/Head';
+import { StoreTitle, Meta, Link } from '@magento/venia-ui/lib/components/Head';
 import ProductFullDetail from '@magento/venia-ui/lib/components/ProductFullDetail';
 import mapProduct from '@magento/venia-ui/lib/util/mapProduct';
 import ProductShimmer from './product.shimmer';
@@ -23,7 +23,17 @@ const Product = props => {
         mapProduct
     });
 
-    const { error, loading, product } = talonProps;
+    const { error, loading, product, storeConfig } = talonProps;
+
+    const canonicalUrl = useMemo(() => {
+        if (!product || !storeConfig?.product_canonical_tag) return null;
+
+        const origin =
+            typeof window !== 'undefined' ? window.location.origin : '';
+        const suffix = storeConfig?.product_url_suffix || '';
+
+        return `${origin}/${product.url_key}${suffix}`;
+    }, [product, storeConfig]);
 
     if (loading && !product)
         return <ProductShimmer productType={productType} />;
@@ -45,6 +55,7 @@ const Product = props => {
         <Fragment>
             <StoreTitle>{product.name}</StoreTitle>
             <Meta name="description" content={product.meta_description} />
+            {canonicalUrl && <Link rel="canonical" href={canonicalUrl} />}
             <ProductFullDetail product={product} />
         </Fragment>
     );

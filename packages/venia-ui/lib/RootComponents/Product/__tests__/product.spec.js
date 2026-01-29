@@ -10,7 +10,8 @@ jest.mock('@magento/venia-ui/lib/components/ErrorView', () => 'ErrorView');
 jest.mock('@magento/venia-ui/lib/components/Head', () => ({
     __esModule: true,
     StoreTitle: jest.fn(() => 'StoreTitle'),
-    Meta: jest.fn(() => 'Meta')
+    Meta: jest.fn(() => 'Meta'),
+    Link: jest.fn(() => 'Link')
 }));
 jest.mock(
     '@magento/venia-ui/lib/components/ProductFullDetail',

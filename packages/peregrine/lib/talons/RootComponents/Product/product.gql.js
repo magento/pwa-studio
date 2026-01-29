@@ -8,6 +8,7 @@ export const GET_STORE_CONFIG_DATA = gql`
         storeConfig {
             store_code
             product_url_suffix
+            product_canonical_tag
         }
     }
 `;

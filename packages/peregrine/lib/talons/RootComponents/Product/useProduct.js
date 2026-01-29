@@ -115,6 +115,7 @@ export const useProduct = props => {
     return {
         error,
         loading,
-        product
+        product,
+        storeConfig: storeConfigData?.storeConfig
     };
 };
