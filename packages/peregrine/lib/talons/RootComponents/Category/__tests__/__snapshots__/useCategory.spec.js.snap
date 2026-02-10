@@ -34,6 +34,9 @@ Object {
     },
     [MockFunction],
   ],
+  "storeConfig": Object {
+    "grid_per_page": 12,
+  },
 }
 `;
 
