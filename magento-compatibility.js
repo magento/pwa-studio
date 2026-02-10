@@ -74,3 +74,4 @@ var backEndDependencies = {
     'magento/pwa': '^0.7.2',
     'magento/pwa-commerce': '^0.0.4'
 };
+
