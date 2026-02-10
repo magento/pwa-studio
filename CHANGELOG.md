@@ -6,7 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
-The 14.5.0 release of PWA Studio provides multiple bug fixes and updated Documentation for Live Search, Prex and mutlistore setup.
+The 14.5.0 release of PWA Studio provides multiple bug fixes and updated Documentation for Live Search, Prex and multistore setup.
 
 ## Additional fixes
 -  Story:[4587][] — Robots meta tag are added in head tag from magento configuration
