@@ -122,7 +122,7 @@ module.exports = async env => {
 
     // Add extension directories to the babel-loader include paths
     const jsRule = config.module.rules.find(
-        (rule) => rule.test && rule.test.toString().includes('jsx')
+        rule => rule.test && rule.test.toString().includes('jsx')
     );
     if (jsRule && jsRule.include) {
         const extensionsPath = path.resolve(__dirname, '../extensions');
