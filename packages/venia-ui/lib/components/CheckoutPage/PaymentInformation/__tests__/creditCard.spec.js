@@ -1,163 +1,161 @@
 import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
+
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
 import CreditCard from '../creditCard';
 import LoadingIndicator from '../../../LoadingIndicator';
-import Country from '../../../Country';
-
-import classes from '../creditCard.module.css';
 
 jest.mock('../../../../classify');
 
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard',
-    () => {
-        return {
-            useCreditCard: jest.fn().mockReturnValue({
-                onPaymentError: jest.fn(),
-                onPaymentSuccess: jest.fn(),
-                onPaymentReady: jest.fn(),
-                isBillingAddressSame: false,
-                countries: {},
-                isLoading: false,
-                errors: [],
-                stepNumber: 0,
-                initialValues: {}
-            })
-        };
-    }
+    () => ({
+        useCreditCard: jest.fn()
+    })
 );
+
 jest.mock('../../../FormError', () => 'FormError');
 
 jest.mock('../brainTreeDropIn', () => {
-    return props => <mock-BraintreeDropin {...props} />;
+    return props => <mock-BrainTreeDropin {...props} />;
 });
 
 jest.mock('../../../LoadingIndicator', () => {
     return props => <mock-LoadingIndicator {...props} />;
 });
 
-jest.mock('../../../Checkbox', () => {
-    return props => <mock-Checkbox {...props} />;
+jest.mock('../../../GoogleReCaptcha', () => {
+    return props => <mock-GoogleReCaptcha {...props} />;
 });
 
-jest.mock('../../../Field', () => {
-    return props => <mock-Field {...props} />;
+jest.mock('../../BillingAddress', () => {
+    return props => <mock-BillingAddress {...props} />;
 });
 
-jest.mock('../../../TextInput', () => {
-    return props => <mock-TextInput {...props} />;
-});
-
-jest.mock('../../../Country', () => {
-    return props => <mock-Country {...props} />;
-});
-
-jest.mock('../../../Region', () => {
-    return props => <mock-Region {...props} />;
-});
-
-jest.mock('../../../Postcode', () => {
-    return props => <mock-Postcode {...props} />;
-});
-
-const useCreditCardReturnValue = {
+const defaultTalonReturn = {
     onPaymentError: jest.fn(),
     onPaymentSuccess: jest.fn(),
     onPaymentReady: jest.fn(),
-    isBillingAddressSame: false,
-    countries: {},
+    onBillingAddressChangedSuccess: jest.fn(),
+    onBillingAddressChangedError: jest.fn(),
+    shouldRequestPaymentNonce: false,
+    shouldTeardownDropin: false,
+    resetShouldTeardownDropin: jest.fn(),
     isLoading: false,
     errors: new Map(),
     stepNumber: 0,
-    initialValues: {
-        firstName: 'sample first name',
-        lastName: 'sample last name',
-        city: 'sample city',
-        region: 'sample region',
-        country: 'sample country',
-        street1: 'sample street 1',
-        street2: 'sample street 2',
-        postcode: 'sample postal code',
-        phoneNumber: 'sample phone number',
-        isBillingAddressSame: false
-    },
-    shippingAddressCountry: 'US',
     recaptchaWidgetProps: {}
 };
 
-test('Should return correct shape', () => {
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue
-    });
+const defaultProps = {
+    shouldSubmit: false,
+    resetShouldSubmit: jest.fn(),
+    onPaymentSuccess: jest.fn(),
+    onPaymentReady: jest.fn(),
+    onPaymentError: jest.fn()
+};
 
-    const tree = createTestInstance(<CreditCard />);
-
-    expect(tree.toJSON()).toMatchSnapshot();
+beforeEach(() => {
+    jest.clearAllMocks();
+    useCreditCard.mockReturnValue(defaultTalonReturn);
 });
 
-test('Should render loading indicator if isDoprinLoading is set to true', () => {
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue,
-        isLoading: true
+describe('CreditCard component (refactored)', () => {
+    test('Should return correct shape', () => {
+        const tree = createTestInstance(<CreditCard {...defaultProps} />);
+
+        expect(tree.toJSON()).toMatchSnapshot();
     });
 
-    const tree = createTestInstance(<CreditCard />);
+    test('Should render loading indicator when isLoading is true', () => {
+        useCreditCard.mockReturnValueOnce({
+            ...defaultTalonReturn,
+            isLoading: true
+        });
 
-    expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
-});
+        const tree = createTestInstance(<CreditCard {...defaultProps} />);
 
-test('Should render billing address fields if isBillingAddressSame is false', () => {
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue,
-        isBillingAddressSame: false
+        expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
     });
 
-    const tree = createTestInstance(<CreditCard />);
+    test('Should pass correct props to BrainTreeDropin', () => {
+        const tree = createTestInstance(<CreditCard {...defaultProps} />);
 
-    expect(
-        tree.root.findByProps({
-            className: classes.billing_address_fields_root
-        })
-    ).not.toBeNull();
-});
+        const dropin = tree.root.findByType('mock-BrainTreeDropin');
 
-test('Billing address fields should not be visibile if isBillingAddressSame is true', () => {
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue,
-        isBillingAddressSame: true
+        expect(dropin.props.onError).toBe(defaultTalonReturn.onPaymentError);
+        expect(dropin.props.onSuccess).toBe(
+            defaultTalonReturn.onPaymentSuccess
+        );
+        expect(dropin.props.onReady).toBe(defaultTalonReturn.onPaymentReady);
+        expect(dropin.props.shouldRequestPaymentNonce).toBe(
+            defaultTalonReturn.shouldRequestPaymentNonce
+        );
+        expect(dropin.props.shouldTeardownDropin).toBe(
+            defaultTalonReturn.shouldTeardownDropin
+        );
+        expect(dropin.props.resetShouldTeardownDropin).toBe(
+            defaultTalonReturn.resetShouldTeardownDropin
+        );
     });
 
-    const tree = createTestInstance(<CreditCard />);
+    test('Should render BillingAddress and pass correct props', () => {
+        const tree = createTestInstance(<CreditCard {...defaultProps} />);
 
-    expect(
-        tree.root.findByProps({
-            className: classes.billing_address_fields_root_hidden
-        })
-    ).not.toBeNull();
-});
+        const billing = tree.root.findByType('mock-BillingAddress');
 
-test('Should render error messages if errors array is not empty', () => {
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue,
-        formErrors: [new Error('something is missing')]
+        expect(billing.props.shouldSubmit).toBe(defaultProps.shouldSubmit);
+        expect(billing.props.resetShouldSubmit).toBe(
+            defaultProps.resetShouldSubmit
+        );
+        expect(billing.props.onBillingAddressChangedSuccess).toBe(
+            defaultTalonReturn.onBillingAddressChangedSuccess
+        );
+        expect(billing.props.onBillingAddressChangedError).toBe(
+            defaultTalonReturn.onBillingAddressChangedError
+        );
     });
 
-    const tree = createTestInstance(<CreditCard />);
+    test('Should render FormError with mapped errors', () => {
+        const error = new Error('payment error');
 
-    expect(tree.root.findByType('FormError')).not.toBeNull();
-});
+        useCreditCard.mockReturnValueOnce({
+            ...defaultTalonReturn,
+            errors: new Map([['setCreditCardDetailsOnCartMutation', error]])
+        });
 
-test('Should use country from shipping address if initialValues is empty', () => {
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue,
-        isBillingAddressSame: false,
-        initialValues: {},
-        shippingAddressCountry: 'UK'
+        const tree = createTestInstance(<CreditCard {...defaultProps} />);
+
+        const formError = tree.root.findByType('FormError');
+
+        expect(formError.props.errors).toEqual([error]);
     });
 
-    const tree = createTestInstance(<CreditCard />);
+    test('Should render GoogleReCaptcha with widget props', () => {
+        const widgetProps = { siteKey: 'abc' };
 
-    expect(tree.root.findByType(Country).props.initialValue).toBe('UK');
+        useCreditCard.mockReturnValueOnce({
+            ...defaultTalonReturn,
+            recaptchaWidgetProps: widgetProps
+        });
+
+        const tree = createTestInstance(<CreditCard {...defaultProps} />);
+
+        const recaptcha = tree.root.findByType('mock-GoogleReCaptcha');
+
+        expect(recaptcha.props).toEqual(widgetProps);
+    });
+
+    test('Should call useCreditCard with correct props', () => {
+        createTestInstance(<CreditCard {...defaultProps} />);
+
+        expect(useCreditCard).toHaveBeenCalledWith({
+            onSuccess: defaultProps.onPaymentSuccess,
+            onReady: defaultProps.onPaymentReady,
+            onError: defaultProps.onPaymentError,
+            shouldSubmit: defaultProps.shouldSubmit,
+            resetShouldSubmit: defaultProps.resetShouldSubmit
+        });
+    });
 });
