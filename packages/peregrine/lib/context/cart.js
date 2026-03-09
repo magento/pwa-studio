@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useMemo, useCallback } from 'react';
+import React, {
+    createContext,
+    useContext,
+    useMemo,
+    useCallback,
+    useEffect
+} from 'react';
 import { connect } from 'react-redux';
 import actions from '../store/actions/cart/actions';
 import * as asyncActions from '../store/actions/cart/asyncActions';
@@ -16,6 +22,16 @@ const getTotalQuantity = items =>
 
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
+
+    useEffect(() => {
+        const storage = new BrowserPersistence();
+        const cartId = storage.getItem('cartId');
+
+        if (cartId && (!cartState || cartState.cartId !== cartId)) {
+            asyncActions.getCartDetails(cartId);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // Make deeply nested details easier to retrieve and provide empty defaults
     const derivedDetails = useMemo(() => {
