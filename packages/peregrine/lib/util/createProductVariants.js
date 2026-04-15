@@ -6,6 +6,12 @@
  * This returns an array of objects
  */
 
+const sortedIndexTupleKey = indexes =>
+    [...indexes]
+        .map(Number)
+        .sort((a, b) => a - b)
+        .join('|');
+
 export const createProductVariants = product => {
     const OUT_OF_STOCK_CODE = 'OUT_OF_STOCK';
     const IN_STOCK_CODE = 'IN_STOCK';
@@ -43,10 +49,9 @@ export const createProductVariants = product => {
                 // with the not to display out of stock products selected in Admin dashboard
                 foundMatch =
                     option.length > 1
-                        ? Array.from(currentValueIndex)
-                              .sort()
-                              .toString() === option.sort().toString()
-                        : currentValueIndex.toString() === option.toString();
+                        ? sortedIndexTupleKey(currentValueIndex) ===
+                          sortedIndexTupleKey(option)
+                        : String(currentValueIndex) === String(option[0]);
                 if (foundMatch) {
                     break;
                 }

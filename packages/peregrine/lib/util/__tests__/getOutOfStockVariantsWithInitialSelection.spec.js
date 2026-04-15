@@ -1447,11 +1447,11 @@ describe('with configurable Product With Two Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
-                46,
-                44,
-              ],
-              Array [
                 31,
+                35,
+                36,
+                44,
+                46,
               ],
             ]
         `);
@@ -1469,10 +1469,12 @@ describe('with configurable Product With Two Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
-                44,
-              ],
-              Array [
+                14,
                 31,
+                36,
+                44,
+                45,
+                46,
               ],
             ]
         `);
@@ -1491,9 +1493,12 @@ describe('with configurable Product With Two Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                31,
+                36,
+                43,
                 44,
+                46,
               ],
-              Array [],
             ]
         `);
     });
@@ -1520,13 +1525,13 @@ describe('with configurable Product With Three Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                93,
+                94,
+                31,
+                32,
                 42,
                 44,
               ],
-              Array [
-                31,
-              ],
-              Array [],
             ]
         `);
     });
@@ -1541,9 +1546,13 @@ describe('with configurable Product With Three Option Group', () => {
         );
         expect(result).toMatchInlineSnapshot(`
             Array [
-              Array [],
-              Array [],
-              Array [],
+              Array [
+                94,
+                31,
+                32,
+                42,
+                44,
+              ],
             ]
         `);
     });
@@ -1560,10 +1569,13 @@ describe('with configurable Product With Three Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                92,
+                94,
+                14,
+                31,
+                42,
                 44,
               ],
-              Array [],
-              Array [],
             ]
         `);
     });
@@ -1581,10 +1593,13 @@ describe('with configurable Product With Three Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                92,
+                94,
+                14,
+                31,
+                43,
                 44,
               ],
-              Array [],
-              Array [],
             ]
         `);
     });
@@ -1612,12 +1627,13 @@ describe('with configurable Product With Four Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                93,
+                95,
+                35,
+                38,
                 44,
                 45,
               ],
-              Array [],
-              Array [],
-              Array [],
             ]
         `);
     });
@@ -1633,11 +1649,14 @@ describe('with configurable Product With Four Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                93,
+                95,
+                35,
+                38,
+                23,
                 44,
+                45,
               ],
-              Array [],
-              Array [],
-              Array [],
             ]
         `);
     });
@@ -1654,11 +1673,13 @@ describe('with configurable Product With Four Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                93,
+                95,
+                38,
+                23,
+                44,
                 45,
               ],
-              Array [],
-              Array [],
-              Array [],
             ]
         `);
     });
@@ -1675,10 +1696,15 @@ describe('with configurable Product With Four Option Group', () => {
         );
         expect(result).toMatchInlineSnapshot(`
             Array [
-              Array [],
-              Array [],
-              Array [],
-              Array [],
+              Array [
+                92,
+                95,
+                14,
+                38,
+                23,
+                44,
+                45,
+              ],
             ]
         `);
     });
@@ -1696,11 +1722,14 @@ describe('with configurable Product With Four Option Group', () => {
         );
         expect(result).toMatchInlineSnapshot(`
             Array [
-              Array [],
-              Array [],
-              Array [],
               Array [
                 92,
+                95,
+                14,
+                38,
+                23,
+                43,
+                44,
               ],
             ]
         `);
@@ -1730,13 +1759,15 @@ describe('with configurable Product With Five Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
-                95,
                 93,
+                95,
+                34,
+                36,
+                22,
+                28,
+                47,
+                48,
               ],
-              Array [],
-              Array [],
-              Array [],
-              Array [],
             ]
         `);
     });
@@ -1751,11 +1782,16 @@ describe('with configurable Product With Five Option Group', () => {
         );
         expect(result).toMatchInlineSnapshot(`
             Array [
-              Array [],
-              Array [],
-              Array [],
-              Array [],
-              Array [],
+              Array [
+                93,
+                95,
+                36,
+                37,
+                22,
+                28,
+                47,
+                48,
+              ],
             ]
         `);
     });
@@ -1771,13 +1807,16 @@ describe('with configurable Product With Five Option Group', () => {
         );
         expect(result).toMatchInlineSnapshot(`
             Array [
-              Array [],
-              Array [],
-              Array [],
               Array [
+                93,
+                95,
+                36,
+                37,
+                23,
                 28,
+                47,
+                48,
               ],
-              Array [],
             ]
         `);
     });
@@ -1794,11 +1833,16 @@ describe('with configurable Product With Five Option Group', () => {
         );
         expect(result).toMatchInlineSnapshot(`
             Array [
-              Array [],
-              Array [],
-              Array [],
-              Array [],
-              Array [],
+              Array [
+                93,
+                95,
+                36,
+                37,
+                23,
+                28,
+                47,
+                49,
+              ],
             ]
         `);
     });
@@ -1816,11 +1860,13 @@ describe('with configurable Product With Five Option Group', () => {
         );
         expect(result).toMatchInlineSnapshot(`
             Array [
-              Array [],
-              Array [],
-              Array [],
-              Array [],
               Array [
+                93,
+                95,
+                36,
+                37,
+                23,
+                29,
                 47,
                 49,
               ],
@@ -1842,11 +1888,16 @@ describe('with configurable Product With Five Option Group', () => {
         );
         expect(result).toMatchInlineSnapshot(`
             Array [
-              Array [],
-              Array [],
-              Array [],
-              Array [],
-              Array [],
+              Array [
+                92,
+                95,
+                36,
+                37,
+                23,
+                29,
+                47,
+                49,
+              ],
             ]
         `);
     });
