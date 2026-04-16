@@ -93,7 +93,7 @@ const getIsOutOfStock = (
             product,
             optionSelections
         );
- 
+
         if (
             allOptionsSelected &&
             isOutOfStockProductDisplayed === false &&
@@ -124,7 +124,7 @@ const getIsAllOutOfStock = product => {
         if (!variants || !variants.length) {
             return true;
         }
-        
+
         return variants.every(
             item => item.product?.stock_status === OUT_OF_STOCK_CODE
         );
