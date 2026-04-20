@@ -2,6 +2,13 @@
  * Find all the products/variants contains current option selections
  * @return {Array} variants
  */
+const isSameOptionValue = (left, right) =>
+    left !== undefined &&
+    left !== null &&
+    right !== undefined &&
+    right !== null &&
+    String(left) === String(right);
+
 export const findAllMatchingVariants = ({
     variants,
     optionCodes,
@@ -13,11 +20,24 @@ export const findAllMatchingVariants = ({
             new Map()
         );
         for (const [id, value] of singleOptionSelection) {
+            if (value === undefined || value === null) {
+                continue;
+            }
+
             const code = optionCodes.get(id);
+            if (!code) {
+                return false;
+            }
 
-            const matchesStandardAttribute = product[code] === value;
+            const matchesStandardAttribute = isSameOptionValue(
+                product ? product[code] : undefined,
+                value
+            );
 
-            const matchesCustomAttribute = customAttributes.get(code) === value;
+            const matchesCustomAttribute = isSameOptionValue(
+                customAttributes.get(code),
+                value
+            );
 
             // if any option selection fails to match any standard attribute
             // and also fails to match any custom attribute

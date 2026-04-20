@@ -1464,10 +1464,12 @@ describe('with configurable Product With Two Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
-                46,
-              ],
-              Array [
+                31,
+                35,
+                36,
+                43,
                 44,
+                46,
               ],
             ]
         `);
@@ -1489,11 +1491,11 @@ describe('with configurable Product With Two Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
-                46,
-                44,
-              ],
-              Array [
                 31,
+                35,
+                36,
+                44,
+                46,
               ],
             ]
         `);
@@ -1539,9 +1541,11 @@ describe('with configurable Product With Three Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                93,
+                94,
+                31,
+                32,
                 42,
-              ],
-              Array [
                 44,
               ],
             ]
@@ -1565,13 +1569,13 @@ describe('with configurable Product With Three Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                93,
+                94,
+                31,
+                32,
                 42,
                 44,
               ],
-              Array [
-                31,
-              ],
-              Array [],
             ]
         `);
     });
@@ -1618,9 +1622,12 @@ describe('with configurable Product With Four Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                93,
+                95,
+                35,
+                38,
+                43,
                 44,
-              ],
-              Array [
                 45,
               ],
             ]
@@ -1645,12 +1652,13 @@ describe('with configurable Product With Four Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
+                93,
+                95,
+                35,
+                38,
                 44,
                 45,
               ],
-              Array [],
-              Array [],
-              Array [],
             ]
         `);
     });
@@ -1699,10 +1707,15 @@ describe('with configurable Product With Five Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
-                95,
-              ],
-              Array [
+                92,
                 93,
+                95,
+                34,
+                36,
+                22,
+                28,
+                47,
+                48,
               ],
             ]
         `);
@@ -1727,13 +1740,15 @@ describe('with configurable Product With Five Option Group', () => {
         expect(result).toMatchInlineSnapshot(`
             Array [
               Array [
-                95,
                 93,
+                95,
+                34,
+                36,
+                22,
+                28,
+                47,
+                48,
               ],
-              Array [],
-              Array [],
-              Array [],
-              Array [],
             ]
         `);
     });

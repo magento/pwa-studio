@@ -667,6 +667,123 @@ describe('shouldShowSimpleProductOutOfStockButton', () => {
     });
 });
 
+const configurableSparseVariantMissingChildStockStatusProps = {
+    ...defaultProps,
+    product: {
+        ...defaultProps.product,
+        __typename: 'ConfigurableProduct',
+        stock_status: 'IN_STOCK',
+        media_gallery_entries: [],
+        price_range: {
+            maximum_price: {
+                final_price: {
+                    value: 10,
+                    currency: 'USD'
+                },
+                discount: {
+                    amount_off: 0
+                }
+            }
+        },
+        configurable_options: [
+            {
+                attribute_code: 'color',
+                attribute_id: '179',
+                id: 1,
+                label: 'Color',
+                values: [
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: 'c1',
+                        default_label: 'A',
+                        label: 'A',
+                        store_label: 'A',
+                        use_default_value: true,
+                        value_index: 10,
+                        swatch_data: null,
+                        media_gallery_entries: []
+                    },
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: 'c2',
+                        default_label: 'B',
+                        label: 'B',
+                        store_label: 'B',
+                        use_default_value: true,
+                        value_index: 11,
+                        swatch_data: null,
+                        media_gallery_entries: []
+                    }
+                ]
+            },
+            {
+                attribute_code: 'size',
+                attribute_id: '190',
+                id: 2,
+                label: 'Size',
+                values: [
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: 's1',
+                        default_label: 'S',
+                        label: 'S',
+                        store_label: 'S',
+                        use_default_value: true,
+                        value_index: 100,
+                        swatch_data: null,
+                        media_gallery_entries: []
+                    },
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: 's2',
+                        default_label: 'M',
+                        label: 'M',
+                        store_label: 'M',
+                        use_default_value: true,
+                        value_index: 101,
+                        swatch_data: null,
+                        media_gallery_entries: []
+                    }
+                ]
+            }
+        ],
+        variants: [
+            {
+                __typename: 'ConfigurableVariant',
+                attributes: [
+                    {
+                        code: 'color',
+                        value_index: 10,
+                        __typename: 'ConfigurableAttributeOption'
+                    },
+                    {
+                        code: 'size',
+                        value_index: 100,
+                        __typename: 'ConfigurableAttributeOption'
+                    }
+                ],
+                product: {
+                    __typename: 'SimpleProduct',
+                    sku: 'child-1',
+                    media_gallery_entries: [],
+                    price_range: {
+                        maximum_price: {
+                            final_price: {
+                                value: 10,
+                                currency: 'USD'
+                            },
+                            discount: {
+                                amount_off: 0
+                            }
+                        }
+                    },
+                    custom_attributes: []
+                }
+            }
+        ]
+    }
+};
+
 describe('shouldShowConfigurableProductOutOfStockButton', () => {
     test('is false if product is in stock and no option is selected but disabled', () => {
         const tree = createTestInstance(
@@ -738,6 +855,34 @@ describe('shouldShowConfigurableProductOutOfStockButton', () => {
 
         expect(talonProps.isOutOfStock).toBeTruthy();
         expect(talonProps.isAddToCartDisabled).toBeTruthy();
+    });
+
+    test('is false when sparse catalog omits child stock_status but selection is salable', () => {
+        const tree = createTestInstance(
+            <Component
+                {...configurableSparseVariantMissingChildStockStatusProps}
+            />
+        );
+
+        const { root } = tree;
+
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange(
+                '179',
+                10
+            );
+        });
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange(
+                '190',
+                100
+            );
+        });
+
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.isOutOfStock).toBeFalsy();
+        expect(talonProps.isAddToCartDisabled).toBeFalsy();
     });
 });
 
@@ -1040,19 +1185,78 @@ test('calls generic mutation when no deprecated operation props are passed', asy
         Object {
           "variables": Object {
             "cartId": "ThisIsMyCart",
-            "entered_options": Array [
-              Object {
-                "uid": "NDA=",
-                "value": "Strive Shoulder Pac",
-              },
-            ],
             "product": Object {
+              "entered_options": Array [
+                Object {
+                  "uid": "NDA=",
+                  "value": "Strive Shoulder Pac",
+                },
+              ],
               "quantity": 2,
               "sku": "MySimpleProductSku",
             },
           },
         }
     `);
+});
+
+test('sends selected_options inside product for configurable add to cart (no entered_options)', async () => {
+    const mockAddProductToCart = jest.fn().mockResolvedValue({});
+    let useMutationCall = 0;
+    // useProductFullDetail registers four useMutation hooks per render (configurable,
+    // simple, addProductToCart, createEmptyCart). Slot 2 is addProductsToCart.
+    useMutation.mockImplementation(() => {
+        const slot = useMutationCall % 4;
+        useMutationCall += 1;
+        if (slot === 2) {
+            return [mockAddProductToCart, { error: null, loading: false }];
+        }
+        return [jest.fn(), { error: null, loading: false }];
+    });
+
+    try {
+        const tree = createTestInstance(
+            <Component
+                product={configurableProductWithTwoOptionGroupProps.product}
+            />
+        );
+        const { root } = tree;
+
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange(
+                '179',
+                14
+            );
+        });
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange(
+                '190',
+                45
+            );
+        });
+
+        await act(async () => {
+            await root.findByType('i').props.talonProps.handleAddToCart({
+                quantity: 1
+            });
+        });
+
+        expect(mockAddProductToCart).toHaveBeenCalledTimes(1);
+        const { variables } = mockAddProductToCart.mock.calls[0][0];
+        expect(variables.product).toMatchObject({
+            sku: configurableProductWithTwoOptionGroupProps.product.sku,
+            quantity: 1,
+            selected_options: ['20', '80']
+        });
+        expect(variables.product.entered_options).toBeUndefined();
+    } finally {
+        useMutation.mockImplementation(() => [
+            jest.fn(),
+            {
+                error: null
+            }
+        ]);
+    }
 });
 
 test('it returns text when render prop is executed', () => {
