@@ -5,6 +5,26 @@
 # and 'body' properties.
 # This object uses a ConditionalResolver to determine the object value based
 # on the URL pattern in the request object.
+normalizedPathname:
+  resolver: conditional
+  when:
+    - matches: request.url.pathname
+      pattern: ^/(graphql|rest|media|static|admin|pub)(/|$)
+      use: request.url.pathname
+
+    # DO NOT normalize static assets
+    - matches: request.url.pathname
+      pattern: \.(js|json|png|jpg|jpeg|gif|svg|ico|css|txt|webp|woff|woff2|map)$
+      use: request.url.pathname
+
+    # Normalize only storefront routes
+    - matches: request.url.pathname
+      pattern: '^/[^/]+(/.*)$'
+      use: $match.$1
+
+  default:
+    inline: /
+
 veniaResponse:
     resolver: conditional
     when:
@@ -23,7 +43,7 @@ veniaResponse:
         - matches:  urlResolver.redirect_code
           pattern: '(301|302)'
           use: dynamicRedirect
-        - matches: request.url.pathname
+        - matches: normalizedPathname
           pattern: '^/(account-information|address-book|cart|checkout|communications|sign-in|contact-us|create-account|forgot-password|order-confirmation|order-history|customer/account/createPassword|saved-payments|search\.html|wishlist)$'
           use: veniaAppShell
         - matches:  urlResolver.redirect_code
@@ -237,7 +257,7 @@ urlResolverResult:
       # This is a barestring indicating a context lookup. It resolves to the
       # `path` value in the URL query string of the request, using the builtin
       # `request` context object.
-      url: request.url.pathname
+      url: normalizedPathname
 
 dynamicRedirect:
     resolver: inline
