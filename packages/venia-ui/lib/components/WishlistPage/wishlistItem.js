@@ -3,6 +3,7 @@ import { Trash2 } from 'react-feather';
 import { useIntl } from 'react-intl';
 import { useToasts } from '@magento/peregrine';
 import { useWishlistItem } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItem';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
@@ -12,7 +13,7 @@ import Price from '../Price';
 import defaultClasses from './wishlistItem.module.css';
 
 const WishlistItem = props => {
-    const { item } = props;
+    const { item, storeConfig } = props;
 
     const { configurable_options: configurableOptions = [], product } = item;
     const {
@@ -103,10 +104,16 @@ const WishlistItem = props => {
         </button>
     ) : null;
 
+    const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
+
+    const productLink = resourceUrl(
+        `/${product.url_key}${productUrlSuffix || ''}`
+    );
+
     return (
         <div className={rootClass} data-cy="wishlistItem-root">
             <a
-                href={product.url_key + '.html'}
+                href={productLink}
                 className={classes.name}
                 data-cy="wishlistItem-productLink"
             >
