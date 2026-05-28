@@ -30,7 +30,7 @@ const WishlistItems = props => {
                 />
             );
         });
-    }, [handleOpenAddToCartDialog, items, wishlistId]);
+    }, [handleOpenAddToCartDialog, items, wishlistId, storeConfig]);
 
     return (
         <Fragment>
