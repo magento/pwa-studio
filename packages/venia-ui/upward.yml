@@ -22,8 +22,7 @@ normalizedPathname:
       pattern: '^/[^/]+(/.*)$'
       use: $match.$1
 
-  default:
-    inline: /
+  default: request.url.pathname
 
 veniaResponse:
     resolver: conditional
