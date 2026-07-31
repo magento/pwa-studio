@@ -208,29 +208,7 @@ veniaStaticIncludes:
 urlResolver: urlResolverResult.data.route
 
 urlResolverResult:
-  resolver: service
-  endpoint:
-    resolver: url
-    baseUrl: env.MAGENTO_BACKEND_URL
-    pathname:
-      inline: graphql
-  method:
-    resolver: inline
-    inline: POST
-  headers:
-    resolver: inline
-    inline:
-      'content-type': 'application/json'
-      accept: 'application/json'
-  query:
-    resolver: inline
-    inline: 'query ResolveURL($url: String!) {
-        route(url: $url) {
-          type
-          relative_url
-          redirect_code
-        }
-      }'
+  resolver: internal_service
   variables:
     resolver: inline
     inline:
