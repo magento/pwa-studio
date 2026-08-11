@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './wishlist.gql';
+import wishlistConfigOperations from './wishlistConfig.gql';
 
 /**
  * @function
@@ -12,7 +13,11 @@ import defaultOperations from './wishlist.gql';
  */
 export const useWishlist = (props = {}) => {
     const { id, itemsCount, isCollapsed } = props;
-    const operations = mergeOperations(defaultOperations, props.operations);
+    const operations = mergeOperations(
+        defaultOperations,
+        wishlistConfigOperations,
+        props.operations
+    );
 
     const [page, setPage] = useState(1);
     const [isOpen, setIsOpen] = useState(!isCollapsed);
@@ -31,7 +36,17 @@ export const useWishlist = (props = {}) => {
             }
         }
     );
+
     const { data, error, loading, fetchMore } = queryResult;
+
+    const { data: storeConfigData } = useQuery(
+        operations.getWishlistConfigQuery,
+        {
+            fetchPolicy: 'cache-and-network'
+        }
+    );
+
+    const storeConfig = storeConfigData ? storeConfigData.storeConfig : null;
 
     const handleContentToggle = () => {
         setIsOpen(currentValue => !currentValue);
@@ -126,7 +141,8 @@ export const useWishlist = (props = {}) => {
         error,
         isLoading: !!loading,
         isFetchingMore,
-        handleLoadMore
+        handleLoadMore,
+        storeConfig
     };
 };
 
@@ -145,4 +161,5 @@ export const useWishlist = (props = {}) => {
  * @property {Boolean} isLoading Boolean which represents if is in loading state
  * @property {Boolean} isFetchingMore Boolean which represents if is in loading more state
  * @property {Function} handleLoadMore Callback to load more items
+ * @property {Object} storeConfig Store configuration used by the wishlist (e.g. product_url_suffix)
  */

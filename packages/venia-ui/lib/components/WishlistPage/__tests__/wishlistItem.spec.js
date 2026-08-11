@@ -28,6 +28,7 @@ const baseProps = {
     item: {
         product: {
             name: 'Shoggoth Shirt',
+            url_key: 'shoggoth-shirt',
             price_range: {
                 maximum_price: {
                     final_price: {
@@ -38,6 +39,9 @@ const baseProps = {
             },
             stock_status: 'IN_STOCK'
         }
+    },
+    storeConfig: {
+        product_url_suffix: '.test_suffix'
     }
 };
 
@@ -78,6 +82,7 @@ test('it renders a configurable wishlist item', () => {
     });
 
     const configurableProps = {
+        ...baseProps,
         item: {
             ...baseProps.item,
             configurable_options: [

@@ -31,7 +31,8 @@ const Wishlist = props => {
         items,
         isLoading,
         isFetchingMore,
-        handleLoadMore
+        handleLoadMore,
+        storeConfig
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -77,7 +78,11 @@ const Wishlist = props => {
 
     const contentMessageElement = itemsCount ? (
         <Fragment>
-            <WishlistItems items={items} wishlistId={id} />
+            <WishlistItems
+                items={items}
+                wishlistId={id}
+                storeConfig={storeConfig}
+            />
             {loadMoreButton}
         </Fragment>
     ) : (
