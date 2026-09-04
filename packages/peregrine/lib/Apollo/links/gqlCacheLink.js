@@ -28,9 +28,12 @@ export class MagentoGQLCacheLink extends ApolloLink {
         operation.setContext(previousContext => {
             const { headers } = previousContext;
             const withCacheHeader = {
-                ...headers,
-                [CACHE_ID_HEADER]: this.#cacheId
+                ...headers
             };
+
+            if (this.#cacheId) {
+                withCacheHeader[CACHE_ID_HEADER] = this.#cacheId;
+            }
 
             return {
                 ...previousContext,
