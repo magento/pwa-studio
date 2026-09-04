@@ -146,6 +146,26 @@ veniaWebpackChunks:
         resolver: inline
         inline: webpackChunks
 
+# NewRelic header script
+veniaNewRelicHeader:
+  resolver: inline
+  inline:
+    script:
+      resolver: computed
+      type:
+        resolver: inline
+        inline: newRelicHeader
+
+# NewRelic footer script
+veniaNewRelicFooter:
+  resolver: inline
+  inline:
+    script:
+      resolver: computed
+      type:
+        resolver: inline
+        inline: newRelicFooter
+
 # The veniaAppShell object resolves to a response that returns server-side
 # rendered HTML containing the PWA application shell.
 # For SEO purposes, the appropriate meta tags in the HTML head element are also
@@ -172,6 +192,8 @@ veniaAppShell:
             pageType: veniaPageType.data
             pageTypeNonce: veniaPageTypeNonce.nonce
             webpackChunks: veniaWebpackChunks.scripts
+            newRelicHeader: veniaNewRelicHeader.script
+            newRelicFooter: veniaNewRelicFooter.script
           template:
             resolver: file
             file:
@@ -235,6 +257,8 @@ dynamicRedirect:
             pageType: veniaPageType.data
             pageTypeNonce: veniaPageTypeNonce.nonce
             webpackChunks: veniaWebpackChunks.scripts
+            newRelicHeader: veniaNewRelicHeader.script
+            newRelicFooter: veniaNewRelicFooter.script
           template:
             resolver: file
             file:
@@ -259,6 +283,8 @@ notFoundResponse:
         pageType: veniaPageType.data
         pageTypeNonce: veniaPageTypeNonce.nonce
         webpackChunks: veniaWebpackChunks.scripts
+        newRelicHeader: veniaNewRelicHeader.script
+        newRelicFooter: veniaNewRelicFooter.script
       template:
         resolver: file
         file:

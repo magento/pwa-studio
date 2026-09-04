@@ -3,6 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {{#newRelicHeader}}
+            <script nonce="{{pageTypeNonce}}">{{{newRelicHeader}}}</script>
+        {{/newRelicHeader}}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#ff6334">
         <link rel="manifest" href="/manifest.json">
@@ -195,6 +198,10 @@
             <script type="text/javascript" src="/{{.}}"></script>
         {{/webpackChunks}}
         {{/pageTypeNonce}}
+        {{#newRelicFooter}}
+            <script nonce="{{pageTypeNonce}}">{{{newRelicFooter}}}</script>
+        {{/newRelicFooter}}
         <!-- /Inlined Data -->
+
     </body>
 </html>
