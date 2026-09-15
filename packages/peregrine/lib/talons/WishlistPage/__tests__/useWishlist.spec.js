@@ -1,12 +1,16 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery, gql } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useWishlist } from '../useWishlist';
 
 jest.mock('../wishlist.gql', () => ({
     getCustomerWishlistItems: jest.fn().mockName('getCustomerWishlistItems')
+}));
+
+jest.mock('../wishlistConfig.gql', () => ({
+    getWishlistConfigQuery: jest.fn().mockName('getWishlistConfigQuery')
 }));
 
 jest.mock('@apollo/client', () => {
@@ -19,7 +23,9 @@ jest.mock('@apollo/client', () => {
     const queryFetcher = jest.fn().mockResolvedValue(true);
 
     return {
-        useLazyQuery: jest.fn().mockReturnValue([queryFetcher, queryConfig])
+        gql: jest.fn(strings => strings.join('')),
+        useLazyQuery: jest.fn().mockReturnValue([queryFetcher, queryConfig]),
+        useQuery: jest.fn().mockReturnValue({ data: undefined })
     };
 });
 

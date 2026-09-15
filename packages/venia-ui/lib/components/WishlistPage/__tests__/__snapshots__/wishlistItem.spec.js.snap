@@ -14,7 +14,7 @@ exports[`it renders a configurable wishlist item 1`] = `
 >
   <a
     className="name"
-    href="undefined.html"
+    href="/shoggoth-shirt.test_suffix"
   >
     <div
       className="root container"
@@ -136,7 +136,7 @@ exports[`it renders a simple wishlist item 1`] = `
 >
   <a
     className="name"
-    href="undefined.html"
+    href="/shoggoth-shirt.test_suffix"
   >
     <div
       className="root container"

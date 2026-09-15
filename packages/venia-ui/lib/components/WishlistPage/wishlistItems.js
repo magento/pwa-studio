@@ -7,7 +7,7 @@ import WishlistItem from './wishlistItem';
 import AddToCartDialog from '../AddToCartDialog';
 
 const WishlistItems = props => {
-    const { items, wishlistId } = props;
+    const { items, wishlistId, storeConfig } = props;
 
     const talonProps = useWishlistItems();
     const {
@@ -26,10 +26,11 @@ const WishlistItems = props => {
                     item={item}
                     onOpenAddToCartDialog={handleOpenAddToCartDialog}
                     wishlistId={wishlistId}
+                    storeConfig={storeConfig}
                 />
             );
         });
-    }, [handleOpenAddToCartDialog, items, wishlistId]);
+    }, [handleOpenAddToCartDialog, items, wishlistId, storeConfig]);
 
     return (
         <Fragment>

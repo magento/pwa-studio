@@ -6,6 +6,7 @@ export const GET_WISHLIST_CONFIG = gql`
         storeConfig {
             store_code
             magento_wishlist_general_is_enabled
+            product_url_suffix
         }
     }
 `;

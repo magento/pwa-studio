@@ -9,6 +9,7 @@ Object {
   "isLoading": false,
   "isOpen": true,
   "items": Array [],
+  "storeConfig": null,
 }
 `;
 
@@ -21,6 +22,7 @@ Object {
   "isLoading": false,
   "isOpen": true,
   "items": Array [],
+  "storeConfig": null,
 }
 `;
 
@@ -37,5 +39,6 @@ Object {
       "name": "item1",
     },
   ],
+  "storeConfig": null,
 }
 `;
