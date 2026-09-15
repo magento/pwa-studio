@@ -93,13 +93,17 @@
     "rimraf": "~2.6.3",
     "tailwindcss": "~3.3.0"
   },
+  "overrides": {
+    "axios": "1.13.2"
+  },
   "optionalDependencies": {
     "bundlesize": "~0.18.1",
     "sharp": "~0.29.0"
   },
   "resolutions": {
     "https-proxy-agent": "~2.2.3",
-    "@graphql-tools/prisma-loader": "6.3.0"
+    "@graphql-tools/prisma-loader": "6.3.0",
+    "axios": "1.13.2"
   },
   "engines": {
     "node": ">=18.x",
