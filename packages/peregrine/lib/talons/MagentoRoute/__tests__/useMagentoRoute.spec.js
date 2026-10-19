@@ -64,13 +64,13 @@ const Component = () => {
 
 const mountedTrees = new Set();
 
-const mount = (element) => {
+const mount = element => {
     const tree = create(element);
     mountedTrees.add(tree);
     return tree;
 };
 
-const unmount = async (tree) => {
+const unmount = async tree => {
     if (tree && mountedTrees.has(tree)) {
         await act(async () => {
             tree.unmount();
@@ -79,7 +79,7 @@ const unmount = async (tree) => {
     }
 };
 
-const givenQueryResult = (response) => {
+const givenQueryResult = response => {
     useLazyQuery.mockReset();
     runQuery.mockReset();
 
@@ -502,7 +502,7 @@ describe('loading type', () => {
     test('is reset when component is returned', async () => {
         let mockNextRootComponent = 'TEST_TYPE_SHIMMER';
 
-        const mockSetNextRootComponent = jest.fn((type) => {
+        const mockSetNextRootComponent = jest.fn(type => {
             mockNextRootComponent = type;
         });
 

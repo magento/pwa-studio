@@ -35,7 +35,7 @@ export const useMagentoRoute = (props = {}) => {
 
     const setComponent = useCallback(
         (key, value) => {
-            setComponentMap((prevMap) => new Map(prevMap).set(key, value));
+            setComponentMap(prevMap => new Map(prevMap).set(key, value));
         },
         [setComponentMap]
     );
