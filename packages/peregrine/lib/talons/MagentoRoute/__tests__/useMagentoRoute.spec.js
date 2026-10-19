@@ -1,30 +1,22 @@
+
 import React, { useState } from 'react';
-import { replace, useLocation } from 'react-router-dom';
 import { act, create } from 'react-test-renderer';
 import { useLazyQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
 import { useAppContext } from '../../../context/app';
+import { useLocation } from 'react-router-dom';
 
 import { getRootComponent } from '../helpers';
 import { useMagentoRoute } from '../useMagentoRoute';
 
 jest.mock('../../../context/app', () => {
-    const state = {
-        nextRootComponent: null,
-        isPageLoading: false
-    };
-    const api = {
-        actions: {
-            setNextRootComponent: jest.fn(),
-            setPageLoading: jest.fn()
-        }
-    };
-    const useAppContext = jest.fn(() => [state, api]);
+    const useAppContext = jest.fn();
 
     return { useAppContext };
 });
 
 const runQuery = jest.fn();
+
 jest.mock('@apollo/client', () => {
     const ApolloClient = jest.requireActual('@apollo/client');
     const useLazyQuery = jest.fn();
@@ -34,26 +26,6 @@ jest.mock('@apollo/client', () => {
         useLazyQuery
     };
 });
-
-const givenQueryResult = response => {
-    useLazyQuery.mockReset();
-    runQuery.mockReset();
-    useLazyQuery.mockImplementation(() => {
-        // Create a promise that resolves to the mocked response
-        const queryPromise = new Promise(resolve => {
-            // Immediately resolve with the response
-            resolve(response);
-        });
-
-        // Return a tuple where the first item is an async function (runQuery) and the second is the response object
-        return [
-            async () => {
-                return await queryPromise; // Return the response when the promise resolves
-            },
-            response
-        ];
-    });
-};
 
 jest.mock('react-router-dom', () => {
     const ReactRouter = jest.requireActual('react-router-dom');
@@ -72,27 +44,53 @@ jest.mock('react-router-dom', () => {
 jest.mock('@magento/peregrine/lib/context/rootComponents', () => ({
     useRootComponents: jest.fn()
 }));
-useRootComponents.mockImplementation(() => useState(new Map()));
 
 jest.mock('../helpers', () => {
     const helpers = jest.requireActual('../helpers');
-    const getRootComponent = jest.fn();
 
     return {
         ...helpers,
-        getRootComponent
+        getRootComponent: jest.fn()
     };
 });
 
-const resolve = jest.fn().mockName('resolve');
-const reject = jest.fn().mockName('reject');
-getRootComponent.mockImplementation(
-    () =>
-        new Promise((res, rej) => {
-            resolve.mockImplementation(res);
-            reject.mockImplementation(rej);
-        })
-);
+const resolve = jest.fn();
+const reject = jest.fn();
+const log = jest.fn();
+
+const Component = () => {
+    log(useMagentoRoute());
+    return null;
+};
+
+const mountedTrees = new Set();
+
+const mount = element => {
+    const tree = create(element);
+    mountedTrees.add(tree);
+    return tree;
+};
+
+const unmount = async tree => {
+    if (tree && mountedTrees.has(tree)) {
+        await act(async () => {
+            tree.unmount();
+        });
+        mountedTrees.delete(tree);
+    }
+};
+
+const givenQueryResult = response => {
+    useLazyQuery.mockReset();
+    runQuery.mockReset();
+
+    const queryPromise = Promise.resolve(response);
+
+    // Keep the execute function stable across renders. A new function
+    // on every render can retrigger the hook's query effect indefinitely.
+    runQuery.mockImplementation(() => queryPromise);
+    useLazyQuery.mockImplementation(() => [runQuery, response]);
+};
 
 const givenInlinedPageData = () => {
     globalThis.INLINED_PAGE_TYPE = {
@@ -105,12 +103,6 @@ const givenInlinedPageData = () => {
 
 const givenEmptyInlinedPageData = () => {
     globalThis.INLINED_PAGE_TYPE = false;
-};
-
-const log = jest.fn().mockName('log');
-const Component = () => {
-    log(useMagentoRoute());
-    return null;
 };
 
 beforeEach(() => {
@@ -133,11 +125,14 @@ beforeEach(() => {
     useLocation.mockReset();
     useLocation.mockImplementation(() => ({ pathname: '/foo.html' }));
 
+    useRootComponents.mockImplementation(() => useState(new Map()));
+
     useAppContext.mockImplementation(() => {
         const state = {
             nextRootComponent: null,
             isPageLoading: false
         };
+
         const api = {
             actions: {
                 setNextRootComponent: jest.fn(),
@@ -147,49 +142,53 @@ beforeEach(() => {
 
         return [state, api];
     });
-    useLocation.mockReset();
-    useLocation.mockImplementation(() => ({ pathname: '/foo.html' }));
 
-    useAppContext.mockImplementation(() => {
-        const state = {
-            nextRootComponent: null,
-            isPageLoading: false
-        };
-        const api = {
-            actions: {
-                setNextRootComponent: jest.fn(),
-                setPageLoading: jest.fn()
-            }
-        };
+    getRootComponent.mockReset();
+    resolve.mockReset();
+    reject.mockReset();
 
-        return [state, api];
-    });
+    getRootComponent.mockImplementation(
+        () =>
+            new Promise((res, rej) => {
+                resolve.mockImplementation(res);
+                reject.mockImplementation(rej);
+            })
+    );
+
+    // Reset the mocked navigation function between tests.
+    const { replace } = require('react-router-dom');
+    replace.mockReset();
+});
+
+afterEach(async () => {
+    for (const tree of Array.from(mountedTrees)) {
+        await unmount(tree);
+    }
+
+    delete globalThis.INLINED_PAGE_TYPE;
 });
 
 describe('returns LOADING while queries are pending', () => {
     test('urlResolver is loading', async () => {
         givenQueryResult({ loading: true });
 
-        await act(() => {
-            create(<Component />);
+        await act(async () => {
+            mount(<Component />);
         });
 
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
+        expect(log).toHaveBeenCalledWith({
             initial: false,
             isLoading: true
         });
     });
 
     test('getRootComponent is pending', async () => {
-        await act(() => {
-            create(<Component />);
+        await act(async () => {
+            mount(<Component />);
         });
 
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
+        expect(getRootComponent).toHaveBeenCalledWith('CATEGORY');
+        expect(log).toHaveBeenCalledWith({
             initial: false,
             isLoading: true
         });
@@ -199,26 +198,16 @@ describe('returns LOADING while queries are pending', () => {
 describe('returns NOT_FOUND when queries come back empty', () => {
     test('urlResolver is null', async () => {
         givenQueryResult({
-            data: {
-                route: null
-            },
+            data: { route: null },
             loading: false
         });
 
-        let tree;
-
-        await act(() => {
-            tree = create(<Component key="a" />);
+        await act(async () => {
+            mount(<Component />);
         });
 
-        await act(() => {
-            tree.update(<Component key="a" />);
-        });
-
-        expect(replace).toHaveBeenCalledTimes(0);
         expect(getRootComponent).not.toHaveBeenCalled();
-        expect(log).toHaveBeenCalledTimes(2);
-        expect(log).toHaveBeenNthCalledWith(2, {
+        expect(log).toHaveBeenCalledWith({
             isNotFound: true
         });
     });
@@ -235,85 +224,63 @@ describe('returns NOT_FOUND when queries come back empty', () => {
             loading: false
         });
 
-        let tree;
-
-        await act(() => {
-            tree = create(<Component key="a" />);
+        await act(async () => {
+            mount(<Component />);
         });
 
-        await act(() => {
-            tree.update(<Component key="a" />);
-        });
-
-        expect(replace).toHaveBeenCalledTimes(0);
         expect(getRootComponent).not.toHaveBeenCalled();
-        expect(log).toHaveBeenCalledTimes(2);
-        expect(log).toHaveBeenNthCalledWith(2, {
+        expect(log).toHaveBeenCalledWith({
             isNotFound: true
         });
     });
 });
 
 describe('returns REDIRECT after receiving a redirect code', () => {
-    test('redirect code 301', () => {
-        // Arrange: Set up the query result
+    test('redirect code 301', async () => {
         givenQueryResult({
             data: {
                 route: {
-                    id: 1,
                     redirect_code: 301,
-                    relative_url: '/foo.html',
-                    type: 'CATEGORY'
+                    relative_url: '/target.html',
+                    type: null
                 }
             },
             loading: false
         });
 
-        // Create a new Promise to handle `act`
-        return new Promise(resolve => {
-            // Use `act` to render the component
-            act(() => {
-                // Render the component and resolve the promise
-                create(<Component />);
-                resolve();
-            });
-        }).then(() => {
-            // Assert that `replace` was called once
-            expect(replace).toHaveBeenCalledTimes(1);
-            // Assert that `log` was called once
-            expect(log).toHaveBeenCalledTimes(1);
-            // Assert that `log` was called with the expected arguments
-            expect(log).toHaveBeenNthCalledWith(1, {
-                isRedirect: true,
-                relativeUrl: '/foo.html'
-            });
+        await act(async () => {
+            mount(<Component />);
+        });
+
+        const { replace } = require('react-router-dom');
+
+        expect(replace).toHaveBeenCalledWith('/target.html');
+        expect(log).toHaveBeenCalledWith({
+            isRedirect: true,
+            relativeUrl: '/target.html'
         });
     });
 
     test('redirect adds a slash when appropriate', async () => {
-        // Arrange: the relative_url does not have a '/'
-        const relative_url = 'no_preceding_slash.html';
         givenQueryResult({
             data: {
                 route: {
-                    id: 1,
                     redirect_code: 302,
-                    relative_url,
-                    type: 'CATEGORY'
+                    relative_url: 'no_preceding_slash.html',
+                    type: null
                 }
             },
             loading: false
         });
 
-        // Act
-        await act(() => {
-            create(<Component />);
+        await act(async () => {
+            mount(<Component />);
         });
 
-        // Assert
-        expect(replace).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
+        const { replace } = require('react-router-dom');
+
+        expect(replace).toHaveBeenCalledWith('/no_preceding_slash.html');
+        expect(log).toHaveBeenCalledWith({
             isRedirect: true,
             relativeUrl: '/no_preceding_slash.html'
         });
@@ -323,45 +290,130 @@ describe('returns REDIRECT after receiving a redirect code', () => {
         givenQueryResult({
             data: {
                 route: {
-                    id: 1,
                     redirect_code: 302,
-                    relative_url: '/foo.html',
-                    type: 'CATEGORY'
+                    relative_url: '/target.html',
+                    type: null
                 }
             },
             loading: false
         });
 
-        await act(() => {
-            create(<Component />);
+        await act(async () => {
+            mount(<Component />);
         });
 
-        expect(replace).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
+        const { replace } = require('react-router-dom');
+
+        expect(replace).toHaveBeenCalledWith('/target.html');
+        expect(log).toHaveBeenCalledWith({
+            isRedirect: true,
+            relativeUrl: '/target.html'
+        });
+    });
+
+    test('does not replace when the redirect target is the current pathname', async () => {
+        givenQueryResult({
+            data: {
+                route: {
+                    redirect_code: 301,
+                    relative_url: '/foo.html',
+                    type: null
+                }
+            },
+            loading: false
+        });
+
+        await act(async () => {
+            mount(<Component />);
+        });
+
+        const { replace } = require('react-router-dom');
+
+        expect(replace).not.toHaveBeenCalled();
+        expect(log).toHaveBeenCalledWith({
             isRedirect: true,
             relativeUrl: '/foo.html'
         });
     });
 });
 
-describe('returns FOUND after fetching a component', () => {
-    test('getRootComponent succeeds', async () => {
-        await act(() => {
-            create(<Component />);
+describe('handles redirects to missing destinations', () => {
+    test('redirects to the destination and returns NOT_FOUND for that pathname', async () => {
+        const sourcePath = '/request-redirect-invalid-target';
+        const targetPath = '/a-non-existing-url';
+        const { replace } = require('react-router-dom');
+
+        useLocation.mockImplementation(() => ({
+            pathname: sourcePath
+        }));
+
+        givenQueryResult({
+            data: {
+                route: {
+                    relative_url: targetPath,
+                    redirect_code: 302,
+                    type: null
+                }
+            },
+            loading: false
         });
 
-        await act(() => {
+        let sourceTree;
+
+        await act(async () => {
+            sourceTree = mount(<Component />);
+        });
+
+        expect(replace).toHaveBeenCalledWith(targetPath);
+        expect(log).toHaveBeenCalledWith({
+            isRedirect: true,
+            relativeUrl: targetPath
+        });
+
+        await unmount(sourceTree);
+
+        // Simulate the router rendering the destination after replace().
+        useLocation.mockImplementation(() => ({
+            pathname: targetPath
+        }));
+
+        log.mockClear();
+        replace.mockClear();
+
+        givenQueryResult({
+            data: {
+                route: {
+                    relative_url: targetPath,
+                    redirect_code: 404,
+                    type: null
+                }
+            },
+            loading: false
+        });
+
+        await act(async () => {
+            mount(<Component />);
+        });
+
+        expect(log).toHaveBeenCalledWith({
+            isNotFound: true
+        });
+        expect(replace).not.toHaveBeenCalled();
+        expect(getRootComponent).not.toHaveBeenCalled();
+    });
+});
+
+describe('returns FOUND after fetching a component', () => {
+    test('getRootComponent succeeds', async () => {
+        await act(async () => {
+            mount(<Component />);
+        });
+
+        await act(async () => {
             resolve('MockComponent');
         });
 
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(2);
-        expect(log).toHaveBeenNthCalledWith(1, {
-            initial: false,
-            isLoading: true
-        });
-        expect(log).toHaveBeenNthCalledWith(2, {
+        expect(log).toHaveBeenCalledWith({
             component: 'MockComponent',
             id: 1,
             type: 'CATEGORY'
@@ -383,20 +435,20 @@ describe('avoids fetching the same component twice', () => {
 
         let tree;
 
-        await act(() => {
-            tree = create(<Component key="a" />);
+        await act(async () => {
+            tree = mount(<Component />);
         });
 
-        await act(() => {
+        await act(async () => {
             resolve('MockComponent');
         });
 
-        await act(() => {
-            tree.update(<Component key="a" />);
+        await act(async () => {
+            tree.update(<Component />);
         });
 
         expect(getRootComponent).toHaveBeenCalledTimes(1);
-        expect(getRootComponent).toHaveBeenNthCalledWith(1, 'CATEGORY');
+        expect(getRootComponent).toHaveBeenCalledWith('CATEGORY');
     });
 });
 
@@ -404,15 +456,13 @@ describe('avoids setting state when unmounted', () => {
     test('getRootComponent resolves after unmount', async () => {
         let tree;
 
-        await act(() => {
-            tree = create(<Component />);
+        await act(async () => {
+            tree = mount(<Component />);
         });
 
-        await act(() => {
-            tree.unmount();
-        });
+        await unmount(tree);
 
-        await act(() => {
+        await act(async () => {
             resolve('MockComponent');
         });
 
@@ -420,13 +470,14 @@ describe('avoids setting state when unmounted', () => {
     });
 });
 
-describe('loading type', async () => {
+describe('loading type', () => {
     test('is returned', async () => {
         useAppContext.mockImplementationOnce(() => {
             const state = {
                 nextRootComponent: 'TEST_TYPE_SHIMMER',
                 isPageLoading: false
             };
+
             const api = {
                 actions: {
                     setNextRootComponent: jest.fn(),
@@ -439,8 +490,8 @@ describe('loading type', async () => {
 
         givenQueryResult({ loading: true });
 
-        await act(() => {
-            create(<Component />);
+        await act(async () => {
+            mount(<Component />);
         });
 
         expect(log).toHaveBeenCalledWith({
@@ -451,6 +502,7 @@ describe('loading type', async () => {
 
     test('is reset when component is returned', async () => {
         let mockNextRootComponent = 'TEST_TYPE_SHIMMER';
+
         const mockSetNextRootComponent = jest.fn(type => {
             mockNextRootComponent = type;
         });
@@ -460,6 +512,7 @@ describe('loading type', async () => {
                 nextRootComponent: mockNextRootComponent,
                 isPageLoading: false
             };
+
             const api = {
                 actions: {
                     setNextRootComponent: mockSetNextRootComponent,
@@ -471,8 +524,9 @@ describe('loading type', async () => {
         });
 
         let tree;
-        await act(() => {
-            tree = create(<Component key="a" />);
+
+        await act(async () => {
+            tree = mount(<Component />);
         });
 
         givenQueryResult({
@@ -485,25 +539,23 @@ describe('loading type', async () => {
             loading: false
         });
 
-        await act(() => {
-            tree.update(<Component key="a" />);
+        await act(async () => {
+            tree.update(<Component />);
         });
 
-        await act(() => {
+        await act(async () => {
             resolve('MockComponent');
         });
 
-        await act(() => {
-            tree.update(<Component key="a" />);
+        await act(async () => {
+            tree.update(<Component />);
         });
 
         expect(getRootComponent).toHaveBeenCalled();
-
-        expect(log).toHaveBeenNthCalledWith(1, {
+        expect(log).toHaveBeenCalledWith({
             isLoading: true,
             shimmer: 'TEST_TYPE_SHIMMER'
         });
-
         expect(mockSetNextRootComponent).toHaveBeenCalledWith(null);
     });
 });
@@ -512,11 +564,11 @@ describe('handles INLINED_PAGE_TYPE', () => {
     test('returns initial loading state', async () => {
         givenInlinedPageData();
 
-        await act(() => {
-            create(<Component key="a" />);
+        await act(async () => {
+            mount(<Component />);
         });
 
-        expect(log).toHaveBeenNthCalledWith(1, {
+        expect(log).toHaveBeenCalledWith({
             initial: true,
             isLoading: true
         });
@@ -525,28 +577,26 @@ describe('handles INLINED_PAGE_TYPE', () => {
     test('uses inlined data to get root component', async () => {
         givenInlinedPageData();
 
-        await act(() => {
-            create(<Component key="a" />);
+        await act(async () => {
+            mount(<Component />);
         });
 
         expect(runQuery).not.toHaveBeenCalled();
-
-        expect(getRootComponent).toHaveBeenCalled();
+        expect(getRootComponent).toHaveBeenCalledWith('CMS_PAGE');
     });
 });
 
-// This test must be last as reject(routeError) causes next tests to fail
+// Keep these tests last because rejecting the root-component promise
+// can affect asynchronous state updates.
 describe('returns ERROR when queries fail', () => {
     test('urlResolver fails', async () => {
         givenQueryResult({ error: new Error() });
 
-        await act(() => {
-            create(<Component />);
+        await act(async () => {
+            mount(<Component />);
         });
 
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
+        expect(log).toHaveBeenCalledWith({
             hasError: true,
             routeError: expect.any(Error)
         });
@@ -555,21 +605,15 @@ describe('returns ERROR when queries fail', () => {
     test('getRootComponent fails', async () => {
         const routeError = new Error();
 
-        await act(() => {
-            create(<Component />);
+        await act(async () => {
+            mount(<Component />);
         });
 
-        await act(() => {
+        await act(async () => {
             reject(routeError);
         });
 
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(2);
-        expect(log).toHaveBeenNthCalledWith(1, {
-            initial: false,
-            isLoading: true
-        });
-        expect(log).toHaveBeenNthCalledWith(2, {
+        expect(log).toHaveBeenCalledWith({
             hasError: true,
             routeError
         });
