@@ -1,7 +1,5 @@
 [![Coverage Status](https://coveralls.io/repos/github/magento/pwa-studio/badge.svg?branch=develop)](https://coveralls.io/github/magento/pwa-studio?branch=develop)
 
-
-
 # PWA Studio
 
 Magento PWA Studio is a collection of tools that lets developers build complex Progressive Web Applications on top of Magento 2 stores.
@@ -14,9 +12,6 @@ Check out the [community wiki][] to learn how to contribute to PWA Studio.
 If you are looking for an issue to work on, visit our [community backlog board][] and look at the **Ready for Development** column.
 
 For more information about contributing to this repository, see the [Contribution guide][].
-
-
-
 
 ## Useful links
 
