@@ -6,7 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
-The 14.5.2 release of PWA Studio provides support to PHP 8.5 and  multiple bug fixes.
+The 14.5.2 release of PWA Studio provides multiple bug fixes.
 
 ## Additional fixes
 -  Bug:[4620][] — Updated UpwardConnector to support New Relic nonce
