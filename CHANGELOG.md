@@ -1,26 +1,25 @@
-# PWA Studio Release 14.5.1
+# PWA Studio Release 14.5.2
 
 **NOTE:**
-_This changelog only contains release notes for PWA Studio and Venia 14.5.1_
+_This changelog only contains release notes for PWA Studio and Venia 14.5.2_
 _For older release notes, see_ [PWA Studio releases][].
 
 ## Highlights
 
-The 14.5.1 release of PWA Studio provides support to PHP 8.5 and  multiple bug fixes.
+The 14.5.2 release of PWA Studio provides support to PHP 8.5 and  multiple bug fixes.
 
 ## Additional fixes
--  Bug:[4604][] — Updated the Axios package due to its vulnerability impact in PWA Studio
--  Bug:[30][] — Upward connector module error resolved by updating return type
--  Bug:[78][] — PHP 8.5 compatibility with PWA
--  Bug:[4607][] — Fixed issue where User unable to select option for few Configurable products
--  Bug:[4601][] — Clean up duplicated code between credit card and billing address
--  Bug:[4592][] - Fixed where breadcrumbs sortCrumbs function uses > instead of -, causing unreliable sort order
+-  Bug:[4620][] — Updated UpwardConnector to support New Relic nonce
+-  Bug:[32][] — Self Originating Laminas_Http_Client GraphQL requests in PWA architecture has been reolved
+-  Bug:[33][] — Magento UPWARD Connector Prerender TypeError and Syntax Error has been resolved
+-  Bug:[4623][] — MagentoGQLCacheLink sends x-magento-cache-id: null on GraphQL requests before a cache id is established, causing a large number of PASS requests has been resolved
+-  Bug:[32][] — Class type (PHP 8.5) error during sample data installation has been resolved
+-  Bug:[4626][] - 301/302 custom URL redirects show "page not found" instead of redirecting has been resolved
 
-
-## 14.5.1 Lighthouse scores
+## 14.5.2 Lighthouse scores
 
 With each new release of PWA Studio, we perform Lighthouse audits on four Venia page types, each representing a different level of complexity.
-Shown below are the Lighthouse scores for the 14.5.1 release of these pages on desktop and mobile devices.
+Shown below are the Lighthouse scores for the 14.5.2 release of these pages on desktop and mobile devices.
 ### Desktop scores
 
 |                |            Home Page            |          Product Category           |          Product Details           |          Search Results           |
@@ -55,7 +54,7 @@ To resolve this issue, try disabling graphql session sharing as described in the
 
 ## Upgrading from a previous version
 
-Use the steps outlined in this section to update your [scaffolded project][] from 14.5.0 to 14.5.1
+Use the steps outlined in this section to update your [scaffolded project][] from 14.5.1 to 14.5.2
 See [Upgrading versions][] for more information about upgrading between PWA Studio versions.
 
 [scaffolded project]: https://developer.adobe.com/commerce/pwa-studio/tutorials/
@@ -64,7 +63,7 @@ See [Upgrading versions][] for more information about upgrading between PWA Stud
 ### Updated package dependencies
 
 Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
-The following table lists the latest versions of each package as of 14.5.1. The **bolded** versions with an asterisk (*) are the packages that were updated from PWA Studio 14.5.0.
+The following table lists the latest versions of each package as of 14.5.2. The **bolded** versions with an asterisk (*) are the packages that were updated from PWA Studio 14.5.0.
 
 **NOTE:**
 Your project may not depend on some packages listed in this table.
@@ -72,38 +71,38 @@ Your project may not depend on some packages listed in this table.
 | Package                                | Latest version |
 |----------------------------------------|----------------|
 | `babel-preset-peregrine`               | 1.3.3          |
-| `create-pwa`                           | **2.5.10***     |
-| `experience-platform-connector`        | **1.0.13***    |
-| `upward-security-headers`              | **1.1.21***    |
+| `create-pwa`                           | **2.5.11***     |
+| `experience-platform-connector`        | **1.0.14***    |
+| `upward-security-headers`              | **1.1.22***    |
 | `venia-sample-backends`                | 0.0.13         |
-| `venia-sample-eventing`                | **0.0.14***    |
-| `venia-sample-language-packs`          | **0.0.22***    |
-| `venia-sample-payments-checkmo`        | **0.0.20***    |
-| `venia-sample-payments-cashondelivery` | **0.0.5***     |
-| `venia-pwa-live-search`                | **1.0.3***     |
+| `venia-sample-eventing`                | **0.0.15***    |
+| `venia-sample-language-packs`          | **0.0.23***    |
+| `venia-sample-payments-checkmo`        | **0.0.21***    |
+| `venia-sample-payments-cashondelivery` | **0.0.6***     |
+| `venia-pwa-live-search`                | **1.0.4***     |
 | `venia-product-recommendations`        | 1.0.2          |
 | `plugin-braintree-three-d-secure`      | 1.0.1          |
-| `pagebuilder`                          | **9.3.8***     |
-| `peregrine`                            | **15.7.3***    |
+| `pagebuilder`                          | **9.3.9***     |
+| `peregrine`                            | **15.7.4***    |
 | `pwa-buildpack`                        | 11.5.5         |
 | `pwa-theme-venia`                      | 2.4.0          |
 | `upward-js`                            | 5.4.3          |
 | `upward-spec`                          | 5.3.1          |
-| `venia-concept`                        | **14.5.1***    |
-| `venia-ui`                             | **11.7.3***    |
-| `magento2-pwa`                         | **0.10.4***    |
-| `magento2-pwa-commerce`                | **0.1.6***     |
-| `magento-venia-sample-data-modules`    | **0.0.7***     |
-| `magento-venia-sample-data-modules-ee` | **0.0.7***     |
-| `magento2-upward-connector`            | **2.1.7***     |
-| `upward-php`                           | **2.1.5***     |
-| `pwa-live-search`                      | **1.0.1***     |
+| `venia-concept`                        | **14.5.2***    |
+| `venia-ui`                             | **11.7.4***    |
+| `magento2-pwa`                         | **0.10.5***    |
+| `magento2-pwa-commerce`                | 0.1.6          |
+| `magento-venia-sample-data-modules`    | **0.0.8***     |
+| `magento-venia-sample-data-modules-ee` | **0.0.8***     |
+| `magento2-upward-connector`            | **2.1.8***     |
+| `upward-php`                           | 2.1.5          |
+| `pwa-live-search`                      | **1.0.2***     |
 
-[4604]: https://github.com/magento/pwa-studio/pull/4604
-[30]: https://github.com/magento-commerce/magento2-upward-connector/pull/30
-[78]: https://github.com/magento-commerce/magento2-pwa/pull/78
-[4607]: https://github.com/magento/pwa-studio/pull/4607
-[4601]: https://github.com/magento/pwa-studio/pull/4601
-[4592]: https://github.com/magento/pwa-studio/pull/4592
+[4620]: https://github.com/magento/pwa-studio/pull/4620
+[32]: https://github.com/magento-commerce/magento2-upward-connector/pull/32
+[33]: https://github.com/magento-commerce/magento2-upward-connector/pull/33
+[4623]: https://github.com/magento/pwa-studio/pull/4623
+[32]: https://github.com/magento-commerce/venia-sample-data-modules/pull/32
+[4626]: https://github.com/magento/pwa-studio/pull/4626
 
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
