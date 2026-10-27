@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-eventing",
-  "version": "0.0.15-beta2",
+  "version": "0.0.15",
   "publishConfig": {
     "access": "public"
   },

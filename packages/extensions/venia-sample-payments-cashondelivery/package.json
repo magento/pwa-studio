@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-payments-cashondelivery",
-  "version": "0.0.6-beta2",
+  "version": "0.0.6",
   "publishConfig": {
     "access": "public"
   },

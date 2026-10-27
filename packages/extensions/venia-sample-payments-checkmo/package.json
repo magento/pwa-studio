@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-sample-payments-checkmo",
-  "version": "0.0.21-beta2",
+  "version": "0.0.21",
   "publishConfig": {
     "access": "public"
   },
