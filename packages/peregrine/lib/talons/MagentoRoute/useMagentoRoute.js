@@ -27,7 +27,6 @@ export const useMagentoRoute = (props = {}) => {
     const [componentMap, setComponentMap] = useRootComponents();
 
     const initialized = useRef(false);
-    const fetchedPathname = useRef(null);
 
     const [appState, appApi] = useAppContext();
     const { actions: appActions } = appApi;
@@ -46,9 +45,17 @@ export const useMagentoRoute = (props = {}) => {
     const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery);
 
     // destructure the query result
-    const { data, error, loading } = queryResult;
-    const [getRouteData, setRouteData] = useState(data);
-    const { route } = getRouteData || {};
+    const { loading } = queryResult;
+
+    // Only use route data resolved for the current pathname.
+    const [routeResult, setRouteResult] = useState({
+        pathname: null,
+        data: undefined,
+        error: null
+    });
+
+    const routeMatchesPath = routeResult.pathname === pathname;
+    const { route } = routeMatchesPath ? routeResult.data || {} : {};
 
     // redirect to external url
     useEffect(() => {
@@ -61,34 +68,46 @@ export const useMagentoRoute = (props = {}) => {
     }, [route]);
 
     useEffect(() => {
-        let isMounted = true; // Track whether the component is still mounted
+        let isActive = true;
+
         const runInitialQuery = async () => {
             try {
-                const { data } = await runQuery({
+                const result = await runQuery({
                     fetchPolicy: 'cache-and-network',
                     nextFetchPolicy: 'cache-first',
                     variables: { url: pathname }
                 });
 
-                if (isMounted) {
-                    fetchedPathname.current = pathname;
-                    setRouteData(data);
+                if (isActive) {
+                    setRouteResult({
+                        pathname: pathname,
+                        data: result.data,
+                        error: result.error || null
+                    });
                 }
             } catch (error) {
-                if (isMounted) {
-                    console.error('Error running initial query:', error);
+                if (isActive) {
+                    setRouteResult({
+                        pathname: pathname,
+                        data: undefined,
+                        error: error
+                    });
+
+                    if (process.env.NODE_ENV !== 'production') {
+                        console.error('Error running initial query:', error);
+                    }
                 }
             }
         };
+
         if (initialized.current || !getInlinedPageData()) {
             runInitialQuery();
         }
-        // Cleanup function
+
         return () => {
-            isMounted = false; // Mark as unmounted
+            isActive = false;
         };
-    }, [initialized, pathname, runQuery]);
-    // eslint-disable-line react-hooks/exhaustive-deps
+    }, [pathname, runQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (component) {
@@ -128,7 +147,7 @@ export const useMagentoRoute = (props = {}) => {
     const empty = !route || !type || (!id && !identifier && !uid);
     const redirect = isRedirect(redirect_code);
     const fetchError = component instanceof Error && component;
-    const routeError = fetchError || error;
+    const routeError = fetchError || (routeMatchesPath && routeResult.error);
     const isInitialized = initialized.current || !getInlinedPageData();
 
     let showPageLoader = false;
@@ -140,13 +159,6 @@ export const useMagentoRoute = (props = {}) => {
     } else if (routeError) {
         // ERROR
         routeData = { hasError: true, routeError };
-    } else if (empty && fetchedPathname.current === pathname && !loading) {
-        // NOT FOUND
-        routeData = { isNotFound: true };
-    } else if (nextRootComponent) {
-        // LOADING with full page shimmer
-        showPageLoader = true;
-        routeData = { isLoading: true, shimmer: nextRootComponent };
     } else if (redirect) {
         // REDIRECT
         routeData = {
@@ -155,6 +167,13 @@ export const useMagentoRoute = (props = {}) => {
                 ? relative_url
                 : '/' + relative_url
         };
+    } else if (empty && routeMatchesPath && !loading) {
+        // NOT FOUND
+        routeData = { isNotFound: true };
+    } else if (nextRootComponent) {
+        // LOADING with full page shimmer
+        showPageLoader = true;
+        routeData = { isLoading: true, shimmer: nextRootComponent };
     } else {
         // LOADING
         const isInitialLoad = !isInitialized;
@@ -186,12 +205,15 @@ export const useMagentoRoute = (props = {}) => {
         };
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // perform a redirect if necesssary
     useEffect(() => {
-        if (routeData && routeData.isRedirect) {
+        if (
+            routeData &&
+            routeData.isRedirect &&
+            routeData.relativeUrl !== pathname
+        ) {
             replace(routeData.relativeUrl);
         }
-    }, [pathname, replace, routeData]);
+    }, [pathname, replace, routeData, route, redirect]);
 
     useEffect(() => {
         if (component) {

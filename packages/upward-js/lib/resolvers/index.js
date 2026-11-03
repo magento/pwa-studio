@@ -8,7 +8,8 @@ const ResolverList = [
     require('./DirectoryResolver'),
     require('./ConditionalResolver'),
     require('./UrlResolver'),
-    require('./ComputedResolver')
+    require('./ComputedResolver'),
+    require('./InternalServiceResolver')
 ];
 
 const ResolversByType = ResolverList.reduce((out, Resolver) => {
